@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ddss4q2flmfue"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_top = 8.0
+offset_right = 37.0
+offset_bottom = 31.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+
+[node name="OptionButton" type="OptionButton" parent="."]
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="."]
+visible = false
+layout_mode = 2

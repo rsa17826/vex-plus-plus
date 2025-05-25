@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://defog6mk3ni61"]
+
+[ext_resource type="Script" uid="uid://in0c53flu1jr" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_s0bsq"]
+device = -1
+keycode = 4194310
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_ffns6"]
+button_index = 6
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_6rvjk"]
+events = [SubResource("InputEventKey_s0bsq"), SubResource("InputEventJoypadButton_ffns6")]
+
+[sub_resource type="InputEventKey" id="InputEventKey_he371"]
+device = -1
+keycode = 4194305
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_eqlig"]
+button_index = 4
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_pvy46"]
+events = [SubResource("InputEventKey_he371"), SubResource("InputEventJoypadButton_eqlig")]
+
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "btnOk", "btnCancel")]
+script = ExtResource("1_ffns6")
+promptText = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Label")
+strEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit")
+numEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit2")
+btnOk = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button")
+btnCancel = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer3/Button2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(50, 50)
+offset_right = 294.0
+offset_bottom = 121.0
+color = Color(0.223103, 0.223103, 0.223103, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
+layout_mode = 0
+offset_right = 197.0
+offset_bottom = 66.0
+
+[node name="HFlowContainer" type="HFlowContainer" parent="ColorRect/CenterContainer"]
+layout_mode = 2
+alignment = 1
+last_wrap_alignment = 2
+
+[node name="VFlowContainer" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+layout_mode = 2
+text = "asdasdasdsad"
+
+[node name="LineEdit" type="LineEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+layout_mode = 2
+clear_button_enabled = true
+deselect_on_focus_loss_enabled = false
+select_all_on_focus = true
+
+[node name="LineEdit2" type="SpinBox" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+layout_mode = 2
+allow_greater = true
+allow_lesser = true
+update_on_text_changed = true
+select_all_on_focus = true
+
+[node name="VFlowContainer2" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
+layout_direction = 2
+layout_mode = 2
+last_wrap_alignment = 1
+
+[node name="Button" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_6rvjk")
+text = "ok"
+
+[node name="VFlowContainer3" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
+layout_direction = 3
+layout_mode = 2
+last_wrap_alignment = 3
+reverse_fill = true
+
+[node name="Button2" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer3"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_pvy46")
+text = "cancel"

@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cndl3qgbg1exr"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_y1blk"]
+[ext_resource type="Texture2D" uid="uid://c8obyd2ujfj3y" path="res://scenes/blocks/shurikan Spawner/images/1.png" id="2_y1blk"]
+[ext_resource type="Texture2D" uid="uid://b80mby7ousxe7" path="res://scenes/blocks/shurikan Spawner/images/editorBar.png" id="3_86yqw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_86yqw"]
+radius = 30.0
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "death", "respawnOnPlayerDeath"]]
+script = ExtResource("1_y1blk")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("EditorBar")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+
+[node name="collisionNode" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+position = Vector2(-365, -3)
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_y1blk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(3, 11)
+shape = SubResource("CircleShape2D_86yqw")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="EditorBar" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(2.34568, 2.34568)
+texture = ExtResource("3_86yqw")
+
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]

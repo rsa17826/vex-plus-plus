@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b84ktny7kqlg7"]
+
+[ext_resource type="Shader" uid="uid://bpln4tdpwaygt" path="res://scenes/blocks/outline.gdshader" id="1_hn1eo"]
+
+[resource]
+shader = ExtResource("1_hn1eo")
+shader_parameter/color = Color(0.377265, 0.0741308, 1, 1)
+shader_parameter/width = 39.506
+shader_parameter/pattern = 2
+shader_parameter/inside = true
+shader_parameter/add_margins = false
+shader_parameter/showTop = true
+shader_parameter/showBottom = false
+shader_parameter/showLeft = true
+shader_parameter/showRight = true

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://dihpf2c7sboyn"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_4bgic"]
+[ext_resource type="Texture2D" uid="uid://i15b8nixhjpd" path="res://scenes/blocks/updown/images/1.png" id="2_i8ayh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76frd"]
+size = Vector2(700, 700)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "UPDOWN_nodeToMove") groups=["EDITOR_OPTION_scale", "respawnOnPlayerDeath", "updown"]]
+script = ExtResource("1_4bgic")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/Sprite2D")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+thingThatMoves = NodePath("collisionNode")
+UPDOWN_nodeToMove = NodePath("collisionNode")
+
+[node name="collisionNode" type="StaticBody2D" parent="."]
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+texture = ExtResource("2_i8ayh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+shape = SubResource("RectangleShape2D_76frd")

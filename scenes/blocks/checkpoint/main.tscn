@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://jp4aqum81paw"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_uv54t"]
+[ext_resource type="Texture2D" uid="uid://gif81hgvqt2i" path="res://scenes/blocks/checkpoint/images/1.png" id="2_uv54t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uv54t"]
+radius = 126.13
+
+[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "hidableSprites", "CHECKPOINT_sprite") groups=["EDITOR_OPTION_rotate", "checkpoint"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_uv54t")
+ghostIconNode = NodePath("Sprite2D")
+editorBarIconNode = NodePath("Sprite2D")
+hidableSprites = [NodePath("Sprite2D")]
+CHECKPOINT_sprite = NodePath("Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+use_parent_material = true
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_uv54t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uv54t")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

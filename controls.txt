@@ -1,0 +1,30 @@
+jump: up/w/z
+down: down/s
+left: left/a
+right: right/d
+
+respawn:r - respawns the player at the last checkpoint
+full restart:^r - respawns the player at the level spawn
+
+//load map:^o - opens the map selector menu
+
+save level:^s - saves the current level in the opened map
+
+reload map:^l/^+!r - reloads the map from the entrance level
+
+quit game:^+!q/!F4
+
+
+//new level file:^n
+//new map folder:^+n
+
+//?menu:esc
+
+editor
+  scale: shift - switches clicking from move block to scale block while held
+  rotate: ctrl - switches clicking from move block to rotate bloc to face the mouse while held
+  select: lbutton
+  delete: ^d/del/backspace - while holding down the left mouse button on a block
+  pan: space
+
+toggle hitboxes: ^h/`

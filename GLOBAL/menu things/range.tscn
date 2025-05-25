@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bffqyowrtd0qw"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 160.0
+offset_bottom = 23.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+
+[node name="HSlider" type="HSlider" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+tick_count = 7
+ticks_on_borders = true
+
+[node name="slider value" type="Label" parent="."]
+layout_mode = 2

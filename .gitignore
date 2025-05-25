@@ -1,0 +1,32 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+
+# Archivos y carpetas generados automáticamente por Godot
+.import/
+.export/
+
+# Carpetas de caché y logs del editor
+.cache/
+.editor_logs/
+
+# Archivos temporales y de respaldo
+*.tmp
+*.log
+
+# Archivos de configuración locales
+*.local
+
+# Archivos y carpetas de compilación para proyectos C# (si utilizas Godot con Mono)
+.mono/
+data_*/
+mono_crash.*.json
+bin/
+obj/
+
+# Sistema operativo: Archivos ocultos de macOS y Windows
+.DS_Store
+Thumbs.db
+
+.vscode
