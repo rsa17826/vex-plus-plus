@@ -1,0 +1,13 @@
+{
+  "start": "hub",
+  "author": "rssaromeo",
+  "description": "vex 3",
+  "stages": {
+    "hub": {
+      "color": 1
+    },
+    "stage 1": {
+      "color": 2
+    }
+  }
+}

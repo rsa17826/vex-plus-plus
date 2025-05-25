@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://cl3b62poxrgmq"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_lnlcg"]
+[ext_resource type="Texture2D" uid="uid://chgd77re0upw" path="res://scenes/blocks/speed Up Lever/images/1.png" id="2_lnlcg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_doo3e"]
+size = Vector2(152, 154.365)
+
+[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["respawnOnPlayerDeath", "speed up lever"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_lnlcg")
+ghostIconNode = NodePath("Sprite2D")
+editorBarIconNode = NodePath("Sprite2D")
+collisionShapes = [NodePath("CollisionShape2D")]
+hidableSprites = [NodePath("Sprite2D")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_lnlcg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 23.6489)
+scale = Vector2(0.565528, 0.565528)
+shape = SubResource("RectangleShape2D_doo3e")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

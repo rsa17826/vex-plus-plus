@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://brcolawc3qs7n"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_i6m5c"]
+[ext_resource type="Texture2D" uid="uid://qft54tfxwmsw" path="res://scenes/blocks/Quadrant/images/1.png" id="2_i6m5c"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hhki4"]
+radius = 28.2312
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "death", "quadrant", "respawnOnPlayerDeath"]]
+script = ExtResource("1_i6m5c")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/Sprite2D")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D2"), NodePath("collisionNode/CollisionShape2D3"), NodePath("collisionNode/CollisionShape2D4"), NodePath("collisionNode/CollisionShape2D5")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+
+[node name="collisionNode" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_i6m5c")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(-317, 0)
+shape = SubResource("CircleShape2D_hhki4")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(0, -317)
+shape = SubResource("CircleShape2D_hhki4")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(316, 0)
+shape = SubResource("CircleShape2D_hhki4")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(0, 316)
+shape = SubResource("CircleShape2D_hhki4")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]

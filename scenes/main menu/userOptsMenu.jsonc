@@ -1,0 +1,28 @@
+[
+  {
+    "thing": "group",
+    "name": "editor options",
+    "value": [
+      {
+        "thing": "option",
+        "type": "int",
+        "key": "blockPickerBlockSize",
+        "defaultValue": 50,
+        "min": 10,
+        "max": 100
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "level options",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "allowCustomColors",
+        "defaultValue": true
+      }
+    ]
+  }
+]

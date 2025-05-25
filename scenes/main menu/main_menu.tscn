@@ -1,0 +1,65 @@
+[gd_scene load_steps=2 format=3 uid="uid://bsub1ew4qiin4"]
+
+[ext_resource type="Script" uid="uid://dn3r2t10v2hdb" path="res://scenes/main menu/main_menu.gd" id="1_cbjxn"]
+
+[node name="main menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cbjxn")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+
+[node name="HFlowContainer" type="VFlowContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="lvlSelItem" type="VFlowContainer" parent="ScrollContainer/HFlowContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/HFlowContainer/lvlSelItem"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+text = "level 1"
+
+[node name="Label2" type="Label" parent="ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+text = "level 1"
+
+[node name="Label3" type="Label" parent="ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+text = "level 1"
+
+[node name="Button" type="Button" parent="ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+text = "new save"
+
+[node name="Button2" type="Button" parent="ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+text = "load save"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

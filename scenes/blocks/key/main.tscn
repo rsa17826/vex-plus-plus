@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://cd5baobrxqhbw"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_endad"]
+[ext_resource type="Texture2D" uid="uid://kywba612hr3v" path="res://scenes/blocks/key/images/1.png" id="2_endad"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h0pg7"]
+radius = 147.014
+
+[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["key", "respawnOnPlayerDeath"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_endad")
+ghostIconNode = NodePath("Sprite2D")
+editorBarIconNode = NodePath("Sprite2D")
+collisionShapes = [NodePath("CollisionShape2D")]
+hidableSprites = [NodePath("Sprite2D")]
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("2_endad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h0pg7")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

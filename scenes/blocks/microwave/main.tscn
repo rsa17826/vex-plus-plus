@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2wmpetbb1hu1"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_ok3xu"]
+[ext_resource type="Texture2D" uid="uid://c1uimaul3yjaq" path="res://scenes/blocks/microwave/images/1.png" id="2_lmkjq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
+size = Vector2(700, 700)
+
+[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale"]]
+input_pickable = true
+script = ExtResource("1_ok3xu")
+ghostIconNode = NodePath("Sprite2D")
+editorBarIconNode = NodePath("Sprite2D")
+collisionShapes = [NodePath("CollisionShape2D")]
+hidableSprites = [NodePath("Sprite2D")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("2_lmkjq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gwpbw")

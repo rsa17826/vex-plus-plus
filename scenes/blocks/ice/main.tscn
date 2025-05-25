@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://csapy35btjfp"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_qxmxg"]
+[ext_resource type="Texture2D" uid="uid://k15sq36covph" path="res://scenes/blocks/ice/images/1.png" id="2_15ixt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
+size = Vector2(700, 700)
+
+[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "slippery"]]
+input_pickable = true
+script = ExtResource("1_qxmxg")
+ghostIconNode = NodePath("Sprite2D")
+editorBarIconNode = NodePath("Sprite2D")
+collisionShapes = [NodePath("CollisionShape2D")]
+hidableSprites = [NodePath("Sprite2D")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("2_15ixt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gwpbw")

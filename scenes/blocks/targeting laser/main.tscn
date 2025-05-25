@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsjtdbepgemlt"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_erc21"]
+[ext_resource type="Texture2D" uid="uid://2ufn3c1vqkm8" path="res://scenes/blocks/targeting laser/images/1.png" id="2_erc21"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r6ssi"]
+radius = 725.844
+
+[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["respawnOnPlayerDeath", "targeting laser"]]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_erc21")
+ghostIconNode = NodePath("Sprite2D")
+editorBarIconNode = NodePath("Sprite2D")
+collisionShapes = [NodePath("CollisionShape2D")]
+hidableSprites = [NodePath("Sprite2D")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_erc21")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_r6ssi")
+debug_color = Color(0.702023, 0.273704, 1, 0.42)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

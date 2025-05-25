@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckbwrk1t23iw7"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_l1pjd"]
+[ext_resource type="Texture2D" uid="uid://ddgowssalafse" path="res://scenes/blocks/pole/images/1.png" id="2_l1pjd"]
+[ext_resource type="Texture2D" uid="uid://25yeme5ig8rv" path="res://scenes/blocks/pole/images/editorBar.png" id="3_8tkfk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8tkfk"]
+radius = 21.0
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["pole"]]
+script = ExtResource("1_l1pjd")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/EditorBar")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+
+[node name="collisionNode" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_l1pjd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+shape = SubResource("CircleShape2D_8tkfk")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[node name="EditorBar" type="Sprite2D" parent="collisionNode"]
+visible = false
+scale = Vector2(2.03158, 2.03158)
+texture = ExtResource("3_8tkfk")
+
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

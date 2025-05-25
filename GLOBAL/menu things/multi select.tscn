@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmt6j4xgg74kv"]
+
+[ext_resource type="Script" path="res://GLOBAL/menu things/multi_select.gd" id="1_fa7vb"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+offset_left = 13.0
+offset_top = 8.0
+offset_right = 26.0
+offset_bottom = 31.0
+script = ExtResource("1_fa7vb")
+
+[node name="optbtn" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="optbtn"]
+visible = false
+layout_mode = 2
+
+[node name="OptionButton" type="Button" parent="optbtn"]
+layout_mode = 2
+
+[node name="cloneContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="CenterContainer" type="VBoxContainer" parent="cloneContainer"]
+layout_mode = 2
+
+[node name="cloner" type="HBoxContainer" parent="cloneContainer/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="cloneContainer/CenterContainer/cloner"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="cloneContainer/CenterContainer/cloner"]
+layout_mode = 2
+
+[connection signal="pressed" from="optbtn/OptionButton" to="." method="_on_option_button_pressed"]

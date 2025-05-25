@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://0xgh6v6sar7q"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_3gtnp"]
+[ext_resource type="Texture2D" uid="uid://djkmch1ggo1w6" path="res://scenes/blocks/Rotating Buzzsaw/images/1.png" id="2_3gtnp"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4olmi"]
+radius = 85.3288
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "death", "respawnOnPlayerDeath", "rotating buzsaw"]]
+script = ExtResource("1_3gtnp")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/Sprite2D")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+
+[node name="collisionNode" type="Area2D" parent="."]
+position = Vector2(0, -314)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+position = Vector2(0, 314)
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_3gtnp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(0, 32)
+shape = SubResource("CircleShape2D_4olmi")
+debug_color = Color(1, 0, 0, 0.419608)
