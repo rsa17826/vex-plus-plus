@@ -17,7 +17,7 @@ LEFTRIGHT_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="StaticBody2D" parent="."]
 unique_name_in_owner = true
-input_pickable = true
+collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true

@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd7j7xyjarpng"]
+
+[ext_resource type="Script" uid="uid://enicxwo8w4li" path="res://addons/GlobalPosition2DGS/global_position_control.gd" id="1_vig5e"]
+
+[node name="GlobalPosition_tscn" type="GridContainer" node_paths=PackedStringArray("_line_editX", "_line_editY", "_line_edit_rot")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 66.0
+grow_horizontal = 2
+columns = 3
+script = ExtResource("1_vig5e")
+_line_editX = NodePath("X")
+_line_editY = NodePath("Y")
+_line_edit_rot = NodePath("ROT")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Global Position"
+
+[node name="LabelX" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.548963, 0.548963, 0.548963, 1)
+text = "x"
+
+[node name="X" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "X"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="LabelY" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.548963, 0.548963, 0.548963, 1)
+text = "y"
+
+[node name="Y" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Y"
+
+[node name="Panel2" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Global Rotation"
+
+[node name="LabelROT" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_colors/font_color = Color(0.548963, 0.548963, 0.548963, 1)
+text = "rot"
+
+[node name="ROT" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "ROT"

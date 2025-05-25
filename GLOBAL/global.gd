@@ -774,8 +774,8 @@ func loadLevelPackInfo(levelPackName):
 # pink
 
 var useropts = {
-  "allowCustomColors": true,
-  "blockPickerBlockSize": 50
+  # "allowCustomColors": true,
+  # "blockPickerBlockSize": 50
 }
 
 var blockNames = [
