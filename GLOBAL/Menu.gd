@@ -105,7 +105,7 @@ func show_menu():
         var range_node = node.get_node("HSlider")
         range_node.min_value = thing["from"]
         range_node.max_value = thing["to"]
-        range_node.tick_count = (abs(thing["to"] - thing["from"]) / thing.step) + 1
+        range_node.tick_count = (abs(thing["to"] - thing["from"]) / thing.step) + 1 if (abs(thing["to"] - thing["from"]) / thing.step) + 1 < 20 else 0
         range_node.step = thing["step"]
         range_node.value = thing["user"]
         range_node.allow_greater = thing["allow_greater"]

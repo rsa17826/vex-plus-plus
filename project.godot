@@ -13,7 +13,6 @@ config_version=5
 config/name="vex"
 run/main_scene="uid://bsub1ew4qiin4"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
 
 [autoload]
 
@@ -35,7 +34,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/auto_expand_inspector/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg")
+enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg")
 
 [global_group]
 
@@ -195,9 +194,9 @@ editor_rotate={
 
 [layer_names]
 
-2d_physics/layer_1="main player layer"
-2d_physics/layer_2="for player entering water"
-2d_physics/layer_3="for floating box"
+2d_physics/layer_1="1"
+2d_physics/layer_2="2"
+2d_physics/layer_3="3"
 
 [rendering]
 

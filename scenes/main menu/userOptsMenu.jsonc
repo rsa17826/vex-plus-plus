@@ -10,6 +10,27 @@
         "defaultValue": 50,
         "min": 10,
         "max": 100
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showGrid",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "int",
+        "key": "autosaveInterval",
+        "defaultValue": 0,
+        "min": 0,
+        "max": 600,
+        "step": 10
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "saveOnExit",
+        "defaultValue": false
       }
     ]
   },

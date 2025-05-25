@@ -39,10 +39,11 @@ var deadTimer = 0
 var currentHungWall = null
 var hungWallSide = 0
 var deathPosition = Vector2.ZERO
+var speedLeverActive = false
 
 var lightsOut = false
 
-var keys = []
+var keys: Array[Node2D] = []
 
 var collsiionOn_top = false
 var collsiionOn_bottom = false
@@ -53,8 +54,8 @@ var lastSpawnPoint = Vector2(0, 0)
 
 var moving = 0
 
-var inWaters = []
-var lastCollidingBlocks = []
+var inWaters: Array[Node2D] = []
+var lastCollidingBlocks: Array = []
 
 var vel = {
   "user": Vector2.ZERO,
@@ -181,7 +182,7 @@ func _process(delta: float) -> void:
     $Camera2D.global_position = camLockPos
 
 func _physics_process(delta: float) -> void:
-  Engine.time_scale = 1
+  Engine.time_scale = .3
   if global.openMsgBoxCount: return
   if Input.is_action_pressed("editor_select"):
     if global.selectedBlock == get_parent():
@@ -501,8 +502,9 @@ func _physics_process(delta: float) -> void:
       for n in vel:
         velocity += vel[n]
       for n in vel:
-        vel[n] *= velDecay[n]
+        vel[n] *= velDecay[n] #* delta * 60
 
+    # log.pp(delta * 60)
     # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
     if state == States.wallSliding:
       position.x += velocity.x * delta
@@ -532,8 +534,13 @@ func _physics_process(delta: float) -> void:
       floorRayCollision = $floorRay.get_collider()
     # lastFrameCollisions = []
     # Initialize a list to keep track of blocks that were colliding last frame
-
     # Get the current colliding blocks
+    var normals = {
+      "l": false,
+      "r": false,
+      "u": false,
+      "d": false
+    }
     var currentCollidingBlocks = []
     for i in get_slide_collision_count():
       var collision = get_slide_collision(i)
@@ -547,6 +554,14 @@ func _physics_process(delta: float) -> void:
       currentCollidingBlocks.append([block, normal, depth])
       if block == floorRayCollision:
         floorRayCollision = null
+      if normal.x < 0:
+        normals.l = true
+      if normal.x > 0:
+        normals.r = true
+      if normal.y > 0:
+        normals.u = true
+      if normal.y < 0:
+        normals.d = true
       # Call handleCollision for currently colliding blocks
       posOffset += handleCollision(block, normal, depth, true)
 
@@ -570,16 +585,28 @@ func _physics_process(delta: float) -> void:
     if floorRayCollision:
       posOffset = handleCollision(floorRayCollision, Vector2(0, -1), 1, true)
 
-    position += (posOffset)
+    # move_and_collide(posOffset)
+    # log.pp(posOffset)
+    position += posOffset
+    # var col = move_and_collide(sign(posOffset))
+    # if col:
+    #   position -= col.get_normal()
+    #   position += sign(posOffset)
 
-    if state == States.wallSliding and not is_on_wall() and getClosestWallSide():
-      position.x += getClosestWallSide()
-    if state != States.wallSliding and CenterIsOnWall() and TopIsOnWall() and getClosestWallSide() and not is_on_floor():
-      state = States.wallSliding
+    # if state == States.wallSliding and not is_on_wall() and getClosestWallSide():
+    #   position.x += getClosestWallSide()
+    # if state != States.wallSliding and CenterIsOnWall() and TopIsOnWall() and getClosestWallSide() and not is_on_floor():
+    #   state = States.wallSliding
+    # log.pp(normals)
     # die when squished
+    # if (normals.u and normals.d) \
+    # or (normals.l && normals.r):
+    #   # breakpoint
+    #   die()
     if (collsiionOn_top and collsiionOn_bottom) \
     or (collsiionOn_left && collsiionOn_right):
       log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
+      breakpoint
       die()
 
 func handleCollision(block, normal, depth, sameFrame):
@@ -624,24 +651,27 @@ func handleCollision(block, normal, depth, sameFrame):
       state = States.pushing
       $anim.animation = "pushing box"
 
-  if !hasMovementStep(block): return Vector2.ZERO
-  # if moving opposite directions
-  if str(normal / abs(normal)) == str(getMovementStep(block) / abs(getMovementStep(block))):
-    # posOffset += getMovementStep(block)
-    posOffset += getMovementStep(block) / 2
-  else:
-    posOffset += getMovementStep(block)
+    if !hasMovementStep(block): return Vector2.ZERO
 
-  if normal.x:
-    posOffset.y /= 4.0
-  # posOffset += getMovementStep(block) / 4
-  # if state != States.wallSliding && state != States.wallHang:
-  #   posOffset.y = 0
-  if posOffset.y:
-    if CenterIsOnWall():
-      if state == States.wallHang || state == States.wallSliding:
-        posOffset += posOffset / 2
-  return posOffset
+    if str(normal / abs(normal)) == str(getMovementStep(block) / abs(getMovementStep(block))):
+      log.pp("closer", depth, getMovementStep(block))
+      posOffset = Vector2.ZERO
+      posOffset += getMovementStep(block)
+      posOffset -= sign(getMovementStep(block)) * 1.1
+    else:
+      posOffset += getMovementStep(block)
+
+    if normal.x:
+      posOffset.y /= 4.0
+    # posOffset += getMovementStep(block) / 4
+    # if state != States.wallSliding && state != States.wallHang:
+    #   posOffset.y = 0
+    # if posOffset.y:
+    #   if CenterIsOnWall():
+    #     if state == States.wallHang || state == States.wallSliding:
+    #       posOffset += posOffset / 2
+    return posOffset
+  return Vector2.ZERO
 
   # log.err(posOffset)
   # state = States.falling
@@ -679,8 +709,8 @@ func getClosestWallSide():
   if $wallDetection/leftWall.is_colliding(): return -1
   return 0
 
-var OnPlayerDied = []
-var OnPlayerFullRestart = []
+var OnPlayerDied: Array[Callable] = []
+var OnPlayerFullRestart: Array[Callable] = []
 
 func die(respawnTime=DEATH_TIME, full=false):
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
@@ -712,6 +742,7 @@ func die(respawnTime=DEATH_TIME, full=false):
   collsiionOn_left = false
   collsiionOn_right = false
   lightsOut = false
+  speedLeverActive = false
   OnPlayerDied = OnPlayerDied.filter(func(e):
     return e.is_valid())
   OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e):
@@ -746,3 +777,12 @@ func _on_left_body_entered(_body: Node2D) -> void:
   collsiionOn_left = true
 func _on_left_body_exited(_body: Node2D) -> void:
   collsiionOn_left = false
+
+# fix scaled window hiding editor bar
+# zipline
+# attach
+#   levers
+# return to player key
+# add option
+# flip grab side when block to small
+# add tooltips to blocks in block picker

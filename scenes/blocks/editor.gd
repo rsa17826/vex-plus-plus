@@ -488,8 +488,31 @@ func _physics_processDOWNUP(delta: float):
 # leftright
 @export_group("LEFTRIGHT")
 @export var LEFTRIGHT_nodeToMove: Node2D
-
+var wasColliding = false
 func _physics_processLEFTRIGHT(delta: float):
+  # var start = LEFTRIGHT_nodeToMove.global_position
+  # LEFTRIGHT_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
+  # var end = LEFTRIGHT_nodeToMove.global_position
+  # LEFTRIGHT_nodeToMove.global_position = start
+  # # var intent = start - end
+  # var intent = end - start
+  # var coll = LEFTRIGHT_nodeToMove.move_and_collide(intent, false)
+  # if coll and coll.get_collider() == global.player:
+  #   wasColliding = true
+  #   LEFTRIGHT_nodeToMove.global_position += intent
+  #   global.player.move.x += coll.get_depth()
+  #   # breakpoint
+  # elif wasColliding:
+  #   coll = LEFTRIGHT_nodeToMove.move_and_collide(intent * -2, false)
+  #   if coll and coll.get_collider() == global.player:
+  #     wasColliding = true
+  #     LEFTRIGHT_nodeToMove.global_position += intent
+  #     global.player.move.x -= coll.get_depth()
+  #     global.player.move.x += intent.x
+  #     # global.player.move += intent
+  #     # breakpoint
+  #   else:
+  #     wasColliding = false
   LEFTRIGHT_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
 
 # bouncy

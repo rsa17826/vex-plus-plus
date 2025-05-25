@@ -750,7 +750,7 @@ shape = SubResource("RectangleShape2D_dovo2")
 debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true
 
-[node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D" groups=["portal in"]]
+[node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D"]
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
 animation = &"kicking box"
