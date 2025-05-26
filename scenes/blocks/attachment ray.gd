@@ -9,7 +9,6 @@ func on_respawn():
   for group in tempGroups:
     rootNode.remove_from_group(group)
   tempGroups = []
-  log.pp(rootNode.selectedOptions.attachesToThings)
   if rootNode.selectedOptions.attachesToThings:
     await global.wait()
     tryaddgroups()
