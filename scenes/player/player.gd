@@ -804,3 +804,5 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # add tooltips to blocks in block picker
 # make prompt bool have correct buttons
 # make prompt bool have correct button locations
+# options for show grid while play/edit
+# make option for save on exit work
