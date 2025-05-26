@@ -15,7 +15,8 @@ hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 DOWNUP_nodeToMove = NodePath("collisionNode")
 
-[node name="collisionNode" type="StaticBody2D" parent="."]
+[node name="collisionNode" type="CharacterBody2D" parent="."]
+collision_mask = 0
 input_pickable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]

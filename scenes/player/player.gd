@@ -289,6 +289,20 @@ func _physics_process(delta: float) -> void:
         position.y += 1
       return
 
+    if state == States.wallHang || state == States.wallSliding:
+      if not is_on_wall() and getClosestWallSide():
+        var ray
+        match getClosestWallSide():
+          1:
+            ray = $wallDetection/rightWall
+          -1:
+            ray = $wallDetection/leftWall
+
+        var origin = ray.global_transform.origin
+        var collision_point = ray.get_collision_point()
+        var distance = origin.distance_to(collision_point)
+        log.pp(distance * getClosestWallSide())
+        position.x += (distance) * getClosestWallSide()
     # if on floor reset kt, user y velocity, and allow both wall sides again
     if is_on_floor():
       playerKT = MAX_KT_TIMER
@@ -498,14 +512,15 @@ func _physics_process(delta: float) -> void:
           vel[n] = Vector2.ZERO
 
     # move using all velocities
-    var start = position
+    # var start = position
     velocity = Vector2.ZERO
     if state != States.wallHang:
       for n in vel:
         velocity += vel[n]
       for n in vel:
         vel[n] *= velDecay[n] # * delta * 60
-
+    if state == States.wallHang and not getClosestWallSide():
+      state = States.falling
     # log.pp(delta * 60)
     # # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
     # if state == States.wallSliding:
@@ -564,7 +579,7 @@ func _physics_process(delta: float) -> void:
       if normal.y < 0:
         normals.d = true
       # Call handleCollision for currently colliding blocks
-      posOffset += handleCollision(block, normal, depth, true)
+      handleCollision(block, normal, depth, true)
 
     # Check for blocks that were colliding last frame but are not colliding now
     # for thing in lastCollidingBlocks:
@@ -584,7 +599,7 @@ func _physics_process(delta: float) -> void:
     lastCollidingBlocks = currentCollidingBlocks
 
     if floorRayCollision:
-      posOffset = handleCollision(floorRayCollision, Vector2(0, -1), 1, true)
+      handleCollision(floorRayCollision, Vector2(0, -1), 1, true)
 
     # move_and_collide(posOffset)
     # log.pp(posOffset)
@@ -610,65 +625,53 @@ func _physics_process(delta: float) -> void:
     # or (normals.l && normals.r):
     #   # breakpoint
     #   die()
-    # if (collsiionOn_top and collsiionOn_bottom) \
-    # or (collsiionOn_left && collsiionOn_right):
-    #   log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
-    #   breakpoint
-    #   die()
+    if (collsiionOn_top and collsiionOn_bottom) \
+    or (collsiionOn_left && collsiionOn_right):
+      log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
+      # breakpoint
+      die()
 
 func handleCollision(block, normal, depth, sameFrame):
   var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
-  # if sameFrame:
-  #   if block.is_in_group("falling") \
-  #   and normal.y < 0 \
-  #   :
-  #     block.FALLING_falling = true
-  #   if block.is_in_group("bouncy") \
-  #   and normal.y < 0 \
-  #   and velocity.y >= 0 \
-  #   :
-  #     log.pp("Bouncy")
-  #     block.BOUNCY_start()
-  #   if block.is_in_group("inner level") \
-  #   and normal.y < 0 \
-  #   and state == States.sliding \
-  #   and abs(vel.user.x) < 10 \
-  #   :
-  #     block.INNER_LEVEL_enterLevel()
-  #   if block.is_in_group("locked box") \
-  #   :
-  #     block.LOCKED_BOX_unlock()
+  if sameFrame:
+    if block.is_in_group("falling") \
+    and normal.y < 0 \
+    :
+      block.FALLING_falling = true
+    if block.is_in_group("bouncy") \
+    and normal.y < 0 \
+    and velocity.y >= 0 \
+    :
+      log.pp("Bouncy")
+      block.BOUNCY_start()
+    if block.is_in_group("inner level") \
+    and normal.y < 0 \
+    and state == States.sliding \
+    and abs(vel.user.x) < 10 \
+    :
+      block.INNER_LEVEL_enterLevel()
+    if block.is_in_group("locked box") \
+    :
+      block.LOCKED_BOX_unlock()
 
-  #   if block.is_in_group("pushable") \
-  #   and getClosestWallSide() \
-  #   and Input.is_action_just_pressed("down") \
-  #   and normal.y:
-  #     block.velocity.x -= getClosestWallSide() * 120
-  #     log.pp(block.velocity.x)
-  #     $anim.animation = "kicking box"
-  #     boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
-  #     position.y -= 1
-  #   # if hasMovementStep(block):
-  #   #   move_and_collide(Vector2(getMovementStep(block).x, 0))
-  #   #   position.y += getMovementStep(block).y
+    if block.is_in_group("pushable") \
+    and getClosestWallSide() \
+    and Input.is_action_just_pressed("down") \
+    and normal.y:
+      block.velocity.x -= getClosestWallSide() * 120
+      log.pp(block.velocity.x)
+      $anim.animation = "kicking box"
+      boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
+      position.y -= 1
 
-  #   if block.is_in_group("pushable") and is_on_floor() and normal.x:
-  #     block.velocity.x -= normal.x * depth * 200
-  #     state = States.pushing
-  #     $anim.animation = "pushing box"
+    if block.is_in_group("pushable") and is_on_floor() and normal.x:
+      block.velocity.x -= normal.x * depth * 200
+      state = States.pushing
+      $anim.animation = "pushing box"
 
-  if !hasMovementStep(block): return Vector2.ZERO
-  var v = Vector2.ZERO
-  if normal.x:
-    v.x = sign(getMovementStep(block).x) * depth
-  else:
-    v.x = getMovementStep(block).x
-  if normal.y:
-    v.y = sign(getMovementStep(block).y) * depth
-  else:
-    v.y = getMovementStep(block).y
-  return v
+  if !hasMovementStep(block): return # Vector2.ZERO
+  position.y += getMovementStep(block).y
   #   if str(normal / abs(normal)) == str(getMovementStep(block) / abs(getMovementStep(block))):
   #     log.pp("closer", depth, getMovementStep(block))
   #     posOffset = Vector2.ZERO
@@ -686,7 +689,7 @@ func handleCollision(block, normal, depth, sameFrame):
   #   #   if CenterIsOnWall():
   #   #     if state == States.wallHang || state == States.wallSliding:
   #   #       posOffset += posOffset / 2
-  #   return posOffset
+  # return posOffset
   # return Vector2.ZERO
 
   # log.err(posOffset)
