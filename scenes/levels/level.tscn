@@ -14,7 +14,6 @@ script = ExtResource("1_bovvr")
 position = Vector2(61, 383)
 
 [node name="grid" type="Node2D" parent="."]
-unique_name_in_owner = true
 script = ExtResource("3_b2cq8")
 grid_size = Vector2(36, 20)
 line_size = Vector2(1, 1)

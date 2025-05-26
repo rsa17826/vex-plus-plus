@@ -90,11 +90,18 @@ signal onchanged
 func show_menu():
   var keys = menu_data.keys()
   var arr = []
+  # for key in keys:
+  #   arr.append(key)
   for key in keys:
-    arr.append(key)
-  for key in keys:
+    if key not in used_keys:
+      log.pp("INVALID KEY IN USER OPTIONS:", key)
+      continue
+    # log.pp(menu_data[key], key)
+    while menu_data[key].menu_index > len(arr): arr.append(null)
+    # log.pp(arr)
     arr[menu_data[key].menu_index - 1] = menu_data[key]
     arr[menu_data[key].menu_index - 1].name = key
+    # log.pp(arr)
   for thing in arr:
     if "user" not in thing:
       thing["user"] = thing["default"]

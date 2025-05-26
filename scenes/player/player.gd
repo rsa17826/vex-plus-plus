@@ -20,9 +20,9 @@ const WATER_MOVESPEED = 5000
 const WATER_EXIT_BOUNCE_FORCE = -600
 const WALL_SLIDE_SPEED = 35
 const DEATH_TIME = 15
-var currentRespawnDelay = 0
 const MAX_BOX_KICK_RECOVER_TIME = 22
 
+var currentRespawnDelay = 0
 var playerXIntent = 0
 var lastWall = 0
 var breakFromWall = false
@@ -546,17 +546,17 @@ func _physics_process(delta: float) -> void:
     # #   vel.user.x,
     # #   playerXIntent
     # # )
-    var posOffset = Vector2.ZERO
+    # var posOffset = Vector2.ZERO
     # collision when on floor and moving down
     var floorRayCollision = null
     if $floorRay.is_colliding():
       floorRayCollision = $floorRay.get_collider()
-    var normals = {
-      "l": false,
-      "r": false,
-      "u": false,
-      "d": false
-    }
+    # var normals = {
+    #   "l": false,
+    #   "r": false,
+    #   "u": false,
+    #   "d": false
+    # }
     var currentCollidingBlocks = []
     for i in get_slide_collision_count():
       var collision = get_slide_collision(i)
@@ -570,14 +570,14 @@ func _physics_process(delta: float) -> void:
       currentCollidingBlocks.append([block, normal, depth])
       if block == floorRayCollision:
         floorRayCollision = null
-      if normal.x < 0:
-        normals.l = true
-      if normal.x > 0:
-        normals.r = true
-      if normal.y > 0:
-        normals.u = true
-      if normal.y < 0:
-        normals.d = true
+      # if normal.x < 0:
+      #   normals.l = true
+      # if normal.x > 0:
+      #   normals.r = true
+      # if normal.y > 0:
+      #   normals.u = true
+      # if normal.y < 0:
+      #   normals.d = true
       # Call handleCollision for currently colliding blocks
       handleCollision(block, normal, depth, true)
 
@@ -632,7 +632,7 @@ func _physics_process(delta: float) -> void:
       die()
 
 func handleCollision(block, normal, depth, sameFrame):
-  var posOffset = Vector2.ZERO
+  # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
   if sameFrame:
     if block.is_in_group("falling") \
@@ -808,3 +808,8 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # options for show grid while play/edit
 # make option for save on exit work
 # keys only remove one from list
+
+# add animations for
+#   lights out
+#   levers
+

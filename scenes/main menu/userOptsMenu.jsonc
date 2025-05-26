@@ -14,7 +14,13 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "showGrid",
+        "key": "showGridInEdit",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showGridInPlay",
         "defaultValue": false
       },
       {
