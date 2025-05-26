@@ -182,7 +182,8 @@ func _process(delta: float) -> void:
     $Camera2D.global_position = camLockPos
 
 func _physics_process(delta: float) -> void:
-  Engine.time_scale = .3
+  # Engine.time_scale = .3
+  Engine.time_scale = 1
   if global.openMsgBoxCount: return
   if Input.is_action_pressed("editor_select"):
     if global.selectedBlock == get_parent():
@@ -460,7 +461,7 @@ func _physics_process(delta: float) -> void:
       # if sliding reduce speed reuction
       if abs(vel.user.x) < 10:
         vel.user.x = 0
-      vel.user.x *= 0.98 * delta * 60
+      vel.user.x *= 0.98 # * delta * 60
     # if state is not sliding
     else:
       # if user not trying to move set user xvel to 0
@@ -497,17 +498,18 @@ func _physics_process(delta: float) -> void:
           vel[n] = Vector2.ZERO
 
     # move using all velocities
+    var start = position
     velocity = Vector2.ZERO
     if state != States.wallHang:
       for n in vel:
         velocity += vel[n]
       for n in vel:
-        vel[n] *= velDecay[n] #* delta * 60
+        vel[n] *= velDecay[n] # * delta * 60
 
     # log.pp(delta * 60)
-    # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
-    if state == States.wallSliding:
-      position.x += velocity.x * delta
+    # # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
+    # if state == States.wallSliding:
+    #   position.x += velocity.x * delta
     for n in vel:
       if justAddedVels[n]:
         justAddedVels[n] -= 1
@@ -517,7 +519,9 @@ func _physics_process(delta: float) -> void:
       $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
     # # only one bounce when leaving water
     # vel.waterExit *= .9*delta*60
+    # position -= velocity * delta
     move_and_slide()
+    # log.pp(position - (start + (velocity*delta)))
     # # log.pp(
     # #   is_on_wall(),
     # #   CenterIsOnWall(),
@@ -532,9 +536,6 @@ func _physics_process(delta: float) -> void:
     var floorRayCollision = null
     if $floorRay.is_colliding():
       floorRayCollision = $floorRay.get_collider()
-    # lastFrameCollisions = []
-    # Initialize a list to keep track of blocks that were colliding last frame
-    # Get the current colliding blocks
     var normals = {
       "l": false,
       "r": false,
@@ -566,18 +567,18 @@ func _physics_process(delta: float) -> void:
       posOffset += handleCollision(block, normal, depth, true)
 
     # Check for blocks that were colliding last frame but are not colliding now
-    for thing in lastCollidingBlocks:
-      var block = thing[0]
-      if !is_instance_valid(block): return
-      var normal = thing[1]
-      var depth = thing[2]
-      if block not in currentCollidingBlocks:
-        if getMovementStep(block) \
-        and getClosestWallSide() \
-        and (getClosestWallSide() > 0) == (getMovementStep(block).x > 0) \
-        and normal.x and getClosestWallSide():
-          log.pp("Wall collision detected", getClosestWallSide(), getMovementStep(block).x)
-          posOffset += handleCollision(block, normal, depth, false)
+    # for thing in lastCollidingBlocks:
+    #   var block = thing[0]
+    #   if !is_instance_valid(block): return
+    #   var normal = thing[1]
+    #   var depth = thing[2]
+    #   if block not in currentCollidingBlocks:
+    #     if getMovementStep(block) \
+    #     and getClosestWallSide() \
+    #     and (getClosestWallSide() > 0) == (getMovementStep(block).x > 0) \
+    #     and normal.x and getClosestWallSide():
+    #       log.pp("Wall collision detected", getClosestWallSide(), getMovementStep(block).x)
+    #       posOffset += handleCollision(block, normal, depth, false)
 
     # Update the last colliding blocks for the next frame
     lastCollidingBlocks = currentCollidingBlocks
@@ -587,7 +588,13 @@ func _physics_process(delta: float) -> void:
 
     # move_and_collide(posOffset)
     # log.pp(posOffset)
-    position += posOffset
+    # position = start
+    # position += posOffset
+    # move_and_slide()
+    # if posOffset:
+      # position -= velocity * delta
+    # move_and_slide()
+    # position += velocity * delta
     # var col = move_and_collide(sign(posOffset))
     # if col:
     #   position -= col.get_normal()
@@ -603,75 +610,84 @@ func _physics_process(delta: float) -> void:
     # or (normals.l && normals.r):
     #   # breakpoint
     #   die()
-    if (collsiionOn_top and collsiionOn_bottom) \
-    or (collsiionOn_left && collsiionOn_right):
-      log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
-      breakpoint
-      die()
+    # if (collsiionOn_top and collsiionOn_bottom) \
+    # or (collsiionOn_left && collsiionOn_right):
+    #   log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
+    #   breakpoint
+    #   die()
 
 func handleCollision(block, normal, depth, sameFrame):
   var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
-  if sameFrame:
-    if block.is_in_group("falling") \
-    and normal.y < 0 \
-    :
-      block.FALLING_falling = true
-    if block.is_in_group("bouncy") \
-    and normal.y < 0 \
-    and velocity.y >= 0 \
-    :
-      log.pp("Bouncy")
-      block.BOUNCY_start()
-    if block.is_in_group("inner level") \
-    and normal.y < 0 \
-    and state == States.sliding \
-    and abs(vel.user.x) < 10 \
-    :
-      block.INNER_LEVEL_enterLevel()
-    if block.is_in_group("locked box") \
-    :
-      block.LOCKED_BOX_unlock()
+  # if sameFrame:
+  #   if block.is_in_group("falling") \
+  #   and normal.y < 0 \
+  #   :
+  #     block.FALLING_falling = true
+  #   if block.is_in_group("bouncy") \
+  #   and normal.y < 0 \
+  #   and velocity.y >= 0 \
+  #   :
+  #     log.pp("Bouncy")
+  #     block.BOUNCY_start()
+  #   if block.is_in_group("inner level") \
+  #   and normal.y < 0 \
+  #   and state == States.sliding \
+  #   and abs(vel.user.x) < 10 \
+  #   :
+  #     block.INNER_LEVEL_enterLevel()
+  #   if block.is_in_group("locked box") \
+  #   :
+  #     block.LOCKED_BOX_unlock()
 
-    if block.is_in_group("pushable") \
-    and getClosestWallSide() \
-    and Input.is_action_just_pressed("down") \
-    and normal.y:
-      block.velocity.x -= getClosestWallSide() * 120
-      log.pp(block.velocity.x)
-      $anim.animation = "kicking box"
-      boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
-      position.y -= 1
-    # if hasMovementStep(block):
-    #   move_and_collide(Vector2(getMovementStep(block).x, 0))
-    #   position.y += getMovementStep(block).y
+  #   if block.is_in_group("pushable") \
+  #   and getClosestWallSide() \
+  #   and Input.is_action_just_pressed("down") \
+  #   and normal.y:
+  #     block.velocity.x -= getClosestWallSide() * 120
+  #     log.pp(block.velocity.x)
+  #     $anim.animation = "kicking box"
+  #     boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
+  #     position.y -= 1
+  #   # if hasMovementStep(block):
+  #   #   move_and_collide(Vector2(getMovementStep(block).x, 0))
+  #   #   position.y += getMovementStep(block).y
 
-    if block.is_in_group("pushable") and is_on_floor() and normal.x:
-      block.velocity.x -= normal.x * depth * 200
-      state = States.pushing
-      $anim.animation = "pushing box"
+  #   if block.is_in_group("pushable") and is_on_floor() and normal.x:
+  #     block.velocity.x -= normal.x * depth * 200
+  #     state = States.pushing
+  #     $anim.animation = "pushing box"
 
-    if !hasMovementStep(block): return Vector2.ZERO
+  if !hasMovementStep(block): return Vector2.ZERO
+  var v = Vector2.ZERO
+  if normal.x:
+    v.x = sign(getMovementStep(block).x) * depth
+  else:
+    v.x = getMovementStep(block).x
+  if normal.y:
+    v.y = sign(getMovementStep(block).y) * depth
+  else:
+    v.y = getMovementStep(block).y
+  return v
+  #   if str(normal / abs(normal)) == str(getMovementStep(block) / abs(getMovementStep(block))):
+  #     log.pp("closer", depth, getMovementStep(block))
+  #     posOffset = Vector2.ZERO
+  #     posOffset += getMovementStep(block)
+  #     posOffset -= sign(getMovementStep(block)) * 1.1
+  #   else:
+  #     posOffset += getMovementStep(block)
 
-    if str(normal / abs(normal)) == str(getMovementStep(block) / abs(getMovementStep(block))):
-      log.pp("closer", depth, getMovementStep(block))
-      posOffset = Vector2.ZERO
-      posOffset += getMovementStep(block)
-      posOffset -= sign(getMovementStep(block)) * 1.1
-    else:
-      posOffset += getMovementStep(block)
-
-    if normal.x:
-      posOffset.y /= 4.0
-    # posOffset += getMovementStep(block) / 4
-    # if state != States.wallSliding && state != States.wallHang:
-    #   posOffset.y = 0
-    # if posOffset.y:
-    #   if CenterIsOnWall():
-    #     if state == States.wallHang || state == States.wallSliding:
-    #       posOffset += posOffset / 2
-    return posOffset
-  return Vector2.ZERO
+  #   if normal.x:
+  #     posOffset.y /= 4.0
+  #   # posOffset += getMovementStep(block) / 4
+  #   # if state != States.wallSliding && state != States.wallHang:
+  #   #   posOffset.y = 0
+  #   # if posOffset.y:
+  #   #   if CenterIsOnWall():
+  #   #     if state == States.wallHang || state == States.wallSliding:
+  #   #       posOffset += posOffset / 2
+  #   return posOffset
+  # return Vector2.ZERO
 
   # log.err(posOffset)
   # state = States.falling
@@ -786,3 +802,5 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # add option
 # flip grab side when block to small
 # add tooltips to blocks in block picker
+# make prompt bool have correct buttons
+# make prompt bool have correct button locations

@@ -12,12 +12,12 @@ ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
-thingThatMoves = NodePath("collisionNode")
+thingThatMoves = NodePath("")
 LEFTRIGHT_nodeToMove = NodePath("collisionNode")
 
-[node name="collisionNode" type="StaticBody2D" parent="."]
-unique_name_in_owner = true
-collision_mask = 2
+[node name="collisionNode" type="CharacterBody2D" parent="."]
+collision_mask = 0
+motion_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
