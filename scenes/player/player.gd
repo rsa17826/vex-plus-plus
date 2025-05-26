@@ -796,8 +796,6 @@ func _on_left_body_exited(_body: Node2D) -> void:
 
 # fix scaled window hiding editor bar
 # zipline
-# attach
-#   levers
 # return to player key
 # add option
 # flip grab side when block to small
@@ -806,3 +804,4 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # make prompt bool have correct button locations
 # options for show grid while play/edit
 # make option for save on exit work
+# keys only remove one from list
