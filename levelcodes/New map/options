@@ -1,0 +1,11 @@
+{
+  "author": "rssaromeo",
+  "description": "",
+  "stages": {
+    "hub": {
+      "color": 3,
+      "changeSpeedOnSlopes": false
+    }
+  },
+  "start": "hub"
+}

@@ -386,6 +386,9 @@ func createEditorGhost():
   collider.input_pickable = true
   var collisionShape = CollisionShape2D.new()
   var rectangle = RectangleShape2D.new()
+  if not ghost.get_texture():
+    log.err("no ghost texture", id, name, ghostIconNode.get_texture(), ghost, ghost.get_texture())
+    breakpoint
   rectangle.size = ghost.get_texture().get_size()
   # collisionShape.debug_color = Color("#5d40643f")
   collisionShape.debug_color = Color("#00000010")

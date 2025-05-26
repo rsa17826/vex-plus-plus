@@ -14,7 +14,7 @@ func _init() -> void:
 func loadLevel(level):
   # await global.wait()
   global.hoveredBlocks = []
-  global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
+  # global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
   # log.pp(global.path.join(global.levelFolderPath, level), global.loadedLevels, global.beatLevels)
   var leveldata = global.file.read(global.path.join(global.levelFolderPath, level), true, '[{"x": 0, "y": 0},{"h":1.06430360674858,"id":"0","r":0.0,"w":3.05217224359512,"x":93.9778137207031,"y":67.6275177001953}]')
   if !leveldata: return
@@ -25,8 +25,9 @@ func loadLevel(level):
   global.player.get_parent().startPosition = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   for thing in leveldata.slice(1):
     createBlock(thing['id'], thing['x'], thing['y'], thing['w'], thing['h'], thing['r'], thing['options'] if 'options' in thing else 0)
-  
+
   global.tick = 0
+  global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
   # await global.wait()
   # global.player.die(0, false)
   # global.player.deathPosition = global.player.lastSpawnPoint
