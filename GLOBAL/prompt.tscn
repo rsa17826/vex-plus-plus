@@ -30,7 +30,7 @@ promptText = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/L
 strEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit")
 numEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit2")
 btnOk = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button")
-btnCancel = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer3/Button2")
+btnCancel = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button2")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(50, 50)
@@ -78,13 +78,7 @@ layout_mode = 2
 shortcut = SubResource("Shortcut_6rvjk")
 text = "ok"
 
-[node name="VFlowContainer3" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
-layout_direction = 3
-layout_mode = 2
-last_wrap_alignment = 3
-reverse_fill = true
-
-[node name="Button2" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer3"]
+[node name="Button2" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2"]
 layout_mode = 2
 shortcut = SubResource("Shortcut_pvy46")
 text = "cancel"

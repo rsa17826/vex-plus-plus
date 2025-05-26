@@ -19,12 +19,6 @@
       },
       {
         "thing": "option",
-        "type": "bool",
-        "key": "showGridInPlay",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
         "type": "int",
         "key": "autosaveInterval",
         "defaultValue": 0,
@@ -49,6 +43,12 @@
         "type": "bool",
         "key": "allowCustomColors",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showGridInPlay",
+        "defaultValue": false
       }
     ]
   }
