@@ -1,8 +1,12 @@
 extends GridDisplay
 const gridSize = 50
 func _process(delta: float) -> void:
-  visible = global.useropts.showGrid
-  if !global.useropts.showGrid: return
+  if global.showEditorUi:
+    visible = global.useropts.showGridInEdit
+    if !global.useropts.showGridInEdit: return
+  else:
+    visible = global.useropts.showGridInPlay
+    if !global.useropts.showGridInPlay: return
   # if !global.player: return
   var intendedPos = global.player.get_node("Camera2D").get_screen_center_position() - get_viewport_rect().size / 2
   global_position = round((intendedPos) / gridSize) * gridSize
