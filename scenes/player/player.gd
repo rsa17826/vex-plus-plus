@@ -799,17 +799,12 @@ func _on_left_body_exited(_body: Node2D) -> void:
 
 # fix scaled window hiding editor bar
 # zipline
-# return to player key
-# add option
+# key to move player to mouse
 # flip grab side when block to small
 # add tooltips to blocks in block picker
-# make prompt bool have correct buttons
-# make prompt bool have correct button locations
-# options for show grid while play/edit
-# make option for save on exit work
 # keys only remove one from list
+# make menu show groups as named colapsables
 
 # add animations for
 #   lights out
 #   levers
-

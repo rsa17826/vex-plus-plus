@@ -88,7 +88,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
         # log.pp(blockOptions, event.as_text(), self, self.name)
         var i = 0
         for k in blockOptions:
-          pm.set_item_text(i, k + ": " + blockOptions[k].type + " = " + str(selectedOptions[k]))
+          pm.set_item_text(i, k + ": " + type_string(blockOptions[k].type) + " = " + str(selectedOptions[k]))
           i += 1
         pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
 
@@ -168,16 +168,16 @@ func _ready() -> void:
   if not ghost:
     createEditorGhost()
   if is_in_group("goal"):
-    blockOptions.requiredLevelCount = {"type": "int", "default": 0}
+    blockOptions.requiredLevelCount = {"type": TYPE_INT, "default": 0}
   if is_in_group("checkpoint"):
-    blockOptions.multiUse = {"type": "bool", "default": false}
+    blockOptions.multiUse = {"type": TYPE_BOOL, "default": false}
   if is_in_group("inner level"):
-    blockOptions.level = {"type": "string", "default": ""}
-    blockOptions.requiredLevelCount = {"type": "int", "default": 0}
+    blockOptions.level = {"type": TYPE_STRING, "default": ""}
+    blockOptions.requiredLevelCount = {"type": TYPE_INT, "default": 0}
   if is_in_group("attaches to things"):
-    blockOptions.attachesToThings = {"type": "bool", "default": true}
+    blockOptions.attachesToThings = {"type": TYPE_BOOL, "default": true}
   if global.useropts.allowCustomColors:
-    blockOptions.color = {"type": "string", "default": "#fff"}
+    blockOptions.color = {"type": TYPE_STRING, "default": "#fff"}
   setupOptions()
 
   if is_in_group("goal"):
@@ -197,13 +197,13 @@ func _ready() -> void:
 
 func toType(opt):
   match blockOptions[opt].type:
-    "str":
+    TYPE_STRING:
       selectedOptions[opt] = str(selectedOptions[opt])
-    "int":
+    TYPE_INT:
       selectedOptions[opt] = int(selectedOptions[opt])
-    "float":
+    TYPE_FLOAT:
       selectedOptions[opt] = float(selectedOptions[opt])
-    "bool":
+    TYPE_BOOL:
       selectedOptions[opt] = bool(selectedOptions[opt])
     _:
       selectedOptions[opt] = selectedOptions[opt]

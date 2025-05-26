@@ -28,7 +28,7 @@ var openMsgBoxCount = 0
 
 var promptPromise
 
-func prompt(msg, default=null, type="string"):
+func prompt(msg, default=null, type=TYPE_STRING):
   if openMsgBoxCount:
     while openMsgBoxCount:
       await wait(10)
@@ -43,23 +43,25 @@ func prompt(msg, default=null, type="string"):
   promptCanvas.numEdit.visible = false
   promptCanvas.strEdit.visible = false
   # log.pp(type)
+  promptCanvas.btnCancel.text = "cancel"
+  promptCanvas.btnOk.text = "ok"
   match type:
-    "int":
+    TYPE_INT:
       promptCanvas.numEdit.value = 0 if default == null else default
       promptCanvas.numEdit.step = 1
       promptCanvas.numEdit.rounded = true
       promptCanvas.numEdit.get_line_edit().connect("text_submitted", _on_submit)
       promptCanvas.numEdit.visible = true
       promptCanvas.numEdit.get_line_edit().grab_focus()
-    "bool":
-      pass
-      # promptCanvas.boolEdit.checked = default
-    "string":
+    TYPE_BOOL:
+      promptCanvas.btnCancel.text = "false"
+      promptCanvas.btnOk.text = "true"
+    TYPE_STRING:
       promptCanvas.strEdit.text = '' if default == null else default
       promptCanvas.strEdit.connect("text_submitted", _on_submit)
       promptCanvas.strEdit.visible = true
       promptCanvas.strEdit.grab_focus()
-    "float":
+    TYPE_FLOAT:
       promptCanvas.numEdit.value = 0.0 if default == null else default
       promptCanvas.numEdit.rounded = false
       promptCanvas.numEdit.step = .1
@@ -74,10 +76,10 @@ func prompt(msg, default=null, type="string"):
   var confirmed = await promptPromise.wait()
   var val
   match type:
-    "bool": val = confirmed
-    "string": val = promptCanvas.strEdit.text if confirmed else default
-    "float": val = float(promptCanvas.numEdit.value) if confirmed else default
-    "int": val = int(promptCanvas.numEdit.value) if confirmed else default
+    TYPE_BOOL: val = confirmed
+    TYPE_STRING: val = promptCanvas.strEdit.text if confirmed else default
+    TYPE_FLOAT: val = float(promptCanvas.numEdit.value) if confirmed else default
+    TYPE_INT: val = int(promptCanvas.numEdit.value) if confirmed else default
 
   promptCanvas.queue_free.call_deferred()
   return val
@@ -634,6 +636,7 @@ func _input(event: InputEvent) -> void:
   if Input.is_action_just_pressed("quit"):
     get_tree().quit()
   if Input.is_action_just_pressed("load"):
+    if useropts.saveOnExit: level.save()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
