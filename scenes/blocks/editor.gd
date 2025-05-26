@@ -491,7 +491,7 @@ func _physics_processDOWNUP(delta: float):
 var wasColliding = false
 func _physics_processLEFTRIGHT(delta: float):
   # var start = LEFTRIGHT_nodeToMove.global_position
-  # LEFTRIGHT_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
+  LEFTRIGHT_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
   # var end = LEFTRIGHT_nodeToMove.global_position
   # LEFTRIGHT_nodeToMove.global_position = start
   # # var intent = start - end
@@ -514,13 +514,7 @@ func _physics_processLEFTRIGHT(delta: float):
   #   else:
   #     wasColliding = false
   # LEFTRIGHT_nodeToMove.move_and_collide(Vector2(LEFTRIGHT_nodeToMove.global_position.x - (startPosition.x - sin(global.tick * 1.5) * 200), 0)*delta)
-  var movement = Vector2(sin(global.tick * 1.5) * 200, 0)
-  LEFTRIGHT_nodeToMove.velocity = movement
-  LEFTRIGHT_nodeToMove.move_and_slide()
-  for i in LEFTRIGHT_nodeToMove.get_slide_collision_count():
-    var collision = LEFTRIGHT_nodeToMove.get_slide_collision(i)
-    var block = collision.get_collider()
-    log.pp(block.name)
+  pass
 
   # LEFTRIGHT_nodeToMove.move_and_collide(movement * delta)
 
