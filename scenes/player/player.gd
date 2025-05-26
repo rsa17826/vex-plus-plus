@@ -146,21 +146,23 @@ func _input(event: InputEvent) -> void:
     camState = CamStates.editor
     $Camera2D.reset_smoothing()
     if Input.is_action_pressed("editor_select") and Input.is_action_pressed("editor_pan"):
-      $Camera2D.global_position -= event.relative
+      log.pp(get_tree().root.content_scale_factor, get_viewport().get_stretch_transform())
+      $Camera2D.global_position -= event.relative * global.useropts.editorScrollSpeed
       var mousePos = get_viewport().get_mouse_position()
-      var gap = 1
       var startPos = mousePos
-      if mousePos.x < 0 + gap:
-        mousePos.x = DisplayServer.window_get_size()[0] - gap
-      elif mousePos.x >= DisplayServer.window_get_size()[0] - gap:
-        mousePos.x = 0 + gap
-      if mousePos.y < 0 + gap:
-        mousePos.y = DisplayServer.window_get_size()[0] - gap
-      elif mousePos.y >= DisplayServer.window_get_size()[1] - gap:
-        mousePos.y = 0 + gap
+      log.pp(mousePos.x, global.windowSize.x)
+      if mousePos.x <= 0:
+        mousePos.x = global.windowSize.x
+      elif mousePos.x >= global.windowSize.x - 1:
+        mousePos.x = 0
+      if mousePos.y <= 0:
+        mousePos.y = global.windowSize.y
+      elif mousePos.y >= global.windowSize.y - 1:
+        mousePos.y = 0
       if startPos != mousePos:
         isFakeMouseMovement = true
-        Input.warp_mouse(mousePos)
+        log.pp("ADSJKASD", mousePos)
+        Input.warp_mouse(mousePos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
     camLockPos = $Camera2D.global_position
 
   if state != States.dead and not Input.is_key_pressed(KEY_CTRL):
@@ -317,6 +319,7 @@ func _physics_process(delta: float) -> void:
           else:
             slideRecovery = MAX_SLIDE_RECOVER_TIME
         state = States.idle
+      # log.pp(vel.user, playerXIntent, playerXIntent != vel.user.x, state, States.idle, floor_max_angle)
     else:
       # if not on floor and switching wall sides allow both walls again
       if lastWall && (getCurrentWallSide() && lastWall != getCurrentWallSide()):
@@ -548,6 +551,8 @@ func _physics_process(delta: float) -> void:
     # # )
     # var posOffset = Vector2.ZERO
     # collision when on floor and moving down
+    # floor_max_angle = deg_to_rad(5.0 if state == States.sliding else 49.7)
+    # log.pp(floor_max_angle)
     var floorRayCollision = null
     if $floorRay.is_colliding():
       floorRayCollision = $floorRay.get_collider()
@@ -808,3 +813,8 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # add animations for
 #   lights out
 #   levers
+
+# add level tags
+# add way top create new levels
+
+# make saves.json not required

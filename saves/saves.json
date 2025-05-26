@@ -1,4 +1,60 @@
 {
+  "New level pack": {
+    "beatLevels": [],
+    "lastSpawnPoint": [
+      0.0,
+      0.0
+    ],
+    "levels": {
+      "asdas": {
+        "foundStar": false,
+        "name": "asdas",
+        "spawnPoint": "(0.0, 0.0)"
+      }
+    },
+    "loadedLevels": [
+      {
+        "foundStar": false,
+        "name": "asdas",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "playerDelogPosition": [
+      0.0,
+      8179.55029296875
+    ]
+  },
+  "New map": {
+    "beatLevels": [],
+    "lastSpawnPoint": [
+      0.0,
+      0.0
+    ],
+    "levels": {
+      "hub": {
+        "foundStar": false,
+        "name": "hub",
+        "spawnPoint": "(0.0, 0.0)"
+      }
+    },
+    "loadedLevels": [
+      {
+        "foundStar": false,
+        "name": "hub",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "playerDelogPosition": [
+      1134.92468261719,
+      -126.511291503906
+    ]
+  },
   "level win test": {
     "beatLevels": [],
     "lastSpawnPoint": [
@@ -149,8 +205,8 @@
       }
     ],
     "playerDelogPosition": [
-      -472.925598144531,
-      -946.502746582031
+      -419.741027832031,
+      -946.508056640625
     ]
   }
 }

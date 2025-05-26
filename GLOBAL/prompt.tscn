@@ -57,6 +57,7 @@ text = "asdasdasdsad"
 
 [node name="LineEdit" type="LineEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
 layout_mode = 2
+expand_to_text_length = true
 clear_button_enabled = true
 deselect_on_focus_loss_enabled = false
 select_all_on_focus = true

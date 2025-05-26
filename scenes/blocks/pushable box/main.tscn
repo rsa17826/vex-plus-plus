@@ -18,6 +18,7 @@ thingThatMoves = NodePath("CharacterBody2D")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["pushable"]]
 scale = Vector2(0.97, 0.97)
+floor_stop_on_slope = false
 script = ExtResource("2_bi51y")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]

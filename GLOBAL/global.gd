@@ -15,7 +15,7 @@ extends Node
 #
 
 func _process(delta):
-  if global.openMsgBoxCount: return
+  if openMsgBoxCount: return
   if timer.started:
     timer.time += delta
   for i: Array in wait_until_wait_list:
@@ -27,17 +27,18 @@ func _process(delta):
 var openMsgBoxCount = 0
 
 var promptPromise
+const windowSize = Vector2(1152, 648)
 
-func prompt(msg, default=null, type=TYPE_STRING):
+func prompt(msg, default=null, type=null) -> Variant:
   if openMsgBoxCount:
     while openMsgBoxCount:
       await wait(10)
   openMsgBoxCount += 1
 
   var promptCanvas = preload("res://GLOBAL/prompt.tscn").instantiate()
-  level.add_child(promptCanvas)
-  promptCanvas.get_node("ColorRect").size = DisplayServer.window_get_size()
-  promptCanvas.get_node("ColorRect/CenterContainer").size = DisplayServer.window_get_size()
+  get_tree().root.add_child(promptCanvas)
+  promptCanvas.get_node("ColorRect").size = windowSize
+  promptCanvas.get_node("ColorRect/CenterContainer").size = windowSize
   promptCanvas.promptText.text = msg
 
   promptCanvas.numEdit.visible = false
@@ -45,7 +46,10 @@ func prompt(msg, default=null, type=TYPE_STRING):
   # log.pp(type)
   promptCanvas.btnCancel.text = "cancel"
   promptCanvas.btnOk.text = "ok"
+  promptCanvas.btnCancel.visible = true
   match type:
+    null:
+      promptCanvas.btnCancel.visible = false
     TYPE_INT:
       promptCanvas.numEdit.value = 0 if default == null else default
       promptCanvas.numEdit.step = 1
@@ -175,7 +179,7 @@ func join(joiner="", a="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", s="HDSJAKHADSJKAS
 func randstr(length=10, fromchars="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`"):
   var s = ''
   for i in range(length):
-    s += (fromchars[global.randfrom(0, len(fromchars) - 1)])
+    s += (fromchars[randfrom(0, len(fromchars) - 1)])
   return s
 
 var wait_until_wait_list = []
@@ -189,10 +193,10 @@ func waituntil(cb):
 #   static var links = []
 #   static func create(varname, node, cb=func(a):
 #     return a, prop="text"):
-#     global.link.links.append({"node": node, "varname": varname, "prop": prop, "val": null, "cb": cb})
+#     link.links.append({"node": node, "varname": varname, "prop": prop, "val": null, "cb": cb})
 #   # s=set because error when name is set
 #   static func s(varname, val):
-#     for l in global.link.links:
+#     for l in link.links:
 #       if l.node == varname:
 #         l.val = val
 #         l.node[l.prop] = l.cb(val)
@@ -599,12 +603,18 @@ func setBlockStartPos(block: Node):
 var hitboxesShown = false
 
 func _input(event: InputEvent) -> void:
+  if openMsgBoxCount: return
   if !InputMap.has_action("editor_select"): return
   if Input.is_action_just_released("editor_select"):
     if selectedBlock:
       selectedBlock.respawn()
       selectedBlock = null
       # selectedBlock._ready.call(false)
+  if Input.is_action_just_pressed("new_level_file"):
+    if mainLevelName and level and is_instance_valid(level):
+      createNewLevelFile(mainLevelName)
+  if Input.is_action_just_pressed("new_map_folder"):
+    createNewMapFolder()
   if Input.is_action_just_pressed("editor_select"):
     if selectedBlock:
       selectedBlock.respawn()
@@ -644,7 +654,7 @@ var levelFolderPath
 var loadedLevels
 var mainLevelName
 var beatLevels
-var levelColor = 2
+# var levelColor = 2
 var levelOpts
 
 func starFound():
@@ -655,7 +665,7 @@ func loadInnerLevel(innerLevel):
   global.loadedLevels.append({"name": innerLevel, "spawnPoint": Vector2.ZERO, 'foundStar': false})
   if currentLevel().name not in levelOpts.stages:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
-  levelColor = int(levelOpts.stages[currentLevel().name].color)
+  # levelColor = int(levelOpts.stages[currentLevel().name].color)
   await wait()
   level.loadLevel(innerLevel)
   player.die(0, true)
@@ -744,7 +754,7 @@ func loadLevelPack(levelPackName, loadFromSave):
     beatLevels = []
 
   get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
-  level.loadLevel(global.currentLevel().name)
+  level.loadLevel(currentLevel().name)
   if loadFromSave and saveData:
     await wait()
     player.die(0, false)
@@ -858,3 +868,59 @@ func animate(speed: int, steps: Array[Dictionary]):
     else:
       prevTime = steps[i].until
   return newOffset
+
+func createNewLevelFile(levelPackName, levelName=null):
+  if not levelName:
+    levelName = await prompt("enter the level name", "", TYPE_STRING)
+  var fullDirPath = path.parsePath(path.join("res://levelcodes/", levelPackName))
+  var opts = file.read(path.join(fullDirPath, "options"))
+  opts.stages[levelName] = defaultLevelSettings
+  opts.stages[levelName].color = randfrom(1, 11)
+  file.write(path.join(fullDirPath, "options"),
+    opts
+  )
+func createNewMapFolder():
+  var foldername = await prompt("Enter the name of the map", "New map", TYPE_STRING)
+  var startLevel = await prompt("Enter the name of the first level:", "hub", TYPE_STRING)
+  var fullDirPath = path.parsePath(path.join("res://levelcodes/", foldername))
+  if DirAccess.dir_exists_absolute(fullDirPath):
+    await prompt("Folder already exists!")
+    return
+  DirAccess.make_dir_absolute(fullDirPath)
+  file.write(path.join(fullDirPath, "options"),
+    {
+      "start": startLevel,
+      "author": await prompt(
+        "Enter your name",
+        "rssaromeo",
+        TYPE_STRING
+      ),
+      "description": await prompt(
+        "Enter a description of the map:",
+        "",
+        TYPE_STRING
+      ),
+      "stages": {
+      }
+    }
+  )
+  file.write(path.join(fullDirPath, startLevel), "", false)
+  await createNewLevelFile(foldername, startLevel)
+  return foldername
+
+const defaultLevelSettings = {
+  "color": 1,
+  "changeSpeedOnSlopes": false
+}
+
+func currentLevelSettings(key=null):
+  if key:
+    var data = levelOpts.stages[currentLevel().name][key] \
+    if key in levelOpts.stages[currentLevel().name] else \
+    defaultLevelSettings[key]
+    if key in ["color"]:
+      data = int(data)
+    if key in []:
+      data = float(data)
+    return data
+  return levelOpts.stages[currentLevel().name]

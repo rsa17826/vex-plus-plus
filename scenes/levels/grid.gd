@@ -14,5 +14,5 @@ func _process(delta: float) -> void:
   get_node("y").position.x = (intendedPos - global_position).x + 120
   for i in range(1, 21):
     get_node("x/" + str(i)).text = str(int(round(((global_position.x + 95) / gridSize)) + (i - 1)))
-  for i in range(1, 12):
+  for i in range(1, 14):
     get_node("y/" + str(i)).text = str(int(round(((global_position.y + 480) / gridSize)) - (i - 3)))
