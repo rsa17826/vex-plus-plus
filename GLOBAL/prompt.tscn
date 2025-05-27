@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://defog6mk3ni61"]
+[gd_scene load_steps=8 format=3 uid="uid://ccobtxlykollf"]
 
-[ext_resource type="Script" uid="uid://in0c53flu1jr" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
+[ext_resource type="Script" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_s0bsq"]
 device = -1

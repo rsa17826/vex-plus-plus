@@ -815,6 +815,7 @@ func _on_left_body_exited(_body: Node2D) -> void:
 #   levers
 
 # add level tags
-# add way top create new levels
+# add way to create new levels
 
 # make saves.json not required
+# set default hitbox state
