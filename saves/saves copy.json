@@ -1,0 +1,212 @@
+{
+  "New level pack": {
+    "beatLevels": [],
+    "lastSpawnPoint": [
+      0.0,
+      0.0
+    ],
+    "levels": {
+      "asdas": {
+        "foundStar": false,
+        "name": "asdas",
+        "spawnPoint": "(0.0, 0.0)"
+      }
+    },
+    "loadedLevels": [
+      {
+        "foundStar": false,
+        "name": "asdas",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "playerDelogPosition": [
+      0.0,
+      8179.55029296875
+    ]
+  },
+  "New map": {
+    "beatLevels": [],
+    "lastSpawnPoint": [
+      0.0,
+      0.0
+    ],
+    "levels": {
+      "hub": {
+        "foundStar": false,
+        "name": "hub",
+        "spawnPoint": "(0.0, 0.0)"
+      }
+    },
+    "loadedLevels": [
+      {
+        "foundStar": false,
+        "name": "hub",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "playerDelogPosition": [
+      1134.92468261719,
+      -126.511291503906
+    ]
+  },
+  "level win test": {
+    "beatLevels": [],
+    "lastSpawnPoint": [
+      -301.7861328125,
+      8.49853324890137
+    ],
+    "levels": {
+      "1": {
+        "foundStar": true,
+        "name": "1",
+        "spawnPoint": "(0.0, 0.0)"
+      }
+    },
+    "loadedLevels": [
+      {
+        "foundStar": true,
+        "name": "1",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "playerDelogPosition": [
+      -301.7861328125,
+      8.49853324890137
+    ]
+  },
+  "vex 3": {
+    "beatLevels": [
+      {
+        "foundStar": false,
+        "name": "stage 1",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "foundStar": true,
+        "name": "stage 2",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "foundStar": false,
+        "name": "stage 1",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "foundStar": false,
+        "name": "stage 2",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "lastSpawnPoint": [
+      484.074890136719,
+      -225.335021972656
+    ],
+    "levels": {
+      "hub": {
+        "foundStar": false,
+        "name": "hub",
+        "spawnPoint": "(362.0742, 348.476)"
+      },
+      "stage 1": {
+        "foundStar": false,
+        "name": "stage 1",
+        "spawnPoint": "(0.0, 0.0)"
+      },
+      "stage 2": {
+        "foundStar": false,
+        "name": "stage 2",
+        "spawnPoint": "(0.0, 0.0)"
+      }
+    },
+    "loadedLevels": [
+      {
+        "foundStar": false,
+        "name": "hub",
+        "spawnPoint": [
+          362.074249267578,
+          348.475952148438
+        ]
+      }
+    ],
+    "playerDelogPosition": [
+      484.075988769531,
+      -139.763061523438
+    ]
+  },
+  "vex 3 copy": {
+    "beatLevels": [
+      {
+        "foundStar": false,
+        "name": "stage 1",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "lastSpawnPoint": [
+      -395.925170898438,
+      -926.197143554688
+    ],
+    "levels": {
+      "a": {
+        "foundStar": true,
+        "name": "a",
+        "spawnPoint": "(0.0, 0.0)"
+      },
+      "hub": {
+        "foundStar": false,
+        "name": "hub",
+        "spawnPoint": "(236.9258, 213.424)"
+      },
+      "stage 1": {
+        "foundStar": false,
+        "name": "stage 1",
+        "spawnPoint": "(0.0, 0.0)"
+      }
+    },
+    "loadedLevels": [
+      {
+        "foundStar": false,
+        "name": "hub",
+        "spawnPoint": [
+          236.925842285156,
+          213.42399597168
+        ]
+      },
+      {
+        "foundStar": true,
+        "name": "a",
+        "spawnPoint": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "playerDelogPosition": [
+      -419.741027832031,
+      -946.508056640625
+    ]
+  }
+}

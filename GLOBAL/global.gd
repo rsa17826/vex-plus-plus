@@ -13,7 +13,6 @@ extends Node
 # event
 
 #
-
 func _process(delta):
   if openMsgBoxCount: return
   if timer.started:
@@ -702,17 +701,19 @@ func savePlayerLevelData():
   saveData[mainLevelName] = {
     "playerDelogPosition": [playerDelogPosition.x, playerDelogPosition.y],
     "lastSpawnPoint": [player.lastSpawnPoint.x, player.lastSpawnPoint.y],
-    "loadedLevels": loadedLevels.map(func(e):
-      var ee=JSON.parse_string(JSON.stringify(e))
-      ee.spawnPoint=[e.spawnPoint.x, e.spawnPoint.y]
-      return ee),
-    "beatLevels": beatLevels.map(func(e):
-      var ee=JSON.parse_string(JSON.stringify(e))
-      ee.spawnPoint=[e.spawnPoint.x, e.spawnPoint.y]
-      return ee),
+    "loadedLevels": loadedLevels,
+    # .map(func(e):
+    #   var ee=JSON.parse_string(JSON.stringify(e))
+    #   ee.spawnPoint=[e.spawnPoint.x, e.spawnPoint.y]
+    #   return ee),
+    "beatLevels": beatLevels,
+    # .map(func(e):
+    #   var ee=JSON.parse_string(JSON.stringify(e))
+    #   ee.spawnPoint=[e.spawnPoint.x, e.spawnPoint.y]
+    #   return ee),
     "levels": levels
   }
-  file.write(path.parsePath("res://saves/saves.json"), saveData)
+  file.write(path.parsePath("res://saves/saves.json"), JSON.from_native(saveData))
   await wait(1000)
   savingPlaterLevelData = false
 
@@ -737,12 +738,14 @@ func loadLevelPack(levelPackName, loadFromSave):
   levelOpts = levelPackInfo
 
   if loadFromSave and saveData:
-    loadedLevels = saveData.loadedLevels.map(func(e):
-      e.spawnPoint=Vector2(e.spawnPoint[0], e.spawnPoint[1])
-      return e)
-    beatLevels = saveData.beatLevels.map(func(e):
-      e.spawnPoint=Vector2(e.spawnPoint[0], e.spawnPoint[1])
-      return e)
+    loadedLevels = saveData.loadedLevels
+    # .map(func(e):
+    #   e.spawnPoint=Vector2(e.spawnPoint[0], e.spawnPoint[1])
+    #   return e)
+    beatLevels = saveData.beatLevels
+    # .map(func(e):
+    #   e.spawnPoint=Vector2(e.spawnPoint[0], e.spawnPoint[1])
+    #   return e)
   else:
     loadedLevels = [
       {
@@ -835,6 +838,8 @@ var blockNames = [
 ]
 
 func _ready() -> void:
+  log.pp(Json.new())
+  get_tree().quit()
   get_tree().set_debug_collisions_hint(hitboxesShown)
 
 var checkpoints = []
