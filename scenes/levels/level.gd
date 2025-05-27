@@ -24,15 +24,14 @@ func loadLevel(level):
   global.player.global_position = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   global.player.get_parent().startPosition = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   for thing in leveldata.slice(1):
-    log.pp(thing)
     createBlock(thing['id'], thing['x'], thing['y'], thing['w'], thing['h'], thing['r'], thing['options'] if 'options' in thing else 0)
 
   global.tick = 0
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
   global.player.get_node("../CanvasLayer/editor bar")._ready()
-  await global.wait()
-  await global.wait()
-  global.savePlayerLevelData()
+  # await global.wait()
+  # await global.wait(300)
+  # global.savePlayerLevelData()
   # await global.wait()
   # global.player.die(0, false)
   # global.player.deathPosition = global.player.lastSpawnPoint

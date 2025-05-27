@@ -617,10 +617,11 @@ func _readyINNER_LEVEL():
 # goal
 @export_group("GOAL")
 @export var GOAL_sprite: Node2D
+@export var GOAL_CollisionShape: Node2D
 func _readyGOAL():
   if selectedOptions.requiredLevelCount > len(global.beatLevels):
     GOAL_sprite.modulate = Color("#555")
-    CLOSING_SPIKES_leftCollisionShape.disabled = true
+    GOAL_CollisionShape.disabled = true
 
 func _on_body_enteredGOAL(body: Node):
   if body == global.player:

@@ -1,20 +1,154 @@
 {
   STR(New map){
-    STR(playerDelogPosition)VEC2(0.0,-2.21589040756226)
-    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(playerDelogPosition)VEC2(352.258361816406,-156.500595092773)
+    STR(lastSpawnPoint)VEC2(355.925018310547,-156.523513793945)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
+        STR(spawnPoint)VEC2(355.925018310547,-156.523513793945)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)[
+      {
+        STR(name)STR(test1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(levels){
+      STR(hub){
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(355.925018310547,-156.523513793945)
+        STR(foundStar)BOOL(false)
+      }
+      STR(test1){
+        STR(name)STR(test1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    }
+  }
+  STR(level 1){
+    STR(playerDelogPosition)VEC2(-29.33349609375,25.6000366210938)
+    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(1)
         STR(spawnPoint)VEC2(0.0,0.0)
         STR(foundStar)BOOL(false)
       }
     ]
     STR(beatLevels)[]
     STR(levels){
-      STR(hub){
-        STR(name)STR(hub)
+      STR(1){
+        STR(name)STR(1)
         STR(spawnPoint)VEC2(0.0,0.0)
         STR(foundStar)BOOL(false)
+      }
+    }
+  }
+  STR(level 1 copy){
+    STR(playerDelogPosition)VEC2(0.0,12.8000183105469)
+    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)[]
+    STR(levels){
+      STR(1){
+        STR(name)STR(1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    }
+  }
+  STR(level win test){
+    STR(playerDelogPosition)VEC2(0.0,-1.52890622615814)
+    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(1)
+        STR(spawnPoint)VEC2(-62.9244689941406,8.49240493774414)
+        STR(foundStar)BOOL(true)
+      }
+      {
+        STR(name)STR(inner 1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)[
+      {
+        STR(name)STR(inner 1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+      {
+        STR(name)STR(inner 1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(true)
+      }
+      {
+        STR(name)STR(inner 1)
+        STR(spawnPoint)VEC2(0.0,-1.52890622615814)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(levels){
+      STR(1){
+        STR(name)STR(1)
+        STR(spawnPoint)VEC2(-62.9244689941406,8.49240493774414)
+        STR(foundStar)BOOL(true)
+      }
+      STR(inner 1){
+        STR(name)STR(inner 1)
+        STR(spawnPoint)VEC2(0.0,-1.52890622615814)
+        STR(foundStar)BOOL(false)
+      }
+    }
+  }
+  STR(vex 3){
+    STR(playerDelogPosition)VEC2(487.768249511719,-274.927856445313)
+    STR(lastSpawnPoint)VEC2(465.741455078125,-280.609069824219)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(-151.953765869141,358.42529296875)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)[
+      {
+        STR(name)STR(stage 1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+      {
+        STR(name)STR(stage 2)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(true)
+      }
+    ]
+    STR(levels){
+      STR(hub){
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(-151.953765869141,358.42529296875)
+        STR(foundStar)BOOL(false)
+      }
+      STR(stage 1){
+        STR(name)STR(stage 1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+      STR(stage 2){
+        STR(name)STR(stage 2)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(true)
       }
     }
   }
