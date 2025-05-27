@@ -197,9 +197,9 @@ func _physics_process(delta: float) -> void:
     deadTimer = clampf(deadTimer, 0, currentRespawnDelay)
     global.tick = 0
     if currentRespawnDelay == 0:
-      position = lastSpawnPoint
+      position = lastSpawnPoint + Vector2(0, -1.9)
     else:
-      position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, lastSpawnPoint)
+      position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, lastSpawnPoint + Vector2(0, -1.9))
     # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
     $anim.animation = "die"
     rotation = lerp_angle(float(rotation), 0.0, .2)
@@ -642,6 +642,8 @@ func handleCollision(block, normal, depth, sameFrame):
   if sameFrame:
     if block.is_in_group("falling") \
     and normal.y < 0 \
+    and velocity.y >= 0 \
+    # and vel.user.y > 0 \ - only when falling - good for glass later
     :
       block.FALLING_falling = true
     if block.is_in_group("bouncy") \
@@ -702,6 +704,7 @@ func handleCollision(block, normal, depth, sameFrame):
   # breakpoint
 
 func goto(pos):
+  vel.user = Vector2.ZERO
   position = pos
   $Camera2D.position = Vector2.ZERO
   $Camera2D.reset_smoothing()
@@ -834,3 +837,5 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # make the editor bar work in different window sizes
 
 # fix spike sizes not being the same
+
+# allow jumping while on falling blocks?

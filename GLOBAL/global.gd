@@ -432,7 +432,7 @@ func starts_with(x: String, y: String) -> bool:
 func ends_with(x: String, y: String) -> bool:
   return x.substr(len(x) - len(y)) == y
 
-func randfrom(min: float, max: float) -> float:
+func randfrom(min: float, max: float) -> int:
   # if global.same(max, "unset"):
   #   return min[randfrom(0, len(min) - 1)]
   return int(randf() * (max - min + 1) + min)
@@ -617,10 +617,9 @@ func _input(event: InputEvent) -> void:
   if Input.is_action_just_pressed("editor_select"):
     if selectedBlock:
       selectedBlock.respawn()
-  if Input.is_action_just_released("down"):
-    if player and mainLevelName:
-      savePlayerLevelData()
-      # selectedBlock._ready.call(false)
+  # if Input.is_action_just_released("down"):
+  #   if player and mainLevelName:
+  #     savePlayerLevelData()
 
   # dont update editor scale mode if clicking
   if !Input.is_action_pressed("editor_select"):
@@ -634,8 +633,10 @@ func _input(event: InputEvent) -> void:
     hoveredBlocks.erase(selectedBlock)
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
-  if Input.is_action_just_pressed("reload_map"):
+  if Input.is_action_just_pressed("reload_map_from_last_save"):
     loadLevelPack(mainLevelName, true)
+  if Input.is_action_just_pressed("fully_reload_map"):
+    loadLevelPack(mainLevelName, false)
   if Input.is_action_just_pressed("toggle_hitboxes"):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
@@ -675,7 +676,7 @@ func win():
   beatLevels.append(loadedLevels.pop_back())
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
-    Engine.time_scale = 0
+    loadLevelPack(mainLevelName, true)
     return
   # log.pp(currentLevel().spawnPoint, currentLevel())
   await wait()
@@ -699,8 +700,8 @@ func savePlayerLevelData():
     levels[l.name] = l
   var playerDelogPosition = player.position
   saveData[mainLevelName] = {
-    "playerDelogPosition": [playerDelogPosition.x, playerDelogPosition.y],
-    "lastSpawnPoint": [player.lastSpawnPoint.x, player.lastSpawnPoint.y],
+    "playerDelogPosition": playerDelogPosition,
+    "lastSpawnPoint": player.lastSpawnPoint,
     "loadedLevels": loadedLevels,
     # .map(func(e):
     #   var ee=JSON.parse_string(JSON.stringify(e))
@@ -720,7 +721,7 @@ func savePlayerLevelData():
 
 func loadLevelPack(levelPackName, loadFromSave):
   log.pp("loadFromSave", loadFromSave)
-  var saveData = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"))
+  var saveData = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
   if levelPackName in saveData:
     saveData = saveData[levelPackName]
   else:
@@ -732,7 +733,7 @@ func loadLevelPack(levelPackName, loadFromSave):
   levelFolderPath = path.join('res://levelcodes/', levelPackName)
   var levelPackInfo = loadLevelPackInfo(levelPackName)
   if !levelPackInfo: return
-  var startFile = path.join(levelFolderPath, levelPackInfo['start'])
+  var startFile = path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
     return
@@ -759,20 +760,23 @@ func loadLevelPack(levelPackName, loadFromSave):
 
   get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
   level.loadLevel(currentLevel().name)
+  await wait()
+  player.die(0, false)
   if loadFromSave and saveData:
-    await wait()
-    player.die(0, false)
     player.deathPosition = player.lastSpawnPoint
-    player.goto(Vector2(saveData.playerDelogPosition[0], saveData.playerDelogPosition[1]))
-    # player.goto.call_deferred(Vector2(saveData.playerDelogPosition[0], saveData.playerDelogPosition[1]))
-    player.lastSpawnPoint = Vector2(saveData.lastSpawnPoint[0], saveData.lastSpawnPoint[1])
-    global.tick = 0
+    player.goto(saveData.playerDelogPosition)
+    player.lastSpawnPoint = saveData.lastSpawnPoint
+  else:
+    player.goto(Vector2(0, 0))
+    player.lastSpawnPoint = Vector2(0, 0)
+    player.goto(Vector2(0, 0))
+  global.tick = 0
 
 func currentLevel():
   return loadedLevels[len(loadedLevels) - 1]
 
 func loadLevelPackInfo(levelPackName):
-  var options = file.read(path.join('res://levelcodes/', levelPackName, "/options"))
+  var options = sds.loadDataFromFile(path.join('res://levelcodes/', levelPackName, "/options.sds"))
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
@@ -838,13 +842,6 @@ var blockNames = [
   "targeting laser",
 ]
 
-func _ready() -> void:
-  var d = &"asdasd"
-  log.pp(d)
-  log.pp(sds.saveData(d))
-  log.pp(sds.loadData(sds.saveData(d)))
-  get_tree().set_debug_collisions_hint(hitboxesShown)
-
 var checkpoints = []
 
 func animate(speed: int, steps: Array[Dictionary]):
@@ -881,12 +878,12 @@ func createNewLevelFile(levelPackName, levelName=null):
   if not levelName:
     levelName = await prompt("enter the level name", "", TYPE_STRING)
   var fullDirPath = path.parsePath(path.join("res://levelcodes/", levelPackName))
-  var opts = file.read(path.join(fullDirPath, "options"))
-  opts.stages[levelName] = defaultLevelSettings
+  var opts = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
+  opts.stages[levelName] = defaultLevelSettings.duplicate()
   opts.stages[levelName].color = randfrom(1, 11)
-  file.write(path.join(fullDirPath, "options"),
-    opts
-  )
+  file.write(path.join(fullDirPath, levelName + ".sds"), '', false)
+  sds.saveDataToFile(path.join(fullDirPath, "options.sds"), opts)
+
 func createNewMapFolder():
   var foldername = await prompt("Enter the name of the map", "New map", TYPE_STRING)
   var startLevel = await prompt("Enter the name of the first level:", "hub", TYPE_STRING)
@@ -895,7 +892,7 @@ func createNewMapFolder():
     await prompt("Folder already exists!")
     return
   DirAccess.make_dir_absolute(fullDirPath)
-  file.write(path.join(fullDirPath, "options"),
+  sds.saveDataToFile(path.join(fullDirPath, "options.sds"),
     {
       "start": startLevel,
       "author": await prompt(
@@ -926,9 +923,8 @@ func currentLevelSettings(key=null):
     var data = levelOpts.stages[currentLevel().name][key] \
     if key in levelOpts.stages[currentLevel().name] else \
     defaultLevelSettings[key]
-    if key in ["color"]:
-      data = int(data)
-    if key in []:
-      data = float(data)
     return data
   return levelOpts.stages[currentLevel().name]
+
+func _ready() -> void:
+  get_tree().set_debug_collisions_hint(hitboxesShown)

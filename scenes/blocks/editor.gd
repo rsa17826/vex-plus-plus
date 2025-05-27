@@ -591,7 +591,7 @@ func _readyINNER_LEVEL():
   if not selectedOptions.level:
     text = "no level set"
     INNER_LEVEL_disabled = true
-  elif not global.file.isFile(global.path.join(global.levelFolderPath, selectedOptions.level)):
+  elif not global.file.isFile(global.path.join(global.levelFolderPath, selectedOptions.level + '.sds')):
     text = "invalid level\n" + selectedOptions.level
     INNER_LEVEL_disabled = true
   elif selectedOptions.requiredLevelCount > len(global.beatLevels):
@@ -632,6 +632,7 @@ func _on_body_enteredGOAL(body: Node):
 @export var CHECKPOINT_sprite: Node2D
 func _on_body_enteredCHECKPOINT(body: Node):
   if body == global.player and (getTexture(CHECKPOINT_sprite) == '1' or selectedOptions.multiUse):
+    global.savePlayerLevelData()
     global.player.lastSpawnPoint = global.player.position
     global.player.lightsOut = false
     setTexture(CHECKPOINT_sprite, "2")

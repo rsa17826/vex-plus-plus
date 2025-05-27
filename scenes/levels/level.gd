@@ -16,7 +16,7 @@ func loadLevel(level):
   global.hoveredBlocks = []
   # global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
   # log.pp(global.path.join(global.levelFolderPath, level), global.loadedLevels, global.beatLevels)
-  var leveldata = global.file.read(global.path.join(global.levelFolderPath, level), true, '[{"x": 0, "y": 0},{"h":1.06430360674858,"id":"0","r":0.0,"w":3.05217224359512,"x":93.9778137207031,"y":67.6275177001953}]')
+  var leveldata = sds.loadDataFromFile(global.path.join(global.levelFolderPath, level + '.sds'), [ {"x": 0, "y": 0}, {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 65}])
   if !leveldata: return
   for node in $blocks.get_children():
     $blocks.remove_child(node)
@@ -24,10 +24,15 @@ func loadLevel(level):
   global.player.global_position = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   global.player.get_parent().startPosition = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   for thing in leveldata.slice(1):
+    log.pp(thing)
     createBlock(thing['id'], thing['x'], thing['y'], thing['w'], thing['h'], thing['r'], thing['options'] if 'options' in thing else 0)
 
   global.tick = 0
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
+  global.player.get_node("../CanvasLayer/editor bar")._ready()
+  await global.wait()
+  await global.wait()
+  global.savePlayerLevelData()
   # await global.wait()
   # global.player.die(0, false)
   # global.player.deathPosition = global.player.lastSpawnPoint
@@ -70,5 +75,5 @@ func save():
       obj["options"] = child.selectedOptions
     data.append(obj)
   log.pp(data)
-  global.file.write(global.path.join(global.levelFolderPath, global.currentLevel().name), data)
+  sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
   return data

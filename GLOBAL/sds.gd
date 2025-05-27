@@ -83,7 +83,7 @@ static func saveData(val: Variant, _level=0) -> String:
         hasKey = true
         data += getIndent.call(_level) + saveData(inner, _level) + saveData(val[inner], _level)
       _level -= 1
-      return "DICT{" + data + getIndent.call(_level) + "}" if hasKey else "DICT{" + data + "}"
+      return "{" + data + getIndent.call(_level) + "}" if hasKey else "{" + data + "}"
     TYPE_ARRAY:
       var data := ''
       _level += 1
@@ -92,7 +92,7 @@ static func saveData(val: Variant, _level=0) -> String:
         hasKey = true
         data += getIndent.call(_level) + saveData(inner, _level)
       _level -= 1
-      return "ARR[" + data + getIndent.call(_level) + "]" if hasKey else "ARR[" + data + "]"
+      return "[" + data + getIndent.call(_level) + "]" if hasKey else "[" + data + "]"
   log.err(val, type_string(typeof(val)))
   return str(val)
 
@@ -145,7 +145,7 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
     _stack.append(thingToPutDataIn)
     # remainingData = remainingData.strip_edges()
     return loadData(remainingData, _stack, _stack[len(_stack) - 1], getDictVal)
-  var type = getData.call(r"^[A-Z]+[\dA-Z]*")
+  var type = getData.call(r"^[A-Z]+[\dA-Z]*|\[|\{")
   remainingData = remainingData.strip_edges()
   # log.pp(remainingData, type)
   var thisdata
@@ -162,9 +162,9 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
       return NAN
     return float(num)
   match type:
-    "DICT":
+    "{":
       thisdata = unset
-      remainingData = remainingData.substr(1)
+      # remainingData = remainingData.substr(1)
       out = {}
       _stack.append(out)
     "INT":
@@ -208,7 +208,7 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
       thisdata = remainingData \
       .replace("\\\\", "ESCAPED" + unset) \
       .replace(r"\)", "PERIN" + unset) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
-      thisdata = global.regMatch(thisdata, r"\(([^)]+)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
+      thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
       thisdata = thisdata.replace("ESCAPED" + unset, "\\").replace("PERIN" + unset, ")") # restore the hidden \ and )s
       remainingData = remainingData.substr(len(thisdata \
       .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
@@ -217,16 +217,16 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
       thisdata = remainingData \
       .replace("\\\\", "ESCAPED" + unset) \
       .replace(r"\)", "PERIN" + unset) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
-      thisdata = global.regMatch(thisdata, r"\(([^)]+)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
+      thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
       thisdata = thisdata.replace("ESCAPED" + unset, "\\").replace("PERIN" + unset, ")") # restore the hidden \ and )s
       remainingData = remainingData.substr(len(thisdata \
       .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
       ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
       thisdata = StringName(thisdata)
-    "ARR":
+    "[":
       thisdata = unset
       out = []
-      remainingData = remainingData.substr(1)
+      # remainingData = remainingData.substr(1)
       _stack.append(out)
     _:
       return log.err(type, remainingData)
