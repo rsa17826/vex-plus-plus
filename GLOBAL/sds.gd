@@ -112,7 +112,7 @@ static func randfrom(min: float, max: float) -> float:
 const NUMREG = r"(?:nan|inf|-?\d+(?:\.\d+)?)"
 const SEPREG = r"\s*,\s*"
 
-static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
+static func loadData(d=null, _stack:=[], out=null) -> Variant:
   if d: remainingData = d.strip_edges()
   while unset in remainingData:
     unset = ":::" + randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
@@ -144,7 +144,7 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
         thingToPutDataIn.append(dataToInsert)
     _stack.append(thingToPutDataIn)
     # remainingData = remainingData.strip_edges()
-    return loadData(remainingData, _stack, _stack[len(_stack) - 1], getDictVal)
+    return loadData(remainingData, _stack, _stack[len(_stack) - 1])
   var type = getData.call(r"^[A-Z]+[\dA-Z]*|\[|\{")
   remainingData = remainingData.strip_edges()
   # log.pp(remainingData, type)
@@ -252,5 +252,5 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
       return thisdata
   # log.pp(thisdata, out, remainingData, "_stack:", str(_stack))
   # if len(remainingData):
-  return loadData(remainingData, _stack, out, getDictVal)
+  return loadData(remainingData, _stack, out)
   # return out
