@@ -75,4 +75,7 @@ func save():
     data.append(obj)
   log.pp(data)
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
+  var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
+  opts.version = global.file.read("res://VERSION", false, "-1")
+  sds.saveDataToFile(global.path.join(global.levelFolderPath, "options.sds"), opts)
   return data

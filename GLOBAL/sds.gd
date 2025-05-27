@@ -36,12 +36,13 @@ static func loadDataFromFile(p: String, ifUnset: Variant = null) -> Variant:
   var d = loadData(f.get_as_text())
   return d if d else ifUnset
 
+# fix recursion
 static func saveData(val: Variant, _level=0) -> String:
   # print("saveData", val)
-  var getIndent = func(_level):
+  var getIndent = func(level):
     if not prettyPrint: return ""
     var indent = '\n'
-    for i in range(_level):
+    for i in range(level):
       indent += '  '
     return indent
   match typeof(val):

@@ -730,7 +730,7 @@ func loadLevelPack(levelPackName, loadFromSave):
   mainLevelName = levelPackName
   Engine.time_scale = 1
   log.pp("Loading Level Pack:", levelPackName)
-  levelFolderPath = path.join('res://levelcodes/', levelPackName)
+  levelFolderPath = path.parsePath(path.join('res://levelcodes/', levelPackName))
   var levelPackInfo = loadLevelPackInfo(levelPackName)
   if !levelPackInfo: return
   var startFile = path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
@@ -928,6 +928,9 @@ func currentLevelSettings(key=null):
 
 func _ready() -> void:
   get_tree().set_debug_collisions_hint(hitboxesShown)
+  # await wait()
+  # await prompt("", file.read("res://VERSION", false), TYPE_STRING)
+
   # while 1:
   #   await wait()
   #   sds.prettyPrint=false
