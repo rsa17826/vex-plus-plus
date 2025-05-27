@@ -44,8 +44,19 @@ static func saveData(val: Variant, _level=0) -> String:
     for i in range(_level):
       indent += '  '
     return indent
-
   match typeof(val):
+    TYPE_COLOR:
+      return "COLOR" + str(val).replace(" ", '')
+    TYPE_RECT2:
+      return "RECT2(" + str(val.position[0]) + "," + str(val.position[1]) + "," + str(val.size[0]) + "," + str(val.size[1]) + ")"
+    TYPE_RECT2I:
+      return "RECT2I(" + str(val.position[0]) + "," + str(val.position[1]) + "," + str(val.size[0]) + "," + str(val.size[1]) + ")"
+    TYPE_STRING_NAME:
+      return "STRNAME(" + str(val).replace("\\", "\\\\").replace(")", r"\)") + ")"
+    TYPE_VECTOR4:
+      return "VEC4" + str(val).replace(" ", '')
+    TYPE_VECTOR4I:
+      return "VEC4I" + str(val).replace(" ", '')
     TYPE_INT:
       return "INT(" + str(val) + ")"
     TYPE_FLOAT:
@@ -99,6 +110,7 @@ static func randfrom(min: float, max: float) -> float:
   return int(randf() * (max - min + 1) + min)
 
 const NUMREG = r"(?:nan|inf|-?\d+(?:\.\d+)?)"
+const SEPREG = r"\s*,\s*"
 
 static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
   if d: remainingData = d.strip_edges()
@@ -160,19 +172,34 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
     "FLOAT":
       thisdata = __float.call(getData.call(r"^\((" + NUMREG + r")\)", 1))
     "VEC2I":
-      thisdata = getData.call(r"^\((" + NUMREG + r"," + NUMREG + r")\)", 1)
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + r")\)", 1)
       thisdata = Vector2i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]))
     "VEC2":
-      thisdata = getData.call(r"^\((" + NUMREG + r"," + NUMREG + r")\)", 1)
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + r")\)", 1)
       thisdata = Vector2(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]))
     "VEC3I":
-      thisdata = getData.call(r"^\((" + NUMREG + r"," + NUMREG + r"," + NUMREG + r")\)", 1)
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
       thisdata = Vector3i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]), __int.call(thisdata.split(",")[2]))
     "VEC3":
-      thisdata = getData.call(r"^\((" + NUMREG + r"," + NUMREG + r"," + NUMREG + r")\)", 1)
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
       thisdata = Vector3(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]), __float.call(thisdata.split(",")[2]))
+    "COLOR":
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
+      thisdata = Color(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]), __float.call(thisdata.split(",")[2]), __float.call(thisdata.split(",")[3]))
+    "RECT2":
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
+      thisdata = Rect2(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]), __float.call(thisdata.split(",")[2]), __float.call(thisdata.split(",")[3]))
+    "RECT2I":
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
+      thisdata = Rect2i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]), __int.call(thisdata.split(",")[2]), __int.call(thisdata.split(",")[3]))
+    "VEC4":
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
+      thisdata = Vector4(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]), __float.call(thisdata.split(",")[2]), __float.call(thisdata.split(",")[3]))
+    "VEC4I":
+      thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
+      thisdata = Vector4i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]), __int.call(thisdata.split(",")[2]), __int.call(thisdata.split(",")[3]))
     "NULL":
-      thisdata = getData.call(r"\(\)")
+      getData.call(r"\(\)")
       thisdata = null
     "BOOL":
       thisdata = getData.call(r"\((true|false)\)", 1)
@@ -186,6 +213,16 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
       remainingData = remainingData.substr(len(thisdata \
       .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
       ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
+    "STRNAME":
+      thisdata = remainingData \
+      .replace("\\\\", "ESCAPED" + unset) \
+      .replace(r"\)", "PERIN" + unset) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
+      thisdata = global.regMatch(thisdata, r"\(([^)]+)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
+      thisdata = thisdata.replace("ESCAPED" + unset, "\\").replace("PERIN" + unset, ")") # restore the hidden \ and )s
+      remainingData = remainingData.substr(len(thisdata \
+      .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
+      ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
+      thisdata = StringName(thisdata)
     "ARR":
       thisdata = unset
       out = []
@@ -211,9 +248,9 @@ static func loadData(d=null, _stack:=[], out=null, getDictVal=false) -> Variant:
         TYPE_ARRAY:
           out.append(thisdata)
     else:
-      log.warn("no obj")
+      # log.warn("no obj")
       return thisdata
   # log.pp(thisdata, out, remainingData, "_stack:", str(_stack))
   # if len(remainingData):
-  return loadData(remainingData.strip_edges(), _stack, out, getDictVal)
+  return loadData(remainingData, _stack, out, getDictVal)
   # return out

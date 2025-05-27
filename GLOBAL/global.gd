@@ -839,6 +839,10 @@ var blockNames = [
 ]
 
 func _ready() -> void:
+  var d = &"asdasd"
+  log.pp(d)
+  log.pp(sds.saveData(d))
+  log.pp(sds.loadData(sds.saveData(d)))
   get_tree().set_debug_collisions_hint(hitboxesShown)
 
 var checkpoints = []
