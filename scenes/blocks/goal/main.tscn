@@ -253,13 +253,14 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
 size = Vector2(294, 412)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "GOAL_sprite") groups=["EDITOR_OPTION_scale", "goal"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "GOAL_sprite", "GOAL_CollisionShape") groups=["EDITOR_OPTION_scale", "goal"]]
 script = ExtResource("1_0d1cd")
 ghostIconNode = NodePath("collisionNode/editorBar")
 editorBarIconNode = NodePath("collisionNode/editorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/AnimatedSprite2D")]
 GOAL_sprite = NodePath("collisionNode/AnimatedSprite2D")
+GOAL_CollisionShape = NodePath("collisionNode/CollisionShape2D")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0

@@ -1,1 +1,1 @@
-{STR(start)STR(hub)STR(author)STR(rssaromeo)STR(description)STR(vex 3)STR(stages){STR(hub){STR(color)FLOAT(1.0)}STR(stage 1){STR(color)FLOAT(2.0)}STR(stage 2){STR(color)FLOAT(3.0)}}}
+{STR(start)STR(hub)STR(author)STR(rssaromeo)STR(description)STR(vex 3)STR(stages){STR(hub){STR(color)INT(1.0)}STR(stage 1){STR(color)INT(2.0)}STR(stage 2){STR(color)INT(3.0)}}}
