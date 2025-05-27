@@ -830,3 +830,5 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # add way to pause moving blocks while editing?
 # add way to dupe blocks
 # make it so that if the last selected block has the same id as the newly selected block, copy the properties from the old block to the new one
+
+# make the editor bar work in different window sizes
