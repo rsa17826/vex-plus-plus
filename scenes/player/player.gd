@@ -819,3 +819,4 @@ func _on_left_body_exited(_body: Node2D) -> void:
 
 # make saves.json not required
 # set default hitbox state
+# make saving happen on cp?, not on down release
