@@ -839,3 +839,5 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # fix spike sizes not being the same
 
 # allow jumping while on falling blocks?
+
+# add option to shrink save files
