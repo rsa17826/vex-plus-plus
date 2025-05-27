@@ -26,7 +26,7 @@ DICT{
   }
   STR(vex 3)DICT{
     STR(playerDelogPosition)ARR[
-      FLOAT(-673.59228515625)
+      FLOAT(-666.258911132813)
       FLOAT(58.4937438964844)
     ]
     STR(lastSpawnPoint)ARR[
