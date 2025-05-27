@@ -824,3 +824,9 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # fix moving blocks not moving the player correctly
 # add fullscreen option - onload
 # add fullscreen hotkey - temp
+
+# add way to change block layer - ignore layers of blocks that arnt colliging with selected block to make layer switching quicker
+
+# add way to pause moving blocks while editing?
+# add way to dupe blocks
+# make it so that if the last selected block has the same id as the newly selected block, copy the properties from the old block to the new one
