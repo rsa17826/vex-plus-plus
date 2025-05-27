@@ -634,9 +634,9 @@ func _input(event: InputEvent) -> void:
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
   if Input.is_action_just_pressed("reload_map_from_last_save"):
-    loadLevelPack(mainLevelName, true)
+    loadLevelPack.call_deferred(mainLevelName, true)
   if Input.is_action_just_pressed("fully_reload_map"):
-    loadLevelPack(mainLevelName, false)
+    loadLevelPack.call_deferred(mainLevelName, false)
   if Input.is_action_just_pressed("toggle_hitboxes"):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
@@ -676,7 +676,7 @@ func win():
   beatLevels.append(loadedLevels.pop_back())
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
-    loadLevelPack(mainLevelName, true)
+    loadLevelPack.call_deferred(mainLevelName, true)
     return
   # log.pp(currentLevel().spawnPoint, currentLevel())
   await wait()
@@ -928,3 +928,7 @@ func currentLevelSettings(key=null):
 
 func _ready() -> void:
   get_tree().set_debug_collisions_hint(hitboxesShown)
+  # while 1:
+  #   await wait()
+  #   sds.prettyPrint=false
+  #   await prompt("", sds.saveData(JSON.parse_string(await prompt("data", "", TYPE_STRING))), TYPE_STRING)
