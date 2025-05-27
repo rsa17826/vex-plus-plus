@@ -1,0 +1,27 @@
+DICT{
+  STR(New map)DICT{
+    STR(playerDelogPosition)ARR[
+      FLOAT(127.24146270752)
+      FLOAT(-98.5012512207031)
+    ]
+    STR(lastSpawnPoint)ARR[
+      FLOAT(0.0)
+      FLOAT(0.0)
+    ]
+    STR(loadedLevels)ARR[
+      DICT{
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)ARR[]
+    STR(levels)DICT{
+      STR(hub)DICT{
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    }
+  }
+}

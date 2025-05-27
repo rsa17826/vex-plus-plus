@@ -691,7 +691,7 @@ func savePlayerLevelData():
   if savingPlaterLevelData: return
   log.pp("asadasdasdasdasadsasd")
   savingPlaterLevelData = true
-  var saveData = file.read(path.parsePath("res://saves/saves.json"))
+  var saveData = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
   var levels = {}
   for l in loadedLevels:
     levels[l.name] = l
@@ -713,13 +713,14 @@ func savePlayerLevelData():
     #   return ee),
     "levels": levels
   }
-  file.write(path.parsePath("res://saves/saves.json"), JSON.from_native(saveData))
+  log.pp(saveData)
+  sds.saveDataToFile(path.parsePath("res://saves/saves.sds"), saveData)
   await wait(1000)
   savingPlaterLevelData = false
 
 func loadLevelPack(levelPackName, loadFromSave):
   log.pp("loadFromSave", loadFromSave)
-  var saveData = file.read(path.parsePath("res://saves/saves.json"))
+  var saveData = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"))
   if levelPackName in saveData:
     saveData = saveData[levelPackName]
   else:
@@ -838,8 +839,6 @@ var blockNames = [
 ]
 
 func _ready() -> void:
-  log.pp(Json.new())
-  get_tree().quit()
   get_tree().set_debug_collisions_hint(hitboxesShown)
 
 var checkpoints = []
