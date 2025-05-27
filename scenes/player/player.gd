@@ -841,3 +841,5 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # allow jumping while on falling blocks?
 
 # add option to shrink save files
+
+# show game version

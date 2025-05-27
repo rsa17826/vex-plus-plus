@@ -9,7 +9,6 @@ var _features: PackedStringArray
 func _get_name() -> String:
   return "Copy Files On Export"
 
-
 func _export_begin(features: PackedStringArray, _is_debug: bool, path: String, _flags: int) -> void:
   var path_lower: String = path.to_lower()
   var is_macos: bool = "macos" in features
@@ -35,7 +34,7 @@ func _export_begin(features: PackedStringArray, _is_debug: bool, path: String, _
 
   if not len(export_path):
     return
-
+  global.file.write("res://VERSION", str(int(global.file.read("res://VERSION", false)) + 1), false)
   for file_set: CFOEFileSet in _get_files():
     var file_set_features: PackedStringArray = file_set.features
 
@@ -47,6 +46,7 @@ func _export_begin(features: PackedStringArray, _is_debug: bool, path: String, _
     _copy(file_set.source, export_path.path_join(file_set.dest))
 
 func _export_end() -> void:
+  global.file.write("res://VERSION", str(int(global.file.read("res://VERSION", false)) - 1), false)
   if not len(zip_path):
     return
 
@@ -70,25 +70,20 @@ func _export_end() -> void:
   zip_path = ""
   writer.close_file()
 
-
 func _get_files() -> Array[CFOEFileSet]:
   return CFOESettings.get_files()
-
 
 func _push_err(error: String) -> void:
   push_error(MESSAGE_FORMAT % error)
 
-
 func _log(info: String) -> void:
   print(MESSAGE_FORMAT % info)
-
 
 func _feature_match(requested_features: PackedStringArray, limited_features: PackedStringArray) -> bool:
   for feature: String in limited_features:
     if feature in requested_features:
       return true
   return false
-
 
 func _copy(source_path: String, dest_path: String) -> void:
   var base: String = dest_path.get_base_dir()
@@ -100,7 +95,7 @@ func _copy(source_path: String, dest_path: String) -> void:
       return
 
   if DirAccess.dir_exists_absolute(source_path):
-    var sub_paths: PackedStringArray = DirAccess.get_files_at(source_path) 
+    var sub_paths: PackedStringArray = DirAccess.get_files_at(source_path)
     sub_paths.append_array(DirAccess.get_directories_at(source_path))
 
     for sub_path in sub_paths:
@@ -126,10 +121,9 @@ func _copy(source_path: String, dest_path: String) -> void:
 
   _log("Copied \"%s\"" % source_path)
 
-
 func _write_to_zip(zip_packer: ZIPPacker, source_path: String, dest_path: String) -> void:
   if DirAccess.dir_exists_absolute(source_path):
-    var sub_paths: PackedStringArray = DirAccess.get_files_at(source_path) 
+    var sub_paths: PackedStringArray = DirAccess.get_files_at(source_path)
     sub_paths.append_array(DirAccess.get_directories_at(source_path))
 
     for sub_path in sub_paths:
@@ -153,7 +147,6 @@ func _write_to_zip(zip_packer: ZIPPacker, source_path: String, dest_path: String
     return
 
   _log("Wrote \"%s\" to the target ZIP" % source_path)
-
 
 func _ignore_path(path: String) -> bool:
   # i don't think anyone actually needs "import" and "guid" files to be copied.
