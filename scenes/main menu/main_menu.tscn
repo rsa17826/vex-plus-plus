@@ -70,10 +70,10 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="HFlowContainer" type="VFlowContainer" parent="."]
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 offset_right = 150.0
-offset_bottom = 150.0
+offset_bottom = 31.0
 
 [node name="new level btn" type="Button" parent="HFlowContainer"]
 layout_mode = 2

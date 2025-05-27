@@ -17,6 +17,11 @@ func _ready() -> void:
   nodeSize = global.useropts.blockPickerBlockSize
   scrollSpeed = nodeSize
   var screenSize = DisplayServer.window_get_size().x
+  for item in get_children():
+    if item != $item and item != $ColorRect:
+      item.queue_free()
+  await global.wait()
+  $item.visible = true
   rowSize = floor(screenSize / nodeSize)
   var extraSize = screenSize - (rowSize * nodeSize)
   scale.x = 1 + global.rerange(extraSize, 0, screenSize, 0, 1)
@@ -28,7 +33,7 @@ func _ready() -> void:
   xoffset = clamp(xoffset, 0, (nodeSize * nodeCount) - nodeSize * rowSize)
   for item in get_children():
     updateItem(item)
-  $item.queue_free()
+  $item.visible = false
 
 func _process(delta: float) -> void:
   visible = global.showEditorUi

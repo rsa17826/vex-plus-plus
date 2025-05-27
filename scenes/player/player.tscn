@@ -727,6 +727,7 @@ collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("Chara
 metadata/_edit_lock_ = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(0, -1.9)
 collision_layer = 2
 collision_mask = 3
 floor_max_angle = 0.867429
@@ -861,6 +862,7 @@ visible = false
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 use_parent_material = true
+position = Vector2(0, -1.9)
 scale = Vector2(0.14, 0.14)
 texture = ExtResource("3_lclul")
 
