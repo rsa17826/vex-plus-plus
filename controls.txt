@@ -5,8 +5,11 @@ right: right/d
 
 respawn:r - respawns the player at the last checkpoint
 full restart:^r - respawns the player at the level spawn
+fully reload map:^+l/^+!r - reloads the map ignoring all saved data and respqwns the player at the start of the first level
+reload map from last save:^l - reloads the map and respawns the player at the last save location
 
-//load map:^o - opens the map selector menu
+
+load map:^o - opens the map selector menu
 
 save level:^s - saves the current level in the opened map
 
@@ -15,10 +18,8 @@ reload map:^l/^+!r - reloads the map from the entrance level
 quit game:^+!q/!F4
 
 
-//new level file:^n
-//new map folder:^+n
-
-//?menu:esc
+new level file:^n
+new map folder:^+n
 
 editor
   scale: shift - switches clicking from move block to scale block while held
@@ -27,4 +28,4 @@ editor
   delete: ^d/del/backspace - while holding down the left mouse button on a block
   pan: space
 
-toggle hitboxes: ^h/`
+toggle hitboxes: h/`

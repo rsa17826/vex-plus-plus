@@ -15,9 +15,9 @@ func _ready() -> void:
   log.pp(global.path.parsePath("res://levelcodes"))
   var dir := DirAccess.open(global.path.parsePath("res://levelcodes"))
   # dir.list_dir_begin()
-  $MarginContainer.size = global.windowSize
-  $MarginContainer.position.y = (global.windowSize.y / 2.0) - 50
-  $HFlowContainer.position.y = (global.windowSize.y / 2.0) - 100
+  # $MarginContainer.size = global.windowSize
+  # $MarginContainer.position.y = (global.windowSize.y / 2.0) - 50
+  # $HFlowContainer.position.y = (global.windowSize.y / 2.0) - 100
   for level: String in dir.get_directories():
     var node := %lvlSelItem.duplicate()
     node.get_node("VBoxContainer/Label").text = level
@@ -31,34 +31,37 @@ func _ready() -> void:
   loadUserOptions()
 
 func loadLevel(level, fromSave) -> void:
-  global.useropts = __menu.get_all_data()
-  # log.pp(global.useropts)
   global.loadLevelPack(level, fromSave)
 
 func loadUserOptions() -> void:
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
-  var OBJECT = typeof({})
-  __menu = Menu.new($VBoxContainer)
+  __menu = Menu.new($ScrollContainer/VBoxContainer)
   for thing in data:
-    match typeof(thing):
-      OBJECT:
-        # log.pp(thing)
-        match thing["thing"]:
-          "option":
-            __loadOptions(thing)
-            break
-          "group":
-            for a in thing.value:
-              __loadOptions(a)
-      _:
-        log.err("invalid data type", thing, data)
+    match thing["thing"]:
+      "option":
+        __loadOptions(thing)
+        break
+      "group":
+        for a in thing.value:
+          __loadOptions(a)
   __menu.show_menu()
+  __menu.onchanged.connect(updateUserOpts)
+  updateUserOpts()
+
+func updateUserOpts() -> void:
+  global.useropts = __menu.get_all_data()
+  sds.prettyPrint = !global.useropts.smallerSaveFiles
+  match int(global.useropts.windowMode):
+    0:
+      global.fullscreen(1)
+    1:
+      global.fullscreen(-1)
 
 func __loadOptions(thing) -> void:
   match thing["type"]:
     "bool":
       __menu.add_bool(thing["key"], thing["defaultValue"])
-    "int":
+    "range":
       __menu.add_range(
         thing["key"],
         thing['min'],
@@ -68,8 +71,18 @@ func __loadOptions(thing) -> void:
         thing['allow lesser'] if "allow lesser" in thing else false,
         thing['allow greater'] if "allow greater" in thing else false
       )
-    "float":
-      __menu.add_float(thing["key"], thing["defaultValue"])
+    "multi select":
+      __menu.add_multi_select(
+        thing["key"],
+        thing['options'],
+        thing["defaultValue"]
+      )
+    "single select":
+      __menu.add_single_select(
+        thing["key"],
+        thing['options'],
+        thing["defaultValue"]
+      )
 
 func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()

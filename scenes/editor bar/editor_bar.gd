@@ -14,13 +14,14 @@ var nodeCount = 0
 
 @export var maxId = 0
 func _ready() -> void:
+  for item in get_children():
+    if item not in [$item, $ColorRect]:
+      item.queue_free()
+  nodeCount = 0
   nodeSize = global.useropts.blockPickerBlockSize
   scrollSpeed = nodeSize
-  var screenSize = DisplayServer.window_get_size().x
-  for item in get_children():
-    if item != $item and item != $ColorRect:
-      item.queue_free()
-  await global.wait()
+  var screenSize = global.windowSize.x
+  log.pp(get_children())
   $item.visible = true
   rowSize = floor(screenSize / nodeSize)
   var extraSize = screenSize - (rowSize * nodeSize)
@@ -42,9 +43,10 @@ func _input(event: InputEvent) -> void:
   if event is InputEventMouseButton:
     if event.is_pressed():
       if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-        xoffset += scrollSpeed
+        xoffset += scrollSpeed * (global.useropts.editorBarScrollSpeed)
       if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-        xoffset -= scrollSpeed
+        xoffset -= scrollSpeed * (global.useropts.editorBarScrollSpeed)
+      log.pp(rowSize, nodeCount, nodeSize)
       xoffset = clamp(xoffset, 0, (nodeSize * nodeCount) - nodeSize * rowSize)
       for item in get_children():
         updateItem(item)
@@ -67,6 +69,8 @@ func newItem(name, id) -> void:
   clone.queue_free()
   add_child(item)
   updateItem(item)
+
+@onready var version = int(global.file.read("VERSION", false, "-1"))
 
 func updateItem(item):
   if item.name == "ColorRect": return

@@ -5,7 +5,7 @@
     "value": [
       {
         "thing": "option",
-        "type": "int",
+        "type": "range",
         "key": "blockPickerBlockSize",
         "defaultValue": 50,
         "min": 10,
@@ -19,7 +19,7 @@
       },
       {
         "thing": "option",
-        "type": "int",
+        "type": "range",
         "key": "autosaveInterval",
         "defaultValue": 0,
         "min": 0,
@@ -34,12 +34,40 @@
       },
       {
         "thing": "option",
-        "type": "int",
+        "type": "range",
         "key": "editorScrollSpeed",
         "defaultValue": 1,
         "min": 0.25,
         "max": 3,
         "step": 0.05
+      },
+      {
+        "thing": "option",
+        "type": "range",
+        "key": "editorBarScrollSpeed",
+        "defaultValue": 1,
+        "min": -15,
+        "max": 15,
+        "step": 1
+      },
+      {
+        "thing": "option",
+        "type": "single select",
+        "key": "windowMode",
+        "options": ["fullscreen", "windowed"],
+        "defaultValue": "windowed"
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "smallerSaveFiles",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "warnWhenOpeningLevelInDifferentVersionFromLastSaved",
+        "defaultValue": true
       }
     ]
   },
