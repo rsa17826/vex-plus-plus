@@ -23,8 +23,7 @@ LEFTRIGHT_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="."]
 unique_name_in_owner = true
-collision_layer = 0
-collision_mask = 2
+collision_layer = 16
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
@@ -37,6 +36,8 @@ shape = SubResource("RectangleShape2D_t2pxc")
 debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("rootNode")]
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("3_sjua3")
 rootNode = NodePath("../..")
 

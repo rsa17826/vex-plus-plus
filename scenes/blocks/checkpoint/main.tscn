@@ -14,7 +14,7 @@ size = Vector2(21, 5)
 script = ExtResource("1_uv54t")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
 UPDOWN_nodeToMove = NodePath("collisionNode")
@@ -24,7 +24,6 @@ CHECKPOINT_sprite = NodePath("collisionNode/Sprite2D")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
@@ -36,6 +35,8 @@ shape = SubResource("CircleShape2D_uv54t")
 debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("rootNode")]
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("3_ju53q")
 rootNode = NodePath("../..")
 

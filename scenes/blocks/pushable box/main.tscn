@@ -18,6 +18,8 @@ thingThatMoves = NodePath("CharacterBody2D")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["pushable"]]
 scale = Vector2(0.97, 0.97)
+collision_layer = 40
+collision_mask = 8
 floor_stop_on_slope = false
 script = ExtResource("2_bi51y")
 
@@ -29,8 +31,8 @@ texture = ExtResource("2_v2adw")
 shape = SubResource("RectangleShape2D_gwpbw")
 
 [node name="Area2D" type="Area2D" parent="CharacterBody2D"]
-collision_layer = 5
-collision_mask = 5
+collision_layer = 0
+collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
 shape = SubResource("RectangleShape2D_gwpbw")

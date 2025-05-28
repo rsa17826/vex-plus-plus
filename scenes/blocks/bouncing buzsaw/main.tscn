@@ -21,6 +21,8 @@ cloneEventsHere = NodePath("CharacterBody2D")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("rootNode")]
 unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("2_ogg4d")
 rootNode = NodePath("..")
 
@@ -40,8 +42,7 @@ shape = SubResource("CircleShape2D_xvl4e")
 debug_color = Color(1, 0, 1, 0.419608)
 
 [node name="collisionNode" type="Area2D" parent="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 2
+collision_layer = 16
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/collisionNode"]
 shape = SubResource("CircleShape2D_ogg4d")

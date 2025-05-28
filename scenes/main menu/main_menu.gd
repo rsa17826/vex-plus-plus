@@ -14,10 +14,6 @@ func _ready() -> void:
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   log.pp(global.path.parsePath("res://levelcodes"))
   var dir := DirAccess.open(global.path.parsePath("res://levelcodes"))
-  # dir.list_dir_begin()
-  # $MarginContainer.size = global.windowSize
-  # $MarginContainer.position.y = (global.windowSize.y / 2.0) - 50
-  # $HFlowContainer.position.y = (global.windowSize.y / 2.0) - 100
   for level: String in dir.get_directories():
     var node := %lvlSelItem.duplicate()
     node.get_node("VBoxContainer/Label").text = level
@@ -46,16 +42,27 @@ func loadUserOptions() -> void:
           __loadOptions(a)
   __menu.show_menu()
   __menu.onchanged.connect(updateUserOpts)
+
   updateUserOpts()
 
 func updateUserOpts() -> void:
+  var shouldChangeFsState = false
+  var lastWinMode
+  if 'windowMode' not in global.useropts:
+    shouldChangeFsState = true
+  else:
+    lastWinMode = global.useropts.windowMode
   global.useropts = __menu.get_all_data()
+  if lastWinMode != global.useropts.windowMode:
+    shouldChangeFsState = true
+  if shouldChangeFsState == true:
+    match int(global.useropts.windowMode):
+      0:
+        global.fullscreen(1)
+      1:
+        global.fullscreen(-1)
+
   sds.prettyPrint = !global.useropts.smallerSaveFiles
-  match int(global.useropts.windowMode):
-    0:
-      global.fullscreen(1)
-    1:
-      global.fullscreen(-1)
 
 func __loadOptions(thing) -> void:
   match thing["type"]:
@@ -82,6 +89,16 @@ func __loadOptions(thing) -> void:
         thing["key"],
         thing['options'],
         thing["defaultValue"]
+      )
+    "spinbox":
+      __menu.add_spinbox(
+        thing["key"],
+        thing['min'],
+        thing['max'],
+        thing['step'] if "step" in thing else 1,
+        thing["defaultValue"],
+        thing['allow lesser'] if "allow lesser" in thing else false,
+        thing['allow greater'] if "allow greater" in thing else false
       )
 
 func _on_new_level_btn_pressed() -> void:

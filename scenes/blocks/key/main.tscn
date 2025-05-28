@@ -1,19 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://cd5baobrxqhbw"]
+[gd_scene load_steps=6 format=3 uid="uid://cd5baobrxqhbw"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_endad"]
 [ext_resource type="Texture2D" uid="uid://kywba612hr3v" path="res://scenes/blocks/key/images/1.png" id="2_endad"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_h0pg7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h0pg7"]
 radius = 147.014
 
-[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["key", "respawnOnPlayerDeath"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ctm0x"]
+radius = 155.013
+
+[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "key", "respawnOnPlayerDeath"]]
 collision_layer = 0
-collision_mask = 2
 script = ExtResource("1_endad")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]
 hidableSprites = [NodePath("Sprite2D")]
+cloneEventsHere = NodePath("attach detector")
+UPDOWN_nodeToMove = NodePath(".")
+DOWNUP_nodeToMove = NodePath(".")
+LEFTRIGHT_nodeToMove = NodePath(".")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -23,6 +30,16 @@ texture = ExtResource("2_endad")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_h0pg7")
 debug_color = Color(0, 1, 0, 0.419608)
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_h0pg7")
+rootNode = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
+shape = SubResource("CircleShape2D_ctm0x")
+debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

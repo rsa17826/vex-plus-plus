@@ -66,8 +66,23 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "warnWhenOpeningLevelInDifferentVersionFromLastSaved",
+        "key": "warnWhenOpeningLevelInOlderGameVersion",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "warnWhenOpeningLevelInNewerGameVersion",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "range",
+        "key": "editorBarOffset",
+        "defaultValue": 0,
+        "min": 0,
+        "max": 638,
+        "step": 1
       }
     ]
   },

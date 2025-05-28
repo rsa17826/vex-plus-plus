@@ -1,19 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyv5rewpben2c"]
+[gd_scene load_steps=6 format=3 uid="uid://dyv5rewpben2c"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_4fpvc"]
 [ext_resource type="Texture2D" uid="uid://coihq4nhttnyf" path="res://scenes/blocks/light switch/images/1.png" id="2_4fpvc"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_qvpra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvpra"]
 size = Vector2(80, 82)
 
-[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["light switch"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_04ns0"]
+size = Vector2(84, 88)
+
+[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "light switch"]]
 collision_layer = 0
-collision_mask = 2
 script = ExtResource("1_4fpvc")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]
 hidableSprites = [NodePath("Sprite2D")]
+cloneEventsHere = NodePath("attach detector")
+UPDOWN_nodeToMove = NodePath(".")
+DOWNUP_nodeToMove = NodePath(".")
+LEFTRIGHT_nodeToMove = NodePath(".")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true
@@ -23,6 +30,16 @@ texture = ExtResource("2_4fpvc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_qvpra")
 debug_color = Color(0, 1, 0, 0.419608)
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_qvpra")
+rootNode = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
+shape = SubResource("RectangleShape2D_04ns0")
+debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

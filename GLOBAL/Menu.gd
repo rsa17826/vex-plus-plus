@@ -40,6 +40,17 @@ func add_named_spinbox(key, options, default) -> void:
     "options": options,
     "default": default
   })
+func add_spinbox(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false) -> void:
+  # return float|int
+  _add_any(key, {
+    "type": "spinbox",
+    "from": from,
+    "to": to,
+    "step": step,
+    "allow_lesser": allow_lesser,
+    "allow_greater": allow_greater,
+    "default": default
+  })
 
 func add_bool(key, default=false) -> void:
   # return bool
@@ -113,6 +124,28 @@ func show_menu():
         range_node.min_value = thing["from"]
         range_node.max_value = thing["to"]
         range_node.tick_count = (abs(thing["to"] - thing["from"]) / thing.step) + 1 if (abs(thing["to"] - thing["from"]) / thing.step) + 1 < 20 else 0
+        range_node.step = thing["step"]
+        range_node.value = thing["user"]
+        range_node.allow_greater = thing["allow_greater"]
+        range_node.allow_lesser = thing["allow_lesser"]
+        range_node.value_changed.connect(__changed.bind(thing.name, node))
+        __changed.call(thing.name, node)
+        parent.add_child(node)
+      "spinbox":
+        #       dd_any(key, {
+        #   "type": "spinbox",
+        #   "from": from,
+        #   "to": to,
+        #   "step": step,
+        #   "allow_lesser": allow_lesser,
+        #   "allow_greater": allow_greater,
+        #   "default": default
+        # })
+        var node = preload(path + "spinbox.tscn").instantiate()
+        node.get_node("Label").text = thing["name"]
+        var range_node = node.get_node("HSlider")
+        range_node.min_value = thing["from"]
+        range_node.max_value = thing["to"]
         range_node.step = thing["step"]
         range_node.value = thing["user"]
         range_node.allow_greater = thing["allow_greater"]
@@ -208,6 +241,8 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     "range":
       menu_data[name].user=node.get_node("HSlider").value
       node.get_node("slider value").text=str(node.get_node("HSlider").value)
+    "spinbox":
+      menu_data[name].user=node.get_node("HSlider").value
     "named range":
       var arr=sort_dict_to_arr(menu_data[name].options)
       var selected_option=arr.filter(func(x):
