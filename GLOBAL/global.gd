@@ -673,7 +673,7 @@ func loadInnerLevel(innerLevel):
   level.loadLevel(innerLevel)
   player.die(0, true)
   player.deathPosition = player.lastSpawnPoint
-  log.pp(loadedLevels, beatLevels)
+  # log.pp(loadedLevels, beatLevels)
 
 func win():
   beatLevels.append(loadedLevels.pop_back())
@@ -684,7 +684,7 @@ func win():
   # log.pp(currentLevel().spawnPoint, currentLevel())
   await wait()
   level.loadLevel(currentLevel().name)
-  log.pp(loadedLevels, beatLevels)
+  # log.pp(loadedLevels, beatLevels)
   player.lastSpawnPoint = currentLevel().spawnPoint
   player.die(0, false)
   player.deathPosition = player.lastSpawnPoint
@@ -741,19 +741,28 @@ func loadLevelPack(levelPackName, loadFromSave):
     log.err("LEVEL NOT FOUND!", startFile)
     return
   # levelPackInfo['version'] = int(levelPackInfo['version'])
-  if useropts.warnWhenOpeningLevelInDifferentVersionFromLastSaved \
-  and not same(levelPackInfo['version'], version) \
-  and not await prompt(
-    "this level was last saved in version " +
-    str(levelPackInfo['version']) +
-    " and the current version is " + str(version) +
-    ". Do you want to load this level?\n" +
-    (
-      "this version is newer than what the level was made in"
-      if version > levelPackInfo['version']
-      else "this version is older than what the level was made in"
-    ), null, TYPE_BOOL
-  ): return
+  if not same(levelPackInfo['version'], version):
+    var gameVersionIsNewer = version > levelPackInfo['version']
+    if gameVersionIsNewer:
+      if useropts.warnWhenOpeningLevelInNewerGameVersion:
+        if not await prompt(
+          "this level was last saved in version " +
+          str(levelPackInfo['version']) +
+          " and the current version is " + str(version) +
+          ". Do you want to load this level?\n" +
+          "> the current game version is newer than what the level was made in"
+          , null, TYPE_BOOL
+        ): return
+    else:
+      if useropts.warnWhenOpeningLevelInOlderGameVersion:
+        if not await prompt(
+          "this level was last saved in version " +
+          str(levelPackInfo['version']) +
+          " and the current version is " + str(version) +
+          ". Do you want to load this level?\n" +
+          "< the current game version might not have all the features needed to play this level"
+          , null, TYPE_BOOL
+        ): return
   levelOpts = levelPackInfo
 
   if loadFromSave and saveData:
@@ -812,49 +821,6 @@ func loadLevelPackInfo(levelPackName):
 # pink
 
 var useropts = {}
-
-var blockNames = [
-  "basic",
-  "single spike",
-  "10x spike",
-  "invisible",
-  "updown",
-  "downup",
-  "water",
-  "solar",
-  "slope",
-  "pushable box",
-  "microwave",
-  "locked box",
-  "ice",
-  "leftright",
-  "falling",
-  "bouncy",
-  "spark",
-  "inner level",
-  "goal",
-  "buzsaw",
-  "bouncing buzsaw",
-  "cannon",
-  "checkpoint",
-  "closing spikes",
-  "Gravity Down Lever",
-  "Gravity up Lever",
-  "growing buzsaw",
-  "key",
-  "laser",
-  "light switch",
-  "pole",
-  "Pole Quadrant",
-  "Pulley",
-  "Quadrant",
-  "Rotating Buzzsaw",
-  "Scythe",
-  "shurikan Spawner",
-  "speed Up Lever",
-  "star",
-  "targeting laser",
-]
 
 var checkpoints = []
 
@@ -967,3 +933,47 @@ func fullscreen(state=0):
       DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 @onready var version = int(file.read("VERSION", false, "-1"))
+
+var blockNames = [
+  "basic",
+  "single spike",
+  "10x spike",
+  "invisible",
+  "updown",
+  "downup",
+  "water",
+  "solar",
+  "slope",
+  "pushable box",
+  "microwave",
+  "locked box",
+  "glass",
+  "leftright",
+  "falling",
+  "bouncy",
+  "spark",
+  "inner level",
+  "goal",
+  "buzsaw",
+  "bouncing buzsaw",
+  "cannon",
+  "checkpoint",
+  "closing spikes",
+  "Gravity Down Lever",
+  "Gravity up Lever",
+  "growing buzsaw",
+  "key",
+  "laser",
+  "light switch",
+  "pole",
+  "Pole Quadrant",
+  "Pulley",
+  "Quadrant",
+  "Rotating Buzzsaw",
+  "Scythe",
+  "shurikan Spawner",
+  "speed Up Lever",
+  "star",
+  "targeting laser",
+  "ice"
+]

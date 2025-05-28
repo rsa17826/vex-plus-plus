@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7yl772m88qju"]
+[gd_scene load_steps=8 format=3 uid="uid://b7yl772m88qju"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_crksl"]
 [ext_resource type="Texture2D" uid="uid://c8lrtymj4pb1g" path="res://scenes/blocks/Scythe/images/1.png" id="2_crksl"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_7nvoe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7nvoe"]
 size = Vector2(88, 29)
@@ -12,14 +13,20 @@ size = Vector2(88, 29)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wec1y"]
 size = Vector2(88, 11.8736)
 
-[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "death", "respawnOnPlayerDeath", "scythe"]]
-collision_layer = 0
-collision_mask = 2
+[sub_resource type="CircleShape2D" id="CircleShape2D_ljnhe"]
+radius = 73.0069
+
+[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things", "death", "respawnOnPlayerDeath", "scythe"]]
+collision_layer = 16
 script = ExtResource("1_crksl")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D"), NodePath("CollisionShape2D2"), NodePath("CollisionShape2D3"), NodePath("CollisionShape2D4"), NodePath("CollisionShape2D5"), NodePath("CollisionShape2D6")]
 hidableSprites = [NodePath("Sprite2D")]
+cloneEventsHere = NodePath("attach detector")
+UPDOWN_nodeToMove = NodePath(".")
+DOWNUP_nodeToMove = NodePath(".")
+LEFTRIGHT_nodeToMove = NodePath(".")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true
@@ -62,5 +69,15 @@ rotation = 2.31431
 shape = SubResource("RectangleShape2D_wec1y")
 debug_color = Color(1, 0, 0, 0.419608)
 metadata/_edit_group_ = true
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("3_7nvoe")
+rootNode = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
+shape = SubResource("CircleShape2D_ljnhe")
+debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -28,8 +28,7 @@ LEFTRIGHT_nodeToMove = NodePath("Node2D")
 [node name="collisionNode" type="Area2D" parent="Node2D"]
 unique_name_in_owner = true
 position = Vector2(0, 13)
-collision_layer = 0
-collision_mask = 2
+collision_layer = 16
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/collisionNode"]
 use_parent_material = true
@@ -46,6 +45,8 @@ scale = Vector2(1.54286, 1.54286)
 texture = ExtResource("3_b2kfu")
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("rootNode")]
+collision_layer = 0
+collision_mask = 8
 script = ExtResource("4_c5k05")
 rootNode = NodePath("../../..")
 

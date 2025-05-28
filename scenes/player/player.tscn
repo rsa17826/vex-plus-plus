@@ -716,7 +716,7 @@ animations = [{
 size = Vector2(1.01, 6.845)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lhgc7"]
-size = Vector2(1, 27.465)
+size = Vector2(1, 18)
 
 [node name="player" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes")]
 z_index = 10
@@ -728,8 +728,8 @@ metadata/_edit_lock_ = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(0, -1.9)
-collision_layer = 2
-collision_mask = 3
+collision_layer = 5
+collision_mask = 60
 floor_max_angle = 0.867429
 floor_snap_length = 5.0
 script = ExtResource("1_dovo2")
@@ -783,24 +783,28 @@ metadata/_edit_lock_ = true
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -22.575)
 target_position = Vector2(-6, 0)
+collision_mask = 8
 hit_from_inside = true
 
 [node name="rightWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -22.575)
 target_position = Vector2(6, 0)
+collision_mask = 8
 hit_from_inside = true
 
 [node name="leftWall" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -15.575)
 target_position = Vector2(-5, 0)
+collision_mask = 8
 hit_from_inside = true
 
 [node name="rightWall" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -15.575)
 target_position = Vector2(5, 0)
+collision_mask = 8
 hit_from_inside = true
 
 [node name="waterRay" type="RayCast2D" parent="CharacterBody2D"]
@@ -808,7 +812,7 @@ visible = false
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(1, 10.795)
 target_position = Vector2(0, 11.69)
-collision_mask = 2
+collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
 collide_with_bodies = false
@@ -818,7 +822,7 @@ metadata/_edit_lock_ = true
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(1, 9.795)
 target_position = Vector2(0, 15.63)
-collision_mask = 3
+collision_mask = 8
 hit_from_inside = true
 metadata/_edit_lock_ = true
 
@@ -826,6 +830,8 @@ metadata/_edit_lock_ = true
 
 [node name="top" type="Area2D" parent="CharacterBody2D/deathDetectors"]
 position = Vector2(0, -16.15)
+collision_layer = 0
+collision_mask = 8
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/top"]
@@ -833,14 +839,18 @@ position = Vector2(0, 3.025)
 shape = SubResource("RectangleShape2D_p0anf")
 
 [node name="left" type="Area2D" parent="CharacterBody2D/deathDetectors"]
-position = Vector2(-3.505, -0.075)
+position = Vector2(-3.505, 0)
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/left"]
 shape = SubResource("RectangleShape2D_lhgc7")
 metadata/_edit_lock_ = true
 
 [node name="right" type="Area2D" parent="CharacterBody2D/deathDetectors"]
-position = Vector2(3.5, -0.075)
+position = Vector2(3.5, 0)
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/right"]
 shape = SubResource("RectangleShape2D_lhgc7")
@@ -848,6 +858,8 @@ metadata/_edit_lock_ = true
 
 [node name="bottom" type="Area2D" parent="CharacterBody2D/deathDetectors"]
 position = Vector2(0, 15.99)
+collision_layer = 0
+collision_mask = 8
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/bottom"]
@@ -858,6 +870,7 @@ shape = SubResource("RectangleShape2D_p0anf")
 
 [node name="editor bar" parent="CanvasLayer" instance=ExtResource("102_p0anf")]
 visible = false
+position = Vector2(0, 15)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

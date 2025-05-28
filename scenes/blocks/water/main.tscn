@@ -7,8 +7,7 @@
 size = Vector2(700, 700)
 
 [node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "water"]]
-collision_layer = 6
-collision_mask = 6
+collision_layer = 4
 script = ExtResource("1_j74q6")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")

@@ -14,6 +14,7 @@ var nodeCount = 0
 
 @export var maxId = 0
 func _ready() -> void:
+  position.y = global.useropts.editorBarOffset
   for item in get_children():
     if item not in [$item, $ColorRect]:
       item.queue_free()
@@ -21,7 +22,6 @@ func _ready() -> void:
   nodeSize = global.useropts.blockPickerBlockSize
   scrollSpeed = nodeSize
   var screenSize = global.windowSize.x
-  log.pp(get_children())
   $item.visible = true
   rowSize = floor(screenSize / nodeSize)
   var extraSize = screenSize - (rowSize * nodeSize)
@@ -46,7 +46,6 @@ func _input(event: InputEvent) -> void:
         xoffset += scrollSpeed * (global.useropts.editorBarScrollSpeed)
       if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
         xoffset -= scrollSpeed * (global.useropts.editorBarScrollSpeed)
-      log.pp(rowSize, nodeCount, nodeSize)
       xoffset = clamp(xoffset, 0, (nodeSize * nodeCount) - nodeSize * rowSize)
       for item in get_children():
         updateItem(item)
@@ -62,10 +61,18 @@ func newItem(name, id) -> void:
     breakpoint
   var icon = clone.editorBarIconNode.duplicate()
   icon.visible = true
-
   item.add_child(icon)
   item.id = id
   item.blockName = name
+
+  var origSize = icon.texture.get_size() * icon.scale
+  var maxSize = max(origSize.x, origSize.y)
+  var scaleFactor = max(icon.scale.x, icon.scale.y) * (700 / maxSize)
+  icon.scale = Vector2(
+    scaleFactor,
+    scaleFactor
+  )
+
   clone.queue_free()
   add_child(item)
   updateItem(item)

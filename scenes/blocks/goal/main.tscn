@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://dauqqb8fvhoev"]
+[gd_scene load_steps=66 format=3 uid="uid://dauqqb8fvhoev"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_0d1cd"]
 [ext_resource type="Texture2D" uid="uid://c2dmbt52fls6a" path="res://scenes/blocks/goal/images/1.png" id="2_0d1cd"]
@@ -61,6 +61,7 @@
 [ext_resource type="Texture2D" uid="uid://coge852ytxqjs" path="res://scenes/blocks/goal/images/58.png" id="59_ihfjo"]
 [ext_resource type="Texture2D" uid="uid://bp5g0m5bhsmap" path="res://scenes/blocks/goal/images/59.png" id="60_s260v"]
 [ext_resource type="Texture2D" uid="uid://c1usr55sffg2o" path="res://scenes/blocks/goal/images/60.png" id="61_u3ie7"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="62_0d1cd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_geocb"]
 animations = [{
@@ -253,18 +254,24 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
 size = Vector2(294, 412)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "GOAL_sprite", "GOAL_CollisionShape") groups=["EDITOR_OPTION_scale", "goal"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vfxqp"]
+size = Vector2(318, 439)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove", "GOAL_sprite", "GOAL_CollisionShape") groups=["EDITOR_OPTION_scale", "attaches to things", "goal"]]
 script = ExtResource("1_0d1cd")
 ghostIconNode = NodePath("collisionNode/editorBar")
 editorBarIconNode = NodePath("collisionNode/editorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/AnimatedSprite2D")]
+cloneEventsHere = NodePath("attach detector")
+UPDOWN_nodeToMove = NodePath(".")
+DOWNUP_nodeToMove = NodePath(".")
+LEFTRIGHT_nodeToMove = NodePath(".")
 GOAL_sprite = NodePath("collisionNode/AnimatedSprite2D")
 GOAL_CollisionShape = NodePath("collisionNode/CollisionShape2D")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 2
 
 [node name="editorBar" type="Sprite2D" parent="collisionNode"]
 visible = false
@@ -280,5 +287,16 @@ autoplay = "default"
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_t2pxc")
 debug_color = Color(0, 1, 0, 0.419608)
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("62_0d1cd")
+rootNode = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
+position = Vector2(0, 3.5)
+shape = SubResource("RectangleShape2D_vfxqp")
+debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]

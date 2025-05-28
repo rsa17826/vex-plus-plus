@@ -1,31 +1,90 @@
-[gd_scene load_steps=4 format=3 uid="uid://3b5rdxoob147"]
+[gd_scene load_steps=9 format=3 uid="uid://3b5rdxoob147"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_omc7y"]
 [ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/Pulley/images/1.png" id="2_omc7y"]
+[ext_resource type="Script" uid="uid://d0hbi4vguc5oe" path="res://scenes/blocks/Pulley/pulley.gd" id="2_u2153"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_svsk0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2153"]
 radius = 34.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["pulley", "respawnOnPlayerDeath"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_omc7y"]
+size = Vector2(24, 31)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_omc7y"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vkeng"]
+radius = 127.016
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "pulley", "respawnOnPlayerDeath"]]
 script = ExtResource("1_omc7y")
-ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D")]
+ghostIconNode = NodePath("movable/Sprite2D")
+editorBarIconNode = NodePath("movable/Sprite2D")
+collisionShapes = [NodePath("movable/player detector/CollisionShape2D")]
+hidableSprites = [NodePath("movable/Sprite2D")]
+cloneEventsHere = NodePath("movable")
+thingThatMoves = NodePath("movable")
+UPDOWN_nodeToMove = NodePath("movable")
+DOWNUP_nodeToMove = NodePath("movable")
+LEFTRIGHT_nodeToMove = NodePath("movable")
 
-[node name="collisionNode" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
+[node name="movable" type="Node2D" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("2_u2153")
+root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="movable"]
 use_parent_material = true
+position = Vector2(1, 0)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_omc7y")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-position = Vector2(0, 11)
+[node name="player detector" type="Area2D" parent="movable"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/player detector"]
+position = Vector2(1, 11)
 shape = SubResource("CircleShape2D_u2153")
 debug_color = Color(0, 1, 0, 0.419608)
 
-[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
+[node name="has ceil" type="Area2D" parent="movable"]
+light_mask = 0
+visibility_layer = 2
+position = Vector2(1, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/has ceil"]
+position = Vector2(-1, -51.5)
+shape = SubResource("RectangleShape2D_omc7y")
+
+[node name="wall to side" type="Area2D" parent="movable"]
+light_mask = 0
+visibility_layer = 2
+position = Vector2(1, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side"]
+position = Vector2(24, -20)
+shape = SubResource("CircleShape2D_omc7y")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side"]
+position = Vector2(-27, -20)
+shape = SubResource("CircleShape2D_omc7y")
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("4_svsk0")
+rootNode = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
+position = Vector2(0, 10)
+shape = SubResource("CircleShape2D_vkeng")
+debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+
+[connection signal="body_entered" from="movable/player detector" to="movable" method="_on_player_detector_body_entered"]
+[connection signal="body_entered" from="movable/has ceil" to="movable" method="_on_attach_detector_body_entered"]
+[connection signal="body_exited" from="movable/has ceil" to="movable" method="_on_attach_detector_body_exited"]
+[connection signal="body_entered" from="movable/wall to side" to="movable" method="_on_deattach_detector_body_entered"]
+[connection signal="body_exited" from="movable/wall to side" to="movable" method="_on_deattach_detector_body_exited"]

@@ -5,7 +5,7 @@ extends Area2D
 var tempGroups = []
 
 func on_respawn():
-  get_parent().position = Vector2.ZERO
+  # rootNode.position = Vector2.ZERO
   for group in tempGroups:
     rootNode.remove_from_group(group)
   tempGroups = []
@@ -18,9 +18,11 @@ func tryaddgroups():
   for block in get_overlapping_bodies():
     # log.pp(block, "is overlapping")
     for group in block.get_parent().get_groups():
-      tryadd(group)
+      if block.get_parent().is_in_group("canBeAttachedTo"):
+        tryadd(group)
     for group in block.get_groups():
-      tryadd(group)
+      if block.is_in_group("canBeAttachedTo"):
+        tryadd(group)
 
 func tryadd(group):
   # log.pp("trying to add", group)

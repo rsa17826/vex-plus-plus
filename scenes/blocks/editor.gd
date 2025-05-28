@@ -573,7 +573,13 @@ func _processBOUNCY(delta: float):
 @export_group("DEATH")
 func _on_body_enteredDEATH(body: Node):
   if body == global.player:
-    global.player.die()
+    if self not in global.player.deathSources:
+      global.player.deathSources.append(self)
+
+func _on_body_exitedDEATH(body: Node):
+  if body == global.player:
+    if self in global.player.deathSources:
+      global.player.deathSources.erase(self)
 
 # inner level
 @export_group("INNER LEVEL")
@@ -838,3 +844,6 @@ func _physics_processQUADRANT(delta: float):
 # 10X_SPIKE
 func _ready10X_SPIKE():
   $Node2D.position = Vector2.ZERO
+
+func _on_attach_detector_body_entered(body: Node2D) -> void:
+  pass # Replace with function body.
