@@ -89,3 +89,13 @@ func _on_new_level_btn_pressed() -> void:
   if not level: return
   global.useropts = __menu.get_all_data()
   global.loadLevelPack(level, false)
+
+func _on_open_level_folder_pressed() -> void:
+  OS.create_process("explorer", PackedStringArray([
+    '"' + (
+      ProjectSettings.globalize_path("res://levelcodes")
+      if OS.has_feature("editor") else
+      global.path.parsePath("res://levelcodes")
+    ).replace("/", "\\")
+    + '"'
+  ]))

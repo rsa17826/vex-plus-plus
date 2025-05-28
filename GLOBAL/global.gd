@@ -629,7 +629,8 @@ func _input(event: InputEvent) -> void:
   if !Input.is_action_pressed("editor_select") and not editorInScaleMode:
     editorInRotateMode = Input.is_action_pressed("editor_rotate")
   if Input.is_action_just_pressed("save"):
-    level.save()
+    if level and is_instance_valid(level):
+      level.save()
   if Input.is_action_just_pressed("editor_delete"):
     if !selectedBlock: return
     hoveredBlocks.erase(selectedBlock)
@@ -730,7 +731,7 @@ func loadLevelPack(levelPackName, loadFromSave):
     saveData = null
   # save the name globaly
   mainLevelName = levelPackName
-  Engine.time_scale = 1
+  # Engine.time_scale = 1
   log.pp("Loading Level Pack:", levelPackName)
   levelFolderPath = path.parsePath(path.join('res://levelcodes/', levelPackName))
   var levelPackInfo = loadLevelPackInfo(levelPackName)
@@ -739,6 +740,20 @@ func loadLevelPack(levelPackName, loadFromSave):
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
     return
+  # levelPackInfo['version'] = int(levelPackInfo['version'])
+  if useropts.warnWhenOpeningLevelInDifferentVersionFromLastSaved \
+  and not same(levelPackInfo['version'], version) \
+  and not await prompt(
+    "this level was last saved in version " +
+    str(levelPackInfo['version']) +
+    " and the current version is " + str(version) +
+    ". Do you want to load this level?\n" +
+    (
+      "this version is newer than what the level was made in"
+      if version > levelPackInfo['version']
+      else "this version is older than what the level was made in"
+    ), null, TYPE_BOOL
+  ): return
   levelOpts = levelPackInfo
 
   if loadFromSave and saveData:
@@ -950,3 +965,5 @@ func fullscreen(state=0):
     1:
       if mode == DisplayServer.WINDOW_MODE_FULLSCREEN: return
       DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+
+@onready var version = int(file.read("VERSION", false, "-1"))

@@ -150,7 +150,6 @@ func _input(event: InputEvent) -> void:
       $Camera2D.global_position -= event.relative * global.useropts.editorScrollSpeed
       var mousePos = get_viewport().get_mouse_position()
       var startPos = mousePos
-      log.pp(mousePos.x, global.windowSize.x)
       if mousePos.x <= 0:
         mousePos.x = global.windowSize.x
       elif mousePos.x >= global.windowSize.x - 1:
@@ -161,7 +160,6 @@ func _input(event: InputEvent) -> void:
         mousePos.y = 0
       if startPos != mousePos:
         isFakeMouseMovement = true
-        log.pp("ADSJKASD", mousePos)
         Input.warp_mouse(mousePos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
     camLockPos = $Camera2D.global_position
 
