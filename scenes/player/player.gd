@@ -845,5 +845,6 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # save more than 1 star
 # save block state data when saving mid level
 
-# add option to toggle scroll direction for the editor bar
 # add option to show when autosave triggers?
+
+# add version number to open map screen
