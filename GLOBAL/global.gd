@@ -614,6 +614,8 @@ func _input(event: InputEvent) -> void:
       createNewLevelFile(mainLevelName)
   if Input.is_action_just_pressed("new_map_folder"):
     createNewMapFolder()
+  if Input.is_action_just_pressed("toggle_fullscreen"):
+    fullscreen()
   if Input.is_action_just_pressed("editor_select"):
     if selectedBlock:
       selectedBlock.respawn()
@@ -714,7 +716,7 @@ func savePlayerLevelData():
     #   return ee),
     "levels": levels
   }
-  log.pp(saveData)
+  # log.pp(saveData)
   sds.saveDataToFile(path.parsePath("res://saves/saves.sds"), saveData)
   await wait(1000)
   savingPlaterLevelData = false
@@ -794,10 +796,7 @@ func loadLevelPackInfo(levelPackName):
 # purple
 # pink
 
-var useropts = {
-  # "allowCustomColors": true,
-  # "blockPickerBlockSize": 50
-}
+var useropts = {}
 
 var blockNames = [
   "basic",
@@ -897,7 +896,7 @@ func createNewMapFolder():
       "start": startLevel,
       "author": await prompt(
         "Enter your name",
-        "rssaromeo",
+        "",
         TYPE_STRING
       ),
       "description": await prompt(
@@ -935,3 +934,19 @@ func _ready() -> void:
   #   await wait()
   #   sds.prettyPrint=false
   #   await prompt("", sds.saveData(JSON.parse_string(await prompt("data", "", TYPE_STRING))), TYPE_STRING)
+
+func fullscreen(state=0):
+  var mode := DisplayServer.window_get_mode()
+  match state:
+    -1:
+      if mode == DisplayServer.WINDOW_MODE_WINDOWED: return
+      DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+    0: # toggle
+      DisplayServer.window_set_mode(
+        DisplayServer.WINDOW_MODE_FULLSCREEN \
+        if mode == DisplayServer.WINDOW_MODE_WINDOWED \
+        else DisplayServer.WINDOW_MODE_WINDOWED
+      )
+    1:
+      if mode == DisplayServer.WINDOW_MODE_FULLSCREEN: return
+      DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)

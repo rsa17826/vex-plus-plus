@@ -12,5 +12,5 @@
       STR(changeSpeedOnSlopes)BOOL(false)
     }
   }
-  STRNAME(version)STR(7)
+  STRNAME(version)STR(8)
 }

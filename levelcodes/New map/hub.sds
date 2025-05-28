@@ -83,4 +83,17 @@
       STRNAME(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(390.0)
+    STR(y)FLOAT(-190.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STRNAME(multiUse)BOOL(true)
+      STRNAME(attachesToThings)BOOL(true)
+      STRNAME(color)STR(#fff)
+    }
+  }
 ]

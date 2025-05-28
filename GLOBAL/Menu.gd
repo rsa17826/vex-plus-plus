@@ -142,14 +142,15 @@ func show_menu():
         # select.value = thing["user"] if "user" in thing else thing["default"]
         # select.value_changed.connect(s.__changed.bind(thing.name, select))
         parent.add_child(node)
-      "single_select":
+      "single select":
         var node = preload(path + "single select.tscn").instantiate()
         node.get_node("Label").text = thing["name"]
         # node.get_node("OptionButton").value = str(thing["user"])
         var select = node.get_node("OptionButton")
         select.clear()
         for opt in thing.options:
-          select.add_item(opt[1])
+          select.add_item(opt)
+        select.select(int(thing.user) if "user" in thing else 0)
         select.item_selected.connect(__changed.bind(thing.name, node))
 
         parent.add_child(node)
@@ -205,18 +206,20 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
   log.pp("changed ", node, name)
   match menu_data[name].type:
     "range":
-      menu_data[name]['user']=node.get_node("HSlider").value
+      menu_data[name].user=node.get_node("HSlider").value
       node.get_node("slider value").text=str(node.get_node("HSlider").value)
     "named range":
       var arr=sort_dict_to_arr(menu_data[name].options)
       var selected_option=arr.filter(func(x):
         return x[0] == node.get_node("HSlider").value)[0]
-      menu_data[name]['user']=node.get_node("HSlider").value
+      menu_data[name].user=node.get_node("HSlider").value
       node.get_node("slider value").text=selected_option[1]
     "bool":
-      menu_data[name]['user']=node.get_node("CheckButton").button_pressed
+      menu_data[name].user=node.get_node("CheckButton").button_pressed
     "multi select":
       menu_data[name].user=node.selected
+    "single select":
+      menu_data[name].user=node.get_node("OptionButton").selected
     _:
       log.err("cant save type: " + menu_data[name].type)
   onchanged.emit()
@@ -262,7 +265,7 @@ func _add_any(key, obj):
     menu_data[key] = {}
   var userdata = menu_data[key]["user"] if "user" in menu_data[key] else obj.default
   menu_data[key] = obj
-  menu_data[key]['user'] = userdata
+  menu_data[key].user = userdata
   if "user" not in menu_data[key]:
     menu_data[key]["user"] = obj.default
   save()

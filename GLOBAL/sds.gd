@@ -159,7 +159,7 @@ static func loadData(d=null) -> Variant:
           else:
             stack.append({"remainingData": remainingData, "_stack": _stack})
             continue
-        log.pp(_stack)
+        # log.pp(_stack)
         return _stack[0]
 
       var dataToInsert = _stack.pop_back()
