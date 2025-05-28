@@ -11,7 +11,7 @@ func _physics_process(delta: float) -> void:
     velocity.y -= max(95 * delta * (velocity.y / 8), 10)
   else:
     velocity.y += global.player.GRAVITY * delta
-  velocity.x *= .95 if is_on_floor() else .97
+  velocity.x *= .90 if is_on_floor() else .97
   move_and_slide()
 
 func on_ready(first=false):

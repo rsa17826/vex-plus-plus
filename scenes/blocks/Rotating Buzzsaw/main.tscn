@@ -63,3 +63,4 @@ texture = ExtResource("2_3gtnp")
 offset = Vector2(0, 628)
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

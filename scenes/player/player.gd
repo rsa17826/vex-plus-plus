@@ -7,7 +7,7 @@ extends CharacterBody2D
 # @endregex
 
 const GRAVITY = 1280
-const MAX_PULLEY_INVINS_COOLDOWN = 70
+const MAX_PULLEY_NODIE_TIME = 50
 const MOVESPEED = 220
 const JUMP_POWER = -430
 const MAX_WALL_KT_FRAMES = 12
@@ -24,7 +24,7 @@ const DEATH_TIME = 15
 const MAX_BOX_KICK_RECOVER_TIME = 22
 
 var deathSources = []
-var pulleyInvinsCooldown = 0
+var pulleyNoDieTimer = 0
 var currentRespawnDelay = 0
 var activePulley = null
 var playerXIntent = 0
@@ -194,6 +194,7 @@ func _physics_process(delta: float) -> void:
       position = Vector2.ZERO
     return
   $waterRay.rotation_degrees = - rotation_degrees
+  $anim.position = Vector2(0, 0.145)
   match state:
     States.dead:
       deadTimer -= delta * 60
@@ -203,6 +204,7 @@ func _physics_process(delta: float) -> void:
         position = lastSpawnPoint + Vector2(0, -1.9)
       else:
         position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, lastSpawnPoint + Vector2(0, -1.9))
+      pulleyNoDieTimer = 0
       # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
       $anim.animation = "die"
       rotation = lerp_angle(float(rotation), 0.0, .2)
@@ -220,12 +222,22 @@ func _physics_process(delta: float) -> void:
       # else: return
       return
     States.onPulley:
-      global_position = activePulley.global_position
-      if Input.is_action_just_pressed("jump") and not pulleyInvinsCooldown:
-        pulleyInvinsCooldown = MAX_PULLEY_INVINS_COOLDOWN
-      pulleyInvinsCooldown -= delta * 60
-      if not pulleyInvinsCooldown and len(deathSources):
-        die()
+      global_position = activePulley.global_position + Vector2(0, 13)
+      $anim.position = Vector2(5, 5.145)
+      if pulleyNoDieTimer <= 0:
+        $anim.animation = "on pulley"
+        if Input.is_action_just_pressed("jump"):
+          pulleyNoDieTimer = MAX_PULLEY_NODIE_TIME
+          $anim.animation = "pulley invins"
+      else:
+        pulleyNoDieTimer -= delta * 60
+        if pulleyNoDieTimer <= 0:
+          $anim.animation = "on pulley"
+          $anim.frame = 9
+      log.pp(pulleyNoDieTimer)
+      if pulleyNoDieTimer <= 0:
+        if len(deathSources):
+          die()
       
       if Input.is_action_just_pressed("down"):
         state = States.falling
@@ -240,6 +252,10 @@ func _physics_process(delta: float) -> void:
       $anim.animation = "duck start"
       vel.user.y = 0
       return
+    States.pullingLever:
+      $anim.animation = "pulling lever"
+      $anim.animation_looped.connect(func():
+        state=States.idle, Object.CONNECT_ONE_SHOT)
     _:
       if inWaters:
         floor_snap_length = 0
@@ -769,7 +785,7 @@ func die(respawnTime=DEATH_TIME, full=false):
   if full:
     lastSpawnPoint = Vector2(0, 0)
   lastCollidingBlocks = []
-  # $Camera2D.reset_smoothing()
+  activePulley = null
   global.stopTicking = true
   global.tick = 0
   deadTimer = max(respawnTime, 0)
@@ -783,6 +799,7 @@ func die(respawnTime=DEATH_TIME, full=false):
   velocity = Vector2.ZERO
   playerXIntent = 0
   lastWall = 0
+  pulleyNoDieTimer = 0
   breakFromWall = false
   wallSlidingFrames = 0
   slideRecovery = 0

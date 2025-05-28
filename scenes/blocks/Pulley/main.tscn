@@ -13,8 +13,8 @@ size = Vector2(24, 31)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_omc7y"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_vkeng"]
-radius = 127.016
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
+size = Vector2(20, 5)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "pulley", "respawnOnPlayerDeath"]]
 script = ExtResource("1_omc7y")
@@ -79,8 +79,8 @@ script = ExtResource("4_svsk0")
 rootNode = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
-position = Vector2(0, 10)
-shape = SubResource("CircleShape2D_vkeng")
+position = Vector2(0, -38.5)
+shape = SubResource("RectangleShape2D_svsk0")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
 [connection signal="body_entered" from="movable/player detector" to="movable" method="_on_player_detector_body_entered"]

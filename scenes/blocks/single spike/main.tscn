@@ -47,3 +47,4 @@ shape = SubResource("RectangleShape2D_jt7ue")
 debug_color = Color(0.876418, 0.343088, 0, 0.42)
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
