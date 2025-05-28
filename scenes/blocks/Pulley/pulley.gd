@@ -40,4 +40,4 @@ func _physics_process(delta: float) -> void:
     return
   if not moving:
     return
-  position.x += SPEED * delta
+  position.x += SPEED * delta * (1 if root.selectedOptions.movesRight else -1)

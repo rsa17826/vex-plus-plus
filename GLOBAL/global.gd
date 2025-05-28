@@ -13,6 +13,7 @@ extends Node
 # event
 
 #
+
 func _process(delta):
   if openMsgBoxCount: return
   if timer.started:
@@ -906,8 +907,6 @@ func currentLevelSettings(key=null):
     return data
   return levelOpts.stages[currentLevel().name]
 
-func _ready() -> void:
-  get_tree().set_debug_collisions_hint(hitboxesShown)
   # await wait()
   # await prompt("", file.read("res://VERSION", false), TYPE_STRING)
 
@@ -977,3 +976,6 @@ var blockNames = [
   "targeting laser",
   "ice"
 ]
+
+func localReady():
+  get_tree().set_debug_collisions_hint(hitboxesShown)
