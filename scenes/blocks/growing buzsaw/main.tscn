@@ -30,3 +30,4 @@ scale = Vector2(2.52041, 2.52041)
 texture = ExtResource("3_upiqs")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

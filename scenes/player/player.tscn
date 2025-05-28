@@ -1,158 +1,205 @@
-[gd_scene load_steps=160 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene load_steps=207 format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_hdu4s"]
-[ext_resource type="Texture2D" uid="uid://clxdjsr1hlhox" path="res://images/player/a/anim/ducking/duck end/9.png" id="2_upxxc"]
-[ext_resource type="Texture2D" uid="uid://jw2wk6ehy0ea" path="res://images/player/a/anim/die/35.png" id="3_0wr6q"]
-[ext_resource type="Texture2D" uid="uid://uuvbrdtp8ehl" path="res://images/player/a/anim/wall slide/1.png" id="3_6cv16"]
-[ext_resource type="Texture2D" uid="uid://cr8qku7rbmael" path="res://images/player/a/anim/idle/1.png" id="3_lclul"]
-[ext_resource type="Texture2D" uid="uid://cltjto1fsypg1" path="res://images/player/a/anim/ducking/duck end/10.png" id="3_ln3h3"]
-[ext_resource type="Texture2D" uid="uid://cf2gqske25674" path="res://images/player/a/anim/run/1.png" id="4_j4nxn"]
-[ext_resource type="Texture2D" uid="uid://du34idydjhbi0" path="res://images/player/a/anim/ducking/duck end/11.png" id="4_uygh0"]
-[ext_resource type="Texture2D" uid="uid://mrdad4j3f65k" path="res://images/player/a/anim/run/2.png" id="5_28m0y"]
-[ext_resource type="Texture2D" uid="uid://bwc336khwya0" path="res://images/player/a/anim/ducking/duck end/12.png" id="5_t1aof"]
-[ext_resource type="Texture2D" uid="uid://b745ksiu5ktvy" path="res://images/player/a/anim/run/3.png" id="6_uniwh"]
-[ext_resource type="Texture2D" uid="uid://ckwytgxhl3fk4" path="res://images/player/a/anim/ducking/duck end/13.png" id="6_w8qe1"]
-[ext_resource type="Texture2D" uid="uid://by8cvuj3ifkki" path="res://images/player/a/anim/ducking/duck end/14.png" id="7_hdvrm"]
-[ext_resource type="Texture2D" uid="uid://dd6b2m85avyd5" path="res://images/player/a/anim/run/4.png" id="7_iqsei"]
-[ext_resource type="Texture2D" uid="uid://bxfsx8l5oc0op" path="res://images/player/a/anim/ducking/duck end/15.png" id="8_5xbmr"]
-[ext_resource type="Texture2D" uid="uid://dgehp56xlrruv" path="res://images/player/a/anim/run/5.png" id="8_tffgl"]
-[ext_resource type="Texture2D" uid="uid://cavoijjyyxs5h" path="res://images/player/a/anim/run/6.png" id="9_pk8ii"]
-[ext_resource type="Texture2D" uid="uid://cyde1dneccs71" path="res://images/player/a/anim/run/7.png" id="10_5mf0n"]
-[ext_resource type="Texture2D" uid="uid://cuncqgsopnav" path="res://images/player/a/anim/ducking/duck start/2.png" id="10_7072n"]
-[ext_resource type="Texture2D" uid="uid://b3lbw6nytvsbt" path="res://images/player/a/anim/run/8.png" id="11_4hvnv"]
-[ext_resource type="Texture2D" uid="uid://bjmtmur0n3wal" path="res://images/player/a/anim/ducking/duck start/3.png" id="11_gmu8b"]
-[ext_resource type="Texture2D" uid="uid://brfgxpomxsxyt" path="res://images/player/a/anim/ducking/duck start/4.png" id="12_a38bk"]
-[ext_resource type="Texture2D" uid="uid://bbx66fcsk655f" path="res://images/player/a/anim/run/9.png" id="12_bbmj2"]
-[ext_resource type="Texture2D" uid="uid://y2srburas7ty" path="res://images/player/a/anim/ducking/duck start/5.png" id="13_3chqh"]
-[ext_resource type="Texture2D" uid="uid://cdfhshggvfxvq" path="res://images/player/a/anim/run/10.png" id="13_kxw46"]
-[ext_resource type="Texture2D" uid="uid://dyqlgwwahps1l" path="res://images/player/a/anim/run/11.png" id="14_8qxvo"]
-[ext_resource type="Texture2D" uid="uid://bml8xp1xfb7dr" path="res://images/player/a/anim/ducking/duck start/6.png" id="14_pwfqx"]
-[ext_resource type="Texture2D" uid="uid://cs68vtstcni47" path="res://images/player/a/anim/run/12.png" id="15_5q8fn"]
-[ext_resource type="Texture2D" uid="uid://ctxqsjdetmiq2" path="res://images/player/a/anim/ducking/duck start/7.png" id="15_kssj8"]
-[ext_resource type="Texture2D" uid="uid://cwc371mn5vj6a" path="res://images/player/a/anim/ducking/duck start/8.png" id="16_8lfxt"]
-[ext_resource type="Texture2D" uid="uid://bmgsag0ovi66m" path="res://images/player/a/anim/run/13.png" id="16_wva7c"]
-[ext_resource type="Texture2D" uid="uid://bm883h57bets4" path="res://images/player/a/anim/run/14.png" id="17_7obkq"]
-[ext_resource type="Texture2D" uid="uid://wm2sufqu2urr" path="res://images/player/a/anim/run/15.png" id="18_vo27k"]
-[ext_resource type="Texture2D" uid="uid://bd8lf002wadn7" path="res://images/player/a/anim/run/16.png" id="19_genst"]
-[ext_resource type="Texture2D" uid="uid://dj0f7efx6lmyw" path="res://images/player/a/anim/pushing box/1.png" id="20_12j61"]
-[ext_resource type="Texture2D" uid="uid://wiwh5ehihdub" path="res://images/player/a/anim/run/17.png" id="20_niom3"]
-[ext_resource type="Texture2D" uid="uid://b0240p7v2eogi" path="res://images/player/a/anim/kicking box/46.png" id="20_xm1em"]
-[ext_resource type="Texture2D" uid="uid://bj75u1amsbrwd" path="res://images/player/a/anim/kicking box/47.png" id="21_6ix8p"]
-[ext_resource type="Texture2D" uid="uid://4eobnfncyh1" path="res://images/player/a/anim/pushing box/2.png" id="21_kthys"]
-[ext_resource type="Texture2D" uid="uid://bky5fetptarrk" path="res://images/player/a/anim/run/18.png" id="21_ttakn"]
-[ext_resource type="Texture2D" uid="uid://cmwd3amswd7j0" path="res://images/player/a/anim/pushing box/3.png" id="22_48o5h"]
-[ext_resource type="Texture2D" uid="uid://dohnwfgn0060w" path="res://images/player/a/anim/kicking box/48.png" id="22_fntve"]
-[ext_resource type="Texture2D" uid="uid://bpg3oirgjitx4" path="res://images/player/a/anim/run/19.png" id="22_rw8a5"]
-[ext_resource type="Texture2D" uid="uid://o1nfhmeqcvhw" path="res://images/player/a/anim/kicking box/49.png" id="23_a2vma"]
-[ext_resource type="Texture2D" uid="uid://cd057ecq1m6nu" path="res://images/player/a/anim/run/20.png" id="23_iwuka"]
-[ext_resource type="Texture2D" uid="uid://1wet4jle74cs" path="res://images/player/a/anim/pushing box/4.png" id="23_xum3i"]
-[ext_resource type="Texture2D" uid="uid://d1d8ocynpfbww" path="res://images/player/a/anim/kicking box/50.png" id="24_b63cp"]
-[ext_resource type="Texture2D" uid="uid://bvx86auei3smn" path="res://images/player/a/anim/pushing box/5.png" id="24_ct4wv"]
-[ext_resource type="Texture2D" uid="uid://cv2y5y34ohfo8" path="res://images/player/a/anim/wall slide/2.png" id="24_hyqqp"]
-[ext_resource type="Texture2D" uid="uid://1ak4cq6oddxc" path="res://images/player/a/anim/wall slide/3.png" id="25_ds1xl"]
-[ext_resource type="Texture2D" uid="uid://xl53jsyd7fes" path="res://images/player/a/anim/kicking box/51.png" id="25_l2ov3"]
-[ext_resource type="Texture2D" uid="uid://cx3ouwhyfqslr" path="res://images/player/a/anim/pushing box/6.png" id="25_teg5g"]
-[ext_resource type="Texture2D" uid="uid://cjfwesca7gr45" path="res://images/player/a/anim/wall slide/4.png" id="26_1u1sw"]
-[ext_resource type="Texture2D" uid="uid://cajhtsy7mqags" path="res://images/player/a/anim/kicking box/52.png" id="26_gdxup"]
-[ext_resource type="Texture2D" uid="uid://ctgey302w0k1l" path="res://images/player/a/anim/pushing box/7.png" id="26_vcxk4"]
-[ext_resource type="Texture2D" uid="uid://e8h46ramcnlc" path="res://images/player/a/anim/kicking box/53.png" id="27_vbe6q"]
-[ext_resource type="Texture2D" uid="uid://ckid6m6a28pyc" path="res://images/player/a/anim/pushing box/8.png" id="27_x6bw1"]
-[ext_resource type="Texture2D" uid="uid://5nohvg5qel85" path="res://images/player/a/anim/pushing box/9.png" id="28_e1bru"]
-[ext_resource type="Texture2D" uid="uid://c5cnhbw2li3qg" path="res://images/player/a/anim/kicking box/54.png" id="28_xkbl4"]
-[ext_resource type="Texture2D" uid="uid://gmyt1r2y2y3o" path="res://images/player/a/anim/pushing box/10.png" id="29_63x2c"]
-[ext_resource type="Texture2D" uid="uid://65s5cgxax2j4" path="res://images/player/a/anim/kicking box/55.png" id="29_xfllp"]
-[ext_resource type="Texture2D" uid="uid://mfvkpfv4ggbr" path="res://images/player/a/anim/pushing box/11.png" id="30_arxfr"]
-[ext_resource type="Texture2D" uid="uid://bdv0meo6lpfuh" path="res://images/player/a/anim/kicking box/56.png" id="30_qr5dr"]
-[ext_resource type="Texture2D" uid="uid://bxne1vh5vyocd" path="res://images/player/a/anim/kicking box/57.png" id="31_2t0dv"]
-[ext_resource type="Texture2D" uid="uid://cm5w76fbxhrpv" path="res://images/player/a/anim/pushing box/12.png" id="31_5ecds"]
-[ext_resource type="Texture2D" uid="uid://d31jau1g0nbo7" path="res://images/player/a/anim/pushing box/13.png" id="32_nssm8"]
-[ext_resource type="Texture2D" uid="uid://bj3w4w6yt206p" path="res://images/player/a/anim/kicking box/58.png" id="32_xfwra"]
-[ext_resource type="Texture2D" uid="uid://dumdvasjsl304" path="res://images/player/a/anim/pushing box/14.png" id="33_ei0bd"]
-[ext_resource type="Texture2D" uid="uid://cqr8nqjxmfgim" path="res://images/player/a/anim/kicking box/59.png" id="33_txs7c"]
-[ext_resource type="Texture2D" uid="uid://c5013q5wswygi" path="res://images/player/a/anim/kicking box/60.png" id="34_18o63"]
-[ext_resource type="Texture2D" uid="uid://bph3rbqoaxk45" path="res://images/player/a/anim/pushing box/15.png" id="34_wwa77"]
-[ext_resource type="Texture2D" uid="uid://gqcxlo71qci4" path="res://images/player/a/anim/kicking box/61.png" id="35_shj53"]
-[ext_resource type="Texture2D" uid="uid://b3jyhxe8gan2e" path="res://images/player/a/anim/pushing box/16.png" id="35_tdwly"]
-[ext_resource type="Texture2D" uid="uid://dlp4l2ubs2uql" path="res://images/player/a/anim/pushing box/17.png" id="36_fmlco"]
-[ext_resource type="Texture2D" uid="uid://xowlltbrucw5" path="res://images/player/a/anim/kicking box/62.png" id="36_q38v6"]
-[ext_resource type="Texture2D" uid="uid://mj7vgqpvqww2" path="res://images/player/a/anim/pushing box/18.png" id="37_duoik"]
-[ext_resource type="Texture2D" uid="uid://b57kw7k2igaf1" path="res://images/player/a/anim/kicking box/63.png" id="37_r4og4"]
-[ext_resource type="Texture2D" uid="uid://bunbenucu426k" path="res://images/player/a/anim/pushing box/19.png" id="38_6qclm"]
-[ext_resource type="Texture2D" uid="uid://cnt2pa7487ry" path="res://images/player/a/anim/kicking box/64.png" id="38_hj3ni"]
-[ext_resource type="Texture2D" uid="uid://djp0oigfjscd4" path="res://images/player/a/anim/kicking box/65.png" id="39_g0xte"]
-[ext_resource type="Texture2D" uid="uid://cpcyl5cd46or6" path="res://images/player/a/anim/pushing box/20.png" id="39_mtkxs"]
-[ext_resource type="Texture2D" uid="uid://c534385n6bsck" path="res://images/player/a/anim/pushing box/21.png" id="40_pxyg8"]
-[ext_resource type="Texture2D" uid="uid://tpj2gyupbjiu" path="res://images/player/a/anim/kicking box/66.png" id="40_wnmj1"]
-[ext_resource type="Texture2D" uid="uid://dft0ix50j7hng" path="res://images/player/a/anim/pushing box/22.png" id="41_xm1em"]
-[ext_resource type="Texture2D" uid="uid://cwcq5nym25o56" path="res://images/player/a/anim/pushing box/23.png" id="42_6ix8p"]
-[ext_resource type="Texture2D" uid="uid://dg3uyajpkkvm3" path="res://images/player/a/anim/pushing box/24.png" id="43_fntve"]
-[ext_resource type="Texture2D" uid="uid://gkny10awvfwu" path="res://images/player/a/anim/pushing box/25.png" id="44_a2vma"]
-[ext_resource type="Texture2D" uid="uid://cdcwgr7xwrjnh" path="res://images/player/a/anim/pushing box/26.png" id="45_b63cp"]
-[ext_resource type="Texture2D" uid="uid://cn2d0wwxx23kp" path="res://images/player/a/anim/pushing box/27.png" id="46_l2ov3"]
-[ext_resource type="Texture2D" uid="uid://dxb6uayqd222y" path="res://images/player/a/anim/pushing box/28.png" id="47_gdxup"]
-[ext_resource type="Texture2D" uid="uid://ktkggrms3nop" path="res://images/player/a/anim/pushing box/29.png" id="48_vbe6q"]
-[ext_resource type="Texture2D" uid="uid://u2btum8nxe3j" path="res://images/player/a/anim/pushing box/30.png" id="49_xkbl4"]
-[ext_resource type="Texture2D" uid="uid://ben581f2funke" path="res://images/player/a/anim/pushing box/31.png" id="50_xfllp"]
-[ext_resource type="Texture2D" uid="uid://dshmbnshriepo" path="res://images/player/a/waterAnimTop/enter water/1.png" id="56_88c1f"]
-[ext_resource type="Texture2D" uid="uid://bkfpyf0iqdgd1" path="res://images/player/a/waterAnimTop/enter water/2.png" id="57_hdu4s"]
-[ext_resource type="Texture2D" uid="uid://c2e74gfmexu37" path="res://images/player/a/waterAnimTop/enter water/3.png" id="58_0wr6q"]
-[ext_resource type="Texture2D" uid="uid://bp8q02vtjuqhi" path="res://images/player/a/waterAnimTop/enter water/4.png" id="59_p0anf"]
-[ext_resource type="Texture2D" uid="uid://duccc4ujp18j1" path="res://images/player/a/waterAnimTop/enter water/5.png" id="60_lhgc7"]
-[ext_resource type="Texture2D" uid="uid://di632ddln4svr" path="res://images/player/a/waterAnimTop/enter water/6.png" id="61_vy876"]
-[ext_resource type="Texture2D" uid="uid://wl4se22elraa" path="res://images/player/a/waterAnimTop/default/7.png" id="62_0vtlm"]
-[ext_resource type="Texture2D" uid="uid://wyftpw6iu8ir" path="res://images/player/a/waterAnimTop/default/8.png" id="63_drv02"]
-[ext_resource type="Texture2D" uid="uid://cnjdvwr3mk7ho" path="res://images/player/a/waterAnimTop/default/9.png" id="64_tmafg"]
-[ext_resource type="Texture2D" uid="uid://g75fteoucl6u" path="res://images/player/a/waterAnimTop/default/10.png" id="65_2enr6"]
-[ext_resource type="Texture2D" uid="uid://b5tgv4fxqvgim" path="res://images/player/a/waterAnimTop/default/11.png" id="66_qxlpa"]
-[ext_resource type="Texture2D" uid="uid://bqy070x6m076h" path="res://images/player/a/waterAnimTop/default/12.png" id="67_iwd08"]
-[ext_resource type="Texture2D" uid="uid://btbkk4rbn7i6t" path="res://images/player/a/anim/sliding/slide end/8.png" id="67_vkc6f"]
-[ext_resource type="Texture2D" uid="uid://cl7loj8mlqgg5" path="res://images/player/a/waterAnimTop/default/13.png" id="68_5oeuk"]
-[ext_resource type="Texture2D" uid="uid://c7wehfs2jmb03" path="res://images/player/a/anim/sliding/slide end/9.png" id="68_21yht"]
-[ext_resource type="Texture2D" uid="uid://bgcnpduc0blnk" path="res://images/player/a/waterAnimTop/default/14.png" id="69_oq5hk"]
-[ext_resource type="Texture2D" uid="uid://cqp1jx78crtpf" path="res://images/player/a/anim/sliding/slide end/10.png" id="69_trum3"]
-[ext_resource type="Texture2D" uid="uid://duit23sfs3rxg" path="res://images/player/a/anim/sliding/slide end/11.png" id="70_4b1ex"]
-[ext_resource type="Texture2D" uid="uid://8gtu05dsbyp5" path="res://images/player/a/waterAnimTop/default/15.png" id="70_kfile"]
-[ext_resource type="Texture2D" uid="uid://t2vr35m5m6oo" path="res://images/player/a/waterAnimTop/default/16.png" id="71_pkjeu"]
-[ext_resource type="Texture2D" uid="uid://cbvnuffp2qc4g" path="res://images/player/a/anim/sliding/slide end/12.png" id="71_v8cnd"]
-[ext_resource type="Texture2D" uid="uid://c2fipdjp25ov2" path="res://images/player/a/anim/sliding/slide end/13.png" id="72_wuxn4"]
-[ext_resource type="Texture2D" uid="uid://vpaw6naa2jpe" path="res://images/player/a/anim/sliding/slide start/1.png" id="73_46q5t"]
-[ext_resource type="Texture2D" uid="uid://dr4dor00flb3p" path="res://images/player/a/anim/sliding/slide start/2.png" id="74_5miun"]
-[ext_resource type="Texture2D" uid="uid://cfwkk6lwj8304" path="res://images/player/a/anim/sliding/slide start/3.png" id="75_7u1tp"]
-[ext_resource type="Texture2D" uid="uid://b7usli7nq5py6" path="res://images/player/a/anim/sliding/slide start/4.png" id="76_pq1ih"]
-[ext_resource type="Texture2D" uid="uid://d4ksie6u7xg3b" path="res://images/player/a/anim/sliding/slide start/5.png" id="77_31ki0"]
-[ext_resource type="Texture2D" uid="uid://b41hemahsjag2" path="res://images/player/a/anim/sliding/slide start/6.png" id="78_hf5gj"]
-[ext_resource type="Texture2D" uid="uid://cvuad5q0uqo8u" path="res://images/player/a/anim/sliding/slide start/7.png" id="79_avmva"]
-[ext_resource type="Texture2D" uid="uid://b4bw5xkdax8fy" path="res://images/player/a/anim/wall hang/1.png" id="80_21yht"]
-[ext_resource type="Texture2D" uid="uid://b802e4v2vtdj5" path="res://images/player/a/waterAnimBottom/default/1.png" id="100_hj3ni"]
-[ext_resource type="Texture2D" uid="uid://b45avlu20hemr" path="res://images/player/a/waterAnimBottom/default/2.png" id="101_g0xte"]
+[ext_resource type="Texture2D" uid="uid://clxdjsr1hlhox" path="res://scenes/player/images/anim/ducking/duck end/9.png" id="2_upxxc"]
+[ext_resource type="Texture2D" uid="uid://jw2wk6ehy0ea" path="res://scenes/player/images/anim/die/35.png" id="3_0wr6q"]
+[ext_resource type="Texture2D" uid="uid://uuvbrdtp8ehl" path="res://scenes/player/images/anim/wall slide/1.png" id="3_6cv16"]
+[ext_resource type="Texture2D" uid="uid://cr8qku7rbmael" path="res://scenes/player/images/anim/idle/1.png" id="3_lclul"]
+[ext_resource type="Texture2D" uid="uid://cltjto1fsypg1" path="res://scenes/player/images/anim/ducking/duck end/10.png" id="3_ln3h3"]
+[ext_resource type="Texture2D" uid="uid://cf2gqske25674" path="res://scenes/player/images/anim/run/1.png" id="4_j4nxn"]
+[ext_resource type="Texture2D" uid="uid://du34idydjhbi0" path="res://scenes/player/images/anim/ducking/duck end/11.png" id="4_uygh0"]
+[ext_resource type="Texture2D" uid="uid://mrdad4j3f65k" path="res://scenes/player/images/anim/run/2.png" id="5_28m0y"]
+[ext_resource type="Texture2D" uid="uid://bwc336khwya0" path="res://scenes/player/images/anim/ducking/duck end/12.png" id="5_t1aof"]
+[ext_resource type="Texture2D" uid="uid://b745ksiu5ktvy" path="res://scenes/player/images/anim/run/3.png" id="6_uniwh"]
+[ext_resource type="Texture2D" uid="uid://ckwytgxhl3fk4" path="res://scenes/player/images/anim/ducking/duck end/13.png" id="6_w8qe1"]
+[ext_resource type="Texture2D" uid="uid://by8cvuj3ifkki" path="res://scenes/player/images/anim/ducking/duck end/14.png" id="7_hdvrm"]
+[ext_resource type="Texture2D" uid="uid://dd6b2m85avyd5" path="res://scenes/player/images/anim/run/4.png" id="7_iqsei"]
+[ext_resource type="Texture2D" uid="uid://bxfsx8l5oc0op" path="res://scenes/player/images/anim/ducking/duck end/15.png" id="8_5xbmr"]
+[ext_resource type="Texture2D" uid="uid://dgehp56xlrruv" path="res://scenes/player/images/anim/run/5.png" id="8_tffgl"]
+[ext_resource type="Texture2D" uid="uid://cavoijjyyxs5h" path="res://scenes/player/images/anim/run/6.png" id="9_pk8ii"]
+[ext_resource type="Texture2D" uid="uid://cyde1dneccs71" path="res://scenes/player/images/anim/run/7.png" id="10_5mf0n"]
+[ext_resource type="Texture2D" uid="uid://cuncqgsopnav" path="res://scenes/player/images/anim/ducking/duck start/2.png" id="10_7072n"]
+[ext_resource type="Texture2D" uid="uid://b3lbw6nytvsbt" path="res://scenes/player/images/anim/run/8.png" id="11_4hvnv"]
+[ext_resource type="Texture2D" uid="uid://bjmtmur0n3wal" path="res://scenes/player/images/anim/ducking/duck start/3.png" id="11_gmu8b"]
+[ext_resource type="Texture2D" uid="uid://brfgxpomxsxyt" path="res://scenes/player/images/anim/ducking/duck start/4.png" id="12_a38bk"]
+[ext_resource type="Texture2D" uid="uid://bbx66fcsk655f" path="res://scenes/player/images/anim/run/9.png" id="12_bbmj2"]
+[ext_resource type="Texture2D" uid="uid://y2srburas7ty" path="res://scenes/player/images/anim/ducking/duck start/5.png" id="13_3chqh"]
+[ext_resource type="Texture2D" uid="uid://cdfhshggvfxvq" path="res://scenes/player/images/anim/run/10.png" id="13_kxw46"]
+[ext_resource type="Texture2D" uid="uid://dyqlgwwahps1l" path="res://scenes/player/images/anim/run/11.png" id="14_8qxvo"]
+[ext_resource type="Texture2D" uid="uid://bml8xp1xfb7dr" path="res://scenes/player/images/anim/ducking/duck start/6.png" id="14_pwfqx"]
+[ext_resource type="Texture2D" uid="uid://cs68vtstcni47" path="res://scenes/player/images/anim/run/12.png" id="15_5q8fn"]
+[ext_resource type="Texture2D" uid="uid://ctxqsjdetmiq2" path="res://scenes/player/images/anim/ducking/duck start/7.png" id="15_kssj8"]
+[ext_resource type="Texture2D" uid="uid://cwc371mn5vj6a" path="res://scenes/player/images/anim/ducking/duck start/8.png" id="16_8lfxt"]
+[ext_resource type="Texture2D" uid="uid://bmgsag0ovi66m" path="res://scenes/player/images/anim/run/13.png" id="16_wva7c"]
+[ext_resource type="Texture2D" uid="uid://bm883h57bets4" path="res://scenes/player/images/anim/run/14.png" id="17_7obkq"]
+[ext_resource type="Texture2D" uid="uid://wm2sufqu2urr" path="res://scenes/player/images/anim/run/15.png" id="18_vo27k"]
+[ext_resource type="Texture2D" uid="uid://bd8lf002wadn7" path="res://scenes/player/images/anim/run/16.png" id="19_genst"]
+[ext_resource type="Texture2D" uid="uid://dj0f7efx6lmyw" path="res://scenes/player/images/anim/pushing box/1.png" id="20_12j61"]
+[ext_resource type="Texture2D" uid="uid://wiwh5ehihdub" path="res://scenes/player/images/anim/run/17.png" id="20_niom3"]
+[ext_resource type="Texture2D" uid="uid://b0240p7v2eogi" path="res://scenes/player/images/anim/kicking box/46.png" id="20_xm1em"]
+[ext_resource type="Texture2D" uid="uid://bj75u1amsbrwd" path="res://scenes/player/images/anim/kicking box/47.png" id="21_6ix8p"]
+[ext_resource type="Texture2D" uid="uid://4eobnfncyh1" path="res://scenes/player/images/anim/pushing box/2.png" id="21_kthys"]
+[ext_resource type="Texture2D" uid="uid://bky5fetptarrk" path="res://scenes/player/images/anim/run/18.png" id="21_ttakn"]
+[ext_resource type="Texture2D" uid="uid://cmwd3amswd7j0" path="res://scenes/player/images/anim/pushing box/3.png" id="22_48o5h"]
+[ext_resource type="Texture2D" uid="uid://dohnwfgn0060w" path="res://scenes/player/images/anim/kicking box/48.png" id="22_fntve"]
+[ext_resource type="Texture2D" uid="uid://bpg3oirgjitx4" path="res://scenes/player/images/anim/run/19.png" id="22_rw8a5"]
+[ext_resource type="Texture2D" uid="uid://o1nfhmeqcvhw" path="res://scenes/player/images/anim/kicking box/49.png" id="23_a2vma"]
+[ext_resource type="Texture2D" uid="uid://cd057ecq1m6nu" path="res://scenes/player/images/anim/run/20.png" id="23_iwuka"]
+[ext_resource type="Texture2D" uid="uid://1wet4jle74cs" path="res://scenes/player/images/anim/pushing box/4.png" id="23_xum3i"]
+[ext_resource type="Texture2D" uid="uid://d1d8ocynpfbww" path="res://scenes/player/images/anim/kicking box/50.png" id="24_b63cp"]
+[ext_resource type="Texture2D" uid="uid://bvx86auei3smn" path="res://scenes/player/images/anim/pushing box/5.png" id="24_ct4wv"]
+[ext_resource type="Texture2D" uid="uid://cv2y5y34ohfo8" path="res://scenes/player/images/anim/wall slide/2.png" id="24_hyqqp"]
+[ext_resource type="Texture2D" uid="uid://1ak4cq6oddxc" path="res://scenes/player/images/anim/wall slide/3.png" id="25_ds1xl"]
+[ext_resource type="Texture2D" uid="uid://xl53jsyd7fes" path="res://scenes/player/images/anim/kicking box/51.png" id="25_l2ov3"]
+[ext_resource type="Texture2D" uid="uid://cx3ouwhyfqslr" path="res://scenes/player/images/anim/pushing box/6.png" id="25_teg5g"]
+[ext_resource type="Texture2D" uid="uid://cjfwesca7gr45" path="res://scenes/player/images/anim/wall slide/4.png" id="26_1u1sw"]
+[ext_resource type="Texture2D" uid="uid://cajhtsy7mqags" path="res://scenes/player/images/anim/kicking box/52.png" id="26_gdxup"]
+[ext_resource type="Texture2D" uid="uid://ctgey302w0k1l" path="res://scenes/player/images/anim/pushing box/7.png" id="26_vcxk4"]
+[ext_resource type="Texture2D" uid="uid://e8h46ramcnlc" path="res://scenes/player/images/anim/kicking box/53.png" id="27_vbe6q"]
+[ext_resource type="Texture2D" uid="uid://ckid6m6a28pyc" path="res://scenes/player/images/anim/pushing box/8.png" id="27_x6bw1"]
+[ext_resource type="Texture2D" uid="uid://5nohvg5qel85" path="res://scenes/player/images/anim/pushing box/9.png" id="28_e1bru"]
+[ext_resource type="Texture2D" uid="uid://c5cnhbw2li3qg" path="res://scenes/player/images/anim/kicking box/54.png" id="28_xkbl4"]
+[ext_resource type="Texture2D" uid="uid://gmyt1r2y2y3o" path="res://scenes/player/images/anim/pushing box/10.png" id="29_63x2c"]
+[ext_resource type="Texture2D" uid="uid://65s5cgxax2j4" path="res://scenes/player/images/anim/kicking box/55.png" id="29_xfllp"]
+[ext_resource type="Texture2D" uid="uid://mfvkpfv4ggbr" path="res://scenes/player/images/anim/pushing box/11.png" id="30_arxfr"]
+[ext_resource type="Texture2D" uid="uid://bdv0meo6lpfuh" path="res://scenes/player/images/anim/kicking box/56.png" id="30_qr5dr"]
+[ext_resource type="Texture2D" uid="uid://bxne1vh5vyocd" path="res://scenes/player/images/anim/kicking box/57.png" id="31_2t0dv"]
+[ext_resource type="Texture2D" uid="uid://cm5w76fbxhrpv" path="res://scenes/player/images/anim/pushing box/12.png" id="31_5ecds"]
+[ext_resource type="Texture2D" uid="uid://d31jau1g0nbo7" path="res://scenes/player/images/anim/pushing box/13.png" id="32_nssm8"]
+[ext_resource type="Texture2D" uid="uid://bj3w4w6yt206p" path="res://scenes/player/images/anim/kicking box/58.png" id="32_xfwra"]
+[ext_resource type="Texture2D" uid="uid://dumdvasjsl304" path="res://scenes/player/images/anim/pushing box/14.png" id="33_ei0bd"]
+[ext_resource type="Texture2D" uid="uid://cqr8nqjxmfgim" path="res://scenes/player/images/anim/kicking box/59.png" id="33_txs7c"]
+[ext_resource type="Texture2D" uid="uid://c5013q5wswygi" path="res://scenes/player/images/anim/kicking box/60.png" id="34_18o63"]
+[ext_resource type="Texture2D" uid="uid://bph3rbqoaxk45" path="res://scenes/player/images/anim/pushing box/15.png" id="34_wwa77"]
+[ext_resource type="Texture2D" uid="uid://gqcxlo71qci4" path="res://scenes/player/images/anim/kicking box/61.png" id="35_shj53"]
+[ext_resource type="Texture2D" uid="uid://b3jyhxe8gan2e" path="res://scenes/player/images/anim/pushing box/16.png" id="35_tdwly"]
+[ext_resource type="Texture2D" uid="uid://dlp4l2ubs2uql" path="res://scenes/player/images/anim/pushing box/17.png" id="36_fmlco"]
+[ext_resource type="Texture2D" uid="uid://xowlltbrucw5" path="res://scenes/player/images/anim/kicking box/62.png" id="36_q38v6"]
+[ext_resource type="Texture2D" uid="uid://mj7vgqpvqww2" path="res://scenes/player/images/anim/pushing box/18.png" id="37_duoik"]
+[ext_resource type="Texture2D" uid="uid://b57kw7k2igaf1" path="res://scenes/player/images/anim/kicking box/63.png" id="37_r4og4"]
+[ext_resource type="Texture2D" uid="uid://bunbenucu426k" path="res://scenes/player/images/anim/pushing box/19.png" id="38_6qclm"]
+[ext_resource type="Texture2D" uid="uid://cnt2pa7487ry" path="res://scenes/player/images/anim/kicking box/64.png" id="38_hj3ni"]
+[ext_resource type="Texture2D" uid="uid://djp0oigfjscd4" path="res://scenes/player/images/anim/kicking box/65.png" id="39_g0xte"]
+[ext_resource type="Texture2D" uid="uid://cpcyl5cd46or6" path="res://scenes/player/images/anim/pushing box/20.png" id="39_mtkxs"]
+[ext_resource type="Texture2D" uid="uid://c534385n6bsck" path="res://scenes/player/images/anim/pushing box/21.png" id="40_pxyg8"]
+[ext_resource type="Texture2D" uid="uid://tpj2gyupbjiu" path="res://scenes/player/images/anim/kicking box/66.png" id="40_wnmj1"]
+[ext_resource type="Texture2D" uid="uid://cp6jjlaq4q5ru" path="res://scenes/player/images/anim/on pulley/1.png" id="41_m8vw7"]
+[ext_resource type="Texture2D" uid="uid://dft0ix50j7hng" path="res://scenes/player/images/anim/pushing box/22.png" id="41_xm1em"]
+[ext_resource type="Texture2D" uid="uid://cwcq5nym25o56" path="res://scenes/player/images/anim/pushing box/23.png" id="42_6ix8p"]
+[ext_resource type="Texture2D" uid="uid://df8kl7lyx2qr1" path="res://scenes/player/images/anim/on pulley/2.png" id="42_kwngi"]
+[ext_resource type="Texture2D" uid="uid://dg3uyajpkkvm3" path="res://scenes/player/images/anim/pushing box/24.png" id="43_fntve"]
+[ext_resource type="Texture2D" uid="uid://d4exq605h0dn3" path="res://scenes/player/images/anim/on pulley/3.png" id="43_ooe3s"]
+[ext_resource type="Texture2D" uid="uid://gkny10awvfwu" path="res://scenes/player/images/anim/pushing box/25.png" id="44_a2vma"]
+[ext_resource type="Texture2D" uid="uid://dgbpdb7ognkuc" path="res://scenes/player/images/anim/on pulley/4.png" id="44_v7w4y"]
+[ext_resource type="Texture2D" uid="uid://cmtoqdm73vr27" path="res://scenes/player/images/anim/on pulley/5.png" id="45_58ivt"]
+[ext_resource type="Texture2D" uid="uid://cdcwgr7xwrjnh" path="res://scenes/player/images/anim/pushing box/26.png" id="45_b63cp"]
+[ext_resource type="Texture2D" uid="uid://cn2d0wwxx23kp" path="res://scenes/player/images/anim/pushing box/27.png" id="46_l2ov3"]
+[ext_resource type="Texture2D" uid="uid://co2txplhloa3o" path="res://scenes/player/images/anim/on pulley/6.png" id="46_y5qpa"]
+[ext_resource type="Texture2D" uid="uid://cuykatd4gjei5" path="res://scenes/player/images/anim/on pulley/7.png" id="47_2ng8n"]
+[ext_resource type="Texture2D" uid="uid://dxb6uayqd222y" path="res://scenes/player/images/anim/pushing box/28.png" id="47_gdxup"]
+[ext_resource type="Texture2D" uid="uid://lpxhvrnmgs5j" path="res://scenes/player/images/anim/on pulley/8.png" id="48_qpvka"]
+[ext_resource type="Texture2D" uid="uid://ktkggrms3nop" path="res://scenes/player/images/anim/pushing box/29.png" id="48_vbe6q"]
+[ext_resource type="Texture2D" uid="uid://x8h7ebjs6ya6" path="res://scenes/player/images/anim/on pulley/9.png" id="49_18q2s"]
+[ext_resource type="Texture2D" uid="uid://u2btum8nxe3j" path="res://scenes/player/images/anim/pushing box/30.png" id="49_xkbl4"]
+[ext_resource type="Texture2D" uid="uid://bn81alhqd4eqw" path="res://scenes/player/images/anim/on pulley/10.png" id="50_sr4fa"]
+[ext_resource type="Texture2D" uid="uid://ben581f2funke" path="res://scenes/player/images/anim/pushing box/31.png" id="50_xfllp"]
+[ext_resource type="Texture2D" uid="uid://ccl3sld50qdk3" path="res://scenes/player/images/anim/on pulley/11.png" id="51_bhpn6"]
+[ext_resource type="Texture2D" uid="uid://c8uqbfwv5xwsi" path="res://scenes/player/images/anim/on pulley/12.png" id="52_cedje"]
+[ext_resource type="Texture2D" uid="uid://71on0w8rcip0" path="res://scenes/player/images/anim/on pulley/13.png" id="53_2fetk"]
+[ext_resource type="Texture2D" uid="uid://cwri28evwko0s" path="res://scenes/player/images/anim/on pulley/14.png" id="54_3gk6k"]
+[ext_resource type="Texture2D" uid="uid://dd68eo74exje8" path="res://scenes/player/images/anim/on pulley/15.png" id="55_1ymuf"]
+[ext_resource type="Texture2D" uid="uid://dshmbnshriepo" path="res://scenes/player/images/waterAnimTop/enter water/1.png" id="56_88c1f"]
+[ext_resource type="Texture2D" uid="uid://lxmjjqjh7s0y" path="res://scenes/player/images/anim/on pulley/16.png" id="56_hoixd"]
+[ext_resource type="Texture2D" uid="uid://bttqb8r0nrokp" path="res://scenes/player/images/anim/on pulley/17.png" id="57_5o5no"]
+[ext_resource type="Texture2D" uid="uid://bkfpyf0iqdgd1" path="res://scenes/player/images/waterAnimTop/enter water/2.png" id="57_hdu4s"]
+[ext_resource type="Texture2D" uid="uid://c2e74gfmexu37" path="res://scenes/player/images/waterAnimTop/enter water/3.png" id="58_0wr6q"]
+[ext_resource type="Texture2D" uid="uid://bi0bm26ijb48e" path="res://scenes/player/images/anim/on pulley/18.png" id="58_4u00j"]
+[ext_resource type="Texture2D" uid="uid://bp8q02vtjuqhi" path="res://scenes/player/images/waterAnimTop/enter water/4.png" id="59_p0anf"]
+[ext_resource type="Texture2D" uid="uid://dhy460ppiqm1v" path="res://scenes/player/images/anim/on pulley/19.png" id="59_u5how"]
+[ext_resource type="Texture2D" uid="uid://bb2pw0wo3022r" path="res://scenes/player/images/anim/on pulley/20.png" id="60_1sil7"]
+[ext_resource type="Texture2D" uid="uid://duccc4ujp18j1" path="res://scenes/player/images/waterAnimTop/enter water/5.png" id="60_lhgc7"]
+[ext_resource type="Texture2D" uid="uid://b61ybhg4bpk5e" path="res://scenes/player/images/anim/on pulley/21.png" id="61_gs5a7"]
+[ext_resource type="Texture2D" uid="uid://di632ddln4svr" path="res://scenes/player/images/waterAnimTop/enter water/6.png" id="61_vy876"]
+[ext_resource type="Texture2D" uid="uid://wl4se22elraa" path="res://scenes/player/images/waterAnimTop/default/7.png" id="62_0vtlm"]
+[ext_resource type="Texture2D" uid="uid://cr8yavl3f7xpc" path="res://scenes/player/images/anim/on pulley/22.png" id="62_k2mkm"]
+[ext_resource type="Texture2D" uid="uid://cktxts7i44u0s" path="res://scenes/player/images/anim/on pulley/23.png" id="63_byjem"]
+[ext_resource type="Texture2D" uid="uid://wyftpw6iu8ir" path="res://scenes/player/images/waterAnimTop/default/8.png" id="63_drv02"]
+[ext_resource type="Texture2D" uid="uid://y0baxmsykr0k" path="res://scenes/player/images/anim/on pulley/24.png" id="64_gnqqx"]
+[ext_resource type="Texture2D" uid="uid://cnjdvwr3mk7ho" path="res://scenes/player/images/waterAnimTop/default/9.png" id="64_tmafg"]
+[ext_resource type="Texture2D" uid="uid://g75fteoucl6u" path="res://scenes/player/images/waterAnimTop/default/10.png" id="65_2enr6"]
+[ext_resource type="Texture2D" uid="uid://bdyi08mk8vtlm" path="res://scenes/player/images/anim/on pulley/25.png" id="65_4qfrb"]
+[ext_resource type="Texture2D" uid="uid://bilfr4w2go1sj" path="res://scenes/player/images/anim/on pulley/26.png" id="66_76ube"]
+[ext_resource type="Texture2D" uid="uid://b5tgv4fxqvgim" path="res://scenes/player/images/waterAnimTop/default/11.png" id="66_qxlpa"]
+[ext_resource type="Texture2D" uid="uid://ck2jnww6txynk" path="res://scenes/player/images/anim/on pulley/27.png" id="67_agxve"]
+[ext_resource type="Texture2D" uid="uid://bqy070x6m076h" path="res://scenes/player/images/waterAnimTop/default/12.png" id="67_iwd08"]
+[ext_resource type="Texture2D" uid="uid://btbkk4rbn7i6t" path="res://scenes/player/images/anim/sliding/slide end/8.png" id="67_vkc6f"]
+[ext_resource type="Texture2D" uid="uid://cl7loj8mlqgg5" path="res://scenes/player/images/waterAnimTop/default/13.png" id="68_5oeuk"]
+[ext_resource type="Texture2D" uid="uid://clyaaj41isfmc" path="res://scenes/player/images/anim/on pulley/28.png" id="68_8ue2q"]
+[ext_resource type="Texture2D" uid="uid://c7wehfs2jmb03" path="res://scenes/player/images/anim/sliding/slide end/9.png" id="68_21yht"]
+[ext_resource type="Texture2D" uid="uid://bgcnpduc0blnk" path="res://scenes/player/images/waterAnimTop/default/14.png" id="69_oq5hk"]
+[ext_resource type="Texture2D" uid="uid://cmmu4gnw5a7ac" path="res://scenes/player/images/anim/on pulley/29.png" id="69_p0pgs"]
+[ext_resource type="Texture2D" uid="uid://cqp1jx78crtpf" path="res://scenes/player/images/anim/sliding/slide end/10.png" id="69_trum3"]
+[ext_resource type="Texture2D" uid="uid://duit23sfs3rxg" path="res://scenes/player/images/anim/sliding/slide end/11.png" id="70_4b1ex"]
+[ext_resource type="Texture2D" uid="uid://8gtu05dsbyp5" path="res://scenes/player/images/waterAnimTop/default/15.png" id="70_kfile"]
+[ext_resource type="Texture2D" uid="uid://cf7r4hwxrpaip" path="res://scenes/player/images/anim/on pulley/30.png" id="70_uru8s"]
+[ext_resource type="Texture2D" uid="uid://b6text5gw757q" path="res://scenes/player/images/anim/on pulley/31.png" id="71_mqtqs"]
+[ext_resource type="Texture2D" uid="uid://t2vr35m5m6oo" path="res://scenes/player/images/waterAnimTop/default/16.png" id="71_pkjeu"]
+[ext_resource type="Texture2D" uid="uid://cbvnuffp2qc4g" path="res://scenes/player/images/anim/sliding/slide end/12.png" id="71_v8cnd"]
+[ext_resource type="Texture2D" uid="uid://p8txmgxlfis3" path="res://scenes/player/images/anim/on pulley/32.png" id="72_mje2k"]
+[ext_resource type="Texture2D" uid="uid://c2fipdjp25ov2" path="res://scenes/player/images/anim/sliding/slide end/13.png" id="72_wuxn4"]
+[ext_resource type="Texture2D" uid="uid://vpaw6naa2jpe" path="res://scenes/player/images/anim/sliding/slide start/1.png" id="73_46q5t"]
+[ext_resource type="Texture2D" uid="uid://xj1l1852qux7" path="res://scenes/player/images/anim/on pulley/33.png" id="73_c0t4m"]
+[ext_resource type="Texture2D" uid="uid://b14dc0fbgmx0o" path="res://scenes/player/images/anim/pulling lever/1.png" id="74_1ymuf"]
+[ext_resource type="Texture2D" uid="uid://dr4dor00flb3p" path="res://scenes/player/images/anim/sliding/slide start/2.png" id="74_5miun"]
+[ext_resource type="Texture2D" uid="uid://cfwkk6lwj8304" path="res://scenes/player/images/anim/sliding/slide start/3.png" id="75_7u1tp"]
+[ext_resource type="Texture2D" uid="uid://bs8cywf3pqq0l" path="res://scenes/player/images/anim/pulling lever/2.png" id="75_hoixd"]
+[ext_resource type="Texture2D" uid="uid://db42ybic0y0c8" path="res://scenes/player/images/anim/pulling lever/3.png" id="76_5o5no"]
+[ext_resource type="Texture2D" uid="uid://b7usli7nq5py6" path="res://scenes/player/images/anim/sliding/slide start/4.png" id="76_pq1ih"]
+[ext_resource type="Texture2D" uid="uid://d2nw4u4n2lkbr" path="res://scenes/player/images/anim/pulling lever/4.png" id="77_4u00j"]
+[ext_resource type="Texture2D" uid="uid://d4ksie6u7xg3b" path="res://scenes/player/images/anim/sliding/slide start/5.png" id="77_31ki0"]
+[ext_resource type="Texture2D" uid="uid://b41hemahsjag2" path="res://scenes/player/images/anim/sliding/slide start/6.png" id="78_hf5gj"]
+[ext_resource type="Texture2D" uid="uid://dsdwk2kepue1t" path="res://scenes/player/images/anim/pulling lever/5.png" id="78_u5how"]
+[ext_resource type="Texture2D" uid="uid://x8dnx6xk6opa" path="res://scenes/player/images/anim/pulling lever/6.png" id="79_1sil7"]
+[ext_resource type="Texture2D" uid="uid://cvuad5q0uqo8u" path="res://scenes/player/images/anim/sliding/slide start/7.png" id="79_avmva"]
+[ext_resource type="Texture2D" uid="uid://b4bw5xkdax8fy" path="res://scenes/player/images/anim/wall hang/1.png" id="80_21yht"]
+[ext_resource type="Texture2D" uid="uid://c76rq5ypc4ji" path="res://scenes/player/images/anim/pulling lever/7.png" id="80_gs5a7"]
+[ext_resource type="Texture2D" uid="uid://bsupr0a8qv08y" path="res://scenes/player/images/anim/pulling lever/8.png" id="81_k2mkm"]
+[ext_resource type="Texture2D" uid="uid://dsg81f1ajg6l2" path="res://scenes/player/images/anim/pulling lever/9.png" id="82_byjem"]
+[ext_resource type="Texture2D" uid="uid://c3d2eqoee46kp" path="res://scenes/player/images/anim/pulling lever/10.png" id="83_gnqqx"]
+[ext_resource type="Texture2D" uid="uid://dy60r847brq00" path="res://scenes/player/images/anim/pulling lever/11.png" id="84_4qfrb"]
+[ext_resource type="Texture2D" uid="uid://8mbm1pao4pfr" path="res://scenes/player/images/anim/pulling lever/12.png" id="85_76ube"]
+[ext_resource type="Texture2D" uid="uid://dt0k34xgxd5ms" path="res://scenes/player/images/anim/pulling lever/13.png" id="86_agxve"]
+[ext_resource type="Texture2D" uid="uid://mtg7t0njmahs" path="res://scenes/player/images/anim/pulling lever/14.png" id="87_8ue2q"]
+[ext_resource type="Texture2D" uid="uid://b802e4v2vtdj5" path="res://scenes/player/images/waterAnimBottom/default/1.png" id="100_hj3ni"]
+[ext_resource type="Texture2D" uid="uid://b45avlu20hemr" path="res://scenes/player/images/waterAnimBottom/default/2.png" id="101_g0xte"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="102_p0anf"]
-[ext_resource type="Texture2D" uid="uid://qkptthdqjya" path="res://images/player/a/waterAnimBottom/default/3.png" id="102_wnmj1"]
-[ext_resource type="Texture2D" uid="uid://cj0u3pttaah02" path="res://images/player/a/waterAnimBottom/default/4.png" id="103_j7oln"]
-[ext_resource type="Texture2D" uid="uid://bessyq5nljdde" path="res://images/player/a/waterAnimBottom/default/5.png" id="104_uk5xc"]
-[ext_resource type="Texture2D" uid="uid://chveido2dph03" path="res://images/player/a/waterAnimBottom/default/6.png" id="105_n6477"]
-[ext_resource type="Texture2D" uid="uid://dnxlqdcq3pexr" path="res://images/player/a/waterAnimBottom/default/7.png" id="106_dul13"]
-[ext_resource type="Texture2D" uid="uid://br6m7js8emyg0" path="res://images/player/a/waterAnimBottom/default/8.png" id="107_vy3ex"]
-[ext_resource type="Texture2D" uid="uid://d1n64fhdmmh6x" path="res://images/player/a/waterAnimBottom/default/9.png" id="108_0v7ku"]
-[ext_resource type="Texture2D" uid="uid://d4kcq8j4doelo" path="res://images/player/a/waterAnimBottom/default/10.png" id="109_61fdj"]
-[ext_resource type="Texture2D" uid="uid://dvknrms6nlfrj" path="res://images/player/a/waterAnimBottom/default/11.png" id="110_o60wj"]
-[ext_resource type="Texture2D" uid="uid://bpwymdynpfigg" path="res://images/player/a/waterAnimBottom/default/12.png" id="111_ffud4"]
-[ext_resource type="Texture2D" uid="uid://b6oonkr08wjft" path="res://images/player/a/waterAnimBottom/default/13.png" id="112_6oh4s"]
-[ext_resource type="Texture2D" uid="uid://f6xwjbj8tr64" path="res://images/player/a/waterAnimBottom/default/14.png" id="113_vwdll"]
-[ext_resource type="Texture2D" uid="uid://dpkb5x6l3chjs" path="res://images/player/a/waterAnimBottom/default/15.png" id="114_6rqik"]
-[ext_resource type="Texture2D" uid="uid://bh6wib4888du2" path="res://images/player/a/waterAnimBottom/default/16.png" id="115_m8vw7"]
-[ext_resource type="Texture2D" uid="uid://dr6bxwjc73q2g" path="res://images/player/a/waterAnimBottom/default/17.png" id="116_kwngi"]
-[ext_resource type="Texture2D" uid="uid://bte1q8j2yvdwk" path="res://images/player/a/waterAnimBottom/default/18.png" id="117_ooe3s"]
-[ext_resource type="Texture2D" uid="uid://c0skcvn8dfuqh" path="res://images/player/a/waterAnimBottom/default/19.png" id="118_v7w4y"]
-[ext_resource type="Texture2D" uid="uid://br43ptidr4wu5" path="res://images/player/a/waterAnimBottom/default/20.png" id="119_58ivt"]
-[ext_resource type="Texture2D" uid="uid://bvls16btgkq4l" path="res://images/player/a/waterAnimBottom/default/21.png" id="120_y5qpa"]
-[ext_resource type="Texture2D" uid="uid://dasrt852pya1b" path="res://images/player/a/waterAnimBottom/default/22.png" id="121_2ng8n"]
-[ext_resource type="Texture2D" uid="uid://duypabiosg3rl" path="res://images/player/a/waterAnimBottom/default/23.png" id="122_qpvka"]
-[ext_resource type="Texture2D" uid="uid://c5u2fiy5bh2ei" path="res://images/player/a/waterAnimBottom/default/24.png" id="123_18q2s"]
-[ext_resource type="Texture2D" uid="uid://b1kmrd7v2diqp" path="res://images/player/a/waterAnimBottom/default/25.png" id="124_sr4fa"]
-[ext_resource type="Texture2D" uid="uid://dojcek03vl3aa" path="res://images/player/a/waterAnimBottom/default/26.png" id="125_bhpn6"]
-[ext_resource type="Texture2D" uid="uid://cia2ut17on6xe" path="res://images/player/a/waterAnimBottom/default/27.png" id="126_cedje"]
-[ext_resource type="Texture2D" uid="uid://df34vpyhk6dqh" path="res://images/player/a/waterAnimBottom/default/28.png" id="127_2fetk"]
+[ext_resource type="Texture2D" uid="uid://qkptthdqjya" path="res://scenes/player/images/waterAnimBottom/default/3.png" id="102_wnmj1"]
+[ext_resource type="Texture2D" uid="uid://cj0u3pttaah02" path="res://scenes/player/images/waterAnimBottom/default/4.png" id="103_j7oln"]
+[ext_resource type="Texture2D" uid="uid://bessyq5nljdde" path="res://scenes/player/images/waterAnimBottom/default/5.png" id="104_uk5xc"]
+[ext_resource type="Texture2D" uid="uid://chveido2dph03" path="res://scenes/player/images/waterAnimBottom/default/6.png" id="105_n6477"]
+[ext_resource type="Texture2D" uid="uid://dnxlqdcq3pexr" path="res://scenes/player/images/waterAnimBottom/default/7.png" id="106_dul13"]
+[ext_resource type="Texture2D" uid="uid://br6m7js8emyg0" path="res://scenes/player/images/waterAnimBottom/default/8.png" id="107_vy3ex"]
+[ext_resource type="Texture2D" uid="uid://d1n64fhdmmh6x" path="res://scenes/player/images/waterAnimBottom/default/9.png" id="108_0v7ku"]
+[ext_resource type="Texture2D" uid="uid://d4kcq8j4doelo" path="res://scenes/player/images/waterAnimBottom/default/10.png" id="109_61fdj"]
+[ext_resource type="Texture2D" uid="uid://dvknrms6nlfrj" path="res://scenes/player/images/waterAnimBottom/default/11.png" id="110_o60wj"]
+[ext_resource type="Texture2D" uid="uid://bpwymdynpfigg" path="res://scenes/player/images/waterAnimBottom/default/12.png" id="111_ffud4"]
+[ext_resource type="Texture2D" uid="uid://b6oonkr08wjft" path="res://scenes/player/images/waterAnimBottom/default/13.png" id="112_6oh4s"]
+[ext_resource type="Texture2D" uid="uid://f6xwjbj8tr64" path="res://scenes/player/images/waterAnimBottom/default/14.png" id="113_vwdll"]
+[ext_resource type="Texture2D" uid="uid://dpkb5x6l3chjs" path="res://scenes/player/images/waterAnimBottom/default/15.png" id="114_6rqik"]
+[ext_resource type="Texture2D" uid="uid://bh6wib4888du2" path="res://scenes/player/images/waterAnimBottom/default/16.png" id="115_m8vw7"]
+[ext_resource type="Texture2D" uid="uid://dr6bxwjc73q2g" path="res://scenes/player/images/waterAnimBottom/default/17.png" id="116_kwngi"]
+[ext_resource type="Texture2D" uid="uid://bte1q8j2yvdwk" path="res://scenes/player/images/waterAnimBottom/default/18.png" id="117_ooe3s"]
+[ext_resource type="Texture2D" uid="uid://c0skcvn8dfuqh" path="res://scenes/player/images/waterAnimBottom/default/19.png" id="118_v7w4y"]
+[ext_resource type="Texture2D" uid="uid://br43ptidr4wu5" path="res://scenes/player/images/waterAnimBottom/default/20.png" id="119_58ivt"]
+[ext_resource type="Texture2D" uid="uid://bvls16btgkq4l" path="res://scenes/player/images/waterAnimBottom/default/21.png" id="120_y5qpa"]
+[ext_resource type="Texture2D" uid="uid://dasrt852pya1b" path="res://scenes/player/images/waterAnimBottom/default/22.png" id="121_2ng8n"]
+[ext_resource type="Texture2D" uid="uid://duypabiosg3rl" path="res://scenes/player/images/waterAnimBottom/default/23.png" id="122_qpvka"]
+[ext_resource type="Texture2D" uid="uid://c5u2fiy5bh2ei" path="res://scenes/player/images/waterAnimBottom/default/24.png" id="123_18q2s"]
+[ext_resource type="Texture2D" uid="uid://b1kmrd7v2diqp" path="res://scenes/player/images/waterAnimBottom/default/25.png" id="124_sr4fa"]
+[ext_resource type="Texture2D" uid="uid://dojcek03vl3aa" path="res://scenes/player/images/waterAnimBottom/default/26.png" id="125_bhpn6"]
+[ext_resource type="Texture2D" uid="uid://cia2ut17on6xe" path="res://scenes/player/images/waterAnimBottom/default/27.png" id="126_cedje"]
+[ext_resource type="Texture2D" uid="uid://df34vpyhk6dqh" path="res://scenes/player/images/waterAnimBottom/default/28.png" id="127_2fetk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
 size = Vector2(8, 33)
@@ -304,6 +351,162 @@ animations = [{
 }],
 "loop": true,
 "name": &"kicking box",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_m8vw7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_kwngi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_ooe3s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_v7w4y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_58ivt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_y5qpa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_2ng8n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_qpvka")
+}, {
+"duration": 100000.0,
+"texture": ExtResource("49_18q2s")
+}],
+"loop": true,
+"name": &"on pulley",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("50_sr4fa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_bhpn6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_cedje")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_2fetk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_3gk6k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_1ymuf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_hoixd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_5o5no")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_4u00j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_u5how")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_1sil7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_gs5a7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_k2mkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_byjem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_gnqqx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_4qfrb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_76ube")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_agxve")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_8ue2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_p0pgs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_uru8s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("71_mqtqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("72_mje2k")
+}, {
+"duration": 5.0,
+"texture": ExtResource("73_c0t4m")
+}],
+"loop": true,
+"name": &"pulley invins",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("74_1ymuf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("75_hoixd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("76_5o5no")
+}, {
+"duration": 1.0,
+"texture": ExtResource("77_4u00j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("78_u5how")
+}, {
+"duration": 1.0,
+"texture": ExtResource("79_1sil7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("80_gs5a7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("81_k2mkm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("82_byjem")
+}, {
+"duration": 1.0,
+"texture": ExtResource("83_gnqqx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("84_4qfrb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("85_76ube")
+}, {
+"duration": 1.0,
+"texture": ExtResource("86_agxve")
+}, {
+"duration": 1.0,
+"texture": ExtResource("87_8ue2q")
+}],
+"loop": true,
+"name": &"pulling lever",
 "speed": 30.0
 }, {
 "frames": [{
@@ -755,7 +958,7 @@ metadata/_edit_lock_ = true
 position = Vector2(0, 0.145)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
-animation = &"idle"
+animation = &"pulling lever"
 autoplay = "idle"
 metadata/_edit_lock_ = true
 

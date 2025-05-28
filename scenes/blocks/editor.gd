@@ -111,6 +111,8 @@ func _on_body_exited(body: Node2D) -> void:
     _on_body_exitedGRAV_UP_LEVER(body)
   if is_in_group("grav down lever"):
     _on_body_exitedGRAV_DOWN_LEVER(body)
+  if is_in_group("death"):
+    _on_body_exitedDEATH(body)
 
 func _on_body_entered(body: Node2D) -> void:
   if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:

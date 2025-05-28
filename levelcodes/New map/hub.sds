@@ -697,4 +697,39 @@
       STRNAME(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(525.0)
+    STR(y)FLOAT(-265.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(buzsaw)
+    STR(options){
+      STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(345.0)
+    STR(y)FLOAT(-180.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(speed Up Lever)
+    STR(options){
+      STRNAME(attachesToThings)BOOL(true)
+      STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(315.0)
+    STR(y)FLOAT(-175.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Gravity Down Lever)
+    STR(options){
+      STRNAME(attachesToThings)BOOL(true)
+      STRNAME(color)STR(#fff)
+    }
+  }
 ]
