@@ -224,6 +224,9 @@ func _physics_process(delta: float) -> void:
     States.onPulley:
       global_position = activePulley.global_position + Vector2(0, 13)
       $anim.position = Vector2(5, 5.145)
+      if !activePulley.root.selectedOptions.movesRight:
+        $anim.position.x *= -1
+      $anim.flip_h = !activePulley.root.selectedOptions.movesRight
       if pulleyNoDieTimer <= 0:
         $anim.animation = "on pulley"
         if Input.is_action_just_pressed("jump"):
@@ -241,7 +244,6 @@ func _physics_process(delta: float) -> void:
       
       if Input.is_action_just_pressed("down"):
         state = States.falling
-
     States.bouncing:
       lastWall = 0
       breakFromWall = false
@@ -702,7 +704,6 @@ func handleCollision(block, normal, depth, sameFrame):
     if block.is_in_group("locked box") \
     :
       block.LOCKED_BOX_unlock()
-
     if block.is_in_group("pushable") \
     and getClosestWallSide() \
     and Input.is_action_just_pressed("down") \
@@ -890,6 +891,8 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # save more than 1 star
 # save block state data when saving mid level
 
+# add easy way to switch versions
+
 # add option to show when autosave triggers?
 # add block animations?
 # add version number to open map screen
@@ -900,3 +903,9 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # option to change ghost opacity/ghost hover opacity?
 
 # allow walkign up small ledges
+
+
+# known:
+  # when respawning inside water you don't enter the water as collision is disabled while respawning
+  # kt doesnt reset while entering water
+  # holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge

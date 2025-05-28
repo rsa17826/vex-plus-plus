@@ -5,7 +5,7 @@ extends Area2D
 # @flags gm
 # @endregex
 
-@export var id: int = 0
+var id: int = 0
 var normalScale = Vector2.ZERO
 var selected = 0
 var blockName := ''

@@ -144,8 +144,6 @@ func _on_body_entered(body: Node2D) -> void:
     _on_body_enteredLIGHT_SWITCH(body)
   if is_in_group("pole"):
     _on_body_enteredPOLE(body)
-  if is_in_group("pulley"):
-    _on_body_enteredPULLEY(body)
   if is_in_group("star"):
     _on_body_enteredSTAR(body)
   if is_in_group("targeting laser"):
@@ -178,6 +176,8 @@ func _ready() -> void:
     blockOptions.requiredLevelCount = {"type": TYPE_INT, "default": 0}
   if is_in_group("attaches to things"):
     blockOptions.attachesToThings = {"type": TYPE_BOOL, "default": true}
+  if is_in_group("pulley"):
+    blockOptions.movesRight = {"type": TYPE_BOOL, "default": true}
   if global.useropts.allowCustomColors:
     blockOptions.color = {"type": TYPE_STRING, "default": "#fff"}
   setupOptions()
@@ -775,9 +775,6 @@ func _on_body_enteredPOLE(body: Node):
 
 # PULLEY
 @export_group("PULLEY")
-func _on_body_enteredPULLEY(body: Node):
-  if global.player.state != global.player.States.onPulley:
-    global.player.state = global.player.States.onPulley
 
 # star
 @export_group("STAR")
