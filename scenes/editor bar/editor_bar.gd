@@ -70,8 +70,6 @@ func newItem(name, id) -> void:
   add_child(item)
   updateItem(item)
 
-@onready var version = int(global.file.read("VERSION", false, "-1"))
-
 func updateItem(item):
   if item.name == "ColorRect": return
   item.scale = (Vector2(1, 1) / 7)

@@ -13,5 +13,5 @@
       STR(color)INT(3)
     }
   }
-  STRNAME(version)STR(7)
+  STRNAME(version)INT(8)
 }
