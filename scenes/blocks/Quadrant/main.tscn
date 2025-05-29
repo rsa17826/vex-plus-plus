@@ -10,7 +10,7 @@ radius = 28.2312
 [sub_resource type="CircleShape2D" id="CircleShape2D_1btjx"]
 radius = 47.3814
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things", "death", "quadrant", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove", "QUADRANT_nodeToSpin") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things", "death", "quadrant", "respawnOnPlayerDeath"]]
 script = ExtResource("1_i6m5c")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
@@ -20,6 +20,7 @@ cloneEventsHere = NodePath("attach detector")
 UPDOWN_nodeToMove = NodePath("collisionNode")
 DOWNUP_nodeToMove = NodePath("collisionNode")
 LEFTRIGHT_nodeToMove = NodePath("collisionNode")
+QUADRANT_nodeToSpin = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 16

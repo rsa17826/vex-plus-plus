@@ -15,7 +15,7 @@ extends Node2D
 # @flags gm
 # @endregex
 # @name auto add export_group
-# @REGEX ^# ([\W ]+)\N(?!@)
+# @regex ^# ([\w ]{2,20})\n(?!@export_group)
 # @replace $&@export_group("$1")
 #
 # @flags gm
@@ -168,18 +168,18 @@ func _ready() -> void:
   if not ghost:
     createEditorGhost()
   if is_in_group("goal"):
-    blockOptions.requiredLevelCount = {"type": TYPE_INT, "default": 0}
+    blockOptions.requiredLevelCount = {"type": global.PromptTypes.int, "default": 0}
   if is_in_group("checkpoint"):
-    blockOptions.multiUse = {"type": TYPE_BOOL, "default": false}
+    blockOptions.multiUse = {"type": global.PromptTypes.bool, "default": false}
   if is_in_group("inner level"):
-    blockOptions.level = {"type": TYPE_STRING, "default": ""}
-    blockOptions.requiredLevelCount = {"type": TYPE_INT, "default": 0}
+    blockOptions.level = {"type": global.PromptTypes.string, "default": ""}
+    blockOptions.requiredLevelCount = {"type": global.PromptTypes.int, "default": 0}
   if is_in_group("attaches to things"):
-    blockOptions.attachesToThings = {"type": TYPE_BOOL, "default": true}
+    blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
   if is_in_group("pulley"):
-    blockOptions.movesRight = {"type": TYPE_BOOL, "default": true}
+    blockOptions.movesRight = {"type": global.PromptTypes.bool, "default": true}
   if global.useropts.allowCustomColors:
-    blockOptions.color = {"type": TYPE_STRING, "default": "#fff"}
+    blockOptions.color = {"type": global.PromptTypes.string, "default": "#fff"}
   setupOptions()
 
   if is_in_group("goal"):
@@ -199,13 +199,13 @@ func _ready() -> void:
 
 func toType(opt):
   match blockOptions[opt].type:
-    TYPE_STRING:
+    global.PromptTypes.string:
       selectedOptions[opt] = str(selectedOptions[opt])
-    TYPE_INT:
+    global.PromptTypes.int:
       selectedOptions[opt] = int(selectedOptions[opt])
-    TYPE_FLOAT:
+    global.PromptTypes.float:
       selectedOptions[opt] = float(selectedOptions[opt])
-    TYPE_BOOL:
+    global.PromptTypes.bool:
       selectedOptions[opt] = bool(selectedOptions[opt])
     _:
       selectedOptions[opt] = selectedOptions[opt]
@@ -238,7 +238,7 @@ func editOption(idx):
   if idx >= len(blockOptionsArray): return
   # log.pp("editing", idx, blockOptions)
   var k = blockOptionsArray[idx]
-  var newData = await global.prompt(k, selectedOptions[k], blockOptions[k].type)
+  var newData = await global.prompt(k, blockOptions[k].type, selectedOptions[k])
   # if !newData: return
   selectedOptions[k] = newData
   toType(k)
@@ -399,7 +399,7 @@ func createEditorGhost():
   ghost.add_child(collider)
   add_child(ghost)
 
-func spin(speed, node:=self):
+func spin(speed, node: Node2D = self):
   node.rotation_degrees = startRotation_degrees + fmod(global.tick * speed, 360.0)
 
 func getTexture(node):
@@ -430,6 +430,7 @@ func __enable():
   # visible = true
 
 # all blocks
+@export_group("all blocks")
 @export_category("BLOCKS")
 
 # water
@@ -753,11 +754,17 @@ func _on_body_enteredLIGHT_SWITCH(body: Node):
 
 # locked box
 @export_group("LOCKED_BOX")
+# boxes can only be unlocked once per frame to prevent excessive key usage
+var LOCKED_BOX_unlocked = false
 func LOCKED_BOX_unlock():
-  if len(global.player.keys):
+  if len(global.player.keys) and not LOCKED_BOX_unlocked:
+    LOCKED_BOX_unlocked = true
+    log.pp(global.player.keys)
     var key = global.player.keys.pop_back()
-    key.__disable.call_deferred()
-    __disable.call_deferred()
+    key.__disable()
+    __disable()
+    await global.wait()
+    LOCKED_BOX_unlocked = false
 
 # solar
 @export_group("SOLAR")
@@ -837,10 +844,14 @@ func _physics_processCLOSING_SPIKES(delta: float):
   CLOSING_SPIKES_rightSprite.global_position.x = CLOSING_SPIKES_rightCollisionShape.global_position.x
   rotation_degrees = startRotation_degrees
 
+# QUADRANT
+@export_group("QUADRANT")
+@export var QUADRANT_nodeToSpin: Node2D
 func _physics_processQUADRANT(delta: float):
-  spin(150)
+  spin(150, QUADRANT_nodeToSpin)
 
 # 10X_SPIKE
+@export_group("10X_SPIKE")
 func _ready10X_SPIKE():
   $Node2D.position = Vector2.ZERO
 

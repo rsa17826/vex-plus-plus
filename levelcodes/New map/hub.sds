@@ -37,9 +37,9 @@
     }
   }
   {
-    STR(x)FLOAT(130.0)
+    STR(x)FLOAT(-2.5)
     STR(y)FLOAT(200.0)
-    STR(w)FLOAT(5.59999966621399)
+    STR(w)FLOAT(8.25000023841858)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -653,7 +653,7 @@
   }
   {
     STR(x)FLOAT(1550.0)
-    STR(y)FLOAT(-365.0)
+    STR(y)FLOAT(-390.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -665,7 +665,7 @@
   }
   {
     STR(x)FLOAT(1465.0)
-    STR(y)FLOAT(-365.0)
+    STR(y)FLOAT(-390.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -730,6 +730,63 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
+    STR(options){
+      STRNAME(attachesToThings)BOOL(true)
+      STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(locked box)
+    STR(options){
+      STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-200.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(locked box)
+    STR(options){
+      STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-300.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(locked box)
+    STR(options){
+      STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-75.0)
+    STR(y)FLOAT(30.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(key)
+    STR(options){
+      STRNAME(attachesToThings)BOOL(true)
+      STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-75.0)
+    STR(y)FLOAT(-65.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(key)
     STR(options){
       STRNAME(attachesToThings)BOOL(true)
       STRNAME(color)STR(#fff)

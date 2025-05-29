@@ -23,13 +23,22 @@ func _process(delta):
       Signal(self, i[0]).emit()
       remove_user_signal(i[0])
   localProcess(delta)
-
 var openMsgBoxCount = 0
 
 var promptPromise
 const windowSize = Vector2(1152, 648)
 
-func prompt(msg, default=null, type=null) -> Variant:
+enum PromptTypes {
+  int,
+  confirm,
+  string,
+  float,
+  info,
+  singleArr,
+  multiArr,
+  bool
+}
+func prompt(msg, type: PromptTypes = PromptTypes.info, default=null) -> Variant:
   if openMsgBoxCount:
     while openMsgBoxCount:
       await wait(10)
@@ -48,24 +57,24 @@ func prompt(msg, default=null, type=null) -> Variant:
   promptCanvas.btnOk.text = "ok"
   promptCanvas.btnCancel.visible = true
   match type:
-    null:
+    PromptTypes.info:
       promptCanvas.btnCancel.visible = false
-    TYPE_INT:
+    PromptTypes.int:
       promptCanvas.numEdit.value = 0 if default == null else default
       promptCanvas.numEdit.step = 1
       promptCanvas.numEdit.rounded = true
       promptCanvas.numEdit.get_line_edit().connect("text_submitted", _on_submit)
       promptCanvas.numEdit.visible = true
       promptCanvas.numEdit.get_line_edit().grab_focus()
-    TYPE_BOOL:
+    PromptTypes.confirm | PromptTypes.bool:
       promptCanvas.btnCancel.text = "false"
       promptCanvas.btnOk.text = "true"
-    TYPE_STRING:
+    PromptTypes.string:
       promptCanvas.strEdit.text = '' if default == null else default
       promptCanvas.strEdit.connect("text_submitted", _on_submit)
       promptCanvas.strEdit.visible = true
       promptCanvas.strEdit.grab_focus()
-    TYPE_FLOAT:
+    PromptTypes.float:
       promptCanvas.numEdit.value = 0.0 if default == null else default
       promptCanvas.numEdit.rounded = false
       promptCanvas.numEdit.step = .1
@@ -752,7 +761,7 @@ func loadLevelPack(levelPackName, loadFromSave):
           " and the current version is " + str(version) +
           ". Do you want to load this level?\n" +
           "> the current game version is newer than what the level was made in"
-          , null, TYPE_BOOL
+          , PromptTypes.confirm
         ): return
     else:
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
@@ -762,7 +771,7 @@ func loadLevelPack(levelPackName, loadFromSave):
           " and the current version is " + str(version) +
           ". Do you want to load this level?\n" +
           "< the current game version might not have all the features needed to play this level"
-          , null, TYPE_BOOL
+          , PromptTypes.confirm
         ): return
   levelOpts = levelPackInfo
 
@@ -857,7 +866,7 @@ func animate(speed: int, steps: Array[Dictionary]):
 
 func createNewLevelFile(levelPackName, levelName=null):
   if not levelName:
-    levelName = await prompt("enter the level name", "", TYPE_STRING)
+    levelName = await prompt("enter the level name", PromptTypes.string, "")
   var fullDirPath = path.parsePath(path.join("res://levelcodes/", levelPackName))
   var opts = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
   opts.stages[levelName] = defaultLevelSettings.duplicate()
@@ -866,8 +875,8 @@ func createNewLevelFile(levelPackName, levelName=null):
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"), opts)
 
 func createNewMapFolder():
-  var foldername = await prompt("Enter the name of the map", "New map", TYPE_STRING)
-  var startLevel = await prompt("Enter the name of the first level:", "hub", TYPE_STRING)
+  var foldername = await prompt("Enter the name of the map", PromptTypes.string, "New map")
+  var startLevel = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
   var fullDirPath = path.parsePath(path.join("res://levelcodes/", foldername))
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
@@ -878,13 +887,13 @@ func createNewMapFolder():
       "start": startLevel,
       "author": await prompt(
         "Enter your name",
+        PromptTypes.string,
         "",
-        TYPE_STRING
       ),
       "description": await prompt(
         "Enter a description of the map:",
+        PromptTypes.string,
         "",
-        TYPE_STRING
       ),
       "stages": {
       }
@@ -907,14 +916,6 @@ func currentLevelSettings(key=null):
     return data
   return levelOpts.stages[currentLevel().name]
 
-  # await wait()
-  # await prompt("", file.read("res://VERSION", false), TYPE_STRING)
-
-  # while 1:
-  #   await wait()
-  #   sds.prettyPrint=false
-  #   await prompt("", sds.saveData(JSON.parse_string(await prompt("data", "", TYPE_STRING))), TYPE_STRING)
-
 func fullscreen(state=0):
   var mode := DisplayServer.window_get_mode()
   match state:
@@ -934,47 +935,47 @@ func fullscreen(state=0):
 @onready var version = int(file.read("VERSION", false, "-1"))
 
 var blockNames = [
-  "basic",
-  "single spike",
-  "10x spike",
-  "invisible",
-  "updown",
-  "downup",
-  "water",
-  "solar",
-  "slope",
-  "pushable box",
-  "microwave",
-  "locked box",
-  "glass",
-  "leftright",
-  "falling",
-  "bouncy",
-  "spark",
-  "inner level",
-  "goal",
-  "buzsaw",
-  "bouncing buzsaw",
-  "cannon",
-  "checkpoint",
-  "closing spikes",
-  "Gravity Down Lever",
-  "Gravity up Lever",
-  "growing buzsaw",
-  "key",
-  "laser",
-  "light switch",
-  "pole",
-  "Pole Quadrant",
-  "Pulley",
-  "Quadrant",
-  "Rotating Buzzsaw",
-  "Scythe",
-  "shurikan Spawner",
-  "speed Up Lever",
-  "star",
-  "targeting laser",
-  "ice"
+  "basic", # 1
+  "single spike", # 1
+  "10x spike", # 1
+  "invisible", # 0
+  "updown", # 1
+  "downup", # 1
+  "water", # 1
+  "solar", # 1
+  "slope", # 1
+  "pushable box", # 1
+  "microwave", # 1
+  "locked box", # 1
+  "glass", # 1
+  "leftright", # 1
+  "falling", # 1
+  "bouncy", # 1
+  "spark", # 0
+  "inner level", # .5
+  "goal", # 1
+  "buzsaw", # .9
+  "bouncing buzsaw", # .9
+  "cannon", # .2
+  "checkpoint", # .8
+  "closing spikes", # 1
+  "Gravity Down Lever", # 1
+  "Gravity up Lever", # 1
+  "growing buzsaw", # 0
+  "key", # .5
+  "laser", # 0
+  "light switch", # .9
+  "pole", # 0
+  "Pole Quadrant", # 0
+  "Pulley", # 1
+  "Quadrant", # 1
+  "Rotating Buzzsaw", # 1
+  "Scythe", # 1
+  "shurikan Spawner", # .1
+  "speed Up Lever", # 0
+  "star", # .8
+  "targeting laser", # 0
+  "ice" # 0
 ]
 
 func localReady():
