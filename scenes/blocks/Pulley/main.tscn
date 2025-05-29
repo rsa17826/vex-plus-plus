@@ -9,9 +9,10 @@
 radius = 34.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_omc7y"]
-size = Vector2(24, 31)
+size = Vector2(24, 14)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_omc7y"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vkeng"]
+size = Vector2(10, 230)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
 size = Vector2(20, 5)
@@ -48,13 +49,12 @@ debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="has ceil" type="Area2D" parent="movable"]
 light_mask = 0
-visibility_layer = 2
 position = Vector2(1, 0)
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/has ceil"]
-position = Vector2(-1, -51.5)
+position = Vector2(-1, -43)
 shape = SubResource("RectangleShape2D_omc7y")
 
 [node name="wall to side" type="Area2D" parent="movable"]
@@ -65,12 +65,12 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side"]
-position = Vector2(24, -20)
-shape = SubResource("CircleShape2D_omc7y")
+position = Vector2(28, 93.5)
+shape = SubResource("RectangleShape2D_vkeng")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side"]
-position = Vector2(-27, -20)
-shape = SubResource("CircleShape2D_omc7y")
+position = Vector2(-30, 93.5)
+shape = SubResource("RectangleShape2D_vkeng")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
 collision_layer = 0

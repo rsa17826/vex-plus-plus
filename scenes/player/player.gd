@@ -222,11 +222,12 @@ func _physics_process(delta: float) -> void:
       # else: return
       return
     States.onPulley:
+      vel.user = Vector2.ZERO
+      var lastpos = global_position
       global_position = activePulley.global_position + Vector2(0, 13)
       $anim.position = Vector2(5, 5.145)
-      if !activePulley.root.selectedOptions.movesRight:
-        $anim.position.x *= -1
-      $anim.flip_h = !activePulley.root.selectedOptions.movesRight
+      $anim.position.x *= activePulley.direction
+      $anim.flip_h = activePulley.direction == -1
       if pulleyNoDieTimer <= 0:
         $anim.animation = "on pulley"
         if Input.is_action_just_pressed("jump"):
@@ -237,11 +238,14 @@ func _physics_process(delta: float) -> void:
         if pulleyNoDieTimer <= 0:
           $anim.animation = "on pulley"
           $anim.frame = 9
+      if collsiionOn_right or collsiionOn_left:
+        activePulley.root.respawn()
+        global_position = lastpos
       log.pp(pulleyNoDieTimer)
       if pulleyNoDieTimer <= 0:
         if len(deathSources):
           die()
-      
+
       if Input.is_action_just_pressed("down"):
         state = States.falling
     States.bouncing:
@@ -681,7 +685,7 @@ func handleCollision(block, normal, depth, sameFrame):
     and normal.y < 0 \
     and velocity.y >= 0 \
     :
-      block.FALLING_falling = true
+      block.get_parent().FALLING_falling = true
     if block.is_in_group("glass") \
     and normal.y < 0 \
     and velocity.y >= 0 \
@@ -903,7 +907,6 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # option to change ghost opacity/ghost hover opacity?
 
 # allow walkign up small ledges
-
 
 # known:
   # when respawning inside water you don't enter the water as collision is disabled while respawning
