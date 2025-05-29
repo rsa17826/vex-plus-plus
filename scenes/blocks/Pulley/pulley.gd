@@ -2,7 +2,7 @@ extends Node2D
 
 @export var root: Node2D = null
 const SPEED = 1300
-
+var direction = 0
 func _on_attach_detector_body_entered(body: Node2D) -> void:
   pass # Replace with function body.
 
@@ -28,8 +28,15 @@ func on_respawn():
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
   log.pp(body, root.respawning, moving)
-  if root.respawning:
+  if root.respawning or not len(get_node("has ceil").get_overlapping_bodies()):
     return
+  match root.selectedOptions.direction:
+    "right":
+      direction = 1
+    "left":
+      direction = -1
+    "user":
+      direction = -1 if global.player.get_node("anim").flip_h else 1
   moving = true
   global.player.activePulley = self
   global.player.state = global.player.States.onPulley
@@ -40,4 +47,4 @@ func _physics_process(delta: float) -> void:
     return
   if not moving:
     return
-  position.x += SPEED * delta * (1 if root.selectedOptions.movesRight else -1)
+  position.x += SPEED * delta * direction

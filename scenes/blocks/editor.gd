@@ -59,6 +59,8 @@ func respawn():
   BOUNCY_bouncing = false
   BOUNCY_bounceForce = 0
   KEY_following = false
+  if FALLING_nodeToMove:
+    FALLING_nodeToMove.position = Vector2.ZERO
   lastMovementStep = Vector2.ZERO
   respawning = 2
   SPEED_UP_LEVER_colliding = false
@@ -177,7 +179,11 @@ func _ready() -> void:
   if is_in_group("attaches to things"):
     blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
   if is_in_group("pulley"):
-    blockOptions.movesRight = {"type": global.PromptTypes.bool, "default": true}
+    blockOptions.direction = {"type": global.PromptTypes.singleArr, "default": "right", "values": [
+      "left",
+      "right",
+      "user"
+    ]}
   if global.useropts.allowCustomColors:
     blockOptions.color = {"type": global.PromptTypes.string, "default": "#fff"}
   setupOptions()
@@ -198,6 +204,7 @@ func _ready() -> void:
     self.modulate = Color(selectedOptions.color)
 
 func toType(opt):
+  log.pp("blockOptions[opt].type", blockOptions[opt].type)
   match blockOptions[opt].type:
     global.PromptTypes.string:
       selectedOptions[opt] = str(selectedOptions[opt])
@@ -207,6 +214,10 @@ func toType(opt):
       selectedOptions[opt] = float(selectedOptions[opt])
     global.PromptTypes.bool:
       selectedOptions[opt] = bool(selectedOptions[opt])
+    global.PromptTypes.confirm:
+      selectedOptions[opt] = bool(selectedOptions[opt])
+    global.PromptTypes.singleArr:
+      selectedOptions[opt] = selectedOptions[opt]
     _:
       selectedOptions[opt] = selectedOptions[opt]
 
@@ -238,7 +249,8 @@ func editOption(idx):
   if idx >= len(blockOptionsArray): return
   # log.pp("editing", idx, blockOptions)
   var k = blockOptionsArray[idx]
-  var newData = await global.prompt(k, blockOptions[k].type, selectedOptions[k])
+  var newData = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
+  log.pp(newData, "newData")
   # if !newData: return
   selectedOptions[k] = newData
   toType(k)
@@ -278,7 +290,6 @@ func _physics_process(delta: float):
       lastMovementStep = thingThatMoves.global_position - lastpos
     else:
       lastMovementStep = global_position - lastpos
-    # lastMovementStep /= delta
   if respawning:
     respawning -= 1
 
@@ -301,16 +312,9 @@ func _process(delta: float) -> void:
   else:
     ghost.rotation_degrees = 0
   ghost.use_parent_material = true
-  ghost.self_modulate.a = 0.3
+  ghost.self_modulate.a = global.useropts.blockGhostAlpha
 
   ghost.visible = global.showEditorUi
-  # if get_node_or_null("AnimatedSprite2D"):
-  #   ghostIconNode.visible = global.showEditorUi
-  # if not global.showEditorUi:
-  #   if _DISABLED:
-  #     __disable()
-  #   else:
-  #     __enable()
   if global.showEditorUi and not Input.is_action_pressed("editor_pan"):
     if global.selectedBlock == self:
       if Input.is_action_pressed("editor_select"):
@@ -379,7 +383,7 @@ func createEditorGhost():
   ghost.material = preload("res://scenes/blocks/selectedBorder.tres")
   ghost.scale = ghostIconNode.scale
   ghost.name = "ghost"
-  ghost.modulate.a = .2
+  # ghost.modulate.a = .2
   var collider = Area2D.new()
   collider.connect("mouse_entered", _on_mouse_entered)
   collider.connect("mouse_exited", _on_mouse_exited)

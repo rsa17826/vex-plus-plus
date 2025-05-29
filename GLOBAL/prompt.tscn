@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ccobtxlykollf"]
 
-[ext_resource type="Script" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
+[ext_resource type="Script" uid="uid://in0c53flu1jr" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_s0bsq"]
 device = -1
@@ -24,11 +24,12 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_pvy46"]
 events = [SubResource("InputEventKey_he371"), SubResource("InputEventJoypadButton_eqlig")]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "btnOk", "btnCancel")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "btnOk", "btnCancel")]
 script = ExtResource("1_ffns6")
 promptText = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Label")
 strEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit")
 numEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit2")
+enumEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/OptionButton")
 btnOk = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button")
 btnCancel = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button2")
 
@@ -68,6 +69,10 @@ allow_greater = true
 allow_lesser = true
 update_on_text_changed = true
 select_all_on_focus = true
+
+[node name="OptionButton" type="OptionButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+layout_mode = 2
+allow_reselect = true
 
 [node name="VFlowContainer2" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
 layout_direction = 2

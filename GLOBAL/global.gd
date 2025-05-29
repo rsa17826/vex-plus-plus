@@ -38,7 +38,7 @@ enum PromptTypes {
   multiArr,
   bool
 }
-func prompt(msg, type: PromptTypes = PromptTypes.info, default=null) -> Variant:
+func prompt(msg, type: PromptTypes = PromptTypes.info, default=null, singleArrValues=[]) -> Variant:
   if openMsgBoxCount:
     while openMsgBoxCount:
       await wait(10)
@@ -52,6 +52,7 @@ func prompt(msg, type: PromptTypes = PromptTypes.info, default=null) -> Variant:
 
   promptCanvas.numEdit.visible = false
   promptCanvas.strEdit.visible = false
+  promptCanvas.enumEdit.visible = false
   # log.pp(type)
   promptCanvas.btnCancel.text = "cancel"
   promptCanvas.btnOk.text = "ok"
@@ -81,6 +82,14 @@ func prompt(msg, type: PromptTypes = PromptTypes.info, default=null) -> Variant:
       promptCanvas.numEdit.get_line_edit().connect("text_submitted", _on_submit)
       promptCanvas.numEdit.visible = true
       promptCanvas.numEdit.get_line_edit().grab_focus()
+    PromptTypes.singleArr:
+      promptCanvas.enumEdit.clear()
+      for thing in singleArrValues:
+        promptCanvas.enumEdit.add_item(thing)
+      promptCanvas.enumEdit.select(-1 if default == null else singleArrValues.find(default))
+      promptCanvas.enumEdit.connect("item_selected", _on_submit)
+      promptCanvas.enumEdit.visible = true
+      promptCanvas.enumEdit.grab_focus()
 
   promptCanvas.btnOk.connect("pressed", _on_submit)
   promptCanvas.btnCancel.connect("pressed", _on_cancel)
@@ -89,10 +98,11 @@ func prompt(msg, type: PromptTypes = PromptTypes.info, default=null) -> Variant:
   var confirmed = await promptPromise.wait()
   var val
   match type:
-    TYPE_BOOL: val = confirmed
-    TYPE_STRING: val = promptCanvas.strEdit.text if confirmed else default
-    TYPE_FLOAT: val = float(promptCanvas.numEdit.value) if confirmed else default
-    TYPE_INT: val = int(promptCanvas.numEdit.value) if confirmed else default
+    PromptTypes.confirm | PromptTypes.bool: val = confirmed
+    PromptTypes.string: val = promptCanvas.strEdit.text if confirmed else default
+    PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else default
+    PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else default
+    PromptTypes.singleArr: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else default
 
   promptCanvas.queue_free.call_deferred()
   return val
@@ -554,7 +564,7 @@ func localProcess(delta: float) -> void:
       selectedBlock.scale.x = clamp(selectedBlock.scale.x, 0.1 / 7.0, 25.0 / 7.0)
       selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 25.0 / 7.0)
       global.showEditorUi = true
-      selectedBlock.self_modulate.a = 0
+      # selectedBlock.self_modulate.a = useropts.hoveredBlockGhostAlpha
 
       setBlockStartPos(selectedBlock)
       selectedBlock.respawn()

@@ -83,6 +83,24 @@
         "min": 0,
         "max": 638,
         "step": 1
+      },
+      {
+        "thing": "option",
+        "type": "range",
+        "key": "blockGhostAlpha",
+        "defaultValue": 0.3,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
+      },
+      {
+        "thing": "option",
+        "type": "range",
+        "key": "hoveredBlockGhostAlpha",
+        "defaultValue": 0,
+        "min": 0,
+        "max": 1,
+        "step": 0.01
       }
     ]
   },
