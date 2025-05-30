@@ -29,18 +29,18 @@ extends Node2D
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
 
-var _DISABLED = false
-var isHovered = false
-var id
+var _DISABLED := false
+var isHovered := false
+var id: int
 var startPosition: Vector2
 var startRotation_degrees: float
 var startScale: Vector2 = Vector2(1, 1)
-var ghost
-var lastMovementStep
-var respawning = 0
-var blockOptions
-var selectedOptions = {}
-var blockOptionsArray = []
+var ghost: Node2D
+var lastMovementStep: Vector2
+var respawning := 0
+var blockOptions: Dictionary
+var selectedOptions := {}
+var blockOptionsArray := []
 var pm: PopupMenu
 
 func _on_mouse_entered() -> void:
@@ -49,7 +49,7 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
   isHovered = false
 
-func respawn():
+func respawn() -> void:
   global_position = startPosition
   rotation_degrees = startRotation_degrees
   scale = startScale
@@ -69,12 +69,12 @@ func respawn():
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
 
-var onBottomSide = false
-var onTopSide = false
-var onLeftSide = false
-var onRightSide = false
+var onBottomSide := false
+var onTopSide := false
+var onLeftSide := false
+var onRightSide := false
 
-var last_input_event
+var last_input_event: InputEvent
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   if cloneEventsHere and 'on_on_input_event' in cloneEventsHere:
     cloneEventsHere.on_on_input_event(viewport, event, shape_idx)
@@ -88,8 +88,8 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
         # log.pp(event.to_string(), shape_idx, viewport)
         if not pm: return
         # log.pp(blockOptions, event.as_text(), self, self.name)
-        var i = 0
-        for k in blockOptions:
+        var i := 0
+        for k: String in blockOptions:
           pm.set_item_text(i, k + ": " + type_string(blockOptions[k].type) + " = " + str(selectedOptions[k]))
           i += 1
         pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
@@ -203,7 +203,7 @@ func _ready() -> void:
   if global.useropts.allowCustomColors:
     self.modulate = Color(selectedOptions.color)
 
-func toType(opt):
+func toType(opt: Variant) -> void:
   log.pp("blockOptions[opt].type", blockOptions[opt].type)
   match blockOptions[opt].type:
     global.PromptTypes.string:
@@ -224,32 +224,32 @@ func toType(opt):
 func setupOptions() -> void:
   if pm: return
   if !blockOptions: return
-  for opt in blockOptions:
+  for opt: String in blockOptions:
     if opt in selectedOptions:
       toType(opt)
       continue
     if "default" in blockOptions[opt]:
       selectedOptions[opt] = blockOptions[opt].default
       toType(opt)
-  var can = CanvasLayer.new()
+  var can := CanvasLayer.new()
   add_child(can)
   pm = PopupMenu.new()
   can.add_child(pm)
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
-  var i = 0
+  var i := 0
   blockOptionsArray = []
-  for k in blockOptions:
+  for k: String in blockOptions:
     blockOptionsArray.append(k)
     pm.add_item('', i)
     i += 1
   pm.add_item('cancel', i)
   pm.connect("index_pressed", editOption)
 
-func editOption(idx):
+func editOption(idx: int) -> void:
   if idx >= len(blockOptionsArray): return
   # log.pp("editing", idx, blockOptions)
-  var k = blockOptionsArray[idx]
-  var newData = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
+  var k: Variant = blockOptionsArray[idx]
+  var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
   log.pp(newData, "newData")
   # if !newData: return
   selectedOptions[k] = newData
@@ -257,10 +257,10 @@ func editOption(idx):
   respawn()
   _ready()
 
-func _physics_process(delta: float):
+func _physics_process(delta: float) -> void:
   if global.openMsgBoxCount: return
   if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
-  var lastpos = thingThatMoves.global_position if thingThatMoves else global_position
+  var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
   if is_in_group("updown"):
     _physics_processUPDOWN(delta)
   if is_in_group("downup"):
@@ -333,20 +333,20 @@ func _process(delta: float) -> void:
         ghost.material.set_shader_parameter("color", Color("#6e6e00"))
         # and if first hovered block, show border
         if global.hoveredBlocks && self == global.hoveredBlocks[0]:
-          var mouse_pos = get_global_mouse_position()
+          var mouse_pos := get_global_mouse_position()
 
-          var node_pos = ghost.global_position
-          var node_size = ghost.texture.get_size() * ghost.scale * scale
-          var left_edge = node_pos.x - node_size.x / 2
-          var right_edge = node_pos.x + node_size.x / 2
-          var top_edge = node_pos.y - node_size.y / 2
-          var bottom_edge = node_pos.y + node_size.y / 2
+          var node_pos := ghost.global_position
+          var node_size: Vector2 = ghost.texture.get_size() * ghost.scale * scale
+          var left_edge := node_pos.x - node_size.x / 2
+          var right_edge := node_pos.x + node_size.x / 2
+          var top_edge := node_pos.y - node_size.y / 2
+          var bottom_edge := node_pos.y + node_size.y / 2
 
-          var leftDist = abs(mouse_pos.x - left_edge)
-          var rightDist = abs(mouse_pos.x - right_edge)
-          var topDist = abs(mouse_pos.y - top_edge)
-          var bottomDist = abs(mouse_pos.y - bottom_edge)
-          var testDist = 7
+          var leftDist: float = abs(mouse_pos.x - left_edge)
+          var rightDist: float = abs(mouse_pos.x - right_edge)
+          var topDist: float = abs(mouse_pos.y - top_edge)
+          var bottomDist: float = abs(mouse_pos.y - bottom_edge)
+          var testDist := 7
 
           # set the sides that you are close enough to to be selecting
           onTopSide = topDist < testDist
@@ -375,7 +375,7 @@ func _process(delta: float) -> void:
   if is_in_group("key"):
     _processKEY(delta)
 
-func createEditorGhost():
+func createEditorGhost() -> void:
   if not ghostIconNode:
     log.err("ghost icon node is null", name)
     breakpoint
@@ -384,14 +384,14 @@ func createEditorGhost():
   ghost.scale = ghostIconNode.scale
   ghost.name = "ghost"
   # ghost.modulate.a = .2
-  var collider = Area2D.new()
+  var collider := Area2D.new()
   collider.connect("mouse_entered", _on_mouse_entered)
   collider.connect("mouse_exited", _on_mouse_exited)
   collider.connect("input_event", _on_input_event)
   collider.name = "collider"
   collider.input_pickable = true
-  var collisionShape = CollisionShape2D.new()
-  var rectangle = RectangleShape2D.new()
+  var collisionShape := CollisionShape2D.new()
+  var rectangle := RectangleShape2D.new()
   if not ghost.get_texture():
     log.err("no ghost texture", id, name, ghostIconNode.get_texture(), ghost, ghost.get_texture())
     breakpoint
@@ -403,16 +403,16 @@ func createEditorGhost():
   ghost.add_child(collider)
   add_child(ghost)
 
-func spin(speed, node: Node2D = self):
+func spin(speed: float, node: Node2D = self) -> void:
   node.rotation_degrees = startRotation_degrees + fmod(global.tick * speed, 360.0)
 
-func getTexture(node):
+func getTexture(node: Node2D) -> String:
   return global.regMatch(node.texture.resource_path, r'/([^/]+)\.png$')[1].strip_edges()
 
-func setTexture(node, newTexture):
+func setTexture(node: Node2D, newTexture: String) -> void:
   node.texture = load(global.regReplace(node.texture.resource_path, '/[^/]+$', '/' + str(newTexture) + '.png'))
 
-func __disable():
+func __disable() -> void:
   if _DISABLED: return
   if cloneEventsHere and 'on__disable' in cloneEventsHere:
     cloneEventsHere.on__disable()
@@ -422,7 +422,7 @@ func __disable():
   for sprite in hidableSprites:
     sprite.visible = false
 
-func __enable():
+func __enable() -> void:
   if not _DISABLED: return
   if cloneEventsHere and 'on__enable' in cloneEventsHere:
     cloneEventsHere.on__enable()
@@ -442,11 +442,11 @@ func __enable():
 
 const MAX_WATER_REENTER_TIME = 7
 
-var waterReenterTimer = 0
+var waterReenterTimer: float = 0
 
-var WATER_playerInsideWater = false
+var WATER_playerInsideWater := false
 
-func _physics_processWATER(delta):
+func _physics_processWATER(delta: float) -> void:
   # lower frame counters
   if waterReenterTimer > 0:
     waterReenterTimer -= delta * 60
@@ -457,12 +457,12 @@ func _physics_processWATER(delta):
   elif self in global.player.inWaters:
     global.player.inWaters.erase(self)
 
-func _on_body_exitedWATER(body: Node):
+func _on_body_exitedWATER(body: Node) -> void:
   if body == global.player:
     WATER_playerInsideWater = false
     waterReenterTimer = MAX_WATER_REENTER_TIME
 
-func _on_body_enteredWATER(body: Node):
+func _on_body_enteredWATER(body: Node) -> void:
   if body == global.player:
     WATER_playerInsideWater = true
 
@@ -470,10 +470,10 @@ func _on_body_enteredWATER(body: Node):
 @export_group("FALLING")
 @export var FALLING_nodeToMove: Node2D
 
-var FALLING_falling = false
-var FALLING_fallSpeed = 150
+var FALLING_falling := false
+var FALLING_fallSpeed: float = 150
 
-func _physics_processFALLING(delta: float):
+func _physics_processFALLING(delta: float) -> void:
   if FALLING_falling:
     if FALLING_fallSpeed > 1500:
       respawn()
@@ -485,21 +485,21 @@ func _physics_processFALLING(delta: float):
 @export_group("UPDOWN")
 @export var UPDOWN_nodeToMove: Node2D
 
-func _physics_processUPDOWN(delta: float):
+func _physics_processUPDOWN(delta: float) -> void:
   UPDOWN_nodeToMove.global_position.y = startPosition.y + sin(global.tick * 1.5) * 200
 
 # downup
 @export_group("DOWNUP")
 @export var DOWNUP_nodeToMove: Node2D
 
-func _physics_processDOWNUP(delta: float):
+func _physics_processDOWNUP(delta: float) -> void:
   DOWNUP_nodeToMove.global_position.y = startPosition.y - sin(global.tick * 1.5) * 200
 
 # leftright
 @export_group("LEFTRIGHT")
 @export var LEFTRIGHT_nodeToMove: Node2D
-var wasColliding = false
-func _physics_processLEFTRIGHT(delta: float):
+var wasColliding := false
+func _physics_processLEFTRIGHT(delta: float) -> void:
   # var start = LEFTRIGHT_nodeToMove.global_position
   LEFTRIGHT_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
   # var end = LEFTRIGHT_nodeToMove.global_position
@@ -530,17 +530,17 @@ func _physics_processLEFTRIGHT(delta: float):
 
 # bouncy
 @export_group("BOUNCY")
-var BOUNCY_bouncing = false
-var BOUNCY_bounceState = 0
-var BOUNCY_bounceForce = 0
+var BOUNCY_bouncing := false
+var BOUNCY_bounceState: float = 0
+var BOUNCY_bounceForce: float = 0
 
-func BOUNCY_start():
+func BOUNCY_start() -> void:
   if BOUNCY_bouncing: return
   BOUNCY_bouncing = true
   BOUNCY_bounceState = 0
   global.player.state = global.player.States.bouncing
 
-func _processBOUNCY(delta: float):
+func _processBOUNCY(delta: float) -> void:
   if respawning: return
   if BOUNCY_bouncing:
     if not BOUNCY_bounceForce:
@@ -556,21 +556,21 @@ func _processBOUNCY(delta: float):
       respawn()
     if BOUNCY_bounceState <= 50:
       # start by going down
-      var size = ghost.texture.get_size() * startScale
+      var size: Vector2 = ghost.texture.get_size() * startScale
       global_position.y = global.rerange(BOUNCY_bounceState, 0, 50, startPosition.y, startPosition.y + (size.y / 4.0))
       scale.y = global.rerange(BOUNCY_bounceState, 0, 50, startScale.y, startScale.y / 2)
     else:
       # then go back up
-      var size = ghost.texture.get_size() * startScale
+      var size: Vector2 = ghost.texture.get_size() * startScale
       scale.y = global.rerange(BOUNCY_bounceState, 50, 100, startScale.y / 2, startScale.y)
       global_position.y = global.rerange(BOUNCY_bounceState, 100, 50, startPosition.y, startPosition.y + (size.y / 4.0))
 
-    var node_pos = ghostIconNode.global_position
-    var node_size = ghostIconNode.texture.get_size() * scale
-    var top_edge = node_pos.y - node_size.y / 2
+    var node_pos := ghostIconNode.global_position
+    var node_size := ghostIconNode.texture.get_size() * scale
+    var top_edge := node_pos.y - node_size.y / 2
 
-    var playerGhost = global.player.get_parent().ghost
-    var playerGhostSize = playerGhost.get_texture().get_size() * playerGhost.scale
+    var playerGhost: Node2D = global.player.get_parent().ghost
+    var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
 
     # move the player to the top center of the bouncy block
     global.player.global_position.y = top_edge - (playerGhostSize.y / 2)
@@ -578,12 +578,12 @@ func _processBOUNCY(delta: float):
 
 # death
 @export_group("DEATH")
-func _on_body_enteredDEATH(body: Node):
+func _on_body_enteredDEATH(body: Node) -> void:
   if body == global.player:
     if self not in global.player.deathSources:
       global.player.deathSources.append(self)
 
-func _on_body_exitedDEATH(body: Node):
+func _on_body_exitedDEATH(body: Node) -> void:
   if body == global.player:
     if self in global.player.deathSources:
       global.player.deathSources.erase(self)
@@ -592,15 +592,15 @@ func _on_body_exitedDEATH(body: Node):
 @export_group("INNER LEVEL")
 @export var INNER_LEVEL_label: Node
 @export var INNER_LEVEL_sprite: Node2D
-var INNER_LEVEL_disabled = false
+var INNER_LEVEL_disabled := false
 
-func INNER_LEVEL_enterLevel():
+func INNER_LEVEL_enterLevel() -> void:
   if INNER_LEVEL_disabled: return
   global.loadInnerLevel(selectedOptions.level)
 
-func _readyINNER_LEVEL():
+func _readyINNER_LEVEL() -> void:
   INNER_LEVEL_disabled = false
-  var text = selectedOptions.level + "\nNEW"
+  var text: String = selectedOptions.level + "\nNEW"
   if not selectedOptions.level:
     text = "no level set"
     INNER_LEVEL_disabled = true
@@ -610,7 +610,7 @@ func _readyINNER_LEVEL():
   elif selectedOptions.requiredLevelCount > len(global.beatLevels):
     text = "beat " + str(selectedOptions.requiredLevelCount - len(global.beatLevels)) + " more levels"
     INNER_LEVEL_disabled = true
-  elif selectedOptions.level in global.beatLevels.map(func(e):
+  elif selectedOptions.level in global.beatLevels.map(func(e: Dictionary) -> String:
     return e.name
     ):
     text = selectedOptions.level + "\nCOMPLETED"
@@ -620,7 +620,7 @@ func _readyINNER_LEVEL():
   elif selectedOptions.level not in global.levelOpts.stages:
     text = "level settings not found\n" + selectedOptions.level
     INNER_LEVEL_disabled = true
-  elif selectedOptions.level in global.loadedLevels.map(func(e):
+  elif selectedOptions.level in global.loadedLevels.map(func(e: Dictionary) -> String:
     return e.name
     ):
     text = "level already in path"
@@ -631,12 +631,12 @@ func _readyINNER_LEVEL():
 @export_group("GOAL")
 @export var GOAL_sprite: Node2D
 @export var GOAL_CollisionShape: Node2D
-func _readyGOAL():
+func _readyGOAL() -> void:
   if selectedOptions.requiredLevelCount > len(global.beatLevels):
     GOAL_sprite.modulate = Color("#555")
     GOAL_CollisionShape.disabled = true
 
-func _on_body_enteredGOAL(body: Node):
+func _on_body_enteredGOAL(body: Node) -> void:
   if body == global.player:
     if selectedOptions.requiredLevelCount > len(global.beatLevels): return
     global.win()
@@ -644,13 +644,13 @@ func _on_body_enteredGOAL(body: Node):
 # checkpoint
 @export_group("CHECKPOINT")
 @export var CHECKPOINT_sprite: Node2D
-func _on_body_enteredCHECKPOINT(body: Node):
+func _on_body_enteredCHECKPOINT(body: Node) -> void:
   if body == global.player and (getTexture(CHECKPOINT_sprite) == '1' or selectedOptions.multiUse):
     global.savePlayerLevelData()
     global.player.lastSpawnPoint = global.player.position
     global.player.lightsOut = false
     setTexture(CHECKPOINT_sprite, "2")
-    global.checkpoints = global.checkpoints.filter(func(e):
+    global.checkpoints = global.checkpoints.filter(func(e: Node2D) -> bool:
       return is_instance_valid(e))
     for checkpoint in global.checkpoints:
       if checkpoint == self: continue
@@ -664,49 +664,49 @@ func _readyCHECKPOINT() -> void:
 
 # rotating buzsaw
 @export_group("ROTATING BUZSAW")
-func _physics_processROTATING_BUZSAW(delta: float):
+func _physics_processROTATING_BUZSAW(delta: float) -> void:
   spin(300)
 
 # scythe
 @export_group("SCYTHE")
-func _physics_processSCYTHE(delta: float):
+func _physics_processSCYTHE(delta: float) -> void:
   spin(-300)
 
 # canon
 @export_group("CANON")
-func _on_body_enteredCANON(body: Node):
+func _on_body_enteredCANON(body: Node) -> void:
   if body == global.player:
     global.player.state = global.player.States.inCannon
     global.player.global_position = ghostIconNode.global_position
 
 # speed up lever
 @export_group("SPEED UP LEVER")
-var SPEED_UP_LEVER_colliding = false
+var SPEED_UP_LEVER_colliding := false
 
-func _on_body_enteredSPEED_UP_LEVER(body: Node):
+func _on_body_enteredSPEED_UP_LEVER(body: Node) -> void:
   SPEED_UP_LEVER_colliding = true
-func _on_body_exitedSPEED_UP_LEVER(body: Node):
+func _on_body_exitedSPEED_UP_LEVER(body: Node) -> void:
   SPEED_UP_LEVER_colliding = false
 
 # gravity up lever
 @export_group("GRAVITY UP LEVER")
-var GRAV_UP_LEVER_colliding = false
+var GRAV_UP_LEVER_colliding := false
 
-func _on_body_enteredGRAV_UP_LEVER(body: Node):
+func _on_body_enteredGRAV_UP_LEVER(body: Node) -> void:
   if body == global.player:
     GRAV_UP_LEVER_colliding = true
-func _on_body_exitedGRAV_UP_LEVER(body: Node):
+func _on_body_exitedGRAV_UP_LEVER(body: Node) -> void:
   if body == global.player:
     GRAV_UP_LEVER_colliding = false
 
 # gravity down lever
 @export_group("GRAVITY DOWN LEVER")
-var GRAV_DOWN_LEVER_colliding = false
+var GRAV_DOWN_LEVER_colliding := false
 
-func _on_body_enteredGRAV_DOWN_LEVER(body: Node):
+func _on_body_enteredGRAV_DOWN_LEVER(body: Node) -> void:
   if body == global.player:
     GRAV_DOWN_LEVER_colliding = true
-func _on_body_exitedGRAV_DOWN_LEVER(body: Node):
+func _on_body_exitedGRAV_DOWN_LEVER(body: Node) -> void:
   if body == global.player:
     GRAV_DOWN_LEVER_colliding = false
 
@@ -730,41 +730,41 @@ func _input(event: InputEvent) -> void:
 
 # key
 @export_group("KEY")
-var KEY_following = false
-func _on_body_enteredKEY(body: Node):
+var KEY_following := false
+func _on_body_enteredKEY(body: Node) -> void:
   if body == global.player:
     global.player.keys.append(self)
     KEY_following = true
 
-func _processKEY(delta: float):
+func _processKEY(delta: float) -> void:
   if !KEY_following: return
   global_position = global.player.global_position
 
 # invis
 @export_group("INVIS")
-func _on_body_enteredINVIS(body: Node):
+func _on_body_enteredINVIS(body: Node) -> void:
   pass
 
 # laser
 @export_group("LASER")
-func _on_body_enteredLASER(body: Node):
+func _on_body_enteredLASER(body: Node) -> void:
   pass
 
 # light switch
 @export_group("LIGHT SWITCH")
-func _on_body_enteredLIGHT_SWITCH(body: Node):
+func _on_body_enteredLIGHT_SWITCH(body: Node) -> void:
   if body == global.player:
     global.player.lightsOut = true
 
 # locked box
 @export_group("LOCKED_BOX")
 # boxes can only be unlocked once per frame to prevent excessive key usage
-var LOCKED_BOX_unlocked = false
-func LOCKED_BOX_unlock():
+var LOCKED_BOX_unlocked := false
+func LOCKED_BOX_unlock() -> void:
   if len(global.player.keys) and not LOCKED_BOX_unlocked:
     LOCKED_BOX_unlocked = true
     log.pp(global.player.keys)
-    var key = global.player.keys.pop_back()
+    var key: Node2D = global.player.keys.pop_back()
     key.__disable()
     __disable()
     await global.wait()
@@ -780,7 +780,7 @@ func _physics_processSOLAR(delta: float) -> void:
 
 # POLE
 @export_group("POLE")
-func _on_body_enteredPOLE(body: Node):
+func _on_body_enteredPOLE(body: Node) -> void:
   if global.player.state != global.player.States.swingingOnPole:
     global.player.state = global.player.States.swingingOnPole
 
@@ -789,27 +789,27 @@ func _on_body_enteredPOLE(body: Node):
 
 # star
 @export_group("STAR")
-func _readySTAR():
+func _readySTAR() -> void:
   # log.pp(global.currentLevel().foundStar, global.currentLevel())
   if global.currentLevel().foundStar:
     await global.wait()
     __disable.call_deferred()
 
-func _on_body_enteredSTAR(body: Node):
+func _on_body_enteredSTAR(body: Node) -> void:
   if body == global.player:
     __disable.call_deferred()
     global.starFound()
 
 # spark
 @export_group("SPARK")
-func _physics_processSPARK(delta: float):
+func _physics_processSPARK(delta: float) -> void:
   pass
 
 # TARGETING_LASER
 @export_group("TARGETING_LASER")
-func _on_body_enteredTARGETING_LASER(body: Node):
+func _on_body_enteredTARGETING_LASER(body: Node) -> void:
   pass
-func _on_body_exitedTARGETING_LASER(body: Node):
+func _on_body_exitedTARGETING_LASER(body: Node) -> void:
   pass
 
 # CLOSING_SPIKES
@@ -819,12 +819,12 @@ func _on_body_exitedTARGETING_LASER(body: Node):
 @export var CLOSING_SPIKES_leftSprite: Sprite2D
 @export var CLOSING_SPIKES_rightSprite: Sprite2D
 
-func _physics_processCLOSING_SPIKES(delta: float):
+func _physics_processCLOSING_SPIKES(delta: float) -> void:
   rotation_degrees = 0
   CLOSING_SPIKES_leftCollisionShape.global_position = startPosition + %collisionNode.global_position - global_position
   CLOSING_SPIKES_rightCollisionShape.global_position = startPosition + %collisionNode.global_position - global_position
 
-  var newOffset = global.animate(80, [
+  var newOffset := global.animate(80, [
     {
       "until": 120,
       "from": - 189.0,
@@ -851,12 +851,12 @@ func _physics_processCLOSING_SPIKES(delta: float):
 # QUADRANT
 @export_group("QUADRANT")
 @export var QUADRANT_nodeToSpin: Node2D
-func _physics_processQUADRANT(delta: float):
+func _physics_processQUADRANT(delta: float) -> void:
   spin(150, QUADRANT_nodeToSpin)
 
 # 10X_SPIKE
 @export_group("10X_SPIKE")
-func _ready10X_SPIKE():
+func _ready10X_SPIKE() -> void:
   $Node2D.position = Vector2.ZERO
 
 func _on_attach_detector_body_entered(body: Node2D) -> void:

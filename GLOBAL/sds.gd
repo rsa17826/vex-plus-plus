@@ -27,21 +27,21 @@ class_name sds
 #   var data1 = saveData(startData)
 #   log.pp(startData, data1)
 #   log.pp(loadData(data1))
-static var prettyPrint = true
+static var prettyPrint: bool = true
 static func saveDataToFile(p: String, data: Variant) -> void:
   FileAccess.open(p, FileAccess.WRITE_READ).store_string(saveData(data))
 static func loadDataFromFile(p: String, ifUnset: Variant = null) -> Variant:
-  var f = FileAccess.open(p, FileAccess.READ)
+  var f := FileAccess.open(p, FileAccess.READ)
   if not f: return ifUnset
-  var d = loadData(f.get_as_text())
+  var d: Variant = loadData(f.get_as_text())
   return d if !global.same(d, UNSET) else ifUnset
 
 # fix recursion
-static func saveData(val: Variant, _level=0) -> String:
+static func saveData(val: Variant, _level:=0) -> String:
   # print("saveData", val)
-  var getIndent = func(level):
+  var getIndent := func(level: int) -> String:
     if not prettyPrint: return ""
-    var indent = '\n'
+    var indent := '\n'
     for i in range(level):
       indent += '  '
     return indent
@@ -79,8 +79,8 @@ static func saveData(val: Variant, _level=0) -> String:
     TYPE_DICTIONARY:
       var data := ''
       _level += 1
-      var hasKey = false
-      for inner in val:
+      var hasKey := false
+      for inner: Variant in val:
         hasKey = true
         data += getIndent.call(_level) + saveData(inner, _level) + saveData(val[inner], _level)
       _level -= 1
@@ -88,8 +88,8 @@ static func saveData(val: Variant, _level=0) -> String:
     TYPE_ARRAY:
       var data := ''
       _level += 1
-      var hasKey = false
-      for inner in val:
+      var hasKey := false
+      for inner: Variant in val:
         hasKey = true
         data += getIndent.call(_level) + saveData(inner, _level)
       _level -= 1
@@ -97,35 +97,26 @@ static func saveData(val: Variant, _level=0) -> String:
   log.err(val, type_string(typeof(val)))
   return str(val)
 
-static var remainingData = ''
-static var UNSET = ":::" + randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
-static func randstr(length=10, fromchars="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`"):
-  var s = ''
-  for i in range(length):
-    s += (fromchars[randfrom(0, len(fromchars) - 1)])
-  return s
-
-static func randfrom(min: float, max: float) -> float:
-  # if global.same(max, "UNSET"):
-  #   return min[randfrom(0, len(min) - 1)]
-  return int(randf() * (max - min + 1) + min)
+static var remainingData := ''
+static var UNSET: String
 
 const NUMREG = r"(?:nan|inf|-?\d+(?:\.\d+)?)"
 const SEPREG = r"\s*,\s*"
 
-static func loadData(d=null) -> Variant:
-  var stack = []
+static func loadData(d: String) -> Variant:
+  UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+  var stack := []
   remainingData = d.strip_edges() if d else ""
   if not remainingData:
     return UNSET
   while UNSET in remainingData:
-    UNSET = ":::" + randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+    UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
   # Initialize the stack with the initial state
   stack.append({"remainingData": remainingData, "_stack": []})
-  var _stack
+  var _stack: Array
   while stack.size() > 0:
     # log.pp(stack)
-    var current = stack.pop_back()
+    var current: Dictionary = stack.pop_back()
     remainingData = current["remainingData"]
     _stack = current["_stack"]
 
@@ -133,8 +124,8 @@ static func loadData(d=null) -> Variant:
       # log.warn(_stack, stack, 4)
       return _stack[len(_stack) - 1]
 
-    var getData = func(reg, group=0):
-      var res = global.regMatch(remainingData, reg)
+    var getData := func(reg: String, group:=0) -> String:
+      var res: Array = global.regMatch(remainingData, reg)
       remainingData = remainingData.substr(len(res[0]))
       return res[group]
 
@@ -146,13 +137,13 @@ static func loadData(d=null) -> Variant:
         # log.warn(_stack, stack, 1)
         # _stack.append(_stack[len(_stack) - 1])
         while len(_stack) >= 2:
-          var thing1 = _stack.pop_back()
+          var thing1: Variant = _stack.pop_back()
           if len(_stack):
             match typeof(_stack[len(_stack) - 1]):
               TYPE_NIL:
                 _stack[len(_stack) - 1] = thing1
               TYPE_DICTIONARY:
-                for k in _stack[len(_stack) - 1]:
+                for k: String in _stack[len(_stack) - 1]:
                   if global.same(_stack[len(_stack) - 1][k], UNSET):
                     _stack[len(_stack) - 1][k] = thing1
                     break
@@ -164,12 +155,12 @@ static func loadData(d=null) -> Variant:
         # log.pp(_stack)
         return _stack[0]
 
-      var dataToInsert = _stack.pop_back()
-      var thingToPutDataIn = _stack.pop_back()
+      var dataToInsert: Variant = _stack.pop_back()
+      var thingToPutDataIn: Variant = _stack.pop_back()
       # log.warn(thingToPutDataIn, dataToInsert)
       match typeof(thingToPutDataIn):
         TYPE_DICTIONARY:
-          for k in thingToPutDataIn:
+          for k: String in thingToPutDataIn:
             if global.same(thingToPutDataIn[k], UNSET):
               thingToPutDataIn[k] = dataToInsert
               break
@@ -181,19 +172,19 @@ static func loadData(d=null) -> Variant:
       stack.append({"remainingData": remainingData, "_stack": _stack})
       continue
 
-    var type = getData.call(r"^[A-Z]+[\dA-Z]*|\[|\{")
+    var type: String = getData.call(r"^[A-Z]+[\dA-Z]*|\[|\{")
     remainingData = remainingData.strip_edges()
     # log.pp(remainingData, type)
-    var thisdata
+    var thisdata: Variant
 
-    var __int = func(num):
+    var __int := func(num: Variant) -> Variant:
       if num == "inf":
         return INF
       if num == "nan":
         return NAN
       return int(num)
 
-    var __float = func(num):
+    var __float := func(num: Variant) -> float:
       if num == "inf":
         return INF
       if num == "nan":
@@ -275,8 +266,8 @@ static func loadData(d=null) -> Variant:
           TYPE_NIL:
             _stack[len(_stack) - 1] = thisdata
           TYPE_DICTIONARY:
-            var innerDataFound = false
-            for k in _stack[len(_stack) - 1]:
+            var innerDataFound := false
+            for k: String in _stack[len(_stack) - 1]:
               if global.same(_stack[len(_stack) - 1][k], UNSET):
                 innerDataFound = true
                 _stack[len(_stack) - 1][k] = thisdata

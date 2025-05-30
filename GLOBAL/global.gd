@@ -17,7 +17,7 @@ extends Node
 func _ready() -> void:
   localReady()
 
-func _process(delta):
+func _process(delta: float) -> void:
   if openMsgBoxCount: return
   if timer.started:
     timer.time += delta
@@ -26,9 +26,9 @@ func _process(delta):
       Signal(self, i[0]).emit()
       remove_user_signal(i[0])
   localProcess(delta)
-var openMsgBoxCount = 0
+var openMsgBoxCount: int = 0
 
-var promptPromise
+var promptPromise: Promise
 const windowSize = Vector2(1152, 648)
 
 enum PromptTypes {
@@ -41,15 +41,15 @@ enum PromptTypes {
   multiArr,
   bool
 }
-func prompt(msg, type: PromptTypes = PromptTypes.info, default=null, singleArrValues=[]) -> Variant:
+func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant = null, singleArrValues: Variant = []) -> Variant:
   if openMsgBoxCount:
     while openMsgBoxCount:
       await wait(10)
-  var lastMouseMode = Input.mouse_mode
+  var lastMouseMode := Input.mouse_mode
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   openMsgBoxCount += 1
 
-  var promptCanvas = preload("res://GLOBAL/prompt.tscn").instantiate()
+  var promptCanvas := preload("res://GLOBAL/prompt.tscn").instantiate()
   get_tree().root.add_child(promptCanvas)
   promptCanvas.get_node("ColorRect").size = windowSize
   promptCanvas.get_node("ColorRect/CenterContainer").size = windowSize
@@ -89,7 +89,7 @@ func prompt(msg, type: PromptTypes = PromptTypes.info, default=null, singleArrVa
       promptCanvas.numEdit.get_line_edit().grab_focus()
     PromptTypes.singleArr:
       promptCanvas.enumEdit.clear()
-      for thing in singleArrValues:
+      for thing: String in singleArrValues:
         promptCanvas.enumEdit.add_item(thing)
       promptCanvas.enumEdit.select(-1 if default == null else singleArrValues.find(default))
       promptCanvas.enumEdit.connect("item_selected", _on_submit)
@@ -100,8 +100,8 @@ func prompt(msg, type: PromptTypes = PromptTypes.info, default=null, singleArrVa
   promptCanvas.btnCancel.connect("pressed", _on_cancel)
   promptCanvas.visible = true
   promptPromise = Promise.new()
-  var confirmed = await promptPromise.wait()
-  var val
+  var confirmed: bool = await promptPromise.wait()
+  var val: Variant
   match type:
     PromptTypes.confirm | PromptTypes.bool: val = confirmed
     PromptTypes.string: val = promptCanvas.strEdit.text if confirmed else default
@@ -112,10 +112,10 @@ func prompt(msg, type: PromptTypes = PromptTypes.info, default=null, singleArrVa
   promptCanvas.queue_free.call_deferred()
   return val
 
-func _on_submit(text=null):
+func _on_submit(text: Variant = null) -> void:
   openMsgBoxCount -= 1
   promptPromise.resolve(true)
-func _on_cancel():
+func _on_cancel() -> void:
   openMsgBoxCount -= 1
   promptPromise.resolve(false)
 
@@ -130,12 +130,12 @@ func _input(event: InputEvent) -> void:
   #     __pressedKeys.erase(event.keycode)
   localInput(event)
 
-func isActionJustPressedAlone(thing):
+func isActionJustPressedAlone(thing: String) -> bool:
   return Input.is_action_just_pressed(thing) and isActionPressedAlone(thing)
-func isActionJustReleasedAlone(thing):
+func isActionJustReleasedAlone(thing: String) -> bool:
   return Input.is_action_just_released(thing) and isActionPressedAlone(thing)
-func isActionPressedAlone(thing):
-  var actions = InputMap.action_get_events(thing).map(func(e):
+func isActionPressedAlone(thing: String) -> bool:
+  var actions: Array[Dictionary] = InputMap.action_get_events(thing).map(func(e: InputEvent) -> Dictionary:
     return {
       "key": e.physical_keycode,
       "c": e.ctrl_pressed,
@@ -144,7 +144,7 @@ func isActionPressedAlone(thing):
       "m": e.meta_pressed
     })
   log.pp(actions)
-  var valid = false
+  var valid: bool = false
   for action in actions:
     if Input.is_key_pressed(action.key) \
     and Input.is_key_pressed(KEY_CTRL) == action.c \
@@ -157,24 +157,24 @@ func isActionPressedAlone(thing):
   return valid
 
 class cache:
-  var cache = {}
-  var _data = {}
+  var cache := {}
+  var _data := {}
   func _init() -> void:
     pass
-  func __has(thing):
+  func __has(thing: Variant) -> bool:
     if "lastinp" in self._data:
       log.err("lastinp should not exist", self)
-      return
+      return false
     self._data.lastinp = thing
     return thing in self.cache
-  func __get():
+  func __get() -> Variant:
     if "lastinp" not in self._data:
       log.err("No lastinp", self)
       return
-    var val = self.cache[self._data.lastinp]
+    var val: Variant = self.cache[self._data.lastinp]
     self._data.erase("lastinp")
     return val
-  func __set(value):
+  func __set(value: Variant) -> Variant:
     if "lastinp" not in self._data:
       log.err("No lastinp", self)
       return
@@ -190,11 +190,11 @@ func remove_recursive(directory: String) -> void:
 
   DirAccess.remove_absolute(directory)
 
-var regMatchCache = cache.new()
-func regMatch(str: String, reg: String):
+var regMatchCache: cache = cache.new()
+func regMatch(str: String, reg: String) -> Variant:
   if regMatchCache.__has([reg, str]):
     return regMatchCache.__get()
-  var reg2 = RegEx.create_from_string(reg)
+  var reg2 := RegEx.create_from_string(reg)
   var res := reg2.search(str)
   if not res: return res
   var out := []
@@ -202,11 +202,11 @@ func regMatch(str: String, reg: String):
     out.push_back(res.get_string(i))
   return regMatchCache.__set(out)
 
-var regMatchAllCache = cache.new()
-func regMatchAll(str: String, reg: String):
+var regMatchAllCache: cache = cache.new()
+func regMatchAll(str: String, reg: String) -> Variant:
   if regMatchAllCache.__has([reg, str]):
     return regMatchAllCache.__get()
-  var reg2 = RegEx.new()
+  var reg2 := RegEx.new()
   reg2.compile(reg)
   var res := reg2.search_all(str)
   var out := []
@@ -216,11 +216,11 @@ func regMatchAll(str: String, reg: String):
       out[len(out) - 1].push_back(res[j].get_string(i))
   return regMatchAllCache.__set(out)
 
-var regReplaceCache = cache.new()
+var regReplaceCache: cache = cache.new()
 func regReplace(str: String, reg: String, with: String, all:=true) -> String:
   if regReplaceCache.__has([reg, str, with, all]):
     return regReplaceCache.__get()
-  var reg2 = RegEx.new()
+  var reg2 := RegEx.new()
   reg2.compile(reg)
   return regReplaceCache.__set(reg2.sub(str, with, all))
 
@@ -230,22 +230,22 @@ func regReplace(str: String, reg: String, with: String, all:=true) -> String:
 func same(x: Variant, y: Variant) -> bool:
   return typeof(x) == typeof(y) && x == y
 
-func join(joiner="", a="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", s="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", d="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", f="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", g="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", h="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", j="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", k="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", l="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", z="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", x="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", c="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", v="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", b="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", n="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", m="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", q="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", w="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", e="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", r="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", t="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", y="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", u="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", i="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", o="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", p="HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD"):
-  var temparr = [a, s, d, f, g, h, j, k, l, z, x, c, v, b, n, m, q, w, e, r, t, y, u, i, o, p]
-  temparr = temparr.filter(func(e):
+func join(joiner: Variant = "", a: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", s: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", d: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", f: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", g: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", h: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", j: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", k: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", l: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", z: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", x: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", c: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", v: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", b: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", n: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", m: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", q: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", w: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", e: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", r: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", t: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", y: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", u: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", i: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", o: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", p: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD") -> String:
+  var temparr := [a, s, d, f, g, h, j, k, l, z, x, c, v, b, n, m, q, w, e, r, t, y, u, i, o, p]
+  temparr = temparr.filter(func(e: Variant) -> bool:
     return !same(e, "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD")
     )
   return joiner.join(temparr)
 
-func randstr(length=10, fromchars="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`"):
-  var s = ''
+func randstr(length:=10, fromchars:="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`") -> String:
+  var s := ''
   for i in range(length):
     s += (fromchars[randfrom(0, len(fromchars) - 1)])
   return s
 
-var wait_until_wait_list = []
-func waituntil(cb):
-  var sig = "wait until signal - " + randstr(30)
+var wait_until_wait_list := []
+func waituntil(cb: Callable) -> Signal:
+  var sig := "wait until signal - " + randstr(30)
   add_user_signal(sig)
   wait_until_wait_list.append([sig, cb])
   return Signal(self, sig)
@@ -262,19 +262,19 @@ func waituntil(cb):
 #         l.val = val
 #         l.node[l.prop] = l.cb(val)
 
-class lableformat:
-  static var lableformats = {}
-  static func create(name, label, format):
-    global.lableformat.lableformats[name] = {"text": format, "node": label}
-  static func update(name, newtext: Dictionary):
-    var keys = newtext.keys();
-    var temp = global.lableformat.lableformats[name]
-    var node = temp.node
-    var text = temp.text
-    for key in keys:
-      var val = newtext[key]
-      text = text.replace("{" + str(key) + "}", str(val))
-    node.text = text
+# class lableformat:
+#   static var lableformats := {}
+#   static func create(name, label, format):
+#     global.lableformat.lableformats[name] = {"text": format, "node": label}
+#   static func update(name, newtext: Dictionary):
+#     var keys = newtext.keys();
+#     var temp = global.lableformat.lableformats[name]
+#     var node = temp.node
+#     var text = temp.text
+#     for key in keys:
+#       var val = newtext[key]
+#       text = text.replace("{" + str(key) + "}", str(val))
+#     node.text = text
 
   # for link in global.link.links:
   #   if link.node.is_inside_tree() and link.node.is_node_ready():
@@ -282,23 +282,23 @@ class lableformat:
 class timer:
   static var time: float = 0
   static var started: bool = false
-  static func reset():
+  static func reset() -> void:
     timer.time = 0
-  static func format(temptime="DJKASDHjkaDHJkashdjkAS") -> String:
+  static func format(temptime: Variant = "DJKASDHjkaDHJkashdjkAS") -> String:
     var time: float = timer.time if global.same(temptime, "DJKASDHjkaDHJkashdjkAS") else float(temptime)
     var minutes: float = time / 60
     var seconds: float = fmod(time, 60)
     var milliseconds: float = fmod(time, 1) * 100
     return "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
-  static func stop():
+  static func stop() -> void:
     timer.started = false
-  static func start():
+  static func start() -> void:
     timer.started = true
 
 func debuguistart() -> void:
   event.trigger("debugui start")
 
-func debuguiclear():
+func debuguiclear() -> void:
   if event.triggers.has("debugui clear"):
     event.trigger("debugui clear")
 
@@ -315,7 +315,7 @@ class path:
   static func join(path1: String, path2:="", path3:="", path4:="") -> String:
     var fullPath := path1
     if len(path2):
-      var slash = 0
+      var slash := 0
       if global.ends_with(fullPath, "/"):
         slash += 1
       if global.starts_with(path2, "/"):
@@ -325,7 +325,7 @@ class path:
         1: fullPath += path2
         2: fullPath += global.regReplace(path2, '^/', '')
     if len(path3):
-      var slash = 0
+      var slash := 0
       if global.ends_with(fullPath, "/"):
         slash += 1
       if global.starts_with(path3, "/"):
@@ -335,7 +335,7 @@ class path:
         1: fullPath += path3
         2: fullPath += global.regReplace(path3, '^/', '')
     if len(path4):
-      var slash = 0
+      var slash := 0
       if global.ends_with(fullPath, "/"):
         slash += 1
       if global.starts_with(path4, "/"):
@@ -349,27 +349,27 @@ class path:
     # return parsePath((global.regReplace(path1 + "/" + path2 + "/" + path3 + "/" + path4, "(?<!res:)/{2,}", "/")
 
 class tilemap:
-  static func save(tile_map: TileMap):
+  static func save(tile_map: TileMap) -> Array[int]:
     var layers: int = tile_map.get_layers_count()
-    var tile_map_layers = []
+    var tile_map_layers := []
     tile_map_layers.resize(layers)
     for layer in layers:
       tile_map_layers[layer] = tile_map.get("layer_%s/tile_data" % layer)
     return tile_map_layers
   static func load(tile_map: TileMap, data: Array) -> void:
     for layer in data.size():
-      var tiles = data[layer]
+      var tiles: int = data[layer]
       tile_map.set('layer_%s/tile_data' % layer, tiles)
 
 class file:
-  static func write(p: String, text: Variant, asjson:=true):
+  static func write(p: String, text: Variant, asjson:=true) -> void:
     # p = path.parsePath(p)
     FileAccess.open(p, FileAccess.WRITE_READ).store_string(JSON.stringify(text, "  " if OS.has_feature("editor") else '') if asjson else text)
   static func isFile(p: String) -> bool:
     return !!FileAccess.open(p, FileAccess.READ)
-  static func read(p: String, asjson:=true, default:=''):
+  static func read(p: String, asjson:=true, default:='') -> Variant:
     # p = path.parsePath(p)
-    var f = FileAccess.open(p, FileAccess.READ)
+    var f := FileAccess.open(p, FileAccess.READ)
     if !f:
       f = FileAccess.open(p, FileAccess.WRITE_READ)
       if f:
@@ -388,8 +388,8 @@ class file:
     else:
       return f.get_as_text()
 class arr:
-  static func getcount(array, count):
-    var newarr = []
+  static func getcount(array: Array, count: int) -> Variant:
+    var newarr := []
     for i in range(count):
       if array.size() == 0: return null
       newarr.append(array[0])
@@ -397,13 +397,13 @@ class arr:
     return newarr
 class event:
   static var triggers: Dictionary = {}
-  static func trigger(msg: String, data1="AHDSJKHDASJK", data2="AHDSJKHDASJK", data3="AHDSJKHDASJK") -> void:
+  static func trigger(msg: String, data1: Variant = "AHDSJKHDASJK", data2: Variant = "AHDSJKHDASJK", data3: Variant = "AHDSJKHDASJK") -> void:
     if !msg in triggers:
       log.error('no triggers set for call', msg)
       return
-    for cb in triggers[msg]:
+    for cb: Callable in triggers[msg]:
       if cb != null and cb.is_valid():
-        var default = "AHDSJKHDASJK"
+        var default := "AHDSJKHDASJK"
         if global.same(data3, default):
           if global.same(data2, default):
             if global.same(data1, default):
@@ -430,61 +430,61 @@ class event:
     triggers[msg].append(cb)
     return {'msg': msg, 'index': len(triggers[msg]) - 1}
 
-class InputManager:
-  func _init(_init_key_names):
-    self.key_names = _init_key_names
-    for key in self._data.key_names.keys():
-      self.unpress(key)
+# class InputManager:
+#   func _init(_init_key_names):
+#     self.key_names = _init_key_names
+#     for key in self._data.key_names.keys():
+#       self.unpress(key)
 
-    _update_key_press_states()
-  var trypress = {}
-  var key_names = {}
-  var KEY_MAX_BUFFER: int = 15
+#     _update_key_press_states()
+#   var trypress = {}
+#   var key_names = {}
+#   var KEY_MAX_BUFFER: int = 15
 
-  func pressed(key) -> int:
-    return !!trypress[key].pressed
+#   func pressed(key) -> int:
+#     return !!trypress[key].pressed
 
-  func just_pressed(key) -> int:
-    var ret = !!trypress[key].just_pressed
-    if ret:
-      trypress[key].just_pressed = 0
-    return ret
+#   func just_pressed(key) -> int:
+#     var ret = !!trypress[key].just_pressed
+#     if ret:
+#       trypress[key].just_pressed = 0
+#     return ret
 
-  func just_released(key) -> int:
-    return Input.is_action_just_released(key_names[key])
-  func compare(neg, pos) -> int:
-    var input_dir = 0
-    if self.pressed(neg) == self.pressed(pos):
-      input_dir = 0
-    elif self.pressed(neg) and not self.pressed(pos):
-      input_dir = -1
-    elif self.pressed(pos):
-      input_dir = 1
-    return input_dir
-  func unpress(key):
-    trypress[key] = {
-      "pressed": 0,
-      "just_pressed": 0,
-    }
-  func press(key) -> void:
-    trypress[key] = {
-      "pressed": KEY_MAX_BUFFER,
-      "just_pressed": KEY_MAX_BUFFER,
-    }
-  func _update_key_press_states() -> void:
-    for key in self._data.key_names.keys():
-      if !key_names[key]: continue
-      if Input.is_action_just_pressed(key_names[key]):
-        trypress[key].just_pressed = KEY_MAX_BUFFER
-      elif trypress[key].just_pressed:
-        trypress[key].just_pressed -= 1
+#   func just_released(key) -> int:
+#     return Input.is_action_just_released(key_names[key])
+#   func compare(neg, pos) -> int:
+#     var input_dir = 0
+#     if self.pressed(neg) == self.pressed(pos):
+#       input_dir = 0
+#     elif self.pressed(neg) and not self.pressed(pos):
+#       input_dir = -1
+#     elif self.pressed(pos):
+#       input_dir = 1
+#     return input_dir
+#   func unpress(key):
+#     trypress[key] = {
+#       "pressed": 0,
+#       "just_pressed": 0,
+#     }
+#   func press(key) -> void:
+#     trypress[key] = {
+#       "pressed": KEY_MAX_BUFFER,
+#       "just_pressed": KEY_MAX_BUFFER,
+#     }
+#   func _update_key_press_states() -> void:
+#     for key in self._data.key_names.keys():
+#       if !key_names[key]: continue
+#       if Input.is_action_just_pressed(key_names[key]):
+#         trypress[key].just_pressed = KEY_MAX_BUFFER
+#       elif trypress[key].just_pressed:
+#         trypress[key].just_pressed -= 1
 
-      if Input.is_action_pressed(key_names[key]):
-        trypress[key].pressed = 1
-      else:
-        unpress(key)
+#       if Input.is_action_pressed(key_names[key]):
+#         trypress[key].pressed = 1
+#       else:
+#         unpress(key)
 
-func wait(time: float = 0, ignore_time_scale: bool = false):
+func wait(time: float = 0, ignore_time_scale: bool = false) -> Variant:
   if time == 0:
     return await get_tree().process_frame
   return await get_tree().create_timer(time / 1000.0, true, false, ignore_time_scale).timeout
@@ -499,7 +499,7 @@ func randfrom(min: float, max: float) -> int:
   #   return min[randfrom(0, len(min) - 1)]
   return int(randf() * (max - min + 1) + min)
 
-func rerange(val: Variant, low1: Variant, high1: Variant, low2: Variant, high2: Variant):
+func rerange(val: Variant, low1: Variant, high1: Variant, low2: Variant, high2: Variant) -> Variant:
   if typeof(val) == typeof(0) or typeof(val) == typeof(0.0):
     val = float(val)
     low1 = float(low1)
@@ -509,8 +509,8 @@ func rerange(val: Variant, low1: Variant, high1: Variant, low2: Variant, high2: 
     high2 = float(high2)
   return ((val - low1) / (high1 - low1)) * (high2 - low2) + low2
 
-var tick = 0
-var stopTicking = false
+var tick: float = 0
+var stopTicking := false
 func _physics_process(delta: float) -> void:
   if openMsgBoxCount: return
   if stopTicking: return
@@ -518,8 +518,8 @@ func _physics_process(delta: float) -> void:
 
 # local game only data
 
-var player: Node
-var level: Node
+var player: Node2D
+var level: Node2D
 
 var hoveredBlocks: Array = []
 var selectedBlockOffset: Vector2
@@ -536,18 +536,16 @@ var selectedBrush: Node
 var justPaintedBlock: Node = null
 const gridSize = 25 / 5.0
 
-func selectBlock():
+func selectBlock() -> void:
   # select the top hovered block
-  var block = hoveredBlocks[0]
+  var block: Node2D = hoveredBlocks[0]
   hoveredBlocks.pop_front.call_deferred()
   selectedBlock = block
   var bpos: Vector2 = block.position
   var mpos: Vector2 = player.get_global_mouse_position()
   selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
-  var sizeInPx = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+  var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
-
-var rotresetBlock = null
 
 func localProcess(delta: float) -> void:
   if not player: return
@@ -561,7 +559,7 @@ func localProcess(delta: float) -> void:
   # if rotresetBlock and not editorInRotateMode and not editorInScaleMode:
   #   rotresetBlock = null
   if selectedBlock or (selectedBrush and selectedBrush.selected == 2):
-    var mpos = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
+    var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
 
     player.moving = 2
 
@@ -572,40 +570,40 @@ func localProcess(delta: float) -> void:
       setBlockStartPos(selectedBlock)
     # when trying to scale blocks
     elif editorInScaleMode && selectedBlock.is_in_group("EDITOR_OPTION_scale"):
-      var sizeInPx = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+      var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
 
       # get the edge position in px
-      var bottom_edge = selectedBlock.global_position.y + sizeInPx.y / 2
-      var top_edge = selectedBlock.global_position.y - sizeInPx.y / 2
-      var right_edge = selectedBlock.global_position.x + sizeInPx.x / 2
-      var left_edge = selectedBlock.global_position.x - sizeInPx.x / 2
+      var bottom_edge: float = selectedBlock.global_position.y + sizeInPx.y / 2.0
+      var top_edge: float = selectedBlock.global_position.y - sizeInPx.y / 2.0
+      var right_edge: float = selectedBlock.global_position.x + sizeInPx.x / 2.0
+      var left_edge: float = selectedBlock.global_position.x - sizeInPx.x / 2.0
       # scale on the selected sides
       if scaleOnTopSide:
-        var mouseDIstInPx = (top_edge - mpos.y)
+        var mouseDIstInPx := (top_edge - mpos.y)
         mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
         selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDIstInPx / sizeInPx.y * selectedBlock.scale.y))
         selectedBlock.global_position.y = selectedBlock.global_position.y - (mouseDIstInPx / 2)
       elif scaleOnBottomSide:
-        var mouseDIstInPx = (mpos.y - bottom_edge)
+        var mouseDIstInPx := (mpos.y - bottom_edge)
         mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
         selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDIstInPx / sizeInPx.y * selectedBlock.scale.y))
         selectedBlock.global_position.y = selectedBlock.global_position.y + (mouseDIstInPx / 2)
       if scaleOnLeftSide:
-        var mouseDIstInPx = (left_edge - mpos.x)
+        var mouseDIstInPx := (left_edge - mpos.x)
         mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
         selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDIstInPx / sizeInPx.x * selectedBlock.scale.x))
         selectedBlock.global_position.x = selectedBlock.global_position.x - (mouseDIstInPx / 2)
       elif scaleOnRightSide:
-        var mouseDIstInPx = (mpos.x - right_edge)
+        var mouseDIstInPx := (mpos.x - right_edge)
         mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
         selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDIstInPx / sizeInPx.x * selectedBlock.scale.x))
         selectedBlock.global_position.x = selectedBlock.global_position.x + (mouseDIstInPx / 2)
 
-      var moveMouse = func(pos: Vector2):
+      var moveMouse := func(pos: Vector2) -> void:
         Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
       # make block no less than 10% default size
-      var mousePos = get_viewport().get_mouse_position()
-      var minSize = 0.1 / 7.0
+      var mousePos := get_viewport().get_mouse_position()
+      var minSize := 0.1 / 7.0
       # need to make it stop moving - cant figure out how yet
       if selectedBlock.scale.x < minSize:
         selectedBlock.respawn()
@@ -643,7 +641,7 @@ func localProcess(delta: float) -> void:
         selectedBlock = justPaintedBlock
         selectedBlockOffset = Vector2.ZERO
         log.pp(selectedBlock.ghost, selectedBlock.id)
-        var sizeInPx = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+        var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
         selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
       # if you have clicked on a block in the editor bar
       if not justPaintedBlock and selectedBrush and selectedBrush.selected == 2:
@@ -663,16 +661,16 @@ func localProcess(delta: float) -> void:
       # if trying to move a block
       else:
         # get block size in pixels
-        var sizeInPx = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+        var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
 
         # check if block scale is odd
-        var isYOnOddScale = str(int(selectedBlock.scale.y * 700))
+        var isYOnOddScale: Variant = str(int(selectedBlock.scale.y * 700))
         isYOnOddScale = isYOnOddScale[len(isYOnOddScale) - 1] == '5'
-        var isXOnOddScale = str(int(selectedBlock.scale.x * 700))
+        var isXOnOddScale: Variant = str(int(selectedBlock.scale.x * 700))
         isXOnOddScale = isXOnOddScale[len(isXOnOddScale) - 1] == '5'
 
         # offset the block on the sides that are odd to make it align with the grid
-        var offset = Vector2((gridSize / 2.0) if isXOnOddScale else 0.0, (gridSize / 2.0) if isYOnOddScale else 0.0)
+        var offset := Vector2((gridSize / 2.0) if isXOnOddScale else 0.0, (gridSize / 2.0) if isYOnOddScale else 0.0)
         mpos = round((mpos - offset) / gridSize) * gridSize
 
         selectedBlock.global_position = round(mpos + selectedBlockOffset - (sizeInPx / 2))
@@ -682,13 +680,11 @@ func localProcess(delta: float) -> void:
         # if selectedBlock.name == "player":
         #   selectedBlock.get_node("CharacterBody2D").moving = 2
         selectedBlock.respawn()
-func setBlockStartPos(block: Node):
+func setBlockStartPos(block: Node) -> void:
   block.startPosition = block.position
-  if block != rotresetBlock:
-    block.startRotation_degrees = block.rotation_degrees
+  # if block != rotresetBlock:
+  block.startRotation_degrees = block.rotation_degrees
   block.startScale = block.scale
-
-var hitboxesShown = false
 
 func localInput(event: InputEvent) -> void:
   if openMsgBoxCount: return
@@ -744,17 +740,17 @@ func localInput(event: InputEvent) -> void:
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
-var levelFolderPath
-var loadedLevels
-var mainLevelName
-var beatLevels
+var levelFolderPath: String
+var loadedLevels: Array[Dictionary]
+var mainLevelName: String
+var beatLevels: Array[Dictionary]
 # var levelColor = 2
-var levelOpts
+var levelOpts: Dictionary
 
-func starFound():
+func starFound() -> void:
   currentLevel().foundStar = true
 
-func loadInnerLevel(innerLevel):
+func loadInnerLevel(innerLevel: String) -> void:
   currentLevel().spawnPoint = player.global_position - player.get_parent().global_position
   global.loadedLevels.append({"name": innerLevel, "spawnPoint": Vector2.ZERO, 'foundStar': false})
   if currentLevel().name not in levelOpts.stages:
@@ -766,7 +762,7 @@ func loadInnerLevel(innerLevel):
   player.deathPosition = player.lastSpawnPoint
   # log.pp(loadedLevels, beatLevels)
 
-func win():
+func win() -> void:
   beatLevels.append(loadedLevels.pop_back())
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
@@ -782,17 +778,17 @@ func win():
 
 var savingPlaterLevelData := false
 
-func savePlayerLevelData():
+func savePlayerLevelData() -> void:
   if savingPlaterLevelData: return
   log.pp("asadasdasdasdasadsasd")
   savingPlaterLevelData = true
-  var saveData = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
-  var levels = {}
+  var saveData: Variant = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
+  var levels := {}
   for l in loadedLevels:
     levels[l.name] = l
   for l in beatLevels:
     levels[l.name] = l
-  var playerDelogPosition = player.position
+  var playerDelogPosition := player.position
   saveData[mainLevelName] = {
     "playerDelogPosition": playerDelogPosition,
     "lastSpawnPoint": player.lastSpawnPoint,
@@ -813,9 +809,9 @@ func savePlayerLevelData():
   await wait(1000)
   savingPlaterLevelData = false
 
-func loadLevelPack(levelPackName, loadFromSave):
+func loadLevelPack(levelPackName: String, loadFromSave: bool) -> void:
   log.pp("loadFromSave", loadFromSave)
-  var saveData = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
+  var saveData: Variant = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
   if levelPackName in saveData:
     saveData = saveData[levelPackName]
   else:
@@ -825,15 +821,15 @@ func loadLevelPack(levelPackName, loadFromSave):
   # Engine.time_scale = 1
   log.pp("Loading Level Pack:", levelPackName)
   levelFolderPath = path.parsePath(path.join('res://levelcodes/', levelPackName))
-  var levelPackInfo = loadLevelPackInfo(levelPackName)
+  var levelPackInfo: Dictionary = loadLevelPackInfo(levelPackName)
   if !levelPackInfo: return
-  var startFile = path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
+  var startFile := path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
     return
   # levelPackInfo["version"] = int(levelPackInfo["version"])
   if not same(levelPackInfo["version"], VERSION):
-    var gameVersionIsNewer = VERSION > levelPackInfo["version"]
+    var gameVersionIsNewer: bool = VERSION > levelPackInfo["version"]
     if gameVersionIsNewer:
       if useropts.warnWhenOpeningLevelInNewerGameVersion:
         if not await prompt(
@@ -889,11 +885,11 @@ func loadLevelPack(levelPackName, loadFromSave):
     player.goto(Vector2(0, 0))
   global.tick = 0
 
-func currentLevel():
+func currentLevel() -> Dictionary:
   return loadedLevels[len(loadedLevels) - 1]
 
-func loadLevelPackInfo(levelPackName):
-  var options = sds.loadDataFromFile(path.join('res://levelcodes/', levelPackName, "/options.sds"))
+func loadLevelPackInfo(levelPackName: String) -> Variant:
+  var options: Variant = sds.loadDataFromFile(path.join('res://levelcodes/', levelPackName, "/options.sds"))
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
@@ -911,11 +907,11 @@ func loadLevelPackInfo(levelPackName):
 # purple
 # pink
 
-var useropts = {}
+var useropts := {}
 
-var checkpoints = []
+var checkpoints: Array[Node2D] = []
 
-func animate(speed: int, steps: Array[Dictionary]):
+func animate(speed: int, steps: Array[Dictionary]) -> float:
   # animation time is baised on global.tick
   # dict arr is like [
   #   {
@@ -934,9 +930,9 @@ func animate(speed: int, steps: Array[Dictionary]):
   #     "to": - 189
   #   }
   # ]
-  var currentTime = fmod(global.tick * speed, steps[len(steps) - 1].until)
-  var newOffset
-  var prevTime = 0
+  var currentTime := fmod(global.tick * speed, steps[len(steps) - 1].until)
+  var newOffset: float
+  var prevTime: float = 0
   for i in range(0, len(steps)):
     if currentTime < steps[i].until:
       newOffset = global.rerange(currentTime, prevTime, steps[i].until, steps[i].from, steps[i].to)
@@ -945,20 +941,20 @@ func animate(speed: int, steps: Array[Dictionary]):
       prevTime = steps[i].until
   return newOffset
 
-func createNewLevelFile(levelPackName, levelName=null):
+func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> void:
   if not levelName:
     levelName = await prompt("enter the level name", PromptTypes.string, "")
-  var fullDirPath = path.parsePath(path.join("res://levelcodes/", levelPackName))
-  var opts = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
+  var fullDirPath := path.parsePath(path.join("res://levelcodes/", levelPackName))
+  var opts: Dictionary = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
   opts.stages[levelName] = defaultLevelSettings.duplicate()
   opts.stages[levelName].color = randfrom(1, 11)
   file.write(path.join(fullDirPath, levelName + ".sds"), '', false)
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"), opts)
 
-func createNewMapFolder():
-  var foldername = await prompt("Enter the name of the map", PromptTypes.string, "New map")
-  var startLevel = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
-  var fullDirPath = path.parsePath(path.join("res://levelcodes/", foldername))
+func createNewMapFolder() -> Variant:
+  var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, "New map")
+  var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
+  var fullDirPath := path.parsePath(path.join("res://levelcodes/", foldername))
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
     return
@@ -989,15 +985,15 @@ const defaultLevelSettings = {
   "changeSpeedOnSlopes": false
 }
 
-func currentLevelSettings(key=null):
+func currentLevelSettings(key: Variant = null) -> Variant:
   if key:
-    var data = levelOpts.stages[currentLevel().name][key] \
+    var data: Variant = levelOpts.stages[currentLevel().name][key] \
     if key in levelOpts.stages[currentLevel().name] else \
     defaultLevelSettings[key]
     return data
   return levelOpts.stages[currentLevel().name]
 
-func fullscreen(state=0):
+func fullscreen(state: int = 0) -> void:
   var mode := DisplayServer.window_get_mode()
   match state:
     -1:
@@ -1013,9 +1009,9 @@ func fullscreen(state=0):
       if mode == DisplayServer.WINDOW_MODE_FULLSCREEN: return
       DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
-@onready var VERSION = int(file.read("version", false, "-1"))
+@onready var VERSION := int(file.read("version", false, "-1"))
 
-var blockNames = [
+var blockNames: Array[String] = [
   "basic", # 1
   "single spike", # 1
   "10x spike", # 1
@@ -1060,5 +1056,11 @@ var blockNames = [
   "death boundary" # 1
 ]
 
-func localReady():
+func localReady() -> void:
   get_tree().set_debug_collisions_hint(hitboxesShown)
+  log.pp(NAN, int(NAN))
+
+var stretchScale: Vector2:
+  get():
+    return Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y)
+var hitboxesShown := false
