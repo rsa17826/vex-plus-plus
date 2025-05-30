@@ -215,8 +215,8 @@ move_player_to_mouse={
 2d_physics/layer_4="SOLID BLOCKS"
 2d_physics/layer_5="DEADLY HAZARDS"
 2d_physics/layer_6="PUSHABLE BOX"
-2d_physics/layer_7="BLOCK DEATH BOUNDARY"
-2d_physics/layer_8="ENTITIES"
+2d_physics/layer_7="BLOCK KILLER"
+2d_physics/layer_8="BLOCKS THAT CAN DIE"
 
 [rendering]
 

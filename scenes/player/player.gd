@@ -168,7 +168,7 @@ func _input(event: InputEvent) -> void:
 
   if state != States.dead and not Input.is_key_pressed(KEY_CTRL):
     for action: String in ["right", "jump", "down", "left"]:
-      if Input.is_action_just_pressed(action):
+      if Input.is_action_pressed(action):
         global.showEditorUi = false
         camState = CamStates.player
         camLockPos = Vector2.ZERO
@@ -925,13 +925,4 @@ func _on_left_body_exited(body: Node2D) -> void:
 # make collected keys not move root
 # add invinsabliity lever?
 # fix falling blocks not dieing on
-
-# how to fix?!?!??!
-# E 0:00:03:727   editor_bar.gd:57 @ newItem(): Attempted to set an object of type 'Label' into a TypedArray, which does not inherit from 'Node2D'.
-#   <C++ Error>   Condition "!ClassDB::is_parent_class(object->get_class_name(), class_name)" is true. Returning: false
-#   <C++ Source>  core/variant/container_type_validate.h:135 @ validate_object()
-#   <Stack Trace> editor_bar.gd:57 @ newItem()
-#                 editor_bar.gd:33 @ _ready()
-#                 level.gd:31 @ loadLevel()
-#                 global.gd:875 @ loadLevelPack()
-#                 main_menu.gd:30 @ loadLevel()
+ 

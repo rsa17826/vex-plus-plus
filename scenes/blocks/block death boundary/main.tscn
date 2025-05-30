@@ -25,7 +25,6 @@ texture = ExtResource("2_01q17")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
-debug_color = Color(1, 0, 0, 0.419608)
 
 [connection signal="area_entered" from="collisionNode" to="collisionNode" method="_on_body_entered"]
 [connection signal="area_exited" from="collisionNode" to="collisionNode" method="_on_body_exited"]

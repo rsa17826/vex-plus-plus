@@ -10,7 +10,7 @@ extends Node2D
 # @flags gm
 # @endregex
 # @name fix on body _physics?_process scripts
-# @regex ((?:_physics)?_process.*\()\):?
+# @regex \b((?:_physics)?_process.+\()\):?
 # @replace $1delta: float):
 # @flags gm
 # @endregex
@@ -24,7 +24,7 @@ extends Node2D
 @export var ghostIconNode: Sprite2D
 @export var editorBarIconNode: Sprite2D
 @export var collisionShapes: Array[CollisionShape2D]
-@export var hidableSprites: Array[Node2D]
+@export var hidableSprites: Array[Node]
 @export var cloneEventsHere: Node
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
@@ -60,8 +60,6 @@ func respawn() -> void:
   BOUNCY_bouncing = false
   BOUNCY_bounceForce = 0
   KEY_following = false
-  if FALLING_nodeToMove:
-    FALLING_nodeToMove.position = Vector2.ZERO
   lastMovementStep = Vector2.ZERO
   respawning = 2
   SPEED_UP_LEVER_colliding = false
@@ -269,8 +267,6 @@ func _physics_process(delta: float) -> void:
     _physics_processLEFTRIGHT(delta)
   if is_in_group("water"):
     _physics_processWATER(delta)
-  if is_in_group("falling"):
-    _physics_processFALLING(delta)
   if is_in_group("rotating buzsaw"):
     _physics_processROTATING_BUZSAW(delta)
   if is_in_group("solar"):
@@ -283,6 +279,8 @@ func _physics_process(delta: float) -> void:
     _physics_processCLOSING_SPIKES(delta)
   if is_in_group("quadrant"):
     _physics_processQUADRANT(delta)
+  if cloneEventsHere and 'on_physics_process' in cloneEventsHere:
+    cloneEventsHere.on_physics_process(delta)
   if respawning:
     lastMovementStep = Vector2.ZERO
   else:
@@ -292,6 +290,8 @@ func _physics_process(delta: float) -> void:
       lastMovementStep = global_position - lastpos
   if respawning:
     respawning -= 1
+  if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
+    cloneEventsHere.postMovementStep()
 
 func _process(delta: float) -> void:
   if global.openMsgBoxCount: return
@@ -474,18 +474,8 @@ func _on_body_enteredWATER(body: Node) -> void:
 
 # falling
 @export_group("FALLING")
-@export var FALLING_nodeToMove: Node2D
 
 var FALLING_falling := false
-var FALLING_fallSpeed: float = 150
-
-func _physics_processFALLING(delta: float) -> void:
-  if FALLING_falling:
-    if FALLING_fallSpeed > 1500:
-      respawn()
-    else:
-      FALLING_nodeToMove.global_position.y += FALLING_fallSpeed * delta
-      FALLING_fallSpeed += 10
 
 # updown
 @export_group("UPDOWN")
@@ -868,4 +858,3 @@ func _ready10X_SPIKE() -> void:
 
 func _on_attach_detector_body_entered(body: Node2D) -> void:
   pass # Replace with function body.
-
