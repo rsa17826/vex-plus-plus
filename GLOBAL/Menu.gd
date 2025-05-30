@@ -14,7 +14,7 @@ var used_keys = []
 
 func _init(_parent, save_path: String = "main") -> void:
   parent = _parent
-  full_save_path = "user://" + save_path + ".json"
+  full_save_path = "user://" + save_path + "ASDASD" + ".json"
   menu_data = global.file.read(full_save_path, true, "{}")
   # #log.pp("loading", _parent.name, save_path)
 
