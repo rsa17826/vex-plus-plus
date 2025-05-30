@@ -135,7 +135,7 @@ func isActionJustPressedAlone(thing: String) -> bool:
 func isActionJustReleasedAlone(thing: String) -> bool:
   return Input.is_action_just_released(thing) and isActionPressedAlone(thing)
 func isActionPressedAlone(thing: String) -> bool:
-  var actions: Array[Dictionary] = InputMap.action_get_events(thing).map(func(e: InputEvent) -> Dictionary:
+  var actions: Array = InputMap.action_get_events(thing).map(func(e: InputEvent) -> Dictionary:
     return {
       "key": e.physical_keycode,
       "c": e.ctrl_pressed,
@@ -741,9 +741,9 @@ func localInput(event: InputEvent) -> void:
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 var levelFolderPath: String
-var loadedLevels: Array[Dictionary]
+var loadedLevels: Array
 var mainLevelName: String
-var beatLevels: Array[Dictionary]
+var beatLevels: Array
 # var levelColor = 2
 var levelOpts: Dictionary
 
@@ -853,8 +853,8 @@ func loadLevelPack(levelPackName: String, loadFromSave: bool) -> void:
   levelOpts = levelPackInfo
 
   if loadFromSave and saveData:
-    loadedLevels = saveData.loadedLevels
     # .map(func(e):
+    loadedLevels = saveData.loadedLevels
     #   e.spawnPoint=Vector2(e.spawnPoint[0], e.spawnPoint[1])
     #   return e)
     beatLevels = saveData.beatLevels
