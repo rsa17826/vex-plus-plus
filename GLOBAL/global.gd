@@ -358,7 +358,7 @@ class tilemap:
     return tile_map_layers
   static func load(tile_map: TileMap, data: Array) -> void:
     for layer in data.size():
-      var tiles: int = data[layer]
+      var tiles = data[layer]
       tile_map.set('layer_%s/tile_data' % layer, tiles)
 
 class file:
@@ -780,7 +780,6 @@ var savingPlaterLevelData := false
 
 func savePlayerLevelData() -> void:
   if savingPlaterLevelData: return
-  log.pp("asadasdasdasdasadsasd")
   savingPlaterLevelData = true
   var saveData: Variant = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
   var levels := {}
