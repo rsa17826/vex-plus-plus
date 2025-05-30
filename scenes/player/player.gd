@@ -23,29 +23,29 @@ const WALL_SLIDE_SPEED = 35
 const DEATH_TIME = 15
 const MAX_BOX_KICK_RECOVER_TIME = 22
 
-var deathSources = []
-var pulleyNoDieTimer = 0
-var currentRespawnDelay = 0
-var activePulley = null
-var playerXIntent = 0
-var lastWall = 0
-var breakFromWall = false
-var state = States.idle
-var wallSlidingFrames = 0
-var slideRecovery = 0
-var boxKickRecovery = 0
-var duckRecovery = 0
-var wallBreakDownFrames = 0
-var playerKT = 0
-var wasJustInWater = false
-var camLockPos
-var deadTimer = 0
-var currentHungWall = null
-var hungWallSide = 0
-var deathPosition = Vector2.ZERO
-var speedLeverActive = false
+var deathSources := []
+var pulleyNoDieTimer: float = 0
+var currentRespawnDelay: float = 0
+var activePulley: Node2D = null
+var playerXIntent: float = 0
+var lastWall := 0
+var breakFromWall := false
+var state := States.idle
+var wallSlidingFrames: float = 0
+var slideRecovery: float = 0
+var boxKickRecovery: float = 0
+var duckRecovery: float = 0
+var wallBreakDownFrames: float = 0
+var playerKT: float = 0
+var wasJustInWater := false
+var camLockPos: Vector2
+var deadTimer: float = 0
+var currentHungWall: int = 0
+var hungWallSide := 0
+var deathPosition := Vector2.ZERO
+var speedLeverActive: bool = false
 
-var lightsOut = false
+var lightsOut: bool = false
 
 var keys: Array[Node2D] = []
 
@@ -54,34 +54,34 @@ var collsiionOn_bottom := []
 var collsiionOn_left := []
 var collsiionOn_right := []
 
-var lastSpawnPoint = Vector2(0, 0)
+var lastSpawnPoint := Vector2(0, 0)
 
-var moving = 0
+var moving := 0
 
 var inWaters: Array[Node2D] = []
 var lastCollidingBlocks: Array = []
 
-var vel = {
+var vel := {
   "user": Vector2.ZERO,
   "waterExit": Vector2.ZERO,
   "bounce": Vector2.ZERO,
 }
-var velDecay = {
+var velDecay := {
   "user": 1,
   "waterExit": .9,
   "bounce": 0.95,
 }
-var justAddedVels = {
+var justAddedVels := {
   "user": 0,
   "waterExit": 0,
   "bounce": 0,
 }
-var stopVelOnGround = ["bounce", "waterExit"]
-var stopVelOnWall = ["bounce", "waterExit"]
-var stopVelOnCeil = ["bounce", "waterExit"]
+var stopVelOnGround := ["bounce", "waterExit"]
+var stopVelOnWall := ["bounce", "waterExit"]
+var stopVelOnCeil := ["bounce", "waterExit"]
 
-@onready var unduckSize = $CollisionShape2D.shape.size
-@onready var unduckPos = $CollisionShape2D.position
+@onready var unduckSize: Vector2 = $CollisionShape2D.shape.size
+@onready var unduckPos: Vector2 = $CollisionShape2D.position
 
 var mouseMode := Input.MOUSE_MODE_CONFINED_HIDDEN
 
@@ -102,14 +102,14 @@ enum States {
   pushing
 }
 
-var isFakeMouseMovement
-var camState = CamStates.player
+var isFakeMouseMovement: bool = false
+var camState: CamStates = CamStates.player
 enum CamStates {
   player,
   editor,
 }
 
-var gravState = GravStates.normal
+var gravState: GravStates = GravStates.normal
 enum GravStates {
   up,
   down,
@@ -150,10 +150,9 @@ func _input(event: InputEvent) -> void:
     camState = CamStates.editor
     $Camera2D.reset_smoothing()
     if Input.is_action_pressed("editor_select") and Input.is_action_pressed("editor_pan"):
-      log.pp(get_tree().root.content_scale_factor, get_viewport().get_stretch_transform())
       $Camera2D.global_position -= event.relative * global.useropts.editorScrollSpeed
-      var mousePos = get_viewport().get_mouse_position()
-      var startPos = mousePos
+      var mousePos := get_viewport().get_mouse_position()
+      var startPos := mousePos
       if mousePos.x <= 0:
         mousePos.x = global.windowSize.x
       elif mousePos.x >= global.windowSize.x - 1:
@@ -164,11 +163,11 @@ func _input(event: InputEvent) -> void:
         mousePos.y = 0
       if startPos != mousePos:
         isFakeMouseMovement = true
-        Input.warp_mouse(mousePos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
+        Input.warp_mouse(mousePos * global.stretchScale)
     camLockPos = $Camera2D.global_position
 
   if state != States.dead and not Input.is_key_pressed(KEY_CTRL):
-    for action in ["right", "jump", "down", "left"]:
+    for action: String in ["right", "jump", "down", "left"]:
       if Input.is_action_just_pressed(action):
         global.showEditorUi = false
         camState = CamStates.player
@@ -223,7 +222,7 @@ func _physics_process(delta: float) -> void:
       return
     States.onPulley:
       vel.user = Vector2.ZERO
-      var lastpos = global_position
+      var lastpos := global_position
       global_position = activePulley.global_position + Vector2(0, 13)
       $anim.position = Vector2(5, 5.145)
       $anim.position.x *= activePulley.direction
@@ -260,7 +259,7 @@ func _physics_process(delta: float) -> void:
       return
     States.pullingLever:
       $anim.animation = "pulling lever"
-      $anim.animation_looped.connect(func():
+      $anim.animation_looped.connect(func() -> void:
         state=States.idle, Object.CONNECT_ONE_SHOT)
     _:
       if inWaters:
@@ -280,7 +279,7 @@ func _physics_process(delta: float) -> void:
         velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * Input.get_axis("down", "jump")
         velocity *= .8
         # only bounce out of the water if going up
-        for v in vel:
+        for v: String in vel:
           vel[v] = Vector2.ZERO
         if $waterRay.is_colliding():
           vel.waterExit = Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation)
@@ -332,16 +331,16 @@ func _physics_process(delta: float) -> void:
 
         if state == States.wallHang || state == States.wallSliding:
           if not is_on_wall() and getClosestWallSide():
-            var ray
+            var ray: RayCast2D
             match getClosestWallSide():
               1:
                 ray = $wallDetection/rightWall
               -1:
                 ray = $wallDetection/leftWall
 
-            var origin = ray.global_transform.origin
-            var collision_point = ray.get_collision_point()
-            var distance = origin.distance_to(collision_point)
+            var origin: Vector2 = ray.global_transform.origin
+            var collision_point := ray.get_collision_point()
+            var distance := origin.distance_to(collision_point)
             log.pp(distance * getClosestWallSide())
             position.x += (distance) * getClosestWallSide()
         # if on floor reset kt, user y velocity, and allow both wall sides again
@@ -375,7 +374,7 @@ func _physics_process(delta: float) -> void:
               currentHungWall = $wallDetection/rightWall.get_collider() if getCurrentWallSide() == 1 else $wallDetection/leftWall.get_collider()
               hungWallSide = getCurrentWallSide()
               state = States.wallHang
-              var loopIdx = 0
+              var loopIdx: int = 0
               while !TopIsOnWall() and loopIdx < 20:
                 loopIdx += 1
                 position.y += 1
@@ -537,19 +536,19 @@ func _physics_process(delta: float) -> void:
         # stopVelOnGround
         if is_on_floor():
           wasJustInWater = false
-          for n in stopVelOnGround:
+          for n: String in stopVelOnGround:
             if !justAddedVels[n]:
               vel[n] = Vector2.ZERO
         # stopVelOnWall
         if state == States.wallHang or state == States.wallSliding:
-          for n in stopVelOnWall:
+          for n: String in stopVelOnWall:
             if !justAddedVels[n]:
               vel[n] = Vector2.ZERO
         # stopVelOnCeil
         if is_on_ceiling():
           if vel['user'].y < 0:
             vel['user'].y = 0
-          for n in stopVelOnCeil:
+          for n: String in stopVelOnCeil:
             if !justAddedVels[n]:
               vel[n] = Vector2.ZERO
 
@@ -557,9 +556,9 @@ func _physics_process(delta: float) -> void:
         # var start = position
         velocity = Vector2.ZERO
         if state != States.wallHang:
-          for n in vel:
+          for n: String in vel:
             velocity += vel[n]
-          for n in vel:
+          for n: String in vel:
             vel[n] *= velDecay[n] # * delta * 60
         if state == States.wallHang and not getClosestWallSide():
           state = States.falling
@@ -567,11 +566,11 @@ func _physics_process(delta: float) -> void:
         # # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
         # if state == States.wallSliding:
         #   position.x += velocity.x * delta
-        for n in vel:
+        for n: String in vel:
           if justAddedVels[n]:
             justAddedVels[n] -= 1
         if !global.showEditorUi:
-          var maxVel = max(abs(velocity.x), abs(velocity.y))
+          var maxVel: float = max(abs(velocity.x), abs(velocity.y))
           $Camera2D.position_smoothing_enabled = maxVel < 3500
           $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
         # # only one bounce when leaving water
@@ -592,7 +591,7 @@ func _physics_process(delta: float) -> void:
         # collision when on floor and moving down
         # floor_max_angle = deg_to_rad(5.0 if state == States.sliding else 49.7)
         # log.pp(floor_max_angle)
-        var floorRayCollision = null
+        var floorRayCollision: RayCast2D = null
         if $floorRay.is_colliding():
           floorRayCollision = $floorRay.get_collider()
         # var normals = {
@@ -601,13 +600,13 @@ func _physics_process(delta: float) -> void:
         #   "u": false,
         #   "d": false
         # }
-        var currentCollidingBlocks = []
+        var currentCollidingBlocks: Array[Node2D] = []
         for i in get_slide_collision_count():
-          var collision = get_slide_collision(i)
-          var block = collision.get_collider()
+          var collision := get_slide_collision(i)
+          var block := collision.get_collider()
 
-          var normal = collision.get_normal()
-          var depth = collision.get_depth()
+          var normal := collision.get_normal()
+          var depth := collision.get_depth()
           # log.pp(block.id if 'id' in block else block.get_parent().id, normal, depth, block == floorRayCollision)
 
           # Store the current colliding blocks
@@ -676,7 +675,7 @@ func _physics_process(delta: float) -> void:
         if len(deathSources):
           die()
 
-func handleCollision(block, normal, depth, sameFrame):
+func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
   if sameFrame:
@@ -748,13 +747,13 @@ func handleCollision(block, normal, depth, sameFrame):
   # state = States.falling
   # breakpoint
 
-func goto(pos):
+func goto(pos: Vector2) -> void:
   position = pos
   vel.user = Vector2.ZERO
   $Camera2D.position = Vector2.ZERO
   $Camera2D.reset_smoothing()
 
-func getMovementStep(block):
+func getMovementStep(block: Node2D) -> Variant:
   if 'lastMovementStep' in block:
     return block.lastMovementStep
   if 'lastMovementStep' in block.get_parent():
@@ -763,20 +762,20 @@ func getMovementStep(block):
     return block.cloneEventsHere.lastMovementStep
   return false
 
-func hasMovementStep(block):
+func hasMovementStep(block: Node2D) -> bool:
   return !global.same(getMovementStep(block), false)
 
-func TopIsOnWall():
+func TopIsOnWall() -> bool:
   return is_on_wall() && ($wallDetection/leftWallTop.is_colliding() || $wallDetection/rightWallTop.is_colliding())
-func CenterIsOnWall():
+func CenterIsOnWall() -> bool:
   return is_on_wall() && ($wallDetection/leftWall.is_colliding() || $wallDetection/rightWall.is_colliding())
-func BottomIsOnWall():
+func BottomIsOnWall() -> bool:
   return is_on_wall() && ($wallDetection/leftWallBottom.is_colliding() || $wallDetection/rightWallBottom.is_colliding())
 
-func getCurrentWallSide():
+func getCurrentWallSide() -> int:
   if !is_on_wall(): return 0
   return getClosestWallSide()
-func getClosestWallSide():
+func getClosestWallSide() -> int:
   if $wallDetection/rightWall.is_colliding(): return 1
   if $wallDetection/leftWall.is_colliding(): return -1
   return 0
@@ -784,7 +783,7 @@ func getClosestWallSide():
 var OnPlayerDied: Array[Callable] = []
 var OnPlayerFullRestart: Array[Callable] = []
 
-func die(respawnTime=DEATH_TIME, full=false):
+func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   if full:
     lastSpawnPoint = Vector2(0, 0)
@@ -798,7 +797,7 @@ func die(respawnTime=DEATH_TIME, full=false):
   deathPosition = position
   state = States.dead
   keys = []
-  for v in vel:
+  for v: String in vel:
     vel[v] = Vector2.ZERO
   velocity = Vector2.ZERO
   playerXIntent = 0
@@ -817,9 +816,9 @@ func die(respawnTime=DEATH_TIME, full=false):
   lightsOut = false
   speedLeverActive = false
   deathSources = []
-  OnPlayerDied = OnPlayerDied.filter(func(e):
+  OnPlayerDied = OnPlayerDied.filter(func(e: Node2D) -> bool:
     return e.is_valid())
-  OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e):
+  OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e: Node2D) -> bool:
     return e.is_valid())
   for cb in OnPlayerDied:
     cb.call()
