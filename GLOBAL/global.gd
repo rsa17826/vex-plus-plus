@@ -349,7 +349,7 @@ class path:
     # return parsePath((global.regReplace(path1 + "/" + path2 + "/" + path3 + "/" + path4, "(?<!res:)/{2,}", "/")
 
 class tilemap:
-  static func save(tile_map: TileMap) -> Array[int]:
+  static func save(tile_map: TileMap) -> Array:
     var layers: int = tile_map.get_layers_count()
     var tile_map_layers := []
     tile_map_layers.resize(layers)
@@ -909,9 +909,9 @@ func loadLevelPackInfo(levelPackName: String) -> Variant:
 
 var useropts := {}
 
-var checkpoints: Array[Node2D] = []
+var checkpoints: Array = []
 
-func animate(speed: int, steps: Array[Dictionary]) -> float:
+func animate(speed: int, steps: Array) -> float:
   # animation time is baised on global.tick
   # dict arr is like [
   #   {
@@ -1011,7 +1011,7 @@ func fullscreen(state: int = 0) -> void:
 
 @onready var VERSION := int(file.read("version", false, "-1"))
 
-var blockNames: Array[String] = [
+var blockNames: Array = [
   "basic", # 1
   "single spike", # 1
   "10x spike", # 1
