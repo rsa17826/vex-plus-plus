@@ -1009,7 +1009,7 @@ func fullscreen(state: int = 0) -> void:
       if mode == DisplayServer.WINDOW_MODE_FULLSCREEN: return
       DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
-@onready var VERSION := int(file.read("version", false, "-1"))
+@onready var VERSION := int(file.read("VERSION", false, "-1"))
 
 var blockNames: Array = [
   "basic", # 1
@@ -1053,7 +1053,8 @@ var blockNames: Array = [
   "star", # .8
   "targeting laser", # 0
   "ice", # 0
-  "death boundary" # 1
+  "death boundary", # 1
+  "block death boundary" # 0
 ]
 
 func localReady() -> void:

@@ -31,7 +31,7 @@ extends Node2D
 
 var _DISABLED := false
 var isHovered := false
-var id: int
+var id: String
 var startPosition: Vector2
 var startRotation_degrees: float
 var startScale: Vector2 = Vector2(1, 1)
@@ -204,7 +204,6 @@ func _ready() -> void:
     self.modulate = Color(selectedOptions.color)
 
 func toType(opt: Variant) -> void:
-  log.pp("blockOptions[opt].type", blockOptions[opt].type)
   match blockOptions[opt].type:
     global.PromptTypes.string:
       selectedOptions[opt] = str(selectedOptions[opt])
@@ -248,7 +247,7 @@ func setupOptions() -> void:
 func editOption(idx: int) -> void:
   if idx >= len(blockOptionsArray): return
   # log.pp("editing", idx, blockOptions)
-  var k: Variant = blockOptionsArray
+  var k: Variant = blockOptionsArray[idx]
   var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
   log.pp(newData, "newData")
   # if !newData: return
@@ -409,7 +408,7 @@ func spin(speed: float, node: Node2D = self) -> void:
 func getTexture(node: Node2D) -> String:
   return global.regMatch(node.texture.resource_path, r'/([^/]+)\.png$')[1].strip_edges()
 
-func setTexture(node: Node2D, newTexture: String) -> void:
+func setTexture(node: Node, newTexture: String) -> void:
   node.texture = load(global.regReplace(node.texture.resource_path, '/[^/]+$', '/' + str(newTexture) + '.png'))
 
 func __disable() -> void:

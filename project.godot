@@ -214,6 +214,7 @@ move_player_to_mouse={
 2d_physics/layer_4="SOLID BLOCKS"
 2d_physics/layer_5="DEADLY HAZARDS"
 2d_physics/layer_6="PUSHABLE BOX"
+2d_physics/layer_7="BLOCK DEATH BOUNDARY"
 
 [rendering]
 
