@@ -8,8 +8,6 @@ extends Control
 
 var __menu
 
-@export var CreateNewLevelButton: Button
-
 func _ready() -> void:
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   log.pp(global.path.parsePath("res://levelcodes"))
