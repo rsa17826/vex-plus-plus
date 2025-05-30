@@ -591,7 +591,7 @@ func _physics_process(delta: float) -> void:
         # collision when on floor and moving down
         # floor_max_angle = deg_to_rad(5.0 if state == States.sliding else 49.7)
         # log.pp(floor_max_angle)
-        var floorRayCollision: RayCast2D = null
+        var floorRayCollision: Node2D = null
         if $floorRay.is_colliding():
           floorRayCollision = $floorRay.get_collider()
         # var normals = {

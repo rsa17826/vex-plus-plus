@@ -28,7 +28,6 @@ file_logging/enable_file_logging=true
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
 gdscript/warnings/unreachable_pattern=2
-gdscript/warnings/untyped_declaration=1
 
 [display]
 
