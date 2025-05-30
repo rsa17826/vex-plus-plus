@@ -14,6 +14,9 @@ extends Node
 
 #
 
+func _ready() -> void:
+  localReady()
+
 func _process(delta):
   if openMsgBoxCount: return
   if timer.started:
@@ -42,6 +45,8 @@ func prompt(msg, type: PromptTypes = PromptTypes.info, default=null, singleArrVa
   if openMsgBoxCount:
     while openMsgBoxCount:
       await wait(10)
+  var lastMouseMode = Input.mouse_mode
+  Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   openMsgBoxCount += 1
 
   var promptCanvas = preload("res://GLOBAL/prompt.tscn").instantiate()
@@ -103,7 +108,7 @@ func prompt(msg, type: PromptTypes = PromptTypes.info, default=null, singleArrVa
     PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else default
     PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else default
     PromptTypes.singleArr: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else default
-
+  Input.mouse_mode = lastMouseMode
   promptCanvas.queue_free.call_deferred()
   return val
 
@@ -113,6 +118,43 @@ func _on_submit(text=null):
 func _on_cancel():
   openMsgBoxCount -= 1
   promptPromise.resolve(false)
+
+# var __pressedKeys = []
+
+func _input(event: InputEvent) -> void:
+  if !InputMap.has_action("editor_select"): return
+  # if event is InputEventKey:
+  #   if event.pressed and event.keycode not in __pressedKeys:
+  #     __pressedKeys.push_back(event.keycode)
+  #   elif event.keycode in __pressedKeys:
+  #     __pressedKeys.erase(event.keycode)
+  localInput(event)
+
+func isActionJustPressedAlone(thing):
+  return Input.is_action_just_pressed(thing) and isActionPressedAlone(thing)
+func isActionJustReleasedAlone(thing):
+  return Input.is_action_just_released(thing) and isActionPressedAlone(thing)
+func isActionPressedAlone(thing):
+  var actions = InputMap.action_get_events(thing).map(func(e):
+    return {
+      "key": e.physical_keycode,
+      "c": e.ctrl_pressed,
+      "a": e.alt_pressed,
+      "s": e.shift_pressed,
+      "m": e.meta_pressed
+    })
+  log.pp(actions)
+  var valid = false
+  for action in actions:
+    if Input.is_key_pressed(action.key) \
+    and Input.is_key_pressed(KEY_CTRL) == action.c \
+    and Input.is_key_pressed(KEY_ALT) == action.a \
+    and Input.is_key_pressed(KEY_SHIFT) == action.s \
+    and Input.is_key_pressed(KEY_META) == action.m \
+    :
+      valid = true
+      break
+  return valid
 
 class cache:
   var cache = {}
@@ -480,8 +522,8 @@ var player: Node
 var level: Node
 
 var hoveredBlocks: Array = []
-var selectedBlock: Node = null
 var selectedBlockOffset: Vector2
+var selectedBlock: Node2D = null
 var editorInScaleMode := false
 var editorInRotateMode := false
 
@@ -537,35 +579,64 @@ func localProcess(delta: float) -> void:
       var top_edge = selectedBlock.global_position.y - sizeInPx.y / 2
       var right_edge = selectedBlock.global_position.x + sizeInPx.x / 2
       var left_edge = selectedBlock.global_position.x - sizeInPx.x / 2
-
+      var startPos = selectedBlock.global_position
+      var startScale = selectedBlock.scale
       # scale on the selected sides
       if scaleOnTopSide:
         var mouseDIstInPx = (top_edge - mpos.y)
-        mouseDIstInPx = round(mouseDIstInPx / (gridSize * 1)) * (gridSize * 1)
+        mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
         selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDIstInPx / sizeInPx.y * selectedBlock.scale.y))
         selectedBlock.global_position.y = selectedBlock.global_position.y - (mouseDIstInPx / 2)
       elif scaleOnBottomSide:
         var mouseDIstInPx = (mpos.y - bottom_edge)
-        mouseDIstInPx = round(mouseDIstInPx / (gridSize * 1)) * (gridSize * 1)
+        mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
         selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDIstInPx / sizeInPx.y * selectedBlock.scale.y))
         selectedBlock.global_position.y = selectedBlock.global_position.y + (mouseDIstInPx / 2)
       if scaleOnLeftSide:
         var mouseDIstInPx = (left_edge - mpos.x)
-        mouseDIstInPx = round(mouseDIstInPx / (gridSize * 1)) * (gridSize * 1)
+        mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
         selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDIstInPx / sizeInPx.x * selectedBlock.scale.x))
         selectedBlock.global_position.x = selectedBlock.global_position.x - (mouseDIstInPx / 2)
       elif scaleOnRightSide:
         var mouseDIstInPx = (mpos.x - right_edge)
-        mouseDIstInPx = round(mouseDIstInPx / (gridSize * 1)) * (gridSize * 1)
+        mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
         selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDIstInPx / sizeInPx.x * selectedBlock.scale.x))
         selectedBlock.global_position.x = selectedBlock.global_position.x + (mouseDIstInPx / 2)
 
-      # make block no larger than 250% and no less than 10% default size
-      selectedBlock.scale.x = clamp(selectedBlock.scale.x, 0.1 / 7.0, 25.0 / 7.0)
-      selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 25.0 / 7.0)
+      var moveMouse = func(pos: Vector2):
+        Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
+      # make block no less than 10% default size
+      var mousePos = get_viewport().get_mouse_position()
+      var minSize = 0.1 / 7.0
+      # need to make it stop moving - cant figure out how yet
+      if selectedBlock.scale.x < minSize:
+        selectedBlock.respawn()
+        selectedBlock.scale.x = minSize
+        if scaleOnLeftSide:
+          scaleOnLeftSide = false
+          scaleOnRightSide = !true
+          moveMouse.call(mousePos + Vector2(minSize * 700, 0))
+        else:
+          scaleOnLeftSide = !true
+          scaleOnRightSide = false
+          moveMouse.call(mousePos - Vector2(minSize * 700, 0))
+
+      if selectedBlock.scale.y < minSize:
+        selectedBlock.respawn()
+        selectedBlock.scale.y = minSize
+        if scaleOnTopSide:
+          scaleOnTopSide = false
+          scaleOnBottomSide = !true
+          moveMouse.call(mousePos + Vector2(0, minSize * 700))
+        else:
+          scaleOnTopSide = !true
+          scaleOnBottomSide = false
+          moveMouse.call(mousePos - Vector2(0, minSize * 700))
+
+      selectedBlock.scale.x = clamp(selectedBlock.scale.x, 0.1 / 7.0, 250.0 / 7.0)
+      selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 250.0 / 7.0)
       global.showEditorUi = true
       # selectedBlock.self_modulate.a = useropts.hoveredBlockGhostAlpha
-
       setBlockStartPos(selectedBlock)
       selectedBlock.respawn()
     else:
@@ -621,34 +692,31 @@ func setBlockStartPos(block: Node):
 
 var hitboxesShown = false
 
-func _input(event: InputEvent) -> void:
+func localInput(event: InputEvent) -> void:
   if openMsgBoxCount: return
-  if !InputMap.has_action("editor_select"): return
   if Input.is_action_just_released("editor_select"):
     if selectedBlock:
       selectedBlock.respawn()
       selectedBlock = null
       # selectedBlock._ready.call(false)
-  if Input.is_action_just_pressed("new_level_file"):
+  if isActionJustPressedAlone("new_level_file"):
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
-  if Input.is_action_just_pressed("new_map_folder"):
+  if isActionJustPressedAlone("new_map_folder"):
     createNewMapFolder()
-  if Input.is_action_just_pressed("toggle_fullscreen"):
+  if isActionJustPressedAlone("toggle_fullscreen"):
     fullscreen()
   if Input.is_action_just_pressed("editor_select"):
     if selectedBlock:
       selectedBlock.respawn()
-  # if Input.is_action_just_released("down"):
-  #   if player and mainLevelName:
-  #     savePlayerLevelData()
 
   # dont update editor scale mode if clicking
   if !Input.is_action_pressed("editor_select"):
     editorInScaleMode = Input.is_action_pressed("editor_scale")
   if !Input.is_action_pressed("editor_select") and not editorInScaleMode:
     editorInRotateMode = Input.is_action_pressed("editor_rotate")
-  if Input.is_action_just_pressed("save"):
+
+  if isActionJustPressedAlone("save"):
     if level and is_instance_valid(level):
       level.save()
   if Input.is_action_just_pressed("editor_delete"):
@@ -656,19 +724,19 @@ func _input(event: InputEvent) -> void:
     hoveredBlocks.erase(selectedBlock)
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
-  if Input.is_action_just_pressed("reload_map_from_last_save"):
+  if isActionJustPressedAlone("reload_map_from_last_save"):
     loadLevelPack.call_deferred(mainLevelName, true)
-  if Input.is_action_just_pressed("fully_reload_map"):
+  if isActionJustPressedAlone("fully_reload_map"):
     loadLevelPack.call_deferred(mainLevelName, false)
-  if Input.is_action_just_pressed("toggle_hitboxes"):
+  if isActionJustPressedAlone("toggle_hitboxes"):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
     showEditorUi = !showEditorUi
     await wait(1)
     showEditorUi = !showEditorUi
-  if Input.is_action_just_pressed("quit"):
+  if isActionJustPressedAlone("quit"):
     get_tree().quit()
-  if Input.is_action_just_pressed("load"):
+  if isActionJustPressedAlone("load"):
     if useropts.saveOnExit: level.save()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
@@ -760,15 +828,15 @@ func loadLevelPack(levelPackName, loadFromSave):
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
     return
-  # levelPackInfo['version'] = int(levelPackInfo['version'])
-  if not same(levelPackInfo['version'], version):
-    var gameVersionIsNewer = version > levelPackInfo['version']
+  # levelPackInfo["version"] = int(levelPackInfo["version"])
+  if not same(levelPackInfo["version"], VERSION):
+    var gameVersionIsNewer = VERSION > levelPackInfo["version"]
     if gameVersionIsNewer:
       if useropts.warnWhenOpeningLevelInNewerGameVersion:
         if not await prompt(
           "this level was last saved in version " +
-          str(levelPackInfo['version']) +
-          " and the current version is " + str(version) +
+          str(levelPackInfo["version"]) +
+          " and the current version is " + str(VERSION) +
           ". Do you want to load this level?\n" +
           "> the current game version is newer than what the level was made in"
           , PromptTypes.confirm
@@ -777,8 +845,8 @@ func loadLevelPack(levelPackName, loadFromSave):
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
         if not await prompt(
           "this level was last saved in version " +
-          str(levelPackInfo['version']) +
-          " and the current version is " + str(version) +
+          str(levelPackInfo["version"]) +
+          " and the current version is " + str(VERSION) +
           ". Do you want to load this level?\n" +
           "< the current game version might not have all the features needed to play this level"
           , PromptTypes.confirm
@@ -905,11 +973,11 @@ func createNewMapFolder():
         PromptTypes.string,
         "",
       ),
+      "version": VERSION,
       "stages": {
       }
     }
   )
-  file.write(path.join(fullDirPath, startLevel), "", false)
   await createNewLevelFile(foldername, startLevel)
   return foldername
 
@@ -942,7 +1010,7 @@ func fullscreen(state=0):
       if mode == DisplayServer.WINDOW_MODE_FULLSCREEN: return
       DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
-@onready var version = int(file.read("VERSION", false, "-1"))
+@onready var VERSION = int(file.read("version", false, "-1"))
 
 var blockNames = [
   "basic", # 1
@@ -985,7 +1053,8 @@ var blockNames = [
   "speed Up Lever", # 0
   "star", # .8
   "targeting laser", # 0
-  "ice" # 0
+  "ice", # 0
+  "death boundary" # 1
 ]
 
 func localReady():

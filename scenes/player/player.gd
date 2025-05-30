@@ -49,10 +49,10 @@ var lightsOut = false
 
 var keys: Array[Node2D] = []
 
-var collsiionOn_top = false
-var collsiionOn_bottom = false
-var collsiionOn_left = false
-var collsiionOn_right = false
+var collsiionOn_top := []
+var collsiionOn_bottom := []
+var collsiionOn_left := []
+var collsiionOn_right := []
 
 var lastSpawnPoint = Vector2(0, 0)
 
@@ -246,7 +246,7 @@ func _physics_process(delta: float) -> void:
         if len(deathSources):
           die()
 
-      if Input.is_action_just_pressed("down"):
+      if Input.is_action_just_pressed("down") or inWaters:
         state = States.falling
     States.bouncing:
       lastWall = 0
@@ -669,10 +669,9 @@ func _physics_process(delta: float) -> void:
         # or (normals.l && normals.r):
         #   # breakpoint
         #   die()
-        if (collsiionOn_top and collsiionOn_bottom) \
-        or (collsiionOn_left && collsiionOn_right):
+        if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
+        or (len(collsiionOn_left) and len(collsiionOn_right)):
           log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
-          # breakpoint
           die()
         if len(deathSources):
           die()
@@ -811,10 +810,10 @@ func die(respawnTime=DEATH_TIME, full=false):
   duckRecovery = 0
   wallBreakDownFrames = 0
   inWaters = []
-  collsiionOn_top = false
-  collsiionOn_bottom = false
-  collsiionOn_left = false
-  collsiionOn_right = false
+  collsiionOn_top = []
+  collsiionOn_bottom = []
+  collsiionOn_left = []
+  collsiionOn_right = []
   lightsOut = false
   speedLeverActive = false
   deathSources = []
@@ -833,25 +832,33 @@ func die(respawnTime=DEATH_TIME, full=false):
     # cb.call_deferred()
   # OnPlayerFullRestart = []
 
-func _on_bottom_body_entered(_body: Node2D) -> void:
-  collsiionOn_bottom = true
-func _on_bottom_body_exited(_body: Node2D) -> void:
-  collsiionOn_bottom = false
+func _on_bottom_body_entered(body: Node2D) -> void:
+  if body not in collsiionOn_bottom:
+    collsiionOn_bottom.append(body)
+func _on_bottom_body_exited(body: Node2D) -> void:
+  if body in collsiionOn_bottom:
+    collsiionOn_bottom.erase(body)
 
-func _on_top_body_entered(_body: Node2D) -> void:
-  collsiionOn_top = true
-func _on_top_body_exited(_body: Node2D) -> void:
-  collsiionOn_top = false
+func _on_top_body_entered(body: Node2D) -> void:
+  if body not in collsiionOn_bottom:
+    collsiionOn_top.append(body)
+func _on_top_body_exited(body: Node2D) -> void:
+  if body in collsiionOn_top:
+    collsiionOn_top.erase(body)
 
-func _on_right_body_entered(_body: Node2D) -> void:
-  collsiionOn_right = false
-func _on_right_body_exited(_body: Node2D) -> void:
-  collsiionOn_right = false
+func _on_right_body_entered(body: Node2D) -> void:
+  if body not in collsiionOn_right:
+    collsiionOn_right.append(body)
+func _on_right_body_exited(body: Node2D) -> void:
+  if body in collsiionOn_right:
+    collsiionOn_right.erase(body)
 
-func _on_left_body_entered(_body: Node2D) -> void:
-  collsiionOn_left = true
-func _on_left_body_exited(_body: Node2D) -> void:
-  collsiionOn_left = false
+func _on_left_body_entered(body: Node2D) -> void:
+  if body not in collsiionOn_left:
+    collsiionOn_left.append(body)
+func _on_left_body_exited(body: Node2D) -> void:
+  if body in collsiionOn_left:
+    collsiionOn_left.erase(body)
 
 # fix scaled window hiding editor bar
 # zipline
@@ -907,6 +914,8 @@ func _on_left_body_exited(_body: Node2D) -> void:
 # option to change ghost opacity/ghost hover opacity?
 
 # allow walkign up small ledges
+# allow grouping editor blocks
+# make blocks not move while resizing past min
 
 # known:
   # when respawning inside water you don't enter the water as collision is disabled while respawning
