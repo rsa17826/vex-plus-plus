@@ -6,6 +6,8 @@ func _on_body_exited(body: Node2D) -> void:
 func _on_body_entered(body: Node2D) -> void:
   if body == global.player:
     global.player.gravState = global.player.GravStates.normal
+    for key in global.player.keys:
+      key.respawn()
   else:
     if 'root' not in body:
       log.pp(body, body.get_parent().texture.resource_path, body.get_parent().get_parent())

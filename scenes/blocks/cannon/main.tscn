@@ -39,11 +39,11 @@ shape = SubResource("RectangleShape2D_wy60s")
 position = Vector2(0, 41)
 shape = SubResource("RectangleShape2D_1jh5p")
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("3_1jh5p")
-rootNode = NodePath("..")
+root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 position = Vector2(0, 89)

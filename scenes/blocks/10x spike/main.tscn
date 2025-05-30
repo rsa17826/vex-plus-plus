@@ -44,14 +44,14 @@ visible = false
 scale = Vector2(1.54286, 1.54286)
 texture = ExtResource("3_b2kfu")
 
-[node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("rootNode")]
+[node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("4_c5k05")
-rootNode = NodePath("../../..")
+root = NodePath("../../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode/attach detector"]
-position = Vector2(0, 59)
+position = Vector2(0, 65)
 shape = SubResource("RectangleShape2D_c5k05")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
