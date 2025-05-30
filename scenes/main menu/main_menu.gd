@@ -52,7 +52,7 @@ func updateUserOpts() -> void:
   else:
     lastWinMode = global.useropts.windowMode
   global.useropts = __menu.get_all_data()
-  if lastWinMode != global.useropts.windowMode:
+  if not lastWinMode or lastWinMode != global.useropts.windowMode:
     shouldChangeFsState = true
   if shouldChangeFsState == true:
     match int(global.useropts.windowMode):

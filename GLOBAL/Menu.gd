@@ -71,7 +71,7 @@ func add_single_select(key, options, default) -> void:
   _add_any(key, {
     "type": "single select",
     "options": options.map(func(x): return str(x)),
-    "default": str(default)
+    "default": int(default)
   })
 func add_named_range(key, options, default) -> void:
   # return int|float
@@ -254,7 +254,7 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     "multi select":
       menu_data[name].user=node.selected
     "single select":
-      menu_data[name].user=node.get_node("OptionButton").selected
+      menu_data[name].user=int(node.get_node("OptionButton").selected)
     _:
       log.err("cant save type: " + menu_data[name].type)
   onchanged.emit()
