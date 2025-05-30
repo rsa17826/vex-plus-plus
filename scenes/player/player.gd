@@ -855,53 +855,31 @@ func _on_left_body_exited(body: Node2D) -> void:
   if body in collsiionOn_left:
     collsiionOn_left.erase(body)
 
-# fix scaled window hiding editor bar
 # zipline
-# key to move player to mouse
-# flip grab side when block to small
-# add tooltips to blocks in block picker
-# keys only remove one from list
+# add tooltips to blocks in block picker??
 # make menu show groups as named colapsables
 
 # add animations for
 #   lights out
-#   levers
 
 # add level tags
-# add way to create new levels
-
-# make saves.json not required
-# set default hitbox state
-# make saving happen on cp?, not on down release
 
 # fix moving blocks not moving the player correctly
-# add fullscreen option - onload
-# add fullscreen hotkey - temp
 
 # add way to change block layer - ignore layers of blocks that arnt colliging with selected block to make layer switching quicker
 
 # add way to pause moving blocks while editing?
-# add way to dupe blocks
-# make it so that if the last selected block has the same id as the newly selected block, copy the properties from the old block to the new one
-
-# make the editor bar work in different window sizes
 
 # fix spike sizes not being the same
 
-# allow jumping while on falling blocks?
-
-# add option to shrink save files
-
-# show game version
 
 # save more than 1 star
 # save block state data when saving mid level
-
+# add undo/redo history
 # add easy way to switch versions
 
 # add option to show when autosave triggers?
 # add block animations?
-# add version number to open map screen
 # allow user to reorder the levels in the editor?
 # allow user to reorder the block picker?
 # add required events to win level? - eg break x glass - seperate ones for each level in a map, not mapwide goals
@@ -922,3 +900,4 @@ func _on_left_body_exited(body: Node2D) -> void:
 # make slope grabbox sloped
 # make collected keys not move root
 # add invinsabliity lever?
+# add custom keybvinds

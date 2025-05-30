@@ -15,10 +15,10 @@
     }
   }
   {
-    STR(x)FLOAT(100.0)
-    STR(y)FLOAT(-15.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(x)FLOAT(150.0)
+    STR(y)FLOAT(22.5)
+    STR(w)FLOAT(2.00000050663948)
+    STR(h)FLOAT(1.65000000596046)
     STR(r)FLOAT(0.0)
     STR(id)STR(falling)
     STR(options){
@@ -26,7 +26,7 @@
     }
   }
   {
-    STR(x)FLOAT(200.0)
+    STR(x)FLOAT(150.0)
     STR(y)FLOAT(-15.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
@@ -85,8 +85,8 @@
     }
   }
   {
-    STR(x)FLOAT(145.0)
-    STR(y)FLOAT(-95.0)
+    STR(x)FLOAT(180.0)
+    STR(y)FLOAT(-100.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -810,8 +810,8 @@
     }
   }
   {
-    STR(x)FLOAT(30.0)
-    STR(y)FLOAT(-150.0)
+    STR(x)FLOAT(25.0)
+    STR(y)FLOAT(-185.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(2.50000047683716)
     STR(r)FLOAT(0.0)
@@ -833,7 +833,7 @@
   }
   {
     STR(x)FLOAT(90.0)
-    STR(y)FLOAT(130.0)
+    STR(y)FLOAT(210.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -918,6 +918,40 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(25.0)
+    STR(y)FLOAT(-90.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-400.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(locked box)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-400.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(star)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
