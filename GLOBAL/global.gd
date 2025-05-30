@@ -579,8 +579,6 @@ func localProcess(delta: float) -> void:
       var top_edge = selectedBlock.global_position.y - sizeInPx.y / 2
       var right_edge = selectedBlock.global_position.x + sizeInPx.x / 2
       var left_edge = selectedBlock.global_position.x - sizeInPx.x / 2
-      var startPos = selectedBlock.global_position
-      var startScale = selectedBlock.scale
       # scale on the selected sides
       if scaleOnTopSide:
         var mouseDIstInPx = (top_edge - mpos.y)
@@ -611,25 +609,25 @@ func localProcess(delta: float) -> void:
       # need to make it stop moving - cant figure out how yet
       if selectedBlock.scale.x < minSize:
         selectedBlock.respawn()
-        selectedBlock.scale.x = minSize
+        # selectedBlock.scale.x = minSize
         if scaleOnLeftSide:
           scaleOnLeftSide = false
-          scaleOnRightSide = !true
+          scaleOnRightSide = true
           moveMouse.call(mousePos + Vector2(minSize * 700, 0))
         else:
-          scaleOnLeftSide = !true
+          scaleOnLeftSide = true
           scaleOnRightSide = false
           moveMouse.call(mousePos - Vector2(minSize * 700, 0))
 
       if selectedBlock.scale.y < minSize:
         selectedBlock.respawn()
-        selectedBlock.scale.y = minSize
+        # selectedBlock.scale.y = minSize
         if scaleOnTopSide:
           scaleOnTopSide = false
-          scaleOnBottomSide = !true
+          scaleOnBottomSide = true
           moveMouse.call(mousePos + Vector2(0, minSize * 700))
         else:
-          scaleOnTopSide = !true
+          scaleOnTopSide = true
           scaleOnBottomSide = false
           moveMouse.call(mousePos - Vector2(0, minSize * 700))
 
