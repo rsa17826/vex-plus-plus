@@ -55,7 +55,6 @@ func respawn() -> void:
   rotation_degrees = startRotation_degrees
   scale = startScale
   FALLING_falling = false
-  FALLING_fallSpeed = 150
   BOUNCY_bounceState = 0
   BOUNCY_bouncing = false
   BOUNCY_bounceForce = 0
@@ -643,7 +642,7 @@ func _on_body_enteredGOAL(body: Node) -> void:
 func _on_body_enteredCHECKPOINT(body: Node) -> void:
   if body == global.player and (getTexture(CHECKPOINT_sprite) == '1' or selectedOptions.multiUse):
     global.savePlayerLevelData()
-    global.player.lastSpawnPoint = global.player.position
+    global.player.lastSpawnPoint = startPosition - global.player.get_parent().global_position
     global.player.lightsOut = false
     setTexture(CHECKPOINT_sprite, "2")
     global.checkpoints = global.checkpoints.filter(func(e: Variant) -> bool:

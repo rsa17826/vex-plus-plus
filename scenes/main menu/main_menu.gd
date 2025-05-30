@@ -25,6 +25,7 @@ func _ready() -> void:
     $MarginContainer/ScrollContainer/HFlowContainer.add_child(node)
   %lvlSelItem.queue_free.call_deferred()
   loadUserOptions()
+  %version.text = "VERSION: " + str(global.VERSION)
 
 func loadLevel(level, fromSave) -> void:
   global.loadLevelPack(level, fromSave)

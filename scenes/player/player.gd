@@ -7,7 +7,7 @@ extends CharacterBody2D
 # @endregex
 
 const GRAVITY = 1280
-const MAX_PULLEY_NODIE_TIME = 50
+const MAX_PULLEY_NO_DIE_TIME = 50
 const MOVESPEED = 220
 const JUMP_POWER = -430
 const MAX_WALL_KT_FRAMES = 12
@@ -230,7 +230,7 @@ func _physics_process(delta: float) -> void:
       if pulleyNoDieTimer <= 0:
         $anim.animation = "on pulley"
         if Input.is_action_just_pressed("jump"):
-          pulleyNoDieTimer = MAX_PULLEY_NODIE_TIME
+          pulleyNoDieTimer = MAX_PULLEY_NO_DIE_TIME
           $anim.animation = "pulley invins"
       else:
         pulleyNoDieTimer -= delta * 60
@@ -906,7 +906,7 @@ func _on_left_body_exited(body: Node2D) -> void:
 # allow user to reorder the block picker?
 # add required events to win level? - eg break x glass - seperate ones for each level in a map, not mapwide goals
 
-# option to change ghost opacity/ghost hover opacity?
+# option to change ghost opacity/ghost hover opacity? .5
 
 # allow walkign up small ledges
 # allow grouping editor blocks
@@ -917,12 +917,8 @@ func _on_left_body_exited(body: Node2D) -> void:
   # kt doesnt reset while entering water
   # holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
 
-# add level option to change canPressDownToShortHop
+# add level option to change canPressDownToShortHop and make sh work
 # add useropt to set start hboxs
-# make cps spawnpoint be center instead of player contact location
-# make checkpoints disable effects?
 # make slope grabbox sloped
 # make collected keys not move root
 # add invinsabliity lever?
-# fix falling blocks not dieing on
- 

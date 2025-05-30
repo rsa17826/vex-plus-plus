@@ -11,14 +11,13 @@ size = Vector2(660, 92)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
 size = Vector2(668, 18)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "FALLING_nodeToMove", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["10x spike", "EDITOR_OPTION_rotate", "attaches to things", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["10x spike", "EDITOR_OPTION_rotate", "attaches to things", "death"]]
 script = ExtResource("1_c5k05")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
 editorBarIconNode = NodePath("Node2D/collisionNode/EditorBar")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
-FALLING_nodeToMove = NodePath("Node2D")
 UPDOWN_nodeToMove = NodePath("Node2D")
 DOWNUP_nodeToMove = NodePath("Node2D")
 LEFTRIGHT_nodeToMove = NodePath("Node2D")
@@ -29,6 +28,7 @@ LEFTRIGHT_nodeToMove = NodePath("Node2D")
 unique_name_in_owner = true
 position = Vector2(0, 13)
 collision_layer = 16
+collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/collisionNode"]
 use_parent_material = true

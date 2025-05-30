@@ -14,6 +14,7 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 16
+collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("2_x528a")

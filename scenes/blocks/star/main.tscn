@@ -10,20 +10,20 @@ radius = 67.1863
 [sub_resource type="CircleShape2D" id="CircleShape2D_urqaa"]
 radius = 130.138
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "FALLING_nodeToMove", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "star"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "star"]]
 script = ExtResource("1_q34el")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
-FALLING_nodeToMove = NodePath("collisionNode")
 UPDOWN_nodeToMove = NodePath("collisionNode")
 DOWNUP_nodeToMove = NodePath("collisionNode")
 LEFTRIGHT_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true

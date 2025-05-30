@@ -210,7 +210,8 @@ move_player_to_mouse={
 
 [layer_names]
 
-2d_physics/layer_1="PLAYER"
+2d_physics/layer_1="GHOST DEFAULT UNUSED"
+2d_physics/layer_2="PLAYER"
 2d_physics/layer_3="WATER"
 2d_physics/layer_4="SOLID BLOCKS"
 2d_physics/layer_5="DEADLY HAZARDS"
