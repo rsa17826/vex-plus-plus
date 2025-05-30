@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://3b5rdxoob147"]
+[gd_scene load_steps=10 format=3 uid="uid://3b5rdxoob147"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_omc7y"]
 [ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/Pulley/images/1.png" id="2_omc7y"]
@@ -14,6 +14,9 @@ size = Vector2(24, 14)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vkeng"]
 size = Vector2(10, 230)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6wthr"]
+size = Vector2(10, 50)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
 size = Vector2(20, 5)
 
@@ -21,7 +24,7 @@ size = Vector2(20, 5)
 script = ExtResource("1_omc7y")
 ghostIconNode = NodePath("movable/Sprite2D")
 editorBarIconNode = NodePath("movable/Sprite2D")
-collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side/CollisionShape2D"), NodePath("movable/wall to side/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
+collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("movable/Sprite2D")]
 cloneEventsHere = NodePath("movable")
 thingThatMoves = NodePath("movable")
@@ -41,6 +44,7 @@ texture = ExtResource("2_omc7y")
 
 [node name="player detector" type="Area2D" parent="movable"]
 collision_layer = 0
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/player detector"]
 position = Vector2(1, 11)
@@ -57,20 +61,35 @@ collision_mask = 8
 position = Vector2(-1, -43)
 shape = SubResource("RectangleShape2D_omc7y")
 
-[node name="wall to side" type="Area2D" parent="movable"]
+[node name="wall to side with player on" type="Area2D" parent="movable"]
 light_mask = 0
 visibility_layer = 2
 position = Vector2(1, 0)
 collision_layer = 0
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side"]
-position = Vector2(28, 93.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player on"]
+position = Vector2(28, 90)
 shape = SubResource("RectangleShape2D_vkeng")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side"]
-position = Vector2(-30, 93.5)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player on"]
+position = Vector2(-30, 90)
 shape = SubResource("RectangleShape2D_vkeng")
+
+[node name="wall to side with player off" type="Area2D" parent="movable"]
+light_mask = 0
+visibility_layer = 2
+position = Vector2(1, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player off"]
+position = Vector2(28, 0)
+shape = SubResource("RectangleShape2D_6wthr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player off"]
+position = Vector2(-30, 0)
+shape = SubResource("RectangleShape2D_6wthr")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
 collision_layer = 0
@@ -86,5 +105,3 @@ debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 [connection signal="body_entered" from="movable/player detector" to="movable" method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="movable/has ceil" to="movable" method="_on_attach_detector_body_entered"]
 [connection signal="body_exited" from="movable/has ceil" to="movable" method="_on_attach_detector_body_exited"]
-[connection signal="body_entered" from="movable/wall to side" to="movable" method="_on_deattach_detector_body_entered"]
-[connection signal="body_exited" from="movable/wall to side" to="movable" method="_on_deattach_detector_body_exited"]

@@ -33,6 +33,7 @@ position = Vector2(0, 13)
 [node name="collisionNode" type="Area2D" parent="Node2D"]
 unique_name_in_owner = true
 collision_layer = 16
+collision_mask = 2
 
 [node name="editorBar" type="Sprite2D" parent="Node2D/collisionNode"]
 visible = false

@@ -12,6 +12,7 @@ size = Vector2(84, 88)
 
 [node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "light switch"]]
 collision_layer = 0
+collision_mask = 2
 script = ExtResource("1_4fpvc")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")

@@ -15,6 +15,7 @@ hidableSprites = [NodePath("collisionNode/Sprite2D")]
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0
+collision_mask = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
