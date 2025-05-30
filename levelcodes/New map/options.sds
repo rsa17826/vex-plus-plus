@@ -11,6 +11,10 @@
       STR(color)INT(8)
       STR(changeSpeedOnSlopes)BOOL(false)
     }
+    STR(real level){
+      STR(color)INT(9)
+      STR(changeSpeedOnSlopes)BOOL(false)
+    }
   }
-  STRNAME(version)INT(11)
+  STRNAME(version)INT(12)
 }

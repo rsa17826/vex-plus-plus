@@ -532,7 +532,7 @@
       STRNAME(attachesToThings)BOOL(true)
       STRNAME(color)STR(#fff)
       STRNAME(movesRight)BOOL(true)
-      STRNAME(direction)STR(right)
+      STRNAME(direction)STR(left)
     }
   }
   {
@@ -704,8 +704,8 @@
     }
   }
   {
-    STR(x)FLOAT(525.0)
-    STR(y)FLOAT(-265.0)
+    STR(x)FLOAT(550.0)
+    STR(y)FLOAT(-360.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -807,6 +807,28 @@
       STRNAME(movesRight)STR(right)
       STRNAME(color)STR(#fff)
       STRNAME(direction)STR(user)
+    }
+  }
+  {
+    STR(x)FLOAT(30.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(2.50000047683716)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(death boundary)
+    STR(options){
+      STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(535.0)
+    STR(y)FLOAT(-250.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(water)
+    STR(options){
+      STRNAME(color)STR(#fff)
     }
   }
 ]

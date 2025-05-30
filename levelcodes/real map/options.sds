@@ -1,0 +1,12 @@
+{
+  STR(start)STR(main)
+  STR(author)STR(rssaromeo)
+  STR(description)STR(making a real level)
+  STR(version)INT(12)
+  STR(stages){
+    STR(main){
+      STR(color)INT(1)
+      STR(changeSpeedOnSlopes)BOOL(false)
+    }
+  }
+}

@@ -34,7 +34,7 @@ static func loadDataFromFile(p: String, ifUnset: Variant = null) -> Variant:
   var f = FileAccess.open(p, FileAccess.READ)
   if not f: return ifUnset
   var d = loadData(f.get_as_text())
-  return d if d else ifUnset
+  return d if !global.same(d, UNSET) else ifUnset
 
 # fix recursion
 static func saveData(val: Variant, _level=0) -> String:
@@ -98,7 +98,7 @@ static func saveData(val: Variant, _level=0) -> String:
   return str(val)
 
 static var remainingData = ''
-static var unset = ":::" + randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+static var UNSET = ":::" + randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
 static func randstr(length=10, fromchars="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`"):
   var s = ''
   for i in range(length):
@@ -106,7 +106,7 @@ static func randstr(length=10, fromchars="qwertyuiopasdfghjklzxcvbnm1234567890~!
   return s
 
 static func randfrom(min: float, max: float) -> float:
-  # if global.same(max, "unset"):
+  # if global.same(max, "UNSET"):
   #   return min[randfrom(0, len(min) - 1)]
   return int(randf() * (max - min + 1) + min)
 
@@ -116,8 +116,10 @@ const SEPREG = r"\s*,\s*"
 static func loadData(d=null) -> Variant:
   var stack = []
   remainingData = d.strip_edges() if d else ""
-  while unset in remainingData:
-    unset = ":::" + randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+  if not remainingData:
+    return UNSET
+  while UNSET in remainingData:
+    UNSET = ":::" + randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
   # Initialize the stack with the initial state
   stack.append({"remainingData": remainingData, "_stack": []})
   var _stack
@@ -151,7 +153,7 @@ static func loadData(d=null) -> Variant:
                 _stack[len(_stack) - 1] = thing1
               TYPE_DICTIONARY:
                 for k in _stack[len(_stack) - 1]:
-                  if global.same(_stack[len(_stack) - 1][k], unset):
+                  if global.same(_stack[len(_stack) - 1][k], UNSET):
                     _stack[len(_stack) - 1][k] = thing1
                     break
               TYPE_ARRAY:
@@ -168,7 +170,7 @@ static func loadData(d=null) -> Variant:
       match typeof(thingToPutDataIn):
         TYPE_DICTIONARY:
           for k in thingToPutDataIn:
-            if global.same(thingToPutDataIn[k], unset):
+            if global.same(thingToPutDataIn[k], UNSET):
               thingToPutDataIn[k] = dataToInsert
               break
         TYPE_ARRAY:
@@ -200,7 +202,7 @@ static func loadData(d=null) -> Variant:
 
     match type:
       "{":
-        thisdata = unset
+        thisdata = UNSET
         # remainingData = remainingData.substr(1)
         _stack.append({})
       "INT":
@@ -242,32 +244,32 @@ static func loadData(d=null) -> Variant:
         thisdata = thisdata == "true"
       "STR":
         thisdata = remainingData \
-        .replace("\\\\", "ESCAPED" + unset) \
-        .replace(r"\)", "PERIN" + unset) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
+        .replace("\\\\", "ESCAPED" + UNSET) \
+        .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        thisdata = thisdata.replace("ESCAPED" + unset, "\\").replace("PERIN" + unset, ")") # restore the hidden \ and )s
+        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
         remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
       "STRNAME":
         thisdata = remainingData \
-        .replace("\\\\", "ESCAPED" + unset) \
-        .replace(r"\)", "PERIN" + unset) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
+        .replace("\\\\", "ESCAPED" + UNSET) \
+        .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        thisdata = thisdata.replace("ESCAPED" + unset, "\\").replace("PERIN" + unset, ")") # restore the hidden \ and )s
+        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
         remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
         thisdata = StringName(thisdata)
       "[":
-        thisdata = unset
+        thisdata = UNSET
         # remainingData = remainingData.substr(1)
         _stack.append([])
       _:
         return log.err(type, remainingData)
 
     remainingData = remainingData.strip_edges()
-    if !global.same(thisdata, unset):
+    if !global.same(thisdata, UNSET):
       if len(_stack):
         match typeof(_stack[len(_stack) - 1]):
           TYPE_NIL:
@@ -275,12 +277,12 @@ static func loadData(d=null) -> Variant:
           TYPE_DICTIONARY:
             var innerDataFound = false
             for k in _stack[len(_stack) - 1]:
-              if global.same(_stack[len(_stack) - 1][k], unset):
+              if global.same(_stack[len(_stack) - 1][k], UNSET):
                 innerDataFound = true
                 _stack[len(_stack) - 1][k] = thisdata
                 break
             if !innerDataFound:
-              _stack[len(_stack) - 1][thisdata] = unset
+              _stack[len(_stack) - 1][thisdata] = UNSET
           TYPE_ARRAY:
             _stack[len(_stack) - 1].append(thisdata)
       else:

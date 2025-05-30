@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var root: Node2D = null
-const SPEED = 1300
+const SPEED = 1000
 var direction = 0
 func _on_attach_detector_body_entered(body: Node2D) -> void:
   pass # Replace with function body.
