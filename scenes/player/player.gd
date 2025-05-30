@@ -47,7 +47,7 @@ var speedLeverActive: bool = false
 
 var lightsOut: bool = false
 
-var keys: Array[Node2D] = []
+var keys: Array = []
 
 var collsiionOn_top := []
 var collsiionOn_bottom := []
@@ -58,7 +58,7 @@ var lastSpawnPoint := Vector2(0, 0)
 
 var moving := 0
 
-var inWaters: Array[Node2D] = []
+var inWaters: Array = []
 var lastCollidingBlocks: Array = []
 
 var vel := {
@@ -583,7 +583,7 @@ func _physics_process(delta: float) -> void:
         # #   CenterIsOnWall(),
         # #   velocity.x,
         # #   state == States.wallSliding,
-        # #   state,
+        # #   state,Array
         # #   vel.user.x,
         # #   playerXIntent
         # # )
@@ -600,7 +600,7 @@ func _physics_process(delta: float) -> void:
         #   "u": false,
         #   "d": false
         # }
-        var currentCollidingBlocks: Array[Node2D] = []
+        var currentCollidingBlocks: Array = []
         for i in get_slide_collision_count():
           var collision := get_slide_collision(i)
           var block := collision.get_collider()
@@ -780,8 +780,8 @@ func getClosestWallSide() -> int:
   if $wallDetection/leftWall.is_colliding(): return -1
   return 0
 
-var OnPlayerDied: Array[Callable] = []
-var OnPlayerFullRestart: Array[Callable] = []
+var OnPlayerDied: Array = []
+var OnPlayerFullRestart: Array = []
 
 func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)

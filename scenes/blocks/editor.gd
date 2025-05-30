@@ -23,8 +23,8 @@ extends Node2D
 
 @export var ghostIconNode: Sprite2D
 @export var editorBarIconNode: Sprite2D
-@export var collisionShapes: Array[CollisionShape2D]
-@export var hidableSprites: Array[Node]
+@export var collisionShapes: Array
+@export var hidableSprites: Array
 @export var cloneEventsHere: Node
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
@@ -248,7 +248,7 @@ func setupOptions() -> void:
 func editOption(idx: int) -> void:
   if idx >= len(blockOptionsArray): return
   # log.pp("editing", idx, blockOptions)
-  var k: Variant = blockOptionsArray[idx]
+  var k: Variant = blockOptionsArray
   var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
   log.pp(newData, "newData")
   # if !newData: return
