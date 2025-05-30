@@ -734,6 +734,11 @@ func localInput(event: InputEvent) -> void:
     showEditorUi = !showEditorUi
   if isActionJustPressedAlone("quit"):
     get_tree().quit()
+  if isActionJustPressedAlone("move_player_to_mouse"):
+    if player and is_instance_valid(player):
+      player.camLockPos = Vector2.ZERO
+      player.goto(player.get_global_mouse_position())
+
   if isActionJustPressedAlone("load"):
     if useropts.saveOnExit: level.save()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")

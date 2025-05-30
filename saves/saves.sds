@@ -1,6 +1,6 @@
 {
   STR(New map){
-    STR(playerDelogPosition)VEC2(372.619049072266,-233.361846923828)
+    STR(playerDelogPosition)VEC2(372.619049072266,-231.939605712891)
     STR(lastSpawnPoint)VEC2(372.619049072266,-236.206329345703)
     STR(loadedLevels)[
       {
@@ -165,6 +165,25 @@
       }
       STR(a){
         STR(name)STR(a)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    }
+  }
+  STR(real map){
+    STR(playerDelogPosition)VEC2(867.610473632813,-616.53173828125)
+    STR(lastSpawnPoint)VEC2(-135.741958618164,-686.325866699219)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(main)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)[]
+    STR(levels){
+      STR(main){
+        STR(name)STR(main)
         STR(spawnPoint)VEC2(0.0,0.0)
         STR(foundStar)BOOL(false)
       }

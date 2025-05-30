@@ -749,8 +749,8 @@ func handleCollision(block, normal, depth, sameFrame):
   # breakpoint
 
 func goto(pos):
-  vel.user = Vector2.ZERO
   position = pos
+  vel.user = Vector2.ZERO
   $Camera2D.position = Vector2.ZERO
   $Camera2D.reset_smoothing()
 
@@ -921,3 +921,11 @@ func _on_left_body_exited(body: Node2D) -> void:
   # when respawning inside water you don't enter the water as collision is disabled while respawning
   # kt doesnt reset while entering water
   # holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
+
+# add level option to change canPressDownToShortHop
+# add useropt to set start hboxs
+# make cps spawnpoint be center instead of player contact location
+# make checkpoints disable effects?
+# make slope grabbox sloped
+# make collected keys not move root
+# add invinsabliity lever?

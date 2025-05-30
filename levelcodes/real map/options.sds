@@ -6,7 +6,7 @@
   STR(stages){
     STR(main){
       STR(color)INT(1)
-      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(changeSpeedOnSlopes)BOOL(true)
     }
   }
 }
