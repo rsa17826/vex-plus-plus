@@ -1,15 +1,15 @@
 extends Area2D
 
-@export var rootNode: Node
+@export var root: Node
 
 var tempGroups = []
 
 func on_respawn():
-  # rootNode.position = Vector2.ZERO
+  # root.position = Vector2.ZERO
   for group in tempGroups:
-    rootNode.remove_from_group(group)
+    root.remove_from_group(group)
   tempGroups = []
-  if rootNode.selectedOptions.attachesToThings:
+  if root.selectedOptions.attachesToThings:
     await global.wait()
     tryaddgroups()
   # tryaddgroups.call_deferred()
@@ -29,9 +29,9 @@ func tryadd(group):
   if global.starts_with(group, "_vp_") \
   or global.starts_with(group, "EDITOR_OPTION") \
   or group == "respawnOnPlayerDeath" \
-  or rootNode.is_in_group(group) \
+  or root.is_in_group(group) \
   or group in tempGroups \
   : return
   tempGroups.append(group)
-  rootNode.add_to_group(group)
-  # log.pp(tempGroups, group, rootNode, rootNode.get_groups())
+  root.add_to_group(group)
+  # log.pp(tempGroups, group, root, root.get_groups())

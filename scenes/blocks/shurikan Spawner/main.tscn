@@ -42,11 +42,11 @@ visible = false
 scale = Vector2(2.34568, 2.34568)
 texture = ExtResource("3_86yqw")
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("4_lcjsb")
-rootNode = NodePath("..")
+root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 position = Vector2(-733, 0)

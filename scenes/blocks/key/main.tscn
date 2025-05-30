@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://kywba612hr3v" path="res://scenes/blocks/key/images/1.png" id="2_endad"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_h0pg7"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_h0pg7"]
-radius = 147.014
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h0pg7"]
+radius = 95.0
+height = 302.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ctm0x"]
 radius = 155.013
@@ -29,14 +30,14 @@ use_parent_material = true
 texture = ExtResource("2_endad")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_h0pg7")
+shape = SubResource("CapsuleShape2D_h0pg7")
 debug_color = Color(0, 1, 0, 0.419608)
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("3_h0pg7")
-rootNode = NodePath("..")
+root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_ctm0x")

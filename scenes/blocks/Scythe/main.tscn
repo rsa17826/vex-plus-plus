@@ -71,11 +71,11 @@ shape = SubResource("RectangleShape2D_wec1y")
 debug_color = Color(1, 0, 0, 0.419608)
 metadata/_edit_group_ = true
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("3_7nvoe")
-rootNode = NodePath("..")
+root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_ljnhe")

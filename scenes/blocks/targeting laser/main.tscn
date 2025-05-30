@@ -32,11 +32,11 @@ texture = ExtResource("2_erc21")
 shape = SubResource("CircleShape2D_r6ssi")
 debug_color = Color(0.702023, 0.273704, 1, 0.42)
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("rootNode")]
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("3_r6ssi")
-rootNode = NodePath("..")
+root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_owjk4")

@@ -64,6 +64,8 @@ func respawn() -> void:
   SPEED_UP_LEVER_colliding = false
   GRAV_UP_LEVER_colliding = false
   GRAV_DOWN_LEVER_colliding = false
+  if self in global.player.keys:
+    global.player.keys.erase(self)
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
 
@@ -258,6 +260,9 @@ func _physics_process(delta: float) -> void:
   if global.openMsgBoxCount: return
   if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
+  if is_in_group("10x spike"):
+    # so i am just setting it here instead
+    $Node2D.position = Vector2.ZERO
   if is_in_group("updown"):
     _physics_processUPDOWN(delta)
   if is_in_group("downup"):
@@ -495,33 +500,7 @@ func _physics_processDOWNUP(delta: float) -> void:
 @export var LEFTRIGHT_nodeToMove: Node2D
 var wasColliding := false
 func _physics_processLEFTRIGHT(delta: float) -> void:
-  # var start = LEFTRIGHT_nodeToMove.global_position
   LEFTRIGHT_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
-  # var end = LEFTRIGHT_nodeToMove.global_position
-  # LEFTRIGHT_nodeToMove.global_position = start
-  # # var intent = start - end
-  # var intent = end - start
-  # var coll = LEFTRIGHT_nodeToMove.move_and_collide(intent, false)
-  # if coll and coll.get_collider() == global.player:
-  #   wasColliding = true
-  #   LEFTRIGHT_nodeToMove.global_position += intent
-  #   global.player.move.x += coll.get_depth()
-  #   # breakpoint
-  # elif wasColliding:
-  #   coll = LEFTRIGHT_nodeToMove.move_and_collide(intent * -2, false)
-  #   if coll and coll.get_collider() == global.player:
-  #     wasColliding = true
-  #     LEFTRIGHT_nodeToMove.global_position += intent
-  #     global.player.move.x -= coll.get_depth()
-  #     global.player.move.x += intent.x
-  #     # global.player.move += intent
-  #     # breakpoint
-  #   else:
-  #     wasColliding = false
-  # LEFTRIGHT_nodeToMove.move_and_collide(Vector2(LEFTRIGHT_nodeToMove.global_position.x - (startPosition.x - sin(global.tick * 1.5) * 200), 0)*delta)
-  pass
-
-  # LEFTRIGHT_nodeToMove.move_and_collide(movement * delta)
 
 # bouncy
 @export_group("BOUNCY")
@@ -853,7 +832,8 @@ func _physics_processQUADRANT(delta: float) -> void:
 # 10X_SPIKE
 @export_group("10X_SPIKE")
 func _ready10X_SPIKE() -> void:
-  $Node2D.position = Vector2.ZERO
-
-func _on_attach_detector_body_entered(body: Node2D) -> void:
-  pass # Replace with function body.
+  pass
+  # just setting it here doesnt work and i cant figure out why
+  # $Node2D.position = Vector2.ZERO
+  # await global.wait(1000)
+  # $Node2D.position = Vector2.ZERO
