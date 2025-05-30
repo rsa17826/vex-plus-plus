@@ -6,17 +6,19 @@
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_c5k05"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gece"]
-size = Vector2(692, 92)
+size = Vector2(660, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
 size = Vector2(668, 18)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "FALLING_nodeToMove", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["10x spike", "EDITOR_OPTION_rotate", "attaches to things", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "cloneEventsHere", "FALLING_nodeToMove", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["10x spike", "EDITOR_OPTION_rotate", "attaches to things", "death"]]
 script = ExtResource("1_c5k05")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
 editorBarIconNode = NodePath("Node2D/collisionNode/EditorBar")
-collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
+collisionShapes = Array[CollisionShape2D]([Object(CollisionShape2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 15),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"shape":SubResource("RectangleShape2D_1gece"),"disabled":false,"one_way_collision":false,"one_way_collision_margin":1.0,"debug_color":Color(1, 0, 0, 0.419608),"script":null)
+])
+hidableSprites = Array[Node]([Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":true,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"texture":ExtResource("2_fcna3"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
+])
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
 FALLING_nodeToMove = NodePath("Node2D")
 UPDOWN_nodeToMove = NodePath("Node2D")

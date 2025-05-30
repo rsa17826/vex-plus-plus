@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cecu0xpxkcbu1"
-path="res://.godot/imported/1.png-5147ad2b71d222cd26c27bb5fc7e3133.ctex"
+path="res://.godot/imported/1.png-5ac813458893dc0e3081637a4307207f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/sprites/DefineSprite_1477_rectangleBound/1.png"
-dest_files=["res://.godot/imported/1.png-5147ad2b71d222cd26c27bb5fc7e3133.ctex"]
+source_file="res://scenes/blocks/block death boundary/images/1.png"
+dest_files=["res://.godot/imported/1.png-5ac813458893dc0e3081637a4307207f.ctex"]
 
 [params]
 

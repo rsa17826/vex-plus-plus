@@ -40,7 +40,7 @@ var playerKT: float = 0
 var wasJustInWater := false
 var camLockPos: Vector2
 var deadTimer: float = 0
-var currentHungWall: int = 0
+var currentHungWall: Variant = 0
 var hungWallSide := 0
 var deathPosition := Vector2.ZERO
 var speedLeverActive: bool = false
@@ -816,9 +816,9 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   lightsOut = false
   speedLeverActive = false
   deathSources = []
-  OnPlayerDied = OnPlayerDied.filter(func(e: Node2D) -> bool:
+  OnPlayerDied = OnPlayerDied.filter(func(e: Variant) -> bool:
     return e.is_valid())
-  OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e: Node2D) -> bool:
+  OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e: Variant) -> bool:
     return e.is_valid())
   for cb in OnPlayerDied:
     cb.call()
