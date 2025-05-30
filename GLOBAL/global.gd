@@ -551,6 +551,7 @@ var lastSelectedBlock: Node2D
 var lastSelectedBrush: Node2D
 
 func localProcess(delta: float) -> void:
+  test()
   if not player: return
   # if a block is selected
   # if rotresetBlock and (not editorInScaleMode or (len(hoveredBlocks) and hoveredBlocks[0] != rotresetBlock)):
@@ -1074,11 +1075,25 @@ var blockNames: Array = [
   "death boundary", # 1
   "block death boundary" # 0
 ]
-
+var server: StreamPeerTCP
+const PORT = 12345
+const file_path = "data.txt"
 func localReady() -> void:
   get_tree().set_debug_collisions_hint(hitboxesShown)
+  var socket = PacketPeerUDP.new()
 
+  socket.set_dest_address("127.0.0.1", PORT)
+
+  socket.put_packet("Time to stop".to_ascii_buffer())
+  
 var stretchScale: Vector2:
   get():
     return Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y)
+
 var hitboxesShown := false
+
+func test():
+  if server and server.is_connection_available():
+    var client = server.take_connection()
+    log.warn("Received file path: ", client.get_data().get_string_from_utf8())
+    client.close()

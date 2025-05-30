@@ -16,7 +16,7 @@ func _init(_parent, save_path: String = "main") -> void:
   parent = _parent
   full_save_path = "user://" + save_path + ".json"
   menu_data = global.file.read(full_save_path, true, "{}")
-  # log.pp("loading", _parent.name, save_path)
+  # #log.pp("loading", _parent.name, save_path)
 
 # add a add that is multiselect/singleselect/range but with images instead of text either from a list of images or a dir full of images
 # add optional icon to add_bool
@@ -105,14 +105,14 @@ func show_menu():
   #   arr.append(key)
   for key in keys:
     if key not in used_keys:
-      log.pp("INVALID KEY IN USER OPTIONS:", key)
+      #log.pp("INVALID KEY IN USER OPTIONS:", key)
       continue
-    # log.pp(menu_data[key], key)
+    # #log.pp(menu_data[key], key)
     while menu_data[key].menu_index > len(arr): arr.append(null)
-    # log.pp(arr)
+    # #log.pp(arr)
     arr[menu_data[key].menu_index - 1] = menu_data[key]
     arr[menu_data[key].menu_index - 1].name = key
-    # log.pp(arr)
+    # #log.pp(arr)
   for thing in arr:
     if "user" not in thing:
       thing["user"] = thing["default"]
@@ -191,7 +191,7 @@ func show_menu():
         log.err("named spinbox is not working yet, use single_select or named range")
         return
         # var newarr = sort_dict_to_arr(thing.options)
-        # log.pp(newarr)
+        # #log.pp(newarr)
 
         # var node = preload(path + "named spinbox.tscn").instantiate()
         # node.get_node("Label").text = thing["name"]
@@ -219,16 +219,16 @@ func show_menu():
 
       _:
         log.warn("no method is set to add", thing.type)
-  # log.pp(arr)
+  # #log.pp(arr)
 
 func sort_dict_to_arr(dict):
   var temp_keys = dict.keys()
   var sorted_keys = JSON.parse_string(JSON.stringify(temp_keys)).map(func(x): return int(x))
   sorted_keys.sort()
   var temp_vals = dict.values()
-  # log.pp(temp_keys)
-  # log.pp(temp_vals)
-  # log.pp(sorted_keys)
+  # #log.pp(temp_keys)
+  # #log.pp(temp_vals)
+  # #log.pp(sorted_keys)
   var newarr = []
   for temp_key in sorted_keys:
     newarr.append([temp_key, temp_vals[temp_keys.find(temp_key)]])
@@ -236,7 +236,7 @@ func sort_dict_to_arr(dict):
 
 # the signal fails to call this when not inside a class and classes cant use external vars so i had to make a temp class then bind it outside
 var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
-  log.pp("changed ", node, name)
+  #log.pp("changed ", node, name)
   match menu_data[name].type:
     "range":
       menu_data[name].user=node.get_node("HSlider").value
@@ -265,7 +265,7 @@ class __changed_proxy:
     var arr = [msg, msg2, msg3, msg4, msg5, msg6, msg7].filter(func(x):
       return !global.same(x, "ZZZDEF")
     )
-    # log.pp(arr)
+    # #log.pp(arr)
     arr[-1].call(arr[ - 3], arr[ - 2])
 # end __changed_proxy
 
@@ -273,8 +273,9 @@ func save():
   global.file.write(full_save_path, menu_data)
 
 func debug():
-  log.pp("menu_data", menu_data)
-  log.pp("get_all_data", get_all_data())
+  pass
+  #log.pp("menu_data", menu_data)
+  #log.pp("get_all_data", get_all_data())
 
 func _object_assign(obj1, obj2):
   for key in obj2.keys():
@@ -294,7 +295,7 @@ func _add_any(key, obj):
   else:
     used_keys.append(key)
   menu_index += 1
-  # log.pp(key, menu_index)
+  # #log.pp(key, menu_index)
   obj.menu_index = menu_index
   if !key in menu_data or !menu_data[key]:
     menu_data[key] = {}
