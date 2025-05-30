@@ -23,12 +23,13 @@ extends Node2D
 
 @export var ghostIconNode: Sprite2D
 @export var editorBarIconNode: Sprite2D
-@export var collisionShapes: Array
-@export var hidableSprites: Array
+@export var collisionShapes: Array[CollisionShape2D]
+@export var hidableSprites: Array[Node2D]
 @export var cloneEventsHere: Node
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
 
+var root = self
 var _DISABLED := false
 var isHovered := false
 var id: String
@@ -319,6 +320,9 @@ func _process(delta: float) -> void:
       if Input.is_action_pressed("editor_select"):
         global_position = startPosition
       for collider in collisionShapes:
+        if not collider:
+          log.pp(collider, collisionShapes, id)
+          breakpoint
         collider.disabled = true
       ghost.use_parent_material = false
       ghost.material.set_shader_parameter("color", Color("#6013ff"))
@@ -327,6 +331,9 @@ func _process(delta: float) -> void:
       if !Input.is_action_pressed("editor_select"):
         if not _DISABLED:
           for collider in collisionShapes:
+            if not collider:
+              log.pp("invalid collisionShapes", collider, collisionShapes, id)
+              breakpoint
             collider.disabled = false
         # set border to hovered color
         ghost.material.set_shader_parameter("color", Color("#6e6e00"))
@@ -649,7 +656,7 @@ func _on_body_enteredCHECKPOINT(body: Node) -> void:
     global.player.lastSpawnPoint = global.player.position
     global.player.lightsOut = false
     setTexture(CHECKPOINT_sprite, "2")
-    global.checkpoints = global.checkpoints.filter(func(e: Node2D) -> bool:
+    global.checkpoints = global.checkpoints.filter(func(e: Variant) -> bool:
       return is_instance_valid(e))
     for checkpoint in global.checkpoints:
       if checkpoint == self: continue
@@ -731,8 +738,9 @@ func _input(event: InputEvent) -> void:
 @export_group("KEY")
 var KEY_following := false
 func _on_body_enteredKEY(body: Node) -> void:
-  if body == global.player:
+  if body == global.player and not KEY_following and not self in global.player.keys:
     global.player.keys.append(self)
+    log.pp("key added", self)
     KEY_following = true
 
 func _processKEY(delta: float) -> void:
@@ -860,3 +868,4 @@ func _ready10X_SPIKE() -> void:
 
 func _on_attach_detector_body_entered(body: Node2D) -> void:
   pass # Replace with function body.
+

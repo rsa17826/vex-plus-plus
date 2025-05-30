@@ -85,8 +85,8 @@
     }
   }
   {
-    STR(x)FLOAT(390.0)
-    STR(y)FLOAT(-240.0)
+    STR(x)FLOAT(185.0)
+    STR(y)FLOAT(-95.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -829,6 +829,17 @@
     STR(id)STR(water)
     STR(options){
       STRNAME(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(90.0)
+    STR(y)FLOAT(130.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(block death boundary)
+    STR(options){
+      STR(color)STR(#fff)
     }
   }
 ]

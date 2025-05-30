@@ -80,6 +80,7 @@ EDITOR_NONE=""
 "10x spike"=""
 glass=""
 canBeAttachedTo=""
+entity=""
 
 [input]
 
@@ -215,6 +216,7 @@ move_player_to_mouse={
 2d_physics/layer_5="DEADLY HAZARDS"
 2d_physics/layer_6="PUSHABLE BOX"
 2d_physics/layer_7="BLOCK DEATH BOUNDARY"
+2d_physics/layer_8="ENTITIES"
 
 [rendering]
 

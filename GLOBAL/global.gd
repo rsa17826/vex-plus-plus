@@ -1059,7 +1059,6 @@ var blockNames: Array = [
 
 func localReady() -> void:
   get_tree().set_debug_collisions_hint(hitboxesShown)
-  log.pp(NAN, int(NAN))
 
 var stretchScale: Vector2:
   get():
