@@ -1,23 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxbmarl6vnqd"]
+[gd_scene load_steps=5 format=3 uid="uid://bxbmarl6vnqd"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_6pqk3"]
 [ext_resource type="Texture2D" uid="uid://cecu0xpxkcbu1" path="res://scenes/blocks/block death boundary/images/1.png" id="2_01q17"]
+[ext_resource type="Script" uid="uid://65fsd2mbu4w7" path="res://scenes/blocks/block death boundary/block death boundary.gd" id="2_iv7gr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode") groups=["EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_6pqk3")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
-collisionShapes = [Object(CollisionShape2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":false,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"shape":SubResource("RectangleShape2D_gwpbw"),"disabled":false,"one_way_collision":false,"one_way_collision_margin":1.0,"debug_color":Color(1, 0, 0, 0.419608),"script":null)
-]
-hidableSprites = [Object(Sprite2D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"clip_children":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(0, 0),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"texture":ExtResource("2_01q17"),"centered":true,"offset":Vector2(0, 0),"flip_h":false,"flip_v":false,"hframes":1,"vframes":1,"frame":0,"region_enabled":false,"region_rect":Rect2(0, 0, 0, 0),"region_filter_clip_enabled":false,"script":null)
-]
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 64
-collision_mask = 48
+collision_mask = 128
+script = ExtResource("2_iv7gr")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("2_01q17")
@@ -27,5 +27,7 @@ visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
+[connection signal="area_entered" from="collisionNode" to="collisionNode" method="_on_body_entered"]
+[connection signal="area_exited" from="collisionNode" to="collisionNode" method="_on_body_exited"]
+[connection signal="body_entered" from="collisionNode" to="collisionNode" method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="collisionNode" method="_on_body_exited"]

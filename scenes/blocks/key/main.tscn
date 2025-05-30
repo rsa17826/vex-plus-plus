@@ -10,12 +10,12 @@ radius = 147.014
 [sub_resource type="CircleShape2D" id="CircleShape2D_ctm0x"]
 radius = 155.013
 
-[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "key", "respawnOnPlayerDeath"]]
-collision_layer = 0
+[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "entity", "key", "respawnOnPlayerDeath"]]
+collision_layer = 128
 script = ExtResource("1_endad")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
-collisionShapes = [NodePath("CollisionShape2D")]
+collisionShapes = [NodePath("CollisionShape2D"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
 UPDOWN_nodeToMove = NodePath(".")

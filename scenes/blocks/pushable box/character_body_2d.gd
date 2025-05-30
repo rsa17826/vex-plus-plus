@@ -5,6 +5,8 @@ extends CharacterBody2D
 # @flags gm
 # @endregex
 
+@export var root: Node2D
+
 func _physics_process(delta: float) -> void:
   if get_parent().respawning: return
   if currentWatters:

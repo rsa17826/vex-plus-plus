@@ -744,4 +744,15 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(1937.5)
+    STR(y)FLOAT(-295.0)
+    STR(w)FLOAT(5.74999850988388)
+    STR(h)FLOAT(0.10000009834766)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(block death boundary)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]

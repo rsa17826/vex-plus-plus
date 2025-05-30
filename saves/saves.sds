@@ -1,7 +1,7 @@
 {
   STR(New map){
-    STR(playerDelogPosition)VEC2(372.619049072266,-231.584045410156)
-    STR(lastSpawnPoint)VEC2(372.619049072266,-236.206329345703)
+    STR(playerDelogPosition)VEC2(167.032699584961,-82.702278137207)
+    STR(lastSpawnPoint)VEC2(167.032699584961,-81.5133819580078)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -102,8 +102,8 @@
     }
   }
   STR(vex 3){
-    STR(playerDelogPosition)VEC2(487.768249511719,-217.524276733398)
-    STR(lastSpawnPoint)VEC2(487.768249511719,-217.879837036133)
+    STR(playerDelogPosition)VEC2(484.074829101563,-218.064666748047)
+    STR(lastSpawnPoint)VEC2(480.408203125,-282.490600585938)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -171,8 +171,8 @@
     }
   }
   STR(real map){
-    STR(playerDelogPosition)VEC2(1533.47497558594,-416.505157470703)
-    STR(lastSpawnPoint)VEC2(1989.92468261719,-600.912536621094)
+    STR(playerDelogPosition)VEC2(1532.390625,-416.503753662109)
+    STR(lastSpawnPoint)VEC2(2008.2578125,-566.526489257813)
     STR(loadedLevels)[
       {
         STR(name)STR(main)

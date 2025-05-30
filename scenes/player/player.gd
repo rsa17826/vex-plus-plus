@@ -562,10 +562,9 @@ func _physics_process(delta: float) -> void:
             vel[n] *= velDecay[n] # * delta * 60
         if state == States.wallHang and not getClosestWallSide():
           state = States.falling
-        # log.pp(delta * 60)
-        # # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
-        # if state == States.wallSliding:
-        #   position.x += velocity.x * delta
+        # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
+        if state == States.wallSliding:
+          position.x += velocity.x * delta
         for n: String in vel:
           if justAddedVels[n]:
             justAddedVels[n] -= 1
@@ -573,9 +572,6 @@ func _physics_process(delta: float) -> void:
           var maxVel: float = max(abs(velocity.x), abs(velocity.y))
           $Camera2D.position_smoothing_enabled = maxVel < 3500
           $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
-        # # only one bounce when leaving water
-        # vel.waterExit *= .9*delta*60
-        # position -= velocity * delta
         move_and_slide()
         # log.pp(position - (start + (velocity*delta)))
         # # log.pp(
@@ -928,3 +924,14 @@ func _on_left_body_exited(body: Node2D) -> void:
 # make slope grabbox sloped
 # make collected keys not move root
 # add invinsabliity lever?
+# fix falling blocks not dieing on
+
+# how to fix?!?!??!
+# E 0:00:03:727   editor_bar.gd:57 @ newItem(): Attempted to set an object of type 'Label' into a TypedArray, which does not inherit from 'Node2D'.
+#   <C++ Error>   Condition "!ClassDB::is_parent_class(object->get_class_name(), class_name)" is true. Returning: false
+#   <C++ Source>  core/variant/container_type_validate.h:135 @ validate_object()
+#   <Stack Trace> editor_bar.gd:57 @ newItem()
+#                 editor_bar.gd:33 @ _ready()
+#                 level.gd:31 @ loadLevel()
+#                 global.gd:875 @ loadLevelPack()
+#                 main_menu.gd:30 @ loadLevel()

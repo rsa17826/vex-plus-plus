@@ -39,6 +39,7 @@ func loadLevel(level):
 func createBlock(id, x, y, w, h, r, options):
   global.tick = 0
   if load("res://scenes/blocks/" + id + "/main.tscn"):
+    log.pp(id)
     var thing = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     thing.startPosition = Vector2(x, y)
     thing.position = Vector2(x, y)

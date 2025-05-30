@@ -6,12 +6,12 @@ extends CharacterBody2D
 # @endregex
 
 var speed = 50
-@export var rootNode: Node
+@export var root: Node
 func _physics_process(delta: float) -> void:
-  if rootNode.respawning: return
+  if root.respawning: return
   velocity.y += speed
   velocity.y *= .95
-  if is_on_ceiling() or global_position.y < rootNode.startPosition.y:
+  if is_on_ceiling() or global_position.y < root.startPosition.y:
     speed = 50
   move_and_slide()
   %CharacterBody2D.global_position = global_position
@@ -21,8 +21,8 @@ func on_on_body_entered(body: Node):
   log.pp(body.name)
 func on_ready(first=false):
   velocity = Vector2(0, 0)
-  global_position = rootNode.startPosition
+  global_position = root.startPosition
 
 func on_respawn():
   velocity = Vector2(0, 0)
-  global_position = rootNode.startPosition
+  global_position = root.startPosition
