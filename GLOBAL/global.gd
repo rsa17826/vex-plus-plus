@@ -143,7 +143,7 @@ func isActionPressedAlone(thing: String) -> bool:
       "s": e.shift_pressed,
       "m": e.meta_pressed
     })
-  log.pp(actions)
+  # log.pp(actions)
   var valid: bool = false
   for action in actions:
     if Input.is_key_pressed(action.key) \
@@ -547,6 +547,9 @@ func selectBlock() -> void:
   var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
 
+var lastSelectedBlock: Node2D
+var lastSelectedBrush: Node2D
+
 func localProcess(delta: float) -> void:
   if not player: return
   # if a block is selected
@@ -564,12 +567,12 @@ func localProcess(delta: float) -> void:
     player.moving = 2
 
     # when trying to rotate blocks
-    if editorInRotateMode && selectedBlock.is_in_group("EDITOR_OPTION_rotate"):
+    if editorInRotateMode && selectedBlock and selectedBlock.is_in_group("EDITOR_OPTION_rotate"):
       selectedBlock.look_at(mpos)
       selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
       setBlockStartPos(selectedBlock)
     # when trying to scale blocks
-    elif editorInScaleMode && selectedBlock.is_in_group("EDITOR_OPTION_scale"):
+    elif editorInScaleMode && selectedBlock and selectedBlock.is_in_group("EDITOR_OPTION_scale"):
       var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
 
       # get the edge position in px
@@ -640,19 +643,24 @@ func localProcess(delta: float) -> void:
       if justPaintedBlock:
         selectedBlock = justPaintedBlock
         selectedBlockOffset = Vector2.ZERO
-        log.pp(selectedBlock.ghost, selectedBlock.id)
+        # log.pp(selectedBlock.ghost, selectedBlock.id)
         var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
         selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
       # if you have clicked on a block in the editor bar
       if not justPaintedBlock and selectedBrush and selectedBrush.selected == 2:
-        # create a new block
         justPaintedBlock = load("res://scenes/blocks/" + selectedBrush.blockName + "/main.tscn").instantiate()
+        if lastSelectedBlock and (selectedBrush.blockName == lastSelectedBlock.id):
+          justPaintedBlock.scale = lastSelectedBlock.scale
+          justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
+        else:
+          justPaintedBlock.scale = Vector2(1, 1) / 7
+          justPaintedBlock.rotation_degrees = 0
         justPaintedBlock.id = blockNames[selectedBrush.id]
-        justPaintedBlock.scale = Vector2(1, 1) / 7
+        lastSelectedBrush = selectedBrush
+        # create a new block
         # justPaintedBlock.scale = selectedBrush.normalScale
         # justPaintedBlock.startScale = selectedBrush.normalScale
         justPaintedBlock.global_position = mpos
-        justPaintedBlock.rotation_degrees = 0
         setBlockStartPos(justPaintedBlock)
         level.get_node("blocks").add_child(justPaintedBlock)
         # after creating the block recall this to update the position
@@ -680,6 +688,11 @@ func localProcess(delta: float) -> void:
         # if selectedBlock.name == "player":
         #   selectedBlock.get_node("CharacterBody2D").moving = 2
         selectedBlock.respawn()
+  if justPaintedBlock:
+    lastSelectedBlock = justPaintedBlock
+  if selectedBlock:
+    lastSelectedBlock = selectedBlock
+    
 func setBlockStartPos(block: Node) -> void:
   block.startPosition = block.position
   # if block != rotresetBlock:
@@ -698,6 +711,13 @@ func localInput(event: InputEvent) -> void:
       createNewLevelFile(mainLevelName)
   if isActionJustPressedAlone("new_map_folder"):
     createNewMapFolder()
+  if isActionJustPressedAlone("duplicate_block"):
+    log.pp(lastSelectedBrush)
+    if lastSelectedBrush:
+      selectedBrush = lastSelectedBrush
+      selectedBrush.selected = 2
+      localProcess(0)
+      selectedBrush.selected = 0
   if isActionJustPressedAlone("toggle_fullscreen"):
     fullscreen()
   if Input.is_action_just_pressed("editor_select"):
@@ -803,13 +823,12 @@ func savePlayerLevelData() -> void:
     #   return ee),
     "levels": levels
   }
-  # log.pp(saveData)
   sds.saveDataToFile(path.parsePath("res://saves/saves.sds"), saveData)
   await wait(1000)
   savingPlaterLevelData = false
 
 func loadLevelPack(levelPackName: String, loadFromSave: bool) -> void:
-  log.pp("loadFromSave", loadFromSave)
+  # log.pp("loadFromSave", loadFromSave)
   var saveData: Variant = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
   if levelPackName in saveData:
     saveData = saveData[levelPackName]
@@ -818,7 +837,7 @@ func loadLevelPack(levelPackName: String, loadFromSave: bool) -> void:
   # save the name globaly
   mainLevelName = levelPackName
   # Engine.time_scale = 1
-  log.pp("Loading Level Pack:", levelPackName)
+  # log.pp("Loading Level Pack:", levelPackName)
   levelFolderPath = path.parsePath(path.join('res://levelcodes/', levelPackName))
   var levelPackInfo: Dictionary = loadLevelPackInfo(levelPackName)
   if !levelPackInfo: return

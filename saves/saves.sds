@@ -1,12 +1,12 @@
 {
   STR(New map){
-    STR(playerDelogPosition)VEC2(145.925155639648,-121.994415283203)
-    STR(lastSpawnPoint)VEC2(145.0,-95.0)
+    STR(playerDelogPosition)VEC2(180.0,-101.900001525879)
+    STR(lastSpawnPoint)VEC2(180.0,-100.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
+        STR(foundStar)BOOL(true)
       }
     ]
     STR(beatLevels)[]
@@ -14,7 +14,7 @@
       STR(hub){
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
+        STR(foundStar)BOOL(true)
       }
     }
   }
