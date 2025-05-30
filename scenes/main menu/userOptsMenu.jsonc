@@ -55,7 +55,7 @@
         "type": "single select",
         "key": "windowMode",
         "options": ["fullscreen", "windowed"],
-        "defaultValue": "windowed"
+        "defaultValue": 1
       },
       {
         "thing": "option",
