@@ -15,6 +15,7 @@ extends Node
 #
 
 func _ready() -> void:
+  if !InputMap.has_action("quit"): return
   localReady()
 
 func _process(delta: float) -> void:
@@ -25,6 +26,7 @@ func _process(delta: float) -> void:
     if has_user_signal(i[0]) and i[1] && i[1].is_valid() && i[1].call():
       Signal(self, i[0]).emit()
       remove_user_signal(i[0])
+  if !InputMap.has_action("quit"): return
   localProcess(delta)
 var openMsgBoxCount: int = 0
 
@@ -122,7 +124,7 @@ func _on_cancel() -> void:
 # var __pressedKeys = []
 
 func _input(event: InputEvent) -> void:
-  if !InputMap.has_action("editor_select"): return
+  if !InputMap.has_action("quit"): return
   # if event is InputEventKey:
   #   if event.pressed and event.keycode not in __pressedKeys:
   #     __pressedKeys.push_back(event.keycode)
@@ -307,6 +309,11 @@ func debuguiadd(name: String, val: String) -> void:
     event.trigger("debugui add", name, val)
 
 class path:
+  static func abs(path: String):
+    return ProjectSettings.globalize_path(path) \
+      if OS.has_feature("editor") else \
+      global.path.parsePath(path)
+
   static func parsePath(p: String) -> String:
     # log.pp(1, p)
     if !OS.has_feature("editor"):
@@ -551,6 +558,10 @@ var lastSelectedBlock: Node2D
 var lastSelectedBrush: Node2D
 
 func localProcess(delta: float) -> void:
+  if FileAccess.file_exists(path.parsePath("res://filesToOpen")):
+    var data = sds.loadDataFromFile(path.parsePath("res://filesToOpen"))
+    tryAndGetMapZipFromArr(data)
+    DirAccess.remove_absolute(path.parsePath("res://filesToOpen"))
   test()
   if not player: return
   # if a block is selected
@@ -740,9 +751,9 @@ func localInput(event: InputEvent) -> void:
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
   if isActionJustPressedAlone("reload_map_from_last_save"):
-    loadLevelPack.call_deferred(mainLevelName, true)
+    loadMap.call_deferred(mainLevelName, true)
   if isActionJustPressedAlone("fully_reload_map"):
-    loadLevelPack.call_deferred(mainLevelName, false)
+    loadMap.call_deferred(mainLevelName, false)
   if isActionJustPressedAlone("toggle_hitboxes"):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
@@ -787,7 +798,7 @@ func win() -> void:
   beatLevels.append(loadedLevels.pop_back())
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
-    loadLevelPack.call_deferred(mainLevelName, true)
+    loadMap.call_deferred(mainLevelName, true)
     return
   # log.pp(currentLevel().spawnPoint, currentLevel())
   await wait()
@@ -828,7 +839,7 @@ func savePlayerLevelData() -> void:
   await wait(1000)
   savingPlaterLevelData = false
 
-func loadLevelPack(levelPackName: String, loadFromSave: bool) -> void:
+func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   # log.pp("loadFromSave", loadFromSave)
   var saveData: Variant = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
   if levelPackName in saveData:
@@ -839,8 +850,8 @@ func loadLevelPack(levelPackName: String, loadFromSave: bool) -> void:
   mainLevelName = levelPackName
   # Engine.time_scale = 1
   # log.pp("Loading Level Pack:", levelPackName)
-  levelFolderPath = path.parsePath(path.join('res://levelcodes/', levelPackName))
-  var levelPackInfo: Dictionary = loadLevelPackInfo(levelPackName)
+  levelFolderPath = path.parsePath(path.join('res://maps/', levelPackName))
+  var levelPackInfo: Dictionary = loadMapInfo(levelPackName)
   if !levelPackInfo: return
   var startFile := path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
   if !file.isFile(startFile):
@@ -907,8 +918,8 @@ func loadLevelPack(levelPackName: String, loadFromSave: bool) -> void:
 func currentLevel() -> Dictionary:
   return loadedLevels[len(loadedLevels) - 1]
 
-func loadLevelPackInfo(levelPackName: String) -> Variant:
-  var options: Variant = sds.loadDataFromFile(path.join('res://levelcodes/', levelPackName, "/options.sds"))
+func loadMapInfo(levelPackName: String) -> Variant:
+  var options: Variant = sds.loadDataFromFile(path.join('res://maps/', levelPackName, "/options.sds"))
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
@@ -963,7 +974,7 @@ func animate(speed: int, steps: Array) -> float:
 func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> void:
   if not levelName:
     levelName = await prompt("enter the level name", PromptTypes.string, "")
-  var fullDirPath := path.parsePath(path.join("res://levelcodes/", levelPackName))
+  var fullDirPath := path.parsePath(path.join("res://maps/", levelPackName))
   var opts: Dictionary = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
   opts.stages[levelName] = defaultLevelSettings.duplicate()
   opts.stages[levelName].color = randfrom(1, 11)
@@ -973,7 +984,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> voi
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, "New map")
   var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
-  var fullDirPath := path.parsePath(path.join("res://levelcodes/", foldername))
+  var fullDirPath := path.parsePath(path.join("res://maps/", foldername))
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
     return
@@ -1058,7 +1069,7 @@ var blockNames: Array = [
   "Gravity Down Lever", # 1
   "Gravity up Lever", # 1
   "growing buzsaw", # 0
-  "key", # .5
+  "key", # 1
   "laser", # 0
   "light switch", # .9
   "pole", # 0
@@ -1073,112 +1084,165 @@ var blockNames: Array = [
   "targeting laser", # 0
   "ice", # 0
   "death boundary", # 1
-  "block death boundary" # 0
-]
-
-const defaultKetbinds = [
-  &"ui_accept",
-  &"ui_select",
-  &"ui_cancel",
-  &"ui_focus_next",
-  &"ui_focus_prev",
-  &"ui_left",
-  &"ui_right",
-  &"ui_up",
-  &"ui_down",
-  &"ui_page_up",
-  &"ui_page_down",
-  &"ui_home",
-  &"ui_end",
-  &"ui_cut",
-  &"ui_copy",
-  &"ui_paste",
-  &"ui_undo",
-  &"ui_redo",
-  &"ui_text_completion_query",
-  &"ui_text_completion_accept",
-  &"ui_text_completion_replace",
-  &"ui_text_newline",
-  &"ui_text_newline_blank",
-  &"ui_text_newline_above",
-  &"ui_text_indent",
-  &"ui_text_dedent",
-  &"ui_text_backspace",
-  &"ui_text_backspace_word",
-  &"ui_text_backspace_word.macos",
-  &"ui_text_backspace_all_to_left",
-  &"ui_text_backspace_all_to_left.macos",
-  &"ui_text_delete",
-  &"ui_text_delete_word",
-  &"ui_text_delete_word.macos",
-  &"ui_text_delete_all_to_right",
-  &"ui_text_delete_all_to_right.macos",
-  &"ui_text_caret_left",
-  &"ui_text_caret_word_left",
-  &"ui_text_caret_word_left.macos",
-  &"ui_text_caret_right",
-  &"ui_text_caret_word_right",
-  &"ui_text_caret_word_right.macos",
-  &"ui_text_caret_up",
-  &"ui_text_caret_down",
-  &"ui_text_caret_line_start",
-  &"ui_text_caret_line_start.macos",
-  &"ui_text_caret_line_end",
-  &"ui_text_caret_line_end.macos",
-  &"ui_text_caret_page_up",
-  &"ui_text_caret_page_down",
-  &"ui_text_caret_document_start",
-  &"ui_text_caret_document_start.macos",
-  &"ui_text_caret_document_end",
-  &"ui_text_caret_document_end.macos",
-  &"ui_text_caret_add_below",
-  &"ui_text_caret_add_below.macos",
-  &"ui_text_caret_add_above",
-  &"ui_text_caret_add_above.macos",
-  &"ui_text_scroll_up",
-  &"ui_text_scroll_up.macos",
-  &"ui_text_scroll_down",
-  &"ui_text_scroll_down.macos",
-  &"ui_text_select_all",
-  &"ui_text_select_word_under_caret",
-  &"ui_text_select_word_under_caret.macos",
-  &"ui_text_add_selection_for_next_occurrence",
-  &"ui_text_skip_selection_for_next_occurrence",
-  &"ui_text_clear_carets_and_selection",
-  &"ui_text_toggle_insert_mode",
-  &"ui_menu",
-  &"ui_text_submit",
-  &"ui_unicode_start",
-  &"ui_graph_duplicate",
-  &"ui_graph_delete",
-  &"ui_filedialog_up_one_level",
-  &"ui_filedialog_refresh",
-  &"ui_filedialog_show_hidden",
-  &"ui_swap_input_direction",
+  "block death boundary" # 1
 ]
 
 func localReady() -> void:
+  DirAccess.make_dir_recursive_absolute(path.parsePath("res://maps/"))
+  DirAccess.make_dir_recursive_absolute(path.parsePath("res://saves/"))
+  DirAccess.make_dir_recursive_absolute(path.parsePath("res://exports/"))
   get_tree().set_debug_collisions_hint(hitboxesShown)
-  var d = {}
-  var actions = InputMap.get_actions()
-  for a in actions:
-    if a in defaultKetbinds: continue
-    log.pp(typeof(a))
-    d[a] = InputMap.action_get_events(a)
+  # var d = {}
+  # var actions = InputMap.get_actions()
+  # for a in actions:
+  #   if starts_with(a, "ui_"): continue
+  #   log.pp(typeof(a))
+  #   d[a] = InputMap.action_get_events(a)
 
-  d = sds.loadDataFromFile("res://keybinds.sds")
-  log.pp(d)
-  for k in d:
-    InputMap.action_erase_events(k)
-    for action in d[k]:
-      InputMap.action_add_event(k, action)
+  # d = sds.loadDataFromFile("res://keybinds.sds")
+  # log.pp(d)
+  # for k in d:
+  #   InputMap.action_erase_events(k)
+  #   for action in d[k]:
+  #     InputMap.action_add_event(k, action)
   # get_tree().quit()
+  var pid = int(file.read(path.parsePath("res://process"), false, "0"))
+  log.pp("FILEPID", pid)
+  log.pp("MYPID", OS.get_process_id(), OS.is_process_running(pid), OS.is_process_running(OS.get_process_id()))
+  if processExists(pid):
+    sds.saveDataToFile(path.parsePath("res://filesToOpen"), OS.get_cmdline_args() as Array)
+    get_tree().quit()
+  else:
+    file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
+    tryAndGetMapZipFromArr(OS.get_cmdline_args())
 
 var stretchScale: Vector2:
   get():
     return Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y)
 
+func processExists(pid: int):
+  if not pid:
+    return false
+  var ret = []
+  OS.execute("cmd", [
+    '/c',
+    "tasklist | findstr [^,a-zA-Z0-9]" + str(pid) + "[^,a-zA-Z0-9]"
+  ], ret)
+  return ret[0].strip_edges() != ""
+
 var hitboxesShown := false
 
 func test():
   pass
+
+func loadMapFromZip(p):
+  log.pp("AKSJDHSADKJHDHJDSKDSHKJDSA", p)
+  if !('.' in p and ('/' in p or '\\' in p)): return
+  # add the intended folder to the end of the path to force it to go into the correct folder
+  var moveto = path.parsePath("res://maps/" + regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
+  DirAccess.make_dir_recursive_absolute(moveto)
+  extract_all_from_zip(p, moveto)
+
+func extract_all_from_zip(from, to):
+  var reader = ZIPReader.new()
+  reader.open(from)
+
+  # Destination directory for the extracted files (this folder must exist before extraction).
+  # Not all ZIP archives put everything in a single root folder,
+  # which means several files/folders may be created in `root_dir` after extraction.
+  var root_dir = DirAccess.open(to)
+
+  var files = reader.get_files()
+
+  # if all files were zipped by zipping the containing folder then remove the root folder from the zip
+  var startDir = ''
+  var allInSameDir = true
+  var valid = false
+  for file_path in files:
+    if ends_with(file_path, "options.sds"):
+      valid = true
+    if not startDir:
+      startDir = regMatch(file_path, r"^[^/\\]+")
+      continue
+    if regMatch(file_path, r"^[^/\\]+") != startDir:
+      allInSameDir = false
+      break
+
+  if not valid:
+    log.err("not a valid map file", from, to, files)
+    return
+    
+  for file_path in files:
+    var outpath = file_path
+    if allInSameDir:
+      outpath = regReplace(file_path, r"^[^/\\]+[/\\]", '')
+    # If the current entry is a directory.
+    if file_path.ends_with("/"):
+      root_dir.make_dir_recursive(outpath)
+      continue
+
+    # Write file contents, creating folders automatically when needed.
+    # Not all ZIP archives are strictly ordered, so we need to do this in case
+    # the file entry comes before the folder entry.
+    root_dir.make_dir_recursive(root_dir.get_current_dir().path_join(outpath).get_base_dir())
+    var file = FileAccess.open(root_dir.get_current_dir().path_join(outpath), FileAccess.WRITE)
+    var buffer = reader.read_file(file_path)
+    file.store_buffer(buffer)
+
+func tryAndGetMapZipFromArr(args):
+  for thing in args:
+    if FileAccess.file_exists(thing):
+      loadMapFromZip(thing)
+
+func getAllPathsInDirectory(dir_path: String):
+  var files = []
+  var item
+  var item_path
+  
+  var dir := DirAccess.open(dir_path)
+  if dir == null: printerr("Could not open folder", dir_path); return
+  
+  dir.list_dir_begin()
+  item = dir.get_next()
+  while item != "":
+    item_path = dir_path + "/" + item
+    if dir.dir_exists(item_path):
+      for thing in getAllPathsInDirectory(item_path):
+        files.append(thing)
+    if dir.file_exists(item_path):
+      files.append(item_path)
+    item = dir.get_next()
+  dir.list_dir_end()
+  
+  return files
+func zipDir(fromPath: String, toPath: String):
+  fromPath = path.join(fromPath)
+  var paths = getAllPathsInDirectory(fromPath)
+  # log.pp(fromPath, toPath, paths)
+  paths = paths.map(func(e):
+    return e.replace(fromPath + "/", ''))
+  # log.pp(paths)
+  var writer = ZIPPacker.new()
+  var err = writer.open(toPath)
+  if err != OK: return err
+  for file_name in paths:
+    writer.start_file(file_name)
+    var file = FileAccess.open(fromPath + "/" + file_name, FileAccess.READ)
+    writer.write_file(file.get_buffer(file.get_length()))
+    file.close()
+    writer.close_file()
+
+  # dir.list_dir_end()
+  writer.close()
+  return OK
+
+func openPathInExplorer(p: String):
+  log.pp(p)
+  OS.create_process("explorer", PackedStringArray([
+    '"' + (
+      ProjectSettings.globalize_path(p)
+      if OS.has_feature("editor") else
+      global.path.parsePath(p)
+    ).replace("/", "\\")
+    + '"'
+  ]))
