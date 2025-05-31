@@ -19,7 +19,7 @@
     }
   }
   STR(level 1){
-    STR(playerDelogPosition)VEC2(-29.33349609375,25.6000366210938)
+    STR(playerDelogPosition)VEC2(6.6724853515625,451.048675537109)
     STR(lastSpawnPoint)VEC2(0.0,0.0)
     STR(loadedLevels)[
       {

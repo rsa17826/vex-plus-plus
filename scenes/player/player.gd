@@ -183,6 +183,7 @@ func _process(delta: float) -> void:
   if global.openMsgBoxCount: return
   if camLockPos:
     $Camera2D.global_position = camLockPos
+    $Camera2D.reset_smoothing()
 
 func _physics_process(delta: float) -> void:
   # Engine.time_scale = .3
@@ -821,11 +822,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   if full:
     for cb in OnPlayerFullRestart:
       cb.call()
-  # $Camera2D.position = Vector2.ZERO
-  # $Camera2D.reset_smoothing()
   _physics_process(0)
-    # cb.call_deferred()
-  # OnPlayerFullRestart = []
 
 func _on_bottom_body_entered(body: Node2D) -> void:
   if body not in collsiionOn_bottom:
