@@ -20,7 +20,7 @@ global="*res://GLOBAL/global.gd"
 
 [copy_files_on_export]
 
-files=Array[PackedStringArray]([PackedStringArray("res://levelcodes", "levelcodes", ""), PackedStringArray("res://controls.txt", "controls.txt", ""), PackedStringArray("res://saves", "saves", "")])
+files=Array[PackedStringArray]([PackedStringArray("res://levelcodes", "levelcodes", ""), PackedStringArray("res://controls.txt", "controls.txt", ""), PackedStringArray("res://saves", "saves", ""), PackedStringArray("res://setup.exe", "setup.exe", "")])
 
 [debug]
 

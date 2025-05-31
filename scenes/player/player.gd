@@ -902,3 +902,6 @@ func _on_left_body_exited(body: Node2D) -> void:
 # add custom file to load levels from
 
 # add level thumbnails
+
+# add star requirement for inner level
+# show on inner level if level has star or not

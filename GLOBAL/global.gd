@@ -798,6 +798,9 @@ func win() -> void:
   beatLevels.append(loadedLevels.pop_back())
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
+    if global.useropts.saveLevelOnWin:
+      loadedLevels.append(beatLevels.pop_back())
+      level.save()
     loadMap.call_deferred(mainLevelName, true)
     return
   # log.pp(currentLevel().spawnPoint, currentLevel())
@@ -919,7 +922,7 @@ func currentLevel() -> Dictionary:
   return loadedLevels[len(loadedLevels) - 1]
 
 func loadMapInfo(levelPackName: String) -> Variant:
-  var options: Variant = sds.loadDataFromFile(path.join('res://maps/', levelPackName, "/options.sds"))
+  var options: Variant = sds.loadDataFromFile(path.parsePath(path.join('res://maps/', levelPackName, "/options.sds")))
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
@@ -1092,6 +1095,8 @@ func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://saves/"))
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://exports/"))
   get_tree().set_debug_collisions_hint(hitboxesShown)
+  # createFileAssociation("vex plus plus", ["vex++"], "VEX++ map file")
+  # var
   # var d = {}
   # var actions = InputMap.get_actions()
   # for a in actions:
@@ -1140,7 +1145,6 @@ func loadMapFromZip(p):
   if !('.' in p and ('/' in p or '\\' in p)): return
   # add the intended folder to the end of the path to force it to go into the correct folder
   var moveto = path.parsePath("res://maps/" + regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
-  DirAccess.make_dir_recursive_absolute(moveto)
   extract_all_from_zip(p, moveto)
 
 func extract_all_from_zip(from, to):
@@ -1150,6 +1154,7 @@ func extract_all_from_zip(from, to):
   # Destination directory for the extracted files (this folder must exist before extraction).
   # Not all ZIP archives put everything in a single root folder,
   # which means several files/folders may be created in `root_dir` after extraction.
+  DirAccess.make_dir_recursive_absolute(to)
   var root_dir = DirAccess.open(to)
 
   var files = reader.get_files()
@@ -1157,10 +1162,11 @@ func extract_all_from_zip(from, to):
   # if all files were zipped by zipping the containing folder then remove the root folder from the zip
   var startDir = ''
   var allInSameDir = true
-  var valid = false
+  # var valid = false
   for file_path in files:
-    if ends_with(file_path, "options.sds"):
-      valid = true
+    # log.pp(file_path, ends_with(file_path, "options.sds"))
+    # if ends_with(file_path, "options.sds"):
+    #   valid = true
     if not startDir:
       startDir = regMatch(file_path, r"^[^/\\]+")
       continue
@@ -1168,9 +1174,9 @@ func extract_all_from_zip(from, to):
       allInSameDir = false
       break
 
-  if not valid:
-    log.err("not a valid map file", from, to, files)
-    return
+  # if not valid:
+  #   log.err("not a valid map file", from, to, files)
+  #   return
     
   for file_path in files:
     var outpath = file_path
@@ -1231,7 +1237,7 @@ func zipDir(fromPath: String, toPath: String):
     writer.write_file(file.get_buffer(file.get_length()))
     file.close()
     writer.close_file()
-
+  
   # dir.list_dir_end()
   writer.close()
   return OK
@@ -1246,3 +1252,37 @@ func openPathInExplorer(p: String):
     ).replace("/", "\\")
     + '"'
   ]))
+
+# func createFileAssociation(name, extensions: Array[String], description: String = "TEMPNAME FILE"):
+#   # Check if the OS has the feature to create file associations
+#   # if OS.has_feature("editor"): return
+#   var exepath = OS.get_executable_path()
+#   log.pp(exepath)
+    
+#   # Create the main registry key for the application
+#   registry.makeDir("HKLM:SOFTWARE\\" + name)
+#   registry.makeDir("HKLM:SOFTWARE\\" + name + "\\Capabilities")
+    
+#   # Set application details in the registry
+#   registry.setFile("HKLM:SOFTWARE\\" + name + "\\Capabilities", "ApplicationDescription", name)
+#   registry.setFile("HKLM:SOFTWARE\\" + name + "\\Capabilities", "ApplicationIcon", exepath + ",0")
+#   registry.setFile("HKLM:SOFTWARE\\" + name + "\\Capabilities", "ApplicationName", name)
+    
+#   # Create file associations
+#   registry.makeDir("HKLM:SOFTWARE\\" + name + "\\Capabilities\\FileAssociations")
+#   for ext in extensions:
+#     registry.setFile("HKLM:SOFTWARE\\" + name + "\\Capabilities\\FileAssociations", "." + ext, name)
+    
+#   # Register the application
+#   registry.setFile("HKLM:SOFTWARE\\RegisteredApplications", name, "Software\\" + name + "\\Capabilities")
+    
+#   # Create class registry entries
+#   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name)
+#   registry.setFile("HKLM:SOFTWARE\\Software\\Classes\\" + name, "(Default)", description)
+#   registry.setFile("HKLM:SOFTWARE\\Software\\Classes\\" + name, "FriendlyTypeName", description)
+    
+#   # Create shell command entries
+#   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell")
+#   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open")
+#   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open\\command")
+#   registry.setFile("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open\\command", "(Default)", "``\"" + exepath + "`\" `\"%1`\"")
