@@ -47,12 +47,12 @@ static func makeDir(p: String):
   var cmdout = []
   var cmd = [
     "-Command",
-    "New-Item -Path \"" + p + "\""
+    "New-Item -Path \"" + p + "\" -force"
   ]
-
+  log.warn('makeDir', cmd)
   var err = OS.execute("powershell.exe", cmd, cmdout, true)
   if err:
-    log.err(cmd, cmdout, err)
+    printt(cmd[1], cmdout[0], err)
   return err
 
 static func setFile(p: String, key: String, val: String):
@@ -67,14 +67,18 @@ static func setFile(p: String, key: String, val: String):
     " -Name \"" + key + "\" -Value \"" + val + "\" -PropertyType String -force"
   ]
 
+  log.warn('setFile', cmd)
+
   var err = OS.execute("powershell.exe", cmd, cmdout, true)
   if err:
-    log.err(cmd, cmdout, err)
+    printt(cmd[1], cmdout[0], err)
   return err
 
 static func format(thing: String):
-  thing = thing.replace("`", "``")
+  thing = thing.replace("\\\\", "\\")
+  # thing = thing.replace("`", "``")
   thing = thing.replace(" ", "` ")
+  # thing = thing.replace('"', "`\"")
   return thing
 
 static func validPath(p: String) -> bool:

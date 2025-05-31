@@ -73,6 +73,7 @@ func save():
     if child.selectedOptions:
       obj["options"] = child.selectedOptions
     data.append(obj)
+  log.pp(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.version = int(global.file.read("res://VERSION", false, "-1"))
