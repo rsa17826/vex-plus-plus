@@ -201,7 +201,7 @@ static func to_pretty(msg, opts={}):
   var omit_vals_for_keys = ["layer_0/tile_data"]
   if not is_instance_valid(msg) and typeof(msg) == TYPE_OBJECT:
     return str(msg)
-  if typeof(msg) == TYPE_OBJECT: #for InputEventMouseButton
+  if msg is InputEvent: #for InputEventMouseButton
     return type_string(typeof(msg))
   if msg is Object and msg.has_method("to_pretty"):
     return log.to_pretty(msg.to_pretty(), opts)

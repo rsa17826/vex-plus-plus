@@ -1,0 +1,70 @@
+[gd_scene load_steps=2 format=3 uid="uid://irxf2xv7q3m4"]
+
+[ext_resource type="Script" uid="uid://botycuh4sqcbo" path="res://scenes/main menu/lvl_sel_item.gd" id="1_4oddt"]
+
+[node name="lvlSelItem" type="VFlowContainer" node_paths=PackedStringArray("levelname", "creator", "description", "newSaveBtn", "loadSaveBtn", "moreOptsBtn")]
+script = ExtResource("1_4oddt")
+levelname = NodePath("VBoxContainer/Label")
+creator = NodePath("VBoxContainer/Label2")
+description = NodePath("VBoxContainer/Label3")
+newSaveBtn = NodePath("VBoxContainer/Button")
+loadSaveBtn = NodePath("VBoxContainer/HBoxContainer/Button2")
+moreOptsBtn = NodePath("VBoxContainer/HBoxContainer/Button4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+text = "level 1"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+text = "level 1"
+
+[node name="Label3" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
+text = "level 1"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+text = "new save"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+text = "load save"
+
+[node name="Button4" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+text = "..."
+
+[node name="Button3" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+text = "duplicate level"

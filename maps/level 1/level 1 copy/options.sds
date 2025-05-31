@@ -1,0 +1,11 @@
+{
+  STR(start)STR(1)
+  STR(author)STR(rssaromeo)
+  STR(description)STR(none set now sadfsl skljsfd hklfsd hskld hskl skk hfskldf)
+  STR(stages){
+    STR(1){
+      STR(color)INT(9)
+    }
+  }
+  STRNAME(version)INT(8)
+}

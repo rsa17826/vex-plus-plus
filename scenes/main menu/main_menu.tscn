@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsub1ew4qiin4"]
+[gd_scene load_steps=4 format=3 uid="uid://bsub1ew4qiin4"]
 
 [ext_resource type="Script" uid="uid://dn3r2t10v2hdb" path="res://scenes/main menu/main_menu.gd" id="1_cbjxn"]
+[ext_resource type="PackedScene" uid="uid://irxf2xv7q3m4" path="res://scenes/main menu/lvl_sel_item.tscn" id="2_8w606"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbjxn"]
 font_color = Color(0, 0, 0, 1)
@@ -31,56 +32,9 @@ metadata/_edit_lock_ = true
 [node name="HFlowContainer" type="VFlowContainer" parent="MarginContainer/ScrollContainer"]
 layout_mode = 2
 
-[node name="lvlSelItem" type="VFlowContainer" parent="MarginContainer/ScrollContainer/HFlowContainer"]
+[node name="lvlSelItem" parent="MarginContainer/ScrollContainer/HFlowContainer" instance=ExtResource("2_8w606")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/HFlowContainer/lvlSelItem"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
-text = "level 1"
-
-[node name="Label2" type="Label" parent="MarginContainer/ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
-text = "level 1"
-
-[node name="Label3" type="Label" parent="MarginContainer/ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_shadow_color = Color(0.133333, 0.133333, 0.133333, 1)
-text = "level 1"
-
-[node name="Button" type="Button" parent="MarginContainer/ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
-text = "new save"
-
-[node name="Button2" type="Button" parent="MarginContainer/ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
-layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
-text = "load save"
-
-[node name="Button3" type="Button" parent="MarginContainer/ScrollContainer/HFlowContainer/lvlSelItem/VBoxContainer"]
-visible = false
-layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
-text = "duplicate level"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2

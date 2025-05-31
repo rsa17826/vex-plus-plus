@@ -9,24 +9,44 @@ extends Control
 var __menu
 
 func _ready() -> void:
+  var levelContainer = $MarginContainer/ScrollContainer/HFlowContainer
+  const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-  log.pp(global.path.parsePath("res://levelcodes"))
-  var dir := DirAccess.open(global.path.parsePath("res://levelcodes"))
+  log.pp(global.path.parsePath("res://maps"))
+  var dir := DirAccess.open(global.path.parsePath("res://maps"))
   for level: String in dir.get_directories():
-    var node := %lvlSelItem.duplicate()
-    node.get_node("VBoxContainer/Label").text = level
-    var data = global.loadLevelPackInfo(level)
-    node.get_node("VBoxContainer/Label2").text = "Author: " + data.author
-    node.get_node("VBoxContainer/Label3").text = data.description
-    node.get_node('VBoxContainer/Button').connect("pressed", loadLevel.bind(level, false))
-    node.get_node('VBoxContainer/Button2').connect("pressed", loadLevel.bind(level, true))
-    $MarginContainer/ScrollContainer/HFlowContainer.add_child(node)
-  %lvlSelItem.queue_free.call_deferred()
+    var node := levelNode.instantiate()
+    node.levelname.text = level
+    var data = global.loadMapInfo(level)
+    node.creator.text = "Author: " + data.author
+    node.description.text = data.description
+    node.newSaveBtn.connect("pressed", loadLevel.bind(level, false))
+    node.loadSaveBtn.connect("pressed", loadLevel.bind(level, true))
+    node.moreOptsBtn.connect("pressed", showMoreOptions.bind(level))
+    levelContainer.add_child(node)
   loadUserOptions()
   %version.text = "VERSION: " + str(global.VERSION)
 
+func showMoreOptions(level):
+  var res = await global.prompt("", global.PromptTypes.singleArr, null,
+  ["duplicate", "delete", "rename", "share"])
+  match res:
+    "duplicate":
+      global.duplicateMap(level)
+    "delete":
+      global.deleteMap(level)
+    "rename":
+      global.renameMap(level)
+    "share":
+      log.pp(level)
+      global.zipDir(
+        global.path.abs("res://maps/" + level),
+        global.path.abs("res://exports/" + level + ".vex++")
+      )
+      global.openPathInExplorer("res://exports")
+
 func loadLevel(level, fromSave) -> void:
-  global.loadLevelPack(level, fromSave)
+  global.loadMap(level, fromSave)
 
 func loadUserOptions() -> void:
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
@@ -104,14 +124,7 @@ func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()
   if not level: return
   global.useropts = __menu.get_all_data()
-  global.loadLevelPack(level, false)
+  global.loadMap(level, false)
 
 func _on_open_level_folder_pressed() -> void:
-  OS.create_process("explorer", PackedStringArray([
-    '"' + (
-      ProjectSettings.globalize_path("res://levelcodes")
-      if OS.has_feature("editor") else
-      global.path.parsePath("res://levelcodes")
-    ).replace("/", "\\")
-    + '"'
-  ]))
+  global.openPathInExplorer("res://maps")
