@@ -45,55 +45,60 @@ static func saveData(val: Variant, _level:=0) -> String:
     for i in range(level):
       indent += '  '
     return indent
-  match typeof(val):
-    TYPE_COLOR:
-      return "COLOR" + str(val).replace(" ", '')
-    TYPE_RECT2:
-      return "RECT2(" + str(val.position[0]) + "," + str(val.position[1]) + "," + str(val.size[0]) + "," + str(val.size[1]) + ")"
-    TYPE_RECT2I:
-      return "RECT2I(" + str(val.position[0]) + "," + str(val.position[1]) + "," + str(val.size[0]) + "," + str(val.size[1]) + ")"
-    TYPE_STRING_NAME:
-      return "STRNAME(" + str(val).replace("\\", "\\\\").replace(")", r"\)") + ")"
-    TYPE_VECTOR4:
-      return "VEC4" + str(val).replace(" ", '')
-    TYPE_VECTOR4I:
-      return "VEC4I" + str(val).replace(" ", '')
-    TYPE_INT:
-      return "INT(" + str(val) + ")"
-    TYPE_FLOAT:
-      return "FLOAT(" + str(val) + ")"
-    TYPE_VECTOR2:
-      return "VEC2(" + str(val.x) + "," + str(val.y) + ")"
-    TYPE_VECTOR2I:
-      return "VEC2I(" + str(val.x) + "," + str(val.y) + ")"
-    TYPE_VECTOR3:
-      return "VEC3(" + str(val.x) + "," + str(val.y) + "," + str(val.z) + ")"
-    TYPE_VECTOR3I:
-      return "VEC3I(" + str(val.x) + "," + str(val.y) + "," + str(val.z) + ")"
-    TYPE_STRING:
-      return "STR(" + str(val).replace("\\", "\\\\").replace(")", r"\)") + ")"
-    TYPE_BOOL:
-      return "BOOL(" + str(val) + ")"
-    TYPE_NIL:
-      return "NULL()"
-    TYPE_DICTIONARY:
-      var data := ''
-      _level += 1
-      var hasKey := false
-      for inner: Variant in val:
-        hasKey = true
-        data += getIndent.call(_level) + saveData(inner, _level) + saveData(val[inner], _level)
-      _level -= 1
-      return "{" + data + getIndent.call(_level) + "}" if hasKey else "{" + data + "}"
-    TYPE_ARRAY:
-      var data := ''
-      _level += 1
-      var hasKey := false
-      for inner: Variant in val:
-        hasKey = true
-        data += getIndent.call(_level) + saveData(inner, _level)
-      _level -= 1
-      return "[" + data + getIndent.call(_level) + "]" if hasKey else "[" + data + "]"
+  if val is InputEventKey:
+    return "InputEventKey(" + str(val.physical_keycode) + "," + str(val.ctrl_pressed) + "," + str(val.alt_pressed) + "," + str(val.shift_pressed) + "," + str(val.meta_pressed) + ")"
+  elif val is InputEventMouseButton:
+    return "InputEventMouseButton(" + str(val.button_index) + "," + str(val.ctrl_pressed) + "," + str(val.alt_pressed) + "," + str(val.shift_pressed) + "," + str(val.meta_pressed) + ")"
+  else:
+    match typeof(val):
+      TYPE_COLOR:
+        return "COLOR" + str(val).replace(" ", '')
+      TYPE_RECT2:
+        return "RECT2(" + str(val.position[0]) + "," + str(val.position[1]) + "," + str(val.size[0]) + "," + str(val.size[1]) + ")"
+      TYPE_RECT2I:
+        return "RECT2I(" + str(val.position[0]) + "," + str(val.position[1]) + "," + str(val.size[0]) + "," + str(val.size[1]) + ")"
+      TYPE_STRING_NAME:
+        return "STRNAME(" + str(val).replace("\\", "\\\\").replace(")", r"\)") + ")"
+      TYPE_VECTOR4:
+        return "VEC4" + str(val).replace(" ", '')
+      TYPE_VECTOR4I:
+        return "VEC4I" + str(val).replace(" ", '')
+      TYPE_INT:
+        return "INT(" + str(val) + ")"
+      TYPE_FLOAT:
+        return "FLOAT(" + str(val) + ")"
+      TYPE_VECTOR2:
+        return "VEC2(" + str(val.x) + "," + str(val.y) + ")"
+      TYPE_VECTOR2I:
+        return "VEC2I(" + str(val.x) + "," + str(val.y) + ")"
+      TYPE_VECTOR3:
+        return "VEC3(" + str(val.x) + "," + str(val.y) + "," + str(val.z) + ")"
+      TYPE_VECTOR3I:
+        return "VEC3I(" + str(val.x) + "," + str(val.y) + "," + str(val.z) + ")"
+      TYPE_STRING:
+        return "STR(" + str(val).replace("\\", "\\\\").replace(")", r"\)") + ")"
+      TYPE_BOOL:
+        return "BOOL(" + str(val) + ")"
+      TYPE_NIL:
+        return "NULL()"
+      TYPE_DICTIONARY:
+        var data := ''
+        _level += 1
+        var hasKey := false
+        for inner: Variant in val:
+          hasKey = true
+          data += getIndent.call(_level) + saveData(inner, _level) + saveData(val[inner], _level)
+        _level -= 1
+        return "{" + data + getIndent.call(_level) + "}" if hasKey else "{" + data + "}"
+      TYPE_ARRAY:
+        var data := ''
+        _level += 1
+        var hasKey := false
+        for inner: Variant in val:
+          hasKey = true
+          data += getIndent.call(_level) + saveData(inner, _level)
+        _level -= 1
+        return "[" + data + getIndent.call(_level) + "]" if hasKey else "[" + data + "]"
   log.err(val, type_string(typeof(val)))
   return str(val)
 
@@ -125,7 +130,10 @@ static func loadData(d: String) -> Variant:
       return _stack[len(_stack) - 1]
 
     var getData := func(reg: String, group:=0) -> String:
-      var res: Array = global.regMatch(remainingData, reg)
+      var res = global.regMatch(remainingData, reg)
+      if not res:
+        log.pp(remainingData)
+        breakpoint
       remainingData = remainingData.substr(len(res[0]))
       return res[group]
 
@@ -172,7 +180,7 @@ static func loadData(d: String) -> Variant:
       stack.append({"remainingData": remainingData, "_stack": _stack})
       continue
 
-    var type: String = getData.call(r"^[A-Z]+[\dA-Z]*|\[|\{")
+    var type: String = getData.call(r"^[A-Za-z]+[\dA-Za-z]*|\[|\{")
     remainingData = remainingData.strip_edges()
     # log.pp(remainingData, type)
     var thisdata: Variant
@@ -227,6 +235,34 @@ static func loadData(d: String) -> Variant:
       "VEC4I":
         thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
         thisdata = Vector4i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]), __int.call(thisdata.split(",")[2]), __int.call(thisdata.split(",")[3]))
+      "InputEventKey":
+        thisdata = getData.call(r"^\((" +
+        NUMREG + SEPREG +
+        r"(?:true|false)" + SEPREG +
+        r"(?:true|false)" + SEPREG +
+        r"(?:true|false)" + SEPREG +
+        r"(?:true|false)" + r")\)", 1).split(",")
+        var evt = InputEventKey.new()
+        evt.set_keycode(int(thisdata[0]))
+        evt.ctrl_pressed = thisdata[1] == "true"
+        evt.alt_pressed = thisdata[2] == "true"
+        evt.shift_pressed = thisdata[3] == "true"
+        evt.meta_pressed = thisdata[4] == "true"
+        thisdata = evt
+      "InputEventMouseButton":
+        thisdata = getData.call(r"^\((" +
+        NUMREG + SEPREG +
+        r"(?:true|false)" + SEPREG +
+        r"(?:true|false)" + SEPREG +
+        r"(?:true|false)" + SEPREG +
+        r"(?:true|false)" + r")\)", 1).split(",")
+        var evt = InputEventMouseButton.new()
+        evt.set_button_index(int(thisdata[0]))
+        evt.ctrl_pressed = thisdata[1] == "true"
+        evt.alt_pressed = thisdata[2] == "true"
+        evt.shift_pressed = thisdata[3] == "true"
+        evt.meta_pressed = thisdata[4] == "true"
+        thisdata = evt
       "NULL":
         getData.call(r"\(\)")
         thisdata = null

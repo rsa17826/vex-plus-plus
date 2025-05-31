@@ -903,3 +903,5 @@ func _on_left_body_exited(body: Node2D) -> void:
 # add custom keybvinds
 
 # add custom file to load levels from
+
+# add level thumbnails
