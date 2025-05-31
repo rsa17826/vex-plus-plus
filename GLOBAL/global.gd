@@ -765,7 +765,7 @@ func localInput(event: InputEvent) -> void:
   if isActionJustPressedAlone("move_player_to_mouse"):
     if player and is_instance_valid(player):
       player.camLockPos = Vector2.ZERO
-      player.goto(player.get_global_mouse_position())
+      player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
 
   if isActionJustPressedAlone("load"):
     if useropts.saveOnExit: level.save()
