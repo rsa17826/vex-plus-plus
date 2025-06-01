@@ -113,6 +113,12 @@
         "type": "bool",
         "key": "showHitboxes",
         "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showIconOnSave",
+        "defaultValue": true
       }
     ]
   },

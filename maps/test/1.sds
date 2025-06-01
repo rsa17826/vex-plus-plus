@@ -760,19 +760,6 @@
     }
   }
   {
-    STR(x)FLOAT(716.770812988281)
-    STR(y)FLOAT(-796.075439453125)
-    STR(w)FLOAT(24.9999997615814)
-    STR(h)FLOAT(4.06566047668457)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(goal)
-    STR(options){
-      STR(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
-      STR(attachesToThings)BOOL(true)
-    }
-  }
-  {
     STR(x)FLOAT(713.939086914063)
     STR(y)FLOAT(-571.469970703125)
     STR(w)FLOAT(6.05871427059174)
@@ -3166,6 +3153,19 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(false)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(280.0)
+    STR(y)FLOAT(-540.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(goal)
+    STR(options){
+      STR(requiredLevelCount)INT(0)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
