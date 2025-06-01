@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ccobtxlykollf"]
+[gd_scene load_steps=9 format=3 uid="uid://ccobtxlykollf"]
 
 [ext_resource type="Script" uid="uid://in0c53flu1jr" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
 
@@ -10,8 +10,12 @@ keycode = 4194310
 button_index = 6
 pressed = true
 
+[sub_resource type="InputEventKey" id="InputEventKey_ffns6"]
+device = -1
+keycode = 4194309
+
 [sub_resource type="Shortcut" id="Shortcut_6rvjk"]
-events = [SubResource("InputEventKey_s0bsq"), SubResource("InputEventJoypadButton_ffns6")]
+events = [SubResource("InputEventKey_s0bsq"), SubResource("InputEventJoypadButton_ffns6"), SubResource("InputEventKey_ffns6")]
 
 [sub_resource type="InputEventKey" id="InputEventKey_he371"]
 device = -1
