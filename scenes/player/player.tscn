@@ -1079,6 +1079,8 @@ position = Vector2(0, -1.9)
 scale = Vector2(0.14, 0.14)
 texture = ExtResource("3_lclul")
 
+[node name="PopupMenu" type="PopupMenu" parent="."]
+
 [connection signal="body_entered" from="CharacterBody2D/deathDetectors/top" to="CharacterBody2D" method="_on_top_body_entered"]
 [connection signal="body_exited" from="CharacterBody2D/deathDetectors/top" to="CharacterBody2D" method="_on_top_body_exited"]
 [connection signal="body_entered" from="CharacterBody2D/deathDetectors/left" to="CharacterBody2D" method="_on_left_body_entered"]
