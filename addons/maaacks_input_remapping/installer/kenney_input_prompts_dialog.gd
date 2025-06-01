@@ -6,7 +6,7 @@ const SHORT_DESCRIPTION : String = "Choose a style for icons in the input remapp
 signal configuration_selected(index : int)
 
 func _on_item_list_item_selected(index) -> void:
-	configuration_selected.emit(index)
+    configuration_selected.emit(index)
 
 func set_short_description() -> void:
-	%Label.text = SHORT_DESCRIPTION
+    %Label.text = SHORT_DESCRIPTION

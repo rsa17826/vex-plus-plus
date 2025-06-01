@@ -1,0 +1,139 @@
+[gd_scene load_steps=3 format=3 uid="uid://daqp1x4h663gl"]
+
+[ext_resource type="PackedScene" uid="uid://dxpqpx0nucf5i" path="res://scenes/ui/keybinds/keybind node.tscn" id="1_cxhry"]
+[ext_resource type="Script" uid="uid://ch44xdmgaiqtm" path="res://scenes/ui/keybinds/main.gd" id="1_lj7jw"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lj7jw")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.333333)
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/MarginContainer"]
+layout_mode = 2
+
+[node name="VFlowContainer" type="VFlowContainer" parent="ColorRect/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="main" type="GridContainer" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+columns = 6
+
+[node name="HFlowContainer" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer21" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer22" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer23" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer24" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer25" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer26" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer27" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer28" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer2" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer3" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer4" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer5" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer6" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer7" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer8" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer9" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer10" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer11" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer12" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer13" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer14" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer15" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer16" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer17" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer18" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer19" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2
+
+[node name="HFlowContainer20" parent="ColorRect/MarginContainer/ScrollContainer/VFlowContainer/main" instance=ExtResource("1_cxhry")]
+layout_mode = 2

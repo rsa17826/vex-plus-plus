@@ -33,6 +33,10 @@ gdscript/warnings/unreachable_pattern=2
 
 window/stretch/mode="canvas_items"
 
+[editor]
+
+run/main_run_args="\"D:\\godotgames\\vex\\exports\\level win test (copy) 2.vex++\""
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg")
@@ -212,6 +216,16 @@ duplicate_block={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":true,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+show_keybinds={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194305,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base/translations/menus_translations.en.translation", "res://addons/maaacks_input_remapping/base/translations/menus_translations.fr.translation")
 
 [layer_names]
 
@@ -224,6 +238,11 @@ duplicate_block={
 2d_physics/layer_7="BLOCK KILLER"
 2d_physics/layer_8="BLOCKS THAT CAN DIE"
 2d_physics/layer_9="SOLID BLOCKS - NOWJ"
+
+[maaacks_input_remapping]
+
+disable_plugin_dialogues=true
+copy_path="res://temp"
 
 [rendering]
 
