@@ -77,7 +77,6 @@ func _on_input_actions_tree_remove_button_clicked(action_name, input_name) -> vo
       _remove_action_event(editing_item)
 
 func _popup_already_assigned(action_name, input_name) -> void:
-  log.err(1)
   $AlreadyAssignedDialog.dialog_text = tr(ALREADY_ASSIGNED_TEXT).format({key=input_name, action=action_name})
   $AlreadyAssignedDialog.popup_centered.call_deferred()
 

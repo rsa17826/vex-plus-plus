@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
 [ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
-[ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://temp/scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
+[ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar")]
 script = ExtResource("1_oiwrs")
