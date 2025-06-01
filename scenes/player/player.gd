@@ -905,3 +905,8 @@ func _on_left_body_exited(body: Node2D) -> void:
 
 # add star requirement for inner level
 # show on inner level if level has star or not
+# save stars that are collected by id, and show collected count
+# add star finder?
+# change texture of nowj blocks
+
+# allow player interactions while in water

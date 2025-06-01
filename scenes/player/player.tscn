@@ -173,7 +173,6 @@
 [ext_resource type="Texture2D" uid="uid://mtg7t0njmahs" path="res://scenes/player/images/anim/pulling lever/14.png" id="87_8ue2q"]
 [ext_resource type="Texture2D" uid="uid://b802e4v2vtdj5" path="res://scenes/player/images/waterAnimBottom/default/1.png" id="100_hj3ni"]
 [ext_resource type="Texture2D" uid="uid://b45avlu20hemr" path="res://scenes/player/images/waterAnimBottom/default/2.png" id="101_g0xte"]
-[ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="102_p0anf"]
 [ext_resource type="Texture2D" uid="uid://qkptthdqjya" path="res://scenes/player/images/waterAnimBottom/default/3.png" id="102_wnmj1"]
 [ext_resource type="Texture2D" uid="uid://cj0u3pttaah02" path="res://scenes/player/images/waterAnimBottom/default/4.png" id="103_j7oln"]
 [ext_resource type="Texture2D" uid="uid://bessyq5nljdde" path="res://scenes/player/images/waterAnimBottom/default/5.png" id="104_uk5xc"]
@@ -200,6 +199,7 @@
 [ext_resource type="Texture2D" uid="uid://dojcek03vl3aa" path="res://scenes/player/images/waterAnimBottom/default/26.png" id="125_bhpn6"]
 [ext_resource type="Texture2D" uid="uid://cia2ut17on6xe" path="res://scenes/player/images/waterAnimBottom/default/27.png" id="126_cedje"]
 [ext_resource type="Texture2D" uid="uid://df34vpyhk6dqh" path="res://scenes/player/images/waterAnimBottom/default/28.png" id="127_2fetk"]
+[ext_resource type="PackedScene" uid="uid://cwssfufu0ym50" path="res://scenes/ui/ui.tscn" id="200_1ymuf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
 size = Vector2(8, 33)
@@ -933,7 +933,7 @@ metadata/_edit_lock_ = true
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(0, -1.9)
 collision_layer = 6
-collision_mask = 60
+collision_mask = 316
 floor_max_angle = 0.867429
 floor_snap_length = 5.0
 script = ExtResource("1_dovo2")
@@ -1070,11 +1070,7 @@ metadata/_edit_lock_ = true
 position = Vector2(0, -3.01)
 shape = SubResource("RectangleShape2D_p0anf")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="editor bar" parent="CanvasLayer" instance=ExtResource("102_p0anf")]
-visible = false
-position = Vector2(0, 15)
+[node name="CanvasLayer" parent="." instance=ExtResource("200_1ymuf")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

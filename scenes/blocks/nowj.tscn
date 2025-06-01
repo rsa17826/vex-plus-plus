@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dahcejpwuhfol"]
 
-[ext_resource type="Texture2D" uid="uid://8hlcw0rt26r4" path="res://scenes/blocks/basic/1.png" id="1_8bpyy"]
+[ext_resource type="Texture2D" uid="uid://eb72hpv54q0m" path="res://scenes/blocks/basic/images/1.png" id="1_8bpyy"]
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_hpvkm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -19,4 +19,3 @@ texture = ExtResource("1_8bpyy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
-

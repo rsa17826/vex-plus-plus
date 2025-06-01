@@ -55,6 +55,10 @@ func createBlock(id, x, y, w, h, r, options):
   global.tick = 0
 
 func save():
+  if global.useropts.showIconOnSave:
+    global.ui.levelSaved.visible = true
+  global.ui.levelSaved.modulate.a = .2
+
   var data: Array = [
     {
       "x": global.player.get_parent().startPosition.x,
@@ -78,4 +82,6 @@ func save():
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.version = int(global.file.read("res://VERSION", false, "-1"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, "options.sds"), opts)
-  return data
+  global.ui.levelSaved.modulate.a = 1
+  await global.wait(1000)
+  global.ui.levelSaved.visible = false

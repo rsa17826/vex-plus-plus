@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cwssfufu0ym50"]
+
+[ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
+[ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
+[ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
+
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar")]
+script = ExtResource("1_oiwrs")
+levelSaved = NodePath("saved")
+editorBar = NodePath("editor bar")
+
+[node name="editor bar" parent="." instance=ExtResource("2_5gxme")]
+visible = false
+position = Vector2(0, 15)
+
+[node name="saved" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1047, 519.92)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_qno0g")

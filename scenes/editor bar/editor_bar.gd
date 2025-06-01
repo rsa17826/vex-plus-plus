@@ -43,8 +43,10 @@ func _input(event: InputEvent) -> void:
   if event is InputEventMouseButton:
     if event.is_pressed():
       if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+        # global.player.get_node("Camera2D").zoom += Vector2(.05, .05)
         xoffset += scrollSpeed * (global.useropts.editorBarScrollSpeed)
       if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+        # global.player.get_node("Camera2D").zoom -= Vector2(.05, .05)
         xoffset -= scrollSpeed * (global.useropts.editorBarScrollSpeed)
       xoffset = clamp(xoffset, 0, (nodeSize * nodeCount) - nodeSize * rowSize)
       for item in get_children():

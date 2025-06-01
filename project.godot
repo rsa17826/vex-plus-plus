@@ -223,6 +223,7 @@ duplicate_block={
 2d_physics/layer_6="PUSHABLE BOX"
 2d_physics/layer_7="BLOCK KILLER"
 2d_physics/layer_8="BLOCKS THAT CAN DIE"
+2d_physics/layer_9="SOLID BLOCKS - NOWJ"
 
 [rendering]
 
