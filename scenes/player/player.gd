@@ -296,6 +296,14 @@ func _physics_process(delta: float) -> void:
         # playerKT = 0
         if playerKT:
           playerKT = MAX_WATER_KT_TIMER
+        for i in get_slide_collision_count():
+          var collision := get_slide_collision(i)
+          var block := collision.get_collider()
+
+          var normal := collision.get_normal()
+          var depth := collision.get_depth()
+          handleCollision(block, normal, depth, true)
+
         wasJustInWater = true
         move_and_slide()
         if len(deathSources):

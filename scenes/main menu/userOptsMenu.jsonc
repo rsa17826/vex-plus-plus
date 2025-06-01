@@ -107,6 +107,12 @@
         "type": "bool",
         "key": "saveLevelOnWin",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showHitboxes",
+        "defaultValue": false
       }
     ]
   },

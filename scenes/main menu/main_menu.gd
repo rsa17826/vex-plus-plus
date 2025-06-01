@@ -7,8 +7,9 @@ extends Control
 # @endregex
 
 var __menu
-
+@onready var pm: PopupMenu = PopupMenu.new()
 func _ready() -> void:
+  add_child(pm)
   var levelContainer = $MarginContainer/ScrollContainer/HFlowContainer
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -28,16 +29,26 @@ func _ready() -> void:
   %version.text = "VERSION: " + str(global.VERSION)
 
 func showMoreOptions(level):
-  var res = await global.prompt("", global.PromptTypes.singleArr, null,
-  ["duplicate", "delete", "rename", "share"])
+  pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
+  var i = 0
+  pm.clear()
+  for k: String in ["duplicate", "delete", "rename", "share"]:
+    pm.add_item(k, i)
+    i += 1
+  pm.add_item('<cancel>', i)
+  var promise = Promise.new()
+  pm.connect("index_pressed", promise.resolve)
+  pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
+  var res = await promise.wait()
+  log.pp(res)
   match res:
-    "duplicate":
+    0:
       global.duplicateMap(level)
-    "delete":
+    1:
       global.deleteMap(level)
-    "rename":
+    2:
       global.renameMap(level)
-    "share":
+    3:
       log.pp(level)
       global.zipDir(
         global.path.abs("res://maps/" + level),
@@ -46,6 +57,8 @@ func showMoreOptions(level):
       global.openPathInExplorer("res://exports")
 
 func loadLevel(level, fromSave) -> void:
+  global.hitboxesShown = global.useropts.showHitboxes
+  get_tree().set_debug_collisions_hint(global.hitboxesShown)
   global.loadMap(level, fromSave)
 
 func loadUserOptions() -> void:
@@ -124,7 +137,7 @@ func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()
   if not level: return
   global.useropts = __menu.get_all_data()
-  global.loadMap(level, false)
+  loadLevel(level, false)
 
 func _on_open_level_folder_pressed() -> void:
   global.openPathInExplorer("res://maps")
