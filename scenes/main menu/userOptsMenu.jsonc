@@ -119,6 +119,12 @@
         "type": "bool",
         "key": "showIconOnSave",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "confirmKeyAssignmentDeletion",
+        "defaultValue": false
       }
     ]
   },
