@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://8r2xha87oi80"]
 
 [ext_resource type="PackedScene" uid="uid://dp3rgqaehb3xu" path="res://addons/maaacks_input_remapping/base/scenes/input_remapping/input_options_menu.tscn" id="1_uh422"]
-[ext_resource type="Script" uid="uid://duu0mltc1sssn" path="res://temp/scenes/input_remapping/input_options_menu.gd" id="2_djyku"]
+[ext_resource type="Script" uid="uid://duu0mltc1sssn" path="res://scenes/input_remapping/input_options_menu.gd" id="2_djyku"]
 
 [node name="Controls" instance=ExtResource("1_uh422")]
 script = ExtResource("2_djyku")
@@ -16,3 +16,4 @@ visible = false
 
 [node name="InputActionsTree" parent="VBoxContainer/InputMappingContainer" index="2"]
 visible = true
+custom_minimum_size = Vector2(400, 400)

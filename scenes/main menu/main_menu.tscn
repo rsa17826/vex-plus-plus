@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsub1ew4qiin4"]
+[gd_scene load_steps=4 format=3 uid="uid://bsub1ew4qiin4"]
 
 [ext_resource type="Script" uid="uid://dn3r2t10v2hdb" path="res://scenes/main menu/main_menu.gd" id="1_cbjxn"]
+[ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="2_8w606"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbjxn"]
 font_color = Color(0, 0, 0, 1)
@@ -69,6 +70,11 @@ custom_minimum_size = Vector2(0, 33.295)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_cbjxn")
 vertical_alignment = 1
+
+[node name="Controls" parent="." instance=ExtResource("2_8w606")]
+layout_mode = 1
+offset_left = 688.0
+offset_bottom = -170.0
 
 [connection signal="pressed" from="HFlowContainer/new level btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="HFlowContainer/open level folder" to="." method="_on_open_level_folder_pressed"]
