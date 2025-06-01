@@ -525,6 +525,7 @@
     STR(options){
       STR(color)STR(#fff)
       STR(requiredLevelCount)INT(1)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -665,6 +666,7 @@
     STR(options){
       STR(color)STR(#fff)
       STR(requiredLevelCount)INT(5)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -688,6 +690,7 @@
     STR(options){
       STR(color)STR(#853)
       STR(requiredLevelCount)INT(0)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -766,6 +769,7 @@
     STR(options){
       STR(requiredLevelCount)INT(0)
       STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {

@@ -192,11 +192,16 @@ func remove_recursive(directory: String) -> void:
 
   DirAccess.remove_absolute(directory)
 
+var regexCache: cache = cache.new()
 var regMatchCache: cache = cache.new()
 func regMatch(str: String, reg: String) -> Variant:
   if regMatchCache.__has([reg, str]):
     return regMatchCache.__get()
-  var reg2 := RegEx.create_from_string(reg)
+  var reg2: RegEx
+  if regexCache.__has(reg):
+    reg2 = regexCache.__get()
+  else:
+    reg2 = regexCache.__set(RegEx.create_from_string(reg))
   var res := reg2.search(str)
   if not res: return res
   var out := []
@@ -208,8 +213,11 @@ var regMatchAllCache: cache = cache.new()
 func regMatchAll(str: String, reg: String) -> Variant:
   if regMatchAllCache.__has([reg, str]):
     return regMatchAllCache.__get()
-  var reg2 := RegEx.new()
-  reg2.compile(reg)
+  var reg2: RegEx
+  if regexCache.__has(reg):
+    reg2 = regexCache.__get()
+  else:
+    reg2 = regexCache.__set(RegEx.create_from_string(reg))
   var res := reg2.search_all(str)
   var out := []
   for j in len(res):
@@ -222,7 +230,11 @@ var regReplaceCache: cache = cache.new()
 func regReplace(str: String, reg: String, with: String, all:=true) -> String:
   if regReplaceCache.__has([reg, str, with, all]):
     return regReplaceCache.__get()
-  var reg2 := RegEx.new()
+  var reg2: RegEx
+  if regexCache.__has(reg):
+    reg2 = regexCache.__get()
+  else:
+    reg2 = regexCache.__set(RegEx.create_from_string(reg))
   reg2.compile(reg)
   return regReplaceCache.__set(reg2.sub(str, with, all))
 
@@ -1087,7 +1099,8 @@ var blockNames: Array = [
   "targeting laser", # 0
   "ice", # 0
   "death boundary", # 1
-  "block death boundary" # 1
+  "block death boundary", # 1
+  "basic - nowj", # 1
 ]
 
 func localReady() -> void:
@@ -1286,3 +1299,5 @@ func openPathInExplorer(p: String):
 #   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open")
 #   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open\\command")
 #   registry.setFile("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open\\command", "(Default)", "``\"" + exepath + "`\" `\"%1`\"")
+
+var ui: CanvasLayer

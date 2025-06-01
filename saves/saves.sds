@@ -1,7 +1,7 @@
 {
   STR(New map){
-    STR(playerDelogPosition)VEC2(396.333038330078,112.714111328125)
-    STR(lastSpawnPoint)VEC2(180.0,-100.0)
+    STR(playerDelogPosition)VEC2(195.40803527832,-87.0695648193359)
+    STR(lastSpawnPoint)VEC2(395.0,130.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -19,7 +19,7 @@
     }
   }
   STR(level 1){
-    STR(playerDelogPosition)VEC2(6.6724853515625,451.048675537109)
+    STR(playerDelogPosition)VEC2(-130.596618652344,3.43905639648438)
     STR(lastSpawnPoint)VEC2(0.0,0.0)
     STR(loadedLevels)[
       {
