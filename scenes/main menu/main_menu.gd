@@ -35,7 +35,7 @@ func showMoreOptions(level):
   for k: String in ["duplicate", "delete", "rename", "share"]:
     pm.add_item(k, i)
     i += 1
-  pm.add_item('<cancel>', i)
+  pm.add_item('< cancel >', i)
   var promise = Promise.new()
   pm.connect("index_pressed", promise.resolve)
   pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
@@ -43,11 +43,25 @@ func showMoreOptions(level):
   log.pp(res)
   match res:
     0:
-      global.duplicateMap(level)
+      DirAccess.copy_absolute(
+        global.path.abs("res://maps/" + level),
+        global.path.abs("res://maps/" + level + " (copy)")
+      )
     1:
-      global.deleteMap(level)
+      DirAccess.remove_absolute(global.path.abs("res://maps/" + level))
     2:
-      global.renameMap(level)
+      DirAccess.rename_absolute(
+        global.path.abs("res://maps/" + level),
+          global.path.abs(
+            global.path.join("res://maps/",
+              await global.prompt(
+                "Rename map",
+                global.PromptTypes.string,
+                level
+              )
+            )
+          )
+        )
     3:
       log.pp(level)
       global.zipDir(
@@ -55,7 +69,8 @@ func showMoreOptions(level):
         global.path.abs("res://exports/" + level + ".vex++")
       )
       global.openPathInExplorer("res://exports")
-
+  get_tree().reload_current_scene()
+  
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
