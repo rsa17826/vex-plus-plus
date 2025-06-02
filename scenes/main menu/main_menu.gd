@@ -104,6 +104,7 @@ func updateUserOpts() -> void:
     shouldChangeFsState = true
   if shouldChangeFsState:
     await global.wait(150)
+    get_window().size = Vector2(1152, 648)
     match int(global.useropts.windowMode):
       0:
         global.fullscreen(1)

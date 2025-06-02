@@ -6,6 +6,7 @@ var tempGroups = []
 
 func on_respawn():
   # root.position = Vector2.ZERO
+  await global.wait()
   for group in tempGroups:
     root.remove_from_group(group)
   tempGroups = []
