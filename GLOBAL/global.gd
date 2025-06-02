@@ -572,7 +572,7 @@ var lastSelectedBrush: Node2D
 func localProcess(delta: float) -> void:
   if FileAccess.file_exists(path.parsePath("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.parsePath("res://filesToOpen"))
-    tryAndGetMapZipFromArr(data)
+    tryAndGetMapZipsFromArr(data)
     DirAccess.remove_absolute(path.parsePath("res://filesToOpen"))
   test()
   if not player: return
@@ -915,7 +915,6 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
       }
     ]
     beatLevels = []
-
   get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
   level.loadLevel(currentLevel().name)
   await wait()
@@ -1100,7 +1099,7 @@ var blockNames: Array = [
   "ice", # 0
   "death boundary", # 1
   "block death boundary", # 1
-  "basic - nowj", # 1
+  "basic - nowj", # .95
 ]
 
 func localReady() -> void:
@@ -1109,20 +1108,6 @@ func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://exports/"))
   get_tree().set_debug_collisions_hint(hitboxesShown)
   # createFileAssociation("vex plus plus", ["vex++"], "VEX++ map file")
-  # var
-  # var d = {}
-  # var actions = InputMap.get_actions()
-  # for a in actions:
-  #   if starts_with(a, "ui_"): continue
-  #   log.pp(typeof(a))
-  #   d[a] = InputMap.action_get_events(a)
-
-  # d = sds.loadDataFromFile("res://keybinds.sds")
-  # log.pp(d)
-  # for k in d:
-  #   InputMap.action_erase_events(k)
-  #   for action in d[k]:
-  #     InputMap.action_add_event(k, action)
   # get_tree().quit()
   var pid = int(file.read(path.parsePath("res://process"), false, "0"))
   log.pp("FILEPID", pid)
@@ -1132,7 +1117,7 @@ func localReady() -> void:
     get_tree().quit()
   else:
     file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
-    tryAndGetMapZipFromArr(OS.get_cmdline_args())
+    tryAndGetMapZipsFromArr(OS.get_cmdline_args())
 
 var stretchScale: Vector2:
   get():
@@ -1144,7 +1129,7 @@ func processExists(pid: int):
   var ret = []
   OS.execute("cmd", [
     '/c',
-    "tasklist | findstr [^,a-zA-Z0-9]" + str(pid) + "[^,a-zA-Z0-9]"
+    "tasklist | findstr \"[^,a-zA-Z0-9]" + str(pid) + "[^,a-zA-Z0-9]\""
   ], ret)
   return ret[0].strip_edges() != ""
 
@@ -1153,21 +1138,13 @@ var hitboxesShown := false
 func test():
   pass
 
-func loadMapFromZip(p):
-  log.pp("AKSJDHSADKJHDHJDSKDSHKJDSA", p)
-  if !('.' in p and ('/' in p or '\\' in p)): return
-  # add the intended folder to the end of the path to force it to go into the correct folder
-  var moveto = path.parsePath("res://maps/" + regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
-  extract_all_from_zip(p, moveto)
-
-func extract_all_from_zip(from, to):
+func tryAndLoadMapFromZip(from, to):
   var reader = ZIPReader.new()
   reader.open(from)
 
   # Destination directory for the extracted files (this folder must exist before extraction).
   # Not all ZIP archives put everything in a single root folder,
   # which means several files/folders may be created in `root_dir` after extraction.
-  var root_dir = DirAccess.open(to)
 
   var files = reader.get_files()
 
@@ -1181,11 +1158,13 @@ func extract_all_from_zip(from, to):
     if regMatch(file_path, r"^[^/\\]+") != startDir:
       allInSameDir = false
       break
-
+  log.warn(files)
   if "options.sds" not in files:
     log.err("not a valid map file", from, to, files)
     return
+  log.pp("loading map from", from, "to", to)
   DirAccess.make_dir_recursive_absolute(to)
+  var root_dir = DirAccess.open(to)
     
   for file_path in files:
     var outpath = file_path
@@ -1204,10 +1183,14 @@ func extract_all_from_zip(from, to):
     var buffer = reader.read_file(file_path)
     file.store_buffer(buffer)
 
-func tryAndGetMapZipFromArr(args):
-  for thing in args:
-    if FileAccess.file_exists(thing):
-      loadMapFromZip(thing)
+func tryAndGetMapZipsFromArr(args):
+  for p in args:
+    if FileAccess.file_exists(p):
+      log.pp("AKSJDHSADKJHDHJDSKDSHKJDSA", p)
+      if !('.' in p and ('/' in p or '\\' in p)): return
+      # add the intended folder to the end of the path to force it to go into the correct folder
+      var moveto = path.parsePath("res://maps/" + regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
+      tryAndLoadMapFromZip(p, moveto)
 
 func getAllPathsInDirectory(dir_path: String):
   var files = []
@@ -1261,39 +1244,5 @@ func openPathInExplorer(p: String):
     ).replace("/", "\\")
     + '"'
   ]))
-
-# func createFileAssociation(name, extensions: Array[String], description: String = "TEMPNAME FILE"):
-#   # Check if the OS has the feature to create file associations
-#   # if OS.has_feature("editor"): return
-#   var exepath = OS.get_executable_path()
-#   log.pp(exepath)
-    
-#   # Create the main registry key for the application
-#   registry.makeDir("HKLM:SOFTWARE\\" + name)
-#   registry.makeDir("HKLM:SOFTWARE\\" + name + "\\Capabilities")
-    
-#   # Set application details in the registry
-#   registry.setFile("HKLM:SOFTWARE\\" + name + "\\Capabilities", "ApplicationDescription", name)
-#   registry.setFile("HKLM:SOFTWARE\\" + name + "\\Capabilities", "ApplicationIcon", exepath + ",0")
-#   registry.setFile("HKLM:SOFTWARE\\" + name + "\\Capabilities", "ApplicationName", name)
-    
-#   # Create file associations
-#   registry.makeDir("HKLM:SOFTWARE\\" + name + "\\Capabilities\\FileAssociations")
-#   for ext in extensions:
-#     registry.setFile("HKLM:SOFTWARE\\" + name + "\\Capabilities\\FileAssociations", "." + ext, name)
-    
-#   # Register the application
-#   registry.setFile("HKLM:SOFTWARE\\RegisteredApplications", name, "Software\\" + name + "\\Capabilities")
-    
-#   # Create class registry entries
-#   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name)
-#   registry.setFile("HKLM:SOFTWARE\\Software\\Classes\\" + name, "(Default)", description)
-#   registry.setFile("HKLM:SOFTWARE\\Software\\Classes\\" + name, "FriendlyTypeName", description)
-    
-#   # Create shell command entries
-#   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell")
-#   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open")
-#   registry.makeDir("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open\\command")
-#   registry.setFile("HKLM:SOFTWARE\\Software\\Classes\\" + name + "\\shell\\open\\command", "(Default)", "``\"" + exepath + "`\" `\"%1`\"")
 
 var ui: CanvasLayer
