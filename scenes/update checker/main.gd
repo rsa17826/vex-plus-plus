@@ -24,7 +24,6 @@ func httpGet(url):
       promise.reject(response_code)
   )
 
-  # Perform a GET request. The URL below returns JSON as of writing.
   var error = http_request.request(url)
   if error != OK:
     push_error("An error occurred in the HTTP request.")
