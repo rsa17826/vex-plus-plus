@@ -430,11 +430,11 @@
     }
   }
   {
-    STR(x)FLOAT(1770.0)
-    STR(y)FLOAT(-490.0)
+    STR(x)FLOAT(1750.0)
+    STR(y)FLOAT(-300.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
+    STR(r)FLOAT(30.0000019073486)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
       STRNAME(color)STR(#fff)
@@ -1085,6 +1085,66 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1750.0)
+    STR(y)FLOAT(-300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-105.0)
+    STR(id)STR(Rotating Buzzsaw)
+    STR(options){
+      STRNAME(color)STR(#fff)
+      STRNAME(attachesToThings)BOOL(true)
+    }
+  }
+  {
+    STR(x)FLOAT(1835.0)
+    STR(y)FLOAT(-640.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(45.0)
+    STR(id)STR(Quadrant)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1835.0)
+    STR(y)FLOAT(-640.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Quadrant)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1950.0)
+    STR(y)FLOAT(-525.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-60.0000038146973)
+    STR(id)STR(Scythe)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1950.0)
+    STR(y)FLOAT(-525.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-120.000007629395)
+    STR(id)STR(Scythe)
     STR(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)

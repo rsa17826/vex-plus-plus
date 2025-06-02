@@ -1023,6 +1023,7 @@ collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="floorRay" type="RayCast2D" parent="CharacterBody2D"]
+visible = false
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(1, 9.795)
 target_position = Vector2(0, 15.63)
