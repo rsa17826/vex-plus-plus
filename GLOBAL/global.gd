@@ -572,9 +572,9 @@ var lastSelectedBrush: Node2D
 func localProcess(delta: float) -> void:
   if FileAccess.file_exists(path.parsePath("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.parsePath("res://filesToOpen"))
+    file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(data)
     DirAccess.remove_absolute(path.parsePath("res://filesToOpen"))
-  test()
   if not player: return
   # if a block is selected
   # if rotresetBlock and (not editorInScaleMode or (len(hoveredBlocks) and hoveredBlocks[0] != rotresetBlock)):
@@ -777,7 +777,7 @@ func localInput(event: InputEvent) -> void:
     await wait(1)
     showEditorUi = !showEditorUi
   if isActionJustPressedWithNoExtraMods("quit"):
-    get_tree().quit()
+    quitGame()
   if isActionJustPressedWithNoExtraMods("move_player_to_mouse"):
     if player and is_instance_valid(player):
       player.camLockPos = Vector2.ZERO
@@ -1112,22 +1112,32 @@ func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://exports/"))
   get_tree().set_debug_collisions_hint(hitboxesShown)
   # createFileAssociation("vex plus plus", ["vex++"], "VEX++ map file")
-  # get_tree().quit()
+  # quitGame()
   var pid = int(file.read(path.parsePath("res://process"), false, "0"))
   log.pp("FILEPID", pid)
-  log.pp("MYPID", OS.get_process_id(), OS.is_process_running(pid), OS.is_process_running(OS.get_process_id()))
-  if processExists(pid):
+  log.pp("MYPID", OS.get_process_id())
+  getProcess(OS.get_process_id())
+  if getProcess(pid) and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))):
     sds.saveDataToFile(path.parsePath("res://filesToOpen"), OS.get_cmdline_args() as Array)
-    get_tree().quit()
+    DirAccess.remove_absolute(path.parsePath("res://process"))
+    
   else:
     file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
+
+func _notification(what):
+  if what == NOTIFICATION_WM_CLOSE_REQUEST:
+    quitGame()
+func quitGame():
+  if OS.get_process_id() == int(file.read(path.parsePath("res://process"), false)):
+    DirAccess.remove_absolute(path.parsePath("res://process"))
+  get_tree().quit()
 
 var stretchScale: Vector2:
   get():
     return Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y)
 
-func processExists(pid: int):
+func getProcess(pid: int):
   if not pid:
     return false
   var ret = []
@@ -1135,12 +1145,10 @@ func processExists(pid: int):
     '/c',
     "tasklist | findstr \"[^,a-zA-Z0-9]" + str(pid) + "[^,a-zA-Z0-9]\""
   ], ret)
-  return ret[0].strip_edges() != ""
+  log.pp(ret)
+  return ret[0].strip_edges()
 
 var hitboxesShown := false
-
-func test():
-  pass
 
 func tryAndLoadMapFromZip(from, to):
   var reader = ZIPReader.new()
