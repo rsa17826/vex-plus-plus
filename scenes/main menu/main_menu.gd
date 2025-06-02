@@ -86,6 +86,9 @@ func showMoreOptions(level):
       await upload_file("levels/" + version + '/' + author + '/' + level + ".vex++", c)
       f.close()
   # get_tree().reload_current_scene()
+
+# https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
+
 func url_encode(input: String) -> String:
   var encoded = ""
   for c in input:
@@ -94,8 +97,11 @@ func url_encode(input: String) -> String:
     else:
       encoded += "%" + String("%02X" % (c).unicode_at(0))
   return encoded
-const GITHUB_TOKEN = "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"
+
+const GITHUB_TOKEN = "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"
 const BRANCH = "main"
+const REPO_NAME = "vex-plus-plus-level-codes"
+
 func httpGet(url: String, custom_headers: PackedStringArray = PackedStringArray(), method: int = 0, request_data: String = ""):
   var http_request = HTTPRequest.new()
   var promise = Promise.new()
@@ -114,7 +120,7 @@ func httpGet(url: String, custom_headers: PackedStringArray = PackedStringArray(
     push_error("An error occurred in the HTTP request.")
   return await promise.wait()
 func upload_file(file_path: String, base64_content: String) -> void:
-  var url = "https://api.github.com/repos/rsa17826/testing/contents/" + url_encode(file_path)
+  var url = "https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/" + url_encode(file_path)
   log.pp("Request URL: ", url)
 
   var headers: PackedStringArray = [
@@ -134,12 +140,14 @@ func upload_file(file_path: String, base64_content: String) -> void:
   var res = await httpGet(url, headers, HTTPClient.METHOD_PUT, json_body)
 
   if res.code == 200 or res.code == 201:
-    log.pp("File uploade started successfully!")
+    OS.alert("File upload was successfull!")
   elif res.code == 422:
-    log.pp("level already exists")
+    OS.alert("ERROR 422")
+    # OS.alert("level already exists")
   else:
     log.pp(res.code)
     log.pp(res.response)
+    OS.alert("ERROR")
   
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes
