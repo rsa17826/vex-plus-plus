@@ -103,7 +103,7 @@ func updateUserOpts() -> void:
   if lastWinMode == null or lastWinMode != global.useropts.windowMode:
     shouldChangeFsState = true
   if shouldChangeFsState:
-    await global.wait(300)
+    await global.wait(150)
     match int(global.useropts.windowMode):
       0:
         global.fullscreen(1)
