@@ -43,6 +43,7 @@ enum PromptTypes {
   multiArr,
   bool
 }
+
 func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant = null, singleArrValues: Variant = []) -> Variant:
   if openMsgBoxCount:
     while openMsgBoxCount:
@@ -1160,7 +1161,10 @@ var hitboxesShown := false
 
 func tryAndLoadMapFromZip(from, to):
   var reader = ZIPReader.new()
-  reader.open(from)
+  var err = reader.open(from)
+  if err:
+    log.warn(from, err)
+    return
 
   # Destination directory for the extracted files (this folder must exist before extraction).
   # Not all ZIP archives put everything in a single root folder,
