@@ -74,7 +74,10 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
       promptCanvas.numEdit.get_line_edit().connect("text_submitted", _on_submit)
       promptCanvas.numEdit.visible = true
       promptCanvas.numEdit.get_line_edit().grab_focus()
-    PromptTypes.confirm | PromptTypes.bool:
+    PromptTypes.confirm:
+      promptCanvas.btnCancel.text = "cancel"
+      promptCanvas.btnOk.text = "ok"
+    PromptTypes.bool:
       promptCanvas.btnCancel.text = "false"
       promptCanvas.btnOk.text = "true"
     PromptTypes.string:
@@ -105,7 +108,8 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
   var confirmed: bool = await promptPromise.wait()
   var val: Variant
   match type:
-    PromptTypes.confirm | PromptTypes.bool: val = confirmed
+    PromptTypes.confirm: val = confirmed
+    PromptTypes.bool: val = confirmed
     PromptTypes.string: val = promptCanvas.strEdit.text if confirmed else default
     PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else default
     PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else default
@@ -881,24 +885,28 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
     var gameVersionIsNewer: bool = VERSION > levelPackInfo["version"]
     if gameVersionIsNewer:
       if useropts.warnWhenOpeningLevelInNewerGameVersion:
-        if not await prompt(
+        var data = await prompt(
           "this level was last saved in version " +
           str(levelPackInfo["version"]) +
           " and the current version is " + str(VERSION) +
           ". Do you want to load this level?\n" +
           "> the current game version is newer than what the level was made in"
           , PromptTypes.confirm
-        ): return
+        )
+        log.pp(data)
+        if not data: return
     else:
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
-        if not await prompt(
+        var data = await prompt(
           "this level was last saved in version " +
           str(levelPackInfo["version"]) +
           " and the current version is " + str(VERSION) +
           ". Do you want to load this level?\n" +
           "< the current game version might not have all the features needed to play this level"
           , PromptTypes.confirm
-        ): return
+        )
+        log.pp(data)
+        if not data: return
   levelOpts = levelPackInfo
 
   if loadFromSave and saveData:
@@ -1120,7 +1128,7 @@ func localReady() -> void:
   if getProcess(pid) and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))):
     sds.saveDataToFile(path.parsePath("res://filesToOpen"), OS.get_cmdline_args() as Array)
     DirAccess.remove_absolute(path.parsePath("res://process"))
-    
+    quitGame()
   else:
     file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
@@ -1166,18 +1174,28 @@ func tryAndLoadMapFromZip(from, to):
   for file_path in files:
     if not startDir:
       startDir = regMatch(file_path, r"^[^/\\]+")
+      if startDir: startDir = startDir[0]
       continue
-    if regMatch(file_path, r"^[^/\\]+") != startDir:
+    var d = regMatch(file_path, r"^[^/\\]+")
+    if d: d = d[0]
+    if !same(d, startDir):
       allInSameDir = false
       break
-  log.warn(files)
-  if "options.sds" not in files:
+  var tempFiles
+  if allInSameDir:
+    tempFiles = (files as Array).map(func(e):
+      log.pp(e)
+      return e.replace(startDir + "/", '')).filter(func(e):
+      return e)
+  else:
+    tempFiles = files
+  log.warn(files, tempFiles)
+  if "options.sds" not in tempFiles:
     log.err("not a valid map file", from, to, files)
     return
   log.pp("loading map from", from, "to", to)
   DirAccess.make_dir_recursive_absolute(to)
   var root_dir = DirAccess.open(to)
-    
   for file_path in files:
     var outpath = file_path
     if allInSameDir:
@@ -1209,6 +1227,7 @@ func tryAndGetMapZipsFromArr(args):
   if mapFound and get_tree().current_scene.name == "main menu":
     await wait(1000)
     get_tree().reload_current_scene.call_deferred()
+    DisplayServer.window_move_to_foreground()
   log.pp("get_tree().current_scene", get_tree().current_scene.name)
 
 func getAllPathsInDirectory(dir_path: String):

@@ -35,10 +35,6 @@ gdscript/warnings/unreachable_pattern=2
 window/size/mode=1
 window/stretch/mode="canvas_items"
 
-[editor]
-
-run/main_run_args="\"D:\\godotgames\\vex\\exports\\level win test (copy) 2.vex++\""
-
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg")
