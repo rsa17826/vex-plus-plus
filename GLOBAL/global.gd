@@ -1182,15 +1182,22 @@ func tryAndLoadMapFromZip(from, to):
     var file = FileAccess.open(root_dir.get_current_dir().path_join(outpath), FileAccess.WRITE)
     var buffer = reader.read_file(file_path)
     file.store_buffer(buffer)
+  return true
 
 func tryAndGetMapZipsFromArr(args):
+  var mapFound = false
   for p in args:
     if FileAccess.file_exists(p):
       log.pp("AKSJDHSADKJHDHJDSKDSHKJDSA", p)
       if !('.' in p and ('/' in p or '\\' in p)): return
       # add the intended folder to the end of the path to force it to go into the correct folder
       var moveto = path.parsePath("res://maps/" + regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
-      tryAndLoadMapFromZip(p, moveto)
+      if tryAndLoadMapFromZip(p, moveto):
+        mapFound = true
+  if mapFound and get_tree().current_scene.name == "main menu":
+    await wait(1000)
+    get_tree().reload_current_scene.call_deferred()
+  log.pp("get_tree().current_scene", get_tree().current_scene.name)
 
 func getAllPathsInDirectory(dir_path: String):
   var files = []
@@ -1246,3 +1253,17 @@ func openPathInExplorer(p: String):
   ]))
 
 var ui: CanvasLayer
+
+func copyDir(source: String, destination: String):
+  DirAccess.make_dir_recursive_absolute(destination)
+
+  var source_dir = DirAccess.open(source);
+
+  for filename in source_dir.get_files():
+    source_dir.copy(
+      path.join(source, filename),
+      path.join(destination, filename)
+    )
+
+  for dir in source_dir.get_directories():
+    copyDir(path.join(source, dir), path.join(destination, dir))
