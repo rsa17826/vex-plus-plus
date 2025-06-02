@@ -19,10 +19,11 @@ func _ready() -> void:
     var node := levelNode.instantiate()
     node.levelname.text = level
     var data = global.loadMapInfo(level)
-    node.creator.text = "Author: " + data.author
-    node.description.text = data.description
-    node.newSaveBtn.connect("pressed", loadLevel.bind(level, false))
-    node.loadSaveBtn.connect("pressed", loadLevel.bind(level, true))
+    node.creator.text = ("Author: " + data.author) if data else "INVALID LEVEL"
+    node.description.text = data.description if data else "INVALID LEVEL"
+    if data:
+      node.newSaveBtn.connect("pressed", loadLevel.bind(level, false))
+      node.loadSaveBtn.connect("pressed", loadLevel.bind(level, true))
     node.moreOptsBtn.connect("pressed", showMoreOptions.bind(level))
     levelContainer.add_child(node)
   loadUserOptions()

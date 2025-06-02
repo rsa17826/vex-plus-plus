@@ -423,7 +423,6 @@ func _physics_process(delta: float) -> void:
 
         if breakFromWall:
           wallSlidingFrames = 0
-
         # jump from walljump
         if state == States.wallSliding and Input.is_action_just_pressed("jump") && !breakFromWall:
           state = States.jumping
@@ -716,7 +715,6 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
     and Input.is_action_just_pressed("down") \
     and normal.y:
       block.velocity.x -= getClosestWallSide() * 120
-      log.pp(block.velocity.x)
       $anim.animation = "kicking box"
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
       position.y -= 1
