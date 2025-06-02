@@ -919,5 +919,8 @@ func _on_left_body_exited(body: Node2D) -> void:
 # save stars that are collected by id, and show collected count
 # add star finder?
 # change texture of nowj blocks
+# add way to check for updates
+# add way to download and run different game versions
+# add way to download levels from the repo
 
 # https://api.github.com/repos/rsa17826/testing/contents/levels
