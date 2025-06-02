@@ -13,7 +13,6 @@ func _ready() -> void:
   var levelContainer = $MarginContainer/ScrollContainer/HFlowContainer
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-  log.pp(global.path.parsePath("res://maps"))
   var dir := DirAccess.open(global.path.parsePath("res://maps"))
   for level: String in dir.get_directories():
     var node := levelNode.instantiate()
@@ -44,12 +43,12 @@ func showMoreOptions(level):
   log.pp(res)
   match res:
     0:
-      DirAccess.copy_absolute(
+      global.copyDir(
         global.path.abs("res://maps/" + level),
         global.path.abs("res://maps/" + level + " (copy)")
       )
     1:
-      DirAccess.remove_absolute(global.path.abs("res://maps/" + level))
+      OS.move_to_trash((global.path.abs("res://maps/" + level)))
     2:
       DirAccess.rename_absolute(
         global.path.abs("res://maps/" + level),
@@ -101,9 +100,10 @@ func updateUserOpts() -> void:
   else:
     lastWinMode = global.useropts.windowMode
   global.useropts = __menu.get_all_data()
-  if not lastWinMode or lastWinMode != global.useropts.windowMode:
+  if lastWinMode == null or lastWinMode != global.useropts.windowMode:
     shouldChangeFsState = true
-  if shouldChangeFsState == true:
+  if shouldChangeFsState:
+    await global.wait(1000)
     match int(global.useropts.windowMode):
       0:
         global.fullscreen(1)
