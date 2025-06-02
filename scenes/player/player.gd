@@ -698,8 +698,8 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
     if block.is_in_group("bouncy") \
     and normal.y < 0 \
     and velocity.y >= 0 \
+    and not inWaters \
     :
-      log.pp("Bouncy")
       block.BOUNCY_start()
     if block.is_in_group("inner level") \
     and normal.y < 0 \
@@ -713,13 +713,19 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
     if block.is_in_group("pushable") \
     and getClosestWallSide() \
     and Input.is_action_just_pressed("down") \
-    and normal.y:
+    and not inWaters \
+    and normal.y\
+    :
       block.velocity.x -= getClosestWallSide() * 120
       $anim.animation = "kicking box"
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
       position.y -= 1
 
-    if block.is_in_group("pushable") and is_on_floor() and normal.x:
+    if block.is_in_group("pushable") \
+    and is_on_floor() \
+    and normal.x \
+    and not inWaters \
+    :
       block.velocity.x -= normal.x * depth * 200
       state = States.pushing
       $anim.animation = "pushing box"
@@ -874,7 +880,6 @@ func _on_left_body_exited(body: Node2D) -> void:
 # add way to pause moving blocks while editing?
 
 # fix spike sizes not being the same
-
 
 # save more than 1 star
 # save block state data when saving mid level
