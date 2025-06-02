@@ -16,7 +16,7 @@ size = Vector2(88, 11.8736)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ljnhe"]
 radius = 73.0069
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things", "death", "respawnOnPlayerDeath", "scythe"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove", "SCYTHE_nodeToSpin") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things", "death", "respawnOnPlayerDeath", "scythe"]]
 script = ExtResource("1_crksl")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
@@ -26,6 +26,7 @@ cloneEventsHere = NodePath("collisionNode/attach detector")
 UPDOWN_nodeToMove = NodePath("collisionNode")
 DOWNUP_nodeToMove = NodePath("collisionNode")
 LEFTRIGHT_nodeToMove = NodePath("collisionNode")
+SCYTHE_nodeToSpin = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 16

@@ -416,7 +416,7 @@ func createEditorGhost() -> void:
   add_child(ghost)
 
 func spin(speed: float, node: Node2D = self) -> void:
-  node.rotation_degrees = startRotation_degrees + fmod(global.tick * speed, 360.0)
+  node.rotation_degrees = fmod(global.tick * speed, 360.0)
 
 func getTexture(node: Node2D) -> String:
   return global.regMatch(node.texture.resource_path, r'/([^/]+)\.png$')[1].strip_edges()
@@ -640,13 +640,15 @@ func _readyCHECKPOINT() -> void:
 
 # rotating buzsaw
 @export_group("ROTATING BUZSAW")
+@export var ROTATING_BUZSAW_nodeToSpin: Node2D
 func _physics_processROTATING_BUZSAW(delta: float) -> void:
-  spin(300)
+  spin(300, ROTATING_BUZSAW_nodeToSpin)
 
 # scythe
 @export_group("SCYTHE")
+@export var SCYTHE_nodeToSpin: Node2D
 func _physics_processSCYTHE(delta: float) -> void:
-  spin(-300)
+  spin(-300, SCYTHE_nodeToSpin)
 
 # canon
 @export_group("CANON")
