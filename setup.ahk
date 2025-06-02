@@ -11,56 +11,61 @@
 
 #Include <Misc> ; print, range, swap, ToString, RegExMatchAll, Highlight, MouseTip, WindowFromPoint, ConvertWinPos, WinGetInfo, GetCaretPos, IntersectRect
 SetWorkingDir(A_ScriptDir)
-exepath := A_ScriptDir '/vex.console.exe'
-MyApp := "vex plus plus"
-MyAppURL := MyApp
-extensions := [
-  "vex++"
-]
-set(key, data) {
-  try RegDeleteKey(key)
-  RegCreateKey(key)
-  for k, v in data.OwnProps() {
-    if k == "@"
-      RegWrite(v, "REG_SZ", key)
-    else
-      RegWrite(v, "REG_SZ", key, k)
+aexepath := confirm("open console?") ? A_ScriptDir '/vex.console.exe' : A_ScriptDir '/vex.exe'
+try {
+  createFileAssoc("vex++", aexepath, "vex++ map file")
+  createFileAssoc(extension, programName, exepath, fileTypeName := extension " file") {
+    set(key, data) {
+      try RegDeleteKey(key)
+      RegCreateKey(key)
+      for k, v in data.OwnProps() {
+        if k == "@"
+          RegWrite(v, "REG_SZ", key)
+        else
+          RegWrite(v, "REG_SZ", key, k)
+      }
+    }
+    set("HKEY_LOCAL_MACHINE\SOFTWARE\" programName "\Capabilities", {
+      ApplicationDescription: "" programName "",
+      ApplicationIcon: "" exepath ",0",
+      ApplicationName: "" programName ""
+    })
+    data := {}
+    data.%extension% := programName
+    set("HKEY_LOCAL_MACHINE\SOFTWARE\" programName "\Capabilities\FileAssociations", data)
+    ; set("HKEY_LOCAL_MACHINE\SOFTWARE\" programName "\Capabilities\URLAssociations", {
+    ;   ftp: "" programName "",
+    ;   http: "" programName "",
+    ;   https: "" programName ""
+    ; })
+    set("HKEY_LOCAL_MACHINE\SOFTWARE\RegisteredApplications", {
+      %programName%: "Software\" programName "\Capabilities",
+    })
+
+    data := {
+      FriendlyTypeName: fileTypeName
+    }
+    data.%"@"% := programName
+    set("HKEY_LOCAL_MACHINE\Software\Classes\" programName "", data)
+    set("HKEY_LOCAL_MACHINE\Software\Classes\" programName "\shell", {})
+    set("HKEY_LOCAL_MACHINE\Software\Classes\" programName "\shell\open", {})
+    data := {
+      FriendlyTypeName: fileTypeName
+    }
+    data.%"@"% := "`"" exepath "`" `"%1`""
+
+    set("HKEY_LOCAL_MACHINE\Software\Classes\" programName "\shell\open\command", data)
+  }
+} catch Error as e {
+  if A_IsAdmin {
+    MsgBox("Error: cannot create file association.`n" e.Message)
+    ExitApp()
+  } else {
+    args := ""
+    for arg in A_Args {
+      args .= ' "' . StrReplace(arg, '"', '\"') . '"'
+    }
+    Run('*RunAs "' . A_AhkPath . '" "' . A_ScriptFullPath . '"' . args, A_WorkingDir)
+    ExitApp()
   }
 }
-set("HKEY_LOCAL_MACHINE\SOFTWARE\" MyApp "\Capabilities", {
-  ApplicationDescription: "" MyApp "",
-  ApplicationIcon: "" exepath ",0",
-  ApplicationName: "" MyApp ""
-})
-
-data := {}
-for k in extensions {
-  data.%k% := MyAppURL
-}
-set("HKEY_LOCAL_MACHINE\SOFTWARE\" MyApp "\Capabilities\FileAssociations", data)
-; set("HKEY_LOCAL_MACHINE\SOFTWARE\" MyApp "\Capabilities\URLAssociations", {
-;   ftp: "" MyAppURL "",
-;   http: "" MyAppURL "",
-;   https: "" MyAppURL ""
-; })
-set("HKEY_LOCAL_MACHINE\SOFTWARE\RegisteredApplications", {
-  %MyApp%: "Software\" MyApp "\Capabilities",
-})
-data := {
-  FriendlyTypeName: "" MyApp " Document"
-}
-data.%"@"% := "" MyApp " Document"
-set("HKEY_LOCAL_MACHINE\Software\Classes\" MyAppURL "", data)
-set("HKEY_LOCAL_MACHINE\Software\Classes\" MyAppURL "\shell", {})
-set("HKEY_LOCAL_MACHINE\Software\Classes\" MyAppURL "\shell\open", {})
-data := {
-  FriendlyTypeName: "" MyApp " Document"
-}
-data.%"@"% := "`"" exepath "`" `"%1`""
-
-set("HKEY_LOCAL_MACHINE\Software\Classes\" MyAppURL "\shell\open\command", data)
-; run("ms-settings:defaultbrowsersettings")
-; run("ms-settings:defaultapps")
-; if 0 {
-;   FileInstall("browser selector icon.ico", "*")
-; }
