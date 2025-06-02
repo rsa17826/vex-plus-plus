@@ -302,6 +302,8 @@ func _process(delta: float) -> void:
   if global.player.state == global.player.States.dead:
     respawn()
     return
+  if is_in_group("buzsaw - generic"):
+    _processBUZSAW_GENERIC(delta)
   # if is being hovered is not same as global hovered list, fix it
   if isHovered:
     if self not in global.hoveredBlocks:
@@ -832,8 +834,17 @@ func _physics_processQUADRANT(delta: float) -> void:
 # 10X_SPIKE
 @export_group("10X_SPIKE")
 func _ready10X_SPIKE() -> void:
-  pass
   # just setting it here doesnt work and i cant figure out why
   # $Node2D.position = Vector2.ZERO
   # await global.wait(1000)
   # $Node2D.position = Vector2.ZERO
+  pass
+
+# buzsaw - generic
+@export_group("BUZSAW - GENERIC")
+@export var BUZSAW_GENERIC_spriteToRotateRight: Sprite2D
+@export var BUZSAW_GENERIC_spriteToRotateLeft: Sprite2D
+func _processBUZSAW_GENERIC(delta: float) -> void:
+  var speed = 80.0
+  spin(speed, BUZSAW_GENERIC_spriteToRotateRight)
+  spin(-speed, BUZSAW_GENERIC_spriteToRotateLeft)

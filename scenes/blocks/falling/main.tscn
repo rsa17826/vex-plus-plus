@@ -17,7 +17,7 @@ cloneEventsHere = NodePath("collisionNode")
 thingThatMoves = NodePath("collisionNode")
 FALLING_nodeToMove = NodePath("collisionNode")
 
-[node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root") groups=["entity", "falling"]]
+[node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root") groups=["falling"]]
 collision_layer = 136
 collision_mask = 0
 script = ExtResource("2_5sjlu")
