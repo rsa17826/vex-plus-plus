@@ -76,5 +76,10 @@ layout_mode = 1
 offset_left = 688.0
 offset_bottom = -170.0
 
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+use_threads = true
+timeout = 5.0
+
 [connection signal="pressed" from="HFlowContainer/new level btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="HFlowContainer/open level folder" to="." method="_on_open_level_folder_pressed"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
