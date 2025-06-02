@@ -132,7 +132,7 @@ func _input(event: InputEvent) -> void:
   #     __pressedKeys.erase(event.keycode)
   localInput(event)
 
-func isActionJustPressedAlone(thing: String) -> bool:
+func isActionJustPressedWithNoExtraMods(thing: String) -> bool:
   return Input.is_action_just_pressed(thing) and isActionPressedAlone(thing)
 func isActionJustReleasedAlone(thing: String) -> bool:
   return Input.is_action_just_released(thing) and isActionPressedAlone(thing)
@@ -730,19 +730,19 @@ func localInput(event: InputEvent) -> void:
       selectedBlock.respawn()
       selectedBlock = null
       # selectedBlock._ready.call(false)
-  if isActionJustPressedAlone("new_level_file"):
+  if isActionJustPressedWithNoExtraMods("new_level_file"):
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
-  if isActionJustPressedAlone("new_map_folder"):
+  if isActionJustPressedWithNoExtraMods("new_map_folder"):
     createNewMapFolder()
-  if isActionJustPressedAlone("duplicate_block"):
+  if isActionJustPressedWithNoExtraMods("duplicate_block"):
     log.pp(lastSelectedBrush)
     if lastSelectedBrush:
       selectedBrush = lastSelectedBrush
       selectedBrush.selected = 2
       localProcess(0)
       selectedBrush.selected = 0
-  if isActionJustPressedAlone("toggle_fullscreen"):
+  if isActionJustPressedWithNoExtraMods("toggle_fullscreen"):
     fullscreen()
   if Input.is_action_just_pressed("editor_select"):
     if selectedBlock:
@@ -754,7 +754,7 @@ func localInput(event: InputEvent) -> void:
   if !Input.is_action_pressed("editor_select") and not editorInScaleMode:
     editorInRotateMode = Input.is_action_pressed("editor_rotate")
 
-  if isActionJustPressedAlone("save"):
+  if isActionJustPressedWithNoExtraMods("save"):
     if level and is_instance_valid(level):
       level.save()
   if Input.is_action_just_pressed("editor_delete"):
@@ -762,24 +762,24 @@ func localInput(event: InputEvent) -> void:
     hoveredBlocks.erase(selectedBlock)
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
-  if isActionJustPressedAlone("reload_map_from_last_save"):
+  if isActionJustPressedWithNoExtraMods("reload_map_from_last_save"):
     loadMap.call_deferred(mainLevelName, true)
-  if isActionJustPressedAlone("fully_reload_map"):
+  if isActionJustPressedWithNoExtraMods("fully_reload_map"):
     loadMap.call_deferred(mainLevelName, false)
-  if isActionJustPressedAlone("toggle_hitboxes"):
+  if isActionJustPressedWithNoExtraMods("toggle_hitboxes"):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
     showEditorUi = !showEditorUi
     await wait(1)
     showEditorUi = !showEditorUi
-  if isActionJustPressedAlone("quit"):
+  if isActionJustPressedWithNoExtraMods("quit"):
     get_tree().quit()
-  if isActionJustPressedAlone("move_player_to_mouse"):
+  if isActionJustPressedWithNoExtraMods("move_player_to_mouse"):
     if player and is_instance_valid(player):
       player.camLockPos = Vector2.ZERO
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
 
-  if isActionJustPressedAlone("load"):
+  if isActionJustPressedWithNoExtraMods("load"):
     if useropts.saveOnExit: level.save()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
@@ -1167,7 +1167,6 @@ func extract_all_from_zip(from, to):
   # Destination directory for the extracted files (this folder must exist before extraction).
   # Not all ZIP archives put everything in a single root folder,
   # which means several files/folders may be created in `root_dir` after extraction.
-  DirAccess.make_dir_recursive_absolute(to)
   var root_dir = DirAccess.open(to)
 
   var files = reader.get_files()
@@ -1175,11 +1174,7 @@ func extract_all_from_zip(from, to):
   # if all files were zipped by zipping the containing folder then remove the root folder from the zip
   var startDir = ''
   var allInSameDir = true
-  # var valid = false
   for file_path in files:
-    # log.pp(file_path, ends_with(file_path, "options.sds"))
-    # if ends_with(file_path, "options.sds"):
-    #   valid = true
     if not startDir:
       startDir = regMatch(file_path, r"^[^/\\]+")
       continue
@@ -1187,9 +1182,10 @@ func extract_all_from_zip(from, to):
       allInSameDir = false
       break
 
-  # if not valid:
-  #   log.err("not a valid map file", from, to, files)
-  #   return
+  if "options.sds" not in files:
+    log.err("not a valid map file", from, to, files)
+    return
+  DirAccess.make_dir_recursive_absolute(to)
     
   for file_path in files:
     var outpath = file_path
