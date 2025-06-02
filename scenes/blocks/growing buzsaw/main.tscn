@@ -1,34 +1,62 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddaiwk24dnpy2"]
+[gd_scene load_steps=7 format=3 uid="uid://ddaiwk24dnpy2"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_c0osj"]
 [ext_resource type="Texture2D" uid="uid://6piyx4pmutk2" path="res://scenes/blocks/buzsaw/images/1.png" id="2_upiqs"]
 [ext_resource type="Texture2D" uid="uid://b4kcsug6usrxy" path="res://scenes/blocks/growing buzsaw/images/editorBar.png" id="3_upiqs"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_nfkyx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xvl4e"]
 radius = 298.3
 
-[node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "death", "respawnOnPlayerDeath"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_nfkyx"]
+radius = 306.863
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["EDITOR_OPTION_scale", "attaches to things", "buzsaw - generic", "death", "respawnOnPlayerDeath"]]
+script = ExtResource("1_c0osj")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/EditorBar")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+cloneEventsHere = NodePath("collisionNode/attach detector")
+UPDOWN_nodeToMove = NodePath("collisionNode")
+DOWNUP_nodeToMove = NodePath("collisionNode")
+LEFTRIGHT_nodeToMove = NodePath("collisionNode")
+BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/Sprite2D")
+BUZSAW_GENERIC_spriteToRotateLeft = NodePath("collisionNode/Sprite2D2")
+
+[node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 16
 collision_mask = 2
-script = ExtResource("1_c0osj")
-ghostIconNode = NodePath("Sprite2D")
-editorBarIconNode = NodePath("EditorBar")
-collisionShapes = [NodePath("CollisionShape2D")]
-hidableSprites = [NodePath("Sprite2D")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_upiqs")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="Sprite2D2" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_upiqs")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("CircleShape2D_xvl4e")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[node name="EditorBar" type="Sprite2D" parent="."]
+[node name="EditorBar" type="Sprite2D" parent="collisionNode"]
 visible = false
 scale = Vector2(2.52041, 2.52041)
 texture = ExtResource("3_upiqs")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root") groups=["attaches to things", "buzsaw - generic"]]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("4_nfkyx")
+root = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
+shape = SubResource("CircleShape2D_nfkyx")
+debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

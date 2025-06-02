@@ -9,6 +9,12 @@ func on_respawn():
   for group in tempGroups:
     root.remove_from_group(group)
   tempGroups = []
+  if not root or 'selectedOptions' not in root or 'attachesToThings' not in root.selectedOptions:
+    if root:
+      log.err(root, root.id)
+    else:
+      log.err("root not set")
+    breakpoint
   if root.selectedOptions.attachesToThings:
     await global.wait()
     tryaddgroups()

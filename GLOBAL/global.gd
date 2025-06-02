@@ -676,6 +676,7 @@ func localProcess(delta: float) -> void:
         if lastSelectedBlock and (selectedBrush.blockName == lastSelectedBlock.id):
           justPaintedBlock.scale = lastSelectedBlock.scale
           justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
+          justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
           justPaintedBlock.rotation_degrees = 0
@@ -739,9 +740,12 @@ func localInput(event: InputEvent) -> void:
     log.pp(lastSelectedBrush)
     if lastSelectedBrush:
       selectedBrush = lastSelectedBrush
+      # var selopts = lastSelectedBlock.selectedOptions.duplicate()
       selectedBrush.selected = 2
       localProcess(0)
+      # justPaintedBlock.selectedOptions = selopts
       selectedBrush.selected = 0
+      log.pp(justPaintedBlock.selectedOptions)
   if isActionJustPressedWithNoExtraMods("toggle_fullscreen"):
     fullscreen()
   if Input.is_action_just_pressed("editor_select"):
