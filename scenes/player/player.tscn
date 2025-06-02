@@ -986,28 +986,28 @@ metadata/_edit_lock_ = true
 [node name="leftWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -22.575)
-target_position = Vector2(-6, 0)
+target_position = Vector2(-4, 0)
 collision_mask = 8
 hit_from_inside = true
 
 [node name="rightWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -22.575)
-target_position = Vector2(6, 0)
+target_position = Vector2(4, 0)
 collision_mask = 8
 hit_from_inside = true
 
 [node name="leftWall" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -15.575)
-target_position = Vector2(-5, 0)
+target_position = Vector2(-3, 0)
 collision_mask = 8
 hit_from_inside = true
 
 [node name="rightWall" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -15.575)
-target_position = Vector2(5, 0)
+target_position = Vector2(3, 0)
 collision_mask = 8
 hit_from_inside = true
 
