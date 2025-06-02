@@ -1137,6 +1137,7 @@ func localReady() -> void:
 func _notification(what):
   if what == NOTIFICATION_WM_CLOSE_REQUEST:
     quitGame()
+    
 func quitGame():
   if OS.get_process_id() == int(file.read(path.parsePath("res://process"), false)):
     DirAccess.remove_absolute(path.parsePath("res://process"))
@@ -1154,7 +1155,7 @@ func getProcess(pid: int):
     '/c',
     "tasklist | findstr \"[^,a-zA-Z0-9]" + str(pid) + "[^,a-zA-Z0-9]\""
   ], ret)
-  log.pp(ret)
+  log.pp("tasklist", ret)
   return ret[0].strip_edges()
 
 var hitboxesShown := false
