@@ -90,7 +90,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
         # log.pp(blockOptions, event.as_text(), self, self.name)
         var i := 0
         for k: String in blockOptions:
-          pm.set_item_text(i, k + ": " + type_string(blockOptions[k].type) + " = " + str(selectedOptions[k]))
+          pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type] + " = " + str(selectedOptions[k]))
           i += 1
         pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
 
