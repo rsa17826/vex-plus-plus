@@ -1117,6 +1117,7 @@ var blockNames: Array = [
 
 func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://maps/"))
+  DirAccess.make_dir_recursive_absolute(path.parsePath("res://downloaded maps/"))
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://saves/"))
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://exports/"))
   get_tree().set_debug_collisions_hint(hitboxesShown)
