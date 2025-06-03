@@ -477,9 +477,13 @@ func _physics_process(delta: float) -> void:
         if state == States.sliding:
           $CollisionShape2D.shape.size.y = unduckSize.y / 2
           $CollisionShape2D.position.y = unduckPos.y + (unduckSize.y / 4)
+          %deathDetectors.scale = Vector2(1, 0.5)
+          %deathDetectors.position.y = (unduckSize.y / 4)
         else:
           $CollisionShape2D.shape.size.y = unduckSize.y
           $CollisionShape2D.position.y = unduckPos.y
+          %deathDetectors.scale = Vector2(1, 1)
+          %deathDetectors.position.y = 0
 
         # animations
         if duckRecovery > 0:
@@ -714,7 +718,7 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
     and getClosestWallSide() \
     and Input.is_action_just_pressed("down") \
     and not inWaters \
-    and normal.y\
+    and normal.y \
     :
       block.velocity.x -= getClosestWallSide() * 120
       $anim.animation = "kicking box"
@@ -902,6 +906,9 @@ func _on_left_body_exited(body: Node2D) -> void:
   # when respawning inside water you don't enter the water as collision is disabled while respawning
   # kt doesnt reset while entering water
   # holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
+  # sliding into water causes shrunken hitbox
+  # when leaving water directly onto a wall you can grab the wall lower than intended
+  # when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
 
 # add level option to change canPressDownToShortHop and make sh work
 # add useropt to set start hboxs
