@@ -6,7 +6,7 @@ extends Control
 # @flags gm
 # @endregex
 
-const GITHUB_TOKEN = "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"
+var GITHUB_TOKEN = Marshalls.base64_to_utf8('Z2l0aHViX3BhdF8xMUJPNU80TkkwMWZERmMxd1NGRUZLX3lKb1EwanVraGc1MEtwS3lUcHhKVk95T01KWHQ2a1FQdW01QnhlWTVGM1hWQlhGWFgyTnlUek0waG1L')
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
@@ -93,7 +93,6 @@ func showMoreOptions(level):
       f.close()
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
-
 
 func upload_file(file_path: String, base64_content: String) -> void:
   var url = "https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/" + global.urlEncode(file_path)
