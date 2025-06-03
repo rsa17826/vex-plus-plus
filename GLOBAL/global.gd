@@ -138,10 +138,10 @@ func _input(event: InputEvent) -> void:
   localInput(event)
 
 func isActionJustPressedWithNoExtraMods(thing: String) -> bool:
-  return Input.is_action_just_pressed(thing) and isActionPressedAlone(thing)
-func isActionJustReleasedAlone(thing: String) -> bool:
-  return Input.is_action_just_released(thing) and isActionPressedAlone(thing)
-func isActionPressedAlone(thing: String) -> bool:
+  return Input.is_action_just_pressed(thing) and isActionPressedWithNoExtraMods(thing)
+func isActionJustReleasedWithNoExtraMods(thing: String) -> bool:
+  return Input.is_action_just_released(thing) and isActionPressedWithNoExtraMods(thing)
+func isActionPressedWithNoExtraMods(thing: String) -> bool:
   var actions: Array = InputMap.action_get_events(thing).map(func(e: InputEvent) -> Dictionary:
     return {
       "key": e.physical_keycode,
@@ -766,7 +766,7 @@ func localInput(event: InputEvent) -> void:
   if isActionJustPressedWithNoExtraMods("save"):
     if level and is_instance_valid(level):
       level.save()
-  if Input.is_action_just_pressed("editor_delete"):
+  if isActionPressedWithNoExtraMods("editor_delete"):
     if !selectedBlock: return
     hoveredBlocks.erase(selectedBlock)
     selectedBlock.queue_free.call_deferred()
@@ -1365,4 +1365,3 @@ func getToken():
       decoded_string += str(char(c.unicode_at(0) - SHIFT_VALUE))
     return decoded_string
   return decode_string.call(t)
-
