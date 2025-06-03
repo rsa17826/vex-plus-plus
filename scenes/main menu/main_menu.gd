@@ -6,7 +6,7 @@ extends Control
 # @flags gm
 # @endregex
 
-const GITHUB_TOKEN = "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"
+const GITHUB_TOKEN = "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"
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
@@ -123,6 +123,7 @@ func upload_file(file_path: String, base64_content: String) -> void:
   else:
     log.pp(res.code)
     log.pp(res.response)
+    log.pp(headers)
     OS.alert("ERROR")
   
 func loadLevel(level, fromSave) -> void:
