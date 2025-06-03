@@ -21,7 +21,7 @@ AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_confi
 
 [copy_files_on_export]
 
-files=Array[PackedStringArray]([PackedStringArray("res://levelcodes", "levelcodes", ""), PackedStringArray("res://saves", "saves", ""), PackedStringArray("res://setup.exe", "setup.exe", "")])
+files=Array[PackedStringArray]([PackedStringArray("res://saves", "saves", ""), PackedStringArray("res://setup.exe", "setup.exe", "")])
 
 [debug]
 

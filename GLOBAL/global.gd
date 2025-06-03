@@ -789,7 +789,9 @@ func localInput(event: InputEvent) -> void:
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
 
   if isActionJustPressedWithNoExtraMods("load"):
-    if useropts.saveOnExit: level.save()
+    if useropts.saveOnExit:
+      if level and is_instance_valid(level):
+        level.save()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
