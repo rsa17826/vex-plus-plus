@@ -1123,6 +1123,14 @@ func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://saves/"))
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://exports/"))
   get_tree().set_debug_collisions_hint(hitboxesShown)
+  # const SHIFT_VALUE = 353
+  # var encode_string = func encode_string(input_string: String) -> String:
+  #   var encoded_string = ""
+  #   for c in input_string:
+  #     encoded_string += str(char(c.unicode_at(0) + SHIFT_VALUE))
+  #   return encoded_string
+  # await wait(1000)
+  # await prompt('', PromptTypes.string, encode_string.call(await prompt("Enter a string to encode:", PromptTypes.string)))
   # createFileAssociation("vex plus plus", ["vex++"], "VEX++ map file")
   # quitGame()
   var pid = int(file.read(path.parsePath("res://process"), false, "0"))
@@ -1345,3 +1353,16 @@ func urlEncode(input: String) -> String:
     else:
       encoded += "%" + String("%02X" % (c).unicode_at(0))
   return encoded
+
+func getToken():
+  const SHIFT_VALUE = 353
+  const t = 'ǈǊǕǉǖǃǀǑǂǕǀƒƒƣưƖưƕƯƪƑƯǈǐǋǔǂǓƲǋƬƔǙǀƭƔƲƻƻǑǕƳǑƨǇǃƒǙǊǙƬƓǙƘƑƱƳƑƯƧǘǘƣƬǐƶǔƧưƶưƧǘǑƤǋǂƕƲƴƶƳưƥƨǑƘǂƲǊƣƵƖ'
+
+  # Function to decode the encoded string back to the original
+  var decode_string = func decode_string(encoded_string: String) -> String:
+    var decoded_string = ""
+    for c in encoded_string:
+      decoded_string += str(char(c.unicode_at(0) - SHIFT_VALUE))
+    return decoded_string
+  return decode_string.call(t)
+
