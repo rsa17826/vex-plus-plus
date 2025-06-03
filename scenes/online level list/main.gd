@@ -1,11 +1,13 @@
 extends Control
 
-var GITHUB_TOKEN = Marshalls.base64_to_utf8('Z2l0aHViX3BhdF8xMUJPNU80TkkwSDhiRFhGdVAzZnhjX21kY2lwUFBONWx1NUdGSlJ5bWVubzhNblNMNEh3SktWUG5NeE0zYlBlOWRORk0ySVVSRWdCUHQxWHU1')
+var GITHUB_TOKEN = global.getToken()
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
 @export var versionNodeHolder: Control
 @export var pbox: Control
+
+
 
 func loadVersions():
   var data = (
