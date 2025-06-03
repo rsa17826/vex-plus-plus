@@ -678,13 +678,13 @@ func localProcess(delta: float) -> void:
       # if you have clicked on a block in the editor bar
       if not justPaintedBlock and selectedBrush and selectedBrush.selected == 2:
         justPaintedBlock = load("res://scenes/blocks/" + selectedBrush.blockName + "/main.tscn").instantiate()
-        if lastSelectedBlock and (selectedBrush.blockName == lastSelectedBlock.id):
-          justPaintedBlock.scale = lastSelectedBlock.scale
-          justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
-          justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
-        else:
-          justPaintedBlock.scale = Vector2(1, 1) / 7
-          justPaintedBlock.rotation_degrees = 0
+        # if lastSelectedBlock and (selectedBrush.blockName == lastSelectedBlock.id):
+        #   justPaintedBlock.scale = lastSelectedBlock.scale
+        #   justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
+        #   justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
+        # else:
+        justPaintedBlock.scale = Vector2(1, 1) / 7
+        justPaintedBlock.rotation_degrees = 0
         justPaintedBlock.id = blockNames[selectedBrush.id]
         lastSelectedBrush = selectedBrush
         # create a new block
@@ -745,10 +745,17 @@ func localInput(event: InputEvent) -> void:
     log.pp(lastSelectedBrush)
     if lastSelectedBrush:
       selectedBrush = lastSelectedBrush
-      # var selopts = lastSelectedBlock.selectedOptions.duplicate()
       selectedBrush.selected = 2
+      justPaintedBlock = load("res://scenes/blocks/" + selectedBrush.blockName + "/main.tscn").instantiate()
+      justPaintedBlock.scale = lastSelectedBlock.scale
+      justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
+      justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
+      justPaintedBlock.id = blockNames[selectedBrush.id]
+      lastSelectedBrush = selectedBrush
+      level.get_node("blocks").add_child(justPaintedBlock)
+      justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
+      setBlockStartPos(justPaintedBlock)
       localProcess(0)
-      # justPaintedBlock.selectedOptions = selopts
       selectedBrush.selected = 0
       log.pp(justPaintedBlock.selectedOptions)
   if isActionJustPressedWithNoExtraMods("toggle_fullscreen"):
