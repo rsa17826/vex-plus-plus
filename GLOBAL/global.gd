@@ -1303,3 +1303,42 @@ func copyDir(source: String, destination: String):
 
   for dir in source_dir.get_directories():
     copyDir(path.join(source, dir), path.join(destination, dir))
+
+func httpGet(
+  url: String,
+  custom_headers: PackedStringArray = PackedStringArray(),
+  method: int = 0,
+  request_data: String = "",
+  download_file=null,
+  asjson=true
+  ):
+  var http_request = HTTPRequest.new()
+  if download_file:
+    http_request.download_file = download_file
+  var promise = Promise.new()
+  add_child(http_request)
+  http_request.request_completed.connect(func(result, response_code, headers, body):
+    # log.pp("DKLKLSADKLSDAKLKSADL", result, response_code, headers, body)
+    var response
+    if asjson:
+      response=JSON.parse_string(body.get_string_from_utf8())
+      if len(str(response)) < 100:
+        log.pp(response)
+    else:
+      response=body
+    promise.resolve({"response": response, "code": response_code})
+  )
+
+  var error = http_request.request(url, custom_headers, method, request_data)
+  if error != OK:
+    push_error("An error occurred in the HTTP request.")
+  return await promise.wait()
+
+func urlEncode(input: String) -> String:
+  var encoded = ""
+  for c in input:
+    if c in 'qwertyuiopasdfghjklZxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM123789456/':
+      encoded += c
+    else:
+      encoded += "%" + String("%02X" % (c).unicode_at(0))
+  return encoded

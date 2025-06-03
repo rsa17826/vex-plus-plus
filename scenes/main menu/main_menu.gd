@@ -6,6 +6,10 @@ extends Control
 # @flags gm
 # @endregex
 
+const GITHUB_TOKEN = "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"
+const BRANCH = "main"
+const REPO_NAME = "vex-plus-plus-level-codes"
+
 var __menu
 @onready var pm: PopupMenu = PopupMenu.new()
 func _ready() -> void:
@@ -47,21 +51,24 @@ func showMoreOptions(level):
         global.path.abs("res://maps/" + level),
         global.path.abs("res://maps/" + level + " (copy)")
       )
+      get_tree().reload_current_scene()
     1:
       OS.move_to_trash((global.path.abs("res://maps/" + level)))
+      get_tree().reload_current_scene()
     2:
       DirAccess.rename_absolute(
         global.path.abs("res://maps/" + level),
-          global.path.abs(
-            global.path.join("res://maps/",
-              await global.prompt(
-                "Rename map",
-                global.PromptTypes.string,
-                level
-              )
+        global.path.abs(
+          global.path.join("res://maps/",
+            await global.prompt(
+              "Rename map",
+              global.PromptTypes.string,
+              level
             )
           )
         )
+      )
+      get_tree().reload_current_scene()
     3:
       log.pp(level)
       global.zipDir(
@@ -80,47 +87,16 @@ func showMoreOptions(level):
 
       var version = str(data.version)
       var author = data.author
-      # var c = 'test'
       var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
 
       await upload_file("levels/" + version + '/' + author + '/' + level + ".vex++", c)
       f.close()
-  # get_tree().reload_current_scene()
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
 
-func url_encode(input: String) -> String:
-  var encoded = ""
-  for c in input:
-    if c in 'qwertyuiopasdfghjklZxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM123789456/':
-      encoded += c
-    else:
-      encoded += "%" + String("%02X" % (c).unicode_at(0))
-  return encoded
 
-const GITHUB_TOKEN = "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"
-const BRANCH = "main"
-const REPO_NAME = "vex-plus-plus-level-codes"
-
-func httpGet(url: String, custom_headers: PackedStringArray = PackedStringArray(), method: int = 0, request_data: String = ""):
-  var http_request = HTTPRequest.new()
-  var promise = Promise.new()
-  add_child(http_request)
-  http_request.request_completed.connect(func(result, response_code, headers, body):
-    log.pp("DKLKLSADKLSDAKLKSADL", result, response_code, headers, body)
-    var json := JSON.new()
-    # var res=json.parse(body.get_string_from_utf8())
-    var response=json.get_data()
-    # log.pp(res, response, body.get_string_from_utf8())
-    promise.resolve({"response": response, "code": response_code})
-  )
-
-  var error = http_request.request(url, custom_headers, method, request_data)
-  if error != OK:
-    push_error("An error occurred in the HTTP request.")
-  return await promise.wait()
 func upload_file(file_path: String, base64_content: String) -> void:
-  var url = "https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/" + url_encode(file_path)
+  var url = "https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/" + global.urlEncode(file_path)
   log.pp("Request URL: ", url)
 
   var headers: PackedStringArray = [
@@ -135,9 +111,9 @@ func upload_file(file_path: String, base64_content: String) -> void:
   }
 
   var json_body = JSON.stringify(body)
-  log.pp("Request Body: ", json_body)
+  # log.pp("Request Body: ", json_body)
 
-  var res = await httpGet(url, headers, HTTPClient.METHOD_PUT, json_body)
+  var res = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, json_body)
 
   if res.code == 200 or res.code == 201:
     OS.alert("File upload was successfull!")
@@ -239,3 +215,6 @@ func _on_open_level_folder_pressed() -> void:
 
 func _on_http_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
   log.pp(response_code)
+
+func _on_load_online_levels_pressed() -> void:
+  get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")

@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxqm1u3q1wtqg"]
+
+[ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
+[ext_resource type="Script" uid="uid://dtk8xcpxhq7fx" path="res://addons/tnowe_extra_controls/elements/properties_box.gd" id="2_1ujms"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("versionNodeHolder", "pbox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_706a5")
+versionNodeHolder = NodePath("ScrollContainer/HBoxContainer")
+pbox = NodePath("ScrollContainer/HBoxContainer/PropertiesBox")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+
+[node name="PropertiesBox" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_1ujms")
+metadata/_custom_type_script = "uid://dtk8xcpxhq7fx"

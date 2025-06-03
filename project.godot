@@ -37,7 +37,7 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg")
+enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg")
 
 [global_group]
 
