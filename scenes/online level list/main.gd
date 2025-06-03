@@ -1,6 +1,6 @@
 extends Control
 
-var GITHUB_TOKEN = Marshalls.base64_to_utf8('Z2l0aHViX3BhdF8xMUJPNU80TkkwMWZERmMxd1NGRUZLX3lKb1EwanVraGc1MEtwS3lUcHhKVk95T01KWHQ2a1FQdW01QnhlWTVGM1hWQlhGWFgyTnlUek0waG1L')
+var GITHUB_TOKEN = Marshalls.base64_to_utf8('Z2l0aHViX3BhdF8xMUJPNU80TkkwSDhiRFhGdVAzZnhjX21kY2lwUFBONWx1NUdGSlJ5bWVubzhNblNMNEh3SktWUG5NeE0zYlBlOWRORk0ySVVSRWdCUHQxWHU1')
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
