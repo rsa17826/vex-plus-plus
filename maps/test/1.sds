@@ -370,8 +370,8 @@
     }
   }
   {
-    STR(x)FLOAT(612.476135253906)
-    STR(y)FLOAT(231.782653808594)
+    STR(x)FLOAT(610.0)
+    STR(y)FLOAT(230.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -839,6 +839,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -850,6 +851,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -861,6 +863,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -872,6 +875,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -883,6 +887,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -894,6 +899,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -905,6 +911,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -916,6 +923,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -927,6 +935,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -938,6 +947,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -949,6 +959,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -960,6 +971,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -971,6 +983,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -982,6 +995,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -993,6 +1007,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1004,6 +1019,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1015,6 +1031,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1026,6 +1043,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1037,6 +1055,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1048,6 +1067,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1059,6 +1079,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1070,6 +1091,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1081,6 +1103,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1092,6 +1115,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1103,6 +1127,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1114,6 +1139,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1125,6 +1151,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1136,6 +1163,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1147,6 +1175,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1158,6 +1187,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1169,6 +1199,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1180,6 +1211,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1191,6 +1223,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1202,6 +1235,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1213,6 +1247,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1224,6 +1259,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1235,6 +1271,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1246,6 +1283,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1257,6 +1295,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1268,6 +1307,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1279,6 +1319,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1290,6 +1331,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1301,6 +1343,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1312,6 +1355,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1323,6 +1367,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1334,6 +1379,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1345,6 +1391,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1356,6 +1403,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1367,6 +1415,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1378,6 +1427,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1389,6 +1439,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1400,6 +1451,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1411,6 +1463,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1422,6 +1475,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1433,6 +1487,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1444,6 +1499,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1455,6 +1511,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1466,6 +1523,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1477,6 +1535,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1488,6 +1547,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1499,6 +1559,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1510,6 +1571,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1521,6 +1583,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1532,6 +1595,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1543,6 +1607,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1554,6 +1619,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1565,6 +1631,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1576,6 +1643,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1587,6 +1655,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1598,6 +1667,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1609,6 +1679,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1620,6 +1691,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1631,6 +1703,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1642,6 +1715,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1653,6 +1727,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1664,6 +1739,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1675,6 +1751,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1686,6 +1763,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1697,6 +1775,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1708,6 +1787,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1719,6 +1799,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1730,6 +1811,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1741,6 +1823,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1752,6 +1835,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1763,6 +1847,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1774,6 +1859,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1785,6 +1871,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1796,6 +1883,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1807,6 +1895,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1818,6 +1907,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1829,6 +1919,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1840,6 +1931,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1851,6 +1943,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1862,6 +1955,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1873,6 +1967,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1884,6 +1979,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1895,6 +1991,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1906,6 +2003,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1917,6 +2015,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1928,6 +2027,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1939,6 +2039,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1950,6 +2051,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1961,6 +2063,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1972,6 +2075,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1983,6 +2087,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1994,6 +2099,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2005,6 +2111,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2016,6 +2123,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2027,6 +2135,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2038,6 +2147,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2049,6 +2159,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2060,6 +2171,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2071,6 +2183,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2082,6 +2195,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2093,6 +2207,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2104,6 +2219,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2115,6 +2231,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2126,6 +2243,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2137,6 +2255,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2148,6 +2267,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2159,6 +2279,7 @@
     STR(id)STR(buzsaw)
     STR(options){
       STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -3166,6 +3287,65 @@
     STR(id)STR(goal)
     STR(options){
       STR(requiredLevelCount)INT(0)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(465.0)
+    STR(y)FLOAT(-430.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(425.0)
+    STR(y)FLOAT(-430.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(nowj)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(505.0)
+    STR(y)FLOAT(-430.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-180.0)
+    STR(id)STR(nowj)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(560.0)
+    STR(y)FLOAT(-570.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(star)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(570.0)
+    STR(y)FLOAT(230.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(nowj)
+    STR(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
