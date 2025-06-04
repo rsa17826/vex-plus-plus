@@ -5,7 +5,7 @@ const SPEED = 1000
 var direction = 0
 
 func _on_attach_detector_body_exited(body: Node2D) -> void:
-  if not get_node("has ceil").get_overlapping_bodies():
+  if not %"has ceil".get_overlapping_bodies():
     on_respawn()
 
 var moving = false
@@ -14,14 +14,14 @@ func on_respawn():
   if moving:
     moving = false
     nodeToMove.position = Vector2.ZERO
-    if global.player.activePulley == self:
+    if global.player.activePulley == nodeToMove:
       global.player.state = global.player.States.falling
       global.player.activePulley = null
   # get_node("../attach detector").on_respawn()
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
   log.pp(body, respawning, moving)
-  if respawning or not len(get_node("has ceil").get_overlapping_bodies()):
+  if respawning or not %"has ceil".get_overlapping_bodies():
     return
   match selectedOptions.direction:
     "right":
@@ -31,10 +31,10 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
     "user":
       direction = -1 if global.player.get_node("anim").flip_h else 1
   moving = true
-  global.player.activePulley = self
+  global.player.activePulley = nodeToMove
   global.player.state = global.player.States.onPulley
 
-func _physics_process(delta: float) -> void:
+func on_physics_process(delta: float) -> void:
   if respawning:
     moving = false
     return
@@ -42,13 +42,9 @@ func _physics_process(delta: float) -> void:
     return
   nodeToMove.position.x += SPEED * delta * direction
   if global.player.state == global.player.States.onPulley and \
-  len(get_node(
-    "wall to side with player on"
-  ).get_overlapping_bodies()):
+  %"wall to side with player on".get_overlapping_bodies():
     global.player.state = global.player.States.falling
-  if len(get_node(
-    "wall to side with player off"
-  ).get_overlapping_bodies()):
+  if %"wall to side with player off".get_overlapping_bodies():
     on_respawn()
 
 func generateBlockOpts():
