@@ -4,9 +4,9 @@
     STR(y)FLOAT(0.0)
   }
   {
-    STR(x)FLOAT(0.0)
+    STR(x)FLOAT(-737.5)
     STR(y)FLOAT(65.0)
-    STR(w)FLOAT(1.00000004470348)
+    STR(w)FLOAT(15.75)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -15,10 +15,10 @@
     }
   }
   {
-    STR(x)FLOAT(105.0)
-    STR(y)FLOAT(2.5)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(2.35000079870224)
+    STR(x)FLOAT(205.0)
+    STR(y)FLOAT(17.5)
+    STR(w)FLOAT(3.10000002384186)
+    STR(h)FLOAT(2.05000019073486)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
@@ -27,7 +27,7 @@
   }
   {
     STR(x)FLOAT(60.0)
-    STR(y)FLOAT(5.0)
+    STR(y)FLOAT(15.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -37,12 +37,58 @@
     }
   }
   {
-    STR(x)FLOAT(65.0)
-    STR(y)FLOAT(105.0)
+    STR(x)FLOAT(11070.0)
+    STR(y)FLOAT(5.0)
+    STR(w)FLOAT(15.400000333786)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-615.0)
+    STR(y)FLOAT(-145.0)
+    STR(w)FLOAT(65.8722085952759)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Pulley)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(direction)STR(right)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(29822.5)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(250.000007629395)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(5057.5)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(153.850210189819)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-645.0)
+    STR(y)FLOAT(-35.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(nowj)
+    STR(id)STR(glass)
     STR(options){
       STR(color)STR(#fff)
     }

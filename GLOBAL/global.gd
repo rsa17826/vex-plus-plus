@@ -259,7 +259,7 @@ func join(joiner: Variant = "", a: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJ
 func randstr(length:=10, fromchars:="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`") -> String:
   var s := ''
   for i in range(length):
-    s += (fromchars[randfrom(0, len(fromchars) - 1)])
+    s += (fromchars[randfrom(0, len(fromchars) - 2)])
   return s
 
 var wait_until_wait_list := []
@@ -558,7 +558,7 @@ var scaleOnLeftSide := false
 var showEditorUi := false
 var selectedBrush: Node
 var justPaintedBlock: Node = null
-const gridSize = 25 / 5.0
+var gridSize = 25 / 5.0
 
 func selectBlock() -> void:
   # select the top hovered block
@@ -575,6 +575,7 @@ var lastSelectedBlock: Node2D
 var lastSelectedBrush: Node2D
 
 func localProcess(delta: float) -> void:
+  gridSize = global.useropts.blockSnapGridSize
   if FileAccess.file_exists(path.parsePath("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.parsePath("res://filesToOpen"))
     file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
@@ -613,6 +614,48 @@ func localProcess(delta: float) -> void:
       var top_edge: float = selectedBlock.global_position.y - sizeInPx.y / 2.0
       var right_edge: float = selectedBlock.global_position.x + sizeInPx.x / 2.0
       var left_edge: float = selectedBlock.global_position.x - sizeInPx.x / 2.0
+
+      if global.useropts.noCornerGrabsForScaling:
+        # if the user doesnt want to scale corners scale only the side that has less grab area
+        var width = selectedBlock.scale.x
+        var height = selectedBlock.scale.y
+
+        if scaleOnTopSide and scaleOnBottomSide:
+          if width < height:
+            scaleOnBottomSide = false
+          else:
+            scaleOnTopSide = false
+
+        if scaleOnLeftSide and scaleOnRightSide:
+          if height < width:
+            scaleOnRightSide = false
+          else:
+            scaleOnLeftSide = false
+
+        if scaleOnTopSide and scaleOnLeftSide:
+          if width < height:
+            scaleOnLeftSide = false
+          else:
+            scaleOnTopSide = false
+
+        if scaleOnTopSide and scaleOnRightSide:
+          if width < height:
+            scaleOnRightSide = false
+          else:
+            scaleOnTopSide = false
+
+        if scaleOnBottomSide and scaleOnLeftSide:
+          if width < height:
+            scaleOnLeftSide = false
+          else:
+            scaleOnBottomSide = false
+
+        if scaleOnBottomSide and scaleOnRightSide:
+          if width < height:
+            scaleOnRightSide = false
+          else:
+            scaleOnBottomSide = false
+
       # scale on the selected sides
       if scaleOnTopSide:
         var mouseDIstInPx := (top_edge - mpos.y)
@@ -716,8 +759,8 @@ func localProcess(delta: float) -> void:
         mpos = round((mpos - offset) / gridSize) * gridSize
 
         selectedBlock.global_position = round(mpos + selectedBlockOffset - (sizeInPx / 2))
-        if isYOnOddScale or isXOnOddScale:
-          selectedBlock.global_position += offset
+        # if isYOnOddScale or isXOnOddScale:
+        selectedBlock.global_position += offset
         setBlockStartPos(selectedBlock)
         # if selectedBlock.name == "player":
         #   selectedBlock.get_node("CharacterBody2D").moving = 2

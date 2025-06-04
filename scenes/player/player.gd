@@ -193,6 +193,7 @@ func _physics_process(delta: float) -> void:
     if global.selectedBlock == get_parent():
       position = Vector2.ZERO
     return
+  var frameStartPosition := global_position
   $waterRay.rotation_degrees = - rotation_degrees
   $anim.position = Vector2(0, 0.145)
   match state:
@@ -219,7 +220,6 @@ func _physics_process(delta: float) -> void:
         Engine.time_scale = 1
         await global.wait()
         global.stopTicking = false
-      # else: return
       return
     States.onPulley:
       vel.user = Vector2.ZERO
@@ -393,7 +393,6 @@ func _physics_process(delta: float) -> void:
                 position.y -= loopIdx
                 log.pp("fell off wall hang")
                 state = States.falling
-                # return
               position.y -= 5
               breakFromWall = true
               lastWall = 0
@@ -582,10 +581,10 @@ func _physics_process(delta: float) -> void:
         for n: String in vel:
           if justAddedVels[n]:
             justAddedVels[n] -= 1
-        if !global.showEditorUi:
-          var maxVel: float = max(abs(velocity.x), abs(velocity.y))
-          $Camera2D.position_smoothing_enabled = maxVel < 3500
-          $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
+        # if !global.showEditorUi:
+        #   var maxVel: float = max(abs(velocity.x), abs(velocity.y))
+        #   $Camera2D.position_smoothing_enabled = maxVel < 3500
+        #   $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
         move_and_slide()
         # log.pp(position - (start + (velocity*delta)))
         # # log.pp(
@@ -684,6 +683,34 @@ func _physics_process(delta: float) -> void:
           die()
         if len(deathSources):
           die()
+  if !global.showEditorUi:
+    var changeInPosition: Vector2 = global_position - frameStartPosition
+    var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
+    if maxVel > 20:
+      var smoothingFactor: float = global.rerange(maxVel, 0, 400, 5, 19)
+
+      smoothingFactor = clamp(smoothingFactor, 5, 19)
+
+      # var startPos = $Camera2D.position
+      # $Camera2D.position = changeInPosition
+      $Camera2D.position -= ($Camera2D.position - changeInPosition) * 2 * delta
+      # Vector2(
+      #   pow(changeInPosition.x,1) * 3.7,
+      #   pow(changeInPosition.y,1) * 3.7
+      # )
+      # # $Camera2D.position -= $Camera2D.position * delta * 20
+      # if ($Camera2D.position.x > 0) != (startPos.x > 0):
+      #   $Camera2D.position.x = 0
+      # if ($Camera2D.position.y > 0) != (startPos.y > 0):
+      #   $Camera2D.position.y = 0
+      $Camera2D.position_smoothing_speed = smoothingFactor
+      log.pp($Camera2D.position, changeInPosition)
+      $Camera2D.position_smoothing_enabled = false
+    else:
+      $Camera2D.position_smoothing_enabled = true
+      $Camera2D.position -= $Camera2D.position * .1 * delta
+
+    # log.pp($Camera2D.position_smoothing_speed, maxVel)
 
 func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   # var posOffset = Vector2.ZERO
