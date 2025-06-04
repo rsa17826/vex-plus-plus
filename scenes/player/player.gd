@@ -722,7 +722,7 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
     and normal.y < 0 \
     and velocity.y >= 0 \
     :
-      block.get_parent().FALLING_falling = true
+      block.get_parent().falling = true
     if block.is_in_group("glass") \
     and normal.y < 0 \
     and velocity.y >= 0 \

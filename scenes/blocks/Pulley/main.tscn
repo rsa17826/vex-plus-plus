@@ -1,11 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://3b5rdxoob147"]
 
 [ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/Pulley/images/1.png" id="2_omc7y"]
+[ext_resource type="Script" uid="uid://1dvo3ligvvh5" path="res://scenes/blocks/Pulley/pulley.gd" id="2_u2153"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_svsk0"]
-
-[sub_resource type="GDScript" id="GDScript_omc7y"]
-script/source = "extends \"res://scenes/blocks/editor.gd\"
-"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2153"]
 radius = 34.0
@@ -22,8 +19,9 @@ size = Vector2(10, 50)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
 size = Vector2(20, 5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "pulley", "respawnOnPlayerDeath"]]
-script = SubResource("GDScript_omc7y")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToMove", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "pulley", "respawnOnPlayerDeath"]]
+script = ExtResource("2_u2153")
+nodeToMove = NodePath("movable")
 ghostIconNode = NodePath("movable/Sprite2D")
 editorBarIconNode = NodePath("movable/Sprite2D")
 collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("movable/wall to side with player off/CollisionShape2D"), NodePath("movable/wall to side with player off/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
@@ -49,6 +47,7 @@ shape = SubResource("CircleShape2D_u2153")
 debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="has ceil" type="Area2D" parent="movable"]
+unique_name_in_owner = true
 light_mask = 0
 position = Vector2(1, 0)
 collision_layer = 0
@@ -59,6 +58,7 @@ position = Vector2(-1, -43)
 shape = SubResource("RectangleShape2D_omc7y")
 
 [node name="wall to side with player on" type="Area2D" parent="movable"]
+unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 2
 position = Vector2(1, 0)
@@ -74,6 +74,7 @@ position = Vector2(-30, 90)
 shape = SubResource("RectangleShape2D_vkeng")
 
 [node name="wall to side with player off" type="Area2D" parent="movable"]
+unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 2
 position = Vector2(1, 0)
@@ -99,6 +100,6 @@ position = Vector2(0, -38.5)
 shape = SubResource("RectangleShape2D_svsk0")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
-[connection signal="body_entered" from="movable/player detector" to="movable" method="_on_player_detector_body_entered"]
+[connection signal="body_entered" from="movable/player detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="movable/has ceil" to="movable" method="_on_attach_detector_body_entered"]
 [connection signal="body_exited" from="movable/has ceil" to="movable" method="_on_attach_detector_body_exited"]

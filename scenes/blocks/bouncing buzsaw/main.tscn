@@ -11,13 +11,15 @@ radius = 299.202
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogg4d"]
 radius = 306.041
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["EDITOR_OPTION_scale", "bouncing buzsaw", "buzsaw - generic", "death", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["EDITOR_OPTION_scale", "bouncing buzsaw", "buzsaw - generic", "death", "respawnOnPlayerDeath"]]
 script = ExtResource("1_cbe4i")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIconNode = NodePath("CharacterBody2D/editorBar")
 collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/collisionNode/CollisionShape2D2")]
 hidableSprites = [NodePath("CharacterBody2D/Sprite2D")]
 cloneEventsHere = NodePath("CharacterBody2D")
+BUZSAW_GENERIC_spriteToRotateRight = NodePath("CharacterBody2D/left rot")
+BUZSAW_GENERIC_spriteToRotateLeft = NodePath("CharacterBody2D/editorBar")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
