@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cuufoid1jqh2y"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_51n74"]
-[ext_resource type="Texture2D" uid="uid://eb72hpv54q0m" path="res://scenes/blocks/basic/images/1.png" id="2_bamgl"]
+[ext_resource type="Texture2D" uid="uid://dh0ib5re4eqf4" path="res://scenes/blocks/basic - nowj/images/1.png" id="2_51n74"]
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_ifw6i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -20,7 +20,7 @@ collision_mask = 0
 input_pickable = true
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
-texture = ExtResource("2_bamgl")
+texture = ExtResource("2_51n74")
 script = ExtResource("3_ifw6i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
