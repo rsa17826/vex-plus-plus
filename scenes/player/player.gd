@@ -454,7 +454,8 @@ func _physics_process(delta: float) -> void:
           or duckRecovery > 0:
           playerXIntent = 0
         else:
-          playerXIntent = MOVESPEED * Input.get_axis("left", "right")
+          playerXIntent = MOVESPEED * Input.get_axis("left", "right") * \
+          (2 if speedLeverActive else 1)
 
         # enter slide mode when pressing down key and on the ground
         if is_on_floor() && Input.is_action_pressed("down"):
@@ -698,7 +699,8 @@ func _physics_process(delta: float) -> void:
 
     # var startPos = $Camera2D.position
     # $Camera2D.position = changeInPosition
-    $Camera2D.position -= ($Camera2D.position - changeInPosition) * 15 * delta
+    if maxVel > 5:
+      $Camera2D.position -= ($Camera2D.position - changeInPosition) * 15 * delta
     # Vector2(
     #   pow(changeInPosition.x,1) * 3.7,
     #   pow(changeInPosition.y,1) * 3.7

@@ -2,6 +2,11 @@ extends "res://scenes/blocks/editor.gd"
 
 @export_group("CHECKPOINT")
 @export var sprite: Node2D
+
+const temp1 = preload("res://scenes/blocks/checkpoint/images/1.png")
+const temp2 = preload("res://scenes/blocks/checkpoint/images/2.png")
+const temp3 = preload("res://scenes/blocks/checkpoint/images/3.png")
+
 func on_body_entered(body: Node) -> void:
   if body == global.player and (getTexture(sprite) == '1' or selectedOptions.multiUse):
     global.savePlayerLevelData()
