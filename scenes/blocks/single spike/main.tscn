@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bmcqvvitqaa28"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_sjua3"]
+[ext_resource type="Script" uid="uid://bs48vgemdehey" path="res://scenes/blocks/single spike/single spike.gd" id="1_sjua3"]
 [ext_resource type="Texture2D" uid="uid://cbivbmkaj6cgy" path="res://images/blocks/sprites/Surprise Spike/1.png" id="2_t2pxc"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_sjua3"]
 
