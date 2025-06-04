@@ -1126,55 +1126,6 @@ func fullscreen(state: int = 0) -> void:
 
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
 
-var blockNames: Array = [
-  "basic", # 1
-  "single spike", # 1
-  "10x spike", # 1
-  "invisible", # 0
-  "updown", # 1
-  "downup", # 1
-  "water", # 1
-  "solar", # 1
-  "slope", # 1
-  "pushable box", # 1
-  "microwave", # 1
-  "locked box", # 1
-  "glass", # 1
-  "leftright", # 1
-  "falling", # 1
-  "bouncy", # 1
-  "spark", # 0
-  "inner level", # .5
-  "goal", # 1
-  "buzsaw", # .9
-  "bouncing buzsaw", # .9
-  "cannon", # .2
-  "checkpoint", # .8
-  "closing spikes", # 1
-  "Gravity Down Lever", # 1
-  "Gravity up Lever", # 1
-  "growing buzsaw", # 0
-  "key", # 1
-  "laser", # 0
-  "light switch", # .9
-  "pole", # 0
-  "Pole Quadrant", # 0
-  "Pulley", # 1
-  "Quadrant", # 1
-  "Rotating Buzzsaw", # 1
-  "Scythe", # 1
-  "shurikan Spawner", # .1
-  "speed Up Lever", # 0
-  "star", # .8
-  "targeting laser", # 0
-  "ice", # 0
-  "death boundary", # 1
-  "block death boundary", # 1
-  # "basic - nowj", # -.5
-  "nowj", # 1
-  "falling spike", # 0
-]
-
 func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://maps/"))
   DirAccess.make_dir_recursive_absolute(path.parsePath("res://downloaded maps/"))
@@ -1423,3 +1374,52 @@ func getToken():
       decoded_string += str(char(c.unicode_at(0) - SHIFT_VALUE))
     return decoded_string
   return decode_string.call(t)
+
+var blockNames: Array = [
+  "basic", # 1
+  "single spike", # 1
+  "10x spike", # 1
+  # "invisible", # 0
+  "updown", # 1
+  "downup", # 1
+  "water", # 1
+  "solar", # 1
+  "slope", # 1
+  "pushable box", # 1
+  "microwave", # 1
+  "locked box", # 1
+  "glass", # 1
+  "leftright", # 1
+  "falling", # 1
+  "bouncy", # 1
+  # "spark", # 0
+  "inner level", # .5
+  "goal", # 1
+  "buzsaw", # .9
+  "bouncing buzsaw", # .9
+  "cannon", # .2
+  "checkpoint", # .8
+  "closing spikes", # 1
+  "Gravity Down Lever", # 1
+  "Gravity up Lever", # 1
+  # "growing buzsaw", # 0
+  "key", # 1
+  # "laser", # 0
+  "light switch", # .9
+  # "pole", # 0
+  # "Pole Quadrant", # 0
+  "Pulley", # 1
+  "Quadrant", # 1
+  "Rotating Buzzsaw", # 1
+  "Scythe", # 1
+  # "shurikan Spawner", # .1
+  "speed Up Lever", # 0
+  "star", # .8
+  # "targeting laser", # 0
+  # "ice", # 0
+  "death boundary", # 1
+  "block death boundary", # 1
+  # "basic - nowj", # -.5
+  "nowj", # 1
+  "falling spike", # 1
+]

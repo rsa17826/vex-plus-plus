@@ -14,7 +14,7 @@ func on_respawn():
     if root:
       log.err(root, root.id)
     else:
-      log.err("root not set")
+      log.err("root not set", name, get_parent().id, get_parent().get_parent().id, get_parent().get_parent().get_parent().id)
     breakpoint
   if root.selectedOptions.attachesToThings:
     await global.wait()
@@ -25,6 +25,14 @@ func clearAllGroups():
   for group in tempGroups:
     root.remove_from_group(group)
   tempGroups = []
+
+func disableAllGroups():
+  for group in tempGroups:
+    root.remove_from_group(group)
+
+func enableAllGroups():
+  for group in tempGroups:
+    root.add_to_group(group)
 
 func tryaddgroups():
   for block in get_overlapping_bodies():
