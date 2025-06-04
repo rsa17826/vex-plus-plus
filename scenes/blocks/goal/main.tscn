@@ -1,6 +1,6 @@
 [gd_scene load_steps=66 format=3 uid="uid://dauqqb8fvhoev"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_0d1cd"]
+[ext_resource type="Script" uid="uid://j3yhw2jokqj" path="res://scenes/blocks/goal/goal.gd" id="1_0d1cd"]
 [ext_resource type="Texture2D" uid="uid://c2dmbt52fls6a" path="res://scenes/blocks/goal/images/1.png" id="2_0d1cd"]
 [ext_resource type="Texture2D" uid="uid://cewhgc5cc2tt2" path="res://scenes/blocks/goal/images/2.png" id="3_p2jo3"]
 [ext_resource type="Texture2D" uid="uid://b6vxu0xwdj74x" path="res://scenes/blocks/goal/images/3.png" id="4_0d1cd"]
@@ -257,18 +257,14 @@ size = Vector2(294, 412)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfxqp"]
 size = Vector2(318, 439)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove", "GOAL_sprite", "GOAL_CollisionShape") groups=["EDITOR_OPTION_scale", "attaches to things", "goal"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "attaches to things", "goal"]]
 script = ExtResource("1_0d1cd")
 ghostIconNode = NodePath("collisionNode/editorBar")
 editorBarIconNode = NodePath("collisionNode/editorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/AnimatedSprite2D")]
 cloneEventsHere = NodePath("attach detector")
-UPDOWN_nodeToMove = NodePath(".")
-DOWNUP_nodeToMove = NodePath(".")
-LEFTRIGHT_nodeToMove = NodePath(".")
-GOAL_sprite = NodePath("collisionNode/AnimatedSprite2D")
-GOAL_CollisionShape = NodePath("collisionNode/CollisionShape2D")
+MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0

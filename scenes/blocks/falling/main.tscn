@@ -1,20 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://c8b72oijecn2i"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_104w5"]
+[ext_resource type="Script" uid="uid://bqfsu54jl5sn6" path="res://scenes/blocks/falling/falling.gd" id="1_5sjlu"]
 [ext_resource type="Script" uid="uid://buak8m5w6gqde" path="res://scenes/blocks/falling/collision_node.gd" id="2_5sjlu"]
 [ext_resource type="Texture2D" uid="uid://dob2mmgvfhaoi" path="res://scenes/blocks/falling/images/1.png" id="2_mcurt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale", "falling", "respawnOnPlayerDeath"]]
-script = ExtResource("1_104w5")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["EDITOR_OPTION_scale", "falling", "respawnOnPlayerDeath"]]
+script = ExtResource("1_5sjlu")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode")
-thingThatMoves = NodePath("collisionNode")
 
 [node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root") groups=["falling"]]
 collision_layer = 136

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://wt2lxgyi4ig6"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_51j7p"]
+[ext_resource type="Script" uid="uid://wffimjqo02xe" path="res://scenes/blocks/closing spikes/closing spikes.gd" id="1_51j7p"]
 [ext_resource type="Texture2D" uid="uid://cc8sd64wsjcfc" path="res://scenes/blocks/closing spikes/images/1.png" id="2_sg2we"]
 [ext_resource type="Texture2D" uid="uid://digx3iqkvubii" path="res://scenes/blocks/closing spikes/images/editorBar.png" id="3_fyg8o"]
 [ext_resource type="Texture2D" uid="uid://c3qojrubefyb2" path="res://scenes/blocks/closing spikes/images/1 half.png" id="4_li3j4"]
@@ -12,20 +12,18 @@ size = Vector2(378, 89)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_51j7p"]
 size = Vector2(694.89, 17)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove", "CLOSING_SPIKES_leftCollisionShape", "CLOSING_SPIKES_rightCollisionShape", "CLOSING_SPIKES_leftSprite", "CLOSING_SPIKES_rightSprite") groups=["EDITOR_OPTION_rotate", "attaches to things", "closing spikes", "death", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("leftCollisionShape", "rightCollisionShape", "leftSprite", "rightSprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things", "closing spikes", "death", "respawnOnPlayerDeath"]]
 script = ExtResource("1_51j7p")
+leftCollisionShape = NodePath("Node2D/collisionNode/CollisionShape2D")
+rightCollisionShape = NodePath("Node2D/collisionNode/CollisionShape2D2")
+leftSprite = NodePath("Node2D/collisionNode/leftHalf")
+rightSprite = NodePath("Node2D/collisionNode/rightHalf")
 ghostIconNode = NodePath("Node2D/collisionNode/ghost")
 editorBarIconNode = NodePath("Node2D/collisionNode/editorBar")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/CollisionShape2D2"), NodePath("Node2D/collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/leftHalf"), NodePath("Node2D/collisionNode/rightHalf")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
-UPDOWN_nodeToMove = NodePath("Node2D/collisionNode")
-DOWNUP_nodeToMove = NodePath("Node2D/collisionNode")
-LEFTRIGHT_nodeToMove = NodePath("Node2D/collisionNode")
-CLOSING_SPIKES_leftCollisionShape = NodePath("Node2D/collisionNode/CollisionShape2D")
-CLOSING_SPIKES_rightCollisionShape = NodePath("Node2D/collisionNode/CollisionShape2D2")
-CLOSING_SPIKES_leftSprite = NodePath("Node2D/collisionNode/leftHalf")
-CLOSING_SPIKES_rightSprite = NodePath("Node2D/collisionNode/rightHalf")
+MOVING_BLOCKS_nodeToMove = NodePath("Node2D")
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, 13)

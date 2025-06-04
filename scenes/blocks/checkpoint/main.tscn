@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://jp4aqum81paw"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_uv54t"]
+[ext_resource type="Script" uid="uid://wdoa11el81cm" path="res://scenes/blocks/checkpoint/checkpoint.gd" id="1_ju53q"]
 [ext_resource type="Texture2D" uid="uid://gif81hgvqt2i" path="res://scenes/blocks/checkpoint/images/1.png" id="2_uv54t"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_ju53q"]
 
@@ -10,17 +10,15 @@ radius = 126.13
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or7js"]
 size = Vector2(21, 5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove", "CHECKPOINT_sprite") groups=["EDITOR_OPTION_rotate", "attaches to things", "checkpoint"]]
-script = ExtResource("1_uv54t")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things", "checkpoint"]]
+script = ExtResource("1_ju53q")
+sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
-UPDOWN_nodeToMove = NodePath("collisionNode")
-DOWNUP_nodeToMove = NodePath("collisionNode")
-LEFTRIGHT_nodeToMove = NodePath("collisionNode")
-CHECKPOINT_sprite = NodePath("collisionNode/Sprite2D")
+MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0

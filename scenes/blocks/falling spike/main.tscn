@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ph5lxkwfc644"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_dnmi0"]
+[ext_resource type="Script" uid="uid://ftou0joy3qto" path="res://scenes/blocks/falling spike/falling spike.gd" id="1_4c23b"]
 [ext_resource type="Texture2D" uid="uid://cigd4s8a81h5b" path="res://scenes/blocks/falling spike/images/1.png" id="2_dnmi0"]
 [ext_resource type="Texture2D" uid="uid://cbx3083cfw3l0" path="res://scenes/blocks/falling spike/images/editorBar.png" id="3_4c23b"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_o2sap"]
@@ -12,17 +12,14 @@ size = Vector2(42, 92)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2sap"]
 size = Vector2(73, 18)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove", "FALLING_SPIKE_nodeToFall") groups=["EDITOR_OPTION_rotate", "attaches to things", "death", "falling spike"]]
-script = ExtResource("1_dnmi0")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things", "death", "falling spike"]]
+script = ExtResource("1_4c23b")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
 editorBarIconNode = NodePath("Node2D/collisionNode/EditorBar")
-collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/attach detector/CollisionShape2D")]
+collisionShapes = [NodePath("Node2D/collisionNode/attach detector/CollisionShape2D"), NodePath("Node2D/collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
-UPDOWN_nodeToMove = NodePath("Node2D")
-DOWNUP_nodeToMove = NodePath("Node2D")
-LEFTRIGHT_nodeToMove = NodePath("Node2D")
-FALLING_SPIKE_nodeToFall = NodePath("Node2D")
+MOVING_BLOCKS_nodeToMove = NodePath("Node2D")
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -47,6 +44,7 @@ scale = Vector2(1.54286, 1.54286)
 texture = ExtResource("3_4c23b")
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("4_o2sap")

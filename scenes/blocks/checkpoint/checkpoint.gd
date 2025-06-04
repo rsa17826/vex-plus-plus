@@ -1,0 +1,24 @@
+extends "res://scenes/blocks/editor.gd"
+
+@export_group("CHECKPOINT")
+@export var sprite: Node2D
+func on_body_entered(body: Node) -> void:
+  if body == global.player and (getTexture(sprite) == '1' or selectedOptions.multiUse):
+    global.savePlayerLevelData()
+    global.player.lastSpawnPoint = startPosition - global.player.get_parent().global_position
+    global.player.lightsOut = false
+    setTexture(sprite, "2")
+    global.checkpoints = global.checkpoints.filter(func(e: Variant) -> bool:
+      return is_instance_valid(e))
+    for checkpoint in global.checkpoints:
+      if checkpoint == self: continue
+      if getTexture(checkpoint.sprite) == '2':
+        setTexture(checkpoint.sprite, '1' if checkpoint.selectedOptions.multiUse else '3')
+
+func _readyCHECKPOINT() -> void:
+  if not self in global.checkpoints:
+    global.checkpoints.append(self)
+  setTexture(sprite, "1")
+
+func generateBlockOpts():
+  blockOptions.multiUse = {"type": global.PromptTypes.bool, "default": false}

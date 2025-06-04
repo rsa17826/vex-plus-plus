@@ -14,6 +14,7 @@ extends Node2D
 # @replace $1delta: float):
 # @flags gm
 # @endregex
+# @noregex
 # @name auto add export_group
 # @regex ^# ([\w ]{2,20})\n(?!@export_group)
 # @replace $&@export_group("$1")
@@ -54,21 +55,14 @@ func respawn() -> void:
   global_position = startPosition
   rotation_degrees = startRotation_degrees
   scale = startScale
-  FALLING_falling = false
-  BOUNCY_bounceState = 0
-  BOUNCY_bouncing = false
-  BOUNCY_bounceForce = 0
-  KEY_following = false
-  FALLING_SPIKE_falling = false
   lastMovementStep = Vector2.ZERO
   respawning = 2
-  SPEED_UP_LEVER_colliding = false
-  GRAV_UP_LEVER_colliding = false
-  GRAV_DOWN_LEVER_colliding = false
   if self in global.player.keys:
     global.player.keys.erase(self)
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
+  if 'on_respawn' in self:
+    self.on_respawn.call()
 
 var onBottomSide := false
 var onTopSide := false
@@ -102,59 +96,73 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
         global.selectBlock()
 
 func _on_body_exited(body: Node2D) -> void:
-  if cloneEventsHere and '_on_body_exited' in cloneEventsHere:
-    cloneEventsHere.on_on_body_exited(body)
-  if is_in_group("water"):
-    _on_body_exitedWATER(body)
-  if is_in_group("targeting laser"):
-    _on_body_exitedTARGETING_LASER(body)
-  if is_in_group("speed up lever"):
-    _on_body_exitedSPEED_UP_LEVER(body)
-  if is_in_group("grav up lever"):
-    _on_body_exitedGRAV_UP_LEVER(body)
-  if is_in_group("grav down lever"):
-    _on_body_exitedGRAV_DOWN_LEVER(body)
+  if global.player.state == global.player.States.dead and body == global.player: return
+  if 'on_body_exited' in self:
+    self.on_body_exited.call(body)
   if is_in_group("death"):
-    _on_body_exitedDEATH(body)
+    self._on_body_exitedDEATH.call(body)
+
+#   if cloneEventsHere and 'on_body_exited' in cloneEventsHere:
+#     cloneEventsHere.on_body_exited(body)
+#   if 'on_body_exited' in self:
+#     self.on_body_exited.call(body)
+  # if is_in_group("water"):
+  #   _on_body_exitedWATER(body)
+  # if is_in_group("targeting laser"):
+  #   _on_body_exitedTARGETING_LASER(body)
+  # if is_in_group("speed up lever"):
+  #   _on_body_exitedSPEED_UP_LEVER(body)
+  # if is_in_group("grav up lever"):
+  #   _on_body_exitedGRAV_UP_LEVER(body)
+  # if is_in_group("grav down lever"):
+  #   _on_body_exitedGRAV_DOWN_LEVER(body)
+  # if is_in_group("death"):
+  #   _on_body_exitedDEATH(body)
 
 func _on_body_entered(body: Node2D) -> void:
-  if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
-    cloneEventsHere.on_on_body_entered(body)
+  # if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
+  #   cloneEventsHere.on_on_body_entered(body)
   if global.player.state == global.player.States.dead and body == global.player: return
-  if is_in_group("water"):
-    _on_body_enteredWATER(body)
+  if 'on_body_entered' in self:
+    self.on_body_entered.call(body)
   if is_in_group("death"):
-    _on_body_enteredDEATH(body)
-  if is_in_group("goal"):
-    _on_body_enteredGOAL(body)
-  if is_in_group("checkpoint"):
-    _on_body_enteredCHECKPOINT(body)
-  if is_in_group("cannon"):
-    _on_body_enteredCANON(body)
-  if is_in_group("speed up lever"):
-    _on_body_enteredSPEED_UP_LEVER(body)
-  if is_in_group("grav up lever"):
-    _on_body_enteredGRAV_UP_LEVER(body)
-  if is_in_group("grav down lever"):
-    _on_body_enteredGRAV_DOWN_LEVER(body)
-  if is_in_group("invis"):
-    _on_body_enteredINVIS(body)
-  if is_in_group("key"):
-    _on_body_enteredKEY(body)
-  if is_in_group("laser"):
-    _on_body_enteredLASER(body)
-  if is_in_group("light switch"):
-    _on_body_enteredLIGHT_SWITCH(body)
-  if is_in_group("pole"):
-    _on_body_enteredPOLE(body)
-  if is_in_group("star"):
-    _on_body_enteredSTAR(body)
-  if is_in_group("targeting laser"):
-    _on_body_enteredTARGETING_LASER(body)
+    self._on_body_enteredDEATH.call(body)
+  # if is_in_group("water"):
+  #   _on_body_enteredWATER(body)
+  # if is_in_group("death"):
+  #   _on_body_enteredDEATH(body)
+  # if is_in_group("goal"):
+  #   _on_body_enteredGOAL(body)
+  # if is_in_group("checkpoint"):
+  #   _on_body_enteredCHECKPOINT(body)
+  # if is_in_group("cannon"):
+  #   _on_body_enteredCANON(body)
+  # if is_in_group("speed up lever"):
+  #   _on_body_enteredSPEED_UP_LEVER(body)
+  # if is_in_group("grav up lever"):
+  #   _on_body_enteredGRAV_UP_LEVER(body)
+  # if is_in_group("grav down lever"):
+  #   _on_body_enteredGRAV_DOWN_LEVER(body)
+  # if is_in_group("invis"):
+  #   _on_body_enteredINVIS(body)
+  # if is_in_group("key"):
+  #   _on_body_enteredKEY(body)
+  # if is_in_group("laser"):
+  #   _on_body_enteredLASER(body)
+  # if is_in_group("light switch"):
+  #   _on_body_enteredLIGHT_SWITCH(body)
+  # if is_in_group("pole"):
+  #   _on_body_enteredPOLE(body)
+  # if is_in_group("star"):
+  #   _on_body_enteredSTAR(body)
+  # if is_in_group("targeting laser"):
+  #   _on_body_enteredTARGETING_LASER(body)
 
 func _ready() -> void:
   if cloneEventsHere and 'on_ready' in cloneEventsHere:
     cloneEventsHere.on_ready()
+  if 'on_ready' in self:
+    self.on_ready.call()
   if _ready not in global.player.OnPlayerFullRestart:
     global.player.OnPlayerFullRestart.append(_ready)
   if is_in_group("respawnOnPlayerDeath"):
@@ -170,35 +178,16 @@ func _ready() -> void:
       breakpoint
   if not ghost:
     createEditorGhost()
-  if is_in_group("goal"):
-    blockOptions.requiredLevelCount = {"type": global.PromptTypes.int, "default": 0}
-  if is_in_group("checkpoint"):
-    blockOptions.multiUse = {"type": global.PromptTypes.bool, "default": false}
-  if is_in_group("inner level"):
-    blockOptions.level = {"type": global.PromptTypes.string, "default": ""}
-    blockOptions.requiredLevelCount = {"type": global.PromptTypes.int, "default": 0}
+  if 'generateBlockOpts' in self:
+    self.generateBlockOpts.call()
+
   if is_in_group("attaches to things"):
     blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
-  if is_in_group("pulley"):
-    blockOptions.direction = {"type": global.PromptTypes.singleArr, "default": "right", "values": [
-      "left",
-      "right",
-      "user"
-    ]}
+
   if global.useropts.allowCustomColors:
     blockOptions.color = {"type": global.PromptTypes.string, "default": "#fff"}
   setupOptions()
-
-  if is_in_group("goal"):
-    _readyGOAL()
-  if is_in_group("inner level"):
-    _readyINNER_LEVEL()
-  if is_in_group("checkpoint"):
-    _readyCHECKPOINT()
-  if is_in_group("star"):
-    _readySTAR()
-  if is_in_group("10x spike"):
-    _ready10X_SPIKE()
+  
   __enable.call_deferred()
   respawn.call_deferred()
   if global.useropts.allowCustomColors:
@@ -261,33 +250,19 @@ func _physics_process(delta: float) -> void:
   if global.openMsgBoxCount: return
   if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
-  if is_in_group("10x spike"):
-    # so i am just setting it here instead
-    $Node2D.position = Vector2.ZERO
+  # if is_in_group("10x spike"):
+  #   # so i am just setting it here instead
+  #   $Node2D.position = Vector2.ZERO
   if is_in_group("updown"):
     _physics_processUPDOWN(delta)
   if is_in_group("downup"):
     _physics_processDOWNUP(delta)
   if is_in_group("leftright"):
     _physics_processLEFTRIGHT(delta)
-  if is_in_group("water"):
-    _physics_processWATER(delta)
-  if is_in_group("rotating buzsaw"):
-    _physics_processROTATING_BUZSAW(delta)
-  if is_in_group("solar"):
-    _physics_processSOLAR(delta)
-  if is_in_group("scythe"):
-    _physics_processSCYTHE(delta)
-  if is_in_group("spark"):
-    _physics_processSPARK(delta)
-  if is_in_group("closing spikes"):
-    _physics_processCLOSING_SPIKES(delta)
-  if is_in_group("quadrant"):
-    _physics_processQUADRANT(delta)
-  if is_in_group("falling spike"):
-    _physics_processFALLING_SPIKE(delta)
   if cloneEventsHere and 'on_physics_process' in cloneEventsHere:
     cloneEventsHere.on_physics_process(delta)
+  if 'on_physics_process' in self:
+    self.on_physics_process.call(delta)
   if respawning:
     lastMovementStep = Vector2.ZERO
   else:
@@ -307,7 +282,7 @@ func _process(delta: float) -> void:
     return
   if is_in_group("buzsaw - generic"):
     _processBUZSAW_GENERIC(delta)
-  # if is being hovered is not same as global hovered list, fix it
+
   if isHovered:
     if self not in global.hoveredBlocks:
       global.hoveredBlocks.append(self)
@@ -315,11 +290,11 @@ func _process(delta: float) -> void:
     if self in global.hoveredBlocks:
       global.hoveredBlocks.erase(self)
 
-  if ghostFollowNode != self:
+  if ghostFollowNode == self:
+    ghost.rotation_degrees = 0
+  else:
     ghost.global_position = ghostFollowNode.global_position
     ghost.rotation_degrees = ghostFollowNode.rotation_degrees
-  else:
-    ghost.rotation_degrees = 0
   ghost.use_parent_material = true
   ghost.self_modulate.a = global.useropts.blockGhostAlpha
 
@@ -420,11 +395,12 @@ func _process(delta: float) -> void:
         else:
           # __disable outline
           ghost.use_parent_material = true
-
-  if is_in_group("bouncy"):
-    _processBOUNCY(delta)
-  if is_in_group("key"):
-    _processKEY(delta)
+  if 'on_process' in self:
+    self.on_process.call(delta)
+  # if is_in_group("bouncy"):
+  #   _processBOUNCY(delta)
+  # if is_in_group("key"):
+  #   _processKEY(delta)
 
 func createEditorGhost() -> void:
   if not ghostIconNode:
@@ -482,116 +458,8 @@ func __enable() -> void:
     collider.disabled = false
   for sprite in hidableSprites:
     sprite.visible = true
-  # visible = true
 
-# all blocks
-@export_group("all blocks")
-@export_category("BLOCKS")
-
-# water
-@export_group("WATER")
-
-const MAX_WATER_REENTER_TIME = 7
-
-var waterReenterTimer: float = 0
-
-var WATER_playerInsideWater := false
-
-func _physics_processWATER(delta: float) -> void:
-  # lower frame counters
-  if waterReenterTimer > 0:
-    waterReenterTimer -= delta * 60
-
-  if WATER_playerInsideWater:
-    if self not in global.player.inWaters and waterReenterTimer <= 0:
-      global.player.inWaters.append(self)
-  elif self in global.player.inWaters:
-    global.player.inWaters.erase(self)
-
-func _on_body_exitedWATER(body: Node) -> void:
-  if body == global.player:
-    WATER_playerInsideWater = false
-    waterReenterTimer = MAX_WATER_REENTER_TIME
-
-func _on_body_enteredWATER(body: Node) -> void:
-  if body == global.player:
-    WATER_playerInsideWater = true
-
-# falling
-@export_group("FALLING")
-
-var FALLING_falling := false
-
-# updown
-@export_group("UPDOWN")
-@export var UPDOWN_nodeToMove: Node2D
-
-func _physics_processUPDOWN(delta: float) -> void:
-  UPDOWN_nodeToMove.global_position.y = startPosition.y + sin(global.tick * 1.5) * 200
-
-# downup
-@export_group("DOWNUP")
-@export var DOWNUP_nodeToMove: Node2D
-
-func _physics_processDOWNUP(delta: float) -> void:
-  DOWNUP_nodeToMove.global_position.y = startPosition.y - sin(global.tick * 1.5) * 200
-
-# leftright
-@export_group("LEFTRIGHT")
-@export var LEFTRIGHT_nodeToMove: Node2D
-var wasColliding := false
-func _physics_processLEFTRIGHT(delta: float) -> void:
-  LEFTRIGHT_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
-
-# bouncy
-@export_group("BOUNCY")
-var BOUNCY_bouncing := false
-var BOUNCY_bounceState: float = 0
-var BOUNCY_bounceForce: float = 0
-
-func BOUNCY_start() -> void:
-  if BOUNCY_bouncing: return
-  BOUNCY_bouncing = true
-  BOUNCY_bounceState = 0
-  global.player.state = global.player.States.bouncing
-
-func _processBOUNCY(delta: float) -> void:
-  if respawning: return
-  if BOUNCY_bouncing:
-    if not BOUNCY_bounceForce:
-      BOUNCY_bounceForce = (scale.y * 7) * -2900
-    if BOUNCY_bounceState < 100:
-      # increase the bounce state more the farther from 50 the state is
-      BOUNCY_bounceState += max(.2, abs(BOUNCY_bounceState - 50) / 10.0) * delta * 300 / (scale.y * 21)
-    else:
-      # when the bouncing animation is done start bouncing the player
-      global.player.vel['bounce'] = Vector2(0, BOUNCY_bounceForce)
-      global.player.justAddedVels['bounce'] = 3
-      global.player.state = global.player.States.jumping
-      respawn()
-    if BOUNCY_bounceState <= 50:
-      # start by going down
-      var size: Vector2 = ghost.texture.get_size() * startScale
-      global_position.y = global.rerange(BOUNCY_bounceState, 0, 50, startPosition.y, startPosition.y + (size.y / 4.0))
-      scale.y = global.rerange(BOUNCY_bounceState, 0, 50, startScale.y, startScale.y / 2)
-    else:
-      # then go back up
-      var size: Vector2 = ghost.texture.get_size() * startScale
-      scale.y = global.rerange(BOUNCY_bounceState, 50, 100, startScale.y / 2, startScale.y)
-      global_position.y = global.rerange(BOUNCY_bounceState, 100, 50, startPosition.y, startPosition.y + (size.y / 4.0))
-
-    var node_pos := ghostIconNode.global_position
-    var node_size := ghostIconNode.texture.get_size() * scale
-    var top_edge := node_pos.y - node_size.y / 2
-
-    var playerGhost: Node2D = global.player.get_parent().ghost
-    var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
-
-    # move the player to the top center of the bouncy block
-    global.player.global_position.y = top_edge - (playerGhostSize.y / 2)
-    # global.player.global_position.x = node_pos.x
-
-# death
+# blocks
 @export_group("DEATH")
 func _on_body_enteredDEATH(body: Node) -> void:
   if body == global.player:
@@ -603,285 +471,6 @@ func _on_body_exitedDEATH(body: Node) -> void:
     if self in global.player.deathSources:
       global.player.deathSources.erase(self)
 
-# inner level
-@export_group("INNER LEVEL")
-@export var INNER_LEVEL_label: Node
-@export var INNER_LEVEL_sprite: Node2D
-var INNER_LEVEL_disabled := false
-
-func INNER_LEVEL_enterLevel() -> void:
-  if INNER_LEVEL_disabled: return
-  global.loadInnerLevel(selectedOptions.level)
-
-func _readyINNER_LEVEL() -> void:
-  INNER_LEVEL_disabled = false
-  var text: String = selectedOptions.level + "\nNEW"
-  if not selectedOptions.level:
-    text = "no level set"
-    INNER_LEVEL_disabled = true
-  elif not global.file.isFile(global.path.join(global.levelFolderPath, selectedOptions.level + '.sds')):
-    text = "invalid level\n" + selectedOptions.level
-    INNER_LEVEL_disabled = true
-  elif selectedOptions.requiredLevelCount > len(global.beatLevels):
-    text = "beat " + str(selectedOptions.requiredLevelCount - len(global.beatLevels)) + " more levels"
-    INNER_LEVEL_disabled = true
-  elif selectedOptions.level in global.beatLevels.map(func(e: Dictionary) -> String:
-    return e.name
-    ):
-    text = selectedOptions.level + "\nCOMPLETED"
-  elif selectedOptions.level == global.currentLevel().name:
-    text = "same as current level\n" + selectedOptions.level
-    INNER_LEVEL_disabled = true
-  elif selectedOptions.level not in global.levelOpts.stages:
-    text = "level settings not found\n" + selectedOptions.level
-    INNER_LEVEL_disabled = true
-  elif selectedOptions.level in global.loadedLevels.map(func(e: Dictionary) -> String:
-    return e.name
-    ):
-    text = "level already in path"
-    INNER_LEVEL_disabled = true
-  INNER_LEVEL_label.text = text
-
-# goal
-@export_group("GOAL")
-@export var GOAL_sprite: Node2D
-@export var GOAL_CollisionShape: Node2D
-func _readyGOAL() -> void:
-  if selectedOptions.requiredLevelCount > len(global.beatLevels):
-    GOAL_sprite.modulate = Color("#555")
-    GOAL_CollisionShape.disabled = true
-
-func _on_body_enteredGOAL(body: Node) -> void:
-  if body == global.player:
-    if selectedOptions.requiredLevelCount > len(global.beatLevels): return
-    global.win()
-
-# checkpoint
-@export_group("CHECKPOINT")
-@export var CHECKPOINT_sprite: Node2D
-func _on_body_enteredCHECKPOINT(body: Node) -> void:
-  if body == global.player and (getTexture(CHECKPOINT_sprite) == '1' or selectedOptions.multiUse):
-    global.savePlayerLevelData()
-    global.player.lastSpawnPoint = startPosition - global.player.get_parent().global_position
-    global.player.lightsOut = false
-    setTexture(CHECKPOINT_sprite, "2")
-    global.checkpoints = global.checkpoints.filter(func(e: Variant) -> bool:
-      return is_instance_valid(e))
-    for checkpoint in global.checkpoints:
-      if checkpoint == self: continue
-      if getTexture(checkpoint.CHECKPOINT_sprite) == '2':
-        setTexture(checkpoint.CHECKPOINT_sprite, '1' if checkpoint.selectedOptions.multiUse else '3')
-
-func _readyCHECKPOINT() -> void:
-  if not self in global.checkpoints:
-    global.checkpoints.append(self)
-  setTexture(CHECKPOINT_sprite, "1")
-
-# rotating buzsaw
-@export_group("ROTATING BUZSAW")
-@export var ROTATING_BUZSAW_nodeToSpin: Node2D
-func _physics_processROTATING_BUZSAW(delta: float) -> void:
-  spin(300, ROTATING_BUZSAW_nodeToSpin)
-
-# scythe
-@export_group("SCYTHE")
-@export var SCYTHE_nodeToSpin: Node2D
-func _physics_processSCYTHE(delta: float) -> void:
-  spin(-300, SCYTHE_nodeToSpin)
-
-# canon
-@export_group("CANON")
-func _on_body_enteredCANON(body: Node) -> void:
-  if body == global.player:
-    global.player.state = global.player.States.inCannon
-    global.player.global_position = ghostIconNode.global_position
-
-# speed up lever
-@export_group("SPEED UP LEVER")
-var SPEED_UP_LEVER_colliding := false
-
-func _on_body_enteredSPEED_UP_LEVER(body: Node) -> void:
-  SPEED_UP_LEVER_colliding = true
-func _on_body_exitedSPEED_UP_LEVER(body: Node) -> void:
-  SPEED_UP_LEVER_colliding = false
-
-# gravity up lever
-@export_group("GRAVITY UP LEVER")
-var GRAV_UP_LEVER_colliding := false
-
-func _on_body_enteredGRAV_UP_LEVER(body: Node) -> void:
-  if body == global.player:
-    GRAV_UP_LEVER_colliding = true
-func _on_body_exitedGRAV_UP_LEVER(body: Node) -> void:
-  if body == global.player:
-    GRAV_UP_LEVER_colliding = false
-
-# gravity down lever
-@export_group("GRAVITY DOWN LEVER")
-var GRAV_DOWN_LEVER_colliding := false
-
-func _on_body_enteredGRAV_DOWN_LEVER(body: Node) -> void:
-  if body == global.player:
-    GRAV_DOWN_LEVER_colliding = true
-func _on_body_exitedGRAV_DOWN_LEVER(body: Node) -> void:
-  if body == global.player:
-    GRAV_DOWN_LEVER_colliding = false
-
-func _input(event: InputEvent) -> void:
-  if Input.is_action_just_pressed("down"):
-    if is_in_group("grav down lever"):
-      if GRAV_DOWN_LEVER_colliding and global.player.state != global.player.States.pullingLever:
-        global.player.state = global.player.States.pullingLever
-        if global.player.gravState == global.player.GravStates.down:
-          global.player.gravState = global.player.GravStates.normal
-        else:
-          global.player.gravState = global.player.GravStates.down
-
-    if is_in_group("grav up lever"):
-      if GRAV_UP_LEVER_colliding and global.player.state != global.player.States.pullingLever:
-        global.player.state = global.player.States.pullingLever
-        if global.player.gravState == global.player.GravStates.up:
-          global.player.gravState = global.player.GravStates.normal
-        else:
-          global.player.gravState = global.player.GravStates.up
-
-# key
-@export_group("KEY")
-var KEY_following := false
-func _on_body_enteredKEY(body: Node) -> void:
-  if body == global.player and not KEY_following and not self in global.player.keys:
-    global.player.keys.append(self)
-    log.pp("key added", self)
-    KEY_following = true
-
-func _processKEY(delta: float) -> void:
-  if !KEY_following: return
-  global_position = global.player.global_position
-
-# invis
-@export_group("INVIS")
-func _on_body_enteredINVIS(body: Node) -> void:
-  pass
-
-# laser
-@export_group("LASER")
-func _on_body_enteredLASER(body: Node) -> void:
-  pass
-
-# light switch
-@export_group("LIGHT SWITCH")
-func _on_body_enteredLIGHT_SWITCH(body: Node) -> void:
-  if body == global.player:
-    global.player.lightsOut = true
-
-# locked box
-@export_group("LOCKED_BOX")
-# boxes can only be unlocked once per frame to prevent excessive key usage
-var LOCKED_BOX_unlocked := false
-func LOCKED_BOX_unlock() -> void:
-  if len(global.player.keys) and not LOCKED_BOX_unlocked:
-    LOCKED_BOX_unlocked = true
-    log.pp(global.player.keys)
-    var key: Node2D = global.player.keys.pop_back()
-    key.__disable()
-    __disable()
-    await global.wait()
-    LOCKED_BOX_unlocked = false
-
-# solar
-@export_group("SOLAR")
-func _physics_processSOLAR(delta: float) -> void:
-  if global.player.lightsOut:
-    __disable()
-  else:
-    __enable()
-
-# POLE
-@export_group("POLE")
-func _on_body_enteredPOLE(body: Node) -> void:
-  if global.player.state != global.player.States.swingingOnPole:
-    global.player.state = global.player.States.swingingOnPole
-
-# PULLEY
-@export_group("PULLEY")
-
-# star
-@export_group("STAR")
-func _readySTAR() -> void:
-  # log.pp(global.currentLevel().foundStar, global.currentLevel())
-  if global.currentLevel().foundStar:
-    await global.wait()
-    __disable.call_deferred()
-
-func _on_body_enteredSTAR(body: Node) -> void:
-  if body == global.player:
-    __disable.call_deferred()
-    global.starFound()
-
-# spark
-@export_group("SPARK")
-func _physics_processSPARK(delta: float) -> void:
-  pass
-
-# TARGETING_LASER
-@export_group("TARGETING_LASER")
-func _on_body_enteredTARGETING_LASER(body: Node) -> void:
-  pass
-func _on_body_exitedTARGETING_LASER(body: Node) -> void:
-  pass
-
-# CLOSING_SPIKES
-@export_group("CLOSING_SPIKES")
-@export var CLOSING_SPIKES_leftCollisionShape: CollisionShape2D
-@export var CLOSING_SPIKES_rightCollisionShape: CollisionShape2D
-@export var CLOSING_SPIKES_leftSprite: Sprite2D
-@export var CLOSING_SPIKES_rightSprite: Sprite2D
-
-func _physics_processCLOSING_SPIKES(delta: float) -> void:
-  rotation_degrees = 0
-  CLOSING_SPIKES_leftCollisionShape.global_position = startPosition + %collisionNode.global_position - global_position
-  CLOSING_SPIKES_rightCollisionShape.global_position = startPosition + %collisionNode.global_position - global_position
-
-  var newOffset := global.animate(80, [
-    {
-      "until": 120,
-      "from": - 189.0,
-      "to": - 400.0
-    },
-    {
-      "until": 130,
-      "from": - 400.0,
-      "to": - 189.0
-    },
-    {
-      "until": 160,
-      "from": - 189.0,
-      "to": - 189.0
-    }
-  ]) * scale.x
-
-  CLOSING_SPIKES_leftCollisionShape.global_position.x += newOffset
-  CLOSING_SPIKES_leftSprite.global_position.x = CLOSING_SPIKES_leftCollisionShape.global_position.x
-  CLOSING_SPIKES_rightCollisionShape.global_position.x -= newOffset
-  CLOSING_SPIKES_rightSprite.global_position.x = CLOSING_SPIKES_rightCollisionShape.global_position.x
-  rotation_degrees = startRotation_degrees
-
-# QUADRANT
-@export_group("QUADRANT")
-@export var QUADRANT_nodeToSpin: Node2D
-func _physics_processQUADRANT(delta: float) -> void:
-  spin(150, QUADRANT_nodeToSpin)
-
-# 10X_SPIKE
-@export_group("10X_SPIKE")
-func _ready10X_SPIKE() -> void:
-  # just setting it here doesnt work and i cant figure out why
-  # $Node2D.position = Vector2.ZERO
-  # await global.wait(1000)
-  # $Node2D.position = Vector2.ZERO
-  pass
-
-# buzsaw - generic
 @export_group("BUZSAW - GENERIC")
 @export var BUZSAW_GENERIC_spriteToRotateRight: Sprite2D
 @export var BUZSAW_GENERIC_spriteToRotateLeft: Sprite2D
@@ -890,11 +479,12 @@ func _processBUZSAW_GENERIC(delta: float) -> void:
   spin(speed, BUZSAW_GENERIC_spriteToRotateRight)
   spin(-speed, BUZSAW_GENERIC_spriteToRotateLeft)
 
-# falling spike
-@export_group("FALLING SPIKE")
-@export var FALLING_SPIKE_nodeToFall: Node2D
-var FALLING_SPIKE_falling: bool = false
-func _physics_processFALLING_SPIKE(delta: float) -> void:
-  var speed = 300.0
-  if FALLING_SPIKE_falling:
-    position += Vector2(0, -speed * delta).rotated(rotation)
+@export_group("MOVING BLOCKS")
+@export var MOVING_BLOCKS_nodeToMove: Node2D
+
+func _physics_processLEFTRIGHT(delta: float) -> void:
+  MOVING_BLOCKS_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
+func _physics_processUPDOWN(delta: float) -> void:
+  MOVING_BLOCKS_nodeToMove.global_position.y = startPosition.y + sin(global.tick * 1.5) * 200
+func _physics_processDOWNUP(delta: float) -> void:
+  MOVING_BLOCKS_nodeToMove.global_position.y = startPosition.y - sin(global.tick * 1.5) * 200

@@ -7,7 +7,7 @@ var startTime = 0
 
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
-  if !root.FALLING_falling: return
+  if !root.falling: return
   if not startTime:
     startTime = global.tick
   velocity.y += speed * delta

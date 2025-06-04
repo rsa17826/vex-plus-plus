@@ -1,22 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpaarl1n8cpb3"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_lmwpm"]
+[ext_resource type="Script" uid="uid://cgnhb1nfxpicv" path="res://scenes/blocks/inner level/inner level.gd" id="1_nkqjd"]
 [ext_resource type="Texture2D" uid="uid://bgtuqvcyjg8ro" path="res://scenes/blocks/inner level/images/2.png" id="2_nkqjd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "INNER_LEVEL_label", "INNER_LEVEL_sprite") groups=["EDITOR_OPTION_scale", "inner level"]]
+[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "inner level"]]
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
-script = ExtResource("1_lmwpm")
+script = ExtResource("1_nkqjd")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]
 hidableSprites = [NodePath("Sprite2D"), NodePath("Label")]
-INNER_LEVEL_label = NodePath("Label")
-INNER_LEVEL_sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true

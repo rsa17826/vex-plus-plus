@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://0uwmoocgxd8i"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_j74q6"]
+[ext_resource type="Script" uid="uid://cvf5megiwj84r" path="res://scenes/blocks/water/water.gd" id="1_4qql6"]
 [ext_resource type="Texture2D" uid="uid://bercyu1y2csww" path="res://scenes/blocks/water/images/1.png" id="2_8lfx0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -9,7 +9,7 @@ size = Vector2(700, 700)
 [node name="collisionNode" type="Area2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "water"]]
 collision_layer = 4
 collision_mask = 2
-script = ExtResource("1_j74q6")
+script = ExtResource("1_4qql6")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]
