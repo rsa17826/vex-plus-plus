@@ -373,10 +373,46 @@ func _process(delta: float) -> void:
           global.scaleOnLeftSide = onLeftSide
 
           # show what sides are being selected if editorInScaleMode and is scalable
-          ghost.material.set_shader_parameter("showTop", onTopSide || !global.editorInScaleMode or !is_in_group("EDITOR_OPTION_scale"))
-          ghost.material.set_shader_parameter("showBottom", onBottomSide || !global.editorInScaleMode or !is_in_group("EDITOR_OPTION_scale"))
-          ghost.material.set_shader_parameter("showLeft", onLeftSide || !global.editorInScaleMode or !is_in_group("EDITOR_OPTION_scale"))
-          ghost.material.set_shader_parameter("showRight", onRightSide || !global.editorInScaleMode or !is_in_group("EDITOR_OPTION_scale"))
+          ghost.material.set_shader_parameter("showTop",
+            (
+              onTopSide and
+              global.editorInScaleMode and
+              (
+                is_in_group("EDITOR_OPTION_scale") or
+                global.useropts.allowScalingAnything
+              )
+            )
+          )
+          ghost.material.set_shader_parameter("showBottom",
+            (
+              onBottomSide and
+              global.editorInScaleMode and
+              (
+                is_in_group("EDITOR_OPTION_scale") or
+                global.useropts.allowScalingAnything
+              )
+            )
+          )
+          ghost.material.set_shader_parameter("showLeft",
+            (
+              onLeftSide and
+              global.editorInScaleMode and
+              (
+                is_in_group("EDITOR_OPTION_scale") or
+                global.useropts.allowScalingAnything
+              )
+            )
+          )
+          ghost.material.set_shader_parameter("showRight",
+            (
+              onRightSide and
+              global.editorInScaleMode and
+              (
+                is_in_group("EDITOR_OPTION_scale") or
+                global.useropts.allowScalingAnything
+              )
+            )
+          )
           ghost.use_parent_material = false
         else:
           # __disable outline

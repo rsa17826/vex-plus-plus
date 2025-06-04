@@ -596,12 +596,16 @@ func localProcess(delta: float) -> void:
     player.moving = 2
 
     # when trying to rotate blocks
-    if editorInRotateMode && selectedBlock and selectedBlock.is_in_group("EDITOR_OPTION_rotate"):
+    if editorInRotateMode && selectedBlock \
+    and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
+    or global.useropts.allowRotatingAnything):
       selectedBlock.look_at(mpos)
       selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
       setBlockStartPos(selectedBlock)
     # when trying to scale blocks
-    elif editorInScaleMode && selectedBlock and selectedBlock.is_in_group("EDITOR_OPTION_scale"):
+    elif editorInScaleMode && selectedBlock \
+    and (selectedBlock.is_in_group("EDITOR_OPTION_scale") \
+    or global.useropts.allowScalingAnything):
       var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
 
       # get the edge position in px
@@ -1124,6 +1128,7 @@ var blockNames: Array = [
   "death boundary", # 1
   "block death boundary", # 1
   "basic - nowj", # .95
+  "nowj", # 0
 ]
 
 func localReady() -> void:
