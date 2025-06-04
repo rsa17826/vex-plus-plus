@@ -1170,8 +1170,8 @@ var blockNames: Array = [
   "ice", # 0
   "death boundary", # 1
   "block death boundary", # 1
-  "basic - nowj", # .95
-  "nowj", # 0
+  # "basic - nowj", # -.5
+  "nowj", # 1
 ]
 
 func localReady() -> void:
