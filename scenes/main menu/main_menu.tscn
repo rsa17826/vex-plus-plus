@@ -20,9 +20,9 @@ script = ExtResource("1_cbjxn")
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
 offset_left = 2.0
-offset_top = 490.24
+offset_top = 476.46
 offset_right = 1151.0
-offset_bottom = 613.975
+offset_bottom = 609.11
 metadata/_edit_lock_ = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
@@ -34,8 +34,9 @@ layout_mode = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
 layout_mode = 2
-offset_right = 445.0
-offset_bottom = 449.0
+offset_top = 24.175
+offset_right = 718.22
+offset_bottom = 454.73
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
 layout_mode = 2
@@ -81,12 +82,21 @@ vertical_alignment = 1
 
 [node name="Controls" parent="." instance=ExtResource("2_8w606")]
 layout_mode = 1
-offset_left = 688.0
+offset_left = 706.07
+offset_right = 18.0701
 offset_bottom = -170.0
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 use_threads = true
 timeout = 5.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 705.0
+offset_bottom = 26.0
+text = "OPTIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="HFlowContainer/new level btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="HFlowContainer/open level folder" to="." method="_on_open_level_folder_pressed"]

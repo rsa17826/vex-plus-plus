@@ -4,17 +4,13 @@ extends "res://scenes/blocks/editor.gd"
 const SPEED = 1000
 var direction = 0
 
-func _on_attach_detector_body_exited(body: Node2D) -> void:
-  if not %"has ceil".get_overlapping_bodies():
-    on_respawn()
-
 var moving = false
 
 func on_respawn():
   if moving:
     moving = false
     nodeToMove.position = Vector2.ZERO
-    if global.player.activePulley == nodeToMove:
+    if global.player.activePulley == self:
       global.player.state = global.player.States.falling
       global.player.activePulley = null
   # get_node("../attach detector").on_respawn()
@@ -31,7 +27,7 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
     "user":
       direction = -1 if global.player.get_node("anim").flip_h else 1
   moving = true
-  global.player.activePulley = nodeToMove
+  global.player.activePulley = self
   global.player.state = global.player.States.onPulley
 
 func on_physics_process(delta: float) -> void:
@@ -53,3 +49,7 @@ func generateBlockOpts():
     "right",
     "user"
   ]}
+
+func _on_has_ceil_body_exited(body: Node2D) -> void:
+  if not %"has ceil".get_overlapping_bodies():
+    on_respawn()

@@ -101,5 +101,4 @@ shape = SubResource("RectangleShape2D_svsk0")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
 [connection signal="body_entered" from="movable/player detector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_entered" from="movable/has ceil" to="movable" method="_on_attach_detector_body_entered"]
-[connection signal="body_exited" from="movable/has ceil" to="movable" method="_on_attach_detector_body_exited"]
+[connection signal="body_exited" from="movable/has ceil" to="." method="_on_has_ceil_body_exited"]
