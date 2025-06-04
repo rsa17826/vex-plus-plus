@@ -972,3 +972,4 @@ func _on_left_body_exited(body: Node2D) -> void:
 # make nowj blocks attach to any?
 
 # fix water bug by checking collisions on respawn end!
+# add nojump floor
