@@ -225,7 +225,7 @@ func _physics_process(delta: float) -> void:
     States.onPulley:
       vel.user = Vector2.ZERO
       var lastpos := global_position
-      global_position = activePulley.global_position + Vector2(0, 13)
+      global_position = activePulley.nodeToMove.global_position + Vector2(0, 13)
       $anim.position = Vector2(5, 5.145)
       $anim.position.x *= activePulley.direction
       $anim.flip_h = activePulley.direction == -1
@@ -240,7 +240,7 @@ func _physics_process(delta: float) -> void:
           $anim.animation = "on pulley"
           $anim.frame = 9
       if collsiionOn_right or collsiionOn_left:
-        activePulley.root.respawn()
+        activePulley.respawn()
         global_position = lastpos
       log.pp(pulleyNoDieTimer)
       if pulleyNoDieTimer <= 0:
