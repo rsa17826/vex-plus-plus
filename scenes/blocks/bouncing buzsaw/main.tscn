@@ -24,7 +24,7 @@ BUZSAW_GENERIC_spriteToRotateLeft = NodePath("CharacterBody2D/left rot")
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 collision_layer = 128
-collision_mask = 72
+collision_mask = 328
 script = ExtResource("2_ogg4d")
 root = NodePath("..")
 

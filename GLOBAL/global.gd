@@ -756,6 +756,7 @@ func localInput(event: InputEvent) -> void:
       justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
       setBlockStartPos(justPaintedBlock)
       localProcess(0)
+      lastSelectedBrush.selected = 0
       selectedBrush.selected = 0
       log.pp(justPaintedBlock.selectedOptions)
   if isActionJustPressedWithNoExtraMods("toggle_fullscreen"):
@@ -775,6 +776,7 @@ func localInput(event: InputEvent) -> void:
       level.save()
   if isActionPressedWithNoExtraMods("editor_delete"):
     if !selectedBlock: return
+    lastSelectedBrush = null
     hoveredBlocks.erase(selectedBlock)
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
