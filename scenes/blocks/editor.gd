@@ -22,6 +22,7 @@ extends Node2D
 # @flags gm
 # @endregex
 
+@export var EDITOR_IGNORE: bool = false
 @export var ghostIconNode: Sprite2D
 @export var editorBarIconNode: Sprite2D
 @export var collisionShapes: Array[CollisionShape2D]
@@ -52,15 +53,16 @@ func _on_mouse_exited() -> void:
   isHovered = false
 
 func respawn() -> void:
-  global_position = startPosition
-  rotation_degrees = startRotation_degrees
-  scale = startScale
-  lastMovementStep = Vector2.ZERO
-  respawning = 2
-  if self in global.player.keys:
-    global.player.keys.erase(self)
-  if cloneEventsHere and 'on_respawn' in cloneEventsHere:
-    cloneEventsHere.on_respawn()
+  if not EDITOR_IGNORE:
+    global_position = startPosition
+    rotation_degrees = startRotation_degrees
+    scale = startScale
+    lastMovementStep = Vector2.ZERO
+    respawning = 2
+    if self in global.player.keys:
+      global.player.keys.erase(self)
+    if cloneEventsHere and 'on_respawn' in cloneEventsHere:
+      cloneEventsHere.on_respawn()
   if 'on_respawn' in self:
     self.on_respawn.call()
 
@@ -71,29 +73,30 @@ var onRightSide := false
 
 var last_input_event: InputEvent
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-  if cloneEventsHere and 'on_on_input_event' in cloneEventsHere:
-    cloneEventsHere.on_on_input_event(viewport, event, shape_idx)
-  if last_input_event == event: return
-  last_input_event = event
-  # if selecting this block
-  if global.hoveredBlocks && self == global.hoveredBlocks[0]:
-    if !Input.is_action_pressed("editor_pan"):
-      # edit block menu on rbutton
-      if event.is_action_pressed("editor_edit_special") && Input.is_action_just_pressed("editor_edit_special") and not global.openMsgBoxCount:
-        # log.pp(event.to_string(), shape_idx, viewport)
-        if not pm: return
-        # log.pp(blockOptions, event.as_text(), self, self.name)
-        var i := 0
-        for k: String in blockOptions:
-          pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type] + " = " + str(selectedOptions[k]))
-          i += 1
-        pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
+  if not EDITOR_IGNORE:
+    if cloneEventsHere and 'on_on_input_event' in cloneEventsHere:
+      cloneEventsHere.on_on_input_event(viewport, event, shape_idx)
+    if last_input_event == event: return
+    last_input_event = event
+    # if selecting this block
+    if global.hoveredBlocks && self == global.hoveredBlocks[0]:
+      if !Input.is_action_pressed("editor_pan"):
+        # edit block menu on rbutton
+        if event.is_action_pressed("editor_edit_special") && Input.is_action_just_pressed("editor_edit_special") and not global.openMsgBoxCount:
+          # log.pp(event.to_string(), shape_idx, viewport)
+          if not pm: return
+          # log.pp(blockOptions, event.as_text(), self, self.name)
+          var i := 0
+          for k: String in blockOptions:
+            pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type] + " = " + str(selectedOptions[k]))
+            i += 1
+          pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
 
-      # select blocks when clicking them
-      elif event.is_action_pressed("editor_select") && Input.is_action_just_pressed("editor_select"):
-        respawn()
-        global_position = startPosition
-        global.selectBlock()
+        # select blocks when clicking them
+        elif event.is_action_pressed("editor_select") && Input.is_action_just_pressed("editor_select"):
+          respawn()
+          global_position = startPosition
+          global.selectBlock()
 
 func _on_body_exited(body: Node2D) -> void:
   if global.player.state == global.player.States.dead and body == global.player: return
@@ -163,35 +166,36 @@ func _ready() -> void:
     cloneEventsHere.on_ready()
   if 'on_ready' in self:
     self.on_ready.call()
-  if _ready not in global.player.OnPlayerFullRestart:
-    global.player.OnPlayerFullRestart.append(_ready)
-  if is_in_group("respawnOnPlayerDeath"):
-    if _ready not in global.player.OnPlayerDied:
-      global.player.OnPlayerDied.append(_ready)
+  if not EDITOR_IGNORE:
+    if _ready not in global.player.OnPlayerFullRestart:
+      global.player.OnPlayerFullRestart.append(_ready)
+    if is_in_group("respawnOnPlayerDeath"):
+      if _ready not in global.player.OnPlayerDied:
+        global.player.OnPlayerDied.append(_ready)
 
-  blockOptions = {}
-  if not collisionShapes:
-    if get_node_or_null("CollisionShape2D"):
-      collisionShapes = [$CollisionShape2D]
-    else:
-      log.err("collisionShapes is null", self, name)
-      breakpoint
-  if not ghost:
-    createEditorGhost()
-  if 'generateBlockOpts' in self:
-    self.generateBlockOpts.call()
+    blockOptions = {}
+    if not collisionShapes:
+      if get_node_or_null("CollisionShape2D"):
+        collisionShapes = [$CollisionShape2D]
+      else:
+        log.err("collisionShapes is null", self, name)
+        breakpoint
+    if not ghost:
+      createEditorGhost()
+    if 'generateBlockOpts' in self:
+      self.generateBlockOpts.call()
 
-  if is_in_group("attaches to things"):
-    blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
+    if is_in_group("attaches to things"):
+      blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
 
-  if global.useropts.allowCustomColors:
-    blockOptions.color = {"type": global.PromptTypes.string, "default": "#fff"}
-  setupOptions()
-  
-  __enable.call_deferred()
-  respawn.call_deferred()
-  if global.useropts.allowCustomColors:
-    self.modulate = Color(selectedOptions.color)
+    if global.useropts.allowCustomColors:
+      blockOptions.color = {"type": global.PromptTypes.string, "default": "#fff"}
+    setupOptions()
+    
+    __enable.call_deferred()
+    respawn.call_deferred()
+    if global.useropts.allowCustomColors:
+      self.modulate = Color(selectedOptions.color)
 
 func toType(opt: Variant) -> void:
   match blockOptions[opt].type:
@@ -263,144 +267,146 @@ func _physics_process(delta: float) -> void:
     cloneEventsHere.on_physics_process(delta)
   if 'on_physics_process' in self:
     self.on_physics_process.call(delta)
-  if respawning:
-    lastMovementStep = Vector2.ZERO
-  else:
-    if thingThatMoves:
-      lastMovementStep = thingThatMoves.global_position - lastpos
+  if not EDITOR_IGNORE:
+    if respawning:
+      lastMovementStep = Vector2.ZERO
     else:
-      lastMovementStep = global_position - lastpos
-  if respawning:
-    respawning -= 1
-  if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
-    cloneEventsHere.postMovementStep()
+      if thingThatMoves:
+        lastMovementStep = thingThatMoves.global_position - lastpos
+      else:
+        lastMovementStep = global_position - lastpos
+    if respawning:
+      respawning -= 1
+    if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
+      cloneEventsHere.postMovementStep()
 
 func _process(delta: float) -> void:
-  if global.openMsgBoxCount: return
-  if global.player.state == global.player.States.dead:
-    respawn()
-    return
-  if is_in_group("buzsaw - generic"):
-    _processBUZSAW_GENERIC(delta)
+  if not EDITOR_IGNORE:
+    if global.openMsgBoxCount: return
+    if global.player.state == global.player.States.dead:
+      respawn()
+      return
+    if is_in_group("buzsaw - generic"):
+      _processBUZSAW_GENERIC(delta)
 
-  if isHovered:
-    if self not in global.hoveredBlocks:
-      global.hoveredBlocks.append(self)
-  else:
-    if self in global.hoveredBlocks:
-      global.hoveredBlocks.erase(self)
-
-  if ghostFollowNode == self:
-    ghost.rotation_degrees = 0
-  else:
-    ghost.global_position = ghostFollowNode.global_position
-    ghost.rotation_degrees = ghostFollowNode.rotation_degrees
-  ghost.use_parent_material = true
-  ghost.self_modulate.a = global.useropts.blockGhostAlpha
-
-  ghost.visible = global.showEditorUi
-  if global.showEditorUi and not Input.is_action_pressed("editor_pan"):
-    if global.selectedBlock == self:
-      if Input.is_action_pressed("editor_select"):
-        global_position = startPosition
-      for collider in collisionShapes:
-        if not collider:
-          log.pp(collider, collisionShapes, id)
-          breakpoint
-        collider.disabled = true
-      ghost.use_parent_material = false
-      ghost.material.set_shader_parameter("color", Color("#6013ff"))
+    if isHovered:
+      if self not in global.hoveredBlocks:
+        global.hoveredBlocks.append(self)
     else:
-      # if not mouse down
-      if !Input.is_action_pressed("editor_select"):
-        if not _DISABLED:
-          for collider in collisionShapes:
-            if not collider:
-              log.pp("invalid collisionShapes", collider, collisionShapes, id)
-              breakpoint
-            collider.disabled = false
-        # set border to hovered color
-        ghost.material.set_shader_parameter("color", Color("#6e6e00"))
-        # and if first hovered block, show border
-        if global.hoveredBlocks && self == global.hoveredBlocks[0]:
-          var mouse_pos := get_global_mouse_position()
+      if self in global.hoveredBlocks:
+        global.hoveredBlocks.erase(self)
 
-          var node_pos := ghost.global_position
-          var node_size: Vector2 = ghost.texture.get_size() * ghost.scale * scale
-          var left_edge := node_pos.x - node_size.x / 2
-          var right_edge := node_pos.x + node_size.x / 2
-          var top_edge := node_pos.y - node_size.y / 2
-          var bottom_edge := node_pos.y + node_size.y / 2
+    if ghostFollowNode == self:
+      ghost.rotation_degrees = 0
+    else:
+      ghost.global_position = ghostFollowNode.global_position
+      ghost.rotation_degrees = ghostFollowNode.rotation_degrees
+    ghost.use_parent_material = true
+    ghost.self_modulate.a = global.useropts.blockGhostAlpha
 
-          var leftDist: float = abs(mouse_pos.x - left_edge)
-          var rightDist: float = abs(mouse_pos.x - right_edge)
-          var topDist: float = abs(mouse_pos.y - top_edge)
-          var bottomDist: float = abs(mouse_pos.y - bottom_edge)
-          var testDist := 7
+    ghost.visible = global.showEditorUi
+    if global.showEditorUi and not Input.is_action_pressed("editor_pan"):
+      if global.selectedBlock == self:
+        if Input.is_action_pressed("editor_select"):
+          global_position = startPosition
+        for collider in collisionShapes:
+          if not collider:
+            log.pp(collider, collisionShapes, id)
+            breakpoint
+          collider.disabled = true
+        ghost.use_parent_material = false
+        ghost.material.set_shader_parameter("color", Color("#6013ff"))
+      else:
+        # if not mouse down
+        if !Input.is_action_pressed("editor_select"):
+          if not _DISABLED:
+            for collider in collisionShapes:
+              if not collider:
+                log.pp("invalid collisionShapes", collider, collisionShapes, id)
+                breakpoint
+              collider.disabled = false
+          # set border to hovered color
+          ghost.material.set_shader_parameter("color", Color("#6e6e00"))
+          # and if first hovered block, show border
+          if global.hoveredBlocks && self == global.hoveredBlocks[0]:
+            var mouse_pos := get_global_mouse_position()
 
-          # set the sides that you are close enough to to be selecting
-          onTopSide = topDist < testDist
-          onBottomSide = bottomDist < testDist
-          onLeftSide = leftDist < testDist
-          onRightSide = rightDist < testDist
+            var node_pos := ghost.global_position
+            var node_size: Vector2 = ghost.texture.get_size() * ghost.scale * scale
+            var left_edge := node_pos.x - node_size.x / 2
+            var right_edge := node_pos.x + node_size.x / 2
+            var top_edge := node_pos.y - node_size.y / 2
+            var bottom_edge := node_pos.y + node_size.y / 2
 
-          # store the selected sides in global
-          global.scaleOnTopSide = onTopSide
-          global.scaleOnBottomSide = onBottomSide
-          global.scaleOnRightSide = onRightSide
-          global.scaleOnLeftSide = onLeftSide
+            var leftDist: float = abs(mouse_pos.x - left_edge)
+            var rightDist: float = abs(mouse_pos.x - right_edge)
+            var topDist: float = abs(mouse_pos.y - top_edge)
+            var bottomDist: float = abs(mouse_pos.y - bottom_edge)
+            var testDist := 7
 
-          # show what sides are being selected if editorInScaleMode and is scalable
-          ghost.material.set_shader_parameter("showTop",
-            (
-              onTopSide and
-              global.editorInScaleMode and
+            # set the sides that you are close enough to to be selecting
+            onTopSide = topDist < testDist
+            onBottomSide = bottomDist < testDist
+            onLeftSide = leftDist < testDist
+            onRightSide = rightDist < testDist
+
+            # store the selected sides in global
+            global.scaleOnTopSide = onTopSide
+            global.scaleOnBottomSide = onBottomSide
+            global.scaleOnRightSide = onRightSide
+            global.scaleOnLeftSide = onLeftSide
+
+            # show what sides are being selected if editorInScaleMode and is scalable
+            ghost.material.set_shader_parameter("showTop",
               (
-                is_in_group("EDITOR_OPTION_scale") or
-                global.useropts.allowScalingAnything
+                onTopSide and
+                global.editorInScaleMode and
+                (
+                  is_in_group("EDITOR_OPTION_scale") or
+                  global.useropts.allowScalingAnything
+                )
               )
             )
-          )
-          ghost.material.set_shader_parameter("showBottom",
-            (
-              onBottomSide and
-              global.editorInScaleMode and
+            ghost.material.set_shader_parameter("showBottom",
               (
-                is_in_group("EDITOR_OPTION_scale") or
-                global.useropts.allowScalingAnything
+                onBottomSide and
+                global.editorInScaleMode and
+                (
+                  is_in_group("EDITOR_OPTION_scale") or
+                  global.useropts.allowScalingAnything
+                )
               )
             )
-          )
-          ghost.material.set_shader_parameter("showLeft",
-            (
-              onLeftSide and
-              global.editorInScaleMode and
+            ghost.material.set_shader_parameter("showLeft",
               (
-                is_in_group("EDITOR_OPTION_scale") or
-                global.useropts.allowScalingAnything
+                onLeftSide and
+                global.editorInScaleMode and
+                (
+                  is_in_group("EDITOR_OPTION_scale") or
+                  global.useropts.allowScalingAnything
+                )
               )
             )
-          )
-          ghost.material.set_shader_parameter("showRight",
-            (
-              onRightSide and
-              global.editorInScaleMode and
+            ghost.material.set_shader_parameter("showRight",
               (
-                is_in_group("EDITOR_OPTION_scale") or
-                global.useropts.allowScalingAnything
+                onRightSide and
+                global.editorInScaleMode and
+                (
+                  is_in_group("EDITOR_OPTION_scale") or
+                  global.useropts.allowScalingAnything
+                )
               )
             )
-          )
-          ghost.use_parent_material = false
-        else:
-          # __disable outline
-          ghost.use_parent_material = true
-  if 'on_process' in self:
-    self.on_process.call(delta)
-  # if is_in_group("bouncy"):
-  #   _processBOUNCY(delta)
-  # if is_in_group("key"):
-  #   _processKEY(delta)
+            ghost.use_parent_material = false
+          else:
+            # __disable outline
+            ghost.use_parent_material = true
+    if 'on_process' in self:
+      self.on_process.call(delta)
+    # if is_in_group("bouncy"):
+    #   _processBOUNCY(delta)
+    # if is_in_group("key"):
+    #   _processKEY(delta)
 
 func createEditorGhost() -> void:
   if not ghostIconNode:
