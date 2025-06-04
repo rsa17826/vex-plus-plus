@@ -6,6 +6,8 @@ var tempGroups = []
 
 func on_respawn():
   # root.position = Vector2.ZERO
+  for group in tempGroups:
+    root.remove_from_group(group)
   await global.wait()
   clearAllGroups()
   if not root or 'selectedOptions' not in root or 'attachesToThings' not in root.selectedOptions:

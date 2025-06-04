@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bqlhgiqwjyveu"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_q34el"]
+[ext_resource type="Script" uid="uid://bw67yi3f0dlnb" path="res://scenes/blocks/star/star.gd" id="1_yus2l"]
 [ext_resource type="Texture2D" uid="uid://d4nv6nuio58a2" path="res://scenes/blocks/star/images/1.png" id="2_q34el"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_yus2l"]
 
@@ -10,16 +10,13 @@ radius = 67.1863
 [sub_resource type="CircleShape2D" id="CircleShape2D_urqaa"]
 radius = 130.138
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "star"]]
-script = ExtResource("1_q34el")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["attaches to things", "star"]]
+script = ExtResource("1_yus2l")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
-UPDOWN_nodeToMove = NodePath("collisionNode")
-DOWNUP_nodeToMove = NodePath("collisionNode")
-LEFTRIGHT_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0

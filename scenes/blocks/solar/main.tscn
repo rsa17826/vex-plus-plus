@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d22b7flpok0dj"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_5wy6m"]
+[ext_resource type="Script" uid="uid://dnxea7h2f54um" path="res://scenes/blocks/solar/solar.gd" id="1_bxmnj"]
 [ext_resource type="Texture2D" uid="uid://bwsetcl3xh631" path="res://scenes/blocks/solar/images/1.png" id="2_5qqdf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -10,7 +10,7 @@ size = Vector2(700, 700)
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
-script = ExtResource("1_5wy6m")
+script = ExtResource("1_bxmnj")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b6akl5c6ei5rm"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_nf10b"]
+[ext_resource type="Script" uid="uid://fbe4j4u7vbs4" path="res://scenes/blocks/locked box/locked box.gd" id="1_86w3e"]
 [ext_resource type="Texture2D" uid="uid://mn65hn4gu42" path="res://scenes/blocks/locked box/images/1.png" id="2_n1jcy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -10,7 +10,7 @@ size = Vector2(700, 700)
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
-script = ExtResource("1_nf10b")
+script = ExtResource("1_86w3e")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]

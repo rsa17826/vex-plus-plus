@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://3b5rdxoob147"]
+[gd_scene load_steps=9 format=3 uid="uid://3b5rdxoob147"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_omc7y"]
 [ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/Pulley/images/1.png" id="2_omc7y"]
-[ext_resource type="Script" uid="uid://d0hbi4vguc5oe" path="res://scenes/blocks/Pulley/pulley.gd" id="2_u2153"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_svsk0"]
+
+[sub_resource type="GDScript" id="GDScript_omc7y"]
+script/source = "extends \"res://scenes/blocks/editor.gd\"
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2153"]
 radius = 34.0
@@ -20,21 +22,16 @@ size = Vector2(10, 50)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
 size = Vector2(20, 5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "pulley", "respawnOnPlayerDeath"]]
-script = ExtResource("1_omc7y")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "pulley", "respawnOnPlayerDeath"]]
+script = SubResource("GDScript_omc7y")
 ghostIconNode = NodePath("movable/Sprite2D")
 editorBarIconNode = NodePath("movable/Sprite2D")
-collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
+collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("movable/wall to side with player off/CollisionShape2D"), NodePath("movable/wall to side with player off/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("movable/Sprite2D")]
-cloneEventsHere = NodePath("movable")
-thingThatMoves = NodePath("movable")
-UPDOWN_nodeToMove = NodePath("movable")
-DOWNUP_nodeToMove = NodePath("movable")
-LEFTRIGHT_nodeToMove = NodePath("movable")
+cloneEventsHere = NodePath("attach detector")
+MOVING_BLOCKS_nodeToMove = NodePath("movable")
 
-[node name="movable" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-script = ExtResource("2_u2153")
-root = NodePath("..")
+[node name="movable" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="movable"]
 use_parent_material = true

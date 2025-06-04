@@ -735,16 +735,16 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
     and velocity.y >= 0 \
     and not inWaters \
     :
-      block.BOUNCY_start()
+      block.start()
     if block.is_in_group("inner level") \
     and normal.y < 0 \
     and state == States.sliding \
     and abs(vel.user.x) < 10 \
     :
-      block.INNER_LEVEL_enterLevel()
+      block.enterLevel()
     if block.is_in_group("locked box") \
     :
-      block.LOCKED_BOX_unlock()
+      block.unlock()
     if block.is_in_group("pushable") \
     and getClosestWallSide() \
     and Input.is_action_just_pressed("down") \

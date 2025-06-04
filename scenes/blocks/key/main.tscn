@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cd5baobrxqhbw"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_endad"]
+[ext_resource type="Script" uid="uid://bcvl8455g1nub" path="res://scenes/blocks/key/key.gd" id="1_h0pg7"]
 [ext_resource type="Texture2D" uid="uid://kywba612hr3v" path="res://scenes/blocks/key/images/1.png" id="2_endad"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_h0pg7"]
 
@@ -11,16 +11,14 @@ height = 302.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ctm0x"]
 radius = 155.013
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "key", "respawnOnPlayerDeath"]]
-script = ExtResource("1_endad")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "key", "respawnOnPlayerDeath"]]
+script = ExtResource("1_h0pg7")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
-UPDOWN_nodeToMove = NodePath("collisionNode")
-DOWNUP_nodeToMove = NodePath("collisionNode")
-LEFTRIGHT_nodeToMove = NodePath("collisionNode")
+MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 metadata/_edit_group_ = true
 
 [node name="collisionNode" type="Area2D" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://5od8d4wti2hf"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_k0wwf"]
+[ext_resource type="Script" uid="uid://bc6jr1lmgmcnr" path="res://scenes/blocks/bouncy/bouncy.gd" id="1_7c4dh"]
 [ext_resource type="Texture2D" uid="uid://6rogovj55hwg" path="res://scenes/blocks/bouncy/images/1.png" id="2_gtnmy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -10,7 +10,7 @@ size = Vector2(700, 700)
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
-script = ExtResource("1_k0wwf")
+script = ExtResource("1_7c4dh")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]

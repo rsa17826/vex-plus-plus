@@ -1,6 +1,6 @@
-extends Node2D
+extends "res://scenes/blocks/editor.gd"
 
-@export var root: Node2D = null
+@export var nodeToMove: Node2D = null
 const SPEED = 1000
 var direction = 0
 
@@ -13,17 +13,17 @@ var moving = false
 func on_respawn():
   if moving:
     moving = false
-    position = Vector2.ZERO
+    nodeToMove.position = Vector2.ZERO
     if global.player.activePulley == self:
       global.player.state = global.player.States.falling
       global.player.activePulley = null
-  get_node("../attach detector").on_respawn()
+  # get_node("../attach detector").on_respawn()
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
-  log.pp(body, root.respawning, moving)
-  if root.respawning or not len(get_node("has ceil").get_overlapping_bodies()):
+  log.pp(body, respawning, moving)
+  if respawning or not len(get_node("has ceil").get_overlapping_bodies()):
     return
-  match root.selectedOptions.direction:
+  match selectedOptions.direction:
     "right":
       direction = 1
     "left":
@@ -35,12 +35,12 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
   global.player.state = global.player.States.onPulley
 
 func _physics_process(delta: float) -> void:
-  if root.respawning:
+  if respawning:
     moving = false
     return
   if not moving:
     return
-  position.x += SPEED * delta * direction
+  nodeToMove.position.x += SPEED * delta * direction
   if global.player.state == global.player.States.onPulley and \
   len(get_node(
     "wall to side with player on"
@@ -50,3 +50,10 @@ func _physics_process(delta: float) -> void:
     "wall to side with player off"
   ).get_overlapping_bodies()):
     on_respawn()
+
+func generateBlockOpts():
+  blockOptions.direction = {"type": global.PromptTypes.singleArr, "default": "right", "values": [
+    "left",
+    "right",
+    "user"
+  ]}

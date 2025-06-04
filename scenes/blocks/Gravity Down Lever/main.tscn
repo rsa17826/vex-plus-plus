@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://uefukhdqjyie"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_ojdwy"]
+[ext_resource type="Script" uid="uid://db3snpxonsof5" path="res://scenes/blocks/Gravity Down Lever/Gravity Down Lever.gd" id="1_oqijp"]
 [ext_resource type="Texture2D" uid="uid://dufuojdb0lfav" path="res://scenes/blocks/Gravity Down Lever/images/1.png" id="2_ojdwy"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_oqijp"]
 
@@ -10,16 +10,14 @@ size = Vector2(152, 151.143)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o6102"]
 size = Vector2(88, 9.5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "UPDOWN_nodeToMove", "DOWNUP_nodeToMove", "LEFTRIGHT_nodeToMove") groups=["attaches to things", "grav down lever", "respawnOnPlayerDeath"]]
-script = ExtResource("1_ojdwy")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "grav down lever", "respawnOnPlayerDeath"]]
+script = ExtResource("1_oqijp")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
-UPDOWN_nodeToMove = NodePath("collisionNode")
-DOWNUP_nodeToMove = NodePath("collisionNode")
-LEFTRIGHT_nodeToMove = NodePath("collisionNode")
+MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 0
