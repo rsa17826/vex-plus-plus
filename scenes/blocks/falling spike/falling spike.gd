@@ -5,6 +5,7 @@ extends "res://scenes/blocks/editor.gd"
 
 var respawnTimer = 0
 const RESPAWN_TIME = 40
+const speed = 3500.0
 
 func on_respawn():
   falling = false
@@ -16,15 +17,16 @@ var falling: bool = false
 
 func on_physics_process(delta: float) -> void:
   if respawnTimer > 0:
+    respawning = 2
     log.pp(scale)
     respawnTimer -= delta * 60
     if respawnTimer < 0:
+      respawning = 0
       respawnTimer = 0
     scale = global.rerange(respawnTimer, RESPAWN_TIME, 0, Vector2(.1, .1), Vector2(1, 1)) / 7
     return
-  var speed = 300.0
   if falling:
-    position += Vector2(0, -speed * delta).rotated(rotation)
+    $Node2D.position += Vector2(0, -speed * delta)
 
 func _on_floor_detection_body_entered(body: Node2D) -> void:
   %"attach detector".enableAllGroups()

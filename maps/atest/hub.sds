@@ -14,4 +14,28 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(30.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(falling spike)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(265.0)
+    STR(y)FLOAT(20.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-90.0)
+    STR(id)STR(falling spike)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

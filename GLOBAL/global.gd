@@ -1402,6 +1402,7 @@ var blockNames: Array = [
   "closing spikes", # 1
   "Gravity Down Lever", # 1
   "Gravity up Lever", # 1
+  "speed Up Lever", # 0
   # "growing buzsaw", # 0
   "key", # 1
   # "laser", # 0
@@ -1413,7 +1414,6 @@ var blockNames: Array = [
   "Rotating Buzzsaw", # 1
   "Scythe", # 1
   # "shurikan Spawner", # .1
-  "speed Up Lever", # 0
   "star", # .8
   # "targeting laser", # 0
   # "ice", # 0
