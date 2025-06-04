@@ -1172,6 +1172,7 @@ var blockNames: Array = [
   "block death boundary", # 1
   # "basic - nowj", # -.5
   "nowj", # 1
+  "falling spike", # 0
 ]
 
 func localReady() -> void:
