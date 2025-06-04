@@ -102,12 +102,12 @@
     }
   }
   STR(vex 3){
-    STR(playerDelogPosition)VEC2(484.074829101563,-218.064666748047)
-    STR(lastSpawnPoint)VEC2(480.408203125,-282.490600585938)
+    STR(playerDelogPosition)VEC2(484.074829101563,-226.13557434082)
+    STR(lastSpawnPoint)VEC2(-144.5927734375,358.425262451172)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
-        STR(spawnPoint)VEC2(-151.953765869141,358.42529296875)
+        STR(spawnPoint)VEC2(-144.5927734375,358.425262451172)
         STR(foundStar)BOOL(false)
       }
     ]
@@ -115,34 +115,34 @@
       {
         STR(name)STR(stage 1)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
+        STR(foundStar)BOOL(true)
       }
       {
         STR(name)STR(stage 2)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(true)
+        STR(foundStar)BOOL(false)
       }
     ]
     STR(levels){
       STR(hub){
         STR(name)STR(hub)
-        STR(spawnPoint)VEC2(-151.953765869141,358.42529296875)
+        STR(spawnPoint)VEC2(-144.5927734375,358.425262451172)
         STR(foundStar)BOOL(false)
       }
       STR(stage 1){
         STR(name)STR(stage 1)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
+        STR(foundStar)BOOL(true)
       }
       STR(stage 2){
         STR(name)STR(stage 2)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(true)
+        STR(foundStar)BOOL(false)
       }
     }
   }
   STR(vex 3 copy){
-    STR(playerDelogPosition)VEC2(-333.25830078125,-517.598022460938)
+    STR(playerDelogPosition)VEC2(-333.25830078125,-517.242431640625)
     STR(lastSpawnPoint)VEC2(0.0,0.0)
     STR(loadedLevels)[
       {
@@ -171,8 +171,8 @@
     }
   }
   STR(real map){
-    STR(playerDelogPosition)VEC2(902.750427246094,-616.557434082031)
-    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(playerDelogPosition)VEC2(1511.33337402344,-429.066650390625)
+    STR(lastSpawnPoint)VEC2(1515.0,-420.0)
     STR(loadedLevels)[
       {
         STR(name)STR(main)

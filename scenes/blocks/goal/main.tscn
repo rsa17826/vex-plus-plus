@@ -257,8 +257,10 @@ size = Vector2(294, 412)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfxqp"]
 size = Vector2(318, 439)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "attaches to things", "goal"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "CollisionShape", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "attaches to things", "goal"]]
 script = ExtResource("1_0d1cd")
+sprite = NodePath("collisionNode/AnimatedSprite2D")
+CollisionShape = NodePath("collisionNode/CollisionShape2D")
 ghostIconNode = NodePath("collisionNode/editorBar")
 editorBarIconNode = NodePath("collisionNode/editorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
