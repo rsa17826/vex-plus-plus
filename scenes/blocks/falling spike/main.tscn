@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dlnbosqoolh23" path="res://scenes/blocks/falling spike/player_detector.gd" id="5_4c23b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrsct"]
-size = Vector2(42, 92)
+size = Vector2(42, 74)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2sap"]
 size = Vector2(73, 18)
@@ -37,7 +37,7 @@ use_parent_material = true
 texture = ExtResource("2_dnmi0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
-position = Vector2(0, 15)
+position = Vector2(0, 24)
 shape = SubResource("RectangleShape2D_xrsct")
 debug_color = Color(1, 0, 0, 0.419608)
 

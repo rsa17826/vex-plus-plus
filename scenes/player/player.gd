@@ -244,7 +244,8 @@ func _physics_process(delta: float) -> void:
         global_position = lastpos
       log.pp(pulleyNoDieTimer)
       if pulleyNoDieTimer <= 0:
-        if len(deathSources):
+        if len(deathSources.filter(func(e):
+          return !e.respawning)):
           die()
 
       if Input.is_action_just_pressed("down") or inWaters:
@@ -307,7 +308,8 @@ func _physics_process(delta: float) -> void:
 
         wasJustInWater = true
         move_and_slide()
-        if len(deathSources):
+        if len(deathSources.filter(func(e):
+          return !e.respawning)):
           die()
       else:
         floor_snap_length = 5
@@ -683,7 +685,8 @@ func _physics_process(delta: float) -> void:
         or (len(collsiionOn_left) and len(collsiionOn_right)):
           log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
           die()
-        if len(deathSources):
+        if  len(deathSources.filter(func(e):
+          return !e.respawning)):
           die()
   if !global.showEditorUi:
     var changeInPosition: Vector2 = global_position - frameStartPosition
@@ -973,3 +976,4 @@ func _on_left_body_exited(body: Node2D) -> void:
 
 # fix water bug by checking collisions on respawn end!
 # add nojump floor
+# add 2x jump option?
