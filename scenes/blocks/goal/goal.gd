@@ -15,4 +15,3 @@ func on_body_entered(body: Node) -> void:
 
 func generateBlockOpts():
   blockOptions.requiredLevelCount = {"type": global.PromptTypes.int, "default": 0}
-  
