@@ -135,6 +135,7 @@ func _input(event: InputEvent) -> void:
   if event is InputEventMouseMotion:
     global.showEditorUi = true
   if Input.is_action_pressed("editor_pan"):
+    global.showEditorUi = true
     Input.set_default_cursor_shape(Input.CURSOR_DRAG)
   else:
     if global.showEditorUi:
@@ -166,7 +167,7 @@ func _input(event: InputEvent) -> void:
         Input.warp_mouse(mousePos * global.stretchScale)
     camLockPos = $Camera2D.global_position
 
-  if state != States.dead and not Input.is_key_pressed(KEY_CTRL):
+  if state != States.dead and not Input.is_key_pressed(KEY_CTRL) and global.showEditorUi:
     for action: String in ["right", "jump", "down", "left"]:
       if Input.is_action_pressed(action):
         global.showEditorUi = false
@@ -686,29 +687,30 @@ func _physics_process(delta: float) -> void:
   if !global.showEditorUi:
     var changeInPosition: Vector2 = global_position - frameStartPosition
     var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
-    if maxVel > 20:
-      var smoothingFactor: float = global.rerange(maxVel, 0, 400, 5, 19)
-
-      smoothingFactor = clamp(smoothingFactor, 5, 19)
-
-      # var startPos = $Camera2D.position
-      # $Camera2D.position = changeInPosition
-      $Camera2D.position -= ($Camera2D.position - changeInPosition) * 2 * delta
-      # Vector2(
-      #   pow(changeInPosition.x,1) * 3.7,
-      #   pow(changeInPosition.y,1) * 3.7
-      # )
-      # # $Camera2D.position -= $Camera2D.position * delta * 20
-      # if ($Camera2D.position.x > 0) != (startPos.x > 0):
-      #   $Camera2D.position.x = 0
-      # if ($Camera2D.position.y > 0) != (startPos.y > 0):
-      #   $Camera2D.position.y = 0
-      $Camera2D.position_smoothing_speed = smoothingFactor
-      log.pp($Camera2D.position, changeInPosition)
+    if maxVel > 50:
       $Camera2D.position_smoothing_enabled = false
     else:
       $Camera2D.position_smoothing_enabled = true
-      $Camera2D.position -= $Camera2D.position * .1 * delta
+      $Camera2D.position_smoothing_speed = clamp(maxVel, 5, 50)
+    # var smoothingFactor: float = global.rerange(maxVel, 0, 400, 5, 19)
+
+    # smoothingFactor = clamp(smoothingFactor, 5, 19)
+
+    # var startPos = $Camera2D.position
+    # $Camera2D.position = changeInPosition
+    $Camera2D.position -= ($Camera2D.position - changeInPosition) * 15 * delta
+    # Vector2(
+    #   pow(changeInPosition.x,1) * 3.7,
+    #   pow(changeInPosition.y,1) * 3.7
+    # )
+    # # $Camera2D.position -= $Camera2D.position * delta * 20
+    # if ($Camera2D.position.x > 0) != (startPos.x > 0):
+    #   $Camera2D.position.x = 0
+    # if ($Camera2D.position.y > 0) != (startPos.y > 0):
+    #   $Camera2D.position.y = 0
+    # $Camera2D.position_smoothing_speed = smoothingFactor
+    $Camera2D.position -= $Camera2D.position * .5 * delta
+    log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
 
