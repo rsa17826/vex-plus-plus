@@ -7,9 +7,7 @@ var tempGroups = []
 func on_respawn():
   # root.position = Vector2.ZERO
   await global.wait()
-  for group in tempGroups:
-    root.remove_from_group(group)
-  tempGroups = []
+  clearAllGroups()
   if not root or 'selectedOptions' not in root or 'attachesToThings' not in root.selectedOptions:
     if root:
       log.err(root, root.id)
@@ -20,6 +18,11 @@ func on_respawn():
     await global.wait()
     tryaddgroups()
   # tryaddgroups.call_deferred()
+
+func clearAllGroups():
+  for group in tempGroups:
+    root.remove_from_group(group)
+  tempGroups = []
 
 func tryaddgroups():
   for block in get_overlapping_bodies():

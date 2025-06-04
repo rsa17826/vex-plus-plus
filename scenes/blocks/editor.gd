@@ -59,6 +59,7 @@ func respawn() -> void:
   BOUNCY_bouncing = false
   BOUNCY_bounceForce = 0
   KEY_following = false
+  FALLING_SPIKE_falling = false
   lastMovementStep = Vector2.ZERO
   respawning = 2
   SPEED_UP_LEVER_colliding = false
@@ -283,6 +284,8 @@ func _physics_process(delta: float) -> void:
     _physics_processCLOSING_SPIKES(delta)
   if is_in_group("quadrant"):
     _physics_processQUADRANT(delta)
+  if is_in_group("falling spike"):
+    _physics_processFALLING_SPIKE(delta)
   if cloneEventsHere and 'on_physics_process' in cloneEventsHere:
     cloneEventsHere.on_physics_process(delta)
   if respawning:
@@ -886,3 +889,12 @@ func _processBUZSAW_GENERIC(delta: float) -> void:
   var speed = 80.0
   spin(speed, BUZSAW_GENERIC_spriteToRotateRight)
   spin(-speed, BUZSAW_GENERIC_spriteToRotateLeft)
+
+# falling spike
+@export_group("FALLING SPIKE")
+@export var FALLING_SPIKE_nodeToFall: Node2D
+var FALLING_SPIKE_falling: bool = false
+func _physics_processFALLING_SPIKE(delta: float) -> void:
+  var speed = 300.0
+  if FALLING_SPIKE_falling:
+    position += Vector2(0, -speed * delta).rotated(rotation)

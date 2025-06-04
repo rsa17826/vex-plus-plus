@@ -467,13 +467,13 @@ func _physics_process(delta: float) -> void:
           else:
             state = States.falling
 
-        # # do a short hop if pressing down after jumping
+        # # # do a short hop if pressing down after jumping
         # if Input.is_action_pressed("down"):
-        #   if vel.user.y < -50:
-        #     vel.user.y = -50
-        #   log.pp(vel.bounce.y, vel.bounce.y < -50)
-        #   if vel.bounce.y < -50:
-        #     vel.bounce.y = -50
+        #   for v in vel:
+        #     if vel[v].y < 0:
+        #       var c = delta * 1000
+        #       log.pp(c)
+        #       vel[v].y += c
 
         # shrink hitbox when ducking or sliding
         if state == States.sliding:
@@ -710,7 +710,7 @@ func _physics_process(delta: float) -> void:
     #   $Camera2D.position.y = 0
     # $Camera2D.position_smoothing_speed = smoothingFactor
     $Camera2D.position -= $Camera2D.position * .5 * delta
-    log.pp($Camera2D.position, changeInPosition)
+    # log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
 
