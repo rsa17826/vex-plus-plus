@@ -379,7 +379,7 @@ func _physics_process(delta: float) -> void:
           # log.pp(velocity.y)
           if velocity.y > -20 && state != States.wallHang:
             # log.pp("entering wall grab", CenterIsOnWall(), TopIsOnWall())
-            if CenterIsOnWall() && !TopIsOnWall():
+            if CenterIsOnWall() && !TopIsOnWall() and not %nowjDetector.get_overlapping_bodies():
               currentHungWall = $wallDetection/rightWall.get_collider() if getCurrentWallSide() == 1 else $wallDetection/leftWall.get_collider()
               hungWallSide = getCurrentWallSide()
               state = States.wallHang
@@ -401,7 +401,9 @@ func _physics_process(delta: float) -> void:
           # if not in wall hang state and near a wall
           if state != States.wallHang && getCurrentWallSide():
             lastWall = getCurrentWallSide()
-          if CenterIsOnWall() && not is_on_floor() && !breakFromWall && velocity.y > 0 && wallBreakDownFrames <= 0:
+          if CenterIsOnWall() && not is_on_floor() && !breakFromWall \
+          && velocity.y > 0 && wallBreakDownFrames <= 0 \
+          and not %nowjDetector.get_overlapping_bodies():
             vel.user.y = WALL_SLIDE_SPEED
             state = States.wallSliding
             # press down to deattach from wallslide

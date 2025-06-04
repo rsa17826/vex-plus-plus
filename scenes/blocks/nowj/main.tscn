@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhio00umlbck2"]
+
+[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_iks36"]
+[ext_resource type="Texture2D" uid="uid://csoe88kk1au7d" path="res://scenes/blocks/nowj/images/1.png" id="2_iks36"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
+size = Vector2(2, 700)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale"]]
+script = ExtResource("1_iks36")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/Sprite2D")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+
+[node name="collisionNode" type="StaticBody2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+input_pickable = true
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+scale = Vector2(1.25, 1)
+texture = ExtResource("2_iks36")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(-69, 0)
+shape = SubResource("RectangleShape2D_gwpbw")
+
+[connection signal="input_event" from="collisionNode" to="." method="_on_input_event"]
+[connection signal="mouse_entered" from="collisionNode" to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="collisionNode" to="." method="_on_mouse_exited"]
