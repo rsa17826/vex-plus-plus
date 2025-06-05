@@ -203,9 +203,9 @@ func _physics_process(delta: float) -> void:
       deadTimer = clampf(deadTimer, 0, currentRespawnDelay)
       global.tick = 0
       if currentRespawnDelay == 0:
-        position = lastSpawnPoint + Vector2(0, -1.9)
+        position = lastSpawnPoint
       else:
-        position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, lastSpawnPoint + Vector2(0, -1.9))
+        position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, lastSpawnPoint)
       pulleyNoDieTimer = 0
       # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
       $anim.animation = "die"
@@ -217,6 +217,14 @@ func _physics_process(delta: float) -> void:
       $waterAnimBottom.visible = false
       $Camera2D.reset_smoothing()
       if deadTimer <= 0:
+        if lastSpawnPoint:
+          position = lastSpawnPoint
+        else:
+          position = Vector2(0, -1.9)
+        log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
+        for block in %"respawn detection area".get_overlapping_bodies():
+          log.pp(block, block.id if 'id' in block else 'no id')
+          block._on_body_entered(self)
         state = States.falling
         Engine.time_scale = 1
         await global.wait()
@@ -685,7 +693,7 @@ func _physics_process(delta: float) -> void:
         or (len(collsiionOn_left) and len(collsiionOn_right)):
           log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
           die()
-        if  len(deathSources.filter(func(e):
+        if len(deathSources.filter(func(e):
           return !e.respawning)):
           die()
   if !global.showEditorUi:
