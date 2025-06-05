@@ -18,7 +18,6 @@ var falling: bool = false
 func on_physics_process(delta: float) -> void:
   if respawnTimer > 0:
     respawning = 2
-    log.pp(scale)
     respawnTimer -= delta * 60
     if respawnTimer < 0:
       respawning = 0
