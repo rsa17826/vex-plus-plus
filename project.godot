@@ -235,7 +235,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 2d_physics/layer_6="PUSHABLE BOX"
 2d_physics/layer_7="BLOCK KILLER"
 2d_physics/layer_8="BLOCKS THAT CAN DIE"
-2d_physics/layer_9="SOLID BLOCKS - NOWJ"
+2d_physics/layer_9="NOWJ"
 
 [maaacks_input_remapping]
 
