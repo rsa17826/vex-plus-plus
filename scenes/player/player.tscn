@@ -922,7 +922,7 @@ size = Vector2(1.01, 6.845)
 size = Vector2(1, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ymuf"]
-size = Vector2(9, 31.8)
+size = Vector2(14, 31.8)
 
 [node name="player" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites")]
 z_index = 10

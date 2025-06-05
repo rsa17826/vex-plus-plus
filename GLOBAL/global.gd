@@ -843,7 +843,10 @@ func localInput(event: InputEvent) -> void:
     if player and is_instance_valid(player):
       player.camLockPos = Vector2.ZERO
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
-
+  if isActionJustPressedWithNoExtraMods("toggle_pause"):
+    if level and is_instance_valid(level):
+      global.stopTicking = !global.stopTicking
+      global.tick = 0
   if isActionJustPressedWithNoExtraMods("load"):
     if useropts.saveOnExit:
       if level and is_instance_valid(level):
@@ -952,7 +955,6 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
           "> the current game version is newer than what the level was made in"
           , PromptTypes.confirm
         )
-        log.pp(data)
         if not data: return
     else:
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
@@ -964,7 +966,6 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
           "< the current game version might not have all the features needed to play this level"
           , PromptTypes.confirm
         )
-        log.pp(data)
         if not data: return
   levelOpts = levelPackInfo
 
