@@ -221,13 +221,17 @@ func _physics_process(delta: float) -> void:
           position = lastSpawnPoint
         else:
           position = Vector2(0, -1.9)
-        log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
-        for block in %"respawn detection area".get_overlapping_bodies():
-          log.pp(block, block.id if 'id' in block else 'no id')
-          block._on_body_entered(self)
         state = States.falling
         Engine.time_scale = 1
         await global.wait()
+        # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
+        for block in %"respawn detection area".get_overlapping_bodies():
+          # log.pp(block, block.id if 'id' in block else 'no id')
+          block.root._on_body_entered(self)
+        # log.pp("respawn", %"respawn detection area".get_overlapping_areas())
+        for block in %"respawn detection area".get_overlapping_areas():
+          # log.pp(block, block.id if 'id' in block else 'no id')
+          block.root._on_body_entered(self)
         global.stopTicking = false
       return
     States.onPulley:
