@@ -59,8 +59,7 @@ func respawn() -> void:
     scale = startScale
     lastMovementStep = Vector2.ZERO
     respawning = 2
-    if self in global.player.keys:
-      global.player.keys.erase(self)
+
     if cloneEventsHere and 'on_respawn' in cloneEventsHere:
       cloneEventsHere.on_respawn()
   if 'on_respawn' in self:
@@ -207,12 +206,14 @@ func _physics_process(delta: float) -> void:
   if global.openMsgBoxCount: return
   if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
+  # 
   if is_in_group("updown"):
     _physics_processUPDOWN(delta)
   if is_in_group("downup"):
     _physics_processDOWNUP(delta)
   if is_in_group("leftright"):
     _physics_processLEFTRIGHT(delta)
+  # 
   if cloneEventsHere and 'on_physics_process' in cloneEventsHere:
     cloneEventsHere.on_physics_process(delta)
   if 'on_physics_process' in self:

@@ -20,7 +20,7 @@ func on_body_entered(body: Node) -> void:
       if getTexture(checkpoint.sprite) == '2':
         setTexture(checkpoint.sprite, '1' if checkpoint.selectedOptions.multiUse else '3')
 
-func _readyCHECKPOINT() -> void:
+func on_ready() -> void:
   if not self in global.checkpoints:
     global.checkpoints.append(self)
   setTexture(sprite, "1")
