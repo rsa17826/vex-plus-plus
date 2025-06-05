@@ -175,7 +175,7 @@ func _input(event: InputEvent) -> void:
     camLockPos = $Camera2D.global_position
 
   if state != States.dead and not Input.is_key_pressed(KEY_CTRL) and global.showEditorUi:
-    for action: String in ["right", "jump", "down", "left"]:
+    for action: String in ["right", "jump", "left"]:
       if Input.is_action_pressed(action):
         global.showEditorUi = false
         camState = CamStates.player
@@ -960,8 +960,6 @@ func _on_left_body_exited(body: Node2D) -> void:
 
 # add way to change block layer - ignore layers of blocks that arnt colliging with selected block to make layer switching quicker
 
-# add way to pause moving blocks while editing?
-
 # fix spike sizes not being the same
 
 # save more than 1 star
@@ -969,7 +967,6 @@ func _on_left_body_exited(body: Node2D) -> void:
 # add undo/redo history
 # add easy way to switch versions
 
-# add option to show when autosave triggers?
 # add block animations?
 # allow user to reorder the levels in the editor?
 # allow user to reorder the block picker?
@@ -978,7 +975,7 @@ func _on_left_body_exited(body: Node2D) -> void:
 # option to change ghost opacity/ghost hover opacity? .5
 
 # allow walkign up small ledges
-# allow grouping editor blocks
+# allow grouping editor blocks in the editor bar
 # make blocks not move while resizing past min
 
 # known:
@@ -990,13 +987,8 @@ func _on_left_body_exited(body: Node2D) -> void:
   # when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
 
 # add level option to change canPressDownToShortHop and make sh work
-# add useropt to set start hboxs
 # make slope grabbox sloped
-# make collected keys not move root
 # add invinsabliity lever?
-# add custom keybvinds
-
-# add custom file to load levels from
 
 # add level thumbnails
 
@@ -1004,14 +996,14 @@ func _on_left_body_exited(body: Node2D) -> void:
 # show on inner level if level has star or not
 # save stars that are collected by id, and show collected count
 # add star finder?
-# change texture of nowj blocks
 # add way to check for updates
 # add way to download and run different game versions
-# add way to download levels from the repo
 
 # https://api.github.com/repos/rsa17826/testing/contents/levels
 
 # add cmd arg to play level by name/path
+
+# add faster way to download levels from the repo
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/branches
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/git/trees/e8ce6f3c20559ef736e5ab289d15002a5fe2aa6f?recursive=1
 
@@ -1020,3 +1012,5 @@ func _on_left_body_exited(body: Node2D) -> void:
 # fix water bug by checking collisions on respawn end!
 # add nojump floor
 # add 2x jump option?
+
+# make clicking to release copy not select blocks
