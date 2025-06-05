@@ -11,6 +11,8 @@ func on_body_entered(body: Node) -> void:
 func on_respawn() -> void:
   following = false
   $collisionNode.position = Vector2.ZERO
+  if self in global.player.keys:
+    global.player.keys.erase(self)
 
 func on_process(delta: float) -> void:
   if !following: return

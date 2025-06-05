@@ -1,7 +1,8 @@
-[gd_scene load_steps=66 format=3 uid="uid://dauqqb8fvhoev"]
+[gd_scene load_steps=67 format=3 uid="uid://dauqqb8fvhoev"]
 
 [ext_resource type="Script" uid="uid://j3yhw2jokqj" path="res://scenes/blocks/goal/goal.gd" id="1_0d1cd"]
 [ext_resource type="Texture2D" uid="uid://c2dmbt52fls6a" path="res://scenes/blocks/goal/images/1.png" id="2_0d1cd"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_vfxqp"]
 [ext_resource type="Texture2D" uid="uid://cewhgc5cc2tt2" path="res://scenes/blocks/goal/images/2.png" id="3_p2jo3"]
 [ext_resource type="Texture2D" uid="uid://b6vxu0xwdj74x" path="res://scenes/blocks/goal/images/3.png" id="4_0d1cd"]
 [ext_resource type="Texture2D" uid="uid://c0ax1itdamcpe" path="res://scenes/blocks/goal/images/4.png" id="5_vfxqp"]
@@ -268,9 +269,11 @@ hidableSprites = [NodePath("collisionNode/AnimatedSprite2D")]
 cloneEventsHere = NodePath("attach detector")
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
-[node name="collisionNode" type="Area2D" parent="."]
+[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 2
+script = ExtResource("2_vfxqp")
+root = NodePath("..")
 
 [node name="editorBar" type="Sprite2D" parent="collisionNode"]
 visible = false

@@ -226,12 +226,18 @@ func _physics_process(delta: float) -> void:
         await global.wait()
         # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
         for block in %"respawn detection area".get_overlapping_bodies():
-          # log.pp(block, block.id if 'id' in block else 'no id')
-          block.root._on_body_entered(self)
+          if 'root' not in block:
+            log.pp(block, block.id if 'id' in block else 'no id')
+            breakpoint
+          else:
+            block.root._on_body_entered(self)
         # log.pp("respawn", %"respawn detection area".get_overlapping_areas())
         for block in %"respawn detection area".get_overlapping_areas():
-          # log.pp(block, block.id if 'id' in block else 'no id')
-          block.root._on_body_entered(self)
+          if 'root' not in block:
+            log.pp(block, block.id if 'id' in block else 'no id')
+            breakpoint
+          else:
+            block.root._on_body_entered(self)
         global.stopTicking = false
       return
     States.onPulley:
@@ -846,6 +852,20 @@ var OnPlayerFullRestart: Array = []
 
 func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
+  log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
+  for block in %"respawn detection area".get_overlapping_bodies():
+    if 'root' not in block:
+      log.pp(block, block.id if 'id' in block else 'no id')
+      breakpoint
+    else:
+      block.root._on_body_exited(self)
+  log.pp("respawn", %"respawn detection area".get_overlapping_areas())
+  for block in %"respawn detection area".get_overlapping_areas():
+    if 'root' not in block:
+      log.pp(block, block.id if 'id' in block else 'no id')
+      breakpoint
+    else:
+      block.root._on_body_exited(self)
   if full:
     lastSpawnPoint = Vector2(0, 0)
   lastCollidingBlocks = []

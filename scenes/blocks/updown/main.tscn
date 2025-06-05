@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dihpf2c7sboyn"]
+[gd_scene load_steps=5 format=3 uid="uid://dihpf2c7sboyn"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_4bgic"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_0ic60"]
 [ext_resource type="Texture2D" uid="uid://i15b8nixhjpd" path="res://scenes/blocks/updown/images/1.png" id="2_i8ayh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76frd"]
@@ -14,10 +15,12 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
-[node name="collisionNode" type="CharacterBody2D" parent="."]
+[node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
+script = ExtResource("2_0ic60")
+root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("2_i8ayh")

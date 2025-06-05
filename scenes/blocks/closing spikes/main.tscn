@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://wt2lxgyi4ig6"]
+[gd_scene load_steps=9 format=3 uid="uid://wt2lxgyi4ig6"]
 
 [ext_resource type="Script" uid="uid://wffimjqo02xe" path="res://scenes/blocks/closing spikes/closing spikes.gd" id="1_51j7p"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_mvqdb"]
 [ext_resource type="Texture2D" uid="uid://cc8sd64wsjcfc" path="res://scenes/blocks/closing spikes/images/1.png" id="2_sg2we"]
 [ext_resource type="Texture2D" uid="uid://digx3iqkvubii" path="res://scenes/blocks/closing spikes/images/editorBar.png" id="3_fyg8o"]
 [ext_resource type="Texture2D" uid="uid://c3qojrubefyb2" path="res://scenes/blocks/closing spikes/images/1 half.png" id="4_li3j4"]
@@ -28,10 +29,12 @@ MOVING_BLOCKS_nodeToMove = NodePath("Node2D")
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, 13)
 
-[node name="collisionNode" type="Area2D" parent="Node2D"]
+[node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 collision_layer = 16
 collision_mask = 2
+script = ExtResource("2_mvqdb")
+root = NodePath("../..")
 
 [node name="editorBar" type="Sprite2D" parent="Node2D/collisionNode"]
 visible = false

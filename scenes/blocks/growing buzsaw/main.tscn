@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://ddaiwk24dnpy2"]
+[gd_scene load_steps=8 format=3 uid="uid://ddaiwk24dnpy2"]
 
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_c0osj"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_jf1xb"]
 [ext_resource type="Texture2D" uid="uid://6piyx4pmutk2" path="res://scenes/blocks/buzsaw/images/1.png" id="2_upiqs"]
 [ext_resource type="Texture2D" uid="uid://b4kcsug6usrxy" path="res://scenes/blocks/growing buzsaw/images/editorBar.png" id="3_upiqs"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_nfkyx"]
@@ -22,9 +23,11 @@ BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/Sprite2D")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("collisionNode/Sprite2D2")
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
-[node name="collisionNode" type="Area2D" parent="."]
+[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 16
 collision_mask = 2
+script = ExtResource("2_jf1xb")
+root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
