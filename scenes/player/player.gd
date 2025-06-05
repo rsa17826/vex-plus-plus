@@ -61,6 +61,13 @@ var moving := 0
 var inWaters: Array = []
 var lastCollidingBlocks: Array = []
 
+var ACTIONjump: bool = false:
+  get():
+    if ACTIONjump:
+      ACTIONjump = false
+      return true
+    return ACTIONjump
+
 var vel := {
   "user": Vector2.ZERO,
   "waterExit": Vector2.ZERO,
@@ -187,6 +194,8 @@ func _process(delta: float) -> void:
     $Camera2D.reset_smoothing()
 
 func _physics_process(delta: float) -> void:
+  if !Input.is_action_pressed("jump"):
+    ACTIONjump = false
   # Engine.time_scale = .3
   Engine.time_scale = 1
   if global.openMsgBoxCount: return
@@ -249,7 +258,7 @@ func _physics_process(delta: float) -> void:
       $anim.flip_h = activePulley.direction == -1
       if pulleyNoDieTimer <= 0:
         $anim.animation = "on pulley"
-        if Input.is_action_just_pressed("jump"):
+        if ACTIONjump:
           pulleyNoDieTimer = MAX_PULLEY_NO_DIE_TIME
           $anim.animation = "pulley invins"
       else:
@@ -330,6 +339,9 @@ func _physics_process(delta: float) -> void:
           return !e.respawning)):
           die()
       else:
+        if Input.is_action_just_pressed("jump"):
+          ACTIONjump = true
+
         floor_snap_length = 5
         # reset angle when exiting water
         rotation = lerp_angle(float(rotation), 0.0, .2)
@@ -446,7 +458,7 @@ func _physics_process(delta: float) -> void:
         if breakFromWall:
           wallSlidingFrames = 0
         # jump from walljump
-        if state == States.wallSliding and Input.is_action_just_pressed("jump") && !breakFromWall:
+        if state == States.wallSliding and ACTIONjump && !breakFromWall:
           state = States.jumping
           breakFromWall = true
           vel.user.y = JUMP_POWER
@@ -461,13 +473,12 @@ func _physics_process(delta: float) -> void:
             state = States.falling
 
         # jump from wall grab or from the ground
-        if Input.is_action_just_pressed("jump"):
-          if !Input.is_action_pressed("down"):
-            if (playerKT > 0) || state == States.wallHang:
-              if duckRecovery <= 0:
-                state = States.jumping
-                playerKT = 0
-                vel.user.y = JUMP_POWER
+        if !Input.is_action_pressed("down"):
+          if (playerKT > 0) || state == States.wallHang:
+            if duckRecovery <= 0 and ACTIONjump:
+              state = States.jumping
+              playerKT = 0
+              vel.user.y = JUMP_POWER
 
         # if not in duckRecovery or wall hang or wallSliding, allow movement
         if (!breakFromWall and (state == States.wallSliding || state == States.wallHang)) \
@@ -971,7 +982,7 @@ func _on_left_body_exited(body: Node2D) -> void:
 # make blocks not move while resizing past min
 
 # known:
-  # when respawning inside water you don't enter the water as collision is disabled while respawning
+  # !version ?-24! when respawning inside water you don't enter the water as collision is disabled while respawning
   # kt doesnt reset while entering water
   # holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
   # sliding into water causes shrunken hitbox
