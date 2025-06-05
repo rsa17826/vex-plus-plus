@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://0r3rag8iqvnp"]
+[gd_scene load_steps=6 format=3 uid="uid://0r3rag8iqvnp"]
 
 [ext_resource type="Texture2D" uid="uid://eb72hpv54q0m" path="res://scenes/blocks/basic/images/1.png" id="1_gwpbw"]
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_kr54m"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_m4jfg"]
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_yqvbt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -14,10 +15,12 @@ editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 
-[node name="collisionNode" type="StaticBody2D" parent="."]
+[node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
+script = ExtResource("2_m4jfg")
+root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("1_gwpbw")

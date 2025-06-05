@@ -105,23 +105,6 @@ func _on_body_exited(body: Node2D) -> void:
   if is_in_group("death"):
     self._on_body_exitedDEATH.call(body)
 
-#   if cloneEventsHere and 'on_body_exited' in cloneEventsHere:
-#     cloneEventsHere.on_body_exited(body)
-#   if 'on_body_exited' in self:
-#     self.on_body_exited.call(body)
-  # if is_in_group("water"):
-  #   _on_body_exitedWATER(body)
-  # if is_in_group("targeting laser"):
-  #   _on_body_exitedTARGETING_LASER(body)
-  # if is_in_group("speed up lever"):
-  #   _on_body_exitedSPEED_UP_LEVER(body)
-  # if is_in_group("grav up lever"):
-  #   _on_body_exitedGRAV_UP_LEVER(body)
-  # if is_in_group("grav down lever"):
-  #   _on_body_exitedGRAV_DOWN_LEVER(body)
-  # if is_in_group("death"):
-  #   _on_body_exitedDEATH(body)
-
 func _on_body_entered(body: Node2D) -> void:
   # if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
   #   cloneEventsHere.on_on_body_entered(body)
@@ -130,36 +113,6 @@ func _on_body_entered(body: Node2D) -> void:
     self.on_body_entered.call(body)
   if is_in_group("death"):
     self._on_body_enteredDEATH.call(body)
-  # if is_in_group("water"):
-  #   _on_body_enteredWATER(body)
-  # if is_in_group("death"):
-  #   _on_body_enteredDEATH(body)
-  # if is_in_group("goal"):
-  #   _on_body_enteredGOAL(body)
-  # if is_in_group("checkpoint"):
-  #   _on_body_enteredCHECKPOINT(body)
-  # if is_in_group("cannon"):
-  #   _on_body_enteredCANON(body)
-  # if is_in_group("speed up lever"):
-  #   _on_body_enteredSPEED_UP_LEVER(body)
-  # if is_in_group("grav up lever"):
-  #   _on_body_enteredGRAV_UP_LEVER(body)
-  # if is_in_group("grav down lever"):
-  #   _on_body_enteredGRAV_DOWN_LEVER(body)
-  # if is_in_group("invis"):
-  #   _on_body_enteredINVIS(body)
-  # if is_in_group("key"):
-  #   _on_body_enteredKEY(body)
-  # if is_in_group("laser"):
-  #   _on_body_enteredLASER(body)
-  # if is_in_group("light switch"):
-  #   _on_body_enteredLIGHT_SWITCH(body)
-  # if is_in_group("pole"):
-  #   _on_body_enteredPOLE(body)
-  # if is_in_group("star"):
-  #   _on_body_enteredSTAR(body)
-  # if is_in_group("targeting laser"):
-  #   _on_body_enteredTARGETING_LASER(body)
 
 func _ready() -> void:
   if cloneEventsHere and 'on_ready' in cloneEventsHere:
@@ -254,9 +207,6 @@ func _physics_process(delta: float) -> void:
   if global.openMsgBoxCount: return
   if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
-  # if is_in_group("10x spike"):
-  #   # so i am just setting it here instead
-  #   $Node2D.position = Vector2.ZERO
   if is_in_group("updown"):
     _physics_processUPDOWN(delta)
   if is_in_group("downup"):
@@ -403,10 +353,6 @@ func _process(delta: float) -> void:
             ghost.use_parent_material = true
     if 'on_process' in self:
       self.on_process.call(delta)
-    # if is_in_group("bouncy"):
-    #   _processBOUNCY(delta)
-    # if is_in_group("key"):
-    #   _processKEY(delta)
 
 func createEditorGhost() -> void:
   if not ghostIconNode:
