@@ -78,6 +78,7 @@ func newItem(name, id) -> void:
   clone.queue_free()
   add_child(item)
   updateItem(item)
+  global.lastSelectedBrush = item
 
 func updateItem(item):
   if item.name == "ColorRect": return

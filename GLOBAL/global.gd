@@ -565,6 +565,7 @@ func selectBlock() -> void:
   var block: Node2D = hoveredBlocks[0]
   hoveredBlocks.pop_front.call_deferred()
   selectedBlock = block
+  lastSelectedBlock = block
   var bpos: Vector2 = block.position
   var mpos: Vector2 = player.get_global_mouse_position()
   selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
@@ -789,16 +790,16 @@ func localInput(event: InputEvent) -> void:
   if isActionJustPressedWithNoExtraMods("new_map_folder"):
     createNewMapFolder()
   if isActionJustPressedWithNoExtraMods("duplicate_block"):
-    log.pp(lastSelectedBrush)
-    if lastSelectedBrush:
+    log.pp(lastSelectedBrush, lastSelectedBlock)
+    if lastSelectedBrush and lastSelectedBlock:
       selectedBrush = lastSelectedBrush
       selectedBrush.selected = 2
-      justPaintedBlock = load("res://scenes/blocks/" + selectedBrush.blockName + "/main.tscn").instantiate()
+      justPaintedBlock = load("res://scenes/blocks/" + lastSelectedBlock.id + "/main.tscn").instantiate()
       justPaintedBlock.scale = lastSelectedBlock.scale
       justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
       justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
-      justPaintedBlock.id = blockNames[selectedBrush.id]
-      lastSelectedBrush = selectedBrush
+      justPaintedBlock.id = lastSelectedBlock.id
+      # lastSelectedBrush = selectedBrush
       level.get_node("blocks").add_child(justPaintedBlock)
       justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
       setBlockStartPos(justPaintedBlock)
@@ -823,8 +824,10 @@ func localInput(event: InputEvent) -> void:
       level.save()
   if isActionPressedWithNoExtraMods("editor_delete"):
     if !selectedBlock: return
-    lastSelectedBrush = null
+    # lastSelectedBrush = null
     hoveredBlocks.erase(selectedBlock)
+    lastSelectedBlock = selectedBlock.duplicate()
+    lastSelectedBlock.id = selectedBlock.id
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
   if isActionJustPressedWithNoExtraMods("reload_map_from_last_save"):
