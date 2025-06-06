@@ -228,13 +228,13 @@
     }
   }
   STR(atest){
-    STR(playerDelogPosition)VEC2(-83.6666641235352,-24.6444435119629)
+    STR(playerDelogPosition)VEC2(-80.0,-25.0)
     STR(lastSpawnPoint)VEC2(-80.0,-25.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
+        STR(foundStar)BOOL(true)
       }
     ]
     STR(beatLevels)[]
@@ -242,7 +242,7 @@
       STR(hub){
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
+        STR(foundStar)BOOL(true)
       }
     }
   }

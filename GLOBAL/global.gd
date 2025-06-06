@@ -576,7 +576,7 @@ var lastSelectedBlock: Node2D
 var lastSelectedBrush: Node2D
 
 func localProcess(delta: float) -> void:
-  gridSize = global.useropts.blockSnapGridSize
+  gridSize = 1 if Input.is_action_pressed("editor_disable_grid_snap") else global.useropts.blockSnapGridSize
   if FileAccess.file_exists(path.parsePath("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.parsePath("res://filesToOpen"))
     file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
