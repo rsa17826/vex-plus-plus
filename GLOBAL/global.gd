@@ -1421,4 +1421,5 @@ var blockNames: Array = [
   "nowj", # 1
   "falling spike", # 1
   # "quad falling spikes" # 0
+  "path", # .3
 ]
