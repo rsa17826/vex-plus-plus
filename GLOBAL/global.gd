@@ -863,7 +863,6 @@ var levelFolderPath: String
 var loadedLevels: Array
 var mainLevelName: String
 var beatLevels: Array
-# var levelColor = 2
 var levelOpts: Dictionary
 
 func starFound() -> void:
@@ -874,7 +873,6 @@ func loadInnerLevel(innerLevel: String) -> void:
   global.loadedLevels.append({"name": innerLevel, "spawnPoint": Vector2.ZERO, 'foundStar': false})
   if currentLevel().name not in levelOpts.stages:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
-  # levelColor = int(levelOpts.stages[currentLevel().name].color)
   await wait()
   level.loadLevel(innerLevel)
   player.die(0, true)
