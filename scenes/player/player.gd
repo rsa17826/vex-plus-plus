@@ -985,6 +985,7 @@ func _on_left_body_exited(body: Node2D) -> void:
   # sliding into water causes shrunken hitbox
   # when leaving water directly onto a wall you can grab the wall lower than intended
   # when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
+  # levers can be pulled even when not on ground
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
