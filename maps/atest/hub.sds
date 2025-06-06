@@ -209,8 +209,8 @@
     }
   }
   {
-    STR(x)FLOAT(15.0)
-    STR(y)FLOAT(-70.0)
+    STR(x)FLOAT(10.0)
+    STR(y)FLOAT(-80.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -513,7 +513,7 @@
     STR(y)FLOAT(5.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(180.0)
+    STR(r)FLOAT(600.0)
     STR(id)STR(falling spike)
     STR(options){
       STR(attachesToThings)BOOL(true)
@@ -551,6 +551,30 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(updown)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(155.0)
+    STR(y)FLOAT(-190.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(300.0)
+    STR(id)STR(falling spike)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(115.0)
+    STR(y)FLOAT(-125.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(900.0)
+    STR(id)STR(Rotating Buzzsaw)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
