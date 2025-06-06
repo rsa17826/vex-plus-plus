@@ -602,6 +602,7 @@ func localProcess(delta: float) -> void:
     and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
     or global.useropts.allowRotatingAnything):
       selectedBlock.look_at(mpos)
+      selectedBlock.rotation_degrees += 90
       selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
       setBlockStartPos(selectedBlock)
     # when trying to scale blocks

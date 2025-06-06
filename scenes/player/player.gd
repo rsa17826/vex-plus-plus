@@ -1015,3 +1015,5 @@ func _on_left_body_exited(body: Node2D) -> void:
 # add 2x jump option?
 
 # make clicking to release copy not select blocks
+
+# fix rotating buzsaws editor rotating incorrectly
