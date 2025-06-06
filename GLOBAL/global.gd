@@ -973,14 +973,8 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   levelOpts = levelPackInfo
 
   if loadFromSave and saveData:
-    # .map(func(e):
     loadedLevels = saveData.loadedLevels
-    #   e.spawnPoint=Vector2(e.spawnPoint[0], e.spawnPoint[1])
-    #   return e)
     beatLevels = saveData.beatLevels
-    # .map(func(e):
-    #   e.spawnPoint=Vector2(e.spawnPoint[0], e.spawnPoint[1])
-    #   return e)
   else:
     loadedLevels = [
       {
