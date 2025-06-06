@@ -825,6 +825,7 @@ func localInput(event: InputEvent) -> void:
       level.save()
   if isActionPressedWithNoExtraMods("editor_delete"):
     if !selectedBlock: return
+    if selectedBlock == global.player.get_parent(): return
     # lastSelectedBrush = null
     hoveredBlocks.erase(selectedBlock)
     lastSelectedBlock = selectedBlock.duplicate()
