@@ -9,20 +9,25 @@ func on_respawn():
   # for follower in $Area2D.get_overlapping_areas():
   #   log.pp(block.id)
   $Path2D.curve = Curve2D.new()
+  var blocks = global.level.get_node("blocks").get_children().filter(func(block):
+    return block is Node2D \
+    and block != self \
+    and block != global.player.get_parent() \
+    and "root" in block
+    )
+  log.pp(blocks)
   var pathinfo = (selectedOptions.path.split(",") as Array).map(func(e):
     return float(e))
   log.pp(pathinfo)
   while len(pathinfo):
     var pos = Vector2(pathinfo.pop_front(), pathinfo.pop_front())
     $Path2D.curve.add_point(pos)
-    for block in global.level.get_children():
-      if block == self: return
-      if not block is Node2D: return
-      if block.global_position == pos:
+    for block in blocks:
+      if abs(block.global_position - pos) < Vector2(100, 100):
         addToPath(block)
 
 func addToPath(block):
-  block.curve = $Path2D.curve
+  log.pp(block)
   var pathFollow = preload("res://scenes/blocks/path/pf.tscn").instantiate()
   $Path2D.add_child(pathFollow)
   block.reparent(pathFollow)
