@@ -129,13 +129,18 @@ static func loadData(d: String) -> Variant:
       # log.warn(_stack, stack, 4)
       return _stack[len(_stack) - 1]
 
-    var getData := func(reg: String, group:=0) -> String:
+    var getDataReg := func(reg: String, group:=0) -> String:
       var res = global.regMatch(remainingData, reg)
       if not res:
         log.pp(remainingData)
         breakpoint
       remainingData = remainingData.substr(len(res[0]))
       return res[group]
+    var getDataFind := func() -> String:
+      var end = remainingData.find(")")
+      var part = remainingData.substr(1, end - 1)
+      remainingData = remainingData.substr(end + 1)
+      return part
 
     if global.starts_with(remainingData, ']') or global.starts_with(remainingData, '}'):
       remainingData = remainingData.substr(1)
@@ -180,8 +185,9 @@ static func loadData(d: String) -> Variant:
       stack.append({"remainingData": remainingData, "_stack": _stack})
       continue
 
-    var type: String = getData.call(r"^[A-Za-z]+[\dA-Za-z]*|\[|\{")
+    var type: String = getDataReg.call(r"^[A-Za-z]+[\dA-Za-z]*|\[|\{")
     remainingData = remainingData.strip_edges()
+    log.pp("asdjhdash", type, remainingData)
     # log.pp(remainingData, type)
     var thisdata: Variant
 
@@ -198,45 +204,47 @@ static func loadData(d: String) -> Variant:
       if num == "nan":
         return NAN
       return float(num)
-
+  
     match type:
       "{":
         thisdata = UNSET
         # remainingData = remainingData.substr(1)
         _stack.append({})
       "INT":
-        thisdata = __int.call(getData.call(r"^\((" + NUMREG + r")\)", 1))
+        thisdata = getDataFind.call()
+        thisdata = __int.call(thisdata.strip_edges())
       "FLOAT":
-        thisdata = __float.call(getData.call(r"^\((" + NUMREG + r")\)", 1))
+        thisdata = getDataFind.call()
+        thisdata = __float.call(thisdata.strip_edges())
       "VEC2I":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Vector2i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Vector2i(__int.call(thisdata[0]), __int.call(thisdata[1]))
       "VEC2":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Vector2(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Vector2(__float.call(thisdata[0]), __float.call(thisdata[1]))
       "VEC3I":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Vector3i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]), __int.call(thisdata.split(",")[2]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Vector3i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]))
       "VEC3":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Vector3(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]), __float.call(thisdata.split(",")[2]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Vector3(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]))
       "COLOR":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Color(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]), __float.call(thisdata.split(",")[2]), __float.call(thisdata.split(",")[3]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Color(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
       "RECT2":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Rect2(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]), __float.call(thisdata.split(",")[2]), __float.call(thisdata.split(",")[3]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Rect2(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
       "RECT2I":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Rect2i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]), __int.call(thisdata.split(",")[2]), __int.call(thisdata.split(",")[3]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Rect2i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]), __int.call(thisdata[3]))
       "VEC4":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Vector4(__float.call(thisdata.split(",")[0]), __float.call(thisdata.split(",")[1]), __float.call(thisdata.split(",")[2]), __float.call(thisdata.split(",")[3]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Vector4(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
       "VEC4I":
-        thisdata = getData.call(r"^\((" + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + SEPREG + NUMREG + r")\)", 1)
-        thisdata = Vector4i(__int.call(thisdata.split(",")[0]), __int.call(thisdata.split(",")[1]), __int.call(thisdata.split(",")[2]), __int.call(thisdata.split(",")[3]))
+        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = Vector4i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]), __int.call(thisdata[3]))
       "InputEventKey":
-        thisdata = getData.call(r"^\((" +
+        thisdata = getDataReg.call(r"^\((" +
         NUMREG + SEPREG +
         r"(?:true|false)" + SEPREG +
         r"(?:true|false)" + SEPREG +
@@ -250,7 +258,7 @@ static func loadData(d: String) -> Variant:
         evt.meta_pressed = thisdata[4] == "true"
         thisdata = evt
       "InputEventMouseButton":
-        thisdata = getData.call(r"^\((" +
+        thisdata = getDataReg.call(r"^\((" +
         NUMREG + SEPREG +
         r"(?:true|false)" + SEPREG +
         r"(?:true|false)" + SEPREG +
@@ -264,16 +272,19 @@ static func loadData(d: String) -> Variant:
         evt.meta_pressed = thisdata[4] == "true"
         thisdata = evt
       "NULL":
-        getData.call(r"\(\)")
+        getDataFind.call()
         thisdata = null
       "BOOL":
-        thisdata = getData.call(r"\((true|false)\)", 1)
+        thisdata = getDataFind.call()
+        # thisdata = getDataReg.call(r"\((true|false)\)", 1)
         thisdata = thisdata == "true"
       "STR":
         thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
-        thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        # thisdata = getDataFind.call()
+        thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        log.pp(thisdata, "thisdata", len(thisdata))
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
         remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
@@ -282,7 +293,9 @@ static func loadData(d: String) -> Variant:
         thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
-        thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        # thisdata = getDataFind.call()
+        thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        # thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
         remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
@@ -293,6 +306,7 @@ static func loadData(d: String) -> Variant:
         # remainingData = remainingData.substr(1)
         _stack.append([])
       _:
+        breakpoint
         return log.err(type, remainingData)
 
     remainingData = remainingData.strip_edges()
