@@ -30,6 +30,7 @@ extends Node2D
 @export var cloneEventsHere: Node
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
+@export var pathFollowNode: Node
 
 var root = self
 var _DISABLED := false
@@ -45,6 +46,8 @@ var blockOptions: Dictionary
 var selectedOptions := {}
 var blockOptionsArray := []
 var pm: PopupMenu
+
+# var currentPath: PathFollow2D
 
 func _on_mouse_entered() -> void:
   isHovered = true
@@ -213,6 +216,11 @@ func _physics_process(delta: float) -> void:
     _physics_processDOWNUP(delta)
   if is_in_group("leftright"):
     _physics_processLEFTRIGHT(delta)
+  # if currentPath:
+    # if not pathFollowNode:
+    #   log.err("no path follow node", id)
+    #   breakpoint
+    # pathFollowNode.position += currentPath.lastMovementStep * currentPath.scale
   # 
   if cloneEventsHere and 'on_physics_process' in cloneEventsHere:
     cloneEventsHere.on_physics_process(delta)

@@ -5,6 +5,8 @@ func generateBlockOpts():
   "type": global.PromptTypes.string}
 
 func on_respawn():
+  $Path2D/PathFollow2D.progress = 0
+  scale = Vector2(1, 1)
   await global.wait()
   # for follower in $Area2D.get_overlapping_areas():
   #   log.pp(block.id)
@@ -13,25 +15,32 @@ func on_respawn():
     return block is Node2D \
     and block != self \
     and block != global.player.get_parent() \
-    and "root" in block
+    and "root" in block \
+    and block.pathFollowNode
     )
   log.pp(blocks)
   var pathinfo = (selectedOptions.path.split(",") as Array).map(func(e):
     return float(e))
   log.pp(pathinfo)
+  var lastPos = null
+  var dist = 0
   while len(pathinfo):
-    var pos = Vector2(pathinfo.pop_front(), pathinfo.pop_front())
+    var pos := Vector2(pathinfo.pop_front(), pathinfo.pop_front())
     $Path2D.curve.add_point(pos)
+    if lastPos != null:
+      dist += lastPos.distance_to(pos)
+    log.pp(dist, lastPos)
     for block in blocks:
-      if abs(block.global_position - pos) < Vector2(100, 100):
-        addToPath(block)
+      if abs(block.global_position - (pos + position)) < Vector2(10, 10):
+        blocks.erase(block)
+        addToPath(block, dist)
+    lastPos = pos
 
-func addToPath(block):
+func addToPath(block, startDist):
   log.pp(block)
-  var pathFollow = preload("res://scenes/blocks/path/pf.tscn").instantiate()
-  $Path2D.add_child(pathFollow)
-  block.reparent(pathFollow)
-  # block.global_position = pathFollow.global_position
-  block.position = Vector2.ZERO
-  await global.wait()
+  var currentPath = $Path2D/PathFollow2D.duplicate()
+  $Path2D.add_child(currentPath)
+  currentPath.startDist = startDist
+  currentPath.block = block
+  block.reparent(currentPath)
   block.position = Vector2.ZERO

@@ -11,13 +11,14 @@ radius = 298.3
 [sub_resource type="CircleShape2D" id="CircleShape2D_v7uox"]
 radius = 306.863
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "attaches to things", "buzsaw - generic", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "pathFollowNode", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "attaches to things", "buzsaw - generic", "death"]]
 script = ExtResource("1_lsihx")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
+pathFollowNode = NodePath("collisionNode")
 BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/Sprite2D")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("collisionNode/left rot")
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
