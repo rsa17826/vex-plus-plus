@@ -12,7 +12,9 @@ func on_respawn() -> void:
   $collisionNode.position = Vector2.ZERO
 
 func on_body_entered(body: Node) -> void:
-  if body == global.player and global.lastPortal != self:
+  if body == global.player:
+    if global.lastPortal == self: return
+    if selectedOptions.exitId == 0: return
     for portal in get_tree().get_nodes_in_group("portal"):
       if portal == self: continue
       if portal.selectedOptions.portalId == selectedOptions.exitId:
