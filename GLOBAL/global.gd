@@ -1447,5 +1447,8 @@ var blockNames: Array = [
   "nowj", # 1
   "falling spike", # 1
   # "quad falling spikes" # 0
-  "path", # .3
+  "portal", # 1
+  # "path", # .3
 ]
+
+var lastPortal: Node2D = null

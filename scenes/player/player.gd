@@ -908,6 +908,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   lightsOut = false
   speedLeverActive = false
   deathSources = []
+  global.lastPortal = null
   OnPlayerDied = OnPlayerDied.filter(func(e: Variant) -> bool:
     return e.is_valid())
   OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e: Variant) -> bool:
@@ -986,6 +987,7 @@ func _on_left_body_exited(body: Node2D) -> void:
   # when leaving water directly onto a wall you can grab the wall lower than intended
   # when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
   # levers can be pulled even when not on ground
+  # portal wrongwarp when falling through portals building speed then a moving block moves in your path where you slide on the wall then fall back into the same portal that you were previuosly using to build speed
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped

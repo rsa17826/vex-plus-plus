@@ -117,10 +117,6 @@ func _on_body_entered(body: Node2D) -> void:
     self._on_body_enteredDEATH.call(body)
 
 func _ready() -> void:
-  if cloneEventsHere and 'on_ready' in cloneEventsHere:
-    cloneEventsHere.on_ready()
-  if 'on_ready' in self:
-    self.on_ready.call()
   if not EDITOR_IGNORE:
     if _ready not in global.player.OnPlayerFullRestart:
       global.player.OnPlayerFullRestart.append(_ready)
@@ -151,6 +147,10 @@ func _ready() -> void:
     respawn.call_deferred()
     if global.useropts.allowCustomColors:
       self.modulate = Color(selectedOptions.color)
+  if cloneEventsHere and 'on_ready' in cloneEventsHere:
+    cloneEventsHere.on_ready()
+  if 'on_ready' in self:
+    self.on_ready.call()
 
 func toType(opt: Variant) -> void:
   match blockOptions[opt].type:
