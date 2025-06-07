@@ -34,6 +34,7 @@ root = NodePath("../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/collisionNode"]
 use_parent_material = true
+scale = Vector2(0.977654, 1)
 texture = ExtResource("2_fcna3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]

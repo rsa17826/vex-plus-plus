@@ -187,7 +187,7 @@ static func loadData(d: String) -> Variant:
 
     var type: String = getDataReg.call(r"^[A-Za-z]+[\dA-Za-z]*|\[|\{")
     remainingData = remainingData.strip_edges()
-    log.pp("asdjhdash", type, remainingData)
+    # log.pp("asdjhdash", type, remainingData)
     # log.pp(remainingData, type)
     var thisdata: Variant
 
@@ -284,7 +284,7 @@ static func loadData(d: String) -> Variant:
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         # thisdata = getDataFind.call()
         thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        log.pp(thisdata, "thisdata", len(thisdata))
+        # log.pp(thisdata, "thisdata", len(thisdata))
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
         remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
