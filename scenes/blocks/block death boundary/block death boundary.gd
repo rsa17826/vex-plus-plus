@@ -8,6 +8,7 @@ func _on_body_exited(body: Node2D) -> void:
 func _on_body_entered(body: Node2D) -> void:
   if body == global.player:
     global.player.gravState = global.player.GravStates.normal
+    global.player.speedLeverActive = false
     for key in global.player.keys:
       key.respawn()
   else:
