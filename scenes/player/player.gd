@@ -27,6 +27,7 @@ var deathSources := []
 var pulleyNoDieTimer: float = 0
 var currentRespawnDelay: float = 0
 var activePulley: Node2D = null
+var activePole: Node2D = null
 var playerXIntent: float = 0
 var lastWall := 0
 var breakFromWall := false
@@ -69,16 +70,19 @@ var ACTIONjump: bool = false:
     return ACTIONjump
 
 var vel := {
+  "pole": Vector2.ZERO,
   "user": Vector2.ZERO,
   "waterExit": Vector2.ZERO,
   "bounce": Vector2.ZERO,
 }
 var velDecay := {
+  "pole": 1,
   "user": 1,
   "waterExit": .9,
   "bounce": 0.95,
 }
 var justAddedVels := {
+  "pole": 0,
   "user": 0,
   "waterExit": 0,
   "bounce": 0,
@@ -206,6 +210,14 @@ func _physics_process(delta: float) -> void:
   var frameStartPosition := global_position
   $waterRay.rotation_degrees = - rotation_degrees
   $anim.position = Vector2(0, 0.145)
+  var REAL_GRAV: float = 0
+  match gravState:
+    GravStates.down:
+      REAL_GRAV = GRAVITY * .5 * delta
+    GravStates.up:
+      REAL_GRAV = GRAVITY * 2 * delta
+    GravStates.normal:
+      REAL_GRAV = GRAVITY * delta
   match state:
     States.dead:
       deadTimer -= delta * 60
@@ -249,6 +261,25 @@ func _physics_process(delta: float) -> void:
             block.root._on_body_entered(self)
         global.stopTicking = false
       return
+    States.swingingOnPole:
+      # rotation += 6 * delta
+      global_position = activePole.global_position
+      $anim.animation = "on pole"
+      playerKT = 0
+      vel.user = Vector2.ZERO
+      if Input.is_action_just_pressed("jump"):
+        # this one should be user because it makes the falling better
+        vel.user.y = JUMP_POWER
+        # but this should be pole as that way it does something as user.x is set to xintent
+        vel.pole.x = 50 * (-1 if $anim.flip_h else 1)
+        $anim.animation = "jumping off pole"
+        $anim.animation_looped.connect(func():
+          $anim.animation="jump",
+          Object.CONNECT_ONE_SHOT)
+        state = States.jumping
+      elif Input.is_action_just_pressed("down"):
+        vel.user.y = 0
+        state = States.falling
     States.onPulley:
       vel.user = Vector2.ZERO
       var lastpos := global_position
@@ -339,6 +370,12 @@ func _physics_process(delta: float) -> void:
           return !e.respawning)):
           die()
       else:
+        log.pp(vel.pole.y)
+        if vel.pole:
+          vel.pole.x -= 2 * sign(vel.pole.x) * delta * 60
+          # if abs(vel.pole.x) < 5:
+          #   vel.pole.x = 0
+
         if Input.is_action_just_pressed("jump"):
           ACTIONjump = true
 
@@ -447,13 +484,7 @@ func _physics_process(delta: float) -> void:
               wallSlidingFrames -= 1
               breakFromWall = true
           else:
-            match gravState:
-              GravStates.down:
-                vel.user.y += GRAVITY * .5 * delta
-              GravStates.up:
-                vel.user.y += GRAVITY * 2 * delta
-              GravStates.normal:
-                vel.user.y += GRAVITY * delta
+            vel.user.y += REAL_GRAV
 
         if breakFromWall:
           wallSlidingFrames = 0
@@ -520,36 +551,39 @@ func _physics_process(delta: float) -> void:
           %deathDetectors.position.y = 0
 
         # animations
-        if duckRecovery > 0:
-          $anim.animation = "duck end"
-        elif slideRecovery > 0:
-          $anim.animation = "slide end"
+        if $anim.animation == "jumping off pole":
+          pass
         else:
-          match state:
-            States.idle:
-              $anim.animation = "idle"
-            States.moving:
-              $anim.animation = "run"
-            States.jumping:
-              $anim.animation = "jump"
-            States.falling:
-              $anim.animation = "jump"
-            States.wallSliding:
-              if breakFromWall:
+          if duckRecovery > 0:
+            $anim.animation = "duck end"
+          elif slideRecovery > 0:
+            $anim.animation = "slide end"
+          else:
+            match state:
+              States.idle:
+                $anim.animation = "idle"
+              States.moving:
+                $anim.animation = "run"
+              States.jumping:
                 $anim.animation = "jump"
-              else:
-                $anim.animation = "wall slide"
-            States.sliding:
-              if abs(vel.user.x) < 10:
-                $anim.animation = "duck start"
-              else:
-                $anim.animation = "slide start"
-            States.wallHang:
-              $anim.animation = "wall hang"
-            States.pushing:
-              $anim.animation = "pushing box"
-            _:
-              $anim.animation = "idle"
+              States.falling:
+                $anim.animation = "jump"
+              States.wallSliding:
+                if breakFromWall:
+                  $anim.animation = "jump"
+                else:
+                  $anim.animation = "wall slide"
+              States.sliding:
+                if abs(vel.user.x) < 10:
+                  $anim.animation = "duck start"
+                else:
+                  $anim.animation = "slide start"
+              States.wallHang:
+                $anim.animation = "wall hang"
+              States.pushing:
+                $anim.animation = "pushing box"
+              _:
+                $anim.animation = "idle"
 
         # set the sprite direction based on velocity
         if vel.user.x > 0:
