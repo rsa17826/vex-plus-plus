@@ -238,7 +238,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - left: it will move right
       - user: it will move whichever way the player was facing when entering it
 
-- **Quadrant**: kills the player on contact and will spin counterclockwise
+- **Quadrant**: kills the player on contact and will spin clockwise
   - **settings**:
     - **color**
     - **attachesToThings**
@@ -248,7 +248,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **attachesToThings**
 
-- **Scythe**: kills the player on contact and will spin clockwise
+- **Scythe**: kills the player on contact and will spin counterclockwise
   - **settings**:
     - **color**
     - **attachesToThings**
