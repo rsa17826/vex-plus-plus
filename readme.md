@@ -326,8 +326,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **portalId**: the id of this portal as used for finding an exit portal
     - **exitId**: the id this portal uses to find its exit portal
       - eg portalId = 1, exitId = 2, means that entering this portal will take the player to the portal with portalId = 2 and will be found with a portal set to have exitId = 1
-- **pole**: when the player contacts this the player will be able to swing on it and jump off with jump or drop off with down. when jumping off if in the animation where feet point down right ish then the jump will gain height else it will be like a drop
-  - i 
+- **pole**: when the player contacts this the player will be able to swing on it and jump off with jump or drop off with down. when jumping off if in the blue part of the indicator then the jump will gain height else it will be like a drop
   - **settings**:
     - **color**
     - **attachesToThings**
