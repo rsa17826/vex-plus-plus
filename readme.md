@@ -330,3 +330,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
     - **attachesToThings**
+- **pole quadrant**: spins 4 poles
+  - **settings**:
+    - **color**
+    - **attachesToThings**
