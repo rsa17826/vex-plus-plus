@@ -13,3 +13,6 @@ func on_body_entered(body: Node) -> void:
     timingIndicator.visible = true
     timingIndicator.rotation_degrees = (-rotation_degrees) + 45
     global.player.state = global.player.States.swingingOnPole
+
+func on_respawn():
+  timingIndicator.visible = false
