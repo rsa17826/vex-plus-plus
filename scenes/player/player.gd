@@ -274,12 +274,15 @@ func _physics_process(delta: float) -> void:
         vel.pole.x = 50 * (-1 if $anim.flip_h else 1)
         $anim.animation = "jumping off pole"
         $anim.animation_looped.connect(func():
-          $anim.animation="jump",
+          if $anim.animation == "jumping off pole":
+            $anim.animation="jump",
           Object.CONNECT_ONE_SHOT)
         state = States.jumping
       elif Input.is_action_just_pressed("down"):
         vel.user.y = 0
         state = States.falling
+      tryAndDieHazards()
+      tryAndDieSquish()
     States.onPulley:
       vel.user = Vector2.ZERO
       var lastpos := global_position
@@ -300,11 +303,9 @@ func _physics_process(delta: float) -> void:
       if collsiionOn_right or collsiionOn_left:
         activePulley.respawn()
         global_position = lastpos
-      log.pp(pulleyNoDieTimer)
+      # log.pp(pulleyNoDieTimer)
       if pulleyNoDieTimer <= 0:
-        if len(deathSources.filter(func(e):
-          return !e.respawning)):
-          die()
+        tryAndDieHazards()
 
       if Input.is_action_just_pressed("down") or inWaters:
         state = States.falling
@@ -322,6 +323,8 @@ func _physics_process(delta: float) -> void:
       $anim.animation = "pulling lever"
       $anim.animation_looped.connect(func() -> void:
         state=States.idle, Object.CONNECT_ONE_SHOT)
+      tryAndDieHazards()
+      tryAndDieSquish()
     _:
       if inWaters:
         floor_snap_length = 0
@@ -366,11 +369,8 @@ func _physics_process(delta: float) -> void:
 
         wasJustInWater = true
         move_and_slide()
-        if len(deathSources.filter(func(e):
-          return !e.respawning)):
-          die()
+        tryAndDieHazards()
       else:
-        log.pp(vel.pole.y)
         if vel.pole:
           vel.pole.x -= 2 * sign(vel.pole.x) * delta * 60
           # if abs(vel.pole.x) < 5:
@@ -551,7 +551,7 @@ func _physics_process(delta: float) -> void:
           %deathDetectors.position.y = 0
 
         # animations
-        if $anim.animation == "jumping off pole":
+        if $anim.animation == "jumping off pole" and vel.user.y != 0:
           pass
         else:
           if duckRecovery > 0:
@@ -744,13 +744,9 @@ func _physics_process(delta: float) -> void:
         # or (normals.l && normals.r):
         #   # breakpoint
         #   die()
-        if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
-        or (len(collsiionOn_left) and len(collsiionOn_right)):
-          log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
-          die()
-        if len(deathSources.filter(func(e):
-          return !e.respawning)):
-          die()
+        tryAndDieHazards()
+        tryAndDieSquish()
+
   if !global.showEditorUi:
     var changeInPosition: Vector2 = global_position - frameStartPosition
     var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
@@ -781,6 +777,16 @@ func _physics_process(delta: float) -> void:
     # log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
+
+func tryAndDieHazards():
+  if len(deathSources.filter(func(e):
+    return !e.respawning)):
+    die()
+func tryAndDieSquish():
+  if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
+  or (len(collsiionOn_left) and len(collsiionOn_right)):
+    log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
+    die()
 
 func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   # var posOffset = Vector2.ZERO
