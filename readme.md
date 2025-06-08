@@ -71,3 +71,224 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **allowCustomColors**: disabling this prevents levels from using custom colors.
 - **showGridInEdit**: shows the grid in when in edit mode.
 - **showGridInPlay**: shows the grid in when in play mode.
+
+
+### block settings that apply to many blocks
+  - **color**: changes the modulate of the block
+  - **attachesToThings**: if true the block will be able to attach to some other blocks
+    - updown
+    - downup
+    - leftright
+
+### Blocks
+- **basic**: has solid collision
+  - scalable
+  - **settings**:
+    - **color**
+
+- **single spike**: kills the player on contact
+  - rotatable
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **10x spike**: kills the player on contact
+  - rotatable
+    - i plan to replace this with a scalable spike that tiles the spike texture instead
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **updown**: has solid collision and moves up than down
+  - **settings**:
+    - **color**
+
+- **downup**: has solid collision and moves down than up
+  - **settings**:
+    - **color**
+
+- **leftright**: has solid collision and moves right than left
+  - **settings**:
+    - **color**
+
+- **water**: when the player enters they are changed to swim mode and reverted to platformer mode on exit.
+  - scalable
+  - **settings**:
+    - **color**
+
+- **solar**: has solid collision when lights are on, touch a lightswitch to turn the lights off.
+  - when collected will turn the lights back on
+  - scalable
+  - **settings**:
+    - **color**
+
+- **slope**: has solid collision on the borders but not in the middle.
+  - scalable
+  - **settings**:
+    - **color**
+
+- **pushable box**: has solid collision and can be pushed by the player while the player is on ground and in platformer mode.
+  - scalable
+  - **settings**:
+    - **color**
+
+- **microwave**: has solid collision
+  - scalable
+  - **settings**:
+    - **color**
+
+- **locked box**: has solid collision but when the player comes in contact with it and has a key, the key and block are disabled.
+  - scalable
+  - **settings**:
+    - **color**
+
+- **glass**: has solid collision but when the player comes in contact with it from the top and is holding down and has downwards velocity, the glass breaks and is disabled.
+  - scalable
+  - **settings**:
+    - **color**
+
+- **falling**: has solid collision but when the player comes in contact with it from the top it will start to fall for ~2s before respawning.
+  - scalable
+  - **settings**:
+    - **color**
+
+- **bouncy**: has solid collision but when the player comes in contact with it from the top it will put the player in the bouncing state and bounce back up after a short period of time. the time and bounce height is determined by the blocks y size with bigger time and height from larget y scales.
+  - scalable
+  - **settings**:
+    - **color**
+
+- **inner level**: has solid collision but when the player crouches on top of it the player will be transported to a new level, which upon being beat will send the player back to the previous level on top of it.
+  - scalable
+  - **settings**:
+    - **color**
+    - **level**: the level that you will be sent to
+    - **requiredLevelCount**: the amount of levels that you must beat before being able to enter this level
+
+- **goal**: when the player reaches this block they win and if inside an inner level they will go back to the previous level else they will just be reset to the last saved checkpoint.
+  - scalable
+  - i plan to add better win effects for beating the main level
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+    - **requiredLevelCount**: the amount of levels that you must beat before being able to win by touching this goal
+
+- **buzsaw**: kills the player on contact
+  - scalable
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **bouncing buzsaw**: kills the player on contact and falls until hitting a solid block where it will start bouncing up until reaching the start height where it will start falling back down again
+  - scalable
+  - **settings**:
+    - **color**
+
+- **cannon**: NOT WORKING YET
+  - scalable
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **checkpoint**: sets the player respawn location to this location
+  - scalable
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+    - **multiUse**: if true you can recollect this checkpoint else this checkpoint will only be collectable once
+
+- **closing spikes**: kills the player on contact will open slowly then close quickly
+  - scalable
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **Gravity Down Lever**: when the player is inside the lever and presses down the player gravity will be halfed or reverted to normal if it was halved before
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **Gravity Up Lever**: when the player is inside the lever and presses down the player gravity will be doubled or reverted to normal if it was doubled before
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **speed Up Lever**: when the player is inside the lever and presses down the player speed will be doubled or reverted to normal if it was doubled before
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **key**: when the player comes in contact with this it will start following the player until ised to unlock a locked box
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **light switch**: when the player comes in contact with this it will disable all solar blocks
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **Pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
+  - when on Pulley you can press down to drop off of it
+  - when on Pulley you can press up to become temporarily invinsible
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+    - **direction**
+      - left: it will move left
+      - left: it will move right
+      - user: it will move whichever way the player was facing when entering it
+
+- **Quadrant**: kills the player on contact and will spin counterclockwise
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **Rotating Buzzsaw**: kills the player on contact and will spin clockwise
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **Scythe**: kills the player on contact and will spin clockwise
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **star**: when the player collects this it will stay collected
+  - i plan to add a star counter to show how many stars you have collected and the total for current level and for all inner levels
+  - i plan to make it so that it remembers which stars have been collected and not just if a star has been collected
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **death boundary**: kills the player on contact
+  - **settings**:
+    - **color**
+
+- **block death boundary**: kills most moving blocks on contact including collected keys and removes effects from the player when the player enters
+  - effects removed are
+    - speed lever
+    - low gravity lever
+    - high gravity lever
+  - **settings**:
+    - **color**
+
+- **nowj**: prevents the player from walljumping, wallsliding, and wall hanging when in contact with the player
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **falling spike**: kills the player on contact when in line with the player it will start falling until hitting a solid block
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+    - **portalId**: the id of this portal as used for finding an exit portal
+    - **exitId**: the id this portal uses to find its exit portal
+      - eg portalId = 1, exitId = 2, means that entering this portal will take the player to the portal with portalId = 2 and will be found with a portal set to have exitId = 1
+
+
+

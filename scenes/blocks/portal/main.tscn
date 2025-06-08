@@ -286,7 +286,7 @@ debug_color = Color(0, 1, 0, 0.419608)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="collisionNode"]
 sprite_frames = SubResource("SpriteFrames_nqnf4")
 autoplay = "default"
-frame_progress = 0.07764
+frame_progress = 0.00319535
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
