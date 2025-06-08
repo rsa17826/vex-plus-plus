@@ -13,12 +13,13 @@ func _init() -> void:
 
 func onProgress(prog, max):
   global.ui.progressBar.value = global.rerange(prog, 0, max, 50, 100)
-  if prog % 10 == 0:
+  if prog % 30 == 0:
     await global.wait()
 
 func loadLevel(level):
   # await global.wait()
   global.hoveredBlocks = []
+  global.stopTicking = true
   global.player.state = global.player.States.levelLoading
   # global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
   # log.pp(global.path.join(global.levelFolderPath, level), global.loadedLevels, global.beatLevels)
@@ -57,6 +58,7 @@ func loadLevel(level):
   global.player.get_node("../CanvasLayer/editor bar")._ready()
   global.ui.progressContainer.visible = false
   global.player.state = global.player.States.falling
+  global.stopTicking = false
   # await global.wait()
   # await global.wait(300)
   # global.savePlayerLevelData()

@@ -1015,7 +1015,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   level.loadLevel(currentLevel().name)
   await wait()
   player.die(0, false)
-  player.state = player.States.levelLoading
+  # player.state = player.States.levelLoading
   if loadFromSave and saveData:
     player.deathPosition = player.lastSpawnPoint
     player.goto(saveData.playerDelogPosition)
