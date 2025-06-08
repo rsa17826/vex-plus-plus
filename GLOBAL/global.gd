@@ -40,7 +40,7 @@ enum PromptTypes {
   float,
   info,
   _enum,
-  multiSelect,
+  # multiSelect,
   bool
 }
 
@@ -1432,8 +1432,8 @@ var blockNames: Array = [
   "key", # 1
   # "laser", # 0
   "light switch", # .9
-  # "pole", # 0
-  # "Pole Quadrant", # 0
+  "pole", # 0
+  "Pole Quadrant", # 0
   "Pulley", # 1
   "Quadrant", # 1
   "Rotating Buzzsaw", # 1

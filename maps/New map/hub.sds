@@ -1175,4 +1175,41 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(325.0)
+    STR(y)FLOAT(-485.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(pole)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(365.0)
+    STR(y)FLOAT(-470.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(false)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(260.0)
+    STR(y)FLOAT(-450.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Pole Quadrant)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

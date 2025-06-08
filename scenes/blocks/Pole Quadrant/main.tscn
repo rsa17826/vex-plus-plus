@@ -1,28 +1,25 @@
 [gd_scene load_steps=7 format=3 uid="uid://dxyx8pblcdhdi"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_a867g"]
+[ext_resource type="Script" uid="uid://bjpbt3rbcl7nx" path="res://scenes/blocks/Pole Quadrant/Pole Quadrant.gd" id="1_6ey8g"]
 [ext_resource type="Texture2D" uid="uid://hiewhh1a6v25" path="res://scenes/blocks/Pole Quadrant/images/1.png" id="2_a867g"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_pha53"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_oq442"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_oq442"]
-radius = 28.2312
+[ext_resource type="PackedScene" uid="uid://ckbwrk1t23iw7" path="res://scenes/blocks/pole/main.tscn" id="4_6ey8g"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pha53"]
 radius = 46.3897
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "pole", "respawnOnPlayerDeath"]]
-script = ExtResource("1_a867g")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "pathFollowNode", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "pole", "respawnOnPlayerDeath"]]
+script = ExtResource("1_6ey8g")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/CollisionShape2D2"), NodePath("collisionNode/CollisionShape2D3"), NodePath("collisionNode/CollisionShape2D4")]
+collisionShapes = [NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
+pathFollowNode = NodePath("collisionNode")
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 0
-collision_mask = 2
+[node name="collisionNode" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("2_pha53")
 root = NodePath("..")
 
@@ -31,35 +28,30 @@ use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_a867g")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="Node2D" parent="collisionNode" instance=ExtResource("4_6ey8g")]
 position = Vector2(-317, 0)
-shape = SubResource("CircleShape2D_oq442")
-debug_color = Color(0, 1, 0, 0.419608)
+EDITOR_IGNORE = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
+[node name="Node2D2" parent="collisionNode" instance=ExtResource("4_6ey8g")]
+position = Vector2(317, 0)
+EDITOR_IGNORE = true
+
+[node name="Node2D3" parent="collisionNode" instance=ExtResource("4_6ey8g")]
 position = Vector2(0, -317)
-shape = SubResource("CircleShape2D_oq442")
-debug_color = Color(0, 1, 0, 0.419608)
+EDITOR_IGNORE = true
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="collisionNode"]
-position = Vector2(316, 0)
-shape = SubResource("CircleShape2D_oq442")
-debug_color = Color(0, 1, 0, 0.419608)
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="collisionNode"]
-position = Vector2(0, 316)
-shape = SubResource("CircleShape2D_oq442")
-debug_color = Color(0, 1, 0, 0.419608)
+[node name="Node2D4" parent="collisionNode" instance=ExtResource("4_6ey8g")]
+position = Vector2(0, 317)
+EDITOR_IGNORE = true
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 8
 script = ExtResource("3_oq442")
 root = NodePath("..")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_pha53")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
-
-[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
+metadata/_edit_lock_ = true

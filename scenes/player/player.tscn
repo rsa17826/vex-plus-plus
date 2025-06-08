@@ -1,4 +1,4 @@
-[gd_scene load_steps=208 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene load_steps=251 format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_hdu4s"]
@@ -37,35 +37,48 @@
 [ext_resource type="Texture2D" uid="uid://bd8lf002wadn7" path="res://scenes/player/images/anim/run/16.png" id="19_genst"]
 [ext_resource type="Texture2D" uid="uid://dj0f7efx6lmyw" path="res://scenes/player/images/anim/pushing box/1.png" id="20_12j61"]
 [ext_resource type="Texture2D" uid="uid://wiwh5ehihdub" path="res://scenes/player/images/anim/run/17.png" id="20_niom3"]
+[ext_resource type="Texture2D" uid="uid://t4x2h7ss0ugp" path="res://scenes/player/images/anim/jump/69.png" id="20_q53ni"]
 [ext_resource type="Texture2D" uid="uid://b0240p7v2eogi" path="res://scenes/player/images/anim/kicking box/46.png" id="20_xm1em"]
+[ext_resource type="Texture2D" uid="uid://bgfsxgcva8l2m" path="res://scenes/player/images/anim/jump/70.png" id="21_4v6xr"]
 [ext_resource type="Texture2D" uid="uid://bj75u1amsbrwd" path="res://scenes/player/images/anim/kicking box/47.png" id="21_6ix8p"]
 [ext_resource type="Texture2D" uid="uid://4eobnfncyh1" path="res://scenes/player/images/anim/pushing box/2.png" id="21_kthys"]
 [ext_resource type="Texture2D" uid="uid://bky5fetptarrk" path="res://scenes/player/images/anim/run/18.png" id="21_ttakn"]
 [ext_resource type="Texture2D" uid="uid://cmwd3amswd7j0" path="res://scenes/player/images/anim/pushing box/3.png" id="22_48o5h"]
 [ext_resource type="Texture2D" uid="uid://dohnwfgn0060w" path="res://scenes/player/images/anim/kicking box/48.png" id="22_fntve"]
+[ext_resource type="Texture2D" uid="uid://c0ra1acbfnpwr" path="res://scenes/player/images/anim/jump/71.png" id="22_o8ce2"]
 [ext_resource type="Texture2D" uid="uid://bpg3oirgjitx4" path="res://scenes/player/images/anim/run/19.png" id="22_rw8a5"]
 [ext_resource type="Texture2D" uid="uid://o1nfhmeqcvhw" path="res://scenes/player/images/anim/kicking box/49.png" id="23_a2vma"]
 [ext_resource type="Texture2D" uid="uid://cd057ecq1m6nu" path="res://scenes/player/images/anim/run/20.png" id="23_iwuka"]
+[ext_resource type="Texture2D" uid="uid://cw0gj7lgd5f6l" path="res://scenes/player/images/anim/jump/72.png" id="23_s6fkf"]
 [ext_resource type="Texture2D" uid="uid://1wet4jle74cs" path="res://scenes/player/images/anim/pushing box/4.png" id="23_xum3i"]
+[ext_resource type="Texture2D" uid="uid://dugfypki2d6bk" path="res://scenes/player/images/anim/jump/73.png" id="24_7kgw3"]
 [ext_resource type="Texture2D" uid="uid://d1d8ocynpfbww" path="res://scenes/player/images/anim/kicking box/50.png" id="24_b63cp"]
 [ext_resource type="Texture2D" uid="uid://bvx86auei3smn" path="res://scenes/player/images/anim/pushing box/5.png" id="24_ct4wv"]
 [ext_resource type="Texture2D" uid="uid://cv2y5y34ohfo8" path="res://scenes/player/images/anim/wall slide/2.png" id="24_hyqqp"]
 [ext_resource type="Texture2D" uid="uid://1ak4cq6oddxc" path="res://scenes/player/images/anim/wall slide/3.png" id="25_ds1xl"]
 [ext_resource type="Texture2D" uid="uid://xl53jsyd7fes" path="res://scenes/player/images/anim/kicking box/51.png" id="25_l2ov3"]
+[ext_resource type="Texture2D" uid="uid://wsg1y2ct4vij" path="res://scenes/player/images/anim/jump/74.png" id="25_mu3ts"]
 [ext_resource type="Texture2D" uid="uid://cx3ouwhyfqslr" path="res://scenes/player/images/anim/pushing box/6.png" id="25_teg5g"]
 [ext_resource type="Texture2D" uid="uid://cjfwesca7gr45" path="res://scenes/player/images/anim/wall slide/4.png" id="26_1u1sw"]
+[ext_resource type="Texture2D" uid="uid://wkichibfojkd" path="res://scenes/player/images/anim/jump/75.png" id="26_ewv0n"]
 [ext_resource type="Texture2D" uid="uid://cajhtsy7mqags" path="res://scenes/player/images/anim/kicking box/52.png" id="26_gdxup"]
 [ext_resource type="Texture2D" uid="uid://ctgey302w0k1l" path="res://scenes/player/images/anim/pushing box/7.png" id="26_vcxk4"]
+[ext_resource type="Texture2D" uid="uid://dmaxvq640we4u" path="res://scenes/player/images/anim/jump/76.png" id="27_lbifn"]
 [ext_resource type="Texture2D" uid="uid://e8h46ramcnlc" path="res://scenes/player/images/anim/kicking box/53.png" id="27_vbe6q"]
 [ext_resource type="Texture2D" uid="uid://ckid6m6a28pyc" path="res://scenes/player/images/anim/pushing box/8.png" id="27_x6bw1"]
 [ext_resource type="Texture2D" uid="uid://5nohvg5qel85" path="res://scenes/player/images/anim/pushing box/9.png" id="28_e1bru"]
+[ext_resource type="Texture2D" uid="uid://dtxar78uax1al" path="res://scenes/player/images/anim/jump/77.png" id="28_rm8dy"]
 [ext_resource type="Texture2D" uid="uid://c5cnhbw2li3qg" path="res://scenes/player/images/anim/kicking box/54.png" id="28_xkbl4"]
 [ext_resource type="Texture2D" uid="uid://gmyt1r2y2y3o" path="res://scenes/player/images/anim/pushing box/10.png" id="29_63x2c"]
+[ext_resource type="Texture2D" uid="uid://da4d4rfm4g8lr" path="res://scenes/player/images/anim/jump/78.png" id="29_f8aoj"]
 [ext_resource type="Texture2D" uid="uid://65s5cgxax2j4" path="res://scenes/player/images/anim/kicking box/55.png" id="29_xfllp"]
 [ext_resource type="Texture2D" uid="uid://mfvkpfv4ggbr" path="res://scenes/player/images/anim/pushing box/11.png" id="30_arxfr"]
 [ext_resource type="Texture2D" uid="uid://bdv0meo6lpfuh" path="res://scenes/player/images/anim/kicking box/56.png" id="30_qr5dr"]
+[ext_resource type="Texture2D" uid="uid://cbomq0ls036so" path="res://scenes/player/images/anim/jump/79.png" id="30_s2tgi"]
 [ext_resource type="Texture2D" uid="uid://bxne1vh5vyocd" path="res://scenes/player/images/anim/kicking box/57.png" id="31_2t0dv"]
 [ext_resource type="Texture2D" uid="uid://cm5w76fbxhrpv" path="res://scenes/player/images/anim/pushing box/12.png" id="31_5ecds"]
+[ext_resource type="Texture2D" uid="uid://cea0yxvnjtu4r" path="res://scenes/player/images/anim/jump/80.png" id="31_il3lm"]
+[ext_resource type="Texture2D" uid="uid://b5vb66uxmu1el" path="res://scenes/player/images/anim/jump/81.png" id="32_gdkqs"]
 [ext_resource type="Texture2D" uid="uid://d31jau1g0nbo7" path="res://scenes/player/images/anim/pushing box/13.png" id="32_nssm8"]
 [ext_resource type="Texture2D" uid="uid://bj3w4w6yt206p" path="res://scenes/player/images/anim/kicking box/58.png" id="32_xfwra"]
 [ext_resource type="Texture2D" uid="uid://dumdvasjsl304" path="res://scenes/player/images/anim/pushing box/14.png" id="33_ei0bd"]
@@ -84,63 +97,93 @@
 [ext_resource type="Texture2D" uid="uid://cpcyl5cd46or6" path="res://scenes/player/images/anim/pushing box/20.png" id="39_mtkxs"]
 [ext_resource type="Texture2D" uid="uid://c534385n6bsck" path="res://scenes/player/images/anim/pushing box/21.png" id="40_pxyg8"]
 [ext_resource type="Texture2D" uid="uid://tpj2gyupbjiu" path="res://scenes/player/images/anim/kicking box/66.png" id="40_wnmj1"]
+[ext_resource type="Texture2D" uid="uid://ccu1ustg0qmyg" path="res://scenes/player/images/anim/swinging on dot/6.png" id="41_g11hh"]
 [ext_resource type="Texture2D" uid="uid://cp6jjlaq4q5ru" path="res://scenes/player/images/anim/on pulley/1.png" id="41_m8vw7"]
 [ext_resource type="Texture2D" uid="uid://dft0ix50j7hng" path="res://scenes/player/images/anim/pushing box/22.png" id="41_xm1em"]
 [ext_resource type="Texture2D" uid="uid://cwcq5nym25o56" path="res://scenes/player/images/anim/pushing box/23.png" id="42_6ix8p"]
 [ext_resource type="Texture2D" uid="uid://df8kl7lyx2qr1" path="res://scenes/player/images/anim/on pulley/2.png" id="42_kwngi"]
+[ext_resource type="Texture2D" uid="uid://b6otwyib6qgfu" path="res://scenes/player/images/anim/swinging on dot/7.png" id="42_mcl3m"]
 [ext_resource type="Texture2D" uid="uid://dg3uyajpkkvm3" path="res://scenes/player/images/anim/pushing box/24.png" id="43_fntve"]
 [ext_resource type="Texture2D" uid="uid://d4exq605h0dn3" path="res://scenes/player/images/anim/on pulley/3.png" id="43_ooe3s"]
+[ext_resource type="Texture2D" uid="uid://d7g5nlvn6yyo" path="res://scenes/player/images/anim/swinging on dot/8.png" id="43_s46af"]
 [ext_resource type="Texture2D" uid="uid://gkny10awvfwu" path="res://scenes/player/images/anim/pushing box/25.png" id="44_a2vma"]
+[ext_resource type="Texture2D" uid="uid://cgytgdl25h1qu" path="res://scenes/player/images/anim/swinging on dot/9.png" id="44_rpy06"]
 [ext_resource type="Texture2D" uid="uid://dgbpdb7ognkuc" path="res://scenes/player/images/anim/on pulley/4.png" id="44_v7w4y"]
 [ext_resource type="Texture2D" uid="uid://cmtoqdm73vr27" path="res://scenes/player/images/anim/on pulley/5.png" id="45_58ivt"]
 [ext_resource type="Texture2D" uid="uid://cdcwgr7xwrjnh" path="res://scenes/player/images/anim/pushing box/26.png" id="45_b63cp"]
+[ext_resource type="Texture2D" uid="uid://dg544v4o0yq0" path="res://scenes/player/images/anim/swinging on dot/10.png" id="45_f4fcx"]
+[ext_resource type="Texture2D" uid="uid://2rgo56pvxevi" path="res://scenes/player/images/anim/swinging on dot/11.png" id="46_auu8a"]
 [ext_resource type="Texture2D" uid="uid://cn2d0wwxx23kp" path="res://scenes/player/images/anim/pushing box/27.png" id="46_l2ov3"]
 [ext_resource type="Texture2D" uid="uid://co2txplhloa3o" path="res://scenes/player/images/anim/on pulley/6.png" id="46_y5qpa"]
 [ext_resource type="Texture2D" uid="uid://cuykatd4gjei5" path="res://scenes/player/images/anim/on pulley/7.png" id="47_2ng8n"]
 [ext_resource type="Texture2D" uid="uid://dxb6uayqd222y" path="res://scenes/player/images/anim/pushing box/28.png" id="47_gdxup"]
+[ext_resource type="Texture2D" uid="uid://cdlg7oxvcj0qb" path="res://scenes/player/images/anim/swinging on dot/12.png" id="47_lkwya"]
+[ext_resource type="Texture2D" uid="uid://bj2lhoe8ihatb" path="res://scenes/player/images/anim/swinging on dot/13.png" id="48_et857"]
 [ext_resource type="Texture2D" uid="uid://lpxhvrnmgs5j" path="res://scenes/player/images/anim/on pulley/8.png" id="48_qpvka"]
 [ext_resource type="Texture2D" uid="uid://ktkggrms3nop" path="res://scenes/player/images/anim/pushing box/29.png" id="48_vbe6q"]
+[ext_resource type="Texture2D" uid="uid://d1ayw5m36b5wn" path="res://scenes/player/images/anim/swinging on dot/14.png" id="49_7yw2v"]
 [ext_resource type="Texture2D" uid="uid://x8h7ebjs6ya6" path="res://scenes/player/images/anim/on pulley/9.png" id="49_18q2s"]
 [ext_resource type="Texture2D" uid="uid://u2btum8nxe3j" path="res://scenes/player/images/anim/pushing box/30.png" id="49_xkbl4"]
+[ext_resource type="Texture2D" uid="uid://cbdqggblt5d3e" path="res://scenes/player/images/anim/swinging on dot/15.png" id="50_eb5ts"]
 [ext_resource type="Texture2D" uid="uid://bn81alhqd4eqw" path="res://scenes/player/images/anim/on pulley/10.png" id="50_sr4fa"]
 [ext_resource type="Texture2D" uid="uid://ben581f2funke" path="res://scenes/player/images/anim/pushing box/31.png" id="50_xfllp"]
 [ext_resource type="Texture2D" uid="uid://ccl3sld50qdk3" path="res://scenes/player/images/anim/on pulley/11.png" id="51_bhpn6"]
+[ext_resource type="Texture2D" uid="uid://c5i6objxvq3wb" path="res://scenes/player/images/anim/swinging on dot/16.png" id="51_ui8rx"]
 [ext_resource type="Texture2D" uid="uid://c8uqbfwv5xwsi" path="res://scenes/player/images/anim/on pulley/12.png" id="52_cedje"]
+[ext_resource type="Texture2D" uid="uid://diko5qqyc07s1" path="res://scenes/player/images/anim/swinging on dot/17.png" id="52_fild8"]
 [ext_resource type="Texture2D" uid="uid://71on0w8rcip0" path="res://scenes/player/images/anim/on pulley/13.png" id="53_2fetk"]
+[ext_resource type="Texture2D" uid="uid://08foudqx4y7a" path="res://scenes/player/images/anim/swinging on dot/18.png" id="53_oyq3u"]
 [ext_resource type="Texture2D" uid="uid://cwri28evwko0s" path="res://scenes/player/images/anim/on pulley/14.png" id="54_3gk6k"]
+[ext_resource type="Texture2D" uid="uid://crrsmmcqk6cr3" path="res://scenes/player/images/anim/swinging on dot/19.png" id="54_q53ni"]
 [ext_resource type="Texture2D" uid="uid://dd68eo74exje8" path="res://scenes/player/images/anim/on pulley/15.png" id="55_1ymuf"]
+[ext_resource type="Texture2D" uid="uid://dk2rehf8af2x7" path="res://scenes/player/images/anim/swinging on dot/20.png" id="55_4v6xr"]
 [ext_resource type="Texture2D" uid="uid://dshmbnshriepo" path="res://scenes/player/images/waterAnimTop/enter water/1.png" id="56_88c1f"]
 [ext_resource type="Texture2D" uid="uid://lxmjjqjh7s0y" path="res://scenes/player/images/anim/on pulley/16.png" id="56_hoixd"]
+[ext_resource type="Texture2D" uid="uid://nim66qb5wycb" path="res://scenes/player/images/anim/swinging on dot/21.png" id="56_o8ce2"]
 [ext_resource type="Texture2D" uid="uid://bttqb8r0nrokp" path="res://scenes/player/images/anim/on pulley/17.png" id="57_5o5no"]
 [ext_resource type="Texture2D" uid="uid://bkfpyf0iqdgd1" path="res://scenes/player/images/waterAnimTop/enter water/2.png" id="57_hdu4s"]
+[ext_resource type="Texture2D" uid="uid://bamtv48fgkjen" path="res://scenes/player/images/anim/swinging on dot/22.png" id="57_s6fkf"]
 [ext_resource type="Texture2D" uid="uid://c2e74gfmexu37" path="res://scenes/player/images/waterAnimTop/enter water/3.png" id="58_0wr6q"]
 [ext_resource type="Texture2D" uid="uid://bi0bm26ijb48e" path="res://scenes/player/images/anim/on pulley/18.png" id="58_4u00j"]
+[ext_resource type="Texture2D" uid="uid://bwne5ftk6cdku" path="res://scenes/player/images/anim/swinging on dot/23.png" id="58_7kgw3"]
+[ext_resource type="Texture2D" uid="uid://c5ab7hpc3a3qy" path="res://scenes/player/images/anim/swinging on dot/24.png" id="59_mu3ts"]
 [ext_resource type="Texture2D" uid="uid://bp8q02vtjuqhi" path="res://scenes/player/images/waterAnimTop/enter water/4.png" id="59_p0anf"]
 [ext_resource type="Texture2D" uid="uid://dhy460ppiqm1v" path="res://scenes/player/images/anim/on pulley/19.png" id="59_u5how"]
 [ext_resource type="Texture2D" uid="uid://bb2pw0wo3022r" path="res://scenes/player/images/anim/on pulley/20.png" id="60_1sil7"]
+[ext_resource type="Texture2D" uid="uid://dronjwyjowep0" path="res://scenes/player/images/anim/swinging on dot/25.png" id="60_ewv0n"]
 [ext_resource type="Texture2D" uid="uid://duccc4ujp18j1" path="res://scenes/player/images/waterAnimTop/enter water/5.png" id="60_lhgc7"]
 [ext_resource type="Texture2D" uid="uid://b61ybhg4bpk5e" path="res://scenes/player/images/anim/on pulley/21.png" id="61_gs5a7"]
+[ext_resource type="Texture2D" uid="uid://bf76ndd4mv7jn" path="res://scenes/player/images/anim/swinging on dot/26.png" id="61_lbifn"]
 [ext_resource type="Texture2D" uid="uid://di632ddln4svr" path="res://scenes/player/images/waterAnimTop/enter water/6.png" id="61_vy876"]
 [ext_resource type="Texture2D" uid="uid://wl4se22elraa" path="res://scenes/player/images/waterAnimTop/default/7.png" id="62_0vtlm"]
 [ext_resource type="Texture2D" uid="uid://cr8yavl3f7xpc" path="res://scenes/player/images/anim/on pulley/22.png" id="62_k2mkm"]
+[ext_resource type="Texture2D" uid="uid://boform4bki662" path="res://scenes/player/images/anim/swinging on dot/27.png" id="62_rm8dy"]
 [ext_resource type="Texture2D" uid="uid://cktxts7i44u0s" path="res://scenes/player/images/anim/on pulley/23.png" id="63_byjem"]
 [ext_resource type="Texture2D" uid="uid://wyftpw6iu8ir" path="res://scenes/player/images/waterAnimTop/default/8.png" id="63_drv02"]
+[ext_resource type="Texture2D" uid="uid://du0uatlkveiki" path="res://scenes/player/images/anim/swinging on dot/28.png" id="63_f8aoj"]
 [ext_resource type="Texture2D" uid="uid://y0baxmsykr0k" path="res://scenes/player/images/anim/on pulley/24.png" id="64_gnqqx"]
+[ext_resource type="Texture2D" uid="uid://dl3o8sfi4g11g" path="res://scenes/player/images/anim/swinging on dot/29.png" id="64_s2tgi"]
 [ext_resource type="Texture2D" uid="uid://cnjdvwr3mk7ho" path="res://scenes/player/images/waterAnimTop/default/9.png" id="64_tmafg"]
 [ext_resource type="Texture2D" uid="uid://g75fteoucl6u" path="res://scenes/player/images/waterAnimTop/default/10.png" id="65_2enr6"]
 [ext_resource type="Texture2D" uid="uid://bdyi08mk8vtlm" path="res://scenes/player/images/anim/on pulley/25.png" id="65_4qfrb"]
+[ext_resource type="Texture2D" uid="uid://b6woadsts0qgs" path="res://scenes/player/images/anim/swinging on dot/30.png" id="65_il3lm"]
 [ext_resource type="Texture2D" uid="uid://bilfr4w2go1sj" path="res://scenes/player/images/anim/on pulley/26.png" id="66_76ube"]
+[ext_resource type="Texture2D" uid="uid://52hsdoplmriw" path="res://scenes/player/images/anim/swinging on dot/31.png" id="66_gdkqs"]
 [ext_resource type="Texture2D" uid="uid://b5tgv4fxqvgim" path="res://scenes/player/images/waterAnimTop/default/11.png" id="66_qxlpa"]
 [ext_resource type="Texture2D" uid="uid://ck2jnww6txynk" path="res://scenes/player/images/anim/on pulley/27.png" id="67_agxve"]
 [ext_resource type="Texture2D" uid="uid://bqy070x6m076h" path="res://scenes/player/images/waterAnimTop/default/12.png" id="67_iwd08"]
+[ext_resource type="Texture2D" uid="uid://bsbh4wbuowid1" path="res://scenes/player/images/anim/swinging on dot/32.png" id="67_utlgu"]
 [ext_resource type="Texture2D" uid="uid://btbkk4rbn7i6t" path="res://scenes/player/images/anim/sliding/slide end/8.png" id="67_vkc6f"]
 [ext_resource type="Texture2D" uid="uid://cl7loj8mlqgg5" path="res://scenes/player/images/waterAnimTop/default/13.png" id="68_5oeuk"]
 [ext_resource type="Texture2D" uid="uid://clyaaj41isfmc" path="res://scenes/player/images/anim/on pulley/28.png" id="68_8ue2q"]
 [ext_resource type="Texture2D" uid="uid://c7wehfs2jmb03" path="res://scenes/player/images/anim/sliding/slide end/9.png" id="68_21yht"]
+[ext_resource type="Texture2D" uid="uid://dx0ikv0vnr2n7" path="res://scenes/player/images/anim/swinging on dot/33.png" id="68_w3io3"]
+[ext_resource type="Texture2D" uid="uid://b0ibma1umutsw" path="res://scenes/player/images/anim/swinging on dot/34.png" id="69_ixhsg"]
 [ext_resource type="Texture2D" uid="uid://bgcnpduc0blnk" path="res://scenes/player/images/waterAnimTop/default/14.png" id="69_oq5hk"]
 [ext_resource type="Texture2D" uid="uid://cmmu4gnw5a7ac" path="res://scenes/player/images/anim/on pulley/29.png" id="69_p0pgs"]
 [ext_resource type="Texture2D" uid="uid://cqp1jx78crtpf" path="res://scenes/player/images/anim/sliding/slide end/10.png" id="69_trum3"]
 [ext_resource type="Texture2D" uid="uid://duit23sfs3rxg" path="res://scenes/player/images/anim/sliding/slide end/11.png" id="70_4b1ex"]
+[ext_resource type="Texture2D" uid="uid://cvgiwbhw3dmds" path="res://scenes/player/images/anim/swinging on dot/35.png" id="70_hgc6s"]
 [ext_resource type="Texture2D" uid="uid://8gtu05dsbyp5" path="res://scenes/player/images/waterAnimTop/default/15.png" id="70_kfile"]
 [ext_resource type="Texture2D" uid="uid://cf7r4hwxrpaip" path="res://scenes/player/images/anim/on pulley/30.png" id="70_uru8s"]
 [ext_resource type="Texture2D" uid="uid://b6text5gw757q" path="res://scenes/player/images/anim/on pulley/31.png" id="71_mqtqs"]
@@ -287,6 +330,50 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("20_q53ni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_4v6xr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_o8ce2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_s6fkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_7kgw3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_mu3ts")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_ewv0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_lbifn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_rm8dy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_f8aoj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_s2tgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_il3lm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_gdkqs")
+}],
+"loop": true,
+"name": &"jumping off pole",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("20_xm1em")
 }, {
 "duration": 1.0,
@@ -351,6 +438,101 @@ animations = [{
 }],
 "loop": true,
 "name": &"kicking box",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("41_g11hh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_mcl3m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_s46af")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_rpy06")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_f4fcx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_auu8a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_lkwya")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_et857")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_7yw2v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_eb5ts")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_ui8rx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_fild8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_oyq3u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_q53ni")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_4v6xr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_o8ce2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_s6fkf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_7kgw3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_mu3ts")
+}, {
+"duration": 1.0,
+"texture": ExtResource("60_ewv0n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("61_lbifn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("62_rm8dy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("63_f8aoj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("64_s2tgi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("65_il3lm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("66_gdkqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_utlgu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_w3io3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_ixhsg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_hgc6s")
+}],
+"loop": true,
+"name": &"on pole",
 "speed": 30.0
 }, {
 "frames": [{
@@ -962,7 +1144,7 @@ metadata/_edit_lock_ = true
 position = Vector2(0, 0.145)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
-animation = &"pulling lever"
+animation = &"jumping off pole"
 autoplay = "idle"
 metadata/_edit_lock_ = true
 
@@ -1015,7 +1197,6 @@ collision_mask = 8
 hit_from_inside = true
 
 [node name="waterRay" type="RayCast2D" parent="CharacterBody2D"]
-visible = false
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(1, 10.795)
 target_position = Vector2(0, 11.69)
@@ -1036,6 +1217,7 @@ metadata/_edit_lock_ = true
 
 [node name="deathDetectors" type="Node2D" parent="CharacterBody2D"]
 unique_name_in_owner = true
+metadata/_edit_lock_ = true
 
 [node name="top" type="Area2D" parent="CharacterBody2D/deathDetectors"]
 position = Vector2(0, -16.15)
@@ -1079,6 +1261,7 @@ shape = SubResource("RectangleShape2D_p0anf")
 unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 256
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/nowjDetector"]
 shape = SubResource("RectangleShape2D_1ymuf")
@@ -1087,8 +1270,10 @@ metadata/_edit_lock_ = true
 
 [node name="respawn detection area" type="Area2D" parent="CharacterBody2D"]
 unique_name_in_owner = true
+visible = false
 collision_layer = 0
 collision_mask = 508
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/respawn detection area"]
 shape = SubResource("RectangleShape2D_dovo2")
@@ -1103,8 +1288,7 @@ use_parent_material = true
 position = Vector2(0, -1.9)
 scale = Vector2(0.14, 0.14)
 texture = ExtResource("3_lclul")
-
-[node name="PopupMenu" type="PopupMenu" parent="."]
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="CharacterBody2D/deathDetectors/top" to="CharacterBody2D" method="_on_top_body_entered"]
 [connection signal="body_exited" from="CharacterBody2D/deathDetectors/top" to="CharacterBody2D" method="_on_top_body_exited"]

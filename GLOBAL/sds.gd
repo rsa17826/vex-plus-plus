@@ -117,13 +117,13 @@ static func loadData(d: String) -> Variant:
   while UNSET in remainingData:
     UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
   # Initialize the stack with the initial state
-  stack.append({"remainingData": remainingData, "_stack": []})
+  stack.append([remainingData, []])
   var _stack: Array
   while stack.size() > 0:
     # log.pp(stack)
-    var current: Dictionary = stack.pop_back()
-    remainingData = current["remainingData"]
-    _stack = current["_stack"]
+    var current: Array = stack.pop_back()
+    remainingData = current[0]
+    _stack = current[1]
 
     if not remainingData:
       # log.warn(_stack, stack, 4)
@@ -151,20 +151,16 @@ static func loadData(d: String) -> Variant:
         # _stack.append(_stack[len(_stack) - 1])
         while len(_stack) >= 2:
           var thing1: Variant = _stack.pop_back()
-          if len(_stack):
-            match typeof(_stack[len(_stack) - 1]):
-              TYPE_NIL:
-                _stack[len(_stack) - 1] = thing1
-              TYPE_DICTIONARY:
-                for k: String in _stack[len(_stack) - 1]:
-                  if global.same(_stack[len(_stack) - 1][k], UNSET):
-                    _stack[len(_stack) - 1][k] = thing1
-                    break
-              TYPE_ARRAY:
-                _stack[len(_stack) - 1].append(thing1)
-          else:
-            stack.append({"remainingData": remainingData, "_stack": _stack})
-            continue
+          var lastItem = _stack[len(_stack) - 1]
+          if lastItem == null:
+            _stack[len(_stack) - 1] = thing1
+          elif lastItem is Dictionary:
+            for k: String in lastItem:
+              if global.same(lastItem[k], UNSET):
+                lastItem[k] = thing1
+                break
+          elif lastItem is Array:
+            lastItem.append(thing1)
         # log.pp(_stack)
         return _stack[0]
 
@@ -182,7 +178,7 @@ static func loadData(d: String) -> Variant:
 
       _stack.append(thingToPutDataIn)
       # remainingData = remainingData.strip_edges()
-      stack.append({"remainingData": remainingData, "_stack": _stack})
+      stack.append([remainingData, _stack])
       continue
 
     var type: String = getDataReg.call(r"^[A-Za-z]+[\dA-Za-z]*|\[|\{")
@@ -312,22 +308,23 @@ static func loadData(d: String) -> Variant:
     remainingData = remainingData.strip_edges()
     if !global.same(thisdata, UNSET):
       if len(_stack):
-        match typeof(_stack[len(_stack) - 1]):
-          TYPE_NIL:
-            _stack[len(_stack) - 1] = thisdata
-          TYPE_DICTIONARY:
+        var lastItem = _stack[len(_stack) - 1]
+        if lastItem == null:
+          lastItem = thisdata
+        else:
+          if lastItem is Dictionary:
             var innerDataFound := false
-            for k: String in _stack[len(_stack) - 1]:
-              if global.same(_stack[len(_stack) - 1][k], UNSET):
+            for k: String in lastItem:
+              if global.same(lastItem[k], UNSET):
                 innerDataFound = true
-                _stack[len(_stack) - 1][k] = thisdata
+                lastItem[k] = thisdata
                 break
             if !innerDataFound:
-              _stack[len(_stack) - 1][thisdata] = UNSET
-          TYPE_ARRAY:
-            _stack[len(_stack) - 1].append(thisdata)
+              lastItem[thisdata] = UNSET
+          elif lastItem is Array:
+            lastItem.append(thisdata)
       else:
-        stack.append({"remainingData": remainingData, "_stack": _stack})
+        stack.append([remainingData, _stack])
         continue
         # # log.warn("no obj")
         # log.warn(out, stack, _stack, thisdata, 2)
@@ -335,6 +332,6 @@ static func loadData(d: String) -> Variant:
     # log.pp(thisdata, out, remainingData, "_stack:", str(_stack))
     # if len(remainingData):
     # Push the current state back onto the stack for the next iteration
-    stack.append({"remainingData": remainingData, "_stack": _stack})
+    stack.append([remainingData, _stack])
 
   return _stack[len(_stack) - 1]
