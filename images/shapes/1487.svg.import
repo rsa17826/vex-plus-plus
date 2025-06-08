@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brep3ehr5x53o"
-path="res://.godot/imported/1.png-255e67a09f996f80ed94df495cfb6fce.ctex"
+uid="uid://blsy7gr0yecux"
+path="res://.godot/imported/1487.svg-48146e147feb0584460e7cd8d95fc40a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/sprites/Boundary/1.png"
-dest_files=["res://.godot/imported/1.png-255e67a09f996f80ed94df495cfb6fce.ctex"]
+source_file="res://images/shapes/1487.svg"
+dest_files=["res://.godot/imported/1487.svg-48146e147feb0584460e7cd8d95fc40a.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

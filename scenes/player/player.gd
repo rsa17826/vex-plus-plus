@@ -248,19 +248,7 @@ func _physics_process(delta: float) -> void:
         Engine.time_scale = 1
         await global.wait()
         # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
-        for block in %"respawn detection area".get_overlapping_bodies():
-          if 'root' not in block:
-            log.pp(block, block.id if 'id' in block else 'no id')
-            breakpoint
-          else:
-            block.root._on_body_entered(self)
-        # log.pp("respawn", %"respawn detection area".get_overlapping_areas())
-        for block in %"respawn detection area".get_overlapping_areas():
-          if 'root' not in block:
-            log.pp(block, block.id if 'id' in block else 'no id')
-            breakpoint
-          else:
-            block.root._on_body_entered(self)
+        updateCollidingBlocksEntered()
         global.stopTicking = false
       return
     States.swingingOnPole:
@@ -271,17 +259,37 @@ func _physics_process(delta: float) -> void:
       vel.user = Vector2.ZERO
       $CollisionShape2D.shape.size.y = unduckSize.y / 4
       %deathDetectors.scale = Vector2(1, 0.25)
+
+      var xIntent = Input.get_axis("left", "right")
+      if xIntent > 0:
+        $anim.flip_h = false
+      elif xIntent < 0:
+        $anim.flip_h = true
+      if $anim.flip_h:
+        activePole.root.timingIndicator.rotation_degrees = 135 # - activePole.root.timingIndicator.get_parent().rotation_degrees
+        activePole.root.timingIndicator.position = Vector2(-55.5, 55.5)
+      else:
+        activePole.root.timingIndicator.rotation_degrees = 45 # - activePole.root.timingIndicator.get_parent().rotation_degrees
+        activePole.root.timingIndicator.position = Vector2(55.5, 55.5)
       if Input.is_action_just_pressed("jump"):
-        # this one should be user because it makes the falling better
-        vel.user.y = JUMP_POWER
-        # but this should be pole as that way it does something as user.x is set to xintent
-        vel.pole.x = 50 * (-1 if $anim.flip_h else 1)
-        $anim.animation = "jumping off pole"
-        $anim.animation_looped.connect(func():
-          if $anim.animation == "jumping off pole":
-            $anim.animation="jump",
-          Object.CONNECT_ONE_SHOT)
-        state = States.jumping
+        if $anim.frame >= 1 and $anim.frame <= 5:
+          # this one should be user because it makes the falling better
+          vel.user.y = JUMP_POWER
+          # but this should be pole as that way it does something as user.x is set to xintent
+          vel.pole.x = 50 * (-1 if $anim.flip_h else 1)
+          $anim.animation = "jumping off pole"
+          $anim.animation_looped.connect(func():
+            if $anim.animation == "jumping off pole":
+              $anim.animation="jump",
+            Object.CONNECT_ONE_SHOT)
+          activePole.root.timingIndicator.visible = false
+          activePole = null
+          state = States.jumping
+        else:
+          vel.user.y = 0
+          state = States.falling
+          activePole.root.timingIndicator.visible = false
+          activePole = null
       elif Input.is_action_just_pressed("down"):
         vel.user.y = 0
         state = States.falling
@@ -907,20 +915,7 @@ var OnPlayerFullRestart: Array = []
 
 func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
-  log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
-  for block in %"respawn detection area".get_overlapping_bodies():
-    if 'root' not in block:
-      log.pp(block, block.id if 'id' in block else 'no id')
-      breakpoint
-    else:
-      block.root._on_body_exited(self)
-  log.pp("respawn", %"respawn detection area".get_overlapping_areas())
-  for block in %"respawn detection area".get_overlapping_areas():
-    if 'root' not in block:
-      log.pp(block, block.id if 'id' in block else 'no id')
-      breakpoint
-    else:
-      block.root._on_body_exited(self)
+  updateCollidingBlocksExited()
   if full:
     lastSpawnPoint = Vector2(0, 0)
   lastCollidingBlocks = []
@@ -993,6 +988,37 @@ func _on_left_body_exited(body: Node2D) -> void:
   if body in collsiionOn_left:
     collsiionOn_left.erase(body)
 
+func updateCollidingBlocksEntered():
+  log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
+  for block in %"respawn detection area".get_overlapping_bodies():
+    if 'root' not in block:
+      log.pp(block, block.id if 'id' in block else 'no id')
+      breakpoint
+    else:
+      block.root._on_body_entered(self)
+  log.pp("respawn", %"respawn detection area".get_overlapping_areas())
+  for block in %"respawn detection area".get_overlapping_areas():
+    if 'root' not in block:
+      log.pp(block, block.id if 'id' in block else 'no id')
+      breakpoint
+    else:
+      block.root._on_body_entered(self)
+func updateCollidingBlocksExited():
+  # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
+  for block in %"respawn detection area".get_overlapping_bodies():
+    if 'root' not in block:
+      log.pp(block, block.id if 'id' in block else 'no id')
+      breakpoint
+    else:
+      block.root._on_body_exited(self)
+  # log.pp("respawn", %"respawn detection area".get_overlapping_areas())
+  for block in %"respawn detection area".get_overlapping_areas():
+    if 'root' not in block:
+      log.pp(block, block.id if 'id' in block else 'no id')
+      breakpoint
+    else:
+      block.root._on_body_exited(self)
+
 # zipline
 # add tooltips to blocks in block picker??
 # make menu show groups as named colapsables
@@ -1064,3 +1090,4 @@ func _on_left_body_exited(body: Node2D) -> void:
 # make clicking to release copy not select blocks
 
 # fix rotating buzsaws editor rotating incorrectly
+# make pole quadrent pole indicators rotate correctly

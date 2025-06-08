@@ -56,9 +56,13 @@ func loadLevel(level):
   global.tick = 0
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
   global.player.get_node("../CanvasLayer/editor bar")._ready()
+  await global.wait()
+  for block in $blocks.get_children():
+    block.respawn()
+  global.stopTicking = false
   global.ui.progressContainer.visible = false
   global.player.state = global.player.States.falling
-  global.stopTicking = false
+  global.player.updateCollidingBlocksEntered()
   # await global.wait()
   # await global.wait(300)
   # global.savePlayerLevelData()

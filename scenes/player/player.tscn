@@ -442,6 +442,21 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("66_gdkqs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("67_utlgu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("68_w3io3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("69_ixhsg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("70_hgc6s")
+}, {
+"duration": 1.0,
 "texture": ExtResource("41_g11hh")
 }, {
 "duration": 1.0,
@@ -515,21 +530,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("65_il3lm")
-}, {
-"duration": 1.0,
-"texture": ExtResource("66_gdkqs")
-}, {
-"duration": 1.0,
-"texture": ExtResource("67_utlgu")
-}, {
-"duration": 1.0,
-"texture": ExtResource("68_w3io3")
-}, {
-"duration": 1.0,
-"texture": ExtResource("69_ixhsg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("70_hgc6s")
 }],
 "loop": true,
 "name": &"on pole",
@@ -1144,8 +1144,9 @@ metadata/_edit_lock_ = true
 position = Vector2(0, 0.145)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
-animation = &"jumping off pole"
+animation = &"on pole"
 autoplay = "idle"
+frame = 7
 metadata/_edit_lock_ = true
 
 [node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D"]
@@ -1270,7 +1271,6 @@ metadata/_edit_lock_ = true
 
 [node name="respawn detection area" type="Area2D" parent="CharacterBody2D"]
 unique_name_in_owner = true
-visible = false
 collision_layer = 0
 collision_mask = 508
 metadata/_edit_lock_ = true
