@@ -7,6 +7,7 @@ var direction = 0
 var moving = false
 
 func on_respawn():
+  $movable.position = Vector2.ZERO
   if moving:
     moving = false
     nodeToMove.position = Vector2.ZERO
@@ -44,7 +45,7 @@ func on_physics_process(delta: float) -> void:
     on_respawn()
 
 func generateBlockOpts():
-  blockOptions.direction = {"type": global.PromptTypes.singleArr, "default": "right", "values": [
+  blockOptions.direction = {"type": global.PromptTypes._enum, "default": "right", "values": [
     "left",
     "right",
     "user"
@@ -53,3 +54,6 @@ func generateBlockOpts():
 func _on_has_ceil_body_exited(body: Node2D) -> void:
   if not %"has ceil".get_overlapping_bodies():
     on_respawn()
+
+
+  

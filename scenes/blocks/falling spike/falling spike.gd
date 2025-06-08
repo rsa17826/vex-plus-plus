@@ -10,6 +10,7 @@ const speed = 3500.0
 func on_respawn():
   falling = false
   $Node2D.position = Vector2.ZERO
+  $Node2D/collisionNode.position = Vector2(0, 13)
   position = startPosition
   # $Node2D/collisionNode.position = Vector2(0, 13)
 

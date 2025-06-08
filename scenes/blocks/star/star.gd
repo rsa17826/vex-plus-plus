@@ -7,6 +7,9 @@ func on_ready() -> void:
     await global.wait()
     __disable.call_deferred()
 
+func on_respawn() -> void:
+  $collisionNode.position = Vector2.ZERO
+  
 func on_body_entered(body: Node) -> void:
   if body == global.player:
     __disable.call_deferred()

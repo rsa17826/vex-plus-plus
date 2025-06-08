@@ -34,3 +34,7 @@ func on_physics_process(delta: float) -> void:
   rightCollisionShape.global_position.x -= newOffset
   rightSprite.global_position.x = rightCollisionShape.global_position.x
   rotation_degrees = startRotation_degrees
+
+func on_respawn() -> void:
+  $Node2D.position = Vector2(0, 13)
+  $Node2D/collisionNode.position = Vector2.ZERO
