@@ -30,10 +30,10 @@ class_name sds
 static var prettyPrint: bool = true
 static func saveDataToFile(p: String, data: Variant) -> void:
   FileAccess.open(p, FileAccess.WRITE_READ).store_string(saveData(data))
-static func loadDataFromFile(p: String, ifUnset: Variant = null) -> Variant:
+static func loadDataFromFile(p: String, ifUnset: Variant = null, progress=null) -> Variant:
   var f := FileAccess.open(p, FileAccess.READ)
   if not f: return ifUnset
-  var d: Variant = loadData(f.get_as_text())
+  var d: Variant = loadData(f.get_as_text(), progress)
   return d if !global.same(d, UNSET) else ifUnset
 
 # fix recursion
@@ -108,7 +108,7 @@ static var UNSET: String
 const NUMREG = r"(?:nan|inf|-?\d+(?:\.\d+)?)"
 const SEPREG = r"\s*,\s*"
 
-static func loadData(d: String) -> Variant:
+static func loadData(d: String, progress=null) -> Variant:
   UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
   var stack := []
   remainingData = d.strip_edges() if d else ""
@@ -116,10 +116,13 @@ static func loadData(d: String) -> Variant:
     return UNSET
   while UNSET in remainingData:
     UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+  var maxProg = len(remainingData)
   # Initialize the stack with the initial state
   stack.append([remainingData, []])
   var _stack: Array
   while stack.size() > 0:
+    if progress:
+      progress.call(maxProg - len(remainingData), maxProg)
     # log.pp(stack)
     var current: Array = stack.pop_back()
     remainingData = current[0]

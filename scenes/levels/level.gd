@@ -11,24 +11,52 @@ extends Node2D
 func _init() -> void:
   global.level = self
 
+func onProgress(prog, max):
+  global.ui.progressBar.value = global.rerange(prog, 0, max, 50, 100)
+  if prog % 10 == 0:
+    await global.wait()
+
 func loadLevel(level):
   # await global.wait()
   global.hoveredBlocks = []
+  global.player.state = global.player.States.levelLoading
   # global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
   # log.pp(global.path.join(global.levelFolderPath, level), global.loadedLevels, global.beatLevels)
-  var leveldata = sds.loadDataFromFile(global.path.join(global.levelFolderPath, level + '.sds'), [ {"x": 0, "y": 0}, {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 65}])
+  global.ui.progressContainer.visible = true
+  var leveldata = sds.loadDataFromFile(global.path.join(global.levelFolderPath, level + '.sds'),
+    [
+      {"x": 0, "y": 0},
+      {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 65}
+    ],
+    func(prog, max):
+      global.ui.progressBar.value=global.rerange(prog, 0, max, 0, 50)
+  )
+  var prog = 0
+  var children = $blocks.get_children()
+  var max = len(children) + len(leveldata) - 1
+  if global.useropts.showLevelLoadingProgressBar:
+    global.ui.progressContainer.get_node("levelHider").visible = !global.useropts.showLevelLoadingBehindProgressBar
   if !leveldata: return
-  for node in $blocks.get_children():
+  # global.ui.progressContainer.text = "Loading Level..."
+  for node in children:
     $blocks.remove_child(node)
+    if global.useropts.showLevelLoadingProgressBar:
+      prog += 1
+      await onProgress(prog, max)
   global.player.get_parent().global_position = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   global.player.global_position = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   global.player.get_parent().startPosition = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   for thing in leveldata.slice(1):
     createBlock(thing['id'], thing['x'], thing['y'], thing['w'], thing['h'], thing['r'], thing['options'] if 'options' in thing else 0)
+    if global.useropts.showLevelLoadingProgressBar:
+      prog += 1
+      await onProgress(prog, max)
 
   global.tick = 0
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
   global.player.get_node("../CanvasLayer/editor bar")._ready()
+  global.ui.progressContainer.visible = false
+  global.player.state = global.player.States.falling
   # await global.wait()
   # await global.wait(300)
   # global.savePlayerLevelData()
