@@ -31,7 +31,7 @@ var activePole: Node2D = null
 var playerXIntent: float = 0
 var lastWall := 0
 var breakFromWall := false
-var state := States.idle
+var state := States.levelLoading
 var wallSlidingFrames: float = 0
 var slideRecovery: float = 0
 var boxKickRecovery: float = 0
@@ -110,7 +110,8 @@ enum States {
   pullingLever,
   swingingOnPole,
   onPulley,
-  pushing
+  pushing,
+  levelLoading,
 }
 
 var isFakeMouseMovement: bool = false
@@ -198,6 +199,7 @@ func _process(delta: float) -> void:
     $Camera2D.reset_smoothing()
 
 func _physics_process(delta: float) -> void:
+  if state == States.levelLoading: return
   if !Input.is_action_pressed("jump"):
     ACTIONjump = false
   # Engine.time_scale = .3

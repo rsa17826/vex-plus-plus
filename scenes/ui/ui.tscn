@@ -5,10 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar")]
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("saved")
 editorBar = NodePath("editor bar")
+progressContainer = NodePath("ProgressContainer")
+progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 
 [node name="editor bar" parent="." instance=ExtResource("2_5gxme")]
 visible = false
@@ -22,3 +24,32 @@ texture = ExtResource("3_qno0g")
 
 [node name="Controls" parent="." instance=ExtResource("4_g5kmx")]
 visible = false
+
+[node name="ProgressContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="levelHider" type="ColorRect" parent="ProgressContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.301961, 0.301961, 0.301961, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="ProgressContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="ProgressContainer/CenterContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2

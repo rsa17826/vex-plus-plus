@@ -1188,14 +1188,14 @@
     }
   }
   {
-    STR(x)FLOAT(365.0)
-    STR(y)FLOAT(-470.0)
+    STR(x)FLOAT(390.0)
+    STR(y)FLOAT(-675.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STR(multiUse)BOOL(false)
+      STR(multiUse)BOOL(true)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }

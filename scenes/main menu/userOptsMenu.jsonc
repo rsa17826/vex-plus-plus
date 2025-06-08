@@ -154,6 +154,18 @@
         "type": "bool",
         "key": "noCornerGrabsForScaling",
         "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showLevelLoadingProgressBar",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showLevelLoadingBehindProgressBar",
+        "defaultValue": true
       }
     ]
   },
