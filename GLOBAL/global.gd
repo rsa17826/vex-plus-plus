@@ -39,8 +39,8 @@ enum PromptTypes {
   string,
   float,
   info,
-  singleArr,
-  multiArr,
+  _enum,
+  multiSelect,
   bool
 }
 
@@ -93,7 +93,7 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
       promptCanvas.numEdit.get_line_edit().connect("text_submitted", _on_submit)
       promptCanvas.numEdit.visible = true
       promptCanvas.numEdit.get_line_edit().grab_focus()
-    PromptTypes.singleArr:
+    PromptTypes._enum:
       promptCanvas.enumEdit.clear()
       for thing: String in singleArrValues:
         promptCanvas.enumEdit.add_item(thing)
@@ -101,6 +101,7 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
       promptCanvas.enumEdit.connect("item_selected", _on_submit)
       promptCanvas.enumEdit.visible = true
       promptCanvas.enumEdit.grab_focus()
+      promptCanvas.btnOk.visible = false
 
   promptCanvas.btnOk.connect("pressed", _on_submit)
   promptCanvas.btnCancel.connect("pressed", _on_cancel)
@@ -114,7 +115,7 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
     PromptTypes.string: val = promptCanvas.strEdit.text if confirmed else default
     PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else default
     PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else default
-    PromptTypes.singleArr: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else default
+    PromptTypes._enum: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else default
   Input.mouse_mode = lastMouseMode
   promptCanvas.queue_free.call_deferred()
   return val

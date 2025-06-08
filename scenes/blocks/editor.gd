@@ -164,7 +164,7 @@ func toType(opt: Variant) -> void:
       selectedOptions[opt] = bool(selectedOptions[opt])
     global.PromptTypes.confirm:
       selectedOptions[opt] = bool(selectedOptions[opt])
-    global.PromptTypes.singleArr:
+    global.PromptTypes._enum:
       selectedOptions[opt] = selectedOptions[opt]
     _:
       selectedOptions[opt] = selectedOptions[opt]

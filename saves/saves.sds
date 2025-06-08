@@ -228,7 +228,7 @@
     }
   }
   STR(atest){
-    STR(playerDelogPosition)VEC2(1230.66491699219,-66.5027770996094)
+    STR(playerDelogPosition)VEC2(886.249267578125,-173.333419799805)
     STR(lastSpawnPoint)VEC2(930.0,-75.0)
     STR(loadedLevels)[
       {
