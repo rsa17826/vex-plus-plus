@@ -11,10 +11,14 @@ size = Vector2(2, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtxna"]
 size = Vector2(1, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things"]]
 script = ExtResource("1_gtxna")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
+cloneEventsHere = NodePath("attach detector")
+MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 256
