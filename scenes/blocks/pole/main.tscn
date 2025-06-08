@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://ckbwrk1t23iw7"]
+[gd_scene load_steps=9 format=3 uid="uid://ckbwrk1t23iw7"]
 
 [ext_resource type="Script" uid="uid://dkllasnspy0jo" path="res://scenes/blocks/pole/pole.gd" id="1_rybel"]
 [ext_resource type="Texture2D" uid="uid://ddgowssalafse" path="res://scenes/blocks/pole/images/1.png" id="2_l1pjd"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_orajn"]
 [ext_resource type="Texture2D" uid="uid://25yeme5ig8rv" path="res://scenes/blocks/pole/images/editorBar.png" id="3_8tkfk"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_rybel"]
+[ext_resource type="Texture2D" uid="uid://pidiksqy76vq" path="res://images/shapes/341.svg" id="6_wjp2b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8tkfk"]
 radius = 21.0
@@ -12,12 +13,13 @@ radius = 21.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_orajn"]
 radius = 24.0832
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "pole"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("timingIndicator", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "pole"]]
 script = ExtResource("1_rybel")
+timingIndicator = NodePath("collisionNode/timing indicator")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/EditorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/timing indicator")]
 cloneEventsHere = NodePath("attach detector")
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
@@ -26,6 +28,13 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("2_orajn")
 root = NodePath("..")
+
+[node name="timing indicator" type="Sprite2D" parent="collisionNode"]
+modulate = Color(1, 1, 1, 0.282353)
+position = Vector2(55.5, 55.5)
+rotation = 0.785398
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("6_wjp2b")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true

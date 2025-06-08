@@ -1188,7 +1188,7 @@
     }
   }
   {
-    STR(x)FLOAT(400.0)
+    STR(x)FLOAT(80.0)
     STR(y)FLOAT(-465.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
@@ -1201,8 +1201,8 @@
     }
   }
   {
-    STR(x)FLOAT(265.0)
-    STR(y)FLOAT(-420.0)
+    STR(x)FLOAT(290.0)
+    STR(y)FLOAT(-495.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -1881,6 +1881,28 @@
     STR(id)STR(pole)
     STR(options){
       STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(340.0)
+    STR(y)FLOAT(-445.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(leftright)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(85.0)
+    STR(y)FLOAT(-390.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
       STR(color)STR(#fff)
     }
   }
