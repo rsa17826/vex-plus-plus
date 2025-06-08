@@ -282,16 +282,16 @@ func _physics_process(delta: float) -> void:
             if $anim.animation == "jumping off pole":
               $anim.animation="jump",
             Object.CONNECT_ONE_SHOT)
-          activePole.root.timingIndicator.visible = false
-          activePole = null
           state = States.jumping
         else:
           vel.user.y = 0
           state = States.falling
-          activePole.root.timingIndicator.visible = false
-          activePole = null
+        activePole.root.timingIndicator.visible = false
+        activePole = null
       elif Input.is_action_just_pressed("down"):
         vel.user.y = 0
+        activePole.root.timingIndicator.visible = false
+        activePole = null
         state = States.falling
       tryAndDieHazards()
       tryAndDieSquish()

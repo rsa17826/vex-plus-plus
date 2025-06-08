@@ -240,14 +240,14 @@ func _physics_process(delta: float) -> void:
       cloneEventsHere.postMovementStep()
 
 func _process(delta: float) -> void:
-  if not EDITOR_IGNORE:
-    if global.openMsgBoxCount: return
-    if global.player.state == global.player.States.dead:
-      respawn()
-      return
-    if is_in_group("buzsaw - generic"):
-      _processBUZSAW_GENERIC(delta)
+  if global.openMsgBoxCount: return
+  if global.player.state == global.player.States.dead:
+    respawn()
+    return
+  if is_in_group("buzsaw - generic"):
+    _processBUZSAW_GENERIC(delta)
 
+  if not EDITOR_IGNORE:
     if isHovered:
       if self not in global.hoveredBlocks:
         global.hoveredBlocks.append(self)
