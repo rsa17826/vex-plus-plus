@@ -91,8 +91,8 @@ var stopVelOnGround := ["bounce", "waterExit"]
 var stopVelOnWall := ["bounce", "waterExit"]
 var stopVelOnCeil := ["bounce", "waterExit"]
 
-@onready var unduckSize: Vector2 = $CollisionShape2D.shape.size
-@onready var unduckPos: Vector2 = $CollisionShape2D.position
+@onready var unduckSize: Vector2 = Vector2(8, 33) # $CollisionShape2D.shape.size
+@onready var unduckPos: Vector2 = Vector2.ZERO # $CollisionShape2D.position
 
 var mouseMode := Input.MOUSE_MODE_CONFINED_HIDDEN
 
@@ -269,6 +269,8 @@ func _physics_process(delta: float) -> void:
       $anim.animation = "on pole"
       playerKT = 0
       vel.user = Vector2.ZERO
+      $CollisionShape2D.shape.size.y = unduckSize.y / 4
+      %deathDetectors.scale = Vector2(1, 0.25)
       if Input.is_action_just_pressed("jump"):
         # this one should be user because it makes the falling better
         vel.user.y = JUMP_POWER
@@ -929,7 +931,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   currentRespawnDelay = respawnTime
   gravState = GravStates.normal
   deathPosition = position
-  state = States.dead
+  if state != States.levelLoading:
+    state = States.dead
   keys = []
   for v: String in vel:
     vel[v] = Vector2.ZERO
