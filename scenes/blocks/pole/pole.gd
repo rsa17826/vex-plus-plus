@@ -16,3 +16,4 @@ func on_body_entered(body: Node) -> void:
 
 func on_respawn():
   timingIndicator.visible = false
+  $collisionNode.position = Vector2.ZERO

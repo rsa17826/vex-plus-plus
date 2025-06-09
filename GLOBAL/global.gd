@@ -582,6 +582,7 @@ enum EditorModes {
 var editorMode = EditorModes.normal
 
 func localProcess(delta: float) -> void:
+  if not global.useropts: return
   gridSize = 1 if Input.is_action_pressed("editor_disable_grid_snap") else global.useropts.blockSnapGridSize
   if FileAccess.file_exists(path.parsePath("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.parsePath("res://filesToOpen"))
@@ -966,7 +967,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   # Engine.time_scale = 1
   # log.pp("Loading Level Pack:", levelPackName)
   levelFolderPath = path.parsePath(path.join('res://maps/', levelPackName))
-  var levelPackInfo: Dictionary = loadMapInfo(levelPackName)
+  var levelPackInfo: Dictionary = await loadMapInfo(levelPackName)
   if !levelPackInfo: return
   var startFile := path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
   if !file.isFile(startFile):
@@ -1012,8 +1013,10 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
     ]
     beatLevels = []
   get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
-  level.loadLevel(currentLevel().name)
+  await level.loadLevel(currentLevel().name)
   await wait()
+  showEditorUi = false
+  player.camLockPos = Vector2.ZERO
   player.die(0, false)
   # player.state = player.States.levelLoading
   if loadFromSave and saveData:

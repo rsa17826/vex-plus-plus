@@ -206,6 +206,7 @@ func editOption(idx: int) -> void:
   _ready()
 
 func _physics_process(delta: float) -> void:
+  if global.stopTicking: return
   if global.openMsgBoxCount: return
   if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
