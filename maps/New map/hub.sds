@@ -434,7 +434,7 @@
     STR(y)FLOAT(-300.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(30.0000019073486)
+    STR(r)FLOAT(-210.0)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
       STRNAME(color)STR(#fff)
@@ -1907,8 +1907,8 @@
     }
   }
   {
-    STR(x)FLOAT(3395.0)
-    STR(y)FLOAT(-400.0)
+    STR(x)FLOAT(3385.0)
+    STR(y)FLOAT(-320.0)
     STR(w)FLOAT(24.0000035762787)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -1918,8 +1918,8 @@
     }
   }
   {
-    STR(x)FLOAT(2370.0)
-    STR(y)FLOAT(-470.0)
+    STR(x)FLOAT(2600.0)
+    STR(y)FLOAT(-390.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -3817,6 +3817,42 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2275.0)
+    STR(y)FLOAT(-575.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(growing buzsaw)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2187.5)
+    STR(y)FLOAT(-755.0)
+    STR(w)FLOAT(3.55618077516556)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(growing buzsaw)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2720.0)
+    STR(y)FLOAT(-730.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(growing buzsaw)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

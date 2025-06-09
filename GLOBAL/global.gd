@@ -1432,7 +1432,7 @@ var blockNames: Array = [
   "Gravity Down Lever", # 1
   "Gravity up Lever", # 1
   "speed Up Lever", # 0
-  # "growing buzsaw", # 0
+  "growing buzsaw", # 0
   "key", # 1
   # "laser", # 0
   "light switch", # .9
