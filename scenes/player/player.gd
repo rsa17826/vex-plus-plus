@@ -199,6 +199,26 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
   if state == States.levelLoading: return
+  if state in [
+    States.idle,
+    States.moving,
+    States.jumping,
+    States.wallHang,
+    States.falling,
+    States.wallSliding,
+    States.sliding,
+    # States.dead,
+    States.bouncing,
+    States.inCannon,
+    States.pullingLever,
+    States.swingingOnPole,
+    States.onPulley,
+    States.pushing,
+    # States.levelLoading,
+  ] \
+  and not inWaters:
+    if Input.is_action_just_pressed("jump"):
+      ACTIONjump = true
   if !Input.is_action_pressed("jump"):
     ACTIONjump = false
   # Engine.time_scale = .3
@@ -212,6 +232,7 @@ func _physics_process(delta: float) -> void:
   $waterRay.rotation_degrees = - rotation_degrees
   $anim.position = Vector2(0, 0.145)
   var REAL_GRAV: float = 0
+
   match gravState:
     GravStates.down:
       REAL_GRAV = GRAVITY * .5 * delta
@@ -386,9 +407,6 @@ func _physics_process(delta: float) -> void:
           vel.pole.x -= 2 * sign(vel.pole.x) * delta * 60
           # if abs(vel.pole.x) < 5:
           #   vel.pole.x = 0
-
-        if Input.is_action_just_pressed("jump"):
-          ACTIONjump = true
 
         floor_snap_length = 5
         # reset angle when exiting water

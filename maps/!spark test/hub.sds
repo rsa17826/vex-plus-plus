@@ -80,4 +80,28 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(197.5)
+    STR(y)FLOAT(-115.0)
+    STR(w)FLOAT(5.25)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-10.0)
+    STR(y)FLOAT(-60.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Pulley)
+    STR(options){
+      STR(direction)STR(right)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]
