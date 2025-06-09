@@ -317,6 +317,7 @@ func _process(delta: float) -> void:
 
             # show what sides are being selected if editorInScaleMode and is scalable
             ghost.material.set_shader_parameter("showTop",
+              not global.editorInScaleMode or \
               (
                 onTopSide and
                 global.editorInScaleMode and
@@ -327,6 +328,7 @@ func _process(delta: float) -> void:
               )
             )
             ghost.material.set_shader_parameter("showBottom",
+              not global.editorInScaleMode or \
               (
                 onBottomSide and
                 global.editorInScaleMode and
@@ -337,6 +339,7 @@ func _process(delta: float) -> void:
               )
             )
             ghost.material.set_shader_parameter("showLeft",
+              not global.editorInScaleMode or \
               (
                 onLeftSide and
                 global.editorInScaleMode and
@@ -347,6 +350,7 @@ func _process(delta: float) -> void:
               )
             )
             ghost.material.set_shader_parameter("showRight",
+              not global.editorInScaleMode or \
               (
                 onRightSide and
                 global.editorInScaleMode and
