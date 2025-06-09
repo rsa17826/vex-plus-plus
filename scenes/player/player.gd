@@ -232,7 +232,10 @@ func _physics_process(delta: float) -> void:
   $waterRay.rotation_degrees = - rotation_degrees
   $anim.position = Vector2(0, 0.145)
   var REAL_GRAV: float = 0
-
+  if not inWaters:
+    rotation = lerp_angle(float(rotation), 0.0, .2)
+    $CollisionShape2D.rotation = - rotation
+    
   match gravState:
     GravStates.down:
       REAL_GRAV = GRAVITY * .5 * delta

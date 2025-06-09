@@ -27,7 +27,7 @@
   }
   {
     STR(x)FLOAT(255.0)
-    STR(y)FLOAT(62.5)
+    STR(y)FLOAT(137.5)
     STR(w)FLOAT(2.80000045895576)
     STR(h)FLOAT(1.95000019669533)
     STR(r)FLOAT(0.0)
@@ -100,6 +100,18 @@
     STR(id)STR(Pulley)
     STR(options){
       STR(direction)STR(right)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(395.0)
+    STR(y)FLOAT(-55.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(270.0)
+    STR(id)STR(falling spike)
+    STR(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
