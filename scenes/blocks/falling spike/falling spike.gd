@@ -9,9 +9,8 @@ const speed = 3500.0
 
 func on_respawn():
   falling = false
-  $Node2D.position = Vector2.ZERO
-  $Node2D/collisionNode.position = Vector2(0, 13)
   position = startPosition
+  nodeToFall.position = Vector2.ZERO
   # $Node2D/collisionNode.position = Vector2(0, 13)
 
 var falling: bool = false
@@ -26,7 +25,7 @@ func on_physics_process(delta: float) -> void:
     scale = global.rerange(respawnTimer, RESPAWN_TIME, 0, Vector2(.1, .1), Vector2(1, 1)) / 7
     return
   if falling:
-    $Node2D.position += Vector2(0, -speed * delta)
+    nodeToFall.position += Vector2(0, -speed * delta)
 
 func _on_floor_detection_body_entered(body: Node2D) -> void:
   %"attach detector".enableAllGroups()
