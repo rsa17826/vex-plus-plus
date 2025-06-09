@@ -332,6 +332,7 @@ func _physics_process(delta: float) -> void:
     States.pullingLever:
       $anim.animation = "pulling lever"
       $anim.animation_looped.connect(func() -> void:
+        if state == States.dead: return
         state=States.idle, Object.CONNECT_ONE_SHOT)
       tryAndDieHazards()
       tryAndDieSquish()
@@ -1062,13 +1063,15 @@ func updateKeyFollowPosition(delta):
 
 # known:
   # !version ?-24! when respawning inside water you don't enter the water as collision is disabled while respawning
-  # kt doesnt reset while entering water
-  # holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
-  # sliding into water causes shrunken hitbox
-  # when leaving water directly onto a wall you can grab the wall lower than intended
-  # when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
-  # levers can be pulled even when not on ground
-  # portal wrongwarp when falling through portals building speed then a moving block moves in your path where you slide on the wall then fall back into the same portal that you were previuosly using to build speed
+  # !version ?-INF! kt doesnt reset while entering water
+  # !version ?-NOW! holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
+  # !version ?-NOW! sliding into water causes shrunken hitbox
+  # !version ?-NOW! when leaving water directly onto a wall you can grab the wall lower than intended
+  # !version ?-NOW! when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
+  # !version ?-28! levers can be pulled even when not on ground
+  # ?!version 26-NOW! portal wrongwarp when falling through portals building speed then a moving block moves in your path where you slide on the wall then fall back into the same portal that you were previuosly using to build speed
+  # !version 29-29! dying while pulling levers causes global.tick to stay at 0
+  # !version ?-28! pulling levers allows cliping through moving blocks
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
