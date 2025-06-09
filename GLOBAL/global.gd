@@ -16,6 +16,7 @@ extends Node
 
 func _ready() -> void:
   if !InputMap.has_action("quit"): return
+  # InputMap.load_from_project_settings()
   localReady()
 
 func _process(delta: float) -> void:
