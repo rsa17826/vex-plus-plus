@@ -7,7 +7,7 @@ func unlock() -> void:
   if len(global.player.keys) and not unlocked:
     unlocked = true
     log.pp(global.player.keys)
-    var key: Node2D = global.player.keys.pop_back()
+    var key: Node2D = global.player.keys.pop_front()
     key.root.__disable()
     __disable()
     await global.wait()

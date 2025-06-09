@@ -1,12 +1,15 @@
 extends "res://scenes/blocks/editor.gd"
 
 @export_group("KEY")
+
+var randOffset: float = 0.5
 var following := false
 func on_body_entered(body: Node) -> void:
   if body == global.player and not following and not $collisionNode in global.player.keys:
-    global.player.keys.append($collisionNode)
+    global.player.keys.push_front($collisionNode)
     log.pp("key added", $collisionNode)
     following = true
+    randOffset = global.randfrom(-10, 10)
 
 func on_respawn() -> void:
   following = false
@@ -16,4 +19,4 @@ func on_respawn() -> void:
 
 func on_process(delta: float) -> void:
   if !following: return
-  $collisionNode.global_position = global.player.global_position
+  # $collisionNode.global_position = global.player.global_position
