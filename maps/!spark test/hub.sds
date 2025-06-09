@@ -1,0 +1,39 @@
+[
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(0.0)
+  }
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(65.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-175.0)
+    STR(y)FLOAT(-35.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(spark counterClockwise)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(255.0)
+    STR(y)FLOAT(62.5)
+    STR(w)FLOAT(2.80000045895576)
+    STR(h)FLOAT(1.95000019669533)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(spark clockwise)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+]
