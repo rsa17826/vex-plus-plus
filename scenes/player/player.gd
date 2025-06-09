@@ -246,7 +246,6 @@ func _physics_process(delta: float) -> void:
         state = States.falling
         Engine.time_scale = 1
         await global.wait()
-        # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
         updateCollidingBlocksEntered()
         global.stopTicking = false
       return
@@ -991,14 +990,14 @@ func _on_left_body_exited(body: Node2D) -> void:
     collsiionOn_left.erase(body)
 
 func updateCollidingBlocksEntered():
-  log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
+  # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
   for block in %"respawn detection area".get_overlapping_bodies():
     if 'root' not in block:
       log.pp(block, block.id if 'id' in block else 'no id')
       breakpoint
     else:
       block.root._on_body_entered(self)
-  log.pp("respawn", %"respawn detection area".get_overlapping_areas())
+  # log.pp("respawn", %"respawn detection area".get_overlapping_areas())
   for block in %"respawn detection area".get_overlapping_areas():
     if 'root' not in block:
       log.pp(block, block.id if 'id' in block else 'no id')

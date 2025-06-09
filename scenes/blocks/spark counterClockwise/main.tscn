@@ -11,7 +11,7 @@ size = Vector2(700, 700)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ooncx"]
 radius = 31.0161
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "death", "respawnOnPlayerDeath", "spark"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "respawnOnPlayerDeath"]]
 script = ExtResource("1_g6uie")
 spark = NodePath("collisionNode/spark")
 sprite = NodePath("collisionNode/Sprite2D")
@@ -36,9 +36,9 @@ texture = ExtResource("2_g6uie")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
 
-[node name="spark" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
-collision_layer = 16
-collision_mask = 22
+[node name="spark" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root") groups=["spark"]]
+collision_layer = 528
+collision_mask = 2
 script = ExtResource("3_j63kj")
 root = NodePath("../..")
 
@@ -48,5 +48,5 @@ texture = ExtResource("3_ooncx")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/spark"]
 shape = SubResource("CircleShape2D_ooncx")
 
-[connection signal="body_entered" from="collisionNode/spark" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="collisionNode/spark" to="." method="_on_body_exited"]
+[connection signal="body_entered" from="collisionNode/spark" to="." method="_on_body_enteredDEATH"]
+[connection signal="body_exited" from="collisionNode/spark" to="." method="_on_body_exitedDEATH"]

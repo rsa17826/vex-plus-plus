@@ -13,7 +13,7 @@ radius = 21.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_orajn"]
 radius = 24.0832
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("timingIndicator", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "pole", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("timingIndicator", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "respawnOnPlayerDeath"]]
 script = ExtResource("1_rybel")
 timingIndicator = NodePath("collisionNode/timing indicator")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
