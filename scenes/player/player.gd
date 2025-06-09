@@ -10,7 +10,6 @@ const GRAVITY = 1280
 const MAX_PULLEY_NO_DIE_TIME = 50
 const MOVESPEED = 220
 const JUMP_POWER = -430
-const MAX_WALL_KT_FRAMES = 12
 const MAX_WALL_SLIDE_FRAMES = 120
 const MAX_SLIDE_RECOVER_TIME = 14
 const MAX_WALL_BREAK_FROM_DOWN_FRAMES = 10
@@ -665,6 +664,9 @@ func _physics_process(delta: float) -> void:
         #   $Camera2D.position_smoothing_enabled = maxVel < 3500
         #   $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
         move_and_slide()
+        # Update the position of the first follower to follow the main node
+        updateKeyFollowPosition(delta)
+        
         # log.pp(position - (start + (velocity*delta)))
         # # log.pp(
         # #   is_on_wall(),
@@ -1018,6 +1020,15 @@ func updateCollidingBlocksExited():
       breakpoint
     else:
       block.root._on_body_exited(self)
+
+func updateKeyFollowPosition(delta):
+  for i in range(0, keys.size()):
+    var follow_distance = max(3, 30 - i + keys[i].root.randOffset)
+    var follower = keys[i].root.MOVING_BLOCKS_nodeToMove
+    var leader = keys[i - 1].root.MOVING_BLOCKS_nodeToMove if i else self
+    var direction = (leader.global_position - follower.global_position).normalized()
+    var target_position = leader.global_position - direction * follow_distance
+    follower.global_position = lerp(follower.global_position, target_position, .3)
 
 # zipline
 # add tooltips to blocks in block picker??
