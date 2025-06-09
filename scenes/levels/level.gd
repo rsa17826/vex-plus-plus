@@ -13,7 +13,7 @@ func _init() -> void:
 
 func onProgress(prog, max):
   global.ui.progressBar.value = global.rerange(prog, 0, max, 50, 100)
-  if prog % 30 == 0:
+  if prog % 50 == 0:
     await global.wait()
 
 func loadLevel(level):
@@ -24,7 +24,8 @@ func loadLevel(level):
   # global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
   # log.pp(global.path.join(global.levelFolderPath, level), global.loadedLevels, global.beatLevels)
   global.ui.progressContainer.visible = true
-  var leveldata = sds.loadDataFromFile(global.path.join(global.levelFolderPath, level + '.sds'),
+  var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
+  .call(global.path.join(global.levelFolderPath, level + '.sds'),
     [
       {"x": 0, "y": 0},
       {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 65}
@@ -113,7 +114,7 @@ func save():
     data.append(obj)
   log.pp(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
-  var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
+  var opts = await sds.loadDataFromFileSlow(global.path.join(global.levelFolderPath, "options.sds"))
   opts.version = int(global.file.read("res://VERSION", false, "-1"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, "options.sds"), opts)
   global.ui.levelSaved.modulate.a = 1
