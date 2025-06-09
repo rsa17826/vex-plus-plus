@@ -334,3 +334,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
     - **attachesToThings**
+- **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, breifly pausing at 1x and 3x
+  - **settings**:
+    - **color**
+    - **attachesToThings**

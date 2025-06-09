@@ -7,4 +7,4 @@ func on_physics_process(delta: float) -> void:
   
 func on_respawn() -> void:
   $collisionNode.position = Vector2.ZERO
-  
+  nodeToSpin.rotation = 0
