@@ -15,6 +15,11 @@ func on_respawn():
       log.err("root not set", name, get_parent().id, get_parent().get_parent().id, get_parent().get_parent().get_parent().id)
     breakpoint
   if root.selectedOptions.attachesToThings:
+    await global.wait()
+    tryaddgroups()
+    await global.wait()
+    tryaddgroups()
+    await global.wait()
     tryaddgroups()
 
 func disableAllGroups():

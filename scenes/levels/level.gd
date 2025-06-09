@@ -18,8 +18,9 @@ func onProgress(prog, max):
 
 func loadLevel(level):
   # await global.wait()
-  global.hoveredBlocks = []
   global.stopTicking = true
+  global.tick = 0
+  global.hoveredBlocks = []
   global.player.state = global.player.States.levelLoading
   # global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
   # log.pp(global.path.join(global.levelFolderPath, level), global.loadedLevels, global.beatLevels)
@@ -54,7 +55,6 @@ func loadLevel(level):
       prog += 1
       await onProgress(prog, max)
 
-  global.tick = 0
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
   global.player.get_node("../CanvasLayer/editor bar")._ready()
   await global.wait()
@@ -72,7 +72,6 @@ func loadLevel(level):
   # global.player.deathPosition = global.player.lastSpawnPoint
 
 func createBlock(id, x, y, w, h, r, options):
-  global.tick = 0
   if load("res://scenes/blocks/" + id + "/main.tscn"):
     var thing = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     thing.startPosition = Vector2(x, y)
@@ -87,7 +86,6 @@ func createBlock(id, x, y, w, h, r, options):
     $blocks.add_child(thing)
   else:
     log.err("Error loading block", id)
-  global.tick = 0
 
 func save():
   if global.useropts.showIconOnSave:

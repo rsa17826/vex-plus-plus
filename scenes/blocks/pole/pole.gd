@@ -5,6 +5,7 @@ extends "res://scenes/blocks/editor.gd"
 @export var timingIndicator: Node2D
 func on_body_entered(body: Node) -> void:
   if body == global.player:
+    if global.player.state == global.player.States.dead: return
     if global.player.state == global.player.States.swingingOnPole: return
     if global.player.get_node("anim").animation == "jumping off pole": return
     if global.player.activePole:
