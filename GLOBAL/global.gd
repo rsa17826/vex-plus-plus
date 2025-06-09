@@ -536,10 +536,7 @@ func rerange(val: Variant, low1: Variant, high1: Variant, low2: Variant, high2: 
   return ((val - low1) / (high1 - low1)) * (high2 - low2) + low2
 
 var tick: float = 0
-var stopTicking := false:
-  set(val):
-    stopTicking = val
-    log.err(val)
+var stopTicking := false
 func _physics_process(delta: float) -> void:
   if openMsgBoxCount: return
   if stopTicking: return
