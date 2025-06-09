@@ -13,7 +13,7 @@ var eletric := []
 func on_respawn():
   eletric = []
   sprite.animation = "default"
-  for area in self.get_overlapping_areas.call():
+  for area in $collisionNode.get_overlapping_areas():
     on_area_entered(area)
 
 func on_physics_process(delta: float) -> void:
@@ -42,9 +42,9 @@ func on_body_entered(body: Node) -> void:
 func on_area_exited(body: Node) -> void:
   if body.is_in_group("spark"):
     eletric.erase(body)
-    sprite.animation = "eletric" if len(eletric) else "default"
+    sprite.animation = "eletric" if eletric else "default"
 
 func on_area_entered(body: Node) -> void:
   if body.is_in_group("spark"):
     eletric.append(body)
-    sprite.animation = "eletric" if len(eletric) else "default"
+    sprite.animation = "eletric" if eletric else "default"
