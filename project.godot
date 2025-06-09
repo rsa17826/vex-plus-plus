@@ -63,7 +63,6 @@ key=""
 laser=""
 "light switch"=""
 "locked box"=""
-pole=""
 pulley=""
 pushable=""
 solar=""
@@ -250,6 +249,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 2d_physics/layer_7="BLOCK KILLER"
 2d_physics/layer_8="BLOCKS THAT CAN DIE"
 2d_physics/layer_9="NOWJ"
+2d_physics/layer_10="SPARK"
 
 [maaacks_input_remapping]
 
