@@ -232,10 +232,7 @@ func _physics_process(delta: float) -> void:
   $waterRay.rotation_degrees = - rotation_degrees
   $anim.position = Vector2(0, 0.145)
   var REAL_GRAV: float = 0
-  if not inWaters:
-    rotation = lerp_angle(float(rotation), 0.0, .2)
-    $CollisionShape2D.rotation = - rotation
-    
+
   match gravState:
     GravStates.down:
       REAL_GRAV = GRAVITY * .5 * delta
@@ -274,6 +271,8 @@ func _physics_process(delta: float) -> void:
         global.stopTicking = false
       return
     States.swingingOnPole:
+      rotation = 0
+      $CollisionShape2D.rotation = 0
       # rotation += 6 * delta
       global_position = activePole.global_position
       $anim.animation = "on pole"
@@ -318,6 +317,8 @@ func _physics_process(delta: float) -> void:
       tryAndDieHazards()
       tryAndDieSquish()
     States.onPulley:
+      rotation = lerp_angle(float(rotation), 0.0, .2)
+      $CollisionShape2D.rotation = - rotation
       vel.user = Vector2.ZERO
       var lastpos := global_position
       global_position = activePulley.nodeToMove.global_position + Vector2(0, 13)
@@ -344,6 +345,8 @@ func _physics_process(delta: float) -> void:
       if Input.is_action_just_pressed("down") or inWaters:
         state = States.falling
     States.bouncing:
+      rotation = 0
+      $CollisionShape2D.rotation = 0
       lastWall = 0
       breakFromWall = false
       wallSlidingFrames = 0
@@ -354,6 +357,8 @@ func _physics_process(delta: float) -> void:
       vel.user.y = 0
       return
     States.pullingLever:
+      rotation = 0
+      $CollisionShape2D.rotation = 0
       $anim.animation = "pulling lever"
       $anim.animation_looped.connect(func() -> void:
         if state == States.dead: return
