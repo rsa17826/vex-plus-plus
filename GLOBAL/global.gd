@@ -1421,7 +1421,7 @@ var blockNames: Array = [
   "leftright", # 1
   "falling", # 1
   "bouncy", # 1
-  # "spark", # 0
+  "spark", # 0
   "inner level", # .5
   "goal", # 1
   "buzsaw", # .9
