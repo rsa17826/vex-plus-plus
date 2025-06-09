@@ -57,6 +57,8 @@ func _on_mouse_exited() -> void:
 
 func respawn() -> void:
   if not EDITOR_IGNORE:
+    if MOVING_BLOCKS_nodeToMove:
+      MOVING_BLOCKS_nodeToMove.position = Vector2.ZERO
     global_position = startPosition
     rotation_degrees = startRotation_degrees
     scale = startScale

@@ -6,10 +6,8 @@ var tempGroups = []
 
 func on_respawn():
   # root.position = Vector2.ZERO
-  for group in tempGroups:
-    root.remove_from_group(group)
-  await global.wait()
-  clearAllGroups()
+  disableAllGroups()
+  tempGroups = []
   if not root or 'selectedOptions' not in root or 'attachesToThings' not in root.selectedOptions:
     if root:
       log.err(root, root.id)
@@ -17,14 +15,7 @@ func on_respawn():
       log.err("root not set", name, get_parent().id, get_parent().get_parent().id, get_parent().get_parent().get_parent().id)
     breakpoint
   if root.selectedOptions.attachesToThings:
-    await global.wait()
     tryaddgroups()
-  # tryaddgroups.call_deferred()
-
-func clearAllGroups():
-  for group in tempGroups:
-    root.remove_from_group(group)
-  tempGroups = []
 
 func disableAllGroups():
   for group in tempGroups:
@@ -45,13 +36,14 @@ func tryaddgroups():
         tryadd(group)
 
 func tryadd(group):
-  # log.pp("trying to add", group)
+  # log.pp("trying to add", group, root.id)
   if global.starts_with(group, "_vp_") \
   or global.starts_with(group, "EDITOR_OPTION") \
   or group == "respawnOnPlayerDeath" \
   or root.is_in_group(group) \
   or group in tempGroups \
   : return
+  # log.pp("added", group, root.id)
   tempGroups.append(group)
   root.add_to_group(group)
   # log.pp(tempGroups, group, root, root.get_groups())
