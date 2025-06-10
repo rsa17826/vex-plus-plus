@@ -11,7 +11,7 @@ size = Vector2(700, 700)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ooncx"]
 radius = 31.0161
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_g6uie")
 spark = NodePath("collisionNode/spark")
 sprite = NodePath("collisionNode/Sprite2D")

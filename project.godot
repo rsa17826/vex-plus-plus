@@ -54,12 +54,12 @@ EDITOR_OPTION_rotate=""
 EDITOR_OPTION_scale=""
 "locked box"=""
 pushable=""
-respawnOnPlayerDeath=""
 "attaches to things"=""
 glass=""
 canBeAttachedTo=""
 "buzsaw - generic"=""
 portal=""
+dontRespawnOnPlayerDeath=""
 
 [input]
 

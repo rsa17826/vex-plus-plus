@@ -12,7 +12,7 @@ radius = 298.3
 [sub_resource type="CircleShape2D" id="CircleShape2D_nfkyx"]
 radius = 306.863
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToScale", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "pathFollowNode", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "attaches to things", "buzsaw - generic", "death", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToScale", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "pathFollowNode", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "attaches to things", "buzsaw - generic", "death"]]
 script = ExtResource("1_jf1xb")
 nodeToScale = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
