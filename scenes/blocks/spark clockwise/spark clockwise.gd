@@ -11,31 +11,30 @@ func on_respawn():
   spark.scale = Vector2(1, 1) / scale / 7
 
 func on_physics_process(delta: float) -> void:
+  var px = textureSize * scale * 2
   var target: Vector2
-  var totalSize = (textureSize.x + textureSize.y) * 2
-  var effective_speed = base_speed / (scale.x + scale.y)
-  var currentTick = fmod(global.tick * effective_speed * delta, totalSize)
+  var currentTick = fmod(global.tick * base_speed * delta, (px.x + px.y) * 2)
   var side = 0
   var reqdist = 0
 
-  if currentTick > reqdist + textureSize.x:
-    reqdist += textureSize.x
+  if currentTick > reqdist + px.x:
+    reqdist += px.x
     side += 1
-    if currentTick > reqdist + textureSize.y:
-      reqdist += textureSize.y
+    if currentTick > reqdist + px.y:
+      reqdist += px.y
       side += 1
-      if currentTick > reqdist + textureSize.x:
-        reqdist += textureSize.x
+      if currentTick > reqdist + px.x:
+        reqdist += px.x
         side += 1
 
   match side:
     0:
-      target = Vector2(lerp(-1, 1, (currentTick - reqdist) / textureSize.x), -1)
+      target = Vector2(lerp(-1, 1, (currentTick - reqdist) / px.x), -1)
     1:
-      target = Vector2(1, lerp(-1, 1, (currentTick - reqdist) / textureSize.y))
+      target = Vector2(1, lerp(-1, 1, (currentTick - reqdist) / px.y))
     2:
-      target = Vector2(lerp(1, -1, (currentTick - reqdist) / textureSize.x), 1)
+      target = Vector2(lerp(1, -1, (currentTick - reqdist) / px.x), 1)
     3:
-      target = Vector2(-1, lerp(1, -1, (currentTick - reqdist) / textureSize.y))
+      target = Vector2(-1, lerp(1, -1, (currentTick - reqdist) / px.y))
 
   spark.position = textureSize * target / 2
