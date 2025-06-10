@@ -31,7 +31,7 @@ MOVING_BLOCKS_nodeToMove = NodePath("Node2D")
 [node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 position = Vector2(0, 13)
-collision_layer = 144
+collision_layer = 1168
 collision_mask = 2
 script = ExtResource("2_xrsct")
 root = NodePath("../..")

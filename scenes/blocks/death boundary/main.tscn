@@ -14,7 +14,7 @@ editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 16
+collision_layer = 1040
 collision_mask = 2
 script = ExtResource("2_uhpmw")
 root = NodePath("..")
