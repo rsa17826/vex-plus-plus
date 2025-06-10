@@ -1074,7 +1074,6 @@ func updateKeyFollowPosition(delta):
 # save more than 1 star
 # save block state data when saving mid level
 # add undo/redo history
-# add easy way to switch versions
 
 # add block animations?
 # allow user to reorder the levels in the editor?
@@ -1083,7 +1082,7 @@ func updateKeyFollowPosition(delta):
 
 # option to change ghost opacity/ghost hover opacity? .5
 
-# allow walkign up small ledges
+# allow walking up small ledges
 # allow grouping editor blocks in the editor bar
 # make blocks not move while resizing past min
 
@@ -1110,17 +1109,8 @@ func updateKeyFollowPosition(delta):
 # save stars that are collected by id, and show collected count
 # add star finder?
 # add way to check for updates
-# add way to download and run different game versions
-
-# https://api.github.com/repos/rsa17826/testing/contents/levels
 
 # add cmd arg to play level by name/path
-
-# add faster way to download levels from the repo
-# https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/branches
-# https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/git/trees/e8ce6f3c20559ef736e5ab289d15002a5fe2aa6f?recursive=1
-
-# make nowj blocks attach to any?
 
 # fix water bug by checking collisions on respawn end!
 # add nojump floor
@@ -1128,5 +1118,4 @@ func updateKeyFollowPosition(delta):
 
 # make clicking to release copy not select blocks
 
-# fix rotating buzsaws editor rotating incorrectly
 # make pole quadrent pole indicators rotate correctly

@@ -13,7 +13,7 @@ size = Vector2(378, 89)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_51j7p"]
 size = Vector2(694.89, 17)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("leftCollisionShape", "rightCollisionShape", "leftSprite", "rightSprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things", "closing spikes", "death", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("leftCollisionShape", "rightCollisionShape", "leftSprite", "rightSprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things", "death", "respawnOnPlayerDeath"]]
 script = ExtResource("1_51j7p")
 leftCollisionShape = NodePath("Node2D/collisionNode/CollisionShape2D")
 rightCollisionShape = NodePath("Node2D/collisionNode/CollisionShape2D2")

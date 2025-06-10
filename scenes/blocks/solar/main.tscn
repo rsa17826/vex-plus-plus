@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "respawnOnPlayerDeath", "solar"]]
+[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "respawnOnPlayerDeath"]]
 collision_layer = 8
 collision_mask = 0
 input_pickable = true

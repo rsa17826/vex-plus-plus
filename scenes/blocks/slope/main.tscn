@@ -16,7 +16,7 @@ b = Vector2(350, 350)
 a = Vector2(-350, 350)
 b = Vector2(350, -350)
 
-[node name="StaticBody2D" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "colorable"]]
+[node name="StaticBody2D" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale"]]
 collision_layer = 8
 collision_mask = 0
 collision_priority = 2.0
