@@ -4,7 +4,7 @@ extends "res://scenes/blocks/editor.gd"
 @export var spark: Node2D
 @export var sprite: Sprite2D
 var textureSize: Vector2
-var base_speed = 60000.0
+var base_speed = 20000.0
 
 func on_respawn():
   textureSize = sprite.texture.get_size()
@@ -36,6 +36,5 @@ func on_physics_process(delta: float) -> void:
       target = Vector2(lerp(-1, 1, (currentTick - reqdist) / px.x), 1)
     3:
       target = Vector2(1, lerp(1, -1, (currentTick - reqdist) / px.y))
-  log.pp(target)
 
   spark.position = textureSize * target / 2
