@@ -126,7 +126,7 @@ func _ready() -> void:
   if not EDITOR_IGNORE:
     if _ready not in global.player.OnPlayerFullRestart:
       global.player.OnPlayerFullRestart.append(_ready)
-    if is_in_group("respawnOnPlayerDeath"):
+    if !is_in_group("dontRespawnOnPlayerDeath"):
       if _ready not in global.player.OnPlayerDied:
         global.player.OnPlayerDied.append(_ready)
 

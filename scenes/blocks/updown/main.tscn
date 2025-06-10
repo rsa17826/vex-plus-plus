@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76frd"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "canBeAttachedTo", "respawnOnPlayerDeath", "updown"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "canBeAttachedTo", "updown"]]
 script = ExtResource("1_4bgic")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")

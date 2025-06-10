@@ -11,7 +11,7 @@ radius = 1056.08
 [sub_resource type="CircleShape2D" id="CircleShape2D_ohbiw"]
 radius = 127.016
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things"]]
 script = ExtResource("1_gc2qo")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")

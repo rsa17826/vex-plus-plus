@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="node2d" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale", "respawnOnPlayerDeath"]]
+[node name="node2d" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_o4ggs")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIconNode = NodePath("CharacterBody2D/Sprite2D")

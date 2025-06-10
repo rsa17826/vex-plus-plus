@@ -11,7 +11,10 @@
 
 #Include <Misc> ; print, range, swap, ToString, RegExMatchAll, Highlight, MouseTip, WindowFromPoint, ConvertWinPos, WinGetInfo, GetCaretPos, IntersectRect
 SetWorkingDir(A_ScriptDir)
-aexepath := A_ScriptDir '/vex.console.exe'
+if FileExist(A_ScriptDir '/launcher.exe')
+  aexepath := A_ScriptDir '/launcher.exe'
+else
+  aexepath := A_ScriptDir '/vex.console.exe'
 ; aexepath := confirm("open console?") ? A_ScriptDir '/vex.console.exe' : A_ScriptDir '/vex.exe'
 try {
   createFileAssoc("vex++", aexepath, "vex++ map file")
