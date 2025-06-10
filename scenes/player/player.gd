@@ -691,8 +691,6 @@ func _physics_process(delta: float) -> void:
         #   $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
         move_and_slide()
         # Update the position of the first follower to follow the main node
-        updateKeyFollowPosition(delta)
-        
         # log.pp(position - (start + (velocity*delta)))
         # # log.pp(
         # #   is_on_wall(),
@@ -786,7 +784,8 @@ func _physics_process(delta: float) -> void:
         #   die()
         tryAndDieHazards()
         tryAndDieSquish()
-
+      updateKeyFollowPosition(delta)
+      
   if !global.showEditorUi:
     var changeInPosition: Vector2 = global_position - frameStartPosition
     var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
