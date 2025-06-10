@@ -71,6 +71,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **allowCustomColors**: disabling this prevents levels from using custom colors.
 - **showGridInEdit**: shows the grid in when in edit mode.
 - **showGridInPlay**: shows the grid in when in play mode.
+- **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
+- **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
+- **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
 
 ### block settings that apply to many blocks
 
