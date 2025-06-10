@@ -24,7 +24,7 @@ cloneEventsHere = NodePath("attach detector")
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 0
+collision_layer = 1024
 collision_mask = 2
 script = ExtResource("2_orajn")
 root = NodePath("..")

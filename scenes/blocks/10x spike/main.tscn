@@ -27,7 +27,7 @@ MOVING_BLOCKS_nodeToMove = NodePath("Node2D")
 [node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 position = Vector2(0, 3.5)
-collision_layer = 16
+collision_layer = 1040
 collision_mask = 2
 script = ExtResource("2_v4hfa")
 root = NodePath("../..")

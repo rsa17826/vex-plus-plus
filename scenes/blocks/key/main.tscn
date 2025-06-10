@@ -23,7 +23,7 @@ MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 metadata/_edit_group_ = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 128
+collision_layer = 1152
 collision_mask = 2
 script = ExtResource("2_ctm0x")
 root = NodePath("..")

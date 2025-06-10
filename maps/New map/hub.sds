@@ -455,8 +455,8 @@
     }
   }
   {
-    STR(x)FLOAT(1835.0)
-    STR(y)FLOAT(-435.0)
+    STR(x)FLOAT(1715.0)
+    STR(y)FLOAT(-440.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -3857,13 +3857,25 @@
     }
   }
   {
-    STR(x)FLOAT(1715.0)
-    STR(y)FLOAT(-440.0)
+    STR(x)FLOAT(1940.0)
+    STR(y)FLOAT(-420.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(spark counterClockwise)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1715.0)
+    STR(y)FLOAT(-495.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(speed Up Lever)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

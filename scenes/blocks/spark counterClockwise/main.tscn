@@ -39,7 +39,7 @@ texture = ExtResource("2_g6uie")
 shape = SubResource("RectangleShape2D_gwpbw")
 
 [node name="spark" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root") groups=["spark"]]
-collision_layer = 528
+collision_layer = 1552
 collision_mask = 2
 script = ExtResource("3_j63kj")
 root = NodePath("../..")
