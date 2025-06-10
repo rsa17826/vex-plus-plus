@@ -1,4 +1,5 @@
-﻿#Requires AutoHotkey v2.0
+﻿;@Ahk2Exe-SetMainIcon ../pole.ico
+#Requires AutoHotkey v2.0
 #SingleInstance Force
 
 #Include *i <AutoThemed>
