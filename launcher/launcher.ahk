@@ -124,7 +124,11 @@ runSelectedVersion() {
   selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]
   exe := path.join(A_ScriptDir, "vex.console.exe")
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
-  run(exe, path.join(path.info(exe).parentdir, "versions", selectedVersion))
+  args := ""
+  for arg in A_Args {
+    args .= ' "' . StrReplace(arg, '"', '\"') . '"'
+  }
+  run('"' . exe . '"' . args, path.join(path.info(exe).parentdir, "versions", selectedVersion))
   ExitApp()
 }
 

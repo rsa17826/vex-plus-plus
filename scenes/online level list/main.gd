@@ -88,7 +88,7 @@ func _ready() -> void:
   )).response
   var allData = {}
   for level in levels.tree:
-    var data = global.regMatch(level.path, r"^levels/(\d+)/([^/]+)/([^/]+)\.vex\+\+$")
+    var data = global.regMatch(level.path, r"^levels/(\d+)/([^/]+)/([^/]+\.vex\+\+)$")
     if not data:
       # log.err(level.path)
       continue
