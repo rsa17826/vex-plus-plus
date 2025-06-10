@@ -32,7 +32,7 @@ extends Node2D
 @export var ghostFollowNode: Node = self
 @export var pathFollowNode: Node
 
-# var onOptionEdit
+var onOptionEdit
 
 var root = self
 var _DISABLED := false
@@ -92,17 +92,19 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
           # log.pp(event.to_string(), shape_idx, viewport)
           if not pm: return
           # log.pp(blockOptions, event.as_text(), self, self.name)
-          var i := 0
-          for k: String in blockOptions:
-            pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type] + " = " + str(selectedOptions[k]))
-            i += 1
-          pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
-
+          showPopupMenu()
         # select blocks when clicking them
         elif event.is_action_pressed("editor_select") && Input.is_action_just_pressed("editor_select"):
           respawn()
           global_position = startPosition
           global.selectBlock()
+
+func showPopupMenu():
+  var i := 0
+  for k: String in blockOptions:
+    pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type] + " = " + str(selectedOptions[k]))
+    i += 1
+  pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
 
 func _on_body_exited(body: Node2D) -> void:
   if global.player.state == global.player.States.dead and body == global.player: return
@@ -180,7 +182,11 @@ func setupOptions() -> void:
     if opt in selectedOptions:
       toType(opt)
       continue
-    if "default" in blockOptions[opt]:
+    if id in global.defaultBlockOpts \
+    and opt in global.defaultBlockOpts[id] \
+    :
+      selectedOptions[opt] = global.defaultBlockOpts[id][opt]
+    elif "default" in blockOptions[opt]:
       selectedOptions[opt] = blockOptions[opt].default
       toType(opt)
   var can := CanvasLayer.new()
@@ -198,7 +204,10 @@ func setupOptions() -> void:
   pm.connect("index_pressed", editOption)
 
 func editOption(idx: int) -> void:
-  if idx >= len(blockOptionsArray): return
+  if idx >= len(blockOptionsArray):
+    if "onOptionEdit" in self and self.onOptionEdit:
+      self.onOptionEdit.call(selectedOptions)
+    return
   # log.pp("editing", idx, blockOptions)
   var k: Variant = blockOptionsArray[idx]
   var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
@@ -207,8 +216,8 @@ func editOption(idx: int) -> void:
   selectedOptions[k] = newData
   toType(k)
   respawn()
-  # if "onOptionEdit" in self and self.onOptionEdit:
-  #   self.onOptionEdit.call(selectedOptions)
+  if "onOptionEdit" in self and self.onOptionEdit:
+    self.onOptionEdit.call(selectedOptions)
   _ready()
 
 func _physics_process(delta: float) -> void:
