@@ -88,7 +88,12 @@ func showMoreOptions(level):
       var version = str(data.version)
       var author = data.author
       var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
-
+      if not author:
+        OS.alert("Please enter an author name")
+        return
+      if not level:
+        OS.alert("Please enter a map name")
+        return
       await upload_file("levels/" + version + '/' + author + '/' + level + ".vex++", c)
       f.close()
 

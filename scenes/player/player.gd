@@ -250,6 +250,7 @@ func _physics_process(delta: float) -> void:
       else:
         position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, lastSpawnPoint)
       pulleyNoDieTimer = 0
+      inWaters = []
       # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
       $anim.animation = "die"
       rotation = lerp_angle(float(rotation), 0.0, .2)
