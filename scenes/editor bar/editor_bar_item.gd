@@ -23,6 +23,13 @@ func _input(event: InputEvent) -> void:
   if !Input.is_action_pressed("editor_select"):
     global.justPaintedBlock = null
     global.selectedBrush = null
+  # if Input.is_action_just_pressed("editor_edit_special"):
+    # var block = load("res://scenes/blocks/" + blockName + "/main.tscn").instantiate()
+    # block.onOptionEdit = func(opts):
+      # log.pp(opts)
+    # block.on_ready = func():
+      # log.pp(block.selectedOptions)
+    # await global.wait()
 
 func _on_mouse_exited() -> void:
   scale = normalScale

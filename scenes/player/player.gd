@@ -1121,7 +1121,3 @@ func updateKeyFollowPosition(delta):
 # make pole quadrent pole indicators rotate correctly
 
 # rclick on block picker to set default options
-# close version manager in game start
-  # fix col 1 text to small
-  # make less wide
-  # show past v5?
