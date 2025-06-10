@@ -117,25 +117,26 @@ versionListView.OnEvent("DoubleClick", LV_DoubleClick)
 
 versionListView.ModifyCol(2)
 versionListView.ModifyCol(3)
-
-releases := FetchReleases(apiUrl)
-for release in releases {
-  versionName := release.tag_name
-  versionPath := "versions/" versionName
-  status := DirExist(versionPath) ? "Installed" : "Not Installed"
-  if idx := addedVersions.IndexOf(versionName) {
-    versionListView.Modify(idx, "Col2", "Installed")
-    versionListView.Modify(idx, "Col3", "Run version " versionName)
-    listedVersions[idx].status := "Installed"
-    listedVersions[idx].runtext := "Run version " versionName
-  } else {
-    addedVersions.push(versionName)
-    listedVersions.push({
-      version: versionName,
-      status: status,
-      runtext: ""
-    })
-    versionListView.Add("", versionName, status, '')
+if !(A_Args.join(" ").includes("offline")) {
+  releases := FetchReleases(apiUrl)
+  for release in releases {
+    versionName := release.tag_name
+    versionPath := "versions/" versionName
+    status := DirExist(versionPath) ? "Installed" : "Not Installed"
+    if idx := addedVersions.IndexOf(versionName) {
+      versionListView.Modify(idx, "Col2", "Installed")
+      versionListView.Modify(idx, "Col3", "Run version " versionName)
+      listedVersions[idx].status := "Installed"
+      listedVersions[idx].runtext := "Run version " versionName
+    } else {
+      addedVersions.push(versionName)
+      listedVersions.push({
+        version: versionName,
+        status: status,
+        runtext: ""
+      })
+      versionListView.Add("", versionName, status, '')
+    }
   }
 }
 
