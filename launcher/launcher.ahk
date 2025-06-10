@@ -18,66 +18,6 @@ SetWorkingDir(A_ScriptDir)
 ; @replace }).Reverse
 ; @endregex
 
-; Define the GitHub API URL for fetching releases
-; apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
-
-; ; Fetch the releases from the GitHub API
-; releases := FetchReleases(apiUrl)
-; for release in releases {
-;   print(release.tag_name)
-; }
-; DirCreate("versions")
-; ; Loop through each release to download and extract the ZIP file
-; for release in releases {
-;   if DirExist("versions/" release.tag_name)
-;     continue
-;   ; Construct the download URL for the ZIP file
-;   try {
-;     url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("windows.zip"))].browser_download_url
-;   } catch {
-;     MsgBox("failed to find download url VERION " . release.tag_name)
-;     continue
-;   }
-;   DirCreate("versions/" release.tag_name)
-
-;   ; Download the ZIP file
-;   Download(url, "temp.zip")
-
-;   ; Unzip the downloaded file into a temporary folder
-;   unzip("temp.zip", "temp")
-
-;   ; Move the extracted vex.pck file to the version folder
-;   try FileMove("temp\vex.pck", "versions/" release.tag_name "\vex.pck")
-;   catch {
-;     DirDelete("versions/" release.tag_name)
-;     MsgBox("failed to find vex.pck file VERISON " . release.tag_name)
-;     continue
-;   }
-
-;   ; Clean up temporary files
-;   FileDelete("temp.zip")
-;   DirDelete("temp", 1)
-; }
-
-; ; Function to fetch releases from the GitHub API
-; FetchReleases(apiUrl) {
-;   ; Use UrlDownloadToFile to get the JSON response
-;   jsonFile := A_Temp "\releases.json"
-;   Download(apiUrl, jsonFile)
-
-;   ; Read the JSON file
-;   data := FileRead(jsonFile)
-
-;   ; Parse the JSON to extract release information
-;   releases := JSON.parse(data, 0, 0)
-
-;   ; Clean up the temporary JSON file
-;   FileDelete(jsonFile)
-
-;   return releases
-; }
-
-; Create the main GUI window
 ui := Gui()
 ui.OnEvent("Close", GuiClose)
 ui.Add("Text", , "Vex++ Version Manager")
@@ -87,6 +27,7 @@ versionListView := ui.Add("ListView", "vVersionList w250 h300", [
   "Run",
 ])
 
+offline := A_Args.join(" ").includes("offline")
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
 ui.Show()
@@ -102,7 +43,7 @@ loop files A_ScriptDir "/versions/*", 'D' {
   ;   continue
   versionName := dirname
   versionPath := "versions/" versionName
-  status := "LocalOnly"
+  status := offline ? "" : "LocalOnly"
   addedVersions.push(versionName)
   ; Add the version to the ListView
   listedVersions.push({
@@ -117,7 +58,7 @@ versionListView.OnEvent("DoubleClick", LV_DoubleClick)
 
 versionListView.ModifyCol(2)
 versionListView.ModifyCol(3)
-if !(A_Args.join(" ").includes("offline")) {
+if !offline {
   releases := FetchReleases(apiUrl)
   for release in releases {
     versionName := release.tag_name
