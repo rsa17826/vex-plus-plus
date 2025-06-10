@@ -83,13 +83,13 @@ if !offline {
 
 i := 0
 for thing in listedVersions.sort((a, s) {
+  if a.status == "LocalOnly" and s.status != "LocalOnly" {
+    return 1
+  }
+  if s.status == "LocalOnly" and a.status != "LocalOnly" {
+    return -1
+  }
   if a.version.RegExMatch("^\d+$") && s.version.RegExMatch("^\d+$") {
-    if a.status == "LocalOnly" and s.status != "LocalOnly" {
-      return 1
-    }
-    if s.status == "LocalOnly" and a.status != "LocalOnly" {
-      return -1
-    }
     return a.version - s.version
   }
   if a.version.RegExMatch("^\d+$") {
