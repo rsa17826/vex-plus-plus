@@ -210,7 +210,7 @@ func regMatch(str: String, reg: String) -> Variant:
   else:
     reg2 = regexCache.__set(RegEx.create_from_string(reg))
   var res := reg2.search(str)
-  if not res: return res
+  if not res: return regMatchCache.__set(res)
   var out := []
   for i in range(0, res.get_group_count() + 1):
     out.push_back(res.get_string(i))

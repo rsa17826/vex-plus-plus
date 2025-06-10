@@ -166,6 +166,12 @@
         "type": "bool",
         "key": "showLevelLoadingBehindProgressBar",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "onlyShowLevelsForCurrentVersion",
+        "defaultValue": true
       }
     ]
   },

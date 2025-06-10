@@ -366,6 +366,7 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
     var getDataReg := func(reg: String, group:=0) -> String:
       var res = global.regMatch(remainingData, reg)
       if not res:
+        return UNSET
         log.pp(remainingData)
         breakpoint
       remainingData = remainingData.substr(len(res[0]))
@@ -536,6 +537,8 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         # remainingData = remainingData.substr(1)
         _stack.append([])
       _:
+        if type == UNSET:
+          return UNSET
         breakpoint
         return log.err(type, remainingData)
 
