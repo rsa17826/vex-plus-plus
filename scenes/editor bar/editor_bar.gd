@@ -14,6 +14,7 @@ var nodeCount = 0
 
 @export var maxId = 0
 func _ready() -> void:
+  global.defaultBlockOpts = sds.loadDataFromFile("user://defaultBlockOpts.sds", {})
   position.y = global.useropts.editorBarOffset
   for item in get_children():
     if item not in [$item, $ColorRect]:
@@ -66,7 +67,7 @@ func newItem(name, id) -> void:
   item.add_child(icon)
   item.id = id
   item.blockName = name
-  
+  log.pp(id, item.blockName)
   var origSize = icon.texture.get_size() * icon.scale
   var maxSize = max(origSize.x, origSize.y)
   var scaleFactor = max(icon.scale.x, icon.scale.y) * (700 / maxSize)

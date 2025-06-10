@@ -10,6 +10,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - [Explanations](#explanations)
 - [General Information](#general-information)
 
+
+## extra info
+- press editor_edit_special on a block in the block picker to modify the default options of that block that will be used when first placing it
+
 ## Game Controls
 
 ### Editor Controls
@@ -347,3 +351,5 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **spark clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
   - **settings**:
     - **color**
+
+
