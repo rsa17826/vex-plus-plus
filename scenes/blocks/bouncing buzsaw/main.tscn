@@ -12,7 +12,7 @@ radius = 299.202
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogg4d"]
 radius = 306.041
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["EDITOR_OPTION_scale", "bouncing buzsaw", "buzsaw - generic", "death", "respawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["EDITOR_OPTION_scale", "buzsaw - generic", "death", "respawnOnPlayerDeath"]]
 script = ExtResource("1_cbe4i")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIconNode = NodePath("CharacterBody2D/editorBar")

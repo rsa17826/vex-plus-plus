@@ -11,7 +11,7 @@ radius = 126.13
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or7js"]
 size = Vector2(21, 5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things", "checkpoint"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things"]]
 script = ExtResource("1_ju53q")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
