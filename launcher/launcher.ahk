@@ -126,6 +126,7 @@ runSelectedVersion() {
   exe := path.join(A_ScriptDir, "vex.console.exe")
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
   run(exe, path.join(path.info(exe).parentdir, "versions", selectedVersion))
+  ExitApp()
 }
 
 LV_SubitemHitTest(HLV) {
@@ -215,7 +216,8 @@ DownloadSelected(*) {
     ToolTip("moving files " selectedVersion)
     try {
       FileMove("temp\vex.pck", "versions/" selectedVersion "\vex.pck")
-      MsgBox("Successfully downloaded and installed version " selectedVersion ".")
+      ToolTip("Successfully downloaded and installed version " selectedVersion ".")
+      Sleep(1000)
     } catch {
       MsgBox("Failed to find vex.pck file for version " selectedVersion ".")
       DirDelete("versions/" selectedVersion)
@@ -228,7 +230,7 @@ DownloadSelected(*) {
   } else {
     MsgBox("Failed to find download URL for version " selectedVersion ".")
   }
-  Reload()
+  argReload()
   return
 }
 
