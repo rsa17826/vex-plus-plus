@@ -18,10 +18,10 @@ SetWorkingDir(A_ScriptDir)
 ; @replace }).Reverse
 ; @endregex
 
-ui := Gui()
+ui := Gui("+AlwaysOnTop")
 ui.OnEvent("Close", GuiClose)
 ui.Add("Text", , "Vex++ Version Manager")
-versionListView := ui.Add("ListView", "vVersionList w250 h300", [
+versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Version",
   "Status",
   "Run",
@@ -110,11 +110,10 @@ ogcButtonDownloadSelectedVersion.OnEvent("Click", DownloadAll)
 ui.Show("AutoSize")
 
 LV_DoubleClick(LV, RowNumber) {
-  Row := A_EventInfo
   Column := LV_SubItemHitTest(versionListView.hwnd)
   RowText := LV.GetText(RowNumber) ; Get the text from the row's first field.
   if Column == 2 {
-    DownloadSelected()
+    DownloadSelected(RowNumber)
   }
   if Column == 3 {
     runSelectedVersion()
@@ -157,46 +156,36 @@ LV_SubitemHitTest(HLV) {
   return Subitem
 }
 
+updateRow(row, version?, status?, runtext?) {
+  if IsSet(version) {
+    listedVersions[row].version := version
+    versionListView.Modify(row, "Col1", listedVersions[row].version)
+  }
+  if IsSet(status) {
+    listedVersions[row].status := status
+    versionListView.Modify(row, "Col2", listedVersions[row].status)
+  }
+  if IsSet(runtext) {
+    listedVersions[row].runtext := runtext
+    versionListView.Modify(row, "Col3", listedVersions[row].runtext)
+  }
+  versionListView.ModifyCol(2)
+  versionListView.ModifyCol(3)
+}
+
 DownloadAll(*) {
   ; Loop through each release to download and extract the ZIP file
-  for release in releases {
-    if DirExist("versions/" release.tag_name)
+  i := 0
+  for thing in listedVersions {
+    i += 1
+    if DirExist("versions/" thing.version)
       continue
-    ; Construct the download URL for the ZIP file
-    try {
-      url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("windows.zip"))].browser_download_url
-    } catch {
-      MsgBox("failed to find download url VERION " . release.tag_name)
-      continue
-    }
-    DirCreate("versions/" release.tag_name)
-
-    ; Download the ZIP file
-    Download(url, "temp.zip")
-
-    ; Unzip the downloaded file into a temporary folder
-    unzip("temp.zip", "temp")
-
-    ; Move the extracted vex.pck file to the version folder
-    try FileMove("temp\vex.pck", "versions/" release.tag_name "\vex.pck")
-    catch {
-      DirDelete("versions/" release.tag_name)
-      MsgBox("failed to find vex.pck file VERISON " . release.tag_name)
-      continue
-    }
-
-    ; Clean up temporary files
-    FileDelete("temp.zip")
-    DirDelete("temp", 1)
+    DownloadSelected(i, thing.version)
   }
-  Reload()
 }
 
 ; Handle the download button click
-DownloadSelected(*) {
-  selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]
-  ToolTip("finding download url " selectedVersion)
-
+DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]) {
   ; Find the release corresponding to the selected version
   for release in releases {
     ; print(release.tag_name, selectedVersion)
@@ -208,35 +197,30 @@ DownloadSelected(*) {
 
   ; Download and extract the selected version
   if (url) {
+    updateRow(row, , "Downloading...")
     DirCreate("versions/" selectedVersion)
-    ToolTip("Downloading " selectedVersion)
     Download(url, "temp.zip")
     unzip("temp.zip", "temp")
-
-    ToolTip("moving files " selectedVersion)
     try {
-      FileMove("temp\vex.pck", "versions/" selectedVersion "\vex.pck")
-      ToolTip("Successfully downloaded and installed version " selectedVersion ".")
-      Sleep(1000)
+      FileMove("temp\vex.pck", "versions/" selectedVersion "\vex.pck", 1)
+      updateRow(row, , "Installed", "Run version " selectedVersion)
     } catch {
-      MsgBox("Failed to find vex.pck file for version " selectedVersion ".")
-      DirDelete("versions/" selectedVersion)
+      updateRow(row, , "Failed to find vex.pck file", "")
+      DirDelete("versions/" selectedVersion, 1)
     }
 
-    ToolTip("Cleaning up " selectedVersion)
     ; Clean up temporary files
     FileDelete("temp.zip")
     DirDelete("temp", 1)
   } else {
+    listedVersions[row].status = "Failed"
+    versionListView.Modify(row, "Col2", "Failed")
     MsgBox("Failed to find download URL for version " selectedVersion ".")
   }
-  argReload()
-  return
 }
 
 ; Function to fetch releases from the GitHub API
 FetchReleases(apiUrl) {
-  ; Use UrlDownloadToFile to get the JSON response
   ret := []
   i := 0
   while 1 {
@@ -267,7 +251,6 @@ FetchReleases(apiUrl) {
   return ret
 }
 
-; Close the GUI when the user exits
 GuiClose(*) {
   ExitApp()
 }
