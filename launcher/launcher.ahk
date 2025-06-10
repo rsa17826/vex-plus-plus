@@ -95,8 +95,10 @@ for thing in listedVersions.sort((a, s) {
   }
   if a.version.RegExMatch("^\d+$") {
     return 1
+  } else if s.version.RegExMatch("^\d+$") {
+    return -1
   }
-  return -1
+  return StrCompare(a.name, s.name, "Logical")
 }).Reverse() {
   i += 1
   versionListView.Modify(i, "Col1", thing.version)
