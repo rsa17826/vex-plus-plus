@@ -13,6 +13,11 @@ SetWorkingDir(A_ScriptDir)
 
 #Include *i <textfind> ; FindText, setSpeed, doClick
 
+; @name terst
+; @regex \}\)\s+\.\s+Reverse
+; @replace }).Reverse
+; @endregex
+
 ; Define the GitHub API URL for fetching releases
 ; apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 
@@ -72,36 +77,95 @@ SetWorkingDir(A_ScriptDir)
 ;   return releases
 ; }
 
-; Define the GitHub API URL for fetching releases
-apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
-
-; Fetch the releases from the GitHub API
-releases := FetchReleases(apiUrl)
-
 ; Create the main GUI window
 ui := Gui()
 ui.OnEvent("Close", GuiClose)
-ui.Add("Text", , "Available Versions:")
-versionListView := ui.Add("ListView", "vVersionList w400 h300", [
+ui.Add("Text", , "Vex++ Version Manager")
+versionListView := ui.Add("ListView", "vVersionList w250 h300", [
   "Version",
   "Status",
   "Run",
 ])
 
 DirCreate("versions")
+ui.Title := "Vex++ Version Manager"
+ui.Show()
 ; Populate the ListView with versions and their statuses
+; Define the GitHub API URL for fetching releases
+apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
+addedVersions := []
+listedVersions := []
+; Fetch the releases from the GitHub API
+loop files A_ScriptDir "/versions/*", 'D' {
+  dirname := path.info(A_LoopFileFullPath).nameandext
+  ; if relnames.includes(dirname)
+  ;   continue
+  versionName := dirname
+  versionPath := "versions/" versionName
+  status := "LocalOnly"
+  addedVersions.push(versionName)
+  ; Add the version to the ListView
+  listedVersions.push({
+    version: versionName,
+    status: status,
+    runtext: "Run version " versionName
+  })
+  versionListView.Add("", versionName, status, "Run version " versionName)
+}
+
+versionListView.OnEvent("DoubleClick", LV_DoubleClick)
+
+versionListView.ModifyCol(2)
+versionListView.ModifyCol(3)
+
+releases := FetchReleases(apiUrl)
 for release in releases {
   versionName := release.tag_name
   versionPath := "versions/" versionName
   status := DirExist(versionPath) ? "Installed" : "Not Installed"
-
-  ; Add the version to the ListView
-  versionListView.Add("", versionName, status, "Run version " versionName)
+  if idx := addedVersions.IndexOf(versionName) {
+    versionListView.Modify(idx, "Col2", "Installed")
+    versionListView.Modify(idx, "Col3", "Run version " versionName)
+    listedVersions[idx].status := "Installed"
+    listedVersions[idx].runtext := "Run version " versionName
+  } else {
+    addedVersions.push(versionName)
+    listedVersions.push({
+      version: versionName,
+      status: status,
+      runtext: ""
+    })
+    versionListView.Add("", versionName, status, '')
+  }
 }
-versionListView.OnEvent("DoubleClick", LV_DoubleClick)
 
-versionListView.ModifyCol() ; Auto-size each column to fit its contents.
-versionListView.ModifyCol(1, "Integer") ; For sorting purposes, indicate that column 2 is an integer.
+i := 0
+for thing in listedVersions.sort((a, s) {
+  if a.version.RegExMatch("^\d+$") && s.version.RegExMatch("^\d+$") {
+    if a.status == "LocalOnly" and s.status != "LocalOnly" {
+      return 1
+    }
+    if s.status == "LocalOnly" and a.status != "LocalOnly" {
+      return -1
+    }
+    return a.version - s.version
+  }
+  if a.version.RegExMatch("^\d+$") {
+    return 1
+  }
+  return -1
+}).Reverse() {
+  i += 1
+  versionListView.Modify(i, "Col1", thing.version)
+  versionListView.Modify(i, "Col2", thing.status)
+  versionListView.Modify(i, "Col3", thing.runtext)
+}
+
+versionListView.ModifyCol(2)
+versionListView.ModifyCol(3)
+ogcButtonDownloadSelectedVersion := ui.Add("Button", , "Download All Versions")
+ogcButtonDownloadSelectedVersion.OnEvent("Click", DownloadAll)
+ui.Show("AutoSize")
 
 LV_DoubleClick(LV, RowNumber) {
   Row := A_EventInfo
@@ -150,10 +214,6 @@ LV_SubitemHitTest(HLV) {
   return Subitem
 }
 
-; Add a button to download the selected version
-ogcButtonDownloadSelectedVersion := ui.Add("Button", , "Download All Versions")
-ogcButtonDownloadSelectedVersion.OnEvent("Click", DownloadAll)
-
 DownloadAll(*) {
   ; Loop through each release to download and extract the ZIP file
   for release in releases {
@@ -188,10 +248,6 @@ DownloadAll(*) {
   }
   Reload()
 }
-
-ui.Title := "Vex++ Version Manager"
-ui.Show()
-return
 
 ; Handle the download button click
 DownloadSelected(*) {
@@ -237,19 +293,34 @@ DownloadSelected(*) {
 ; Function to fetch releases from the GitHub API
 FetchReleases(apiUrl) {
   ; Use UrlDownloadToFile to get the JSON response
-  jsonFile := A_Temp "\releases.json"
-  Download(apiUrl, jsonFile)
+  ret := []
+  i := 0
+  while 1 {
+    i += 1
+    jsonFile := A_Temp "\releases.json"
+    Download(apiUrl "?page=" i, jsonFile)
 
-  ; Read the JSON file
-  data := FileRead(jsonFile)
+    ; Read the JSON file
+    data := FileRead(jsonFile)
 
-  ; Parse the JSON to extract release information
-  releases := JSON.parse(data, 0, 0)
-
+    ; Parse the JSON to extract release information
+    releases := JSON.parse(data, 0, 0)
+    try {
+      if !releases.Length {
+        break
+      }
+      for rel in releases {
+        ret.push(rel)
+      }
+      try FileDelete(jsonFile)
+    }
+    catch
+      break
+  }
   ; Clean up the temporary JSON file
-  FileDelete(jsonFile)
+  try FileDelete(jsonFile)
 
-  return releases
+  return ret
 }
 
 ; Close the GUI when the user exits
