@@ -32,6 +32,8 @@ extends Node2D
 @export var ghostFollowNode: Node = self
 @export var pathFollowNode: Node
 
+# var onOptionEdit
+
 var root = self
 var _DISABLED := false
 var isHovered := false
@@ -205,6 +207,8 @@ func editOption(idx: int) -> void:
   selectedOptions[k] = newData
   toType(k)
   respawn()
+  # if "onOptionEdit" in self and self.onOptionEdit:
+  #   self.onOptionEdit.call(selectedOptions)
   _ready()
 
 func _physics_process(delta: float) -> void:

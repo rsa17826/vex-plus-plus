@@ -13,6 +13,8 @@ var eletric := []
 func on_respawn():
   eletric = []
   sprite.animation = "default"
+  playerInsideWater = false
+  waterReenterTimer = 0
   for area in $collisionNode.get_overlapping_areas():
     on_area_entered(area)
 
