@@ -823,18 +823,18 @@ func localInput(event: InputEvent) -> void:
   if isActionJustPressedWithNoExtraMods("toggle_fullscreen"):
     fullscreen()
   if Input.is_action_just_pressed("editor_select"):
-    if editorMode == EditorModes.path:
-      if !lastSelectedBlock:
-        log.err("no blocks selected")
-        return
-      lastSelectedBlock.selectedOptions.path += (
-        "," +
-        str(level.get_global_mouse_position().x - lastSelectedBlock.global_position.x) +
-        "," +
-        str(level.get_global_mouse_position().y - lastSelectedBlock.global_position.y)
-      )
-      log.pp(lastSelectedBlock.selectedOptions.path)
-    else:
+    # if editorMode == EditorModes.path:
+    #   if !lastSelectedBlock:
+    #     log.err("no blocks selected")
+    #     return
+    #   lastSelectedBlock.selectedOptions.path += (
+    #     "," +
+    #     str(level.get_global_mouse_position().x - lastSelectedBlock.global_position.x) +
+    #     "," +
+    #     str(level.get_global_mouse_position().y - lastSelectedBlock.global_position.y)
+    #   )
+    #   log.pp(lastSelectedBlock.selectedOptions.path)
+    # else:
       if selectedBlock:
         selectedBlock.respawn()
 
@@ -911,6 +911,7 @@ func loadInnerLevel(innerLevel: String) -> void:
 func win() -> void:
   beatLevels.append(loadedLevels.pop_back())
   if len(loadedLevels) == 0:
+    breakpoint
     log.pp("PLAYER WINS!!!")
     if global.useropts.saveLevelOnWin:
       loadedLevels.append(beatLevels.pop_back())

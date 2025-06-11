@@ -107,6 +107,7 @@ func showPopupMenu():
   pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
 
 func _on_body_exited(body: Node2D) -> void:
+  if global.player.state == global.player.States.levelLoading: return
   if global.player.state == global.player.States.dead and body == global.player: return
   if 'on_body_exited' in self:
     self.on_body_exited.call(body)
@@ -114,6 +115,7 @@ func _on_body_exited(body: Node2D) -> void:
     self._on_body_exitedDEATH.call(body)
 
 func _on_body_entered(body: Node2D) -> void:
+  if global.player.state == global.player.States.levelLoading: return
   # if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
   #   cloneEventsHere.on_on_body_entered(body)
   if global.player.state == global.player.States.dead and body == global.player: return
