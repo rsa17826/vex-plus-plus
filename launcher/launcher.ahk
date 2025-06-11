@@ -27,7 +27,10 @@ versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Status",
   "Run",
 ])
-
+if FileExist("c.bat") {
+  FileDelete("c.bat")
+  DirDelete("temp", 1)
+}
 offline := A_Args.join(" ").includes("offline")
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
@@ -125,16 +128,25 @@ UpdateSelf(*) {
     }
   }
   if (url) {
-    ToolTip("Downloading...")
-    Download(url, "temp.zip")
-    unzip("temp.zip", "temp")
-    try {
-      FileMove("temp", "", 1)
-    }
+    ; ToolTip("Downloading...")
+    ; Download(url, "temp.zip")
+    ; unzip("temp.zip", "temp")
+    ; try {
+    F.write("./c.bat", "
+    (
+@echo off
+timeout /t 1 /nobreak >nul
+xcopy /y /i ".\temp\*" ".\"
+start launcher.exe
+    )")
+    run("cmd /c c.bat", , "hide")
+    ; FileCopy("temp", ".", 1)
+    ExitApp()
+    ; }
 
     ; Clean up temporary files
-    FileDelete("temp.zip")
-    DirDelete("temp", 1)
+    ; FileDelete("temp.zip")
+    ; DirDelete("temp", 1)
   }
 }
 
