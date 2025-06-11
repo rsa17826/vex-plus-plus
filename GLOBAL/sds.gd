@@ -411,8 +411,7 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
     #   breakpoint
 
     if global.starts_with(slowRemainingData, ']') or global.starts_with(slowRemainingData, '}'):
-      slowRemainingData = slowRemainingData.substr(1)
-      slowRemainingData = slowRemainingData.strip_edges()
+      slowRemainingData = slowRemainingData.substr(1).strip_edges()
       # log.pp("DADSADSA", remainingData)
       if not slowRemainingData:
         # log.warn(_stack, stack, 1)
