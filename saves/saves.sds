@@ -285,8 +285,8 @@
     }
   }
   STR(GRID){
-    STR(playerDelogPosition)VEC2(-375.0,19747.1328125)
-    STR(lastSpawnPoint)VEC2(-375.0,19745.0)
+    STR(playerDelogPosition)VEC2(421.690368652344,-4.48685455322266)
+    STR(lastSpawnPoint)VEC2(400.0,-25.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)

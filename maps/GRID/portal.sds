@@ -1,0 +1,1643 @@
+[
+{
+  STR(x)FLOAT(200.0)
+  STR(y)FLOAT(-75.0)
+}
+
+  {
+  STR(x)FLOAT(200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(600)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(800)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1000)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1600)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1800)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2000)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2600)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2800)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3000)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3600)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3800)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4000)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4600)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4800)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5000)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5600)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5800)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6000)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6600)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6800)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7000)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7600)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7800)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8000)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8200)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8400)
+  STR(y)FLOAT(0)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(basic)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(single spike)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(10x spike)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(updown)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(downup)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(water)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(solar)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(slope)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(1800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(pushable box)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(microwave)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(locked box)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(glass)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(leftright)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(2800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(falling)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(bouncy)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(spark counterClockwise)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(spark clockwise)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(inner level)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(3800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(goal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(buzsaw)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(bouncing buzsaw)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(cannon)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(checkpoint)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(4800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(closing spikes)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(Gravity Down Lever)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(Gravity up Lever)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(speed Up Lever)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(growing buzsaw)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(5800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(key)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(light switch)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(pole)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(Pole Quadrant)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(Pulley)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(6800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(Quadrant)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(Rotating Buzzsaw)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(Scythe)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(star)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(death boundary)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(7800)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(block death boundary)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8000)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(nowj)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8200)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(falling spike)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8400)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+
+
+  {
+  STR(x)FLOAT(8600)
+  STR(y)FLOAT(200)
+  STR(w)FLOAT(1.00000004470348)
+  STR(h)FLOAT(1.00000004470348)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(portal)
+  STR(options){
+    STR(color)STR(#fff)
+  }
+}
+]
