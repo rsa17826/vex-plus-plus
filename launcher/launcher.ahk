@@ -128,9 +128,9 @@ UpdateSelf(*) {
     }
   }
   if (url) {
-    ; ToolTip("Downloading...")
-    ; Download(url, "temp.zip")
-    ; unzip("temp.zip", "temp")
+    ToolTip("Downloading...")
+    Download(url, "temp.zip")
+    unzip("temp.zip", "temp")
     ; try {
     F.write("./c.bat", "
     (
@@ -140,13 +140,7 @@ xcopy /y /i ".\temp\*" ".\"
 start launcher.exe
     )")
     run("cmd /c c.bat", , "hide")
-    ; FileCopy("temp", ".", 1)
     ExitApp()
-    ; }
-
-    ; Clean up temporary files
-    ; FileDelete("temp.zip")
-    ; DirDelete("temp", 1)
   }
 }
 
