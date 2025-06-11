@@ -284,4 +284,23 @@
       }
     }
   }
+  STR(GRID){
+    STR(playerDelogPosition)VEC2(-375.0,19747.1328125)
+    STR(lastSpawnPoint)VEC2(-375.0,19745.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)[]
+    STR(levels){
+      STR(hub){
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    }
+  }
 }

@@ -67,7 +67,6 @@ func newItem(name, id) -> void:
   item.add_child(icon)
   item.id = id
   item.blockName = name
-  log.pp(id, item.blockName)
   var origSize = icon.texture.get_size() * icon.scale
   var maxSize = max(origSize.x, origSize.y)
   var scaleFactor = max(icon.scale.x, icon.scale.y) * (700 / maxSize)

@@ -12,9 +12,10 @@ func _init() -> void:
   global.level = self
 
 func onProgress(prog, max):
-  global.ui.progressBar.value = global.rerange(prog, 0, max, 50, 100)
+  global.ui.progressBar.max_value = max
+  global.ui.progressBar.value = prog
   if prog % 50 == 0:
-    await global.wait()
+    await global.wait(150)
 
 func loadLevel(level):
   # await global.wait()
@@ -32,7 +33,8 @@ func loadLevel(level):
       {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 65}
     ],
     func(prog, max):
-      global.ui.progressBar.value=global.rerange(prog, 0, max, 0, 50)
+      global.ui.progressBar.max_value=max
+      global.ui.progressBar.value=prog
   )
   var prog = 0
   var children = $blocks.get_children()
@@ -54,7 +56,7 @@ func loadLevel(level):
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
-
+  
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
   global.player.get_node("../CanvasLayer/editor bar")._ready()
   await global.wait()
@@ -112,7 +114,7 @@ func save():
     data.append(obj)
   log.pp(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
-  var opts = await sds.loadDataFromFileSlow(global.path.join(global.levelFolderPath, "options.sds"))
+  var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.version = int(global.file.read("res://VERSION", false, "-1"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, "options.sds"), opts)
   global.ui.levelSaved.modulate.a = 1

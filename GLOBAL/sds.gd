@@ -103,19 +103,22 @@ static func saveData(val: Variant, _level:=0) -> String:
   return str(val)
 
 static var remainingData := ''
+static var slowRemainingData := ''
 static var UNSET: String
 
 const NUMREG = r"(?:nan|inf|-?\d+(?:\.\d+)?)"
 const SEPREG = r"\s*,\s*"
 
 static func loadData(d: String, progress=null) -> Variant:
-  UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+  if not UNSET:
+    UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+  # var UNSET: String = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
   var stack := []
   remainingData = d.strip_edges() if d else ""
   if not remainingData:
     return UNSET
-  while UNSET in remainingData:
-    UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+  # while UNSET in remainingData:
+  #   UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
   # Initialize the stack with the initial state
   stack.append([remainingData, []])
   var _stack: Array
@@ -337,51 +340,65 @@ static func loadData(d: String, progress=null) -> Variant:
 
 # with prog bar
 static func loadDataSlow(d: String, progress=null) -> Variant:
-  UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
-  var stack := []
-  remainingData = d.strip_edges() if d else ""
-  if not remainingData:
-    return UNSET
-  while UNSET in remainingData:
+  if not UNSET:
     UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
-  var maxProg = len(remainingData)
-  var i = 0
-  # Initialize the stack with the initial state
-  stack.append([remainingData, []])
-  var _stack: Array
-  while stack.size() > 0:
-    if progress:
-      progress.call(maxProg - len(remainingData), maxProg)
-    # log.pp(stack)
-    var current: Array = stack.pop_back()
-    remainingData = current[0]
-    _stack = current[1]
 
-    if not remainingData:
+  slowRemainingData = d.strip_edges() if d else ""
+  if not slowRemainingData:
+    return UNSET
+  var __int := func(num: Variant) -> Variant:
+    if num == "inf":
+      return INF
+    if num == "nan":
+      return NAN
+    return int(num)
+
+  var __float := func(num: Variant) -> float:
+    if num == "inf":
+      return INF
+    if num == "nan":
+      return NAN
+    return float(num)
+  var getDataFind := func() -> String:
+    var end = slowRemainingData.find(")")
+    var part = slowRemainingData.substr(1, end - 1)
+    slowRemainingData = slowRemainingData.substr(end + 1)
+    return part
+  # while UNSET in slowRemainingData:
+  #   UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+  var maxProg = len(slowRemainingData)
+  var i = 0
+  var _stack: Array
+
+  while 1:
+    if progress:
+      progress.call(maxProg - len(slowRemainingData), maxProg)
+    if not slowRemainingData:
       # log.warn(_stack, stack, 4)
       return _stack[len(_stack) - 1]
     i += 1
-    if progress and i % 800 == 0:
+    if progress and i % 100 == 0:
       await global.wait()
-    var getDataReg := func(reg: String, group:=0) -> String:
-      var res = global.regMatch(remainingData, reg)
-      if not res:
-        return UNSET
-        log.pp(remainingData)
-        breakpoint
-      remainingData = remainingData.substr(len(res[0]))
-      return res[group]
-    var getDataFind := func() -> String:
-      var end = remainingData.find(")")
-      var part = remainingData.substr(1, end - 1)
-      remainingData = remainingData.substr(end + 1)
-      return part
+    # var getDataReg := func(reg: String, group:=0) -> String:
+    #   var res = global.regMatch(slowRemainingData, reg)
+    #   if not res:
+    #     breakpoint
+    #     log.err(slowRemainingData, 123123123, reg, stack)
+    #     return UNSET
+    #   slowRemainingData = slowRemainingData.substr(len(res[0]))
+    #   # if len(remainingData) < 100:
+    #   #   breakpoint
+    #   #   log.err(remainingData)
+    #   return res[group]
+    # if not slowRemainingData:
+    #   log.err(slowRemainingData, "current")
+    #   breakpoint
 
-    if global.starts_with(remainingData, ']') or global.starts_with(remainingData, '}'):
-      remainingData = remainingData.substr(1)
-      remainingData = remainingData.strip_edges()
+    if global.starts_with(slowRemainingData, ']') or global.starts_with(slowRemainingData, '}'):
+      slowRemainingData = slowRemainingData.substr(1)
+      slowRemainingData = slowRemainingData.strip_edges()
       # log.pp("DADSADSA", remainingData)
-      if not remainingData:
+      if not slowRemainingData:
         # log.warn(_stack, stack, 1)
         # _stack.append(_stack[len(_stack) - 1])
         while len(_stack) >= 2:
@@ -404,7 +421,7 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
       # log.warn(thingToPutDataIn, dataToInsert)
       match typeof(thingToPutDataIn):
         TYPE_DICTIONARY:
-          for k: String in thingToPutDataIn:
+          for k in thingToPutDataIn:
             if global.same(thingToPutDataIn[k], UNSET):
               thingToPutDataIn[k] = dataToInsert
               break
@@ -412,30 +429,28 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
           thingToPutDataIn.append(dataToInsert)
 
       _stack.append(thingToPutDataIn)
-      # remainingData = remainingData.strip_edges()
-      stack.append([remainingData, _stack])
+      # remainingData = remainingData
+      # stack.append([remainingData, _stack])
       continue
-
-    var type: String = getDataReg.call(r"^[A-Za-z]+[\dA-Za-z]*|\[|\{")
-    remainingData = remainingData.strip_edges()
+    slowRemainingData = slowRemainingData.strip_edges()
+    if not slowRemainingData:
+      log.err(slowRemainingData, "current")
+      breakpoint
+    var type: String
+    if global.starts_with(slowRemainingData, "{"):
+      type = "{"
+    elif global.starts_with(slowRemainingData, "["):
+      type = "["
+    else:
+      type = slowRemainingData.substr(0, slowRemainingData.find("("))
+    slowRemainingData = slowRemainingData.substr(len(type))
+    # if type == UNSET:
+    #   log.warn(slowRemainingData)
+    slowRemainingData = slowRemainingData.strip_edges()
     # log.pp("asdjhdash", type, remainingData)
     # log.pp(remainingData, type)
     var thisdata: Variant
 
-    var __int := func(num: Variant) -> Variant:
-      if num == "inf":
-        return INF
-      if num == "nan":
-        return NAN
-      return int(num)
-
-    var __float := func(num: Variant) -> float:
-      if num == "inf":
-        return INF
-      if num == "nan":
-        return NAN
-      return float(num)
-  
     match type:
       "{":
         thisdata = UNSET
@@ -443,65 +458,65 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         _stack.append({})
       "INT":
         thisdata = getDataFind.call()
-        thisdata = __int.call(thisdata.strip_edges())
+        thisdata = __int.call(thisdata)
       "FLOAT":
         thisdata = getDataFind.call()
-        thisdata = __float.call(thisdata.strip_edges())
+        thisdata = __float.call(thisdata)
       "VEC2I":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Vector2i(__int.call(thisdata[0]), __int.call(thisdata[1]))
       "VEC2":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Vector2(__float.call(thisdata[0]), __float.call(thisdata[1]))
       "VEC3I":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Vector3i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]))
       "VEC3":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Vector3(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]))
       "COLOR":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Color(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
       "RECT2":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Rect2(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
       "RECT2I":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Rect2i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]), __int.call(thisdata[3]))
       "VEC4":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Vector4(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
       "VEC4I":
-        thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+        thisdata = (getDataFind.call().split(","))
         thisdata = Vector4i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]), __int.call(thisdata[3]))
-      "InputEventKey":
-        thisdata = getDataReg.call(r"^\((" +
-        NUMREG + SEPREG +
-        r"(?:true|false)" + SEPREG +
-        r"(?:true|false)" + SEPREG +
-        r"(?:true|false)" + SEPREG +
-        r"(?:true|false)" + r")\)", 1).split(",")
-        var evt = InputEventKey.new()
-        evt.set_keycode(int(thisdata[0]))
-        evt.ctrl_pressed = thisdata[1] == "true"
-        evt.alt_pressed = thisdata[2] == "true"
-        evt.shift_pressed = thisdata[3] == "true"
-        evt.meta_pressed = thisdata[4] == "true"
-        thisdata = evt
-      "InputEventMouseButton":
-        thisdata = getDataReg.call(r"^\((" +
-        NUMREG + SEPREG +
-        r"(?:true|false)" + SEPREG +
-        r"(?:true|false)" + SEPREG +
-        r"(?:true|false)" + SEPREG +
-        r"(?:true|false)" + r")\)", 1).split(",")
-        var evt = InputEventMouseButton.new()
-        evt.set_button_index(int(thisdata[0]))
-        evt.ctrl_pressed = thisdata[1] == "true"
-        evt.alt_pressed = thisdata[2] == "true"
-        evt.shift_pressed = thisdata[3] == "true"
-        evt.meta_pressed = thisdata[4] == "true"
-        thisdata = evt
+      # "InputEventKey":
+      #   thisdata = getDataReg.call(r"^\((" +
+      #   NUMREG + SEPREG +
+      #   r"(?:true|false)" + SEPREG +
+      #   r"(?:true|false)" + SEPREG +
+      #   r"(?:true|false)" + SEPREG +
+      #   r"(?:true|false)" + r")\)", 1).split(",")
+      #   var evt = InputEventKey.new()
+      #   evt.set_keycode(int(thisdata[0]))
+      #   evt.ctrl_pressed = thisdata[1] == "true"
+      #   evt.alt_pressed = thisdata[2] == "true"
+      #   evt.shift_pressed = thisdata[3] == "true"
+      #   evt.meta_pressed = thisdata[4] == "true"
+      #   thisdata = evt
+      # "InputEventMouseButton":
+      #   thisdata = getDataReg.call(r"^\((" +
+      #   NUMREG + SEPREG +
+      #   r"(?:true|false)" + SEPREG +
+      #   r"(?:true|false)" + SEPREG +
+      #   r"(?:true|false)" + SEPREG +
+      #   r"(?:true|false)" + r")\)", 1).split(",")
+      #   var evt = InputEventMouseButton.new()
+      #   evt.set_button_index(int(thisdata[0]))
+      #   evt.ctrl_pressed = thisdata[1] == "true"
+      #   evt.alt_pressed = thisdata[2] == "true"
+      #   evt.shift_pressed = thisdata[3] == "true"
+      #   evt.meta_pressed = thisdata[4] == "true"
+      #   thisdata = evt
       "NULL":
         getDataFind.call()
         thisdata = null
@@ -510,25 +525,31 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         # thisdata = getDataReg.call(r"\((true|false)\)", 1)
         thisdata = thisdata == "true"
       "STR":
-        thisdata = remainingData \
-        .replace("\\\\", "ESCAPED" + UNSET) \
-        .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
+        thisdata = slowRemainingData # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         # thisdata = getDataFind.call()
-        thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        thisdata = slowRemainingData.substr(1, slowRemainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
         # log.pp(thisdata, "thisdata", len(thisdata))
-        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
-        remainingData = remainingData.substr(len(thisdata \
-        .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
-        ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
+        thisdata = thisdata # .replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
+        slowRemainingData = slowRemainingData.substr(len(thisdata) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
+        # thisdata = slowRemainingData \
+        # .replace("\\\\", "ESCAPED" + UNSET) \
+        # .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
+        # # thisdata = getDataFind.call()
+        # thisdata = slowRemainingData.substr(1, slowRemainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        # # log.pp(thisdata, "thisdata", len(thisdata))
+        # thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
+        # slowRemainingData = slowRemainingData.substr(len(thisdata \
+        # .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
+        # ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
       "STRNAME":
-        thisdata = remainingData \
+        thisdata = slowRemainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         # thisdata = getDataFind.call()
-        thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        thisdata = slowRemainingData.substr(1, slowRemainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
         # thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
-        remainingData = remainingData.substr(len(thisdata \
+        slowRemainingData = slowRemainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
         thisdata = StringName(thisdata)
@@ -537,21 +558,22 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         # remainingData = remainingData.substr(1)
         _stack.append([])
       _:
+        log.err("bad type", len(type), type, slowRemainingData, 12312)
+        breakpoint
         if type == UNSET:
           return UNSET
-        breakpoint
-        return log.err(type, remainingData)
-
-    remainingData = remainingData.strip_edges()
+        return
+    
+    slowRemainingData = slowRemainingData.strip_edges()
     if !global.same(thisdata, UNSET):
       if len(_stack):
         var lastItem = _stack[len(_stack) - 1]
         if lastItem == null:
-          lastItem = thisdata
+          _stack[len(_stack) - 1] = thisdata
         else:
           if lastItem is Dictionary:
             var innerDataFound := false
-            for k: String in lastItem:
+            for k in lastItem:
               if global.same(lastItem[k], UNSET):
                 innerDataFound = true
                 lastItem[k] = thisdata
@@ -561,7 +583,7 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
           elif lastItem is Array:
             lastItem.append(thisdata)
       else:
-        stack.append([remainingData, _stack])
+        # stack.append([remainingData, _stack])
         continue
         # # log.warn("no obj")
         # log.warn(out, stack, _stack, thisdata, 2)
@@ -569,11 +591,277 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
     # log.pp(thisdata, out, remainingData, "_stack:", str(_stack))
     # if len(remainingData):
     # Push the current state back onto the stack for the next iteration
-    stack.append([remainingData, _stack])
+    # stack.append([remainingData, _stack])
+    continue # ?
 
   return _stack[len(_stack) - 1]
+
 static func loadDataFromFileSlow(p: String, ifUnset: Variant = null, progress=null) -> Variant:
   var f := FileAccess.open(p, FileAccess.READ)
   if not f: return ifUnset
   var d: Variant = await loadDataSlow(f.get_as_text(), progress)
   return d if !global.same(d, UNSET) else ifUnset
+# # with prog bar
+# static func loadDataSlow(d: String, progress=null) -> Variant:
+#   UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+#   var stack := []
+#   remainingData = d.strip_edges() if d else ""
+#   if not remainingData:
+#     return UNSET
+#   while UNSET in remainingData:
+#     UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
+#   var maxProg = len(remainingData)
+#   var i = 0
+#   # Initialize the stack with the initial state
+#   stack.append([remainingData, []])
+#   var _stack: Array
+#   while stack.size() > 0:
+#     if progress:
+#       progress.call(maxProg - len(remainingData), maxProg)
+#     # log.pp(stack)
+#     var current: Array = stack.pop_back()
+#     remainingData = current[0]
+#     if not remainingData:
+#       log.err(current, "current")
+#       breakpoint
+#     _stack = current[1]
+#     if not remainingData:
+#       log.err(remainingData, current, "current")
+#       breakpoint
+#     if not remainingData:
+#       # log.warn(_stack, stack, 4)
+#       return _stack[len(_stack) - 1]
+#     i += 1
+#     if progress and i % 800 == 0:
+#       await global.wait()
+#     remainingData = current[0]
+#     if not remainingData:
+#       log.err(remainingData, current, "current")
+#       breakpoint
+#     var getDataReg := func(reg: String, group:=0) -> String:
+#       var res = global.regMatch(remainingData, reg)
+#       if not res:
+#         breakpoint
+#         log.err(remainingData, 123123123, reg, stack)
+#         return UNSET
+#       remainingData = remainingData.substr(len(res[0]))
+#       if len(remainingData) < 100:
+#         breakpoint
+#         log.err(remainingData)
+#       return res[group]
+#     if not remainingData:
+#       log.err(remainingData, current, "current")
+#       breakpoint
+#     var getDataFind := func() -> String:
+#       var end = remainingData.find(")")
+#       var part = remainingData.substr(1, end - 1)
+#       remainingData = remainingData.substr(end + 1)
+#       return part
+#     if not remainingData:
+#       log.err(remainingData, current, "current")
+#       breakpoint
+
+#     if global.starts_with(remainingData, ']') or global.starts_with(remainingData, '}'):
+#       remainingData = remainingData.substr(1)
+#       remainingData = remainingData.strip_edges()
+#       # log.pp("DADSADSA", remainingData)
+#       if not remainingData:
+#         # log.warn(_stack, stack, 1)
+#         # _stack.append(_stack[len(_stack) - 1])
+#         while len(_stack) >= 2:
+#           var thing1: Variant = _stack.pop_back()
+#           var lastItem = _stack[len(_stack) - 1]
+#           if lastItem == null:
+#             _stack[len(_stack) - 1] = thing1
+#           elif lastItem is Dictionary:
+#             for k: String in lastItem:
+#               if global.same(lastItem[k], UNSET):
+#                 lastItem[k] = thing1
+#                 break
+#           elif lastItem is Array:
+#             lastItem.append(thing1)
+#         # log.pp(_stack)
+#         return _stack[0]
+
+#       var dataToInsert: Variant = _stack.pop_back()
+#       var thingToPutDataIn: Variant = _stack.pop_back()
+#       # log.warn(thingToPutDataIn, dataToInsert)
+#       match typeof(thingToPutDataIn):
+#         TYPE_DICTIONARY:
+#           for k: String in thingToPutDataIn:
+#             if global.same(thingToPutDataIn[k], UNSET):
+#               thingToPutDataIn[k] = dataToInsert
+#               break
+#         TYPE_ARRAY:
+#           thingToPutDataIn.append(dataToInsert)
+
+#       _stack.append(thingToPutDataIn)
+#       # remainingData = remainingData.strip_edges()
+#       stack.append([remainingData, _stack])
+#       continue
+#     if not remainingData:
+#       log.err(remainingData, current, "current")
+#       breakpoint
+#     var type: String = getDataReg.call(r"^\s*([A-Za-z]+[\dA-Za-z]*|\[|\{)", 1)
+#     if type == UNSET:
+#       log.warn(remainingData)
+#     remainingData = remainingData.strip_edges()
+#     # log.pp("asdjhdash", type, remainingData)
+#     # log.pp(remainingData, type)
+#     var thisdata: Variant
+
+#     var __int := func(num: Variant) -> Variant:
+#       if num == "inf":
+#         return INF
+#       if num == "nan":
+#         return NAN
+#       return int(num)
+
+#     var __float := func(num: Variant) -> float:
+#       if num == "inf":
+#         return INF
+#       if num == "nan":
+#         return NAN
+#       return float(num)
+  
+#     match type:
+#       "{":
+#         thisdata = UNSET
+#         # remainingData = remainingData.substr(1)
+#         _stack.append({})
+#       "INT":
+#         thisdata = getDataFind.call()
+#         thisdata = __int.call(thisdata.strip_edges())
+#       "FLOAT":
+#         thisdata = getDataFind.call()
+#         thisdata = __float.call(thisdata.strip_edges())
+#       "VEC2I":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Vector2i(__int.call(thisdata[0]), __int.call(thisdata[1]))
+#       "VEC2":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Vector2(__float.call(thisdata[0]), __float.call(thisdata[1]))
+#       "VEC3I":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Vector3i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]))
+#       "VEC3":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Vector3(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]))
+#       "COLOR":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Color(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
+#       "RECT2":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Rect2(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
+#       "RECT2I":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Rect2i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]), __int.call(thisdata[3]))
+#       "VEC4":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Vector4(__float.call(thisdata[0]), __float.call(thisdata[1]), __float.call(thisdata[2]), __float.call(thisdata[3]))
+#       "VEC4I":
+#         thisdata = (getDataFind.call().split(",") as Array).map(func(e): return e.strip_edges())
+#         thisdata = Vector4i(__int.call(thisdata[0]), __int.call(thisdata[1]), __int.call(thisdata[2]), __int.call(thisdata[3]))
+#       "InputEventKey":
+#         thisdata = getDataReg.call(r"^\((" +
+#         NUMREG + SEPREG +
+#         r"(?:true|false)" + SEPREG +
+#         r"(?:true|false)" + SEPREG +
+#         r"(?:true|false)" + SEPREG +
+#         r"(?:true|false)" + r")\)", 1).split(",")
+#         var evt = InputEventKey.new()
+#         evt.set_keycode(int(thisdata[0]))
+#         evt.ctrl_pressed = thisdata[1] == "true"
+#         evt.alt_pressed = thisdata[2] == "true"
+#         evt.shift_pressed = thisdata[3] == "true"
+#         evt.meta_pressed = thisdata[4] == "true"
+#         thisdata = evt
+#       "InputEventMouseButton":
+#         thisdata = getDataReg.call(r"^\((" +
+#         NUMREG + SEPREG +
+#         r"(?:true|false)" + SEPREG +
+#         r"(?:true|false)" + SEPREG +
+#         r"(?:true|false)" + SEPREG +
+#         r"(?:true|false)" + r")\)", 1).split(",")
+#         var evt = InputEventMouseButton.new()
+#         evt.set_button_index(int(thisdata[0]))
+#         evt.ctrl_pressed = thisdata[1] == "true"
+#         evt.alt_pressed = thisdata[2] == "true"
+#         evt.shift_pressed = thisdata[3] == "true"
+#         evt.meta_pressed = thisdata[4] == "true"
+#         thisdata = evt
+#       "NULL":
+#         getDataFind.call()
+#         thisdata = null
+#       "BOOL":
+#         thisdata = getDataFind.call()
+#         # thisdata = getDataReg.call(r"\((true|false)\)", 1)
+#         thisdata = thisdata == "true"
+#       "STR":
+#         thisdata = remainingData \
+#         .replace("\\\\", "ESCAPED" + UNSET) \
+#         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
+#         # thisdata = getDataFind.call()
+#         thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+#         # log.pp(thisdata, "thisdata", len(thisdata))
+#         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
+#         remainingData = remainingData.substr(len(thisdata \
+#         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
+#         ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
+#       "STRNAME":
+#         thisdata = remainingData \
+#         .replace("\\\\", "ESCAPED" + UNSET) \
+#         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
+#         # thisdata = getDataFind.call()
+#         thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+#         # thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
+#         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
+#         remainingData = remainingData.substr(len(thisdata \
+#         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
+#         ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
+#         thisdata = StringName(thisdata)
+#       "[":
+#         thisdata = UNSET
+#         # remainingData = remainingData.substr(1)
+#         _stack.append([])
+#       _:
+#         log.err(type, remainingData, 12312)
+#         if type == UNSET:
+#           return UNSET
+#         return
+
+#     remainingData = remainingData.strip_edges()
+#     if !global.same(thisdata, UNSET):
+#       if len(_stack):
+#         var lastItem = _stack[len(_stack) - 1]
+#         if lastItem == null:
+#           lastItem = thisdata
+#         else:
+#           if lastItem is Dictionary:
+#             var innerDataFound := false
+#             for k: String in lastItem:
+#               if global.same(lastItem[k], UNSET):
+#                 innerDataFound = true
+#                 lastItem[k] = thisdata
+#                 break
+#             if !innerDataFound:
+#               lastItem[thisdata] = UNSET
+#           elif lastItem is Array:
+#             lastItem.append(thisdata)
+#       else:
+#         stack.append([remainingData, _stack])
+#         continue
+#         # # log.warn("no obj")
+#         # log.warn(out, stack, _stack, thisdata, 2)
+#         # return thisdata
+#     # log.pp(thisdata, out, remainingData, "_stack:", str(_stack))
+#     # if len(remainingData):
+#     # Push the current state back onto the stack for the next iteration
+#     stack.append([remainingData, _stack])
+
+#   return _stack[len(_stack) - 1]
+# static func loadDataFromFileSlow(p: String, ifUnset: Variant = null, progress=null) -> Variant:
+#   var f := FileAccess.open(p, FileAccess.READ)
+#   if not f: return ifUnset
+#   var d: Variant = await loadDataSlow(f.get_as_text(), progress)
+#   return d if !global.same(d, UNSET) else ifUnset

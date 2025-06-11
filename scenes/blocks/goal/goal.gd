@@ -15,6 +15,7 @@ func on_ready() -> void:
 func on_body_entered(body: Node) -> void:
   if body == global.player:
     if selectedOptions.requiredLevelCount > len(global.beatLevels): return
+    log.err("asdshdjkasdh")
     global.win()
 
 func generateBlockOpts():
