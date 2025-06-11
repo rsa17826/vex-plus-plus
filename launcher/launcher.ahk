@@ -110,7 +110,33 @@ versionListView.ModifyCol(2)
 versionListView.ModifyCol(3)
 ogcButtonDownloadSelectedVersion := ui.Add("Button", , "Download All Versions")
 ogcButtonDownloadSelectedVersion.OnEvent("Click", DownloadAll)
+ogcButtonDownloadSelectedVersion := ui.Add("Button", , "Update Self")
+ogcButtonDownloadSelectedVersion.OnEvent("Click", UpdateSelf)
 ui.Show("AutoSize")
+
+UpdateSelf(*) {
+  maxVersion := 0
+  url := ''
+  for release in releases {
+    ; print(release.tag_name, selectedVersion)
+    try if release.tag_name > maxVersion {
+      maxVersion := release.tag_name
+      url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("launcher.zip"))].browser_download_url
+    }
+  }
+  if (url) {
+    ToolTip("Downloading...")
+    Download(url, "temp.zip")
+    unzip("temp.zip", "temp")
+    try {
+      FileMove("temp", "", 1)
+    }
+
+    ; Clean up temporary files
+    FileDelete("temp.zip")
+    DirDelete("temp", 1)
+  }
+}
 
 LV_DoubleClick(LV, RowNumber) {
   Column := LV_SubItemHitTest(versionListView.hwnd)
