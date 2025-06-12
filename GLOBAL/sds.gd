@@ -58,7 +58,7 @@ static func saveData(val: Variant, _level:=0) -> String:
       TYPE_RECT2I:
         return "RECT2I(" + str(val.position[0]) + "," + str(val.position[1]) + "," + str(val.size[0]) + "," + str(val.size[1]) + ")"
       TYPE_STRING_NAME:
-        return "STR(" + str(val).replace("\\", "\\\\").replace(")", "\\)") + ")"
+        return "STRNAME(" + str(val).replace("\\", "\\\\").replace(")", "\\)") + ")"
       TYPE_VECTOR4:
         return "VEC4" + str(val).replace(" ", '')
       TYPE_VECTOR4I:
