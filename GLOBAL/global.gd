@@ -672,25 +672,25 @@ func localProcess(delta: float) -> void:
 
           # scale on the selected sides
           if scaleOnTopSide:
-            var mouseDIstInPx := (top_edge - mpos.y)
-            mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
-            selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDIstInPx / sizeInPx.y * selectedBlock.scale.y))
-            selectedBlock.global_position.y = selectedBlock.global_position.y - (mouseDIstInPx / 2)
+            var mouseDistInPx := (top_edge - mpos.y)
+            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+            selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
+            selectedBlock.global_position.y = selectedBlock.global_position.y - (mouseDistInPx / 2)
           elif scaleOnBottomSide:
-            var mouseDIstInPx := (mpos.y - bottom_edge)
-            mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
-            selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDIstInPx / sizeInPx.y * selectedBlock.scale.y))
-            selectedBlock.global_position.y = selectedBlock.global_position.y + (mouseDIstInPx / 2)
+            var mouseDistInPx := (mpos.y - bottom_edge)
+            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+            selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
+            selectedBlock.global_position.y = selectedBlock.global_position.y + (mouseDistInPx / 2)
           if scaleOnLeftSide:
-            var mouseDIstInPx := (left_edge - mpos.x)
-            mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
-            selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDIstInPx / sizeInPx.x * selectedBlock.scale.x))
-            selectedBlock.global_position.x = selectedBlock.global_position.x - (mouseDIstInPx / 2)
+            var mouseDistInPx := (left_edge - mpos.x)
+            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+            selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
+            selectedBlock.global_position.x = selectedBlock.global_position.x - (mouseDistInPx / 2)
           elif scaleOnRightSide:
-            var mouseDIstInPx := (mpos.x - right_edge)
-            mouseDIstInPx = round(mouseDIstInPx / gridSize) * gridSize
-            selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDIstInPx / sizeInPx.x * selectedBlock.scale.x))
-            selectedBlock.global_position.x = selectedBlock.global_position.x + (mouseDIstInPx / 2)
+            var mouseDistInPx := (mpos.x - right_edge)
+            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+            selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
+            selectedBlock.global_position.x = selectedBlock.global_position.x + (mouseDistInPx / 2)
 
           var moveMouse := func(pos: Vector2) -> void:
             Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
@@ -964,7 +964,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
     saveData = saveData[levelPackName]
   else:
     saveData = null
-  # save the name globaly
+  # save the name globally
   mainLevelName = levelPackName
   # Engine.time_scale = 1
   # log.pp("Loading Level Pack:", levelPackName)
