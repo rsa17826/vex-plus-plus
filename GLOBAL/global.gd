@@ -1407,57 +1407,57 @@ func getToken():
   return decode_string.call(t)
 
 var blockNames: Array = [
-  "basic", # 1
-  "single spike", # 1
-  "10x spike", # 1
-  # "invisible", # 0
-  "updown", # 1
-  "downup", # 1
-  "water", # 1
-  "solar", # 1
-  "slope", # 1
-  "pushable box", # 1
-  "microwave", # 1
-  "locked box", # 1
-  "glass", # 1
-  "leftright", # 1
-  "falling", # 1
+  "basic",
+  "single spike",
+  "10x spike",
+  # "invisible",
+  "updown",
+  "downup",
+  "water",
+  "solar",
+  "slope",
+  "pushable box",
+  "microwave",
+  "locked box",
+  "glass",
+  "leftright",
+  "falling",
   "donup",
-  "bouncy", # 1
-  "spark counterClockwise", # 1
-  "spark clockwise", # 1
-  "inner level", # .5
-  "goal", # 1
-  "buzsaw", # .9
-  "bouncing buzsaw", # .9
-  "cannon", # .2
-  "checkpoint", # .8
-  "closing spikes", # 1
-  "Gravity Down Lever", # 1
-  "Gravity up Lever", # 1
-  "speed Up Lever", # 0
-  "growing buzsaw", # 0
-  "key", # 1
-  # "laser", # 0
-  "light switch", # .9
-  "pole", # 0
-  "Pole Quadrant", # 0
-  "Pulley", # 1
-  "Quadrant", # 1
-  "Rotating Buzzsaw", # 1
-  "Scythe", # 1
-  # "shurikan Spawner", # .1
-  "star", # .8
-  # "targeting laser", # 0
-  # "ice", # 0
-  "death boundary", # 1
-  "block death boundary", # 1
-  # "basic - nowj", # -.5
-  "nowj", # 1
-  "falling spike", # 1
-  # "quad falling spikes" # 0
-  "portal", # 1
-  # "path", # .3
+  "bouncy",
+  "spark counterClockwise",
+  "spark clockwise",
+  "inner level",
+  "goal",
+  "buzsaw",
+  "bouncing buzsaw",
+  "cannon",
+  "checkpoint",
+  "closing spikes",
+  "Gravity Down Lever",
+  "Gravity up Lever",
+  "speed Up Lever",
+  "growing buzsaw",
+  "key",
+  # "laser",
+  "light switch",
+  "pole",
+  "Pole Quadrant",
+  "Pulley",
+  "Quadrant",
+  "Rotating Buzzsaw",
+  "Scythe",
+  # "shurikan Spawner",
+  "star",
+  # "targeting laser",
+  # "ice",
+  "death boundary",
+  "block death boundary",
+  # "basic - nowj",
+  "nowj",
+  "falling spike",
+  # "quad falling spikes",
+  "portal",
+  # "path",
 ]
 
 var lastPortal: Node2D = null
