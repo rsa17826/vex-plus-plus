@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 # @name same line return
 # @regex :\s*(return|continue|break)\s*$

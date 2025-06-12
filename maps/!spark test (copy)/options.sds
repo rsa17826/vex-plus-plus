@@ -8,5 +8,9 @@
       STR(color)INT(4)
       STR(changeSpeedOnSlopes)BOOL(false)
     }
+    STR(a){
+      STR(color)INT(4)
+      STR(changeSpeedOnSlopes)BOOL(false)
+    }
   }
 }

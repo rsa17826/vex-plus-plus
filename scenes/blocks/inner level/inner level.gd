@@ -24,6 +24,7 @@ func on_ready() -> void:
   elif selectedOptions.level in global.beatLevels.map(func(e: Dictionary) -> String:
     return e.name
     ):
+    disabled = true
     text = selectedOptions.level + "\nCOMPLETED"
   elif selectedOptions.level == global.currentLevel().name:
     text = "same as current level\n" + selectedOptions.level

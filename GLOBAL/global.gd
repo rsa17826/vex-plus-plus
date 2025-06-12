@@ -544,7 +544,7 @@ func _physics_process(delta: float) -> void:
 
 # local game only data
 
-var player: Node2D
+var player: Player
 var level: Node2D
 
 var hoveredBlocks: Array = []
@@ -897,21 +897,29 @@ var levelOpts: Dictionary
 func starFound() -> void:
   currentLevel().foundStar = true
 
+func newLevelSaveData(levelname):
+  return {
+    "name": levelname,
+    "spawnPoint": Vector2.ZERO,
+    'foundStar': false,
+    "tick": 0
+  }.duplicate()
+
 func loadInnerLevel(innerLevel: String) -> void:
   currentLevel().spawnPoint = player.global_position - player.get_parent().global_position
-  global.loadedLevels.append({"name": innerLevel, "spawnPoint": Vector2.ZERO, 'foundStar': false})
+  global.loadedLevels.append(newLevelSaveData(innerLevel))
   if currentLevel().name not in levelOpts.stages:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
   await wait()
   level.loadLevel(innerLevel)
   player.die(0, true)
   player.deathPosition = player.lastSpawnPoint
+  savePlayerLevelData()
   # log.pp(loadedLevels, beatLevels)
 
 func win() -> void:
   beatLevels.append(loadedLevels.pop_back())
   if len(loadedLevels) == 0:
-    breakpoint
     log.pp("PLAYER WINS!!!")
     if global.useropts.saveLevelOnWin:
       loadedLevels.append(beatLevels.pop_back())
@@ -920,16 +928,18 @@ func win() -> void:
     return
   # log.pp(currentLevel().spawnPoint, currentLevel())
   await wait()
-  level.loadLevel(currentLevel().name)
+  await level.loadLevel(currentLevel().name)
   # log.pp(loadedLevels, beatLevels)
   player.lastSpawnPoint = currentLevel().spawnPoint
-  player.die(0, false)
   player.deathPosition = player.lastSpawnPoint
+  player.die(0, false)
+  savePlayerLevelData()
 
 var savingPlaterLevelData := false
 
 func savePlayerLevelData() -> void:
   if savingPlaterLevelData: return
+  await wait()
   savingPlaterLevelData = true
   var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
   var levels := {}
@@ -954,7 +964,7 @@ func savePlayerLevelData() -> void:
     "levels": levels
   }
   sds.saveDataToFile(path.parsePath("res://saves/saves.sds"), saveData)
-  await wait(1000)
+  # await wait(1000)
   savingPlaterLevelData = false
 
 func loadMap(levelPackName: String, loadFromSave: bool) -> void:
@@ -1007,11 +1017,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
     beatLevels = saveData.beatLevels
   else:
     loadedLevels = [
-      {
-        "name": levelPackInfo['start'],
-        "spawnPoint": Vector2.ZERO,
-        "foundStar": false
-      }
+      newLevelSaveData(levelPackInfo['start'])
     ]
     beatLevels = []
   get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
@@ -1019,16 +1025,16 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   await wait()
   showEditorUi = false
   player.camLockPos = Vector2.ZERO
-  player.die(0, false)
   # player.state = player.States.levelLoading
   if loadFromSave and saveData:
-    player.deathPosition = player.lastSpawnPoint
-    player.goto(saveData.playerDelogPosition)
+    player.deathPosition = saveData.lastSpawnPoint
     player.lastSpawnPoint = saveData.lastSpawnPoint
   else:
-    player.goto(Vector2(0, 0))
-    player.lastSpawnPoint = Vector2(0, 0)
-    player.goto(Vector2(0, 0))
+    player.deathPosition = Vector2.ZERO
+    player.lastSpawnPoint = Vector2.ZERO
+  player.die(0, false)
+  player.die(5, false)
+  # player.die(3, false)
   global.tick = 0
 
 func currentLevel() -> Dictionary:
