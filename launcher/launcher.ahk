@@ -131,6 +131,7 @@ UpdateSelf(*) {
     ToolTip("Downloading...")
     Download(url, "temp.zip")
     unzip("temp.zip", "temp")
+    FileDelete("temp.zip")
     ; try {
     F.write("./c.bat", "
     (

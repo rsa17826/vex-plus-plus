@@ -11,7 +11,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -22,7 +22,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -33,7 +33,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -44,7 +44,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -55,7 +55,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -66,9 +66,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
     STR(options){
-      STRNAME(level)STR(test1)
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
+      STR(level)STR(test1)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -79,9 +79,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(goal)
     STR(options){
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -92,9 +92,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -105,7 +105,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -116,7 +116,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -127,7 +127,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -138,7 +138,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -149,7 +149,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -160,7 +160,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -171,10 +171,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(false)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(false)
-      STRNAME(direction)STR(right)
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(false)
+      STR(direction)STR(right)
     }
   }
   {
@@ -185,9 +185,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
     STR(options){
-      STRNAME(level)STR()
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
+      STR(level)STR()
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -198,7 +198,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -209,7 +209,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(slope)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -220,7 +220,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -231,7 +231,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -242,7 +242,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -253,7 +253,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -265,7 +265,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncing buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -276,7 +276,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -287,7 +287,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncy)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -298,8 +298,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(cannon)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -310,8 +310,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -322,8 +322,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -334,7 +334,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(invisible)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -345,7 +345,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(updown)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -356,7 +356,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(downup)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -367,7 +367,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(solar)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -378,7 +378,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(leftright)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -389,7 +389,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(spark)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -400,9 +400,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(false)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(false)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -413,8 +413,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(closing spikes)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -425,8 +425,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Scythe)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -437,8 +437,8 @@
     STR(r)FLOAT(30.0000019073486)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -449,8 +449,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -461,8 +461,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -473,7 +473,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(ice)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -484,9 +484,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -497,7 +497,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -508,7 +508,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -519,7 +519,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -530,10 +530,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(true)
-      STRNAME(direction)STR(left)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(true)
+      STR(direction)STR(left)
     }
   }
   {
@@ -544,7 +544,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -555,10 +555,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(true)
-      STRNAME(direction)STR(right)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(true)
+      STR(direction)STR(right)
     }
   }
   {
@@ -569,8 +569,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -581,8 +581,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(closing spikes)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -593,7 +593,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -605,7 +605,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(growing buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -617,8 +617,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(shurikan Spawner)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -629,8 +629,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(speed Up Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -641,8 +641,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -653,8 +653,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -665,8 +665,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Scythe)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -677,8 +677,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Quadrant)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -689,8 +689,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -701,9 +701,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -714,7 +714,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -726,8 +726,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(speed Up Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -738,8 +738,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -750,7 +750,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -761,7 +761,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -772,7 +772,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -783,8 +783,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -795,8 +795,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -807,10 +807,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(movesRight)STR(right)
-      STRNAME(color)STR(#fff)
-      STRNAME(direction)STR(user)
+      STR(attachesToThings)BOOL(true)
+      STR(movesRight)STR(right)
+      STR(color)STR(#fff)
+      STR(direction)STR(user)
     }
   }
   {
@@ -821,7 +821,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(death boundary)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -832,7 +832,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -1098,8 +1098,8 @@
     STR(r)FLOAT(-105.0)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1915,7 +1915,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -1926,7 +1926,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -1937,7 +1937,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -1948,7 +1948,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -1959,7 +1959,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -1970,9 +1970,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
     STR(options){
-      STRNAME(level)STR(test1)
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
+      STR(level)STR(test1)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -1983,9 +1983,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(goal)
     STR(options){
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -1996,9 +1996,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2009,7 +2009,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2020,7 +2020,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2031,7 +2031,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2042,7 +2042,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2053,7 +2053,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2064,7 +2064,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2075,10 +2075,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(false)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(false)
-      STRNAME(direction)STR(right)
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(false)
+      STR(direction)STR(right)
     }
   }
   {
@@ -2089,9 +2089,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
     STR(options){
-      STRNAME(level)STR()
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
+      STR(level)STR()
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2102,7 +2102,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2113,7 +2113,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(slope)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2124,7 +2124,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2135,7 +2135,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2146,7 +2146,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2157,7 +2157,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -2169,7 +2169,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncing buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2180,7 +2180,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2191,7 +2191,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncy)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2202,8 +2202,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(cannon)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2214,8 +2214,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2226,8 +2226,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2238,7 +2238,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(invisible)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2249,7 +2249,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(updown)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2260,7 +2260,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(downup)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2271,7 +2271,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(solar)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2282,7 +2282,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(leftright)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2293,7 +2293,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(spark)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2304,9 +2304,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(false)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(false)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2317,8 +2317,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(closing spikes)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2329,8 +2329,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Scythe)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2341,8 +2341,8 @@
     STR(r)FLOAT(30.0000019073486)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2353,8 +2353,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2365,8 +2365,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2377,7 +2377,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(ice)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2388,9 +2388,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2401,7 +2401,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2412,7 +2412,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2423,7 +2423,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2434,10 +2434,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(true)
-      STRNAME(direction)STR(left)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(true)
+      STR(direction)STR(left)
     }
   }
   {
@@ -2448,7 +2448,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2459,10 +2459,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(true)
-      STRNAME(direction)STR(right)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(true)
+      STR(direction)STR(right)
     }
   }
   {
@@ -2473,8 +2473,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2485,8 +2485,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(closing spikes)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2497,7 +2497,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -2509,7 +2509,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(growing buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -2521,8 +2521,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(shurikan Spawner)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2533,8 +2533,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(speed Up Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2545,8 +2545,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2557,8 +2557,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2569,8 +2569,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Scythe)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2581,8 +2581,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Quadrant)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2593,8 +2593,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -2605,9 +2605,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2618,7 +2618,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -2630,8 +2630,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(speed Up Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2642,8 +2642,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2654,7 +2654,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2665,7 +2665,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2676,7 +2676,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2687,8 +2687,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2699,8 +2699,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2711,10 +2711,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(movesRight)STR(right)
-      STRNAME(color)STR(#fff)
-      STRNAME(direction)STR(user)
+      STR(attachesToThings)BOOL(true)
+      STR(movesRight)STR(right)
+      STR(color)STR(#fff)
+      STR(direction)STR(user)
     }
   }
   {
@@ -2725,7 +2725,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(death boundary)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -2736,7 +2736,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3002,8 +3002,8 @@
     STR(r)FLOAT(-105.0)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -3819,7 +3819,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3830,7 +3830,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3841,7 +3841,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3852,7 +3852,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3863,7 +3863,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3874,9 +3874,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
     STR(options){
-      STRNAME(level)STR(test1)
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
+      STR(level)STR(test1)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3887,9 +3887,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(goal)
     STR(options){
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -3900,9 +3900,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3913,7 +3913,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3924,7 +3924,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3935,7 +3935,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3946,7 +3946,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3957,7 +3957,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3968,7 +3968,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -3979,10 +3979,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(false)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(false)
-      STRNAME(direction)STR(right)
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(false)
+      STR(direction)STR(right)
     }
   }
   {
@@ -3993,9 +3993,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
     STR(options){
-      STRNAME(level)STR()
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
+      STR(level)STR()
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4006,7 +4006,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4017,7 +4017,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(slope)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4028,7 +4028,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4039,7 +4039,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4050,7 +4050,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4061,7 +4061,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -4073,7 +4073,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncing buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4084,7 +4084,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4095,7 +4095,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncy)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4106,8 +4106,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(cannon)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4118,8 +4118,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4130,8 +4130,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4142,7 +4142,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(invisible)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4153,7 +4153,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(updown)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4164,7 +4164,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(downup)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4175,7 +4175,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(solar)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4186,7 +4186,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(leftright)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4197,7 +4197,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(spark)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4208,9 +4208,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(false)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(false)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4221,8 +4221,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(closing spikes)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4233,8 +4233,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Scythe)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4245,8 +4245,8 @@
     STR(r)FLOAT(30.0000019073486)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4257,8 +4257,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4269,8 +4269,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4281,7 +4281,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(ice)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4292,9 +4292,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4305,7 +4305,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4316,7 +4316,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4327,7 +4327,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4338,10 +4338,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(true)
-      STRNAME(direction)STR(left)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(true)
+      STR(direction)STR(left)
     }
   }
   {
@@ -4352,7 +4352,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4363,10 +4363,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
-      STRNAME(movesRight)BOOL(true)
-      STRNAME(direction)STR(right)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(movesRight)BOOL(true)
+      STR(direction)STR(right)
     }
   }
   {
@@ -4377,8 +4377,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4389,8 +4389,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(closing spikes)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4401,7 +4401,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -4413,7 +4413,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(growing buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -4425,8 +4425,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(shurikan Spawner)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4437,8 +4437,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(speed Up Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4449,8 +4449,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4461,8 +4461,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4473,8 +4473,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Scythe)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4485,8 +4485,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Quadrant)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4497,8 +4497,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -4509,9 +4509,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STRNAME(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4522,7 +4522,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -4534,8 +4534,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(speed Up Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4546,8 +4546,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4558,7 +4558,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4569,7 +4569,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4580,7 +4580,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4591,8 +4591,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4603,8 +4603,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4615,10 +4615,10 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(movesRight)STR(right)
-      STRNAME(color)STR(#fff)
-      STRNAME(direction)STR(user)
+      STR(attachesToThings)BOOL(true)
+      STR(movesRight)STR(right)
+      STR(color)STR(#fff)
+      STR(direction)STR(user)
     }
   }
   {
@@ -4629,7 +4629,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(death boundary)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4640,7 +4640,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -4906,8 +4906,8 @@
     STR(r)FLOAT(-105.0)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
-      STRNAME(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {

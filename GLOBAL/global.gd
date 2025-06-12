@@ -931,7 +931,7 @@ var savingPlaterLevelData := false
 func savePlayerLevelData() -> void:
   if savingPlaterLevelData: return
   savingPlaterLevelData = true
-  var saveData: Variant = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
+  var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
   var levels := {}
   for l in loadedLevels:
     levels[l.name] = l
@@ -1461,4 +1461,4 @@ var blockNames: Array = [
 
 var lastPortal: Node2D = null
 
-var defaultBlockOpts: Dictionary={}
+var defaultBlockOpts: Dictionary = {}

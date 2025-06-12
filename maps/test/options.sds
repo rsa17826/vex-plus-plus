@@ -7,5 +7,5 @@
       STR(color)INT(9)
     }
   }
-  STRNAME(version)INT(23)
+  STR(version)INT(23)
 }

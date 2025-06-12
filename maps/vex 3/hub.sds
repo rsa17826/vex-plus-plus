@@ -69,7 +69,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -126,7 +126,7 @@
     STR(options){
       STR(color)STR(#fff)
       STR(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -316,7 +316,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -328,7 +328,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -351,7 +351,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -363,7 +363,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -375,7 +375,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -432,7 +432,7 @@
     STR(options){
       STR(color)STR(#fff)
       STR(multiUse)BOOL(true)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -581,7 +581,7 @@
     STR(options){
       STR(color)STR(#fff)
       STR(multiUse)BOOL(false)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
