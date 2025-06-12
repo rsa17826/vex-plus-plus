@@ -32,8 +32,6 @@ extends Node2D
 @export var ghostFollowNode: Node = self
 @export var pathFollowNode: Node
 
-var onOptionEdit
-
 var root = self
 var _DISABLED := false
 var isHovered := false
@@ -100,11 +98,15 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
           global.selectBlock()
 
 func showPopupMenu():
+  if global.popupStarted: return
   var i := 0
   for k: String in blockOptions:
     pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type] + " = " + str(selectedOptions[k]))
     i += 1
+  global.popupStarted = true
   pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
+  await global.wait()
+  global.popupStarted = false
 
 func _on_body_exited(body: Node2D) -> void:
   if global.player.state == global.player.States.levelLoading: return
@@ -206,10 +208,7 @@ func setupOptions() -> void:
   pm.connect("index_pressed", editOption)
 
 func editOption(idx: int) -> void:
-  if idx >= len(blockOptionsArray):
-    if "onOptionEdit" in self and self.onOptionEdit:
-      self.onOptionEdit.call(selectedOptions)
-    return
+  if idx >= len(blockOptionsArray): return
   # log.pp("editing", idx, blockOptions)
   var k: Variant = blockOptionsArray[idx]
   var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
@@ -218,8 +217,6 @@ func editOption(idx: int) -> void:
   selectedOptions[k] = newData
   toType(k)
   respawn()
-  if "onOptionEdit" in self and self.onOptionEdit:
-    self.onOptionEdit.call(selectedOptions)
   _ready()
 
 func _physics_process(delta: float) -> void:

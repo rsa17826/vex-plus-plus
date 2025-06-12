@@ -26,16 +26,20 @@ func _input(event: InputEvent) -> void:
   if selected == 1 and Input.is_action_just_pressed("editor_edit_special"):
     var block = load("res://scenes/blocks/" + blockName + "/main.tscn").instantiate()
     block.id = blockName
-    block.onOptionEdit = func(opts):
-      log.pp(opts)
-      global.defaultBlockOpts[blockName] = opts
-      sds.saveDataToFile("user://defaultBlockOpts.sds", global.defaultBlockOpts)
-      block.queue_free.call_deferred()
+    # block.onOptionEdit = func(opts):
+    #   log.pp(opts)
+    #   global.defaultBlockOpts[blockName] = opts
+    #   sds.saveDataToFile("user://defaultBlockOpts.sds", global.defaultBlockOpts)
+    #   block.queue_free.call_deferred()
 
-    log.pp(global.defaultBlockOpts)
     add_child(block)
     await global.wait()
     block.showPopupMenu()
+    await global.wait()
+    log.pp(block.selectedOptions)
+    global.defaultBlockOpts[blockName] = block.selectedOptions
+    sds.saveDataToFile("user://defaultBlockOpts.sds", global.defaultBlockOpts)
+    block.queue_free.call_deferred()
     
 func _on_mouse_exited() -> void:
   scale = normalScale
