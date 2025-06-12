@@ -880,7 +880,10 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
       $anim.animation = "pushing box"
 
   if !hasMovementStep(block): return # Vector2.ZERO
-  position.y += getMovementStep(block).y
+  if block.is_in_group("falling"):
+    position.y += getMovementStep(block).y / 4
+  else:
+    position.y += getMovementStep(block).y
   #   if str(normal / abs(normal)) == str(getMovementStep(block) / abs(getMovementStep(block))):
   #     log.pp("closer", depth, getMovementStep(block))
   #     posOffset = Vector2.ZERO

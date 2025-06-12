@@ -17,8 +17,8 @@ func on_physics_process(delta: float) -> void:
   if (global.tick - startTime) > 2:
     root.respawn()
 
-func postMovementStep():
-  root.lastMovementStep /= 4
+# func postMovementStep():
+#   root.lastMovementStep /= 4
 
 func on_ready(first=false):
   startTime = 0
