@@ -831,6 +831,7 @@ func tryAndDieSquish():
 func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
+  if block.root.respawning: return
   if sameFrame:
     if (
       block.is_in_group("falling")
@@ -883,10 +884,10 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
       $anim.animation = "pushing box"
 
   if !block.root.lastMovementStep: return
-  if block.root.respawning: return
   if block.is_in_group("falling"):
     position.y += block.root.lastMovementStep.y / 4
   else:
+    log.pp(block.root.lastMovementStep.y)
     position.y += block.root.lastMovementStep.y
   #   if str(normal / abs(normal)) == str(block.root.lastMovementStep / abs(block.root.lastMovementStep)):
   #     log.pp("closer", depth, block.root.lastMovementStep)
