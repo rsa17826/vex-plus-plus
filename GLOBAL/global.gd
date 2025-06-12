@@ -901,8 +901,9 @@ func newLevelSaveData(levelname):
   return {
     "name": levelname,
     "spawnPoint": Vector2.ZERO,
-    'foundStar': false,
-    "tick": 0
+    "foundStar": false,
+    "tick": 0,
+    "blockSaveData": {},
   }.duplicate()
 
 func loadInnerLevel(innerLevel: String) -> void:
@@ -942,27 +943,26 @@ func savePlayerLevelData() -> void:
   await wait()
   savingPlaterLevelData = true
   var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
-  var levels := {}
-  for l in loadedLevels:
-    levels[l.name] = l
-  for l in beatLevels:
-    levels[l.name] = l
-  var playerDelogPosition := player.position
   saveData[mainLevelName] = {
-    "playerDelogPosition": playerDelogPosition,
     "lastSpawnPoint": player.lastSpawnPoint,
     "loadedLevels": loadedLevels,
-    # .map(func(e):
-    #   var ee=JSON.parse_string(JSON.stringify(e))
-    #   ee.spawnPoint=[e.spawnPoint.x, e.spawnPoint.y]
-    #   return ee),
     "beatLevels": beatLevels,
-    # .map(func(e):
-    #   var ee=JSON.parse_string(JSON.stringify(e))
-    #   ee.spawnPoint=[e.spawnPoint.x, e.spawnPoint.y]
-    #   return ee),
-    "levels": levels
   }
+  var blockSaveData = {}
+  var blockIds = {}
+  for block: Editor in level.get_node("blocks").get_children():
+    if block.id not in blockIds:
+      blockIds[block.id] = 0
+    blockIds[block.id] += 1
+    var dataToSave: Array[String] = block.onSave()
+    if dataToSave:
+      var blockId = blockIds[block.id]
+      blockSaveData[blockId] = {}
+      for thing in dataToSave:
+        blockSaveData[blockId][thing] = block.get(thing)
+
+  currentLevel().blockSaveData = blockSaveData
+
   sds.saveDataToFile(path.parsePath("res://saves/saves.sds"), saveData)
   # await wait(1000)
   savingPlaterLevelData = false

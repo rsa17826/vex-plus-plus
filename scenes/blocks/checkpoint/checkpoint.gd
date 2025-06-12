@@ -2,10 +2,15 @@ extends "res://scenes/blocks/editor.gd"
 
 @export_group("CHECKPOINT")
 @export var sprite: Node2D
-
 const temp1 = preload("res://scenes/blocks/checkpoint/images/1.png")
 const temp2 = preload("res://scenes/blocks/checkpoint/images/2.png")
 const temp3 = preload("res://scenes/blocks/checkpoint/images/3.png")
+
+var texture:
+  get():
+    return getTexture(sprite)
+  set(val):
+    setTexture(sprite, val)
 
 func on_body_entered(body: Node) -> void:
   if body == global.player and (getTexture(sprite) == '1' or selectedOptions.multiUse):
@@ -26,6 +31,12 @@ func on_respawn() -> void:
 func on_ready() -> void:
   if not self in global.checkpoints:
     global.checkpoints.append(self)
+  setTexture(sprite, "1")
+
+func onSave() -> Array[String]:
+  return ["texture"]
+
+func onLoadEnd():
   setTexture(sprite, "1")
 
 func generateBlockOpts():

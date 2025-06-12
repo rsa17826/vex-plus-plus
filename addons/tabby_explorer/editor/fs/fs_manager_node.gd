@@ -16,7 +16,7 @@ signal fs_generated
 func set_fs_share(p_share:SubFSShare):
 	_fs_share = p_share
 	
-	# this is same solution with godot editor.
+	# this is same solution with godot Editor.
 	# see void FileSystemDock::_fs_changed() {
 	# multiple selection will erase
 	var fs:EditorFileSystem = _fs_share.get_editor_file_system()

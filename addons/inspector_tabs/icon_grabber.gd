@@ -42,7 +42,7 @@ func update_icon_list():
     var current_filter = filter_option_button.selected
     filter_option_button.selected = 2
     
-    # Open the editor help search
+    # Open the Editor help search
     open_help_button.pressed.emit()
     
     # wait until tree loaded.
@@ -56,7 +56,7 @@ func update_icon_list():
     while finish != true:
         await script_editor.get_tree().process_frame
     
-    # Reset editor help search
+    # Reset Editor help search
     editor_help_search.hide()
     filter_option_button.selected = current_filter
 
