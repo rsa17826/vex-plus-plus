@@ -1462,3 +1462,5 @@ var blockNames: Array = [
 var lastPortal: Node2D = null
 
 var defaultBlockOpts: Dictionary = {}
+
+var popupStarted = false
