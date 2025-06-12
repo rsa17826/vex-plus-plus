@@ -246,13 +246,14 @@ func _physics_process(delta: float) -> void:
   if 'on_physics_process' in self:
     self.on_physics_process.call(delta)
   if not EDITOR_IGNORE:
-    if respawning:
-      lastMovementStep = Vector2.ZERO
-    else:
-      if thingThatMoves:
-        lastMovementStep = thingThatMoves.global_position - lastpos
-      else:
-        lastMovementStep = global_position - lastpos
+    # if respawning:
+    #   lastMovementStep = Vector2.ZERO
+    # else:
+    lastMovementStep = (
+      thingThatMoves.global_position
+      if thingThatMoves else
+      global_position
+    ) - lastpos
     if respawning:
       respawning -= 1
     if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
