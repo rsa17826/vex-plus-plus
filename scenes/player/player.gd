@@ -388,7 +388,7 @@ func _physics_process(delta: float) -> void:
           vel[v] = Vector2.ZERO
         if $waterRay.is_colliding():
           vel.waterExit = Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation)
-        # resset some variables to allow player to grab both walls when exiting water
+        # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
         lastWall = 0
         breakFromWall = false
@@ -513,7 +513,7 @@ func _physics_process(delta: float) -> void:
           and not %nowjDetector.get_overlapping_bodies():
             vel.user.y = WALL_SLIDE_SPEED
             state = States.wallSliding
-            # press down to deattach from wallslide
+            # press down to detach from wallslide
             if Input.is_action_pressed("down") && wallBreakDownFrames <= 0:
               breakFromWall = true
             if !breakFromWall && wallSlidingFrames <= 0:
@@ -535,7 +535,7 @@ func _physics_process(delta: float) -> void:
           vel.user.y = 0
           wallSlidingFrames = 0
           breakFromWall = false
-          # press down to deattach from wallhang
+          # press down to detach from wallhang
           if Input.is_action_pressed("down"):
             position.y += 5
             wallBreakDownFrames = MAX_WALL_BREAK_FROM_DOWN_FRAMES
@@ -1081,7 +1081,7 @@ func updateKeyFollowPosition(delta):
 # add block animations?
 # allow user to reorder the levels in the editor?
 # allow user to reorder the block picker?
-# add required events to win level? - eg break x glass - seperate ones for each level in a map, not mapwide goals
+# add required events to win level? - eg break x glass - separate ones for each level in a map, not mapwide goals
 
 # option to change ghost opacity/ghost hover opacity? .5
 
@@ -1097,9 +1097,10 @@ func updateKeyFollowPosition(delta):
   # !version ?-NOW! when leaving water directly onto a wall you can grab the wall lower than intended
   # !version ?-NOW! when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
   # !version ?-28! levers can be pulled even when not on ground
-  # ?!version 26-NOW! portal wrongwarp when falling through portals building speed then a moving block moves in your path where you slide on the wall then fall back into the same portal that you were previuosly using to build speed
+  # ?!version 26-NOW! portal wrongwarp when falling through portals building speed then a moving block moves in your path where you slide on the wall then fall back into the same portal that you were previously using to build speed
   # !version 29-29! dying while pulling levers causes global.tick to stay at 0
-  # !version ?-28! pulling levers allows cliping through moving blocks
+  # !version ?-28! pulling levers allows clipping through moving blocks
+  # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1124,3 +1125,5 @@ func updateKeyFollowPosition(delta):
 # make pole quadrent pole indicators rotate correctly
 
 # rclick on block picker to set default options
+
+# add donup

@@ -52,17 +52,17 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ### Settings
 
-- **blockPickerBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equaly larger or smaller
+- **blockPickerBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equally larger or smaller
 - **autosaveInterval**: how long in seconds between autosaves. 0 is disabled
 - **saveOnExit**: saves the level when opening the menu - make work on game close and on enter inner level
 - **editorScrollSpeed**: changes the speed the camera moves at when using editor_pan
 - **editorBarScrollSpeed**: changes the speed of scrolling through the editor bar. set negative to invert scroll direction
 - **windowMode**: changes the default window mode (fullscreen/windowed)
-- **smallerSaveFiles**: makes all save files smaller by removing unnessary padding, which also makes it harder to read
+- **smallerSaveFiles**: makes all save files smaller by removing unnecessary padding, which also makes it harder to read
 - **warnWhenOpeningLevelInOlderGameVersion**: when you open a level in an older version of the game, you will be warned that it may not work properly.
 - **warnWhenOpeningLevelInNewerGameVersion**: when you open a level in an newer version of the game, you will be warned that it may not work properly.
 - **editorBarOffset**: can be used to place the editor bar a the bottom of the screen instead of the top, or just shift it down a bit to prevent it from being covered by other programs while in fullscreen or when the window is otherwise at the top of the screen
-- **blockGhostAlpha**: changes the alpha of the ghost blocks - used to show where a block is actualy placed suchas keys that have been collected, moving blocks that are moving, ect.
+- **blockGhostAlpha**: changes the alpha of the ghost blocks - used to show where a block is actually placed suchas keys that have been collected, moving blocks that are moving, etc.
 - **hoveredBlockGhostAlpha**: same as blockGhostAlpha but for when you hover over them and not working yet.
 - **saveLevelOnWin**: save the level when you win it.
 - **showHitboxes**: sets the default hitbox state for whenever entering a level
@@ -71,7 +71,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **allowRotatingAnything**: allows rotating any blocks regardless of if it is meant to be rotated or not.
 - **allowScalingAnything**: allows scaling any blocks regardless of if it is meant to be rotated or not.
 - **blockSnapGridSize**: the size of the grid that blocks will snap to when being moved or resized.
-- **noCornerGrabsForScaling**: when grabing a block at a corner it will only resize the bnlock on the side that had less grab area. not appearing to work correctly yet.
+- **noCornerGrabsForScaling**: when grabbing a block at a corner it will only resize the bnlock on the side that had less grab area. not appearing to work correctly yet.
 - **allowCustomColors**: disabling this prevents levels from using custom colors.
 - **showGridInEdit**: shows the grid in when in edit mode.
 - **showGridInPlay**: shows the grid in when in play mode.
@@ -82,10 +82,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 ### block settings that apply to many blocks
 
 - **color**: changes the modulate of the block
-- **attachesToThings**: if true the block will be able to attach to some other blocks
+- **attachesToThings**: if true the block will be able to attach to most blocks that move
   - updown
   - downup
   - leftright
+  - falling
+  - pushable box
+  - ? might be more
 
 ### Blocks
 
@@ -103,9 +106,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **attachesToThings**
 
 - **10x spike**: kills the player on contact
-
   - rotatable
-    - i plan to replace this with a scalable spike that tiles the spike texture instead
+    - i plan to replace this and the single spike with a scalable spike that tiles the spike texture instead
   - **settings**:
     - **color**
     - **attachesToThings**
@@ -130,10 +132,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
+    - **attachesToThings**
 
 - **solar**: has solid collision when lights are on, touch a lightswitch to turn the lights off.
 
-  - when collected will turn the lights back on
   - scalable
   - **settings**:
     - **color**
@@ -174,7 +176,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
 
-- **bouncy**: has solid collision but when the player comes in contact with it from the top it will put the player in the bouncing state and bounce back up after a short period of time. the time and bounce height is determined by the blocks y size with bigger time and height from larget y scales.
+- **bouncy**: has solid collision but when the player comes in contact with it from the top it will put the player in the bouncing state and bounce back up after a short period of time. the time and bounce height is determined by the blocks y size with bigger time and height from larger y scales.
 
   - scalable
   - **settings**:
@@ -212,13 +214,14 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **cannon**: NOT WORKING YET
 
-  - scalable
+  - rotatable cannons could be good
   - **settings**:
     - **color**
     - **attachesToThings**
 
 - **checkpoint**: sets the player respawn location to this location
 
+  - when collected will turn the lights back on
   - scalable
   - **settings**:
     - **color**
@@ -265,7 +268,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **Pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
 
   - when on Pulley you can press down to drop off of it
-  - when on Pulley you can press up to become temporarily invinsible
+  - when on Pulley you can press up to become temporarily invincible
   - **settings**:
     - **color**
     - **attachesToThings**
@@ -341,7 +344,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
     - **attachesToThings**
-- **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, breifly pausing at 1x and 3x
+- **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
   - **settings**:
     - **color**
     - **attachesToThings**
