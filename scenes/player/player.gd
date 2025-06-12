@@ -829,9 +829,10 @@ func tryAndDieSquish():
     die()
 
 func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
+  block = block.root
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
-  if block.root.respawning: return
+  if block.respawning: return
   if sameFrame:
     if (
       block.is_in_group("falling")
@@ -840,14 +841,15 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
     and normal.y < 0 \
     and velocity.y >= 0 \
     :
-      block.root.falling = true
+      log.pp("asdjkasljdklaskjdlkasjd")
+      block.falling = true
     if block.is_in_group("glass") \
     and normal.y < 0 \
     and velocity.y >= 0 \
     and vel.user.y > 0 \
     and Input.is_action_pressed("down") \
     :
-      block.root.__disable()
+      block.__disable()
     if block.is_in_group("bouncy") \
     and normal.y < 0 \
     and velocity.y >= 0 \
@@ -883,12 +885,12 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
       state = States.pushing
       $anim.animation = "pushing box"
 
-  if !block.root.lastMovementStep: return
-  if block.is_in_group("falling"):
-    position.y += block.root.lastMovementStep.y / 4
-  else:
-    log.pp(block.root.lastMovementStep.y)
-    position.y += block.root.lastMovementStep.y
+  # if !block.root.lastMovementStep: return
+  # if block.is_in_group("falling"):
+  #   position.y += block.root.lastMovementStep.y / 4
+  # else:
+  #   log.pp(block.root.lastMovementStep.y)
+  #   position.y += block.root.lastMovementStep.y
   #   if str(normal / abs(normal)) == str(block.root.lastMovementStep / abs(block.root.lastMovementStep)):
   #     log.pp("closer", depth, block.root.lastMovementStep)
   #     posOffset = Vector2.ZERO
