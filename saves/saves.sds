@@ -323,7 +323,7 @@
     }
   }
   STR(!spark test (copy\)){
-    STR(playerDelogPosition)VEC2(615.0,-396.799957275391)
+    STR(playerDelogPosition)VEC2(615.0,-400.0)
     STR(lastSpawnPoint)VEC2(615.0,-400.0)
     STR(loadedLevels)[
       {
