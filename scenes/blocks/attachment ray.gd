@@ -34,7 +34,7 @@ func on_respawn():
 func on_physics_process(delta: float) -> void:
   for block in attachments:
     if "lastMovementStep" in block.root:
-      root.MOVING_BLOCKS_nodeToMove.position += block.root.lastMovementStep / root.scale
+      root.MOVING_BLOCKS_nodeToMove.position += (block.root.lastMovementStep / root.scale).rotated(-root.rotation)
     else:
       log.err("block not moving", block.root.id)
       breakpoint

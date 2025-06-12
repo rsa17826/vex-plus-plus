@@ -13,9 +13,9 @@ func on_physics_process(delta: float) -> void:
   velocity.y -= speed * delta
   velocity.y *= .95
   move_and_slide()
-  
-  if (global.tick - startTime) > 2:
+  if (global.tick - startTime) > 2 / 4.0:
     root.respawn()
+    root.respawning = 400
 
 func on_ready(first=false):
   startTime = 0
