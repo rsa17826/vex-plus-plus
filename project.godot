@@ -60,6 +60,7 @@ canBeAttachedTo=""
 "buzsaw - generic"=""
 portal=""
 dontRespawnOnPlayerDeath=""
+donup=""
 
 [input]
 

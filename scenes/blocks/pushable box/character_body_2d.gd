@@ -5,7 +5,7 @@ extends CharacterBody2D
 # @flags gm
 # @endregex
 
-@export var root: Node2D
+@export var root: editor
 
 func on_physics_process(delta: float) -> void:
   if get_parent().respawning: return

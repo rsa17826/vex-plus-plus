@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var root: Node2D
+@export var root: editor
 
 func _on_body_exited(body: Node2D) -> void:
   pass # Replace with function body.

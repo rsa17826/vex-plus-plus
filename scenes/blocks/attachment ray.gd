@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var root: Node2D
+@export var root: editor
 
 # var tempGroups = []
 var attachments = []
