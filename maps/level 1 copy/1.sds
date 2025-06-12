@@ -12,7 +12,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -24,7 +24,7 @@
     STR(id)STR(single spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -190,7 +190,7 @@
     STR(id)STR(single spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -433,7 +433,7 @@
     STR(id)STR(single spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -468,7 +468,7 @@
     STR(options){
       STR(color)STR(#52a)
       STR(level)STR(1 copy)
-      STRNAME(requiredLevelCount)INT(0)
+      STR(requiredLevelCount)INT(0)
     }
   }
   {
@@ -537,7 +537,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -549,7 +549,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -561,7 +561,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -573,7 +573,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -585,7 +585,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -597,7 +597,7 @@
     STR(id)STR(10x spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -642,7 +642,7 @@
     STR(id)STR(single spike)
     STR(options){
       STR(color)STR(#fff)
-      STRNAME(attachesToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
     }
   }
   {
@@ -734,7 +734,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(slope)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -745,7 +745,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(downup)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -756,7 +756,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(leftright)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -768,7 +768,7 @@
     STR(id)STR(goal)
     STR(options){
       STR(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
       STR(attachesToThings)BOOL(true)
     }
   }
@@ -780,8 +780,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -792,8 +792,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -804,8 +804,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
     STR(options){
-      STRNAME(attachesToThings)BOOL(true)
-      STRNAME(color)STR(#fff)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -816,7 +816,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(invisible)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -828,8 +828,8 @@
     STR(id)STR(inner level)
     STR(options){
       STR(level)STR(1)
-      STRNAME(requiredLevelCount)INT(0)
-      STRNAME(color)STR(#fff)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
     }
   }
   {
@@ -840,7 +840,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(microwave)
     STR(options){
-      STRNAME(color)STR(#fff)
+      STR(color)STR(#fff)
     }
   }
 ]

@@ -58,7 +58,7 @@ static func saveData(val: Variant, _level:=0) -> String:
       TYPE_RECT2I:
         return "RECT2I(" + str(val.position[0]) + "," + str(val.position[1]) + "," + str(val.size[0]) + "," + str(val.size[1]) + ")"
       TYPE_STRING_NAME:
-        return "STRNAME(" + str(val).replace("\\", "\\\\").replace(")", r"\)") + ")"
+        return "STR(" + str(val).replace("\\", "\\\\").replace(")", "\\)") + ")"
       TYPE_VECTOR4:
         return "VEC4" + str(val).replace(" ", '')
       TYPE_VECTOR4I:
@@ -76,7 +76,7 @@ static func saveData(val: Variant, _level:=0) -> String:
       TYPE_VECTOR3I:
         return "VEC3I(" + str(val.x) + "," + str(val.y) + "," + str(val.z) + ")"
       TYPE_STRING:
-        return "STR(" + str(val).replace("\\", "\\\\").replace(")", r"\)") + ")"
+        return "STR(" + str(val).replace("\\", "\\\\").replace(")", "\\)") + ")"
       TYPE_BOOL:
         return "BOOL(" + str(val) + ")"
       TYPE_NIL:
@@ -291,25 +291,20 @@ static func loadData(d: String, progress=null) -> Variant:
         thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
-        # thisdata = getDataFind.call()
-        thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        # thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
+        thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
         remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
-        ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
-        thisdata = StringName(thisdata)
-      "STRNAME":
+        ) + 2)
+      "STR":
         thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
-        # thisdata = getDataFind.call()
-        thisdata = remainingData.substr(1, remainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        # thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
+        thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
         remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
-        ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
+        ) + 2)
         thisdata = StringName(thisdata)
       "[":
         thisdata = UNSET
@@ -392,9 +387,9 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
     if not slowRemainingData:
       # log.warn(_stack, stack, 4)
       return _stack[len(_stack) - 1]
-    i += 1
-    if progress and i % 100 == 0:
+    if progress and i % 800 == 0:
       await global.wait()
+    i += 1
     # var getDataReg := func(reg: String, group:=0) -> String:
     #   var res = global.regMatch(slowRemainingData, reg)
     #   if not res:
@@ -551,7 +546,7 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
         thisdata = StringName(thisdata)
-      "STRNAME":
+      "STR":
         thisdata = slowRemainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
@@ -818,7 +813,7 @@ static func loadDataFromFileSlow(p: String, ifUnset: Variant = null, progress=nu
 #         remainingData = remainingData.substr(len(thisdata \
 #         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
 #         ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
-#       "STRNAME":
+#       "STR":
 #         thisdata = remainingData \
 #         .replace("\\\\", "ESCAPED" + UNSET) \
 #         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )

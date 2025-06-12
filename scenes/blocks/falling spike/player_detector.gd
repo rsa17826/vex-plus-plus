@@ -9,4 +9,4 @@ func _physics_process(delta: float) -> void:
   and not root.respawning \
   :
     root.falling = true
-    %"attach detector".disableAllGroups()
+    %"attach detector".following = false

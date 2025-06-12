@@ -285,8 +285,46 @@
     }
   }
   STR(GRID){
-    STR(playerDelogPosition)VEC2(421.690368652344,-4.48685455322266)
+    STR(playerDelogPosition)VEC2(513.385620117188,-51.8937606811523)
     STR(lastSpawnPoint)VEC2(400.0,-25.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)[]
+    STR(levels){
+      STR(hub){
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    }
+  }
+  STR(!spark teast (copy\)){
+    STR(playerDelogPosition)VEC2(572.589172363281,-281.806884765625)
+    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    ]
+    STR(beatLevels)[]
+    STR(levels){
+      STR(hub){
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(false)
+      }
+    }
+  }
+  STR(!spark test (copy\)){
+    STR(playerDelogPosition)VEC2(575.532836914063,-283.062072753906)
+    STR(lastSpawnPoint)VEC2(255.0,5.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
