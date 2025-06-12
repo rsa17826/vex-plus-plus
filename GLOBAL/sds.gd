@@ -535,28 +535,23 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         # thisdata = getDataReg.call(r"\((true|false)\)", 1)
         thisdata = thisdata == "true"
       "STR":
-        thisdata = slowRemainingData \
+        thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
-        # thisdata = getDataFind.call()
-        thisdata = slowRemainingData.substr(1, slowRemainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        # thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
-        slowRemainingData = slowRemainingData.substr(len(thisdata \
+        thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
+        remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
-        ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
-        thisdata = StringName(thisdata)
+        ) + 2)
       "STR":
-        thisdata = slowRemainingData \
+        thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
-        # thisdata = getDataFind.call()
-        thisdata = slowRemainingData.substr(1, slowRemainingData.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        # thisdata = global.regMatch(thisdata, r"\(([^)]*)\)")[1] # get the data from the start ( to the first real ), not escaped ), that were hid just above
-        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
-        slowRemainingData = slowRemainingData.substr(len(thisdata \
+        thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
+        thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
+        remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
-        ) + 2) # add 2 because the regex gets group 1 instead of 0, so the 2 is for the () aound the data
+        ) + 2)
         thisdata = StringName(thisdata)
       "[":
         thisdata = UNSET
