@@ -1,3 +1,4 @@
+class_name editor
 extends Node2D
 # @name same line return
 # @regex :\s*(return|continue|break)\s*$
@@ -57,13 +58,13 @@ func _on_mouse_exited() -> void:
 
 func respawn() -> void:
   if not EDITOR_IGNORE:
+    respawning = 2
     if MOVING_BLOCKS_nodeToMove:
       MOVING_BLOCKS_nodeToMove.position = Vector2.ZERO
     global_position = startPosition
     rotation_degrees = startRotation_degrees
     scale = startScale
     lastMovementStep = Vector2.ZERO
-    respawning = 2
 
     if cloneEventsHere and 'on_respawn' in cloneEventsHere:
       cloneEventsHere.on_respawn()

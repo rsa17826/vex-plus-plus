@@ -746,11 +746,11 @@ func _physics_process(delta: float) -> void:
         #   var normal = thing[1]
         #   var depth = thing[2]
         #   if block not in currentCollidingBlocks:
-        #     if getMovementStep(block) \
+        #     if block.root.lastMovementStep \
         #     and getClosestWallSide() \
-        #     and (getClosestWallSide() > 0) == (getMovementStep(block).x > 0) \
+        #     and (getClosestWallSide() > 0) == (block.root.lastMovementStep.x > 0) \
         #     and normal.x and getClosestWallSide():
-        #       log.pp("Wall collision detected", getClosestWallSide(), getMovementStep(block).x)
+        #       log.pp("Wall collision detected", getClosestWallSide(), block.root.lastMovementStep.x)
         #       posOffset += handleCollision(block, normal, depth, false)
 
         # Update the last colliding blocks for the next frame
@@ -832,18 +832,21 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
   if sameFrame:
-    if block.is_in_group("falling") \
+    if (
+      block.is_in_group("falling")
+      or block.is_in_group("donup")
+    ) \
     and normal.y < 0 \
     and velocity.y >= 0 \
     :
-      block.get_parent().falling = true
+      block.root.falling = true
     if block.is_in_group("glass") \
     and normal.y < 0 \
     and velocity.y >= 0 \
     and vel.user.y > 0 \
     and Input.is_action_pressed("down") \
     :
-      block.get_parent().__disable()
+      block.root.__disable()
     if block.is_in_group("bouncy") \
     and normal.y < 0 \
     and velocity.y >= 0 \
@@ -879,22 +882,23 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
       state = States.pushing
       $anim.animation = "pushing box"
 
-  if !hasMovementStep(block): return # Vector2.ZERO
+  if !block.root.lastMovementStep: return
+  if block.root.respawning: return
   if block.is_in_group("falling"):
-    position.y += getMovementStep(block).y / 4
+    position.y += block.root.lastMovementStep.y / 4
   else:
-    position.y += getMovementStep(block).y
-  #   if str(normal / abs(normal)) == str(getMovementStep(block) / abs(getMovementStep(block))):
-  #     log.pp("closer", depth, getMovementStep(block))
+    position.y += block.root.lastMovementStep.y
+  #   if str(normal / abs(normal)) == str(block.root.lastMovementStep / abs(block.root.lastMovementStep)):
+  #     log.pp("closer", depth, block.root.lastMovementStep)
   #     posOffset = Vector2.ZERO
-  #     posOffset += getMovementStep(block)
-  #     posOffset -= sign(getMovementStep(block)) * 1.1
+  #     posOffset += block.root.lastMovementStep
+  #     posOffset -= sign(block.root.lastMovementStep) * 1.1
   #   else:
-  #     posOffset += getMovementStep(block)
+  #     posOffset += block.root.lastMovementStep
 
   #   if normal.x:
   #     posOffset.y /= 4.0
-  #   # posOffset += getMovementStep(block) / 4
+  #   # posOffset += block.root.lastMovementStep / 4
   #   # if state != States.wallSliding && state != States.wallHang:
   #   #   posOffset.y = 0
   #   # if posOffset.y:
@@ -913,18 +917,6 @@ func goto(pos: Vector2) -> void:
   vel.user = Vector2.ZERO
   $Camera2D.position = Vector2.ZERO
   $Camera2D.reset_smoothing()
-
-func getMovementStep(block: Node2D) -> Variant:
-  if 'lastMovementStep' in block:
-    return block.lastMovementStep
-  if 'lastMovementStep' in block.get_parent():
-    return block.get_parent().lastMovementStep
-  if 'cloneEventsHere' in block and 'lastMovementStep' in block.cloneEventsHere:
-    return block.cloneEventsHere.lastMovementStep
-  return false
-
-func hasMovementStep(block: Node2D) -> bool:
-  return !global.same(getMovementStep(block), false)
 
 func TopIsOnWall() -> bool:
   return is_on_wall() && ($wallDetection/leftWallTop.is_colliding() || $wallDetection/rightWallTop.is_colliding())

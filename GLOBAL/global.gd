@@ -1422,6 +1422,7 @@ var blockNames: Array = [
   "glass", # 1
   "leftright", # 1
   "falling", # 1
+  "donup",
   "bouncy", # 1
   "spark counterClockwise", # 1
   "spark clockwise", # 1

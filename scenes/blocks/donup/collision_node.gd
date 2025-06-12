@@ -10,7 +10,7 @@ func on_physics_process(delta: float) -> void:
   if !root.falling: return
   if not startTime:
     startTime = global.tick
-  velocity.y += speed * delta
+  velocity.y -= speed * delta
   velocity.y *= .95
   move_and_slide()
   
