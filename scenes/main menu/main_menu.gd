@@ -10,18 +10,32 @@ var GITHUB_TOKEN = global.getToken()
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
+@export var optsmenunode: Control
+@export var levelContainer: Control
+
 var __menu
 @onready var pm: PopupMenu = PopupMenu.new()
 func _ready() -> void:
   add_child(pm)
-  var levelContainer = $MarginContainer/ScrollContainer/HFlowContainer
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.path.parsePath("res://maps"))
-  for level: String in dir.get_directories():
+  var dirs = (dir.get_directories() as Array)
+  dirs.sort_custom(func(a, s):
+    return global.loadMapInfo(a).version > global.loadMapInfo(s).version
+  )
+  for level: String in dirs:
     var node := levelNode.instantiate()
     node.levelname.text = level
     var data = global.loadMapInfo(level)
+    var versiontext = "V" + str(data.version) + " "
+    if data.version > global.VERSION:
+      versiontext += ">"
+    elif data.version < global.VERSION:
+      versiontext += "<"
+    else:
+      versiontext += "="
+    node.version.text = versiontext
     node.creator.text = ("Author: " + data.author) if data else "INVALID LEVEL"
     node.description.text = data.description if data else "INVALID LEVEL"
     if data:
@@ -137,7 +151,7 @@ func loadLevel(level, fromSave) -> void:
 
 func loadUserOptions() -> void:
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
-  __menu = Menu.new($ScrollContainer/VBoxContainer)
+  __menu = Menu.new(optsmenunode)
   for thing in data:
     match thing["thing"]:
       "option":
@@ -217,9 +231,6 @@ func _on_new_level_btn_pressed() -> void:
 
 func _on_open_level_folder_pressed() -> void:
   global.openPathInExplorer("res://maps")
-
-func _on_http_request_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
-  log.pp(response_code)
 
 func _on_load_online_levels_pressed() -> void:
   get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")

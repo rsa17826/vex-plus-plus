@@ -8,7 +8,7 @@ font_color = Color(0, 0, 0, 1)
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
-[node name="main menu" type="Control"]
+[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -16,32 +16,55 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cbjxn")
+optsmenunode = NodePath("OPTS/ScrollContainer/VBoxContainer")
+levelContainer = NodePath("LEVELS/MarginContainer/ScrollContainer/HFlowContainer")
+metadata/_edit_lock_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="LEVELS" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 443.0
+offset_right = 1149.0
+offset_bottom = 609.0
+
+[node name="ColorRect" type="ColorRect" parent="LEVELS"]
+layout_mode = 2
+offset_right = 1152.0
+offset_bottom = 166.0
+color = Color(0.237539, 0.237539, 0.237539, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="LEVELS"]
 layout_mode = 0
 offset_left = 2.0
-offset_top = 476.46
-offset_right = 1151.0
-offset_bottom = 609.11
-metadata/_edit_lock_ = true
+offset_right = 1150.0
+offset_bottom = 166.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="LEVELS/MarginContainer"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="HFlowContainer" type="VFlowContainer" parent="MarginContainer/ScrollContainer"]
+[node name="HFlowContainer" type="VFlowContainer" parent="LEVELS/MarginContainer/ScrollContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="OPTS" type="MarginContainer" parent="."]
 layout_mode = 2
-offset_top = 24.175
-offset_right = 718.22
-offset_bottom = 454.73
+offset_top = 24.0
+offset_right = 718.0
+offset_bottom = 420.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+[node name="ColorRect" type="ColorRect" parent="OPTS"]
 layout_mode = 2
+color = Color(0.239216, 0.239216, 0.239216, 1)
 
-[node name="HFlowContainer" type="VFlowContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="OPTS"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OPTS/ScrollContainer"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="BTNS" type="VFlowContainer" parent="."]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 offset_left = 2.0
@@ -49,7 +72,7 @@ offset_top = 614.075
 offset_right = 152.0
 offset_bottom = 645.075
 
-[node name="new level btn" type="Button" parent="HFlowContainer"]
+[node name="new level btn" type="Button" parent="BTNS"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -57,7 +80,7 @@ theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
 text = "create new level"
 
-[node name="open level folder" type="Button" parent="HFlowContainer"]
+[node name="open level folder" type="Button" parent="BTNS"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -65,7 +88,7 @@ theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
 text = "open level folder"
 
-[node name="load online levels" type="Button" parent="HFlowContainer"]
+[node name="load online levels" type="Button" parent="BTNS"]
 layout_mode = 2
 theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -73,22 +96,18 @@ theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
 text = "load online levels"
 
-[node name="version" type="Label" parent="HFlowContainer"]
+[node name="version" type="Label" parent="BTNS"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 33.295)
 layout_mode = 2
 label_settings = SubResource("LabelSettings_cbjxn")
 vertical_alignment = 1
 
-[node name="Controls" parent="." instance=ExtResource("2_8w606")]
+[node name="CTRLS" parent="." instance=ExtResource("2_8w606")]
 layout_mode = 1
-offset_left = 706.07
-offset_right = 18.0701
-offset_bottom = -170.0
-
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
-use_threads = true
-timeout = 5.0
+offset_left = 706.0
+offset_right = 18.0
+offset_bottom = -205.0
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -98,7 +117,6 @@ text = "OPTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="HFlowContainer/new level btn" to="." method="_on_new_level_btn_pressed"]
-[connection signal="pressed" from="HFlowContainer/open level folder" to="." method="_on_open_level_folder_pressed"]
-[connection signal="pressed" from="HFlowContainer/load online levels" to="." method="_on_load_online_levels_pressed"]
-[connection signal="request_completed" from="HTTPRequest" to="." method="_on_http_request_request_completed"]
+[connection signal="pressed" from="BTNS/new level btn" to="." method="_on_new_level_btn_pressed"]
+[connection signal="pressed" from="BTNS/open level folder" to="." method="_on_open_level_folder_pressed"]
+[connection signal="pressed" from="BTNS/load online levels" to="." method="_on_load_online_levels_pressed"]
