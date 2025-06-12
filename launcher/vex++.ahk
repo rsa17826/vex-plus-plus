@@ -27,9 +27,13 @@ versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Status",
   "Run",
 ])
-if FileExist("c.bat") {
-  FileDelete("c.bat")
-  DirDelete("temp", 1)
+try FileDelete("c.bat")
+try DirDelete("temp", 1)
+if FileExist("launcher.exe") and FileExist("vex++.exe") {
+  try FileDelete("launcher.exe")
+}
+if not FileExist("vex++ offline.lnk") {
+  FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 }
 offline := A_Args.join(" ").includes("offline")
 DirCreate("versions")
@@ -132,13 +136,17 @@ UpdateSelf(*) {
     Download(url, "temp.zip")
     unzip("temp.zip", "temp")
     FileDelete("temp.zip")
-    ; try {
+
+    ; if script doesnt exist then don't update it
+    if !FileExist("vex++.ahk")
+      try FileDelete("temp/vex++.ahk")
+    
     F.write("./c.bat", "
     (
 @echo off
 timeout /t 1 /nobreak >nul
 xcopy /y /i ".\temp\*" ".\"
-start launcher.exe
+start vex++.exe
     )")
     run("cmd /c c.bat", , "hide")
     ExitApp()
