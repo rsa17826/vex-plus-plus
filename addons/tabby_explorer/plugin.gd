@@ -2,17 +2,17 @@
 
 extends EditorPlugin
 
-const SubFsDockPackedScene: = preload("./editor/sub_fs_dock/sub_fs_dock.tscn")
-const SubFsFavDockPackedScene: = preload("./editor/sub_fs_dock/sub_fs_fav_dock.tscn")
+const SubFsDockPackedScene: = preload("./Editor/sub_fs_dock/sub_fs_dock.tscn")
+const SubFsFavDockPackedScene: = preload("./Editor/sub_fs_dock/sub_fs_fav_dock.tscn")
 
-const SubFSDockPref := preload("./editor/dock_pref.gd")
-const SubFSMainPref := preload("./editor/main_pref.gd")
-const SubFSPref := preload("./editor/pref.gd")
+const SubFSDockPref := preload("./Editor/dock_pref.gd")
+const SubFSMainPref := preload("./Editor/main_pref.gd")
+const SubFSPref := preload("./Editor/pref.gd")
 
-const SubFSManagerNode := preload("./editor/fs/fs_manager_node.gd")
-const SubFSShare := preload("./editor/share.gd")
-const SubFSDock := preload("./editor/sub_fs_dock/sub_fs_dock.gd")
-const SubFSFavDock := preload("./editor/sub_fs_dock/sub_fs_fav_dock.gd")
+const SubFSManagerNode := preload("./Editor/fs/fs_manager_node.gd")
+const SubFSShare := preload("./Editor/share.gd")
+const SubFSDock := preload("./Editor/sub_fs_dock/sub_fs_dock.gd")
+const SubFSFavDock := preload("./Editor/sub_fs_dock/sub_fs_fav_dock.gd")
 
 var _pref:SubFSPref
 var _user_docks_pref:SubFSMainPref

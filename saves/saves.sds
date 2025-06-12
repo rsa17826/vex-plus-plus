@@ -303,33 +303,14 @@
       }
     }
   }
-  STR(!spark teast (copy\)){
-    STR(playerDelogPosition)VEC2(572.589172363281,-281.806884765625)
-    STR(lastSpawnPoint)VEC2(0.0,0.0)
-    STR(loadedLevels)[
-      {
-        STR(name)STR(hub)
-        STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
-      }
-    ]
-    STR(beatLevels)[]
-    STR(levels){
-      STR(hub){
-        STR(name)STR(hub)
-        STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
-      }
-    }
-  }
   STR(!spark test (copy\)){
-    STR(playerDelogPosition)VEC2(615.0,-399.644439697266)
     STR(lastSpawnPoint)VEC2(615.0,-400.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(604.558288574219,-516.513854980469)
         STR(foundStar)BOOL(false)
+        STRNAME(blockSaveData){}
       }
     ]
     STR(beatLevels)[
@@ -344,6 +325,7 @@
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(604.558288574219,-516.513854980469)
         STR(foundStar)BOOL(false)
+        STRNAME(blockSaveData){}
       }
       STR(a){
         STR(name)STR(a)

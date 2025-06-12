@@ -1,4 +1,4 @@
-class_name editor
+class_name Editor
 extends Node2D
 # @name same line return
 # @regex :\s*(return|continue|break)\s*$
@@ -49,6 +49,9 @@ var blockOptionsArray := []
 var pm: PopupMenu
 
 # var currentPath: PathFollow2D
+
+func onSave() -> Array[String]:
+  return []
 
 func _on_mouse_entered() -> void:
   isHovered = true

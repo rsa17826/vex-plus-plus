@@ -32,9 +32,9 @@ var object_custom_classes = [] # Custom classes in the inspector
 
 var is_filtering = false # are the search bar in use
 
-var property_container # path to the editor inspector list of properties
-var favorite_container # path to the editor inspector favorite list.
-var viewer_container # path to the editor inspector "viewer" area. (camera viewer or skeleton3D bone tree)
+var property_container # path to the Editor inspector list of properties
+var favorite_container # path to the Editor inspector favorite list.
+var viewer_container # path to the Editor inspector "viewer" area. (camera viewer or skeleton3D bone tree)
 var property_scroll_bar:VScrollBar
 var icon_grabber
 
@@ -131,7 +131,7 @@ func get_class_icon(c_name:String) -> ImageTexture:
         load_icon = base_control.get_theme_icon("GDScript", "EditorIcons")
     if c_name == "RefCounted":# RefCounted Icon
         load_icon = base_control.get_theme_icon("Object", "EditorIcons")
-    elif ClassDB.class_exists(c_name): # Get editor icon
+    elif ClassDB.class_exists(c_name): # Get Editor icon
         load_icon = base_control.get_theme_icon(c_name, "EditorIcons")
     else:
         # Get custom class icon

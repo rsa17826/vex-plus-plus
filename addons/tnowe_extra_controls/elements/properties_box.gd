@@ -27,9 +27,9 @@ func clear():
 
 ## Adds a [CheckBox]. Retrieve the value with [method get_bool].
 func add_bool(key : StringName, value : bool = false):
-	var editor = CheckBox.new()
-	editor.button_pressed = value
-	_add_property_editor(key, editor, editor.toggled, _on_bool_changed)
+	var Editor = CheckBox.new()
+	Editor.button_pressed = value
+	_add_property_editor(key, Editor, Editor.toggled, _on_bool_changed)
 
 ## Adds a [SpinBox]. Retrieve the value with [method get_float] or [method get_int].
 ## If both [code]minvalue[/code] and [code]maxvalue[/code] are specified, also creates an [HSlider].
@@ -39,54 +39,54 @@ func add_int(key : StringName, value : int = 0, minvalue : int = -2147483648, ma
 ## Adds a [SpinBox]. Retrieve the value with [method get_float] or [method get_int].
 ## If both [code]minvalue[/code] and [code]maxvalue[/code] are specified, also creates an [HSlider].
 func add_float(key : StringName, value : float = 0.0, minvalue : float = -99999900000.0, maxvalue : float = 99999900000.0, step : float = 0.0001):
-	var editor = SpinBox.new()
+	var Editor = SpinBox.new()
 	var is_slider = minvalue > -2147483648 && maxvalue < 2147483648
-	editor.value = value
-	editor.step = step
-	editor.min_value = minvalue
-	editor.max_value = maxvalue
-	_add_property_editor(key, editor, editor.value_changed, _on_number_changed)
+	Editor.value = value
+	Editor.step = step
+	Editor.min_value = minvalue
+	Editor.max_value = maxvalue
+	_add_property_editor(key, Editor, Editor.value_changed, _on_number_changed)
 	if is_slider:
 		var box = HBoxContainer.new()
 		var slider = HSlider.new()
-		editor.get_parent().add_child(box)
-		editor.get_parent().remove_child(editor)
-		box.add_child(editor)
+		Editor.get_parent().add_child(box)
+		Editor.get_parent().remove_child(Editor)
+		box.add_child(Editor)
 		box.add_child(slider)
 
 		box.size_flags_horizontal = SIZE_EXPAND_FILL
 		slider.size_flags_horizontal = SIZE_EXPAND_FILL
 		slider.size_flags_vertical = SIZE_FILL
-		editor.size_flags_horizontal = SIZE_FILL
+		Editor.size_flags_horizontal = SIZE_FILL
 
 		slider.value = value
 		slider.step = step
 		slider.min_value = minvalue
 		slider.max_value = maxvalue
 
-		slider.value_changed.connect(editor.set_value)
-		editor.value_changed.connect(slider.set_value)
+		slider.value_changed.connect(Editor.set_value)
+		Editor.value_changed.connect(slider.set_value)
 		slider.value_changed.connect(_on_number_changed.bind(key))
 
 ## Adds a [LineEdit]. Retrieve the value with [method get_string].
 func add_string(key : StringName, value : String = ""):
-	var editor = LineEdit.new()
-	editor.text = value
-	_add_property_editor(key, editor, editor.text_changed, _on_string_changed)
+	var Editor = LineEdit.new()
+	Editor.text = value
+	_add_property_editor(key, Editor, Editor.text_changed, _on_string_changed)
 
 ## Adds an [UnfoldedOptionButton]. Retrieve the value with [method get_option].
 ## Options are input as an array of strings.
 func add_options(key : StringName, options : Array, default_value : int = 0, flags : bool = false):
-	var editor = UnfoldedOptionButton.new()
+	var Editor = UnfoldedOptionButton.new()
 	var options_cast : Array[String] = []
 	options_cast.resize(options.size())
 	for i in options.size():
 		options_cast[i] = options[i]
 
-	editor.flags = flags
-	editor.options = options_cast
-	editor.value = default_value
-	_add_property_editor(key, editor, editor.value_changed, _on_number_changed)
+	Editor.flags = flags
+	Editor.options = options_cast
+	Editor.value = default_value
+	_add_property_editor(key, Editor, Editor.value_changed, _on_number_changed)
 
 ## Adds an [UnfoldedOptionButton]. Retrieve the value with [method get_option].
 ## Option names are retrieved from a Locale Prefix, appending a 0-based index then translating.
@@ -147,43 +147,43 @@ func get_value(key : StringName) -> Variant:
 
 ## Retrieve a value of whatever type, from a property by its index in the box.
 func get_value_at(index : int) -> Variant:
-	var editor = _editors[index]
-	if editor is Button: return editor.pressed
-	if editor is SpinBox: return editor.value
-	if editor is LineEdit: return editor.text
-	if editor is TextEdit: return editor.text
-	if editor is UnfoldedOptionButton: return editor.value
+	var Editor = _editors[index]
+	if Editor is Button: return Editor.pressed
+	if Editor is SpinBox: return Editor.value
+	if Editor is LineEdit: return Editor.text
+	if Editor is TextEdit: return Editor.text
+	if Editor is UnfoldedOptionButton: return Editor.value
 	return null
 
 ## Retrieve a boolean.
 func get_bool(key : StringName) -> bool:
-	var editor = _editors[_keys[key]]
-	return editor.pressed
+	var Editor = _editors[_keys[key]]
+	return Editor.pressed
 
 ## Retrieve a number or option.
 func get_int(key : StringName) -> int:
-	var editor = _editors[_keys[key]]
-	if editor is SpinBox:
-		return editor.value
+	var Editor = _editors[_keys[key]]
+	if Editor is SpinBox:
+		return Editor.value
 
-	elif editor is UnfoldedOptionButton:
-		return editor.value
+	elif Editor is UnfoldedOptionButton:
+		return Editor.value
 
 	return 0
 
 ## Retrieve a number.
 func get_float(key : StringName) -> float:
-	var editor = _editors[_keys[key]]
-	return editor.value
+	var Editor = _editors[_keys[key]]
+	return Editor.value
 
 ## Retrieve a string.
 func get_string(key : StringName) -> String:
-	var editor = _editors[_keys[key]]
-	if editor is LineEdit:
-		return editor.text
+	var Editor = _editors[_keys[key]]
+	if Editor is LineEdit:
+		return Editor.text
 
-	elif editor is TextEdit:
-		return editor.text
+	elif Editor is TextEdit:
+		return Editor.text
 
 	return ""
 
@@ -200,9 +200,9 @@ func _get_box() -> Control:
 		return _group_stack[_group_stack.size() - 1]
 
 
-func _add_property_editor(key : StringName, editor : Control, editor_signal : Signal, signal_handler : Callable):
+func _add_property_editor(key : StringName, Editor : Control, editor_signal : Signal, signal_handler : Callable):
 	_keys[key] = _editors.size()
-	_editors.append(editor)
+	_editors.append(Editor)
 
 	var box = HBoxContainer.new()
 	var label = Label.new()
@@ -210,10 +210,10 @@ func _add_property_editor(key : StringName, editor : Control, editor_signal : Si
 	label.clip_text = true
 	label.size_flags_vertical = 0
 	label.size_flags_horizontal = SIZE_EXPAND_FILL
-	editor.size_flags_horizontal = SIZE_EXPAND_FILL
+	Editor.size_flags_horizontal = SIZE_EXPAND_FILL
 
 	box.add_child(label)
-	box.add_child(editor)
+	box.add_child(Editor)
 	_get_box().add_child(box)
 
 	editor_signal.connect(signal_handler.bind(key))
