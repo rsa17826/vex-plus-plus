@@ -7,7 +7,7 @@ extends CharacterBody2D
 
 @export var root: Node2D
 
-func _physics_process(delta: float) -> void:
+func on_physics_process(delta: float) -> void:
   if get_parent().respawning: return
   if currentWatters:
     velocity.y -= max(95 * delta * (velocity.y / 8), 10)
@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
     velocity.y += global.player.GRAVITY * delta
   velocity.x *= .90 if is_on_floor() else .97
   move_and_slide()
-
+  
 func on_ready(first=false):
   velocity = Vector2(0, 0)
   global_position = get_parent().startPosition

@@ -128,7 +128,7 @@
     }
   }
   {
-    STR(x)FLOAT(750.0)
+    STR(x)FLOAT(845.0)
     STR(y)FLOAT(-430.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
@@ -139,8 +139,8 @@
     }
   }
   {
-    STR(x)FLOAT(800.0)
-    STR(y)FLOAT(-475.0)
+    STR(x)FLOAT(795.0)
+    STR(y)FLOAT(-435.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -184,6 +184,52 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(720.0)
+    STR(y)FLOAT(-380.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(falling)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(765.0)
+    STR(y)FLOAT(-330.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(buzsaw)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(845.0)
+    STR(y)FLOAT(-505.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(pushable box)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(860.0)
+    STR(y)FLOAT(-560.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Gravity Down Lever)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
