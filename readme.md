@@ -13,6 +13,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ## extra info
 - press editor_edit_special on a block in the block picker to modify the default options of that block that will be used when first placing it
+- launcher not required, but allows easy access to any old version, and allows you to know when there is an update whenever opening the launcher.
+- launcher also has a button to update the launcher
 
 ## Game Controls
 
