@@ -296,7 +296,7 @@ static func loadData(d: String, progress=null) -> Variant:
         remainingData = remainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2)
-      "STR":
+      "STRNAME":
         thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
@@ -535,21 +535,21 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         # thisdata = getDataReg.call(r"\((true|false)\)", 1)
         thisdata = thisdata == "true"
       "STR":
-        thisdata = remainingData \
+        thisdata = slowRemainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
-        remainingData = remainingData.substr(len(thisdata \
+        slowRemainingData = slowRemainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2)
-      "STR":
-        thisdata = remainingData \
+      "STRNAME":
+        thisdata = slowRemainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
-        remainingData = remainingData.substr(len(thisdata \
+        slowRemainingData = slowRemainingData.substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2)
         thisdata = StringName(thisdata)
@@ -588,10 +588,6 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         # # log.warn("no obj")
         # log.warn(out, stack, _stack, thisdata, 2)
         # return thisdata
-    # log.pp(thisdata, out, remainingData, "_stack:", str(_stack))
-    # if len(remainingData):
-    # Push the current state back onto the stack for the next iteration
-    # stack.append([remainingData, _stack])
     continue # ?
 
   return _stack[len(_stack) - 1]
