@@ -31,14 +31,14 @@ func on_respawn():
     tryaddgroups()
     log.pp(attachments, root.id)
 
-func on_physics_process(delta: float) -> void:
-  if not following: return
-  for block in attachments.filter(func(e): return is_instance_valid(e)):
-    if "lastMovementStep" in block.root:
-      root.MOVING_BLOCKS_nodeToMove.position += (block.root.lastMovementStep / root.scale).rotated(-root.rotation)
-    else:
-      log.err("block not moving", block.root.id)
-      breakpoint
+# func on_physics_process(delta: float) -> void:
+#   if not following: return
+#   for block in attachments.filter(func(e): return is_instance_valid(e)):
+#     if "lastMovementStep" in block.root:
+#       root.thingThatMoves.position += (block.root.lastMovementStep / root.scale).rotated(-root.rotation)
+#     else:
+#       log.err("block not moving", block.root.id)
+#       breakpoint
 
 # func disableAllGroups():
 #   for group in tempGroups:
@@ -51,19 +51,9 @@ func on_physics_process(delta: float) -> void:
 func tryaddgroups():
   for block in get_overlapping_bodies():
     # log.pp(block, "is overlapping")
-    if block.get_parent().is_in_group("canBeAttachedTo"):
-      if block in attachments:
-        continue
-      attachments.append(block)
-    # for group in block.get_parent().get_groups():
-    #   if block.get_parent().is_in_group("canBeAttachedTo"):
-    #     tryadd(group)
-    for group in block.get_groups():
-      if block in attachments:
-        continue
-      attachments.append(block)
-      # if block.is_in_group("canBeAttachedTo"):
-      #   tryadd(group)
+    if block.root.is_in_group("canBeAttachedTo"):
+      if root not in block.root.blocksAttachedToThisBlock:
+        block.root.blocksAttachedToThisBlock.append(root)
 
 # func tryadd(group):
 #   # log.pp("trying to add", group, root.id)
