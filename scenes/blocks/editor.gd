@@ -65,10 +65,18 @@ func respawn() -> void:
     respawning = 2
     if thingThatMoves:
       thingThatMoves.position = Vector2.ZERO
+    
+    if is_in_group("canBeAttachedTo"):
+      for block in blocksAttachedToThisBlock:
+        if !block.thingThatMoves:
+          log.err("no thingThatMoves", block.id)
+          breakpoint
+        block.respawn()
+      blocksAttachedToThisBlock = []
+
     global_position = startPosition
     rotation_degrees = startRotation_degrees
     scale = startScale
-    lastMovementStep = Vector2.ZERO
 
     if cloneEventsHere and 'on_respawn' in cloneEventsHere:
       cloneEventsHere.on_respawn()
@@ -261,7 +269,7 @@ func _physics_process(delta: float) -> void:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):
     for block in blocksAttachedToThisBlock:
-      if "thingThatMoves" not in block:
+      if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
       block.thingThatMoves.position += lastMovementStep / block.scale

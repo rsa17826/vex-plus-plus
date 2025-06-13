@@ -8,10 +8,10 @@
 [node name="level" type="Node2D"]
 script = ExtResource("1_bovvr")
 
+[node name="blocks" type="Node2D" parent="."]
+
 [node name="player" parent="." instance=ExtResource("2_b2cq8")]
 position = Vector2(61, 383)
-
-[node name="blocks" type="Node2D" parent="."]
 
 [node name="grid" type="Node2D" parent="."]
 script = ExtResource("3_b2cq8")
