@@ -1,0 +1,13 @@
+{
+  STR(start)STR(hub)
+  STR(author)STR()
+  STR(description)STR()
+  STR(version)INT(44)
+  STR(stages){
+    STR(hub){
+      STR(color)INT(7)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+  }
+}

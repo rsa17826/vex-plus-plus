@@ -790,7 +790,7 @@ func _physics_process(delta: float) -> void:
         #   # breakpoint
         #   die()
         tryAndDieHazards()
-        # tryAndDieSquish()
+        tryAndDieSquish()
       updateKeyFollowPosition(delta)
       
   if !global.showEditorUi:
@@ -887,7 +887,7 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
     and normal.x \
     and not inWaters \
     :
-      block.velocity.x -= normal.x * depth * 200
+      block.thingThatMoves.velocity.x -= normal.x * depth * 200
       state = States.pushing
       $anim.animation = "pushing box"
 
