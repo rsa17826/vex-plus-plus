@@ -549,7 +549,7 @@ var level: Node2D
 
 var hoveredBlocks: Array = []
 var selectedBlockOffset: Vector2
-var selectedBlock: Node2D = null
+var selectedBlock: Editor = null
 var editorInScaleMode := false
 var editorInRotateMode := false
 
@@ -699,7 +699,7 @@ func localProcess(delta: float) -> void:
           var minSize := 0.1 / 7.0
           # need to make it stop moving - cant figure out how yet
           if selectedBlock.scale.x < minSize:
-            selectedBlock.respawn()
+            selectedBlock.onEditorMove()
             # selectedBlock.scale.x = minSize
             if scaleOnLeftSide:
               scaleOnLeftSide = false
@@ -711,7 +711,7 @@ func localProcess(delta: float) -> void:
               moveMouse.call(mousePos - Vector2(minSize * 700, 0))
 
           if selectedBlock.scale.y < minSize:
-            selectedBlock.respawn()
+            selectedBlock.onEditorMove()
             # selectedBlock.scale.y = minSize
             if scaleOnTopSide:
               scaleOnTopSide = false
@@ -727,7 +727,8 @@ func localProcess(delta: float) -> void:
           global.showEditorUi = true
           # selectedBlock.self_modulate.a = useropts.hoveredBlockGhostAlpha
           setBlockStartPos(selectedBlock)
-          selectedBlock.respawn()
+          
+          selectedBlock.onEditorMove()
         else:
           # if trying to create new block
           if justPaintedBlock:
@@ -778,7 +779,8 @@ func localProcess(delta: float) -> void:
             setBlockStartPos(selectedBlock)
             # if selectedBlock.name == "player":
             #   selectedBlock.get_node("CharacterBody2D").moving = 2
-            selectedBlock.respawn()
+            
+            selectedBlock.onEditorMove()
       if justPaintedBlock:
         lastSelectedBlock = justPaintedBlock
       if selectedBlock:
@@ -794,7 +796,7 @@ func localInput(event: InputEvent) -> void:
   if openMsgBoxCount: return
   if Input.is_action_just_released("editor_select"):
     if selectedBlock:
-      selectedBlock.respawn()
+      selectedBlock.onEditorMove()
       selectedBlock = null
       # selectedBlock._ready.call(false)
   if isActionJustPressedWithNoExtraMods("new_level_file"):
@@ -836,7 +838,7 @@ func localInput(event: InputEvent) -> void:
     #   log.pp(lastSelectedBlock.selectedOptions.path)
     # else:
       if selectedBlock:
-        selectedBlock.respawn()
+        selectedBlock.onEditorMove()
 
   # dont update editor scale mode if clicking
   if !Input.is_action_pressed("editor_select"):

@@ -20,7 +20,7 @@ size = Vector2(10, 50)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
 size = Vector2(20, 5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToMove", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("thingThatMoves",  "nodeToMove", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things"]]
 script = ExtResource("2_u2153")
 nodeToMove = NodePath("movable")
 ghostIconNode = NodePath("movable/Sprite2D")
@@ -28,6 +28,7 @@ editorBarIconNode = NodePath("movable/Sprite2D")
 collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("movable/wall to side with player off/CollisionShape2D"), NodePath("movable/wall to side with player off/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("movable/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
+thingThatMoves = NodePath("collisionNode")
 MOVING_BLOCKS_nodeToMove = NodePath("movable")
 
 [node name="movable" type="Node2D" parent="."]

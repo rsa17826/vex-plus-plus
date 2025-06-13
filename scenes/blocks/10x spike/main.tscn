@@ -7,20 +7,19 @@
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_c5k05"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gece"]
-size = Vector2(660, 92)
+size = Vector2(692, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
-size = Vector2(668, 18)
+size = Vector2(692, 18)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "ghostFollowNode", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_rotate", "attaches to things", "death"]]
 script = ExtResource("1_c5k05")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
 editorBarIconNode = NodePath("Node2D/collisionNode/EditorBar")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
-ghostFollowNode = NodePath("Node2D/collisionNode")
-MOVING_BLOCKS_nodeToMove = NodePath("Node2D")
+thingThatMoves = NodePath("Node2D/collisionNode")
 
 [node name="Node2D" type="Node2D" parent="."]
 

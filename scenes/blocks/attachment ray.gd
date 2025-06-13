@@ -3,14 +3,12 @@ extends Area2D
 @export var root: Editor
 
 # var tempGroups = []
-var attachments = []
 var following = true
 
 func on_respawn():
   # root.position = Vector2.ZERO
   # disableAllGroups()
   # tempGroups = []
-  attachments = []
   if not root or 'selectedOptions' not in root or 'attachesToThings' not in root.selectedOptions:
     if root:
       log.err(root, root.id)
@@ -29,7 +27,6 @@ func on_respawn():
     tryaddgroups()
     await global.wait()
     tryaddgroups()
-    log.pp(attachments, root.id)
 
 # func on_physics_process(delta: float) -> void:
 #   if not following: return
@@ -54,6 +51,7 @@ func tryaddgroups():
     if block.root.is_in_group("canBeAttachedTo"):
       if root not in block.root.blocksAttachedToThisBlock:
         block.root.blocksAttachedToThisBlock.append(root)
+        root.blocksThisIsAttachedTo.append(block.root)
 
 # func tryadd(group):
 #   # log.pp("trying to add", group, root.id)

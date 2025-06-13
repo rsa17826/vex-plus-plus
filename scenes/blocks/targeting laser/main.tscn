@@ -11,12 +11,13 @@ radius = 725.844
 [sub_resource type="CircleShape2D" id="CircleShape2D_owjk4"]
 radius = 127.016
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("thingThatMoves",  "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things"]]
 script = ExtResource("1_erc21")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
+thingThatMoves = NodePath("collisionNode")
 cloneEventsHere = NodePath("collisionNode/attach detector")
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
