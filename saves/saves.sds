@@ -1,12 +1,12 @@
 {
   STR(!spark test (copy\)){
-    STR(lastSpawnPoint)VEC2(615.0,-405.0)
+    STR(lastSpawnPoint)VEC2(60.0,-30.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
-        STR(spawnPoint)VEC2(517.196350097656,-516.508422851563)
+        STR(spawnPoint)VEC2(598.074829101563,-516.507202148438)
         STR(foundStar)BOOL(false)
-        STR(tick)FLOAT(0.0)
+        STR(tick)FLOAT(5.0)
         STR(blockSaveData){
           INT(1){
             STR(texture)STR(2)
@@ -16,8 +16,6 @@
           }
         }
       }
-    ]
-    STR(beatLevels)[
       {
         STR(name)STR(a)
         STR(spawnPoint)VEC2(0.0,0.0)
@@ -25,10 +23,11 @@
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           INT(1){
-            STR(texture)STR(1)
+            STR(texture)STR(2)
           }
         }
       }
     ]
+    STR(beatLevels)[]
   }
 }
