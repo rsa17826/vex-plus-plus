@@ -328,16 +328,11 @@ func debuguiadd(name: String, val: String) -> void:
     event.trigger("debugui add", name, val)
 
 class path:
-  static func abs(path: String) -> String:
-    return ProjectSettings.globalize_path(path) \
-      if OS.has_feature("editor") else \
-      global.path.abs(path)
+  static func abs(p: String) -> String:
+    if OS.has_feature("editor"):
+      return ProjectSettings.globalize_path(p)
+    return global.regReplace(p, 'res://', OS.get_executable_path().get_base_dir() + '/')
 
-  # static func abs(p: String) -> String:
-  #   # log.pp(1, p)
-  #   if !OS.has_feature("editor"):
-  #     return global.regReplace(p, 'res://', OS.get_executable_path().get_base_dir() + '/')
-  #   return p
   static func join(path1: String, path2:="", path3:="", path4:="") -> String:
     var fullPath := path1
     if len(path2):
