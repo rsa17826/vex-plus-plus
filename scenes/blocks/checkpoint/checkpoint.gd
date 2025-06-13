@@ -31,7 +31,7 @@ func on_respawn() -> void:
 func on_ready() -> void:
   if not self in global.checkpoints:
     global.checkpoints.append(self)
-  # setTexture(sprite, "1")
+  setTexture(sprite, "1")
 
 func onSave() -> Array[String]:
   return ["texture"]

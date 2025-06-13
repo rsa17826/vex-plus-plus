@@ -48,11 +48,11 @@ func tryaddgroups():
     # log.pp(block, "is overlapping")
     if block.is_in_group("canBeAttachedTo"):
       # if not block in self parents
-      if block not in root.ATTparents:
-        root.ATTparents.append(block)
+      if block not in root.attach_parents:
+        root.attach_parents.append(block)
       # if self not in block children
-      if root not in block.ATTchildren:
-        block.ATTchildren.append(root)
+      if root not in block.attach_children:
+        block.attach_children.append(root)
 
 # func tryadd(group):
 #   # log.pp("trying to add", group, root.id)

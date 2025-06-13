@@ -47,8 +47,8 @@ var blockOptions: Dictionary
 var selectedOptions := {}
 var blockOptionsArray := []
 var pm: PopupMenu
-var ATTchildren: Array[Editor] = []
-var ATTparents: Array[Editor] = []
+var attach_children: Array[Editor] = []
+var attach_parents: Array[Editor] = []
 
 # var currentPath: PathFollow2D
 
@@ -62,9 +62,9 @@ func _on_mouse_exited() -> void:
   isHovered = false
 
 func onEditorMove() -> void:
-  for block: Editor in ATTparents.filter(func(e): return is_instance_valid(e)):
-    block.ATTchildren.erase(self)
-  ATTparents = []
+  for block: Editor in attach_parents.filter(func(e): return is_instance_valid(e)):
+    block.attach_children.erase(self)
+  attach_parents = []
   respawn()
 
 func respawn() -> void:
@@ -74,12 +74,12 @@ func respawn() -> void:
       thingThatMoves.position = Vector2.ZERO
     
     if is_in_group("canBeAttachedTo"):
-      for block: Editor in ATTchildren.filter(func(e): return is_instance_valid(e)):
+      for block: Editor in attach_children.filter(func(e): return is_instance_valid(e)):
         if !block.thingThatMoves:
           log.err("no thingThatMoves", block.id)
           breakpoint
         block.respawn()
-      ATTchildren = []
+      attach_children = []
 
     global_position = startPosition
     rotation_degrees = startRotation_degrees
@@ -150,9 +150,9 @@ func _ready() -> void:
   if not EDITOR_IGNORE:
     if _ready not in global.player.OnPlayerFullRestart:
       global.player.OnPlayerFullRestart.append(_ready)
-    if !is_in_group("dontRespawnOnPlayerDeath"):
-      if _ready not in global.player.OnPlayerDied:
-        global.player.OnPlayerDied.append(_ready)
+    # if !is_in_group("dontRespawnOnPlayerDeath"):
+    if _ready not in global.player.OnPlayerDied:
+      global.player.OnPlayerDied.append(respawn)
 
     blockOptions = {}
     if not collisionShapes:
@@ -275,7 +275,7 @@ func _physics_process(delta: float) -> void:
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):
-    for block: Editor in ATTchildren.filter(func(e): return is_instance_valid(e)):
+    for block: Editor in attach_children.filter(func(e): return is_instance_valid(e)):
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
