@@ -12,7 +12,8 @@ func on_physics_process(delta: float) -> void:
   if currentWatters:
     velocity.y -= max(95 * delta * (velocity.y / 8), 10)
   else:
-    velocity.y += global.player.GRAVITY * delta
+    if not is_on_floor():
+      velocity.y += global.player.GRAVITY * delta
   velocity.x *= .90 if is_on_floor() else .97
   move_and_slide()
   
