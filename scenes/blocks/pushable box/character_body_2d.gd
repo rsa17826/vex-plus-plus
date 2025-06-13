@@ -28,7 +28,7 @@ func on_respawn():
 var currentWatters = []
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
-  if area.is_in_group("water") and area not in currentWatters:
+  if area not in currentWatters:
     currentWatters.append(area)
 
 func _on_area_2d_area_exited(area: Area2D) -> void:

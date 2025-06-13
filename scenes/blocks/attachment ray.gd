@@ -19,9 +19,6 @@ func on_respawn():
     following = true
     await global.wait()
     await global.wait()
-    await global.wait()
-    await global.wait()
-    await global.wait()
     tryaddgroups()
     await global.wait()
     tryaddgroups()
@@ -31,10 +28,10 @@ func on_respawn():
 # func on_physics_process(delta: float) -> void:
 #   if not following: return
 #   for block in attachments.filter(func(e): return is_instance_valid(e)):
-#     if "lastMovementStep" in block.root:
-#       root.thingThatMoves.position += (block.root.lastMovementStep / root.scale).rotated(-root.rotation)
+#     if "lastMovementStep" in block:
+#       root.thingThatMoves.position += (block.lastMovementStep / root.scale).rotated(-root.rotation)
 #     else:
-#       log.err("block not moving", block.root.id)
+#       log.err("block not moving", block.id)
 #       breakpoint
 
 # func disableAllGroups():
@@ -47,11 +44,15 @@ func on_respawn():
 
 func tryaddgroups():
   for block in get_overlapping_bodies():
+    block = block.root
     # log.pp(block, "is overlapping")
-    if block.root.is_in_group("canBeAttachedTo"):
-      if root not in block.root.blocksAttachedToThisBlock:
-        block.root.blocksAttachedToThisBlock.append(root)
-        root.blocksThisIsAttachedTo.append(block.root)
+    if block.is_in_group("canBeAttachedTo"):
+      # if not block in self parents
+      if block not in root.ATTparents:
+        root.ATTparents.append(block)
+      # if self not in block children
+      if root not in block.ATTchildren:
+        block.ATTchildren.append(root)
 
 # func tryadd(group):
 #   # log.pp("trying to add", group, root.id)
