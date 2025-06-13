@@ -47,8 +47,8 @@ var blockOptions: Dictionary
 var selectedOptions := {}
 var blockOptionsArray := []
 var pm: PopupMenu
-var blocksAttachedToThisBlock: Array[Editor] = []
-var blocksThisIsAttachedTo: Array[Editor] = []
+var ATTchildren: Array[Editor] = []
+var ATTparents: Array[Editor] = []
 
 # var currentPath: PathFollow2D
 
@@ -62,9 +62,9 @@ func _on_mouse_exited() -> void:
   isHovered = false
 
 func onEditorMove() -> void:
-  for block: Editor in blocksThisIsAttachedTo.filter(func(e): return is_instance_valid(e)):
-    block.blocksAttachedToThisBlock.erase(self)
-  blocksThisIsAttachedTo = []
+  for block: Editor in ATTparents.filter(func(e): return is_instance_valid(e)):
+    block.ATTchildren.erase(self)
+  ATTparents = []
   respawn()
 
 func respawn() -> void:
@@ -74,12 +74,12 @@ func respawn() -> void:
       thingThatMoves.position = Vector2.ZERO
     
     if is_in_group("canBeAttachedTo"):
-      for block: Editor in blocksAttachedToThisBlock.filter(func(e): return is_instance_valid(e)):
+      for block: Editor in ATTchildren.filter(func(e): return is_instance_valid(e)):
         if !block.thingThatMoves:
           log.err("no thingThatMoves", block.id)
           breakpoint
         block.respawn()
-      blocksAttachedToThisBlock = []
+      ATTchildren = []
 
     global_position = startPosition
     rotation_degrees = startRotation_degrees
@@ -275,7 +275,7 @@ func _physics_process(delta: float) -> void:
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):
-    for block: Editor in blocksAttachedToThisBlock.filter(func(e): return is_instance_valid(e)):
+    for block: Editor in ATTchildren.filter(func(e): return is_instance_valid(e)):
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint

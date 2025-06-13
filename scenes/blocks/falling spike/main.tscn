@@ -72,12 +72,13 @@ root = NodePath("../../..")
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_4c23b")
 
-[node name="playerDetector" type="RayCast2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="playerDetector" type="RayCast2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
+position = Vector2(0, -13)
 target_position = Vector2(0, -3000)
 collision_mask = 2
 script = ExtResource("5_4c23b")
-root = NodePath("../..")
+root = NodePath("../../..")
 
 [connection signal="body_entered" from="Node2D/collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Node2D/collisionNode" to="." method="_on_body_exited"]
