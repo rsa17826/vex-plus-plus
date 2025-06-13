@@ -19,6 +19,7 @@ func on_respawn():
     following = true
     await global.wait()
     await global.wait()
+    await global.wait()
     tryaddgroups()
     await global.wait()
     tryaddgroups()
