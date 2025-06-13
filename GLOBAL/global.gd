@@ -328,16 +328,16 @@ func debuguiadd(name: String, val: String) -> void:
     event.trigger("debugui add", name, val)
 
 class path:
-  static func abs(path: String):
+  static func abs(path: String) -> String:
     return ProjectSettings.globalize_path(path) \
       if OS.has_feature("editor") else \
-      global.path.parsePath(path)
+      global.path.abs(path)
 
-  static func parsePath(p: String) -> String:
-    # log.pp(1, p)
-    if !OS.has_feature("editor"):
-      return global.regReplace(p, 'res://', OS.get_executable_path().get_base_dir() + '/')
-    return p
+  # static func abs(p: String) -> String:
+  #   # log.pp(1, p)
+  #   if !OS.has_feature("editor"):
+  #     return global.regReplace(p, 'res://', OS.get_executable_path().get_base_dir() + '/')
+  #   return p
   static func join(path1: String, path2:="", path3:="", path4:="") -> String:
     var fullPath := path1
     if len(path2):
@@ -585,11 +585,11 @@ var editorMode = EditorModes.normal
 func localProcess(delta: float) -> void:
   if not global.useropts: return
   gridSize = 1 if Input.is_action_pressed("editor_disable_grid_snap") else global.useropts.blockSnapGridSize
-  if FileAccess.file_exists(path.parsePath("res://filesToOpen")):
-    var data = sds.loadDataFromFile(path.parsePath("res://filesToOpen"))
-    file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
+  if FileAccess.file_exists(path.abs("res://filesToOpen")):
+    var data = sds.loadDataFromFile(path.abs("res://filesToOpen"))
+    file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(data)
-    DirAccess.remove_absolute(path.parsePath("res://filesToOpen"))
+    DirAccess.remove_absolute(path.abs("res://filesToOpen"))
   if not player: return
   match editorMode:
     EditorModes.path:
@@ -897,15 +897,6 @@ var levelOpts: Dictionary
 func starFound() -> void:
   currentLevel().foundStar = true
 
-func newLevelSaveData(levelname):
-  return {
-    "name": levelname,
-    "spawnPoint": Vector2.ZERO,
-    "foundStar": false,
-    "tick": 0,
-    "blockSaveData": {},
-  }.duplicate()
-
 func loadInnerLevel(innerLevel: String) -> void:
   currentLevel().spawnPoint = player.global_position - player.get_parent().global_position
   global.loadedLevels.append(newLevelSaveData(innerLevel))
@@ -948,6 +939,21 @@ func savePlayerLevelData() -> void:
     "loadedLevels": loadedLevels,
     "beatLevels": beatLevels,
   }
+  currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
+  currentLevel().blockSaveData = saveBlockData()
+  sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
+  savingPlaterLevelData = false
+
+func newLevelSaveData(levelname):
+  return {
+    "name": levelname,
+    "spawnPoint": Vector2.ZERO,
+    "foundStar": false,
+    "tick": 0,
+    "blockSaveData": {},
+  }.duplicate()
+  
+func saveBlockData():
   var blockSaveData = {}
   var blockIds = {}
   for block: Editor in level.get_node("blocks").get_children():
@@ -960,16 +966,11 @@ func savePlayerLevelData() -> void:
       blockSaveData[blockId] = {}
       for thing in dataToSave:
         blockSaveData[blockId][thing] = block.get(thing)
-
-  currentLevel().blockSaveData = blockSaveData
-
-  sds.saveDataToFile(path.parsePath("res://saves/saves.sds"), saveData)
-  # await wait(1000)
-  savingPlaterLevelData = false
+  return blockSaveData
 
 func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   # log.pp("loadFromSave", loadFromSave)
-  var saveData: Variant = sds.loadDataFromFile(path.parsePath("res://saves/saves.sds"), {})
+  var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
   if levelPackName in saveData:
     saveData = saveData[levelPackName]
   else:
@@ -978,7 +979,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   mainLevelName = levelPackName
   # Engine.time_scale = 1
   # log.pp("Loading Level Pack:", levelPackName)
-  levelFolderPath = path.parsePath(path.join('res://maps/', levelPackName))
+  levelFolderPath = path.abs(path.join('res://maps/', levelPackName))
   var levelPackInfo: Dictionary = await loadMapInfo(levelPackName)
   if !levelPackInfo: return
   var startFile := path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
@@ -1022,6 +1023,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
     beatLevels = []
   get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
   await level.loadLevel(currentLevel().name)
+  loadBlockData()
   await wait()
   showEditorUi = false
   player.camLockPos = Vector2.ZERO
@@ -1035,13 +1037,30 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   player.die(0, false)
   player.die(5, false)
   # player.die(3, false)
-  global.tick = 0
+  global.tick = global.currentLevel().tick
+
+func loadBlockData():
+  if not "blockSaveData" in currentLevel(): return
+  var blockSaveData = currentLevel().blockSaveData
+  global.tick = currentLevel().tick
+  var blockIds = {}
+  for block: Editor in level.get_node("blocks").get_children():
+    if block.id not in blockIds:
+      blockIds[block.id] = 0
+    blockIds[block.id] += 1
+    var dataToLoad: Array[String] = block.onSave()
+    if dataToLoad:
+      var blockId = blockIds[block.id]
+      for thing in dataToLoad:
+        if blockId in blockSaveData \
+        and thing in blockSaveData[blockId]:
+          block.set(thing, blockSaveData[blockId][thing])
 
 func currentLevel() -> Dictionary:
   return loadedLevels[len(loadedLevels) - 1]
 
 func loadMapInfo(levelPackName: String) -> Variant:
-  var options: Variant = sds.loadDataFromFile(path.parsePath(path.join('res://maps/', levelPackName, "/options.sds")))
+  var options: Variant = sds.loadDataFromFile(path.abs(path.join('res://maps/', levelPackName, "/options.sds")))
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
@@ -1096,7 +1115,7 @@ func animate(speed: int, steps: Array) -> float:
 func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> void:
   if not levelName:
     levelName = await prompt("enter the level name", PromptTypes.string, "")
-  var fullDirPath := path.parsePath(path.join("res://maps/", levelPackName))
+  var fullDirPath := path.abs(path.join("res://maps/", levelPackName))
   var opts: Dictionary = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
   opts.stages[levelName] = defaultLevelSettings.duplicate()
   opts.stages[levelName].color = randfrom(1, 11)
@@ -1106,7 +1125,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> voi
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, "New map")
   var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
-  var fullDirPath := path.parsePath(path.join("res://maps/", foldername))
+  var fullDirPath := path.abs(path.join("res://maps/", foldername))
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
     return
@@ -1134,7 +1153,8 @@ func createNewMapFolder() -> Variant:
 
 const defaultLevelSettings = {
   "color": 1,
-  "changeSpeedOnSlopes": false
+  "changeSpeedOnSlopes": false,
+  "saveTick": false,
 }
 
 func currentLevelSettings(key: Variant = null) -> Variant:
@@ -1164,10 +1184,10 @@ func fullscreen(state: int = 0) -> void:
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
 
 func localReady() -> void:
-  DirAccess.make_dir_recursive_absolute(path.parsePath("res://maps/"))
-  DirAccess.make_dir_recursive_absolute(path.parsePath("res://downloaded maps/"))
-  DirAccess.make_dir_recursive_absolute(path.parsePath("res://saves/"))
-  DirAccess.make_dir_recursive_absolute(path.parsePath("res://exports/"))
+  DirAccess.make_dir_recursive_absolute(path.abs("res://maps/"))
+  DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))
+  DirAccess.make_dir_recursive_absolute(path.abs("res://saves/"))
+  DirAccess.make_dir_recursive_absolute(path.abs("res://exports/"))
   get_tree().set_debug_collisions_hint(hitboxesShown)
   # const SHIFT_VALUE = 353
   # var encode_string = func encode_string(input_string: String) -> String:
@@ -1179,16 +1199,16 @@ func localReady() -> void:
   # await prompt('', PromptTypes.string, encode_string.call(await prompt("Enter a string to encode:", PromptTypes.string)))
   # createFileAssociation("vex plus plus", ["vex++"], "VEX++ map file")
   # quitGame()
-  var pid = int(file.read(path.parsePath("res://process"), false, "0"))
+  var pid = int(file.read(path.abs("res://process"), false, "0"))
   log.pp("FILEPID", pid)
   log.pp("MYPID", OS.get_process_id())
   getProcess(OS.get_process_id())
   if getProcess(pid) and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))):
-    sds.saveDataToFile(path.parsePath("res://filesToOpen"), OS.get_cmdline_args() as Array)
-    DirAccess.remove_absolute(path.parsePath("res://process"))
+    sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
+    DirAccess.remove_absolute(path.abs("res://process"))
     quitGame()
   else:
-    file.write(path.parsePath("res://process"), str(OS.get_process_id()), false)
+    file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
 
 func _notification(what):
@@ -1196,8 +1216,8 @@ func _notification(what):
     quitGame()
     
 func quitGame():
-  if OS.get_process_id() == int(file.read(path.parsePath("res://process"), false)):
-    DirAccess.remove_absolute(path.parsePath("res://process"))
+  if OS.get_process_id() == int(file.read(path.abs("res://process"), false)):
+    DirAccess.remove_absolute(path.abs("res://process"))
   get_tree().quit()
 
 var stretchScale: Vector2:
@@ -1283,7 +1303,7 @@ func tryAndGetMapZipsFromArr(args):
       log.pp("AKSJDHSADKJHDHJDSKDSHKJDSA", p)
       if !('.' in p and ('/' in p or '\\' in p)): return
       # add the intended folder to the end of the path to force it to go into the correct folder
-      var moveto = path.parsePath("res://maps/" + regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
+      var moveto = path.abs("res://maps/" + regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
       if tryAndLoadMapFromZip(p, moveto):
         mapFound = true
   if mapFound and get_tree().current_scene.name == "main menu":
@@ -1340,7 +1360,7 @@ func openPathInExplorer(p: String):
     '"' + (
       ProjectSettings.globalize_path(p)
       if OS.has_feature("editor") else
-      global.path.parsePath(p)
+      global.path.abs(p)
     ).replace("/", "\\")
     + '"'
   ]))

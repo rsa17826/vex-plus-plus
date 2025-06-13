@@ -236,10 +236,6 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 disable_plugin_dialogues=true
 copy_path="res://temp"
 
-[physics]
-
-common/max_physics_steps_per_frame=1
-
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3

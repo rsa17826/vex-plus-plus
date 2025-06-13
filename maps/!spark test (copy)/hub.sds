@@ -387,4 +387,26 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(810.0)
+    STR(y)FLOAT(-725.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(leftright)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(950.0)
+    STR(y)FLOAT(-300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(updown)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]
