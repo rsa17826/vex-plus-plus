@@ -28,6 +28,6 @@ func on_physics_process(delta: float) -> void:
     nodeToFall.position += Vector2(0, -speed * delta)
 
 func _on_floor_detection_body_entered(body: Node2D) -> void:
-  %"attach detector".enableAllGroups()
+  %"attach detector".following = true
   respawnTimer = RESPAWN_TIME
   on_respawn()

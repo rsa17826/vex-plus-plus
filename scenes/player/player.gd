@@ -1127,3 +1127,7 @@ func updateKeyFollowPosition(delta):
 # make clicking to release copy not select blocks
 
 # make pole quadrent pole indicators rotate correctly
+
+# 10x spike add root
+# 10x spike add larger attach
+# block death causes attached items to not follow back to spawn

@@ -31,4 +31,39 @@
       }
     ]
   }
+  STR(interaction test){
+    STR(lastSpawnPoint)VEC2(185.0,-430.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(foundStar)BOOL(true)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          INT(1){
+            STR(texture)STR(1)
+          }
+          INT(2){
+            STR(texture)STR(1)
+          }
+          INT(3){
+            STR(texture)STR(1)
+          }
+          INT(4){
+            STR(texture)STR(1)
+          }
+          INT(5){
+            STR(texture)STR(1)
+          }
+          INT(6){
+            STR(texture)STR(1)
+          }
+          INT(7){
+            STR(texture)STR(2)
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
 }

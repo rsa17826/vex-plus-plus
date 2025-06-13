@@ -32,7 +32,8 @@ func on_respawn():
     log.pp(attachments, root.id)
 
 func on_physics_process(delta: float) -> void:
-  for block in attachments:
+  if not following: return
+  for block in attachments.filter(func(e): return is_instance_valid(e)):
     if "lastMovementStep" in block.root:
       root.MOVING_BLOCKS_nodeToMove.position += (block.root.lastMovementStep / root.scale).rotated(-root.rotation)
     else:
