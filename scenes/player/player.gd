@@ -1058,8 +1058,8 @@ func updateCollidingBlocksExited():
 func updateKeyFollowPosition(delta):
   for i in range(0, keys.size()):
     var follow_distance = max(3, 30 - i + keys[i].root.randOffset)
-    var follower = keys[i].root.MOVING_BLOCKS_nodeToMove
-    var leader = keys[i - 1].root.MOVING_BLOCKS_nodeToMove if i else self
+    var follower = keys[i].root.thingThatMoves
+    var leader = keys[i - 1].root.thingThatMoves if i else self
     var direction = (leader.global_position - follower.global_position).normalized()
     var target_position = leader.global_position - direction * follow_distance
     follower.global_position = lerp(follower.global_position, target_position, .3)
