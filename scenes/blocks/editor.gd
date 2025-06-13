@@ -62,7 +62,7 @@ func _on_mouse_exited() -> void:
   isHovered = false
 
 func onEditorMove() -> void:
-  for block: Editor in blocksThisIsAttachedTo:
+  for block: Editor in blocksThisIsAttachedTo.filter(func(e): return is_instance_valid(e)):
     block.blocksAttachedToThisBlock.erase(self)
   blocksThisIsAttachedTo = []
   respawn()
@@ -74,7 +74,7 @@ func respawn() -> void:
       thingThatMoves.position = Vector2.ZERO
     
     if is_in_group("canBeAttachedTo"):
-      for block in blocksAttachedToThisBlock:
+      for block: Editor in blocksAttachedToThisBlock.filter(func(e): return is_instance_valid(e)):
         if !block.thingThatMoves:
           log.err("no thingThatMoves", block.id)
           breakpoint
@@ -275,7 +275,7 @@ func _physics_process(delta: float) -> void:
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):
-    for block: Editor in blocksAttachedToThisBlock:
+    for block: Editor in blocksAttachedToThisBlock.filter(func(e): return is_instance_valid(e)):
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
