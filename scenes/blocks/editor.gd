@@ -48,6 +48,7 @@ var selectedOptions := {}
 var blockOptionsArray := []
 var pm: PopupMenu
 var blocksAttachedToThisBlock: Array[Editor] = []
+var blocksThisIsAttachedTo: Array[Editor] = []
 
 # var currentPath: PathFollow2D
 
@@ -59,6 +60,12 @@ func _on_mouse_entered() -> void:
 
 func _on_mouse_exited() -> void:
   isHovered = false
+
+func onEditorMove() -> void:
+  for block: Editor in blocksThisIsAttachedTo:
+    block.blocksAttachedToThisBlock.erase(self)
+  blocksThisIsAttachedTo = []
+  respawn()
 
 func respawn() -> void:
   if not EDITOR_IGNORE:
@@ -268,11 +275,14 @@ func _physics_process(delta: float) -> void:
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):
-    for block in blocksAttachedToThisBlock:
+    for block: Editor in blocksAttachedToThisBlock:
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
-      block.thingThatMoves.position += lastMovementStep / block.scale
+      if block.cloneEventsHere.following:
+        block.thingThatMoves.position += (lastMovementStep / block.global_scale).rotated(-block.rotation)
+      else:
+        block.onusedOffset += (lastMovementStep / block.global_scale).rotated(-block.rotation)
     
 func _process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return

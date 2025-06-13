@@ -693,7 +693,7 @@ func _physics_process(delta: float) -> void:
         #   $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
         move_and_slide()
         # get_position_delta( )
-        # position.x -= get_platform_velocity().x * delta
+        # position -= get_platform_velocity() * delta
         # if is_on_floor() and get_last_slide_collision():
         #   log.pp(get_last_slide_collision().get_depth() * get_floor_normal())
         #   position.y += get_last_slide_collision().get_depth()
@@ -896,7 +896,8 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
   #   position.y += block.root.lastMovementStep.y / 4
   # else:
   #   log.pp(block.root.lastMovementStep.y)
-  # position.x += block.lastMovementStep.x
+  # fixes falling thru blocks visually, but collision not changed
+  # position += block.lastMovementStep
   #   if str(normal / abs(normal)) == str(block.root.lastMovementStep / abs(block.root.lastMovementStep)):
   #     log.pp("closer", depth, block.root.lastMovementStep)
   #     posOffset = Vector2.ZERO
@@ -1128,6 +1129,4 @@ func updateKeyFollowPosition(delta):
 
 # make pole quadrent pole indicators rotate correctly
 
-# 10x spike add root
 # 10x spike add larger attach
-# block death causes attached items to not follow back to spawn

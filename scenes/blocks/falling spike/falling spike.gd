@@ -6,11 +6,14 @@ extends "res://scenes/blocks/editor.gd"
 var respawnTimer = 0
 const RESPAWN_TIME = 40
 const speed = 3500.0
+var onusedOffset = Vector2.ZERO
 
 func on_respawn():
   falling = false
   position = startPosition
   nodeToFall.position = Vector2.ZERO
+  nodeToFall.position += onusedOffset
+  onusedOffset = Vector2.ZERO
   # $Node2D/collisionNode.position = Vector2(0, 13)
 
 var falling: bool = false
@@ -22,7 +25,7 @@ func on_physics_process(delta: float) -> void:
     if respawnTimer < 0:
       respawning = 0
       respawnTimer = 0
-    scale = global.rerange(respawnTimer, RESPAWN_TIME, 0, Vector2(.1, .1), Vector2(1, 1)) / 7
+    thingThatMoves.scale = global.rerange(respawnTimer, RESPAWN_TIME, 0, Vector2(.1, .1), Vector2(1, 1))
     return
   if falling:
     nodeToFall.position += Vector2(0, -speed * delta)

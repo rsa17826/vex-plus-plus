@@ -18,6 +18,7 @@ editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
+thingThatMoves = NodePath("collisionNode")
 MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
