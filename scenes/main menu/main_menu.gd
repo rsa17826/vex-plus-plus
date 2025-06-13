@@ -19,7 +19,7 @@ func _ready() -> void:
   add_child(pm)
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-  var dir := DirAccess.open(global.path.parsePath("res://maps"))
+  var dir := DirAccess.open(global.path.abs("res://maps"))
   var dirs = (dir.get_directories() as Array)
   dirs.sort_custom(func(a, s):
     return global.loadMapInfo(a).version > global.loadMapInfo(s).version

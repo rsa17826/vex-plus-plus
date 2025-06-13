@@ -245,7 +245,7 @@ func _physics_process(delta: float) -> void:
     States.dead:
       deadTimer -= delta * 60
       deadTimer = clampf(deadTimer, 0, currentRespawnDelay)
-      global.tick = 0
+      # global.tick = global.currentLevel().tick
       if currentRespawnDelay == 0:
         position = lastSpawnPoint
       else:
@@ -692,6 +692,11 @@ func _physics_process(delta: float) -> void:
         #   $Camera2D.position_smoothing_enabled = maxVel < 3500
         #   $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
         move_and_slide()
+        # get_position_delta( )
+        position.x -= get_platform_velocity().x * delta
+        # if is_on_floor() and get_last_slide_collision():
+        #   log.pp(get_last_slide_collision().get_depth() * get_floor_normal())
+        #   position.y += get_last_slide_collision().get_depth()
         # Update the position of the first follower to follow the main node
         # log.pp(position - (start + (velocity*delta)))
         # # log.pp(
@@ -785,7 +790,7 @@ func _physics_process(delta: float) -> void:
         #   # breakpoint
         #   die()
         tryAndDieHazards()
-        tryAndDieSquish()
+        # tryAndDieSquish()
       updateKeyFollowPosition(delta)
       
   if !global.showEditorUi:
@@ -891,7 +896,7 @@ func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bo
   #   position.y += block.root.lastMovementStep.y / 4
   # else:
   #   log.pp(block.root.lastMovementStep.y)
-  #   position.y += block.root.lastMovementStep.y
+  position.x += block.lastMovementStep.x
   #   if str(normal / abs(normal)) == str(block.root.lastMovementStep / abs(block.root.lastMovementStep)):
   #     log.pp("closer", depth, block.root.lastMovementStep)
   #     posOffset = Vector2.ZERO
@@ -945,10 +950,13 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   updateCollidingBlocksExited()
   if full:
     lastSpawnPoint = Vector2(0, 0)
+    global.tick = 0
+    global.currentLevel().tick = 0
+  else:
+    global.tick = global.currentLevel().tick
   lastCollidingBlocks = []
   activePulley = null
   global.stopTicking = true
-  global.tick = 0
   deadTimer = max(respawnTime, 0)
   currentRespawnDelay = respawnTime
   gravState = GravStates.normal
@@ -1119,7 +1127,3 @@ func updateKeyFollowPosition(delta):
 # make clicking to release copy not select blocks
 
 # make pole quadrent pole indicators rotate correctly
-
-# rclick on block picker to set default options
-
-# add donup
