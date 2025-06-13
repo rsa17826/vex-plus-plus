@@ -925,6 +925,7 @@ func win() -> void:
   player.lastSpawnPoint = currentLevel().spawnPoint
   player.deathPosition = player.lastSpawnPoint
   player.die(0, false)
+  player.die(5, false)
   savePlayerLevelData()
 
 var savingPlaterLevelData := false
