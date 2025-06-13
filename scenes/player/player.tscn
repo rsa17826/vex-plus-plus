@@ -1122,6 +1122,8 @@ collision_mask = 60
 floor_constant_speed = true
 floor_max_angle = 0.867429
 floor_snap_length = 5.0
+platform_on_leave = 1
+platform_wall_layers = 63
 script = ExtResource("1_dovo2")
 metadata/_edit_lock_ = true
 

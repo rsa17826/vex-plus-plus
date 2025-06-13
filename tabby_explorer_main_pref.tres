@@ -1,8 +1,8 @@
 [gd_resource type="Resource" load_steps=5 format=3 uid="uid://cqbkcqns23fqe"]
 
-[ext_resource type="Script" uid="uid://dnmo78c3wlmy" path="res://addons/tabby_explorer/editor/dock_pref.gd" id="1_1mg0j"]
-[ext_resource type="Script" uid="uid://bjubkiyk0jyu2" path="res://addons/tabby_explorer/editor/main_pref.gd" id="2_2wbi7"]
-[ext_resource type="Script" uid="uid://bolmid677c3gk" path="res://addons/tabby_explorer/editor/dock_tab_pref.gd" id="2_8tqga"]
+[ext_resource type="Script" uid="uid://byu2pmcs8ogoa" path="res://addons/tabby_explorer/editor/dock_pref.gd" id="1_1mg0j"]
+[ext_resource type="Script" uid="uid://ka8mlbsmra1u" path="res://addons/tabby_explorer/editor/main_pref.gd" id="2_2wbi7"]
+[ext_resource type="Script" uid="uid://e0werhl7sbci" path="res://addons/tabby_explorer/editor/dock_tab_pref.gd" id="2_8tqga"]
 
 [sub_resource type="Resource" id="Resource_hsmaw"]
 script = ExtResource("1_1mg0j")
