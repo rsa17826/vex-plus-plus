@@ -47,6 +47,7 @@ var blockOptions: Dictionary
 var selectedOptions := {}
 var blockOptionsArray := []
 var pm: PopupMenu
+var blocksAttachedToThisBlock: Array[Editor] = []
 
 # var currentPath: PathFollow2D
 
@@ -62,8 +63,8 @@ func _on_mouse_exited() -> void:
 func respawn() -> void:
   if not EDITOR_IGNORE:
     respawning = 2
-    if MOVING_BLOCKS_nodeToMove:
-      MOVING_BLOCKS_nodeToMove.position = Vector2.ZERO
+    if thingThatMoves:
+      thingThatMoves.position = Vector2.ZERO
     global_position = startPosition
     rotation_degrees = startRotation_degrees
     scale = startScale
@@ -246,20 +247,25 @@ func _physics_process(delta: float) -> void:
     cloneEventsHere.on_physics_process(delta)
   if 'on_physics_process' in self:
     self.on_physics_process.call(delta)
-  if not EDITOR_IGNORE:
-    # if respawning:
-    #   lastMovementStep = Vector2.ZERO
-    # else:
-    lastMovementStep = (
-      thingThatMoves.global_position
-      if thingThatMoves else
-      global_position
-    ) - lastpos
-    if respawning:
-      respawning -= 1
-    if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
-      cloneEventsHere.postMovementStep()
-
+  # if respawning:
+  #   lastMovementStep = Vector2.ZERO
+  # else:
+  lastMovementStep = (
+    thingThatMoves.global_position
+    if thingThatMoves else
+    global_position
+  ) - lastpos
+  if respawning:
+    respawning -= 1
+  if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
+    cloneEventsHere.postMovementStep()
+  if is_in_group("canBeAttachedTo"):
+    for block in blocksAttachedToThisBlock:
+      if "thingThatMoves" not in block:
+        log.err("no thingThatMoves", block.id)
+        breakpoint
+      block.thingThatMoves.position += lastMovementStep / block.scale
+    
 func _process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
   if global.openMsgBoxCount: return
@@ -466,12 +472,9 @@ func _processBUZSAW_GENERIC(delta: float) -> void:
   spin(speed, BUZSAW_GENERIC_spriteToRotateRight)
   spin(-speed, BUZSAW_GENERIC_spriteToRotateLeft)
 
-@export_group("MOVING BLOCKS")
-@export var MOVING_BLOCKS_nodeToMove: Node2D
-
 func _physics_processLEFTRIGHT(delta: float) -> void:
-  MOVING_BLOCKS_nodeToMove.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
+  thingThatMoves.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
 func _physics_processUPDOWN(delta: float) -> void:
-  MOVING_BLOCKS_nodeToMove.global_position.y = startPosition.y + sin(global.tick * 1.5) * 200
+  thingThatMoves.global_position.y = startPosition.y + sin(global.tick * 1.5) * 200
 func _physics_processDOWNUP(delta: float) -> void:
-  MOVING_BLOCKS_nodeToMove.global_position.y = startPosition.y - sin(global.tick * 1.5) * 200
+  thingThatMoves.global_position.y = startPosition.y - sin(global.tick * 1.5) * 200
