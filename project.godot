@@ -59,8 +59,8 @@ glass=""
 canBeAttachedTo=""
 "buzsaw - generic"=""
 portal=""
-dontRespawnOnPlayerDeath=""
 donup=""
+dontRespawnOnPlayerDeath=""
 
 [input]
 

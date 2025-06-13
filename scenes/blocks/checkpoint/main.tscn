@@ -11,7 +11,7 @@ radius = 126.13
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or7js"]
 size = Vector2(21, 6)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_rotate", "attaches to things", "dontRespawnOnPlayerDeath"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_rotate", "attaches to things"]]
 script = ExtResource("1_ju53q")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -43,7 +43,7 @@ script = ExtResource("3_ju53q")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
-position = Vector2(-22, 142)
+position = Vector2(-22, 143)
 shape = SubResource("RectangleShape2D_or7js")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
