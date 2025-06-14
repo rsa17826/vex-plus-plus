@@ -891,9 +891,6 @@ var mainLevelName: String
 var beatLevels: Array
 var levelOpts: Dictionary
 
-func starFound() -> void:
-  currentLevel().foundStar = true
-
 func loadInnerLevel(innerLevel: String) -> void:
   currentLevel().spawnPoint = player.global_position - player.get_parent().global_position
   global.loadedLevels.append(newLevelSaveData(innerLevel))
@@ -946,7 +943,6 @@ func newLevelSaveData(levelname):
   return {
     "name": levelname,
     "spawnPoint": Vector2.ZERO,
-    "foundStar": false,
     "tick": 0,
     "blockSaveData": {},
   }.duplicate()
@@ -960,10 +956,12 @@ func saveBlockData():
     blockIds[block.id] += 1
     var dataToSave: Array[String] = block.onSave()
     if dataToSave:
-      var blockId = blockIds[block.id]
-      blockSaveData[blockId] = {}
+      if block.id not in blockSaveData:
+        blockSaveData[block.id] = {}
+      if blockIds[block.id] not in blockSaveData[block.id]:
+        blockSaveData[block.id][blockIds[block.id]] = {}
       for thing in dataToSave:
-        blockSaveData[blockId][thing] = block.get(thing)
+        blockSaveData[block.id][blockIds[block.id]][thing] = block.get(thing)
   return blockSaveData
 
 func loadMap(levelPackName: String, loadFromSave: bool) -> void:
@@ -1037,6 +1035,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   # player.die(3, false)
   global.tick = global.currentLevel().tick
 
+
 func loadBlockData():
   if not "blockSaveData" in currentLevel(): return
   var blockSaveData = currentLevel().blockSaveData
@@ -1047,12 +1046,12 @@ func loadBlockData():
       blockIds[block.id] = 0
     blockIds[block.id] += 1
     var dataToLoad: Array[String] = block.onSave()
+    if block.id not in blockSaveData: continue
+    if blockIds[block.id] not in blockSaveData[block.id]: continue
     if dataToLoad:
-      var blockId = blockIds[block.id]
       for thing in dataToLoad:
-        if blockId in blockSaveData \
-        and thing in blockSaveData[blockId]:
-          block.set(thing, blockSaveData[blockId][thing])
+        if thing not in blockSaveData[block.id][blockIds[block.id]]: continue
+        block.set(thing, blockSaveData[block.id][blockIds[block.id]][thing])
 
 func currentLevel() -> Dictionary:
   return loadedLevels[len(loadedLevels) - 1]

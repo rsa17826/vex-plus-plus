@@ -1,94 +1,63 @@
 {
-  STR(!spark test (copy\)){
-    STR(lastSpawnPoint)VEC2(615.0,-400.0)
-    STR(loadedLevels)[
-      {
-        STR(name)STR(hub)
-        STR(spawnPoint)VEC2(598.074829101563,-516.507202148438)
-        STR(foundStar)BOOL(false)
-        STR(tick)FLOAT(3.83333333333333)
-        STR(blockSaveData){
-          INT(1){
-            STR(texture)STR(2)
-          }
-          INT(2){
-            STR(texture)STR(1)
-          }
-        }
-      }
-    ]
-    STR(beatLevels)[
-      {
-        STR(name)STR(a)
-        STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
-        STR(tick)FLOAT(0.0)
-        STR(blockSaveData){
-          INT(1){
-            STR(texture)STR(2)
-          }
-        }
-      }
-    ]
-  }
-  STR(interaction test){
-    STR(lastSpawnPoint)VEC2(185.0,-430.0)
+  STR(star collection test){
+    STR(lastSpawnPoint)VEC2(-55.0,-60.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(true)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
-          INT(1){
-            STR(texture)STR(1)
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(true)
+            }
+            INT(2){
+              STR(collected)BOOL(true)
+            }
+            INT(3){
+              STR(collected)BOOL(false)
+            }
+            INT(4){
+              STR(collected)BOOL(false)
+            }
+            INT(5){
+              STR(collected)BOOL(false)
+            }
+            INT(6){
+              STR(collected)BOOL(false)
+            }
+            INT(7){
+              STR(collected)BOOL(false)
+            }
+            INT(8){
+              STR(collected)BOOL(false)
+            }
+            INT(9){
+              STR(collected)BOOL(false)
+            }
+            INT(10){
+              STR(collected)BOOL(false)
+            }
+            INT(11){
+              STR(collected)BOOL(false)
+            }
+            INT(12){
+              STR(collected)BOOL(false)
+            }
+            INT(13){
+              STR(collected)BOOL(false)
+            }
+            INT(14){
+              STR(collected)BOOL(false)
+            }
+            INT(15){
+              STR(collected)BOOL(false)
+            }
           }
-          INT(2){
-            STR(texture)STR(1)
-          }
-          INT(3){
-            STR(texture)STR(1)
-          }
-          INT(4){
-            STR(texture)STR(1)
-          }
-          INT(5){
-            STR(texture)STR(1)
-          }
-          INT(6){
-            STR(texture)STR(1)
-          }
-          INT(7){
-            STR(texture)STR(2)
-          }
-        }
-      }
-    ]
-    STR(beatLevels)[]
-  }
-  STR(xz){
-    STR(lastSpawnPoint)VEC2(-25.0,-455.0)
-    STR(loadedLevels)[
-      {
-        STR(name)STR(hub)
-        STR(spawnPoint)VEC2(0.0,0.0)
-        STR(foundStar)BOOL(false)
-        STR(tick)FLOAT(0.0)
-        STR(blockSaveData){
-          INT(1){
-            STR(texture)STR(2)
-          }
-          INT(2){
-            STR(texture)STR(1)
-          }
-          INT(3){
-            STR(texture)STR(3)
-          }
-          INT(4){
-            STR(texture)STR(1)
-          }
-          INT(5){
-            STR(texture)STR(1)
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(2)
+            }
           }
         }
       }

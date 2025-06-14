@@ -16,7 +16,8 @@ func on_respawn() -> void:
   $collisionNode.position = Vector2.ZERO
   if $collisionNode in global.player.keys:
     global.player.keys.erase($collisionNode)
-
+  __enable()
+  
 func on_process(delta: float) -> void:
   if !following: return
   # $collisionNode.global_position = global.player.global_position
