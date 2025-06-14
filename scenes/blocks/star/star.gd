@@ -5,14 +5,11 @@ extends "res://scenes/blocks/editor.gd"
 var collected = false
 
 func on_ready() -> void:
-  await global.wait()
-  await global.wait()
-  await global.wait()
-  await global.wait()
-  log.err("collected")
+  pass
+
+func onDataLoaded() -> void:
   if collected:
-    await global.wait()
-    __disable.call_deferred()
+    __disable()
 
 func on_respawn() -> void:
   $collisionNode.position = Vector2.ZERO
@@ -23,6 +20,7 @@ func on_body_entered(body: Node) -> void:
   if body == global.player:
     __disable.call_deferred()
     collected = true
+    global.savePlayerLevelData()
 
 func onSave() -> Array[String]:
   return ["collected"]

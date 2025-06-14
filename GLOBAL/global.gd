@@ -897,7 +897,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   if currentLevel().name not in levelOpts.stages:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
   await wait()
-  level.loadLevel(innerLevel)
+  await level.loadLevel(innerLevel)
   player.die(0, true)
   player.deathPosition = player.lastSpawnPoint
   savePlayerLevelData()
@@ -920,24 +920,26 @@ func win() -> void:
   player.deathPosition = player.lastSpawnPoint
   player.die(0, false)
   player.die(5, false)
+  loadBlockData()
   savePlayerLevelData()
 
-var savingPlaterLevelData := false
+var savingPlayerLevelData := false
 
 func savePlayerLevelData() -> void:
-  if savingPlaterLevelData: return
+  if savingPlayerLevelData: return
   await wait()
-  savingPlaterLevelData = true
+  savingPlayerLevelData = true
   var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
   saveData[mainLevelName] = {
     "lastSpawnPoint": player.lastSpawnPoint,
     "loadedLevels": loadedLevels,
     "beatLevels": beatLevels,
   }
+  log.pp(currentLevel())
   currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
   currentLevel().blockSaveData = saveBlockData()
   sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
-  savingPlaterLevelData = false
+  savingPlayerLevelData = false
 
 func newLevelSaveData(levelname):
   return {
@@ -1035,7 +1037,6 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   # player.die(3, false)
   global.tick = global.currentLevel().tick
 
-
 func loadBlockData():
   if not "blockSaveData" in currentLevel(): return
   var blockSaveData = currentLevel().blockSaveData
@@ -1052,6 +1053,7 @@ func loadBlockData():
       for thing in dataToLoad:
         if thing not in blockSaveData[block.id][blockIds[block.id]]: continue
         block.set(thing, blockSaveData[block.id][blockIds[block.id]][thing])
+      block.onDataLoaded()
 
 func currentLevel() -> Dictionary:
   return loadedLevels[len(loadedLevels) - 1]
