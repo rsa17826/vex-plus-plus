@@ -1117,16 +1117,12 @@ func updateKeyFollowPosition(delta):
 # show on inner level if level has star or not
 # save stars that are collected by id, and show collected count
 # add star finder?
-# add way to check for updates
 
 # add cmd arg to play level by name/path
 
-# fix water bug by checking collisions on respawn end!
 # add nojump floor
 # add 2x jump option?
 
 # make clicking to release copy not select blocks
 
 # make pole quadrent pole indicators rotate correctly
-
-# 10x spike add larger attach
