@@ -800,7 +800,7 @@ func localInput(event: InputEvent) -> void:
   if isActionJustPressedWithNoExtraMods("new_map_folder"):
     createNewMapFolder()
   if isActionJustPressedWithNoExtraMods("duplicate_block"):
-    log.pp(lastSelectedBrush, lastSelectedBlock)
+    # log.pp(lastSelectedBrush, lastSelectedBlock)
     if lastSelectedBrush and lastSelectedBlock:
       selectedBrush = lastSelectedBrush
       selectedBrush.selected = 2
@@ -816,7 +816,7 @@ func localInput(event: InputEvent) -> void:
       localProcess(0)
       lastSelectedBrush.selected = 0
       selectedBrush.selected = 0
-      log.pp(justPaintedBlock.selectedOptions)
+      # log.pp(justPaintedBlock.selectedOptions)
   if isActionJustPressedWithNoExtraMods("toggle_fullscreen"):
     fullscreen()
   if Input.is_action_just_pressed("editor_select"):
@@ -946,7 +946,7 @@ func savePlayerLevelData() -> void:
     "loadedLevels": loadedLevels,
     "beatLevels": beatLevels,
   }
-  log.pp(currentLevel())
+  
   currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
   currentLevel().blockSaveData = saveBlockData()
   sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
