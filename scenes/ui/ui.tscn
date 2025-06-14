@@ -57,8 +57,8 @@ custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 
 [node name="star counter" type="Label" parent="."]
-offset_left = 44.0
-offset_top = 54.0
-offset_right = 84.0
-offset_bottom = 77.0
+offset_left = 57.0
+offset_top = 43.0
+offset_right = 97.0
+offset_bottom = 66.0
 script = ExtResource("5_0dwhk")

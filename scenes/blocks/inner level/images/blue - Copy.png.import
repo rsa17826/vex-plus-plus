@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7rrf7okbb3ru"
-path="res://.godot/imported/complete all stars collected.png-ec35631f644d2f044f0036bec42f9c07.ctex"
+uid="uid://k4a44csltkld"
+path="res://.godot/imported/blue - Copy.png-922567e5971a482976549190e494de34.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/inner level/images/complete all stars collected.png"
-dest_files=["res://.godot/imported/complete all stars collected.png-ec35631f644d2f044f0036bec42f9c07.ctex"]
+source_file="res://scenes/blocks/inner level/images/blue - Copy.png"
+dest_files=["res://.godot/imported/blue - Copy.png-922567e5971a482976549190e494de34.ctex"]
 
 [params]
 

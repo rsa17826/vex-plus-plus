@@ -272,4 +272,30 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(-305.0)
+    STR(y)FLOAT(-85.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(inner level)
+    STR(options){
+      STR(level)STR()
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-160.0)
+    STR(y)FLOAT(-145.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(inner level)
+    STR(options){
+      STR(level)STR(hub)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
 ]
