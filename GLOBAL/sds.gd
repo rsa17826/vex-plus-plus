@@ -103,7 +103,7 @@ static func saveData(val: Variant, _level:=0) -> String:
   return str(val)
 
 static var remainingData := ''
-static var slowRemainingData := ''
+static var RemainingData := []
 static var UNSET: String
 
 const NUMREG = r"(?:nan|inf|-?\d+(?:\.\d+)?)"
@@ -351,11 +351,12 @@ static func loadData(d: String, progress=null) -> Variant:
 
 # with prog bar
 static func loadDataSlow(d: String, progress=null) -> Variant:
+  var IDX = len(RemainingData)
   if not UNSET:
     UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
 
-  slowRemainingData = d.strip_edges() if d else ""
-  if not slowRemainingData:
+  RemainingData.append(d.strip_edges() if d else "")
+  if not RemainingData[IDX]:
     return UNSET
   var __int := func(num: Variant) -> Variant:
     if num == "inf":
@@ -371,44 +372,44 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
       return NAN
     return float(num)
   var getDataFind := func() -> String:
-    var end = slowRemainingData.find(")")
-    var part = slowRemainingData.substr(1, end - 1)
-    slowRemainingData = slowRemainingData.substr(end + 1)
+    var end = RemainingData[IDX].find(")")
+    var part = RemainingData[IDX].substr(1, end - 1)
+    RemainingData[IDX] = RemainingData[IDX].substr(end + 1)
     return part
-  # while UNSET in slowRemainingData:
+  # while UNSET in RemainingData[IDX]:
   #   UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
-  var maxProg = len(slowRemainingData)
+  var maxProg = len(RemainingData[IDX])
   var i = 0
   var _stack: Array
 
   while 1:
     if progress:
-      progress.call(maxProg - len(slowRemainingData), maxProg)
-    if not slowRemainingData:
+      progress.call(maxProg - len(RemainingData[IDX]), maxProg)
+    if not RemainingData[IDX]:
       # log.warn(_stack, stack, 4)
       return _stack[len(_stack) - 1]
-    if progress and i % 800 == 0:
+    if progress and i % 100 == 0:
       await global.wait()
     i += 1
     # var getDataReg := func(reg: String, group:=0) -> String:
-    #   var res = global.regMatch(slowRemainingData, reg)
+    #   var res = global.regMatch(RemainingData[IDX], reg)
     #   if not res:
     #     breakpoint
-    #     log.err(slowRemainingData, 123123123, reg, stack)
+    #     log.err(RemainingData[IDX], 123123123, reg, stack)
     #     return UNSET
-    #   slowRemainingData = slowRemainingData.substr(len(res[0]))
+    #   RemainingData[IDX] = RemainingData[IDX].substr(len(res[0]))
     #   # if len(remainingData) < 100:
     #   #   breakpoint
     #   #   log.err(remainingData)
     #   return res[group]
-    # if not slowRemainingData:
-    #   log.err(slowRemainingData, "current")
+    # if not RemainingData[IDX]:
+    #   log.err(RemainingData[IDX], "current")
     #   breakpoint
 
-    if global.starts_with(slowRemainingData, ']') or global.starts_with(slowRemainingData, '}'):
-      slowRemainingData = slowRemainingData.substr(1).strip_edges()
+    if global.starts_with(RemainingData[IDX], ']') or global.starts_with(RemainingData[IDX], '}'):
+      RemainingData[IDX] = RemainingData[IDX].substr(1).strip_edges()
       # log.pp("DADSADSA", remainingData)
-      if not slowRemainingData:
+      if not RemainingData[IDX]:
         # log.warn(_stack, stack, 1)
         # _stack.append(_stack[len(_stack) - 1])
         while len(_stack) >= 2:
@@ -442,21 +443,21 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
       # remainingData = remainingData
       # stack.append([remainingData, _stack])
       continue
-    slowRemainingData = slowRemainingData.strip_edges()
-    if not slowRemainingData:
-      log.err(slowRemainingData, "current")
+    RemainingData[IDX] = RemainingData[IDX].strip_edges()
+    if not RemainingData[IDX]:
+      log.err(RemainingData[IDX], "current")
       breakpoint
     var type: String
-    if global.starts_with(slowRemainingData, "{"):
+    if global.starts_with(RemainingData[IDX], "{"):
       type = "{"
-    elif global.starts_with(slowRemainingData, "["):
+    elif global.starts_with(RemainingData[IDX], "["):
       type = "["
     else:
-      type = slowRemainingData.substr(0, slowRemainingData.find("("))
-    slowRemainingData = slowRemainingData.substr(len(type))
+      type = RemainingData[IDX].substr(0, RemainingData[IDX].find("("))
+    RemainingData[IDX] = RemainingData[IDX].substr(len(type))
     # if type == UNSET:
-    #   log.warn(slowRemainingData)
-    slowRemainingData = slowRemainingData.strip_edges()
+    #   log.warn(RemainingData[IDX])
+    RemainingData[IDX] = RemainingData[IDX].strip_edges()
     # log.pp("asdjhdash", type, remainingData)
     # log.pp(remainingData, type)
     var thisdata: Variant
@@ -535,21 +536,21 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         # thisdata = getDataReg.call(r"\((true|false)\)", 1)
         thisdata = thisdata == "true"
       "STR":
-        thisdata = slowRemainingData \
+        thisdata = RemainingData[IDX] \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
-        slowRemainingData = slowRemainingData.substr(len(thisdata \
+        RemainingData[IDX] = RemainingData[IDX].substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2)
       "STRNAME":
-        thisdata = slowRemainingData \
+        thisdata = RemainingData[IDX] \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
-        slowRemainingData = slowRemainingData.substr(len(thisdata \
+        RemainingData[IDX] = RemainingData[IDX].substr(len(thisdata \
         .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2)
         thisdata = StringName(thisdata)
@@ -558,13 +559,13 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         # remainingData = remainingData.substr(1)
         _stack.append([])
       _:
-        log.err("bad type", len(type), type, slowRemainingData, 12312)
+        log.err("bad type", len(type), type, RemainingData[IDX], 12312)
         breakpoint
         if type == UNSET:
           return UNSET
         return
     
-    slowRemainingData = slowRemainingData.strip_edges()
+    RemainingData[IDX] = RemainingData[IDX].strip_edges()
     if !global.same(thisdata, UNSET):
       if len(_stack):
         var lastItem = _stack[len(_stack) - 1]

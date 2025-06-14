@@ -9,9 +9,14 @@ func enterLevel() -> void:
   if disabled: return
   global.loadInnerLevel(selectedOptions.level)
 
+
+func on_ready():
+  onAllDataLoaded()
+
+
 func onAllDataLoaded() -> void:
   disabled = false
-  var text: String = selectedOptions.level + "\nNEW"
+  var text: String
   if not selectedOptions.level:
     text = "no level set"
     disabled = true
@@ -62,6 +67,14 @@ func onAllDataLoaded() -> void:
     text = "level already in path"
     disabled = true
     setTexture(sprite, "config error")
+  else:
+    # var starCount = 0
+    # var data = await sds.loadDataFromFileSlow(global.path.abs(global.path.join("res://maps/", global.mainLevelName, selectedOptions.level + ".sds")))
+    # for block in data.slice(1):
+    #   if block.id == "star":
+    #     starCount += 1
+    # text = selectedOptions.level + "\nNEW\n0/" + str(starCount) + " stars collected"
+    text = selectedOptions.level + "\nNEW\n0/??? stars collected"
   label.text = text
 
 func generateBlockOpts():
