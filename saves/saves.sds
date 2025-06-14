@@ -1,10 +1,10 @@
 {
   STR(star collection test){
-    STR(lastSpawnPoint)VEC2(-165.000015258789,-1.52890586853027)
+    STR(lastSpawnPoint)VEC2(-120.999969482422,-1.52890586853027)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
-        STR(spawnPoint)VEC2(-165.000015258789,-1.52890586853027)
+        STR(spawnPoint)VEC2(-120.999969482422,-1.52890586853027)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(star){
@@ -64,6 +64,18 @@
     ]
     STR(beatLevels)[
       {
+        STR(name)STR(3)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){}
+      }
+      {
+        STR(name)STR(2)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){}
+      }
+      {
         STR(name)STR(1)
         STR(spawnPoint)VEC2(0.0,0.0)
         STR(tick)FLOAT(0.0)
@@ -85,19 +97,19 @@
               STR(collected)BOOL(true)
             }
             INT(6){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(7){
               STR(collected)BOOL(true)
             }
             INT(8){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(9){
               STR(collected)BOOL(true)
             }
             INT(10){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(11){
               STR(collected)BOOL(true)
@@ -106,16 +118,10 @@
               STR(collected)BOOL(true)
             }
             INT(13){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
           }
         }
-      }
-      {
-        STR(name)STR(2)
-        STR(spawnPoint)VEC2(0.0,0.0)
-        STR(tick)FLOAT(0.0)
-        STR(blockSaveData){}
       }
     ]
   }

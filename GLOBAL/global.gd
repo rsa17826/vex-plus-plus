@@ -893,13 +893,24 @@ var levelOpts: Dictionary
 
 func loadInnerLevel(innerLevel: String) -> void:
   currentLevel().spawnPoint = player.global_position - player.get_parent().global_position
-  global.loadedLevels.append(newLevelSaveData(innerLevel))
+
+  var prevLevelDataFound = false
+  for level in beatLevels:
+    if level.name == innerLevel:
+      prevLevelDataFound = true
+      global.loadedLevels.append(level)
+      beatLevels.erase(level)
+      break
+  if !prevLevelDataFound:
+    global.loadedLevels.append(newLevelSaveData(innerLevel))
+    
   if currentLevel().name not in levelOpts.stages:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
   await wait()
   await level.loadLevel(innerLevel)
   player.die(0, true)
   player.deathPosition = player.lastSpawnPoint
+  loadBlockData()
   savePlayerLevelData()
   # log.pp(loadedLevels, beatLevels)
 
