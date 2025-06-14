@@ -85,7 +85,6 @@ func respawn() -> void:
     rotation_degrees = startRotation_degrees
     scale = startScale
 
-  __enable()
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
   if 'on_respawn' in self:

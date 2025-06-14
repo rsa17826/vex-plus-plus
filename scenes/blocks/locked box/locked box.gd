@@ -12,3 +12,6 @@ func unlock() -> void:
     __disable()
     await global.wait()
     unlocked = false
+
+func on_respawn() -> void:
+  __enable()
