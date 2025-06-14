@@ -67,6 +67,9 @@ func onEditorMove() -> void:
   attach_parents = []
   respawn()
 
+func onDataLoaded() -> void:
+  pass
+
 func respawn() -> void:
   if not EDITOR_IGNORE:
     respawning = 2
