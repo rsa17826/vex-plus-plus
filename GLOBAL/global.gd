@@ -1065,6 +1065,8 @@ func loadBlockData():
         if thing not in blockSaveData[block.id][blockIds[block.id]]: continue
         block.set(thing, blockSaveData[block.id][blockIds[block.id]][thing])
       block.onDataLoaded()
+  for block: Editor in level.get_node("blocks").get_children():
+    block.onAllDataLoaded()
 
 func currentLevel() -> Dictionary:
   return loadedLevels[len(loadedLevels) - 1]

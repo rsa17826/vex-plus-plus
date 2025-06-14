@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=6 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
 [ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
+[ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar")]
 script = ExtResource("1_oiwrs")
@@ -54,3 +55,10 @@ grow_vertical = 2
 [node name="ProgressBar" type="ProgressBar" parent="ProgressContainer/CenterContainer"]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
+
+[node name="star counter" type="Label" parent="."]
+offset_left = 44.0
+offset_top = 54.0
+offset_right = 84.0
+offset_bottom = 77.0
+script = ExtResource("5_0dwhk")

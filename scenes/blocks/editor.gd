@@ -69,6 +69,8 @@ func onEditorMove() -> void:
 
 func onDataLoaded() -> void:
   pass
+func onAllDataLoaded() -> void:
+  pass
 
 func respawn() -> void:
   if not EDITOR_IGNORE:

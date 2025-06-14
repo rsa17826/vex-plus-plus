@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cpaarl1n8cpb3"]
 
 [ext_resource type="Script" uid="uid://cgnhb1nfxpicv" path="res://scenes/blocks/inner level/inner level.gd" id="1_nkqjd"]
-[ext_resource type="Texture2D" uid="uid://bgtuqvcyjg8ro" path="res://scenes/blocks/inner level/images/2.png" id="2_nkqjd"]
+[ext_resource type="Texture2D" uid="uid://dmxm86ae23yb8" path="res://scenes/blocks/inner level/images/blue.png" id="2_nkqjd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
