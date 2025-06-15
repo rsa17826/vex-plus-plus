@@ -153,20 +153,32 @@ func showPopupMenu():
   await global.wait()
   global.popupStarted = false
 
-func _on_body_exited(body: Node2D) -> void:
+var collisionQueue := {}
+func _on_body_exited(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
-  if global.player.state == global.player.States.dead and body == global.player: return
+  # if global.player.state == global.player.States.dead and body == global.player: return
+  if respawning:
+    if body in collisionQueue and collisionQueue[body] == "entered":
+      collisionQueue.erase(body)
+    else:
+      collisionQueue[body] = "exited"
+    return
   if 'on_body_exited' in self:
     self.on_body_exited.call(body)
   if is_in_group("death"):
     self._on_body_exitedDEATH.call(body)
 
 ## don't overite - use on_body_entered instead
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
   # if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
   #   cloneEventsHere.on_on_body_entered(body)
-  if global.player.state == global.player.States.dead and body == global.player: return
+  if respawning:
+    if body in collisionQueue and collisionQueue[body] == "exited":
+      collisionQueue.erase(body)
+    else:
+      collisionQueue[body] = "entered"
+    return
   if 'on_body_entered' in self:
     self.on_body_entered.call(body)
   if is_in_group("death"):
@@ -294,6 +306,17 @@ func _physics_process(delta: float) -> void:
   ) - lastpos
   if respawning:
     respawning -= 1
+
+    if not respawning:
+      if collisionQueue:
+        log.pp(collisionQueue, id)
+        for block in collisionQueue:
+          if collisionQueue[block] == "exited":
+            _on_body_exited(block)
+          else:
+            _on_body_entered(block)
+        collisionQueue = {}
+      
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):
