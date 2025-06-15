@@ -8,8 +8,6 @@ func on_respawn():
   $Path2D/PathFollow2D.progress = 0
   scale = Vector2(1, 1)
   await global.wait()
-  # for follower in $Area2D.get_overlapping_areas():
-  #   log.pp(block.id)
   $Path2D.curve = Curve2D.new()
   var blocks = global.level.get_node("blocks").get_children().filter(func(block):
     return block is Node2D \
