@@ -1,17 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxbmarl6vnqd"]
+[gd_scene load_steps=5 format=3 uid="uid://bxbmarl6vnqd"]
 
 [ext_resource type="Texture2D" uid="uid://cecu0xpxkcbu1" path="res://scenes/blocks/block death boundary/images/1.png" id="2_01q17"]
 [ext_resource type="Script" uid="uid://65fsd2mbu4w7" path="res://scenes/blocks/block death boundary/block death boundary.gd" id="2_iv7gr"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_j1dbm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" groups=["EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("2_iv7gr")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/Sprite2D")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
 
-[node name="collisionNode" type="Area2D" parent="."]
+[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 1088
 collision_mask = 130
+script = ExtResource("2_j1dbm")
+root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("2_01q17")

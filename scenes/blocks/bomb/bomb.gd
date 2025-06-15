@@ -6,8 +6,8 @@ class_name BlockBomb
 @export var blockDieArea: Area2D
 
 func on_body_entered(body: Node):
-  if body is Player:
-    for block: RootIsEditorBlock in (
+  if body is Player or body.root is BlockPushableBox:
+    for block in (
       blockDieArea.get_overlapping_bodies()
       + blockDieArea.get_overlapping_areas()
     ):

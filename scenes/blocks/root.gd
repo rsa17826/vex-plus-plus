@@ -1,5 +1,4 @@
-@icon("images/1.png")
+@icon("res://scenes/blocks/root.png")
 extends Node2D
-class_name RootIsEditorBlock
 
 @export var root: EditorBlock
