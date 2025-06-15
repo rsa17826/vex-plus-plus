@@ -1027,14 +1027,10 @@ func _on_left_body_exited(body: Node2D) -> void:
 
 func updateCollidingBlocksEntered():
   # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
-  for block in %"respawn detection area".get_overlapping_bodies():
-    if 'root' not in block:
-      log.pp(block, block.id if 'id' in block else 'no id')
-      breakpoint
-    else:
-      block.root._on_body_entered(self)
-  # log.pp("respawn", %"respawn detection area".get_overlapping_areas())
-  for block in %"respawn detection area".get_overlapping_areas():
+  for block in (
+    %"respawn detection area".get_overlapping_bodies()
+    +%"respawn detection area".get_overlapping_areas()
+  ):
     if 'root' not in block:
       log.pp(block, block.id if 'id' in block else 'no id')
       breakpoint
@@ -1042,14 +1038,10 @@ func updateCollidingBlocksEntered():
       block.root._on_body_entered(self)
 func updateCollidingBlocksExited():
   # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
-  for block in %"respawn detection area".get_overlapping_bodies():
-    if 'root' not in block:
-      log.pp(block, block.id if 'id' in block else 'no id')
-      breakpoint
-    else:
-      block.root._on_body_exited(self)
-  # log.pp("respawn", %"respawn detection area".get_overlapping_areas())
-  for block in %"respawn detection area".get_overlapping_areas():
+  for block in (
+    %"respawn detection area".get_overlapping_bodies()
+    +%"respawn detection area".get_overlapping_areas()
+  ):
     if 'root' not in block:
       log.pp(block, block.id if 'id' in block else 'no id')
       breakpoint
