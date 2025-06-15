@@ -1,3 +1,4 @@
+@icon("res://scenes/blocks/inner level/images/ghost.png")
 class_name EditorBlock
 extends Node2D
 # @name same line return
@@ -23,22 +24,28 @@ extends Node2D
 # @flags gm
 # @endregex
 
+## sprite to use for the ghost
 @export var ghostIconNode: Sprite2D
+## sprite to show in the editor bar
 @export var editorBarIconNode: Sprite2D
+## sprites to disable when node disabled
 @export var collisionShapes: Array[CollisionShape2D]
+## sprites to hide when node disabled
 @export var hidableSprites: Array[Node]
+## sends some events to this node
 @export var cloneEventsHere: Node
+## the node that lastMovementStep should be calculated from
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
-@export_category("misc")
+@export_group("misc")
 @export var pathFollowNode: Node
-@export_group("optional")
+@export_subgroup("optional")
 
 ## disables editor features suchas moving, scaling, selecting
 @export var EDITOR_IGNORE: bool = false
 
 ## calls __enable on the node when it respawns
-@export var enableOnRespawn: bool = true
+# @export var enableOnRespawn: bool = true
 
 var root = self
 var _DISABLED := false
@@ -100,8 +107,8 @@ func respawn() -> void:
     global_position = startPosition
     rotation_degrees = startRotation_degrees
     scale = startScale
-    if enableOnRespawn:
-      __enable.call_deferred()
+    # if enableOnRespawn:
+    __enable.call_deferred()
 
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
@@ -267,12 +274,6 @@ func _physics_process(delta: float) -> void:
   if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
   # 
-  if is_in_group("updown"):
-    _physics_processUPDOWN(delta)
-  if is_in_group("downup"):
-    _physics_processDOWNUP(delta)
-  if is_in_group("leftright"):
-    _physics_processLEFTRIGHT(delta)
   # if currentPath:
     # if not pathFollowNode:
     #   log.err("no path follow node", id)
@@ -510,6 +511,7 @@ func _on_body_exitedDEATH(body: Node) -> void:
     if self in global.player.deathSources:
       global.player.deathSources.erase(self)
 
+# res://scenes/blocks/buzsaw/images/1.png
 @export_group("BUZSAW - GENERIC")
 @export var BUZSAW_GENERIC_spriteToRotateRight: Sprite2D
 @export var BUZSAW_GENERIC_spriteToRotateLeft: Sprite2D
@@ -517,10 +519,3 @@ func _processBUZSAW_GENERIC(delta: float) -> void:
   var speed = 80.0
   spin(speed, BUZSAW_GENERIC_spriteToRotateRight)
   spin(-speed, BUZSAW_GENERIC_spriteToRotateLeft)
-
-func _physics_processLEFTRIGHT(delta: float) -> void:
-  thingThatMoves.global_position.x = startPosition.x - sin(global.tick * 1.5) * 200
-func _physics_processUPDOWN(delta: float) -> void:
-  thingThatMoves.global_position.y = startPosition.y + sin(global.tick * 1.5) * 200
-func _physics_processDOWNUP(delta: float) -> void:
-  thingThatMoves.global_position.y = startPosition.y - sin(global.tick * 1.5) * 200

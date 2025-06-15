@@ -13,7 +13,7 @@ radius = 21.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_orajn"]
 radius = 24.0832
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("thingThatMoves",  "timingIndicator", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("timingIndicator", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["attaches to things"]]
 script = ExtResource("1_rybel")
 timingIndicator = NodePath("collisionNode/timing indicator")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -22,7 +22,6 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/timing indicator")]
 cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("collisionNode")
-MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 1024

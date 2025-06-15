@@ -1,4 +1,6 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockPulley
 
 @export var nodeToMove: Node2D = null
 const SPEED = 1000

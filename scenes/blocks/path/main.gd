@@ -1,4 +1,4 @@
-extends "res://scenes/blocks/editor.gd"
+extends EditorBlock
 
 func generateBlockOpts():
   blockOptions.path = {"default": "1003.0,89.0,562.0,449.0,24.0,266.0,1003.0,89.0",

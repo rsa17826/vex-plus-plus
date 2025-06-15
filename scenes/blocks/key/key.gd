@@ -1,6 +1,6 @@
-extends "res://scenes/blocks/editor.gd"
-
-@export_group("KEY")
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockKey
 
 var randOffset: float = 0.5
 var following := false

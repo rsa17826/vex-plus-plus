@@ -7,33 +7,35 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("label", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "inner level"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("label", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "inner level"]]
+script = ExtResource("1_nkqjd")
+label = NodePath("collisionNode/Label")
+sprite = NodePath("collisionNode/Sprite2D")
+ghostIconNode = NodePath("collisionNode/ghost")
+editorBarIconNode = NodePath("collisionNode/ghost")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/Label")]
+
+[node name="collisionNode" type="StaticBody2D" parent="."]
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
-script = ExtResource("1_nkqjd")
-label = NodePath("Label")
-sprite = NodePath("Sprite2D")
-ghostIconNode = NodePath("ghost")
-editorBarIconNode = NodePath("ghost")
-collisionShapes = [NodePath("CollisionShape2D")]
-hidableSprites = [NodePath("Sprite2D"), NodePath("Label")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
 scale = Vector2(0.714286, 0.714286)
 texture = ExtResource("2_nkqjd")
 
-[node name="ghost" type="Sprite2D" parent="."]
+[node name="ghost" type="Sprite2D" parent="collisionNode"]
 visible = false
 use_parent_material = true
 scale = Vector2(0.714286, 0.714286)
 texture = ExtResource("3_0xqb5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="collisionNode"]
 clip_children = 2
 clip_contents = true
 offset_left = -350.0

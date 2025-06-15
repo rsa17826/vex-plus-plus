@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockBouncy
 
-@export_group("BOUNCY")
 var bouncing := false
 var bounceState: float = 0
 var bounceForce: float = 0

@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockSpeedUpLever
 
-@export_group("SPEED UP LEVER")
 var colliding := false
 
 func on_respawn():

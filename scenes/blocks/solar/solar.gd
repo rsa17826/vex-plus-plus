@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockSolar
 
-@export_group("SOLAR")
 func on_physics_process(delta: float) -> void:
   if global.player.lightsOut:
     __disable()

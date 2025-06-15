@@ -1,3 +1,4 @@
+@icon("images/1.png")
 extends RayCast2D
 
 @export var root: EditorBlock

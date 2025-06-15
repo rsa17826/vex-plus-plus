@@ -1,6 +1,6 @@
-extends "res://scenes/blocks/editor.gd"
-
-@export_group("PORTAL")
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockPortal
 
 func on_body_exited(body: Node) -> void:
   if global.lastPortal == self:

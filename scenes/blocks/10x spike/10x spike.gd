@@ -1,4 +1,6 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name Block10xSpike
 
 func on_respawn():
   $Node2D.position = Vector2.ZERO

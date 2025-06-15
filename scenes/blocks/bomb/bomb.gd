@@ -1,4 +1,6 @@
+@icon("images/1.png")
 extends EditorBlock
+class_name BlockBomb
 
 @export_group("BOMB")
 @export var blockDieArea: Area2D

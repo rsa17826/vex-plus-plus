@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockGravityDownLever
 
-@export_group("GRAVITY DOWN LEVER")
 var colliding := false
 
 func on_respawn():

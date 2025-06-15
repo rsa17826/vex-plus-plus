@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockCheckpoint
 
-@export_group("CHECKPOINT")
 @export var sprite: Node2D
 const temp1 = preload("res://scenes/blocks/checkpoint/images/1.png")
 const temp2 = preload("res://scenes/blocks/checkpoint/images/2.png")

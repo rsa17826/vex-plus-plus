@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockSparkBlockClockwise
 
-@export_group("SPARK")
 @export var spark: Node2D
 @export var sprite: Sprite2D
 var textureSize: Vector2

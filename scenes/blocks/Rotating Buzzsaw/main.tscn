@@ -11,7 +11,7 @@ radius = 85.3288
 [sub_resource type="CircleShape2D" id="CircleShape2D_782ym"]
 radius = 72.0069
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("thingThatMoves",  "nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things", "death"]]
 script = ExtResource("1_4olmi")
 nodeToSpin = NodePath("Node2D")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
@@ -19,8 +19,6 @@ editorBarIconNode = NodePath("editor bar icon node")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
-thingThatMoves = NodePath("collisionNode")
-MOVING_BLOCKS_nodeToMove = NodePath("Node2D")
 
 [node name="Node2D" type="Node2D" parent="."]
 

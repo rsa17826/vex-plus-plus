@@ -1,6 +1,6 @@
-extends "res://scenes/blocks/editor.gd"
-
-@export_group("FALLING")
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockFalling
 
 var falling := false
 

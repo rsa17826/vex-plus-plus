@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockCannon
 
-@export_group("CANON")
 func on_body_entered(body: Node) -> void:
   if body == global.player:
     global.player.state = global.player.States.inCannon

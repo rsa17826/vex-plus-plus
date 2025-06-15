@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cf6c7grj1nfe6"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_x528a"]
+[ext_resource type="Script" uid="uid://b18nxhbped0xm" path="res://scenes/blocks/death boundary/death boundary.gd" id="1_x528a"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_uhpmw"]
 [ext_resource type="Texture2D" uid="uid://xqpq0xgkjjf0" path="res://scenes/blocks/death boundary/images/1.png" id="2_x528a"]
 

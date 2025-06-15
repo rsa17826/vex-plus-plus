@@ -1,24 +1,27 @@
 [gd_scene load_steps=4 format=3 uid="uid://c2wmpetbb1hu1"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_ok3xu"]
+[ext_resource type="Script" uid="uid://d4gkhycd4t62p" path="res://scenes/blocks/microwave/microwave.gd" id="1_6ctlr"]
 [ext_resource type="Texture2D" uid="uid://c1uimaul3yjaq" path="res://scenes/blocks/microwave/images/1.png" id="2_lmkjq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
+script = ExtResource("1_6ctlr")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/Sprite2D")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+thingThatMoves = NodePath("collisionNode")
+
+[node name="collisionNode" type="StaticBody2D" parent="."]
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
-script = ExtResource("1_ok3xu")
-ghostIconNode = NodePath("Sprite2D")
-editorBarIconNode = NodePath("Sprite2D")
-collisionShapes = [NodePath("CollisionShape2D")]
-hidableSprites = [NodePath("Sprite2D")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
 texture = ExtResource("2_lmkjq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")

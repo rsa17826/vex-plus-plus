@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockQuadrant
 
-@export_group("QUADRANT")
 @export var nodeToSpin: Node2D
 
 func on_physics_process(delta: float) -> void:

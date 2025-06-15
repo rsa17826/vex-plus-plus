@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockWater
 
-@export_group("WATER")
 @export var sprite: Node2D
 const MAX_REENTER_TIME = 7
 

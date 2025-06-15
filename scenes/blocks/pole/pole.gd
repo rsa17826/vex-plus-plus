@@ -1,7 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockPole
 
-# POLE
-@export_group("POLE")
 @export var timingIndicator: Node2D
 func on_body_entered(body: Node) -> void:
   if body == global.player:

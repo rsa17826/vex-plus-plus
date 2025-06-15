@@ -1,6 +1,6 @@
-extends Area2D
-
-@export var root: EditorBlock
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockBlockDeathBoundary
 
 func _on_body_exited(body: Node2D) -> void:
   pass # Replace with function body.

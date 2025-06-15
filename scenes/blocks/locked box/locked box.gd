@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockLockedBox
 
-@export_group("LOCKED_BOX")
 # boxes can only be unlocked once per frame to prevent excessive key usage
 var unlocked := false
 func unlock() -> void:
