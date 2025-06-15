@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var root: Editor
+@export var root: EditorBlock
 
 # var tempGroups = []
 var following = true

@@ -1,2 +1,4 @@
 extends Node2D
-@export var root: Editor
+class_name RootIsEditorBlock
+
+@export var root: EditorBlock

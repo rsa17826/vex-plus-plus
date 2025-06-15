@@ -37,7 +37,21 @@ window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/auto_expand_inspector/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg")
+enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://GLOBAL/": "blue",
+"res://addons/": "gray",
+"res://downloaded maps/": "gray",
+"res://exports/": "gray",
+"res://images/": "yellow",
+"res://launcher/": "gray",
+"res://maps/": "gray",
+"res://saves/": "gray",
+"res://scenes/": "green"
+}
 
 [global_group]
 
@@ -229,7 +243,8 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 2d_physics/layer_8="BLOCKS THAT CAN DIE"
 2d_physics/layer_9="NOWJ"
 2d_physics/layer_10="SPARK"
-2d_physics/layer_11="PLAYER SHOULD ENTER ON RESPAWN"
+2d_physics/layer_11="PLAYER SHOULD SEND EVENTS ON RESPAWN"
+2d_physics/layer_12="EXPLOSION KILLS THESE"
 
 [maaacks_input_remapping]
 
