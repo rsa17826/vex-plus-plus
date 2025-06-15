@@ -1,6 +1,6 @@
 {
   STR(star collection test){
-    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(lastSpawnPoint)VEC2(165.0,-320.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -48,7 +48,7 @@
               STR(collected)BOOL(true)
             }
             INT(14){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(15){
               STR(collected)BOOL(true)
@@ -66,12 +66,6 @@
             }
           }
         }
-      }
-      {
-        STR(name)STR(4)
-        STR(spawnPoint)VEC2(0.0,0.0)
-        STR(tick)FLOAT(0.0)
-        STR(blockSaveData){}
       }
     ]
     STR(beatLevels)[
@@ -143,6 +137,12 @@
       }
       {
         STR(name)STR(5)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){}
+      }
+      {
+        STR(name)STR(4)
         STR(spawnPoint)VEC2(0.0,0.0)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){}

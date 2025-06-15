@@ -9,6 +9,7 @@ extends CharacterBody2D
 
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
+  if root._DISABLED: return
   if currentWatters:
     velocity.y -= max(95 * delta * (velocity.y / 8), 10)
   else:

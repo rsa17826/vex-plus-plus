@@ -502,7 +502,7 @@ func setTexture(node: Node, newTexture: String) -> void:
 
 ## disables the node collision and hides the sprites
 func __disable() -> void:
-  if _DISABLED: return
+  # if _DISABLED: return
   if cloneEventsHere and 'on_disable' in cloneEventsHere:
     cloneEventsHere.on_disable()
   _DISABLED = true
@@ -513,7 +513,7 @@ func __disable() -> void:
 
 ## enables the node collision and shows the sprites
 func __enable() -> void:
-  if not _DISABLED: return
+  # if not _DISABLED: return
   if cloneEventsHere and 'on_enable' in cloneEventsHere:
     cloneEventsHere.on_enable()
   _DISABLED = false
