@@ -835,50 +835,49 @@ func tryAndDieSquish():
     log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
     die()
 
-func handleCollision(block: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
-  block = block.root
+func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
+  var block: EditorBlock = b.root
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
   if block.respawning: return
   if sameFrame:
     if (
-      block.is_in_group("falling")
-      or block.is_in_group("donup")
+      block is BlockDonup
+      or block is BlockFalling
     ) \
     and normal.y < 0 \
     and velocity.y >= 0 \
     :
-      log.pp("asdjkasljdklaskjdlkasjd")
       block.falling = true
-    if block.is_in_group("glass") \
+    if block is BlockGlass \
     and normal.y < 0 \
     and velocity.y >= 0 \
     and vel.user.y > 0 \
     and Input.is_action_pressed("down") \
     :
       block.__disable()
-    if block.is_in_group("bouncy") \
+    if block is BlockBouncy \
     and normal.y < 0 \
     and velocity.y >= 0 \
     and not inWaters \
     :
       block.start()
-    if block.is_in_group("inner level") \
+    if block is BlockInnerLevel \
     and normal.y < 0 \
     and state == States.sliding \
     and abs(vel.user.x) < 10 \
     :
       block.enterLevel()
-    if block.is_in_group("locked box") \
+    if block is BlockLockedBox \
     :
       block.unlock()
-    if block.is_in_group("pushable") \
+    if block is BlockPushableBox \
     and getClosestWallSide() \
     and Input.is_action_just_pressed("down") \
     and not inWaters \
     and normal.y \
     :
-      block.velocity.x -= getClosestWallSide() * 120
+      block.thingThatMoves.velocity.x -= getClosestWallSide() * 120
       $anim.animation = "kicking box"
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
       position.y -= 1

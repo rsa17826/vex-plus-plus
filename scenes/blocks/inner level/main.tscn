@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("label", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "inner level"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("label", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_nkqjd")
 label = NodePath("collisionNode/Label")
 sprite = NodePath("collisionNode/Sprite2D")
