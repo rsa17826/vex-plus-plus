@@ -1,20 +1,20 @@
 [gd_scene load_steps=5 format=3 uid="uid://b1hgu7jqyk18j"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_rxiis"]
+[ext_resource type="Script" uid="uid://dc8hvm6clai8v" path="res://scenes/blocks/leftright/leftright.gd" id="1_2xj4m"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_2xj4m"]
 [ext_resource type="Texture2D" uid="uid://coyojapjp1e0a" path="res://scenes/blocks/leftright/images/1.png" id="2_so81h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale", "canBeAttachedTo", "leftright"]]
-script = ExtResource("1_rxiis")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale", "canBeAttachedTo", "leftright"]]
+script = ExtResource("1_2xj4m")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
+cloneEventsHere = NodePath("collisionNode")
 thingThatMoves = NodePath("collisionNode")
-MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 8

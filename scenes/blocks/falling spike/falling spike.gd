@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockFallingSpike
 
-@export_group("FALLING SPIKE")
 @export var nodeToFall: Node2D
 
 var respawnTimer = 0

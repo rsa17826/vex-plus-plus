@@ -1,4 +1,6 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockLightSwitch
 
 func on_body_entered(body: Node) -> void:
   if body == global.player:

@@ -1,6 +1,6 @@
-extends "res://scenes/blocks/editor.gd"
-
-@export_group("STAR")
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockStar
 
 var collected = false
 

@@ -1,24 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxbmarl6vnqd"]
+[gd_scene load_steps=4 format=3 uid="uid://bxbmarl6vnqd"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_6pqk3"]
 [ext_resource type="Texture2D" uid="uid://cecu0xpxkcbu1" path="res://scenes/blocks/block death boundary/images/1.png" id="2_01q17"]
 [ext_resource type="Script" uid="uid://65fsd2mbu4w7" path="res://scenes/blocks/block death boundary/block death boundary.gd" id="2_iv7gr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale"]]
-script = ExtResource("1_6pqk3")
-ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D")]
+[node name="Node2D" type="Node2D" groups=["EDITOR_OPTION_scale"]]
+script = ExtResource("2_iv7gr")
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="."]
 collision_layer = 1088
 collision_mask = 130
-script = ExtResource("2_iv7gr")
-root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("2_01q17")
@@ -27,7 +20,7 @@ texture = ExtResource("2_01q17")
 visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 
-[connection signal="area_entered" from="collisionNode" to="collisionNode" method="_on_body_entered"]
-[connection signal="area_exited" from="collisionNode" to="collisionNode" method="_on_body_exited"]
-[connection signal="body_entered" from="collisionNode" to="collisionNode" method="_on_body_entered"]
-[connection signal="body_exited" from="collisionNode" to="collisionNode" method="_on_body_exited"]
+[connection signal="area_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="area_exited" from="collisionNode" to="." method="_on_body_exited"]
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

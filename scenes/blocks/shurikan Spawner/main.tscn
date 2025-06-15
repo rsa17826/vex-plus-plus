@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cndl3qgbg1exr"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_y1blk"]
+[ext_resource type="Script" uid="uid://djkstxmhrl3yq" path="res://scenes/blocks/shurikan Spawner/shurikan Spawner.gd" id="1_8qfqg"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_8qfqg"]
 [ext_resource type="Texture2D" uid="uid://c8obyd2ujfj3y" path="res://scenes/blocks/shurikan Spawner/images/1.png" id="2_y1blk"]
 [ext_resource type="Texture2D" uid="uid://b80mby7ousxe7" path="res://scenes/blocks/shurikan Spawner/images/editorBar.png" id="3_86yqw"]
@@ -12,15 +12,13 @@ radius = 30.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qfqg"]
 radius = 127.016
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("thingThatMoves",  "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_rotate", "attaches to things", "death"]]
-script = ExtResource("1_y1blk")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["EDITOR_OPTION_rotate", "attaches to things", "death"]]
+script = ExtResource("1_8qfqg")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("EditorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
-thingThatMoves = NodePath("collisionNode")
-MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 1040

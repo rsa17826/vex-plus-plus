@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/ghost.png")
+extends EditorBlock
+class_name BlockInnerLevel
 
-@export_group("INNER LEVEL")
 @export var label: Node
 @export var sprite: Node2D
 var disabled := false

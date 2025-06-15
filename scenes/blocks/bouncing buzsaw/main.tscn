@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://juewjf0r37e0"]
 
-[ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_cbe4i"]
+[ext_resource type="Script" uid="uid://c5ds4wbynqg5y" path="res://scenes/blocks/bouncing buzsaw/bouncing buzsaw.gd" id="1_sq8c8"]
 [ext_resource type="Texture2D" uid="uid://6piyx4pmutk2" path="res://scenes/blocks/buzsaw/images/1.png" id="2_807tk"]
 [ext_resource type="Script" uid="uid://cop22motknsjj" path="res://scenes/blocks/bouncing buzsaw/character_body_2d.gd" id="2_ogg4d"]
 [ext_resource type="Texture2D" uid="uid://bj872x80mv3ry" path="res://scenes/blocks/bouncing buzsaw/images/editorBar.png" id="3_807tk"]
@@ -13,7 +13,7 @@ radius = 299.202
 radius = 306.041
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["EDITOR_OPTION_scale", "buzsaw - generic", "death"]]
-script = ExtResource("1_cbe4i")
+script = ExtResource("1_sq8c8")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIconNode = NodePath("CharacterBody2D/editorBar")
 collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/collisionNode/CollisionShape2D2")]

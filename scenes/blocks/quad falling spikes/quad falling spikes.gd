@@ -1,4 +1,5 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
 
 # var respawnTimer = 0
 # const RESPAWN_TIME = 150

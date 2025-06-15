@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bs3gl2bshih77"]
+[gd_scene load_steps=7 format=3 uid="uid://ii8o72o6avo4"]
 
-[ext_resource type="Script" uid="uid://cbw0xqfhfuolq" path="res://scenes/blocks/spark clockwise/spark clockwise.gd" id="1_lv01i"]
-[ext_resource type="Texture2D" uid="uid://ckvrig04jknje" path="res://scenes/blocks/spark counterClockwise/images/1.png" id="2_tyx8y"]
-[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_d7myr"]
-[ext_resource type="Texture2D" uid="uid://7p2w81jgd18p" path="res://scenes/blocks/spark counterClockwise/images/spark.png" id="3_kbh7l"]
+[ext_resource type="Script" uid="uid://db7rvdnitj8va" path="res://scenes/blocks/spark block counterClockwise/spark counterClockwise.gd" id="1_g6uie"]
+[ext_resource type="Texture2D" uid="uid://drnfbxktv4jrf" path="res://scenes/blocks/spark block clockwise/images/1.png" id="2_g6uie"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_j63kj"]
+[ext_resource type="Texture2D" uid="uid://7p2w81jgd18p" path="res://scenes/blocks/spark block counterClockwise/images/spark.png" id="3_ooncx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -11,28 +11,28 @@ size = Vector2(700, 700)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ooncx"]
 radius = 31.0161
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode", "MOVING_BLOCKS_nodeToMove") groups=["EDITOR_OPTION_scale"]]
-script = ExtResource("1_lv01i")
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode") groups=["EDITOR_OPTION_scale"]]
+script = ExtResource("1_g6uie")
 spark = NodePath("collisionNode/spark")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/spark/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/spark/Sprite2D"), NodePath("collisionNode/Sprite2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/spark/Sprite2D")]
+cloneEventsHere = NodePath("collisionNode/spark")
 thingThatMoves = NodePath("collisionNode")
 pathFollowNode = NodePath("collisionNode")
-MOVING_BLOCKS_nodeToMove = NodePath("collisionNode")
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
-script = ExtResource("3_d7myr")
+script = ExtResource("3_j63kj")
 root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
-texture = ExtResource("2_tyx8y")
+texture = ExtResource("2_g6uie")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
@@ -40,11 +40,11 @@ shape = SubResource("RectangleShape2D_gwpbw")
 [node name="spark" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root") groups=["spark"]]
 collision_layer = 1552
 collision_mask = 2
-script = ExtResource("3_d7myr")
+script = ExtResource("3_j63kj")
 root = NodePath("../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode/spark"]
-texture = ExtResource("3_kbh7l")
+texture = ExtResource("3_ooncx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/spark"]
 shape = SubResource("CircleShape2D_ooncx")

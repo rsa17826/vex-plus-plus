@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockGrowingBuzsaw
 
-@export_group("growing buzsaw")
 @export var nodeToScale: Node2D
 
 func on_respawn():

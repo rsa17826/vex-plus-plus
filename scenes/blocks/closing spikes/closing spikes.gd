@@ -1,6 +1,7 @@
-extends "res://scenes/blocks/editor.gd"
+@icon("images/1.png")
+extends EditorBlock
+class_name BlockClosingSpikes
 
-@export_group("CLOSING_SPIKES")
 @export var leftCollisionShape: CollisionShape2D
 @export var rightCollisionShape: CollisionShape2D
 @export var leftSprite: Sprite2D
