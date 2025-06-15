@@ -871,7 +871,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     if block is BlockLockedBox \
     :
       block.unlock()
-    if block is BlockPushableBox \
+    if (block is BlockPushableBox or block is BlockBomb) \
     and getClosestWallSide() \
     and Input.is_action_just_pressed("down") \
     and not inWaters \
@@ -882,7 +882,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
       position.y -= 1
 
-    if block.is_in_group("pushable") \
+    if (block is BlockPushableBox or block is BlockBomb) \
     and is_on_floor() \
     and normal.x \
     and not inWaters \

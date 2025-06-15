@@ -403,7 +403,7 @@
   }
   {
     STR(x)FLOAT(290.0)
-    STR(y)FLOAT(-230.0)
+    STR(y)FLOAT(-185.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -474,6 +474,39 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(downup)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-480.0)
+    STR(y)FLOAT(-445.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-342.5)
+    STR(y)FLOAT(280.0)
+    STR(w)FLOAT(6.94999969005585)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-220.521240234375)
+    STR(y)FLOAT(-346.104675292969)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
     STR(options){
       STR(color)STR(#fff)
     }
