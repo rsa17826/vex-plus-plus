@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsjamtdbnxv2p"]
+
+[ext_resource type="Script" uid="uid://x0qfdvkjrelx" path="res://scenes/blocks/bomb/bomb.gd" id="1_o857y"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_82r38"]
+[ext_resource type="Texture2D" uid="uid://d2h2dshw58tiq" path="res://scenes/blocks/bomb/images/1 (2).png" id="3_o857y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
+size = Vector2(700, 700)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o857y"]
+radius = 1024.0
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale"]]
+script = ExtResource("1_o857y")
+blockDieArea = NodePath("Node2D/block die area")
+ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
+editorBarIconNode = NodePath("Node2D/collisionNode/Sprite2D")
+collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+collision_layer = 1040
+collision_mask = 2
+script = ExtResource("2_82r38")
+root = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/collisionNode"]
+texture = ExtResource("3_o857y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+shape = SubResource("RectangleShape2D_gwpbw")
+
+[node name="block die area" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 2048
+script = ExtResource("2_82r38")
+root = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/block die area"]
+shape = SubResource("CircleShape2D_o857y")
+
+[connection signal="body_entered" from="Node2D/collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Node2D/collisionNode" to="." method="_on_body_exited"]

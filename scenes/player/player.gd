@@ -127,6 +127,7 @@ enum GravStates {
   down,
   normal
 }
+
 func _init() -> void:
   global.player = self
 

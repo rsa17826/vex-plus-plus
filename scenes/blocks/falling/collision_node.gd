@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var root: Editor
+@export var root: EditorBlock
 
 var speed = 2500
 var startTime = 0

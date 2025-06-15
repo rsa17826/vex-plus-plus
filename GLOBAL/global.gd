@@ -544,7 +544,7 @@ var level: Node2D
 
 var hoveredBlocks: Array = []
 var selectedBlockOffset: Vector2
-var selectedBlock: Editor = null
+var selectedBlock: EditorBlock = null
 var editorInScaleMode := false
 var editorInRotateMode := false
 
@@ -963,7 +963,7 @@ func newLevelSaveData(levelname):
 func saveBlockData():
   var blockSaveData = {}
   var blockIds = {}
-  for block: Editor in level.get_node("blocks").get_children():
+  for block: EditorBlock in level.get_node("blocks").get_children():
     if block.id not in blockIds:
       blockIds[block.id] = 0
     blockIds[block.id] += 1
@@ -1053,7 +1053,7 @@ func loadBlockData():
   var blockSaveData = currentLevel().blockSaveData
   global.tick = currentLevel().tick
   var blockIds = {}
-  for block: Editor in level.get_node("blocks").get_children():
+  for block: EditorBlock in level.get_node("blocks").get_children():
     if block.id not in blockIds:
       blockIds[block.id] = 0
     blockIds[block.id] += 1
@@ -1065,7 +1065,7 @@ func loadBlockData():
         if thing not in blockSaveData[block.id][blockIds[block.id]]: continue
         block.set(thing, blockSaveData[block.id][blockIds[block.id]][thing])
       block.onDataLoaded()
-  for block: Editor in level.get_node("blocks").get_children():
+  for block: EditorBlock in level.get_node("blocks").get_children():
     block.onAllDataLoaded()
 
 func currentLevel() -> Dictionary:
@@ -1500,6 +1500,7 @@ var blockNames: Array = [
   "falling spike",
   # "quad falling spikes",
   "portal",
+  "bomb",
   # "path",
 ]
 

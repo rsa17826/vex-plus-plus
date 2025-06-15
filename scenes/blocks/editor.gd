@@ -1,4 +1,4 @@
-class_name Editor
+class_name EditorBlock
 extends Node2D
 # @name same line return
 # @regex :\s*(return|continue|break)\s*$
@@ -23,7 +23,6 @@ extends Node2D
 # @flags gm
 # @endregex
 
-@export var EDITOR_IGNORE: bool = false
 @export var ghostIconNode: Sprite2D
 @export var editorBarIconNode: Sprite2D
 @export var collisionShapes: Array[CollisionShape2D]
@@ -31,7 +30,15 @@ extends Node2D
 @export var cloneEventsHere: Node
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
+@export_category("misc")
 @export var pathFollowNode: Node
+@export_group("optional")
+
+## disables editor features suchas moving, scaling, selecting
+@export var EDITOR_IGNORE: bool = false
+
+## calls __enable on the node when it respawns
+@export var enableOnRespawn: bool = true
 
 var root = self
 var _DISABLED := false
@@ -47,11 +54,12 @@ var blockOptions: Dictionary
 var selectedOptions := {}
 var blockOptionsArray := []
 var pm: PopupMenu
-var attach_children: Array[Editor] = []
-var attach_parents: Array[Editor] = []
+var attach_children: Array[EditorBlock] = []
+var attach_parents: Array[EditorBlock] = []
 
 # var currentPath: PathFollow2D
 
+## overite this to return properties to save
 func onSave() -> Array[String]:
   return []
 
@@ -62,16 +70,19 @@ func _on_mouse_exited() -> void:
   isHovered = false
 
 func onEditorMove() -> void:
-  for block: Editor in attach_parents.filter(func(e): return is_instance_valid(e)):
+  for block: EditorBlock in attach_parents.filter(func(e): return is_instance_valid(e)):
     block.attach_children.erase(self)
   attach_parents = []
   respawn()
 
+## overite this to receive event when data for this block is loaded
 func onDataLoaded() -> void:
   pass
+## overite this to receive event when data for all blocks loaded
 func onAllDataLoaded() -> void:
   pass
 
+## don't overite - use on_respawn instead
 func respawn() -> void:
   if not EDITOR_IGNORE:
     respawning = 2
@@ -79,7 +90,7 @@ func respawn() -> void:
       thingThatMoves.position = Vector2.ZERO
     
     if is_in_group("canBeAttachedTo"):
-      for block: Editor in attach_children.filter(func(e): return is_instance_valid(e)):
+      for block: EditorBlock in attach_children.filter(func(e): return is_instance_valid(e)):
         if !block.thingThatMoves:
           log.err("no thingThatMoves", block.id)
           breakpoint
@@ -89,6 +100,8 @@ func respawn() -> void:
     global_position = startPosition
     rotation_degrees = startRotation_degrees
     scale = startScale
+    if enableOnRespawn:
+      __enable.call_deferred()
 
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
@@ -103,8 +116,8 @@ var onRightSide := false
 var last_input_event: InputEvent
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   if not EDITOR_IGNORE:
-    if cloneEventsHere and 'on_on_input_event' in cloneEventsHere:
-      cloneEventsHere.on_on_input_event(viewport, event, shape_idx)
+    if cloneEventsHere and 'on_input_event' in cloneEventsHere:
+      cloneEventsHere.on_input_event(viewport, event, shape_idx)
     if last_input_event == event: return
     last_input_event = event
     # if selecting this block
@@ -141,6 +154,7 @@ func _on_body_exited(body: Node2D) -> void:
   if is_in_group("death"):
     self._on_body_exitedDEATH.call(body)
 
+## don't overite - use on_body_entered instead
 func _on_body_entered(body: Node2D) -> void:
   if global.player.state == global.player.States.levelLoading: return
   # if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
@@ -151,6 +165,7 @@ func _on_body_entered(body: Node2D) -> void:
   if is_in_group("death"):
     self._on_body_enteredDEATH.call(body)
 
+## don't overite - use on_ready instead
 func _ready() -> void:
   if not EDITOR_IGNORE:
     if _ready not in global.player.OnPlayerFullRestart:
@@ -244,6 +259,7 @@ func editOption(idx: int) -> void:
   respawn()
   _ready()
 
+## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved
 func _physics_process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
   if global.stopTicking: return
@@ -280,7 +296,7 @@ func _physics_process(delta: float) -> void:
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):
-    for block: Editor in attach_children.filter(func(e): return is_instance_valid(e)):
+    for block: EditorBlock in attach_children.filter(func(e): return is_instance_valid(e)):
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
@@ -289,6 +305,7 @@ func _physics_process(delta: float) -> void:
       else:
         block.onusedOffset += (lastMovementStep / block.global_scale).rotated(-block.rotation)
     
+## don't overite - use on_process instead
 func _process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
   if global.openMsgBoxCount: return
@@ -319,11 +336,12 @@ func _process(delta: float) -> void:
       if global.selectedBlock == self:
         if Input.is_action_pressed("editor_select"):
           global_position = startPosition
-        for collider in collisionShapes:
-          if not collider:
-            log.pp(collider, collisionShapes, id)
-            breakpoint
-          collider.disabled = true
+        if not _DISABLED:
+          for collider in collisionShapes:
+            if not collider:
+              log.pp(collider, collisionShapes, id)
+              breakpoint
+            collider.disabled = true
         ghost.use_parent_material = false
         ghost.material.set_shader_parameter("color", Color("#6013ff"))
       else:
@@ -446,29 +464,34 @@ func createEditorGhost() -> void:
   ghost.add_child(collider)
   add_child(ghost)
 
+## spins the node at speed using global tick
 func spin(speed: float, node: Node2D = self) -> void:
   node.rotation_degrees = fmod(global.tick * speed, 360.0)
 
+## returns the name of the texture of a node
 func getTexture(node: Node2D) -> String:
   return global.regMatch(node.texture.resource_path, r'/([^/]+)\.png$')[1].strip_edges()
 
+## sets the texture of a node to a given name from the same folder as the previous texture
 func setTexture(node: Node, newTexture: String) -> void:
   node.texture = load(global.regReplace(node.texture.resource_path, '/[^/]+$', '/' + str(newTexture) + '.png'))
 
+## disables the node collision and hides the sprites
 func __disable() -> void:
   if _DISABLED: return
-  if cloneEventsHere and 'on__disable' in cloneEventsHere:
-    cloneEventsHere.on__disable()
+  if cloneEventsHere and 'on_disable' in cloneEventsHere:
+    cloneEventsHere.on_disable()
   _DISABLED = true
   for collider in collisionShapes:
     collider.disabled = true
   for sprite in hidableSprites:
     sprite.visible = false
 
+## enables the node collision and shows the sprites
 func __enable() -> void:
   if not _DISABLED: return
-  if cloneEventsHere and 'on__enable' in cloneEventsHere:
-    cloneEventsHere.on__enable()
+  if cloneEventsHere and 'on_enable' in cloneEventsHere:
+    cloneEventsHere.on_enable()
   _DISABLED = false
   for collider in collisionShapes:
     collider.disabled = false
