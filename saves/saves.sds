@@ -18,13 +18,13 @@
               STR(collected)BOOL(true)
             }
             INT(4){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(5){
               STR(collected)BOOL(false)
             }
             INT(6){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(7){
               STR(collected)BOOL(false)
@@ -42,7 +42,7 @@
               STR(collected)BOOL(false)
             }
             INT(12){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(13){
               STR(collected)BOOL(true)

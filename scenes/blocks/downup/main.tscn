@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["EDITOR_OPTION_scale", "canBeAttachedTo", "downup"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["EDITOR_OPTION_scale", "canBeAttachedTo"]]
 script = ExtResource("1_j6dq1")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
@@ -16,7 +16,7 @@ hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 
 [node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 8
+collision_layer = 4104
 collision_mask = 0
 input_pickable = true
 script = ExtResource("2_j6dq1")
