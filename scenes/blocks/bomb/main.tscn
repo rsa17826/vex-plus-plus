@@ -1,46 +1,176 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsjamtdbnxv2p"]
+[gd_scene load_steps=22 format=3 uid="uid://dsjamtdbnxv2p"]
 
 [ext_resource type="Script" uid="uid://x0qfdvkjrelx" path="res://scenes/blocks/bomb/bomb.gd" id="1_o857y"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_82r38"]
+[ext_resource type="Script" uid="uid://dskov0xiwapge" path="res://scenes/blocks/bomb/character_body_2d.gd" id="2_nku45"]
 [ext_resource type="Texture2D" uid="uid://d2h2dshw58tiq" path="res://scenes/blocks/bomb/images/1 (2).png" id="3_o857y"]
+[ext_resource type="Texture2D" uid="uid://b2287wo04din2" path="res://scenes/blocks/bomb/images/Explosion.png" id="4_82r38"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e08ji"]
+size = Vector2(700, 700)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_o857y"]
-radius = 1024.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nku45"]
+atlas = ExtResource("4_82r38")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e08ji"]
+atlas = ExtResource("4_82r38")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvu3y"]
+atlas = ExtResource("4_82r38")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58cn1"]
+atlas = ExtResource("4_82r38")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_042h2"]
+atlas = ExtResource("4_82r38")
+region = Rect2(384, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2lbq"]
+atlas = ExtResource("4_82r38")
+region = Rect2(480, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hj0gx"]
+atlas = ExtResource("4_82r38")
+region = Rect2(576, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gst0v"]
+atlas = ExtResource("4_82r38")
+region = Rect2(672, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5e0dd"]
+atlas = ExtResource("4_82r38")
+region = Rect2(768, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4n5f2"]
+atlas = ExtResource("4_82r38")
+region = Rect2(864, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j0h48"]
+atlas = ExtResource("4_82r38")
+region = Rect2(960, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xod4d"]
+atlas = ExtResource("4_82r38")
+region = Rect2(1056, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h47rq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nku45")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e08ji")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvu3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58cn1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_042h2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2lbq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hj0gx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gst0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5e0dd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4n5f2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j0h48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xod4d")
+}],
+"loop": true,
+"name": &"explode",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"none",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "boomSprite", "boomShape", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_o857y")
-blockDieArea = NodePath("Node2D/block die area")
-ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
-editorBarIconNode = NodePath("Node2D/collisionNode/Sprite2D")
-collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
-thingThatMoves = NodePath("Node2D/collisionNode")
+blockDieArea = NodePath("CharacterBody2D/block die area")
+boomSprite = NodePath("CharacterBody2D/AnimatedSprite2D")
+boomShape = NodePath("CharacterBody2D/block die area/CollisionShape2D")
+ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
+editorBarIconNode = NodePath("CharacterBody2D/Sprite2D")
+collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/water detection area/CollisionShape2D2"), NodePath("CharacterBody2D/explosion trigger area/CollisionShape2D"), NodePath("CharacterBody2D/block die area/CollisionShape2D")]
+hidableSprites = [NodePath("CharacterBody2D/Sprite2D"), NodePath("CharacterBody2D/AnimatedSprite2D")]
+cloneEventsHere = NodePath("CharacterBody2D")
+thingThatMoves = NodePath("CharacterBody2D")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
+scale = Vector2(0.97, 0.97)
+collision_layer = 168
+collision_mask = 8
+floor_stop_on_slope = false
+script = ExtResource("2_nku45")
+root = NodePath("..")
 
-[node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_e08ji")
+
+[node name="water detection area" type="Area2D" parent="CharacterBody2D"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/water detection area"]
+shape = SubResource("RectangleShape2D_e08ji")
+
+[node name="explosion trigger area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
+scale = Vector2(1.03093, 1.03093)
 collision_layer = 1024
 collision_mask = 4096
 script = ExtResource("2_82r38")
 root = NodePath("../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/collisionNode"]
-texture = ExtResource("3_o857y")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/explosion trigger area"]
 shape = SubResource("RectangleShape2D_gwpbw")
 
-[node name="block die area" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="block die area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
+scale = Vector2(1.03093, 1.03093)
 collision_layer = 0
 collision_mask = 2048
 script = ExtResource("2_82r38")
 root = NodePath("../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/block die area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/block die area"]
 shape = SubResource("CircleShape2D_o857y")
 
-[connection signal="body_entered" from="Node2D/collisionNode" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="Node2D/collisionNode" to="." method="_on_body_exited"]
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(1.03093, 1.03093)
+texture = ExtResource("3_o857y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+scale = Vector2(23.1856, 23.1856)
+sprite_frames = SubResource("SpriteFrames_h47rq")
+animation = &"explode"
+
+[connection signal="area_entered" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="CharacterBody2D/explosion trigger area" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/explosion trigger area" to="." method="_on_body_exited"]

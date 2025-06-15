@@ -9,14 +9,19 @@ extends CharacterBody2D
 
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
+  if root.exploded: return
   if currentWatters:
     velocity.y -= max(95 * delta * (velocity.y / 8), 10)
   else:
     if not is_on_floor():
       velocity.y += global.player.GRAVITY * delta
   velocity.x *= .90 if is_on_floor() else .97
+  var shouldExplode = velocity.y > 700
+  # log.pp(velocity.y)
   move_and_slide()
-  
+  if is_on_floor() and shouldExplode:
+    root.explode()
+
 func on_ready(first=false):
   velocity = Vector2(0, 0)
   global_position = root.startPosition
