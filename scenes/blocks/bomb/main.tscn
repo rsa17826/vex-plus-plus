@@ -10,19 +10,20 @@ size = Vector2(700, 700)
 [sub_resource type="CircleShape2D" id="CircleShape2D_o857y"]
 radius = 1024.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_o857y")
 blockDieArea = NodePath("Node2D/block die area")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
 editorBarIconNode = NodePath("Node2D/collisionNode/Sprite2D")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
+thingThatMoves = NodePath("Node2D/collisionNode")
 
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
-collision_layer = 1040
-collision_mask = 2
+collision_layer = 1024
+collision_mask = 42
 script = ExtResource("2_82r38")
 root = NodePath("../..")
 

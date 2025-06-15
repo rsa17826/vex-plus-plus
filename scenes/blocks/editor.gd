@@ -1,4 +1,4 @@
-@icon("res://scenes/blocks/inner level/images/ghost.png")
+@icon("res://images/sprites/DefineSprite_1608/1.png")
 class_name EditorBlock
 extends Node2D
 # @name same line return

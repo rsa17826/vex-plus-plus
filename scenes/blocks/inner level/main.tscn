@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpaarl1n8cpb3"]
+[gd_scene load_steps=6 format=3 uid="uid://cpaarl1n8cpb3"]
 
 [ext_resource type="Script" uid="uid://cgnhb1nfxpicv" path="res://scenes/blocks/inner level/inner level.gd" id="1_nkqjd"]
 [ext_resource type="Texture2D" uid="uid://dmxm86ae23yb8" path="res://scenes/blocks/inner level/images/blue.png" id="2_nkqjd"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_vnxq3"]
 [ext_resource type="Texture2D" uid="uid://bxma43mo84f6x" path="res://scenes/blocks/inner level/images/ghost.png" id="3_0xqb5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -16,10 +17,12 @@ editorBarIconNode = NodePath("collisionNode/ghost")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/Label")]
 
-[node name="collisionNode" type="StaticBody2D" parent="."]
+[node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 8
 collision_mask = 0
 input_pickable = true
+script = ExtResource("2_vnxq3")
+root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
