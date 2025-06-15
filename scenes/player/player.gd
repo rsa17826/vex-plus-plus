@@ -1035,7 +1035,7 @@ func updateCollidingBlocksEntered():
       log.pp(block, block.id if 'id' in block else 'no id')
       breakpoint
     else:
-      block.root._on_body_entered(self)
+      block.root._on_body_entered(self, false)
 func updateCollidingBlocksExited():
   # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
   for block in (
@@ -1046,7 +1046,7 @@ func updateCollidingBlocksExited():
       log.pp(block, block.id if 'id' in block else 'no id')
       breakpoint
     else:
-      block.root._on_body_exited(self)
+      block.root._on_body_exited(self, false)
 
 func updateKeyFollowPosition(delta):
   for i in range(0, keys.size()):

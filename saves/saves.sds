@@ -1,6 +1,6 @@
 {
   STR(star collection test){
-    STR(lastSpawnPoint)VEC2(45.0,-325.0)
+    STR(lastSpawnPoint)VEC2(165.0,-320.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -15,7 +15,7 @@
               STR(collected)BOOL(true)
             }
             INT(3){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(4){
               STR(collected)BOOL(false)

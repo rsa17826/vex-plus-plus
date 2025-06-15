@@ -332,8 +332,8 @@
     }
   }
   {
-    STR(x)FLOAT(45.0)
-    STR(y)FLOAT(-340.0)
+    STR(x)FLOAT(165.0)
+    STR(y)FLOAT(-335.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -375,6 +375,29 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(190.0)
+    STR(y)FLOAT(-265.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(165.0)
+    STR(y)FLOAT(-325.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Gravity Down Lever)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
