@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dsjamtdbnxv2p"]
+[gd_scene load_steps=21 format=3 uid="uid://dsjamtdbnxv2p"]
 
 [ext_resource type="Script" uid="uid://x0qfdvkjrelx" path="res://scenes/blocks/bomb/bomb.gd" id="1_o857y"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_82r38"]
@@ -11,8 +11,6 @@ size = Vector2(700, 700)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_o857y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nku45"]
 atlas = ExtResource("4_82r38")
@@ -103,7 +101,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"explode",
-"speed": 5.0
+"speed": 30.0
 }, {
 "frames": [],
 "loop": true,
@@ -119,7 +117,7 @@ boomShape = NodePath("CharacterBody2D/block die area/CollisionShape2D")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIconNode = NodePath("CharacterBody2D/Sprite2D")
 collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/water detection area/CollisionShape2D2"), NodePath("CharacterBody2D/explosion trigger area/CollisionShape2D"), NodePath("CharacterBody2D/block die area/CollisionShape2D")]
-hidableSprites = [NodePath("CharacterBody2D/Sprite2D"), NodePath("CharacterBody2D/AnimatedSprite2D")]
+hidableSprites = [NodePath("CharacterBody2D/Sprite2D")]
 cloneEventsHere = NodePath("CharacterBody2D")
 thingThatMoves = NodePath("CharacterBody2D")
 
@@ -159,16 +157,18 @@ script = ExtResource("2_82r38")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/block die area"]
-shape = SubResource("CircleShape2D_o857y")
+position = Vector2(0.999998, -0.999998)
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 scale = Vector2(1.03093, 1.03093)
 texture = ExtResource("3_o857y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+visible = false
 scale = Vector2(23.1856, 23.1856)
 sprite_frames = SubResource("SpriteFrames_h47rq")
 animation = &"explode"
+frame = 9
 
 [connection signal="area_entered" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_exited"]

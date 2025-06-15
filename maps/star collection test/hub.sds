@@ -511,4 +511,26 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(675.0)
+    STR(y)FLOAT(-800.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(670.0)
+    STR(y)FLOAT(-630.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(block death boundary)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]
