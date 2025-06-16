@@ -1216,6 +1216,7 @@ func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://saves/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://exports/"))
+  DirAccess.make_dir_recursive_absolute(path.abs("res://custom blocks/"))
   get_tree().set_debug_collisions_hint(hitboxesShown)
   # const SHIFT_VALUE = 353
   # var encode_string = func encode_string(input_string: String) -> String:
