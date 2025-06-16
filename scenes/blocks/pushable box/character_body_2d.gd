@@ -16,7 +16,18 @@ func on_physics_process(delta: float) -> void:
     if not is_on_floor():
       velocity.y += global.player.GRAVITY * delta
   velocity.x *= .90 if is_on_floor() else .97
+  var lastvel = velocity
   move_and_slide()
+  for i in get_slide_collision_count():
+    var collision := get_slide_collision(i)
+    var block := collision.get_collider()
+
+    var normal := collision.get_normal()
+    if normal == Vector2.UP \
+    and lastvel.y > 700 \
+    and block.root is BlockBomb \
+    :
+      block.root.explode()
   
 func on_ready(first=false):
   velocity = Vector2(0, 0)
