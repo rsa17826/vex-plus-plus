@@ -9,14 +9,18 @@ var childBlocks = []
 
 func on_ready() -> void:
   log.pp(global.path.abs(
-    "res://custom blocks/" +
+    "res://maps/" +
+    global.levelPackName +
+    "/custom blocks/" +
     selectedOptions.where
     + ".sds"
   ))
   if !selectedOptions.where: return
   var blockData = sds.loadDataFromFile(
     global.path.abs(
-      "res://custom blocks/" +
+      "res://maps/" +
+      global.levelPackName +
+      "/custom blocks/" +
       selectedOptions.where
       + ".sds"
     )
