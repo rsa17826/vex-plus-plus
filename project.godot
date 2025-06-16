@@ -235,7 +235,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 2d_physics/layer_10="SPARK"
 2d_physics/layer_11="PLAYER SHOULD SEND EVENTS ON RESPAWN"
 2d_physics/layer_12="EXPLOSION KILLS THESE"
-2d_physics/layer_13="THINGS THAT TRIGGER BOMBS"
+2d_physics/layer_13="13"
 
 [maaacks_input_remapping]
 
