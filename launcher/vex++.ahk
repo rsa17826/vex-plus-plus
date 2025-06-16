@@ -166,7 +166,7 @@ LV_DoubleClick(LV, RowNumber) {
 
 runSelectedVersion() {
   selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]
-  exe := path.join(A_ScriptDir, "exe", "vex.console.exe")
+  exe := path.join(A_ScriptDir, "game data", "vex.console.exe")
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
   args := ""
   for arg in A_Args {
