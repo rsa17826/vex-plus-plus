@@ -26,7 +26,7 @@ BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/Sprite2D")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("collisionNode/Sprite2D2")
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 1040
+collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_jf1xb")
 root = NodePath("..")

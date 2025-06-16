@@ -24,7 +24,7 @@ thingThatMoves = NodePath("collisionNode")
 pathFollowNode = NodePath("collisionNode")
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 8
+collision_layer = 2056
 collision_mask = 0
 input_pickable = true
 script = ExtResource("3_j63kj")

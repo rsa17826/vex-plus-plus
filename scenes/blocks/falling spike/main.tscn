@@ -31,7 +31,7 @@ thingThatMoves = NodePath("Node2D/collisionNode")
 [node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 position = Vector2(0, 13)
-collision_layer = 1168
+collision_layer = 3216
 collision_mask = 2
 script = ExtResource("2_xrsct")
 root = NodePath("../..")

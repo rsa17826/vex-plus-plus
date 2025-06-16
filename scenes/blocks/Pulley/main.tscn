@@ -38,7 +38,7 @@ scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_omc7y")
 
 [node name="player detector" type="Area2D" parent="movable" node_paths=PackedStringArray("root")]
-collision_layer = 1024
+collision_layer = 3072
 collision_mask = 2
 script = ExtResource("3_svsk0")
 root = NodePath("../..")
