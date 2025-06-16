@@ -554,7 +554,7 @@ var scaleOnRightSide := false
 var scaleOnLeftSide := false
 var showEditorUi := false
 var selectedBrush: Node
-var justPaintedBlock: Node = null
+var justPaintedBlock: EditorBlock = null
 var gridSize = 25 / 5.0
 
 func selectBlock() -> void:
@@ -740,7 +740,10 @@ func localProcess(delta: float) -> void:
             #   justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
             #   justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
             # else:
-            justPaintedBlock.scale = Vector2(1, 1) / 7
+            if justPaintedBlock.normalScale:
+              justPaintedBlock.scale = Vector2(1, 1)
+            else:
+              justPaintedBlock.scale = Vector2(1, 1) / 7
             justPaintedBlock.rotation_degrees = 0
             justPaintedBlock.id = blockNames[selectedBrush.id]
             lastSelectedBrush = selectedBrush

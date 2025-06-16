@@ -28,6 +28,7 @@ files=Array[PackedStringArray]([PackedStringArray("res://saves", "saves", ""), P
 file_logging/enable_file_logging=true
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
+gdscript/warnings/shadowed_global_identifier=0
 gdscript/warnings/unreachable_pattern=2
 
 [display]

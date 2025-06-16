@@ -1,20 +1,5 @@
 [
   {
-    STR(x)FLOAT(10.0)
-    STR(y)FLOAT(-65.0)
-  }
-  {
-    STR(x)FLOAT(0.0)
-    STR(y)FLOAT(50.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(basic)
-    STR(options){
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(-45.0)
     STR(y)FLOAT(-5.0)
     STR(w)FLOAT(0.10000009834766)
@@ -110,42 +95,6 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
     STR(options){
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(0.0)
-    STR(y)FLOAT(-245.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(custom block)
-    STR(options){
-      STR(where)STR(box3x3)
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(65.0)
-    STR(y)FLOAT(-110.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(custom block)
-    STR(options){
-      STR(where)STR(box3x3)
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(35.0)
-    STR(y)FLOAT(-130.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(custom block)
-    STR(options){
-      STR(where)STR(box3x3)
       STR(color)STR(#fff)
     }
   }

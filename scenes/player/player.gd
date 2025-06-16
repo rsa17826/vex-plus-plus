@@ -1098,6 +1098,7 @@ func updateKeyFollowPosition(delta):
   # !version 29-29! dying while pulling levers causes global.tick to stay at 0
   # !version ?-28! pulling levers allows clipping through moving blocks
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
+  # ?!version ?-NOW! can push boxes while sliding
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
