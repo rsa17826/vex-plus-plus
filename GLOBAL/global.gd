@@ -1501,6 +1501,7 @@ var blockNames: Array = [
   # "quad falling spikes",
   "portal",
   "bomb",
+  "custom block",
   # "path",
 ]
 
@@ -1509,3 +1510,26 @@ var lastPortal: Node2D = null
 var defaultBlockOpts: Dictionary = {}
 
 var popupStarted = false
+
+func createNewBlock(data) -> EditorBlock:
+  var id = data['id']
+  if load("res://scenes/blocks/" + id + "/main.tscn"):
+    var thing = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
+    thing.startPosition = Vector2(data.x, data.y)
+    thing.position = Vector2(data.x, data.y)
+    log.pp(thing.normalScale)
+    if thing.normalScale:
+      thing.startScale = Vector2(data.w, data.h)
+      thing.scale = Vector2(data.w, data.h)
+    else:
+      thing.startScale = Vector2(data.w / 7.0, data.h / 7.0)
+      thing.scale = Vector2(data.w / 7.0, data.h / 7.0)
+    thing.startRotation_degrees = data.r
+    thing.rotation_degrees = data.r
+    thing.id = id
+    if 'options' in data:
+      thing.selectedOptions = data.options
+    return thing
+  else:
+    log.err("Error loading block", id)
+  return

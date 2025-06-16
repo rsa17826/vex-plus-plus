@@ -37,12 +37,14 @@ extends Node2D
 ## the node that lastMovementStep should be calculated from
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
+## no warnings when missing unrequired nodes
 @export_group("misc")
-@export var pathFollowNode: Node
-@export_subgroup("optional")
-
+@export var ignoreMissingNodes := false
+@export var normalScale := false
 ## disables editor features suchas moving, scaling, selecting
 @export var EDITOR_IGNORE: bool = false
+@export_group("IGNORE")
+@export var pathFollowNode: Node
 
 ## calls __enable on the node when it respawns
 # @export var enableOnRespawn: bool = true
@@ -91,24 +93,22 @@ func onAllDataLoaded() -> void:
 
 ## don't overite - use on_respawn instead
 func respawn() -> void:
-  if not EDITOR_IGNORE:
-    respawning = 2
-    if thingThatMoves:
-      thingThatMoves.position = Vector2.ZERO
-    
-    if is_in_group("canBeAttachedTo"):
-      for block: EditorBlock in attach_children.filter(func(e): return is_instance_valid(e)):
-        if !block.thingThatMoves:
-          log.err("no thingThatMoves", block.id)
-          breakpoint
-        block.respawn()
-      attach_children = []
-
-    global_position = startPosition
-    rotation_degrees = startRotation_degrees
-    scale = startScale
-    # if enableOnRespawn:
-    __enable.call_deferred()
+  respawning = 2
+  if thingThatMoves:
+    thingThatMoves.position = Vector2.ZERO
+  
+  if is_in_group("canBeAttachedTo"):
+    for block: EditorBlock in attach_children.filter(func(e): return is_instance_valid(e)):
+      if !block.thingThatMoves:
+        log.err("no thingThatMoves", block.id)
+        breakpoint
+      block.respawn()
+    attach_children = []
+  global_position = startPosition
+  rotation_degrees = startRotation_degrees
+  scale = startScale
+  # if enableOnRespawn:
+  __enable.call_deferred()
 
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
@@ -122,25 +122,24 @@ var onRightSide := false
 
 var last_input_event: InputEvent
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-  if not EDITOR_IGNORE:
-    if cloneEventsHere and 'on_input_event' in cloneEventsHere:
-      cloneEventsHere.on_input_event(viewport, event, shape_idx)
-    if last_input_event == event: return
-    last_input_event = event
-    # if selecting this block
-    if global.hoveredBlocks && self == global.hoveredBlocks[0]:
-      if !Input.is_action_pressed("editor_pan"):
-        # edit block menu on rbutton
-        if event.is_action_pressed("editor_edit_special") && Input.is_action_just_pressed("editor_edit_special") and not global.openMsgBoxCount:
-          # log.pp(event.to_string(), shape_idx, viewport)
-          if not pm: return
-          # log.pp(blockOptions, event.as_text(), self, self.name)
-          showPopupMenu()
-        # select blocks when clicking them
-        elif event.is_action_pressed("editor_select") && Input.is_action_just_pressed("editor_select"):
-          respawn()
-          global_position = startPosition
-          global.selectBlock()
+  if cloneEventsHere and 'on_input_event' in cloneEventsHere:
+    cloneEventsHere.on_input_event(viewport, event, shape_idx)
+  if last_input_event == event: return
+  last_input_event = event
+  # if selecting this block
+  if global.hoveredBlocks && self == global.hoveredBlocks[0]:
+    if !Input.is_action_pressed("editor_pan"):
+      # edit block menu on rbutton
+      if event.is_action_pressed("editor_edit_special") && Input.is_action_just_pressed("editor_edit_special") and not global.openMsgBoxCount:
+        # log.pp(event.to_string(), shape_idx, viewport)
+        if not pm: return
+        # log.pp(blockOptions, event.as_text(), self, self.name)
+        showPopupMenu()
+      # select blocks when clicking them
+      elif event.is_action_pressed("editor_select") && Input.is_action_just_pressed("editor_select"):
+        respawn()
+        global_position = startPosition
+        global.selectBlock()
 
 func showPopupMenu():
   if global.popupStarted: return
@@ -186,36 +185,35 @@ func _on_body_entered(body: Node2D, real=true) -> void:
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
-  if not EDITOR_IGNORE:
-    if _ready not in global.player.OnPlayerFullRestart:
-      global.player.OnPlayerFullRestart.append(_ready)
-    # if !is_in_group("dontRespawnOnPlayerDeath"):
-    if _ready not in global.player.OnPlayerDied:
-      global.player.OnPlayerDied.append(respawn)
+  if _ready not in global.player.OnPlayerFullRestart:
+    global.player.OnPlayerFullRestart.append(_ready)
+  # if !is_in_group("dontRespawnOnPlayerDeath"):
+  if _ready not in global.player.OnPlayerDied:
+    global.player.OnPlayerDied.append(respawn)
 
-    blockOptions = {}
-    if not collisionShapes:
-      if get_node_or_null("CollisionShape2D"):
-        collisionShapes = [$CollisionShape2D]
-      else:
-        log.err("collisionShapes is null", self, name)
-        breakpoint
-    if not ghost:
-      createEditorGhost()
-    if 'generateBlockOpts' in self:
-      self.generateBlockOpts.call()
+  blockOptions = {}
+  if not collisionShapes:
+    if get_node_or_null("CollisionShape2D"):
+      collisionShapes = [$CollisionShape2D]
+    elif not ignoreMissingNodes:
+      log.err("collisionShapes is null", self, name)
+      breakpoint
+  if not EDITOR_IGNORE and not ghost:
+    createEditorGhost()
+  if 'generateBlockOpts' in self:
+    self.generateBlockOpts.call()
 
-    if is_in_group("attaches to things"):
-      blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
+  if is_in_group("attaches to things"):
+    blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
 
-    if global.useropts.allowCustomColors:
-      blockOptions.color = {"type": global.PromptTypes.string, "default": "#fff"}
-    setupOptions()
-    
-    __enable.call_deferred()
-    respawn.call_deferred()
-    if global.useropts.allowCustomColors:
-      self.modulate = Color(selectedOptions.color)
+  if global.useropts.allowCustomColors:
+    blockOptions.color = {"type": global.PromptTypes.string, "default": "#fff"}
+  setupOptions()
+  
+  __enable.call_deferred()
+  respawn.call_deferred()
+  if global.useropts.allowCustomColors:
+    self.modulate = Color(selectedOptions.color)
   if cloneEventsHere and 'on_ready' in cloneEventsHere:
     cloneEventsHere.on_ready()
   if 'on_ready' in self:
@@ -362,7 +360,7 @@ func _process(delta: float) -> void:
           global_position = startPosition
         if not _DISABLED:
           for collider in collisionShapes:
-            if not collider:
+            if not collider and not ignoreMissingNodes:
               log.pp(collider, collisionShapes, id)
               breakpoint
             collider.disabled = true
@@ -373,7 +371,7 @@ func _process(delta: float) -> void:
         if !Input.is_action_pressed("editor_select"):
           if not _DISABLED:
             for collider in collisionShapes:
-              if not collider:
+              if not collider and not ignoreMissingNodes:
                 log.pp("invalid collisionShapes", collider, collisionShapes, id)
                 breakpoint
               collider.disabled = false
@@ -457,8 +455,8 @@ func _process(delta: float) -> void:
           else:
             # __disable outline
             ghost.use_parent_material = true
-    if 'on_process' in self:
-      self.on_process.call(delta)
+  if 'on_process' in self:
+    self.on_process.call(delta)
 
 func createEditorGhost() -> void:
   if not ghostIconNode:
