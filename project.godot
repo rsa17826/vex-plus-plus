@@ -47,7 +47,9 @@ folder_colors={
 "res://launcher/": "gray",
 "res://maps/": "gray",
 "res://saves/": "gray",
-"res://scenes/": "green"
+"res://scenes/": "green",
+"res://scenes/blocks/": "orange",
+"res://scenes/player/": "teal"
 }
 
 [global_group]

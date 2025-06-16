@@ -41,6 +41,7 @@ echo [.ShellClassInfo]
 echo IconFile=foldericon.ico
 echo IconIndex=0
 ) > "%folderPath%\desktop.ini"
+del "%folderPath%/foldericon.ico" > nul
 copy /Y /B "%iconPath%" "%folderPath%/foldericon.ico" > nul
 
 :: Set the attributes for the folder and the desktop.ini file

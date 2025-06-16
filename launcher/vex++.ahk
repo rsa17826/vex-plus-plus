@@ -39,6 +39,7 @@ if not FileExist("vex++ offline.lnk") {
 loop files A_ScriptDir "\icons\*.*" {
   p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
   DirCreate(p)
+  FileDelete(path.join(p, "foldericon.ico"))
   run('sfi.bat -p "' p '" -i "' A_LoopFileFullPath '"', , 'hide')
 }
 
