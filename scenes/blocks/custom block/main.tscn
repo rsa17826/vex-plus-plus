@@ -11,9 +11,8 @@ editorBarIconNode = NodePath("collisionNode/Sprite2D")
 ignoreMissingNodes = true
 normalScale = true
 
-[node name="collisionNode" type="Node2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Node2D" parent="."]
 script = ExtResource("2_wf710")
-root = NodePath("")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 visible = false

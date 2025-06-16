@@ -5,12 +5,10 @@ extends VSplitContainer
 
 var _last_rect_size := 0.0
 
-
 func _ready():
-	_last_rect_size = size.y
-	resized.connect(_on_resized)
-
+  _last_rect_size = size.y
+  resized.connect(_on_resized)
 
 func _on_resized():
-	split_offset += size.y - _last_rect_size
-	_last_rect_size = size.y
+  split_offset += size.y - _last_rect_size
+  _last_rect_size = size.y
