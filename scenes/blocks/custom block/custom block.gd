@@ -7,6 +7,16 @@ func generateBlockOpts():
 
 var childBlocks = []
 
+func on_respawn():
+  for thing in childBlocks:
+    var node: EditorBlock = thing[0]
+    var data: Dictionary = thing[1]
+
+    node.startPosition = Vector2(data.x, data.y) + startPosition
+    node.startRotation_degrees = data.r + startRotation_degrees
+    node.startScale = Vector2(data.w, data.h) * startScale/7.0
+    node.respawn()
+
 func on_ready() -> void:
   log.pp(global.path.abs(
     "res://maps/" +
@@ -25,21 +35,20 @@ func on_ready() -> void:
       + ".sds"
     )
   )
-  for block: EditorBlock in childBlocks:
-    if is_instance_valid(block):
-      block.queue_free.call_deferred()
+  for thing in childBlocks:
+    var node: EditorBlock = thing[0]
+    if is_instance_valid(node):
+      node.queue_free.call_deferred()
   if !blockData:
     log.err("Could not load data from " + selectedOptions.where)
     return
   childBlocks = []
   for block in blockData:
     var node := global.createNewBlock(block)
-    childBlocks.append(node)
+    childBlocks.append([node, block])
     node.EDITOR_IGNORE = true
-    node.startPosition = node.startPosition + startPosition
-    node.startRotation_degrees = node.startRotation_degrees + startRotation_degrees
-    node.startScale = node.startScale * startScale
     add_child(node)
+  on_respawn()
 
 # func on_physics_process(delta: float) -> void:
 #   for node in childBlocks:
