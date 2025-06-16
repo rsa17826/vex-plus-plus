@@ -29,8 +29,8 @@ func loadLevel(level):
   var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
   .call(global.path.join(global.levelFolderPath, level + '.sds'),
     [
-      {"x": 0, "y": 0},
-      {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 65}
+      {"x": 0, "y": - 65},
+      {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
     ],
     func(prog, max):
       global.ui.progressBar.max_value=max
