@@ -19,10 +19,6 @@ config/features=PackedStringArray("4.4", "GL Compatibility")
 global="*res://GLOBAL/global.gd"
 AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_config.tscn"
 
-[copy_files_on_export]
-
-files=Array[PackedStringArray]([PackedStringArray("res://saves", "saves", ""), PackedStringArray("res://setup.exe", "setup.exe", "")])
-
 [debug]
 
 file_logging/enable_file_logging=true

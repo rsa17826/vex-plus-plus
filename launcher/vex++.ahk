@@ -35,6 +35,13 @@ if FileExist("launcher.exe") and FileExist("vex++.exe") {
 if not FileExist("vex++ offline.lnk") {
   FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 }
+
+loop files A_ScriptDir "\icons\*.*" {
+  p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
+  DirCreate(p)
+  run('sfi.bat -p "' p '" -i "' A_LoopFileFullPath '"', , 'hide')
+}
+
 offline := A_Args.join(" ").includes("offline")
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
