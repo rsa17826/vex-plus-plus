@@ -17,7 +17,7 @@ cloneEventsHere = NodePath("collisionNode")
 thingThatMoves = NodePath("collisionNode")
 
 [node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 8
+collision_layer = 2056
 collision_mask = 0
 input_pickable = true
 script = ExtResource("2_0ic60")

@@ -49,9 +49,13 @@ func onFrameChanged():
     blockDieArea.get_overlapping_bodies()
     + blockDieArea.get_overlapping_areas()
   ):
+    if block == self or block == root:
+      continue
     if block is Player:
       await global.wait()
       block.die.call_deferred()
+    elif block is BlockBomb:
+      block.explode()
     else:
       block.root.__disable.call_deferred()
 

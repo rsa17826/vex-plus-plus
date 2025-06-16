@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjhsd00qyc12v"]
+[gd_scene load_steps=8 format=3 uid="uid://cjhsd00qyc12v"]
 
 [ext_resource type="Script" uid="uid://c62pcqr2vis0s" path="res://scenes/blocks/slope/slope.gd" id="1_2xhgp"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_5n4dx"]
 [ext_resource type="Texture2D" uid="uid://cabuev2ojvrhb" path="res://scenes/blocks/slope/images/1.png" id="2_kissk"]
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_h1kpj"]
 
@@ -24,11 +25,13 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisi
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 
-[node name="collisionNode" type="StaticBody2D" parent="."]
-collision_layer = 8
+[node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 2056
 collision_mask = 0
 collision_priority = 2.0
 input_pickable = true
+script = ExtResource("2_5n4dx")
+root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
