@@ -50,7 +50,7 @@ func showMoreOptions(level):
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
   var i = 0
   pm.clear()
-  for k: String in ["duplicate", "delete", "rename", "share", "upload"]:
+  for k: String in ["duplicate", "delete", "rename", "export", "upload"]:
     pm.add_item(k, i)
     i += 1
   pm.add_item('< cancel >', i)

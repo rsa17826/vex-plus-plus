@@ -1166,6 +1166,14 @@ func createNewMapFolder() -> Variant:
     }
   )
   await createNewLevelFile(foldername, startLevel)
+  OS.execute("cmd", [
+    "/c",
+    'mklink /J "' +
+    path.abs("res://maps/" + foldername + "/custom blocks") +
+    '" "' +
+    path.abs("res://custom blocks") +
+    '"'
+  ])
   return foldername
 
 const defaultLevelSettings = {
@@ -1534,4 +1542,4 @@ func createNewBlock(data) -> EditorBlock:
     log.err("Error loading block", id)
   return
 
-var portals =[]
+var portals = []
