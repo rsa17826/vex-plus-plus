@@ -54,7 +54,7 @@
               STR(collected)BOOL(false)
             }
             INT(16){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
           }
           STR(checkpoint){
