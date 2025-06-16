@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dsjamtdbnxv2p"]
+[gd_scene load_steps=22 format=3 uid="uid://dsjamtdbnxv2p"]
 
 [ext_resource type="Script" uid="uid://x0qfdvkjrelx" path="res://scenes/blocks/bomb/bomb.gd" id="1_o857y"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_82r38"]
@@ -106,8 +106,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e08ji"]
 size = Vector2(698, 698)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
-size = Vector2(700, 700)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nku45"]
+size = Vector2(630, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvu3y"]
+size = Vector2(1, 630)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "boomSprite", "boomShape", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_o857y")
@@ -116,7 +119,7 @@ boomSprite = NodePath("CharacterBody2D/AnimatedSprite2D")
 boomShape = NodePath("CharacterBody2D/block die area/CollisionShape2D")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIconNode = NodePath("CharacterBody2D/Sprite2D")
-collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/water detection area/CollisionShape2D2"), NodePath("CharacterBody2D/explosion trigger area/CollisionShape2D"), NodePath("CharacterBody2D/block die area/CollisionShape2D")]
+collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/water detection area/CollisionShape2D2"), NodePath("CharacterBody2D/block die area/CollisionShape2D")]
 hidableSprites = [NodePath("CharacterBody2D/Sprite2D")]
 cloneEventsHere = NodePath("CharacterBody2D")
 thingThatMoves = NodePath("CharacterBody2D")
@@ -142,6 +145,7 @@ frame = 9
 shape = SubResource("RectangleShape2D_e08ji")
 
 [node name="water detection area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
+visible = false
 collision_layer = 0
 collision_mask = 4
 script = ExtResource("2_82r38")
@@ -150,19 +154,7 @@ root = NodePath("../..")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/water detection area"]
 shape = SubResource("RectangleShape2D_e08ji")
 
-[node name="explosion trigger area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
-visible = false
-scale = Vector2(1.03093, 1.03093)
-collision_layer = 1024
-collision_mask = 0
-script = ExtResource("2_82r38")
-root = NodePath("../..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/explosion trigger area"]
-shape = SubResource("RectangleShape2D_gwpbw")
-
 [node name="block die area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
-visible = false
 scale = Vector2(1.03093, 1.03093)
 collision_layer = 0
 collision_mask = 2048
@@ -172,7 +164,53 @@ root = NodePath("../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/block die area"]
 position = Vector2(0.999998, -0.999998)
 
+[node name="deathDetectors" type="Node2D" parent="CharacterBody2D"]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
+
+[node name="top" type="Area2D" parent="CharacterBody2D/deathDetectors"]
+position = Vector2(0, -348.5)
+collision_layer = 0
+collision_mask = 8
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/top"]
+shape = SubResource("RectangleShape2D_nku45")
+
+[node name="left" type="Area2D" parent="CharacterBody2D/deathDetectors"]
+position = Vector2(-348.5, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/left"]
+shape = SubResource("RectangleShape2D_vvu3y")
+metadata/_edit_lock_ = true
+
+[node name="right" type="Area2D" parent="CharacterBody2D/deathDetectors"]
+position = Vector2(348.5, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/right"]
+shape = SubResource("RectangleShape2D_vvu3y")
+metadata/_edit_lock_ = true
+
+[node name="bottom" type="Area2D" parent="CharacterBody2D/deathDetectors"]
+position = Vector2(0, 348.5)
+collision_layer = 0
+collision_mask = 8
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/bottom"]
+shape = SubResource("RectangleShape2D_nku45")
+
 [connection signal="area_entered" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_exited"]
-[connection signal="body_entered" from="CharacterBody2D/explosion trigger area" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="CharacterBody2D/explosion trigger area" to="." method="_on_body_exited"]
+[connection signal="body_entered" from="CharacterBody2D/deathDetectors/top" to="CharacterBody2D" method="_on_top_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/deathDetectors/top" to="CharacterBody2D" method="_on_top_body_exited"]
+[connection signal="body_entered" from="CharacterBody2D/deathDetectors/left" to="CharacterBody2D" method="_on_left_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/deathDetectors/left" to="CharacterBody2D" method="_on_left_body_exited"]
+[connection signal="body_entered" from="CharacterBody2D/deathDetectors/right" to="CharacterBody2D" method="_on_right_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/deathDetectors/right" to="CharacterBody2D" method="_on_right_body_exited"]
+[connection signal="body_entered" from="CharacterBody2D/deathDetectors/bottom" to="CharacterBody2D" method="_on_bottom_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/deathDetectors/bottom" to="CharacterBody2D" method="_on_bottom_body_exited"]

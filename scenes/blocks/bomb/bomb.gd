@@ -24,6 +24,10 @@ func on_respawn():
   exploded = false
   boomSprite.stop()
   boomSprite.visible = false
+  $CharacterBody2D.collsiionOn_top = []
+  $CharacterBody2D.collsiionOn_bottom = []
+  $CharacterBody2D.collsiionOn_left = []
+  $CharacterBody2D.collsiionOn_right = []
 
 func onAnimationLooped():
   boomSprite.visible = false
