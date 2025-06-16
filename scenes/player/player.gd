@@ -460,7 +460,7 @@ func _physics_process(delta: float) -> void:
             var origin: Vector2 = ray.global_transform.origin
             var collision_point := ray.get_collision_point()
             var distance := origin.distance_to(collision_point)
-            log.pp(distance * getClosestWallSide())
+            # log.pp(distance * getClosestWallSide())
             position.x += (distance) * getClosestWallSide()
         # if on floor reset kt, user y velocity, and allow both wall sides again
         if is_on_floor():

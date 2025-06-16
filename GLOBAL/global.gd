@@ -1533,3 +1533,5 @@ func createNewBlock(data) -> EditorBlock:
   else:
     log.err("Error loading block", id)
   return
+
+var portals =[]
