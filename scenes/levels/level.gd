@@ -52,7 +52,7 @@ func loadLevel(level):
   global.player.global_position = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   global.player.get_parent().startPosition = Vector2(leveldata[0]['x'], leveldata[0]['y'])
   for thing in leveldata.slice(1):
-    createBlock(thing['id'], thing['x'], thing['y'], thing['w'], thing['h'], thing['r'], thing['options'] if 'options' in thing else 0)
+    $blocks.add_child(global.createNewBlock(thing))
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
@@ -76,22 +76,6 @@ func loadLevel(level):
   # global.player.die(0, false)
   # global.player.deathPosition = global.player.lastSpawnPoint
 
-func createBlock(id, x, y, w, h, r, options):
-  if load("res://scenes/blocks/" + id + "/main.tscn"):
-    var thing = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
-    thing.startPosition = Vector2(x, y)
-    thing.position = Vector2(x, y)
-    thing.startScale = Vector2(w / 7.0, h / 7.0)
-    thing.scale = Vector2(w / 7.0, h / 7.0)
-    thing.startRotation_degrees = r
-    thing.rotation_degrees = r
-    thing.id = id
-    if options:
-      thing.selectedOptions = options
-    $blocks.add_child(thing)
-  else:
-    log.err("Error loading block", id)
-
 func save():
   if global.useropts.showIconOnSave:
     global.ui.levelSaved.visible = true
@@ -112,6 +96,10 @@ func save():
       "r": child.startRotation_degrees,
       "id": str(child.id),
     }
+    if child.normalScale:
+      obj.w = child.startScale.x
+      obj.h = child.startScale.y
+
     if child.selectedOptions:
       obj["options"] = child.selectedOptions
     data.append(obj)

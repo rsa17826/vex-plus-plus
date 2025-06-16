@@ -6,12 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://d2h2dshw58tiq" path="res://scenes/blocks/bomb/images/1 (2).png" id="3_o857y"]
 [ext_resource type="Texture2D" uid="uid://b2287wo04din2" path="res://scenes/blocks/bomb/images/Explosion.png" id="4_82r38"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e08ji"]
-size = Vector2(700, 700)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
-size = Vector2(700, 700)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_nku45"]
 atlas = ExtResource("4_82r38")
 region = Rect2(0, 0, 96, 96)
@@ -109,6 +103,12 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e08ji"]
+size = Vector2(698, 698)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
+size = Vector2(700, 700)
+
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "boomSprite", "boomShape", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_o857y")
 blockDieArea = NodePath("CharacterBody2D/block die area")
@@ -122,45 +122,13 @@ cloneEventsHere = NodePath("CharacterBody2D")
 thingThatMoves = NodePath("CharacterBody2D")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
-scale = Vector2(0.97, 0.97)
 collision_layer = 168
 collision_mask = 8
 floor_stop_on_slope = false
 script = ExtResource("2_nku45")
 root = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("RectangleShape2D_e08ji")
-
-[node name="water detection area" type="Area2D" parent="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/water detection area"]
-shape = SubResource("RectangleShape2D_e08ji")
-
-[node name="explosion trigger area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
-scale = Vector2(1.03093, 1.03093)
-collision_layer = 1024
-collision_mask = 4096
-script = ExtResource("2_82r38")
-root = NodePath("../..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/explosion trigger area"]
-shape = SubResource("RectangleShape2D_gwpbw")
-
-[node name="block die area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
-scale = Vector2(1.03093, 1.03093)
-collision_layer = 0
-collision_mask = 2048
-script = ExtResource("2_82r38")
-root = NodePath("../..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/block die area"]
-position = Vector2(0.999998, -0.999998)
-
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-scale = Vector2(1.03093, 1.03093)
 texture = ExtResource("3_o857y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
@@ -169,6 +137,40 @@ scale = Vector2(23.1856, 23.1856)
 sprite_frames = SubResource("SpriteFrames_h47rq")
 animation = &"explode"
 frame = 9
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_e08ji")
+
+[node name="water detection area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("2_82r38")
+root = NodePath("../..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/water detection area"]
+shape = SubResource("RectangleShape2D_e08ji")
+
+[node name="explosion trigger area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
+visible = false
+scale = Vector2(1.03093, 1.03093)
+collision_layer = 1024
+collision_mask = 0
+script = ExtResource("2_82r38")
+root = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/explosion trigger area"]
+shape = SubResource("RectangleShape2D_gwpbw")
+
+[node name="block die area" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
+visible = false
+scale = Vector2(1.03093, 1.03093)
+collision_layer = 0
+collision_mask = 2048
+script = ExtResource("2_82r38")
+root = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/block die area"]
+position = Vector2(0.999998, -0.999998)
 
 [connection signal="area_entered" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_exited"]
