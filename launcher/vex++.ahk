@@ -145,7 +145,7 @@ UpdateSelf(*) {
     (
 @echo off
 timeout /t 1 /nobreak >nul
-xcopy /y /i ".\temp\*" ".\"
+xcopy /y /i /s /e ".\temp\*" ".\"
 start vex++.exe
     )")
     run("cmd /c c.bat", , "hide")
