@@ -15,11 +15,12 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 
-[node name="collisionNode" type="StaticBody2D" parent="."]
+[node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 2056
 collision_mask = 0
 input_pickable = true
 script = ExtResource("2_5w21f")
+root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
