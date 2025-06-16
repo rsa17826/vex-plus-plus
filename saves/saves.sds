@@ -1,6 +1,6 @@
 {
   STR(star collection test){
-    STR(lastSpawnPoint)VEC2(-160.0,-30.0)
+    STR(lastSpawnPoint)VEC2(1220.0,205.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -59,10 +59,10 @@
           }
           STR(checkpoint){
             INT(1){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
             INT(2){
-              STR(texture)STR(1)
+              STR(texture)STR(2)
             }
           }
         }

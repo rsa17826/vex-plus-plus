@@ -1120,3 +1120,4 @@ func updateKeyFollowPosition(delta):
 # make pole quadrent pole indicators rotate correctly
 
 # !!key to exit level
+# ?stop player from lever when nolonger standing on block

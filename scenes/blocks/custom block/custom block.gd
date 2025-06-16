@@ -21,16 +21,19 @@ func on_ready() -> void:
       + ".sds"
     )
   )
+  for block: EditorBlock in childBlocks:
+    if is_instance_valid(block):
+      block.queue_free.call_deferred()
   childBlocks = []
   for block in blockData:
     var node := global.createNewBlock(block)
     childBlocks.append(node)
     node.EDITOR_IGNORE = true
-    node.global_position = node.startPosition + startPosition
-    node.rotation_degrees = node.startRotation_degrees + startRotation_degrees
-    node.scale = node.startScale + startScale
+    node.startPosition = node.startPosition + startPosition
+    node.startRotation_degrees = node.startRotation_degrees + startRotation_degrees
+    node.startScale = node.startScale * startScale
     add_child(node)
 
-func on_process(delta: float):
-  for node in childBlocks:
-    node.global_position = node.startPosition + startPosition
+# func on_physics_process(delta: float) -> void:
+#   for node in childBlocks:
+#     node.global_position = node.startPosition + startPosition
