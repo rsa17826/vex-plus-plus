@@ -10,7 +10,7 @@ var childBlocks = []
 func on_ready() -> void:
   log.pp(global.path.abs(
     "res://maps/" +
-    global.levelPackName +
+    global.mainLevelName +
     "/custom blocks/" +
     selectedOptions.where
     + ".sds"
@@ -19,7 +19,7 @@ func on_ready() -> void:
   var blockData = sds.loadDataFromFile(
     global.path.abs(
       "res://maps/" +
-      global.levelPackName +
+      global.mainLevelName +
       "/custom blocks/" +
       selectedOptions.where
       + ".sds"
@@ -28,6 +28,9 @@ func on_ready() -> void:
   for block: EditorBlock in childBlocks:
     if is_instance_valid(block):
       block.queue_free.call_deferred()
+  if !blockData:
+    log.err("Could not load data from " + selectedOptions.where)
+    return
   childBlocks = []
   for block in blockData:
     var node := global.createNewBlock(block)
