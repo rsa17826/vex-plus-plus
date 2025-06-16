@@ -13,10 +13,10 @@ radius = 306.863
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["EDITOR_OPTION_scale", "attaches to things", "buzsaw - generic", "death"]]
 script = ExtResource("1_v7uox")
-ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
+ghostIconNode = NodePath("collisionNode/left rot")
+editorBarIconNode = NodePath("collisionNode/left rot")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D")]
+hidableSprites = [NodePath("collisionNode/left rot"), NodePath("collisionNode/right rot")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
 thingThatMoves = NodePath("collisionNode")
 pathFollowNode = NodePath("collisionNode")
@@ -28,11 +28,6 @@ collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_v7uox")
 root = NodePath("..")
-
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
-use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
-texture = ExtResource("2_lsihx")
 
 [node name="left rot" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true

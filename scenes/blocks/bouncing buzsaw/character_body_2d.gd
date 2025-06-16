@@ -6,8 +6,11 @@ extends CharacterBody2D
 # @endregex
 
 var speed = 50
-@export var root: Node
+
+@export var root: EditorBlock
+
 func _physics_process(delta: float) -> void:
+  if root._DISABLED: return
   if root.respawning: return
   velocity.y += speed
   velocity.y *= .95
