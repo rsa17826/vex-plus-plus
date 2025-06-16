@@ -172,7 +172,7 @@ runSelectedVersion() {
   for arg in A_Args {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
-  run('"' . exe . '"' . args, path.join(path.info(exe).parentdir, "versions", selectedVersion))
+  run('"' . exe . '"' . args, path.join(A_ScriptDir, "versions", selectedVersion))
   ExitApp()
 }
 
