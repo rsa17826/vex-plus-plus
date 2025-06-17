@@ -149,4 +149,30 @@
       }
     ]
   }
+  STR(a){
+    STR(lastSpawnPoint)VEC2(-5.0,180.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(1)
+            }
+            INT(2){
+              STR(texture)STR(2)
+            }
+          }
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(false)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
 }

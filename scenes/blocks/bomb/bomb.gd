@@ -21,7 +21,6 @@ func on_respawn():
     boomSprite.frame_changed.disconnect(onFrameChanged)
   if boomSprite.animation_looped.is_connected(onAnimationLooped):
     boomSprite.animation_looped.disconnect(onAnimationLooped)
-  exploded = false
   boomSprite.stop()
   boomSprite.visible = false
   $CharacterBody2D.collsiionOn_top = []

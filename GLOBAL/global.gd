@@ -854,9 +854,11 @@ func localInput(event: InputEvent) -> void:
       editorMode = EditorModes.path
   if isActionPressedWithNoExtraMods("editor_delete"):
     if !selectedBlock: return
+    if !is_instance_valid(selectedBlock): return
     if selectedBlock == global.player.get_parent(): return
     # lastSelectedBrush = null
-    hoveredBlocks.erase(selectedBlock)
+    if selectedBlock in hoveredBlocks:
+      hoveredBlocks.erase(selectedBlock)
     lastSelectedBlock = selectedBlock.duplicate()
     lastSelectedBlock.id = selectedBlock.id
     selectedBlock.queue_free.call_deferred()
@@ -991,7 +993,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   mainLevelName = levelPackName
   # Engine.time_scale = 1
   # log.pp("Loading Level Pack:", levelPackName)
-  levelFolderPath = path.abs(path.join('res://maps/', levelPackName))
+  levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
   var levelPackInfo: Dictionary = await loadMapInfo(levelPackName)
   if !levelPackInfo: return
   var startFile := path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
@@ -1077,9 +1079,9 @@ func currentLevel() -> Dictionary:
 var totalLevelCount
 
 func loadMapInfo(levelPackName: String) -> Variant:
-  var options: Variant = sds.loadDataFromFile(path.abs(path.join('res://maps/', levelPackName, "/options.sds")))
+  var options: Variant = sds.loadDataFromFile(path.join(MAP_FOLDER, levelPackName, "/options.sds"))
   
-  totalLevelCount = len(DirAccess.get_files_at(path.abs(path.join('res://maps/', levelPackName)))) - 1
+  totalLevelCount = len(DirAccess.get_files_at(path.join(MAP_FOLDER, levelPackName))) - 1
     
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
@@ -1135,7 +1137,7 @@ func animate(speed: int, steps: Array) -> float:
 func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> void:
   if not levelName:
     levelName = await prompt("enter the level name", PromptTypes.string, "")
-  var fullDirPath := path.abs(path.join("res://maps/", levelPackName))
+  var fullDirPath := path.join(MAP_FOLDER, levelPackName)
   var opts: Dictionary = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
   opts.stages[levelName] = defaultLevelSettings.duplicate()
   opts.stages[levelName].color = randfrom(1, 11)
@@ -1145,7 +1147,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> voi
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, "New map")
   var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
-  var fullDirPath := path.abs(path.join("res://maps/", foldername))
+  var fullDirPath := path.join(MAP_FOLDER, foldername)
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
     return
@@ -1172,7 +1174,7 @@ func createNewMapFolder() -> Variant:
   OS.execute("cmd", [
     "/c",
     'mklink /J "' +
-    path.abs("res://maps/" + foldername + "/custom blocks") +
+    path.join(MAP_FOLDER, foldername, "/custom blocks") +
     '" "' +
     path.abs("res://custom blocks") +
     '"'
@@ -1212,7 +1214,7 @@ func fullscreen(state: int = 0) -> void:
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
 
 func localReady() -> void:
-  DirAccess.make_dir_recursive_absolute(path.abs("res://maps/"))
+  DirAccess.make_dir_recursive_absolute(MAP_FOLDER)
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://saves/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://exports/"))
@@ -1332,7 +1334,7 @@ func tryAndGetMapZipsFromArr(args):
       log.pp("AKSJDHSADKJHDHJDSKDSHKJDSA", p)
       if !('.' in p and ('/' in p or '\\' in p)): return
       # add the intended folder to the end of the path to force it to go into the correct folder
-      var moveto = path.abs("res://maps/" + regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
+      var moveto = path.join(MAP_FOLDER, regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
       if tryAndLoadMapFromZip(p, moveto):
         mapFound = true
   if mapFound and get_tree().current_scene.name == "main menu":
@@ -1547,3 +1549,5 @@ func createNewBlock(data) -> EditorBlock:
   return
 
 var portals = []
+
+var MAP_FOLDER = path.abs('res://maps')
