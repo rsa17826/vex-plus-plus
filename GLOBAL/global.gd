@@ -602,7 +602,7 @@ var editorMode = EditorModes.normal
 
 func localProcess(delta: float) -> void:
   if not global.useropts: return
-  gridSize = 1 if Input.is_action_pressed("editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+  gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.abs("res://filesToOpen"))
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
@@ -816,31 +816,34 @@ var boxSelectRealEndPos: Vector2 = Vector2.ZERO
 
 func localInput(event: InputEvent) -> void:
   if openMsgBoxCount: return
-  if Input.is_action_pressed("editor_box_select", true):
+  if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
       boxSelectRealEndPos = player.get_global_mouse_position()
       level.boxSelectDrawingNode.updateRect()
-  if Input.is_action_just_pressed("editor_box_select", true):
+  if Input.is_action_just_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
       boxSelectDrawStartPos = get_viewport().get_mouse_position()
       boxSelectRealStartPos = player.get_global_mouse_position()
-  if Input.is_action_just_released("editor_box_select", true):
+  if Input.is_action_just_released(&"editor_box_select", false) and boxSelectDrawStartPos:
     if level and is_instance_valid(level):
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
       boxSelectRealEndPos = player.get_global_mouse_position()
       boxSelectReleased()
-  if Input.is_action_just_released("editor_select"):
+  if Input.is_action_just_released(&"editor_select"):
     if selectedBlock:
       selectedBlock.onEditorMove(Vector2.ZERO)
       selectedBlock = null
+    else:
+      if not Input.is_action_pressed(&"editor_pan", true):
+        boxSelect_selectedBlocks = []
       # selectedBlock._ready.call(false)
-  if Input.is_action_just_pressed("new_level_file", true):
+  if Input.is_action_just_pressed(&"new_level_file", true):
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
-  if Input.is_action_just_pressed("new_map_folder", true):
+  if Input.is_action_just_pressed(&"new_map_folder", true):
     createNewMapFolder()
-  if Input.is_action_just_pressed("duplicate_block", true):
+  if Input.is_action_just_pressed(&"duplicate_block", true):
     # log.pp(lastSelectedBrush, lastSelectedBlock)
     if lastSelectedBrush and lastSelectedBlock:
       selectedBrush = lastSelectedBrush
@@ -858,9 +861,9 @@ func localInput(event: InputEvent) -> void:
       lastSelectedBrush.selected = 0
       selectedBrush.selected = 0
       # log.pp(justPaintedBlock.selectedOptions)
-  if Input.is_action_just_pressed("toggle_fullscreen", true):
+  if Input.is_action_just_pressed(&"toggle_fullscreen", true):
     fullscreen()
-  if Input.is_action_just_pressed("editor_select"):
+  if Input.is_action_just_pressed(&"editor_select"):
     # if editorMode == EditorModes.path:
     #   if !lastSelectedBlock:
     #     log.err("no blocks selected")
@@ -877,20 +880,20 @@ func localInput(event: InputEvent) -> void:
         selectedBlock.onEditorMove(Vector2.ZERO)
 
   # dont update editor scale mode if clicking
-  if !Input.is_action_pressed("editor_select"):
-    editorInScaleMode = Input.is_action_pressed("editor_scale")
-  if !Input.is_action_pressed("editor_select") and not editorInScaleMode:
-    editorInRotateMode = Input.is_action_pressed("editor_rotate")
+  if !Input.is_action_pressed(&"editor_select"):
+    editorInScaleMode = Input.is_action_pressed(&"editor_scale")
+  if !Input.is_action_pressed(&"editor_select") and not editorInScaleMode:
+    editorInRotateMode = Input.is_action_pressed(&"editor_rotate")
 
-  if Input.is_action_just_pressed("save", true):
+  if Input.is_action_just_pressed(&"save", true):
     if level and is_instance_valid(level):
       level.save()
-  if Input.is_action_pressed("toggle_path_editor", true):
+  if Input.is_action_pressed(&"toggle_path_editor", true):
     if editorMode == EditorModes.path:
       editorMode = EditorModes.normal
     else:
       editorMode = EditorModes.path
-  if Input.is_action_pressed("editor_delete", true):
+  if Input.is_action_pressed(&"editor_delete", true):
     if !selectedBlock: return
     if !is_instance_valid(selectedBlock): return
     if selectedBlock == global.player.get_parent(): return
@@ -901,27 +904,27 @@ func localInput(event: InputEvent) -> void:
     lastSelectedBlock.id = selectedBlock.id
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
-  if Input.is_action_just_pressed("reload_map_from_last_save", true):
+  if Input.is_action_just_pressed(&"reload_map_from_last_save", true):
     loadMap.call_deferred(mainLevelName, true)
-  if Input.is_action_just_pressed("fully_reload_map", true):
+  if Input.is_action_just_pressed(&"fully_reload_map", true):
     loadMap.call_deferred(mainLevelName, false)
-  if Input.is_action_just_pressed("toggle_hitboxes", true):
+  if Input.is_action_just_pressed(&"toggle_hitboxes", true):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
     showEditorUi = !showEditorUi
     await wait(1)
     showEditorUi = !showEditorUi
-  if Input.is_action_just_pressed("quit", true):
+  if Input.is_action_just_pressed(&"quit", true):
     quitGame()
-  if Input.is_action_just_pressed("move_player_to_mouse", true):
+  if Input.is_action_just_pressed(&"move_player_to_mouse", true):
     if player and is_instance_valid(player):
       player.camLockPos = Vector2.ZERO
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
-  if Input.is_action_just_pressed("toggle_pause", true):
+  if Input.is_action_just_pressed(&"toggle_pause", true):
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking
       global.tick = 0
-  if Input.is_action_just_pressed("load", true):
+  if Input.is_action_just_pressed(&"load", true):
     if useropts.saveOnExit:
       if level and is_instance_valid(level):
         level.save()

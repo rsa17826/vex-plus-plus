@@ -141,13 +141,13 @@ func _input(event: InputEvent) -> void:
     return
   # log.pp(event.to_string(), global.showEditorUi)
   if global.openMsgBoxCount: return
-  if Input.is_action_just_pressed("restart"):
+  if Input.is_action_just_pressed(&"restart"):
     die()
-  if Input.is_action_just_pressed("full_restart"):
+  if Input.is_action_just_pressed(&"full_restart"):
     die(DEATH_TIME, true)
   if event is InputEventMouseMotion:
     global.showEditorUi = true
-  if Input.is_action_pressed("editor_pan"):
+  if Input.is_action_pressed(&"editor_pan"):
     global.showEditorUi = true
     Input.set_default_cursor_shape(Input.CURSOR_DRAG)
   else:
@@ -163,7 +163,7 @@ func _input(event: InputEvent) -> void:
     mouseMode = Input.MOUSE_MODE_CONFINED
     camState = CamStates.editor
     $Camera2D.reset_smoothing()
-    if Input.is_action_pressed("editor_select") and Input.is_action_pressed("editor_pan"):
+    if Input.is_action_pressed(&"editor_select") and Input.is_action_pressed(&"editor_pan"):
       $Camera2D.global_position -= event.relative * global.useropts.editorScrollSpeed
       var mousePos := get_viewport().get_mouse_position()
       var startPos := mousePos
@@ -219,14 +219,14 @@ func _physics_process(delta: float) -> void:
     # States.levelLoading,
   ] \
   and not inWaters:
-    if Input.is_action_just_pressed("jump"):
+    if Input.is_action_just_pressed(&"jump"):
       ACTIONjump = true
-  if !Input.is_action_pressed("jump"):
+  if !Input.is_action_pressed(&"jump"):
     ACTIONjump = false
   # Engine.time_scale = .3
   Engine.time_scale = 1
   if global.openMsgBoxCount: return
-  if Input.is_action_pressed("editor_select"):
+  if Input.is_action_pressed(&"editor_select"):
     if global.selectedBlock == get_parent():
       position = Vector2.ZERO
     return
@@ -295,7 +295,7 @@ func _physics_process(delta: float) -> void:
       else:
         activePole.root.timingIndicator.rotation_degrees = 45 # - activePole.root.timingIndicator.get_parent().rotation_degrees
         activePole.root.timingIndicator.position = Vector2(55.5, 55.5)
-      if Input.is_action_just_pressed("jump"):
+      if Input.is_action_just_pressed(&"jump"):
         if $anim.frame >= 1 and $anim.frame <= 5:
           # this one should be user because it makes the falling better
           vel.user.y = JUMP_POWER
@@ -312,7 +312,7 @@ func _physics_process(delta: float) -> void:
           state = States.falling
         activePole.root.timingIndicator.visible = false
         activePole = null
-      elif Input.is_action_just_pressed("down"):
+      elif Input.is_action_just_pressed(&"down"):
         vel.user.y = 0
         activePole.root.timingIndicator.visible = false
         activePole = null
@@ -345,7 +345,7 @@ func _physics_process(delta: float) -> void:
       if pulleyNoDieTimer <= 0:
         tryAndDieHazards()
 
-      if Input.is_action_just_pressed("down") or inWaters:
+      if Input.is_action_just_pressed(&"down") or inWaters:
         state = States.falling
     States.bouncing:
       rotation = 0
@@ -470,7 +470,7 @@ func _physics_process(delta: float) -> void:
           breakFromWall = false
           # if not moving or trying to not move, go idle
           if !vel.user || !playerXIntent || playerXIntent != vel.user.x:
-            if state == States.sliding && !Input.is_action_pressed("down"):
+            if state == States.sliding && !Input.is_action_pressed(&"down"):
               if abs(vel.user.x) < 10:
                 duckRecovery = MAX_SLIDE_RECOVER_TIME
               else:
@@ -516,7 +516,7 @@ func _physics_process(delta: float) -> void:
             vel.user.y = WALL_SLIDE_SPEED
             state = States.wallSliding
             # press down to detach from wallslide
-            if Input.is_action_pressed("down") && wallBreakDownFrames <= 0:
+            if Input.is_action_pressed(&"down") && wallBreakDownFrames <= 0:
               breakFromWall = true
             if !breakFromWall && wallSlidingFrames <= 0:
               wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
@@ -538,13 +538,13 @@ func _physics_process(delta: float) -> void:
           wallSlidingFrames = 0
           breakFromWall = false
           # press down to detach from wallhang
-          if Input.is_action_pressed("down"):
+          if Input.is_action_pressed(&"down"):
             position.y += 5
             wallBreakDownFrames = MAX_WALL_BREAK_FROM_DOWN_FRAMES
             state = States.falling
 
         # jump from wall grab or from the ground
-        if !Input.is_action_pressed("down"):
+        if !Input.is_action_pressed(&"down"):
           if (playerKT > 0) || state == States.wallHang:
             if duckRecovery <= 0 and ACTIONjump:
               state = States.jumping
@@ -560,7 +560,7 @@ func _physics_process(delta: float) -> void:
           (2 if speedLeverActive else 1)
 
         # enter slide mode when pressing down key and on the ground
-        if is_on_floor() && Input.is_action_pressed("down"):
+        if is_on_floor() && Input.is_action_pressed(&"down"):
           state = States.sliding
 
         # check for falling
@@ -571,7 +571,7 @@ func _physics_process(delta: float) -> void:
             state = States.falling
 
         # # # do a short hop if pressing down after jumping
-        # if Input.is_action_pressed("down"):
+        # if Input.is_action_pressed(&"down"):
         #   for v in vel:
         #     if vel[v].y < 0:
         #       var c = delta * 1000
@@ -853,7 +853,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and normal.y < 0 \
     and velocity.y >= 0 \
     and vel.user.y > 0 \
-    and Input.is_action_pressed("down") \
+    and Input.is_action_pressed(&"down") \
     :
       block.__disable()
     if block is BlockBouncy \
@@ -873,7 +873,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       block.unlock()
     if (block is BlockPushableBox or block is BlockBomb) \
     and getClosestWallSide() \
-    and Input.is_action_just_pressed("down") \
+    and Input.is_action_just_pressed(&"down") \
     and not inWaters \
     and normal.y \
     :
