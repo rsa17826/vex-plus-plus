@@ -84,7 +84,7 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
   isHovered = false
 
-func onEditorMove(moveDist=Vector2.ZERO) -> void:
+func onEditorMove(moveDist) -> void:
   for block: EditorBlock in attach_parents.filter(func(e): return is_instance_valid(e)):
     block.attach_children.erase(self)
   attach_parents = []
@@ -141,15 +141,15 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   last_input_event = event
   # if selecting this block
   if global.hoveredBlocks && self == global.hoveredBlocks[0]:
-    if !Input.is_action_pressed("editor_pan"):
+    if !Input.is_action_pressed(&"editor_pan"):
       # edit block menu on rbutton
-      if event.is_action_pressed("editor_edit_special") && Input.is_action_just_pressed("editor_edit_special") and not global.openMsgBoxCount:
+      if event.is_action_pressed(&"editor_edit_special") && Input.is_action_just_pressed(&"editor_edit_special") and not global.openMsgBoxCount:
         # log.pp(event.to_string(), shape_idx, viewport)
         if not pm: return
         # log.pp(blockOptions, event.as_text(), self, self.name)
         showPopupMenu()
       # select blocks when clicking them
-      elif event.is_action_pressed("editor_select") && Input.is_action_just_pressed("editor_select"):
+      elif event.is_action_pressed(&"editor_select") && Input.is_action_just_pressed(&"editor_select"):
         respawn()
         global_position = startPosition
         global.selectBlock()
@@ -294,7 +294,7 @@ func _physics_process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
   if global.stopTicking: return
   if global.openMsgBoxCount: return
-  if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
+  if global.selectedBlock == self && Input.is_action_pressed(&"editor_select"): return
   if _DISABLED: return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
   # 
@@ -368,10 +368,12 @@ func _process(delta: float) -> void:
     ghost.self_modulate.a = global.useropts.blockGhostAlpha
 
     ghost.visible = global.showEditorUi
-    if Input.is_action_pressed("editor_box_select"): return
-    if global.showEditorUi and not Input.is_action_pressed("editor_pan"):
+    if Input.is_action_pressed(&"editor_box_select"): return
+    if global.showEditorUi and not Input.is_action_pressed(&"editor_pan"):
       if global.selectedBlock == self:
-        if Input.is_action_pressed("editor_select"):
+        if Input.is_action_pressed(&"editor_select"):
+          if self not in global.boxSelect_selectedBlocks:
+            global.boxSelect_selectedBlocks = []
           global_position = startPosition
         if not _DISABLED:
           for collider in collisionShapes:
@@ -383,7 +385,7 @@ func _process(delta: float) -> void:
         ghost.material.set_shader_parameter("color", Color("#6013ff"))
       else:
         # if not mouse down
-        if !Input.is_action_pressed("editor_select"):
+        if !Input.is_action_pressed(&"editor_select"):
           if not _DISABLED:
             for collider in collisionShapes:
               if not collider and not ignoreMissingNodes:
@@ -393,9 +395,7 @@ func _process(delta: float) -> void:
           # set border to hovered color
           ghost.material.set_shader_parameter("color", Color("#6e6e00"))
           # and if first hovered block, show border
-          if (
-              global.hoveredBlocks && self == global.hoveredBlocks[0]
-            ) \
+          if global.hoveredBlocks && self == global.hoveredBlocks[0] \
             or self in global.boxSelect_selectedBlocks:
             var mouse_pos := get_global_mouse_position()
 
@@ -424,7 +424,7 @@ func _process(delta: float) -> void:
             global.scaleOnRightSide = onRightSide
             global.scaleOnLeftSide = onLeftSide
 
-            # show what sides are being selected if editorInScaleMode and is scalable
+            # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select
             ghost.material.set_shader_parameter("showTop",
               self in global.boxSelect_selectedBlocks or \
               not global.editorInScaleMode or \
