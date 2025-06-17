@@ -141,28 +141,50 @@ func _input(event: InputEvent) -> void:
 
 func isActionJustPressedWithNoExtraMods(thing: String) -> bool:
   return Input.is_action_just_pressed(thing) and isActionPressedWithNoExtraMods(thing)
-func isActionJustReleasedWithNoExtraMods(thing: String) -> bool:
-  return Input.is_action_just_released(thing) and isActionPressedWithNoExtraMods(thing)
+# func isActionJustReleasedWithNoExtraMods(thing: String) -> bool:
+#   return Input.is_action_just_released(thing) and isActionPressedWithNoExtraMods(thing)
 func isActionPressedWithNoExtraMods(thing: String) -> bool:
   var actions: Array = InputMap.action_get_events(thing).map(func(e: InputEvent) -> Dictionary:
-    return {
-      "key": e.physical_keycode,
-      "c": e.ctrl_pressed,
-      "a": e.alt_pressed,
-      "s": e.shift_pressed,
-      "m": e.meta_pressed
-    })
+    if "button_index" in e:
+      return {
+        "which": "mouse",
+        "button": e.button_index,
+        "c": e.ctrl_pressed,
+        "a": e.alt_pressed,
+        "s": e.shift_pressed,
+        "m": e.meta_pressed
+      }
+    else:
+      return {
+        "which": "key",
+        "key": e.physical_keycode,
+        "c": e.ctrl_pressed,
+        "a": e.alt_pressed,
+        "s": e.shift_pressed,
+        "m": e.meta_pressed
+      }
+    )
   # log.pp(actions)
   var valid: bool = false
   for action in actions:
-    if Input.is_key_pressed(action.key) \
-    and Input.is_key_pressed(KEY_CTRL) == action.c \
-    and Input.is_key_pressed(KEY_ALT) == action.a \
-    and Input.is_key_pressed(KEY_SHIFT) == action.s \
-    and Input.is_key_pressed(KEY_META) == action.m \
-    :
-      valid = true
-      break
+    if action.which == "key":
+      if Input.is_key_pressed(action.key) \
+      and Input.is_key_pressed(KEY_CTRL) == action.c \
+      and Input.is_key_pressed(KEY_ALT) == action.a \
+      and Input.is_key_pressed(KEY_SHIFT) == action.s \
+      and Input.is_key_pressed(KEY_META) == action.m \
+      :
+        valid = true
+        break
+    elif action.which == "mouse":
+      if Input.is_mouse_button_pressed(action.button) \
+      and Input.is_key_pressed(KEY_CTRL) == action.c \
+      and Input.is_key_pressed(KEY_ALT) == action.a \
+      and Input.is_key_pressed(KEY_SHIFT) == action.s \
+      and Input.is_key_pressed(KEY_META) == action.m \
+      :
+        valid = true
+        break
   return valid
 
 class cache:
@@ -790,8 +812,20 @@ func setBlockStartPos(block: Node) -> void:
   block.startRotation_degrees = block.rotation_degrees
   block.startScale = block.scale
 
+var boxSelectStartPos: Vector2 = Vector2.ZERO
+var boxSelectEndPos: Vector2 = Vector2.ZERO
+
 func localInput(event: InputEvent) -> void:
   if openMsgBoxCount: return
+  if isActionPressedWithNoExtraMods("editor_box_select"):
+    boxSelectEndPos = get_viewport().get_mouse_position()
+    level.boxNode.updateRect()
+  if isActionJustPressedWithNoExtraMods("editor_box_select"):
+    boxSelectStartPos = get_viewport().get_mouse_position()
+  if Input.is_action_just_released("editor_box_select") and boxSelectStartPos:
+    boxSelectEndPos = get_viewport().get_mouse_position()
+    boxSelectReleased()
+    # boxSelectStartPos = Vector2.ZERO
   if Input.is_action_just_released("editor_select"):
     if selectedBlock:
       selectedBlock.onEditorMove()
@@ -1551,3 +1585,27 @@ func createNewBlock(data) -> EditorBlock:
 var portals = []
 
 var MAP_FOLDER = path.abs('res://maps')
+
+func boxSelectReleased():
+  var rect = [
+    Vector2(
+      min(boxSelectStartPos.x, boxSelectEndPos.x),
+      min(boxSelectStartPos.y, boxSelectEndPos.y)
+    ),
+    Vector2(
+      max(boxSelectStartPos.x, boxSelectEndPos.x),
+      max(boxSelectStartPos.y, boxSelectEndPos.y)
+    ),
+  ]
+  # level.boxNode.updateRect(
+  #   Rect2(
+  #     rect[0][0],
+  #     rect[0][1],
+  #     rect[1][0] - rect[0][0],
+  #     rect[1][1] - rect[1][1]
+  #   ))
+  log.pp(rect)
+  for block: EditorBlock in level.get_node("blocks").get_children():
+    if block.global_position.x >= rect[0][0] and block.global_position.x <= rect[0][1]:
+      if block.global_position.y >= rect[1][0] and block.global_position.y <= rect[1][1]:
+        return true
