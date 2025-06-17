@@ -7,6 +7,8 @@ extends Node
 # @flags gm
 # @endregex
 
+# REM: don't call globals by name until onready
+
 # tilemap
 # file
 # arr
