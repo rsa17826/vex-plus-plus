@@ -43,6 +43,7 @@ extends Node2D
 @export var normalScale := false
 ## disables editor features suchas moving, scaling, selecting
 @export var EDITOR_IGNORE: bool = false
+@export var DONT_MOVE: bool = false
 @export_group("IGNORE")
 @export var pathFollowNode: Node
 
@@ -104,9 +105,10 @@ func respawn() -> void:
         breakpoint
       block.respawn()
     attach_children = []
-  global_position = startPosition
-  rotation_degrees = startRotation_degrees
-  scale = startScale
+  if not DONT_MOVE:
+    global_position = startPosition
+    rotation_degrees = startRotation_degrees
+    scale = startScale
   # if enableOnRespawn:
   __enable.call_deferred()
 

@@ -19,7 +19,7 @@ func _ready() -> void:
   add_child(pm)
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-  var dir := DirAccess.open(global.path.abs("res://maps"))
+  var dir := DirAccess.open(global.MAP_FOLDER)
   var dirs = (dir.get_directories() as Array)
   dirs.sort_custom(func(a, s):
     return global.loadMapInfo(a).version > global.loadMapInfo(s).version
@@ -62,42 +62,40 @@ func showMoreOptions(level):
   match res:
     0:
       global.copyDir(
-        global.path.abs("res://maps/" + level),
-        global.path.abs("res://maps/" + level + " (copy)")
+        global.path.join(global.MAP_FOLDER, level),
+        global.path.join(global.MAP_FOLDER, level + " (copy)")
       )
       get_tree().reload_current_scene()
     1:
-      OS.move_to_trash((global.path.abs("res://maps/" + level)))
+      OS.move_to_trash((global.path.join(global.MAP_FOLDER, level)))
       get_tree().reload_current_scene()
     2:
       DirAccess.rename_absolute(
-        global.path.abs("res://maps/" + level),
-        global.path.abs(
-          global.path.join("res://maps/",
-            await global.prompt(
-              "Rename map",
-              global.PromptTypes.string,
-              level
-            )
-          )
+        global.path.join(global.MAP_FOLDER, level),
+        global.path.join(global.MAP_FOLDER,
+          (await global.prompt(
+            "Rename map",
+            global.PromptTypes.string,
+            level
+          )).replace("/", '').replace("\\", '')
         )
       )
       get_tree().reload_current_scene()
     3:
       log.pp(level)
       global.zipDir(
-        global.path.abs("res://maps/" + level),
+        global.path.join(global.MAP_FOLDER, level),
         global.path.abs("res://exports/" + level + ".vex++")
       )
       global.openPathInExplorer("res://exports")
     4:
       var outpath = global.path.abs("res://exports/" + level + ".vex++")
       global.zipDir(
-        global.path.abs("res://maps/" + level),
+        global.path.join(global.MAP_FOLDER, level),
         outpath
       )
       var f = FileAccess.open(outpath, FileAccess.READ)
-      var data = sds.loadDataFromFile(global.path.abs("res://maps/" + level + "/options.sds"))
+      var data = sds.loadDataFromFile(global.path.join(global.MAP_FOLDER, level, "/options.sds"))
 
       var version = str(data.version)
       var author = data.author
@@ -230,7 +228,7 @@ func _on_new_level_btn_pressed() -> void:
   loadLevel(level, false)
 
 func _on_open_level_folder_pressed() -> void:
-  global.openPathInExplorer("res://maps")
+  global.openPathInExplorer(global.MAP_FOLDER)
 
 func _on_load_online_levels_pressed() -> void:
   get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
