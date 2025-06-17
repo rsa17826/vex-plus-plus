@@ -50,6 +50,11 @@ extends Node2D
 ## calls __enable on the node when it respawns
 # @export var enableOnRespawn: bool = true
 
+var sizeInPx: Vector2:
+  get():
+    return sizeInPx * startScale
+  set(value):
+    sizeInPx = value
 var root = self
 var _DISABLED := false
 var isHovered := false
@@ -284,6 +289,7 @@ func _physics_process(delta: float) -> void:
   if global.stopTicking: return
   if global.openMsgBoxCount: return
   if global.selectedBlock == self && Input.is_action_pressed("editor_select"): return
+  if _DISABLED: return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
   # 
   # if currentPath:
@@ -482,6 +488,7 @@ func createEditorGhost() -> void:
     log.err("no ghost texture", id, name, ghostIconNode.get_texture(), ghost, ghost.get_texture())
     breakpoint
   rectangle.size = ghost.get_texture().get_size()
+  sizeInPx = ghost.get_texture().get_size()
   # collisionShape.debug_color = Color("#5d40643f")
   collisionShape.debug_color = Color("#00000010")
   collisionShape.set_shape(rectangle)

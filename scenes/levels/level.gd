@@ -11,7 +11,7 @@ extends Node2D
 func _init() -> void:
   global.level = self
   
-@export var boxNode:Control
+@export var boxNode: Control
 
 func onProgress(prog, max):
   global.ui.progressBar.max_value = max
