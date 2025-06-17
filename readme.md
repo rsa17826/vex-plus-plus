@@ -10,8 +10,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - [Explanations](#explanations)
 - [General Information](#general-information)
 
-
 ## extra info
+
 - press editor_edit_special on a block in the block picker to modify the default options of that block that will be used when first placing it
 - launcher not required, but allows easy access to any old version, and allows you to know when there is an update whenever opening the launcher.
 - launcher also has a button to update the launcher
@@ -108,6 +108,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **attachesToThings**
 
 - **10x spike**: kills the player on contact
+
   - rotatable
     - i plan to replace this and the single spike with a scalable spike that tiles the spike texture instead
   - **settings**:
@@ -356,5 +357,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **spark clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
   - **settings**:
     - **color**
-
-
+- **bomb**: like a pushable box but explodes when hit with a falling spike, falling to fast and colliging with the ground, being squished, or having a box, other bomb fall to fast on it, or being exploded by another bomb. when the player is inside of the explosion, they will be killed, when a block is in the explosion, it will be disabled. microwaves cant be exploded.
+  - **settings**:
+    - **color**
