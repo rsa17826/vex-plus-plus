@@ -812,20 +812,25 @@ func setBlockStartPos(block: Node) -> void:
   block.startRotation_degrees = block.rotation_degrees
   block.startScale = block.scale
 
-var boxSelectStartPos: Vector2 = Vector2.ZERO
-var boxSelectEndPos: Vector2 = Vector2.ZERO
+var boxSelectDrawStartPos: Vector2 = Vector2.ZERO
+var boxSelectRealStartPos: Vector2 = Vector2.ZERO
+var boxSelectDrawEndPos: Vector2 = Vector2.ZERO
+var boxSelectRealEndPos: Vector2 = Vector2.ZERO
 
 func localInput(event: InputEvent) -> void:
   if openMsgBoxCount: return
   if isActionPressedWithNoExtraMods("editor_box_select"):
-    boxSelectEndPos = get_viewport().get_mouse_position()
+    boxSelectDrawEndPos = get_viewport().get_mouse_position()
+    boxSelectRealEndPos = player.get_global_mouse_position()
     level.boxNode.updateRect()
   if isActionJustPressedWithNoExtraMods("editor_box_select"):
-    boxSelectStartPos = get_viewport().get_mouse_position()
-  if Input.is_action_just_released("editor_box_select") and boxSelectStartPos:
-    boxSelectEndPos = get_viewport().get_mouse_position()
+    boxSelectDrawStartPos = get_viewport().get_mouse_position()
+    boxSelectRealStartPos = player.get_global_mouse_position()
+  if Input.is_action_just_released("editor_box_select") and boxSelectDrawStartPos:
+    boxSelectDrawEndPos = get_viewport().get_mouse_position()
+    boxSelectRealEndPos = player.get_global_mouse_position()
     boxSelectReleased()
-    # boxSelectStartPos = Vector2.ZERO
+    # boxSelectDrawStartPos = Vector2.ZERO
   if Input.is_action_just_released("editor_select"):
     if selectedBlock:
       selectedBlock.onEditorMove()
@@ -1589,23 +1594,21 @@ var MAP_FOLDER = path.abs('res://maps')
 func boxSelectReleased():
   var rect = [
     Vector2(
-      min(boxSelectStartPos.x, boxSelectEndPos.x),
-      min(boxSelectStartPos.y, boxSelectEndPos.y)
+      min(boxSelectRealStartPos.x, boxSelectRealEndPos.x),
+      min(boxSelectRealStartPos.y, boxSelectRealEndPos.y)
     ),
     Vector2(
-      max(boxSelectStartPos.x, boxSelectEndPos.x),
-      max(boxSelectStartPos.y, boxSelectEndPos.y)
+      max(boxSelectRealStartPos.x, boxSelectRealEndPos.x),
+      max(boxSelectRealStartPos.y, boxSelectRealEndPos.y)
     ),
   ]
-  # level.boxNode.updateRect(
-  #   Rect2(
-  #     rect[0][0],
-  #     rect[0][1],
-  #     rect[1][0] - rect[0][0],
-  #     rect[1][1] - rect[1][1]
-  #   ))
   log.pp(rect)
   for block: EditorBlock in level.get_node("blocks").get_children():
-    if block.global_position.x >= rect[0][0] and block.global_position.x <= rect[0][1]:
-      if block.global_position.y >= rect[1][0] and block.global_position.y <= rect[1][1]:
-        return true
+    var pos = block.global_position
+    if pos.x + (block.sizeInPx.x / 2) >= rect[0][0] and pos.x - (block.sizeInPx.x / 2) <= rect[1][0]:
+      if pos.y + (block.sizeInPx.y / 2) >= rect[0][1] and pos.y - (block.sizeInPx.y / 2) <= rect[1][1]:
+        block.__disable()
+
+  boxSelectDrawStartPos = Vector2.ZERO
+  boxSelectDrawEndPos = Vector2.ZERO
+  level.boxNode.updateRect()
