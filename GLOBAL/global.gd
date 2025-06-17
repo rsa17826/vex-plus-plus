@@ -350,7 +350,9 @@ class path:
   static func abs(p: String) -> String:
     if OS.has_feature("editor"):
       return ProjectSettings.globalize_path(p)
-    return global.regReplace(p, 'res://', OS.get_executable_path().get_base_dir() + '/')
+    if global.starts_with(p, "res://"):
+      return OS.get_executable_path().get_base_dir() + '/' + p.substr(6)
+    return p
 
   static func join(path1: String, path2:="", path3:="", path4:="") -> String:
     var fullPath := path1
@@ -1590,7 +1592,7 @@ func createNewBlock(data) -> EditorBlock:
 
 var portals = []
 var boxSelect_selectedBlocks = []
-var MAP_FOLDER = path.abs('res://maps')
+@onready var MAP_FOLDER = path.abs('res://maps')
 
 func boxSelectReleased():
   boxSelect_selectedBlocks = []

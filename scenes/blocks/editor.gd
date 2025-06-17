@@ -84,7 +84,7 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
   isHovered = false
 
-func onEditorMove(moveDist) -> void:
+func onEditorMove(moveDist=Vector2.ZERO) -> void:
   for block: EditorBlock in attach_parents.filter(func(e): return is_instance_valid(e)):
     block.attach_children.erase(self)
   attach_parents = []
