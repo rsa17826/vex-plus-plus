@@ -6,9 +6,9 @@
 [ext_resource type="Script" uid="uid://fgu8i5y0iued" path="res://scenes/levels/autosave_timer.gd" id="4_xb4v1"]
 [ext_resource type="Script" uid="uid://b7v5fgrc0mgvo" path="res://scenes/levels/control.gd" id="5_urvlt"]
 
-[node name="level" type="Node2D" node_paths=PackedStringArray("boxNode")]
+[node name="level" type="Node2D" node_paths=PackedStringArray("boxSelectDrawingNode")]
 script = ExtResource("1_bovvr")
-boxNode = NodePath("CanvasLayer/Control")
+boxSelectDrawingNode = NodePath("CanvasLayer/boxSelectDrawingNode")
 
 [node name="player" parent="." instance=ExtResource("2_b2cq8")]
 position = Vector2(61, 383)
@@ -594,11 +594,12 @@ script = ExtResource("4_xb4v1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="boxSelectDrawingNode" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
+mouse_filter = 2
 script = ExtResource("5_urvlt")
 
 [connection signal="timeout" from="autosaveTimer" to="autosaveTimer" method="_on_timeout"]

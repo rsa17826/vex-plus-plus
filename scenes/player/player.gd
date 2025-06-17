@@ -180,9 +180,9 @@ func _input(event: InputEvent) -> void:
         Input.warp_mouse(mousePos * global.stretchScale)
     camLockPos = $Camera2D.global_position
 
-  if state != States.dead and not Input.is_key_pressed(KEY_CTRL) and global.showEditorUi:
+  if state != States.dead and global.showEditorUi:
     for action: String in ["right", "jump", "left"]:
-      if Input.is_action_pressed(action):
+      if Input.is_action_pressed(action, true):
         global.showEditorUi = false
         camState = CamStates.player
         camLockPos = Vector2.ZERO

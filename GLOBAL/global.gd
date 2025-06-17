@@ -139,53 +139,50 @@ func _input(event: InputEvent) -> void:
   #     __pressedKeys.erase(event.keycode)
   localInput(event)
 
-func isActionJustPressedWithNoExtraMods(thing: String) -> bool:
-  return Input.is_action_just_pressed(thing) and isActionPressedWithNoExtraMods(thing)
-# func isActionJustReleasedWithNoExtraMods(thing: String) -> bool:
-#   return Input.is_action_just_released(thing) and isActionPressedWithNoExtraMods(thing)
-func isActionPressedWithNoExtraMods(thing: String) -> bool:
-  var actions: Array = InputMap.action_get_events(thing).map(func(e: InputEvent) -> Dictionary:
-    if "button_index" in e:
-      return {
-        "which": "mouse",
-        "button": e.button_index,
-        "c": e.ctrl_pressed,
-        "a": e.alt_pressed,
-        "s": e.shift_pressed,
-        "m": e.meta_pressed
-      }
-    else:
-      return {
-        "which": "key",
-        "key": e.physical_keycode,
-        "c": e.ctrl_pressed,
-        "a": e.alt_pressed,
-        "s": e.shift_pressed,
-        "m": e.meta_pressed
-      }
-    )
-  # log.pp(actions)
-  var valid: bool = false
-  for action in actions:
-    if action.which == "key":
-      if Input.is_key_pressed(action.key) \
-      and Input.is_key_pressed(KEY_CTRL) == action.c \
-      and Input.is_key_pressed(KEY_ALT) == action.a \
-      and Input.is_key_pressed(KEY_SHIFT) == action.s \
-      and Input.is_key_pressed(KEY_META) == action.m \
-      :
-        valid = true
-        break
-    elif action.which == "mouse":
-      if Input.is_mouse_button_pressed(action.button) \
-      and Input.is_key_pressed(KEY_CTRL) == action.c \
-      and Input.is_key_pressed(KEY_ALT) == action.a \
-      and Input.is_key_pressed(KEY_SHIFT) == action.s \
-      and Input.is_key_pressed(KEY_META) == action.m \
-      :
-        valid = true
-        break
-  return valid
+# func isActionJustPressedWithNoExtraMods(thing: String) -> bool:
+#   return Input.is_action_just_pressed(thing) and isActionPressedWithNoExtraMods(thing)
+# # func isActionJustReleasedWithNoExtraMods(thing: String) -> bool:
+# #   return Input.is_action_just_released(thing) and isActionPressedWithNoExtraMods(thing)
+# func isActionPressedWithNoExtraMods(thing: String) -> bool:
+#   var actions: Array = InputMap.action_get_events(thing).map(func(e: InputEvent) -> Dictionary:
+#     if "button_index" in e:
+#       return {
+#         "which": "mouse",
+#         "button": e.button_index,
+#         "c": e.ctrl_pressed,
+#         "a": e.alt_pressed,
+#         "s": e.shift_pressed,
+#         "m": e.meta_pressed
+#       }
+#     else:
+#       return {
+#         "which": "key",
+#         "key": e.physical_keycode,
+#         "c": e.ctrl_pressed,
+#         "a": e.alt_pressed,
+#         "s": e.shift_pressed,
+#         "m": e.meta_pressed
+#       }
+#     )
+#   # log.pp(actions)
+#   for action in actions:
+#     if action.which == "key":
+#       if Input.is_key_pressed(action.key) \
+#       and Input.is_key_pressed(KEY_CTRL) == action.c \
+#       and Input.is_key_pressed(KEY_ALT) == action.a \
+#       and Input.is_key_pressed(KEY_SHIFT) == action.s \
+#       and Input.is_key_pressed(KEY_META) == action.m \
+#       :
+#         return true
+#     elif action.which == "mouse":
+#       if Input.is_mouse_button_pressed(action.button) \
+#       and Input.is_key_pressed(KEY_CTRL) == action.c \
+#       and Input.is_key_pressed(KEY_ALT) == action.a \
+#       and Input.is_key_pressed(KEY_SHIFT) == action.s \
+#       and Input.is_key_pressed(KEY_META) == action.m \
+#       :
+#         return true
+#   return false
 
 class cache:
   var cache := {}
@@ -716,7 +713,6 @@ func localProcess(delta: float) -> void:
           var minSize := 0.1 / 7.0
           # need to make it stop moving - cant figure out how yet
           if selectedBlock.scale.x < minSize:
-            selectedBlock.onEditorMove()
             # selectedBlock.scale.x = minSize
             if scaleOnLeftSide:
               scaleOnLeftSide = false
@@ -728,7 +724,6 @@ func localProcess(delta: float) -> void:
               moveMouse.call(mousePos - Vector2(minSize * 700, 0))
 
           if selectedBlock.scale.y < minSize:
-            selectedBlock.onEditorMove()
             # selectedBlock.scale.y = minSize
             if scaleOnTopSide:
               scaleOnTopSide = false
@@ -743,9 +738,9 @@ func localProcess(delta: float) -> void:
           selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 250.0 / 7.0)
           global.showEditorUi = true
           # selectedBlock.self_modulate.a = useropts.hoveredBlockGhostAlpha
+          var moveDist = selectedBlock.global_position - selectedBlock.startPosition
           setBlockStartPos(selectedBlock)
-          
-          selectedBlock.onEditorMove()
+          selectedBlock.onEditorMove(moveDist)
         else:
           # if trying to create new block
           if justPaintedBlock:
@@ -796,11 +791,9 @@ func localProcess(delta: float) -> void:
             selectedBlock.global_position = round(mpos + selectedBlockOffset - (sizeInPx / 2))
             # if isYOnOddScale or isXOnOddScale:
             selectedBlock.global_position += offset
+            var moveDist = selectedBlock.global_position - selectedBlock.startPosition
             setBlockStartPos(selectedBlock)
-            # if selectedBlock.name == "player":
-            #   selectedBlock.get_node("CharacterBody2D").moving = 2
-            
-            selectedBlock.onEditorMove()
+            selectedBlock.onEditorMove(moveDist)
       if justPaintedBlock:
         lastSelectedBlock = justPaintedBlock
       if selectedBlock:
@@ -819,29 +812,31 @@ var boxSelectRealEndPos: Vector2 = Vector2.ZERO
 
 func localInput(event: InputEvent) -> void:
   if openMsgBoxCount: return
-  if isActionPressedWithNoExtraMods("editor_box_select"):
-    boxSelectDrawEndPos = get_viewport().get_mouse_position()
-    boxSelectRealEndPos = player.get_global_mouse_position()
-    level.boxNode.updateRect()
-  if isActionJustPressedWithNoExtraMods("editor_box_select"):
-    boxSelectDrawStartPos = get_viewport().get_mouse_position()
-    boxSelectRealStartPos = player.get_global_mouse_position()
-  if Input.is_action_just_released("editor_box_select") and boxSelectDrawStartPos:
-    boxSelectDrawEndPos = get_viewport().get_mouse_position()
-    boxSelectRealEndPos = player.get_global_mouse_position()
-    boxSelectReleased()
-    # boxSelectDrawStartPos = Vector2.ZERO
+  if Input.is_action_pressed("editor_box_select", true):
+    if level and is_instance_valid(level):
+      boxSelectDrawEndPos = get_viewport().get_mouse_position()
+      boxSelectRealEndPos = player.get_global_mouse_position()
+      level.boxSelectDrawingNode.updateRect()
+  if Input.is_action_just_pressed("editor_box_select", true):
+    if level and is_instance_valid(level):
+      boxSelectDrawStartPos = get_viewport().get_mouse_position()
+      boxSelectRealStartPos = player.get_global_mouse_position()
+  if Input.is_action_just_released("editor_box_select", true):
+    if level and is_instance_valid(level):
+      boxSelectDrawEndPos = get_viewport().get_mouse_position()
+      boxSelectRealEndPos = player.get_global_mouse_position()
+      boxSelectReleased()
   if Input.is_action_just_released("editor_select"):
     if selectedBlock:
-      selectedBlock.onEditorMove()
+      selectedBlock.onEditorMove(Vector2.ZERO)
       selectedBlock = null
       # selectedBlock._ready.call(false)
-  if isActionJustPressedWithNoExtraMods("new_level_file"):
+  if Input.is_action_just_pressed("new_level_file", true):
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
-  if isActionJustPressedWithNoExtraMods("new_map_folder"):
+  if Input.is_action_just_pressed("new_map_folder", true):
     createNewMapFolder()
-  if isActionJustPressedWithNoExtraMods("duplicate_block"):
+  if Input.is_action_just_pressed("duplicate_block", true):
     # log.pp(lastSelectedBrush, lastSelectedBlock)
     if lastSelectedBrush and lastSelectedBlock:
       selectedBrush = lastSelectedBrush
@@ -859,7 +854,7 @@ func localInput(event: InputEvent) -> void:
       lastSelectedBrush.selected = 0
       selectedBrush.selected = 0
       # log.pp(justPaintedBlock.selectedOptions)
-  if isActionJustPressedWithNoExtraMods("toggle_fullscreen"):
+  if Input.is_action_just_pressed("toggle_fullscreen", true):
     fullscreen()
   if Input.is_action_just_pressed("editor_select"):
     # if editorMode == EditorModes.path:
@@ -875,7 +870,7 @@ func localInput(event: InputEvent) -> void:
     #   log.pp(lastSelectedBlock.selectedOptions.path)
     # else:
       if selectedBlock:
-        selectedBlock.onEditorMove()
+        selectedBlock.onEditorMove(Vector2.ZERO)
 
   # dont update editor scale mode if clicking
   if !Input.is_action_pressed("editor_select"):
@@ -883,15 +878,15 @@ func localInput(event: InputEvent) -> void:
   if !Input.is_action_pressed("editor_select") and not editorInScaleMode:
     editorInRotateMode = Input.is_action_pressed("editor_rotate")
 
-  if isActionJustPressedWithNoExtraMods("save"):
+  if Input.is_action_just_pressed("save", true):
     if level and is_instance_valid(level):
       level.save()
-  if isActionPressedWithNoExtraMods("toggle_path_editor"):
+  if Input.is_action_pressed("toggle_path_editor", true):
     if editorMode == EditorModes.path:
       editorMode = EditorModes.normal
     else:
       editorMode = EditorModes.path
-  if isActionPressedWithNoExtraMods("editor_delete"):
+  if Input.is_action_pressed("editor_delete", true):
     if !selectedBlock: return
     if !is_instance_valid(selectedBlock): return
     if selectedBlock == global.player.get_parent(): return
@@ -902,27 +897,27 @@ func localInput(event: InputEvent) -> void:
     lastSelectedBlock.id = selectedBlock.id
     selectedBlock.queue_free.call_deferred()
     selectedBlock = null
-  if isActionJustPressedWithNoExtraMods("reload_map_from_last_save"):
+  if Input.is_action_just_pressed("reload_map_from_last_save", true):
     loadMap.call_deferred(mainLevelName, true)
-  if isActionJustPressedWithNoExtraMods("fully_reload_map"):
+  if Input.is_action_just_pressed("fully_reload_map", true):
     loadMap.call_deferred(mainLevelName, false)
-  if isActionJustPressedWithNoExtraMods("toggle_hitboxes"):
+  if Input.is_action_just_pressed("toggle_hitboxes", true):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
     showEditorUi = !showEditorUi
     await wait(1)
     showEditorUi = !showEditorUi
-  if isActionJustPressedWithNoExtraMods("quit"):
+  if Input.is_action_just_pressed("quit", true):
     quitGame()
-  if isActionJustPressedWithNoExtraMods("move_player_to_mouse"):
+  if Input.is_action_just_pressed("move_player_to_mouse", true):
     if player and is_instance_valid(player):
       player.camLockPos = Vector2.ZERO
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
-  if isActionJustPressedWithNoExtraMods("toggle_pause"):
+  if Input.is_action_just_pressed("toggle_pause", true):
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking
       global.tick = 0
-  if isActionJustPressedWithNoExtraMods("load"):
+  if Input.is_action_just_pressed("load", true):
     if useropts.saveOnExit:
       if level and is_instance_valid(level):
         level.save()
@@ -952,8 +947,10 @@ func loadInnerLevel(innerLevel: String) -> void:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
   await wait()
   await level.loadLevel(innerLevel)
-  player.die(0, true)
   player.deathPosition = player.lastSpawnPoint
+  player.camLockPos = Vector2.ZERO
+  player.goto(player.deathPosition)
+  player.die(0, true)
   loadBlockData()
   savePlayerLevelData()
   # log.pp(loadedLevels, beatLevels)
@@ -973,6 +970,8 @@ func win() -> void:
   # log.pp(loadedLevels, beatLevels)
   player.lastSpawnPoint = currentLevel().spawnPoint
   player.deathPosition = player.lastSpawnPoint
+  player.camLockPos = Vector2.ZERO
+  player.goto(player.deathPosition)
   player.die(0, false)
   player.die(5, false)
   loadBlockData()
@@ -1087,6 +1086,8 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   else:
     player.deathPosition = Vector2.ZERO
     player.lastSpawnPoint = Vector2.ZERO
+  player.camLockPos = Vector2.ZERO
+  player.goto(player.deathPosition)
   player.die(0, false)
   player.die(5, false)
   # player.die(3, false)
@@ -1588,10 +1589,11 @@ func createNewBlock(data) -> EditorBlock:
   return
 
 var portals = []
-
+var boxSelect_selectedBlocks = []
 var MAP_FOLDER = path.abs('res://maps')
 
 func boxSelectReleased():
+  boxSelect_selectedBlocks = []
   var rect = [
     Vector2(
       min(boxSelectRealStartPos.x, boxSelectRealEndPos.x),
@@ -1607,8 +1609,8 @@ func boxSelectReleased():
     var pos = block.global_position
     if pos.x + (block.sizeInPx.x / 2) >= rect[0][0] and pos.x - (block.sizeInPx.x / 2) <= rect[1][0]:
       if pos.y + (block.sizeInPx.y / 2) >= rect[0][1] and pos.y - (block.sizeInPx.y / 2) <= rect[1][1]:
-        block.__disable()
+        boxSelect_selectedBlocks.append(block)
 
   boxSelectDrawStartPos = Vector2.ZERO
   boxSelectDrawEndPos = Vector2.ZERO
-  level.boxNode.updateRect()
+  level.boxSelectDrawingNode.updateRect()

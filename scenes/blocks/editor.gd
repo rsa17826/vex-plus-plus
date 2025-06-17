@@ -84,10 +84,16 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
   isHovered = false
 
-func onEditorMove() -> void:
+func onEditorMove(moveDist) -> void:
   for block: EditorBlock in attach_parents.filter(func(e): return is_instance_valid(e)):
     block.attach_children.erase(self)
   attach_parents = []
+  if self in global.boxSelect_selectedBlocks:
+    for block in global.boxSelect_selectedBlocks:
+      if block == self: continue
+      block.startPosition += moveDist
+      block.global_position += moveDist
+      block.respawn()
   respawn()
 
 ## overite this to receive event when data for this block is loaded
@@ -387,7 +393,10 @@ func _process(delta: float) -> void:
           # set border to hovered color
           ghost.material.set_shader_parameter("color", Color("#6e6e00"))
           # and if first hovered block, show border
-          if global.hoveredBlocks && self == global.hoveredBlocks[0]:
+          if (
+              global.hoveredBlocks && self == global.hoveredBlocks[0]
+            ) \
+            or self in global.boxSelect_selectedBlocks:
             var mouse_pos := get_global_mouse_position()
 
             var node_pos := ghost.global_position
@@ -417,6 +426,7 @@ func _process(delta: float) -> void:
 
             # show what sides are being selected if editorInScaleMode and is scalable
             ghost.material.set_shader_parameter("showTop",
+              self in global.boxSelect_selectedBlocks or \
               not global.editorInScaleMode or \
               (
                 onTopSide and
@@ -428,6 +438,7 @@ func _process(delta: float) -> void:
               )
             )
             ghost.material.set_shader_parameter("showBottom",
+              self in global.boxSelect_selectedBlocks or \
               not global.editorInScaleMode or \
               (
                 onBottomSide and
@@ -439,6 +450,7 @@ func _process(delta: float) -> void:
               )
             )
             ghost.material.set_shader_parameter("showLeft",
+              self in global.boxSelect_selectedBlocks or \
               not global.editorInScaleMode or \
               (
                 onLeftSide and
@@ -450,6 +462,7 @@ func _process(delta: float) -> void:
               )
             )
             ghost.material.set_shader_parameter("showRight",
+              self in global.boxSelect_selectedBlocks or \
               not global.editorInScaleMode or \
               (
                 onRightSide and
