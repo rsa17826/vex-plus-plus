@@ -341,23 +341,39 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **exitId**: the id this portal uses to find its exit portal
       - eg portalId = 1, exitId = 2, means that entering this portal will take the player to the portal with portalId = 2 and will be found with a portal set to have exitId = 1
 - **pole**: when the player contacts this the player will be able to swing on it and jump off with jump or drop off with down. when jumping off if in the blue part of the indicator then the jump will gain height else it will be like a drop
+
   - **settings**:
     - **color**
     - **attachesToThings**
+
 - **pole quadrant**: spins 4 poles
+
   - **settings**:
     - **color**
     - **attachesToThings**
+
 - **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
+
   - **settings**:
     - **color**
     - **attachesToThings**
+
 - **spark counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
+
   - **settings**:
     - **color**
+
 - **spark clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
+
   - **settings**:
     - **color**
+
 - **bomb**: like a pushable box but explodes when hit with a falling spike, falling to fast and colliging with the ground, being squished, or having a box, other bomb fall to fast on it, or being exploded by another bomb. when the player is inside of the explosion, they will be killed, when a block is in the explosion, it will be disabled. microwaves cant be exploded.
+
   - **settings**:
     - **color**
+
+- **custom block**: loads a list of blocks from a file inside the custom blocks folder for the current level with a name of where. does nothing if the where is not set,
+
+  - **settings**:
+    - **where**: the path to the file in the custom blocks folder.
