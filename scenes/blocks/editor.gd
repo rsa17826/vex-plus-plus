@@ -356,6 +356,7 @@ func _process(delta: float) -> void:
     ghost.self_modulate.a = global.useropts.blockGhostAlpha
 
     ghost.visible = global.showEditorUi
+    if Input.is_action_pressed("editor_box_select"): return
     if global.showEditorUi and not Input.is_action_pressed("editor_pan"):
       if global.selectedBlock == self:
         if Input.is_action_pressed("editor_select"):

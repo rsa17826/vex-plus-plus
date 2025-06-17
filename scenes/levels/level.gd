@@ -10,6 +10,8 @@ extends Node2D
 #   loadLevel(global.currentLevel().name)
 func _init() -> void:
   global.level = self
+  
+@export var boxNode:Control
 
 func onProgress(prog, max):
   global.ui.progressBar.max_value = max

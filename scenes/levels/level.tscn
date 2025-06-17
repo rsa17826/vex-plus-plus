@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://dugw2ju47mwyi"]
+[gd_scene load_steps=6 format=3 uid="uid://dugw2ju47mwyi"]
 
 [ext_resource type="Script" uid="uid://c71tvwdcssf5m" path="res://scenes/levels/level.gd" id="1_bovvr"]
 [ext_resource type="PackedScene" uid="uid://cecm0tp3hsdnh" path="res://scenes/player/player.tscn" id="2_b2cq8"]
 [ext_resource type="Script" uid="uid://bcd1vbaj8suck" path="res://scenes/levels/grid.gd" id="3_b2cq8"]
 [ext_resource type="Script" uid="uid://fgu8i5y0iued" path="res://scenes/levels/autosave_timer.gd" id="4_xb4v1"]
+[ext_resource type="Script" uid="uid://b7v5fgrc0mgvo" path="res://scenes/levels/control.gd" id="5_urvlt"]
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" node_paths=PackedStringArray("boxNode")]
 script = ExtResource("1_bovvr")
+boxNode = NodePath("CanvasLayer/Control")
 
 [node name="player" parent="." instance=ExtResource("2_b2cq8")]
 position = Vector2(61, 383)
@@ -589,5 +591,14 @@ clip_text = true
 [node name="autosaveTimer" type="Timer" parent="."]
 ignore_time_scale = true
 script = ExtResource("4_xb4v1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("5_urvlt")
 
 [connection signal="timeout" from="autosaveTimer" to="autosaveTimer" method="_on_timeout"]
