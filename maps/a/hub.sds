@@ -1,7 +1,7 @@
 [
   {
-    STR(x)FLOAT(10.0)
-    STR(y)FLOAT(-65.0)
+    STR(x)FLOAT(5.0)
+    STR(y)FLOAT(100.0)
   }
   {
     STR(x)FLOAT(-5.0)
@@ -828,6 +828,42 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(Pole Quadrant)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(380.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(395.0)
+    STR(y)FLOAT(445.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(75.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(water)
     STR(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
