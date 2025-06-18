@@ -150,7 +150,7 @@
     ]
   }
   STR(a){
-    STR(lastSpawnPoint)VEC2(-5.0,180.0)
+    STR(lastSpawnPoint)VEC2(395.0,280.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)

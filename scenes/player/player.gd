@@ -985,9 +985,9 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   speedLeverActive = false
   deathSources = []
   global.lastPortal = null
-  OnPlayerDied = OnPlayerDied.filter(func(e: Variant) -> bool:
+  OnPlayerDied = OnPlayerDied.filter(func(e: Callable) -> bool:
     return e.is_valid())
-  OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e: Variant) -> bool:
+  OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e: Callable) -> bool:
     return e.is_valid())
   for cb in OnPlayerDied:
     cb.call()
@@ -1099,6 +1099,7 @@ func updateKeyFollowPosition(delta):
   # !version ?-28! pulling levers allows clipping through moving blocks
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
   # ?!version ?-NOW! can push boxes while sliding
+  # ?!version ?-NOW! spawnpoint being inside water and doing full restart while in spawn water causes player to noe be in water
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1122,3 +1123,5 @@ func updateKeyFollowPosition(delta):
 
 # !!key to exit level
 # ?stop player from lever when nolonger standing on block
+# prevent poll access while in water
+# make it so that if the palyer dies instantly after respawning stop player process
