@@ -918,7 +918,10 @@ func localInput(event: InputEvent) -> void:
     quitGame()
   if Input.is_action_just_pressed(&"move_player_to_mouse", true):
     if player and is_instance_valid(player):
-      player.camLockPos = Vector2.ZERO
+      if showEditorUi:
+        player.camLockPos = player.get_global_mouse_position() - player.get_parent().startPosition
+      else:
+        player.camLockPos = Vector2.ZERO
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
   if Input.is_action_just_pressed(&"toggle_pause", true):
     if level and is_instance_valid(level):
