@@ -72,6 +72,7 @@ var blockOptionsArray := []
 var pm: PopupMenu
 var attach_children: Array[EditorBlock] = []
 var attach_parents: Array[EditorBlock] = []
+var mouseRotationOffset = 90
 
 # var currentPath: PathFollow2D
 

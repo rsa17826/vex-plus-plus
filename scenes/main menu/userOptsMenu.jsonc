@@ -178,6 +178,15 @@
         "type": "bool",
         "key": "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "range",
+        "key": "mouseLockDistanceWhileRotating",
+        "defaultValue": 15,
+        "min": 0,
+        "max": 100,
+        "step": 1
       }
     ]
   },
