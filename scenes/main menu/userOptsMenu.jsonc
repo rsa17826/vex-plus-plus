@@ -183,7 +183,7 @@
         "thing": "option",
         "type": "range",
         "key": "mouseLockDistanceWhileRotating",
-        "defaultValue": 15,
+        "defaultValue": 35,
         "min": 0,
         "max": 100,
         "step": 1
