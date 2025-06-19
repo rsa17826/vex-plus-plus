@@ -5,9 +5,9 @@
   }
   {
     STR(x)FLOAT(0.0)
-    STR(y)FLOAT(65.0)
+    STR(y)FLOAT(70.0)
     STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.10000003874302)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
@@ -180,6 +180,17 @@
     STR(id)STR(star)
     STR(options){
       STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(205.0)
+    STR(y)FLOAT(115.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(0.50000007450581)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
       STR(color)STR(#fff)
     }
   }
