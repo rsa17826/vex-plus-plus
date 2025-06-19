@@ -847,9 +847,7 @@ func localInput(event: InputEvent) -> void:
       if selectedBlock:
         selectedBlock.onEditorMove(Vector2.ZERO)
 
-  # dont update editor scale mode if clicking
-  if !Input.is_action_pressed(&"editor_select"):
-    editorInScaleMode = Input.is_action_pressed(&"editor_scale")
+  editorInScaleMode = Input.is_action_pressed(&"editor_scale")
   if not editorInScaleMode:
     if not editorInRotateMode and Input.is_action_pressed(&"editor_rotate") and !Input.is_action_pressed(&"editor_select"):
       lastMousePos = Vector2.ZERO
