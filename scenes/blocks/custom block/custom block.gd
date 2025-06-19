@@ -47,6 +47,7 @@ func on_ready() -> void:
     var node := global.createNewBlock(block)
     childBlocks.append([node, block])
     node.EDITOR_IGNORE = true
+    node.isChildOfCustomBlock = true
     add_child(node)
   on_respawn()
 
