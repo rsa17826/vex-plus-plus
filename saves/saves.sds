@@ -175,4 +175,22 @@
     ]
     STR(beatLevels)[]
   }
+  STR(a (copy\)){
+    STR(lastSpawnPoint)VEC2(-480.0,-105.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(2)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
 }

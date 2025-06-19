@@ -869,4 +869,16 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(405.0)
+    STR(y)FLOAT(395.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(sticky floor)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]
