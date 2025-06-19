@@ -13,7 +13,7 @@ rem Define the file extension
 set "fileExtension=vex++"
 
 rem Get the path to the current directory where the script is located
-set "appPath=%~dp0launcher.exe"
+set "appPath=%~dp0vex++.exe"
 
 rem Create the file association
 assoc .%fileExtension%=%fileExtension%File
