@@ -902,6 +902,7 @@ func localInput(event: InputEvent) -> void:
         player.die(5, false)
         # player.die(3, false)
         global.tick = global.currentLevel().tick
+        # savePlayerLevelData()
   if Input.is_action_just_pressed(&"save", true):
     if level and is_instance_valid(level):
       level.save()
@@ -971,7 +972,7 @@ func loadInnerLevel(innerLevel: String) -> void:
     if level.name == innerLevel:
       prevLevelDataFound = true
       global.loadedLevels.append(level)
-      beatLevels.erase(level)
+      # beatLevels.erase(level)
       break
   if !prevLevelDataFound:
     global.loadedLevels.append(newLevelSaveData(innerLevel))
@@ -989,7 +990,12 @@ func loadInnerLevel(innerLevel: String) -> void:
   # log.pp(loadedLevels, beatLevels)
 
 func win() -> void:
-  beatLevels.append(loadedLevels.pop_back())
+  var justBeatLevel = loadedLevels.pop_back()
+  for level in beatLevels:
+    if level.name == justBeatLevel.name:
+      beatLevels.erase(level)
+      break
+  beatLevels.append(justBeatLevel)
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     if global.useropts.saveLevelOnWin:
@@ -1007,6 +1013,7 @@ func win() -> void:
   player.goto(player.deathPosition)
   player.die(0, false)
   player.die(5, false)
+  await wait()
   loadBlockData()
   savePlayerLevelData()
 
