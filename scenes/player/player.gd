@@ -1129,3 +1129,4 @@ func updateKeyFollowPosition(delta):
 # prevent pole access while in water
 # make it so that if the palyer dies instantly after respawning stop player process
 # player not reenter pulley when respawning
+# make move_selected_left work
