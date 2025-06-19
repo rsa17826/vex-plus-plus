@@ -1,6 +1,6 @@
 {
   STR(star collection test){
-    STR(lastSpawnPoint)VEC2(912.407958984375,523.425231933594)
+    STR(lastSpawnPoint)VEC2(0.0,0.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -67,6 +67,54 @@
           }
         }
       }
+      {
+        STR(name)STR(1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(true)
+            }
+            INT(2){
+              STR(collected)BOOL(false)
+            }
+            INT(3){
+              STR(collected)BOOL(false)
+            }
+            INT(4){
+              STR(collected)BOOL(false)
+            }
+            INT(5){
+              STR(collected)BOOL(true)
+            }
+            INT(6){
+              STR(collected)BOOL(true)
+            }
+            INT(7){
+              STR(collected)BOOL(true)
+            }
+            INT(8){
+              STR(collected)BOOL(true)
+            }
+            INT(9){
+              STR(collected)BOOL(true)
+            }
+            INT(10){
+              STR(collected)BOOL(true)
+            }
+            INT(11){
+              STR(collected)BOOL(true)
+            }
+            INT(12){
+              STR(collected)BOOL(false)
+            }
+            INT(13){
+              STR(collected)BOOL(false)
+            }
+          }
+        }
+      }
     ]
     STR(beatLevels)[
       {
@@ -91,19 +139,19 @@
               STR(collected)BOOL(true)
             }
             INT(6){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(7){
               STR(collected)BOOL(true)
             }
             INT(8){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(9){
               STR(collected)BOOL(true)
             }
             INT(10){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(11){
               STR(collected)BOOL(true)
