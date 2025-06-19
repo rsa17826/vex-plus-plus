@@ -28,7 +28,6 @@ root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 position = Vector2(0, 55)
-scale = Vector2(1, 1)
 texture = ExtResource("3_hw1lf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]

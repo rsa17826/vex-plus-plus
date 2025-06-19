@@ -228,7 +228,7 @@ func _physics_process(delta: float) -> void:
   Engine.time_scale = 1
   if global.openMsgBoxCount: return
   if Input.is_action_pressed(&"editor_select"):
-    if global.selectedBlock == get_parent():
+    if get_parent() in global.boxSelect_selectedBlocks:
       position = Vector2.ZERO
     return
   var frameStartPosition := global_position

@@ -567,7 +567,7 @@ var level: Node2D
 
 var hoveredBlocks: Array = []
 var selectedBlockOffset: Vector2
-var selectedBlock: EditorBlock = null
+var boxSelect_selectedBlocks: Array[EditorBlock] = []
 var editorInScaleMode := false
 var editorInRotateMode := false
 
@@ -581,18 +581,21 @@ var justPaintedBlock: EditorBlock = null
 var gridSize = 25 / 5.0
 
 func selectBlock() -> void:
-  # select the top hovered block
-  var block: Node2D = hoveredBlocks[0]
-  hoveredBlocks.pop_front.call_deferred()
-  selectedBlock = block
-  lastSelectedBlock = block
-  var bpos: Vector2 = block.position
-  var mpos: Vector2 = player.get_global_mouse_position()
-  selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
-  var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
-  selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
+  if hoveredBlocks:
+    var block: Node2D = hoveredBlocks[0]
+    hoveredBlocks.pop_front.call_deferred()
+    # boxSelect_selectedBlocks = [block] as Array[EditorBlock]
+    # lastSelectedBlock_list = [block] as Array[EditorBlock]
+    var bpos: Vector2 = block.position
+    var mpos: Vector2 = player.get_global_mouse_position()
+    selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
+    var sizeInPx: Vector2 = block.ghost.texture.get_size() * block.scale * block.ghost.scale
+    selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
+    mainSelectedBlock = block
 
-var lastSelectedBlock: Node2D
+var mainSelectedBlock = null
+
+var lastSelectedBlock_list: Array[EditorBlock]
 var lastSelectedBrush: Node2D
 enum EditorModes {
   path,
@@ -622,144 +625,147 @@ func localProcess(delta: float) -> void:
       #   rotresetBlock.ghost.rotation_degrees = rotresetBlock.startRotation_degrees
       # if rotresetBlock and not editorInRotateMode and not editorInScaleMode:
       #   rotresetBlock = null
-      if selectedBlock or (selectedBrush and selectedBrush.selected == 2):
-        var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
+      if boxSelect_selectedBlocks \
+        or (selectedBrush and selectedBrush.selected == 2) \
+        :
+        var mpos: Vector2 = boxSelect_selectedBlocks[0].get_global_mouse_position() if boxSelect_selectedBlocks else selectedBrush.get_global_mouse_position()
 
         player.moving = 2
 
         # when trying to rotate blocks
-        if editorInRotateMode && selectedBlock \
-        and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
-        or global.useropts.allowRotatingAnything):
-          selectedBlock.look_at(mpos)
-          selectedBlock.rotation_degrees += 90
-          selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
-          setBlockStartPos(selectedBlock)
+        if editorInRotateMode && boxSelect_selectedBlocks \
+        :
+          for block in boxSelect_selectedBlocks:
+            if block.is_in_group("EDITOR_OPTION_rotate") \
+              or global.useropts.allowRotatingAnything:
+                block.look_at(mpos)
+                block.rotation_degrees += 90
+                block.rotation_degrees = round(block.rotation_degrees / 15) * 15
+                setBlockStartPos(block)
         # when trying to scale blocks
-        elif editorInScaleMode && selectedBlock \
-        and (selectedBlock.is_in_group("EDITOR_OPTION_scale") \
-        or global.useropts.allowScalingAnything):
-          var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+        elif editorInScaleMode && boxSelect_selectedBlocks && 0:
+          for block in [boxSelect_selectedBlocks[0]]:
+            var sizeInPx: Vector2 = block.ghost.texture.get_size() * block.scale * block.ghost.scale
 
-          # get the edge position in px
-          var bottom_edge: float = selectedBlock.global_position.y + sizeInPx.y / 2.0
-          var top_edge: float = selectedBlock.global_position.y - sizeInPx.y / 2.0
-          var right_edge: float = selectedBlock.global_position.x + sizeInPx.x / 2.0
-          var left_edge: float = selectedBlock.global_position.x - sizeInPx.x / 2.0
+            # get the edge position in px
+            var bottom_edge: float = block.global_position.y + sizeInPx.y / 2.0
+            var top_edge: float = block.global_position.y - sizeInPx.y / 2.0
+            var right_edge: float = block.global_position.x + sizeInPx.x / 2.0
+            var left_edge: float = block.global_position.x - sizeInPx.x / 2.0
 
-          if global.useropts.noCornerGrabsForScaling:
-            # if the user doesnt want to scale corners scale only the side that has less grab area
-            var width = selectedBlock.scale.x
-            var height = selectedBlock.scale.y
+            if global.useropts.noCornerGrabsForScaling:
+              # if the user doesnt want to scale corners scale only the side that has less grab area
+              var width = block.scale.x
+              var height = block.scale.y
 
-            if scaleOnTopSide and scaleOnBottomSide:
-              if width < height:
-                scaleOnBottomSide = false
-              else:
-                scaleOnTopSide = false
+              if scaleOnTopSide and scaleOnBottomSide:
+                if width < height:
+                  scaleOnBottomSide = false
+                else:
+                  scaleOnTopSide = false
 
-            if scaleOnLeftSide and scaleOnRightSide:
-              if height < width:
-                scaleOnRightSide = false
-              else:
-                scaleOnLeftSide = false
+              if scaleOnLeftSide and scaleOnRightSide:
+                if height < width:
+                  scaleOnRightSide = false
+                else:
+                  scaleOnLeftSide = false
 
-            if scaleOnTopSide and scaleOnLeftSide:
-              if width < height:
-                scaleOnLeftSide = false
-              else:
-                scaleOnTopSide = false
+              if scaleOnTopSide and scaleOnLeftSide:
+                if width < height:
+                  scaleOnLeftSide = false
+                else:
+                  scaleOnTopSide = false
 
-            if scaleOnTopSide and scaleOnRightSide:
-              if width < height:
-                scaleOnRightSide = false
-              else:
-                scaleOnTopSide = false
+              if scaleOnTopSide and scaleOnRightSide:
+                if width < height:
+                  scaleOnRightSide = false
+                else:
+                  scaleOnTopSide = false
 
-            if scaleOnBottomSide and scaleOnLeftSide:
-              if width < height:
-                scaleOnLeftSide = false
-              else:
-                scaleOnBottomSide = false
+              if scaleOnBottomSide and scaleOnLeftSide:
+                if width < height:
+                  scaleOnLeftSide = false
+                else:
+                  scaleOnBottomSide = false
 
-            if scaleOnBottomSide and scaleOnRightSide:
-              if width < height:
-                scaleOnRightSide = false
-              else:
-                scaleOnBottomSide = false
+              if scaleOnBottomSide and scaleOnRightSide:
+                if width < height:
+                  scaleOnRightSide = false
+                else:
+                  scaleOnBottomSide = false
 
-          # scale on the selected sides
-          if scaleOnTopSide:
-            var mouseDistInPx := (top_edge - mpos.y)
-            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
-            selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
-            selectedBlock.global_position.y = selectedBlock.global_position.y - (mouseDistInPx / 2)
-          elif scaleOnBottomSide:
-            var mouseDistInPx := (mpos.y - bottom_edge)
-            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
-            selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
-            selectedBlock.global_position.y = selectedBlock.global_position.y + (mouseDistInPx / 2)
-          if scaleOnLeftSide:
-            var mouseDistInPx := (left_edge - mpos.x)
-            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
-            selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
-            selectedBlock.global_position.x = selectedBlock.global_position.x - (mouseDistInPx / 2)
-          elif scaleOnRightSide:
-            var mouseDistInPx := (mpos.x - right_edge)
-            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
-            selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
-            selectedBlock.global_position.x = selectedBlock.global_position.x + (mouseDistInPx / 2)
-
-          var moveMouse := func(pos: Vector2) -> void:
-            Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
-          # make block no less than 10% default size
-          var mousePos := get_viewport().get_mouse_position()
-          var minSize := 0.1 / 7.0
-          # need to make it stop moving - cant figure out how yet
-          if selectedBlock.scale.x < minSize:
-            # selectedBlock.scale.x = minSize
-            if scaleOnLeftSide:
-              scaleOnLeftSide = false
-              scaleOnRightSide = true
-              moveMouse.call(mousePos + Vector2(minSize * 700, 0))
-            else:
-              scaleOnLeftSide = true
-              scaleOnRightSide = false
-              moveMouse.call(mousePos - Vector2(minSize * 700, 0))
-
-          if selectedBlock.scale.y < minSize:
-            # selectedBlock.scale.y = minSize
+            # scale on the selected sides
             if scaleOnTopSide:
-              scaleOnTopSide = false
-              scaleOnBottomSide = true
-              moveMouse.call(mousePos + Vector2(0, minSize * 700))
-            else:
-              scaleOnTopSide = true
-              scaleOnBottomSide = false
-              moveMouse.call(mousePos - Vector2(0, minSize * 700))
+              var mouseDistInPx := (top_edge - mpos.y)
+              mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+              block.scale.y = (block.scale.y + (mouseDistInPx / sizeInPx.y * block.scale.y))
+              block.global_position.y = block.global_position.y - (mouseDistInPx / 2)
+            elif scaleOnBottomSide:
+              var mouseDistInPx := (mpos.y - bottom_edge)
+              mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+              block.scale.y = (block.scale.y + (mouseDistInPx / sizeInPx.y * block.scale.y))
+              block.global_position.y = block.global_position.y + (mouseDistInPx / 2)
+            if scaleOnLeftSide:
+              var mouseDistInPx := (left_edge - mpos.x)
+              mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+              block.scale.x = (block.scale.x + (mouseDistInPx / sizeInPx.x * block.scale.x))
+              block.global_position.x = block.global_position.x - (mouseDistInPx / 2)
+            elif scaleOnRightSide:
+              var mouseDistInPx := (mpos.x - right_edge)
+              mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+              block.scale.x = (block.scale.x + (mouseDistInPx / sizeInPx.x * block.scale.x))
+              block.global_position.x = block.global_position.x + (mouseDistInPx / 2)
 
-          selectedBlock.scale.x = clamp(selectedBlock.scale.x, 0.1 / 7.0, 250.0 / 7.0)
-          selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 250.0 / 7.0)
-          global.showEditorUi = true
-          # selectedBlock.self_modulate.a = useropts.hoveredBlockGhostAlpha
-          var moveDist = selectedBlock.global_position - selectedBlock.startPosition
-          setBlockStartPos(selectedBlock)
-          selectedBlock.onEditorMove(moveDist)
+            var moveMouse := func(pos: Vector2) -> void:
+              Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
+            # make block no less than 10% default size
+            var mousePos := get_viewport().get_mouse_position()
+            var minSize := 0.1 / 7.0
+            # need to make it stop moving - cant figure out how yet
+            if block.scale.x < minSize:
+              # block.scale.x = minSize
+              if scaleOnLeftSide:
+                scaleOnLeftSide = false
+                scaleOnRightSide = true
+                moveMouse.call(mousePos + Vector2(minSize * 700, 0))
+              else:
+                scaleOnLeftSide = true
+                scaleOnRightSide = false
+                moveMouse.call(mousePos - Vector2(minSize * 700, 0))
+
+            if block.scale.y < minSize:
+              # block.scale.y = minSize
+              if scaleOnTopSide:
+                scaleOnTopSide = false
+                scaleOnBottomSide = true
+                moveMouse.call(mousePos + Vector2(0, minSize * 700))
+              else:
+                scaleOnTopSide = true
+                scaleOnBottomSide = false
+                moveMouse.call(mousePos - Vector2(0, minSize * 700))
+
+            block.scale.x = clamp(block.scale.x, 0.1 / 7.0, 250.0 / 7.0)
+            block.scale.y = clamp(block.scale.y, 0.1 / 7.0, 250.0 / 7.0)
+            global.showEditorUi = true
+            # block.self_modulate.a = useropts.hoveredBlockGhostAlpha
+            var moveDist = block.global_position - block.startPosition
+            setBlockStartPos(block)
+            block.onEditorMove(moveDist)
         else:
           # if trying to create new block
           if justPaintedBlock:
-            selectedBlock = justPaintedBlock
+            boxSelect_selectedBlocks = [justPaintedBlock]
             selectedBlockOffset = Vector2.ZERO
-            # log.pp(selectedBlock.ghost, selectedBlock.id)
-            var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+            # log.pp(boxSelect_selectedBlocks[0].ghost, boxSelect_selectedBlocks[0].id)
+            var sizeInPx: Vector2 = boxSelect_selectedBlocks[0].ghost.texture.get_size() * boxSelect_selectedBlocks[0].scale * boxSelect_selectedBlocks[0].ghost.scale
             selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
           # if you have clicked on a block in the editor bar
           if not justPaintedBlock and selectedBrush and selectedBrush.selected == 2:
             justPaintedBlock = load("res://scenes/blocks/" + selectedBrush.blockName + "/main.tscn").instantiate()
-            # if lastSelectedBlock and (selectedBrush.blockName == lastSelectedBlock.id):
-            #   justPaintedBlock.scale = lastSelectedBlock.scale
-            #   justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
-            #   justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
+            # if lastSelectedBlock_list and (selectedBrush.blockName == lastSelectedBlock_list.id):
+            #   justPaintedBlock.scale = lastSelectedBlock_list.scale
+            #   justPaintedBlock.rotation_degrees = lastSelectedBlock_list.rotation_degrees
+            #   justPaintedBlock.selectedOptions = lastSelectedBlock_list.selectedOptions.duplicate()
             # else:
             if justPaintedBlock.normalScale:
               justPaintedBlock.scale = Vector2(1, 1)
@@ -779,29 +785,31 @@ func localProcess(delta: float) -> void:
 
           # if trying to move a block
           else:
-            # get block size in pixels
-            var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+            if boxSelect_selectedBlocks and mainSelectedBlock in boxSelect_selectedBlocks:
+              var block = mainSelectedBlock
+              # get block size in pixels
+              var sizeInPx: Vector2 = block.ghost.texture.get_size() * block.scale * block.ghost.scale
 
-            # check if block scale is odd
-            var isYOnOddScale: Variant = str(int(selectedBlock.scale.y * 700))
-            isYOnOddScale = isYOnOddScale[len(isYOnOddScale) - 1] == '5'
-            var isXOnOddScale: Variant = str(int(selectedBlock.scale.x * 700))
-            isXOnOddScale = isXOnOddScale[len(isXOnOddScale) - 1] == '5'
+              # check if block scale is odd
+              var isYOnOddScale: Variant = str(int(block.scale.y * 700))
+              isYOnOddScale = isYOnOddScale[len(isYOnOddScale) - 1] == '5'
+              var isXOnOddScale: Variant = str(int(block.scale.x * 700))
+              isXOnOddScale = isXOnOddScale[len(isXOnOddScale) - 1] == '5'
 
-            # offset the block on the sides that are odd to make it align with the grid
-            var offset := Vector2((gridSize / 2.0) if isXOnOddScale else 0.0, (gridSize / 2.0) if isYOnOddScale else 0.0)
-            mpos = round((mpos - offset) / gridSize) * gridSize
+              # offset the block on the sides that are odd to make it align with the grid
+              var offset := Vector2((gridSize / 2.0) if isXOnOddScale else 0.0, (gridSize / 2.0) if isYOnOddScale else 0.0)
+              mpos = round((mpos - offset) / gridSize) * gridSize
 
-            selectedBlock.global_position = round(mpos + selectedBlockOffset - (sizeInPx / 2))
-            # if isYOnOddScale or isXOnOddScale:
-            selectedBlock.global_position += offset
-            var moveDist = selectedBlock.global_position - selectedBlock.startPosition
-            setBlockStartPos(selectedBlock)
-            selectedBlock.onEditorMove(moveDist)
+              block.global_position = round(mpos + selectedBlockOffset - (sizeInPx / 2))
+              # if isYOnOddScale or isXOnOddScale:
+              block.global_position += offset
+              var moveDist = block.global_position - block.startPosition
+              setBlockStartPos(block)
+              block.onEditorMove(moveDist)
       if justPaintedBlock:
-        lastSelectedBlock = justPaintedBlock
-      if selectedBlock:
-        lastSelectedBlock = selectedBlock
+        lastSelectedBlock_list = [justPaintedBlock]
+      if boxSelect_selectedBlocks:
+        lastSelectedBlock_list = boxSelect_selectedBlocks
     
 func setBlockStartPos(block: Node) -> void:
   block.startPosition = block.position
@@ -821,6 +829,10 @@ func localInput(event: InputEvent) -> void:
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
       boxSelectRealEndPos = player.get_global_mouse_position()
       level.boxSelectDrawingNode.updateRect()
+  if Input.is_action_just_pressed(&"editor_select"):
+    selectBlock()
+    for block in boxSelect_selectedBlocks:
+      block.onEditorMove(Vector2.ZERO)
   if Input.is_action_just_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
       boxSelectDrawStartPos = get_viewport().get_mouse_position()
@@ -831,53 +843,42 @@ func localInput(event: InputEvent) -> void:
       boxSelectRealEndPos = player.get_global_mouse_position()
       boxSelectReleased()
   if Input.is_action_just_released(&"editor_select"):
-    if selectedBlock:
-      selectedBlock.onEditorMove(Vector2.ZERO)
-      selectedBlock = null
-    else:
-      if not Input.is_action_pressed(&"editor_pan", true):
-        boxSelect_selectedBlocks = []
-      # selectedBlock._ready.call(false)
+    if len(boxSelect_selectedBlocks) == 1:
+      boxSelect_selectedBlocks[0].onEditorMove(Vector2.ZERO)
+      boxSelect_selectedBlocks.remove_at(0)
+    # else:
+    #   if not Input.is_action_pressed(&"editor_pan", true):
+    #     boxSelect_selectedBlocks = []
+      # boxSelect_selectedBlocks[0]._ready.call(false)
   if Input.is_action_just_pressed(&"new_level_file", true):
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
   if Input.is_action_just_pressed(&"new_map_folder", true):
     createNewMapFolder()
   if Input.is_action_just_pressed(&"duplicate_block", true):
-    # log.pp(lastSelectedBrush, lastSelectedBlock)
-    if lastSelectedBrush and lastSelectedBlock:
+    # log.pp(lastSelectedBrush, lastSelectedBlock_list)
+    if lastSelectedBrush and lastSelectedBlock_list:
       selectedBrush = lastSelectedBrush
       selectedBrush.selected = 2
-      justPaintedBlock = load("res://scenes/blocks/" + lastSelectedBlock.id + "/main.tscn").instantiate()
-      justPaintedBlock.scale = lastSelectedBlock.scale
-      justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
-      justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
-      justPaintedBlock.id = lastSelectedBlock.id
-      # lastSelectedBrush = selectedBrush
-      level.get_node("blocks").add_child(justPaintedBlock)
-      justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
-      setBlockStartPos(justPaintedBlock)
-      localProcess(0)
+      var temp: Array[EditorBlock] = []
+      for block in lastSelectedBlock_list:
+        justPaintedBlock = load("res://scenes/blocks/" + block.id + "/main.tscn").instantiate()
+        justPaintedBlock.scale = block.scale
+        justPaintedBlock.rotation_degrees = block.rotation_degrees
+        justPaintedBlock.selectedOptions = block.selectedOptions.duplicate()
+        justPaintedBlock.id = block.id
+        # lastSelectedBrush = selectedBrush
+        level.get_node("blocks").add_child(justPaintedBlock)
+        justPaintedBlock.global_position = block.global_position
+        temp.append(justPaintedBlock)
+        setBlockStartPos(justPaintedBlock)
+        localProcess(0)
       lastSelectedBrush.selected = 0
       selectedBrush.selected = 0
+      lastSelectedBlock_list = (temp as Array[EditorBlock])
       # log.pp(justPaintedBlock.selectedOptions)
   if Input.is_action_just_pressed(&"toggle_fullscreen", true):
     fullscreen()
-  if Input.is_action_just_pressed(&"editor_select"):
-    # if editorMode == EditorModes.path:
-    #   if !lastSelectedBlock:
-    #     log.err("no blocks selected")
-    #     return
-    #   lastSelectedBlock.selectedOptions.path += (
-    #     "," +
-    #     str(level.get_global_mouse_position().x - lastSelectedBlock.global_position.x) +
-    #     "," +
-    #     str(level.get_global_mouse_position().y - lastSelectedBlock.global_position.y)
-    #   )
-    #   log.pp(lastSelectedBlock.selectedOptions.path)
-    # else:
-      if selectedBlock:
-        selectedBlock.onEditorMove(Vector2.ZERO)
 
   # dont update editor scale mode if clicking
   if !Input.is_action_pressed(&"editor_select"):
@@ -885,23 +886,6 @@ func localInput(event: InputEvent) -> void:
   if !Input.is_action_pressed(&"editor_select") and not editorInScaleMode:
     editorInRotateMode = Input.is_action_pressed(&"editor_rotate")
 
-  if Input.is_action_just_pressed(&"exit_inner_level", true):
-    if level and is_instance_valid(level):
-      if len(loadedLevels) > 1:
-        loadedLevels.pop_back()
-        await level.loadLevel(currentLevel().name)
-        loadBlockData()
-        await wait()
-        showEditorUi = false
-        # player.state = player.States.levelLoading
-        player.deathPosition = currentLevel().spawnPoint
-        player.lastSpawnPoint = currentLevel().spawnPoint
-        player.camLockPos = Vector2.ZERO
-        player.goto(player.deathPosition)
-        player.die(0, false)
-        player.die(5, false)
-        # player.die(3, false)
-        global.tick = global.currentLevel().tick
   if Input.is_action_just_pressed(&"save", true):
     if level and is_instance_valid(level):
       level.save()
@@ -911,26 +895,24 @@ func localInput(event: InputEvent) -> void:
     else:
       editorMode = EditorModes.path
   if Input.is_action_pressed(&"editor_delete", true):
-    # if !selectedBlock: return
-    # if !is_instance_valid(selectedBlock): return
-    # if selectedBlock == global.player.get_parent(): return
-    # # lastSelectedBrush = null
-    # if selectedBlock in hoveredBlocks:
-    #   hoveredBlocks.erase(selectedBlock)
-    # lastSelectedBlock = selectedBlock.duplicate()
-    # lastSelectedBlock.id = selectedBlock.id
-    # selectedBlock.queue_free.call_deferred()
-    for block in boxSelect_selectedBlocks:
-      # selectedBlock = null
+    var a = boxSelect_selectedBlocks.duplicate()
+    boxSelect_selectedBlocks = []
+    lastSelectedBlock_list = []
+    for block in a:
       # breakpoint
-      if !is_instance_valid(block): return
-      if block == global.player.get_parent(): return
-      if block.is_queued_for_deletion(): return
+      if !is_instance_valid(block): continue
+      if block != block.root:
+        block = block.root
+      if block == global.player.get_parent(): continue
+      if block.is_queued_for_deletion(): continue
       # lastSelectedBrush = null
       if block in hoveredBlocks:
         hoveredBlocks.erase(block)
+      var newBlock = block.duplicate()
+      newBlock.id = block.id
+      lastSelectedBlock_list.append(newBlock)
       block.queue_free()
-    boxSelect_selectedBlocks = []
+      filterLists()
   if Input.is_action_just_pressed(&"reload_map_from_last_save", true):
     loadMap.call_deferred(mainLevelName, true)
   if Input.is_action_just_pressed(&"fully_reload_map", true):
@@ -945,7 +927,10 @@ func localInput(event: InputEvent) -> void:
     quitGame()
   if Input.is_action_just_pressed(&"move_player_to_mouse", true):
     if player and is_instance_valid(player):
-      player.camLockPos = Vector2.ZERO
+      if showEditorUi:
+        player.camLockPos = player.get_global_mouse_position() - player.get_parent().startPosition
+      else:
+        player.camLockPos = Vector2.ZERO
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
   if Input.is_action_just_pressed(&"toggle_pause", true):
     if level and is_instance_valid(level):
@@ -1607,7 +1592,7 @@ func createNewBlock(data) -> EditorBlock:
     var thing = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     thing.startPosition = Vector2(data.x, data.y)
     thing.position = Vector2(data.x, data.y)
-    # log.pp(thing.normalScale)
+    log.pp(thing.normalScale)
     if thing.normalScale:
       thing.startScale = Vector2(data.w, data.h)
       thing.scale = Vector2(data.w, data.h)
@@ -1625,7 +1610,6 @@ func createNewBlock(data) -> EditorBlock:
   return
 
 var portals = []
-var boxSelect_selectedBlocks = []
 @onready var MAP_FOLDER = path.abs('res://maps')
 
 func boxSelectReleased():
@@ -1642,8 +1626,6 @@ func boxSelectReleased():
   ]
   log.pp(rect)
   for block: EditorBlock in level.get_node("blocks").get_children():
-    if block.isChildOfCustomBlock: continue
-    if block.EDITOR_IGNORE: continue
     var pos = block.global_position
     if pos.x + (block.sizeInPx.x / 2) >= rect[0][0] and pos.x - (block.sizeInPx.x / 2) <= rect[1][0]:
       if pos.y + (block.sizeInPx.y / 2) >= rect[0][1] and pos.y - (block.sizeInPx.y / 2) <= rect[1][1]:
@@ -1652,10 +1634,8 @@ func boxSelectReleased():
   boxSelectDrawStartPos = Vector2.ZERO
   boxSelectDrawEndPos = Vector2.ZERO
   level.boxSelectDrawingNode.updateRect()
+func filterLists():
 
-func removeDeadNodes(arr):
-  return arr.filter(func(e): return \
-    e \
-    and is_instance_valid(e) \
-    and !e.is_queued_for_deletion()
-  )
+  hoveredBlocks = hoveredBlocks.filter(func(e): return e and is_instance_valid(e) and !e.is_queued_for_deletion())
+  lastSelectedBlock_list = lastSelectedBlock_list.filter(func(e): return e and is_instance_valid(e) and !e.is_queued_for_deletion())
+  boxSelect_selectedBlocks = boxSelect_selectedBlocks.filter(func(e): return e and is_instance_valid(e) and !e.is_queued_for_deletion())

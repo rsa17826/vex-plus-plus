@@ -1,5 +1,5 @@
 @icon("res://images/sprites/DefineSprite_1608/1.png")
-class_name EditorBlock
+# class_name EditorBlock
 extends Node2D
 # @name same line return
 # @regex :\s*(return|continue|break)\s*$
@@ -58,7 +58,6 @@ var sizeInPx: Vector2:
 var root = self
 var _DISABLED := false
 var isHovered := false
-var isChildOfCustomBlock = false
 var id: String
 var startPosition: Vector2
 var startRotation_degrees: float
@@ -199,7 +198,6 @@ func _on_body_entered(body: Node2D, real=true) -> void:
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
-  log.pp(isChildOfCustomBlock)
   if _ready not in global.player.OnPlayerFullRestart:
     global.player.OnPlayerFullRestart.append(_ready)
   # if !is_in_group("dontRespawnOnPlayerDeath"):
@@ -296,7 +294,7 @@ func _physics_process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
   if global.stopTicking: return
   if global.openMsgBoxCount: return
-  if (global.selectedBlock == self || self in global.boxSelect_selectedBlocks) && Input.is_action_pressed(&"editor_select"): return
+  if self in global.boxSelect_selectedBlocks && Input.is_action_pressed(&"editor_select"): return
   if _DISABLED: return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
   # 
@@ -372,10 +370,10 @@ func _process(delta: float) -> void:
     ghost.visible = global.showEditorUi
     if Input.is_action_pressed(&"editor_box_select"): return
     if global.showEditorUi and not Input.is_action_pressed(&"editor_pan"):
-      if global.selectedBlock == self:
+      if self in global.boxSelect_selectedBlocks:
         if Input.is_action_pressed(&"editor_select"):
           if self not in global.boxSelect_selectedBlocks:
-            global.boxSelect_selectedBlocks = []
+            global.boxSelect_selectedBlocks = [self]
           global_position = startPosition
         if not _DISABLED:
           for collider in collisionShapes:

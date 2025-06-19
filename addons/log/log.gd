@@ -201,7 +201,7 @@ static func to_pretty(msg, opts={}):
   var omit_vals_for_keys = ["layer_0/tile_data"]
   if not is_instance_valid(msg) and typeof(msg) == TYPE_OBJECT:
     return str(msg)
-  if msg is InputEvent: #for InputEventMouseButton
+  if msg is InputEvent: # for InputEventMouseButton
     return type_string(typeof(msg))
   if msg is Object and msg.has_method("to_pretty"):
     return log.to_pretty(msg.to_pretty(), opts)
@@ -362,31 +362,31 @@ static func is_not_default(v):
 
 ## public print fns ###########################################################################
 
-static func pp(msg="ZZZDEF", msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func pp(msg="ZZZDEF", msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
   var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
   msgs = msgs.filter(log.is_not_default)
   var m = log.to_printable(msgs, {stack=get_stack()})
   print_rich(m)
 
-static func info(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func info(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
   var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
   msgs = msgs.filter(log.is_not_default)
   var m = log.to_printable(msgs, {stack=get_stack()})
   print_rich(m)
 
-static func log(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func log(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
   var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
   msgs = msgs.filter(log.is_not_default)
   var m = log.to_printable(msgs, {stack=get_stack()})
   print_rich(m)
 
-static func prn(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func prn(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
   var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
   msgs = msgs.filter(log.is_not_default)
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true})
   print_rich(m)
 
-static func warn(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func warn(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
   var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
   msgs = msgs.filter(log.is_not_default)
   var rich_msgs = msgs.duplicate()
@@ -395,7 +395,7 @@ static func warn(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   push_warning(m)
 
-static func err(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func err(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
   var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
   msgs = msgs.filter(log.is_not_default)
   var rich_msgs = msgs.duplicate()
@@ -404,7 +404,7 @@ static func err(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5=
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   push_error(m)
 
-static func error(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func error(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
   var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
   msgs = msgs.filter(log.is_not_default)
   var rich_msgs = msgs.duplicate()
