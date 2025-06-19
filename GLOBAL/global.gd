@@ -862,7 +862,8 @@ func localInput(event: InputEvent) -> void:
       var mpos: Vector2 = selectedBlock.get_global_mouse_position()
       selectedBlock.look_at(mpos)
       selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
-      selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
+      if !Input.is_action_pressed(&"editor_disable_grid_snap"):
+        selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
       setBlockStartPos(selectedBlock)
       if useropts.mouseLockDistanceWhileRotating:
         var direction := (mpos - selectedBlock.global_position).normalized()
