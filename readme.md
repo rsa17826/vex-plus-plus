@@ -45,6 +45,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **toggle_pause**: toggles the moving blocks in the level - only meant for editing, and is not meant to be used to beat levels
 - **editor_disable_grid_snap**: hold to set the grid snap to 1px to allow for more precise editing. is effective both in scaling and in rotating.
 - **editor_box_select**: hold to create a box select that selects all blocks within it to allow moving them together
+- **exit_inner_level**: when pressed while inside an inner level it will taky you up 1 level, if the level you are in has not been beaten before no data will be saved even if stars had been collected, if it has been beaten before then stars will be saved when exiting a level this way.
 
 ### Play Controls
 
