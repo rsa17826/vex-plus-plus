@@ -39,14 +39,14 @@ if not FileExist("vex++ offline.lnk") {
 loop files A_ScriptDir "\icons\*.*" {
   p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
   DirCreate(p)
-  FileDelete(path.join(p, "foldericon.ico"))
+  try FileDelete(path.join(p, "foldericon.ico"))
   run('sfi.bat -p "' p '" -i "' A_LoopFileFullPath '"', , 'hide')
 }
 
 offline := A_Args.join(" ").includes("offline")
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
-ui.Show()
+ui.Show("AutoSize")
 ; Populate the ListView with versions and their statuses
 ; Define the GitHub API URL for fetching releases
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
@@ -74,6 +74,7 @@ versionListView.OnEvent("DoubleClick", LV_DoubleClick)
 
 versionListView.ModifyCol(2)
 versionListView.ModifyCol(3)
+ui.Show("AutoSize")
 if !offline {
   releases := FetchReleases(apiUrl)
   for release in releases {

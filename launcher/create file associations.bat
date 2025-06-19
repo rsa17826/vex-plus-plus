@@ -16,10 +16,10 @@ rem Get the path to the current directory where the script is located
 set "appPath=%~dp0vex++.exe"
 
 rem Create the file association
-assoc .%fileExtension%=%fileExtension%File
-ftype %fileExtension%File="%appPath%" "offline %%1"
+ftype %fileExtension%="%appPath%" "offline" "%%1"
+assoc .%fileExtension%=%fileExtension%
 
 rem Optional: Display a message to confirm the association
 echo File association for .%fileExtension% created with %appPath%.
-
+pause
 endlocal
