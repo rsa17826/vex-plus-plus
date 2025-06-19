@@ -377,3 +377,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
     - **where**: the path to the file in the custom blocks folder.
+
+- **sticky floor**: makes the player not be able to jump while in contact with this and also prevents the player from regaining cyote time
+
+  - **settings**:
+    - **attachesToThings**
+
+- **arrow**: points at things; can be rotated
+
+  - **settings**:
+    - **attachesToThings**
