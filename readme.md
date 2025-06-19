@@ -74,13 +74,14 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **allowRotatingAnything**: allows rotating any blocks regardless of if it is meant to be rotated or not.
 - **allowScalingAnything**: allows scaling any blocks regardless of if it is meant to be rotated or not.
 - **blockSnapGridSize**: the size of the grid that blocks will snap to when being moved or resized.
-- **noCornerGrabsForScaling**: when grabbing a block at a corner it will only resize the bnlock on the side that had less grab area. not appearing to work correctly yet.
+- **noCornerGrabsForScaling**: when grabbing a block at a corner it will only resize the bnlock on the side that had less grab area.
 - **allowCustomColors**: disabling this prevents levels from using custom colors.
 - **showGridInEdit**: shows the grid in when in edit mode.
 - **showGridInPlay**: shows the grid in when in play mode.
 - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
 - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
 - **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
+- **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will allways remove the block that was selected most recently.
 
 ### block settings that apply to many blocks
 

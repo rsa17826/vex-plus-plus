@@ -419,7 +419,27 @@ func _process(delta: float) -> void:
             onBottomSide = bottomDist < testDist
             onLeftSide = leftDist < testDist
             onRightSide = rightDist < testDist
-
+            if global.useropts.noCornerGrabsForScaling and node_size.y != node_size.x:
+              if onTopSide and onRightSide:
+                if node_size.y < node_size.x:
+                  onTopSide = false
+                else:
+                  onRightSide = false
+              elif onTopSide and onLeftSide:
+                if node_size.y < node_size.x:
+                  onTopSide = false
+                else:
+                  onLeftSide = false
+              elif onBottomSide and onRightSide:
+                if node_size.y < node_size.x:
+                  onBottomSide = false
+                else:
+                  onRightSide = false
+              elif onBottomSide and onLeftSide:
+                if node_size.y < node_size.x:
+                  onBottomSide = false
+                else:
+                  onLeftSide = false
             # store the selected sides in global
             global.scaleOnTopSide = onTopSide
             global.scaleOnBottomSide = onBottomSide

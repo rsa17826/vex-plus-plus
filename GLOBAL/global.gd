@@ -647,47 +647,6 @@ func localProcess(delta: float) -> void:
           var right_edge: float = selectedBlock.global_position.x + sizeInPx.x / 2.0
           var left_edge: float = selectedBlock.global_position.x - sizeInPx.x / 2.0
 
-          if global.useropts.noCornerGrabsForScaling:
-            # if the user doesnt want to scale corners scale only the side that has less grab area
-            var width = selectedBlock.scale.x
-            var height = selectedBlock.scale.y
-
-            if scaleOnTopSide and scaleOnBottomSide:
-              if width < height:
-                scaleOnBottomSide = false
-              else:
-                scaleOnTopSide = false
-
-            if scaleOnLeftSide and scaleOnRightSide:
-              if height < width:
-                scaleOnRightSide = false
-              else:
-                scaleOnLeftSide = false
-
-            if scaleOnTopSide and scaleOnLeftSide:
-              if width < height:
-                scaleOnLeftSide = false
-              else:
-                scaleOnTopSide = false
-
-            if scaleOnTopSide and scaleOnRightSide:
-              if width < height:
-                scaleOnRightSide = false
-              else:
-                scaleOnTopSide = false
-
-            if scaleOnBottomSide and scaleOnLeftSide:
-              if width < height:
-                scaleOnLeftSide = false
-              else:
-                scaleOnBottomSide = false
-
-            if scaleOnBottomSide and scaleOnRightSide:
-              if width < height:
-                scaleOnRightSide = false
-              else:
-                scaleOnBottomSide = false
-
           # scale on the selected sides
           if scaleOnTopSide:
             var mouseDistInPx := (top_edge - mpos.y)
