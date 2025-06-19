@@ -631,10 +631,13 @@ func localProcess(delta: float) -> void:
         if editorInRotateMode && selectedBlock \
         and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
         or global.useropts.allowRotatingAnything):
-          selectedBlock.look_at(mpos)
-          selectedBlock.rotation_degrees += 90
-          selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
-          setBlockStartPos(selectedBlock)
+          pass
+          # if level.get_global_mouse_position() == lastMousePos: return
+          # selectedBlock.look_at(mpos)
+          # selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
+          # selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
+          # setBlockStartPos(selectedBlock)
+          # Input.warp_mouse(lastMousePos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
         # when trying to scale blocks
         elif editorInScaleMode && selectedBlock \
         and (selectedBlock.is_in_group("EDITOR_OPTION_scale") \
@@ -772,8 +775,14 @@ var boxSelectDrawStartPos: Vector2 = Vector2.ZERO
 var boxSelectRealStartPos: Vector2 = Vector2.ZERO
 var boxSelectDrawEndPos: Vector2 = Vector2.ZERO
 var boxSelectRealEndPos: Vector2 = Vector2.ZERO
+var lastMousePos: Vector2 = Vector2.ZERO
+var isFakeMouseMovement = false
 
 func localInput(event: InputEvent) -> void:
+  if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
+  if event is InputEventMouseMotion and isFakeMouseMovement:
+    isFakeMouseMovement = false
+    return
   if openMsgBoxCount: return
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
@@ -841,9 +850,33 @@ func localInput(event: InputEvent) -> void:
   # dont update editor scale mode if clicking
   if !Input.is_action_pressed(&"editor_select"):
     editorInScaleMode = Input.is_action_pressed(&"editor_scale")
-  if !Input.is_action_pressed(&"editor_select") and not editorInScaleMode:
+  if not editorInScaleMode:
+    if not editorInRotateMode and Input.is_action_pressed(&"editor_rotate") and !Input.is_action_pressed(&"editor_select"):
+      lastMousePos = Vector2.ZERO
+    if !lastMousePos and selectedBlock:
+      lastMousePos = selectedBlock.get_viewport_transform() * selectedBlock.global_position
+      log.pp(lastMousePos)
     editorInRotateMode = Input.is_action_pressed(&"editor_rotate")
-
+  if editorInRotateMode and event is InputEventMouseMotion and event.screen_relative:
+    if selectedBlock \
+      and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
+      or global.useropts.allowRotatingAnything) and lastMousePos:
+      var mpos: Vector2 = selectedBlock.get_global_mouse_position()
+      selectedBlock.look_at(mpos)
+      selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
+      selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
+      setBlockStartPos(selectedBlock)
+      if useropts.mouseLockDistanceWhileRotating:
+        var direction := (mpos - selectedBlock.global_position).normalized()
+        var newMousePos: Vector2 = (
+          (
+            selectedBlock.get_viewport_transform() * selectedBlock.global_position
+          ) + (
+            direction * useropts.mouseLockDistanceWhileRotating
+          )
+        )
+        isFakeMouseMovement = true
+        Input.warp_mouse(newMousePos)
   if Input.is_action_just_pressed(&"exit_inner_level", true):
     if level and is_instance_valid(level):
       if len(loadedLevels) > 1:
