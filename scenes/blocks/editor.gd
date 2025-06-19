@@ -41,6 +41,7 @@ extends Node2D
 @export_group("misc")
 @export var ignoreMissingNodes := false
 @export var normalScale := false
+@export var dontDisablePhysicsProcess := false
 ## disables editor features suchas moving, scaling, selecting
 @export var EDITOR_IGNORE: bool = false
 @export var DONT_MOVE: bool = false
@@ -298,7 +299,7 @@ func _physics_process(delta: float) -> void:
   if global.stopTicking: return
   if global.openMsgBoxCount: return
   if (global.selectedBlock == self || self in global.boxSelect_selectedBlocks) && Input.is_action_pressed(&"editor_select"): return
-  if _DISABLED: return
+  if _DISABLED and not dontDisablePhysicsProcess: return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
   # 
   # if currentPath:
