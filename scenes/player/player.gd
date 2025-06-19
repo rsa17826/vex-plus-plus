@@ -1123,5 +1123,6 @@ func updateKeyFollowPosition(delta):
 
 # !!key to exit level
 # ?stop player from lever when nolonger standing on block
-# prevent poll access while in water
+# prevent pole access while in water
 # make it so that if the palyer dies instantly after respawning stop player process
+# player not reenter pulley when respawning
