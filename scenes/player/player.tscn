@@ -1,4 +1,4 @@
-[gd_scene load_steps=251 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene load_steps=252 format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_hdu4s"]
@@ -1106,6 +1106,9 @@ size = Vector2(1, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ymuf"]
 size = Vector2(14, 31.8)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q53ni"]
+size = Vector2(10, 1)
+
 [node name="player" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites")]
 z_index = 10
 script = ExtResource("1_hdu4s")
@@ -1232,11 +1235,13 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/top"]
 position = Vector2(0, 3.025)
 shape = SubResource("RectangleShape2D_p0anf")
+metadata/_edit_lock_ = true
 
 [node name="left" type="Area2D" parent="CharacterBody2D/deathDetectors"]
 position = Vector2(-3.505, 0)
 collision_layer = 0
 collision_mask = 8
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/left"]
 shape = SubResource("RectangleShape2D_lhgc7")
@@ -1246,6 +1251,7 @@ metadata/_edit_lock_ = true
 position = Vector2(3.5, 0)
 collision_layer = 0
 collision_mask = 8
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/right"]
 shape = SubResource("RectangleShape2D_lhgc7")
@@ -1260,6 +1266,7 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/bottom"]
 position = Vector2(0, -3.01)
 shape = SubResource("RectangleShape2D_p0anf")
+metadata/_edit_lock_ = true
 
 [node name="nowjDetector" type="Area2D" parent="CharacterBody2D"]
 unique_name_in_owner = true
@@ -1271,6 +1278,17 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_1ymuf")
 debug_color = Color(0.87451, 0, 0.352941, 0)
 metadata/_edit_lock_ = true
+
+[node name="stickyFloorDetector" type="Area2D" parent="CharacterBody2D"]
+unique_name_in_owner = true
+collision_layer = 0
+collision_mask = 4096
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/stickyFloorDetector"]
+position = Vector2(0, 16.39)
+shape = SubResource("RectangleShape2D_q53ni")
+debug_color = Color(0.270588, 0, 0.419608, 0)
 
 [node name="respawn detection area" type="Area2D" parent="CharacterBody2D"]
 unique_name_in_owner = true

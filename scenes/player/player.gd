@@ -223,6 +223,7 @@ func _physics_process(delta: float) -> void:
       ACTIONjump = true
   if !Input.is_action_pressed(&"jump"):
     ACTIONjump = false
+  var onStickyFloor = %stickyFloorDetector.get_overlapping_areas()
   # Engine.time_scale = .3
   Engine.time_scale = 1
   if global.openMsgBoxCount: return
@@ -464,7 +465,8 @@ func _physics_process(delta: float) -> void:
             position.x += (distance) * getClosestWallSide()
         # if on floor reset kt, user y velocity, and allow both wall sides again
         if is_on_floor():
-          playerKT = MAX_KT_TIMER
+          if !onStickyFloor:
+            playerKT = MAX_KT_TIMER
           vel.user.y = 0
           lastWall = 0
           breakFromWall = false
@@ -529,7 +531,7 @@ func _physics_process(delta: float) -> void:
         if breakFromWall:
           wallSlidingFrames = 0
         # jump from walljump
-        if state == States.wallSliding and ACTIONjump && !breakFromWall:
+        if state == States.wallSliding and ACTIONjump && !breakFromWall and not onStickyFloor:
           state = States.jumping
           breakFromWall = true
           vel.user.y = JUMP_POWER
@@ -546,10 +548,11 @@ func _physics_process(delta: float) -> void:
         # jump from wall grab or from the ground
         if !Input.is_action_pressed(&"down"):
           if (playerKT > 0) || state == States.wallHang:
-            if duckRecovery <= 0 and ACTIONjump:
-              state = States.jumping
-              playerKT = 0
-              vel.user.y = JUMP_POWER
+            if not onStickyFloor:
+              if duckRecovery <= 0 and ACTIONjump:
+                state = States.jumping
+                playerKT = 0
+                vel.user.y = JUMP_POWER
 
         # if not in duckRecovery or wall hang or wallSliding, allow movement
         if (!breakFromWall and (state == States.wallSliding || state == States.wallHang)) \

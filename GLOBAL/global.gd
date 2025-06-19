@@ -1565,6 +1565,8 @@ var blockNames: Array = [
   # "quad falling spikes",
   "portal",
   "bomb",
+  "sticky floor",
+  "arrow",
   "custom block",
   # "path",
 ]
