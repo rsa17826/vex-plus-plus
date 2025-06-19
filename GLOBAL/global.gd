@@ -912,26 +912,34 @@ func localInput(event: InputEvent) -> void:
     else:
       editorMode = EditorModes.path
   if Input.is_action_pressed(&"editor_delete", true):
-    # if !selectedBlock: return
-    # if !is_instance_valid(selectedBlock): return
-    # if selectedBlock == global.player.get_parent(): return
-    # # lastSelectedBrush = null
-    # if selectedBlock in hoveredBlocks:
-    #   hoveredBlocks.erase(selectedBlock)
-    # lastSelectedBlock = selectedBlock.duplicate()
-    # lastSelectedBlock.id = selectedBlock.id
-    # selectedBlock.queue_free.call_deferred()
     for block in boxSelect_selectedBlocks:
       # selectedBlock = null
       # breakpoint
       if !is_instance_valid(block): return
       if block == global.player.get_parent(): return
       if block.is_queued_for_deletion(): return
-      # lastSelectedBrush = null
       if block in hoveredBlocks:
         hoveredBlocks.erase(block)
       block.queue_free()
     boxSelect_selectedBlocks = []
+    # log.pp(selectedBlock, lastSelectedBlock)
+    if selectedBlock && is_instance_valid(selectedBlock):
+      if selectedBlock == global.player.get_parent(): return
+      if selectedBlock in hoveredBlocks:
+        hoveredBlocks.erase(selectedBlock)
+      lastSelectedBlock = selectedBlock.duplicate()
+      lastSelectedBlock.id = selectedBlock.id
+      selectedBlock.queue_free.call_deferred()
+      selectedBlock = null
+    else:
+      if useropts.deleteLastSelectedBlockIfNoBlockIsCurrentlySelected:
+        if lastSelectedBlock && is_instance_valid(lastSelectedBlock):
+          if lastSelectedBlock == global.player.get_parent(): return
+          if lastSelectedBlock in hoveredBlocks:
+            hoveredBlocks.erase(lastSelectedBlock)
+          lastSelectedBlock.queue_free.call_deferred()
+          lastSelectedBlock = null
+
   if Input.is_action_just_pressed(&"reload_map_from_last_save", true):
     loadMap.call_deferred(mainLevelName, true)
   if Input.is_action_just_pressed(&"fully_reload_map", true):

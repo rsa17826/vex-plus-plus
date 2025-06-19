@@ -3,7 +3,6 @@ extends Control
 var rect := Rect2()
 
 func _draw() -> void:
-  log.pp("drawing")
   draw_rect(
     Rect2(global.boxSelectDrawStartPos, global.boxSelectDrawEndPos - global.boxSelectDrawStartPos),
   Color("1a14"))

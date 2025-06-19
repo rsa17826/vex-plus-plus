@@ -172,6 +172,12 @@
         "type": "bool",
         "key": "onlyShowLevelsForCurrentVersion",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected",
+        "defaultValue": true
       }
     ]
   },
