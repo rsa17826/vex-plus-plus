@@ -1,10 +1,10 @@
 {
   STR(star collection test){
-    STR(lastSpawnPoint)VEC2(60.0,-65.0)
+    STR(lastSpawnPoint)VEC2(918.080200195313,523.485229492188)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
-        STR(spawnPoint)VEC2(912.407958984375,523.425231933594)
+        STR(spawnPoint)VEC2(918.080200195313,523.485229492188)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(star){
@@ -15,34 +15,34 @@
               STR(collected)BOOL(false)
             }
             INT(3){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(4){
               STR(collected)BOOL(false)
             }
             INT(5){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(6){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(7){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(8){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(9){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(10){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(11){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(12){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(13){
               STR(collected)BOOL(false)
@@ -67,59 +67,6 @@
           }
         }
       }
-      {
-        STR(name)STR(1)
-        STR(spawnPoint)VEC2(0.0,0.0)
-        STR(tick)FLOAT(0.0)
-        STR(blockSaveData){
-          STR(star){
-            INT(1){
-              STR(collected)BOOL(true)
-            }
-            INT(2){
-              STR(collected)BOOL(false)
-            }
-            INT(3){
-              STR(collected)BOOL(false)
-            }
-            INT(4){
-              STR(collected)BOOL(false)
-            }
-            INT(5){
-              STR(collected)BOOL(true)
-            }
-            INT(6){
-              STR(collected)BOOL(true)
-            }
-            INT(7){
-              STR(collected)BOOL(true)
-            }
-            INT(8){
-              STR(collected)BOOL(true)
-            }
-            INT(9){
-              STR(collected)BOOL(true)
-            }
-            INT(10){
-              STR(collected)BOOL(true)
-            }
-            INT(11){
-              STR(collected)BOOL(true)
-            }
-            INT(12){
-              STR(collected)BOOL(true)
-            }
-            INT(13){
-              STR(collected)BOOL(false)
-            }
-          }
-          STR(checkpoint){
-            INT(1){
-              STR(texture)STR(2)
-            }
-          }
-        }
-      }
     ]
     STR(beatLevels)[
       {
@@ -132,13 +79,13 @@
               STR(collected)BOOL(true)
             }
             INT(2){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(3){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(4){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(5){
               STR(collected)BOOL(true)
@@ -162,10 +109,15 @@
               STR(collected)BOOL(true)
             }
             INT(12){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(13){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
+            }
+          }
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(2)
             }
           }
         }
