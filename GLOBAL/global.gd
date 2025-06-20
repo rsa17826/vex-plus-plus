@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
       remove_user_signal(i[0])
   if !InputMap.has_action("quit"): return
   localProcess(delta)
+
 var openMsgBoxCount: int = 0
 
 var promptPromise: Promise
@@ -272,11 +273,7 @@ func regReplace(str: String, reg: String, with: String, all:=true) -> String:
 func same(x: Variant, y: Variant) -> bool:
   return typeof(x) == typeof(y) && x == y
 
-func join(joiner: Variant = "", a: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", s: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", d: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", f: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", g: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", h: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", j: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", k: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", l: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", z: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", x: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", c: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", v: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", b: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", n: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", m: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", q: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", w: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", e: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", r: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", t: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", y: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", u: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", i: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", o: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD", p: Variant = "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD") -> String:
-  var temparr := [a, s, d, f, g, h, j, k, l, z, x, c, v, b, n, m, q, w, e, r, t, y, u, i, o, p]
-  temparr = temparr.filter(func(e: Variant) -> bool:
-    return !same(e, "HDSJAKHADSJKASHDHDSJKASDHJDSAKHASJKD")
-    )
+func join(joiner: Variant = "", ...temparr) -> String:
   return joiner.join(temparr)
 
 func randstr(length:=10, fromchars:="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`") -> String:
