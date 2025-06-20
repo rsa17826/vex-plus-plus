@@ -7,9 +7,6 @@
 [sub_resource type="Resource" id="Resource_hsmaw"]
 script = ExtResource("1_1mg0j")
 name = "Tabby Explorer"
-selected_tab = 0
-tabs = Array[ExtResource("2_8tqga")]([])
-dock_pos = 5
 
 [resource]
 script = ExtResource("2_2wbi7")
