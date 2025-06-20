@@ -29,13 +29,13 @@ var object_custom_classes = [] # Custom classes in the inspector
 
 var is_filtering = false # are the search bar in use
 
-var property_container # path to the Editor inspector list of properties
-var favorite_container # path to the Editor inspector favorite list.
-var viewer_container # path to the Editor inspector "viewer" area. (camera viewer or skeleton3D bone tree)
+var property_container # path to the editor inspector list of properties
+var favorite_container # path to the editor inspector favorite list.
+var viewer_container # path to the editor inspector "viewer" area. (camera viewer or skeleton3D bone tree)
 var property_scroll_bar: VScrollBar
 var icon_grabber
 
-var UNKNOWN_ICON: ImageTexture # Use to check if the loaded icon is an unknown icon
+var UNKNOWN_ICON: Texture2D # Use to check if the loaded icon is an unknown icon
 
 var current_parse_category: String = ""
 
@@ -82,9 +82,10 @@ func _parse_end(object: Object) -> void:
         category = category.split('"')[1]
 
       # Add it to the list of categories and tabs
-      if is_new_tab(is_base_class(category), category):
-        tabs.append(category)
       categories.append(category)
+      if is_new_tab(category):
+        tabs.append(category)
+
     elif categories.size() == 0: # If theres properties at the top of the inspector without its own category.
       # Add it to the list of categories and tabs
       var category = "Unknown"
@@ -113,7 +114,7 @@ func is_base_class(c_name: String) -> bool:
       return false
   return true
     
-func get_class_icon(c_name: String) -> ImageTexture:
+func get_class_icon(c_name: String) -> Texture2D:
   #Get GDExtension Icon
   var load_icon = icon_grabber.get_icon(c_name)
   if load_icon != null:
@@ -124,7 +125,7 @@ func get_class_icon(c_name: String) -> ImageTexture:
     load_icon = base_control.get_theme_icon("GDScript", "EditorIcons")
   if c_name == "RefCounted": # RefCounted Icon
     load_icon = base_control.get_theme_icon("Object", "EditorIcons")
-  elif ClassDB.class_exists(c_name): # Get Editor icon
+  elif ClassDB.class_exists(c_name): # Get editor icon
     load_icon = base_control.get_theme_icon(c_name, "EditorIcons")
   else:
     # Get custom class icon
@@ -146,10 +147,9 @@ func get_class_icon(c_name: String) -> ImageTexture:
 # add tabs
 func update_tabs() -> void:
   tab_bar.clear_tabs()
-  for tab in tabs:
+  for tab: String in tabs:
     var load_icon = get_class_icon(tab)
-    if not load_icon:
-      log.err("invalid icon", tab)
+        
     if vertical_mode:
       # Rotate the image for the vertical tab
       if vertical_tab_side == 0:
@@ -160,15 +160,16 @@ func update_tabs() -> void:
         var rotated_image = load_icon.get_image().duplicate()
         rotated_image.rotate_90(COUNTERCLOCKWISE)
         load_icon = ImageTexture.create_from_image(rotated_image)
-            
+        
+    var tab_name = tab.split("/")[-1]
     match tab_style:
       TabStyle.TextOnly:
-        tab_bar.add_tab(tab, null)
+        tab_bar.add_tab(tab_name, null)
       TabStyle.IconOnly:
         tab_bar.add_tab("", load_icon)
       TabStyle.TextAndIcon:
-        tab_bar.add_tab(tab, load_icon)
-    tab_bar.set_tab_tooltip(tab_bar.tab_count - 1, tab)
+        tab_bar.add_tab(tab_name, load_icon)
+    tab_bar.set_tab_tooltip(tab_bar.tab_count - 1, tab_name)
 
 func tab_clicked(tab: int) -> void:
   if is_filtering: return
@@ -180,12 +181,12 @@ func tab_clicked(tab: int) -> void:
     for i in property_container.get_children():
       if i.get_class() == "EditorInspectorCategory":
         category_idx += 1
-        if is_new_tab(is_base_class(categories[category_idx]), categories[category_idx]):
+        if is_new_tab(categories[category_idx]):
           tab_idx += 1
                     
       elif tab_idx == -1: # If theres properties at the top of the inspector without its own category.
         category_idx += 1
-        if is_new_tab(is_base_class(categories[category_idx]), categories[category_idx]):
+        if is_new_tab(categories[category_idx]):
           tab_idx += 1
       if tab_idx != tab:
         i.visible = false
@@ -199,17 +200,21 @@ func tab_clicked(tab: int) -> void:
     for i in property_container.get_children():
       if i.get_class() == "EditorInspectorCategory":
         category_idx += 1
-        if is_new_tab(is_base_class(categories[category_idx]), categories[category_idx]):
+        if is_new_tab(categories[category_idx]):
           tab_idx += 1
         if tab_idx == tab:
-          property_scroll_bar.value = (i.position.y + property_container.position.y) / EditorInterface.get_inspector().get_node("@VBoxContainer@6472").size.y * property_scroll_bar.max_value
+          var list_size_y = EditorInterface.get_inspector().get_children().filter(func(node: Node): return node is VBoxContainer)[0].size.y
+          property_scroll_bar.value = (i.position.y + property_container.position.y) / list_size_y * property_scroll_bar.max_value
           break
       elif tab_idx == -1 and tab == 0: # If theres properties at the top of the inspector without its own category.
         property_scroll_bar.value = 0
         break
-func is_new_tab(is_base_class: bool, category: String) -> bool:
+
+func is_new_tab(category: String) -> bool:
   if merge_abstract_class_tabs:
     if ClassDB.class_exists(category) and not ClassDB.can_instantiate(category):
+      if categories[0] == category:
+        return true
       return false
   return true
 
@@ -283,7 +288,7 @@ func change_vertical_mode(mode: bool = vertical_mode):
   tab_resized()
             
 func settings_changed() -> void:
-  var tab_pos = settings.get("interface/inspector/tab_layout")
+  var tab_pos = settings.get("inspector_tabs/tab_layout")
   if tab_pos != null:
     if tab_pos == 0:
       if vertical_mode != false:
@@ -291,15 +296,15 @@ func settings_changed() -> void:
     else:
       if vertical_mode != true:
         change_vertical_mode(true)
-  var style = settings.get("interface/inspector/tab_style")
+  var style = settings.get("inspector_tabs/tab_style")
   if style != null:
     if tab_style != style:
       tab_style = style
-  var prop_mode = settings.get("interface/inspector/tab_property_mode")
+  var prop_mode = settings.get("inspector_tabs/tab_property_mode")
   if prop_mode != null:
     if property_mode != prop_mode:
       property_mode = prop_mode
-  var merge_class = settings.get("interface/inspector/merge_abstract_class_tabs")
+  var merge_class = settings.get("inspector_tabs/merge_abstract_class_tabs")
   if merge_class != null:
     if merge_abstract_class_tabs != merge_class:
       merge_abstract_class_tabs = merge_class
@@ -328,13 +333,14 @@ func property_scrolling():
     return
   for i in property_container.get_children():
     if i.get_class() == "EditorInspectorCategory":
-      if (i.position.y + property_container.position.y - EditorInterface.get_inspector().size.y / 3) <= property_scroll_bar.value / property_scroll_bar.max_value * EditorInterface.get_inspector().get_node("@VBoxContainer@6472").size.y:
+      var list_size_y = EditorInterface.get_inspector().get_children().filter(func(node: Node): return node is VBoxContainer)[0].size.y
+      if (i.position.y + property_container.position.y - EditorInterface.get_inspector().size.y / 3) <= property_scroll_bar.value / property_scroll_bar.max_value * list_size_y:
         category_y = property_container.position.y
       else:
         tab_bar.current_tab = max(tab_idx, 0)
         break
       category_idx += 1
-      if is_new_tab(is_base_class(categories[category_idx]), categories[category_idx]):
+      if is_new_tab(categories[category_idx]):
         tab_idx += 1
     elif tab_idx == -1: # If theres properties at the top of the inspector without its own category.
       category_idx += 1

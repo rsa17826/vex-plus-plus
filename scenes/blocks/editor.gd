@@ -37,8 +37,9 @@ extends Node2D
 ## the node that lastMovementStep should be calculated from
 @export var thingThatMoves: Node
 @export var ghostFollowNode: Node = self
-## no warnings when missing unrequired nodes
+@export var mouseRotationOffset = 90
 @export_group("misc")
+## no warnings when missing unrequired nodes
 @export var ignoreMissingNodes := false
 @export var normalScale := false
 @export var dontDisablePhysicsProcess := false
@@ -73,7 +74,6 @@ var blockOptionsArray := []
 var pm: PopupMenu
 var attach_children: Array[EditorBlock] = []
 var attach_parents: Array[EditorBlock] = []
-var mouseRotationOffset = 90
 
 # var currentPath: PathFollow2D
 

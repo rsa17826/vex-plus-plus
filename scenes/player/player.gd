@@ -1130,3 +1130,4 @@ func updateKeyFollowPosition(delta):
 # make it so that if the palyer dies instantly after respawning stop player process
 # player not reenter pulley when respawning
 # make move_selected_left work
+# !!whne blocks spawn check player collision

@@ -8,9 +8,9 @@ var settings = EditorInterface.get_editor_settings()
 
 func _enter_tree():
   plugin = preload("uid://d3uqhh42fvfuy").new()
-  
+
   add_inspector_plugin(plugin)
-  
+
   plugin.property_container = EditorInterface.get_inspector().get_child(0).get_child(2)
   plugin.favorite_container = EditorInterface.get_inspector().get_child(0).get_child(1)
   plugin.viewer_container = EditorInterface.get_inspector().get_child(0).get_child(0)
@@ -19,7 +19,7 @@ func _enter_tree():
   plugin.UNKNOWN_ICON = EditorInterface.get_base_control().get_theme_icon("", "EditorIcons")
   
   plugin.icon_grabber = preload("uid://doo2vh6otbog4").new()
-  
+
   filter_bar = EditorInterface.get_inspector().get_parent().get_child(2).get_child(0)
   filter_bar.text_changed.connect(plugin.filter_text_changed)
 
@@ -31,11 +31,11 @@ func _enter_tree():
       plugin.change_vertical_mode(false)
     else:
       plugin.change_vertical_mode(true)
-  
+
   plugin.tab_style = settings.get("interface/inspector/tab_style")
   plugin.property_mode = settings.get("interface/inspector/tab_property_mode")
   plugin.merge_abstract_class_tabs = settings.get("interface/inspector/merge_abstract_class_tabs")
-  
+
   settings.settings_changed.connect(plugin.settings_changed)
 
 func _ready() -> void:
@@ -49,7 +49,7 @@ func load_settings():
     print("ERROR LOADING SETTINGS FILE")
 
   settings.set("interface/inspector/tab_layout", config.get_value("Settings", "tab layout", 1))
-  
+
   var property_info = {
     "name": "interface/inspector/tab_layout",
     "type": TYPE_INT,
@@ -59,7 +59,7 @@ func load_settings():
   settings.add_property_info(property_info)
 
   settings.set("interface/inspector/tab_style", config.get_value("Settings", "tab style", 1))
-  
+
   property_info = {
     "name": "interface/inspector/tab_style",
     "type": TYPE_INT,
@@ -67,9 +67,9 @@ func load_settings():
     "hint_string": "Text Only,Icon Only,Text and Icon",
   }
   settings.add_property_info(property_info)
-  
+
   settings.set("interface/inspector/tab_property_mode", config.get_value("Settings", "tab property mode", 0))
-  
+
   property_info = {
     "name": "interface/inspector/tab_property_mode",
     "type": TYPE_INT,
@@ -77,21 +77,21 @@ func load_settings():
     "hint_string": "Tabbed,Jump Scroll",
   }
   settings.add_property_info(property_info)
-  
+
   settings.set("interface/inspector/merge_abstract_class_tabs", config.get_value("Settings", "merge abstract class tabs", true))
-  
+
   property_info = {
     "name": "interface/inspector/merge_abstract_class_tabs",
     "type": TYPE_BOOL,
   }
   settings.add_property_info(property_info)
-  
+
 func _exit_tree():
   settings.set("interface/inspector/tab_layout", null)
   settings.set("interface/inspector/tab_style", null)
   settings.set("interface/inspector/tab_property_mode", null)
   settings.set("interface/inspector/merge_abstract_class_tabs", null)
-  
+
   plugin.property_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
   plugin.favorite_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
   plugin.viewer_container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -107,8 +107,12 @@ func _process(delta: float) -> void:
   if plugin.vertical_mode:
     if not EditorInterface.get_inspector():
       return print("no inspector")
-    if not EditorInterface.get_inspector().size:
-      return print("no size for inspector")
+    if not (EditorInterface.get_inspector().size is Vector2):
+      return print("no size for inspector", EditorInterface.get_inspector().size)
+    if not plugin.tab_bar:
+      return print("no plugin.tab_bar")
+    if not (plugin.tab_bar.size is Vector2):
+      return print("no size for plugin.tab_bar", plugin.tab_bar.size)
     plugin.tab_bar.size.x = EditorInterface.get_inspector().size.y
     if plugin.vertical_tab_side == 0: # Left side
       plugin.tab_bar.global_position = EditorInterface.get_inspector().global_position + Vector2(0, plugin.tab_bar.size.x)
