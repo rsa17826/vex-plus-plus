@@ -357,56 +357,39 @@ static func to_printable(msgs, opts={}):
       m += "%s " % str(msg)
   return m.trim_suffix(" ")
 
-static func is_not_default(v):
-  return not v is String or (v is String and v != "ZZZDEF")
-
 ## public print fns ###########################################################################
 
-static func pp(msg="ZZZDEF", msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
-  var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
-  msgs = msgs.filter(log.is_not_default)
+static func pp(...msgs) -> void:
   var m = log.to_printable(msgs, {stack=get_stack()})
   print_rich(m)
 
-static func info(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
-  var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
-  msgs = msgs.filter(log.is_not_default)
+static func info(...msgs) -> void:
   var m = log.to_printable(msgs, {stack=get_stack()})
   print_rich(m)
 
-static func log(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
-  var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
-  msgs = msgs.filter(log.is_not_default)
+static func log(...msgs) -> void:
   var m = log.to_printable(msgs, {stack=get_stack()})
   print_rich(m)
 
-static func prn(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
-  var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
-  msgs = msgs.filter(log.is_not_default)
+static func prn(...msgs) -> void:
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true})
   print_rich(m)
 
-static func warn(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
-  var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
-  msgs = msgs.filter(log.is_not_default)
+static func warn(...msgs) -> void:
   var rich_msgs = msgs.duplicate()
   rich_msgs.push_front("[color=yellow][WARN][/color]")
   print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   push_warning(m)
 
-static func err(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
-  var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
-  msgs = msgs.filter(log.is_not_default)
+static func err(...msgs) -> void:
   var rich_msgs = msgs.duplicate()
   rich_msgs.push_front("[color=red][ERR][/color]")
   print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   push_error(m)
 
-static func error(msg: Variant, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF") -> void:
-  var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
-  msgs = msgs.filter(log.is_not_default)
+static func error(...msgs) -> void:
   var rich_msgs = msgs.duplicate()
   rich_msgs.push_front("[color=red][ERR][/color]")
   print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
