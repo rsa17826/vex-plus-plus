@@ -1249,14 +1249,15 @@ func createNewMapFolder() -> Variant:
     }
   )
   await createNewLevelFile(foldername, startLevel)
-  OS.execute("cmd", [
+  var o = []
+  log.pp(OS.execute("cmd", [
     "/c",
     'mklink /J "' +
     path.join(MAP_FOLDER, foldername, "/custom blocks") +
     '" "' +
     path.abs("res://custom blocks") +
     '"'
-  ])
+  ], o), o)
   return foldername
 
 const defaultLevelSettings = {
