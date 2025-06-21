@@ -1702,6 +1702,8 @@ func boxSelectReleased():
   boxSelectDrawStartPos = Vector2.ZERO
   boxSelectDrawEndPos = Vector2.ZERO
   level.boxSelectDrawingNode.updateRect()
+  if boxSelect_selectedBlocks:
+    lastSelectedBlock = boxSelect_selectedBlocks[0]
 
 func removeDeadNodes(arr):
   return arr.filter(func(e): return \
