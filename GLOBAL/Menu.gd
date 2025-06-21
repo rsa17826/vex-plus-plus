@@ -68,6 +68,18 @@ func add_multi_select(key, options, default=[]) -> void:
     "options": options.map(func(x): return str(x)),
     "default": default.map(func(x): return str(x))
   })
+func add_rgba(key, default: String) -> void:
+  # return list[str]
+  _add_any(key, {
+    "type": "rgba",
+    "default": default
+  })
+func add_rgb(key, default: String) -> void:
+  # return list[str]
+  _add_any(key, {
+    "type": "rgb",
+    "default": default
+  })
 func add_single_select(key, options, default) -> void:
   # return str
   _add_any(key, {
@@ -177,6 +189,19 @@ func show_menu():
         # select.value = thing["user"] if "user" in thing else thing["default"]
         # select.value_changed.connect(s.__changed.bind(thing.name, select))
         parent.add_child(node)
+      "rgba":
+        var node = preload(path + "color.tscn").instantiate()
+        var colorSelect = node.get_node("HSlider")
+        colorSelect.color = thing.default
+        colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
+        parent.add_child(node)
+      "rgb":
+        var node = preload(path + "color.tscn").instantiate()
+        var colorSelect = node.get_node("HSlider")
+        colorSelect.edit_alpha = false
+        colorSelect.color = thing.default
+        colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
+        parent.add_child(node)
       "single select":
         var node = preload(path + "single select.tscn").instantiate()
         node.get_node("Label").text = thing["name"]
@@ -257,6 +282,10 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
       menu_data[name].user=node.selected
     "single select":
       menu_data[name].user=int(node.get_node("OptionButton").selected)
+    "rgba":
+      menu_data[name].user=node.get_node("HSlider").color
+    "rgb":
+      menu_data[name].user=node.get_node("HSlider").color
     _:
       log.err("cant save type: " + menu_data[name].type)
   onchanged.emit()
