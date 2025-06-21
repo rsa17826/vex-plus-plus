@@ -818,6 +818,7 @@ func localInput(event: InputEvent) -> void:
       if not Input.is_action_pressed(&"editor_pan", true):
         boxSelect_selectedBlocks = []
       # selectedBlock._ready.call(false)
+
   if Input.is_action_just_pressed(&"new_level_file", true):
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
@@ -970,6 +971,35 @@ func localInput(event: InputEvent) -> void:
         level.save()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+    
+  if Input.is_action_just_pressed(&"move_selected_left"):
+    if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
+    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+    var moveDist = Vector2(-1, 0) * gridSize
+    lastSelectedBlock.global_position += moveDist
+    setBlockStartPos(lastSelectedBlock)
+    lastSelectedBlock.onEditorMove(moveDist)
+  if Input.is_action_just_pressed(&"move_selected_right"):
+    if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
+    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+    var moveDist = Vector2(1, 0) * gridSize
+    lastSelectedBlock.global_position += moveDist
+    setBlockStartPos(lastSelectedBlock)
+    lastSelectedBlock.onEditorMove(moveDist)
+  if Input.is_action_just_pressed(&"move_selected_up"):
+    if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
+    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+    var moveDist = Vector2(0, -1) * gridSize
+    lastSelectedBlock.global_position += moveDist
+    setBlockStartPos(lastSelectedBlock)
+    lastSelectedBlock.onEditorMove(moveDist)
+  if Input.is_action_just_pressed(&"move_selected_down"):
+    if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
+    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+    var moveDist = Vector2(0, 1) * gridSize
+    lastSelectedBlock.global_position += moveDist
+    setBlockStartPos(lastSelectedBlock)
+    lastSelectedBlock.onEditorMove(moveDist)
 
 var levelFolderPath: String
 var loadedLevels: Array
