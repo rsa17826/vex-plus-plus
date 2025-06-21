@@ -28,12 +28,13 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_pvy46"]
 events = [SubResource("InputEventKey_he371"), SubResource("InputEventJoypadButton_eqlig")]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "btnOk", "btnCancel")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "colEdit", "btnOk", "btnCancel")]
 script = ExtResource("1_ffns6")
 promptText = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Label")
 strEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit")
 numEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit2")
 enumEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/OptionButton")
+colEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/ColorPickerButton")
 btnOk = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button")
 btnCancel = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button2")
 
@@ -77,6 +78,10 @@ select_all_on_focus = true
 [node name="OptionButton" type="OptionButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
 layout_mode = 2
 allow_reselect = true
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+layout_mode = 2
+text = "COLOR"
 
 [node name="VFlowContainer2" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
 layout_direction = 2
