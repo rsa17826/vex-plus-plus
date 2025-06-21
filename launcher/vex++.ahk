@@ -66,7 +66,7 @@ loop files A_ScriptDir "/versions/*", 'D' {
     status: status,
     runtext: "Run version " versionName
   })
-  versionListView.Add("", versionName, status, "Run version " versionName, getExeVersion(versionPath, () => '???'))
+  versionListView.Add("", versionName, status, "Run version " versionName) ;, getExeVersion(versionPath, () => '???'))
 }
 
 versionListView.OnEvent("DoubleClick", LV_DoubleClick)
@@ -302,7 +302,9 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     updateRow(row, , "Downloading...")
     DirCreate("versions/" selectedVersion)
     DownloadFile(url, "temp.zip")
+    updateRow(row, , "Unzipping...")
     unzip("temp.zip", "temp")
+    updateRow(row, , "moving files")
     try {
       FileMove("temp\vex.pck", "versions/" selectedVersion "\vex.pck", 1)
       updateRow(row, , "Installed", "Run version " selectedVersion)
