@@ -34,3 +34,6 @@ Thumbs.db
 process
 downloaded maps
 launcher/game data/exes
+launcher/game data/exes/*
+exes
+exes/*
