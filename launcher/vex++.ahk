@@ -140,7 +140,7 @@ UpdateSelf(*) {
   }
   if (url) {
     ToolTip("Downloading...")
-    Download(url, "temp.zip")
+    DownloadFile(url, "temp.zip")
     unzip("temp.zip", "temp")
     FileDelete("temp.zip")
 
@@ -285,7 +285,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
   if (url) {
     updateRow(row, , "Downloading...")
     DirCreate("versions/" selectedVersion)
-    Download(url, "temp.zip")
+    DownloadFile(url, "temp.zip")
     unzip("temp.zip", "temp")
     try {
       FileMove("temp\vex.pck", "versions/" selectedVersion "\vex.pck", 1)
