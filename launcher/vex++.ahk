@@ -32,9 +32,10 @@ try DirDelete("temp", 1)
 if FileExist("launcher.exe") and FileExist("vex++.exe") {
   try FileDelete("launcher.exe")
 }
-if not FileExist("vex++ offline.lnk") {
-  FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
-}
+try FileDelete("vex++ offline.lnk")
+; if not FileExist("vex++ offline.lnk") {
+FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
+; }
 
 loop files A_ScriptDir "\icons\*.*" {
   p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
