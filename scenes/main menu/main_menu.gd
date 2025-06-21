@@ -220,6 +220,16 @@ func __loadOptions(thing) -> void:
         thing['allow lesser'] if "allow lesser" in thing else false,
         thing['allow greater'] if "allow greater" in thing else false
       )
+    "rgba":
+      __menu.add_rgba(
+        thing["key"],
+        thing["defaultValue"],
+      )
+    "rgb":
+      __menu.add_rgb(
+        thing["key"],
+        thing["defaultValue"],
+      )
 
 func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dll3ivt41u6jv"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 160.0
+offset_bottom = 23.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+
+[node name="HSlider" type="ColorPickerButton" parent="."]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="slider value" type="Label" parent="."]
+layout_mode = 2

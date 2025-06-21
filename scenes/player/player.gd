@@ -1132,4 +1132,3 @@ func updateKeyFollowPosition(delta):
 # make move_selected_left work
 # !!whne blocks spawn check player collision
 # add option to change color of box select
-# add color as prompt option
