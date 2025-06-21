@@ -3,7 +3,7 @@ extends Control
 var rect := Rect2()
 
 func _draw() -> void:
-  var c = Color(global.useropts.boxSelectColor)
+  var c = Color.hex(global.useropts.boxSelectColor)
   draw_rect(
     Rect2(global.boxSelectDrawStartPos, global.boxSelectDrawEndPos - global.boxSelectDrawStartPos),
   c)
