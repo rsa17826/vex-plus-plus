@@ -22,7 +22,9 @@ const WATER_EXIT_BOUNCE_FORCE = -600
 const WALL_SLIDE_SPEED = 35
 const DEATH_TIME = 15
 const MAX_BOX_KICK_RECOVER_TIME = 22
+const MAX_POLE_COOLDOWN = 12
 
+var poleCooldown = 0
 var deathSources := []
 var pulleyNoDieTimer: float = 0
 var currentRespawnDelay: float = 0
@@ -275,6 +277,10 @@ func _physics_process(delta: float) -> void:
         global.stopTicking = false
       return
     States.swingingOnPole:
+      if inWaters:
+        activePole = null
+        state = States.falling
+        return
       rotation = 0
       $CollisionShape2D.rotation = 0
       # rotation += 6 * delta
@@ -297,7 +303,7 @@ func _physics_process(delta: float) -> void:
         activePole.root.timingIndicator.rotation_degrees = 45 # - activePole.root.timingIndicator.get_parent().rotation_degrees
         activePole.root.timingIndicator.position = Vector2(55.5, 55.5)
       if Input.is_action_just_pressed(&"jump"):
-        if $anim.frame >= 1 and $anim.frame <= 5:
+        if $anim.frame >= 5 and $anim.frame <= 9:
           # this one should be user because it makes the falling better
           vel.user.y = JUMP_POWER
           # but this should be pole as that way it does something as user.x is set to xintent
@@ -313,11 +319,13 @@ func _physics_process(delta: float) -> void:
           state = States.falling
         activePole.root.timingIndicator.visible = false
         activePole = null
+        poleCooldown = MAX_POLE_COOLDOWN
       elif Input.is_action_just_pressed(&"down"):
         vel.user.y = 0
         activePole.root.timingIndicator.visible = false
         activePole = null
         state = States.falling
+        poleCooldown = MAX_POLE_COOLDOWN
       tryAndDieHazards()
       tryAndDieSquish()
     States.onPulley:
@@ -443,6 +451,8 @@ func _physics_process(delta: float) -> void:
           duckRecovery -= delta * 60
         if playerKT > 0:
           playerKT -= delta * 60
+        if poleCooldown > 0:
+          poleCooldown -= delta * 60
         if boxKickRecovery > 0:
           boxKickRecovery -= delta * 60
           if boxKickRecovery <= 0:
@@ -1124,10 +1134,8 @@ func updateKeyFollowPosition(delta):
 
 # make pole quadrent pole indicators rotate correctly
 
-# !!key to exit level
 # ?stop player from lever when nolonger standing on block
 # prevent pole access while in water
 # make it so that if the palyer dies instantly after respawning stop player process
-# player not reenter pulley when respawning
-# make move_selected_left work
+# player not fail to reenter pulley when respawning
 # !!when blocks spawn check player collision

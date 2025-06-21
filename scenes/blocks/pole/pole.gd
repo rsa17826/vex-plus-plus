@@ -10,6 +10,8 @@ func on_body_entered(body: Node) -> void:
     timingIndicator.rotation_degrees = (-rotation_degrees) + 45
     if global.player.state == global.player.States.dead: return
     if global.player.state == global.player.States.swingingOnPole: return
+    if global.player.inWaters: return
+    if global.player.poleCooldown: return
     if global.player.get_node("anim").animation == "jumping off pole": return
     if global.player.activePole and global.player.activePole != $collisionNode:
       global.player.activePole.root.timingIndicator.visible = false
