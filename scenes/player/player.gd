@@ -1131,3 +1131,5 @@ func updateKeyFollowPosition(delta):
 # player not reenter pulley when respawning
 # make move_selected_left work
 # !!whne blocks spawn check player collision
+# add option to change color of box select
+# add color as prompt option

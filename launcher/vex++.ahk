@@ -192,18 +192,20 @@ getExeVersion(version, default?) {
 
 runSelectedVersion() {
   selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]
+  if !path.info(A_ScriptDir, "versions", selectedVersion, "vex.pck").isfile
+    return MsgBox("The selected version is not valid!", "Error", 0x30 | 0x1000)
 
   exeVersion := getExeVersion(selectedVersion, () {
-    if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
-      exeVersion := input("Enter the exe version number.", '', '', "", '4.5')
-      p := path.join(A_ScriptDir, "versions", selectedVersion, "exeVersion.txt")
-      if exeVersion
-        F.write(p, exeVersion)
-      return exeVersion
-    }
+    ; if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
+    exeVersion := input("Enter the exe version number.", '', '', "", '4.5')
+    p := path.join(A_ScriptDir, "versions", selectedVersion, "exeVersion.txt")
+    if exeVersion
+      F.write(p, exeVersion)
+    return exeVersion
+    ; }
   })
   if !exeVersion
-    return
+    return MsgBox("Could not find the required executable version.")
   ; MsgBox('exeVersion ' exeVersion)
   FileCopy(
     path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe"),
