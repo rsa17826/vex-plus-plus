@@ -55,8 +55,6 @@ listedVersions := []
 ; Fetch the releases from the GitHub API
 loop files A_ScriptDir "/versions/*", 'D' {
   dirname := path.info(A_LoopFileFullPath).nameandext
-  ; if relnames.includes(dirname)
-  ;   continue
   versionName := dirname
   versionPath := "versions/" versionName
   status := offline ? "" : "LocalOnly"
@@ -67,7 +65,7 @@ loop files A_ScriptDir "/versions/*", 'D' {
     status: status,
     runtext: "Run version " versionName
   })
-  versionListView.Add("", versionName, status, "Run version " versionName)
+  versionListView.Add("", versionName, status, "Run version " versionName, getExeVersion(versionPath, () => '???'))
 }
 
 versionListView.OnEvent("DoubleClick", LV_DoubleClick)
@@ -173,9 +171,40 @@ LV_DoubleClick(LV, RowNumber) {
   }
 }
 
+getExeVersion(version, default?) {
+  p := path.join(A_ScriptDir, "versions", version, "exeVersion.txt")
+  if FileExist(p) {
+    return F.read(p)
+  }
+  if IsSet(default)
+    return default()
+  exeVersion := input("Enter the exe version number.", '', '', "", '4.5')
+  if exeVersion
+    F.write(p, exeVersion)
+  return exeVersion
+  ; if IsInteger(version) {
+  ;   if version < 57
+  ;     return 4.4
+  ;   return 4.5
+  ; }
+}
+
 runSelectedVersion() {
   selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]
-  exe := path.join(A_ScriptDir, "game data", "vex.console.exe")
+
+  exeVersion := getExeVersion(selectedVersion, () {
+    if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
+      exeVersion := input("Enter the exe version number.", '', '', "", '4.5')
+      p := path.join(A_ScriptDir, "versions", selectedVersion, "exeVersion.txt")
+      if exeVersion
+        F.write(p, exeVersion)
+      return exeVersion
+    }
+  })
+  if !exeVersion
+    return
+  MsgBox('exeVersion ' exeVersion)
+  exe := path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe")
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
   args := ""
   for arg in A_Args {
@@ -265,7 +294,18 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
       updateRow(row, , "Failed to find vex.pck file", "")
       DirDelete("versions/" selectedVersion, 1)
     }
-
+    target := FileRead(A_ScriptDir '/temp/vex.exe', "UTF-16-RAW")
+    _f := FileOpen("D:\Games\vex++\tempEXECMP", "w", "UTF-16-RAW")
+    _f.write(target)
+    _f.close()
+    loop files A_ScriptDir "/game data/exes/*", 'D' {
+      ; MsgBox("reading file: " A_LoopFileName)
+      if FileRead(A_LoopFileFullPath "/vex.exe", "UTF-16-RAW") == target {
+        version := A_LoopFileName
+        break
+      }
+    }
+    F.write("versions/" selectedVersion "/exeVersion.txt", version)
     ; Clean up temporary files
     FileDelete("temp.zip")
     DirDelete("temp", 1)
