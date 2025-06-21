@@ -29,6 +29,7 @@ versionListView := ui.Add("ListView", "vVersionList w290 h300", [
 ])
 try FileDelete("c.bat")
 try DirDelete("temp", 1)
+try FileDelete("temp.zip")
 if FileExist("launcher.exe") and FileExist("vex++.exe") {
   try FileDelete("launcher.exe")
 }

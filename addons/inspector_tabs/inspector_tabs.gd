@@ -48,27 +48,27 @@ func parse_begin(object: Object) -> void:
   categories_finish = false
   categories.clear()
   tabs.clear()
-    
+  
   tab_can_change = false
   tab_bar.clear_tabs()
   object_custom_classes.clear()
-    
+  
 # getting the category from the inspector
 func _parse_category(object: Object, category: String) -> void:
   if category == "Atlas": return # Not sure what class this is. But it seems to break things.
-        
+    
   # reset the list if its the first category
   if categories_finish:
     parse_begin(object)
-    
+  
   if current_parse_category != "Node": # This line is needed because when selecting multiple nodes the refcounted class will be the last tab.
     current_parse_category = category
-    
+  
 # Finished getting inspector categories
 func _parse_end(object: Object) -> void:
   if current_parse_category != "Node": return # False finish
   current_parse_category = ""
-    
+  
   for i in property_container.get_children():
     if i.get_class() == "EditorInspectorCategory":
       # Get Node Name
@@ -77,7 +77,7 @@ func _parse_end(object: Object) -> void:
         category = category[1]
       else:
         category = category[0]
-                
+        
       if category.split('"').size() > 1:
         category = category.split('"')[1]
 
@@ -103,9 +103,9 @@ func _parse_end(object: Object) -> void:
   else:
     tab_clicked(tab)
     tab_bar.current_tab = tab
-    
+  
   tab_resized()
-    
+  
 # Is it not a custom class
 func is_base_class(c_name: String) -> bool:
   if c_name.contains("."): return false
@@ -113,14 +113,32 @@ func is_base_class(c_name: String) -> bool:
     if list.class == c_name:
       return false
   return true
-    
+  
+func get_script_icon(script_path: String) -> Texture2D:
+  var file := FileAccess.open(script_path, FileAccess.READ)
+  if not file:
+    return null
+  while not file.eof_reached():
+    var line := file.get_line().strip_edges()
+    if line.begins_with("@icon("):
+      var start = line.find("\"") + 1
+      var end = line.rfind("\"")
+      if start > 0 and end > start:
+        var img = line.substr(start, end - start)
+        if !img.begins_with("res://"):
+          img = script_path.substr(0, script_path.rfind("/")) + "/" + img
+        var texture: Texture2D = load(img)
+        var image = texture.get_image()
+        image.resize(UNKNOWN_ICON.get_width(), UNKNOWN_ICON.get_height())
+        return ImageTexture.create_from_image(image)
+  return null
 func get_class_icon(c_name: String) -> Texture2D:
   #Get GDExtension Icon
   var load_icon = icon_grabber.get_icon(c_name)
   if load_icon != null:
     return load_icon
   load_icon = UNKNOWN_ICON
-    
+  
   if c_name.ends_with(".gd"): # GDScript Icon
     load_icon = base_control.get_theme_icon("GDScript", "EditorIcons")
   if c_name == "RefCounted": # RefCounted Icon
@@ -140,7 +158,7 @@ func get_class_icon(c_name: String) -> Texture2D:
 
   if load_icon != UNKNOWN_ICON:
     return load_icon # Return if icon is not unknown
-    
+  
   # if icon not found just use the node disabled icon
   return base_control.get_theme_icon("NodeDisabled", "EditorIcons")
 
@@ -148,8 +166,12 @@ func get_class_icon(c_name: String) -> Texture2D:
 func update_tabs() -> void:
   tab_bar.clear_tabs()
   for tab: String in tabs:
-    var load_icon = get_class_icon(tab)
-        
+    var load_icon: Texture2D
+    if tab.ends_with(".gd"):
+      load_icon = get_script_icon(tab)
+    if load_icon == null:
+      load_icon = get_class_icon(tab)
+    
     if vertical_mode:
       # Rotate the image for the vertical tab
       if vertical_tab_side == 0:
@@ -160,7 +182,7 @@ func update_tabs() -> void:
         var rotated_image = load_icon.get_image().duplicate()
         rotated_image.rotate_90(COUNTERCLOCKWISE)
         load_icon = ImageTexture.create_from_image(rotated_image)
-        
+    
     var tab_name = tab.split("/")[-1]
     match tab_style:
       TabStyle.TextOnly:
@@ -176,14 +198,14 @@ func tab_clicked(tab: int) -> void:
   if property_mode == 0: # Tabbed
     var category_idx = -1
     var tab_idx = -1
-        
+    
     # Show nececary properties
     for i in property_container.get_children():
       if i.get_class() == "EditorInspectorCategory":
         category_idx += 1
         if is_new_tab(categories[category_idx]):
           tab_idx += 1
-                    
+          
       elif tab_idx == -1: # If theres properties at the top of the inspector without its own category.
         category_idx += 1
         if is_new_tab(categories[category_idx]):
@@ -195,7 +217,7 @@ func tab_clicked(tab: int) -> void:
   elif property_mode == 1: # Jump Scroll
     var category_idx = -1
     var tab_idx = -1
-        
+    
     # Show nececary properties
     for i in property_container.get_children():
       if i.get_class() == "EditorInspectorCategory":
@@ -231,7 +253,7 @@ func filter_text_changed(text: String):
 func tab_selected(tab):
   if tab_can_change:
     current_category = tabs[tab]
-        
+    
 func tab_resized():
   if not vertical_mode:
     if tabs.size() != 0:
@@ -257,9 +279,9 @@ func change_vertical_mode(mode: bool = vertical_mode):
   panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
   var inspector = EditorInterface.get_inspector().get_parent()
-    
+  
   tab_bar.tab_clicked.connect(tab_clicked)
-    
+  
   if not vertical_mode:
     inspector.add_child(tab_bar)
     inspector.move_child(tab_bar, 3)
@@ -286,7 +308,7 @@ func change_vertical_mode(mode: bool = vertical_mode):
   tab_bar.resized.connect(tab_resized)
   tab_bar.tab_selected.connect(tab_selected)
   tab_resized()
-            
+      
 func settings_changed() -> void:
   var tab_pos = settings.get("inspector_tabs/tab_layout")
   if tab_pos != null:
@@ -308,7 +330,7 @@ func settings_changed() -> void:
   if merge_class != null:
     if merge_abstract_class_tabs != merge_class:
       merge_abstract_class_tabs = merge_class
-            
+      
   if tab_pos != null and style != null and prop_mode != null and merge_class != null:
     #Save settings
     var config = ConfigFile.new()
