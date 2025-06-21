@@ -203,14 +203,23 @@ runSelectedVersion() {
   })
   if !exeVersion
     return
-  MsgBox('exeVersion ' exeVersion)
-  exe := path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe")
+  ; MsgBox('exeVersion ' exeVersion)
+  FileCopy(
+    path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe"),
+    path.join(A_ScriptDir, "game data/vex.console.exe"),
+    1
+  )
+  FileCopy(
+    path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.exe"),
+    path.join(A_ScriptDir, "game data/vex.exe"),
+    1
+  )
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
   args := ""
   for arg in A_Args {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
-  run('"' . exe . '"' . args, path.join(A_ScriptDir, "versions", selectedVersion))
+  run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", selectedVersion))
   ExitApp()
 }
 
@@ -299,9 +308,9 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
       DirDelete("versions/" selectedVersion, 1)
     }
     target := FileRead(A_ScriptDir '/temp/vex.exe', "UTF-16-RAW")
-    _f := FileOpen("D:\Games\vex++\tempEXECMP", "w", "UTF-16-RAW")
-    _f.write(target)
-    _f.close()
+    ; _f := FileOpen("D:\Games\vex++\tempEXECMP", "w", "UTF-16-RAW")
+    ; _f.write(target)
+    ; _f.close()
     loop files A_ScriptDir "/game data/exes/*", 'D' {
       ; MsgBox("reading file: " A_LoopFileName)
       if FileRead(A_LoopFileFullPath "/vex.exe", "UTF-16-RAW") == target {
