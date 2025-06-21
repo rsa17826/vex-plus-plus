@@ -45,7 +45,9 @@ enum PromptTypes {
   info,
   _enum,
   # multiSelect,
-  bool
+  bool,
+  rgb,
+  rgba
 }
 
 func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant = null, singleArrValues: Variant = []) -> Variant:
@@ -65,6 +67,7 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
   promptCanvas.numEdit.visible = false
   promptCanvas.strEdit.visible = false
   promptCanvas.enumEdit.visible = false
+  promptCanvas.colEdit.visible = false
   # log.pp(type)
   promptCanvas.btnCancel.text = "cancel"
   promptCanvas.btnOk.text = "ok"
@@ -97,6 +100,16 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
       promptCanvas.numEdit.get_line_edit().connect("text_submitted", _on_submit)
       promptCanvas.numEdit.visible = true
       promptCanvas.numEdit.get_line_edit().grab_focus()
+    PromptTypes.rgb:
+      promptCanvas.colEdit.visible = true
+      promptCanvas.colEdit.edit_alpha = false
+      promptCanvas.colEdit.color = default
+      promptCanvas.colEdit.connect("popup_closed", _on_submit)
+    PromptTypes.rgba:
+      promptCanvas.colEdit.visible = true
+      promptCanvas.colEdit.edit_alpha = true
+      promptCanvas.colEdit.color = default
+      promptCanvas.colEdit.connect("popup_closed", _on_submit)
     PromptTypes._enum:
       promptCanvas.enumEdit.clear()
       for thing: String in singleArrValues:
@@ -120,6 +133,8 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
     PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else default
     PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else default
     PromptTypes._enum: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else default
+    PromptTypes.rgb: val = promptCanvas.colEdit.color
+    PromptTypes.rgba: val = promptCanvas.colEdit.color
   Input.mouse_mode = lastMouseMode
   promptCanvas.queue_free.call_deferred()
   return val

@@ -224,7 +224,7 @@ func _ready() -> void:
     blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
 
   if global.useropts.allowCustomColors:
-    blockOptions.color = {"type": global.PromptTypes.string, "default": "#fff"}
+    blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
   setupOptions()
   
   __enable.call_deferred()
