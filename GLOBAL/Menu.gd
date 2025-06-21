@@ -68,13 +68,13 @@ func add_multi_select(key, options, default=[]) -> void:
     "options": options.map(func(x): return str(x)),
     "default": default.map(func(x): return str(x))
   })
-func add_rgba(key, default: String) -> void:
+func add_rgba(key, default: int) -> void:
   # return list[str]
   _add_any(key, {
     "type": "rgba",
     "default": default
   })
-func add_rgb(key, default: String) -> void:
+func add_rgb(key, default: int) -> void:
   # return list[str]
   _add_any(key, {
     "type": "rgb",
@@ -190,16 +190,26 @@ func show_menu():
         # select.value_changed.connect(s.__changed.bind(thing.name, select))
         parent.add_child(node)
       "rgba":
-        var node = preload(path + "color.tscn").instantiate()
-        var colorSelect = node.get_node("HSlider")
-        colorSelect.color = thing.default
+        var node: Control = preload(path + "color.tscn").instantiate()
+        var colorSelect := node.get_node("HSlider")
+        # var c = thing.user.split(",")
+        # if len(c) != 4:
+        #   c = thing.default.split(",")
+        # colorSelect.color = Color(c[0], c[1], c[2], c[3])
+        node.get_node("Label").text = thing.name
+        colorSelect.color = Color.hex(int(thing.user))
         colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
         parent.add_child(node)
       "rgb":
-        var node = preload(path + "color.tscn").instantiate()
-        var colorSelect = node.get_node("HSlider")
+        var node: Control = preload(path + "color.tscn").instantiate()
+        var colorSelect := node.get_node("HSlider")
         colorSelect.edit_alpha = false
-        colorSelect.color = thing.default
+        node.get_node("Label").text = thing.name
+        # var c = thing.user.split(",")
+        # if len(c) != 4:
+        #   c = thing.default.split(",")
+        colorSelect.color = Color.hex(int(thing.user))
+        # colorSelect.color = Color.from_string(thing.user, thing.default)
         colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
         parent.add_child(node)
       "single select":
@@ -283,9 +293,12 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     "single select":
       menu_data[name].user=int(node.get_node("OptionButton").selected)
     "rgba":
-      menu_data[name].user=node.get_node("HSlider").color
+      var c=node.get_node("HSlider").color
+      menu_data[name].user=c.to_rgba32() # global.join(',', c.r, c.g, c.b, c.a)
+      log.pp(node.get_node("HSlider").color)
     "rgb":
-      menu_data[name].user=node.get_node("HSlider").color
+      var c=node.get_node("HSlider").color
+      menu_data[name].user=c.to_rgba32() # global.join(',', c.r, c.g, c.b)
     _:
       log.err("cant save type: " + menu_data[name].type)
   onchanged.emit()

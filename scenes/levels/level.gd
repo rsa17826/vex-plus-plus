@@ -14,12 +14,16 @@ func _init() -> void:
 @export var boxSelectDrawingNode: Control
 
 func onProgress(prog, max):
+  if !is_instance_valid(global.ui): return
+  if !is_instance_valid(global.ui.progressBar): return
   global.ui.progressBar.max_value = max
   global.ui.progressBar.value = prog
   if prog % 50 == 0:
     await global.wait(150)
 
 func loadLevel(level):
+  if !is_instance_valid(global.ui): return
+  if !is_instance_valid(global.ui.progressBar): return
   # await global.wait()
   global.stopTicking = true
   global.tick = 0
@@ -35,6 +39,8 @@ func loadLevel(level):
       {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
     ],
     func(prog, max):
+      if !is_instance_valid(global.ui): return
+      if !is_instance_valid(global.ui.progressBar): return
       global.ui.progressBar.max_value=max
       global.ui.progressBar.value=prog
   )
@@ -45,6 +51,8 @@ func loadLevel(level):
     global.ui.progressContainer.get_node("levelHider").visible = !global.useropts.showLevelLoadingBehindProgressBar
   if !leveldata: return
   # global.ui.progressContainer.text = "Loading Level..."
+  if !is_instance_valid(global.ui): return
+  if !is_instance_valid(global.ui.progressBar): return
   for node in children:
     $blocks.remove_child(node)
     if global.useropts.showLevelLoadingProgressBar:
