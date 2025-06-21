@@ -47,16 +47,12 @@ func _export_begin(features: PackedStringArray, _is_debug: bool, path: String, _
 
 func _export_end() -> void:
   global.file.write("res://VERSION", str(int(global.file.read("res://VERSION", false)) - 1), false)
-  var source_data: PackedByteArray = FileAccess.get_file_as_bytes(r"D:\godotgames\exports\vex\windows\vex.pck")
 
   # if not len(source_data):
   #   _push_err("Error reading or file empty - \"%s\"! Skipping." % source_path)
   #   return
 
-  var dest: FileAccess = FileAccess.open(r"D:\godotgames\exports\vex\pck\vex.pck", FileAccess.WRITE)
-  dest.store_buffer(source_data)
-  dest.close()
-
+  DirAccess.remove_absolute(r"D:\godotgames\exports\vex\windows\exeVersion.txt")
   if not len(zip_path):
     return
 
