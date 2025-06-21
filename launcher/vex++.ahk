@@ -276,7 +276,9 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
   for release in releases {
     ; print(release.tag_name, selectedVersion)
     if (release.tag_name = selectedVersion) {
-      url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("windows.zip"))].browser_download_url
+      url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("pck.zip"))].browser_download_url
+      if !url
+        url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("windows.zip"))].browser_download_url
       break
     }
   }
