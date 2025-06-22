@@ -896,7 +896,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("78_hf5gj")
 }, {
-"duration": 1e+06,
+"duration": 1000000.0,
 "texture": ExtResource("79_avmva")
 }],
 "loop": true,
@@ -918,7 +918,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("25_ds1xl")
 }, {
-"duration": 1e+06,
+"duration": 1000000.0,
 "texture": ExtResource("26_1u1sw")
 }],
 "loop": true,
@@ -944,7 +944,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("67_iwd08")
 }, {
-"duration": 1e+06,
+"duration": 1000000.0,
 "texture": ExtResource("68_5oeuk")
 }],
 "loop": true,
@@ -1109,13 +1109,13 @@ size = Vector2(14, 31.8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q53ni"]
 size = Vector2(10, 1)
 
-[node name="player" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites")]
+[node name="player" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes")]
 z_index = 10
 script = ExtResource("1_hdu4s")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/top/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/left/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/right/CollisionShape2D2"), NodePath("CharacterBody2D/deathDetectors/bottom/CollisionShape2D")]
-hidableSprites = [NodePath("CharacterBody2D/anim")]
+ignoreMissingNodes = true
 metadata/_edit_lock_ = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
@@ -1152,7 +1152,7 @@ scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
 animation = &"on pole"
 autoplay = "idle"
-frame = 7
+frame = 2
 metadata/_edit_lock_ = true
 
 [node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D"]

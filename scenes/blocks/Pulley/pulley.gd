@@ -3,6 +3,7 @@ extends EditorBlock
 class_name BlockPulley
 
 @export var nodeToMove: Node2D = null
+@export var sprite: Sprite2D = null
 const SPEED = 1000
 var direction = 0
 
@@ -16,6 +17,7 @@ func on_respawn():
     if global.player.activePulley == self:
       global.player.state = global.player.States.falling
       global.player.activePulley = null
+  setTexture(sprite, selectedOptions.direction)
   # get_node("../attach detector").on_respawn()
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
@@ -56,6 +58,3 @@ func generateBlockOpts():
 func _on_has_ceil_body_exited(body: Node2D) -> void:
   if not %"has ceil".get_overlapping_bodies():
     on_respawn()
-
-
-  

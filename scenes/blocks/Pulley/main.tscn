@@ -1,9 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://3b5rdxoob147"]
+[gd_scene load_steps=11 format=3 uid="uid://3b5rdxoob147"]
 
 [ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/Pulley/images/1.png" id="2_omc7y"]
 [ext_resource type="Script" uid="uid://1dvo3ligvvh5" path="res://scenes/blocks/Pulley/pulley.gd" id="2_u2153"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_svsk0"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_svsk0"]
+
+[sub_resource type="GDScript" id="GDScript_svsk0"]
+script/source = "extends Sprite2D
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_u2153"]
 radius = 34.0
@@ -20,14 +24,16 @@ size = Vector2(10, 50)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
 size = Vector2(20, 5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToMove", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToMove", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["attaches to things"]]
 script = ExtResource("2_u2153")
 nodeToMove = NodePath("movable")
+sprite = NodePath("movable/Sprite2D")
 ghostIconNode = NodePath("movable/Sprite2D")
 editorBarIconNode = NodePath("movable/Sprite2D")
 collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("movable/wall to side with player off/CollisionShape2D"), NodePath("movable/wall to side with player off/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("movable/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
+thingThatMoves = NodePath("movable")
 
 [node name="movable" type="Node2D" parent="."]
 
@@ -36,6 +42,7 @@ use_parent_material = true
 position = Vector2(1, 0)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_omc7y")
+script = SubResource("GDScript_svsk0")
 
 [node name="player detector" type="Area2D" parent="movable" node_paths=PackedStringArray("root")]
 collision_layer = 3072
