@@ -11,6 +11,12 @@ var collsiionOn_top = []
 var collsiionOn_bottom = []
 var collsiionOn_left = []
 var collsiionOn_right = []
+var vel := {
+  "conveyer": Vector2.ZERO,
+}
+var velDecay := {
+  "conveyer": .9
+}
 
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
@@ -18,25 +24,45 @@ func on_physics_process(delta: float) -> void:
   if currentWatters:
     velocity.y -= max(95 * delta * (velocity.y / 8), 10)
   else:
-    if not is_on_floor():
-      velocity.y += global.player.GRAVITY * delta
+    if is_on_floor():
+      velocity.y = 0
+    velocity.y += global.player.GRAVITY * delta
   velocity.x *= .90 if is_on_floor() else .97
-  var shouldExplode = velocity.y > 700
-  # log.pp(velocity.y)
+  var lastvel = velocity
+  velocity += vel.conveyer
   move_and_slide()
-  if is_on_floor() and shouldExplode:
+  velocity -= vel.conveyer
+  vel.conveyer *= velDecay.conveyer
+  log.pp(lastvel, "lastvel")
+  if is_on_floor() and lastvel.y > 700:
     root.explode()
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
   or (len(collsiionOn_left) and len(collsiionOn_right)):
     log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
     root.explode()
+  for i in get_slide_collision_count():
+    var collision := get_slide_collision(i)
+    var block := collision.get_collider()
+    var normal := collision.get_normal()
+
+    block = block.root
+    if (block is BlockConveyerLeft or block is BlockConveyerRight) \
+    and normal == Vector2.UP \
+    and lastvel.y >= 0 \
+    :
+      if block is BlockConveyerRight:
+        vel.conveyer.x = 400
+      else:
+        vel.conveyer.x = -400
 
 func on_ready(first=false):
-  velocity = Vector2(0, 0)
+  vel.conveyer = Vector2.ZERO
+  velocity = Vector2.ZERO
   global_position = root.startPosition
 
 func on_respawn():
-  velocity = Vector2(0, 0)
+  vel.conveyer = Vector2.ZERO
+  velocity = Vector2.ZERO
   collsiionOn_top = []
   collsiionOn_bottom = []
   collsiionOn_left = []

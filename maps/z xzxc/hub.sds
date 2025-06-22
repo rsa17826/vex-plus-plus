@@ -1,7 +1,7 @@
 [
   {
-    STR(x)FLOAT(140.0)
-    STR(y)FLOAT(-210.0)
+    STR(x)FLOAT(-425.0)
+    STR(y)FLOAT(-385.0)
   }
   {
     STR(x)FLOAT(180.0)
@@ -194,9 +194,9 @@
     }
   }
   {
-    STR(x)FLOAT(200.0)
+    STR(x)FLOAT(747.5)
     STR(y)FLOAT(-55.0)
-    STR(w)FLOAT(1.00000004470348)
+    STR(w)FLOAT(11.9499989748001)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(conveyer/left)
@@ -205,12 +205,80 @@
     }
   }
   {
-    STR(x)FLOAT(10.0)
-    STR(y)FLOAT(-210.0)
-    STR(w)FLOAT(1.00000004470348)
+    STR(x)FLOAT(-195.0)
+    STR(y)FLOAT(-225.0)
+    STR(w)FLOAT(5.10000032186508)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(conveyer/right)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-415.0)
+    STR(y)FLOAT(-320.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(pushable box)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1320.0)
+    STR(y)FLOAT(-170.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(pushable box)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(165.0)
+    STR(y)FLOAT(-230.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-245.0)
+    STR(y)FLOAT(-370.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-455.0)
+    STR(y)FLOAT(-425.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-465.0)
+    STR(y)FLOAT(-525.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
     STR(options){
       STR(color)STR(#fff)
     }

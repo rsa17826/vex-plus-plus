@@ -57,7 +57,7 @@ var collsiionOn_bottom := []
 var collsiionOn_left := []
 var collsiionOn_right := []
 
-var lastSpawnPoint := Vector2(0, 0)
+var lastSpawnPoint := Vector2.ZERO
 
 var moving := 0
 
@@ -976,7 +976,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   updateCollidingBlocksExited()
   if full:
-    lastSpawnPoint = Vector2(0, 0)
+    lastSpawnPoint = Vector2.ZERO
     global.tick = 0
     global.currentLevel().tick = 0
   else:

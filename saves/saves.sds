@@ -294,7 +294,7 @@
     STR(beatLevels)[]
   }
   STR(z xzxc){
-    STR(lastSpawnPoint)VEC2(-130.0,70.0)
+    STR(lastSpawnPoint)VEC2(590.0,155.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
