@@ -366,12 +366,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **attachesToThings**
 
-- **spark counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
+- **spark block/counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
 
   - **settings**:
     - **color**
 
-- **spark clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
+- **spark block/clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
 
   - **settings**:
     - **color**
@@ -395,3 +395,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
     - **attachesToThings**
+
+- **conveyer/left**: moves things on top of it to the left and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
+
+  - **settings**:
+- **conveyer/right**: moves things on top of it to the rigth and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
+
+  - **settings**:
