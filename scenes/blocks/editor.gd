@@ -349,6 +349,13 @@ func _physics_process(delta: float) -> void:
 func _process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
   if global.openMsgBoxCount: return
+  if !_DISABLED:
+    for node in hidableSprites:
+      if global.showEditorUi:
+        node.visible = !global.hideNonGhosts
+      else:
+        node.visible = true
+
   # if global.player.state == global.player.States.dead:
   #   respawn()
   #   return
