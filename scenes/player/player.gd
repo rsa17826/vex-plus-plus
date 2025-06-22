@@ -204,6 +204,14 @@ func _process(delta: float) -> void:
     $Camera2D.global_position = camLockPos
     $Camera2D.reset_smoothing()
 
+
+func clearWallData():
+  lastWall = 0
+  breakFromWall = false
+  wallSlidingFrames = 0
+  wallBreakDownFrames = 0
+
+
 func _physics_process(delta: float) -> void:
   if state == States.levelLoading: return
   if state in [
@@ -284,6 +292,7 @@ func _physics_process(delta: float) -> void:
         activePole = null
         state = States.falling
         return
+      clearWallData()
       rotation = 0
       $CollisionShape2D.rotation = 0
       # rotation += 6 * delta
@@ -306,7 +315,7 @@ func _physics_process(delta: float) -> void:
         activePole.root.timingIndicator.rotation_degrees = 45 # - activePole.root.timingIndicator.get_parent().rotation_degrees
         activePole.root.timingIndicator.position = Vector2(55.5, 55.5)
       if Input.is_action_just_pressed(&"jump"):
-        if $anim.frame >= 4 and $anim.frame <= 10:
+        if $anim.frame >= 3 and $anim.frame <= 9:
           # this one should be user because it makes the falling better
           vel.user.y = JUMP_POWER
           # but this should be pole as that way it does something as user.x is set to xintent
@@ -332,6 +341,7 @@ func _physics_process(delta: float) -> void:
       tryAndDieHazards()
       tryAndDieSquish()
     States.onPulley:
+      clearWallData()
       rotation = lerp_angle(float(rotation), 0.0, .2)
       $CollisionShape2D.rotation = - rotation
       vel.user = Vector2.ZERO
@@ -1126,6 +1136,7 @@ func updateKeyFollowPosition(delta):
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
   # ?!version ?-NOW! can push boxes while sliding
   # ?!version ?-NOW! spawnpoint being inside water and doing full restart while in spawn water causes player to noe be in water
+  # ?!version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1134,13 +1145,10 @@ func updateKeyFollowPosition(delta):
 # add level thumbnails
 
 # add star requirement for inner level
-# show on inner level if level has star or not
-# save stars that are collected by id, and show collected count
 # add star finder?
 
 # add cmd arg to play level by name/path
 
-# add nojump floor
 # add 2x jump option?
 
 # make clicking to release copy not select blocks
@@ -1148,9 +1156,10 @@ func updateKeyFollowPosition(delta):
 # make pole quadrent pole indicators rotate correctly
 
 # ?stop player from lever when nolonger standing on block
-# prevent pole access while in water
 # make it so that if the palyer dies instantly after respawning stop player process
 # player not fail to reenter pulley when respawning
 # !!when blocks spawn check player collision
-# hide non ghost option
 # oneways
+# pulley icons for each direction
+# block palate rclick should go before blocks behind it
+# poles should reset wall state
