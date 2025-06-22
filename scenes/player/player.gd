@@ -1152,3 +1152,5 @@ func updateKeyFollowPosition(delta):
 # make it so that if the palyer dies instantly after respawning stop player process
 # player not fail to reenter pulley when respawning
 # !!when blocks spawn check player collision
+# hide non ghost option
+# oneways

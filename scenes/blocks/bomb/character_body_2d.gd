@@ -33,7 +33,7 @@ func on_physics_process(delta: float) -> void:
   move_and_slide()
   velocity -= vel.conveyer
   vel.conveyer *= velDecay.conveyer
-  log.pp(lastvel, "lastvel")
+  # log.pp(lastvel, "lastvel")
   if is_on_floor() and lastvel.y > 700:
     root.explode()
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \

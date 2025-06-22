@@ -788,7 +788,8 @@ var boxSelectRealStartPos: Vector2 = Vector2.ZERO
 var boxSelectDrawEndPos: Vector2 = Vector2.ZERO
 var boxSelectRealEndPos: Vector2 = Vector2.ZERO
 var lastMousePos: Vector2 = Vector2.ZERO
-var isFakeMouseMovement = false
+var isFakeMouseMovement := false
+var hideNonGhosts := false
 
 func localInput(event: InputEvent) -> void:
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
@@ -796,6 +797,8 @@ func localInput(event: InputEvent) -> void:
     isFakeMouseMovement = false
     return
   if openMsgBoxCount: return
+  if Input.is_action_just_pressed(&"toggle_hide_non_ghosts", true):
+    hideNonGhosts = !hideNonGhosts
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
@@ -1597,6 +1600,7 @@ var blockNames: Array = [
   "leftright",
   "water",
   "solar",
+  "inverse solar",
   "slope",
   "pushable box",
   "microwave",

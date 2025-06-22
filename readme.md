@@ -50,6 +50,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **move_selected_right**: moves the last selected block 1 grid step right.
 - **move_selected_up**: moves the last selected block 1 grid step up.
 - **move_selected_down**: moves the last selected block 1 grid step down.
+- **toggle_hide_non_ghosts**: when in editor and this is enabled all non ghost blocks are hidden.
 
 ### Play Controls
 
@@ -147,6 +148,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **attachesToThings**
 
 - **solar**: has solid collision when lights are on, touch a lightswitch to turn the lights off.
+
+  - scalable
+  - **settings**:
+    - **color**
+
+- **inverse solar**: has solid collision when lights are off, touch a lightswitch to turn the lights off.
 
   - scalable
   - **settings**:
