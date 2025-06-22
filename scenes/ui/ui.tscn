@@ -19,8 +19,8 @@ position = Vector2(0, 15)
 
 [node name="saved" type="Sprite2D" parent="."]
 visible = false
-position = Vector2(1047, 519.92)
-scale = Vector2(0.4, 0.4)
+position = Vector2(1095.5499, 559.55)
+scale = Vector2(0.19960955, 0.19960955)
 texture = ExtResource("3_qno0g")
 
 [node name="Controls" parent="." instance=ExtResource("4_g5kmx")]

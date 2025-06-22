@@ -204,13 +204,11 @@ func _process(delta: float) -> void:
     $Camera2D.global_position = camLockPos
     $Camera2D.reset_smoothing()
 
-
 func clearWallData():
   lastWall = 0
   breakFromWall = false
   wallSlidingFrames = 0
   wallBreakDownFrames = 0
-
 
 func _physics_process(delta: float) -> void:
   if state == States.levelLoading: return
@@ -1160,6 +1158,4 @@ func updateKeyFollowPosition(delta):
 # player not fail to reenter pulley when respawning
 # !!when blocks spawn check player collision
 # oneways
-# pulley icons for each direction
 # block palate rclick should go before blocks behind it
-# poles should reset wall state
