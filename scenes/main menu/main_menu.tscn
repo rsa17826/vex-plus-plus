@@ -27,7 +27,7 @@ offset_right = 1149.0
 offset_bottom = 609.0
 
 [node name="ColorRect" type="ColorRect" parent="LEVELS"]
-layout_mode = 2
+layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 166.0
 color = Color(0.237539, 0.237539, 0.237539, 1)
@@ -47,7 +47,7 @@ layout_mode = 2
 metadata/_edit_lock_ = true
 
 [node name="OPTS" type="MarginContainer" parent="."]
-layout_mode = 2
+layout_mode = 0
 offset_top = 24.0
 offset_right = 718.0
 offset_bottom = 420.0
@@ -66,43 +66,43 @@ metadata/_edit_lock_ = true
 
 [node name="BTNS" type="VFlowContainer" parent="."]
 custom_minimum_size = Vector2(150, 30)
-layout_mode = 2
+layout_mode = 0
 offset_left = 2.0
 offset_top = 614.075
 offset_right = 152.0
 offset_bottom = 645.075
 
-[node name="new level btn" type="Button" parent="BTNS"]
+[node name="new map btn" type="Button" parent="BTNS"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
-text = "create new level"
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
+text = "create new map"
 
 [node name="open level folder" type="Button" parent="BTNS"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 text = "open level folder"
 
 [node name="load online levels" type="Button" parent="BTNS"]
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 text = "load online levels"
 
 [node name="play tut" type="Button" parent="BTNS"]
 visible = false
 layout_mode = 2
-theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0.435294, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 text = "play tut"
 
 [node name="version" type="Label" parent="BTNS"]
@@ -126,6 +126,6 @@ text = "OPTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="pressed" from="BTNS/new level btn" to="." method="_on_new_level_btn_pressed"]
+[connection signal="pressed" from="BTNS/new map btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="BTNS/open level folder" to="." method="_on_open_level_folder_pressed"]
 [connection signal="pressed" from="BTNS/load online levels" to="." method="_on_load_online_levels_pressed"]

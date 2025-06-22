@@ -76,18 +76,21 @@ var vel := {
   "user": Vector2.ZERO,
   "waterExit": Vector2.ZERO,
   "bounce": Vector2.ZERO,
+  "conveyer": Vector2.ZERO,
 }
 var velDecay := {
   "pole": 1,
   "user": 1,
   "waterExit": .9,
   "bounce": 0.95,
+  "conveyer": .9
 }
 var justAddedVels := {
   "pole": 0,
   "user": 0,
   "waterExit": 0,
   "bounce": 0,
+  "conveyer": 0,
 }
 var stopVelOnGround := ["bounce", "waterExit"]
 var stopVelOnWall := ["bounce", "waterExit"]
@@ -303,7 +306,7 @@ func _physics_process(delta: float) -> void:
         activePole.root.timingIndicator.rotation_degrees = 45 # - activePole.root.timingIndicator.get_parent().rotation_degrees
         activePole.root.timingIndicator.position = Vector2(55.5, 55.5)
       if Input.is_action_just_pressed(&"jump"):
-        if $anim.frame >= 5 and $anim.frame <= 9:
+        if $anim.frame >= 4 and $anim.frame <= 10:
           # this one should be user because it makes the falling better
           vel.user.y = JUMP_POWER
           # but this should be pole as that way it does something as user.x is set to xintent
@@ -858,25 +861,25 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       block is BlockDonup
       or block is BlockFalling
     ) \
-    and normal.y < 0 \
+    and normal == Vector2.UP \
     and velocity.y >= 0 \
     :
       block.falling = true
     if block is BlockGlass \
-    and normal.y < 0 \
+    and normal == Vector2.UP \
     and velocity.y >= 0 \
     and vel.user.y > 0 \
     and Input.is_action_pressed(&"down") \
     :
       block.__disable()
     if block is BlockBouncy \
-    and normal.y < 0 \
+    and normal == Vector2.UP \
     and velocity.y >= 0 \
     and not inWaters \
     :
       block.start()
     if block is BlockInnerLevel \
-    and normal.y < 0 \
+    and normal == Vector2.UP \
     and state == States.sliding \
     and abs(vel.user.x) < 10 \
     :
@@ -888,7 +891,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and getClosestWallSide() \
     and Input.is_action_just_pressed(&"down") \
     and not inWaters \
-    and normal.y \
+    and normal == Vector2.UP \
     :
       block.thingThatMoves.velocity.x -= getClosestWallSide() * 120
       $anim.animation = "kicking box"
@@ -903,6 +906,16 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       block.thingThatMoves.velocity.x -= normal.x * depth * 200
       state = States.pushing
       $anim.animation = "pushing box"
+    if (block is BlockConveyerLeft or block is BlockConveyerRight) \
+    and normal == Vector2.UP \
+    and not inWaters \
+    and vel.user.y >= 0 \
+    :
+      log.pp(normal)
+      if block is BlockConveyerRight:
+        vel.conveyer.x = 400
+      else:
+        vel.conveyer.x = -400
 
   # if !block.root.lastMovementStep: return
   # if block.is_in_group("falling"):
