@@ -1374,6 +1374,9 @@ func _notification(what):
     quitGame()
     
 func quitGame():
+  if useropts.saveOnExit:
+    if level and is_instance_valid(level):
+      level.save()
   if OS.get_process_id() == int(file.read(path.abs("res://process"), false)):
     DirAccess.remove_absolute(path.abs("res://process"))
   get_tree().quit()

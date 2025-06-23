@@ -1,8 +1,9 @@
-[gd_scene load_steps=37 format=3 uid="uid://b3g2mft1jrgrr"]
+[gd_scene load_steps=38 format=3 uid="uid://b3g2mft1jrgrr"]
 
 [ext_resource type="Script" uid="uid://dya3y1jksp2cu" path="res://scenes/blocks/oneway/oneway.gd" id="1_rch08"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_0wow3"]
 [ext_resource type="Texture2D" uid="uid://c1tr7irtnueag" path="res://scenes/blocks/oneway/images/1.png" id="3_bhfal"]
+[ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="4_bpaeu"]
 [ext_resource type="Texture2D" uid="uid://dr0onr0jx73hj" path="res://scenes/blocks/oneway/images/editorBar.png" id="4_lm28m"]
 [ext_resource type="Texture2D" uid="uid://x6uruje0eokn" path="res://scenes/blocks/conveyer/_arrows/1.png" id="4_nnsu2"]
 [ext_resource type="Texture2D" uid="uid://b256e8erkklh6" path="res://scenes/blocks/conveyer/_arrows/2.png" id="5_lm28m"]
@@ -155,6 +156,7 @@ root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("3_bhfal")
+script = ExtResource("4_bpaeu")
 
 [node name="Sprite2D2" type="Sprite2D" parent="collisionNode"]
 visible = false
