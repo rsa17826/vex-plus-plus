@@ -710,7 +710,8 @@ func _physics_process(delta: float) -> void:
         if state == States.wallHang and not getClosestWallSide():
           state = States.falling
         # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
-        if state == States.wallSliding:
+        if state == States.wallSliding \
+        and getClosestWallSide() != sign(velocity.x):
           position.x += velocity.x * delta
         for n: String in vel:
           if justAddedVels[n]:
