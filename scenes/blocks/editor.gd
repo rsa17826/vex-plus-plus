@@ -201,7 +201,7 @@ func _on_body_entered(body: Node2D, real=true) -> void:
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
-  log.pp(isChildOfCustomBlock)
+  # log.pp(isChildOfCustomBlock)
   if _ready not in global.player.OnPlayerFullRestart:
     global.player.OnPlayerFullRestart.append(_ready)
   # if !is_in_group("dontRespawnOnPlayerDeath"):

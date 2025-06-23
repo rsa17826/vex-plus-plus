@@ -923,7 +923,6 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and not inWaters \
     and vel.user.y >= 0 \
     :
-      log.pp(normal)
       if block is BlockConveyerRight:
         vel.conveyer.x = 400
       else:
