@@ -37,7 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://drxl5nb1auvxw" path="res://scenes/blocks/conveyer/_arrows/30.png" id="33_dffxe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
-size = Vector2(700, 42)
+size = Vector2(700, 25)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xp0y3"]
 size = Vector2(700, 8)
@@ -168,7 +168,7 @@ visible = false
 texture = ExtResource("4_lm28m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-position = Vector2(0, -329)
+position = Vector2(0, -337.5)
 shape = SubResource("RectangleShape2D_gwpbw")
 one_way_collision = true
 

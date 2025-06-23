@@ -12,9 +12,13 @@ func on_body_entered(body: Node):
   explode()
 
 func on_respawn():
-  exploded = false
+  exploded = true
   boomSprite.stop()
   boomSprite.visible = false
+  if boomSprite.frame_changed.is_connected(onFrameChanged):
+    boomSprite.frame_changed.disconnect(onFrameChanged)
+  if boomSprite.animation_looped.is_connected(onAnimationLooped):
+    boomSprite.animation_looped.disconnect(onAnimationLooped)
   await global.wait()
   boomSprite.visible = false
   if boomSprite.frame_changed.is_connected(onFrameChanged):
@@ -27,6 +31,7 @@ func on_respawn():
   $CharacterBody2D.collsiionOn_bottom = []
   $CharacterBody2D.collsiionOn_left = []
   $CharacterBody2D.collsiionOn_right = []
+  exploded = false
 
 func onAnimationLooped():
   boomSprite.visible = false
@@ -65,9 +70,9 @@ func explode():
   exploded = true
   $CharacterBody2D/Sprite2D.visible = false
   boomSprite.visible = true
-  boomSprite.play("explode")
   boomShape.set_deferred("shape", CircleShape2D.new())
   await global.wait()
   boomShape.shape.radius = 206.06
   boomSprite.frame_changed.connect(onFrameChanged)
   boomSprite.animation_looped.connect(onAnimationLooped)
+  boomSprite.play("explode")
