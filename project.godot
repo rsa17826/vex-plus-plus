@@ -65,6 +65,10 @@ canBeAttachedTo=""
 portal=""
 dontRespawnOnPlayerDeath=""
 
+[gui]
+
+theme/max_fps=0
+
 [input]
 
 show_keybinds={
