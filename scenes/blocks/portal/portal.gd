@@ -23,6 +23,9 @@ func on_body_entered(body: Node) -> void:
       if portal.selectedOptions.portalId == selectedOptions.exitId:
         global.lastPortal = portal
         global.player.global_position = portal.global_position
+        global.player.activePulley = null
+        global.player.activePole = null
+        global.player.state = global.player.States.falling
 
 func generateBlockOpts():
   blockOptions.portalId = {"type": global.PromptTypes.int, "default": 0}

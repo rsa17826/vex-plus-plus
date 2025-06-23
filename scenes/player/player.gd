@@ -338,6 +338,7 @@ func _physics_process(delta: float) -> void:
         poleCooldown = MAX_POLE_COOLDOWN
       tryAndDieHazards()
       tryAndDieSquish()
+      updateKeyFollowPosition(delta)
     States.onPulley:
       clearWallData()
       rotation = lerp_angle(float(rotation), 0.0, .2)
@@ -367,6 +368,7 @@ func _physics_process(delta: float) -> void:
 
       if Input.is_action_just_pressed(&"down") or inWaters:
         state = States.falling
+      updateKeyFollowPosition(delta)
     States.bouncing:
       rotation = 0
       $CollisionShape2D.rotation = 0
@@ -388,6 +390,7 @@ func _physics_process(delta: float) -> void:
         state=States.idle, Object.CONNECT_ONE_SHOT)
       tryAndDieHazards()
       tryAndDieSquish()
+      updateKeyFollowPosition(delta)
     _:
       if inWaters:
         floor_snap_length = 0
