@@ -21,7 +21,7 @@ func on_respawn():
   # get_node("../attach detector").on_respawn()
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
-  log.pp(body, respawning, moving)
+  log.pp(body, respawning, moving, %"has ceil".get_overlapping_bodies())
   if respawning or not %"has ceil".get_overlapping_bodies():
     return
   match selectedOptions.direction:
