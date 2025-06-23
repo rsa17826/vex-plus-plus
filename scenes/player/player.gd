@@ -1135,6 +1135,7 @@ func updateKeyFollowPosition(delta):
   # ?!version ?-NOW! can push boxes while sliding
   # ?!version ?-NOW! spawnpoint being inside water and doing full restart while in spawn water causes player to noe be in water
   # ?!version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
+  # ?!version ?-NOW! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1159,3 +1160,5 @@ func updateKeyFollowPosition(delta):
 # !!when blocks spawn check player collision
 # oneways
 # block palate rclick should go before blocks behind it
+# make oneways change color
+# allow esc while in text box .prompt

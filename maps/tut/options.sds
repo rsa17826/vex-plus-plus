@@ -1,0 +1,28 @@
+{
+  STR(start)STR(hub)
+  STR(author)STR(rssaromeo)
+  STR(description)STR()
+  STR(version)INT(64)
+  STR(stages){
+    STR(hub){
+      STR(color)INT(5)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+    STR(solar){
+      STR(color)INT(5)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+    STR(moving blocks){
+      STR(color)INT(1)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+    STR(levers){
+      STR(color)INT(3)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+  }
+}
