@@ -341,4 +341,37 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(90.0)
+    STR(y)FLOAT(-335.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(oneway)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(230.0)
+    STR(y)FLOAT(-385.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(oneway)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(465.0)
+    STR(y)FLOAT(-320.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(oneway)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]

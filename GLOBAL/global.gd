@@ -1647,6 +1647,7 @@ var blockNames: Array = [
   "arrow",
   "conveyer/left",
   "conveyer/right",
+  "oneway",
   "custom block",
   # "path",
 ]

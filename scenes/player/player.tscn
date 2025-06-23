@@ -1121,7 +1121,7 @@ metadata/_edit_lock_ = true
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 position = Vector2(0, -1.9)
 collision_layer = 2050
-collision_mask = 60
+collision_mask = 8252
 floor_constant_speed = true
 floor_max_angle = 0.867429
 floor_snap_length = 5.0
