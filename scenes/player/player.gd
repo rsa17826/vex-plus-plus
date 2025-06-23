@@ -154,6 +154,8 @@ func _input(event: InputEvent) -> void:
     global.showEditorUi = true
   if Input.is_action_pressed(&"editor_pan"):
     global.showEditorUi = true
+    if not camLockPos:
+      camLockPos = $Camera2D.global_position
     Input.set_default_cursor_shape(Input.CURSOR_DRAG)
   else:
     if global.showEditorUi:
