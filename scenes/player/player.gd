@@ -1165,3 +1165,4 @@ func updateKeyFollowPosition(delta):
 # block palate rclick should go before blocks behind it
 # make oneways change color
 # allow esc while in text box .prompt
+# wall grab wall conveyers

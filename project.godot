@@ -271,6 +271,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 2d_physics/layer_12="EXPLOSION KILLS THESE"
 2d_physics/layer_13="STICKY FLOOR"
 2d_physics/layer_14="ONEWAY"
+2d_physics/layer_15="ONEWAY WALLJUMPABLE"
 
 [maaacks_input_remapping]
 
