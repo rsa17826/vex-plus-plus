@@ -136,7 +136,7 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode") groups=["EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale"]]
 script = ExtResource("1_rch08")
 ghostIconNode = NodePath("collisionNode/Sprite2D2")
 editorBarIconNode = NodePath("collisionNode/Sprite2D2")

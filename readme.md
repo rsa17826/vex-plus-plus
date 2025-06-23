@@ -409,3 +409,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **conveyer/right**: moves things on top of it to the rigth and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
 
   - **settings**:
+- **oneway**: like a block in the direction it is facing and like air in all other directions.
+
+  - **settings**:
