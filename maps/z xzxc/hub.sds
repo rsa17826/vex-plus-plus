@@ -388,9 +388,9 @@
     }
   }
   {
-    STR(x)FLOAT(130.0)
+    STR(x)FLOAT(325.0)
     STR(y)FLOAT(-580.0)
-    STR(w)FLOAT(5.00000011920929)
+    STR(w)FLOAT(8.90000092983246)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -417,6 +417,30 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(oneway)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(420.0)
+    STR(y)FLOAT(-765.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(395.0)
+    STR(y)FLOAT(-710.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Pulley)
+    STR(options){
+      STR(direction)STR(right)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

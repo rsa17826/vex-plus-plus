@@ -10,7 +10,7 @@ var direction = 0
 var moving = false
 
 func on_respawn():
-  $movable.position = Vector2.ZERO
+  $movable.position = Vector2(0, 1)
   if moving:
     moving = false
     nodeToMove.position = Vector2.ZERO
@@ -18,12 +18,21 @@ func on_respawn():
       global.player.state = global.player.States.falling
       global.player.activePulley = null
   setTexture(sprite, selectedOptions.direction)
+  await global.wait()
+  $movable.position = Vector2.ZERO
   # get_node("../attach detector").on_respawn()
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
-  log.pp(body, respawning, moving, %"has ceil".get_overlapping_bodies())
-  if respawning or not %"has ceil".get_overlapping_bodies():
+  if respawning:
     return
+  if not %"has ceil".get_overlapping_bodies():
+    # fix for if the ceil is placed after the pulley is
+    $movable.position = Vector2(0, 1)
+    await global.wait()
+    $movable.position = Vector2.ZERO
+    await global.wait()
+    if not %"has ceil".get_overlapping_bodies():
+      return
   match selectedOptions.direction:
     "right":
       direction = 1
