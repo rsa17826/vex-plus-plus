@@ -51,6 +51,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **move_selected_up**: moves the last selected block 1 grid step up.
 - **move_selected_down**: moves the last selected block 1 grid step down.
 - **toggle_hide_non_ghosts**: when in editor and this is enabled all non ghost blocks are hidden.
+- **block_z_up**: moves the block back in the list of nodes to make it render before the other blocks. the selected block is moved up until it is before 1 block that it is currently in front of and not just by 1.
+- **block_z_down**: same as block_z_up but moves it down instead of up.
 
 ### Play Controls
 
@@ -87,7 +89,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
 - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
 - **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
-- **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will allways remove the block that was selected most recently.
+- **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will always remove the block that was selected most recently.
 - **mouseLockDistanceWhileRotating**: this is how far away the mouse will be from the center of the selected object while holding the editor_rotate key. higher numbers move the mouse farther away. set to 0 to disable.
 - **boxSelectColor**: the color that the box select will be
 
@@ -254,7 +256,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **attachesToThings**
 
-- **Gravity Down Lever**: when the player is inside the lever and presses down the player gravity will be halfed or reverted to normal if it was halved before
+- **Gravity Down Lever**: when the player is inside the lever and presses down the player gravity will be halved or reverted to normal if it was halved before
 
   - **settings**:
     - **color**
@@ -406,9 +408,11 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **conveyer/left**: moves things on top of it to the left and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
 
   - **settings**:
-- **conveyer/right**: moves things on top of it to the rigth and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
+
+- **conveyer/right**: moves things on top of it to the right and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
 
   - **settings**:
+
 - **oneway**: like a block in the direction it is facing and like air in all other directions.
 
   - **settings**:

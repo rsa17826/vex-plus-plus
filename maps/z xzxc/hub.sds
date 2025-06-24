@@ -410,6 +410,17 @@
     }
   }
   {
+    STR(x)FLOAT(500.0)
+    STR(y)FLOAT(-640.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
     STR(x)FLOAT(15.0)
     STR(y)FLOAT(-785.0)
     STR(w)FLOAT(3.10000044107437)
@@ -421,19 +432,8 @@
     }
   }
   {
-    STR(x)FLOAT(420.0)
-    STR(y)FLOAT(-765.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(basic)
-    STR(options){
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(395.0)
-    STR(y)FLOAT(-710.0)
+    STR(x)FLOAT(450.0)
+    STR(y)FLOAT(-630.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
