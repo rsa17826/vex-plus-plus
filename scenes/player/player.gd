@@ -1110,11 +1110,8 @@ func updateKeyFollowPosition(delta):
 
 # fix spike sizes not being the same
 
-# save more than 1 star
-# save block state data when saving mid level
 # add undo/redo history
 
-# add block animations?
 # allow user to reorder the levels in the editor?
 # allow user to reorder the block picker?
 # add required events to win level? - eg break x glass - separate ones for each level in a map, not mapwide goals
@@ -1162,7 +1159,6 @@ func updateKeyFollowPosition(delta):
 
 # ?stop player from lever when nolonger standing on block
 # make it so that if the player dies instantly after respawning stop player process
-# player not fail to reenter pulley when respawning
 # ??!!when blocks spawn check player collision
 # oneways
 # block palate rclick should go before blocks behind it
