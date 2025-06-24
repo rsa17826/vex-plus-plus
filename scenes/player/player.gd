@@ -1161,11 +1161,10 @@ func updateKeyFollowPosition(delta):
 # make pole quadrent pole indicators rotate correctly
 
 # ?stop player from lever when nolonger standing on block
-# make it so that if the palyer dies instantly after respawning stop player process
+# make it so that if the player dies instantly after respawning stop player process
 # player not fail to reenter pulley when respawning
-# !!when blocks spawn check player collision
+# ??!!when blocks spawn check player collision
 # oneways
 # block palate rclick should go before blocks behind it
-# make oneways change color
 # allow esc while in text box .prompt
 # wall grab wall conveyers
