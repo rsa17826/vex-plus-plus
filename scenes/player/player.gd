@@ -1106,8 +1106,6 @@ func updateKeyFollowPosition(delta):
 
 # fix moving blocks not moving the player correctly
 
-# add way to change block layer - ignore layers of blocks that arnt colliging with selected block to make layer switching quicker
-
 # fix spike sizes not being the same
 
 # add undo/redo history

@@ -791,6 +791,31 @@ var lastMousePos: Vector2 = Vector2.ZERO
 var isFakeMouseMovement := false
 var hideNonGhosts := false
 
+func moveBlockZ(block, ud):
+  if selectedBlock:
+    var blocks = level.get_node("blocks")
+    var idx = 0
+    var startIdx = selectedBlock.get_index()
+    var overlapings = selectedBlock.ghost \
+      .get_node("collider").get_overlapping_areas() \
+      .filter(func(e): return e.name == "collider") \
+      .map(func(e): return e.get_parent().get_parent().get_index())
+    overlapings.sort()
+    if ud == "down":
+      overlapings.reverse()
+    for i in overlapings:
+      if ud == "up":
+        if i > startIdx: break
+        elif i < startIdx:
+          idx = i - 1
+      elif ud == "down":
+        if i < startIdx: break
+        elif i > startIdx:
+          idx = i + 1
+    log.pp('moveBlockZ', overlapings, startIdx, idx)
+    if idx:
+      blocks.move_child(selectedBlock, idx)
+
 func localInput(event: InputEvent) -> void:
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
   if event is InputEventMouseMotion and isFakeMouseMovement:
@@ -813,6 +838,10 @@ func localInput(event: InputEvent) -> void:
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
       boxSelectRealEndPos = player.get_global_mouse_position()
       boxSelectReleased()
+  if Input.is_action_just_pressed(&"block_z_up"):
+    moveBlockZ(selectedBlock, "up")
+  if Input.is_action_just_pressed(&"block_z_down"):
+    moveBlockZ(selectedBlock, "down")
   if Input.is_action_just_released(&"editor_select"):
     if selectedBlock:
       selectedBlock.onEditorMove(Vector2.ZERO)
