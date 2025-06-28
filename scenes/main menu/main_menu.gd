@@ -41,6 +41,9 @@ func _ready() -> void:
     if data:
       node.newSaveBtn.connect("pressed", loadLevel.bind(level, false))
       node.loadSaveBtn.connect("pressed", loadLevel.bind(level, true))
+      node.tooltip_text = data.description if data.description else "NO DESCRIPTION SET"
+      node.newSaveBtn.tooltip_text = node.tooltip_text
+      node.loadSaveBtn.tooltip_text = node.tooltip_text
     node.moreOptsBtn.connect("pressed", showMoreOptions.bind(level))
     levelContainer.add_child(node)
   loadUserOptions()
@@ -132,7 +135,7 @@ func upload_file(file_path: String, base64_content: String) -> void:
   var res = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, json_body)
 
   if res.code == 200 or res.code == 201:
-    OS.alert("File upload was successfull!")
+    OS.alert("File upload was successful!")
   elif res.code == 422:
     OS.alert("ERROR 422")
     # OS.alert("level already exists")
