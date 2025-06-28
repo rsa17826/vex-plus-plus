@@ -117,6 +117,7 @@ func _ready() -> void:
         log.pp(creator, level)
         const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
         var node := levelNode.instantiate()
+        node.version.visible = false
         node.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
         node.creator.text = creator
         node.newSaveBtn.text = "download level"
