@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://f3fey26e7kkh"
-path="res://.godot/imported/1.png-3e30bf3679717db3c29840993e2fa67a.ctex"
+uid="uid://drci2np6vlwuk"
+path="res://.godot/imported/59.png-4054019ed8ed90da7d1969665ed68044.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/sprites/DefineSprite_1405_enlargingBlock/1.png"
-dest_files=["res://.godot/imported/1.png-3e30bf3679717db3c29840993e2fa67a.ctex"]
+source_file="res://scenes/blocks/growing block/images/DefineSprite_1404/59.png"
+dest_files=["res://.godot/imported/59.png-4054019ed8ed90da7d1969665ed68044.ctex"]
 
 [params]
 
