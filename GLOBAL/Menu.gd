@@ -16,8 +16,13 @@ func _init(_parent, save_path: String = "main") -> void:
   parent = _parent
   full_save_path = "user://" + save_path + \
   (" - EDITOR" if OS.has_feature("editor") else '') \
-  +".json"
-  menu_data = global.file.read(full_save_path, true, "{}")
+  +".sds"
+  var temp = sds.loadDataFromFile(full_save_path, {})
+  for k in temp:
+    menu_data[k] = {
+      "name": k,
+      "user": temp[k],
+    }
   # #log.pp("loading", _parent.name, save_path)
 
 # add a add that is multiselect/singleselect/range but with images instead of text either from a list of images or a dir full of images
@@ -314,7 +319,7 @@ class __changed_proxy:
 # end __changed_proxy
 
 func save():
-  global.file.write(full_save_path, menu_data)
+  sds.saveDataToFile(full_save_path, get_all_data())
 
 func debug():
   pass

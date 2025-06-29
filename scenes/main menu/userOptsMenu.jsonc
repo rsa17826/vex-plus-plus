@@ -46,8 +46,8 @@
         "type": "range",
         "key": "editorBarScrollSpeed",
         "defaultValue": 1,
-        "min": -15,
-        "max": 15,
+        "min": -40,
+        "max": 40,
         "step": 1
       },
       {
@@ -187,6 +187,23 @@
         "min": 0,
         "max": 100,
         "step": 1
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "editorBarColumns",
+        "defaultValue": 1,
+        "max": 400,
+        "min": 1,
+        "allow lesser": false,
+        "allow greater": true
+      },
+      {
+        "thing": "option",
+        "type": "single select",
+        "key": "editorBarPosition",
+        "defaultValue": 0,
+        "options": ["top", "bottom", "left", "right"]
       },
       {
         "thing": "option",
