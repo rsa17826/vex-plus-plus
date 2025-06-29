@@ -254,11 +254,11 @@ animations = [{
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale", "canBeAttachedTo"]]
 script = ExtResource("1_4g13r")
-anim = NodePath("collisionNode/AnimatedSprite2D")
+anim = NodePath("collisionNode/center")
 ghostIconNode = NodePath("collisionNode/editorBar")
 editorBarIconNode = NodePath("collisionNode/editorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/AnimatedSprite2D")]
+hidableSprites = [NodePath("collisionNode/center"), NodePath("collisionNode/border")]
 cloneEventsHere = NodePath("collisionNode")
 thingThatMoves = NodePath("collisionNode")
 
@@ -272,11 +272,11 @@ root = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="collisionNode"]
+[node name="center" type="AnimatedSprite2D" parent="collisionNode"]
 sprite_frames = SubResource("SpriteFrames_hfsvb")
 autoplay = "default"
 
-[node name="396" type="Sprite2D" parent="collisionNode"]
+[node name="border" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("63_i6im3")
 
 [node name="editorBar" type="Sprite2D" parent="collisionNode"]

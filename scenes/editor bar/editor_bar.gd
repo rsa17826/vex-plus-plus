@@ -5,34 +5,29 @@ extends Node2D
 # @flags gm
 # @endregex
 
-var rowSize
-var nodeSize
-var scaleY = true
-var scrollSpeed
-var xoffset = 0
-var nodeCount = 0
+var nodeSize: float
+var scrollOffset: float = 0
+var nodeCount: int = 0
 
-@export var maxId = 0
+var rows: int = 12
+
 func _ready() -> void:
   global.defaultBlockOpts = sds.loadDataFromFile("user://defaultBlockOpts.sds", {})
-  position.y = global.useropts.editorBarOffset
+  position.x = global.useropts.editorBarOffset
   for item in get_children():
     if item not in [$item, $ColorRect]:
       item.queue_free()
   nodeCount = 0
   nodeSize = global.useropts.blockPickerBlockSize
-  scrollSpeed = nodeSize
-  var screenSize = global.windowSize.x
+  var screenSize = global.windowSize.y
   $item.visible = true
-  rowSize = floor(screenSize / nodeSize)
-  var extraSize = screenSize - (rowSize * nodeSize)
-  scale.x = 1 + global.rerange(extraSize, 0, screenSize, 0, 1)
-  if scaleY:
-    scale.y = scale.x
-  $ColorRect.size = Vector2(screenSize, nodeSize * (1 + ((1 - scale.y) / 2)) * 1.05)
+  var extraSize = screenSize - (rows * nodeSize)
+  scale.y = 1 + global.rerange(extraSize, 0, screenSize, 0, 1)
+  scale.x = scale.y
+  $ColorRect.size = Vector2((rows * nodeSize), screenSize)
   for i in range(0, len(global.blockNames)):
     newItem(global.blockNames[i], i)
-  xoffset = clamp(xoffset, 0, (nodeSize * nodeCount) - nodeSize * rowSize)
+  scrollOffset = clamp(scrollOffset, 0, (nodeSize * nodeCount) - nodeSize * rows)
   for item in get_children():
     updateItem(item)
   $item.visible = false
@@ -44,12 +39,12 @@ func _input(event: InputEvent) -> void:
   if event is InputEventMouseButton:
     if event.is_pressed():
       if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-        # global.player.get_node("Camera2D").zoom += Vector2(.05, .05)
-        xoffset += scrollSpeed * (global.useropts.editorBarScrollSpeed)
+        scrollOffset += nodeSize * (global.useropts.editorBarScrollSpeed)
       if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-        # global.player.get_node("Camera2D").zoom -= Vector2(.05, .05)
-        xoffset -= scrollSpeed * (global.useropts.editorBarScrollSpeed)
-      xoffset = clamp(xoffset, 0, (nodeSize * nodeCount) - nodeSize * rowSize)
+        scrollOffset -= nodeSize * (global.useropts.editorBarScrollSpeed)
+      var offset = ceil(nodeCount / float(rows))
+      log.pp(offset)
+      scrollOffset = clamp(scrollOffset, 0, ((nodeSize * offset) - nodeSize * rows))
       for item in get_children():
         updateItem(item)
 
@@ -84,14 +79,16 @@ func updateItem(item):
   if item.name == "ColorRect": return
   item.scale = (Vector2(1, 1) / 7)
 
-  if scaleY:
-    item.scale *= (float(nodeSize) / 100)
-  else:
-    item.scale.x *= (float(nodeSize) / 100)
+  item.scale *= (float(nodeSize) / 100) # Adjust for vertical scaling
   item.scale /= 1.1
   item.normalScale = item.scale
   if item.selected:
     item.scale *= 1.1
 
-  item.position = Vector2(float(nodeSize) * ((item.id - 1)), 0) + Vector2((nodeSize / 2) + nodeSize, (nodeSize / 2))
-  item.position -= Vector2(xoffset, 0)
+  # Calculate the column and row based on the item ID
+  var column: float = item.id % rows # Column index
+  var row = item.id / rows # Row index
+
+  item.position = Vector2(column * nodeSize, row * nodeSize) \
+  + Vector2(nodeSize, nodeSize) / 2
+  item.position -= Vector2(0, scrollOffset)

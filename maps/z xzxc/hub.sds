@@ -445,13 +445,59 @@
     }
   }
   {
-    STR(x)FLOAT(600.0)
-    STR(y)FLOAT(-700.0)
+    STR(x)FLOAT(560.0)
+    STR(y)FLOAT(-1080.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(growing block)
+    STR(id)STR(bomb)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(605.0)
+    STR(y)FLOAT(-800.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(530.0)
+    STR(y)FLOAT(-990.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(glass)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(595.0)
+    STR(y)FLOAT(-680.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(sticky floor)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(655.0)
+    STR(y)FLOAT(-755.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(arrow)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
