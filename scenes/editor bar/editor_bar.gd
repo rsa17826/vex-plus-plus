@@ -44,6 +44,7 @@ func _ready() -> void:
       position = Vector2(0, 0)
     3:
       position = Vector2(global.windowSize.x - $ColorRect.size.x, 0)
+  position.y += global.useropts.editorBarOffset
 
 func _process(delta: float) -> void:
   visible = global.showEditorUi
