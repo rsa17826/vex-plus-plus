@@ -13,6 +13,13 @@ editorBar = NodePath("editor bar")
 progressContainer = NodePath("ProgressContainer")
 progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 
+[node name="star counter" type="Label" parent="."]
+offset_left = 57.0
+offset_top = 43.0
+offset_right = 97.0
+offset_bottom = 66.0
+script = ExtResource("5_0dwhk")
+
 [node name="editor bar" parent="." instance=ExtResource("2_5gxme")]
 visible = false
 
@@ -54,10 +61,3 @@ grow_vertical = 2
 [node name="ProgressBar" type="ProgressBar" parent="ProgressContainer/CenterContainer"]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
-
-[node name="star counter" type="Label" parent="."]
-offset_left = 57.0
-offset_top = 43.0
-offset_right = 97.0
-offset_bottom = 66.0
-script = ExtResource("5_0dwhk")

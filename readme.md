@@ -92,6 +92,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will always remove the block that was selected most recently.
 - **mouseLockDistanceWhileRotating**: this is how far away the mouse will be from the center of the selected object while holding the editor_rotate key. higher numbers move the mouse farther away. set to 0 to disable.
 - **boxSelectColor**: the color that the box select will be
+- **editorBarScrollDirection**: the direction in which the editor bar scrolls either being horizontal, or vertical.
 
 ### block settings that apply to many blocks
 
