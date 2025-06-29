@@ -486,6 +486,13 @@ class event:
     triggers[msg].append(cb)
     return {'msg': msg, 'index': len(triggers[msg]) - 1}
 
+func sinFrom(start: float, end: float, time: float, speed: float = 1) -> float:
+  # Calculate the sine value, ensuring it starts at 0 when time is 0
+  var sine_value = (sin(time * speed - PI / 2) + 1) / 2 # Shifted to start at 0
+  log.pp(sine_value)
+    
+  return lerp(start, end, sine_value)
+
 # class InputManager:
 #   func _init(_init_key_names):
 #     self.key_names = _init_key_names
@@ -1630,6 +1637,7 @@ var blockNames: Array = [
   "updown",
   "downup",
   "leftright",
+  "growing block",
   "water",
   "solar",
   "inverse solar",
