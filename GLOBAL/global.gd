@@ -1051,21 +1051,8 @@ func localInput(event: InputEvent) -> void:
       justPaintedBlock.rotation_degrees = 0
       justPaintedBlock.id = block
       lastSelectedBrush = selectedBrush
-      # create a new block
-      # justPaintedBlock.scale = selectedBrush.normalScale
-      # justPaintedBlock.startScale = selectedBrush.normalScale
+      level.get_node("blocks").add_child(justPaintedBlock)
       justPaintedBlock.global_position = level.get_global_mouse_position()
-      setBlockStartPos(justPaintedBlock)
-      level.get_node("blocks").add_child(justPaintedBlock)
-      # after creating the block recall this to update the position
-      localProcess(0)
-
-      # justPaintedBlock.scale = lastSelectedBlock.scale
-      # justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
-      # justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
-      # justPaintedBlock.id = block
-      level.get_node("blocks").add_child(justPaintedBlock)
-      justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
       setBlockStartPos(justPaintedBlock)
       localProcess(0)
       lastSelectedBrush.selected = 0
