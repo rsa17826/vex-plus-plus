@@ -1038,25 +1038,26 @@ func localInput(event: InputEvent) -> void:
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
-  for block in blockNames:
-    if Input.is_action_just_pressed("CREATE NEW - " + block.replace("/", "_"), true):
-      log.pp(block)
-      selectedBrush = lastSelectedBrush
-      selectedBrush.selected = 2
-      justPaintedBlock = load("res://scenes/blocks/" + block + "/main.tscn").instantiate()
-      if justPaintedBlock.normalScale:
-        justPaintedBlock.scale = Vector2(1, 1)
-      else:
-        justPaintedBlock.scale = Vector2(1, 1) / 7
-      justPaintedBlock.rotation_degrees = 0
-      justPaintedBlock.id = block
-      lastSelectedBrush = selectedBrush
-      level.get_node("blocks").add_child(justPaintedBlock)
-      justPaintedBlock.global_position = level.get_global_mouse_position()
-      setBlockStartPos(justPaintedBlock)
-      localProcess(0)
-      lastSelectedBrush.selected = 0
-      selectedBrush.selected = 0
+  if showEditorUi:
+    for block in blockNames:
+      if Input.is_action_just_pressed("CREATE NEW - " + block.replace("/", "_"), true):
+        log.pp(block)
+        selectedBrush = lastSelectedBrush
+        selectedBrush.selected = 2
+        justPaintedBlock = load("res://scenes/blocks/" + block + "/main.tscn").instantiate()
+        if justPaintedBlock.normalScale:
+          justPaintedBlock.scale = Vector2(1, 1)
+        else:
+          justPaintedBlock.scale = Vector2(1, 1) / 7
+        justPaintedBlock.rotation_degrees = 0
+        justPaintedBlock.id = block
+        lastSelectedBrush = selectedBrush
+        level.get_node("blocks").add_child(justPaintedBlock)
+        justPaintedBlock.global_position = level.get_global_mouse_position()
+        setBlockStartPos(justPaintedBlock)
+        localProcess(0)
+        lastSelectedBrush.selected = 0
+        selectedBrush.selected = 0
 
 var levelFolderPath: String
 var loadedLevels: Array

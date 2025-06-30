@@ -16,13 +16,13 @@ const COMMON_REPLACE_STRINGS: Dictionary = {
 } # Dictionary[String, String]
 ## Gives priority to icons with occurrences of the provided strings.
 @export var prioritized_strings: Array[String]
-## Replaces the first occurence in icon names of the key with the value.
-@export var replace_strings: Dictionary # Dictionary[String, String]
+## Replaces the first occurrence in icon names of the key with the value.
+@export var replace_strings: Dictionary[String, String]
 ## Filters the icon names of the provided strings.
 @export var filtered_strings: Array[String]
 ## Adds entries for "Up", "Down", "Left", "Right" to icon names ending with "Stick".
 @export var add_stick_directions: bool = false
-@export var intial_joypad_device: String = InputEventHelper.DEVICE_GENERIC
+@export var initial_joypad_device: String = InputEventHelper.DEVICE_GENERIC
 ## Attempt to match the icon names to the input names based on the string rules.
 @export var _match_icons_to_inputs_action: bool = false:
   set(value):
@@ -30,11 +30,11 @@ const COMMON_REPLACE_STRINGS: Dictionary = {
       _match_icons_to_inputs()
 # For Godot 4.4
 # @export_tool_button("Match Icons to Inputs") var _match_icons_to_inputs_action = _match_icons_to_inputs
-@export var matching_icons: Dictionary # Dictionary[String, Texture]
+@export var matching_icons: Dictionary[String, Texture]
 @export_group("Debug")
-@export var all_icons: Dictionary # Dictionary[String, Texture]
+@export var all_icons: Dictionary[String, Texture]
 
-@onready var last_joypad_device = intial_joypad_device
+@onready var last_joypad_device = initial_joypad_device
 
 func _is_end_of_word(full_string: String, what: String) -> bool:
   var string_end_position = full_string.find(what) + what.length()
@@ -121,7 +121,7 @@ func get_icon(input_event: InputEvent) -> Texture:
   return null
 
 func _assign_joypad_0_to_last() -> void:
-  if last_joypad_device != intial_joypad_device: return
+  if last_joypad_device != initial_joypad_device: return
   var connected_joypads := Input.get_connected_joypads()
   if connected_joypads.is_empty(): return
   last_joypad_device = InputEventHelper.get_device_name_by_id(connected_joypads[0])
