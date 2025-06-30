@@ -1401,7 +1401,7 @@ func localReady() -> void:
   if getProcess(pid) and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))):
     sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
     DirAccess.remove_absolute(path.abs("res://process"))
-    quitGame()
+    get_tree().quit()
   else:
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
