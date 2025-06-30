@@ -1162,4 +1162,4 @@ func updateKeyFollowPosition(delta):
 # block palate rclick should go before blocks behind it
 # allow esc while in text box .prompt
 # wall grab wall conveyers
-# add hotkeys that can be assigned to any block
+# add more ghost/editorBar costumes for the oneway

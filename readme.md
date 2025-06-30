@@ -103,7 +103,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - downup
   - leftright
   - falling
+  - donup
   - pushable box
+  - bomb
   - ? might be more
 
 ### Blocks

@@ -7,6 +7,9 @@
 script = ExtResource("2_djyku")
 remapping_mode = 1
 
+[node name="InputIconMapper" parent="." index="0"]
+files = Array[String]([])
+
 [node name="VBoxContainer" parent="." index="1"]
 enabled = true
 lock = true
@@ -17,4 +20,5 @@ visible = false
 [node name="InputActionsTree" parent="VBoxContainer/InputMappingContainer" index="2"]
 visible = true
 custom_minimum_size = Vector2(400, 365.63)
-input_action_names = Array[StringName]([])
+input_action_names = Array[String]([])
+readable_action_names = Array[String]([])
