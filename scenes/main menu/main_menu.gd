@@ -48,6 +48,7 @@ func _ready() -> void:
     levelContainer.add_child(node)
   loadUserOptions()
   %version.text = "VERSION: " + str(global.VERSION)
+  # $CTRLS/VBoxContainer/InputMappingContainer/InputActionsTree._build_ui_tree()
 
 func showMoreOptions(level):
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID

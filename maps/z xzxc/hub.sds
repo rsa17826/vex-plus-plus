@@ -501,4 +501,16 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(450.0)
+    STR(y)FLOAT(-795.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(23489.998046875)
+    STR(id)STR(nowj)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]
