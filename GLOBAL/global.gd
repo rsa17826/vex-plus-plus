@@ -1423,9 +1423,83 @@ func localReady() -> void:
   else:
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
+  var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
+  var tempBlockNames = []
+  var unusedBlockNames = [
+    "basic",
+    "single spike",
+    "10x spike",
+    # "invisible",
+    "updown",
+    "downup",
+    "leftright",
+    "growing block",
+    "water",
+    "solar",
+    "inverse solar",
+    "slope",
+    "pushable box",
+    "microwave",
+    "locked box",
+    "glass",
+    "falling",
+    "donup",
+    "bouncy",
+    "spark block/counterClockwise",
+    "spark block/clockwise",
+    "inner level",
+    "goal",
+    "buzsaw",
+    "bouncing buzsaw",
+    "cannon",
+    "checkpoint",
+    "closing spikes",
+    "Gravity Down Lever",
+    "Gravity up Lever",
+    "speed Up Lever",
+    "growing buzsaw",
+    "key",
+    # "laser",
+    "light switch",
+    "pole",
+    "Pole Quadrant",
+    "Pulley",
+    "Quadrant",
+    "Rotating Buzzsaw",
+    "Scythe",
+    # "shurikan Spawner",
+    "star",
+    # "targeting laser",
+    # "ice",
+    "death boundary",
+    "block death boundary",
+    # "basic - nowj",
+    "nowj",
+    "falling spike",
+    # "quad falling spikes",
+    "portal",
+    "bomb",
+    "sticky floor",
+    "arrow",
+    "conveyer/left",
+    "conveyer/right",
+    "oneway",
+    "custom block",
+    # "path",
+  ]
+  for thing in editorBarData:
+    if thing is String:
+      thing = {"name": thing, "remove": false}
+    if thing.name in unusedBlockNames:
+      unusedBlockNames.erase(thing.name)
+    var remove = thing.remove if "remove" in thing else false
+    if !remove:
+      tempBlockNames.append(thing.name)
+  blockNames = tempBlockNames + unusedBlockNames
+
   for block in blockNames:
-    # log.pp("CREATE NEW - " + block.replace("/", "_"))
-    InputMap.add_action("CREATE NEW - " + block.replace("/", "_"))
+    if !InputMap.has_action("CREATE NEW - " + block.replace("/", "_")):
+      InputMap.add_action("CREATE NEW - " + block.replace("/", "_"))
 
 func _notification(what):
   if what == NOTIFICATION_WM_CLOSE_REQUEST:
@@ -1651,68 +1725,7 @@ func getToken():
     return decoded_string
   return decode_string.call(t)
 
-var blockNames: Array = [
-  "basic",
-  "single spike",
-  "10x spike",
-  # "invisible",
-  "updown",
-  "downup",
-  "leftright",
-  "growing block",
-  "water",
-  "solar",
-  "inverse solar",
-  "slope",
-  "pushable box",
-  "microwave",
-  "locked box",
-  "glass",
-  "falling",
-  "donup",
-  "bouncy",
-  "spark block/counterClockwise",
-  "spark block/clockwise",
-  "inner level",
-  "goal",
-  "buzsaw",
-  "bouncing buzsaw",
-  "cannon",
-  "checkpoint",
-  "closing spikes",
-  "Gravity Down Lever",
-  "Gravity up Lever",
-  "speed Up Lever",
-  "growing buzsaw",
-  "key",
-  # "laser",
-  "light switch",
-  "pole",
-  "Pole Quadrant",
-  "Pulley",
-  "Quadrant",
-  "Rotating Buzzsaw",
-  "Scythe",
-  # "shurikan Spawner",
-  "star",
-  # "targeting laser",
-  # "ice",
-  "death boundary",
-  "block death boundary",
-  # "basic - nowj",
-  "nowj",
-  "falling spike",
-  # "quad falling spikes",
-  "portal",
-  "bomb",
-  "sticky floor",
-  "arrow",
-  "conveyer/left",
-  "conveyer/right",
-  "oneway",
-  "custom block",
-  # "path",
-]
+var blockNames: Array = []
 
 var lastPortal: Node2D = null
 
