@@ -53,6 +53,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **toggle_hide_non_ghosts**: when in editor and this is enabled all non ghost blocks are hidden.
 - **block_z_up**: moves the block back in the list of nodes to make it render before the other blocks. the selected block is moved up until it is before 1 block that it is currently in front of and not just by 1.
 - **block_z_down**: same as block_z_up but moves it down instead of up.
+- **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 ### Play Controls
 

@@ -74,6 +74,7 @@ var blockOptionsArray := []
 var pm: PopupMenu
 var attach_children: Array[EditorBlock] = []
 var attach_parents: Array[EditorBlock] = []
+var isBeingMoved := false
 
 # var currentPath: PathFollow2D
 
@@ -123,8 +124,8 @@ func respawn() -> void:
     global_position = startPosition
     rotation_degrees = startRotation_degrees
     scale = startScale
-  # if enableOnRespawn:
-  __enable.call_deferred()
+  if !isBeingMoved:
+    __enable.call_deferred()
 
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
@@ -387,8 +388,9 @@ func _process(delta: float) -> void:
             global.boxSelect_selectedBlocks = []
           global_position = startPosition
         if not _DISABLED:
+          isBeingMoved = true
           for collider in collisionShapes:
-            if not collider and not ignoreMissingNodes:
+            if not collider:
               log.pp(collider, collisionShapes, id)
               breakpoint
             collider.disabled = true
@@ -398,6 +400,7 @@ func _process(delta: float) -> void:
         # if not mouse down
         if !Input.is_action_pressed(&"editor_select"):
           if not _DISABLED:
+            isBeingMoved = false
             for collider in collisionShapes:
               if not collider and not ignoreMissingNodes:
                 log.pp("invalid collisionShapes", collider, collisionShapes, id)
