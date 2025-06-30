@@ -34,9 +34,47 @@ if FileExist("launcher.exe") and FileExist("vex++.exe") {
   try FileDelete("launcher.exe")
 }
 try FileDelete("vex++ offline.lnk")
-; if not FileExist("vex++ offline.lnk") {
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
-; }
+
+hasProcessRunning() {
+  ; if the game process is running
+  if FileExist("game data/process") {
+    pid := F.read("game data/process")
+    if !pid {
+      return 0
+    }
+    if WinExist("ahk_pid " pid) {
+      ; if the game process is vex
+      if WinGetProcessName("ahk_pid " pid) == "vex.exe" {
+        hasExtraArgs := 0
+        for arg in A_Args {
+          if arg == "offline"
+            continue
+          hasExtraArgs := 1
+          break
+        }
+        ; if there is args to pass to the game then return 1 else close the game and run normally
+        if hasExtraArgs {
+          WinActivate("ahk_pid " pid)
+          return 1
+        } else {
+          WinClose("ahk_pid " pid)
+          return 0
+        }
+      }
+    }
+    return 0
+  }
+}
+
+if hasProcessRunning() and F.read("game data/lastRanVersion.txt") {
+  args := ""
+  for arg in A_Args {
+    args .= ' "' . StrReplace(arg, '"', '\"') . '"'
+  }
+  run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", F.read("game data/lastRanVersion.txt")))
+  ExitApp()
+}
 
 loop files A_ScriptDir "\icons\*.*" {
   p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
@@ -49,7 +87,6 @@ offline := A_Args.join(" ").includes("offline")
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
 ui.Show("AutoSize")
-; Populate the ListView with versions and their statuses
 ; Define the GitHub API URL for fetching releases
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 addedVersions := []
@@ -99,7 +136,16 @@ if !offline {
 }
 
 i := 0
+lastRanVersion := F.read("game data/lastRanVersion.txt")
 for thing in listedVersions.sort((a, s) {
+  if lastRanVersion {
+    if a.version == lastRanVersion and s.version != lastRanVersion {
+      return 1
+    }
+    if s.version == lastRanVersion and a.version != lastRanVersion {
+      return -1
+    }
+  }
   if a.status == "LocalOnly" and s.status != "LocalOnly" {
     return 1
   }
@@ -208,21 +254,24 @@ runSelectedVersion() {
   if !exeVersion
     return MsgBox("Could not find the required executable version.")
   ; MsgBox('exeVersion ' exeVersion)
-  FileCopy(
-    path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe"),
-    path.join(A_ScriptDir, "game data/vex.console.exe"),
-    1
-  )
-  FileCopy(
-    path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.exe"),
-    path.join(A_ScriptDir, "game data/vex.exe"),
-    1
-  )
+  if !hasProcessRunning() {
+    FileCopy(
+      path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe"),
+      path.join(A_ScriptDir, "game data/vex.console.exe"),
+      1
+    )
+    FileCopy(
+      path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.exe"),
+      path.join(A_ScriptDir, "game data/vex.exe"),
+      1
+    )
+  }
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
   args := ""
   for arg in A_Args {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
+  F.write("game data/lastRanVersion.txt", selectedVersion)
   run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", selectedVersion))
   ExitApp()
 }
