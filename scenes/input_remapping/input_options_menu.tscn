@@ -17,3 +17,4 @@ visible = false
 [node name="InputActionsTree" parent="VBoxContainer/InputMappingContainer" index="2"]
 visible = true
 custom_minimum_size = Vector2(400, 365.63)
+input_action_names = Array[StringName]([])

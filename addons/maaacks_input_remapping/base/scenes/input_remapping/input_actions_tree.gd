@@ -28,7 +28,7 @@ signal remove_button_clicked(action_name: String, input_name: String)
         _new_action_name_map[_input_name] = _readable_name
       action_name_map = _new_action_name_map
 
-## Show action names that are not explicitely listed in an action name map.
+## Show action names that are not explicitly listed in an action name map.
 @export var show_all_actions: bool = true
 @export_group("Icons")
 @export var add_button_texture: Texture2D
@@ -97,6 +97,7 @@ func _get_all_action_names(include_built_in: bool = false) -> Array[StringName]:
   return action_names
 
 func _get_action_readable_name(input_name: StringName) -> String:
+  return input_name
   var readable_name: String
   if input_name in action_name_map:
     readable_name = action_name_map[input_name]
@@ -112,8 +113,8 @@ func _build_ui_tree() -> void:
   var action_names: Array[StringName] = _get_all_action_names(show_built_in_actions)
   for action_name in action_names:
     var input_events = InputMap.action_get_events(action_name)
-    if input_events.size() < 1:
-      continue
+    # if input_events.size() < 1:
+    #   continue
     var readable_name: String = _get_action_readable_name(action_name)
     _add_action_as_tree_item(readable_name, action_name, input_events)
 

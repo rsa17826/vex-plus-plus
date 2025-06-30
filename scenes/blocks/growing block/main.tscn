@@ -252,7 +252,7 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale", "canBeAttachedTo"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
 script = ExtResource("1_4g13r")
 anim = NodePath("collisionNode/center")
 ghostIconNode = NodePath("collisionNode/editorBar")

@@ -188,7 +188,7 @@ static func color_wrap(s, opts={}):
 ## to_pretty ###########################################################################
 
 # TODO read from config
-static var max_array_size = 20
+static var max_array_size = 2000
 
 # returns the passed object as a decorated string
 static func to_pretty(msg, opts={}):

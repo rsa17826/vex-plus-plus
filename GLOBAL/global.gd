@@ -489,8 +489,6 @@ class event:
 func sinFrom(start: float, end: float, time: float, speed: float = 1) -> float:
   # Calculate the sine value, ensuring it starts at 0 when time is 0
   var sine_value = (sin(time * speed - PI / 2) + 1) / 2 # Shifted to start at 0
-  log.pp(sine_value)
-    
   return lerp(start, end, sine_value)
 
 # class InputManager:
@@ -1405,6 +1403,9 @@ func localReady() -> void:
   else:
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
+  for block in blockNames:
+    # log.pp("CREATE NEW - " + block.replace("/", "_"))
+    InputMap.add_action("CREATE NEW - " + block.replace("/", "_"))
 
 func _notification(what):
   if what == NOTIFICATION_WM_CLOSE_REQUEST:
