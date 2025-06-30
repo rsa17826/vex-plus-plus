@@ -863,7 +863,7 @@ func localInput(event: InputEvent) -> void:
     createNewMapFolder()
   if Input.is_action_just_pressed(&"duplicate_block", true):
     # log.pp(lastSelectedBrush, lastSelectedBlock)
-    if lastSelectedBrush and lastSelectedBlock:
+    if lastSelectedBlock:
       selectedBrush = lastSelectedBrush
       selectedBrush.selected = 2
       justPaintedBlock = load("res://scenes/blocks/" + lastSelectedBlock.id + "/main.tscn").instantiate()
@@ -1038,6 +1038,38 @@ func localInput(event: InputEvent) -> void:
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
+  for block in blockNames:
+    if Input.is_action_just_pressed("CREATE NEW - " + block.replace("/", "_"), true):
+      log.pp(block)
+      selectedBrush = lastSelectedBrush
+      selectedBrush.selected = 2
+      justPaintedBlock = load("res://scenes/blocks/" + block + "/main.tscn").instantiate()
+      if justPaintedBlock.normalScale:
+        justPaintedBlock.scale = Vector2(1, 1)
+      else:
+        justPaintedBlock.scale = Vector2(1, 1) / 7
+      justPaintedBlock.rotation_degrees = 0
+      justPaintedBlock.id = block
+      lastSelectedBrush = selectedBrush
+      # create a new block
+      # justPaintedBlock.scale = selectedBrush.normalScale
+      # justPaintedBlock.startScale = selectedBrush.normalScale
+      justPaintedBlock.global_position = level.get_global_mouse_position()
+      setBlockStartPos(justPaintedBlock)
+      level.get_node("blocks").add_child(justPaintedBlock)
+      # after creating the block recall this to update the position
+      localProcess(0)
+
+      # justPaintedBlock.scale = lastSelectedBlock.scale
+      # justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
+      # justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
+      # justPaintedBlock.id = block
+      level.get_node("blocks").add_child(justPaintedBlock)
+      justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
+      setBlockStartPos(justPaintedBlock)
+      localProcess(0)
+      lastSelectedBrush.selected = 0
+      selectedBrush.selected = 0
 
 var levelFolderPath: String
 var loadedLevels: Array
