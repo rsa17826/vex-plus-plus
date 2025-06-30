@@ -7,14 +7,13 @@ class_name BlockFallingSpike
 var respawnTimer = 0
 const RESPAWN_TIME = 40
 const speed = 3500.0
-var onusedOffset = Vector2.ZERO
 
 func on_respawn():
   falling = false
   position = startPosition
   nodeToFall.position = Vector2.ZERO
-  nodeToFall.position += onusedOffset
-  onusedOffset = Vector2.ZERO
+  nodeToFall.position += unusedOffset
+  unusedOffset = Vector2.ZERO
   # $Node2D/collisionNode.position = Vector2(0, 13)
 
 var falling: bool = false

@@ -318,7 +318,7 @@
     STR(beatLevels)[]
   }
   STR(tut){
-    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(lastSpawnPoint)VEC2(3265.0,-2605.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -389,14 +389,20 @@
               STR(texture)STR(1)
             }
             INT(16){
+              STR(texture)STR(1)
+            }
+            INT(17){
               STR(texture)STR(2)
             }
           }
           STR(star){
             INT(1){
-              STR(collected)BOOL(false)
+              STR(collected)BOOL(true)
             }
             INT(2){
+              STR(collected)BOOL(true)
+            }
+            INT(3){
               STR(collected)BOOL(true)
             }
           }

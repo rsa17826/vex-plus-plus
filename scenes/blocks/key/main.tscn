@@ -38,7 +38,7 @@ debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
 collision_layer = 0
-collision_mask = 8
+collision_mask = 32768
 script = ExtResource("3_h0pg7")
 root = NodePath("../..")
 

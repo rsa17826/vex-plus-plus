@@ -1163,3 +1163,4 @@ func updateKeyFollowPosition(delta):
 # allow esc while in text box .prompt
 # wall grab wall conveyers
 # add more ghost/editorBar costumes for the oneway
+# ?add way to change the block picker from the editor

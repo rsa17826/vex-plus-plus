@@ -1427,6 +1427,7 @@ func localReady() -> void:
   var tempBlockNames = []
   var unusedBlockNames = [
     "basic",
+    "slope",
     "single spike",
     "10x spike",
     # "invisible",
@@ -1437,7 +1438,6 @@ func localReady() -> void:
     "water",
     "solar",
     "inverse solar",
-    "slope",
     "pushable box",
     "microwave",
     "locked box",
