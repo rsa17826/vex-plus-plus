@@ -41,16 +41,16 @@ extends Node2D
 @export_group("misc")
 ## no warnings when missing unrequired nodes
 @export var ignoreMissingNodes := false
+## if false scale is 1/7
 @export var normalScale := false
+## if true don't disable physics process when node is disabled
 @export var dontDisablePhysicsProcess := false
 ## disables editor features suchas moving, scaling, selecting
 @export var EDITOR_IGNORE: bool = false
+## prevents the node from being moved by respawning
 @export var DONT_MOVE: bool = false
 @export_group("IGNORE")
 @export var pathFollowNode: Node
-
-## calls __enable on the node when it respawns
-# @export var enableOnRespawn: bool = true
 
 var sizeInPx: Vector2:
   get():
@@ -66,10 +66,14 @@ var startPosition: Vector2
 var startRotation_degrees: float
 var startScale: Vector2 = Vector2(1, 1)
 var ghost: Node2D
+## distance moved in last frame
 var lastMovementStep: Vector2
 var respawning := 0
-var blockOptions: Dictionary
+## options in the rclick menu and their type
+var blockOptions: Dictionary[String, Variant]
+## options in the rclick menu along with their selected state
 var selectedOptions := {}
+## options in the rclick menu
 var blockOptionsArray := []
 ## rclick menu
 var pm: PopupMenu
@@ -291,7 +295,7 @@ func setupOptions() -> void:
 func editOption(idx: int) -> void:
   if idx >= len(blockOptionsArray): return
   # log.pp("editing", idx, blockOptions)
-  var k: Variant = blockOptionsArray[idx]
+  var k: String = blockOptionsArray[idx]
   var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
   log.pp(newData, "newData")
   # if !newData: return
