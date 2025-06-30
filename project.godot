@@ -64,10 +64,10 @@ spark=""
 EDITOR_OPTION_rotate=""
 EDITOR_OPTION_scale=""
 "attaches to things"=""
-canBeAttachedTo=""
 "buzsaw - generic"=""
 portal=""
 dontRespawnOnPlayerDeath=""
+canBeAttachedTo=""
 
 [gui]
 
@@ -290,6 +290,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 2d_physics/layer_13="STICKY FLOOR"
 2d_physics/layer_14="ONEWAY"
 2d_physics/layer_15="ONEWAY WALLJUMPABLE"
+2d_physics/layer_16="CAN BE ATTACHED TO"
 
 [maaacks_input_remapping]
 

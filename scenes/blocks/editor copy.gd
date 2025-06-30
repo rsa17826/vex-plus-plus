@@ -339,7 +339,7 @@ func _physics_process(delta: float) -> void:
       if block.cloneEventsHere.following:
         block.thingThatMoves.position += (lastMovementStep / block.global_scale).rotated(-block.rotation)
       else:
-        block.onusedOffset += (lastMovementStep / block.global_scale).rotated(-block.rotation)
+        block.unusedOffset += (lastMovementStep / block.global_scale).rotated(-block.rotation)
     
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:

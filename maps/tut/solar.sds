@@ -491,9 +491,9 @@
   }
   {
     STR(x)FLOAT(1610.0)
-    STR(y)FLOAT(-810.0)
+    STR(y)FLOAT(-907.5)
     STR(w)FLOAT(0.40000000223517)
-    STR(h)FLOAT(4.20000100135803)
+    STR(h)FLOAT(6.15000057220459)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
@@ -1478,17 +1478,6 @@
     }
   }
   {
-    STR(x)FLOAT(117.5)
-    STR(y)FLOAT(-2697.5)
-    STR(w)FLOAT(0.95000004768372)
-    STR(h)FLOAT(4.05000007152557)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(basic)
-    STR(options){
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(20.0)
     STR(y)FLOAT(-2445.0)
     STR(w)FLOAT(1.00000004470348)
@@ -2124,6 +2113,65 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(117.5)
+    STR(y)FLOAT(-2700.0)
+    STR(w)FLOAT(0.95000004768372)
+    STR(h)FLOAT(4.00000059604645)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(microwave)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(3385.0)
+    STR(y)FLOAT(-2895.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bouncing buzsaw)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(3395.0)
+    STR(y)FLOAT(-2855.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(key)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(3260.0)
+    STR(y)FLOAT(-2710.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(star)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(3265.0)
+    STR(y)FLOAT(-2670.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

@@ -9,7 +9,7 @@ var speed = 50
 
 @export var root: EditorBlock
 
-func _physics_process(delta: float) -> void:
+func on_physics_process(delta: float) -> void:
   if root._DISABLED: return
   if root.respawning: return
   velocity.y += speed

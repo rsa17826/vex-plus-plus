@@ -107,6 +107,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - donup
   - pushable box
   - bomb
+  - bouncing buzsaw
   - ? might be more
 
 ### Blocks

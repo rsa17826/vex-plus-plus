@@ -10,9 +10,12 @@ func on_body_entered(body: Node) -> void:
     log.pp("key added", $collisionNode)
     following = true
     randOffset = global.randfrom(-10, 10)
+    cloneEventsHere.following = false
 
 func on_respawn() -> void:
   following = false
+  thingThatMoves.position += unusedOffset
+  unusedOffset = Vector2.ZERO
   $collisionNode.position = Vector2.ZERO
   if $collisionNode in global.player.keys:
     global.player.keys.erase($collisionNode)

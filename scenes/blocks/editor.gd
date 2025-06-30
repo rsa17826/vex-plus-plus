@@ -71,10 +71,16 @@ var respawning := 0
 var blockOptions: Dictionary
 var selectedOptions := {}
 var blockOptionsArray := []
+## rclick menu
 var pm: PopupMenu
+## used for following blocks
 var attach_children: Array[EditorBlock] = []
+## used for following blocks
 var attach_parents: Array[EditorBlock] = []
+## when being moved in the editor
 var isBeingMoved := false
+## the positional offset caused by setting following to false in attach detector
+var unusedOffset = Vector2.ZERO
 
 # var currentPath: PathFollow2D
 
@@ -344,7 +350,7 @@ func _physics_process(delta: float) -> void:
       if block.cloneEventsHere.following:
         block.thingThatMoves.position += (lastMovementStep / block.global_scale).rotated(-block.rotation)
       else:
-        block.onusedOffset += (lastMovementStep / block.global_scale).rotated(-block.rotation)
+        block.unusedOffset += (lastMovementStep / block.global_scale).rotated(-block.rotation)
     
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
