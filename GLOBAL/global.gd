@@ -631,14 +631,6 @@ func localProcess(delta: float) -> void:
       pass
     EditorModes.normal:
       # if a block is selected
-      # if rotresetBlock and (not editorInScaleMode or (len(hoveredBlocks) and hoveredBlocks[0] != rotresetBlock)):
-      #   rotresetBlock.rotation_degrees = rotresetBlock.startRotation_degrees
-      # if editorInScaleMode and len(hoveredBlocks) && hoveredBlocks[0].is_in_group("EDITOR_OPTION_scale"):
-      #   rotresetBlock = hoveredBlocks[0]
-      #   rotresetBlock.rotation_degrees = 0
-      #   rotresetBlock.ghost.rotation_degrees = rotresetBlock.startRotation_degrees
-      # if rotresetBlock and not editorInRotateMode and not editorInScaleMode:
-      #   rotresetBlock = null
       if selectedBlock or (selectedBrush and selectedBrush.selected == 2):
         var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
 
@@ -648,6 +640,7 @@ func localProcess(delta: float) -> void:
         if editorInRotateMode && selectedBlock \
         and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
         or global.useropts.allowRotatingAnything):
+          # handled in localinput now
           pass
           # if level.get_global_mouse_position() == lastMousePos: return
           # selectedBlock.look_at(mpos)
@@ -1794,3 +1787,6 @@ func removeDeadNodes(arr):
     and is_instance_valid(e) \
     and !e.is_queued_for_deletion()
   )
+
+var hoveredBrushes: Array[Node2D] = []
+# (?:(?:\b(?:and|or)\b).*){3,}
