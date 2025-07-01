@@ -52,7 +52,7 @@ extends Node2D
 @export_group("IGNORE")
 @export var pathFollowNode: Node
 
-var onOptionEdit := func(): pass
+var onOptionEdit := func() -> void: pass
 var sizeInPx: Vector2:
   get():
     return sizeInPx * startScale
@@ -275,6 +275,7 @@ func setupOptions() -> void:
     if id in global.defaultBlockOpts \
     and opt in global.defaultBlockOpts[id] \
     :
+      # log.pp("Default for option: ", opt, " is ", global.defaultBlockOpts[id][opt], "\n")
       selectedOptions[opt] = global.defaultBlockOpts[id][opt]
     elif "default" in blockOptions[opt]:
       selectedOptions[opt] = blockOptions[opt].default
@@ -294,7 +295,9 @@ func setupOptions() -> void:
   pm.connect("index_pressed", editOption)
 
 func editOption(idx: int) -> void:
-  if idx >= len(blockOptionsArray): return onOptionEdit.call()
+  if idx >= len(blockOptionsArray):
+    onOptionEdit.call()
+    return
   # log.pp("editing", idx, blockOptions)
   var k: String = blockOptionsArray[idx]
   var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
