@@ -1133,10 +1133,11 @@ func updateKeyFollowPosition(delta):
   # !version ?-28! pulling levers allows clipping through moving blocks
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
   # ?!version ?-NOW! can push boxes while sliding
-  # ?!version ?-NOW! spawnpoint being inside water and doing full restart while in spawn water causes player to noe be in water
+  # ?!version ?-NOW! spawnpoint being inside water and doing full restart while in spawn water causes player to not be in water
   # ?!version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
   # ?!version ?-NOW! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
   # ?!version ?-NOW! bombs on conveyers that fall can explode after the player respawns
+  # ?!version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
