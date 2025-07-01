@@ -998,7 +998,8 @@ func localInput(event: InputEvent) -> void:
     quitGame()
   if Input.is_action_just_pressed(&"move_player_to_mouse", true):
     if player and is_instance_valid(player):
-      player.goto(player.get_global_mouse_position() - player.get_parent().startPosition)
+      # move player feet to mouse position
+      player.goto(player.get_global_mouse_position() - player.get_parent().startPosition + Vector2(0, -17))
   if Input.is_action_just_pressed(&"toggle_pause", true):
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking
