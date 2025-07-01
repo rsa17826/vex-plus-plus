@@ -15,6 +15,8 @@ func _init() -> void:
     global.lastSelectedBrush = self
 
 func _on_mouse_entered() -> void:
+  if self not in global.hoveredBrushes:
+    global.hoveredBrushes.append(self)
   scale = normalScale * 1.1
   z_index = 2
   selected = 1
@@ -42,6 +44,8 @@ func _input(event: InputEvent) -> void:
     block.showPopupMenu()
     
 func _on_mouse_exited() -> void:
+  if self in global.hoveredBrushes:
+    global.hoveredBrushes.erase(self)
   scale = normalScale
   z_index = 1
   selected = 0

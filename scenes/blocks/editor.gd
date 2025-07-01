@@ -158,7 +158,11 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   if global.hoveredBlocks && self == global.hoveredBlocks[0]:
     if !Input.is_action_pressed(&"editor_pan"):
       # edit block menu on rbutton
-      if event.is_action_pressed(&"editor_edit_special") && Input.is_action_just_pressed(&"editor_edit_special") and not global.openMsgBoxCount:
+      if event.is_action_pressed(&"editor_edit_special") \
+        && Input.is_action_just_pressed(&"editor_edit_special") \
+        and not global.openMsgBoxCount \
+        and not global.hoveredBrushes \
+        :
         # log.pp(event.to_string(), shape_idx, viewport)
         if not pm: return
         # log.pp(blockOptions, event.as_text(), self, self.name)
