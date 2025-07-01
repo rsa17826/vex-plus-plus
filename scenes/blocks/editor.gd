@@ -52,6 +52,7 @@ extends Node2D
 @export_group("IGNORE")
 @export var pathFollowNode: Node
 
+var onOptionEdit := func(): pass
 var sizeInPx: Vector2:
   get():
     return sizeInPx * startScale
@@ -293,7 +294,7 @@ func setupOptions() -> void:
   pm.connect("index_pressed", editOption)
 
 func editOption(idx: int) -> void:
-  if idx >= len(blockOptionsArray): return
+  if idx >= len(blockOptionsArray): return onOptionEdit.call()
   # log.pp("editing", idx, blockOptions)
   var k: String = blockOptionsArray[idx]
   var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
@@ -303,6 +304,7 @@ func editOption(idx: int) -> void:
   toType(k)
   respawn()
   _ready()
+  onOptionEdit.call()
 
 ## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved
 func _physics_process(delta: float) -> void:
