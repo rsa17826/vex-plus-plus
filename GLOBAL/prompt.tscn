@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ccobtxlykollf"]
+[gd_scene load_steps=12 format=3 uid="uid://ccobtxlykollf"]
 
 [ext_resource type="Script" uid="uid://in0c53flu1jr" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
 
@@ -17,18 +17,30 @@ keycode = 4194309
 [sub_resource type="Shortcut" id="Shortcut_6rvjk"]
 events = [SubResource("InputEventKey_s0bsq"), SubResource("InputEventJoypadButton_ffns6"), SubResource("InputEventKey_ffns6")]
 
-[sub_resource type="InputEventKey" id="InputEventKey_he371"]
+[sub_resource type="InputEventKey" id="InputEventKey_6rvjk"]
 device = -1
 keycode = 4194305
 
-[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_eqlig"]
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_he371"]
 button_index = 4
 pressed = true
 
 [sub_resource type="Shortcut" id="Shortcut_pvy46"]
-events = [SubResource("InputEventKey_he371"), SubResource("InputEventJoypadButton_eqlig")]
+events = [SubResource("InputEventKey_6rvjk"), SubResource("InputEventJoypadButton_he371")]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "colEdit", "btnOk", "btnCancel")]
+[sub_resource type="InputEventKey" id="InputEventKey_6rfjk"]
+device = -1
+ctrl_pressed = true
+keycode = 82
+
+[sub_resource type="InputEventJoypadButton" id="InputEventJoypadButton_ge371"]
+button_index = 3
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_pvg46"]
+events = [SubResource("InputEventKey_6rfjk"), SubResource("InputEventJoypadButton_ge371")]
+
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "colEdit", "btnOk", "btnCancel", "btnDefault")]
 script = ExtResource("1_ffns6")
 promptText = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Label")
 strEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit")
@@ -37,6 +49,7 @@ enumEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Opt
 colEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/ColorPickerButton")
 btnOk = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button")
 btnCancel = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button2")
+btnDefault = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(50, 50)
@@ -97,3 +110,8 @@ text = "ok"
 layout_mode = 2
 shortcut = SubResource("Shortcut_pvy46")
 text = "cancel"
+
+[node name="Button3" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2"]
+layout_mode = 2
+shortcut = SubResource("Shortcut_pvg46")
+text = "reset to default"

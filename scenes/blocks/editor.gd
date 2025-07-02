@@ -304,7 +304,13 @@ func editOption(idx: int) -> void:
     return
   # log.pp("editing", idx, blockOptions)
   var k: String = blockOptionsArray[idx]
-  var newData: Variant = await global.prompt(k, blockOptions[k].type, selectedOptions[k], blockOptions[k].values if "values" in blockOptions[k] else [])
+  var newData: Variant = await global.prompt(
+    k,
+    blockOptions[k].type,
+    selectedOptions[k],
+    blockOptions[k].default,
+    blockOptions[k].values if "values" in blockOptions[k] else []
+  )
   log.pp(newData, "newData")
   # if !newData: return
   selectedOptions[k] = newData

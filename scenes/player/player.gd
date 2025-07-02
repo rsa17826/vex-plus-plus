@@ -138,6 +138,15 @@ func _init() -> void:
 
 func _ready() -> void:
   Input.mouse_mode = mouseMode
+var defaultAngle: float
+var userVel: Vector2 = Vector2.ZERO:
+  set(val):
+    # val.y *= -1
+    vel.user = val.rotated(defaultAngle)
+  get():
+    var temp = vel.user
+    # temp.y *= -1
+    return temp.rotated(-defaultAngle)
 
 func _input(event: InputEvent) -> void:
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
@@ -213,6 +222,7 @@ func clearWallData():
   wallBreakDownFrames = 0
 
 func _physics_process(delta: float) -> void:
+  defaultAngle = up_direction.angle() + deg_to_rad(90)
   if state == States.levelLoading: return
   if state in [
     States.idle,
@@ -269,8 +279,8 @@ func _physics_process(delta: float) -> void:
       inWaters = []
       # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
       $anim.animation = "die"
-      rotation = lerp_angle(float(rotation), 0.0, .2)
-      $CollisionShape2D.rotation = - rotation
+      rotation = lerp_angle(float(rotation), defaultAngle, .2)
+      $CollisionShape2D.rotation = 0
       # hide the water animations
       $anim.visible = true
       $waterAnimTop.visible = false
@@ -293,13 +303,13 @@ func _physics_process(delta: float) -> void:
         state = States.falling
         return
       clearWallData()
-      rotation = 0
-      $CollisionShape2D.rotation = 0
+      rotation = defaultAngle
+      $CollisionShape2D.rotation = defaultAngle
       # rotation += 6 * delta
       global_position = activePole.global_position
       $anim.animation = "on pole"
       playerKT = 0
-      vel.user = Vector2.ZERO
+      userVel = Vector2.ZERO
       $CollisionShape2D.shape.size.y = unduckSize.y / 4
       %deathDetectors.scale = Vector2(1, 0.25)
 
@@ -317,7 +327,7 @@ func _physics_process(delta: float) -> void:
       if Input.is_action_just_pressed(&"jump"):
         if ($anim.frame >= 3 and $anim.frame <= 9) or $anim.frame >= 27:
           # this one should be user because it makes the falling better
-          vel.user.y = JUMP_POWER
+          userVel.y = JUMP_POWER
           # but this should be pole as that way it does something as user.x is set to xintent
           vel.pole.x = 50 * (-1 if $anim.flip_h else 1)
           $anim.animation = "jumping off pole"
@@ -327,13 +337,13 @@ func _physics_process(delta: float) -> void:
             Object.CONNECT_ONE_SHOT)
           state = States.jumping
         else:
-          vel.user.y = 0
+          userVel.y = 0
           state = States.falling
         activePole.root.timingIndicator.visible = false
         activePole = null
         poleCooldown = MAX_POLE_COOLDOWN
       elif Input.is_action_just_pressed(&"down"):
-        vel.user.y = 0
+        userVel.y = 0
         activePole.root.timingIndicator.visible = false
         activePole = null
         state = States.falling
@@ -343,9 +353,9 @@ func _physics_process(delta: float) -> void:
       updateKeyFollowPosition(delta)
     States.onPulley:
       clearWallData()
-      rotation = lerp_angle(float(rotation), 0.0, .2)
-      $CollisionShape2D.rotation = - rotation
-      vel.user = Vector2.ZERO
+      rotation = lerp_angle(float(rotation), defaultAngle, .2)
+      $CollisionShape2D.rotation = 0
+      userVel = Vector2.ZERO
       var lastpos := global_position
       global_position = activePulley.nodeToMove.global_position + Vector2(0, 13)
       $anim.position = Vector2(5, 5.145)
@@ -372,8 +382,8 @@ func _physics_process(delta: float) -> void:
         state = States.falling
       updateKeyFollowPosition(delta)
     States.bouncing:
-      rotation = 0
-      $CollisionShape2D.rotation = 0
+      rotation = defaultAngle
+      $CollisionShape2D.rotation = defaultAngle
       lastWall = 0
       breakFromWall = false
       wallSlidingFrames = 0
@@ -381,11 +391,11 @@ func _physics_process(delta: float) -> void:
       duckRecovery = 0
       wallBreakDownFrames = 0
       $anim.animation = "duck start"
-      vel.user.y = 0
+      userVel.y = 0
       return
     States.pullingLever:
-      rotation = 0
-      $CollisionShape2D.rotation = 0
+      rotation = defaultAngle
+      $CollisionShape2D.rotation = defaultAngle
       $anim.animation = "pulling lever"
       $anim.animation_looped.connect(func() -> void:
         if state == States.dead: return
@@ -404,7 +414,7 @@ func _physics_process(delta: float) -> void:
         # turn player
         rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
         # dont store velocity from normal movement if in water
-        vel.user = Vector2.ZERO
+        userVel = Vector2.ZERO
         # set state to falling for when player exits the water
         state = States.falling
         # move forward or backward based on input
@@ -446,8 +456,8 @@ func _physics_process(delta: float) -> void:
 
         floor_snap_length = 5
         # reset angle when exiting water
-        rotation = lerp_angle(float(rotation), 0.0, .2)
-        $CollisionShape2D.rotation = - rotation
+        rotation = lerp_angle(float(rotation), defaultAngle, .2)
+        $CollisionShape2D.rotation = 0
         if state == States.wallHang:
           if (CenterIsOnWall() and !TopIsOnWall()):
             state = States.falling
@@ -472,7 +482,7 @@ func _physics_process(delta: float) -> void:
         if boxKickRecovery > 0:
           boxKickRecovery -= delta * 60
           if boxKickRecovery <= 0:
-            position.y += 1
+            position += Vector2(0, 1).rotated(defaultAngle)
           return
 
         if state == States.wallHang || state == States.wallSliding:
@@ -488,23 +498,23 @@ func _physics_process(delta: float) -> void:
             var collision_point := ray.get_collision_point()
             var distance := origin.distance_to(collision_point)
             # log.pp(distance * getClosestWallSide())
-            position.x += (distance) * getClosestWallSide()
+            position += Vector2((distance) * getClosestWallSide(), 0).rotated(defaultAngle)
         # if on floor reset kt, user y velocity, and allow both wall sides again
         if is_on_floor():
           if !onStickyFloor:
             playerKT = MAX_KT_TIMER
-          vel.user.y = 0
+          userVel.y = 0
           lastWall = 0
           breakFromWall = false
           # if not moving or trying to not move, go idle
-          if !vel.user || !playerXIntent || playerXIntent != vel.user.x:
+          if !userVel || !playerXIntent || playerXIntent != userVel.x:
             if state == States.sliding && !Input.is_action_pressed(&"down"):
-              if abs(vel.user.x) < 10:
+              if abs(userVel.x) < 10:
                 duckRecovery = MAX_SLIDE_RECOVER_TIME
               else:
                 slideRecovery = MAX_SLIDE_RECOVER_TIME
             state = States.idle
-          # log.pp(vel.user, playerXIntent, playerXIntent != vel.user.x, state, States.idle, floor_max_angle)
+          # log.pp(userVel, playerXIntent, playerXIntent != userVel.x, state, States.idle, floor_max_angle)
         else:
           # if not on floor and switching wall sides allow both walls again
           if lastWall && (getCurrentWallSide() && lastWall != getCurrentWallSide()):
@@ -515,7 +525,7 @@ func _physics_process(delta: float) -> void:
             currentHungWall = 0
           # should enter wall grab state if not already in wall hang state and moving down
           # log.pp(velocity.y)
-          if velocity.y > -20 && state != States.wallHang:
+          if userVel.y > -20 && state != States.wallHang:
             # log.pp("entering wall grab", CenterIsOnWall(), TopIsOnWall())
             if CenterIsOnWall() && !TopIsOnWall() and not %nowjDetector.get_overlapping_bodies():
               currentHungWall = $wallDetection/rightWall.get_collider() if getCurrentWallSide() == 1 else $wallDetection/leftWall.get_collider()
@@ -524,14 +534,14 @@ func _physics_process(delta: float) -> void:
               var loopIdx: int = 0
               while !TopIsOnWall() and loopIdx < 20:
                 loopIdx += 1
-                position.y += 1
+                position += Vector2(0, 1).rotated(defaultAngle)
                 $wallDetection/leftWallTop.force_raycast_update()
                 $wallDetection/rightWallTop.force_raycast_update()
               if loopIdx >= 20:
-                position.y -= loopIdx
+                position -= Vector2(0, loopIdx).rotated(defaultAngle)
                 log.pp("fell off wall hang")
                 state = States.falling
-              position.y -= 5
+              position -= Vector2(0, 5).rotated(defaultAngle)
               breakFromWall = true
               lastWall = 0
 
@@ -539,9 +549,9 @@ func _physics_process(delta: float) -> void:
           if state != States.wallHang && getCurrentWallSide():
             lastWall = getCurrentWallSide()
           if CenterIsOnWall() && not is_on_floor() && !breakFromWall \
-          && velocity.y > 0 && wallBreakDownFrames <= 0 \
+          && userVel.y > 0 && wallBreakDownFrames <= 0 \
           and not %nowjDetector.get_overlapping_bodies():
-            vel.user.y = WALL_SLIDE_SPEED
+            userVel.y = WALL_SLIDE_SPEED
             state = States.wallSliding
             # press down to detach from wallslide
             if Input.is_action_pressed(&"down") && wallBreakDownFrames <= 0:
@@ -552,7 +562,7 @@ func _physics_process(delta: float) -> void:
               wallSlidingFrames -= 1
               breakFromWall = true
           else:
-            vel.user.y += REAL_GRAV
+            userVel.y += REAL_GRAV
 
         if breakFromWall:
           wallSlidingFrames = 0
@@ -560,14 +570,14 @@ func _physics_process(delta: float) -> void:
         if state == States.wallSliding and ACTIONjump && !breakFromWall and not onStickyFloor:
           state = States.jumping
           breakFromWall = true
-          vel.user.y = JUMP_POWER
+          userVel.y = JUMP_POWER
         if (state == States.wallHang) && is_on_wall_only() && CenterIsOnWall():
-          vel.user.y = 0
+          userVel.y = 0
           wallSlidingFrames = 0
           breakFromWall = false
           # press down to detach from wallhang
           if Input.is_action_pressed(&"down"):
-            position.y += 5
+            position += Vector2(0, 5).rotated(defaultAngle)
             wallBreakDownFrames = MAX_WALL_BREAK_FROM_DOWN_FRAMES
             state = States.falling
 
@@ -578,7 +588,7 @@ func _physics_process(delta: float) -> void:
               if duckRecovery <= 0 and ACTIONjump:
                 state = States.jumping
                 playerKT = 0
-                vel.user.y = JUMP_POWER
+                userVel.y = JUMP_POWER
 
         # if not in duckRecovery or wall hang or wallSliding, allow movement
         if (!breakFromWall and (state == States.wallSliding || state == States.wallHang)) \
@@ -594,7 +604,7 @@ func _physics_process(delta: float) -> void:
 
         # check for falling
         if !is_on_floor() && !is_on_wall() && (!(($wallDetection/leftWall.is_colliding() || $wallDetection/rightWall.is_colliding()))):
-          if vel.user.y < 0:
+          if userVel.y < 0:
             state = States.jumping
           else:
             state = States.falling
@@ -620,7 +630,7 @@ func _physics_process(delta: float) -> void:
           %deathDetectors.position.y = 0
 
         # animations
-        if $anim.animation == "jumping off pole" and vel.user.y != 0:
+        if $anim.animation == "jumping off pole" and userVel.y != 0:
           pass
         else:
           if duckRecovery > 0:
@@ -643,7 +653,7 @@ func _physics_process(delta: float) -> void:
                 else:
                   $anim.animation = "wall slide"
               States.sliding:
-                if abs(vel.user.x) < 10:
+                if abs(userVel.x) < 10:
                   $anim.animation = "duck start"
                 else:
                   $anim.animation = "slide start"
@@ -655,32 +665,32 @@ func _physics_process(delta: float) -> void:
                 $anim.animation = "idle"
 
         # set the sprite direction based on velocity
-        if vel.user.x > 0:
+        if userVel.x > 0:
           $anim.flip_h = false
-        elif vel.user.x < 0:
+        elif userVel.x < 0:
           $anim.flip_h = true
 
         # when trying to slide, if not moving enough, duck instead
         if state == States.sliding:
           # if sliding reduce speed reuction
-          if abs(vel.user.x) < 10:
-            vel.user.x = 0
-          vel.user.x *= 0.98 # * delta * 60
+          if abs(userVel.x) < 10:
+            userVel.x = 0
+          userVel.x *= 0.98 # * delta * 60
         # if state is not sliding
         else:
           # if user not trying to move set user xvel to 0
           if playerXIntent == 0:
-            vel.user.x = 0
+            userVel.x = 0
           else:
             # if user trying to move and on floor set state to moving
             if is_on_floor():
               state = States.moving
-            vel.user.x = playerXIntent
+            userVel.x = playerXIntent
           # reduce speed after leaving slide, with the power reducing over time
-          vel.user.x *= 1 - slideRecovery / MAX_SLIDE_RECOVER_TIME
+          userVel.x *= 1 - slideRecovery / MAX_SLIDE_RECOVER_TIME
           # if you were ducking instead of sliding, stop all movement
           if duckRecovery > 0:
-            vel.user.x = 0
+            userVel.x = 0
 
         # stopVelOnGround
         if is_on_floor():
@@ -695,63 +705,33 @@ func _physics_process(delta: float) -> void:
               vel[n] = Vector2.ZERO
         # stopVelOnCeil
         if is_on_ceiling():
-          if vel['user'].y < 0:
-            vel['user'].y = 0
+          if userVel.y < 0:
+            userVel.y = 0
           for n: String in stopVelOnCeil:
             if !justAddedVels[n]:
               vel[n] = Vector2.ZERO
 
         # move using all velocities
-        # var start = position
         velocity = Vector2.ZERO
         if state != States.wallHang:
           for n: String in vel:
             velocity += vel[n]
           for n: String in vel:
             vel[n] *= velDecay[n] # * delta * 60
+
         if state == States.wallHang and not getClosestWallSide():
           state = States.falling
         # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
         if state == States.wallSliding \
         and getClosestWallSide() != sign(velocity.x):
-          position.x += velocity.x * delta
+          position += Vector2(velocity.x * delta, 0).rotated(defaultAngle)
         for n: String in vel:
           if justAddedVels[n]:
             justAddedVels[n] -= 1
-        # if !global.showEditorUi:
-        #   var maxVel: float = max(abs(velocity.x), abs(velocity.y))
-        #   $Camera2D.position_smoothing_enabled = maxVel < 3500
-        #   $Camera2D.position_smoothing_speed = global.rerange(maxVel, 0, 6500, 5, 20)
         move_and_slide()
-        # get_position_delta( )
-        # position -= get_platform_velocity() * delta
-        # if is_on_floor() and get_last_slide_collision():
-        #   log.pp(get_last_slide_collision().get_depth() * get_floor_normal())
-        #   position.y += get_last_slide_collision().get_depth()
-        # Update the position of the first follower to follow the main node
-        # log.pp(position - (start + (velocity*delta)))
-        # # log.pp(
-        # #   is_on_wall(),
-        # #   CenterIsOnWall(),
-        # #   velocity.x,
-        # #   state == States.wallSliding,
-        # #   state,Array
-        # #   vel.user.x,
-        # #   playerXIntent
-        # # )
-        # var posOffset = Vector2.ZERO
-        # collision when on floor and moving down
-        # floor_max_angle = deg_to_rad(5.0 if state == States.sliding else 49.7)
-        # log.pp(floor_max_angle)
         var floorRayCollision: Node2D = null
         if $floorRay.is_colliding():
           floorRayCollision = $floorRay.get_collider()
-        # var normals = {
-        #   "l": false,
-        #   "r": false,
-        #   "u": false,
-        #   "d": false
-        # }
         var currentCollidingBlocks: Array = []
         for i in get_slide_collision_count():
           var collision := get_slide_collision(i)
@@ -776,50 +756,8 @@ func _physics_process(delta: float) -> void:
           # Call handleCollision for currently colliding blocks
           handleCollision(block, normal, depth, true)
 
-        # Check for blocks that were colliding last frame but are not colliding now
-        # for thing in lastCollidingBlocks:
-        #   var block = thing[0]
-        #   if !is_instance_valid(block): return
-        #   var normal = thing[1]
-        #   var depth = thing[2]
-        #   if block not in currentCollidingBlocks:
-        #     if block.root.lastMovementStep \
-        #     and getClosestWallSide() \
-        #     and (getClosestWallSide() > 0) == (block.root.lastMovementStep.x > 0) \
-        #     and normal.x and getClosestWallSide():
-        #       log.pp("Wall collision detected", getClosestWallSide(), block.root.lastMovementStep.x)
-        #       posOffset += handleCollision(block, normal, depth, false)
-
-        # Update the last colliding blocks for the next frame
-        lastCollidingBlocks = currentCollidingBlocks
-
         if floorRayCollision:
           handleCollision(floorRayCollision, Vector2(0, -1), 1, true)
-
-        # move_and_collide(posOffset)
-        # log.pp(posOffset)
-        # position = start
-        # position += posOffset
-        # move_and_slide()
-        # if posOffset:
-          # position -= velocity * delta
-        # move_and_slide()
-        # position += velocity * delta
-        # var col = move_and_collide(sign(posOffset))
-        # if col:
-        #   position -= col.get_normal()
-        #   position += sign(posOffset)
-
-        # if state == States.wallSliding and not is_on_wall() and getClosestWallSide():
-        #   position.x += getClosestWallSide()
-        # if state != States.wallSliding and CenterIsOnWall() and TopIsOnWall() and getClosestWallSide() and not is_on_floor():
-        #   state = States.wallSliding
-        # log.pp(normals)
-        # die when squished
-        # if (normals.u and normals.d) \
-        # or (normals.l && normals.r):
-        #   # breakpoint
-        #   die()
         tryAndDieHazards()
         tryAndDieSquish()
       updateKeyFollowPosition(delta)
@@ -851,6 +789,10 @@ func _physics_process(delta: float) -> void:
     #   $Camera2D.position.y = 0
     # $Camera2D.position_smoothing_speed = smoothingFactor
     $Camera2D.position -= $Camera2D.position * .5 * delta
+    $Camera2D.rotation = deg_to_rad(0)
+    # $Camera2D.global_rotation = deg_to_rad(0)
+  # else:
+  #   $Camera2D.global_rotation = deg_to_rad(0)
     # log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
@@ -869,33 +811,39 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
   var block: EditorBlock = b.root
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
+  var UP = Vector2.UP.rotated(defaultAngle)
+  if abs(UP.x) < .001:
+    UP.x = 0
+  if abs(UP.y) < .001:
+    UP.y = 0
+  log.pp(UP, Vector2.UP)
   if block.respawning: return
   if sameFrame:
     if (
       block is BlockDonup
       or block is BlockFalling
     ) \
-    and normal == Vector2.UP \
+    and normal == UP \
     and velocity.y >= 0 \
     :
       block.falling = true
     if block is BlockGlass \
-    and normal == Vector2.UP \
+    and normal == UP \
     and velocity.y >= 0 \
-    and vel.user.y > 0 \
+    and userVel.y > 0 \
     and Input.is_action_pressed(&"down") \
     :
       block.__disable()
     if block is BlockBouncy \
-    and normal == Vector2.UP \
+    and normal == UP \
     and velocity.y >= 0 \
     and not inWaters \
     :
       block.start()
     if block is BlockInnerLevel \
-    and normal == Vector2.UP \
+    and normal == UP \
     and state == States.sliding \
-    and abs(vel.user.x) < 10 \
+    and abs(userVel.x) < 10 \
     :
       block.enterLevel()
     if block is BlockLockedBox \
@@ -905,12 +853,12 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and getClosestWallSide() \
     and Input.is_action_just_pressed(&"down") \
     and not inWaters \
-    and normal == Vector2.UP \
+    and normal == UP \
     :
       block.thingThatMoves.velocity.x -= getClosestWallSide() * 120
       $anim.animation = "kicking box"
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
-      position.y -= 1
+      position -= Vector2(0, 1).rotated(defaultAngle)
 
     if (block is BlockPushableBox or block is BlockBomb) \
     and is_on_floor() \
@@ -921,9 +869,9 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       state = States.pushing
       $anim.animation = "pushing box"
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
-    and normal == Vector2.UP \
+    and normal == UP \
     and not inWaters \
-    and vel.user.y >= 0 \
+    and userVel.y >= 0 \
     :
       if block is BlockConveyerRight:
         vel.conveyer.x = 400
@@ -963,7 +911,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
 
 func goto(pos: Vector2) -> void:
   position = pos
-  vel.user = Vector2.ZERO
+  userVel = Vector2.ZERO
   $Camera2D.position = Vector2.ZERO
   $Camera2D.reset_smoothing()
 
@@ -1167,3 +1115,12 @@ func updateKeyFollowPosition(delta):
 # ?add way to change the block picker from the editor
 # !!?grabbing edge scales corner on small blocks
 # add extra frame to oneway
+# replace player death with signal
+# make balanced random
+# add reset tod efault button to settings
+# add texture to reset buttons
+# in rev grav
+  # pole jumps mopve player backwarsds
+  # pole indicators are not in correct location
+  # bouncys bounce down and warp player to other side
+  # water rotates screen

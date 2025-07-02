@@ -357,12 +357,19 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     updateRow(row, , "moving files")
     try {
       FileMove("temp\vex.pck", "versions/" selectedVersion "\vex.pck", 1)
-      updateRow(row, , "Installed", "Run version " selectedVersion)
+      message := [
+        "Installed",
+        "Run version " selectedVersion
+      ]
     } catch {
-      updateRow(row, , "Failed to find vex.pck file", "")
+      message := [
+        "Failed to find vex.pck file",
+        ""
+      ]
       DirDelete("versions/" selectedVersion, 1)
     }
     target := FileRead(A_ScriptDir '/temp/vex.exe', "UTF-16-RAW")
+    updateRow(row, , "finding correct exe version", "")
     ; _f := FileOpen("D:\Games\vex++\tempEXECMP", "w", "UTF-16-RAW")
     ; _f.write(target)
     ; _f.close()
@@ -377,6 +384,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     ; Clean up temporary files
     FileDelete("temp.zip")
     DirDelete("temp", 1)
+    updateRow(row, , message*)
   } else {
     listedVersions[row].status = "Failed"
     versionListView.Modify(row, "Col2", "Failed")
