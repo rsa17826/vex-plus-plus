@@ -789,7 +789,8 @@ func _physics_process(delta: float) -> void:
     #   $Camera2D.position.y = 0
     # $Camera2D.position_smoothing_speed = smoothingFactor
     $Camera2D.position -= $Camera2D.position * .5 * delta
-    $Camera2D.rotation = deg_to_rad(0)
+  # log.pp($Camera2D.rotation, -rotation + defaultAngle)
+  $Camera2D.global_rotation = defaultAngle
     # $Camera2D.global_rotation = deg_to_rad(0)
   # else:
   #   $Camera2D.global_rotation = deg_to_rad(0)
@@ -816,7 +817,6 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     UP.x = 0
   if abs(UP.y) < .001:
     UP.y = 0
-  log.pp(UP, Vector2.UP)
   if block.respawning: return
   if sameFrame:
     if (
@@ -955,6 +955,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   for v: String in vel:
     vel[v] = Vector2.ZERO
   velocity = Vector2.ZERO
+  up_direction = Vector2.UP
   playerXIntent = 0
   lastWall = 0
   pulleyNoDieTimer = 0
@@ -1124,3 +1125,5 @@ func updateKeyFollowPosition(delta):
   # pole indicators are not in correct location
   # bouncys bounce down and warp player to other side
   # water rotates screen
+  # pulleys set animation in wrong direction
+  # dying in water causes bad rotation until respawn ends
