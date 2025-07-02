@@ -5,7 +5,7 @@
   STR(version)INT(72)
   STR(stages){
     STR(hub){
-      STR(color)INT(10)
+      STR(color)INT(9)
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
     }

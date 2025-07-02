@@ -1133,6 +1133,7 @@ metadata/_edit_lock_ = true
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 visible = false
 position = Vector2(0, 16.425)
+ignore_rotation = false
 zoom = Vector2(1.245, 1.245)
 position_smoothing_enabled = true
 drag_left_margin = 0.1

@@ -6,3 +6,4 @@ extends CanvasLayer
 @export var colEdit: Node
 @export var btnOk: Button
 @export var btnCancel: Button
+@export var btnDefault: Button

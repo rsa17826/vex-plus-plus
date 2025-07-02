@@ -50,7 +50,7 @@ enum PromptTypes {
   rgba
 }
 
-func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant = null, singleArrValues: Variant = []) -> Variant:
+func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant = null, default: Variant = null, singleArrValues: Variant = []) -> Variant:
   if openMsgBoxCount:
     while openMsgBoxCount:
       await wait(10)
@@ -72,11 +72,17 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
   promptCanvas.btnCancel.text = "cancel"
   promptCanvas.btnOk.text = "ok"
   promptCanvas.btnCancel.visible = true
+  if same(default, null) or same(default, startVal):
+    promptCanvas.btnDefault.visible = false
+  else:
+    promptCanvas.btnDefault.visible = true
+    promptCanvas.btnDefault.connect("pressed", _on_resetToDefault)
+
   match type:
     PromptTypes.info:
       promptCanvas.btnCancel.visible = false
     PromptTypes.int:
-      promptCanvas.numEdit.value = 0 if default == null else default
+      promptCanvas.numEdit.value = 0 if startVal == null else startVal
       promptCanvas.numEdit.step = 1
       promptCanvas.numEdit.rounded = true
       promptCanvas.numEdit.get_line_edit().connect("text_submitted", _on_submit)
@@ -89,12 +95,12 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
       promptCanvas.btnCancel.text = "false"
       promptCanvas.btnOk.text = "true"
     PromptTypes.string:
-      promptCanvas.strEdit.text = '' if default == null else default
+      promptCanvas.strEdit.text = '' if startVal == null else startVal
       promptCanvas.strEdit.connect("text_submitted", _on_submit)
       promptCanvas.strEdit.visible = true
       promptCanvas.strEdit.grab_focus()
     PromptTypes.float:
-      promptCanvas.numEdit.value = 0.0 if default == null else default
+      promptCanvas.numEdit.value = 0.0 if startVal == null else startVal
       promptCanvas.numEdit.rounded = false
       promptCanvas.numEdit.step = .1
       promptCanvas.numEdit.get_line_edit().connect("text_submitted", _on_submit)
@@ -103,18 +109,18 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
     PromptTypes.rgb:
       promptCanvas.colEdit.visible = true
       promptCanvas.colEdit.edit_alpha = false
-      promptCanvas.colEdit.color = default
+      promptCanvas.colEdit.color = startVal
       promptCanvas.colEdit.connect("popup_closed", _on_submit)
     PromptTypes.rgba:
       promptCanvas.colEdit.visible = true
       promptCanvas.colEdit.edit_alpha = true
-      promptCanvas.colEdit.color = default
+      promptCanvas.colEdit.color = startVal
       promptCanvas.colEdit.connect("popup_closed", _on_submit)
     PromptTypes._enum:
       promptCanvas.enumEdit.clear()
       for thing: String in singleArrValues:
         promptCanvas.enumEdit.add_item(thing)
-      promptCanvas.enumEdit.select(-1 if default == null else singleArrValues.find(default))
+      promptCanvas.enumEdit.select(-1 if startVal == null else singleArrValues.find(startVal))
       promptCanvas.enumEdit.connect("item_selected", _on_submit)
       promptCanvas.enumEdit.visible = true
       promptCanvas.enumEdit.grab_focus()
@@ -124,21 +130,28 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, default: Variant 
   promptCanvas.btnCancel.connect("pressed", _on_cancel)
   promptCanvas.visible = true
   promptPromise = Promise.new()
-  var confirmed: bool = await promptPromise.wait()
+  var confirmed = await promptPromise.wait()
+  if same(confirmed, "default"):
+    promptCanvas.queue_free.call_deferred()
+    return default
+    
   var val: Variant
   match type:
     PromptTypes.confirm: val = confirmed
     PromptTypes.bool: val = confirmed
-    PromptTypes.string: val = promptCanvas.strEdit.text if confirmed else default
-    PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else default
-    PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else default
-    PromptTypes._enum: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else default
+    PromptTypes.string: val = promptCanvas.strEdit.text if confirmed else startVal
+    PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else startVal
+    PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else startVal
+    PromptTypes._enum: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else startVal
     PromptTypes.rgb: val = promptCanvas.colEdit.color
     PromptTypes.rgba: val = promptCanvas.colEdit.color
   Input.mouse_mode = lastMouseMode
   promptCanvas.queue_free.call_deferred()
   return val
 
+func _on_resetToDefault() -> void:
+  openMsgBoxCount -= 1
+  promptPromise.resolve("default")
 func _on_submit(text: Variant = null) -> void:
   openMsgBoxCount -= 1
   promptPromise.resolve(true)
@@ -907,11 +920,12 @@ func localInput(event: InputEvent) -> void:
       var mpos: Vector2 = selectedBlock.get_global_mouse_position()
       selectedBlock.look_at(mpos)
       selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
+      selectedBlock.rotation = selectedBlock.rotation
       if !Input.is_action_pressed(&"editor_disable_grid_snap"):
         selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
       setBlockStartPos(selectedBlock)
       if useropts.mouseLockDistanceWhileRotating:
-        var direction := (mpos - selectedBlock.global_position).normalized()
+        var direction := (mpos - selectedBlock.global_position).normalized().rotated(player.defaultAngle)
         var newMousePos: Vector2 = (
           (
             selectedBlock.get_viewport_transform() * selectedBlock.global_position
