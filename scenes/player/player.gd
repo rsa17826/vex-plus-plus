@@ -996,9 +996,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   keys = []
   for v: String in vel:
     vel[v] = Vector2Grav.ZERO
-  # vel.user = CustomCustomVector2.new(0, 0)
   velocity = Vector2.ZERO
-  # up_direction = Vector2.UP
+  up_direction = Vector2.UP
   playerXIntent = 0
   lastWall = 0
   pulleyNoDieTimer = 0
