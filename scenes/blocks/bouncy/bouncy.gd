@@ -27,8 +27,8 @@ func on_process(delta: float) -> void:
       bounceState += max(.2, abs(bounceState - 50) / 10.0) * delta * 300 / (scale.y * 21)
     else:
       # when the bouncing animation is done start bouncing the player
-      # global.player.vel['bounce'] = CustomVector2.new(0, bounceForce)
-      global.player.justAddedVels['bounce'] = 3
+      global.player.vel.bounce = Vector2Grav.new(0, bounceForce)
+      global.player.justAddedVels.bounce = 3
       global.player.state = global.player.States.jumping
       respawn()
     if bounceState <= 50:
