@@ -45,7 +45,7 @@ func on_physics_process(delta: float) -> void:
       block.root.explode()
     block = block.root
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
-    and normal == Vector2Grav.UP.vector \
+    and rotatedNormal == Vector2Grav.UP.vector \
     and lastvel.y >= 0 \
     :
       if block is BlockConveyerRight:
