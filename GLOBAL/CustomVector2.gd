@@ -1,32 +1,30 @@
 class_name CustomVector2
 
 var vector: Vector2
-  # get():
-  #   return vector
-  # set(val):
-  #   vector = val
 
 func _init(x: Variant = 0.0, y: float = 0.0):
   if x is Vector2:
-    vector = x
+    self.vector = x
   elif x is CustomVector2:
-    vector = x.vector
+    self.vector = x.self.vector
   else:
-    vector = Vector2(x, y)
+    self.vector = Vector2(x, y)
 
-static var ZERO = CustomVector2.new(0.0, 0.0)
+static var ZERO:
+  get():
+    return CustomVector2.new(0.0, 0.0)
 
 var x:
   get():
-    return vector.x
+    return self.vector.x
   set(x):
-    vector.x = x
+    self.vector.x = x
     update()
 var y:
   get():
-    return vector.y
+    return self.vector.y
   set(y):
-    vector.y = y
+    self.vector.y = y
     update()
 
 # func _to_string() -> String:
@@ -37,32 +35,32 @@ func update() -> void:
   pass
 
 func rotated(dir: float) -> CustomVector2:
-  return CustomVector2.new(vector.rotated(dir))
+  return CustomVector2.new(self.vector.rotated(dir))
 
 func add(val: Variant) -> CustomVector2:
-  return CustomVector2.new(vector + val)
+  return self.vector + val
 
 func eq_add(val: Variant) -> void:
-  vector += val
+  self.vector += val
   update()
 
 func sub(val: Variant) -> CustomVector2:
-  return CustomVector2.new(vector - val)
+  return self.vector - val
 
 func eq_sub(val: Variant) -> void:
-  vector -= val
+  self.vector -= val
   update()
 
 func mul(val: Variant) -> CustomVector2:
-  return CustomVector2.new(vector * val)
+  return self.vector * val
 
 func eq_mul(val: Variant) -> void:
-  vector *= val
+  self.vector *= val
   update()
 
 func div(val: Variant) -> CustomVector2:
-  return CustomVector2.new(vector / val)
+  return self.vector / val
 
 func eq_div(val: Variant) -> void:
-  vector /= val
+  self.vector /= val
   update()
