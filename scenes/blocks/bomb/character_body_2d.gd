@@ -12,7 +12,8 @@ var collsiionOn_bottom = []
 var collsiionOn_left = []
 var collsiionOn_right = []
 var vel := {
-  "conveyer": Vector2.ZERO,
+  "conveyer": Vector2Grav.ZERO,
+  "default": Vector2Grav.ZERO,
 }
 var velDecay := {
   "conveyer": .9
@@ -21,18 +22,20 @@ var velDecay := {
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
   if root.exploded: return
+  up_direction = global.player.up_direction
   if currentWatters:
-    velocity.y -= max(95 * delta * (velocity.y / 8), 10)
+    vel.default.y -= max(95 * delta * (vel.default.y / 8), 10)
   else:
     if is_on_floor():
-      velocity.y = 0
-    velocity.y += global.player.GRAVITY * delta
-  velocity.x *= .90 if is_on_floor() else .97
-  var lastvel = velocity
-  velocity += vel.conveyer
+      vel.default.y = 0
+    vel.default.y += global.player.GRAVITY * delta
+  vel.default.x *= .90 if is_on_floor() else .97
+  var lastvel = vel.default
+  # vel.default += vel.conveyer
+  velocity = vel.default.vector + vel.conveyer.vector
   move_and_slide()
-  velocity -= vel.conveyer
-  vel.conveyer *= velDecay.conveyer
+  # vel.default -= vel.conveyer
+  vel.conveyer.eq_mul(velDecay.conveyer)
   # log.pp(lastvel, "lastvel")
   if is_on_floor() and lastvel.y > 700:
     root.explode()
@@ -44,10 +47,10 @@ func on_physics_process(delta: float) -> void:
     var collision := get_slide_collision(i)
     var block := collision.get_collider()
     var normal := collision.get_normal()
-
+    var rotatedNormal = Vector2Grav.applyRot(normal)
     block = block.root
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
-    and normal == Vector2.UP \
+    and rotatedNormal == Vector2Grav.UP.vector \
     and lastvel.y >= 0 \
     :
       if block is BlockConveyerRight:
@@ -56,13 +59,13 @@ func on_physics_process(delta: float) -> void:
         vel.conveyer.x = -400
 
 func on_ready(first=false):
-  vel.conveyer = Vector2.ZERO
-  velocity = Vector2.ZERO
+  vel.conveyer = Vector2Grav.ZERO
+  vel.default = Vector2Grav.ZERO
   global_position = root.startPosition
 
 func on_respawn():
-  vel.conveyer = Vector2.ZERO
-  velocity = Vector2.ZERO
+  vel.conveyer = Vector2Grav.ZERO
+  vel.default = Vector2Grav.ZERO
   collsiionOn_top = []
   collsiionOn_bottom = []
   collsiionOn_left = []

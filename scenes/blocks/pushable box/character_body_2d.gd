@@ -8,7 +8,8 @@ extends CharacterBody2D
 @export var root: EditorBlock
 
 var vel := {
-  "conveyer": Vector2.ZERO,
+  "conveyer": Vector2Grav.ZERO,
+  "default": Vector2Grav.ZERO,
 }
 var velDecay := {
   "conveyer": .9
@@ -17,31 +18,34 @@ var velDecay := {
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
   if root._DISABLED: return
+  up_direction = global.player.up_direction
   if currentWatters:
-    velocity.y -= max(95 * delta * (velocity.y / 8), 10)
+    vel.default.y -= max(95 * delta * (vel.default.y / 8), 10)
   else:
     if is_on_floor():
-      velocity.y =0
-    velocity.y += global.player.GRAVITY * delta
-  velocity.x *= .90 if is_on_floor() else .97
-  var lastvel = velocity
-  velocity += vel.conveyer
+      vel.default.y = 0
+    vel.default.y += global.player.GRAVITY * delta
+  vel.default.x *= .90 if is_on_floor() else .97
+  var lastvel = vel.default
+  # vel.default += vel.conveyer
+  velocity = vel.default.vector + vel.conveyer.vector
   move_and_slide()
-  velocity -= vel.conveyer
-  vel.conveyer *= velDecay.conveyer
+  # vel.default -= vel.conveyer
+  vel.conveyer.eq_mul(velDecay.conveyer)
   for i in get_slide_collision_count():
     var collision := get_slide_collision(i)
     var block := collision.get_collider()
     var normal := collision.get_normal()
+    var rotatedNormal = Vector2Grav.applyRot(normal)
 
-    if normal == Vector2.UP \
+    if rotatedNormal == Vector2Grav.UP.vector \
     and lastvel.y > 700 \
     and block.root is BlockBomb \
     :
       block.root.explode()
     block = block.root
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
-    and normal == Vector2.UP \
+    and normal == Vector2Grav.UP.vector \
     and lastvel.y >= 0 \
     :
       if block is BlockConveyerRight:
@@ -50,13 +54,13 @@ func on_physics_process(delta: float) -> void:
         vel.conveyer.x = -400
         
 func on_ready(first=false):
-  vel.conveyer = Vector2.ZERO
-  velocity = Vector2.ZERO
+  vel.conveyer = Vector2Grav.ZERO
+  vel.default = Vector2Grav.ZERO
   global_position = root.startPosition
 
 func on_respawn():
-  vel.conveyer = Vector2.ZERO
-  velocity = Vector2.ZERO
+  vel.conveyer = Vector2Grav.ZERO
+  vel.default = Vector2Grav.ZERO
   global_position = root.startPosition
 
 var currentWatters = []

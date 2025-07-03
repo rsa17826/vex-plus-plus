@@ -233,8 +233,11 @@ func _physics_process(delta: float) -> void:
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
   # return
+  # up_direction = clearLow(up_direction)
   defaultAngle = up_direction.angle() + deg_to_rad(90)
-  log.pp(defaultAngle, up_direction)
+  if abs(defaultAngle) < .0001:
+    defaultAngle = 0
+  # log.pp(defaultAngle, up_direction, up_direction.rotated(defaultAngle))
   if state == States.levelLoading: return
   if state in [
     States.idle,
@@ -280,6 +283,7 @@ func _physics_process(delta: float) -> void:
       REAL_GRAV = GRAVITY * delta
   match state:
     States.dead:
+      $Camera2D.global_rotation = defaultAngle
       deadTimer -= delta * 60
       deadTimer = clampf(deadTimer, 0, currentRespawnDelay)
       # global.tick = global.currentLevel().tick
@@ -505,7 +509,7 @@ func _physics_process(delta: float) -> void:
         if boxKickRecovery > 0:
           boxKickRecovery -= delta * 60
           if boxKickRecovery <= 0:
-            position += Vector2(0, 1).rotated(defaultAngle)
+            position += Vector2(0, 2).rotated(defaultAngle)
           return
 
         if state == States.wallHang || state == States.wallSliding:
@@ -697,10 +701,10 @@ func _physics_process(delta: float) -> void:
               _:
                 $anim.animation = "idle"
 
-        # set the sprite direction based on velocity
-        if vel.user.x > 0:
+        # set the sprite direction based on playerXIntent
+        if playerXIntent > 0:
           $anim.flip_h = false
-        elif vel.user.x < 0:
+        elif playerXIntent < 0:
           $anim.flip_h = true
 
         # when trying to slide, if not moving enough, duck instead
@@ -774,7 +778,6 @@ func _physics_process(delta: float) -> void:
         var floorRayCollision: Node2D = null
         if $floorRay.is_colliding():
           floorRayCollision = $floorRay.get_collider()
-        var currentCollidingBlocks: Array = []
         for i in get_slide_collision_count():
           var collision := get_slide_collision(i)
           var block := collision.get_collider()
@@ -783,19 +786,8 @@ func _physics_process(delta: float) -> void:
           var depth := collision.get_depth()
           # log.pp(block.id if 'id' in block else block.get_parent().id, normal, depth, block == floorRayCollision)
 
-          # Store the current colliding blocks
-          currentCollidingBlocks.append([block, normal, depth])
           if block == floorRayCollision:
             floorRayCollision = null
-          # if normal.x < 0:
-          #   normals.l = true
-          # if normal.x > 0:
-          #   normals.r = true
-          # if normal.y > 0:
-          #   normals.u = true
-          # if normal.y < 0:
-          #   normals.d = true
-          # Call handleCollision for currently colliding blocks
           handleCollision(block, normal, depth, true)
 
         if floorRayCollision:
@@ -832,7 +824,7 @@ func _physics_process(delta: float) -> void:
     # $Camera2D.position_smoothing_speed = smoothingFactor
     $Camera2D.position -= $Camera2D.position * .5 * delta
   # log.pp($Camera2D.rotation, -rotation + defaultAngle)
-  $Camera2D.global_rotation = defaultAngle
+  $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
     # $Camera2D.global_rotation = deg_to_rad(0)
   # else:
   #   $Camera2D.global_rotation = deg_to_rad(0)
@@ -850,23 +842,28 @@ func tryAndDieSquish():
     log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
     die()
 
+func clearLow(v):
+  if is_zero_approx(v.x): v.x = 0
+  if is_zero_approx(v.y): v.y = 0
+  return v
+
 func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   var block: EditorBlock = b.root
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
-  var UP = Vector2.UP.rotated(defaultAngle)
-  if abs(UP.x) < .001:
-    UP.x = 0
-  if abs(UP.y) < .001:
-    UP.y = 0
+  var UP = Vector2Grav.UP.vector
+  var rotatedNormal = Vector2Grav.applyRot(normal)
   if block.respawning: return
   if sameFrame:
     if (
       block is BlockDonup
       or block is BlockFalling
     ) \
-    and normal == UP \
-    and velocity.y >= 0 \
+    and rotatedNormal == UP \
+    # and normal == Vector2.UP \
+    # :
+    #   log.pp(normal == Vector2.UP, normal, Vector2.UP, Vector2Grav.applyRot(normal), Vector2Grav.UP.vector)
+    and Vector2Grav.applyRot(velocity).y >= 0 \
     :
       block.falling = true
     if block is BlockGlass \
@@ -877,13 +874,13 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     :
       block.__disable()
     if block is BlockBouncy \
-    and normal == UP \
+    and rotatedNormal == UP \
     and velocity.y >= 0 \
     and not inWaters \
     :
       block.start()
     if block is BlockInnerLevel \
-    and normal == UP \
+    and rotatedNormal == UP \
     and state == States.sliding \
     and abs(vel.user.x) < 10 \
     :
@@ -895,23 +892,23 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and getClosestWallSide() \
     and Input.is_action_just_pressed(&"down") \
     and not inWaters \
-    and normal == UP \
+    and rotatedNormal == UP \
     :
-      block.thingThatMoves.velocity.x -= getClosestWallSide() * 120
+      block.thingThatMoves.vel.default.eq_sub(Vector2Grav.new(getClosestWallSide() * 140, 0))
       $anim.animation = "kicking box"
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
-      position -= Vector2(0, 1).rotated(defaultAngle)
+      position -= Vector2(0, 2).rotated(defaultAngle)
 
     if (block is BlockPushableBox or block is BlockBomb) \
     and is_on_floor() \
-    and normal.x \
+    and rotatedNormal.x \
     and not inWaters \
     :
-      block.thingThatMoves.velocity.x -= normal.x * depth * 200
+      block.thingThatMoves.vel.default.eq_sub(normal * depth * 200)
       state = States.pushing
       $anim.animation = "pushing box"
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
-    and normal == UP \
+    and rotatedNormal == UP \
     and not inWaters \
     and vel.user.y >= 0 \
     :
@@ -1024,6 +1021,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   if full:
     for cb in OnPlayerFullRestart:
       cb.call()
+  $Camera2D.global_rotation = defaultAngle
   _physics_process(0)
 
 func _on_bottom_body_entered(body: Node2D) -> void:
@@ -1170,6 +1168,7 @@ func updateKeyFollowPosition(delta):
   # pulleys set animation in wrong direction
   # dying in water causes bad rotation until respawn ends
   # fix camera rotatiuon to be instant
+# add box button
 
 # (.*)vel\.user(.* [+*-/]?= .*)
   
