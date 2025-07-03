@@ -478,7 +478,7 @@
     ]
   }
   STR(dir test){
-    STR(lastSpawnPoint)VEC2(-115.0,-195.0)
+    STR(lastSpawnPoint)VEC2(410.0,-1130.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -511,7 +511,16 @@
               STR(texture)STR(1)
             }
             INT(9){
+              STR(texture)STR(1)
+            }
+            INT(10){
+              STR(texture)STR(1)
+            }
+            INT(11){
               STR(texture)STR(2)
+            }
+            INT(12){
+              STR(texture)STR(1)
             }
           }
         }

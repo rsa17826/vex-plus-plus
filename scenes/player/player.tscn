@@ -1152,9 +1152,8 @@ metadata/_edit_lock_ = true
 position = Vector2(0, 0.145)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
-animation = &"on pole"
+animation = &"idle"
 autoplay = "idle"
-frame = 2
 metadata/_edit_lock_ = true
 
 [node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D"]

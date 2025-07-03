@@ -233,7 +233,7 @@ func _physics_process(delta: float) -> void:
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
   # return
-  # up_direction = clearLow(up_direction)
+  up_direction = clearLow(up_direction)
   defaultAngle = up_direction.angle() + deg_to_rad(90)
   if abs(defaultAngle) < .0001:
     defaultAngle = 0
@@ -824,7 +824,10 @@ func _physics_process(delta: float) -> void:
     # $Camera2D.position_smoothing_speed = smoothingFactor
     $Camera2D.position -= $Camera2D.position * .5 * delta
   # log.pp($Camera2D.rotation, -rotation + defaultAngle)
-  $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
+  if inWaters:
+    $Camera2D.global_rotation = defaultAngle
+  else:
+    $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
     # $Camera2D.global_rotation = deg_to_rad(0)
   # else:
   #   $Camera2D.global_rotation = deg_to_rad(0)
@@ -852,17 +855,18 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
   var UP = Vector2Grav.UP.vector
-  var rotatedNormal = Vector2Grav.applyRot(normal)
+  var rotatedNormal = normal.rotated(up_direction.angle())
+  # var rotatedNormal = Vector2Grav.applyRot(normal)
+  rotatedNormal = clearLow(rotatedNormal)
   if block.respawning: return
   if sameFrame:
+    if block is BlockDonup or block is BlockFalling:
+      log.pp("asdasdasd", UP, rotatedNormal, up_direction)
     if (
       block is BlockDonup
       or block is BlockFalling
     ) \
     and rotatedNormal == UP \
-    # and normal == Vector2.UP \
-    # :
-    #   log.pp(normal == Vector2.UP, normal, Vector2.UP, Vector2Grav.applyRot(normal), Vector2Grav.UP.vector)
     and Vector2Grav.applyRot(velocity).y >= 0 \
     :
       block.falling = true
@@ -907,10 +911,13 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       block.thingThatMoves.vel.default.eq_sub(normal * depth * 200)
       state = States.pushing
       $anim.animation = "pushing box"
+    if block is BlockConveyerLeft or block is BlockConveyerRight:
+      if rotatedNormal != UP:
+        log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
     and rotatedNormal == UP \
-    and not inWaters \
-    and vel.user.y >= 0 \
+    # and not inWaters \
+    # and vel.user.y >= 0 \
     :
       if block is BlockConveyerRight:
         vel.conveyer.x = 400
