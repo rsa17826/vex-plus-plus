@@ -218,9 +218,12 @@ func clearWallData():
   wallSlidingFrames = 0
   wallBreakDownFrames = 0
 
+var sss = CustomVector2.new(0, 0)
+
 func _physics_process(delta: float) -> void:
-  # vel.user.y += 1.1 * delta
-  # log.pp(vel.user.y)
+  # vel.user.y += 1 * delta
+  # sss.y += 1 * delta
+  # log.pp(vel.user.y, sss.y, vel.user.y - sss.y)
   # return
   defaultAngle = up_direction.angle() + deg_to_rad(90)
   if state == States.levelLoading: return
@@ -956,6 +959,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   keys = []
   for v: String in vel:
     vel[v] = Vector2.ZERO
+  sss = CustomVector2.new(0, 0)
   velocity = Vector2.ZERO
   up_direction = Vector2.UP
   playerXIntent = 0

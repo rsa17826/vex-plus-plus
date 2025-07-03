@@ -16,18 +16,18 @@ func _init(x: Variant = 0.0, y: float = 0.0):
 
 static var ZERO = CustomVector2.new(0.0, 0.0)
 
-var x: float
-  # get():
-  #   return vector.x
-  # set(x):
-  #   vector.x = x
-  #   update()
-var y: float
-  # get():
-  #   return vector.y
-  # set(y):
-  #   vector.y = y
-  #   update()
+var x:
+  get():
+    return vector.x
+  set(x):
+    vector.x = x
+    update()
+var y:
+  get():
+    return vector.y
+  set(y):
+    vector.y = y
+    update()
 
 # func _to_string() -> String:
 #   return "CustomVector2(" + str(x) + ", " + str(y) + ")"
