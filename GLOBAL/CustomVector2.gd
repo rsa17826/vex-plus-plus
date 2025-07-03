@@ -1,66 +1,80 @@
-class_name CustomVector2
+class_name Vector2Grav
 
 var vector: Vector2
 
+var _vectorWithRot: Vector2:
+  set(val):
+    vector = val.rotated(global.player.defaultAngle)
+  get():
+    return vector.rotated(-global.player.defaultAngle)
+
 func _init(x: Variant = 0.0, y: float = 0.0):
   if x is Vector2:
-    self.vector = x
-  elif x is CustomVector2:
-    self.vector = x.self.vector
+    vector = x
+  elif x is Vector2Grav:
+    vector = x.vector
   else:
-    self.vector = Vector2(x, y)
+    vector = Vector2(x, y)
+  if vector:
+    _vectorWithRot = vector
 
 static var ZERO:
   get():
-    return CustomVector2.new(0.0, 0.0)
+    return Vector2Grav.new(0.0, 0.0)
 
 var x:
   get():
-    return self.vector.x
+    return _vectorWithRot.x
   set(x):
-    self.vector.x = x
+    _vectorWithRot.x = x
     update()
 var y:
   get():
-    return self.vector.y
+    return _vectorWithRot.y
   set(y):
-    self.vector.y = y
+    _vectorWithRot.y = y
     update()
 
 # func _to_string() -> String:
-#   return "CustomVector2(" + str(x) + ", " + str(y) + ")"
+#   return "Vector2Grav(" + str(x) + ", " + str(y) + ")"
 
 func update() -> void:
   # print(self)
   pass
 
-func rotated(dir: float) -> CustomVector2:
-  return CustomVector2.new(self.vector.rotated(dir))
+func rotated(dir: float) -> Vector2Grav:
+  return Vector2Grav.new(vector.rotated(dir))
 
-func add(val: Variant) -> CustomVector2:
-  return self.vector + val
+func add(val: Variant) -> Vector2Grav:
+  return vector + val
 
 func eq_add(val: Variant) -> void:
-  self.vector += val
+  vector += val
   update()
 
-func sub(val: Variant) -> CustomVector2:
-  return self.vector - val
+func sub(val: Variant) -> Vector2Grav:
+  return vector - val
 
 func eq_sub(val: Variant) -> void:
-  self.vector -= val
+  vector -= val
   update()
 
-func mul(val: Variant) -> CustomVector2:
-  return self.vector * val
+func mul(val: Variant) -> Vector2Grav:
+  return vector * val
 
 func eq_mul(val: Variant) -> void:
-  self.vector *= val
+  vector *= val
   update()
 
-func div(val: Variant) -> CustomVector2:
-  return self.vector / val
+func div(val: Variant) -> Vector2Grav:
+  return vector / val
 
 func eq_div(val: Variant) -> void:
-  self.vector /= val
+  vector /= val
   update()
+
+static func applyRot(x: Variant = 0.0, y: float = 0.0):
+  if x is Vector2:
+    return x.rotated(global.player.defaultAngle)
+  else:
+    return Vector2(x, y).rotated(global.player.defaultAngle)

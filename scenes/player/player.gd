@@ -71,13 +71,7 @@ var ACTIONjump: bool = false:
       return true
     return ACTIONjump
 
-var vel: Dictionary[String, CustomVector2] = {
-  "pole": CustomVector2.ZERO,
-  "user": CustomVector2.ZERO,
-  "waterExit": CustomVector2.ZERO,
-  "bounce": CustomVector2.ZERO,
-  "conveyer": CustomVector2.ZERO,
-}
+var vel: Dictionary[String, Vector2Grav]
 var velDecay := {
   "pole": 1,
   "user": 1,
@@ -135,18 +129,23 @@ enum GravStates {
 
 func _init() -> void:
   global.player = self
+  vel = {
+  "pole": Vector2Grav.ZERO,
+  "user": Vector2Grav.ZERO,
+  "waterExit": Vector2Grav.ZERO,
+  "bounce": Vector2Grav.ZERO,
+  "conveyer": Vector2Grav.ZERO,
+}
 
 func _ready() -> void:
   Input.mouse_mode = mouseMode
   
 var defaultAngle: float
 
-
-# var vel.user: Vector2 = CustomVector2.ZERO:
+# var vel.user: Vector2 = Vector2Grav.ZERO:
 # var log.pp(vel.user==vel.user.vector)
 
 #   set(val):
-
 
 #     vel.user = val.rotated(defaultAngle)
 #     log.pp(vel.user==vel.user.vector)
@@ -186,7 +185,7 @@ func _input(event: InputEvent) -> void:
     camState = CamStates.editor
     $Camera2D.reset_smoothing()
     if Input.is_action_pressed(&"editor_select") and Input.is_action_pressed(&"editor_pan"):
-      $Camera2D.global_position -= event.relative * global.useropts.editorScrollSpeed
+      $Camera2D.global_position -= Vector2Grav.applyRot(event.relative) * global.useropts.editorScrollSpeed
       var mousePos := get_viewport().get_mouse_position()
       var startPos := mousePos
       if mousePos.x <= 0:
@@ -230,12 +229,12 @@ func clearWallData():
 # var sss = Vector2.ZERO
 
 func _physics_process(delta: float) -> void:
-
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
   # return
   defaultAngle = up_direction.angle() + deg_to_rad(90)
+  log.pp(defaultAngle, up_direction)
   if state == States.levelLoading: return
   if state in [
     States.idle,
@@ -323,10 +322,8 @@ func _physics_process(delta: float) -> void:
       $anim.animation = "on pole"
       playerKT = 0
 
-
-      vel.user = CustomVector2.ZERO
+      vel.user = Vector2Grav.ZERO
       
-
       $CollisionShape2D.shape.size.y = unduckSize.y / 4
       %deathDetectors.scale = Vector2(1, 0.25)
 
@@ -344,10 +341,8 @@ func _physics_process(delta: float) -> void:
       if Input.is_action_just_pressed(&"jump"):
         if ($anim.frame >= 3 and $anim.frame <= 9) or $anim.frame >= 27:
           # this one should be user because it makes the falling better
-
           vel.user.y = JUMP_POWER
           
-
           # but this should be pole as that way it does something as user.x is set to xintent
           vel.pole.x = 50 * (-1 if $anim.flip_h else 1)
           $anim.animation = "jumping off pole"
@@ -357,19 +352,15 @@ func _physics_process(delta: float) -> void:
             Object.CONNECT_ONE_SHOT)
           state = States.jumping
         else:
-
           vel.user.y = 0
           
-
           state = States.falling
         activePole.root.timingIndicator.visible = false
         activePole = null
         poleCooldown = MAX_POLE_COOLDOWN
       elif Input.is_action_just_pressed(&"down"):
-
         vel.user.y = 0
         
-
         activePole.root.timingIndicator.visible = false
         activePole = null
         state = States.falling
@@ -382,10 +373,8 @@ func _physics_process(delta: float) -> void:
       rotation = lerp_angle(float(rotation), defaultAngle, .2)
       $CollisionShape2D.rotation = 0
 
-
-      vel.user = CustomVector2.ZERO
+      vel.user = Vector2Grav.ZERO
       
-
       var lastpos := global_position
       global_position = activePulley.nodeToMove.global_position + Vector2(0, 13)
       $anim.position = Vector2(5, 5.145)
@@ -422,10 +411,8 @@ func _physics_process(delta: float) -> void:
       wallBreakDownFrames = 0
       $anim.animation = "duck start"
 
-
       vel.user.y = 0
       
-
       return
     States.pullingLever:
       rotation = defaultAngle
@@ -449,10 +436,8 @@ func _physics_process(delta: float) -> void:
         rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
         # dont store velocity from normal movement if in water
 
-
-        vel.user = CustomVector2.ZERO
+        vel.user = Vector2Grav.ZERO
         
-
         # set state to falling for when player exits the water
         state = States.falling
         # move forward or backward based on input
@@ -460,9 +445,9 @@ func _physics_process(delta: float) -> void:
         velocity *= .8
         # only bounce out of the water if going up
         for v: String in vel:
-          vel[v] = CustomVector2.ZERO
+          vel[v] = Vector2Grav.ZERO
         if $waterRay.is_colliding():
-          vel.waterExit = CustomVector2.new(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation)
+          vel.waterExit = Vector2Grav.new(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation)
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
         lastWall = 0
@@ -542,10 +527,8 @@ func _physics_process(delta: float) -> void:
           if !onStickyFloor:
             playerKT = MAX_KT_TIMER
 
-
           vel.user.y = 0
           
-
           lastWall = 0
           breakFromWall = false
           # if not moving or trying to not move, go idle
@@ -593,10 +576,8 @@ func _physics_process(delta: float) -> void:
           if CenterIsOnWall() && not is_on_floor() && !breakFromWall \
           && vel.user.y > 0 && wallBreakDownFrames <= 0 \
           and not %nowjDetector.get_overlapping_bodies():
-
             vel.user.y = WALL_SLIDE_SPEED
             
-
             state = States.wallSliding
             # press down to detach from wallslide
             if Input.is_action_pressed(&"down") && wallBreakDownFrames <= 0:
@@ -608,10 +589,8 @@ func _physics_process(delta: float) -> void:
               breakFromWall = true
           else:
             # log.pp(vel.user, REAL_GRAV)
-
             vel.user.y += REAL_GRAV
             
-
             # log.pp(vel.user, REAL_GRAV)
 
         if breakFromWall:
@@ -621,15 +600,11 @@ func _physics_process(delta: float) -> void:
           state = States.jumping
           breakFromWall = true
 
-
           vel.user.y = JUMP_POWER
           
-
         if (state == States.wallHang) && is_on_wall_only() && CenterIsOnWall():
-
           vel.user.y = 0
           
-
           wallSlidingFrames = 0
           breakFromWall = false
           # press down to detach from wallhang
@@ -646,10 +621,8 @@ func _physics_process(delta: float) -> void:
                 state = States.jumping
                 playerKT = 0
 
-
                 vel.user.y = JUMP_POWER
                 
-
         # if not in duckRecovery or wall hang or wallSliding, allow movement
         if (!breakFromWall and (state == States.wallSliding || state == States.wallHang)) \
           or duckRecovery > 0:
@@ -734,73 +707,59 @@ func _physics_process(delta: float) -> void:
         if state == States.sliding:
           # if sliding reduce speed reuction
           if abs(vel.user.x) < 10:
-
             vel.user.x = 0
             
-
-
           vel.user.x *= 0.98 # * delta * 60
           
-
         # if state is not sliding
         else:
           # if user not trying to move set user xvel to 0
           if playerXIntent == 0:
-
             vel.user.x = 0
             
-
           else:
             # if user trying to move and on floor set state to moving
             if is_on_floor():
               state = States.moving
 
-
             vel.user.x = playerXIntent
             
-
           # reduce speed after leaving slide, with the power reducing over time
-
 
           vel.user.x *= 1 - slideRecovery / MAX_SLIDE_RECOVER_TIME
           
-
           # if you were ducking instead of sliding, stop all movement
           if duckRecovery > 0:
-
             vel.user.x = 0
             
-
         # stopVelOnGround
         if is_on_floor():
           wasJustInWater = false
           for n: String in stopVelOnGround:
             if !justAddedVels[n]:
-              vel[n] = CustomVector2.ZERO
+              vel[n] = Vector2Grav.ZERO
         # stopVelOnWall
         if state == States.wallHang or state == States.wallSliding:
           for n: String in stopVelOnWall:
             if !justAddedVels[n]:
-              vel[n] = CustomVector2.ZERO
+              vel[n] = Vector2Grav.ZERO
         # stopVelOnCeil
         if is_on_ceiling():
           if vel.user.y < 0:
-
             vel.user.y = 0
-            
-
           for n: String in stopVelOnCeil:
             if !justAddedVels[n]:
-              vel[n] = CustomVector2.ZERO
+              vel[n] = Vector2Grav.ZERO
 
         # move using all velocities
         velocity = Vector2.ZERO
         if state != States.wallHang:
-          # velocity += vel.user.vector
           for n: String in vel:
             velocity += vel[n].vector
-          # for n: String in vel:
-          #   vel[n] *= (velDecay[n]) # * delta * 60
+          for n: String in vel:
+            vel[n].eq_mul(velDecay[n]) # * delta * 60
+        if Input.is_key_pressed(KEY_T):
+          breakpoint
         # log.pp(velocity, vel.user == vel.user.vector)
         if state == States.wallHang and not getClosestWallSide():
           state = States.falling
@@ -994,11 +953,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
 
 func goto(pos: Vector2) -> void:
   position = pos
-
-
-  # vel.user = CustomVector2.ZERO
-  # log.pp(vel.user==vel.user.vector)
-
+  vel.user = Vector2Grav.ZERO
   $Camera2D.position = Vector2.ZERO
   $Camera2D.reset_smoothing()
 
@@ -1040,10 +995,10 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
     state = States.dead
   keys = []
   for v: String in vel:
-    vel[v] = CustomVector2.ZERO
+    vel[v] = Vector2Grav.ZERO
   # vel.user = CustomCustomVector2.new(0, 0)
   velocity = Vector2.ZERO
-  up_direction = Vector2.UP
+  # up_direction = Vector2.UP
   playerXIntent = 0
   lastWall = 0
   pulleyNoDieTimer = 0
