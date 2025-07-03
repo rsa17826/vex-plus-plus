@@ -1443,6 +1443,7 @@ func localReady() -> void:
     "downup",
     "leftright",
     "growing block",
+    "gravity rotator",
     "water",
     "solar",
     "inverse solar",
