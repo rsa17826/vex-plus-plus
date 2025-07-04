@@ -227,7 +227,9 @@ func clearWallData():
   wallSlidingFrames = 0
   wallBreakDownFrames = 0
 
+# don't move camera for first 2 frames after respawning so that when respawning inside gravity rotator the camera starts in the correct direction 
 var hasJustRespawned: bool = false
+
 func _physics_process(delta: float) -> void:
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
