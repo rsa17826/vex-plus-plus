@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dugw2ju47mwyi"]
+[gd_scene load_steps=7 format=3 uid="uid://dugw2ju47mwyi"]
 
 [ext_resource type="Script" uid="uid://c71tvwdcssf5m" path="res://scenes/levels/level.gd" id="1_bovvr"]
 [ext_resource type="PackedScene" uid="uid://cecm0tp3hsdnh" path="res://scenes/player/player.tscn" id="2_b2cq8"]
 [ext_resource type="Script" uid="uid://bcd1vbaj8suck" path="res://scenes/levels/grid.gd" id="3_b2cq8"]
+[ext_resource type="Script" uid="uid://jldovi16i53e" path="res://scenes/levels/grid_rotator.gd" id="3_d4w6o"]
 [ext_resource type="Script" uid="uid://fgu8i5y0iued" path="res://scenes/levels/autosave_timer.gd" id="4_xb4v1"]
 [ext_resource type="Script" uid="uid://b7v5fgrc0mgvo" path="res://scenes/levels/boxSelectDrawingNode.gd" id="5_urvlt"]
 
@@ -14,6 +15,28 @@ boxSelectDrawingNode = NodePath("CanvasLayer/boxSelectDrawingNode")
 position = Vector2(61, 383)
 
 [node name="blocks" type="Node2D" parent="."]
+
+[node name="gridRotator" type="Node2D" parent="."]
+position = Vector2(576, 324)
+rotation = -1.5707964
+script = ExtResource("3_d4w6o")
+
+[node name="Node2D" type="Node2D" parent="gridRotator"]
+rotation = -4.694936
+
+[node name="autosaveTimer" type="Timer" parent="."]
+ignore_time_scale = true
+script = ExtResource("4_xb4v1")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="boxSelectDrawingNode" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+mouse_filter = 2
+script = ExtResource("5_urvlt")
 
 [node name="grid" type="Node2D" parent="."]
 script = ExtResource("3_b2cq8")
@@ -587,19 +610,5 @@ theme_override_colors/font_color = Color(0.151276, 0.151276, 0.151276, 1)
 text = "0,0"
 vertical_alignment = 1
 clip_text = true
-
-[node name="autosaveTimer" type="Timer" parent="."]
-ignore_time_scale = true
-script = ExtResource("4_xb4v1")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="boxSelectDrawingNode" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
-mouse_filter = 2
-script = ExtResource("5_urvlt")
 
 [connection signal="timeout" from="autosaveTimer" to="autosaveTimer" method="_on_timeout"]
