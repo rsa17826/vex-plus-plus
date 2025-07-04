@@ -52,11 +52,11 @@ func on_physics_process(delta: float) -> void:
     var normal := collision.get_normal()
     var rotatedNormal = global.player.applyRot(normal)
     block = block.root
-    if (block is BlockConveyerLeft or block is BlockConveyerRight) \
+    if (block is BlockConveyer) \
     and rotatedNormal == global.player.applyRot(Vector2.UP) \
     and lastvel.y >= 0 \
     :
-      if block is BlockConveyerRight:
+      if block is BlockConveyer:
         vel.conveyer.x = 400
       else:
         vel.conveyer.x = -400

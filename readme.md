@@ -414,11 +414,11 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **attachesToThings**
 
-- **conveyer/left**: moves things on top of it to the left and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
+- **conveyer**: moves things on top of it to the left and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
 
   - **settings**:
 
-- **conveyer/right**: moves things on top of it to the right and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
+- **conveyer**: moves things on top of it to the right and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
 
   - **settings**:
 
