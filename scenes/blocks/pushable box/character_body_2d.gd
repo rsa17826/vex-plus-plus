@@ -51,11 +51,11 @@ func on_physics_process(delta: float) -> void:
     :
       block.root.explode()
     block = block.root
-    if (block is BlockConveyerLeft or block is BlockConveyerRight) \
+    if (block is BlockConveyer) \
     and hitTop \
     and lastvel.y >= 0 \
     :
-      if block is BlockConveyerRight:
+      if block is BlockConveyer:
         vel.conveyer.x = 400
       else:
         vel.conveyer.x = -400

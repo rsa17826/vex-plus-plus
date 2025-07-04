@@ -363,7 +363,7 @@
     STR(w)FLOAT(1.8000001013279)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -670,7 +670,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(3.89999997615814)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -703,7 +703,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(3.89999997615814)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -714,7 +714,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -736,7 +736,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -747,7 +747,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(3.90000081062317)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -875,7 +875,7 @@
     STR(w)FLOAT(4.20000183582306)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-90.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1672,7 +1672,7 @@
     STR(w)FLOAT(2.10000050067902)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1705,7 +1705,7 @@
     STR(w)FLOAT(1.85000020265579)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/right)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1716,7 +1716,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/right)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1740,7 +1740,7 @@
     STR(w)FLOAT(4.64999961853027)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-90.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1751,7 +1751,7 @@
     STR(w)FLOAT(4.64999961853027)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1762,7 +1762,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-90.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1773,7 +1773,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
-    STR(id)STR(conveyer/right)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1784,7 +1784,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-90.0)
-    STR(id)STR(conveyer/right)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -1795,7 +1795,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }

@@ -937,11 +937,11 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       block.thingThatMoves.vel.default -= (normal.rotated(-defaultAngle) * depth * 200)
       state = States.pushing
       $anim.animation = "pushing box"
-    # if block is BlockConveyerLeft or block is BlockConveyerRight:
+    # if block is BlockConveyer:
     #   if rotatedNormal != UP:
       # log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
       
-    if (block is BlockConveyerLeft or block is BlockConveyerRight) \
+    if (block is BlockConveyer) \
     # and hitTop \
     and not inWaters \
     and vel.user.y >= -SMALL \
@@ -959,12 +959,12 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
         maxDir = testDir.y
       else: return
       var shouldFlipConveyerDirection = maxDir < 0
-      if (block is BlockConveyerRight) == shouldFlipConveyerDirection:
+      if shouldFlipConveyerDirection:
         vel.conveyer.x = 400
       else:
         vel.conveyer.x = -400
       if hitLeft || hitRight:
-        if (hitLeft == shouldFlipConveyerDirection) == (block is BlockConveyerRight):
+        if (hitRight == shouldFlipConveyerDirection):
           vel.conveyer.y = abs(vel.conveyer.x)
         else:
           vel.conveyer.y = abs(vel.conveyer.x) * -1

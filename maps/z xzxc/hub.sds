@@ -199,7 +199,7 @@
     STR(w)FLOAT(11.9499989748001)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/left)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
@@ -210,7 +210,7 @@
     STR(w)FLOAT(5.10000032186508)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer/right)
+    STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
     }
