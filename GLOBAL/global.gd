@@ -663,9 +663,7 @@ func localProcess(delta: float) -> void:
       # if a block is selected
       if selectedBlock or (selectedBrush and selectedBrush.selected == 2):
         var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
-
         player.moving = 2
-
         # when trying to rotate blocks
         if editorInRotateMode && selectedBlock \
         and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
@@ -684,8 +682,6 @@ func localProcess(delta: float) -> void:
         or global.useropts.allowScalingAnything):
           if !scaleOnTopSide and !scaleOnBottomSide and !scaleOnLeftSide and !scaleOnRightSide: return
           # mpos = mpos.rotated(-deg_to_rad(selectedBlock.startRotation_degrees))
-          var lastRot = selectedBlock.rotation
-          selectedBlock.rotation = 0
           var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
 
           # get the edge position in px
@@ -747,8 +743,6 @@ func localProcess(delta: float) -> void:
           selectedBlock.scale.x = clamp(selectedBlock.scale.x, 0.1 / 7.0, 250.0 / 7.0)
           selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 250.0 / 7.0)
           global.showEditorUi = true
-          selectedBlock.rotation = lastRot
-          # selectedBlock.self_modulate.a = useropts.hoveredBlockGhostAlpha
           var moveDist = selectedBlock.global_position - selectedBlock.startPosition
           setBlockStartPos(selectedBlock)
           selectedBlock.onEditorMove(moveDist)
