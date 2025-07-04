@@ -1238,3 +1238,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix conveyers with reverse gravity
 # prevent converyers from occasionally activating when collision direction is wrong
 # make conveyers work better with boxes like they do with the player and make the players conveyer code easier to read
+# !!!fix scaling of rotated blocks

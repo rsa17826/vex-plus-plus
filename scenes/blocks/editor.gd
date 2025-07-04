@@ -405,7 +405,11 @@ func _process(delta: float) -> void:
       ghost.global_position = ghostFollowNode.global_position
       ghost.rotation_degrees = ghostFollowNode.rotation_degrees
     ghost.use_parent_material = true
-    ghost.self_modulate.a = global.useropts.blockGhostAlpha
+    if global.hoveredBlocks && self == global.hoveredBlocks[0] \
+      or self in global.boxSelect_selectedBlocks:
+      ghost.modulate.a = global.useropts.hoveredBlockGhostAlpha
+    else:
+      ghost.modulate.a = global.useropts.blockGhostAlpha
 
     ghost.visible = global.showEditorUi
     if Input.is_action_pressed(&"editor_box_select"): return
