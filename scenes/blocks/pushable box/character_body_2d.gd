@@ -36,16 +36,16 @@ func on_physics_process(delta: float) -> void:
     var collision := get_slide_collision(i)
     var block := collision.get_collider()
     var normal := collision.get_normal()
-    var rotatedNormal = global.player.applyRot(normal)
-
-    if rotatedNormal == global.player.applyRot(Vector2.UP) \
+    # var rotatedNormal = global.player.applyRot(normal)
+    var hitTop = normal.distance_to(global.player.applyRot(Vector2.UP)) < 0.7
+    if hitTop \
     and lastvel.y > 700 \
     and block.root is BlockBomb \
     :
       block.root.explode()
     block = block.root
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
-    and rotatedNormal == global.player.applyRot(Vector2.UP) \
+    and hitTop \
     and lastvel.y >= 0 \
     :
       if block is BlockConveyerRight:
