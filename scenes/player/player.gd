@@ -227,15 +227,16 @@ func clearWallData():
   wallSlidingFrames = 0
   wallBreakDownFrames = 0
 
-# var sss = Vector2.ZERO
-
+var hasJustRespawned: bool = false
 func _physics_process(delta: float) -> void:
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
   # return
   up_direction = clearLow(up_direction)
-  defaultAngle = up_direction.angle() + deg_to_rad(90)
+  # don't move camera for first 2 frames after respawning so that when respawning inside gravity rotator the camera starts in the correct direction 
+  if !hasJustRespawned:
+    defaultAngle = up_direction.angle() + deg_to_rad(90)
   if abs(defaultAngle) < .0001:
     defaultAngle = 0
   # log.pp(defaultAngle, up_direction, up_direction.rotated(defaultAngle))
@@ -296,7 +297,7 @@ func _physics_process(delta: float) -> void:
       inWaters = []
       # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
       $anim.animation = "die"
-      rotation = lerp_angle(float(rotation), defaultAngle, .2)
+      rotation = lerp_angle(rotation, defaultAngle, .2)
       $CollisionShape2D.rotation = 0
       # hide the water animations
       $anim.visible = true
@@ -304,15 +305,20 @@ func _physics_process(delta: float) -> void:
       $waterAnimBottom.visible = false
       $Camera2D.reset_smoothing()
       if deadTimer <= 0:
+        hasJustRespawned = true
         if lastSpawnPoint:
           position = lastSpawnPoint
         else:
           position = Vector2(0, -1.9)
         state = States.falling
         Engine.time_scale = 1
+        up_direction = Vector2.UP
         await global.wait()
         updateCollidingBlocksEntered()
         global.stopTicking = false
+        await global.wait()
+        await global.wait()
+        hasJustRespawned = false
       return
     States.swingingOnPole:
       if inWaters:
@@ -375,7 +381,7 @@ func _physics_process(delta: float) -> void:
       updateKeyFollowPosition(delta)
     States.onPulley:
       clearWallData()
-      rotation = lerp_angle(float(rotation), defaultAngle, .2)
+      rotation = lerp_angle(rotation, defaultAngle, .2)
       $CollisionShape2D.rotation = 0
 
       vel.user = Vector2Grav.ZERO
@@ -484,7 +490,7 @@ func _physics_process(delta: float) -> void:
 
         floor_snap_length = 5
         # reset angle when exiting water
-        rotation = lerp_angle(float(rotation), defaultAngle, .2)
+        rotation = lerp_angle(rotation, defaultAngle, .2)
         $CollisionShape2D.rotation = 0
         if state == States.wallHang:
           if (CenterIsOnWall() and !TopIsOnWall()):
@@ -827,10 +833,20 @@ func _physics_process(delta: float) -> void:
     # $Camera2D.position_smoothing_speed = smoothingFactor
     $Camera2D.position -= $Camera2D.position * .5 * delta
   # log.pp($Camera2D.rotation, -rotation + defaultAngle)
-  if inWaters or rotation != defaultAngle:
-    $Camera2D.global_rotation = defaultAngle
-  else:
-    $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
+  # $Camera2D.global_rotation = defaultAngle
+  # if inWaters or vel.waterExit.vector:
+  #   $Camera2D.global_rotation = defaultAngle
+  # else:
+    var camrot = $Camera2D.global_rotation
+    if camrot < 0:
+      camrot += deg_to_rad(360)
+    # log.pp($Camera2D.global_rotation, " ---- ", defaultAngle, rad_to_deg(defaultAngle), rad_to_deg($Camera2D.global_rotation), camrot)
+    # log.pp(abs($Camera2D.rotation),abs($Camera2D.rotation) < .3)
+    if abs(camrot - defaultAngle) < .15 or hasJustRespawned:
+      $Camera2D.global_rotation = defaultAngle
+    else:
+      $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
+      
     # $Camera2D.global_rotation = deg_to_rad(0)
   # else:
   #   $Camera2D.global_rotation = deg_to_rad(0)
@@ -914,9 +930,9 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       block.thingThatMoves.vel.default.eq_sub(normal * depth * 200)
       state = States.pushing
       $anim.animation = "pushing box"
-    if block is BlockConveyerLeft or block is BlockConveyerRight:
-      if rotatedNormal != UP:
-        log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
+    # if block is BlockConveyerLeft or block is BlockConveyerRight:
+    #   if rotatedNormal != UP:
+      # log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
       
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
     and rotatedNormal == UP \
@@ -1005,7 +1021,6 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   for v: String in vel:
     vel[v] = Vector2Grav.ZERO
   velocity = Vector2.ZERO
-  up_direction = Vector2.UP
   playerXIntent = 0
   lastWall = 0
   pulleyNoDieTimer = 0
@@ -1032,7 +1047,6 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   if full:
     for cb in OnPlayerFullRestart:
       cb.call()
-  $Camera2D.global_rotation = defaultAngle
   _physics_process(0)
 
 func _on_bottom_body_entered(body: Node2D) -> void:
@@ -1182,10 +1196,8 @@ func updateKeyFollowPosition(delta):
 # add button that is pressed with a box
 # ?allow player to walljump on same wallside if wall in different position
 
-
 # (.*)vel\.user(.* [+*-/]?= .*)
   
 # $1vel.user$2
 # $1sss$2
 # $1log.pp(vel.user==vel.user.vector)
-
