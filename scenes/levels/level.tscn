@@ -38,7 +38,13 @@ offset_bottom = 648.0
 mouse_filter = 2
 script = ExtResource("5_urvlt")
 
-[node name="grid" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(-576, -324)
+
+[node name="Node2D" type="Node2D" parent="Node2D"]
+
+[node name="grid" type="Node2D" parent="Node2D/Node2D"]
+top_level = true
 script = ExtResource("3_b2cq8")
 grid_size = Vector2(36, 20)
 line_size = Vector2(1, 1)
@@ -49,14 +55,14 @@ vline_color = Color(1, 1, 1, 0.117647)
 hline_color = Color(1, 1, 1, 0.117647)
 metadata/_custom_type_script = "uid://ruj65gfl2gaw"
 
-[node name="y" type="Control" parent="grid"]
+[node name="y" type="Control" parent="Node2D/Node2D/grid"]
 layout_mode = 3
 anchors_preset = 0
 offset_top = -25.0
 offset_right = 40.0
 offset_bottom = 15.0
 
-[node name="1" type="Label" parent="grid/y"]
+[node name="1" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -72,7 +78,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="2" type="Label" parent="grid/y"]
+[node name="2" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -88,7 +94,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="3" type="Label" parent="grid/y"]
+[node name="3" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -104,7 +110,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="4" type="Label" parent="grid/y"]
+[node name="4" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -120,7 +126,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="5" type="Label" parent="grid/y"]
+[node name="5" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -136,7 +142,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="6" type="Label" parent="grid/y"]
+[node name="6" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -152,7 +158,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="7" type="Label" parent="grid/y"]
+[node name="7" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -168,7 +174,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="8" type="Label" parent="grid/y"]
+[node name="8" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -184,7 +190,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="9" type="Label" parent="grid/y"]
+[node name="9" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -200,7 +206,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="10" type="Label" parent="grid/y"]
+[node name="10" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -216,7 +222,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="11" type="Label" parent="grid/y"]
+[node name="11" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -232,7 +238,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="12" type="Label" parent="grid/y"]
+[node name="12" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -248,7 +254,7 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="13" type="Label" parent="grid/y"]
+[node name="13" type="Label" parent="Node2D/Node2D/grid/y"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -264,14 +270,14 @@ text = "0,1"
 vertical_alignment = 1
 clip_text = true
 
-[node name="x" type="Control" parent="grid"]
+[node name="x" type="Control" parent="Node2D/Node2D/grid"]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 45.0
 offset_right = 85.0
 offset_bottom = 40.0
 
-[node name="1" type="Label" parent="grid/x"]
+[node name="1" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -288,7 +294,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="2" type="Label" parent="grid/x"]
+[node name="2" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -305,7 +311,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="3" type="Label" parent="grid/x"]
+[node name="3" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -322,7 +328,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="4" type="Label" parent="grid/x"]
+[node name="4" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -339,7 +345,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="5" type="Label" parent="grid/x"]
+[node name="5" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -356,7 +362,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="6" type="Label" parent="grid/x"]
+[node name="6" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -373,7 +379,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="7" type="Label" parent="grid/x"]
+[node name="7" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -390,7 +396,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="8" type="Label" parent="grid/x"]
+[node name="8" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -407,7 +413,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="9" type="Label" parent="grid/x"]
+[node name="9" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -424,7 +430,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="10" type="Label" parent="grid/x"]
+[node name="10" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -441,7 +447,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="11" type="Label" parent="grid/x"]
+[node name="11" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -458,7 +464,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="12" type="Label" parent="grid/x"]
+[node name="12" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -475,7 +481,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="13" type="Label" parent="grid/x"]
+[node name="13" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -492,7 +498,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="14" type="Label" parent="grid/x"]
+[node name="14" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -509,7 +515,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="15" type="Label" parent="grid/x"]
+[node name="15" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -526,7 +532,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="16" type="Label" parent="grid/x"]
+[node name="16" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -543,7 +549,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="17" type="Label" parent="grid/x"]
+[node name="17" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -560,7 +566,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="18" type="Label" parent="grid/x"]
+[node name="18" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -577,7 +583,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="19" type="Label" parent="grid/x"]
+[node name="19" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
@@ -594,7 +600,7 @@ text = "0,0"
 vertical_alignment = 1
 clip_text = true
 
-[node name="20" type="Label" parent="grid/x"]
+[node name="20" type="Label" parent="Node2D/Node2D/grid/x"]
 clip_contents = true
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 1
