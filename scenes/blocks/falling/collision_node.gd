@@ -8,7 +8,6 @@ var speed = 2500
 var startTime = 0
 
 func on_physics_process(delta: float) -> void:
-  up_direction = global.player.up_direction
   if root.respawning: return
   if !root.falling: return
   if not startTime:

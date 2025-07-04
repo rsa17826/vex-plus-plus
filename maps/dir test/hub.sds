@@ -742,8 +742,8 @@
     }
   }
   {
-    STR(x)FLOAT(475.0)
-    STR(y)FLOAT(-1425.0)
+    STR(x)FLOAT(615.0)
+    STR(y)FLOAT(-1415.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(3.90000081062317)
     STR(r)FLOAT(0.0)
@@ -865,6 +865,76 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(540.0)
     STR(id)STR(gravity rotator)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(475.0)
+    STR(y)FLOAT(-1420.0)
+    STR(w)FLOAT(4.20000183582306)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-90.0)
+    STR(id)STR(conveyer/left)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(755.0)
+    STR(y)FLOAT(-665.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(822.5)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(15.4499998092651)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-850.0)
+    STR(y)FLOAT(185.0)
+    STR(w)FLOAT(24.0000002384186)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(275.0)
+    STR(y)FLOAT(110.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-350.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
     STR(options){
       STR(color)STR(#fff)
     }

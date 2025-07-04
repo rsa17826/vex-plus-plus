@@ -23,6 +23,7 @@ const WALL_SLIDE_SPEED = 35
 const DEATH_TIME = 15
 const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 12
+const SMALL = .00001
 
 var poleCooldown = 0
 var deathSources := []
@@ -270,7 +271,7 @@ func _physics_process(delta: float) -> void:
       position = Vector2.ZERO
     return
   var frameStartPosition := global_position
-  $waterRay.rotation_degrees = - rotation_degrees
+  $waterRay.rotation = - rotation + defaultAngle
   $anim.position = Vector2(0, 0.145)
   var REAL_GRAV: float = 0
 
@@ -406,7 +407,7 @@ func _physics_process(delta: float) -> void:
       updateKeyFollowPosition(delta)
     States.bouncing:
       rotation = defaultAngle
-      $CollisionShape2D.rotation = defaultAngle
+      $CollisionShape2D.rotation = 0
       lastWall = 0
       breakFromWall = false
       wallSlidingFrames = 0
@@ -451,7 +452,7 @@ func _physics_process(delta: float) -> void:
         for v: String in vel:
           vel[v] = Vector2Grav.ZERO
         if $waterRay.is_colliding():
-          vel.waterExit = Vector2Grav.new(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation)
+          vel.waterExit = Vector2Grav.new(Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation - defaultAngle))
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
         lastWall = 0
@@ -792,6 +793,8 @@ func _physics_process(delta: float) -> void:
 
         if floorRayCollision:
           handleCollision(floorRayCollision, Vector2(0, -1), 1, true)
+        # trying to fix some downward collisions not having correct normal
+        position += Vector2Grav.applyRot(Vector2(0, safe_margin))
         tryAndDieHazards()
         tryAndDieSquish()
       updateKeyFollowPosition(delta)
@@ -824,7 +827,7 @@ func _physics_process(delta: float) -> void:
     # $Camera2D.position_smoothing_speed = smoothingFactor
     $Camera2D.position -= $Camera2D.position * .5 * delta
   # log.pp($Camera2D.rotation, -rotation + defaultAngle)
-  if inWaters:
+  if inWaters or rotation != defaultAngle:
     $Camera2D.global_rotation = defaultAngle
   else:
     $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
@@ -855,7 +858,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
   var UP = Vector2Grav.UP.vector
-  var rotatedNormal = normal.rotated(up_direction.angle())
+  var rotatedNormal = normal.rotated(defaultAngle)
   # var rotatedNormal = Vector2Grav.applyRot(normal)
   rotatedNormal = clearLow(rotatedNormal)
   if block.respawning: return
@@ -871,15 +874,15 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     :
       block.falling = true
     if block is BlockGlass \
-    and normal == UP \
-    and velocity.y >= 0 \
-    and vel.user.y > 0 \
+    and rotatedNormal == UP \
+    and Vector2Grav.applyRot(velocity).y >= 0 \
+    and vel.user.y > -SMALL \
     and Input.is_action_pressed(&"down") \
     :
       block.__disable()
     if block is BlockBouncy \
     and rotatedNormal == UP \
-    and velocity.y >= 0 \
+    and Vector2Grav.applyRot(velocity).y >= 0 \
     and not inWaters \
     :
       block.start()
@@ -914,10 +917,11 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     if block is BlockConveyerLeft or block is BlockConveyerRight:
       if rotatedNormal != UP:
         log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
+      
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
     and rotatedNormal == UP \
-    # and not inWaters \
-    # and vel.user.y >= 0 \
+    and not inWaters \
+    and vel.user.y >= -SMALL \
     :
       if block is BlockConveyerRight:
         vel.conveyer.x = 400
@@ -1175,10 +1179,13 @@ func updateKeyFollowPosition(delta):
   # pulleys set animation in wrong direction
   # dying in water causes bad rotation until respawn ends
   # fix camera rotatiuon to be instant
-# add box button
+# add button that is pressed with a box
+# ?allow player to walljump on same wallside if wall in different position
+
 
 # (.*)vel\.user(.* [+*-/]?= .*)
   
 # $1vel.user$2
 # $1sss$2
 # $1log.pp(vel.user==vel.user.vector)
+

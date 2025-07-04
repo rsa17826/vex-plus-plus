@@ -925,7 +925,7 @@ func localInput(event: InputEvent) -> void:
         selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
       setBlockStartPos(selectedBlock)
       if useropts.mouseLockDistanceWhileRotating:
-        var direction := (mpos - selectedBlock.global_position).normalized().rotated(player.defaultAngle)
+        var direction := (mpos - selectedBlock.global_position).normalized().rotated(-player.defaultAngle)
         var newMousePos: Vector2 = (
           (
             selectedBlock.get_viewport_transform() * selectedBlock.global_position
