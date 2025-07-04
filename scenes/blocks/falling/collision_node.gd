@@ -18,7 +18,13 @@ func on_physics_process(delta: float) -> void:
   velocity = global.player.applyRot(vel)
   move_and_slide()
   if (global.tick - startTime) > 2:
+    await global.wait()
+    root.__disable()
+    root.isBeingMoved = true
+    await global.wait()
     root.respawn()
+    await global.wait(100)
+    root.__enable()
 
 func on_ready(first=false):
   startTime = 0
@@ -27,8 +33,7 @@ func on_ready(first=false):
 
 func on_respawn():
   startTime = 0
-  process_mode = Node.PROCESS_MODE_DISABLED
   vel = Vector2(0, 0)
-  global_position = root.startPosition
   await global.wait()
-  process_mode = Node.PROCESS_MODE_INHERIT
+  await global.wait()
+  await global.wait()
