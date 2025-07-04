@@ -48,6 +48,7 @@ var currentHungWall: Variant = 0
 var hungWallSide := 0
 var deathPosition := Vector2.ZERO
 var speedLeverActive: bool = false
+var slowCamRot := true
 
 var lightsOut: bool = false
 
@@ -832,17 +833,24 @@ func _physics_process(delta: float) -> void:
     camrot += deg_to_rad(360)
     # log.pp($Camera2D.global_rotation, " ---- ", defaultAngle, rad_to_deg(defaultAngle), rad_to_deg($Camera2D.global_rotation), camrot)
     # log.pp(abs($Camera2D.rotation),abs($Camera2D.rotation) < .3)
-  if abs(camrot - defaultAngle) < .15 or hasJustRespawned:
+  if angle_distance(rotation, defaultAngle) < SMALL:
+    slowCamRot = false
+  if abs(camrot - defaultAngle) < .15 or not slowCamRot or hasJustRespawned or inWaters:
     $Camera2D.global_rotation = defaultAngle
   else:
     $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
-      
+  log.pp(slowCamRot, angle_distance(rotation, defaultAngle), rotation, defaultAngle)
     # $Camera2D.global_rotation = deg_to_rad(0)
   # else:
   #   $Camera2D.global_rotation = deg_to_rad(0)
     # log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
+
+func angle_distance(angle1: float, angle2: float) -> float:
+  var difference = angle2 - angle1
+  difference = fposmod(difference + PI, TAU) - PI
+  return abs(difference)
 
 func tryAndDieHazards():
   if len(deathSources.filter(func(e):
@@ -856,11 +864,10 @@ func tryAndDieSquish():
 
 func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   var block: EditorBlock = b.root
-  # var posOffset = Vector2.ZERO
-  # log.pp(block.get_groups())
-  var UP = applyRot(Vector2.UP)
-  # var rotatedNormal = applyRot(normal)
-  var hitTop = normal.distance_to(UP) < 0.7
+  var hitTop = normal.distance_to(applyRot(Vector2.UP)) < 0.7
+  var hitBottom = normal.distance_to(applyRot(Vector2.DOWN)) < 0.7
+  var hitLeft = normal.distance_to(applyRot(Vector2.LEFT)) < 0.7
+  var hitRight = normal.distance_to(applyRot(Vector2.RIGHT)) < 0.7
   if block.respawning: return
   if sameFrame:
     if (
@@ -899,17 +906,17 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and not inWaters \
     and hitTop \
     :
-      block.thingThatMoves.vel.default -= (Vector2(getClosestWallSide() * 140, 0))
+      block.thingThatMoves.vel.default -= Vector2(getClosestWallSide() * 140, 0)
       $anim.animation = "kicking box"
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
       position -= Vector2(0, 2).rotated(defaultAngle)
 
     if (block is BlockPushableBox or block is BlockBomb) \
     and is_on_floor() \
-    and normal.x \
+    and (hitLeft or hitRight) \
     and not inWaters \
     :
-      block.thingThatMoves.vel.default -= (normal * depth * 200)
+      block.thingThatMoves.vel.default -= (normal.rotated(-defaultAngle) * depth * 200)
       state = States.pushing
       $anim.animation = "pushing box"
     # if block is BlockConveyerLeft or block is BlockConveyerRight:
