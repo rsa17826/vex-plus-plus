@@ -1150,4 +1150,15 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(290.0)
+    STR(y)FLOAT(-1460.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(104.999992370605)
+    STR(id)STR(gravity rotator)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]

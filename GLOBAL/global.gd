@@ -590,6 +590,23 @@ func _physics_process(delta: float) -> void:
   if stopTicking: return
   tick += delta
 
+func clearLow(v):
+  match typeof(v):
+    TYPE_VECTOR2:
+      if is_zero_approx(v.x): v.x = 0
+      if is_zero_approx(v.y): v.y = 0
+    TYPE_VECTOR2I:
+      if is_zero_approx(v.x): v.x = 0
+      if is_zero_approx(v.y): v.y = 0
+    TYPE_FLOAT:
+      if is_zero_approx(v): v = 0
+    TYPE_INT:
+      log.err("no use of int here!!!")
+    _:
+      log.warn("clearLow: unknown type", type_string(typeof(v)))
+      breakpoint
+  return v
+
 # local game only data
 
 var player: Player
@@ -1006,7 +1023,7 @@ func localInput(event: InputEvent) -> void:
   if Input.is_action_just_pressed(&"move_player_to_mouse", true):
     if player and is_instance_valid(player):
       # move player feet to mouse position
-      player.goto(player.get_global_mouse_position() - player.get_parent().startPosition + Vector2Grav.applyRot(0, -17))
+      player.goto(player.get_global_mouse_position() - player.get_parent().startPosition + player.applyRot(0, -17))
   if Input.is_action_just_pressed(&"toggle_pause", true):
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking

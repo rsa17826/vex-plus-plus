@@ -72,7 +72,13 @@ var ACTIONjump: bool = false:
       return true
     return ACTIONjump
 
-var vel: Dictionary[String, Vector2Grav]
+var vel: Dictionary[String, Vector2] = {
+  "pole": Vector2.ZERO,
+  "user": Vector2.ZERO,
+  "waterExit": Vector2.ZERO,
+  "bounce": Vector2.ZERO,
+  "conveyer": Vector2.ZERO,
+}
 var velDecay := {
   "pole": 1,
   "user": 1,
@@ -130,29 +136,11 @@ enum GravStates {
 
 func _init() -> void:
   global.player = self
-  vel = {
-  "pole": Vector2Grav.ZERO,
-  "user": Vector2Grav.ZERO,
-  "waterExit": Vector2Grav.ZERO,
-  "bounce": Vector2Grav.ZERO,
-  "conveyer": Vector2Grav.ZERO,
-}
 
 func _ready() -> void:
   Input.mouse_mode = mouseMode
   
 var defaultAngle: float
-
-# var vel.user: Vector2 = Vector2Grav.ZERO:
-# var log.pp(vel.user==vel.user.vector)
-
-#   set(val):
-
-#     vel.user = val.rotated(defaultAngle)
-#     log.pp(vel.user==vel.user.vector)
-
-#   get():
-#     return vel.user.rotated(-defaultAngle)
 
 func _input(event: InputEvent) -> void:
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
@@ -186,7 +174,7 @@ func _input(event: InputEvent) -> void:
     camState = CamStates.editor
     $Camera2D.reset_smoothing()
     if Input.is_action_pressed(&"editor_select") and Input.is_action_pressed(&"editor_pan"):
-      $Camera2D.global_position -= Vector2Grav.applyRot(event.relative) * global.useropts.editorScrollSpeed
+      $Camera2D.global_position -= applyRot(event.relative) * global.useropts.editorScrollSpeed
       var mousePos := get_viewport().get_mouse_position()
       var startPos := mousePos
       if mousePos.x <= 0:
@@ -235,7 +223,7 @@ func _physics_process(delta: float) -> void:
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
   # return
-  up_direction = clearLow(up_direction)
+  up_direction = global.clearLow(up_direction)
   # don't move camera for first 2 frames after respawning so that when respawning inside gravity rotator the camera starts in the correct direction 
   if !hasJustRespawned:
     defaultAngle = up_direction.angle() + deg_to_rad(90)
@@ -335,7 +323,7 @@ func _physics_process(delta: float) -> void:
       $anim.animation = "on pole"
       playerKT = 0
 
-      vel.user = Vector2Grav.ZERO
+      vel.user = Vector2.ZERO
       
       $CollisionShape2D.shape.size.y = unduckSize.y / 4
       %deathDetectors.scale = Vector2(1, 0.25)
@@ -386,7 +374,7 @@ func _physics_process(delta: float) -> void:
       rotation = lerp_angle(rotation, defaultAngle, .2)
       $CollisionShape2D.rotation = 0
 
-      vel.user = Vector2Grav.ZERO
+      vel.user = Vector2.ZERO
       
       var lastpos := global_position
       global_position = activePulley.nodeToMove.global_position + Vector2(0, 13)
@@ -449,7 +437,7 @@ func _physics_process(delta: float) -> void:
         rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
         # dont store velocity from normal movement if in water
 
-        vel.user = Vector2Grav.ZERO
+        vel.user = Vector2.ZERO
         
         # set state to falling for when player exits the water
         state = States.falling
@@ -458,9 +446,9 @@ func _physics_process(delta: float) -> void:
         velocity *= .8
         # only bounce out of the water if going up
         for v: String in vel:
-          vel[v] = Vector2Grav.ZERO
+          vel[v] = Vector2.ZERO
         if $waterRay.is_colliding():
-          vel.waterExit = Vector2Grav.new(Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation - defaultAngle))
+          vel.waterExit = Vector2(Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation - defaultAngle))
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
         lastWall = 0
@@ -750,27 +738,27 @@ func _physics_process(delta: float) -> void:
           wasJustInWater = false
           for n: String in stopVelOnGround:
             if !justAddedVels[n]:
-              vel[n] = Vector2Grav.ZERO
+              vel[n] = Vector2.ZERO
         # stopVelOnWall
         if state == States.wallHang or state == States.wallSliding:
           for n: String in stopVelOnWall:
             if !justAddedVels[n]:
-              vel[n] = Vector2Grav.ZERO
+              vel[n] = Vector2.ZERO
         # stopVelOnCeil
         if is_on_ceiling():
           if vel.user.y < 0:
             vel.user.y = 0
           for n: String in stopVelOnCeil:
             if !justAddedVels[n]:
-              vel[n] = Vector2Grav.ZERO
+              vel[n] = Vector2.ZERO
 
         # move using all velocities
         velocity = Vector2.ZERO
         if state != States.wallHang:
           for n: String in vel:
-            velocity += vel[n].vector
+            velocity += applyRot(vel[n])
           for n: String in vel:
-            vel[n].eq_mul(velDecay[n]) # * delta * 60
+            vel[n] *= (velDecay[n]) # * delta * 60
         if Input.is_key_pressed(KEY_T):
           breakpoint
         # log.pp(velocity, vel.user == vel.user.vector)
@@ -802,7 +790,7 @@ func _physics_process(delta: float) -> void:
         if floorRayCollision:
           handleCollision(floorRayCollision, Vector2(0, -1), 1, true)
         # trying to fix some downward collisions not having correct normal
-        position += Vector2Grav.applyRot(Vector2(0, safe_margin))
+        position += applyRot(Vector2(0, safe_margin))
         tryAndDieHazards()
         tryAndDieSquish()
       updateKeyFollowPosition(delta)
@@ -866,46 +854,40 @@ func tryAndDieSquish():
     log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
     die()
 
-func clearLow(v):
-  if is_zero_approx(v.x): v.x = 0
-  if is_zero_approx(v.y): v.y = 0
-  return v
-
 func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   var block: EditorBlock = b.root
   # var posOffset = Vector2.ZERO
   # log.pp(block.get_groups())
-  var UP = Vector2Grav.UP.vector
-  var rotatedNormal = normal.rotated(defaultAngle)
-  # var rotatedNormal = Vector2Grav.applyRot(normal)
-  rotatedNormal = clearLow(rotatedNormal)
+  var UP = applyRot(Vector2.UP)
+  # var rotatedNormal = applyRot(normal)
+  var hitTop = normal.distance_to(UP) < 0.7
   if block.respawning: return
   if sameFrame:
     if block is BlockDonup or block is BlockFalling:
-      log.pp("asdasdasd", UP, rotatedNormal, up_direction)
+      log.pp("asdasdasd", UP, normal, up_direction)
     if (
       block is BlockDonup
       or block is BlockFalling
     ) \
-    and rotatedNormal == UP \
-    and Vector2Grav.applyRot(velocity).y >= 0 \
+    and hitTop \
+    and applyRot(velocity).y >= 0 \
     :
       block.falling = true
     if block is BlockGlass \
-    and rotatedNormal == UP \
-    and Vector2Grav.applyRot(velocity).y >= 0 \
+    and hitTop \
+    and applyRot(velocity).y >= 0 \
     and vel.user.y > -SMALL \
     and Input.is_action_pressed(&"down") \
     :
       block.__disable()
     if block is BlockBouncy \
-    and rotatedNormal == UP \
-    and Vector2Grav.applyRot(velocity).y >= 0 \
+    and hitTop \
+    and applyRot(velocity).y >= 0 \
     and not inWaters \
     :
       block.start()
     if block is BlockInnerLevel \
-    and rotatedNormal == UP \
+    and hitTop \
     and state == States.sliding \
     and abs(vel.user.x) < 10 \
     :
@@ -917,16 +899,16 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and getClosestWallSide() \
     and Input.is_action_just_pressed(&"down") \
     and not inWaters \
-    and rotatedNormal == UP \
+    and hitTop \
     :
-      block.thingThatMoves.vel.default.eq_sub(Vector2Grav.new(getClosestWallSide() * 140, 0))
+      block.thingThatMoves.vel.default.eq_sub(Vector2(getClosestWallSide() * 140, 0))
       $anim.animation = "kicking box"
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
       position -= Vector2(0, 2).rotated(defaultAngle)
 
     if (block is BlockPushableBox or block is BlockBomb) \
     and is_on_floor() \
-    and rotatedNormal.x \
+    and normal.x \
     and not inWaters \
     :
       block.thingThatMoves.vel.default.eq_sub(normal * depth * 200)
@@ -937,7 +919,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       # log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
       
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
-    and rotatedNormal == UP \
+    and hitTop \
     and not inWaters \
     and vel.user.y >= -SMALL \
     :
@@ -979,7 +961,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
 
 func goto(pos: Vector2) -> void:
   position = pos
-  vel.user = Vector2Grav.ZERO
+  vel.user = Vector2.ZERO
   $Camera2D.position = Vector2.ZERO
   $Camera2D.reset_smoothing()
 
@@ -1021,7 +1003,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
     state = States.dead
   keys = []
   for v: String in vel:
-    vel[v] = Vector2Grav.ZERO
+    vel[v] = Vector2.ZERO
   velocity = Vector2.ZERO
   playerXIntent = 0
   lastWall = 0
@@ -1203,3 +1185,11 @@ func updateKeyFollowPosition(delta):
 # $1vel.user$2
 # $1sss$2
 # $1log.pp(vel.user==vel.user.vector)
+
+func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
+  var v
+  if x is Vector2:
+    v = x.rotated(global.player.defaultAngle)
+  else:
+    v = Vector2(x, y).rotated(global.player.defaultAngle)
+  return global.clearLow(v)
