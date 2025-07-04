@@ -15,8 +15,8 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 3120
-collision_mask = 2
+collision_layer = 3072
+collision_mask = 34
 script = ExtResource("2_0pwdg")
 root = NodePath("..")
 
@@ -28,5 +28,7 @@ visible = false
 shape = SubResource("RectangleShape2D_16wq8")
 debug_color = Color(1, 0, 0, 0.419608)
 
+[connection signal="area_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="area_exited" from="collisionNode" to="." method="_on_body_exited"]
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

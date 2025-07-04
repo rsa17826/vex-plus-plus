@@ -19,6 +19,12 @@ var velDecay := {
   "conveyer": .9
 }
 
+func _ready() -> void:
+  global.gravChanged.connect(func(lastUpDir, newUpDir):
+    for v in vel:
+      vel[v]=vel[v].rotated(angle_difference(lastUpDir.angle(), newUpDir.angle()))
+  )
+  
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
   if root.exploded: return
@@ -31,12 +37,9 @@ func on_physics_process(delta: float) -> void:
     vel.default.y += global.player.GRAVITY * delta
   vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
-  # vel.default += vel.conveyer
   velocity = global.player.applyRot(vel.default + vel.conveyer)
   move_and_slide()
-  # vel.default -= vel.conveyer
-  vel.conveyer *= (velDecay.conveyer)
-  # log.pp(lastvel, "lastvel")
+  vel.conveyer *= velDecay.conveyer
   if is_on_floor() and lastvel.y > 700:
     root.explode()
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \

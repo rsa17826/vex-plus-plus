@@ -14,7 +14,12 @@ var vel := {
 var velDecay := {
   "conveyer": .9
 }
-
+func _ready() -> void:
+  global.gravChanged.connect(func(lastUpDir, newUpDir):
+    for v in vel:
+      vel[v]=vel[v].rotated(angle_difference(lastUpDir.angle(), newUpDir.angle()))
+  )
+  
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
   if root._DISABLED: return
@@ -23,6 +28,8 @@ func on_physics_process(delta: float) -> void:
     vel.default.y -= max(95 * delta * (vel.default.y / 8), 10)
   else:
     if is_on_floor():
+      vel.default.y = 0
+    if is_on_ceiling() and vel.default.y < 0:
       vel.default.y = 0
     vel.default.y += global.player.GRAVITY * delta
   vel.default.x *= .90 if is_on_floor() else .97
