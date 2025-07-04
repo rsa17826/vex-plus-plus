@@ -828,15 +828,15 @@ func _physics_process(delta: float) -> void:
   # if inWaters or vel.waterExit.vector:
   #   $Camera2D.global_rotation = defaultAngle
   # else:
-    var camrot = $Camera2D.global_rotation
-    if camrot < 0:
-      camrot += deg_to_rad(360)
+  var camrot = $Camera2D.global_rotation
+  if camrot < 0:
+    camrot += deg_to_rad(360)
     # log.pp($Camera2D.global_rotation, " ---- ", defaultAngle, rad_to_deg(defaultAngle), rad_to_deg($Camera2D.global_rotation), camrot)
     # log.pp(abs($Camera2D.rotation),abs($Camera2D.rotation) < .3)
-    if abs(camrot - defaultAngle) < .15 or hasJustRespawned:
-      $Camera2D.global_rotation = defaultAngle
-    else:
-      $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
+  if abs(camrot - defaultAngle) < .15 or hasJustRespawned:
+    $Camera2D.global_rotation = defaultAngle
+  else:
+    $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
       
     # $Camera2D.global_rotation = deg_to_rad(0)
   # else:
