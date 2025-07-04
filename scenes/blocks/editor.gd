@@ -370,7 +370,10 @@ func _physics_process(delta: float) -> void:
         block.thingThatMoves.position += (lastMovementStep / block.global_scale).rotated(-block.rotation)
       else:
         block.unusedOffset += (lastMovementStep / block.global_scale).rotated(-block.rotation)
-    
+var left_edge: float
+var right_edge: float
+var top_edge: float
+var bottom_edge: float
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
@@ -436,14 +439,14 @@ func _process(delta: float) -> void:
           # and if first hovered block, show border
           if global.hoveredBlocks && self == global.hoveredBlocks[0] \
             or self in global.boxSelect_selectedBlocks:
-            var mouse_pos := get_global_mouse_position()
+            var mouse_pos := get_global_mouse_position().rotated(-deg_to_rad(startRotation_degrees))
 
-            var node_pos := ghost.global_position
+            var node_pos := ghost.global_position.rotated(-deg_to_rad(startRotation_degrees))
             var node_size: Vector2 = ghost.texture.get_size() * ghost.scale * scale
-            var left_edge := node_pos.x - node_size.x / 2
-            var right_edge := node_pos.x + node_size.x / 2
-            var top_edge := node_pos.y - node_size.y / 2
-            var bottom_edge := node_pos.y + node_size.y / 2
+            left_edge = node_pos.x - node_size.x / 2
+            right_edge = node_pos.x + node_size.x / 2
+            top_edge = node_pos.y - node_size.y / 2
+            bottom_edge = node_pos.y + node_size.y / 2
 
             var leftDist: float = abs(mouse_pos.x - left_edge)
             var rightDist: float = abs(mouse_pos.x - right_edge)

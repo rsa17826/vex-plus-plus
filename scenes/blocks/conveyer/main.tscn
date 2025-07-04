@@ -143,6 +143,7 @@ editorBarIconNode = NodePath("collisionNode/editorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/AnimatedSprite2D")]
 thingThatMoves = NodePath("collisionNode")
+mouseRotationOffset = 180
 pathFollowNode = NodePath("collisionNode")
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
