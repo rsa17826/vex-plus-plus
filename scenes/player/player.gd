@@ -1116,9 +1116,16 @@ func updateKeyFollowPosition(delta):
     var direction = (leader.global_position - follower.global_position).normalized()
     var target_position = leader.global_position - direction * follow_distance
     follower.global_position = lerp(follower.global_position, target_position, .3)
+func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
+  var v
+  if x is Vector2:
+    v = x.rotated(global.player.defaultAngle)
+  else:
+    v = Vector2(x, y).rotated(global.player.defaultAngle)
+  return global.clearLow(v)
 
 # zipline
-# add tooltips to blocks in block picker??
+# ??add tooltips to blocks in block picker
 # make menu show groups as named colapsables
 
 # add animations for
@@ -1132,9 +1139,9 @@ func updateKeyFollowPosition(delta):
 
 # add undo/redo history
 
-# allow user to reorder the levels in the editor?
-# allow user to reorder the block picker?
-# add required events to win level? - eg break x glass - separate ones for each level in a map, not mapwide goals
+# ?allow user to reorder the levels in the editor
+# ??allow user to reorder the block picker from editor ui
+# ?add required events to win level - eg break x glass - separate ones for each level in a map, not mapwide goals
 
 # option to change ghost opacity/ghost hover opacity? .5
 
@@ -1163,16 +1170,16 @@ func updateKeyFollowPosition(delta):
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
-# add invinsabliity lever?
+# ?add invinsabliity lever
 
 # add level thumbnails
 
 # add star requirement for inner level
-# add star finder?
+# ?add star finder
 
 # add cmd arg to play level by name/path
 
-# add 2x jump option?
+# ?add 2x jump option
 
 # make clicking to release copy not select blocks
 
@@ -1191,29 +1198,13 @@ func updateKeyFollowPosition(delta):
 # add extra frame to oneway
 # replace player death with signal
 # make balanced random
-# add reset tod efault button to settings
+# add reset to default button to settings
 # add texture to reset buttons
 # in rev grav
-  # pole jumps mopve player backwarsds
   # pole indicators are not in correct location
-  # bouncys bounce down and warp player to other side
-  # water rotates screen
+  # bouncys warp player to wrong side
   # pulleys set animation in wrong direction
   # dying in water causes bad rotation until respawn ends
-  # fix camera rotatiuon to be instant
 # add button that is pressed with a box
 # ?allow player to walljump on same wallside if wall in different position
-
-# (.*)vel\.user(.* [+*-/]?= .*)
-  
-# $1vel.user$2
-# $1sss$2
-# $1log.pp(vel.user==vel.user.vector)
-
-func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
-  var v
-  if x is Vector2:
-    v = x.rotated(global.player.defaultAngle)
-  else:
-    v = Vector2(x, y).rotated(global.player.defaultAngle)
-  return global.clearLow(v)
+# make bouncing buzsaws follow gravity
