@@ -12,8 +12,8 @@ var collsiionOn_bottom = []
 var collsiionOn_left = []
 var collsiionOn_right = []
 var vel := {
-  "conveyer": Vector2Grav.ZERO,
-  "default": Vector2Grav.ZERO,
+  "conveyer": Vector2.ZERO,
+  "default": Vector2.ZERO,
 }
 var velDecay := {
   "conveyer": .9
@@ -32,10 +32,10 @@ func on_physics_process(delta: float) -> void:
   vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
   # vel.default += vel.conveyer
-  velocity = vel.default.vector + vel.conveyer.vector
+  velocity = global.player.applyRot(vel.default + vel.conveyer)
   move_and_slide()
   # vel.default -= vel.conveyer
-  vel.conveyer.eq_mul(velDecay.conveyer)
+  vel.conveyer *= (velDecay.conveyer)
   # log.pp(lastvel, "lastvel")
   if is_on_floor() and lastvel.y > 700:
     root.explode()
@@ -47,10 +47,10 @@ func on_physics_process(delta: float) -> void:
     var collision := get_slide_collision(i)
     var block := collision.get_collider()
     var normal := collision.get_normal()
-    var rotatedNormal = Vector2Grav.applyRot(normal)
+    var rotatedNormal = global.player.applyRot(normal)
     block = block.root
     if (block is BlockConveyerLeft or block is BlockConveyerRight) \
-    and rotatedNormal == Vector2Grav.UP.vector \
+    and rotatedNormal == global.player.applyRot(Vector2.UP) \
     and lastvel.y >= 0 \
     :
       if block is BlockConveyerRight:
@@ -59,13 +59,13 @@ func on_physics_process(delta: float) -> void:
         vel.conveyer.x = -400
 
 func on_ready(first=false):
-  vel.conveyer = Vector2Grav.ZERO
-  vel.default = Vector2Grav.ZERO
+  vel.conveyer = Vector2.ZERO
+  vel.default = Vector2.ZERO
   global_position = root.startPosition
 
 func on_respawn():
-  vel.conveyer = Vector2Grav.ZERO
-  vel.default = Vector2Grav.ZERO
+  vel.conveyer = Vector2.ZERO
+  vel.default = Vector2.ZERO
   collsiionOn_top = []
   collsiionOn_bottom = []
   collsiionOn_left = []
