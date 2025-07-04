@@ -1835,3 +1835,5 @@ func removeDeadNodes(arr):
 
 var hoveredBrushes: Array[Node2D] = []
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
+
+signal gravChanged
