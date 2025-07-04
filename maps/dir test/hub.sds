@@ -1240,7 +1240,7 @@
   }
   {
     STR(x)FLOAT(1095.0)
-    STR(y)FLOAT(-605.0)
+    STR(y)FLOAT(-615.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -1261,6 +1261,54 @@
     STR(options){
       STR(multiUse)BOOL(true)
       STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1205.0)
+    STR(y)FLOAT(-910.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(815.0)
+    STR(y)FLOAT(-110.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(500.0)
+    STR(y)FLOAT(150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(inner level)
+    STR(options){
+      STR(level)STR(trest)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(480.0)
+    STR(y)FLOAT(10.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(gravity rotator)
+    STR(options){
       STR(color)STR(#fff)
     }
   }

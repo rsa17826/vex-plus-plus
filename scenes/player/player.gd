@@ -219,18 +219,13 @@ func clearWallData():
   wallSlidingFrames = 0
   wallBreakDownFrames = 0
 
-# don't move camera for first 2 frames after respawning so that when respawning inside gravity rotator the camera starts in the correct direction 
-var hasJustRespawned: bool = false
-
 func _physics_process(delta: float) -> void:
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
   # return
   up_direction = global.clearLow(up_direction)
-  # don't move camera for first 2 frames after respawning so that when respawning inside gravity rotator the camera starts in the correct direction 
-  if !hasJustRespawned:
-    defaultAngle = up_direction.angle() + deg_to_rad(90)
+  defaultAngle = up_direction.angle() + deg_to_rad(90)
   if abs(defaultAngle) < .0001:
     defaultAngle = 0
   # log.pp(defaultAngle, up_direction, up_direction.rotated(defaultAngle))
@@ -269,7 +264,7 @@ func _physics_process(delta: float) -> void:
   $waterRay.rotation = - rotation + defaultAngle
   $anim.position = Vector2(0, 0.145)
   var REAL_GRAV: float = 0
-
+  log.pp(up_direction, "up_direction")
   match gravState:
     GravStates.down:
       REAL_GRAV = GRAVITY * .5 * delta
@@ -280,6 +275,7 @@ func _physics_process(delta: float) -> void:
   match state:
     States.dead:
       $Camera2D.global_rotation = defaultAngle
+      slowCamRot = false
       deadTimer -= delta * 60
       deadTimer = clampf(deadTimer, 0, currentRespawnDelay)
       # global.tick = global.currentLevel().tick
@@ -298,21 +294,19 @@ func _physics_process(delta: float) -> void:
       $waterAnimTop.visible = false
       $waterAnimBottom.visible = false
       $Camera2D.reset_smoothing()
+      up_direction = global.currentLevel().up_direction
       if deadTimer <= 0:
-        hasJustRespawned = true
         if lastSpawnPoint:
           position = lastSpawnPoint
         else:
           position = Vector2(0, -1.9)
         state = States.falling
         Engine.time_scale = 1
-        up_direction = Vector2.UP
         await global.wait()
         updateCollidingBlocksEntered()
         global.stopTicking = false
         await global.wait()
         await global.wait()
-        hasJustRespawned = false
       return
     States.swingingOnPole:
       if inWaters:
@@ -837,7 +831,7 @@ func _physics_process(delta: float) -> void:
     # log.pp($Camera2D.global_rotation, " ---- ", defaultAngle, rad_to_deg(defaultAngle), rad_to_deg($Camera2D.global_rotation), camrot)
     # log.pp(abs($Camera2D.rotation),abs($Camera2D.rotation) < .3)
   var targetAngle = camRotLock if global.showEditorUi else defaultAngle
-  log.pp(camRotLock, "camRotLock", targetAngle, camrot, $Camera2D.global_rotation)
+  # log.pp(camRotLock, "camRotLock", targetAngle, camrot, $Camera2D.global_rotation)
   if global.useropts.dontChangeCameraRotationOnGravityChange:
     $Camera2D.global_rotation = 0
   else:
@@ -849,11 +843,12 @@ func _physics_process(delta: float) -> void:
     else:
       if angle_distance(rotation, targetAngle) < SMALL:
         slowCamRot = false
-      if angle_distance(camrot, targetAngle) < .15 or not slowCamRot or hasJustRespawned or inWaters or global.useropts.cameraRotationOnGravityChangeHappensInstantly:
-        log.pp(1)
+      if angle_distance(camrot, targetAngle) < .15 \
+       or not slowCamRot \
+       or inWaters \
+       or global.useropts.cameraRotationOnGravityChangeHappensInstantly:
         $Camera2D.global_rotation = targetAngle
       else:
-        log.pp(2, angle_distance(camrot, targetAngle))
         $Camera2D.global_rotation = lerp_angle(camrot, targetAngle, .05)
   # log.pp(slowCamRot, angle_distance(rotation, targetAngle), rotation, targetAngle)
     # $Camera2D.global_rotation = deg_to_rad(0)
@@ -889,21 +884,26 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     if (
       block is BlockDonup
       or block is BlockFalling
+    ):
+      log.pp(applyRot(velocity), velocity)
+    if (
+      block is BlockDonup
+      or block is BlockFalling
     ) \
     and hitTop \
-    and applyRot(velocity).y >= 0 \
+    and applyRot(velocity).y >= -SMALL \
     :
       block.falling = true
     if block is BlockGlass \
     and hitTop \
-    and applyRot(velocity).y >= 0 \
+    and applyRot(velocity).y >= -SMALL \
     and vel.user.y > -SMALL \
     and Input.is_action_pressed(&"down") \
     :
       block.__disable()
     if block is BlockBouncy \
     and hitTop \
-    and applyRot(velocity).y >= 0 \
+    and applyRot(velocity).y >= -SMALL \
     and not inWaters \
     :
       block.start()
@@ -1011,8 +1011,11 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
     lastSpawnPoint = Vector2.ZERO
     global.tick = 0
     global.currentLevel().tick = 0
+    global.currentLevel().up_direction = Vector2.UP
   else:
     global.tick = global.currentLevel().tick
+    up_direction = global.currentLevel().up_direction
+  slowCamRot = false
   lastCollidingBlocks = []
   activePulley = null
   global.stopTicking = true

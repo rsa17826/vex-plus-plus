@@ -1089,9 +1089,15 @@ var loadedLevels: Array
 var mainLevelName: String
 var beatLevels: Array
 var levelOpts: Dictionary
+var loadingLevel = false
 
 func loadInnerLevel(innerLevel: String) -> void:
+  if loadingLevel: return
+  loadingLevel = true
+  player.state = player.States.levelLoading
+  # breakpoint
   currentLevel().spawnPoint = player.global_position - player.get_parent().global_position
+  currentLevel().up_direction = player.up_direction
 
   var prevLevelDataFound = false
   for level in beatLevels:
@@ -1112,7 +1118,8 @@ func loadInnerLevel(innerLevel: String) -> void:
   player.goto(player.deathPosition)
   player.die(0, true)
   loadBlockData()
-  savePlayerLevelData()
+  await savePlayerLevelData()
+  loadingLevel = false
   # log.pp(loadedLevels, beatLevels)
 
 func win() -> void:
@@ -1147,9 +1154,10 @@ var savingPlayerLevelData := false
 
 func savePlayerLevelData() -> void:
   if savingPlayerLevelData: return
-  await wait()
   savingPlayerLevelData = true
+  await wait()
   var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
+  # breakpoint
   saveData[mainLevelName] = {
     "lastSpawnPoint": player.lastSpawnPoint,
     "loadedLevels": loadedLevels,
@@ -1157,7 +1165,9 @@ func savePlayerLevelData() -> void:
   }
   
   currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
+  currentLevel().up_direction = player.up_direction
   currentLevel().blockSaveData = saveBlockData()
+  log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
   sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
   savingPlayerLevelData = false
 
@@ -1165,6 +1175,7 @@ func newLevelSaveData(levelname):
   return {
     "name": levelname,
     "spawnPoint": Vector2.ZERO,
+    "up_direction": Vector2.UP,
     "tick": 0,
     "blockSaveData": {},
   }.duplicate()
@@ -1263,6 +1274,7 @@ func loadBlockData():
   if not "blockSaveData" in currentLevel(): return
   var blockSaveData = currentLevel().blockSaveData
   global.tick = currentLevel().tick
+  player.up_direction = currentLevel().up_direction
   var blockIds = {}
   for block: EditorBlock in level.get_node("blocks").get_children():
     if block.id not in blockIds:
@@ -1822,4 +1834,4 @@ func removeDeadNodes(arr):
   )
 
 var hoveredBrushes: Array[Node2D] = []
-# (?:(?:\b(?:and|or)\b).*){3,}
+# (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
