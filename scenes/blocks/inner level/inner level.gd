@@ -8,12 +8,10 @@ var disabled := false
 
 func enterLevel() -> void:
   if disabled: return
-  global.loadInnerLevel(selectedOptions.level)
-
+  await global.loadInnerLevel(selectedOptions.level)
 
 func on_ready():
   onAllDataLoaded()
-
 
 func onAllDataLoaded() -> void:
   disabled = false
