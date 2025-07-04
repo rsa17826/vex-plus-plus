@@ -219,6 +219,7 @@ func clearWallData():
 var hasJustRespawned: bool = false
 
 func _physics_process(delta: float) -> void:
+  log.pp(vel.bounce)
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
@@ -901,7 +902,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and not inWaters \
     and hitTop \
     :
-      block.thingThatMoves.vel.default.eq_sub(Vector2(getClosestWallSide() * 140, 0))
+      block.thingThatMoves.vel.default -= (Vector2(getClosestWallSide() * 140, 0))
       $anim.animation = "kicking box"
       boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
       position -= Vector2(0, 2).rotated(defaultAngle)
@@ -911,7 +912,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and normal.x \
     and not inWaters \
     :
-      block.thingThatMoves.vel.default.eq_sub(normal * depth * 200)
+      block.thingThatMoves.vel.default -= (normal * depth * 200)
       state = States.pushing
       $anim.animation = "pushing box"
     # if block is BlockConveyerLeft or block is BlockConveyerRight:
