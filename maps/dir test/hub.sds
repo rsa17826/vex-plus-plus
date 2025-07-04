@@ -1800,4 +1800,15 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(1330.0)
+    STR(y)FLOAT(-1825.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(conveyer)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]

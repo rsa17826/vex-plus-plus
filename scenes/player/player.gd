@@ -960,9 +960,9 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       else: return
       var shouldFlipConveyerDirection = maxDir < 0
       if shouldFlipConveyerDirection:
-        vel.conveyer.x = 400
-      else:
         vel.conveyer.x = -400
+      else:
+        vel.conveyer.x = 400
       if hitLeft || hitRight:
         if (hitRight == shouldFlipConveyerDirection):
           vel.conveyer.y = abs(vel.conveyer.x)
@@ -1236,4 +1236,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make bouncing buzsaws follow gravity
 
 # fix conveyers with reverse gravity
-# !!!keep momentum in prev direction when changing gravity eg high down vel then reverse grav is now high up vel
+# prevent converyers from occasionally activating when collision direction is wrong
+# make conveyers work better with boxes like they do with the player and make the players conveyer code easier to read

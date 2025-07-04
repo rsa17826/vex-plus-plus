@@ -682,6 +682,10 @@ func localProcess(delta: float) -> void:
         elif editorInScaleMode && selectedBlock \
         and (selectedBlock.is_in_group("EDITOR_OPTION_scale") \
         or global.useropts.allowScalingAnything):
+          if !scaleOnTopSide and !scaleOnBottomSide and !scaleOnLeftSide and !scaleOnRightSide: return
+          # mpos = mpos.rotated(-deg_to_rad(selectedBlock.startRotation_degrees))
+          var lastRot = selectedBlock.rotation
+          selectedBlock.rotation = 0
           var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
 
           # get the edge position in px
@@ -743,6 +747,7 @@ func localProcess(delta: float) -> void:
           selectedBlock.scale.x = clamp(selectedBlock.scale.x, 0.1 / 7.0, 250.0 / 7.0)
           selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 250.0 / 7.0)
           global.showEditorUi = true
+          selectedBlock.rotation = lastRot
           # selectedBlock.self_modulate.a = useropts.hoveredBlockGhostAlpha
           var moveDist = selectedBlock.global_position - selectedBlock.startPosition
           setBlockStartPos(selectedBlock)
@@ -1453,7 +1458,10 @@ func localReady() -> void:
   log.pp("FILEPID", pid)
   log.pp("MYPID", OS.get_process_id())
   getProcess(OS.get_process_id())
-  if getProcess(pid) and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))):
+  if getProcess(pid) \
+    and pid != OS.get_process_id() \
+    and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))) \
+  :
     sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
     DirAccess.remove_absolute(path.abs("res://process"))
     get_tree().quit()
