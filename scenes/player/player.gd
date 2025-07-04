@@ -49,6 +49,7 @@ var hungWallSide := 0
 var deathPosition := Vector2.ZERO
 var speedLeverActive: bool = false
 var slowCamRot := true
+var camRotLock: float = 0
 
 var lightsOut: bool = false
 
@@ -154,9 +155,11 @@ func _input(event: InputEvent) -> void:
     die()
   if Input.is_action_just_pressed(&"full_restart"):
     die(DEATH_TIME, true)
-  if event is InputEventMouseMotion:
+  if event is InputEventMouseMotion and not global.showEditorUi:
+    camRotLock = defaultAngle
     global.showEditorUi = true
-  if Input.is_action_pressed(&"editor_pan"):
+  if Input.is_action_pressed(&"editor_pan") and not global.showEditorUi:
+    camRotLock = defaultAngle
     global.showEditorUi = true
     if not camLockPos:
       camLockPos = $Camera2D.global_position
@@ -175,7 +178,7 @@ func _input(event: InputEvent) -> void:
     camState = CamStates.editor
     $Camera2D.reset_smoothing()
     if Input.is_action_pressed(&"editor_select") and Input.is_action_pressed(&"editor_pan"):
-      $Camera2D.global_position -= applyRot(event.relative) * global.useropts.editorScrollSpeed
+      $Camera2D.global_position -= (event.relative.rotated($Camera2D.global_rotation)) * global.useropts.editorScrollSpeed
       var mousePos := get_viewport().get_mouse_position()
       var startPos := mousePos
       if mousePos.x <= 0:
@@ -833,13 +836,26 @@ func _physics_process(delta: float) -> void:
     camrot += deg_to_rad(360)
     # log.pp($Camera2D.global_rotation, " ---- ", defaultAngle, rad_to_deg(defaultAngle), rad_to_deg($Camera2D.global_rotation), camrot)
     # log.pp(abs($Camera2D.rotation),abs($Camera2D.rotation) < .3)
-  if angle_distance(rotation, defaultAngle) < SMALL:
-    slowCamRot = false
-  if abs(camrot - defaultAngle) < .15 or not slowCamRot or hasJustRespawned or inWaters:
-    $Camera2D.global_rotation = defaultAngle
+  var targetAngle = camRotLock if global.showEditorUi else defaultAngle
+  log.pp(camRotLock, "camRotLock", targetAngle, camrot, $Camera2D.global_rotation)
+  if global.useropts.dontChangeCameraRotationOnGravityChange:
+    $Camera2D.global_rotation = 0
   else:
-    $Camera2D.global_rotation = lerp_angle($Camera2D.global_rotation, defaultAngle, .05)
-  log.pp(slowCamRot, angle_distance(rotation, defaultAngle), rotation, defaultAngle)
+    if global.showEditorUi:
+      if global.useropts.cameraUsesDefaultRotationInEditor:
+        $Camera2D.global_rotation = 0
+      else:
+        $Camera2D.global_rotation = targetAngle
+    else:
+      if angle_distance(rotation, targetAngle) < SMALL:
+        slowCamRot = false
+      if angle_distance(camrot, targetAngle) < .15 or not slowCamRot or hasJustRespawned or inWaters or global.useropts.cameraRotationOnGravityChangeHappensInstantly:
+        log.pp(1)
+        $Camera2D.global_rotation = targetAngle
+      else:
+        log.pp(2, angle_distance(camrot, targetAngle))
+        $Camera2D.global_rotation = lerp_angle(camrot, targetAngle, .05)
+  # log.pp(slowCamRot, angle_distance(rotation, targetAngle), rotation, targetAngle)
     # $Camera2D.global_rotation = deg_to_rad(0)
   # else:
   #   $Camera2D.global_rotation = deg_to_rad(0)

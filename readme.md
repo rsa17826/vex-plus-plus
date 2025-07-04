@@ -95,6 +95,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **boxSelectColor**: the color that the box select will be
 - **editorBarPosition**: moves the editor bar to either top, bottom, left, or right of the screen
 - **editorBarColumns**: the amount of columns in the editor bar. if you want a horizontal layout just make this number large and if using a vertical layout make this number small.
+- **cameraRotationOnGravityChangeHappensInstantly**: makes is so that when the gravity changes the camera rotates instantly instead of rotating smoothly.
+- **cameraUsesDefaultRotationInEditor**: makes is so that when the editor ui is shown the camera is reset to default rotation instead of keeping the last rotation.
+- **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
 
 ### block settings that apply to many blocks
 

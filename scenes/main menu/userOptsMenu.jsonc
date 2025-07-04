@@ -200,6 +200,24 @@
       },
       {
         "thing": "option",
+        "type": "bool",
+        "key": "cameraUsesDefaultRotationInEditor",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "dontChangeCameraRotationOnGravityChange",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "cameraRotationOnGravityChangeHappensInstantly",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
         "type": "single select",
         "key": "editorBarPosition",
         "defaultValue": 0,
