@@ -1673,16 +1673,17 @@ func zipDir(fromPath: String, toPath: String):
   writer.close()
   return OK
 
-func openPathInExplorer(p: String):
-  log.pp(p)
-  OS.create_process("explorer", PackedStringArray([
-    '"' + (
-      ProjectSettings.globalize_path(p)
-      if OS.has_feature("editor") else
-      global.path.abs(p)
-    ).replace("/", "\\")
-    + '"'
-  ]))
+# use OS.shell_open
+# func openPathInExplorer(p: String):
+#   log.pp(p)
+#   OS.create_process("explorer", PackedStringArray([
+#     '"' + (
+#       ProjectSettings.globalize_path(p)
+#       if OS.has_feature("editor") else
+#       global.path.abs(p)
+#     ).replace("/", "\\")
+#     + '"'
+#   ]))
 
 var ui: CanvasLayer
 

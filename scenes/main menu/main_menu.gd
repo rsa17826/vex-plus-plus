@@ -91,7 +91,7 @@ func showMoreOptions(level):
         global.path.join(global.MAP_FOLDER, level),
         global.path.abs("res://exports/" + level + ".vex++")
       )
-      global.openPathInExplorer("res://exports")
+      OS.shell_open(global.path.abs("res://exports"))
     4:
       var outpath = global.path.abs("res://exports/" + level + ".vex++")
       global.zipDir(
@@ -242,7 +242,11 @@ func _on_new_level_btn_pressed() -> void:
   loadLevel(level, false)
 
 func _on_open_level_folder_pressed() -> void:
-  global.openPathInExplorer(global.MAP_FOLDER)
+  OS.shell_open(global.path.abs(global.MAP_FOLDER))
 
 func _on_load_online_levels_pressed() -> void:
   get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
+
+func _on_open_readme_pressed() -> void:
+  var p = "https://github.com/rsa17826/vex-plus-plus#vex"
+  OS.shell_open(p)
