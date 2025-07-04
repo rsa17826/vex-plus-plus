@@ -219,7 +219,6 @@ func clearWallData():
 var hasJustRespawned: bool = false
 
 func _physics_process(delta: float) -> void:
-  log.pp(vel.bounce)
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
@@ -864,8 +863,6 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
   var hitTop = normal.distance_to(UP) < 0.7
   if block.respawning: return
   if sameFrame:
-    if block is BlockDonup or block is BlockFalling:
-      log.pp("asdasdasd", UP, normal, up_direction)
     if (
       block is BlockDonup
       or block is BlockFalling
