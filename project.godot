@@ -297,6 +297,10 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 disable_plugin_dialogues=true
 copy_path="res://temp"
 
+[network]
+
+limits/debugger/max_chars_per_second=327680
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3

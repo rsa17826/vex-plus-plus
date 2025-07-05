@@ -874,12 +874,22 @@ func tryAndDieSquish():
     log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
     die()
 
+func calcHitDir(normal):
+  var hitTop = normal.distance_to(up_direction) < 0.6
+  var hitBottom = normal.distance_to(up_direction.rotated(180)) < 0.6
+  var hitLeft = normal.distance_to((up_direction.rotated(deg_to_rad(-90)))) < 0.6
+  var hitRight = normal.distance_to((up_direction.rotated(deg_to_rad(90)))) < 0.6
+  return {"top": hitTop, "bottom": hitBottom, "left": hitLeft, "right": hitRight}
+
 func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   var block: EditorBlock = b.root
-  var hitTop = normal.distance_to(applyRot(Vector2.UP)) < 0.7
-  var hitBottom = normal.distance_to(applyRot(Vector2.DOWN)) < 0.7
-  var hitLeft = normal.distance_to(applyRot(Vector2.LEFT)) < 0.7
-  var hitRight = normal.distance_to(applyRot(Vector2.RIGHT)) < 0.7
+  var tempHit = calcHitDir(normal)
+  var playerSide = {}
+  playerSide["bottom"] = tempHit.top
+  playerSide["top"] = tempHit.bottom
+  playerSide["right"] = tempHit.left
+  playerSide["left"] = tempHit.right
+  var blockSide = calcHitDir(normal.rotated(-deg_to_rad(block.startRotation_degrees)))
 
   if block.respawning: return
   if sameFrame:
@@ -892,25 +902,25 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       block is BlockDonup
       or block is BlockFalling
     ) \
-    and hitTop \
+    and playerSide.bottom \
     and applyRot(velocity).y >= -SMALL \
     :
       block.falling = true
     if block is BlockGlass \
-    and hitTop \
+    and playerSide.bottom \
     and applyRot(velocity).y >= -SMALL \
     and vel.user.y > -SMALL \
     and Input.is_action_pressed(&"down") \
     :
       block.__disable()
     if block is BlockBouncy \
-    and hitTop \
+    and playerSide.bottom \
     and applyRot(velocity).y >= -SMALL \
     and not inWaters \
     :
       block.start()
     if block is BlockInnerLevel \
-    and hitTop \
+    and playerSide.bottom \
     and state == States.sliding \
     and abs(vel.user.x) < 10 \
     :
@@ -922,7 +932,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and getClosestWallSide() \
     and Input.is_action_just_pressed(&"down") \
     and not inWaters \
-    and hitTop \
+    and playerSide.bottom \
     :
       block.thingThatMoves.vel.default -= Vector2(getClosestWallSide() * 140, 0)
       $anim.animation = "kicking box"
@@ -931,7 +941,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
 
     if (block is BlockPushableBox or block is BlockBomb) \
     and is_on_floor() \
-    and (hitLeft or hitRight) \
+    and (playerSide.left or playerSide.right) \
     and not inWaters \
     :
       block.thingThatMoves.vel.default -= (normal.rotated(-defaultAngle) * depth * 200)
@@ -942,33 +952,45 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
       # log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
       
     if (block is BlockConveyer) \
-    # and hitTop \
+    # and playerSide.bottom \
     and not inWaters \
-    and vel.user.y >= -SMALL \
+    # and vel.user.y >= -SMALL \
     :
-      var maxDir = 0
-      var testDir = up_direction.rotated(-block.rotation)
-      if hitLeft:
-        testDir = testDir.rotated(90)
-      if hitRight:
-        testDir = testDir.rotated(-90)
-      if abs(testDir.x) > abs(maxDir):
-        maxDir = testDir.x
-      if abs(testDir.y) > abs(maxDir):
-        log.pp(testDir.y, maxDir, abs(testDir.y) > maxDir)
-        maxDir = testDir.y
-      else: return
-      var shouldFlipConveyerDirection = maxDir < 0
-      if shouldFlipConveyerDirection:
-        vel.conveyer.x = -400
-      else:
-        vel.conveyer.x = 400
-      if hitLeft || hitRight:
-        if (hitRight == shouldFlipConveyerDirection):
-          vel.conveyer.y = abs(vel.conveyer.x)
-        else:
-          vel.conveyer.y = abs(vel.conveyer.x) * -1
-        vel.conveyer.x = 0
+      var speed = 40
+      log.pp(blockSide, block.startRotation_degrees)
+      if playerSide.bottom and blockSide.top:
+        vel.conveyer.x = - speed
+      if playerSide.bottom and blockSide.bottom:
+        vel.conveyer.x = speed
+      # var hitTop = normal.distance_to(up_direction)
+      # var hitBottom = normal.distance_to(up_direction.rotated(180))
+      # var hitLeft = normal.distance_to((up_direction.rotated(deg_to_rad(-90))))
+      # var hitRight = normal.distance_to((up_direction.rotated(deg_to_rad(90))))
+      # log.pp(normal, up_direction, "hitTop", hitTop, "hitBottom", hitBottom, "hitLeft", hitLeft, "hitRight", hitRight)
+      # var maxDir = 0
+      # var testDir = up_direction.rotated(-block.rotation)
+      # if hit.left:
+      #   testDir = testDir.rotated(90)
+      # if hit.right:
+      #   testDir = testDir.rotated(-90)
+      # if abs(testDir.x) > abs(maxDir):
+      #   maxDir = testDir.x
+      # if abs(testDir.y) > abs(maxDir):
+      #   log.pp(testDir.y, maxDir, abs(testDir.y) > maxDir)
+      #   maxDir = testDir.y
+      # else: return
+      # log.pp(normal, maxDir, testDir, rad_to_deg(block.rotation), hit.left, hit.right, playerSide.bottom, hitBottom, normal, applyRot(Vector2.RIGHT), Vector2.RIGHT)
+      # var shouldFlipConveyerDirection = maxDir < 0
+      # if shouldFlipConveyerDirection:
+      #   vel.conveyer.x = -400
+      # else:
+      #   vel.conveyer.x = 400
+      # if hit.left || hit.right:
+      #   if (hit.right == shouldFlipConveyerDirection):
+      #     vel.conveyer.y = abs(vel.conveyer.x)
+      #   else:
+      #     vel.conveyer.y = abs(vel.conveyer.x) * -1
+      #   vel.conveyer.x = 0
 
   # if !block.root.lastMovementStep: return
   # if block.is_in_group("falling"):
