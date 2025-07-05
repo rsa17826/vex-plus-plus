@@ -683,34 +683,41 @@ func localProcess(delta: float) -> void:
           if !scaleOnTopSide and !scaleOnBottomSide and !scaleOnLeftSide and !scaleOnRightSide: return
           # mpos = mpos.rotated(-deg_to_rad(selectedBlock.startRotation_degrees))
           var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+          log.pp(selectedBlock.rotation_degrees)
+            # sizeInPx = sizeInPx.rotated(-deg_to_rad(-selectedBlock.startRotation_degrees))
+
+            # log.warn(1)
+            # var temp = sizeInPx.x
+            # sizeInPx.x = sizeInPx.y
+            # sizeInPx.y = temp
 
           # get the edge position in px
           var bottom_edge: float = selectedBlock.global_position.y + sizeInPx.y / 2.0
           var top_edge: float = selectedBlock.global_position.y - sizeInPx.y / 2.0
           var right_edge: float = selectedBlock.global_position.x + sizeInPx.x / 2.0
           var left_edge: float = selectedBlock.global_position.x - sizeInPx.x / 2.0
-
+          log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide)
           # scale on the selected sides
           if scaleOnTopSide:
             var mouseDistInPx := (top_edge - mpos.y)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
             selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
-            selectedBlock.global_position.y = selectedBlock.global_position.y - (mouseDistInPx / 2)
+            selectedBlock.global_position -= Vector2(0, mouseDistInPx / 2)
           elif scaleOnBottomSide:
             var mouseDistInPx := (mpos.y - bottom_edge)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
             selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
-            selectedBlock.global_position.y = selectedBlock.global_position.y + (mouseDistInPx / 2)
+            selectedBlock.global_position += Vector2(0, mouseDistInPx / 2)
           if scaleOnLeftSide:
             var mouseDistInPx := (left_edge - mpos.x)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
             selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
-            selectedBlock.global_position.x = selectedBlock.global_position.x - (mouseDistInPx / 2)
+            selectedBlock.global_position -= Vector2(mouseDistInPx / 2, 0)
           elif scaleOnRightSide:
             var mouseDistInPx := (mpos.x - right_edge)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
             selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
-            selectedBlock.global_position.x = selectedBlock.global_position.x + (mouseDistInPx / 2)
+            selectedBlock.global_position += Vector2(mouseDistInPx / 2, 0)
 
           var moveMouse := func(pos: Vector2) -> void:
             Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
@@ -718,27 +725,27 @@ func localProcess(delta: float) -> void:
           var mousePos := get_viewport().get_mouse_position()
           var minSize := 0.1 / 7.0
           # need to make it stop moving - cant figure out how yet
-          if selectedBlock.scale.x < minSize:
-            # selectedBlock.scale.x = minSize
-            if scaleOnLeftSide:
-              scaleOnLeftSide = false
-              scaleOnRightSide = true
-              moveMouse.call(mousePos + Vector2(minSize * 700, 0))
-            else:
-              scaleOnLeftSide = true
-              scaleOnRightSide = false
-              moveMouse.call(mousePos - Vector2(minSize * 700, 0))
+          # if selectedBlock.scale.x < minSize:
+          #   # selectedBlock.scale.x = minSize
+          #   if scaleOnLeftSide:
+          #     scaleOnLeftSide = false
+          #     scaleOnRightSide = true
+          #     moveMouse.call(mousePos + Vector2(minSize * 700, 0))
+          #   else:
+          #     scaleOnLeftSide = true
+          #     scaleOnRightSide = false
+          #     moveMouse.call(mousePos - Vector2(minSize * 700, 0))
 
-          if selectedBlock.scale.y < minSize:
-            # selectedBlock.scale.y = minSize
-            if scaleOnTopSide:
-              scaleOnTopSide = false
-              scaleOnBottomSide = true
-              moveMouse.call(mousePos + Vector2(0, minSize * 700))
-            else:
-              scaleOnTopSide = true
-              scaleOnBottomSide = false
-              moveMouse.call(mousePos - Vector2(0, minSize * 700))
+          # if selectedBlock.scale.y < minSize:
+          #   # selectedBlock.scale.y = minSize
+          #   if scaleOnTopSide:
+          #     scaleOnTopSide = false
+          #     scaleOnBottomSide = true
+          #     moveMouse.call(mousePos + Vector2(0, minSize * 700))
+          #   else:
+          #     scaleOnTopSide = true
+          #     scaleOnBottomSide = false
+          #     moveMouse.call(mousePos - Vector2(0, minSize * 700))
 
           selectedBlock.scale.x = clamp(selectedBlock.scale.x, 0.1 / 7.0, 250.0 / 7.0)
           selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 250.0 / 7.0)

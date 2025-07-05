@@ -374,6 +374,15 @@ var left_edge: float
 var right_edge: float
 var top_edge: float
 var bottom_edge: float
+
+func boolsToV2(u, d, l, r):
+  var v = Vector2.ZERO
+  if u: v.y -= 1
+  if d: v.y += 1
+  if l: v.x -= 1
+  if r: v.x += 1
+  return v
+
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
@@ -484,11 +493,15 @@ func _process(delta: float) -> void:
                   onBottomSide = false
                 else:
                   onLeftSide = false
+
+            var v = boolsToV2(onTopSide, onBottomSide, onLeftSide, onRightSide).rotated(deg_to_rad(startRotation_degrees))
+
             # store the selected sides in global
-            global.scaleOnTopSide = onTopSide
-            global.scaleOnBottomSide = onBottomSide
-            global.scaleOnRightSide = onRightSide
-            global.scaleOnLeftSide = onLeftSide
+            global.scaleOnTopSide = v.y == -1
+            global.scaleOnBottomSide = v.y == 1
+            global.scaleOnRightSide = v.x == 1
+            global.scaleOnLeftSide = v.x == -1
+            log.pp("ed", onLeftSide, onRightSide)
 
             # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select
             ghost.material.set_shader_parameter("showTop",
