@@ -301,9 +301,6 @@ func regReplace(str: String, reg: String, with: String, all:=true) -> String:
 func same(x: Variant, y: Variant) -> bool:
   return typeof(x) == typeof(y) && x == y
 
-func join(joiner: Variant = "", ...temparr) -> String:
-  return joiner.join(temparr)
-
 func randstr(length:=10, fromchars:="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`") -> String:
   var s := ''
   for i in range(length):

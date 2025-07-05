@@ -78,6 +78,9 @@
             INT(23){
               STR(texture)STR(2)
             }
+            INT(24){
+              STR(texture)STR(1)
+            }
           }
         }
       }
