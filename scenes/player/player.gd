@@ -883,22 +883,20 @@ func calcHitDir(normal):
 
 func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   var block: EditorBlock = b.root
-  var v = normal.rotated(defaultAngle)
+  var blockSide = calcHitDir(normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
+
+  var v = normal.rotated(-defaultAngle)
   var vv = Vector2.UP
   var hitTop = v.distance_to(vv)
   var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180)))
   var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90)))
   var hitRight = v.distance_to(vv.rotated(deg_to_rad(90)))
   var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft}
-  # log.pp(playerSide, defaultAngle, v)
-  # var tempHit = calcHitDir(normal)
-  # var playerSide = {}
-  # playerSide["bottom"] = tempHit.top
-  # playerSide["top"] = tempHit.bottom
-  # playerSide["right"] = tempHit.left
-  # playerSide["left"] = tempHit.right
-
-  var blockSide = calcHitDir(normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
+  hitTop = hitTop < .7
+  hitBottom = hitBottom < .7
+  hitLeft = hitLeft < .7
+  hitRight = hitRight < .7
+  playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft}
   if block.respawning: return
   if sameFrame:
     if (
@@ -962,18 +960,38 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     if (block is BlockConveyer) \
     # and playerSide.bottom \
     and not inWaters \
-    # and vel.user.y >= -SMALL \
+    and vel.user.y >= -SMALL \
     :
       var speed = 400
-      # log.pp(normal, playerSide, blockSide)
       # log.pp(normal == Vector2(-1, 0), blockSide)
-      # log.pp(normal, block.startRotation_degrees)
-      # if playerSide.bottom and blockSide.top:
-      #   vel.conveyer.x = - speed
-      # if playerSide.bottom and blockSide.bottom:
-      #   vel.conveyer.x = speed
-      # if playerSide.left and blockSide.top:
-      #   vel.conveyer.y = - speed
+
+      if playerSide.bottom and blockSide.top:
+        vel.conveyer.x = - speed
+      elif playerSide.bottom and blockSide.bottom:
+        vel.conveyer.x = speed
+      elif playerSide.bottom and blockSide.left:
+        pass
+      elif playerSide.bottom and blockSide.right:
+        pass
+      elif playerSide.left and blockSide.left:
+        pass
+      elif playerSide.right and blockSide.right:
+        pass
+      elif playerSide.right and blockSide.left:
+        pass
+      elif playerSide.left and blockSide.right:
+        pass
+      elif playerSide.left and blockSide.top:
+        vel.conveyer.y = - speed
+      elif playerSide.left and blockSide.bottom:
+        vel.conveyer.y = speed
+      elif playerSide.right and blockSide.top:
+        vel.conveyer.y = speed
+      elif playerSide.right and blockSide.bottom:
+        vel.conveyer.y = - speed
+      else:
+        log.pp(normal, playerSide, blockSide)
+
       # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
       # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]
       # var hitLeft = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(-90))))]
@@ -1226,7 +1244,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # ?!version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
   # ?!version ?-NOW! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
   # ?!version ?-NOW! bombs on conveyers that fall can explode after the player respawns
-  # ?!version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
+  # !version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
+  # !version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1273,3 +1292,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # prevent converyers from occasionally activating when collision direction is wrong
 # make conveyers work better with boxes like they do with the player and make the players conveyer code easier to read
 # !!!fix scaling of rotated blocks
+
+# !!!!find better way to detect collision direction as normal is not always the correct direction
