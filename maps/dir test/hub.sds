@@ -2082,20 +2082,9 @@
     }
   }
   {
-    STR(x)FLOAT(1700.0)
-    STR(y)FLOAT(-3400.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer)
-    STR(options){
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(1700.0)
+    STR(x)FLOAT(2200.0)
     STR(y)FLOAT(-3250.0)
-    STR(w)FLOAT(2.00000008940697)
+    STR(w)FLOAT(11.9999992847443)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -2113,6 +2102,140 @@
     STR(options){
       STR(multiUse)BOOL(true)
       STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1950.0)
+    STR(y)FLOAT(-3350.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1850.0)
+    STR(y)FLOAT(-3350.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(gravity rotator)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2200.0)
+    STR(y)FLOAT(-3300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(gravity rotator)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1700.0)
+    STR(y)FLOAT(-3500.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(gravity rotator)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2700.0)
+    STR(y)FLOAT(-3500.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(270.0)
+    STR(id)STR(gravity rotator)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1550.0)
+    STR(y)FLOAT(-3450.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(5.0000005364418)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2600.0)
+    STR(y)FLOAT(-3600.0)
+    STR(w)FLOAT(19.4999990463257)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(350.0)
+    STR(y)FLOAT(200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2050.0)
+    STR(y)FLOAT(-3425.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.50000001490116)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(conveyer)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2200.0)
+    STR(y)FLOAT(-3425.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.50000001490116)
+    STR(r)FLOAT(1889.99975585938)
+    STR(id)STR(conveyer)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2351.0)
+    STR(y)FLOAT(-3424.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.50000001490116)
+    STR(r)FLOAT(1259.99951171875)
+    STR(id)STR(conveyer)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(2500.0)
+    STR(y)FLOAT(-3425.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.50000001490116)
+    STR(r)FLOAT(989.999938964844)
+    STR(id)STR(conveyer)
+    STR(options){
       STR(color)STR(#fff)
     }
   }
