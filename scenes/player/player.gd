@@ -876,21 +876,29 @@ func tryAndDieSquish():
 
 func calcHitDir(normal):
   var hitTop = normal.distance_to(up_direction) < 0.6
-  var hitBottom = normal.distance_to(up_direction.rotated(180)) < 0.6
-  var hitLeft = normal.distance_to((up_direction.rotated(deg_to_rad(-90)))) < 0.6
-  var hitRight = normal.distance_to((up_direction.rotated(deg_to_rad(90)))) < 0.6
+  var hitBottom = normal.distance_to(up_direction.rotated(deg_to_rad(180))) < 0.6
+  var hitLeft = normal.distance_to(up_direction.rotated(deg_to_rad(-90))) < 0.6
+  var hitRight = normal.distance_to(up_direction.rotated(deg_to_rad(90))) < 0.6
   return {"top": hitTop, "bottom": hitBottom, "left": hitLeft, "right": hitRight}
 
 func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
   var block: EditorBlock = b.root
-  var tempHit = calcHitDir(normal)
-  var playerSide = {}
-  playerSide["bottom"] = tempHit.top
-  playerSide["top"] = tempHit.bottom
-  playerSide["right"] = tempHit.left
-  playerSide["left"] = tempHit.right
-  var blockSide = calcHitDir(normal.rotated(-deg_to_rad(block.startRotation_degrees)))
+  var v = normal.rotated(defaultAngle)
+  var vv = Vector2.UP
+  var hitTop = v.distance_to(vv)
+  var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180)))
+  var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90)))
+  var hitRight = v.distance_to(vv.rotated(deg_to_rad(90)))
+  var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft}
+  # log.pp(playerSide, defaultAngle, v)
+  # var tempHit = calcHitDir(normal)
+  # var playerSide = {}
+  # playerSide["bottom"] = tempHit.top
+  # playerSide["top"] = tempHit.bottom
+  # playerSide["right"] = tempHit.left
+  # playerSide["left"] = tempHit.right
 
+  var blockSide = calcHitDir(normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
   if block.respawning: return
   if sameFrame:
     if (
@@ -956,16 +964,20 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) 
     and not inWaters \
     # and vel.user.y >= -SMALL \
     :
-      var speed = 40
-      log.pp(blockSide, block.startRotation_degrees)
-      if playerSide.bottom and blockSide.top:
-        vel.conveyer.x = - speed
-      if playerSide.bottom and blockSide.bottom:
-        vel.conveyer.x = speed
-      # var hitTop = normal.distance_to(up_direction)
-      # var hitBottom = normal.distance_to(up_direction.rotated(180))
-      # var hitLeft = normal.distance_to((up_direction.rotated(deg_to_rad(-90))))
-      # var hitRight = normal.distance_to((up_direction.rotated(deg_to_rad(90))))
+      var speed = 400
+      # log.pp(normal, playerSide, blockSide)
+      # log.pp(normal == Vector2(-1, 0), blockSide)
+      # log.pp(normal, block.startRotation_degrees)
+      # if playerSide.bottom and blockSide.top:
+      #   vel.conveyer.x = - speed
+      # if playerSide.bottom and blockSide.bottom:
+      #   vel.conveyer.x = speed
+      # if playerSide.left and blockSide.top:
+      #   vel.conveyer.y = - speed
+      # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
+      # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]
+      # var hitLeft = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(-90))))]
+      # var hitRight = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(90))))]
       # log.pp(normal, up_direction, "hitTop", hitTop, "hitBottom", hitBottom, "hitLeft", hitLeft, "hitRight", hitRight)
       # var maxDir = 0
       # var testDir = up_direction.rotated(-block.rotation)
