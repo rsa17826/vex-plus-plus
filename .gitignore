@@ -35,5 +35,6 @@ process
 downloaded maps
 launcher/game data/exes
 launcher/game data/exes/*
+launcher/versions
 exes
 exes/*
