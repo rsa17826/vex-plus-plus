@@ -307,6 +307,7 @@ func _physics_process(delta: float) -> void:
           position = Vector2(0, -1.9)
         state = States.falling
         Engine.time_scale = 1
+        $CollisionShape2D.disabled = false
         await global.wait()
         updateCollidingBlocksEntered()
         global.stopTicking = false
@@ -1087,6 +1088,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   else:
     global.tick = global.currentLevel().tick
     up_direction = global.currentLevel().up_direction
+  $CollisionShape2D.disabled = true
   slowCamRot = false
   lastCollidingBlocks = []
   activePulley = null
@@ -1240,6 +1242,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # ?!version ?-NOW! bombs on conveyers that fall can explode after the player respawns
   # !version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
   # !version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
+  # !version ?-NOW! when respawning gols can still be interacted with
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
