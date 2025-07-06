@@ -2252,4 +2252,26 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(1900.0)
+    STR(y)FLOAT(-3400.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(60.0)
+    STR(id)STR(gravity rotator)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1900.0)
+    STR(y)FLOAT(-3550.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(135.0)
+    STR(id)STR(gravity rotator)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]

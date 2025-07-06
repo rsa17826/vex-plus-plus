@@ -501,7 +501,7 @@ func _process(delta: float) -> void:
             global.scaleOnBottomSide = v.y == 1
             global.scaleOnRightSide = v.x == 1
             global.scaleOnLeftSide = v.x == -1
-            log.pp("ed", onLeftSide, onRightSide)
+            # log.pp("ed", onLeftSide, onRightSide)
 
             # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select
             ghost.material.set_shader_parameter("showTop",
