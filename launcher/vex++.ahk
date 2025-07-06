@@ -22,6 +22,9 @@ SetWorkingDir(A_ScriptDir)
 ui := Gui("+AlwaysOnTop")
 ui.OnEvent("Close", GuiClose)
 ui.Add("Text", , "Vex++ Version Manager")
+
+newestExeVersion := "4.5.beta2"
+
 versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Version",
   "Status",
@@ -222,11 +225,19 @@ LV_DoubleClick(LV, RowNumber) {
 getExeVersion(version, default?) {
   p := path.join(A_ScriptDir, "versions", version, "exeVersion.txt")
   if FileExist(p) {
-    return F.read(p)
+    exever := F.read(p)
+    if DirExist(path.join(A_ScriptDir, "game data/exes", exever))
+      return exever
+    inp := input("exe version `"" exever "`" not found", '', '', "", newestExeVersion)
+    if inp {
+      F.write(p, inp)
+      return inp
+    }
+    return
   }
   if IsSet(default)
     return default()
-  exeVersion := input("Enter the exe version number.", '', '', "", '4.5.beta2')
+  exeVersion := input("Enter the exe version number.", '', '', "", newestExeVersion)
   if exeVersion
     F.write(p, exeVersion)
   return exeVersion
@@ -244,7 +255,7 @@ runSelectedVersion() {
 
   exeVersion := getExeVersion(selectedVersion, () {
     ; if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
-    exeVersion := input("Enter the exe version number.", '', '', "", '4.5')
+    exeVersion := input("Enter the exe version number.", '', '', "", newestExeVersion)
     p := path.join(A_ScriptDir, "versions", selectedVersion, "exeVersion.txt")
     if exeVersion
       F.write(p, exeVersion)
@@ -252,7 +263,7 @@ runSelectedVersion() {
     ; }
   })
   if !exeVersion
-    return MsgBox("Could not find the required executable version.")
+    return ; MsgBox("Could not find the required executable version.")
   ; MsgBox('exeVersion ' exeVersion)
   if !hasProcessRunning() {
     FileCopy(
