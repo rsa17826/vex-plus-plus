@@ -1,11 +1,11 @@
 {
   STR(dir test){
-    STR(lastSpawnPoint)VEC2(1950.0,-3285.0)
+    STR(lastSpawnPoint)VEC2(5.0,-45.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(502.741363525391,281.574554443359)
-        STR(up_direction)VEC2(-1.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(checkpoint){
@@ -22,7 +22,7 @@
               STR(texture)STR(1)
             }
             INT(5){
-              STR(texture)STR(1)
+              STR(texture)STR(2)
             }
             INT(6){
               STR(texture)STR(1)
@@ -82,7 +82,7 @@
               STR(texture)STR(1)
             }
             INT(25){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
             INT(26){
               STR(texture)STR(1)
