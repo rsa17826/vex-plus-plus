@@ -471,7 +471,8 @@ func _physics_process(delta: float) -> void:
 
           var normal := collision.get_normal()
           var depth := collision.get_depth()
-          handleCollision(block, normal, depth, true)
+          
+          handleCollision(block, normal, depth, collision.get_position())
 
         wasJustInWater = true
         move_and_slide()
@@ -756,7 +757,9 @@ func _physics_process(delta: float) -> void:
           for n: String in stopVelOnCeil:
             if !justAddedVels[n]:
               vel[n] = Vector2.ZERO
-
+        vel.conveyer = global.clearLow(vel.conveyer)
+        if vel.conveyer:
+          log.pp(vel.conveyer)
         # move using all velocities
         velocity = Vector2.ZERO
         if state != States.wallHang:
@@ -769,17 +772,13 @@ func _physics_process(delta: float) -> void:
         # log.pp(velocity, vel.user == vel.user.vector)
         if state == States.wallHang and not getClosestWallSide():
           state = States.falling
-        # prevents getting stuck when jumping into a wall, then turning away from the wall, causing you to not move X even tho you have velocity X and still have same velocity X after the moveansslide call
-        if state == States.wallSliding \
-        and getClosestWallSide() != sign(velocity.x):
-          position += Vector2(velocity.x * delta, 0).rotated(defaultAngle)
         for n: String in vel:
           if justAddedVels[n]:
             justAddedVels[n] -= 1
         move_and_slide()
-        var floorRayCollision: Node2D = null
-        if $floorRay.is_colliding():
-          floorRayCollision = $floorRay.get_collider()
+        # var floorRayCollision: Node2D = null
+        # if $floorRay.is_colliding():
+        #   floorRayCollision = $floorRay.get_collider()
         for i in get_slide_collision_count():
           var collision := get_slide_collision(i)
           var block := collision.get_collider()
@@ -788,12 +787,12 @@ func _physics_process(delta: float) -> void:
           var depth := collision.get_depth()
           # log.pp(block.id if 'id' in block else block.get_parent().id, normal, depth, block == floorRayCollision)
 
-          if block == floorRayCollision:
-            floorRayCollision = null
-          handleCollision(block, normal, depth, true)
+          # if block == floorRayCollision:
+          #   floorRayCollision = null
+          handleCollision(block, normal, depth, collision.get_position())
 
-        if floorRayCollision:
-          handleCollision(floorRayCollision, Vector2(0, -1), 1, true)
+        # if floorRayCollision:
+        #   handleCollision(floorRayCollision, Vector2(0, -1), 1)
         # trying to fix some downward collisions not having correct normal
         position += applyRot(Vector2(0, safe_margin))
         tryAndDieHazards()
@@ -875,152 +874,149 @@ func tryAndDieSquish():
     die()
 
 func calcHitDir(normal):
-  var hitTop = normal.distance_to(up_direction) < 0.6
-  var hitBottom = normal.distance_to(up_direction.rotated(deg_to_rad(180))) < 0.6
-  var hitLeft = normal.distance_to(up_direction.rotated(deg_to_rad(-90))) < 0.6
-  var hitRight = normal.distance_to(up_direction.rotated(deg_to_rad(90))) < 0.6
+  var hitTop = normal.distance_to(up_direction) < 0.7
+  var hitBottom = normal.distance_to(up_direction.rotated(deg_to_rad(180))) < 0.7
+  var hitLeft = normal.distance_to(up_direction.rotated(deg_to_rad(-90))) < 0.7
+  var hitRight = normal.distance_to(up_direction.rotated(deg_to_rad(90))) < 0.7
   return {"top": hitTop, "bottom": hitBottom, "left": hitLeft, "right": hitRight}
 
-func handleCollision(b: Node2D, normal: Vector2, depth: float, sameFrame: bool) -> void:
+func handleCollision(b: Node2D, normal: Vector2, depth: float, pos:=Vector2.ZERO) -> void:
   var block: EditorBlock = b.root
   var blockSide = calcHitDir(normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
 
   var v = normal.rotated(-defaultAngle)
   var vv = Vector2.UP
-  var hitTop = v.distance_to(vv)
-  var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180)))
-  var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90)))
-  var hitRight = v.distance_to(vv.rotated(deg_to_rad(90)))
+  var hitTop = v.distance_to(vv) < .7
+  var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180))) < .7
+  var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90))) < .7
+  var hitRight = v.distance_to(vv.rotated(deg_to_rad(90))) < .7
   var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft}
-  hitTop = hitTop < .7
-  hitBottom = hitBottom < .7
-  hitLeft = hitLeft < .7
-  hitRight = hitRight < .7
-  playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft}
   if block.respawning: return
-  if sameFrame:
-    if (
-      block is BlockDonup
-      or block is BlockFalling
-    ):
-      log.pp(applyRot(velocity), velocity)
-    if (
-      block is BlockDonup
-      or block is BlockFalling
-    ) \
-    and playerSide.bottom \
-    and applyRot(velocity).y >= -SMALL \
-    :
-      block.falling = true
-    if block is BlockGlass \
-    and playerSide.bottom \
-    and applyRot(velocity).y >= -SMALL \
-    and vel.user.y > -SMALL \
-    and Input.is_action_pressed(&"down") \
-    :
-      block.__disable()
-    if block is BlockBouncy \
-    and playerSide.bottom \
-    and applyRot(velocity).y >= -SMALL \
-    and not inWaters \
-    :
-      block.start()
-    if block is BlockInnerLevel \
-    and playerSide.bottom \
-    and state == States.sliding \
-    and abs(vel.user.x) < 10 \
-    :
-      block.enterLevel()
-    if block is BlockLockedBox \
-    :
-      block.unlock()
-    if (block is BlockPushableBox or block is BlockBomb) \
-    and getClosestWallSide() \
-    and Input.is_action_just_pressed(&"down") \
-    and not inWaters \
-    and playerSide.bottom \
-    :
-      block.thingThatMoves.vel.default -= Vector2(getClosestWallSide() * 140, 0)
-      $anim.animation = "kicking box"
-      boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
-      position -= Vector2(0, 2).rotated(defaultAngle)
+  if (
+    block is BlockDonup
+    or block is BlockFalling
+  ):
+    log.pp(applyRot(velocity), velocity)
+  if (
+    block is BlockDonup
+    or block is BlockFalling
+  ) \
+  and playerSide.bottom \
+  and applyRot(velocity).y >= -SMALL \
+  :
+    block.falling = true
+  if block is BlockGlass \
+  and playerSide.bottom \
+  and applyRot(velocity).y >= -SMALL \
+  and vel.user.y > -SMALL \
+  and Input.is_action_pressed(&"down") \
+  :
+    block.__disable()
+  if block is BlockBouncy \
+  and playerSide.bottom \
+  and applyRot(velocity).y >= -SMALL \
+  and not inWaters \
+  :
+    block.start()
+  if block is BlockInnerLevel \
+  and playerSide.bottom \
+  and state == States.sliding \
+  and abs(vel.user.x) < 10 \
+  :
+    block.enterLevel()
+  if block is BlockLockedBox \
+  :
+    block.unlock()
+  if (block is BlockPushableBox or block is BlockBomb) \
+  and getClosestWallSide() \
+  and Input.is_action_just_pressed(&"down") \
+  and not inWaters \
+  and playerSide.bottom \
+  :
+    block.thingThatMoves.vel.default -= Vector2(getClosestWallSide() * 140, 0)
+    $anim.animation = "kicking box"
+    boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
+    position -= Vector2(0, 2).rotated(defaultAngle)
 
-    if (block is BlockPushableBox or block is BlockBomb) \
-    and is_on_floor() \
-    and (playerSide.left or playerSide.right) \
-    and not inWaters \
-    :
-      block.thingThatMoves.vel.default -= (normal.rotated(-defaultAngle) * depth * 200)
-      state = States.pushing
-      $anim.animation = "pushing box"
-    # if block is BlockConveyer:
-    #   if rotatedNormal != UP:
-      # log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
-      
-    if (block is BlockConveyer) \
-    # and playerSide.bottom \
-    and not inWaters \
-    and vel.user.y >= -SMALL \
-    :
-      var speed = 400
-      # log.pp(normal == Vector2(-1, 0), blockSide)
+  if (block is BlockPushableBox or block is BlockBomb) \
+  and is_on_floor() \
+  and (playerSide.left or playerSide.right) \
+  and not inWaters \
+  :
+    block.thingThatMoves.vel.default -= (normal.rotated(-defaultAngle) * depth * 200)
+    state = States.pushing
+    $anim.animation = "pushing box"
+  # if block is BlockConveyer:
+  #   if rotatedNormal != UP:
+    # log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
+    
+  if (block is BlockConveyer) \
+  # and playerSide.bottom \
+  and not inWaters \
+  and vel.user.y >= -SMALL \
+  :
+    var speed = 400
+    # log.pp(normal == Vector2(-1, 0), blockSide)
+    if global_position.distance_to(pos) > 20:
+      log.pp(global_position, pos, 'aaa', global_position.distance_to(pos))
+      return
+    log.pp(playerSide, blockSide)
+    if playerSide.bottom and blockSide.top:
+      vel.conveyer.x = - speed
+    elif playerSide.bottom and blockSide.bottom:
+      vel.conveyer.x = speed
+    elif playerSide.bottom and blockSide.left:
+      pass
+    elif playerSide.bottom and blockSide.right:
+      pass
+    elif playerSide.left and blockSide.left:
+      pass
+    elif playerSide.right and blockSide.right:
+      pass
+    elif playerSide.right and blockSide.left:
+      pass
+    elif playerSide.left and blockSide.right:
+      pass
+    elif playerSide.left and blockSide.top:
+      vel.conveyer.y = - speed
+    elif playerSide.left and blockSide.bottom:
+      vel.conveyer.y = speed
+    elif playerSide.right and blockSide.top:
+      vel.conveyer.y = speed
+    elif playerSide.right and blockSide.bottom:
+      vel.conveyer.y = - speed
+    else:
+      log.pp(normal, playerSide, blockSide)
 
-      if playerSide.bottom and blockSide.top:
-        vel.conveyer.x = - speed
-      elif playerSide.bottom and blockSide.bottom:
-        vel.conveyer.x = speed
-      elif playerSide.bottom and blockSide.left:
-        pass
-      elif playerSide.bottom and blockSide.right:
-        pass
-      elif playerSide.left and blockSide.left:
-        pass
-      elif playerSide.right and blockSide.right:
-        pass
-      elif playerSide.right and blockSide.left:
-        pass
-      elif playerSide.left and blockSide.right:
-        pass
-      elif playerSide.left and blockSide.top:
-        vel.conveyer.y = - speed
-      elif playerSide.left and blockSide.bottom:
-        vel.conveyer.y = speed
-      elif playerSide.right and blockSide.top:
-        vel.conveyer.y = speed
-      elif playerSide.right and blockSide.bottom:
-        vel.conveyer.y = - speed
-      else:
-        log.pp(normal, playerSide, blockSide)
-
-      # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
-      # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]
-      # var hitLeft = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(-90))))]
-      # var hitRight = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(90))))]
-      # log.pp(normal, up_direction, "hitTop", hitTop, "hitBottom", hitBottom, "hitLeft", hitLeft, "hitRight", hitRight)
-      # var maxDir = 0
-      # var testDir = up_direction.rotated(-block.rotation)
-      # if hit.left:
-      #   testDir = testDir.rotated(90)
-      # if hit.right:
-      #   testDir = testDir.rotated(-90)
-      # if abs(testDir.x) > abs(maxDir):
-      #   maxDir = testDir.x
-      # if abs(testDir.y) > abs(maxDir):
-      #   log.pp(testDir.y, maxDir, abs(testDir.y) > maxDir)
-      #   maxDir = testDir.y
-      # else: return
-      # log.pp(normal, maxDir, testDir, rad_to_deg(block.rotation), hit.left, hit.right, playerSide.bottom, hitBottom, normal, applyRot(Vector2.RIGHT), Vector2.RIGHT)
-      # var shouldFlipConveyerDirection = maxDir < 0
-      # if shouldFlipConveyerDirection:
-      #   vel.conveyer.x = -400
-      # else:
-      #   vel.conveyer.x = 400
-      # if hit.left || hit.right:
-      #   if (hit.right == shouldFlipConveyerDirection):
-      #     vel.conveyer.y = abs(vel.conveyer.x)
-      #   else:
-      #     vel.conveyer.y = abs(vel.conveyer.x) * -1
-      #   vel.conveyer.x = 0
+    # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
+    # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]
+    # var hitLeft = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(-90))))]
+    # var hitRight = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(90))))]
+    # log.pp(normal, up_direction, "hitTop", hitTop, "hitBottom", hitBottom, "hitLeft", hitLeft, "hitRight", hitRight)
+    # var maxDir = 0
+    # var testDir = up_direction.rotated(-block.rotation)
+    # if hit.left:
+    #   testDir = testDir.rotated(90)
+    # if hit.right:
+    #   testDir = testDir.rotated(-90)
+    # if abs(testDir.x) > abs(maxDir):
+    #   maxDir = testDir.x
+    # if abs(testDir.y) > abs(maxDir):
+    #   log.pp(testDir.y, maxDir, abs(testDir.y) > maxDir)
+    #   maxDir = testDir.y
+    # else: return
+    # log.pp(normal, maxDir, testDir, rad_to_deg(block.rotation), hit.left, hit.right, playerSide.bottom, hitBottom, normal, applyRot(Vector2.RIGHT), Vector2.RIGHT)
+    # var shouldFlipConveyerDirection = maxDir < 0
+    # if shouldFlipConveyerDirection:
+    #   vel.conveyer.x = -400
+    # else:
+    #   vel.conveyer.x = 400
+    # if hit.left || hit.right:
+    #   if (hit.right == shouldFlipConveyerDirection):
+    #     vel.conveyer.y = abs(vel.conveyer.x)
+    #   else:
+    #     vel.conveyer.y = abs(vel.conveyer.x) * -1
+    #   vel.conveyer.x = 0
 
   # if !block.root.lastMovementStep: return
   # if block.is_in_group("falling"):
@@ -1173,7 +1169,7 @@ func updateCollidingBlocksEntered():
       log.pp(block, block.id if 'id' in block else 'no id')
       breakpoint
     else:
-      block.root._on_body_entered(self, false)
+      block.root._on_body_entered(self , false)
 func updateCollidingBlocksExited():
   # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
   for block in (
@@ -1184,7 +1180,7 @@ func updateCollidingBlocksExited():
       log.pp(block, block.id if 'id' in block else 'no id')
       breakpoint
     else:
-      block.root._on_body_exited(self, false)
+      block.root._on_body_exited(self , false)
 
 func updateKeyFollowPosition(delta):
   for i in range(0, keys.size()):

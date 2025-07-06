@@ -1223,6 +1223,7 @@ metadata/_edit_lock_ = true
 visible = false
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(1, 9.795)
+enabled = false
 target_position = Vector2(0, 15.63)
 collision_mask = 8
 hit_from_inside = true
