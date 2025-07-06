@@ -380,7 +380,10 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
         break
       }
     }
-    F.write("versions/" selectedVersion "/exeVersion.txt", version)
+    if IsSet(version)
+      F.write("versions/" selectedVersion "/exeVersion.txt", version)
+    else
+      version := getExeVersion(selectedVersion)
     ; Clean up temporary files
     FileDelete("temp.zip")
     DirDelete("temp", 1)
