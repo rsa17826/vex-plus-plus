@@ -226,7 +226,7 @@ getExeVersion(version, default?) {
   }
   if IsSet(default)
     return default()
-  exeVersion := input("Enter the exe version number.", '', '', "", '4.5')
+  exeVersion := input("Enter the exe version number.", '', '', "", '4.5.beta2')
   if exeVersion
     F.write(p, exeVersion)
   return exeVersion

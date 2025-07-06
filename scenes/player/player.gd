@@ -472,7 +472,7 @@ func _physics_process(delta: float) -> void:
           var normal := collision.get_normal()
           var depth := collision.get_depth()
           
-          handleCollision(block, normal, depth, collision.get_position())
+          handleCollision(block, normal, depth)
 
         wasJustInWater = true
         move_and_slide()
@@ -786,10 +786,11 @@ func _physics_process(delta: float) -> void:
           var normal := collision.get_normal()
           var depth := collision.get_depth()
           # log.pp(block.id if 'id' in block else block.get_parent().id, normal, depth, block == floorRayCollision)
+          # collision.get_position()
 
           # if block == floorRayCollision:
           #   floorRayCollision = null
-          handleCollision(block, normal, depth, collision.get_position())
+          handleCollision(block, normal, depth)
 
         # if floorRayCollision:
         #   handleCollision(floorRayCollision, Vector2(0, -1), 1)
@@ -880,7 +881,7 @@ func calcHitDir(normal):
   var hitRight = normal.distance_to(up_direction.rotated(deg_to_rad(90))) < 0.7
   return {"top": hitTop, "bottom": hitBottom, "left": hitLeft, "right": hitRight}
 
-func handleCollision(b: Node2D, normal: Vector2, depth: float, pos:=Vector2.ZERO) -> void:
+func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   var block: EditorBlock = b.root
   var blockSide = calcHitDir(normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
 
@@ -957,10 +958,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, pos:=Vector2.ZERO
   :
     var speed = 400
     # log.pp(normal == Vector2(-1, 0), blockSide)
-    if global_position.distance_to(pos) > 20:
-      log.pp(global_position, pos, 'aaa', global_position.distance_to(pos))
-      return
-    log.pp(playerSide, blockSide)
+    # log.pp(playerSide, blockSide)
     if playerSide.bottom and blockSide.top:
       vel.conveyer.x = - speed
     elif playerSide.bottom and blockSide.bottom:
@@ -986,7 +984,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, pos:=Vector2.ZERO
     elif playerSide.right and blockSide.bottom:
       vel.conveyer.y = - speed
     else:
-      log.pp(normal, playerSide, blockSide)
+      log.err("invalid collision direction!!!", normal, playerSide, blockSide)
 
     # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
     # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]
