@@ -11,11 +11,29 @@ func start() -> void:
   bouncing = true
   bounceState = 0
   global.player.state = global.player.States.bouncing
+  original_contact_position = global.player.global_position
+
+  var radrot := deg_to_rad(startRotation_degrees)
+  var extraRot = global.player.angle_distance(radrot, global.player.global_rotation)
+    
+  var playerGhost: Node2D = global.player.get_parent().ghost
+  var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
+
+  # Calculate the offset needed to position the player directly above the block
+  var offset_vector = ((playerGhostSize/ 2) - (playerGhostSize.rotated(extraRot) / 2)).rotated(-radrot)
+
+  # Apply the offset to the original contact position
+  original_contact_position += offset_vector
+
+  # Log the adjusted position for debugging
+  log.pp(offset_vector, startRotation_degrees)
 
 func on_respawn():
   bounceState = 0
   bouncing = false
   bounceForce = 0
+
+var original_contact_position: Vector2
 
 func on_process(delta: float) -> void:
   if respawning: return
@@ -55,8 +73,14 @@ func on_process(delta: float) -> void:
     var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
 
     # Calculate the offset based on the block's rotation
-    var offset = Vector2(0, - (node_size.y + playerGhostSize.y) / 2) # Center the player on the block
+    var offset = Vector2(0, node_size.y)
     offset = offset.rotated(radrot) # Rotate the offset to match the block's rotation
 
-    # Move the player to the correct position on the bouncy block
-    global.player.global_position = node_pos + offset # Use node_pos directly for x and adjusted y
+    # Calculate the new position based on the original contact position
+    global.player.global_position = (original_contact_position - offset) + Vector2(0, (sizeInPx * startScale).y).rotated(radrot)
+    global.player.setRot(radrot)
+    global.player.updateCamLockPos()
+
+    # Adjust the player's position based on the block's rotation
+    # global.player.global_position.x += cos(radrot) * offset.x - sin(radrot) * offset.y
+    # global.player.global_position.y += sin(radrot) * offset.x + cos(radrot) * offset.y
