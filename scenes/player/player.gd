@@ -213,9 +213,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
   if global.openMsgBoxCount: return
-  if camLockPos:
-    $Camera2D.global_position = camLockPos
-    $Camera2D.reset_smoothing()
+  updateCamLockPos()
 
 func clearWallData():
   lastWall = 0
@@ -1062,6 +1060,11 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   # state = States.falling
   # breakpoint
 
+func updateCamLockPos():
+  if camLockPos:
+    $Camera2D.global_position = camLockPos
+    $Camera2D.reset_smoothing()
+
 func goto(pos: Vector2) -> void:
   position = pos
   vel.user = Vector2.ZERO
@@ -1089,7 +1092,10 @@ func getClosestWallSide() -> int:
 func setRot(rot):
   var startRot = $Camera2D.global_rotation
   rotation = rot
-  $Camera2D.global_rotation = startRot
+  if camRotLock:
+    $Camera2D.global_rotation = camRotLock
+  else:
+    $Camera2D.global_rotation = startRot
 
 var OnPlayerDied: Array = []
 var OnPlayerFullRestart: Array = []
