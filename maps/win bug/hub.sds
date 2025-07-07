@@ -159,4 +159,15 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(-300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(299.999908447266)
+    STR(id)STR(bouncy)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]
