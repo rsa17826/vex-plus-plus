@@ -150,4 +150,61 @@
     ]
     STR(beatLevels)[]
   }
+  STR(real level #9){
+    STR(lastSpawnPoint)VEC2(1550.0,-265.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,1.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(1)
+            }
+            INT(2){
+              STR(texture)STR(1)
+            }
+            INT(3){
+              STR(texture)STR(2)
+            }
+          }
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(true)
+            }
+            INT(2){
+              STR(collected)BOOL(true)
+            }
+            INT(3){
+              STR(collected)BOOL(true)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
+  STR(asdasd){
+    STR(lastSpawnPoint)VEC2(91.6666641235352,-1.49462890625)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(91.6666641235352,-1.49462890625)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){}
+      }
+    ]
+    STR(beatLevels)[
+      {
+        STR(name)STR(a)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){}
+      }
+    ]
+  }
 }
