@@ -64,7 +64,9 @@ var isHovered := false
 var isChildOfCustomBlock = false
 var id: String
 var startPosition: Vector2
-var startRotation_degrees: float
+var startRotation_degrees: float:
+  set(val):
+    startRotation_degrees = fmod(val, 360)
 var startScale: Vector2 = Vector2(1, 1)
 var ghost: Node2D
 ## distance moved in last frame
@@ -101,7 +103,7 @@ func _on_mouse_exited() -> void:
 
 func onEditorMove(moveDist) -> void:
   for block: EditorBlock in attach_parents.filter(func(e): return is_instance_valid(e)):
-    block.attach_children.erase(self)
+    block.attach_children.erase(self )
   attach_parents = []
   if self in global.boxSelect_selectedBlocks:
     for block in global.boxSelect_selectedBlocks:
@@ -229,7 +231,7 @@ func _ready() -> void:
     if get_node_or_null("CollisionShape2D"):
       collisionShapes = [$CollisionShape2D]
     elif not ignoreMissingNodes:
-      log.err("collisionShapes is null", self, name)
+      log.err("collisionShapes is null", self , name)
       breakpoint
   if not EDITOR_IGNORE and not ghost:
     createEditorGhost()
@@ -403,10 +405,10 @@ func _process(delta: float) -> void:
   if not EDITOR_IGNORE:
     if isHovered:
       if self not in global.hoveredBlocks:
-        global.hoveredBlocks.append(self)
+        global.hoveredBlocks.append(self )
     else:
       if self in global.hoveredBlocks:
-        global.hoveredBlocks.erase(self)
+        global.hoveredBlocks.erase(self )
 
     if ghostFollowNode == self:
       ghost.rotation_degrees = 0
@@ -589,7 +591,7 @@ func createEditorGhost() -> void:
   add_child(ghost)
 
 ## spins the node at speed using global tick
-func spin(speed: float, node: Node2D = self) -> void:
+func spin(speed: float, node: Node2D = self ) -> void:
   node.rotation_degrees = fmod(global.tick * speed, 360.0)
 
 ## returns the name of the texture of a node
@@ -627,12 +629,12 @@ func __enable() -> void:
 func _on_body_enteredDEATH(body: Node) -> void:
   if body == global.player:
     if self not in global.player.deathSources:
-      global.player.deathSources.append(self)
+      global.player.deathSources.append(self )
 
 func _on_body_exitedDEATH(body: Node) -> void:
   if body == global.player:
     if self in global.player.deathSources:
-      global.player.deathSources.erase(self)
+      global.player.deathSources.erase(self )
 
 # res://scenes/blocks/buzsaw/images/1.png
 @export_group("BUZSAW - GENERIC")

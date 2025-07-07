@@ -409,9 +409,7 @@ func _physics_process(delta: float) -> void:
     States.bouncing:
       setRot(defaultAngle)
       $CollisionShape2D.rotation = 0
-      lastWall = 0
-      breakFromWall = false
-      wallSlidingFrames = 0
+      clearWallData()
       slideRecovery = 0
       duckRecovery = 0
       wallBreakDownFrames = 0
@@ -550,7 +548,7 @@ func _physics_process(delta: float) -> void:
           # log.pp(vel.user, playerXIntent, playerXIntent != vel.user.x, state, States.idle, floor_max_angle)
         else:
           # if not on floor and switching wall sides allow both walls again
-          if lastWall && (getCurrentWallSide() && lastWall != getCurrentWallSide()):
+          if lastWall && (getCurrentWallSide() && lastWall != getCurrentWallSide()) and not collidingWithNowj():
             lastWall = 0
             breakFromWall = false
             state = States.wallSliding
@@ -560,7 +558,7 @@ func _physics_process(delta: float) -> void:
           # log.pp(velocity.y)
           if vel.user.y > -20 && state != States.wallHang:
             # log.pp("entering wall grab", CenterIsOnWall(), TopIsOnWall())
-            if CenterIsOnWall() && !TopIsOnWall() and not %nowjDetector.get_overlapping_bodies():
+            if CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj():
               currentHungWall = $wallDetection/rightWall.get_collider() if getCurrentWallSide() == 1 else $wallDetection/leftWall.get_collider()
               hungWallSide = getCurrentWallSide()
               state = States.wallHang
@@ -579,11 +577,11 @@ func _physics_process(delta: float) -> void:
               lastWall = 0
 
           # if not in wall hang state and near a wall
-          if state != States.wallHang && getCurrentWallSide():
+          if state != States.wallHang && getCurrentWallSide() and not collidingWithNowj():
             lastWall = getCurrentWallSide()
           if CenterIsOnWall() && not is_on_floor() && !breakFromWall \
           && vel.user.y > 0 && wallBreakDownFrames <= 0 \
-          and not %nowjDetector.get_overlapping_bodies():
+          and not collidingWithNowj():
             vel.user.y = WALL_SLIDE_SPEED
             
             state = States.wallSliding
@@ -860,6 +858,22 @@ func _physics_process(delta: float) -> void:
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
 
+func collidingWithNowj():
+  var wallSIde = getCurrentWallSide()
+  var bodies = %nowjDetector.get_overlapping_bodies()
+  var collision = false
+  # log.pp(wallSIde)
+  for body in bodies:
+    var block: EditorBlock = body.root
+    var angdiff = angle_difference(block.startRotation_degrees, defaultAngle)
+    var v = Vector2(1, 0).rotated(angdiff)
+    if abs(v.x - wallSIde) < .5:
+      # log.pp(v.x - wallSIde, v.x, wallSIde)
+      # log.pp(v, wallSIde, block.startRotation_degrees, angdiff, block.rotation_degrees, block.id)
+      collision = true
+      break
+
+  return collision
 func angle_distance(angle1: float, angle2: float) -> float:
   var difference = angle2 - angle1
   difference = fposmod(difference + PI, TAU) - PI
@@ -1065,6 +1079,9 @@ func getCurrentWallSide() -> int:
   if !is_on_wall(): return 0
   return getClosestWallSide()
 func getClosestWallSide() -> int:
+  if $wallDetection/rightWall.is_colliding() and $wallDetection/leftWall.is_colliding():
+    if $anim.flip_h: return -1
+    else: return 1
   if $wallDetection/rightWall.is_colliding(): return 1
   if $wallDetection/leftWall.is_colliding(): return -1
   return 0

@@ -131,4 +131,23 @@
     ]
     STR(beatLevels)[]
   }
+  STR(button test){
+    STR(lastSpawnPoint)VEC2(333.0,-532.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(-1.0,0.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(2)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
 }

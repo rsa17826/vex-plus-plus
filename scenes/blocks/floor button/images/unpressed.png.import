@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cabuev2ojvrhb"
-path="res://.godot/imported/1.png-d723a6e7d596a179b54a422980a2e5ee.ctex"
+uid="uid://x4y3t5cbnuqo"
+path="res://.godot/imported/unpressed.png-db89dc506f1f7ebb1d382db4eae87762.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/slope/images/1.png"
-dest_files=["res://.godot/imported/1.png-d723a6e7d596a179b54a422980a2e5ee.ctex"]
+source_file="res://scenes/blocks/floor button/images/unpressed.png"
+dest_files=["res://.godot/imported/unpressed.png-db89dc506f1f7ebb1d382db4eae87762.ctex"]
 
 [params]
 

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://nxwnut3km1l6"]
+
+[ext_resource type="Script" uid="uid://b1q2k3wfgp6hf" path="res://scenes/blocks/button deactivated wall/button deactivated wall.gd" id="1_6hd43"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_0wgu6"]
+[ext_resource type="Texture2D" uid="uid://bec5vqx718f4n" path="res://scenes/blocks/button deactivated wall/images/1.png" id="3_etsxo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
+size = Vector2(700, 700)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
+script = ExtResource("1_6hd43")
+ghostIconNode = NodePath("collisionNode/editorBar")
+editorBarIconNode = NodePath("collisionNode/editorBar")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/editorBar")]
+thingThatMoves = NodePath("collisionNode")
+ignoreMissingNodes = true
+
+[node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 2056
+collision_mask = 0
+script = ExtResource("2_0wgu6")
+root = NodePath("..")
+
+[node name="editorBar" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+texture = ExtResource("3_etsxo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+shape = SubResource("RectangleShape2D_t2pxc")
+debug_color = Color(0, 0.6, 0.7019608, 0.41960785)

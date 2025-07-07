@@ -65,7 +65,6 @@ EDITOR_OPTION_rotate=""
 EDITOR_OPTION_scale=""
 "attaches to things"=""
 "buzsaw - generic"=""
-portal=""
 dontRespawnOnPlayerDeath=""
 canBeAttachedTo=""
 

@@ -27,7 +27,7 @@ func _process(delta: float) -> void:
     timer.time += delta
   for i: Array in wait_until_wait_list:
     if has_user_signal(i[0]) and i[1] && i[1].is_valid() && i[1].call():
-      Signal(self, i[0]).emit()
+      Signal(self , i[0]).emit()
       remove_user_signal(i[0])
   if !InputMap.has_action("quit"): return
   localProcess(delta)
@@ -222,22 +222,22 @@ class cache:
     pass
   func __has(thing: Variant) -> bool:
     if "lastinp" in self._data:
-      log.err("lastinp should not exist", self)
+      log.err("lastinp should not exist", self )
       return false
     self._data.lastinp = thing
     return thing in self.cache
   func __get() -> Variant:
     if "lastinp" not in self._data:
-      log.err("No lastinp", self)
+      log.err("No lastinp", self )
       return
-    var val: Variant = self.cache[self._data.lastinp]
+    var val: Variant = self.cache[ self._data.lastinp]
     self._data.erase("lastinp")
     return val
   func __set(value: Variant) -> Variant:
     if "lastinp" not in self._data:
-      log.err("No lastinp", self)
+      log.err("No lastinp", self )
       return
-    self.cache[self._data.lastinp] = value
+    self.cache[ self._data.lastinp] = value
     self._data.erase("lastinp")
     return value
 
@@ -312,7 +312,7 @@ func waituntil(cb: Callable) -> Signal:
   var sig := "wait until signal - " + randstr(30)
   add_user_signal(sig)
   wait_until_wait_list.append([sig, cb])
-  return Signal(self, sig)
+  return Signal(self , sig)
 
 # class link:
 #   static var links = []
@@ -1485,6 +1485,8 @@ func localReady() -> void:
     "pushable box",
     "microwave",
     "locked box",
+    "floor button",
+    "button deactivated wall",
     "glass",
     "falling",
     "donup",
@@ -1837,8 +1839,17 @@ func removeDeadNodes(arr):
     and is_instance_valid(e) \
     and !e.is_queued_for_deletion()
   )
+func isDead(e):
+  return e \
+    and is_instance_valid(e) \
+    and !e.is_queued_for_deletion()
 
 var hoveredBrushes: Array[Node2D] = []
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 signal gravChanged
+
+var buttonWalls: Array[EditorBlock] = []:
+  get():
+    buttonWalls = buttonWalls.filter(isDead)
+    return buttonWalls
