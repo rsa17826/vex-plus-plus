@@ -929,7 +929,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   :
     block.__disable()
   if block is BlockBouncy \
-  and playerSide.bottom \
+  and blockSide.top \
   and applyRot(velocity).y >= -SMALL \
   and not inWaters \
   :

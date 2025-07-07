@@ -1,7 +1,7 @@
 [
   {
-    STR(x)FLOAT(0.0)
-    STR(y)FLOAT(-65.0)
+    STR(x)FLOAT(-99.0)
+    STR(y)FLOAT(26.0)
   }
   {
     STR(x)FLOAT(0.0)
@@ -24,6 +24,138 @@
     STR(options){
       STR(level)STR(a)
       STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(50.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(2.00000008940697)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(floor button)
+    STR(options){
+      STR(buttonId)INT(0)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(200.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(button deactivated wall)
+    STR(options){
+      STR(buttonId)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(300.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bouncy)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-90.0)
+    STR(id)STR(bouncy)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(bouncy)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-200.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bouncy)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(portal)
+    STR(options){
+      STR(portalId)INT(0)
+      STR(exitId)INT(1)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(portal)
+    STR(options){
+      STR(portalId)INT(1)
+      STR(exitId)INT(1)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(89.9999465942383)
+    STR(id)STR(bouncy)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(50.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
