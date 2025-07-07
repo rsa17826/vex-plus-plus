@@ -49,9 +49,14 @@ func on_process(delta: float) -> void:
     # Adjust the position based on the current rotation
     var node_pos := ghostIconNode.global_position
     var node_size := sizeInPx * scale
-    var top_edge := node_pos.y - node_size.y / 2
+    var top_edge := node_pos.y - node_size.y / 2 # Correctly calculate the top edge
 
     var playerGhost: Node2D = global.player.get_parent().ghost
     var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
 
-    global.player.global_position.y = top_edge - (playerGhostSize.y / 2)
+    # Calculate the offset based on the block's rotation
+    var offset = Vector2(0, - (node_size.y + playerGhostSize.y) / 2) # Center the player on the block
+    offset = offset.rotated(radrot) # Rotate the offset to match the block's rotation
+
+    # Move the player to the correct position on the bouncy block
+    global.player.global_position = node_pos + offset # Use node_pos directly for x and adjusted y
