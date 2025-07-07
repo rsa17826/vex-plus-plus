@@ -1,27 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://cjhsd00qyc12v"]
+[gd_scene load_steps=6 format=3 uid="uid://cjhsd00qyc12v"]
 
 [ext_resource type="Script" uid="uid://c62pcqr2vis0s" path="res://scenes/blocks/slope/slope.gd" id="1_2xhgp"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_5n4dx"]
 [ext_resource type="Texture2D" uid="uid://cabuev2ojvrhb" path="res://scenes/blocks/slope/images/1.png" id="2_kissk"]
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_h1kpj"]
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_mp3xn"]
-a = Vector2(350, -350)
-b = Vector2(350, 350)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_1mcgv"]
-a = Vector2(-350, 350)
-b = Vector2(350, 350)
-
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_f3630"]
-a = Vector2(-350, 350)
-b = Vector2(350, -350)
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_5n4dx"]
+points = PackedVector2Array(-351, 350, 350, 350, 350, -351)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale"]]
 script = ExtResource("1_2xhgp")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/CollisionShape2D2"), NodePath("collisionNode/CollisionShape2D3")]
+collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath(""), NodePath("")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 
@@ -39,10 +30,4 @@ texture = ExtResource("2_kissk")
 script = ExtResource("3_h1kpj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-shape = SubResource("SegmentShape2D_mp3xn")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
-shape = SubResource("SegmentShape2D_1mcgv")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="collisionNode"]
-shape = SubResource("SegmentShape2D_f3630")
+shape = SubResource("ConvexPolygonShape2D_5n4dx")
