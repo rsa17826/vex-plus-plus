@@ -1097,8 +1097,8 @@ func setRot(rot):
   else:
     $Camera2D.global_rotation = startRot
 
-var OnPlayerDied: Array = []
-var OnPlayerFullRestart: Array = []
+signal OnPlayerDied
+signal OnPlayerFullRestart
 
 func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
@@ -1143,15 +1143,9 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   speedLeverActive = false
   deathSources = []
   global.lastPortal = null
-  OnPlayerDied = OnPlayerDied.filter(func(e: Callable) -> bool:
-    return e.is_valid())
-  OnPlayerFullRestart = OnPlayerFullRestart.filter(func(e: Callable) -> bool:
-    return e.is_valid())
-  for cb in OnPlayerDied:
-    cb.call()
+  OnPlayerDied.emit()
   if full:
-    for cb in OnPlayerFullRestart:
-      cb.call()
+    OnPlayerFullRestart.emit()
   _physics_process(0)
 
 func _on_bottom_body_entered(body: Node2D) -> void:
