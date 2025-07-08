@@ -36,39 +36,6 @@ class Docky extends RefCounted:
   
   func _init(set_plugin: Object) -> void:
     plugin = set_plugin
-  
-  func matches(key, item, retval):
-    if key == item:
-      return false
-    var splitKey: Array = (key.split("/") as Array).filter(func(e): return e)
-    var splitItem: Array = (item.split("/") as Array).filter(func(e): return e)
-    if len(splitItem) <= len(splitKey):
-      return false
-    var result: String = ''
-    var itemrep: Array[String] = []
-    if key != "res://scenes/blocks/*/images/":
-      return false
-    log.pp(key, item)
-    for i in range(len(splitItem)):
-      if i not in splitItem or i not in splitKey:
-        log.pp("len ", (splitItem), (splitKey), "i ", i, result)
-        return false
-      if splitKey[i] == splitItem[i]:
-        result += splitKey[i]
-        continue
-      if splitKey[i][0] == '$':
-        var num := int(splitKey[i].substr(1, -1))
-        if num in itemrep:
-          result += itemrep[num] + '/'
-          return
-      if splitKey[i] == '*':
-        itemrep.append(splitItem[i])
-        result += splitItem[i] + '/'
-        continue
-      else:
-        return false
-    log.pp("result:", result, itemrep, splitKey, splitItem, key, item, retval)
-    return result
 
   func update_icons() -> void:
     if !dock:
@@ -84,18 +51,27 @@ class Docky extends RefCounted:
     # log.pp(mt, buffer)
     for key: String in buffer.keys():
       for m: String in mt.keys():
-        if m == key:
-          continue
+        # if m == key:
+        #   continue
         #   # log.pp("same", key, m)
         #   mt[m][1] = m.length() + 1
         #   dock.set_item_icon(mt[m][0], buffer[key])
         #   continue
-        # if matches(key, m, buffer[key]):
-        #   log.pp("matched", key, m, buffer[key])
-        #   if buffer[key] is ImageTexture:
-        #     mt[m][1] = m.length() + 1
-        #     # dock.set_item_icon(mt[m][0], buffer[key])
-        #     continue
+        if plugin.matches(key, m, buffer[key]):
+          log.pp("matched", key, m, buffer[key])
+          if buffer[key] is ImageTexture:
+            mt[m][1] = m.length() + 1
+            dock.set_item_icon(mt[m][0], buffer[key])
+            break
+          else:
+            var texture_path = plugin.matches(key, m, buffer[key])
+            var tx: Texture2D = load(texture_path)
+            var img: Image = tx.get_image()
+            mt[m][1] = m.length() + 1
+            img.resize(int(plugin.size.x) * 10, int(plugin.size.y) * 10)
+            tx = ImageTexture.create_from_image(img)
+            dock.set_item_icon(mt[m][0], tx)
+            break
         #   var texture_path = matches(key, m, buffer[key])
         #   var im = Image.new()
         #   im.load(texture_path)
