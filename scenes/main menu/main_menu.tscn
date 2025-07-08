@@ -105,7 +105,7 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0.435294, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0.270588, 1)
 text = "instructions"
 
-[node name="play tut2" type="Button" parent="BTNS"]
+[node name="play tut" type="Button" parent="BTNS"]
 visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)

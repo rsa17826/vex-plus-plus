@@ -1,11 +1,11 @@
 @tool
 extends EditorPlugin
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-#	Fancy Folder Icons
+#    Fancy Folder Icons
 #
-#	Folder Icons addon for addon godot 4
-#	https://github.com/CodeNameTwister/Fancy-Folder-Icons
-#	author:	"Twister"
+#    Folder Icons addon for addon godot 4
+#    https://github.com/CodeNameTwister/Fancy-Folder-Icons
+#    author:    "Twister"
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 const DOT_USER: String = "user://editor/fancy_folder_icons.dat"
 const RULES_FILE = "user://fancy_folder_icons_rules.json"

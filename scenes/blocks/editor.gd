@@ -220,11 +220,11 @@ func _on_body_entered(body: Node2D, real=true) -> void:
 ## don't overite - use on_ready instead
 func _ready() -> void:
   # log.pp(isChildOfCustomBlock)
-  if _ready not in global.player.OnPlayerFullRestart:
-    global.player.OnPlayerFullRestart.append(_ready)
+  if global.player.OnPlayerFullRestart.is_connected(_ready):
+    global.player.OnPlayerFullRestart.connect(_ready)
   # if !is_in_group("dontRespawnOnPlayerDeath"):
-  if _ready not in global.player.OnPlayerDied:
-    global.player.OnPlayerDied.append(respawn)
+  if !global.player.OnPlayerDied.is_connected(_ready):
+    global.player.OnPlayerDied.connect(respawn)
 
   blockOptions = {}
   if not collisionShapes:
