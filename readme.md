@@ -206,9 +206,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
 
-- **bouncy**: has solid collision but when the player comes in contact with it from the top it will put the player in the bouncing state and bounce back up after a short period of time. the time and bounce height is determined by the blocks y size with bigger time and height from larger y scales.
+- **bouncy**: has solid collision but when the player comes in contact with it from the top it will put the player in the bouncing state and bounce back up after a short period of time. the time and bounce height is determined by the blocks y size with bigger time and height from larger y scales. the player bounce direction is away from the top of the block so if the block is rotated, the bounce will be different.
 
   - scalable
+  - rotatable
   - **settings**:
     - **color**
 
@@ -309,11 +310,15 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **Quadrant**: kills the player on contact and will spin clockwise
 
+  -rotatable
+
   - **settings**:
     - **color**
     - **attachesToThings**
 
 - **Rotating Buzzsaw**: kills the player on contact and will spin clockwise
+
+  -rotatable
 
   - **settings**:
     - **color**
@@ -321,25 +326,28 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **Scythe**: kills the player on contact and will spin counterclockwise
 
+  -rotatable
+
   - **settings**:
     - **color**
     - **attachesToThings**
 
-- **star**: when the player collects this it will stay collected
+- **star**: when the player collects this it will stay collected. the star counter in the top left shows the current number of stars collected and total for the current level. the inner levels will have their star counter on the block before entering.
 
-  - i plan to add a star counter to show how many stars you have collected and the total for current level and for all inner levels
-  - i plan to make it so that it remembers which stars have been collected and not just if a star has been collected
   - **settings**:
     - **color**
     - **attachesToThings**
 
 - **death boundary**: kills the player on contact
 
+  -scalable
+
   - **settings**:
     - **color**
 
 - **block death boundary**: kills most moving blocks on contact including collected keys and removes effects from the player when the player enters
 
+  - scalable
   - effects removed are
     - speed lever
     - low gravity lever
@@ -349,23 +357,28 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **nowj**: prevents the player from walljumping, wallsliding, and wall hanging when in contact with the player
 
+  - rotatable
+  - scalable
   - **settings**:
     - **color**
     - **attachesToThings**
 
 - **falling spike**: kills the player on contact when in line with the player it will start falling until hitting a solid block
 
+  - rotatable
   - **settings**:
     - **color**
     - **attachesToThings**
 
 - **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
+
   - **settings**:
     - **color**
     - **attachesToThings**
     - **portalId**: the id of this portal as used for finding an exit portal
     - **exitId**: the id this portal uses to find its exit portal
       - eg portalId = 1, exitId = 2, means that entering this portal will take the player to the portal with portalId = 2 and will be found with a portal set to have exitId = 1
+
 - **pole**: when the player contacts this the player will be able to swing on it and jump off with jump or drop off with down. when jumping off if in the blue part of the indicator then the jump will gain height else it will be like a drop
 
   - **settings**:
@@ -374,28 +387,33 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **pole quadrant**: spins 4 poles
 
+  - rotatable
   - **settings**:
     - **color**
     - **attachesToThings**
 
 - **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
 
+  - scalable
   - **settings**:
     - **color**
     - **attachesToThings**
 
 - **spark block/counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
 
+  - scalable
   - **settings**:
     - **color**
 
 - **spark block/clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
 
+  - scalable
   - **settings**:
     - **color**
 
 - **bomb**: like a pushable box but explodes when hit with a falling spike, falling to fast and colliging with the ground, being squished, or having a box, other bomb fall to fast on it, or being exploded by another bomb. when the player is inside of the explosion, they will be killed, when a block is in the explosion, it will be disabled. microwaves cant be exploded.
 
+  - scalable
   - **settings**:
     - **color**
 
@@ -406,28 +424,35 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **sticky floor**: makes the player not be able to jump while in contact with this and also prevents the player from regaining cyote time
 
+  - scalable
+  - rotatable
   - **settings**:
     - **attachesToThings**
 
 - **arrow**: points at things; can be rotated
 
+  - rotatable
   - **settings**:
     - **attachesToThings**
 
-- **conveyer**: moves things on top of it to the left and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
+- **conveyer**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
 
-  - **settings**:
-
-- **conveyer**: moves things on top of it to the right and momentum persists for a short time after leaving this block. works on pushable box, bomb and player.
-
+  - rotatable
+  - scalable
   - **settings**:
 
 - **oneway**: like a block in the direction it is facing and like air in all other directions.
 
+  - rotatable
+  - scalable
   - **settings**:
+
 - **gravity rotator**: rotates gravity to face the direction of it points. is triggered by player/bomb/pushable box entering it.
 
+  - rotatable
+  - scalable
   - **settings**:
+
 - **floor button**: when pressed by player/bomb/pushable box, toggles off all button deactivated walls that have the same buttonId as this. the button deactivated wall is reenabled when all buttons of the corisponding buttonId are depressed.
 
   - **settings**:
@@ -435,5 +460,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **button deactivated wall**: active only whern no button sharing the same buttonId are pressed, and inactive otherwise.
 
+  - scalable
   - **settings**:
     - **buttonId**: unique identifier for a set of buttons that can be used to activate this.
