@@ -55,12 +55,6 @@ class Docky extends RefCounted:
     # log.pp(mt, buffer)
     for key: String in buffer.keys():
       for m: String in mt.keys():
-        # if m == key:
-        #   continue
-        #   # log.pp("same", key, m)
-        #   mt[m][1] = m.length() + 1
-        #   dock.set_item_icon(mt[m][0], buffer[key])
-        #   continue
         if plugin.matches(key, m, buffer[key]):
           # log.pp("matched", key, m, buffer[key])
           if buffer[key] is ImageTexture:
@@ -76,23 +70,6 @@ class Docky extends RefCounted:
             tx = ImageTexture.create_from_image(img)
             dock.set_item_icon(mt[m][0], tx)
             break
-        #   var texture_path = matches(key, m, buffer[key])
-        #   var im = Image.new()
-        #   im.load(texture_path)
-        #   var tx: Texture2D = ImageTexture.create_from_image(im)
-        #   mt[m][1] = m.length() + 1
-        #   var size: Vector2 = Vector2(12.0, 12.0)
-        #   print("Image selected '", texture_path.get_file(), "' size: ", tx.get_size(), " resized to ", size.x, "x", size.y)
-        #   var img: Image = tx.get_image()
-        #   img.resize(int(size.x), int(size.y))
-        #   tx = ImageTexture.create_from_image(img)
-          # dock.set_item_icon(mt[m][0], tx)
-          
-        # elif m.get_extension().is_empty() and m.begins_with(key):
-        #   var l: int = key.length()
-        #   if mt[m][1] < l:
-        #     mt[m][1] = l
-        #     dock.set_item_icon(mt[m][0], buffer[key])
     _dispose.call_deferred()
     return
     
