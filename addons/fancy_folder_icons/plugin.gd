@@ -42,6 +42,7 @@ class Docky extends RefCounted:
       return
     var buffer: Dictionary = plugin.get_buffer()
     buffer['res://scenes/blocks/**/images/'] = "res://scenes/blocks/image.png"
+    buffer['res://scenes/blocks/*/'] = "res://scenes/blocks/$1/images/1.png"
     buffer.erase('res://scenes/blocks/*/images/')
     var mt: Dictionary = {}
     
@@ -58,7 +59,7 @@ class Docky extends RefCounted:
         #   dock.set_item_icon(mt[m][0], buffer[key])
         #   continue
         if plugin.matches(key, m, buffer[key]):
-          log.pp("matched", key, m, buffer[key])
+          # log.pp("matched", key, m, buffer[key])
           if buffer[key] is ImageTexture:
             mt[m][1] = m.length() + 1
             dock.set_item_icon(mt[m][0], buffer[key])
@@ -218,7 +219,7 @@ func matches(key, item, retval):
   var newRetVal = []
   for part in retval.split("/"):
     for ii in range(0, len(itemrep)):
-      if part == "$" + str(ii):
+      if part == "$" + str(ii + 1):
         newRetVal.append(itemrep[ii])
       else:
         newRetVal.append(part)
