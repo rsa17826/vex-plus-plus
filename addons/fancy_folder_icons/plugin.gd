@@ -26,6 +26,11 @@ var size: Vector2 = Vector2(12.0, 12.0)
 var _is_saving: bool = false
 
 func get_buffer() -> Dictionary:
+  _buffer['res://scenes/blocks/**/images/'] = "res://scenes/blocks/image.png"
+  _buffer['res://scenes/blocks/*/'] = "res://scenes/blocks/$1/images/1.png"
+  _buffer['res://scenes/blocks/spark block/'] = "res://scenes/blocks/spark block/clockwise/images/spark.png"
+  _buffer['res://scenes/blocks/spark block/clockwise/'] = "res://scenes/blocks/spark block/clockwise/images/1.png"
+  _buffer['res://scenes/blocks/spark block/counterClockwise/'] = "res://scenes/blocks/spark block/counterClockwise/images/1.png"
   return _buffer
 
 class Docky extends RefCounted:
@@ -41,9 +46,6 @@ class Docky extends RefCounted:
     if !dock:
       return
     var buffer: Dictionary = plugin.get_buffer()
-    buffer['res://scenes/blocks/**/images/'] = "res://scenes/blocks/image.png"
-    buffer['res://scenes/blocks/*/'] = "res://scenes/blocks/$1/images/1.png"
-    buffer.erase('res://scenes/blocks/*/images/')
     var mt: Dictionary = {}
     
     for x: int in dock.item_count:
@@ -193,7 +195,7 @@ func matches(key, item, retval):
     splitKeyIdx += 1
     splitItemIdx += 1
     if splitItemIdx >= len(splitItem) or splitKeyIdx >= len(splitKey):
-      log.pp("len ", key, item, retval, "splitItemIdx ", splitItemIdx, "splitKeyIdx", splitKeyIdx, "<plugin:223>: 1")
+      # log.pp("len ", key, item, retval, "splitItemIdx ", splitItemIdx, "splitKeyIdx", splitKeyIdx)
       return false
     if splitKey[splitKeyIdx] == splitItem[splitItemIdx]:
       continue
@@ -207,7 +209,7 @@ func matches(key, item, retval):
       for ii in range(splitItemIdx, splitItemIdx + extra):
         v += '/' + splitItem[ii]
       itemrep.append(v.substr(1))
-      log.pp((len(splitItem) - len(splitKey)), splitItem, v, itemrep, key, item, extra, "extra!!")
+      # log.pp((len(splitItem) - len(splitKey)), splitItem, v, itemrep, key, item, extra, "extra!!")
       splitItemIdx += extra - 1
       continue
 
@@ -217,18 +219,24 @@ func matches(key, item, retval):
     return false
   # log.pp("result:", itemrep, splitKey, splitItem, key, item, retval)
   var newRetVal = []
-  for part in retval.split("/"):
-    for ii in range(0, len(itemrep)):
-      if part == "$" + str(ii + 1):
-        newRetVal.append(itemrep[ii])
-      else:
-        newRetVal.append(part)
-
-  return "/".join(newRetVal)
+  for pospath in (retval.split("||") as Array).map(func(e): return e.split("/")):
+    newRetVal.append([])
+    for part in pospath:
+      for ii in range(0, len(itemrep)):
+        if part == "$" + str(ii + 1):
+          newRetVal[len(newRetVal) - 1].append(itemrep[ii])
+        else:
+          newRetVal[len(newRetVal) - 1].append(part)
+  newRetVal = newRetVal.map(func(e): return "/".join(e))
+  for path in newRetVal:
+    if FileAccess.file_exists(path):
+      return path
+  log.warn(newRetVal, " does not exist")
+  return false
 
 func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -> void:
   var meta: String = str(item.get_metadata(0))
-  if _buffer.has(meta):
+  if _buffer.has(meta) and _buffer[meta] is Texture2D:
     texture = _buffer[meta]
     as_root = true
 
@@ -246,7 +254,7 @@ func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -
       img.resize(int(size.x), int(size.y))
       tx = ImageTexture.create_from_image(img)
       texture = tx
-      break
+      continue
               
   if texture != null:
     if as_root or !FileAccess.file_exists(meta):
