@@ -27,7 +27,8 @@ var _is_saving: bool = false
 
 func get_buffer() -> Dictionary:
   _buffer['res://scenes/blocks/**/images/'] = "res://scenes/blocks/image.png"
-  _buffer['res://scenes/blocks/*/'] = "res://scenes/blocks/$1/images/1.png"
+  _buffer['res://scenes/blocks/*/'] = "res://scenes/blocks/$1/images/editorBar.png||res://scenes/blocks/$1/images/1.png||res://scenes/blocks/$1/images/unpressed.png||res://scenes/blocks/$1/images/ghost.png"
+  _buffer['res://scenes/blocks/conveyer/images/arrows/'] = "res://scenes/blocks/conveyer/images/editorBar.png"
   _buffer['res://scenes/blocks/spark block/'] = "res://scenes/blocks/spark block/clockwise/images/spark.png"
   _buffer['res://scenes/blocks/spark block/clockwise/'] = "res://scenes/blocks/spark block/clockwise/images/1.png"
   _buffer['res://scenes/blocks/spark block/counterClockwise/'] = "res://scenes/blocks/spark block/counterClockwise/images/1.png"
@@ -231,9 +232,9 @@ func matches(key, item, retval):
   for path in newRetVal:
     if FileAccess.file_exists(path):
       return path
-  log.warn(newRetVal, " does not exist")
+  errQueue.append([newRetVal, " does not exist, ITEM:", item])
   return false
-
+var errQueue = []
 func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -> void:
   var meta: String = str(item.get_metadata(0))
   if _buffer.has(meta) and _buffer[meta] is Texture2D:
@@ -241,21 +242,24 @@ func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -
     as_root = true
 
   texture = null
-  
+  errQueue = []
   for key in _buffer:
     if matches(key, meta, _buffer[key]):
       if _buffer[key] is ImageTexture:
         texture = _buffer[key]
         continue
       var texture_path = matches(key, meta, _buffer[key])
-
       var tx: Texture2D = load(texture_path)
       var img: Image = tx.get_image()
       img.resize(int(size.x), int(size.y))
       tx = ImageTexture.create_from_image(img)
       texture = tx
-      continue
-              
+      errQueue = []
+      break
+  if errQueue:
+    for err in errQueue:
+      log.err(err)
+      
   if texture != null:
     if as_root or !FileAccess.file_exists(meta):
       item.set_icon(0, texture)
