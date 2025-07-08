@@ -425,3 +425,15 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **oneway**: like a block in the direction it is facing and like air in all other directions.
 
   - **settings**:
+- **gravity rotator**: rotates gravity to face the direction of it points. is triggered by player/bomb/pushable box entering it.
+
+  - **settings**:
+- **floor button**: when pressed by player/bomb/pushable box, toggles off all button deactivated walls that have the same buttonId as this. the button deactivated wall is reenabled when all buttons of the corisponding buttonId are depressed.
+
+  - **settings**:
+    - **buttonId**: unique identifier used to identify which things should be affected by this.
+
+- **button deactivated wall**: active only whern no button sharing the same buttonId are pressed, and inactive otherwise.
+
+  - **settings**:
+    - **buttonId**: unique identifier for a set of buttons that can be used to activate this.
