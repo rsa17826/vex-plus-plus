@@ -25,6 +25,10 @@ var size: Vector2 = Vector2(12.0, 12.0)
 
 var _is_saving: bool = false
 
+const settings := {
+  "textureAppliesToNestedFolders": false
+}
+
 func get_buffer() -> Dictionary:
   _buffer['res://scenes/blocks/**/images/'] = "res://scenes/blocks/image.png"
   _buffer['res://scenes/blocks/*/'] = "res://scenes/blocks/$1/images/editorBar.png||res://scenes/blocks/$1/images/1.png||res://scenes/blocks/$1/images/unpressed.png||res://scenes/blocks/$1/images/ghost.png"
@@ -53,8 +57,8 @@ class Docky extends RefCounted:
       var data: String = str(dock.get_item_metadata(x))
       mt[data] = [x, 0]
     # log.pp(mt, buffer)
-    for key: String in buffer.keys():
-      for m: String in mt.keys():
+    for m: String in mt.keys():
+      for key: String in buffer.keys():
         if plugin.matches(key, m, buffer[key]):
           # log.pp("matched", key, m, buffer[key])
           if buffer[key] is ImageTexture:
@@ -66,7 +70,7 @@ class Docky extends RefCounted:
             var tx: Texture2D = load(texture_path)
             var img: Image = tx.get_image()
             mt[m][1] = m.length() + 1
-            img.resize(int(plugin.size.x) * 10, int(plugin.size.y) * 10)
+            img.resize(int(plugin.size.x) * 4, int(plugin.size.y) * 4)
             tx = ImageTexture.create_from_image(img)
             dock.set_item_icon(mt[m][0], tx)
             break
@@ -217,8 +221,8 @@ func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -
   if _buffer.has(meta) and _buffer[meta] is Texture2D:
     texture = _buffer[meta]
     as_root = true
-
-  texture = null
+  if !settings.textureAppliesToNestedFolders:
+    texture = null
   errQueue = []
   for key in _buffer:
     if matches(key, meta, _buffer[key]):
