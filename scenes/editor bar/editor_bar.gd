@@ -41,8 +41,6 @@ func _ready() -> void:
     1:
       position = Vector2(0, global.windowSize.y - $ColorRect.size.y)
     2:
-      position = Vector2(0, 0)
-    3:
       position = Vector2(global.windowSize.x - $ColorRect.size.x, 0)
   position.y += global.useropts.editorBarOffset
 
