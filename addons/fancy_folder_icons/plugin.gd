@@ -9,7 +9,8 @@ extends EditorPlugin
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 const DOT_USER: String = "user://editor/fancy_folder_icons.dat"
 const RULES_FILE = "user://fancy_folder_icons_rules.json"
-
+var largeIconCache := {}
+var smallIconCache := {}
 var rules: Dictionary = {}
 
 var _buffer: Dictionary = {}
@@ -63,12 +64,16 @@ class Docky extends RefCounted:
             dock.set_item_icon(mt[m][0], buffer[key])
             break
           else:
+            var tx: Texture2D
             var texture_path = plugin.matches(key, m, buffer[key])
-            var tx: Texture2D = load(texture_path)
-            var img: Image = tx.get_image()
-            mt[m][1] = m.length() + 1
-            img.resize(int(plugin.size.x) * 4, int(plugin.size.y) * 4)
-            tx = ImageTexture.create_from_image(img)
+            if texture_path in plugin.largeIconCache:
+              tx = plugin.largeIconCache[texture_path]
+            else:
+              tx = load(texture_path)
+              var img: Image = tx.get_image()
+              mt[m][1] = m.length() + 1
+              img.resize(int(plugin.size.x) * 4, int(plugin.size.y) * 4)
+              tx = ImageTexture.create_from_image(img)
             dock.set_item_icon(mt[m][0], tx)
             break
     _dispose.call_deferred()
@@ -227,11 +232,16 @@ func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -
       if buffer[key] is ImageTexture:
         texture = buffer[key]
         continue
+
+      var tx: Texture2D
       var texture_path = matches(key, meta, buffer[key])
-      var tx: Texture2D = load(texture_path)
-      var img: Image = tx.get_image()
-      img.resize(int(size.x), int(size.y))
-      tx = ImageTexture.create_from_image(img)
+      if texture_path in smallIconCache:
+        tx = smallIconCache[texture_path]
+      else:
+        tx = load(texture_path)
+        var img: Image = tx.get_image()
+        img.resize(int(size.x), int(size.y))
+        tx = ImageTexture.create_from_image(img)
       texture = tx
       errQueue = []
       break
