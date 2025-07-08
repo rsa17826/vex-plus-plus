@@ -74,7 +74,8 @@ class Docky extends RefCounted:
     if !dock:
       return
     var buffer: Dictionary = plugin.get_buffer()
-    buffer['res://scenes/blocks/*/images/'] = "res://scenes/blocks/image.png"
+    buffer['res://scenes/blocks/**/images/'] = "res://scenes/blocks/image.png"
+    buffer.erase('res://scenes/blocks/*/images/')
     var mt: Dictionary = {}
     
     for x: int in dock.item_count:
@@ -202,45 +203,47 @@ func update() -> void:
 
 func matches(key, item, retval):
   if key == item:
-    log.pp(item)
     return retval
   var splitKey: Array = (key.split("/") as Array).filter(func(e): return e)
   var splitItem: Array = (item.split("/") as Array).filter(func(e): return e)
   if len(splitItem) < len(splitKey):
     return false
-  var result: String = ''
+
   var itemrep: Array[String] = []
-  for i in range(0, len(splitItem)):
-    if i >= len(splitItem) or i >= len(splitKey):
-      # log.pp("len ", key, item, retval, "i ", i, result, splitItem[i])
+  var splitKeyIdx = -1
+  var splitItemIdx = -1
+  while splitItemIdx + 1 < len(splitItem):
+    splitKeyIdx += 1
+    splitItemIdx += 1
+    if splitItemIdx >= len(splitItem) or splitKeyIdx >= len(splitKey):
+      log.pp("len ", key, item, retval, "splitItemIdx ", splitItemIdx, "splitKeyIdx", splitKeyIdx, "<plugin:223>: 1")
       return false
-    if splitKey[i] == splitItem[i]:
-      result += splitKey[i] + '/'
-      # log.pp(result)
+    if splitKey[splitKeyIdx] == splitItem[splitItemIdx]:
       continue
-    if splitKey[i][0] == '$':
-      var num := int(splitKey[i].substr(1, -1))
+    if splitKey[splitKeyIdx][0] == '$':
+      var num := int(splitKey[splitKeyIdx].substr(1, -1))
       if num in itemrep:
-        result += itemrep[num] + '/'
-        # log.pp(result)
         continue
-    if splitKey[i] == '**':
-      itemrep.append(splitItem[i])
-      result += splitItem[i] + '/'
-      # log.pp(result)
+    if splitKey[splitKeyIdx] == '**':
+      var v = ""
+      var extra = 1 + (len(splitItem) - len(splitKey))
+      for ii in range(splitItemIdx, splitItemIdx + extra):
+        v += '/' + splitItem[ii]
+      itemrep.append(v.substr(1))
+      log.pp((len(splitItem) - len(splitKey)), splitItem, v, itemrep, key, item, extra, "extra!!")
+      splitItemIdx += extra - 1
       continue
-    if splitKey[i] == '*':
-      itemrep.append(splitItem[i])
-      result += splitItem[i] + '/'
-      # log.pp(result)
+
+    if splitKey[splitKeyIdx] == '*':
+      itemrep.append(splitItem[splitItemIdx])
       continue
     return false
-  # log.pp("result:", result, itemrep, splitKey, splitItem, key, item, retval)
+  # log.pp("result:", itemrep, splitKey, splitItem, key, item, retval)
   var newRetVal = []
   for part in retval.split("/"):
-    for i in range(0, len(itemrep)):
-      if part == "$" + str(i):
-        newRetVal.append(itemrep[i])
+    for ii in range(0, len(itemrep)):
+      if part == "$" + str(ii):
+        newRetVal.append(itemrep[ii])
       else:
         newRetVal.append(part)
 
@@ -252,26 +255,21 @@ func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -
     texture = _buffer[meta]
     as_root = true
 
-  # texture = null
+  texture = null
   
   for key in _buffer:
     if matches(key, meta, _buffer[key]):
-      # log.pp("matched", key, meta, _buffer[key])
       if _buffer[key] is ImageTexture:
         texture = _buffer[key]
         continue
       var texture_path = matches(key, meta, _buffer[key])
 
-      var im = Image.new()
-      im.load(texture_path)
-      var tx: Texture2D = ImageTexture.create_from_image(im)
-      # print("Image selected '", texture_path.get_file(), "' size: ", tx.get_size(), " resized to ", size.x, "x", size.y)
+      var tx: Texture2D = load(texture_path)
       var img: Image = tx.get_image()
       img.resize(int(size.x), int(size.y))
       tx = ImageTexture.create_from_image(img)
       texture = tx
       break
-      # dock.set_item_icon(mt[m][0], tx)
               
   if texture != null:
     if as_root or !FileAccess.file_exists(meta):
