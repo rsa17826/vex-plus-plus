@@ -77,7 +77,7 @@
       },
       {
         "thing": "option",
-        "type": "range",
+        "type": "spinbox",
         "key": "editorBarOffset",
         "defaultValue": 0,
         "min": 0,
@@ -221,7 +221,7 @@
         "type": "single select",
         "key": "editorBarPosition",
         "defaultValue": 0,
-        "options": ["top", "bottom", "left", "right"]
+        "options": ["top/left", "bottom", "right"]
       },
       {
         "thing": "option",
