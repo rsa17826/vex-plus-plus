@@ -19,14 +19,21 @@ func start() -> void:
   var playerGhost: Node2D = global.player.get_parent().ghost
   var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
 
+  # Calculate the half sizes
+  var half_player_height = abs(playerGhostSize.y / 2)
+  var half_rotated_height = abs(playerGhostSize.rotated(extraRot).y / 2)
+
   # Calculate the offset needed to position the player directly above the block
-  var offset_vector = ((playerGhostSize/ 2) - (playerGhostSize.rotated(extraRot) / 2)).rotated(-radrot)
+  var offset_y = half_player_height - half_rotated_height
+
+  # Create the offset vector based on the calculated offset_y
+  var offset_vector = Vector2(0, offset_y).rotated(-radrot)
 
   # Apply the offset to the original contact position
   original_contact_position += offset_vector
 
   # Log the adjusted position for debugging
-  log.pp(offset_vector, startRotation_degrees)
+  log.pp(offset_vector, startRotation_degrees, half_player_height, half_rotated_height)
 
 func on_respawn():
   bounceState = 0

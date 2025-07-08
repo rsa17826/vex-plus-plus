@@ -208,7 +208,7 @@
     ]
   }
   STR(win bug){
-    STR(lastSpawnPoint)VEC2(499.0,-476.0)
+    STR(lastSpawnPoint)VEC2(-151.0,124.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -221,6 +221,9 @@
               STR(texture)STR(1)
             }
             INT(2){
+              STR(texture)STR(1)
+            }
+            INT(3){
               STR(texture)STR(2)
             }
           }
