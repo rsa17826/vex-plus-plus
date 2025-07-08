@@ -24,16 +24,8 @@ func start() -> void:
   var half_rotated_height = abs(playerGhostSize.rotated(extraRot).y / 2)
 
   # Calculate the offset needed to position the player directly above the block
-  var offset_y = half_player_height - half_rotated_height
-
-  # Create the offset vector based on the calculated offset_y
-  var offset_vector = Vector2(0, offset_y).rotated(-radrot)
-
-  # Apply the offset to the original contact position
+  var offset_vector = Vector2(0, half_player_height - half_rotated_height).rotated(-radrot)
   original_contact_position += offset_vector
-
-  # Log the adjusted position for debugging
-  log.pp(offset_vector, startRotation_degrees, half_player_height, half_rotated_height)
 
 func on_respawn():
   bounceState = 0
@@ -71,23 +63,11 @@ func on_process(delta: float) -> void:
       scale.y = global.rerange(bounceState, 50, 100, startScale.y / 2, startScale.y)
       global_position = startPosition + Vector2(0, global.rerange(bounceState, 100, 50, 0, (size.y / 4.0))).rotated(radrot)
 
-    # Adjust the position based on the current rotation
-    var node_pos := ghostIconNode.global_position
     var node_size := sizeInPx * scale
-    var top_edge := node_pos.y - node_size.y / 2 # Correctly calculate the top edge
 
-    var playerGhost: Node2D = global.player.get_parent().ghost
-    var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
-
-    # Calculate the offset based on the block's rotation
     var offset = Vector2(0, node_size.y)
-    offset = offset.rotated(radrot) # Rotate the offset to match the block's rotation
+    offset = offset.rotated(radrot)
 
-    # Calculate the new position based on the original contact position
     global.player.global_position = (original_contact_position - offset) + Vector2(0, (sizeInPx * startScale).y).rotated(radrot)
     global.player.setRot(radrot)
     global.player.updateCamLockPos()
-
-    # Adjust the player's position based on the block's rotation
-    # global.player.global_position.x += cos(radrot) * offset.x - sin(radrot) * offset.y
-    # global.player.global_position.y += sin(radrot) * offset.x + cos(radrot) * offset.y
