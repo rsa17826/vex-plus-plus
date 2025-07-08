@@ -181,7 +181,7 @@
       },
       {
         "thing": "option",
-        "type": "range",
+        "type": "spinbox",
         "key": "mouseLockDistanceWhileRotating",
         "defaultValue": 35,
         "min": 0,
