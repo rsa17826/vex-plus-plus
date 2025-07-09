@@ -905,7 +905,6 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90))) < 0.77
   var hitRight = v.distance_to(vv.rotated(deg_to_rad(90))) < 0.77
   var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft}
-  # log.pp(normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)).distance_to(up_direction), normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)), up_direction, blockSide, playerSide)
   if block.respawning: return
   if (
     block is BlockDonup
@@ -997,8 +996,8 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
       vel.conveyer.y = speed
     elif playerSide.right and blockSide.bottom:
       vel.conveyer.y = - speed
-    # else:
-    #   log.err("invalid collision direction!!!", normal, playerSide, blockSide)
+    else:
+      log.err("invalid collision direction!!!", normal, playerSide, blockSide)
 
     # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
     # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]

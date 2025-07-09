@@ -462,4 +462,4 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - scalable
   - **settings**:
-    - **buttonId**: unique identifier for a set of buttons that can be used to activate this.
+    - **buttonId**: unique identifier for a set of buttons that can be used to deactivate this.
