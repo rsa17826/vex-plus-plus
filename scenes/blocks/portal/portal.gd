@@ -17,7 +17,6 @@ func on_body_entered(body: Node) -> void:
   if body == global.player:
     if global.lastPortal == self: return
     if selectedOptions.exitId == 0: return
-    global.portals = global.removeDeadNodes(global.portals)
     for portal in global.portals:
       if portal == self: continue
       if portal.selectedOptions.portalId == selectedOptions.exitId:
