@@ -622,7 +622,7 @@ var scaleOnLeftSide := false
 var showEditorUi := false
 var selectedBrush: Node
 var justPaintedBlock: EditorBlock = null
-var gridSize = 25 / 5.0
+var gridSize: float = 25 / 5.0
 
 func selectBlock() -> void:
   # select the top hovered block
@@ -683,51 +683,60 @@ func localProcess(delta: float) -> void:
           and !scaleOnRightSide \
           : return
           mpos = mpos
-          var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
-          log.pp(selectedBlock.rotation_degrees)
+          
+          var r = selectedBlock.rotation
+          var b = selectedBlock
+          var startPos = selectedBlock.global_position
+          # mpos = round(mpos / gridSize) * gridSize
+          # startPos = round(startPos / gridSize) * gridSize
+
           # sizeInPx = sizeInPx.rotated(-deg_to_rad(-selectedBlock.startRotation_degrees))
 
           # log.warn(1)
           # var temp = sizeInPx.x
           # sizeInPx.x = sizeInPx.y
           # sizeInPx.y = temp
-
-          var startPos = selectedBlock.global_position
-          var top_edge: float = (startPos - (sizeInPx / 2.0)).y
-          var bottom_edge: float = (startPos + (sizeInPx / 2.0)).y
-          var right_edge: float = (startPos + (sizeInPx / 2.0)).x
-          var left_edge: float = (startPos - (sizeInPx / 2.0)).x
+          # var rect = b.rect
+          # rect.right += 10
+          # b.rect = rect
+          # log.pp(b.rotation_degrees, b.rect.right)
+          var top_edge: float = (startPos - (b.sizeInPx / 2.0)).y
+          var bottom_edge: float = (startPos + (b.sizeInPx / 2.0)).y
+          var right_edge: float = (startPos + (b.sizeInPx / 2.0)).x
+          var left_edge: float = (startPos - (b.sizeInPx / 2.0)).x
           var offset = Vector2.ZERO
           # scale on the selected sides
           var mouseDistInPx: float
           if scaleOnTopSide:
             mouseDistInPx = (top_edge - mpos.y)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
-            selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
+            b.scale.y = (b.scale.y + (mouseDistInPx / b.sizeInPx.y * b.scale.y))
             offset -= Vector2(0, mouseDistInPx / 2)
           elif scaleOnBottomSide:
             mouseDistInPx = (mpos.y - bottom_edge)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
-            selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
+            b.scale.y = (b.scale.y + (mouseDistInPx / b.sizeInPx.y * b.scale.y))
             offset += Vector2(0, mouseDistInPx / 2)
           if scaleOnLeftSide:
             mouseDistInPx = (left_edge - mpos.x)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
-            selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
+            b.scale.x = (b.scale.x + (mouseDistInPx / b.sizeInPx.x * b.scale.x))
             offset -= Vector2(mouseDistInPx / 2, 0)
           elif scaleOnRightSide:
             mouseDistInPx = (mpos.x - right_edge)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
-            selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
+            b.scale.x = (b.scale.x + (mouseDistInPx / b.sizeInPx.x * b.scale.x))
             offset += Vector2(mouseDistInPx / 2, 0)
-          log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
+          # log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
             
           selectedBlock.global_position = startPos + offset
           var moveMouse := func(pos: Vector2) -> void:
             Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
           # make block no less than 10% default size
           var mousePos := get_viewport().get_mouse_position()
-          var minSize := 0.1 / 7.0
+          var minSize := gridSize / 700.0
+          log.pp(minSize)
+          # var minSize := 0.1 / 7.0
           # need to make it stop moving - cant figure out how yet
           # if selectedBlock.scale.x < minSize:
           #   # selectedBlock.scale.x = minSize
@@ -751,8 +760,8 @@ func localProcess(delta: float) -> void:
           #     scaleOnBottomSide = false
           #     moveMouse.call(mousePos - Vector2(0, minSize * 700))
 
-          selectedBlock.scale.x = clamp(selectedBlock.scale.x, 0.1 / 7.0, 250.0 / 7.0)
-          selectedBlock.scale.y = clamp(selectedBlock.scale.y, 0.1 / 7.0, 250.0 / 7.0)
+          selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize, 250.0 / 7.0)
+          selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize, 250.0 / 7.0)
           global.showEditorUi = true
           var moveDist = selectedBlock.global_position - selectedBlock.startPosition
           setBlockStartPos(selectedBlock)

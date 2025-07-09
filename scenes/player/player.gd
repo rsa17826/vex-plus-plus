@@ -888,10 +888,10 @@ func tryAndDieSquish():
     die()
 
 func calcHitDir(normal):
-  var hitTop = normal.distance_to(up_direction) < 0.7
-  var hitBottom = normal.distance_to(up_direction.rotated(deg_to_rad(180))) < 0.7
-  var hitLeft = normal.distance_to(up_direction.rotated(deg_to_rad(-90))) < 0.7
-  var hitRight = normal.distance_to(up_direction.rotated(deg_to_rad(90))) < 0.7
+  var hitTop = normal.distance_to(up_direction) < 0.75
+  var hitBottom = normal.distance_to(up_direction.rotated(deg_to_rad(180))) < 0.75
+  var hitLeft = normal.distance_to(up_direction.rotated(deg_to_rad(-90))) < 0.75
+  var hitRight = normal.distance_to(up_direction.rotated(deg_to_rad(90))) < 0.75
   return {"top": hitTop, "bottom": hitBottom, "left": hitLeft, "right": hitRight}
 
 func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
@@ -900,11 +900,12 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
 
   var v = normal.rotated(-defaultAngle)
   var vv = Vector2.UP
-  var hitTop = v.distance_to(vv) < .7
-  var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180))) < .7
-  var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90))) < .7
-  var hitRight = v.distance_to(vv.rotated(deg_to_rad(90))) < .7
+  var hitTop = v.distance_to(vv) < 0.77
+  var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180))) < 0.77
+  var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90))) < 0.77
+  var hitRight = v.distance_to(vv.rotated(deg_to_rad(90))) < 0.77
   var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft}
+  # log.pp(normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)).distance_to(up_direction), normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)), up_direction, blockSide, playerSide)
   if block.respawning: return
   if (
     block is BlockDonup

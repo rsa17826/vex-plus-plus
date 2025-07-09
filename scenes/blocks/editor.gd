@@ -52,12 +52,40 @@ extends Node2D
 @export_group("IGNORE")
 @export var pathFollowNode: Node
 
+# class customRect:
+#   var top
+#   var bottom
+#   var left
+#   var right
+#   func _init(top, bottom, left, right) -> void:
+#     self.top = top
+#     self.bottom = bottom
+#     self.left = left
+#     self.right = right
+  
+# var rect: customRect:
+#   get():
+#     return customRect.new(
+#       startPosition.x - (sizeInPx.x / 2.0),
+#       startPosition.y - (sizeInPx.y / 2.0),
+#       startPosition.x + (sizeInPx.x / 2.0),
+#       startPosition.y + (sizeInPx.y / 2.0),
+#     )
+#   set(val):
+#     global_position.y = val.top + (val.bottom - val.top) / 2
+#     global_position.x = val.left + (val.right - val.right) / 2
+#     scale.x = (val.left - (val.right - val.left) / 2)
+#     scale.y = (val.top - (val.bottom - val.top) / 2)
+
 var onOptionEdit := func() -> void: pass
+
+var defaultSizeInPx: Vector2
 var sizeInPx: Vector2:
   get():
-    return sizeInPx * startScale
+    return defaultSizeInPx * startScale
   set(value):
-    sizeInPx = value
+    defaultSizeInPx = value / startScale
+
 var root = self
 var _DISABLED := false
 var isHovered := false
@@ -586,7 +614,7 @@ func createEditorGhost() -> void:
     log.err("no ghost texture", id, name, ghostIconNode.get_texture(), ghost, ghost.get_texture())
     breakpoint
   rectangle.size = ghost.get_texture().get_size()
-  sizeInPx = ghost.get_texture().get_size()
+  defaultSizeInPx = ghost.get_texture().get_size()
   # collisionShape.debug_color = Color("#5d40643f")
   collisionShape.debug_color = Color("#00000010")
   collisionShape.set_shape(rectangle)
