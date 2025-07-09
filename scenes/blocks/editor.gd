@@ -499,10 +499,14 @@ func _process(delta: float) -> void:
             var v = boolsToV2(onTopSide, onBottomSide, onLeftSide, onRightSide).rotated(deg_to_rad(startRotation_degrees))
 
             # store the selected sides in global
-            global.scaleOnTopSide = v.y == -1
-            global.scaleOnBottomSide = v.y == 1
-            global.scaleOnRightSide = v.x == 1
-            global.scaleOnLeftSide = v.x == -1
+            global.scaleOnTopSide = onTopSide
+            global.scaleOnBottomSide = onBottomSide
+            global.scaleOnRightSide = onRightSide
+            global.scaleOnLeftSide = onLeftSide
+            # global.scaleOnTopSide = v.y == -1
+            # global.scaleOnBottomSide = v.y == 1
+            # global.scaleOnRightSide = v.x == 1
+            # global.scaleOnLeftSide = v.x == -1
             # log.pp("ed", onLeftSide, onRightSide)
 
             # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select

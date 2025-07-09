@@ -233,7 +233,7 @@
     STR(beatLevels)[]
   }
   STR(win bug and bouncy test){
-    STR(lastSpawnPoint)VEC2(149.0,-326.0)
+    STR(lastSpawnPoint)VEC2(0.0,0.0)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -243,13 +243,16 @@
         STR(blockSaveData){
           STR(checkpoint){
             INT(1){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
             INT(2){
               STR(texture)STR(1)
             }
             INT(3){
               STR(texture)STR(1)
+            }
+            INT(4){
+              STR(texture)STR(2)
             }
           }
         }

@@ -677,45 +677,52 @@ func localProcess(delta: float) -> void:
         elif editorInScaleMode && selectedBlock \
         and (selectedBlock.is_in_group("EDITOR_OPTION_scale") \
         or global.useropts.allowScalingAnything):
-          if !scaleOnTopSide and !scaleOnBottomSide and !scaleOnLeftSide and !scaleOnRightSide: return
-          # mpos = mpos.rotated(-deg_to_rad(selectedBlock.startRotation_degrees))
+          if !scaleOnTopSide \
+          and !scaleOnBottomSide \
+          and !scaleOnLeftSide \
+          and !scaleOnRightSide \
+          : return
+          mpos = mpos
           var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
           log.pp(selectedBlock.rotation_degrees)
-            # sizeInPx = sizeInPx.rotated(-deg_to_rad(-selectedBlock.startRotation_degrees))
+          # sizeInPx = sizeInPx.rotated(-deg_to_rad(-selectedBlock.startRotation_degrees))
 
-            # log.warn(1)
-            # var temp = sizeInPx.x
-            # sizeInPx.x = sizeInPx.y
-            # sizeInPx.y = temp
+          # log.warn(1)
+          # var temp = sizeInPx.x
+          # sizeInPx.x = sizeInPx.y
+          # sizeInPx.y = temp
 
-          # get the edge position in px
-          var bottom_edge: float = selectedBlock.global_position.y + sizeInPx.y / 2.0
-          var top_edge: float = selectedBlock.global_position.y - sizeInPx.y / 2.0
-          var right_edge: float = selectedBlock.global_position.x + sizeInPx.x / 2.0
-          var left_edge: float = selectedBlock.global_position.x - sizeInPx.x / 2.0
-          log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide)
+          var startPos = selectedBlock.global_position
+          var top_edge: float = (startPos - (sizeInPx / 2.0)).y
+          var bottom_edge: float = (startPos + (sizeInPx / 2.0)).y
+          var right_edge: float = (startPos + (sizeInPx / 2.0)).x
+          var left_edge: float = (startPos - (sizeInPx / 2.0)).x
+          var offset = Vector2.ZERO
           # scale on the selected sides
+          var mouseDistInPx: float
           if scaleOnTopSide:
-            var mouseDistInPx := (top_edge - mpos.y)
+            mouseDistInPx = (top_edge - mpos.y)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
             selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
-            selectedBlock.global_position -= Vector2(0, mouseDistInPx / 2)
+            offset -= Vector2(0, mouseDistInPx / 2)
           elif scaleOnBottomSide:
-            var mouseDistInPx := (mpos.y - bottom_edge)
+            mouseDistInPx = (mpos.y - bottom_edge)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
             selectedBlock.scale.y = (selectedBlock.scale.y + (mouseDistInPx / sizeInPx.y * selectedBlock.scale.y))
-            selectedBlock.global_position += Vector2(0, mouseDistInPx / 2)
+            offset += Vector2(0, mouseDistInPx / 2)
           if scaleOnLeftSide:
-            var mouseDistInPx := (left_edge - mpos.x)
+            mouseDistInPx = (left_edge - mpos.x)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
             selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
-            selectedBlock.global_position -= Vector2(mouseDistInPx / 2, 0)
+            offset -= Vector2(mouseDistInPx / 2, 0)
           elif scaleOnRightSide:
-            var mouseDistInPx := (mpos.x - right_edge)
+            mouseDistInPx = (mpos.x - right_edge)
             mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
             selectedBlock.scale.x = (selectedBlock.scale.x + (mouseDistInPx / sizeInPx.x * selectedBlock.scale.x))
-            selectedBlock.global_position += Vector2(mouseDistInPx / 2, 0)
-
+            offset += Vector2(mouseDistInPx / 2, 0)
+          log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
+            
+          selectedBlock.global_position = startPos + offset
           var moveMouse := func(pos: Vector2) -> void:
             Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
           # make block no less than 10% default size
@@ -1802,7 +1809,11 @@ func createNewBlock(data) -> EditorBlock:
     log.err("Error loading block", id)
   return
 
-var portals = []
+var portals = []:
+  get():
+    portals = portals.filter(isDead)
+    return portals
+
 var boxSelect_selectedBlocks = []
 @onready var MAP_FOLDER = path.abs('res://maps')
 
@@ -1833,12 +1844,6 @@ func boxSelectReleased():
   if boxSelect_selectedBlocks:
     lastSelectedBlock = boxSelect_selectedBlocks[0]
 
-func removeDeadNodes(arr):
-  return arr.filter(func(e): return \
-    e \
-    and is_instance_valid(e) \
-    and !e.is_queued_for_deletion()
-  )
 func isDead(e):
   return e \
     and is_instance_valid(e) \

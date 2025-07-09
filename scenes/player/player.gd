@@ -996,8 +996,8 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
       vel.conveyer.y = speed
     elif playerSide.right and blockSide.bottom:
       vel.conveyer.y = - speed
-    else:
-      log.err("invalid collision direction!!!", normal, playerSide, blockSide)
+    # else:
+    #   log.err("invalid collision direction!!!", normal, playerSide, blockSide)
 
     # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
     # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]
