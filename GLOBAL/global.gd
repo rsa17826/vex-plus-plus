@@ -692,13 +692,6 @@ func localProcess(delta: float) -> void:
 
           # sizeInPx = sizeInPx.rotated(-deg_to_rad(-selectedBlock.startRotation_degrees))
 
-          # log.warn(1)
-          # var temp = sizeInPx.x
-          # sizeInPx.x = sizeInPx.y
-          # sizeInPx.y = temp
-          # var rect = b.rect
-          # rect.right += 10
-          # b.rect = rect
           # log.pp(b.rotation_degrees, b.rect.right)
           var top_edge: float = (startPos - (b.sizeInPx / 2.0)).y
           var bottom_edge: float = (startPos + (b.sizeInPx / 2.0)).y
@@ -1859,7 +1852,6 @@ func isDead(e):
     and !e.is_queued_for_deletion()
 
 var hoveredBrushes: Array[Node2D] = []
-# (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 signal gravChanged
 
@@ -1867,3 +1859,5 @@ var buttonWalls: Array[EditorBlock] = []:
   get():
     buttonWalls = buttonWalls.filter(isDead)
     return buttonWalls
+    
+# (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
