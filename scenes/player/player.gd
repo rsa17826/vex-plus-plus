@@ -888,11 +888,13 @@ func tryAndDieSquish():
     die()
 
 func calcHitDir(normal):
-  var hitTop = normal.distance_to(up_direction) < 0.75
-  var hitBottom = normal.distance_to(up_direction.rotated(deg_to_rad(180))) < 0.75
-  var hitLeft = normal.distance_to(up_direction.rotated(deg_to_rad(-90))) < 0.75
-  var hitRight = normal.distance_to(up_direction.rotated(deg_to_rad(90))) < 0.75
-  return {"top": hitTop, "bottom": hitBottom, "left": hitLeft, "right": hitRight}
+  var hitTop = normal.distance_to(up_direction) < 0.77
+  var hitBottom = normal.distance_to(up_direction.rotated(deg_to_rad(180))) < 0.77
+  var hitLeft = normal.distance_to(up_direction.rotated(deg_to_rad(-90))) < 0.77
+  var hitRight = normal.distance_to(up_direction.rotated(deg_to_rad(90))) < 0.77
+  var single = len([hitTop, hitBottom, hitLeft, hitRight].filter(func(e): return e)) == 1
+
+  return {"top": hitTop, "bottom": hitBottom, "left": hitLeft, "right": hitRight, "single": single}
 
 func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   var block: EditorBlock = b.root
@@ -904,7 +906,8 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180))) < 0.77
   var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90))) < 0.77
   var hitRight = v.distance_to(vv.rotated(deg_to_rad(90))) < 0.77
-  var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft}
+  var single = len([hitTop, hitBottom, hitLeft, hitRight].filter(func(e): return e)) == 1
+  var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft, "single": single}
   if block.respawning: return
   if (
     block is BlockDonup
@@ -972,6 +975,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
     var speed = 400
     # log.pp(normal == Vector2(-1, 0), blockSide)
     # log.pp(playerSide, blockSide)
+    if not blockSide.single: return
     if playerSide.bottom and blockSide.top:
       vel.conveyer.x = - speed
     elif playerSide.bottom and blockSide.bottom:
@@ -996,6 +1000,8 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
       vel.conveyer.y = speed
     elif playerSide.right and blockSide.bottom:
       vel.conveyer.y = - speed
+    elif playerSide.top and blockSide.top:
+      pass
     else:
       log.err("invalid collision direction!!!", normal, playerSide, blockSide)
 

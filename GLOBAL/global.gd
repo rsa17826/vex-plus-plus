@@ -653,7 +653,7 @@ func localProcess(delta: float) -> void:
       if (selectedBlock.defaultSizeInPx == Vector2(700, 700)):
         gridSize = global.useropts.largeBlockGridSnapSize
       else:
-        gridSize = global.useropts.largeBlockGridSnapSize
+        gridSize = global.useropts.smallBlockGridSnapSize
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.abs("res://filesToOpen"))
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
