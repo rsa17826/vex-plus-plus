@@ -303,6 +303,12 @@ limits/debugger/max_chars_per_second=327680
 [plugin]
 
 fancy_folder_icons/rules={
+"res://custom blocks": "res://launcher/icons/custom blocks.png",
+"res://downloaded maps": "res://launcher/icons/downloaded maps.png",
+"res://exports": "res://launcher/icons/exports.png",
+"res://images": "res://scenes/blocks/image.png",
+"res://maps": "res://launcher/icons/maps.png",
+"res://saves": "res://launcher/icons/saves.png",
 "res://scenes/blocks/**/images/": "res://scenes/blocks/image.png",
 "res://scenes/blocks/*/": "res://scenes/blocks/$1/images/editorBar.png||res://scenes/blocks/$1/images/1.png||res://scenes/blocks/$1/images/unpressed.png||res://scenes/blocks/$1/images/ghost.png",
 "res://scenes/blocks/conveyer/images/arrows/": "res://scenes/blocks/conveyer/images/editorBar.png",
@@ -310,7 +316,7 @@ fancy_folder_icons/rules={
 "res://scenes/blocks/spark block/clockwise/": "res://scenes/blocks/spark block/clockwise/images/1.png",
 "res://scenes/blocks/spark block/counterClockwise/": "res://scenes/blocks/spark block/counterClockwise/images/1.png"
 }
-fancy_folder_icons/textureAppliesToNestedFolders=true
+fancy_folder_icons/textureAppliesToNestedFolders=false
 
 [rendering]
 
