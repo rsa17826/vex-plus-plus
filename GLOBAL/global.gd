@@ -648,10 +648,12 @@ func localProcess(delta: float) -> void:
   if not global.useropts: return
   if Input.is_action_pressed(&"editor_disable_grid_snap"):
     gridSize = 1
-  elif selectedBlock.defaultSizeInPx == Vector2(700, 700):
-    gridSize = global.useropts.largeBlockGridSnapSize
   else:
-    gridSize = global.useropts.smallBlockGridSnapSize
+    if selectedBlock:
+      if (selectedBlock.defaultSizeInPx == Vector2(700, 700)):
+        gridSize = global.useropts.largeBlockGridSnapSize
+      else:
+        gridSize = global.useropts.largeBlockGridSnapSize
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.abs("res://filesToOpen"))
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
@@ -728,6 +730,8 @@ func localProcess(delta: float) -> void:
           # log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
             
           selectedBlock.global_position = startPos + offset
+          # selectedBlock.global_position = round((selectedBlock.global_position) / gridSize) * gridSize
+          # log.pp(gridSize)
           var moveMouse := func(pos: Vector2) -> void:
             Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
           # make block no less than 10% default size
@@ -736,27 +740,27 @@ func localProcess(delta: float) -> void:
           log.pp(minSize)
           # var minSize := 0.1 / 7.0
           # need to make it stop moving - cant figure out how yet
-          # if selectedBlock.scale.x < minSize:
-          #   # selectedBlock.scale.x = minSize
-          #   if scaleOnLeftSide:
-          #     scaleOnLeftSide = false
-          #     scaleOnRightSide = true
-          #     moveMouse.call(mousePos + Vector2(minSize * 700, 0))
-          #   else:
-          #     scaleOnLeftSide = true
-          #     scaleOnRightSide = false
-          #     moveMouse.call(mousePos - Vector2(minSize * 700, 0))
+          if selectedBlock.scale.x < minSize:
+            # selectedBlock.scale.x = minSize
+            if scaleOnLeftSide:
+              scaleOnLeftSide = false
+              scaleOnRightSide = true
+              moveMouse.call(mousePos + Vector2(minSize * 700, 0))
+            else:
+              scaleOnLeftSide = true
+              scaleOnRightSide = false
+              moveMouse.call(mousePos - Vector2(minSize * 700, 0))
 
-          # if selectedBlock.scale.y < minSize:
-          #   # selectedBlock.scale.y = minSize
-          #   if scaleOnTopSide:
-          #     scaleOnTopSide = false
-          #     scaleOnBottomSide = true
-          #     moveMouse.call(mousePos + Vector2(0, minSize * 700))
-          #   else:
-          #     scaleOnTopSide = true
-          #     scaleOnBottomSide = false
-          #     moveMouse.call(mousePos - Vector2(0, minSize * 700))
+          if selectedBlock.scale.y < minSize:
+            # selectedBlock.scale.y = minSize
+            if scaleOnTopSide:
+              scaleOnTopSide = false
+              scaleOnBottomSide = true
+              moveMouse.call(mousePos + Vector2(0, minSize * 700))
+            else:
+              scaleOnTopSide = true
+              scaleOnBottomSide = false
+              moveMouse.call(mousePos - Vector2(0, minSize * 700))
 
           selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize, 2500.0 / 7.0)
           selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize, 2500.0 / 7.0)
@@ -815,6 +819,7 @@ func localProcess(delta: float) -> void:
             # if isYOnOddScale or isXOnOddScale:
             selectedBlock.global_position += offset
             var moveDist = selectedBlock.global_position - selectedBlock.startPosition
+            selectedBlock.global_position = round((selectedBlock.global_position) / gridSize) * gridSize
             setBlockStartPos(selectedBlock)
             selectedBlock.onEditorMove(moveDist)
       if justPaintedBlock:
