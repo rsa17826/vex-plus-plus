@@ -731,7 +731,6 @@ func localProcess(delta: float) -> void:
             
           selectedBlock.global_position = startPos + offset
           # selectedBlock.global_position = round((selectedBlock.global_position) / gridSize) * gridSize
-          # log.pp(gridSize)
           var moveMouse := func(pos: Vector2) -> void:
             Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
           # make block no less than 10% default size
