@@ -646,7 +646,12 @@ var editorMode = EditorModes.normal
 
 func localProcess(delta: float) -> void:
   if not global.useropts: return
-  gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+  if Input.is_action_pressed(&"editor_disable_grid_snap"):
+    gridSize = 1
+  elif selectedBlock.defaultSizeInPx == Vector2(700, 700):
+    gridSize = global.useropts.largeBlockGridSnapSize
+  else:
+    gridSize = global.useropts.smallBlockGridSnapSize
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.abs("res://filesToOpen"))
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
@@ -753,8 +758,8 @@ func localProcess(delta: float) -> void:
           #     scaleOnBottomSide = false
           #     moveMouse.call(mousePos - Vector2(0, minSize * 700))
 
-          selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize, 250.0 / 7.0)
-          selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize, 250.0 / 7.0)
+          selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize, 2500.0 / 7.0)
+          selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize, 2500.0 / 7.0)
           global.showEditorUi = true
           var moveDist = selectedBlock.global_position - selectedBlock.startPosition
           setBlockStartPos(selectedBlock)
