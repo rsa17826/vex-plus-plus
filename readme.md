@@ -82,7 +82,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **confirmKeyAssignmentDeletion**: adds a confirmation dialog before removing keys from the keybinds list.
 - **allowRotatingAnything**: allows rotating any blocks regardless of if it is meant to be rotated or not.
 - **allowScalingAnything**: allows scaling any blocks regardless of if it is meant to be rotated or not.
-- **blockSnapGridSize**: the size of the grid that blocks will snap to when being moved or resized.
 - **noCornerGrabsForScaling**: when grabbing a block at a corner it will only resize the bnlock on the side that had less grab area.
 - **allowCustomColors**: disabling this prevents levels from using custom colors.
 - **showGridInEdit**: shows the grid in when in edit mode.
@@ -98,6 +97,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **cameraRotationOnGravityChangeHappensInstantly**: makes is so that when the gravity changes the camera rotates instantly instead of rotating smoothly.
 - **cameraUsesDefaultRotationInEditor**: makes is so that when the editor ui is shown the camera is reset to default rotation instead of keeping the last rotation.
 - **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
+- **smallBlockGridSnapSize**: the size of the grid that small blocks, eg light switch, single spike, 10x spike, etc, will snap to when being moved or resized.
+- **largeBlockGridSnapSize**: the size of the grid that large blocks, eg basic, bomb, bouncy, conveyer, etc, will snap to when being moved or resized.
 
 ### block settings that apply to many blocks
 

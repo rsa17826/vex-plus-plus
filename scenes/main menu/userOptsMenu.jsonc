@@ -228,6 +228,18 @@
         "type": "rgba",
         "key": "boxSelectColor",
         "defaultValue": 1483315998.0
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "smallBlockGridSnapSize",
+        "defaultValue": 5
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "largeBlockGridSnapSize",
+        "defaultValue": 50
       }
     ]
   },
