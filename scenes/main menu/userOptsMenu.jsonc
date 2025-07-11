@@ -233,13 +233,21 @@
         "thing": "option",
         "type": "spinbox",
         "key": "smallBlockGridSnapSize",
-        "defaultValue": 5
+        "defaultValue": 5,
+        "min": 1,
+        "max": 200,
+        "allow greater": true,
+        "allow lesser": true
       },
       {
         "thing": "option",
         "type": "spinbox",
         "key": "largeBlockGridSnapSize",
-        "defaultValue": 50
+        "defaultValue": 50,
+        "min": 1,
+        "max": 200,
+        "allow greater": true,
+        "allow lesser": true
       }
     ]
   },
