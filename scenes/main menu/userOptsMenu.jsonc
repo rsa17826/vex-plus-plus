@@ -190,16 +190,6 @@
       },
       {
         "thing": "option",
-        "type": "spinbox",
-        "key": "editorBarColumns",
-        "defaultValue": 1,
-        "max": 400,
-        "min": 1,
-        "allow lesser": false,
-        "allow greater": true
-      },
-      {
-        "thing": "option",
         "type": "bool",
         "key": "cameraUsesDefaultRotationInEditor",
         "defaultValue": false
@@ -221,6 +211,16 @@
         "type": "bool",
         "key": "singleAxisAlignByDefault",
         "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "editorBarColumns",
+        "defaultValue": 1,
+        "max": 400,
+        "min": 1,
+        "allow lesser": false,
+        "allow greater": true
       },
       {
         "thing": "option",
