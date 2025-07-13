@@ -614,7 +614,7 @@ func createEditorGhost() -> void:
     log.err("no ghost texture", id, name, ghostIconNode.get_texture(), ghost, ghost.get_texture())
     breakpoint
   rectangle.size = ghost.get_texture().get_size()
-  defaultSizeInPx = ghost.get_texture().get_size()
+  defaultSizeInPx = ghost.get_texture().get_size() * ghost.scale
   # collisionShape.debug_color = Color("#5d40643f")
   collisionShape.debug_color = Color("#00000010")
   collisionShape.set_shape(rectangle)

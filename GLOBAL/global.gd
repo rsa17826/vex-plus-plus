@@ -622,7 +622,7 @@ var scaleOnLeftSide := false
 var showEditorUi := false
 var selectedBrush: Node
 var justPaintedBlock: EditorBlock = null
-var gridSize: float = 25 / 5.0
+var gridSize: Vector2 = Vector2(5, 5)
 
 func selectBlock() -> void:
   # select the top hovered block
@@ -647,13 +647,25 @@ var editorMode = EditorModes.normal
 func localProcess(delta: float) -> void:
   if not global.useropts: return
   if Input.is_action_pressed(&"editor_disable_grid_snap"):
-    gridSize = 1
+    gridSize = Vector2(1, 1)
   else:
     if selectedBlock:
-      if (selectedBlock.defaultSizeInPx == Vector2(700, 700)):
-        gridSize = global.useropts.largeBlockGridSnapSize
-      else:
-        gridSize = global.useropts.smallBlockGridSnapSize
+      gridSize = Vector2(global.useropts.blockGridSnapSize, global.useropts.blockGridSnapSize)
+      # gridSize = Vector2(global.useropts.smallBlockGridSnapSize, global.useropts.smallBlockGridSnapSize)
+      # match selectedBlock.bigSnapX:
+      #   selectedBlock.BigSnapStr.ALWAYS:
+      #     gridSize.x = global.useropts.largeBlockGridSnapSize
+      #   selectedBlock.BigSnapStr.DEFAULT:
+      #     gridSize.x = global.useropts.smallBlockGridSnapSize if Input.is_action_pressed(&"try_use_small_snap") else global.useropts.largeBlockGridSnapSize
+      #   selectedBlock.BigSnapStr.NEVER:
+      #     gridSize.x = global.useropts.largeBlockGridSnapSize
+      # match selectedBlock.bigSnapY:
+      #   selectedBlock.BigSnapStr.ALWAYS:
+      #     gridSize.y = global.useropts.largeBlockGridSnapSize
+      #   selectedBlock.BigSnapStr.DEFAULT:
+      #     gridSize.y = global.useropts.smallBlockGridSnapSize if Input.is_action_pressed(&"try_use_small_snap") else global.useropts.largeBlockGridSnapSize
+      #   selectedBlock.BigSnapStr.NEVER:
+      #     gridSize.y = global.useropts.largeBlockGridSnapSize
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.abs("res://filesToOpen"))
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
@@ -694,6 +706,7 @@ func localProcess(delta: float) -> void:
           var r = selectedBlock.rotation
           var b = selectedBlock
           var startPos = selectedBlock.global_position
+          gridSize = gridSize.rotated(r)
           # mpos = round(mpos / gridSize) * gridSize
           # startPos = round(startPos / gridSize) * gridSize
 
@@ -709,22 +722,22 @@ func localProcess(delta: float) -> void:
           var mouseDistInPx: float
           if scaleOnTopSide:
             mouseDistInPx = (top_edge - mpos.y)
-            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+            mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
             b.scale.y = (b.scale.y + (mouseDistInPx / b.sizeInPx.y * b.scale.y))
             offset -= Vector2(0, mouseDistInPx / 2)
           elif scaleOnBottomSide:
             mouseDistInPx = (mpos.y - bottom_edge)
-            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+            mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
             b.scale.y = (b.scale.y + (mouseDistInPx / b.sizeInPx.y * b.scale.y))
             offset += Vector2(0, mouseDistInPx / 2)
           if scaleOnLeftSide:
             mouseDistInPx = (left_edge - mpos.x)
-            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+            mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
             b.scale.x = (b.scale.x + (mouseDistInPx / b.sizeInPx.x * b.scale.x))
             offset -= Vector2(mouseDistInPx / 2, 0)
           elif scaleOnRightSide:
             mouseDistInPx = (mpos.x - right_edge)
-            mouseDistInPx = round(mouseDistInPx / gridSize) * gridSize
+            mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
             b.scale.x = (b.scale.x + (mouseDistInPx / b.sizeInPx.x * b.scale.x))
             offset += Vector2(mouseDistInPx / 2, 0)
           # log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
@@ -739,30 +752,30 @@ func localProcess(delta: float) -> void:
           log.pp(minSize)
           # var minSize := 0.1 / 7.0
           # need to make it stop moving - cant figure out how yet
-          if selectedBlock.scale.x < minSize:
+          if selectedBlock.scale.x < minSize.x:
             # selectedBlock.scale.x = minSize
             if scaleOnLeftSide:
               scaleOnLeftSide = false
               scaleOnRightSide = true
-              moveMouse.call(mousePos + Vector2(minSize * 700, 0))
+              moveMouse.call(mousePos + Vector2(minSize.x * 700, 0))
             else:
               scaleOnLeftSide = true
               scaleOnRightSide = false
-              moveMouse.call(mousePos - Vector2(minSize * 700, 0))
+              moveMouse.call(mousePos - Vector2(minSize.x * 700, 0))
 
-          if selectedBlock.scale.y < minSize:
+          if selectedBlock.scale.y < minSize.y:
             # selectedBlock.scale.y = minSize
             if scaleOnTopSide:
               scaleOnTopSide = false
               scaleOnBottomSide = true
-              moveMouse.call(mousePos + Vector2(0, minSize * 700))
+              moveMouse.call(mousePos + Vector2(0, minSize.y * 700))
             else:
               scaleOnTopSide = true
               scaleOnBottomSide = false
-              moveMouse.call(mousePos - Vector2(0, minSize * 700))
+              moveMouse.call(mousePos - Vector2(0, minSize.y * 700))
 
-          selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize, 2500.0 / 7.0)
-          selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize, 2500.0 / 7.0)
+          selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize.x, 2500.0 / 7.0)
+          selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize.y, 2500.0 / 7.0)
           global.showEditorUi = true
           var moveDist = selectedBlock.global_position - selectedBlock.startPosition
           setBlockStartPos(selectedBlock)
