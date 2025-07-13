@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_ju53q"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uv54t"]
-radius = 126.13
+radius = 130.00096
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or7js"]
 size = Vector2(21, 6)
@@ -29,21 +29,24 @@ root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
+position = Vector2(11, -140.5)
 scale = Vector2(0.535, 0.535)
 texture = ExtResource("2_uv54t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(-11, -137)
 shape = SubResource("CircleShape2D_uv54t")
 debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
+position = Vector2(10.998, -140.5625)
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("3_ju53q")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
-position = Vector2(-22, 143)
+position = Vector2(-22.33, 142)
 shape = SubResource("RectangleShape2D_or7js")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 

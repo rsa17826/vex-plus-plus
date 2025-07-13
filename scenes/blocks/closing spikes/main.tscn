@@ -27,7 +27,6 @@ cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
 thingThatMoves = NodePath("Node2D/collisionNode")
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(0, 13)
 
 [node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
@@ -44,35 +43,37 @@ texture = ExtResource("3_fyg8o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
 unique_name_in_owner = true
-position = Vector2(-190, 16.25)
+position = Vector2(-190.14001, -52.829994)
 shape = SubResource("RectangleShape2D_sg2we")
 debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode"]
 unique_name_in_owner = true
-position = Vector2(190, 16.25)
+position = Vector2(189.85999, -52.829994)
 shape = SubResource("RectangleShape2D_sg2we")
 debug_color = Color(0.956863, 0, 0, 0.352941)
 
 [node name="leftHalf" type="Sprite2D" parent="Node2D/collisionNode"]
 unique_name_in_owner = true
-position = Vector2(-189, 1.90735e-06)
+position = Vector2(-189.14001, -69.08)
 scale = Vector2(0.905, 0.905)
 texture = ExtResource("4_li3j4")
 
 [node name="rightHalf" type="Sprite2D" parent="Node2D/collisionNode"]
 unique_name_in_owner = true
-position = Vector2(189, 0)
+position = Vector2(188.85999, -69.08)
 scale = Vector2(0.905, 0.905)
 texture = ExtResource("4_li3j4")
 
 [node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
 visible = false
+position = Vector2(0, -66)
 scale = Vector2(0.905, 0.905)
 texture = ExtResource("2_sg2we")
 offset = Vector2(0, 11)
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+position = Vector2(-0.14001465, -69.079994)
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("5_51j7p")
