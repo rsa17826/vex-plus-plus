@@ -218,6 +218,12 @@
       },
       {
         "thing": "option",
+        "type": "bool",
+        "key": "singleAxisAlignByDefault",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
         "type": "single select",
         "key": "editorBarPosition",
         "defaultValue": 0,

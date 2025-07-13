@@ -623,6 +623,7 @@ var showEditorUi := false
 var selectedBrush: Node
 var justPaintedBlock: EditorBlock = null
 var gridSize: Vector2 = Vector2(5, 5)
+var selectedBlockStartPosition: Vector2
 
 func selectBlock() -> void:
   # select the top hovered block
@@ -632,6 +633,7 @@ func selectBlock() -> void:
   lastSelectedBlock = block
   var bpos: Vector2 = block.position
   var mpos: Vector2 = player.get_global_mouse_position()
+  selectedBlockStartPosition = bpos
   selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
   var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
@@ -686,12 +688,6 @@ func localProcess(delta: float) -> void:
         or global.useropts.allowRotatingAnything):
           # handled in localinput now
           pass
-          # if level.get_global_mouse_position() == lastMousePos: return
-          # selectedBlock.look_at(mpos)
-          # selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
-          # selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
-          # setBlockStartPos(selectedBlock)
-          # Input.warp_mouse(lastMousePos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
         # when trying to scale blocks
         elif editorInScaleMode && selectedBlock \
         and (selectedBlock.is_in_group("EDITOR_OPTION_scale") \
@@ -702,7 +698,6 @@ func localProcess(delta: float) -> void:
           and !scaleOnRightSide \
           : return
           mpos = mpos
-          
           var r = selectedBlock.rotation
           var b = selectedBlock
           var startPos = selectedBlock.global_position
@@ -741,7 +736,6 @@ func localProcess(delta: float) -> void:
             b.scale.x = (b.scale.x + (mouseDistInPx / b.sizeInPx.x * b.scale.x))
             offset += Vector2(mouseDistInPx / 2, 0)
           # log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
-            
           selectedBlock.global_position = startPos + offset
           # selectedBlock.global_position = round((selectedBlock.global_position) / gridSize) * gridSize
           var moveMouse := func(pos: Vector2) -> void:
@@ -814,22 +808,29 @@ func localProcess(delta: float) -> void:
 
           # if trying to move a block
           else:
-            # get block size in pixels
-            var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
-
             # check if block scale is odd
-            var isYOnOddScale: Variant = str(int(selectedBlock.scale.y * 700))
-            isYOnOddScale = isYOnOddScale[len(isYOnOddScale) - 1] == '5'
-            var isXOnOddScale: Variant = str(int(selectedBlock.scale.x * 700))
-            isXOnOddScale = isXOnOddScale[len(isXOnOddScale) - 1] == '5'
+            # var isYOnOddScale: Variant = str(int(selectedBlock.sizeInPx.y))
+            # isYOnOddScale = isYOnOddScale[len(isYOnOddScale) - 1] == '5'
+            # var isXOnOddScale: Variant = str(int(selectedBlock.sizeInPx.x))
+            # isXOnOddScale = isXOnOddScale[len(isXOnOddScale) - 1] == '5'
+            # # offset the block on the sides that are odd to make it align with the grid
+            # var offset := Vector2((gridSize / 2.0) if isXOnOddScale else 0.0, (gridSize / 2.0) if isYOnOddScale else 0.0)
+            mpos = round((mpos) / gridSize) * gridSize
+            # mpos = round((mpos - offset) / gridSize) * gridSize
 
-            # offset the block on the sides that are odd to make it align with the grid
-            var offset := Vector2((gridSize / 2.0) if isXOnOddScale else 0.0, (gridSize / 2.0) if isYOnOddScale else 0.0)
-            mpos = round((mpos - offset) / gridSize) * gridSize
+            selectedBlock.global_position = round(mpos + selectedBlockOffset - (selectedBlock.sizeInPx / 2))
 
-            selectedBlock.global_position = round(mpos + selectedBlockOffset - (sizeInPx / 2))
             # if isYOnOddScale or isXOnOddScale:
-            selectedBlock.global_position += offset
+            # log.pp("offset", offset, selectedBlock.sizeInPx)
+            # selectedBlock.global_position += offset
+
+            var offset = selectedBlock.global_position - selectedBlockStartPosition
+            if Input.is_action_pressed(&"invert_single_axis_align")!=global.useropts.singleAxisAlignByDefault:
+              if abs(offset.x) > abs(offset.y):
+                offset.y = 0
+              elif abs(offset.x) < abs(offset.y):
+                offset.x = 0
+            selectedBlock.global_position = selectedBlockStartPosition + offset
             var moveDist = selectedBlock.global_position - selectedBlock.startPosition
             selectedBlock.global_position = round((selectedBlock.global_position) / gridSize) * gridSize
             setBlockStartPos(selectedBlock)

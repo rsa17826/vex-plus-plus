@@ -524,7 +524,7 @@ func _process(delta: float) -> void:
                 else:
                   onLeftSide = false
 
-            var v = boolsToV2(onTopSide, onBottomSide, onLeftSide, onRightSide).rotated(deg_to_rad(startRotation_degrees))
+            # var v = boolsToV2(onTopSide, onBottomSide, onLeftSide, onRightSide).rotated(deg_to_rad(startRotation_degrees))
 
             # store the selected sides in global
             global.scaleOnTopSide = onTopSide

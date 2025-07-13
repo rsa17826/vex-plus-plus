@@ -53,7 +53,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **toggle_hide_non_ghosts**: when in editor and this is enabled all non ghost blocks are hidden.
 - **block_z_up**: moves the block back in the list of nodes to make it render before the other blocks. the selected block is moved up until it is before 1 block that it is currently in front of and not just by 1.
 - **block_z_down**: same as block_z_up but moves it down instead of up.
-- **try_use_small_snap**: hold to use small snap instead of big snap. this is not the same as editor_disable_grid_snap as editor_disable_grid_snap disables the grid snap, whereas this still uses the grid snap and only changes to using the small size for directions the blocks have set to allow this.
+- **invert_single_axis_align**: hold while moving a block to invert the value of singleAxisAlignByDefault.
 - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 ### Play Controls
@@ -99,6 +99,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **cameraUsesDefaultRotationInEditor**: makes is so that when the editor ui is shown the camera is reset to default rotation instead of keeping the last rotation.
 - **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
 - **blockGridSnapSize**: the size of the grid that blocks will snap to when being moved or resized.
+- **singleAxisAlignByDefault**: if true blocks will only be movable along a single axis at a time by default. if false blocks can be moved freely.
 
 ### block settings that apply to many blocks
 
