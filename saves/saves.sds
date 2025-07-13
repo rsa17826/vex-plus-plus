@@ -260,4 +260,23 @@
     ]
     STR(beatLevels)[]
   }
+  STR(real map #10){
+    STR(lastSpawnPoint)VEC2(51.4725723266602,-5.08028602600098)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(2)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
 }

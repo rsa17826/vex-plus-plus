@@ -180,7 +180,7 @@
     }
   }
   {
-    STR(x)FLOAT(100.0)
+    STR(x)FLOAT(150.0)
     STR(y)FLOAT(-100.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(0.50000007450581)
@@ -259,6 +259,114 @@
     STR(id)STR(single spike)
     STR(options){
       STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(falling spike)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-200.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(falling spike)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-200.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(falling spike)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-250.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(closing spikes)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-400.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-400.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(closing spikes)
+    STR(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(50.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STR(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x spike)
+    STR(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(10x spike)
+    STR(options){
+      STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }

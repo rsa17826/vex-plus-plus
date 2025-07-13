@@ -31,18 +31,20 @@ root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
+position = Vector2(0, -88.815)
 scale = Vector2(0.606, 0.606)
 texture = ExtResource("2_wy60s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-position = Vector2(0, -2.5)
+position = Vector2(0, -91.418)
 shape = SubResource("RectangleShape2D_wy60s")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
-position = Vector2(0, 41)
+position = Vector2(0, -47.918)
 shape = SubResource("RectangleShape2D_1jh5p")
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
+position = Vector2(0, -88.918)
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("3_1jh5p")

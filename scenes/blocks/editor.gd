@@ -438,11 +438,12 @@ func _process(delta: float) -> void:
       if self in global.hoveredBlocks:
         global.hoveredBlocks.erase(self )
 
-    if ghostFollowNode == self:
-      ghost.rotation_degrees = 0
-    else:
-      ghost.global_position = ghostFollowNode.global_position
-      ghost.rotation_degrees = ghostFollowNode.rotation_degrees
+    # if ghostFollowNode == self:
+    #   ghost.rotation_degrees = 0
+    # else:
+    #   log.pp(ghost.global_position, ghostFollowNode.global_position, global_position, id)
+    #   ghost.global_position = ghostFollowNode.global_position
+    #   ghost.global_rotation = ghostFollowNode.global_rotation
     ghost.use_parent_material = true
     if global.hoveredBlocks && self == global.hoveredBlocks[0] \
       or self in global.boxSelect_selectedBlocks:
@@ -620,7 +621,7 @@ func createEditorGhost() -> void:
   collisionShape.set_shape(rectangle)
   collider.add_child(collisionShape)
   ghost.add_child(collider)
-  add_child(ghost)
+  ghostFollowNode.add_child(ghost)
 
 ## spins the node at speed using global tick
 func spin(speed: float, node: Node2D = self ) -> void:
