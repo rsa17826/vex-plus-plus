@@ -12,7 +12,7 @@ points = PackedVector2Array(-351, 350, 350, 350, 350, -351)
 script = ExtResource("1_2xhgp")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath(""), NodePath("")]
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 

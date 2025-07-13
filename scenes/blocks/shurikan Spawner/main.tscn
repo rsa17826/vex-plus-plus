@@ -21,6 +21,7 @@ hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+position = Vector2(733, 0)
 collision_layer = 1040
 collision_mask = 2
 script = ExtResource("2_8qfqg")
@@ -43,6 +44,7 @@ scale = Vector2(2.34568, 2.34568)
 texture = ExtResource("3_86yqw")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+position = Vector2(733, 0)
 collision_layer = 2048
 collision_mask = 32768
 script = ExtResource("4_lcjsb")

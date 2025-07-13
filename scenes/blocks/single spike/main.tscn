@@ -19,6 +19,7 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
 thingThatMoves = NodePath("collisionNode")
+bigSnapX = 0
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
@@ -30,15 +31,16 @@ root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
-position = Vector2(0, 13)
+position = Vector2(0, -61.6579)
 texture = ExtResource("2_t2pxc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-position = Vector2(0, 19.75)
+position = Vector2(0, -54.9079)
 shape = SubResource("RectangleShape2D_t2pxc")
 debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
+position = Vector2(0, -74.657906)
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("3_sjua3")

@@ -34,17 +34,19 @@ collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePat
 hidableSprites = [NodePath("movable/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("movable")
+bigSnapY = 2
 
 [node name="movable" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="movable"]
 use_parent_material = true
-position = Vector2(1, 0)
+position = Vector2(1, 36.193787)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_omc7y")
 script = SubResource("GDScript_svsk0")
 
 [node name="player detector" type="Area2D" parent="movable" node_paths=PackedStringArray("root")]
+position = Vector2(0, 36.19379)
 collision_layer = 3072
 collision_mask = 2
 script = ExtResource("3_svsk0")
@@ -58,7 +60,7 @@ debug_color = Color(0, 1, 0, 0.419608)
 [node name="has ceil" type="Area2D" parent="movable"]
 unique_name_in_owner = true
 light_mask = 0
-position = Vector2(1, 0)
+position = Vector2(1, 36.19379)
 collision_layer = 0
 collision_mask = 264
 
@@ -70,7 +72,7 @@ shape = SubResource("RectangleShape2D_omc7y")
 unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 2
-position = Vector2(1, 0)
+position = Vector2(1, 36.19379)
 collision_layer = 0
 collision_mask = 8
 
@@ -86,7 +88,7 @@ shape = SubResource("RectangleShape2D_vkeng")
 unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 2
-position = Vector2(1, 0)
+position = Vector2(1, 36.19379)
 collision_layer = 0
 collision_mask = 8
 
@@ -99,6 +101,7 @@ position = Vector2(-30, 0)
 shape = SubResource("RectangleShape2D_6wthr")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+position = Vector2(0, 36.19379)
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("4_svsk0")
