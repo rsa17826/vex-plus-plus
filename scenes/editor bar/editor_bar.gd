@@ -20,7 +20,7 @@ func _ready() -> void:
     if item not in [$item, $ColorRect]:
       item.queue_free()
   nodeCount = 0
-  nodeSize = global.useropts.blockPickerBlockSize
+  nodeSize = global.useropts.editorBarBlockSize
   $item.visible = true
   for i in range(0, len(global.blockNames)):
     newItem(global.blockNames[i], i)
