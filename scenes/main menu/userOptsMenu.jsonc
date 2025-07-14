@@ -1,12 +1,12 @@
 [
   {
     "thing": "group",
-    "name": "blockPicker",
+    "name": "editorBar",
     "value": [
       {
         "thing": "option",
         "type": "range",
-        "key": "blockPickerBlockSize",
+        "key": "editorBarBlockSize",
         "defaultValue": 50,
         "min": 10,
         "max": 100

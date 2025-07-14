@@ -65,7 +65,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ### Settings
 
-- **blockPickerBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equally larger or smaller
+- **editorBarBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equally larger or smaller
 - **autosaveInterval**: how long in seconds between autosaves. 0 is disabled
 - **saveOnExit**: saves the level when opening the menu - make work on game close and on enter inner level
 - **editorScrollSpeed**: changes the speed the camera moves at when using editor_pan

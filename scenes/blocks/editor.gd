@@ -405,13 +405,13 @@ var right_edge: float
 var top_edge: float
 var bottom_edge: float
 
-func boolsToV2(u, d, l, r):
-  var v = Vector2.ZERO
-  if u: v.y -= 1
-  if d: v.y += 1
-  if l: v.x -= 1
-  if r: v.x += 1
-  return v
+# func boolsToV2(u, d, l, r):
+#   var v = Vector2.ZERO
+#   if u: v.y -= 1
+#   if d: v.y += 1
+#   if l: v.x -= 1
+#   if r: v.x += 1
+#   return v
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
