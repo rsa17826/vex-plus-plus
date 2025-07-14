@@ -331,7 +331,10 @@ func settings_changed() -> void:
     if merge_abstract_class_tabs != merge_class:
       merge_abstract_class_tabs = merge_class
       
-  if tab_pos != null and style != null and prop_mode != null and merge_class != null:
+  if tab_pos != null \
+    and style != null \
+    and prop_mode != null \
+    and merge_class != null:
     #Save settings
     var config = ConfigFile.new()
     # Store some values.

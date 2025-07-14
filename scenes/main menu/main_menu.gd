@@ -155,12 +155,12 @@ func loadUserOptions() -> void:
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
   for thing in data:
-    match thing["thing"]:
+    match thing.thing:
       "option":
         __loadOptions(thing)
         break
       "group":
-        __menu.startGroup(thing["name"])
+        __menu.startGroup(thing.name)
         # log.pp(thing.name, thing.value)
         for a in thing.value:
           __loadOptions(a)
@@ -192,50 +192,50 @@ func updateUserOpts() -> void:
   sds.prettyPrint = !global.useropts.smallerSaveFiles
 
 func __loadOptions(thing) -> void:
-  match thing["type"]:
+  match thing.type:
     "bool":
-      __menu.add_bool(thing["key"], thing["defaultValue"])
+      __menu.add_bool(thing.key, thing.key)
     "range":
       __menu.add_range(
-        thing["key"],
-        thing['min'],
-        thing['max'],
-        thing['step'] if "step" in thing else 1,
-        thing["defaultValue"],
+        thing.key,
+        thing.min,
+        thing.max,
+        thing.step if "step" in thing else 1,
+        thing.defaultValue,
         thing['allow lesser'] if "allow lesser" in thing else false,
         thing['allow greater'] if "allow greater" in thing else false
       )
     "multi select":
       __menu.add_multi_select(
-        thing["key"],
-        thing['options'],
-        thing["defaultValue"]
+        thing.key,
+        thing.options,
+        thing.defaultValue
       )
     "single select":
       __menu.add_single_select(
-        thing["key"],
-        thing['options'],
-        thing["defaultValue"]
+        thing.key,
+        thing.options,
+        thing.defaultValue
       )
     "spinbox":
       __menu.add_spinbox(
-        thing["key"],
-        thing['min'],
-        thing['max'],
-        thing['step'] if "step" in thing else 1,
-        thing["defaultValue"],
+        thing.key,
+        thing.min,
+        thing.max,
+        thing.step if "step" in thing else 1,
+        thing.defaultValue,
         thing['allow lesser'] if "allow lesser" in thing else false,
         thing['allow greater'] if "allow greater" in thing else false
       )
     "rgba":
       __menu.add_rgba(
-        thing["key"],
-        thing["defaultValue"],
+        thing.key,
+        thing.defaultValue,
       )
     "rgb":
       __menu.add_rgb(
-        thing["key"],
-        thing["defaultValue"],
+        thing.key,
+        thing.defaultValue,
       )
 
 func _on_new_level_btn_pressed() -> void:

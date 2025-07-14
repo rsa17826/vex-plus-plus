@@ -606,9 +606,9 @@ func _get_drag_data(at_position):
 #    p_from->set_drag_preview(vbox); // Wait until it enters scene.
 #
 #    Dictionary drag_data;
-#    drag_data["type"] = has_folder ? "files_and_dirs" : "files";
-#    drag_data["files"] = p_paths;
-#    drag_data["from"] = p_from;
+#    drag_data.type = has_folder ? "files_and_dirs" : "files";
+#    drag_data.files = p_paths;
+#    drag_data.from = p_from;
 #    return drag_data;
   if _selected_item == null:
     return null
@@ -641,7 +641,7 @@ func _notification(what):
   if what == NOTIFICATION_DRAG_BEGIN:
     var dd: Dictionary = get_viewport().gui_get_drag_data()
     if _tree.is_visible_in_tree() and dd.has("type"):
-      if String(dd["type"]) == "files" or String(dd["type"]) == "files_and_dirs" or String(dd["type"]) == "resource":
+      if String(dd.type) == "files" or String(dd.type) == "files_and_dirs" or String(dd.type) == "resource":
         _tree.drop_mode_flags = Tree.DROP_MODE_ON_ITEM | Tree.DROP_MODE_INBETWEEN
         
   elif what == NOTIFICATION_DRAG_END:
@@ -678,7 +678,7 @@ func _can_drop_data(at_position: Vector2, drag_data: Variant) -> bool:
   if !drag_data.has("type"):
     return false
   #bool FileSystemDock::can_drop_data_fw(const Point2 &p_point, const Variant &p_data, Control *p_from) const {
-  if String(drag_data["type"]) == "files" or String(drag_data["type"]) == "files_and_dirs":
+  if String(drag_data.type) == "files" or String(drag_data.type) == "files_and_dirs":
     # Move files or dir.
     var target_folder: String = _get_drag_target_folder(at_position)
     if target_folder.is_empty():
@@ -689,7 +689,7 @@ func _can_drop_data(at_position: Vector2, drag_data: Variant) -> bool:
     if !target_folder.ends_with("/"):
       target_folder = target_folder + "/"
 
-    var fnames = drag_data["files"]
+    var fnames = drag_data.files
     for i in range(fnames.size()):
       if fnames[i].ends_with("/") and target_folder.begins_with(fnames[i]):
         return false
@@ -700,11 +700,11 @@ func _can_drop_data(at_position: Vector2, drag_data: Variant) -> bool:
 func _drop_data(at_position: Vector2, drag_data: Variant):
   ## GD Plugin is so limited to move a files.
   ## Hold until to expose more Godot APIs
-  if drag_data.has("type") and (String(drag_data["type"]) == "files" or String(drag_data["type"]) == "files_and_dirs"):
+  if drag_data.has("type") and (String(drag_data.type) == "files" or String(drag_data.type) == "files_and_dirs"):
     # Move files
     var to_dir: String = _get_drag_target_folder(at_position)
     if !to_dir.is_empty():
-      var fnames = drag_data["files"]
+      var fnames = drag_data.files
       var target_dir: String
       if to_dir == "res://":
         target_dir = to_dir

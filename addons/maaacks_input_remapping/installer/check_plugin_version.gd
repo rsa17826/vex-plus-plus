@@ -58,7 +58,7 @@ func _on_api_client_response_received(response_body) -> void:
   var latest_release: Dictionary = response_body.front()
   var tag_name := default_version
   if latest_release.has("tag_name"):
-    tag_name = latest_release["tag_name"]
+    tag_name = latest_release.tag_name
   if replace_tag_name:
     tag_name = tag_name.replacen(replace_tag_name, "")
   var current_tag_name = get_plugin_version()

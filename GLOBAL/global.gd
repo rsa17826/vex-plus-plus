@@ -1246,18 +1246,18 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
   var levelPackInfo: Dictionary = await loadMapInfo(levelPackName)
   if !levelPackInfo: return
-  var startFile := path.join(levelFolderPath, levelPackInfo['start'] + '.sds')
+  var startFile := path.join(levelFolderPath, levelPackInfo.start + '.sds')
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
     return
-  # levelPackInfo["version"] = int(levelPackInfo["version"])
-  if not same(levelPackInfo["version"], VERSION):
-    var gameVersionIsNewer: bool = VERSION > levelPackInfo["version"]
+  # levelPackInfo.version = int(levelPackInfo.version)
+  if not same(levelPackInfo.version, VERSION):
+    var gameVersionIsNewer: bool = VERSION > levelPackInfo.version
     if gameVersionIsNewer:
       if useropts.warnWhenOpeningLevelInNewerGameVersion:
         var data = await prompt(
           "this level was last saved in version " +
-          str(levelPackInfo["version"]) +
+          str(levelPackInfo.version) +
           " and the current version is " + str(VERSION) +
           ". Do you want to load this level?\n" +
           "> the current game version is newer than what the level was made in"
@@ -1268,7 +1268,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
         var data = await prompt(
           "this level was last saved in version " +
-          str(levelPackInfo["version"]) +
+          str(levelPackInfo.version) +
           " and the current version is " + str(VERSION) +
           ". Do you want to load this level?\n" +
           "< the current game version might not have all the features needed to play this level"
@@ -1282,7 +1282,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
     beatLevels = saveData.beatLevels
   else:
     loadedLevels = [
-      newLevelSaveData(levelPackInfo['start'])
+      newLevelSaveData(levelPackInfo.start)
     ]
     beatLevels = []
   get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
@@ -1812,7 +1812,7 @@ var defaultBlockOpts: Dictionary = {}
 var popupStarted = false
 
 func createNewBlock(data) -> EditorBlock:
-  var id = data['id']
+  var id = data.id
   if load("res://scenes/blocks/" + id + "/main.tscn"):
     var thing = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     thing.startPosition = Vector2(data.x, data.y)
@@ -1884,3 +1884,6 @@ var buttonWalls: Array[EditorBlock] = []:
     return buttonWalls
     
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
+
+# (?<=[\w_])\[(['"])([\w_]+)\1\]
+# .$2

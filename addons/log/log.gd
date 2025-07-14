@@ -12,11 +12,11 @@ static func assoc(opts: Dictionary, key: String, val):
 static func log_prefix(stack):
   if len(stack) > 1:
     var call_site = stack[1]
-    var basename = call_site["source"].get_file().get_basename()
+    var basename = call_site.source.get_file().get_basename()
     var line_num = str(call_site.get("line", 0))
-    if call_site["source"].match("*/test/*"):
+    if call_site.source.match("*/test/*"):
       return "{" + basename + ":" + line_num + "}: "
-    elif call_site["source"].match("*/addons/*"):
+    elif call_site.source.match("*/addons/*"):
       return "<" + basename + ":" + line_num + ">: "
     else:
       return "[" + basename + ":" + line_num + "]: "
@@ -196,7 +196,7 @@ static func to_pretty(msg, opts={}):
   var use_color = opts.get("use_color", true)
   var indent_level = opts.get("indent_level", 0)
   if not "indent_level" in opts:
-    opts["indent_level"] = indent_level
+    opts.indent_level = indent_level
 
   var omit_vals_for_keys = ["layer_0/tile_data"]
   if not is_instance_valid(msg) and typeof(msg) == TYPE_OBJECT:

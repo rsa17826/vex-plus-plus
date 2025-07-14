@@ -151,7 +151,7 @@ func show_menu():
     # #log.pp(arr)
   for thing in arr:
     if "user" not in thing:
-      thing["user"] = thing["default"]
+      thing.user = thing.user
     match thing.type:
       "startGroup":
         var group = FoldableContainer.new()
@@ -166,15 +166,15 @@ func show_menu():
         currentParent.pop_back()
       "range":
         var node = preload(path + "range.tscn").instantiate()
-        node.get_node("Label").text = thing["name"]
+        node.get_node("Label").text = thing.name
         var range_node = node.get_node("HSlider")
-        range_node.min_value = thing["from"]
-        range_node.max_value = thing["to"]
-        range_node.tick_count = (abs(thing["to"] - thing["from"]) / thing.step) + 1 if (abs(thing["to"] - thing["from"]) / thing.step) + 1 < 20 else 0
-        range_node.step = thing["step"]
-        range_node.value = thing["user"]
-        range_node.allow_greater = thing["allow_greater"]
-        range_node.allow_lesser = thing["allow_lesser"]
+        range_node.min_value = thing.from
+        range_node.max_value = thing.to
+        range_node.tick_count = (abs(thing.to - thing.to) / thing.step) + 1 if (abs(thing.to - thing.to) / thing.step) + 1 < 20 else 0
+        range_node.step = thing.step
+        range_node.value = thing.user
+        range_node.allow_greater = thing.allow_greater
+        range_node.allow_lesser = thing.allow_lesser
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
         log.pp(currentParent)
@@ -190,37 +190,37 @@ func show_menu():
         #   "default": default
         # })
         var node = preload(path + "spinbox.tscn").instantiate()
-        node.get_node("Label").text = thing["name"]
+        node.get_node("Label").text = thing.name
         var range_node = node.get_node("HSlider")
-        range_node.min_value = thing["from"]
-        range_node.max_value = thing["to"]
-        range_node.step = thing["step"]
-        range_node.value = thing["user"]
-        range_node.allow_greater = thing["allow_greater"]
-        range_node.allow_lesser = thing["allow_lesser"]
+        range_node.min_value = thing.from
+        range_node.max_value = thing.to
+        range_node.step = thing.step
+        range_node.value = thing.user
+        range_node.allow_greater = thing.allow_greater
+        range_node.allow_lesser = thing.allow_lesser
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
       "bool":
         var node = preload(path + "bool.tscn").instantiate()
-        node.get_node("Label").text = thing["name"]
-        node.get_node("CheckButton").button_pressed = thing["user"]
+        node.get_node("Label").text = thing.name
+        node.get_node("CheckButton").button_pressed = thing.user
         node.get_node("CheckButton").toggled.connect(__changed.bind(thing.name, node))
         currentParent[len(currentParent) - 1].add_child(node)
       "multi select":
         var node = preload(path + "multi select.tscn").instantiate()
-        # node.get_node("optbtn/Label").text = thing["name"]
+        # node.get_node("optbtn/Label").text = thing.name
         var select = node.get_node("optbtn/OptionButton")
         select.text = thing.name
-        node.options = thing["options"]
+        node.options = thing.options
         node.selected = thing.user
         node.option_changed.connect(__changed.bind(thing.name, node))
-        # for sel in thing["user"]:
+        # for sel in thing.user:
         #   var t = Texture2D.new()
         #   t.create_placeholder()
         #   # path + "images/check.png"
-        #   select.set_item_icon(thing["options"].find(sel), t)
-        # select.value = thing["user"] if "user" in thing else thing["default"]
+        #   select.set_item_icon(thing.options.find(sel), t)
+        # select.value = thing.user if "user" in thing else thing.user
         # select.value_changed.connect(s.__changed.bind(thing.name, select))
         currentParent[len(currentParent) - 1].add_child(node)
       "rgba":
@@ -248,8 +248,8 @@ func show_menu():
         currentParent[len(currentParent) - 1].add_child(node)
       "single select":
         var node = preload(path + "single select.tscn").instantiate()
-        node.get_node("Label").text = thing["name"]
-        # node.get_node("OptionButton").value = str(thing["user"])
+        node.get_node("Label").text = thing.name
+        # node.get_node("OptionButton").value = str(thing.user)
         var select = node.get_node("OptionButton")
         select.clear()
         for opt in thing.options:
@@ -265,8 +265,8 @@ func show_menu():
         # #log.pp(newarr)
 
         # var node = preload(path + "named spinbox.tscn").instantiate()
-        # node.get_node("Label").text = thing["name"]
-        # # node.get_node("OptionButton").value = str(thing["user"])
+        # node.get_node("Label").text = thing.name
+        # # node.get_node("OptionButton").value = str(thing.user)
         # var select = node.get_node("OptionButton")
         # select.clear()
         # for opt in newarr:
@@ -277,13 +277,13 @@ func show_menu():
       "named range":
         var newarr = sort_dict_to_arr(thing.options)
         var node = preload(path + "named range.tscn").instantiate()
-        node.get_node("Label").text = thing["name"]
+        node.get_node("Label").text = thing.name
         var range_node = node.get_node("HSlider")
         range_node.min_value = newarr[0][0]
         range_node.max_value = newarr[-1][0]
         range_node.tick_count = (range_node.max_value - range_node.min_value) + 1
         range_node.step = 1
-        range_node.value = float(thing["user"])
+        range_node.value = float(thing.user)
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
