@@ -163,7 +163,6 @@ func loadUserOptions() -> void:
         __menu.startGroup(thing["name"])
         # log.pp(thing.name, thing.value)
         for a in thing.value:
-          log.pp(thing.name)
           __loadOptions(a)
         __menu.endGroup()
   __menu.show_menu()
