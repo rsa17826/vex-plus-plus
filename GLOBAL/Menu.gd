@@ -11,9 +11,11 @@ var menu_index := 0
 var parent = null
 
 var used_keys = []
-
+var currentParent = []
+var GROUP = FoldableGroup.new()
 func _init(_parent, save_path: String = "main") -> void:
   parent = _parent
+  currentParent = [_parent]
   full_save_path = "user://" + save_path + \
   (" - EDITOR" if OS.has_feature("editor") else '') \
   +".sds"
@@ -27,7 +29,21 @@ func _init(_parent, save_path: String = "main") -> void:
 
 # add a add that is multiselect/singleselect/range but with images instead of text either from a list of images or a dir full of images
 # add optional icon to add_bool
-
+func startGroup(name):
+  _add_any("startGroup" + name, {
+    "type": "startGroup",
+    "name": name,
+    'default': null
+  })
+  # var group = FoldableContainer.new()
+  # parent.add_child(group)
+  # currentParent.append(group)
+func endGroup():
+  _add_any("endGroup" + str(randf()), {
+    "type": "endGroup",
+    'default': null
+  })
+  # currentParent.pop_back()
 # ADDS
 func add_range(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false) -> void:
   # return float|int
@@ -118,6 +134,7 @@ func get_all_data():
 signal onchanged
 
 func show_menu():
+  currentParent = [parent]
   var keys = menu_data.keys()
   var arr = []
   # for key in keys:
@@ -136,6 +153,17 @@ func show_menu():
     if "user" not in thing:
       thing["user"] = thing["default"]
     match thing.type:
+      "startGroup":
+        var group = FoldableContainer.new()
+        group.folded = true
+        group.foldable_group = GROUP
+        group.title = thing.name.substr(len("startGroup"))
+        var vbox = VBoxContainer.new()
+        group.add_child(vbox)
+        currentParent[len(currentParent) - 1].add_child(group)
+        currentParent.append(vbox)
+      "endGroup":
+        currentParent.pop_back()
       "range":
         var node = preload(path + "range.tscn").instantiate()
         node.get_node("Label").text = thing["name"]
@@ -149,7 +177,8 @@ func show_menu():
         range_node.allow_lesser = thing["allow_lesser"]
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
-        parent.add_child(node)
+        log.pp(currentParent)
+        currentParent[len(currentParent) - 1].add_child(node)
       "spinbox":
         #       dd_any(key, {
         #   "type": "spinbox",
@@ -171,13 +200,13 @@ func show_menu():
         range_node.allow_lesser = thing["allow_lesser"]
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
-        parent.add_child(node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "bool":
         var node = preload(path + "bool.tscn").instantiate()
         node.get_node("Label").text = thing["name"]
         node.get_node("CheckButton").button_pressed = thing["user"]
         node.get_node("CheckButton").toggled.connect(__changed.bind(thing.name, node))
-        parent.add_child(node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "multi select":
         var node = preload(path + "multi select.tscn").instantiate()
         # node.get_node("optbtn/Label").text = thing["name"]
@@ -193,7 +222,7 @@ func show_menu():
         #   select.set_item_icon(thing["options"].find(sel), t)
         # select.value = thing["user"] if "user" in thing else thing["default"]
         # select.value_changed.connect(s.__changed.bind(thing.name, select))
-        parent.add_child(node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "rgba":
         var node: Control = preload(path + "color.tscn").instantiate()
         var colorSelect := node.get_node("HSlider")
@@ -204,7 +233,7 @@ func show_menu():
         node.get_node("Label").text = thing.name
         colorSelect.color = Color.hex(int(thing.user))
         colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
-        parent.add_child(node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "rgb":
         var node: Control = preload(path + "color.tscn").instantiate()
         var colorSelect := node.get_node("HSlider")
@@ -216,7 +245,7 @@ func show_menu():
         colorSelect.color = Color.hex(int(thing.user))
         # colorSelect.color = Color.from_string(thing.user, thing.default)
         colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
-        parent.add_child(node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "single select":
         var node = preload(path + "single select.tscn").instantiate()
         node.get_node("Label").text = thing["name"]
@@ -228,7 +257,7 @@ func show_menu():
         select.select(int(thing.user) if "user" in thing else 0)
         select.item_selected.connect(__changed.bind(thing.name, node))
 
-        parent.add_child(node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "named_spinbox":
         log.err("named spinbox is not working yet, use single_select or named range")
         return
@@ -244,7 +273,7 @@ func show_menu():
         #   select.add_item(opt[1])
         # select.value_changed.connect(__changed.bind(thing.name, node))
 
-        # parent.add_child(node)
+        # currentParent[len(currentParent)-1].add_child(node)
       "named range":
         var newarr = sort_dict_to_arr(thing.options)
         var node = preload(path + "named range.tscn").instantiate()
@@ -257,7 +286,7 @@ func show_menu():
         range_node.value = float(thing["user"])
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
-        parent.add_child(node)
+        currentParent[len(currentParent) - 1].add_child(node)
 
       _:
         log.warn("no method is set to add", thing.type)

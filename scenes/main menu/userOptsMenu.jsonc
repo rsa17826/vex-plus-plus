@@ -1,7 +1,7 @@
 [
   {
     "thing": "group",
-    "name": "editor options",
+    "name": "blockPicker",
     "value": [
       {
         "thing": "option",
@@ -13,10 +13,73 @@
       },
       {
         "thing": "option",
+        "type": "range",
+        "key": "editorBarScrollSpeed",
+        "defaultValue": 1,
+        "min": -40,
+        "max": 40,
+        "step": 1
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "editorBarOffset",
+        "defaultValue": 0,
+        "min": 0,
+        "max": 638,
+        "step": 1
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "editorBarColumns",
+        "defaultValue": 1,
+        "max": 400,
+        "min": 1,
+        "allow lesser": false,
+        "allow greater": true
+      },
+      {
+        "thing": "option",
+        "type": "single select",
+        "key": "editorBarPosition",
+        "defaultValue": 0,
+        "options": ["top/left", "bottom", "right"]
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "grid",
+    "value": [
+      {
+        "thing": "option",
         "type": "bool",
         "key": "showGridInEdit",
         "defaultValue": false
       },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "blockGridSnapSize",
+        "defaultValue": 5,
+        "min": 1,
+        "max": 200,
+        "allow greater": true,
+        "allow lesser": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showGridInPlay",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "save",
+    "value": [
       {
         "thing": "option",
         "type": "range",
@@ -34,35 +97,41 @@
       },
       {
         "thing": "option",
-        "type": "range",
-        "key": "editorScrollSpeed",
-        "defaultValue": 1,
-        "min": 0.25,
-        "max": 3,
-        "step": 0.05
+        "type": "bool",
+        "key": "smallerSaveFiles",
+        "defaultValue": true
       },
       {
         "thing": "option",
-        "type": "range",
-        "key": "editorBarScrollSpeed",
-        "defaultValue": 1,
-        "min": -40,
-        "max": 40,
-        "step": 1
+        "type": "bool",
+        "key": "saveLevelOnWin",
+        "defaultValue": true
       },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showIconOnSave",
+        "defaultValue": true
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "window",
+    "value": [
       {
         "thing": "option",
         "type": "single select",
         "key": "windowMode",
         "options": ["fullscreen", "windowed"],
         "defaultValue": 1
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "smallerSaveFiles",
-        "defaultValue": true
-      },
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "warnings",
+    "value": [
       {
         "thing": "option",
         "type": "bool",
@@ -77,12 +146,51 @@
       },
       {
         "thing": "option",
+        "type": "bool",
+        "key": "confirmKeyAssignmentDeletion",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "debug",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showHitboxes",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "random editor settings",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
         "type": "spinbox",
-        "key": "editorBarOffset",
-        "defaultValue": 0,
+        "key": "mouseLockDistanceWhileRotating",
+        "defaultValue": 35,
         "min": 0,
-        "max": 638,
+        "max": 100,
         "step": 1
+      },
+      {
+        "thing": "option",
+        "type": "range",
+        "key": "editorScrollSpeed",
+        "defaultValue": 1,
+        "min": 0.25,
+        "max": 3,
+        "step": 0.05
       },
       {
         "thing": "option",
@@ -105,27 +213,15 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "saveLevelOnWin",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showHitboxes",
+        "key": "singleAxisAlignByDefault",
         "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showIconOnSave",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "confirmKeyAssignmentDeletion",
-        "defaultValue": false
-      },
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "limits",
+    "value": [
       {
         "thing": "option",
         "type": "bool",
@@ -140,35 +236,6 @@
       },
       {
         "thing": "option",
-        "type": "spinbox",
-        "key": "blockSnapGridSize",
-        "min": 1,
-        "max": 150,
-        "step": 1,
-        "allow greater": true,
-        "allow lesser": true,
-        "defaultValue": 5
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "noCornerGrabsForScaling",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showLevelLoadingProgressBar",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showLevelLoadingBehindProgressBar",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
         "type": "bool",
         "key": "onlyShowLevelsForCurrentVersion",
         "defaultValue": true
@@ -176,18 +243,15 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected",
+        "key": "allowCustomColors",
         "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "mouseLockDistanceWhileRotating",
-        "defaultValue": 35,
-        "min": 0,
-        "max": 100,
-        "step": 1
-      },
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "camera",
+    "value": [
       {
         "thing": "option",
         "type": "bool",
@@ -205,63 +269,42 @@
         "type": "bool",
         "key": "cameraRotationOnGravityChangeHappensInstantly",
         "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "singleAxisAlignByDefault",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "editorBarColumns",
-        "defaultValue": 1,
-        "max": 400,
-        "min": 1,
-        "allow lesser": false,
-        "allow greater": true
-      },
-      {
-        "thing": "option",
-        "type": "single select",
-        "key": "editorBarPosition",
-        "defaultValue": 0,
-        "options": ["top/left", "bottom", "right"]
-      },
-      {
-        "thing": "option",
-        "type": "rgba",
-        "key": "boxSelectColor",
-        "defaultValue": 1483315998.0
-      },
-      {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "blockGridSnapSize",
-        "defaultValue": 5,
-        "min": 1,
-        "max": 200,
-        "allow greater": true,
-        "allow lesser": true
       }
     ]
   },
   {
     "thing": "group",
-    "name": "level options",
+    "name": "theme",
+    "value": [
+      {
+        "thing": "option",
+        "type": "rgba",
+        "key": "boxSelectColor",
+        "defaultValue": 1483315998.0
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "?",
     "value": [
       {
         "thing": "option",
         "type": "bool",
-        "key": "allowCustomColors",
+        "key": "noCornerGrabsForScaling",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showLevelLoadingProgressBar",
         "defaultValue": true
       },
       {
         "thing": "option",
         "type": "bool",
-        "key": "showGridInPlay",
-        "defaultValue": false
+        "key": "showLevelLoadingBehindProgressBar",
+        "defaultValue": true
       }
     ]
   }

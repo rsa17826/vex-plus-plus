@@ -58,7 +58,7 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   openMsgBoxCount += 1
 
-  var promptCanvas := preload("res://GLOBAL/prompt.tscn").instantiate()
+  var promptCanvas := preload("res://GLOBAL/__prompt.tscn").instantiate()
   get_tree().root.add_child(promptCanvas)
   promptCanvas.get_node("ColorRect").size = windowSize
   promptCanvas.get_node("ColorRect/CenterContainer").size = windowSize
@@ -825,7 +825,7 @@ func localProcess(delta: float) -> void:
             # selectedBlock.global_position += offset
 
             var offset = selectedBlock.global_position - selectedBlockStartPosition
-            if Input.is_action_pressed(&"invert_single_axis_align")!=global.useropts.singleAxisAlignByDefault:
+            if Input.is_action_pressed(&"invert_single_axis_align") != global.useropts.singleAxisAlignByDefault:
               if abs(offset.x) > abs(offset.y):
                 offset.y = 0
               elif abs(offset.x) < abs(offset.y):
@@ -1072,28 +1072,28 @@ func localInput(event: InputEvent) -> void:
     
   if Input.is_action_just_pressed(&"move_selected_left"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockGridSnapSize
     var moveDist = Vector2(-1, 0) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
   if Input.is_action_just_pressed(&"move_selected_right"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockGridSnapSize
     var moveDist = Vector2(1, 0) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
   if Input.is_action_just_pressed(&"move_selected_up"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockGridSnapSize
     var moveDist = Vector2(0, -1) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
   if Input.is_action_just_pressed(&"move_selected_down"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockSnapGridSize
+    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockGridSnapSize
     var moveDist = Vector2(0, 1) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
