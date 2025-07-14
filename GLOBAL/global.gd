@@ -1062,7 +1062,7 @@ func localInput(event: InputEvent) -> void:
   if Input.is_action_just_pressed(&"toggle_pause", true):
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking
-      global.tick = 0
+      # global.tick = 0
   if Input.is_action_just_pressed(&"load", true):
     if useropts.saveOnExit:
       if level and is_instance_valid(level):
@@ -1545,7 +1545,7 @@ func localReady() -> void:
     "Quadrant",
     "Rotating Buzzsaw",
     "Scythe",
-    # "shurikan Spawner",
+    "shurikan Spawner",
     "star",
     # "targeting laser",
     # "ice",
@@ -1561,7 +1561,7 @@ func localReady() -> void:
     "arrow",
     "conveyer",
     "oneway",
-    "custom block",
+    "oneway",
     # "path",
   ]
   for thing in editorBarData:
