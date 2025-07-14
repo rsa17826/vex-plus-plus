@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwxhi0h7ekor8"
-path="res://.godot/imported/editorBar.png-dfc537abfaf2ad60dfb965359b04f2c0.ctex"
+uid="uid://rwlgdyp0aoll"
+path="res://.godot/imported/spawner.png-79735575b10d13200a0aeb7ff8288e9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/quad falling spikes/images/editorBar.png"
-dest_files=["res://.godot/imported/editorBar.png-dfc537abfaf2ad60dfb965359b04f2c0.ctex"]
+source_file="res://scenes/blocks/shurikan Spawner/images/spawner.png"
+dest_files=["res://.godot/imported/spawner.png-79735575b10d13200a0aeb7ff8288e9e.ctex"]
 
 [params]
 
