@@ -79,17 +79,17 @@ func _on_api_client_response_received(response_body: Variant) -> void:
   var latest_release: Dictionary = response_body.front()
   _newest_version = default_version
   if latest_release.has("tag_name"):
-    var tag_name = latest_release["tag_name"]
+    var tag_name = latest_release.tag_name
     if replace_tag_name:
       tag_name = tag_name.replacen(replace_tag_name, "")
     _newest_version = tag_name
   if latest_release.has("zipball_url"):
-    _zipball_url = latest_release["zipball_url"]
+    _zipball_url = latest_release.zipball_url
   _download_and_extract_node.zip_url = _zipball_url
   _download_and_extract_node.zip_file_path = PLUGIN_TEMP_ZIP_PATH % [plugin_directory, _newest_version]
   _update_label.text = UPDATE_CONFIRMATION_MESSAGE % [plugin_directory, _plugin_name, _newest_version]
   if latest_release.has("body"):
-    _release_label.text = latest_release["body"]
+    _release_label.text = latest_release.body
   _update_confirmation_dialog.show()
 
 func _on_download_and_extract_zip_saved() -> void:

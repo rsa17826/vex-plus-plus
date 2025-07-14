@@ -111,7 +111,7 @@ func save():
       obj.h = child.startScale.y
 
     if child.selectedOptions:
-      obj["options"] = child.selectedOptions
+      obj.options = child.selectedOptions
     data.append(obj)
   log.pp(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
