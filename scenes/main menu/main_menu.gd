@@ -141,10 +141,10 @@ func upload_file(file_path: String, base64_content: String) -> void:
     OS.alert("ERROR 422")
     # OS.alert("level already exists")
   else:
-    log.pp(res.code)
-    log.pp(res.response)
-    log.pp(headers)
-    OS.alert("ERROR")
+    log.err(res.code)
+    log.err(res.response)
+    log.err(headers)
+    OS.alert("ERROR: " + str(res.code))
   
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes
