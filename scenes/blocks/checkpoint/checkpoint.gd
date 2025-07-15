@@ -31,7 +31,6 @@ func on_respawn() -> void:
   thingThatMoves.position = Vector2.ZERO
   
 func on_ready() -> void:
-  log.pp("asddhkskjm, on_ready")
   if not self in global.checkpoints:
     global.checkpoints.append(self )
   setTexture(sprite, "1")
