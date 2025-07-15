@@ -465,6 +465,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **buttonId**: unique identifier for a set of buttons that can be used to deactivate this.
-- **targeting laser**: when the player is in range the laser will apply heat, more heat is applied if the player is closer. when the player is in water heat will dissipate faster.
+- **targeting laser**: when the player is in range the laser will apply heat, more heat is applied if the player is closer. when the player is in water heat will dissipate faster. if the heat ray hits a bomb the bomb will be exploded.
+
+  - **settings**:
+- **laser**: when the player is in range the laser will shoot projectiles in the direction it is facing, these projectiles have a 1 second cooldown and are destroyed on contact with solid blocks. if the projectile hits a bomb the bomb will be exploded.
 
   - **settings**:
