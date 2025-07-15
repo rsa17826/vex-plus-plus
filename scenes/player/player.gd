@@ -874,7 +874,7 @@ func applyHeat(delta):
       # a lot more based on distance when very close less than 20 px
       + max(0, ((20 - laser.thingThatMoves.global_position.distance_to(global_position)) / 3.0))
       heatToAdd += num
-      log.pp('heatToAdd num', num)
+      # log.pp('heatToAdd num', num)
   heat += heatToAdd * delta
   if heat > 0:
     heat -= (.75 if inWaters else .5) * delta
