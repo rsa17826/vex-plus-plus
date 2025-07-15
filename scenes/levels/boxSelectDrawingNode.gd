@@ -10,7 +10,7 @@ func _draw() -> void:
   c.a = 1
   draw_rect(
     Rect2(global.boxSelectDrawStartPos, global.boxSelectDrawEndPos - global.boxSelectDrawStartPos),
-  c, false, 3)
+  c, false, -3)
 
 func updateRect():
   queue_redraw()
