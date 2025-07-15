@@ -2,7 +2,7 @@
   STR(start)STR(hub)
   STR(author)STR()
   STR(description)STR()
-  STR(version)INT(81)
+  STR(version)INT(82)
   STR(stages){
     STR(hub){
       STR(color)INT(3)

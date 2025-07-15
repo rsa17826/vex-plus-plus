@@ -258,11 +258,10 @@ func _on_body_entered(body: Node2D, real=true) -> void:
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
-  # log.pp(isChildOfCustomBlock)
-  if global.player.OnPlayerFullRestart.is_connected(_ready):
+  if !global.player.OnPlayerFullRestart.is_connected(_ready):
     global.player.OnPlayerFullRestart.connect(_ready)
   # if !is_in_group("dontRespawnOnPlayerDeath"):
-  if !global.player.OnPlayerDied.is_connected(_ready):
+  if !global.player.OnPlayerDied.is_connected(respawn):
     global.player.OnPlayerDied.connect(respawn)
 
   blockOptions = {}
