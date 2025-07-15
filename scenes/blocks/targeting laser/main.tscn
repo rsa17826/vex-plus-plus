@@ -12,7 +12,6 @@ radius = 725.844
 radius = 127.016
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ray", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["attaches to things"]]
-position = Vector2(5, 0)
 script = ExtResource("1_owjk4")
 ray = NodePath("collisionNode/RayCast2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -25,6 +24,7 @@ oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
 "y": -1
 })
+metadata/_edit_lock_ = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3072
@@ -36,26 +36,31 @@ root = NodePath("..")
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_erc21")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("CircleShape2D_r6ssi")
 debug_color = Color(0.702023, 0.273704, 1, 0.42)
+metadata/_edit_lock_ = true
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
 collision_layer = 2048
 collision_mask = 32768
 script = ExtResource("3_r6ssi")
 root = NodePath("../..")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
 shape = SubResource("CircleShape2D_owjk4")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+metadata/_edit_lock_ = true
 
 [node name="RayCast2D" type="RayCast2D" parent="collisionNode"]
 position = Vector2(-90, 0)
 target_position = Vector2(-668, -2)
 collision_mask = 10
 hit_from_inside = true
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
