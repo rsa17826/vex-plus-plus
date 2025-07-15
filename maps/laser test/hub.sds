@@ -4,9 +4,9 @@
     STR(y)FLOAT(-65.0)
   }
   {
-    STR(x)FLOAT(225.0)
+    STR(x)FLOAT(125.0)
     STR(y)FLOAT(0.0)
-    STR(w)FLOAT(5.50000029802322)
+    STR(w)FLOAT(7.50000059604645)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -1001,6 +1001,18 @@
     STR(id)STR(10x spike)
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(targeting laser)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
