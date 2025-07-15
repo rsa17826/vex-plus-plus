@@ -646,28 +646,31 @@ enum EditorModes {
 }
 var editorMode = EditorModes.normal
 
-func localProcess(delta: float) -> void:
-  if not global.useropts: return
+func updateGridSize():
   if Input.is_action_pressed(&"editor_disable_grid_snap"):
     gridSize = Vector2(1, 1)
   else:
     if selectedBlock:
       gridSize = Vector2(global.useropts.blockGridSnapSize, global.useropts.blockGridSnapSize)
-      # gridSize = Vector2(global.useropts.smallBlockGridSnapSize, global.useropts.smallBlockGridSnapSize)
-      # match selectedBlock.bigSnapX:
-      #   selectedBlock.BigSnapStr.ALWAYS:
-      #     gridSize.x = global.useropts.largeBlockGridSnapSize
-      #   selectedBlock.BigSnapStr.DEFAULT:
-      #     gridSize.x = global.useropts.smallBlockGridSnapSize if Input.is_action_pressed(&"try_use_small_snap") else global.useropts.largeBlockGridSnapSize
-      #   selectedBlock.BigSnapStr.NEVER:
-      #     gridSize.x = global.useropts.largeBlockGridSnapSize
-      # match selectedBlock.bigSnapY:
-      #   selectedBlock.BigSnapStr.ALWAYS:
-      #     gridSize.y = global.useropts.largeBlockGridSnapSize
-      #   selectedBlock.BigSnapStr.DEFAULT:
-      #     gridSize.y = global.useropts.smallBlockGridSnapSize if Input.is_action_pressed(&"try_use_small_snap") else global.useropts.largeBlockGridSnapSize
-      #   selectedBlock.BigSnapStr.NEVER:
-      #     gridSize.y = global.useropts.largeBlockGridSnapSize
+  # gridSize = Vector2(global.useropts.smallBlockGridSnapSize, global.useropts.smallBlockGridSnapSize)
+  # match selectedBlock.bigSnapX:
+  #   selectedBlock.BigSnapStr.ALWAYS:
+  #     gridSize.x = global.useropts.largeBlockGridSnapSize
+  #   selectedBlock.BigSnapStr.DEFAULT:
+  #     gridSize.x = global.useropts.smallBlockGridSnapSize if Input.is_action_pressed(&"try_use_small_snap") else global.useropts.largeBlockGridSnapSize
+  #   selectedBlock.BigSnapStr.NEVER:
+  #     gridSize.x = global.useropts.largeBlockGridSnapSize
+  # match selectedBlock.bigSnapY:
+  #   selectedBlock.BigSnapStr.ALWAYS:
+  #     gridSize.y = global.useropts.largeBlockGridSnapSize
+  #   selectedBlock.BigSnapStr.DEFAULT:
+  #     gridSize.y = global.useropts.smallBlockGridSnapSize if Input.is_action_pressed(&"try_use_small_snap") else global.useropts.largeBlockGridSnapSize
+  #   selectedBlock.BigSnapStr.NEVER:
+  #     gridSize.y = global.useropts.largeBlockGridSnapSize
+
+func localProcess(delta: float) -> void:
+  if not global.useropts: return
+  updateGridSize()
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
     var data = sds.loadDataFromFile(path.abs("res://filesToOpen"))
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
@@ -1072,28 +1075,28 @@ func localInput(event: InputEvent) -> void:
     
   if Input.is_action_just_pressed(&"move_selected_left"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockGridSnapSize
+    updateGridSize()
     var moveDist = Vector2(-1, 0) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
   if Input.is_action_just_pressed(&"move_selected_right"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockGridSnapSize
+    updateGridSize()
     var moveDist = Vector2(1, 0) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
   if Input.is_action_just_pressed(&"move_selected_up"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockGridSnapSize
+    updateGridSize()
     var moveDist = Vector2(0, -1) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
   if Input.is_action_just_pressed(&"move_selected_down"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    gridSize = 1 if Input.is_action_pressed(&"editor_disable_grid_snap") else global.useropts.blockGridSnapSize
+    updateGridSize()
     var moveDist = Vector2(0, 1) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
@@ -1560,7 +1563,6 @@ func localReady() -> void:
     "sticky floor",
     "arrow",
     "conveyer",
-    "oneway",
     "oneway",
     # "path",
   ]

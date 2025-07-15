@@ -465,3 +465,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **buttonId**: unique identifier for a set of buttons that can be used to deactivate this.
+- **targeting laser**: when the player is in range the laser will apply heat, more heat is applied if the player is closer. when the player is in water heat will dissipate faster.
+
+  - **settings**:

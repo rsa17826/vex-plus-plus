@@ -372,6 +372,7 @@ func _physics_process(delta: float) -> void:
         poleCooldown = MAX_POLE_COOLDOWN
       tryAndDieHazards()
       tryAndDieSquish()
+      applyHeat(delta)
       updateKeyFollowPosition(delta)
     States.onPulley:
       clearWallData()
@@ -405,6 +406,7 @@ func _physics_process(delta: float) -> void:
 
       if Input.is_action_just_pressed(&"down") or inWaters:
         state = States.falling
+      applyHeat(delta)
       updateKeyFollowPosition(delta)
     States.bouncing:
       setRot(defaultAngle)
@@ -427,6 +429,7 @@ func _physics_process(delta: float) -> void:
         state=States.idle, Object.CONNECT_ONE_SHOT)
       tryAndDieHazards()
       tryAndDieSquish()
+      applyHeat(delta)
       updateKeyFollowPosition(delta)
     _:
       if inWaters:
@@ -797,21 +800,10 @@ func _physics_process(delta: float) -> void:
         position += applyRot(Vector2(0, safe_margin))
         tryAndDieHazards()
         tryAndDieSquish()
-      var heatToAdd = 0
-      for laser in targetingLasers:
-        heatToAdd += .5 + ((100 - laser.global_position.distance_to(global_position)) / 42.0)
-      heat += heatToAdd * delta
-      if heat > 0:
-        heat -= (.75 if inWaters else .5) * delta
-      heat = clamp(heat, 0, 1)
-      if heat == 1:
-        die()
-      # modulate.r = heat
-      for thing in [$anim, $waterAnimTop, $waterAnimBottom]:
-        thing.material.set_shader_parameter("replace", Color(heat, 0, 0, 1))
       # log.pp(heat, "Heat")
+      applyHeat(delta)
       updateKeyFollowPosition(delta)
-      
+
   if !global.showEditorUi:
     var changeInPosition: Vector2 = global_position - frameStartPosition
     var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
@@ -871,6 +863,20 @@ func _physics_process(delta: float) -> void:
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
 
+func applyHeat(delta):
+  var heatToAdd = 0
+  for laser in targetingLasers:
+    heatToAdd += .5 + ((100 - laser.global_position.distance_to(global_position)) / 42.0)
+  heat += heatToAdd * delta
+  if heat > 0:
+    heat -= (.75 if inWaters else .5) * delta
+  heat = clamp(heat, 0, 1)
+  if heat == 1:
+    die()
+  # modulate.r = heat
+  for thing in [$anim, $waterAnimTop, $waterAnimBottom]:
+    thing.material.set_shader_parameter("replace", Color(heat, 0, 0, 1))
+      
 func collidingWithNowj():
   var wallSIde = getCurrentWallSide()
   var bodies = %nowjDetector.get_overlapping_bodies()
