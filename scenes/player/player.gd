@@ -867,7 +867,14 @@ func applyHeat(delta):
   var heatToAdd = 0
   for laser in targetingLasers:
     if laser.hitPlayer:
-      heatToAdd += .5 + ((100 - laser.global_position.distance_to(global_position)) / 42.0)
+      # base of 1
+      var num = 1 \
+      # a little bit more based on distance when less than 100 px
+      + max(0, ((100 - laser.thingThatMoves.global_position.distance_to(global_position)) / 50.0)) \
+      # a lot more based on distance when very close less than 20 px
+      + max(0, ((20 - laser.thingThatMoves.global_position.distance_to(global_position)) / 3.0))
+      heatToAdd += num
+      log.pp('heatToAdd num', num)
   heat += heatToAdd * delta
   if heat > 0:
     heat -= (.75 if inWaters else .5) * delta
