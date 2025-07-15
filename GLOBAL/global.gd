@@ -1844,7 +1844,7 @@ func createNewBlock(data) -> EditorBlock:
 
 var portals = []:
   get():
-    portals = portals.filter(isDead)
+    portals = portals.filter(isAlive)
     return portals
 
 var boxSelect_selectedBlocks = []
@@ -1877,7 +1877,7 @@ func boxSelectReleased():
   if boxSelect_selectedBlocks:
     lastSelectedBlock = boxSelect_selectedBlocks[0]
 
-func isDead(e):
+func isAlive(e):
   return e \
     and is_instance_valid(e) \
     and !e.is_queued_for_deletion()
@@ -1888,7 +1888,7 @@ signal gravChanged
 
 var buttonWalls: Array[EditorBlock] = []:
   get():
-    buttonWalls = buttonWalls.filter(isDead)
+    buttonWalls = buttonWalls.filter(isAlive)
     return buttonWalls
     
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}

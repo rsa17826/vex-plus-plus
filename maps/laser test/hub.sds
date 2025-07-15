@@ -97,9 +97,9 @@
     }
   }
   {
-    STR(x)FLOAT(50.0)
+    STR(x)FLOAT(-50.0)
     STR(y)FLOAT(-375.0)
-    STR(w)FLOAT(1.00000004470348)
+    STR(w)FLOAT(3.00000002980232)
     STR(h)FLOAT(1.50000001490116)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -1012,6 +1012,58 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
     STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(250.0)
+    STR(y)FLOAT(-300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(laser)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-150.0)
+    STR(y)FLOAT(-300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(Pulley)
+    STRNAME(options){
+      STR(direction)STR(right)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1250.0)
+    STR(y)FLOAT(650.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(goal)
+    STRNAME(options){
+      STR(requiredLevelCount)INT(0)
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1150.0)
+    STR(y)FLOAT(600.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(portal)
+    STRNAME(options){
+      STR(portalId)INT(0)
+      STR(exitId)INT(0)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
