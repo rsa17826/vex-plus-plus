@@ -171,6 +171,12 @@
       {
         "thing": "option",
         "type": "bool",
+        "key": "newlyCreatedBlocksRotationTakesPlayerRotation",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
         "key": "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected",
         "defaultValue": true
       },

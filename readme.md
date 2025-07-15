@@ -100,6 +100,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
 - **blockGridSnapSize**: the size of the grid that blocks will snap to when being moved or resized.
 - **singleAxisAlignByDefault**: if true blocks will only be movable along a single axis at a time by default. if false blocks can be moved freely.
+- **newlyCreatedBlocksRotationTakesPlayerRotation**: if true when the player is rotated all new blocks that can be rotated will be rotated to the players current direction instead of the default direction, eg if the player has gravity upside down creating a checkpoint will create it upside down.
 
 ### block settings that apply to many blocks
 
