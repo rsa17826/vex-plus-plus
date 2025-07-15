@@ -23,6 +23,7 @@ collisionShapes = [NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/Spawner")]
 cloneEventsHere = NodePath("attach detector")
 ghostFollowNode = NodePath("Node2D")
+mouseRotationOffset = 0
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(733, 0)

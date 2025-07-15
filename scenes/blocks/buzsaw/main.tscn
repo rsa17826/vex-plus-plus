@@ -19,6 +19,7 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/left rot"), NodePath("collisionNode/right rot")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
 thingThatMoves = NodePath("collisionNode")
+usePlayerRotationOnRespawn = false
 pathFollowNode = NodePath("collisionNode")
 BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/left rot")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("collisionNode/right rot")
