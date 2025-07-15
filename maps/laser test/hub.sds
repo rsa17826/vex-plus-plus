@@ -1094,4 +1094,16 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(-147.5)
+    STR(y)FLOAT(66.5)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(shurikan Spawner)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]
