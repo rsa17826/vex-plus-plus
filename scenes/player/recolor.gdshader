@@ -3,18 +3,14 @@
 shader_type canvas_item;
 
 
-uniform vec4 replace_0;
+uniform vec4 replace;
 
 const float precision = 0.9;
 
 
 vec4 swap_color(vec4 color){
-  vec4 original_colors[1] = vec4[1] (vec4(0,0,0,1));
-  vec4 replace_colors[1] = vec4[1] (replace_0);
-  for (int i = 0; i < 5; i ++) {
-    if (distance(color, original_colors[i]) <= precision){
-      return replace_colors[i];
-    }
+  if (distance(color, vec4(0,0,0,1)) <= precision){
+    return replace;
   }
   return color;
 }

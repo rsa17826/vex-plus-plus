@@ -805,7 +805,7 @@ func _physics_process(delta: float) -> void:
         die()
       # modulate.r = heat
       for thing in [$anim, $waterAnimTop, $waterAnimBottom]:
-        thing.material.set_shader_parameter("replace_0", Color(heat, 0, 0, 1))
+        thing.material.set_shader_parameter("replace", Color(heat, 0, 0, 1))
       # log.pp(heat, "Heat")
       updateKeyFollowPosition(delta)
       
