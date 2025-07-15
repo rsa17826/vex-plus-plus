@@ -27,7 +27,7 @@ const SMALL = .00001
 
 var poleCooldown = 0
 var deathSources: Array[EditorBlock] = []
-var targetingLasers: Array[EditorBlock] = []
+var targetingLasers: Array[BlockTargetingLaser] = []
 var heat := 0.0
 var pulleyNoDieTimer: float = 0
 var currentRespawnDelay: float = 0
@@ -55,7 +55,7 @@ var camRotLock: float = 0
 
 var lightsOut: bool = false
 
-var keys: Array[EditorBlock] = []
+var keys: Array[BlockKey] = []
 
 var collsiionOn_top := []
 var collsiionOn_bottom := []
@@ -66,7 +66,7 @@ var lastSpawnPoint := Vector2.ZERO
 
 var moving := 0
 
-var inWaters: Array[EditorBlock] = []
+var inWaters: Array[BlockWater] = []
 var lastCollidingBlocks: Array = []
 
 var ACTIONjump: bool = false:
@@ -383,7 +383,7 @@ func _physics_process(delta: float) -> void:
       vel.user = Vector2.ZERO
       
       var lastpos := global_position
-      global_position = activePulley.nodeToMove.global_position + Vector2(0, 13)
+      global_position = activePulley.nodeToMove.global_position + Vector2(7, 19)
       $anim.position = Vector2(5, 5.145)
       $anim.position.x *= activePulley.direction
       $anim.flip_h = activePulley.direction == -1

@@ -812,14 +812,24 @@ func localProcess(delta: float) -> void:
           # if trying to move a block
           else:
             # check if block scale is odd
-            var isXOnOddScale: bool = (fmod(selectedBlock.sizeInPx.x, gridSize.x * 2)) > (gridSize.x / 2)
-            var isYOnOddScale: bool = (fmod(selectedBlock.sizeInPx.y, gridSize.y * 2)) > (gridSize.y / 2)
+            var b = selectedBlock
+            var extraOffset: Vector2 = Vector2.ZERO
+            var isXOnOddScale
+            var isYOnOddScale
+            if b.oddScaleOffsetForce.x:
+              isXOnOddScale = b.oddScaleOffsetForce.x == 1
+            else:
+              isXOnOddScale = (fmod(selectedBlock.sizeInPx.x + (gridSize.x / 2), gridSize.x * 2)) > (gridSize.x)
+            if b.oddScaleOffsetForce.y:
+              isYOnOddScale = b.oddScaleOffsetForce.y == 1
+            else:
+              isYOnOddScale = (fmod(selectedBlock.sizeInPx.y + (gridSize.x / 2), gridSize.y * 2)) > (gridSize.y)
             # offset the block on the sides that are odd to make it align with the grid
-            var extraOffset := Vector2(
+            extraOffset = Vector2(
               (gridSize.x / 2.0) if isXOnOddScale else 0.0,
               (gridSize.y / 2.0) if isYOnOddScale else 0.0,
             )
-            log.pp(isXOnOddScale, isYOnOddScale, extraOffset)
+            log.pp(isXOnOddScale, isYOnOddScale, extraOffset, selectedBlock.sizeInPx, selectedBlock.defaultSizeInPx)
 
             selectedBlock.global_position = mpos + selectedBlockOffset - (selectedBlock.sizeInPx / 2)
 
@@ -1536,7 +1546,6 @@ func localReady() -> void:
     "speed Up Lever",
     "growing buzsaw",
     "key",
-    # "laser",
     "light switch",
     "pole",
     "Pole Quadrant",
@@ -1546,6 +1555,7 @@ func localReady() -> void:
     "Scythe",
     "shurikan Spawner",
     "star",
+    "laser",
     "targeting laser",
     # "ice",
     "death boundary",

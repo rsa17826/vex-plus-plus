@@ -41,6 +41,8 @@ extends Node2D
 @export_group("misc")
 ## no warnings when missing unrequired nodes
 @export var ignoreMissingNodes := false
+@export var oddScaleOffsetForce: Dictionary[String, boolOrNull] = {"x": boolOrNull.unset, 'y': boolOrNull.unset}
+
 ## if false scale is 1/7
 @export var normalScale := false
 ## if true don't disable physics process when node is disabled
@@ -51,6 +53,15 @@ extends Node2D
 @export var DONT_MOVE: bool = false
 @export_group("IGNORE")
 @export var pathFollowNode: Node
+
+enum boolOrNull {
+  _false = -1,
+  _true = 1,
+  _null = 0,
+  no = -1,
+  yes = 1,
+  unset = 0,
+}
 
 # class customRect:
 #   var top
