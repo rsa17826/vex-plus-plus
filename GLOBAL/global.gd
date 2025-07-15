@@ -1547,7 +1547,7 @@ func localReady() -> void:
     "Scythe",
     "shurikan Spawner",
     "star",
-    # "targeting laser",
+    "targeting laser",
     # "ice",
     "death boundary",
     "block death boundary",

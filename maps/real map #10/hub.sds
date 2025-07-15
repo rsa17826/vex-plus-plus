@@ -10,7 +10,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -21,7 +21,7 @@
     STR(h)FLOAT(2.00000008940697)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -32,7 +32,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(glass)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -43,7 +43,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
-    STR(options){
+    STRNAME(options){
       STR(buttonId)INT(1)
       STR(color)STR(#fff)
     }
@@ -55,7 +55,7 @@
     STR(h)FLOAT(0.50000007450581)
     STR(r)FLOAT(0.0)
     STR(id)STR(pushable box)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -66,7 +66,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(floor button)
-    STR(options){
+    STRNAME(options){
       STR(buttonId)INT(3)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
@@ -79,7 +79,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
-    STR(options){
+    STRNAME(options){
       STR(buttonId)INT(1)
       STR(color)STR(#fff)
     }
@@ -91,7 +91,7 @@
     STR(h)FLOAT(1.50000001490116)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -102,7 +102,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -113,7 +113,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -125,7 +125,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
-    STR(options){
+    STRNAME(options){
       STR(buttonId)INT(2)
       STR(color)STR(#fff)
     }
@@ -137,7 +137,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(floor button)
-    STR(options){
+    STRNAME(options){
       STR(buttonId)INT(2)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
@@ -150,7 +150,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(locked box)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -161,7 +161,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(floor button)
-    STR(options){
+    STRNAME(options){
       STR(buttonId)INT(1)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
@@ -174,7 +174,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
-    STR(options){
+    STRNAME(options){
       STR(buttonId)INT(3)
       STR(color)STR(#fff)
     }
@@ -186,7 +186,7 @@
     STR(h)FLOAT(0.50000007450581)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -197,7 +197,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -209,7 +209,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(359.99951171875)
     STR(id)STR(nowj)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -221,7 +221,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(179.999877929688)
     STR(id)STR(nowj)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -233,7 +233,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
     STR(id)STR(nowj)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -245,7 +245,7 @@
     STR(h)FLOAT(1.18821133673191)
     STR(r)FLOAT(0.0)
     STR(id)STR(single spike)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -257,7 +257,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-90.0)
     STR(id)STR(single spike)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -269,7 +269,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -281,7 +281,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -293,7 +293,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -305,7 +305,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(closing spikes)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -317,7 +317,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -328,7 +328,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(closing spikes)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -340,7 +340,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
-    STR(options){
+    STRNAME(options){
       STR(multiUse)BOOL(true)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
@@ -353,7 +353,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
     }
@@ -365,7 +365,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
     STR(id)STR(10x spike)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
     }
@@ -377,7 +377,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(shurikan Spawner)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -389,7 +389,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -400,7 +400,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
-    STR(options){
+    STRNAME(options){
       STR(multiUse)BOOL(true)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
@@ -413,7 +413,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(shurikan Spawner)
-    STR(options){
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -425,7 +425,7 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(bomb)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }
@@ -436,7 +436,55 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
-    STR(options){
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(100.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(targeting laser)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-250.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(targeting laser)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-150.0)
+    STR(y)FLOAT(150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(water)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-50.0)
+    STR(y)FLOAT(50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(water)
+    STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }

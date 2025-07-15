@@ -27,6 +27,8 @@ const SMALL = .00001
 
 var poleCooldown = 0
 var deathSources := []
+var targetingLazers := []
+var heat := 0.0
 var pulleyNoDieTimer: float = 0
 var currentRespawnDelay: float = 0
 var activePulley: Node2D = null
@@ -795,6 +797,16 @@ func _physics_process(delta: float) -> void:
         position += applyRot(Vector2(0, safe_margin))
         tryAndDieHazards()
         tryAndDieSquish()
+      heat += len(targetingLazers) * delta
+      if heat > 0:
+        heat -= (.75 if inWaters else .5) * delta
+      heat = clamp(heat, 0, 1)
+      if heat == 1:
+        die()
+      # modulate.r = heat
+      for thing in [$anim, $waterAnimTop, $waterAnimBottom]:
+        thing.material.set_shader_parameter("replace_0", Color(heat, 0, 0, 1))
+      # log.pp(heat, "Heat")
       updateKeyFollowPosition(delta)
       
   if !global.showEditorUi:
@@ -1120,6 +1132,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   $CollisionShape2D.disabled = true
   slowCamRot = false
   lastCollidingBlocks = []
+  heat = 0
+  targetingLazers = []
   activePulley = null
   global.stopTicking = true
   deadTimer = max(respawnTime, 0)
