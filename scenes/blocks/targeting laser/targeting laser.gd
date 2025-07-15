@@ -24,6 +24,10 @@ func on_physics_process(delta: float) -> void:
   if self in global.player.targetingLasers:
     queue_redraw()
     targetAngle = global.player.global_position.angle_to_point(thingThatMoves.global_position)
+    if ray.is_colliding():
+      var block = ray.get_collider()
+      if 'root' in block and block.root is BlockBomb:
+        block.root.explode()
   else:
     targetAngle = 0
   thingThatMoves.rotation = lerp_angle(thingThatMoves.rotation, targetAngle, 0.5)
