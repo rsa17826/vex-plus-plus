@@ -24,5 +24,12 @@ func on_physics_process(delta: float) -> void:
     var s = 1
     if time > 4:
       s = global.rerange(time, 4, 4.5, 1, 0)
+    if s <= .7:
+      if !shuriken.get_node("CollisionShape2D").disabled:
+        shuriken.get_node("CollisionShape2D").set_deferred("disabled", true)
+    else:
+      if shuriken.get_node("CollisionShape2D").disabled:
+        shuriken.get_node("CollisionShape2D").set_deferred("disabled", false)
+    log.pp(shuriken.get_node("CollisionShape2D").disabled)
     shuriken.scale = Vector2(s, s)
     shuriken.rotation_degrees = global.rerange(time, 0, 4.5, 0, 360 * 3)
