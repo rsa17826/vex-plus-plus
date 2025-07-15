@@ -1343,4 +1343,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make conveyers work better with boxes like they do with the player and make the players conveyer code easier to read
 # !!!fix scaling of rotated blocks
 # ?make targeting lasers explode bombs
-# ?make ice and have it melt by targeting lasers
+# ?make ice and have it melt by targeting lasers/lazers
