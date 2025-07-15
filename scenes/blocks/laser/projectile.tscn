@@ -9,9 +9,7 @@ size = Vector2(20, 4)
 
 [node name="Projectile" type="Node2D" groups=["death"]]
 script = ExtResource("1_1kh7o")
-mouseRotationOffset = null
 ignoreMissingNodes = true
-oddScaleOffsetForce = null
 normalScale = true
 dontDisablePhysicsProcess = true
 EDITOR_IGNORE = true
