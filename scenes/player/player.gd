@@ -55,7 +55,7 @@ var camRotLock: float = 0
 
 var lightsOut: bool = false
 
-var keys: Array[BlockKey] = []
+var keys: Array[Node2D] = []
 
 var collsiionOn_top := []
 var collsiionOn_bottom := []
