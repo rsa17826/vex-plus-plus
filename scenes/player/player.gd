@@ -907,7 +907,7 @@ func angle_distance(angle1: float, angle2: float) -> float:
 
 func tryAndDieHazards():
   if len(deathSources.filter(func(e):
-    return !e.respawning)):
+    return global.isAlive(e) and !e.respawning)):
     die()
 func tryAndDieSquish():
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
