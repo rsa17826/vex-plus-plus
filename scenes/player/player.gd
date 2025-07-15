@@ -26,8 +26,8 @@ const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
 var poleCooldown = 0
-var deathSources := []
-var targetingLasers := []
+var deathSources: Array[EditorBlock] = []
+var targetingLasers: Array[EditorBlock] = []
 var heat := 0.0
 var pulleyNoDieTimer: float = 0
 var currentRespawnDelay: float = 0
@@ -55,7 +55,7 @@ var camRotLock: float = 0
 
 var lightsOut: bool = false
 
-var keys: Array = []
+var keys: Array[EditorBlock] = []
 
 var collsiionOn_top := []
 var collsiionOn_bottom := []
@@ -66,7 +66,7 @@ var lastSpawnPoint := Vector2.ZERO
 
 var moving := 0
 
-var inWaters: Array = []
+var inWaters: Array[EditorBlock] = []
 var lastCollidingBlocks: Array = []
 
 var ACTIONjump: bool = false:
@@ -866,7 +866,8 @@ func _physics_process(delta: float) -> void:
 func applyHeat(delta):
   var heatToAdd = 0
   for laser in targetingLasers:
-    heatToAdd += .5 + ((100 - laser.global_position.distance_to(global_position)) / 42.0)
+    if laser.hitPlayer:
+      heatToAdd += .5 + ((100 - laser.global_position.distance_to(global_position)) / 42.0)
   heat += heatToAdd * delta
   if heat > 0:
     heat -= (.75 if inWaters else .5) * delta
@@ -876,7 +877,6 @@ func applyHeat(delta):
   # modulate.r = heat
   for thing in [$anim, $waterAnimTop, $waterAnimBottom]:
     thing.material.set_shader_parameter("replace", Color(heat, 0, 0, 1))
-      
 func collidingWithNowj():
   var wallSIde = getCurrentWallSide()
   var bodies = %nowjDetector.get_overlapping_bodies()

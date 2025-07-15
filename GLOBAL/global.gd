@@ -812,22 +812,18 @@ func localProcess(delta: float) -> void:
           # if trying to move a block
           else:
             # check if block scale is odd
-            # var isYOnOddScale: Variant = str(int(selectedBlock.sizeInPx.y))
-            # isYOnOddScale = isYOnOddScale[len(isYOnOddScale) - 1] == '5'
-            # var isXOnOddScale: Variant = str(int(selectedBlock.sizeInPx.x))
-            # isXOnOddScale = isXOnOddScale[len(isXOnOddScale) - 1] == '5'
-            # # offset the block on the sides that are odd to make it align with the grid
-            # var offset := Vector2((gridSize / 2.0) if isXOnOddScale else 0.0, (gridSize / 2.0) if isYOnOddScale else 0.0)
-            mpos = round((mpos) / gridSize) * gridSize
-            # mpos = round((mpos - offset) / gridSize) * gridSize
+            var isXOnOddScale: bool = (fmod(selectedBlock.sizeInPx.x, gridSize.x * 2)) > (gridSize.x / 2)
+            var isYOnOddScale: bool = (fmod(selectedBlock.sizeInPx.y, gridSize.y * 2)) > (gridSize.y / 2)
+            # offset the block on the sides that are odd to make it align with the grid
+            var extraOffset := Vector2(
+              (gridSize.x / 2.0) if isXOnOddScale else 0.0,
+              (gridSize.y / 2.0) if isYOnOddScale else 0.0,
+            )
+            log.pp(isXOnOddScale, isYOnOddScale, extraOffset)
 
-            selectedBlock.global_position = round(mpos + selectedBlockOffset - (selectedBlock.sizeInPx / 2))
+            selectedBlock.global_position = mpos + selectedBlockOffset - (selectedBlock.sizeInPx / 2)
 
-            # if isYOnOddScale or isXOnOddScale:
-            # log.pp("offset", offset, selectedBlock.sizeInPx)
-            # selectedBlock.global_position += offset
-
-            var offset = selectedBlock.global_position - selectedBlockStartPosition
+            var offset = (selectedBlock.global_position - selectedBlockStartPosition)
             if Input.is_action_pressed(&"invert_single_axis_align") != global.useropts.singleAxisAlignByDefault:
               if abs(offset.x) > abs(offset.y):
                 offset.y = 0
@@ -835,7 +831,7 @@ func localProcess(delta: float) -> void:
                 offset.x = 0
             selectedBlock.global_position = selectedBlockStartPosition + offset
             var moveDist = selectedBlock.global_position - selectedBlock.startPosition
-            selectedBlock.global_position = round((selectedBlock.global_position) / gridSize) * gridSize
+            selectedBlock.global_position = round((selectedBlock.global_position + extraOffset) / gridSize) * gridSize - extraOffset
             setBlockStartPos(selectedBlock)
             selectedBlock.onEditorMove(moveDist)
       if justPaintedBlock:

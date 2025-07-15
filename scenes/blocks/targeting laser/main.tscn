@@ -11,8 +11,9 @@ radius = 725.844
 [sub_resource type="CircleShape2D" id="CircleShape2D_owjk4"]
 radius = 127.016
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ray", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["attaches to things"]]
 script = ExtResource("1_owjk4")
+ray = NodePath("collisionNode/RayCast2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
@@ -43,6 +44,11 @@ root = NodePath("../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
 shape = SubResource("CircleShape2D_owjk4")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+
+[node name="RayCast2D" type="RayCast2D" parent="collisionNode"]
+target_position = Vector2(-800, 0)
+collision_mask = 10
+hit_from_inside = true
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
