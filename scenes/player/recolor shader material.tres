@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bgec2jtlpb1jx"]
+
+[ext_resource type="Shader" uid="uid://3f76o0p7hp12" path="res://scenes/player/recolor.gdshader" id="1_27jbp"]
+
+[resource]
+shader = ExtResource("1_27jbp")
+shader_parameter/replace_0 = Vector4(0, 0, 0, 1)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=252 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene load_steps=253 format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
 [ext_resource type="Script" uid="uid://2bm2y0fyngv2" path="res://scenes/blocks/editor.gd" id="1_hdu4s"]
 [ext_resource type="Texture2D" uid="uid://clxdjsr1hlhox" path="res://scenes/player/images/anim/ducking/duck end/9.png" id="2_upxxc"]
 [ext_resource type="Texture2D" uid="uid://jw2wk6ehy0ea" path="res://scenes/player/images/anim/die/35.png" id="3_0wr6q"]
+[ext_resource type="Material" uid="uid://bgec2jtlpb1jx" path="res://scenes/player/recolor shader material.tres" id="3_4v6xr"]
 [ext_resource type="Texture2D" uid="uid://uuvbrdtp8ehl" path="res://scenes/player/images/anim/wall slide/1.png" id="3_6cv16"]
 [ext_resource type="Texture2D" uid="uid://cr8qku7rbmael" path="res://scenes/player/images/anim/idle/1.png" id="3_lclul"]
 [ext_resource type="Texture2D" uid="uid://cltjto1fsypg1" path="res://scenes/player/images/anim/ducking/duck end/10.png" id="3_ln3h3"]
@@ -1150,6 +1151,7 @@ debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true
 
 [node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D"]
+material = ExtResource("3_4v6xr")
 position = Vector2(0, 0.145)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
@@ -1159,14 +1161,15 @@ metadata/_edit_lock_ = true
 
 [node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D"]
 visible = false
+material = ExtResource("3_4v6xr")
 position = Vector2(1.495, -4.865)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_3gk6k")
 autoplay = "default"
-metadata/_edit_lock_ = true
 
 [node name="waterAnimBottom" type="AnimatedSprite2D" parent="CharacterBody2D"]
 visible = false
+material = ExtResource("3_4v6xr")
 position = Vector2(0, 9.36)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_1ymuf")
@@ -1210,6 +1213,7 @@ hit_from_inside = true
 collide_with_areas = true
 
 [node name="waterRay" type="RayCast2D" parent="CharacterBody2D"]
+visible = false
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(1, 10.795)
 target_position = Vector2(0, 20)
