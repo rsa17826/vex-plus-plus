@@ -10,5 +10,8 @@ func on_physics_process(delta: float) -> void:
   position += (Vector2.LEFT * delta * speed).rotated(rotation)
 
 func on_body_entered(body: Node2D) -> void:
-  if not (body is Player):
-    queue_free()
+  if body is Player:
+    return
+  if body.root is BlockBomb:
+    body.root.explode()
+  queue_free()
