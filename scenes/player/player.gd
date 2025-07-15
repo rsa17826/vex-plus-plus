@@ -769,8 +769,8 @@ func _physics_process(delta: float) -> void:
             velocity += applyRot(vel[n])
           for n: String in vel:
             vel[n] *= (velDecay[n]) # * delta * 60
-        # if Input.is_key_pressed(KEY_T):
-        #   breakpoint
+        if Input.is_key_pressed(KEY_T):
+          breakpoint
         # log.pp(velocity, vel.user == vel.user.vector)
         if state == States.wallHang and not getClosestWallSide():
           state = States.falling
@@ -1344,3 +1344,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!!fix scaling of rotated blocks
 # ?make targeting lasers explode bombs
 # ?make ice and have it melt by targeting lasers/lazers
+# make pushable box and bomb and bouncing buzsaw rotation affect their gravity

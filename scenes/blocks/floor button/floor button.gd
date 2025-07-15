@@ -6,6 +6,7 @@ var activeBlocks := []
 @export var sprite: Sprite2D
 
 func on_body_entered(body: Node) -> void:
+  if !selectedOptions.buttonId: return
   if body not in activeBlocks:
     activeBlocks.append(body)
   if activeBlocks:
@@ -17,6 +18,7 @@ func on_respawn() -> void:
   thingThatMoves.position = Vector2.ZERO
 
 func on_body_exited(body: Node) -> void:
+  if !selectedOptions.buttonId: return
   if body in activeBlocks:
     activeBlocks.erase(body)
   if not activeBlocks:

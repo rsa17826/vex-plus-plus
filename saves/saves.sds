@@ -302,17 +302,17 @@
     STR(beatLevels)[]
   }
   STR(laser test){
-    STR(lastSpawnPoint)VEC2(51.4725723266602,144.919708251953)
+    STR(lastSpawnPoint)VEC2(201.472564697266,-155.080291748047)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(up_direction)VEC2(0.0,1.0)
+        STR(up_direction)VEC2(-0.5,0.86602538824081)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(checkpoint){
             INT(1){
-              STR(texture)STR(1)
+              STR(texture)STR(2)
             }
             INT(2){
               STR(texture)STR(1)
@@ -327,7 +327,25 @@
               STR(texture)STR(1)
             }
             INT(6){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
+            }
+            INT(7){
+              STR(texture)STR(1)
+            }
+            INT(8){
+              STR(texture)STR(1)
+            }
+            INT(9){
+              STR(texture)STR(1)
+            }
+            INT(10){
+              STR(texture)STR(1)
+            }
+            INT(11){
+              STR(texture)STR(1)
+            }
+            INT(12){
+              STR(texture)STR(1)
             }
           }
           STR(star){

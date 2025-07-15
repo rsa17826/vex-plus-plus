@@ -9,17 +9,17 @@ func on_respawn() -> void:
     global.buttonWalls.append(self )
 
 func on_button_activated(id, btn):
+  if !selectedOptions.buttonId: return
   if id == selectedOptions.buttonId:
     if btn not in activeBtns:
       activeBtns.append(btn)
-    # log.pp(activeBtns, "t", btn)
     if activeBtns:
       __disable.call_deferred()
 func on_button_deactivated(id, btn):
+  if !selectedOptions.buttonId: return
   if id == selectedOptions.buttonId:
     if btn in activeBtns:
       activeBtns.erase(btn)
-    # log.pp(activeBtns, "f", btn)
     if !activeBtns:
       __enable.call_deferred()
 

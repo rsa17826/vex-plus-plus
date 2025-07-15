@@ -797,7 +797,9 @@ func localProcess(delta: float) -> void:
               justPaintedBlock.scale = Vector2(1, 1)
             else:
               justPaintedBlock.scale = Vector2(1, 1) / 7
-            justPaintedBlock.rotation_degrees = 0
+            justPaintedBlock.rotation_degrees = player.rotation_degrees \
+            if justPaintedBlock.is_in_group("EDITOR_OPTION_rotate") \
+            else 0.0
             justPaintedBlock.id = blockNames[selectedBrush.id]
             lastSelectedBrush = selectedBrush
             # create a new block
@@ -829,7 +831,7 @@ func localProcess(delta: float) -> void:
               (gridSize.x / 2.0) if isXOnOddScale else 0.0,
               (gridSize.y / 2.0) if isYOnOddScale else 0.0,
             )
-            log.pp(isXOnOddScale, isYOnOddScale, extraOffset, selectedBlock.sizeInPx, selectedBlock.defaultSizeInPx)
+            # log.pp(isXOnOddScale, isYOnOddScale, extraOffset, selectedBlock.sizeInPx, selectedBlock.defaultSizeInPx)
 
             selectedBlock.global_position = mpos + selectedBlockOffset - (selectedBlock.sizeInPx / 2)
 
@@ -1118,7 +1120,9 @@ func localInput(event: InputEvent) -> void:
           justPaintedBlock.scale = Vector2(1, 1)
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
-        justPaintedBlock.rotation_degrees = 0
+        justPaintedBlock.rotation_degrees = player.rotation_degrees \
+        if justPaintedBlock.is_in_group("EDITOR_OPTION_rotate") \
+        else 0.0
         justPaintedBlock.id = block
         lastSelectedBrush = selectedBrush
         level.get_node("blocks").add_child(justPaintedBlock)

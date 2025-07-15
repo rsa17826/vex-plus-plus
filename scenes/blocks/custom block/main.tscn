@@ -9,6 +9,7 @@ script = ExtResource("1_sqkd6")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 ignoreMissingNodes = true
+usePlayerRotationOnRespawn = false
 normalScale = true
 
 [node name="collisionNode" type="Node2D" parent="."]

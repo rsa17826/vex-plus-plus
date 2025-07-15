@@ -16,7 +16,9 @@ var texture:
 func on_body_entered(body: Node) -> void:
   if body == global.player and (getTexture(sprite) == '1' or selectedOptions.multiUse):
     global.savePlayerLevelData()
-    global.player.lastSpawnPoint = (startPosition - global.player.get_parent().global_position) + Vector2(1.4725714286, -20.0802857143)
+    global.player.lastSpawnPoint = \
+    (startPosition - global.player.get_parent().global_position) \
+    + (Vector2(1.4725714286, -20.0802857143).rotated(deg_to_rad(startRotation_degrees)))
     # offset by 1/7*sprite position
     global.player.lightsOut = false
     setTexture(sprite, "2")

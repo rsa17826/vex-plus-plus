@@ -20,6 +20,7 @@ collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("Chara
 hidableSprites = [NodePath("CharacterBody2D/Sprite2D"), NodePath("CharacterBody2D/left rot")]
 cloneEventsHere = NodePath("CharacterBody2D")
 thingThatMoves = NodePath("CharacterBody2D")
+usePlayerRotationOnRespawn = false
 BUZSAW_GENERIC_spriteToRotateRight = NodePath("CharacterBody2D/left rot")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("CharacterBody2D/editorBar")
 
