@@ -769,8 +769,8 @@ func _physics_process(delta: float) -> void:
             velocity += applyRot(vel[n])
           for n: String in vel:
             vel[n] *= (velDecay[n]) # * delta * 60
-        if Input.is_key_pressed(KEY_T):
-          breakpoint
+        # if Input.is_key_pressed(KEY_T):
+        #   breakpoint
         # log.pp(velocity, vel.user == vel.user.vector)
         if state == States.wallHang and not getClosestWallSide():
           state = States.falling
@@ -1335,4 +1335,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # prevent converyers from occasionally activating when collision direction is wrong
 # make conveyers work better with boxes like they do with the player and make the players conveyer code easier to read
 # !!!fix scaling of rotated blocks
-# fix floor button hitboxes
+# ?make targeting lasers explode bombs
+# ?make ice and have it melt by targeting lasers
