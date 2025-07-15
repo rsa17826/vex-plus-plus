@@ -266,6 +266,10 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("attach 
 hidableSprites = [NodePath("collisionNode/AnimatedSprite2D")]
 cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("collisionNode")
+oddScaleOffsetForce = Dictionary[String, int]({
+"x": -1,
+"y": -1
+})
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3072

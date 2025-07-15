@@ -19,7 +19,6 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
 thingThatMoves = NodePath("collisionNode")
-bigSnapY = 2
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3072

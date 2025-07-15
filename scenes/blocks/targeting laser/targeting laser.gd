@@ -23,18 +23,18 @@ func on_physics_process(delta: float) -> void:
   var targetAngle
   if self in global.player.targetingLasers:
     queue_redraw()
-    targetAngle = global.player.global_position.angle_to_point(global_position)
+    targetAngle = global.player.global_position.angle_to_point(thingThatMoves.global_position)
   else:
     targetAngle = 0
-  self.rotation = lerp_angle(self.rotation, targetAngle, 0.5)
+  thingThatMoves.rotation = lerp_angle(thingThatMoves.rotation, targetAngle, 0.5)
 
 func _draw() -> void:
   if self in global.player.targetingLasers:
-    var end = Vector2(-800, 0)
+    var end = Vector2(-668.0, 0)
     if ray.is_colliding():
       end = to_local(ray.get_collision_point())
     draw_line(
-      Vector2.ZERO,
+      Vector2.ZERO + thingThatMoves.position,
       end,
       Color.RED,
       10
