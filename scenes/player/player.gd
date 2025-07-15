@@ -27,7 +27,7 @@ const SMALL = .00001
 
 var poleCooldown = 0
 var deathSources := []
-var targetinglasers := []
+var targetingLasers := []
 var heat := 0.0
 var pulleyNoDieTimer: float = 0
 var currentRespawnDelay: float = 0
@@ -798,8 +798,8 @@ func _physics_process(delta: float) -> void:
         tryAndDieHazards()
         tryAndDieSquish()
       var heatToAdd = 0
-      for laser in targetinglasers:
-        heatToAdd += laser.get_heat() / 100.0
+      for laser in targetingLasers:
+        heatToAdd += .5 + ((100 - laser.global_position.distance_to(global_position)) / 42.0)
       heat += heatToAdd * delta
       if heat > 0:
         heat -= (.75 if inWaters else .5) * delta
@@ -1136,7 +1136,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   slowCamRot = false
   lastCollidingBlocks = []
   heat = 0
-  targetinglasers = []
+  targetingLasers = []
   activePulley = null
   global.stopTicking = true
   deadTimer = max(respawnTime, 0)

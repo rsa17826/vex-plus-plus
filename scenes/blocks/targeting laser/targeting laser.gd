@@ -4,17 +4,17 @@ class_name BlockTargetingLaser
 
 func on_body_entered(body: Node2D) -> void:
   if body is Player:
-    if self not in global.player.targetinglasers:
-      global.player.targetinglasers.append(self )
+    if self not in global.player.targetingLasers:
+      global.player.targetingLasers.append(self )
 
 func on_body_exited(body: Node2D) -> void:
   if body is Player:
-    if self in global.player.targetinglasers:
-      global.player.targetinglasers.erase(self )
+    if self in global.player.targetingLasers:
+      global.player.targetingLasers.erase(self )
 
 func on_physics_process(delta: float) -> void:
   var targetAngle
-  if self in global.player.targetinglasers:
+  if self in global.player.targetingLasers:
     targetAngle = global.player.global_position.angle_to_point(global_position)
   else:
     targetAngle = 0
