@@ -58,9 +58,9 @@ func loadLevel(level):
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
-  global.player.get_parent().global_position = Vector2(leveldata[0]['x'], leveldata[0]['y'])
-  global.player.global_position = Vector2(leveldata[0]['x'], leveldata[0]['y'])
-  global.player.get_parent().startPosition = Vector2(leveldata[0]['x'], leveldata[0]['y'])
+  global.player.get_parent().global_position = Vector2(leveldata[0].x, leveldata[0].x)
+  global.player.global_position = Vector2(leveldata[0].x, leveldata[0].x)
+  global.player.get_parent().startPosition = Vector2(leveldata[0].x, leveldata[0].x)
   for thing in leveldata.slice(1):
     $blocks.add_child(global.createNewBlock(thing))
     if global.useropts.showLevelLoadingProgressBar:

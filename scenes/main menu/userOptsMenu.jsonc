@@ -191,12 +191,14 @@
       },
       {
         "thing": "option",
-        "type": "range",
+        "type": "spinbox",
         "key": "editorScrollSpeed",
         "defaultValue": 1,
         "min": 0.25,
-        "max": 3,
-        "step": 0.05
+        "max": 10,
+        "step": 0.05,
+        "allow lesser": true,
+        "allow greater": true
       },
       {
         "thing": "option",
