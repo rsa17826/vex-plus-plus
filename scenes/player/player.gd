@@ -1340,3 +1340,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ?make ice and have it melt by targeting lasers/lazers
 # make pushable box and bomb and bouncing buzsaw rotation affect their gravity
 # ??add block id viewer to see what ids are used, where the ids are used at and how many times they're used and be able to warp to blocks by selected id. would work for things like portals and buttons and button deactvated walls
+# ??!!?make gravity rotators only affect the things that enter them
