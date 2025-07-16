@@ -125,6 +125,8 @@ const path = "res://GLOBAL/menu things/"
 func get_all_data():
   var newobj = {}
   for key in menu_data.keys():
+    if 'type' in menu_data[key] and menu_data[key].type in ['startGroup', 'endGroup']:
+      continue
     if "user" in menu_data[key]:
       newobj[key] = menu_data[key]["user"]
     else:
@@ -151,7 +153,7 @@ func show_menu():
     # #log.pp(arr)
   for thing in arr:
     if "user" not in thing:
-      thing.user = thing.user
+      thing.user = thing.default
     match thing.type:
       "startGroup":
         var group = FoldableContainer.new()
