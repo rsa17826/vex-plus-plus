@@ -302,7 +302,7 @@
     STR(beatLevels)[]
   }
   STR(laser test){
-    STR(lastSpawnPoint)VEC2(-211.315444946289,131.653747558594)
+    STR(lastSpawnPoint)VEC2(-248.527435302734,-5.08028602600098)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -336,10 +336,10 @@
               STR(texture)STR(1)
             }
             INT(9){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
             INT(10){
-              STR(texture)STR(1)
+              STR(texture)STR(2)
             }
             INT(11){
               STR(texture)STR(1)
