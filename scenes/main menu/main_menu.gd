@@ -194,7 +194,7 @@ func updateUserOpts() -> void:
 func __loadOptions(thing) -> void:
   match thing.type:
     "bool":
-      __menu.add_bool(thing.key, thing.key)
+      __menu.add_bool(thing.key, thing.defaultValue)
     "range":
       __menu.add_range(
         thing.key,
