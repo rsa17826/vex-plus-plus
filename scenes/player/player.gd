@@ -717,7 +717,6 @@ func _physics_process(delta: float) -> void:
           # if sliding reduce speed reuction
           if abs(vel.user.x) < 10:
             vel.user.x = 0
-            
           vel.user.x *= 0.98 # * delta * 60
           
         # if state is not sliding
@@ -725,18 +724,13 @@ func _physics_process(delta: float) -> void:
           # if user not trying to move set user xvel to 0
           if playerXIntent == 0:
             vel.user.x = 0
-            
           else:
             # if user trying to move and on floor set state to moving
             if is_on_floor():
               state = States.moving
-
             vel.user.x = playerXIntent
-            
           # reduce speed after leaving slide, with the power reducing over time
-
           vel.user.x *= 1 - slideRecovery / MAX_SLIDE_RECOVER_TIME
-          
           # if you were ducking instead of sliding, stop all movement
           if duckRecovery > 0:
             vel.user.x = 0
