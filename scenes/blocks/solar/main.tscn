@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d22b7flpok0dj"]
+[gd_scene load_steps=6 format=3 uid="uid://d22b7flpok0dj"]
 
 [ext_resource type="Script" uid="uid://dnxea7h2f54um" path="res://scenes/blocks/solar/solar.gd" id="1_bxmnj"]
 [ext_resource type="Texture2D" uid="uid://bwsetcl3xh631" path="res://scenes/blocks/solar/images/1.png" id="2_5qqdf"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_x30da"]
+[ext_resource type="Texture2D" uid="uid://clq8vs0f2mlp8" path="res://scenes/blocks/solar/images/outline.png" id="3_1a15e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -22,6 +23,10 @@ collision_mask = 0
 input_pickable = true
 script = ExtResource("2_x30da")
 root = NodePath("..")
+
+[node name="outline" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+texture = ExtResource("3_1a15e")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true

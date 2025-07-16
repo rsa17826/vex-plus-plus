@@ -4,9 +4,9 @@
     STR(y)FLOAT(-65.0)
   }
   {
-    STR(x)FLOAT(125.0)
+    STR(x)FLOAT(275.0)
     STR(y)FLOAT(0.0)
-    STR(w)FLOAT(3.5)
+    STR(w)FLOAT(6.50000107288361)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -69,6 +69,54 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(inverse solar)
     STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(250.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x solar spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(350.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x inverse solar spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(450.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-0.0)
+    STR(id)STR(10x inverse solar spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(550.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-0.0)
+    STR(id)STR(10x solar spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
