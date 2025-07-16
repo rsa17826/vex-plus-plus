@@ -1551,6 +1551,8 @@ func localReady() -> void:
     "growing buzsaw",
     "key",
     "light switch",
+    "red only light switch",
+    "blue only light switch",
     "pole",
     "Pole Quadrant",
     "Pulley",

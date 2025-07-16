@@ -161,13 +161,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **attachesToThings**
 
-- **solar**: has solid collision when lights are on, touch a lightswitch to turn the lights off.
+- **solar**: has solid collision when lights are on.
 
   - scalable
   - **settings**:
     - **color**
 
-- **inverse solar**: has solid collision when lights are off, touch a lightswitch to turn the lights off.
+- **inverse solar**: has solid collision when lights are off.
 
   - scalable
   - **settings**:
@@ -293,7 +293,19 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **attachesToThings**
 
-- **light switch**: when the player comes in contact with this it will disable all solar blocks
+- **light switch**: when the player comes in contact with this it will toggle the lights on/off which will disable/enable all solar blocks.
+
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **blue only light switch**: when the player comes in contact with this it will toggle the lights on leaving only the solar blocks on.
+
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **red only light switch**: when the player comes in contact with this it will toggle the lights off leaving only the inverse solar blocks on.
 
   - **settings**:
     - **color**
