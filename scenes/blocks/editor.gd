@@ -228,7 +228,7 @@ func showPopupMenu():
 var collisionQueue := {}
 func _on_body_exited(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
-  # if global.player.state == global.player.States.dead and body == global.player: return
+  # if global.player.state == global.player.States.dead and body is Player: return
   if respawning:
     if body in collisionQueue and collisionQueue[body] == "entered":
       collisionQueue.erase(body)
@@ -670,12 +670,12 @@ func __enable() -> void:
 # blocks
 @export_group("DEATH")
 func _on_body_enteredDEATH(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     if self not in global.player.deathSources:
       global.player.deathSources.append(self )
 
 func _on_body_exitedDEATH(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     if self in global.player.deathSources:
       global.player.deathSources.erase(self )
 

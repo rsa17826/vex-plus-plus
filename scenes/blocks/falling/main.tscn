@@ -15,7 +15,6 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("collisionNode")
 thingThatMoves = NodePath("collisionNode")
-usePlayerRotationOnRespawn = false
 
 [node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 34952

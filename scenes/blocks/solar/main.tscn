@@ -28,4 +28,5 @@ use_parent_material = true
 texture = ExtResource("2_5qqdf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
