@@ -128,9 +128,9 @@ func get_all_data():
     if 'type' in menu_data[key] and menu_data[key].type in ['startGroup', 'endGroup']:
       continue
     if "user" in menu_data[key]:
-      newobj[key] = menu_data[key]["user"]
+      newobj[key] = menu_data[key].user
     else:
-      newobj[key] = menu_data[key]["default"]
+      newobj[key] = menu_data[key].default
   return newobj
 
 signal onchanged
@@ -194,12 +194,12 @@ func show_menu():
         var node = preload(path + "spinbox.tscn").instantiate()
         node.get_node("Label").text = thing.name
         var range_node = node.get_node("HSlider")
+        range_node.allow_greater = thing.allow_greater
+        range_node.allow_lesser = thing.allow_lesser
         range_node.min_value = thing.from
         range_node.max_value = thing.to
         range_node.step = thing.step
         range_node.value = thing.user
-        range_node.allow_greater = thing.allow_greater
-        range_node.allow_lesser = thing.allow_lesser
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
@@ -313,7 +313,10 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
   match menu_data[name].type:
     "range":
       menu_data[name].user=node.get_node("HSlider").value
-      node.get_node("slider value").text=str(node.get_node("HSlider").value)
+      var val=node.get_node("HSlider").value
+      if !fmod(menu_data[name].step, 1):
+        val=int(val)
+      node.get_node("slider value").text=str(val)
     "spinbox":
       menu_data[name].user=node.get_node("HSlider").value
     "named range":
@@ -379,9 +382,9 @@ func _add_any(key, obj):
   obj.menu_index = menu_index
   if !key in menu_data or !menu_data[key]:
     menu_data[key] = {}
-  var userdata = menu_data[key]["user"] if "user" in menu_data[key] else obj.default
+  var userdata = menu_data[key].user if "user" in menu_data[key] else obj.default
   menu_data[key] = obj
   menu_data[key].user = userdata
   if "user" not in menu_data[key]:
-    menu_data[key]["user"] = obj.default
+    menu_data[key].user = obj.default
   save()
