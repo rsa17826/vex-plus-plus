@@ -201,7 +201,7 @@ UpdateSelf(*) {
     }
   }
   if (url) {
-    ToolTip("Downloading...")
+    ; ToolTip("Downloading...")
     DownloadFile(url, "temp.zip")
     unzip("temp.zip", "temp")
     FileDelete("temp.zip")

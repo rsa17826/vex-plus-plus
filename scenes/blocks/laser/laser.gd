@@ -42,13 +42,13 @@ func updateCharge():
   var maxCooldown: float = selectedOptions.maxCooldown
   if cooldown > maxCooldown / 2.0:
     charge1.rotation_degrees = global.rerange(cooldown, maxCooldown, maxCooldown / 2.0, 0, 180)
-    charge1.visible = true
-    charge2.visible = true
+    # charge1.visible = true
+    # charge2.visible = true
     charge3.visible = false
   else:
     charge3.visible = true
     charge1.rotation_degrees = 180
-    charge3.rotation_degrees = global.rerange(cooldown, maxCooldown / 2.0, 0, 180, 360)
+    charge3.rotation_degrees = clamp(global.rerange(cooldown, maxCooldown / 2.0, 0, 180, 360), 180, 360)
 
 func on_respawn():
   cooldown = 0
