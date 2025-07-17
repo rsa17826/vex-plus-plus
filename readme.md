@@ -487,6 +487,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
 
-- **Invisible**: gets less visible the closer the player is to it.
+- **Invisible**: gets less visible the closer the player is to it
 
   - **settings**:

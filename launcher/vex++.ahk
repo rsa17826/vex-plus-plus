@@ -266,16 +266,21 @@ runSelectedVersion() {
     return ; MsgBox("Could not find the required executable version.")
   ; MsgBox('exeVersion ' exeVersion)
   if !hasProcessRunning() {
-    FileCopy(
-      path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe"),
-      path.join(A_ScriptDir, "game data/vex.console.exe"),
-      1
-    )
-    FileCopy(
-      path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.exe"),
-      path.join(A_ScriptDir, "game data/vex.exe"),
-      1
-    )
+    try {
+      FileCopy(
+        path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe"),
+        path.join(A_ScriptDir, "game data/vex.console.exe"),
+        1
+      )
+      FileCopy(
+        path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.exe"),
+        path.join(A_ScriptDir, "game data/vex.exe"),
+        1
+      )
+    }
+    catch {
+      MsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR", 0x1000)
+    }
   }
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
   args := ""
