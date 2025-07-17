@@ -486,3 +486,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **laser**: when the player is in range the laser will shoot projectiles in the direction it is facing, these projectiles have a 1 second cooldown and are destroyed on contact with solid blocks. if the projectile hits a bomb the bomb will be exploded.
 
   - **settings**:
+
+- **Invisible**: gets less visible the closer the player is to it.
+
+  - **settings**:
