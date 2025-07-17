@@ -4,3 +4,23 @@
 @replace : $1
 @flags gm
 @endregex
+
+make it so that when i tab in a function it is replaced with the correct one
+
+@file scenes/blocks/([^/]+)/\1\.gd$
+@regex ^func (_physics_process)
+@replace func on$1
+@flags gm
+@endregex
+
+@file scenes/blocks/([^/]+)/\1\.gd$
+@regex ^func _(on_body_entered|on_body_exited)
+@replace func $1
+@flags gm
+@endregex
+
+@file scenes/blocks/([^/]+)/\1\.gd$
+@regex func on_body_(entered|exited)\(body: Node2D, real=true\) -> void:
+@replace func on_body_$1(body: Node2D) -> void:
+@flags gm
+@endregex

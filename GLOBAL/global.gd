@@ -1514,7 +1514,7 @@ func localReady() -> void:
     "10x spike",
     "10x solar spike",
     "10x inverse solar spike",
-    # "invisible",
+    "invisible",
     "updown",
     "downup",
     "leftright",
