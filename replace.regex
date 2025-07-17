@@ -8,13 +8,19 @@
 make it so that when i tab in a function it is replaced with the correct one
 
 @file scenes/blocks/([^/]+)/\1\.gd$
+@regex func func 
+@replace func 
+@flags gm
+@endregex
+
+@file scenes/blocks/([^/]+)/\1\.gd$
 @regex func _on_physics_process
 @replace func on_physics_process
 @flags gm
 @endregex
 
 @file scenes/blocks/([^/]+)/\1\.gd$
-@regex ^func (_physics_process)
+@regex ^func ((?:_physics)?_process)
 @replace func on$1
 @flags gm
 @endregex
@@ -30,3 +36,4 @@ make it so that when i tab in a function it is replaced with the correct one
 @replace func on_body_$1(body: Node2D) -> void:
 @flags gm
 @endregex
+

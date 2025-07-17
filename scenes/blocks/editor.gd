@@ -251,8 +251,7 @@ func _ready() -> void:
       breakpoint
   if not EDITOR_IGNORE and not ghost:
     createEditorGhost()
-  if 'generateBlockOpts' in self:
-    self.generateBlockOpts.call()
+  generateBlockOpts()
 
   if is_in_group("attaches to things"):
     blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
@@ -269,7 +268,10 @@ func _ready() -> void:
     cloneEventsHere.on_ready()
   if 'on_ready' in self:
     self.on_ready.call()
-
+    
+func generateBlockOpts():
+  pass
+  
 func toType(opt: Variant) -> void:
   match blockOptions[opt].type:
     global.PromptTypes.string:

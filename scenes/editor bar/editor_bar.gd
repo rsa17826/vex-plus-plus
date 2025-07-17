@@ -55,6 +55,7 @@ func updateScrollPos():
     scrollOffset = clamp(scrollOffset, 0, maxScroll)
 
 func _input(event: InputEvent) -> void:
+  if global.openMsgBoxCount: return
   if event is InputEventMouseButton:
     if event.is_pressed():
       if event.button_index == MOUSE_BUTTON_WHEEL_UP:

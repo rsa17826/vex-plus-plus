@@ -2,7 +2,11 @@
 extends EditorBlock
 class_name BlockLaser
 
-const MAX_COOLDOWN = 1.0
+@export var charge1: Sprite2D
+@export var charge2: Sprite2D
+@export var charge3: Sprite2D
+
+var MAX_COOLDOWN: float
 var targetingPlayer := false
 var cooldown := 0.0
 
@@ -21,15 +25,35 @@ func on_physics_process(delta: float) -> void:
   else:
     targetAngle = 0
   thingThatMoves.rotation = lerp_angle(thingThatMoves.rotation, targetAngle, 0.5)
-  if cooldown > 0:
-    cooldown -= delta
+
   if targetingPlayer and cooldown <= 0:
-    var projectile = load("res://scenes/blocks/laser/projectile.tscn").instantiate()
+    var projectile: EditorBlock = load("res://scenes/blocks/laser/projectile.tscn").instantiate()
     projectile.global_position = thingThatMoves.global_position
     projectile.rotation = thingThatMoves.rotation
     cooldown = MAX_COOLDOWN
+    projectile.scale = startScale * 7
     global.level.add_child(projectile)
 
-func on_respawn():
-  cooldown = 0
+func on_process(delta):
+  if cooldown > 0:
+    cooldown -= delta
+    updateCharge()
+    
+func updateCharge():
+  if cooldown > MAX_COOLDOWN / 2.0:
+    charge1.rotation_degrees = global.rerange(cooldown, MAX_COOLDOWN, MAX_COOLDOWN / 2.0, 0, 180)
+    charge1.visible = true
+    charge2.visible = true
+    charge3.visible = false
+  else:
+    charge3.visible = true
+    charge1.rotation_degrees = 180
+    charge3.rotation_degrees = global.rerange(cooldown, MAX_COOLDOWN / 2.0, 0, 180, 360)
 
+func on_respawn():
+  MAX_COOLDOWN = selectedOptions.MAX_COOLDOWN
+  cooldown = 0
+  updateCharge()
+
+func generateBlockOpts():
+  blockOptions.MAX_COOLDOWN = {"default": 1, "type": global.PromptTypes.float}
