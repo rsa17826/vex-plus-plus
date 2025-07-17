@@ -4,7 +4,6 @@ var menu_data := {}
 var full_save_path: String
 var menu_index := 0
 var parent = null
-
 var used_keys = []
 var currentParent = []
 var GROUP = FoldableGroup.new()
