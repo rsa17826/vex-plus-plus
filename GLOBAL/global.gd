@@ -1198,7 +1198,6 @@ func savePlayerLevelData() -> void:
   if savingPlayerLevelData: return
   savingPlayerLevelData = true
   await wait()
-  await wait()
   var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
   # breakpoint
   saveData[mainLevelName] = {
