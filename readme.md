@@ -483,7 +483,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
 
-- **laser**: when the player is in range the laser will shoot projectiles in the direction it is facing, these projectiles have a cooldown and are destroyed on contact with solid blocks. if the projectile hits a bomb the bomb will be exploded.
+- **laser**: when the player is in range the laser will shoot projectiles in the direction it is facing, these projectiles have a cooldown and are destroyed on contact with solid blocks. if the projectile hits a bomb the bomb will be exploded. the red circle on the laser shows the current cooldown - fully red means ready to fire.
 
   - **settings**:
     - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
