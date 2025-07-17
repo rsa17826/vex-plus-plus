@@ -3,9 +3,6 @@ extends EditorBlock
 class_name BlockCheckpoint
 
 @export var sprite: Node2D
-const temp1 = preload("res://scenes/blocks/checkpoint/images/1.png")
-const temp2 = preload("res://scenes/blocks/checkpoint/images/2.png")
-const temp3 = preload("res://scenes/blocks/checkpoint/images/3.png")
 
 var texture:
   get():
