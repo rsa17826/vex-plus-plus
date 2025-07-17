@@ -79,12 +79,23 @@ if hasProcessRunning() and F.read("game data/lastRanVersion.txt") {
   ExitApp()
 }
 
-loop files A_ScriptDir "\icons\*.*" {
+loop files A_ScriptDir "\icons\*.ico" {
   p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
   DirCreate(p)
   try FileDelete(path.join(p, "foldericon.ico"))
   run('sfi.bat -p "' p '" -i "' A_LoopFileFullPath '"', , 'hide')
 }
+SetTimer(() {
+  ; remove folders named *.png if they already were created
+  loop files A_ScriptDir "/game data/**.png", 'd'
+    DirDelete(A_LoopFileFullPath, 1)
+  ; remove pngs from icons folder
+  loop files A_ScriptDir "/icons/**.png", 'f'
+    FileDelete(A_LoopFileFullPath)
+  ; remove imports from icons folder
+  loop files A_ScriptDir "/icons/**.import", 'f'
+    FileDelete(A_LoopFileFullPath)
+}, -1000)
 
 offline := A_Args.join(" ").includes("offline")
 DirCreate("versions")
@@ -198,6 +209,11 @@ UpdateSelf(*) {
     ; if script doesnt exist then don't update it
     if !FileExist("vex++.ahk")
       try FileDelete("temp/vex++.ahk")
+    ; remove all pngs as only icos are needed and imports
+    loop files "temp/icons/*.png", 'f'
+      try FileDelete(A_LoopFileFullPath)
+    loop files "temp/icons/*.import", 'f'
+      try FileDelete(A_LoopFileFullPath)
 
     F.write("./c.bat", "
     (
