@@ -1,12 +1,6 @@
 extends CharacterBody2D
 class_name Player
 
-# @name same line return
-# @regex :\s*(return|continue|break)\s*$
-# @replace : $1
-# @flags gm
-# @endregex
-
 const GRAVITY = 1280
 const MAX_PULLEY_NO_DIE_TIME = 50
 const MOVESPEED = 220

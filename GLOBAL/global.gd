@@ -1,12 +1,6 @@
 @tool
 extends Node
 
-# @name same line return
-# @regex :\s*(return|continue|break)\s*$
-# @replace : $1
-# @flags gm
-# @endregex
-
 # REM: don't call globals by name until onready
 
 # tilemap

@@ -1,9 +1,4 @@
 class_name Menu
-# @name same line return
-# @regex :\s*return(\s*.{0,10})$
-# @replace : return$1
-# @flags gm
-# @endregex
 
 var menu_data := {}
 var full_save_path: String
@@ -125,8 +120,7 @@ const path = "res://GLOBAL/menu things/"
 func get_all_data():
   var newobj = {}
   for key in menu_data.keys():
-    if 'type' in menu_data[key] and menu_data[key].type in ['startGroup', 'endGroup']:
-      continue
+    if 'type' in menu_data[key] and menu_data[key].type in ['startGroup', 'endGroup']: continue
     if "user" in menu_data[key]:
       newobj[key] = menu_data[key].user
     else:
