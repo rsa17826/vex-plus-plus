@@ -13,8 +13,8 @@ extends Node2D
 ## sends some events to this node
 @export var cloneEventsHere: Node
 ## the node that lastMovementStep should be calculated from
-@export var thingThatMoves: Node
-@export var ghostFollowNode: Node = self
+@export var thingThatMoves: Node2D
+@export var ghostFollowNode: Node2D = self
 @export var mouseRotationOffset = 90
 @export_group("misc")
 ## no warnings when missing unrequired nodes
@@ -30,7 +30,7 @@ extends Node2D
 ## prevents the node from being moved by respawning
 @export var DONT_MOVE: bool = false
 @export_group("IGNORE")
-@export var pathFollowNode: Node
+@export var pathFollowNode: Node2D
 
 enum boolOrNull {
   _false = -1,
