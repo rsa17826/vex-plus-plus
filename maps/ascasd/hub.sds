@@ -121,9 +121,9 @@
     }
   }
   {
-    STR(x)FLOAT(-100.0)
+    STR(x)FLOAT(-2150.0)
     STR(y)FLOAT(-100.0)
-    STR(w)FLOAT(1.00000004470348)
+    STR(w)FLOAT(42.0000033378601)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(invisible)
