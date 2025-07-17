@@ -37,3 +37,9 @@ make it so that when i tab in a function it is replaced with the correct one
 @flags gm
 @endregex
 
+@file scenes/blocks/([^/]+)/\1\.gd$
+@regex body == global.player
+@replace body is Player
+@flags gm
+@endregex
+

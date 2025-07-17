@@ -14,7 +14,7 @@ var texture:
     setTexture(sprite, val)
 
 func on_body_entered(body: Node) -> void:
-  if body == global.player and (getTexture(sprite) == '1' or selectedOptions.multiUse):
+  if body is Player and (getTexture(sprite) == '1' or selectedOptions.multiUse):
     global.savePlayerLevelData()
     global.player.lastSpawnPoint = \
     (startPosition - global.player.get_parent().global_position) \
