@@ -11,12 +11,13 @@ func _init() -> void:
 
 func _on_mouse_entered() -> void:
   if self not in global.hoveredBrushes:
-    global.hoveredBrushes.append(self)
+    global.hoveredBrushes.append(self )
   scale = normalScale * 1.1
   z_index = 2
   selected = 1
 
 func _input(event: InputEvent) -> void:
+  if global.openMsgBoxCount: return
   if selected >= 1 and Input.is_action_just_pressed("editor_select"):
     global.selectedBrush = self
     selected = 2
@@ -40,7 +41,7 @@ func _input(event: InputEvent) -> void:
     
 func _on_mouse_exited() -> void:
   if self in global.hoveredBrushes:
-    global.hoveredBrushes.erase(self)
+    global.hoveredBrushes.erase(self )
   scale = normalScale
   z_index = 1
   selected = 0
