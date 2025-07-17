@@ -312,6 +312,7 @@ fancy_folder_icons/rules={
 "res://downloaded maps": "res://launcher/icons/downloaded maps.png",
 "res://exports": "res://launcher/icons/exports.png",
 "res://images": "res://scenes/blocks/image.png",
+"res://launcher/icons/": "res://scenes/blocks/image.png",
 "res://maps": "res://launcher/icons/maps.png",
 "res://saves": "res://launcher/icons/saves.png",
 "res://scenes/blocks/**/images/": "res://scenes/blocks/image.png",
