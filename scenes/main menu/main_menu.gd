@@ -1,11 +1,5 @@
 extends Control
 
-# @name same line return
-# @regex :\s*return(\s*.{0,10})$
-# @replace : return$1
-# @flags gm
-# @endregex
-
 var GITHUB_TOKEN = global.getToken()
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"

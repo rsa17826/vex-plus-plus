@@ -1,9 +1,4 @@
 extends Area2D
-# @name same line return
-# @regex :\s*return\s*$
-# @replace : return
-# @flags gm
-# @endregex
 
 var id: int = 0
 var normalScale = Vector2.ZERO

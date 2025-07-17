@@ -1,28 +1,6 @@
 @icon("res://images/sprites/DefineSprite_1608/1.png")
 class_name EditorBlock
 extends Node2D
-# @name same line return
-# @regex :\s*(return|continue|break)\s*$
-# @replace : $1
-# @flags gm
-# @endregex
-# @name fix on body entered/exited scripts
-# @regex (_on_body_(?:entered|exited).*\()\):?
-# @replace $1body: Node):
-# @flags gm
-# @endregex
-# @name fix on body _physics?_process scripts
-# @regex \b((?:_physics)?_process.+\()\):?
-# @replace $1delta: float):
-# @flags gm
-# @endregex
-# @noregex
-# @name auto add export_group
-# @regex ^# ([\w ]{2,20})\n(?!@export_group)
-# @replace $&@export_group("$1")
-#
-# @flags gm
-# @endregex
 
 ## sprite to use for the ghost
 @export var ghostIconNode: Sprite2D

@@ -1,11 +1,5 @@
 extends Node2D
 
-# @name same line return
-# @regex :\s*return(\s*.{0,10})$
-# @replace : return$1
-# @flags gm
-# @endregex
-
 # func _ready() -> void:
 #   loadLevel(global.currentLevel().name)
 func _init() -> void:

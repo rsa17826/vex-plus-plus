@@ -1,9 +1,4 @@
 extends CharacterBody2D
-# @name same line return
-# @regex :\s*return(\s*.{0,10})$
-# @replace : return$1
-# @flags gm
-# @endregex
 
 var speed = 50
 

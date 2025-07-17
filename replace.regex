@@ -1,0 +1,6 @@
+@name same line return
+@file \.gd$
+@regex :\s*(return|continue|break)\s*$
+@replace : $1
+@flags gm
+@endregex
