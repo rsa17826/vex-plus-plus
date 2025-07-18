@@ -15,6 +15,9 @@ func on_button_activated(id, btn):
       activeBtns.append(btn)
     if activeBtns:
       __disable.call_deferred()
+      for block: EditorBlock in attach_children:
+        block.__disable.call_deferred()
+        
 func on_button_deactivated(id, btn):
   if !selectedOptions.buttonId: return
   if id == selectedOptions.buttonId:
@@ -22,6 +25,8 @@ func on_button_deactivated(id, btn):
       activeBtns.erase(btn)
     if !activeBtns:
       __enable.call_deferred()
+      for block: EditorBlock in attach_children:
+        block.__enable.call_deferred()
 
 func generateBlockOpts():
   blockOptions.buttonId = {"type": global.PromptTypes.int, "default": 0}

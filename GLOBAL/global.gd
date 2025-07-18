@@ -836,8 +836,8 @@ func localProcess(delta: float) -> void:
               elif abs(offset.x) < abs(offset.y):
                 offset.x = 0
             selectedBlock.global_position = selectedBlockStartPosition + offset
-            var moveDist = selectedBlock.global_position - selectedBlock.startPosition
             selectedBlock.global_position = round((selectedBlock.global_position + extraOffset) / gridSize) * gridSize - extraOffset
+            var moveDist = selectedBlock.global_position - selectedBlock.startPosition
             setBlockStartPos(selectedBlock)
             selectedBlock.onEditorMove(moveDist)
       if justPaintedBlock:
