@@ -307,12 +307,21 @@ limits/debugger/max_chars_per_second=327680
 
 [plugin]
 
+fancy_folder_icons/textureAppliesToNestedFolders=false
 fancy_folder_icons/rules={
+"res://addons/GlobalPosition2DGS/**": "res://none.png",
+"res://addons/auto_expand_inspector/**": "res://none.png",
+"res://addons/gdscript/**-async-utils": "res://none.png",
+"res://addons/grid_display/**": "res://none.png",
+"res://addons/inspector_tabs/**": "res://none.png",
+"res://addons/kenyoni/**": "res://none.png",
+"res://addons/maaacks_input_remapping/**": "res://none.png",
+"res://addons/tabby_explorer/**": "res://none.png",
+"res://addons/tnowe_extra_controls/**": "res://none.png",
 "res://custom blocks": "res://launcher/icons/custom blocks.png",
 "res://downloaded maps": "res://launcher/icons/downloaded maps.png",
 "res://exports": "res://launcher/icons/exports.png",
 "res://images": "res://scenes/blocks/image.png",
-"res://launcher/icons/": "res://scenes/blocks/image.png",
 "res://maps": "res://launcher/icons/maps.png",
 "res://saves": "res://launcher/icons/saves.png",
 "res://scenes/blocks/**/images/": "res://scenes/blocks/image.png",
@@ -324,7 +333,6 @@ fancy_folder_icons/rules={
 "res://scenes/blocks/spark block/clockwise/": "res://scenes/blocks/spark block/clockwise/images/1.png",
 "res://scenes/blocks/spark block/counterClockwise/": "res://scenes/blocks/spark block/counterClockwise/images/1.png"
 }
-fancy_folder_icons/textureAppliesToNestedFolders=false
 
 [rendering]
 
