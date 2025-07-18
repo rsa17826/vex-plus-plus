@@ -118,6 +118,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - inverse solar
   - invisible
   - button deactivated wall
+  - locked box
   - ? might be more
 
 ### Blocks

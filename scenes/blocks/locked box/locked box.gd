@@ -11,6 +11,8 @@ func unlock() -> void:
     var key: Node2D = global.player.keys.pop_front()
     key.root.__disable()
     __disable()
+    for block: EditorBlock in attach_children:
+      block.__disable()
     await global.wait()
     unlocked = false
 
