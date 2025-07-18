@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
+var MAX_JUMP_COUNT = 0
 const GRAVITY = 1280
 const MAX_PULLEY_NO_DIE_TIME = 50
 const MOVESPEED = 220
@@ -19,6 +20,7 @@ const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
+var remainingJumpCount = 0
 var poleCooldown = 0
 var deathSources: Array[EditorBlock] = []
 var targetingLasers: Array[BlockTargetingLaser] = []
@@ -28,7 +30,8 @@ var currentRespawnDelay: float = 0
 var activePulley: Node2D = null
 var activePole: Node2D = null
 var playerXIntent: float = 0
-var lastWall := 0
+var lastWall: EditorBlock
+var lastWallSide := 0
 var breakFromWall := false
 var state := States.levelLoading
 var wallSlidingFrames: float = 0
@@ -212,7 +215,8 @@ func _process(delta: float) -> void:
   updateCamLockPos()
 
 func clearWallData():
-  lastWall = 0
+  lastWallSide = 0
+  lastWall = null
   breakFromWall = false
   wallSlidingFrames = 0
   wallBreakDownFrames = 0
@@ -451,7 +455,7 @@ func _physics_process(delta: float) -> void:
           vel.waterExit = Vector2(Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation - defaultAngle))
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
-        lastWall = 0
+        lastWallSide = 0
         breakFromWall = false
         wallSlidingFrames = 0
         slideRecovery = 0
@@ -503,6 +507,8 @@ func _physics_process(delta: float) -> void:
           duckRecovery -= delta * 60
         if playerKT > 0:
           playerKT -= delta * 60
+          if playerKT <= 0:
+            remainingJumpCount -= 1
         if poleCooldown > 0:
           poleCooldown -= delta * 60
         if boxKickRecovery > 0:
@@ -512,6 +518,7 @@ func _physics_process(delta: float) -> void:
           return
 
         if state == States.wallHang || state == States.wallSliding:
+          # remainingJumpCount = MAX_JUMP_COUNT
           if not is_on_wall() and getClosestWallSide():
             var ray: RayCast2D
             match getClosestWallSide():
@@ -529,10 +536,9 @@ func _physics_process(delta: float) -> void:
         if is_on_floor():
           if !onStickyFloor:
             playerKT = MAX_KT_TIMER
-
+            remainingJumpCount = MAX_JUMP_COUNT
           vel.user.y = 0
-          
-          lastWall = 0
+          lastWallSide = 0
           breakFromWall = false
           # if not moving or trying to not move, go idle
           if !vel.user || !playerXIntent || playerXIntent != vel.user.x:
@@ -545,9 +551,14 @@ func _physics_process(delta: float) -> void:
           # log.pp(vel.user, playerXIntent, playerXIntent != vel.user.x, state, States.idle, floor_max_angle)
         else:
           # if not on floor and switching wall sides allow both walls again
-          if lastWall && (getCurrentWallSide() && lastWall != getCurrentWallSide()) and not collidingWithNowj():
-            lastWall = 0
+          if (
+            (lastWallSide && (getCurrentWallSide() && lastWallSide != getCurrentWallSide()))
+            or (lastWall && (getClosestWall() && lastWall != getClosestWall()))
+            ) and not collidingWithNowj():
+            lastWallSide = 0
+            lastWall = null
             breakFromWall = false
+            # remainingJumpCount = MAX_JUMP_COUNT
             state = States.wallSliding
           if state != States.wallHang:
             currentHungWall = 0
@@ -568,19 +579,23 @@ func _physics_process(delta: float) -> void:
               if loopIdx >= 20:
                 position -= Vector2(0, loopIdx).rotated(defaultAngle)
                 log.pp("fell off wall hang")
+                # remainingJumpCount -= 1
                 state = States.falling
               position -= Vector2(0, 5).rotated(defaultAngle)
               breakFromWall = true
-              lastWall = 0
+              lastWallSide = 0
+              lastWall = null
 
           # if not in wall hang state and near a wall
           if state != States.wallHang && getCurrentWallSide() and not collidingWithNowj():
-            lastWall = getCurrentWallSide()
+            lastWallSide = getCurrentWallSide()
+            lastWall = getCurrentWall()
           if CenterIsOnWall() && not is_on_floor() && !breakFromWall \
           && vel.user.y > 0 && wallBreakDownFrames <= 0 \
           and not collidingWithNowj():
             vel.user.y = WALL_SLIDE_SPEED
             
+            # remainingJumpCount = MAX_JUMP_COUNT
             state = States.wallSliding
             # press down to detach from wallslide
             if Input.is_action_pressed(&"down") && wallBreakDownFrames <= 0:
@@ -599,13 +614,15 @@ func _physics_process(delta: float) -> void:
         if breakFromWall:
           wallSlidingFrames = 0
         # jump from walljump
-        if state == States.wallSliding and ACTIONjump && !breakFromWall and not onStickyFloor:
+        if state == States.wallSliding && !breakFromWall and not onStickyFloor and ACTIONjump:
+          # remainingJumpCount -= 1
           state = States.jumping
           breakFromWall = true
 
           vel.user.y = JUMP_POWER
           
         if (state == States.wallHang) && is_on_wall_only() && CenterIsOnWall():
+          remainingJumpCount = MAX_JUMP_COUNT
           vel.user.y = 0
           
           wallSlidingFrames = 0
@@ -618,12 +635,12 @@ func _physics_process(delta: float) -> void:
 
         # jump from wall grab or from the ground
         if !Input.is_action_pressed(&"down"):
-          if (playerKT > 0) || state == States.wallHang:
+          if (remainingJumpCount > 0) || state == States.wallHang:
             if not onStickyFloor:
               if duckRecovery <= 0 and ACTIONjump:
+                remainingJumpCount -= 1
                 state = States.jumping
                 playerKT = 0
-
                 vel.user.y = JUMP_POWER
                 
         # if not in duckRecovery or wall hang or wallSliding, allow movement
@@ -850,6 +867,7 @@ func _physics_process(delta: float) -> void:
     # log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
+  log.pp(remainingJumpCount, playerKT)
 
 func applyHeat(delta):
   var heatToAdd = 0
@@ -1100,6 +1118,17 @@ func CenterIsOnWall() -> bool:
 func BottomIsOnWall() -> bool:
   return is_on_wall() && ($wallDetection/leftWallBottom.is_colliding() || $wallDetection/rightWallBottom.is_colliding())
 
+func getClosestWall() -> EditorBlock:
+  if $wallDetection/rightWall.is_colliding() and $wallDetection/leftWall.is_colliding():
+    if $anim.flip_h: return $wallDetection/leftWall.get_collider().root
+    else: return $wallDetection/rightWall.get_collider().root
+  if $wallDetection/rightWall.is_colliding(): return $wallDetection/rightWall.get_collider().root
+  if $wallDetection/leftWall.is_colliding(): return $wallDetection/leftWall.get_collider().root
+  return null
+
+func getCurrentWall() -> EditorBlock:
+  if !is_on_wall(): return null
+  return getClosestWall()
 func getCurrentWallSide() -> int:
   if !is_on_wall(): return 0
   return getClosestWallSide()
@@ -1133,6 +1162,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   else:
     global.tick = global.currentLevel().tick
     up_direction = global.currentLevel().up_direction
+  MAX_JUMP_COUNT = global.currentLevel().maxJumpCount
   $CollisionShape2D.disabled = true
   slowCamRot = false
   lastCollidingBlocks = []
@@ -1151,7 +1181,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
     vel[v] = Vector2.ZERO
   velocity = Vector2.ZERO
   playerXIntent = 0
-  lastWall = 0
+  lastWallSide = 0
+  lastWall = null
   pulleyNoDieTimer = 0
   breakFromWall = false
   wallSlidingFrames = 0
@@ -1336,3 +1367,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ??add block id viewer to see what ids are used, where the ids are used at and how many times they're used and be able to warp to blocks by selected id. would work for things like portals and buttons and button deactvated walls
 # ??!!?make gravity rotators only affect the things that enter them
 # !!!make invisible blocks make all blocks attached to them also invisible
+# ??add powerups
+
+# grab
+# jump count
+# walljump
+# max key hold count

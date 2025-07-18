@@ -316,7 +316,7 @@
     STR(y)FLOAT(-100.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(-0.0)
+    STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STRNAME(options){
       STR(attachesToThings)BOOL(true)
