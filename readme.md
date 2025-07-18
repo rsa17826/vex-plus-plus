@@ -114,6 +114,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - pushable box
   - bomb
   - bouncing buzsaw
+  - solar
+  - inverse solar
+  - invisible
+  - button deactivated wall
   - ? might be more
 
 ### Blocks
@@ -135,6 +139,20 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - rotatable
     - i plan to replace this and the single spike with a scalable spike that tiles the spike texture instead
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **10x solar spike**: kills the player on contact if lights are on
+
+  - rotatable
+  - **settings**:
+    - **color**
+    - **attachesToThings**
+
+- **10x inverse solar spike**: kills the player on contact if lights are off
+
+  - rotatable
   - **settings**:
     - **color**
     - **attachesToThings**

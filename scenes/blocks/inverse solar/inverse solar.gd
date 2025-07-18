@@ -7,3 +7,8 @@ func on_physics_process(delta: float) -> void:
     __enable()
   else:
     __disable()
+  for block: EditorBlock in attach_children:
+    if global.player.lightsOut:
+      block.__enable()
+    else:
+      block.__disable()

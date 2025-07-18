@@ -12,7 +12,7 @@ size = Vector2(692, 21)
 points = PackedVector2Array(-320, -11.75, -350, 12.25, 350, 12.25, 320, -11.75)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfxqp"]
-size = Vector2(692, 16)
+size = Vector2(676, 16)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["attaches to things"]]
 script = ExtResource("1_6nqtq")
