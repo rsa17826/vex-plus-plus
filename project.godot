@@ -49,7 +49,7 @@ folder_colors={
 "res://saves/": "gray",
 "res://scenes/editor bar/": "green",
 "res://scenes/input_remapping/": "green",
-"res://scenes/levels/": "green",
+"res://scenes/level/": "green",
 "res://scenes/main menu/": "green",
 "res://scenes/online level list/": "green",
 "res://scenes/player/": "teal",
@@ -309,6 +309,7 @@ limits/debugger/max_chars_per_second=327680
 
 fancy_folder_icons/textureAppliesToNestedFolders=false
 fancy_folder_icons/rules={
+"res://**/images": "res://scenes/blocks/image.png",
 "res://addons/GlobalPosition2DGS/**": "res://none.png",
 "res://addons/auto_expand_inspector/**": "res://none.png",
 "res://addons/gdscript/**-async-utils": "res://none.png",
@@ -321,18 +322,20 @@ fancy_folder_icons/rules={
 "res://custom blocks": "res://launcher/icons/custom blocks.png",
 "res://downloaded maps": "res://launcher/icons/downloaded maps.png",
 "res://exports": "res://launcher/icons/exports.png",
-"res://images": "res://scenes/blocks/image.png",
 "res://maps": "res://launcher/icons/maps.png",
 "res://saves": "res://launcher/icons/saves.png",
-"res://scenes/blocks/**/images/": "res://scenes/blocks/image.png",
 "res://scenes/blocks/**/main.tscn": "res://scenes/blocks/$1/images/editorBar.png||res://scenes/blocks/$1/images/1.png||res://scenes/blocks/$1/images/unpressed.png||res://scenes/blocks/$1/images/ghost.png",
 "res://scenes/blocks/*/": "res://scenes/blocks/$1/images/editorBar.png||res://scenes/blocks/$1/images/1.png||res://scenes/blocks/$1/images/unpressed.png||res://scenes/blocks/$1/images/ghost.png",
 "res://scenes/blocks/conveyer/images/arrows/": "res://scenes/blocks/conveyer/images/editorBar.png",
 "res://scenes/blocks/laser/projectile.tscn": "res://scenes/blocks/laser/images/projectile.png",
 "res://scenes/blocks/spark block/": "res://scenes/blocks/spark block/clockwise/images/spark.png",
 "res://scenes/blocks/spark block/clockwise/": "res://scenes/blocks/spark block/clockwise/images/1.png",
-"res://scenes/blocks/spark block/counterClockwise/": "res://scenes/blocks/spark block/counterClockwise/images/1.png"
+"res://scenes/blocks/spark block/counterClockwise/": "res://scenes/blocks/spark block/counterClockwise/images/1.png",
+"res://scenes/player/": "res://scenes/player/images/anim/idle/1.png",
+"res://scenes/player/images/**": "res://scenes/blocks/image.png",
+"res://scenes/player/player.tscn": "res://scenes/player/images/anim/idle/1.png"
 }
+fancy_folder_icons/openRules=false
 
 [rendering]
 

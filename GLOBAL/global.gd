@@ -1292,7 +1292,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
       newLevelSaveData(levelPackInfo.start)
     ]
     beatLevels = []
-  get_tree().change_scene_to_file("res://scenes/levels/level.tscn")
+  get_tree().change_scene_to_file("res://scenes/level/level.tscn")
   await level.loadLevel(currentLevel().name)
   loadBlockData()
   await wait()
