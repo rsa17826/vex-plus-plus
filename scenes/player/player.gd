@@ -1338,16 +1338,16 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # zipline
 # ??add tooltips to blocks in block picker
-# make menu show groups as named colapsables
 
 # add animations for
 #   lights out
+#   levers being active
 
 # add level tags
 
 # fix moving blocks not moving the player correctly
 
-# fix spike sizes not being the same
+# ????fix spike sizes not being the same
 
 # add undo/redo history
 
@@ -1395,8 +1395,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add cmd arg to play level by name/path
 
-# ?add 2x jump option
-
 # make clicking to release copy not select blocks
 
 # make pole quadrent pole indicators rotate correctly
@@ -1404,15 +1402,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ?stop player from lever when nolonger standing on block
 # make it so that if the player dies instantly after respawning stop player process
 # ??!!when blocks spawn check player collision
-# oneways
-# block palate rclick should go before blocks behind it
 # allow esc while in text box .prompt
-# wall grab wall conveyers
 # add more ghost/editorBar costumes for the oneway
 # ?add way to change the block picker from the editor
 # !!?grabbing edge scales corner on small blocks
-# add extra frame to oneway
-# replace player death with signal
+# add extra animation frame to oneway
 # make balanced random
 # add reset to default button to settings
 # add texture to reset buttons
@@ -1421,20 +1415,14 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # bouncys warp player to wrong side
   # pulleys set animation in wrong direction
   # dying in water causes bad rotation until respawn ends
-# add button that is pressed with a box
-# ?allow player to walljump on same wallside if wall in different position
 # make bouncing buzsaws follow gravity
 
-# fix conveyers with reverse gravity
-# prevent converyers from occasionally activating when collision direction is wrong
 # make conveyers work better with boxes like they do with the player and make the players conveyer code easier to read
 # !!!fix scaling of rotated blocks
-# ?make targeting lasers explode bombs
 # ?make ice and have it melt by targeting lasers/lazers
 # make pushable box and bomb and bouncing buzsaw rotation affect their gravity
 # ??add block id viewer to see what ids are used, where the ids are used at and how many times they're used and be able to warp to blocks by selected id. would work for things like portals and buttons and button deactvated walls
 # ??!!?make gravity rotators only affect the things that enter them
-# !!!make invisible blocks make all blocks attached to them also invisible
 # ??add powerups
 # when first loading level blocks attach incorrectly until respawn
 
