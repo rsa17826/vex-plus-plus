@@ -891,6 +891,7 @@ func localInput(event: InputEvent) -> void:
     return
   if openMsgBoxCount: return
   if Input.is_action_just_pressed(&"toggle_hide_non_ghosts", true):
+    ToastParty.success('a')
     hideNonGhosts = !hideNonGhosts
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
