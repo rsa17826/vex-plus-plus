@@ -917,13 +917,14 @@ func _physics_process(delta: float) -> void:
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
 
-func onDifferentWall():
+func onDifferentWall() -> bool:
   if not lastWall:
     return false
   if getCurrentWall() && lastWall != getCurrentWall():
     if not lastWallCollisionPoint:
       return true
-    return getClosestWallRay().get_collision_point().x != lastWallCollisionPoint.x
+    return !is_equal_approx(getClosestWallRay().get_collision_point().x, lastWallCollisionPoint.x)
+  return false
 
 func getClosestWallRay() -> RayCast2D:
   if $wallDetection/rightWall.is_colliding() and $wallDetection/leftWall.is_colliding():
@@ -1428,3 +1429,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # grab
 # max key hold count
+
+# !!fix blocks sometimes ending up near 00
