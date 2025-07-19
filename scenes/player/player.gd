@@ -20,11 +20,11 @@ const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
-var levelFlags = {}
+var levelFlags: Dictionary[String, Variant] = {}
 var autoRunDirection: int = 1
 var cannonRotDelFrames: float = 0
 var remainingJumpCount: int = 0
-var poleCooldown = 0
+var poleCooldown: float = 0
 var deathSources: Array[EditorBlock] = []
 var targetingLasers: Array[BlockTargetingLaser] = []
 var heat := 0.0
@@ -653,7 +653,15 @@ func _physics_process(delta: float) -> void:
         if breakFromWall:
           wallSlidingFrames = 0
         # jump from walljump
-        if levelFlags.canDoWallJump and (state == States.wallSliding && !breakFromWall and not onStickyFloor and ACTIONjump):
+        if (
+          levelFlags.canDoWallJump
+          and (
+          state == States.wallSliding
+          && !breakFromWall
+          and not onStickyFloor
+            and ACTIONjump
+          )
+        ):
           # remainingJumpCount -= 1
           autoRunDirection *= -1
           state = States.jumping
@@ -1433,6 +1441,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # when first loading level blocks attach incorrectly until respawn
 
 # grab
-# walljump
 # max key hold count
-# cant stop moving
