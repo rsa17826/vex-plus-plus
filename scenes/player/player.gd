@@ -49,6 +49,7 @@ var deathPosition := Vector2.ZERO
 var speedLeverActive: bool = false
 var slowCamRot := true
 var camRotLock: float = 0
+var activeCannon: BlockCannon
 
 var lightsOut: bool = false
 
@@ -79,11 +80,13 @@ var vel: Dictionary[String, Vector2] = {
   "waterExit": Vector2.ZERO,
   "bounce": Vector2.ZERO,
   "conveyer": Vector2.ZERO,
+  "cannon": Vector2.ZERO,
 }
 var velDecay := {
   "pole": 1,
   "user": 1,
   "waterExit": .9,
+  "cannon": .9,
   "bounce": 0.95,
   "conveyer": .9
 }
@@ -93,6 +96,7 @@ var justAddedVels := {
   "waterExit": 0,
   "bounce": 0,
   "conveyer": 0,
+  "cannon": 0,
 }
 var stopVelOnGround := ["bounce", "waterExit"]
 var stopVelOnWall := ["bounce", "waterExit"]
@@ -312,6 +316,21 @@ func _physics_process(delta: float) -> void:
         await global.wait()
         await global.wait()
       return
+    States.inCannon:
+      if inWaters:
+        state = States.falling
+        return
+      global_position = activeCannon.thingThatMoves.global_position + (Vector2(0, -130) * activeCannon.scale)
+      activeCannon.top_level = true
+      activeCannon.rotNode.rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
+      activeCannon.rotNode.rotation_degrees = clamp(activeCannon.rotNode.rotation_degrees, -35, 35)
+      $anim.animation = "idle"
+      if ACTIONjump:
+        activeCannon.rotNode.rotation_degrees = 0
+        vel.cannon = Vector2(0, -17000).rotated(activeCannon.rotation) * activeCannon.scale
+        vel.user = Vector2.ZERO
+        state = States.jumping
+        activeCannon = null
     States.swingingOnPole:
       if inWaters:
         activePole = null
@@ -631,6 +650,7 @@ func _physics_process(delta: float) -> void:
           if Input.is_action_pressed(&"down"):
             position += Vector2(0, 5).rotated(defaultAngle)
             wallBreakDownFrames = MAX_WALL_BREAK_FROM_DOWN_FRAMES
+            remainingJumpCount -= 1
             state = States.falling
 
         # jump from wall grab or from the ground

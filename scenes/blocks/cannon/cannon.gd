@@ -2,10 +2,17 @@
 extends EditorBlock
 class_name BlockCannon
 
+@export var rotNode: Node2D
+
 func on_body_entered(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
+    if global.player.activeCannon && global.player.activeCannon == self: return
+    if global.player.activeCannon:
+      global.player.activeCannon.top_level = false
     global.player.state = global.player.States.inCannon
-    global.player.global_position = ghostIconNode.global_position
+    global.player.activeCannon = self
     
 func on_respawn() -> void:
+  top_level = false
+  rotNode.rotation_degrees = 0
   $collisionNode.position = Vector2.ZERO
