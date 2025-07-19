@@ -63,7 +63,7 @@
     STR(y)FLOAT(-400.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(329.99975585938)
+    STR(r)FLOAT(2849.99975585938)
     STR(id)STR(conveyer)
     STR(options){
       STR(color)STR(#fff)
@@ -131,7 +131,7 @@
     STR(y)FLOAT(-560.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
+    STR(r)FLOAT(360.0)
     STR(id)STR(speed Up Lever)
     STR(options){
       STR(attachesToThings)BOOL(true)
@@ -486,7 +486,7 @@
     STR(y)FLOAT(-440.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(180.0)
+    STR(r)FLOAT(540.0)
     STR(id)STR(10x spike)
     STR(options){
       STR(attachesToThings)BOOL(false)
@@ -498,7 +498,7 @@
     STR(y)FLOAT(-245.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(180.0)
+    STR(r)FLOAT(540.0)
     STR(id)STR(10x spike)
     STR(options){
       STR(attachesToThings)BOOL(false)
@@ -521,7 +521,7 @@
     STR(y)FLOAT(-365.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(104.999969482422)
+    STR(r)FLOAT(464.999969482422)
     STR(id)STR(falling spike)
     STR(options){
       STR(attachesToThings)BOOL(true)
@@ -890,7 +890,7 @@
     STR(y)FLOAT(-245.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
+    STR(r)FLOAT(360.0)
     STR(id)STR(10x spike)
     STR(options){
       STR(attachesToThings)BOOL(false)
@@ -958,7 +958,7 @@
     STR(y)FLOAT(-365.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(106.967834472656)
+    STR(r)FLOAT(466.967834472656)
     STR(id)STR(falling spike)
     STR(options){
       STR(attachesToThings)BOOL(true)
@@ -970,7 +970,7 @@
     STR(y)FLOAT(-365.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(106.017974853516)
+    STR(r)FLOAT(466.017974853516)
     STR(id)STR(falling spike)
     STR(options){
       STR(attachesToThings)BOOL(true)
