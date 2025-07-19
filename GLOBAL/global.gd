@@ -1446,6 +1446,7 @@ const defaultLevelSettings = {
   "color": 1,
   "changeSpeedOnSlopes": false,
   "saveTick": false,
+  "maxJumpCount": 1,
 }
 
 func currentLevelSettings(key: Variant = null) -> Variant:

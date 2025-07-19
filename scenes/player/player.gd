@@ -1162,7 +1162,6 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   else:
     global.tick = global.currentLevel().tick
     up_direction = global.currentLevel().up_direction
-  MAX_JUMP_COUNT = global.currentLevel().maxJumpCount
   $CollisionShape2D.disabled = true
   slowCamRot = false
   lastCollidingBlocks = []

@@ -46,9 +46,17 @@ func _ready() -> void:
 
 func showMoreOptions(level):
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
-  var i = 0
+  var i := 0
   pm.clear()
-  for k: String in ["duplicate", "delete", "rename", "export", "upload"]:
+  for k: String in [
+    "duplicate",
+    "delete",
+    "rename",
+    "show in file explorer",
+    "open settings file",
+    "export",
+    "upload"
+  ]:
     pm.add_item(k, i)
     i += 1
   pm.add_item('< cancel >', i)
@@ -80,13 +88,17 @@ func showMoreOptions(level):
       )
       get_tree().reload_current_scene()
     3:
+      OS.shell_open(global.path.join(global.MAP_FOLDER, level))
+    4:
+      OS.shell_open(global.path.join(global.MAP_FOLDER, level, "options.sds"))
+    5:
       log.pp(level)
       global.zipDir(
         global.path.join(global.MAP_FOLDER, level),
         global.path.abs("res://exports/" + level + ".vex++")
       )
       OS.shell_open(global.path.abs("res://exports"))
-    4:
+    6:
       var outpath = global.path.abs("res://exports/" + level + ".vex++")
       global.zipDir(
         global.path.join(global.MAP_FOLDER, level),
