@@ -62,6 +62,7 @@ func loadLevel(level):
       await onProgress(prog, max)
   
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
+  global.player.MAX_JUMP_COUNT = global.currentLevelSettings("maxJumpCount")
   global.player.get_node("../CanvasLayer/editor bar")._ready()
   await global.wait()
   global.tick = 0
