@@ -318,6 +318,7 @@ func _physics_process(delta: float) -> void:
         await global.wait()
       return
     States.inCannon:
+      remainingJumpCount = MAX_JUMP_COUNT
       if inWaters:
         state = States.falling
         return
@@ -371,6 +372,7 @@ func _physics_process(delta: float) -> void:
       if Input.is_action_just_pressed(&"jump"):
         if ($anim.frame >= 3 and $anim.frame <= 9) or $anim.frame >= 27:
           # this one should be user because it makes the falling better
+          remainingJumpCount = MAX_JUMP_COUNT
           vel.user.y = JUMP_POWER
           
           # but this should be pole as that way it does something as user.x is set to xintent
@@ -382,6 +384,7 @@ func _physics_process(delta: float) -> void:
             Object.CONNECT_ONE_SHOT)
           state = States.jumping
         else:
+          remainingJumpCount = 0
           vel.user.y = 0
           
           state = States.falling
@@ -406,7 +409,7 @@ func _physics_process(delta: float) -> void:
       $CollisionShape2D.rotation = 0
 
       vel.user = Vector2.ZERO
-      
+      remainingJumpCount = MAX_JUMP_COUNT
       var lastpos := global_position
       global_position = activePulley.nodeToMove.global_position + Vector2(7, 19)
       $anim.position = Vector2(5, 5.145)
@@ -441,9 +444,7 @@ func _physics_process(delta: float) -> void:
       duckRecovery = 0
       wallBreakDownFrames = 0
       $anim.animation = "duck start"
-
       vel.user.y = 0
-      
       return
     States.pullingLever:
       setRot(defaultAngle)
