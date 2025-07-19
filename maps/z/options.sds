@@ -8,7 +8,7 @@
       STR(color)INT(5)
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
-      STR(maxJumpCount)INT(2)
+      STR(jumpCount)INT(2)
     }
   }
 }
