@@ -1,0 +1,12 @@
+{
+  STR(start)STR(Yippie)
+  STR(author)STR(Yippie Skippy)
+  STR(description)STR(meow)
+  STR(version)INT(31)
+  STR(stages){
+    STR(Yippie){
+      STR(color)INT(2)
+      STR(changeSpeedOnSlopes)BOOL(false)
+    }
+  }
+}

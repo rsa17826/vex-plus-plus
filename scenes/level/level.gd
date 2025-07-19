@@ -49,18 +49,18 @@ func loadLevel(level):
       if global.currentLevelSettings(flag) == global.defaultLevelSettings[flag]:
         modVis(flag, false)
       else:
-        modVis(flag, global.currentLevelSettings(flag))
+        modVis(flag, true)
         modVis(flag + '/nope', !global.currentLevelSettings(flag))
     log.pp(flag, global.currentLevelSettings(flag))
 
   var jumps = global.currentLevelSettings("jumpCount")
   for child in global.ui.modifiers.get_node('jumpCount').get_children():
     child.visible = false
+  modVis('jumpCount', true)
   if jumps >= 4:
     modVis('jumpCount/4+', true)
   elif jumps == 1:
-    if global.useropts.showUnchangedLevelMods:
-      modVis('jumpCount/1', true)
+    modVis('jumpCount', global.useropts.showUnchangedLevelMods)
   elif jumps <= 0:
     modVis('jumpCount/1', true)
     modVis('jumpCount/nope', true)

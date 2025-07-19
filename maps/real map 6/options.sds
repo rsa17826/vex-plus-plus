@@ -2,10 +2,10 @@
   STR(start)STR(hub)
   STR(author)STR(rssaromeo)
   STR(description)STR()
-  STR(version)INT(88)
+  STR(version)INT(61)
   STR(stages){
     STR(hub){
-      STR(color)INT(9)
+      STR(color)INT(7)
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
     }
