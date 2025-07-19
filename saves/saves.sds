@@ -411,7 +411,7 @@
         STR(spawnPoint)VEC2(0.0,0.0)
         STR(up_direction)VEC2(0.0,-1.0)
         STR(autoRunDirection)INT(1)
-        STR(tick)FLOAT(0.0)
+        STR(tick)FLOAT(13.0166666666671)
         STR(blockSaveData){
           STR(checkpoint){
             INT(1){

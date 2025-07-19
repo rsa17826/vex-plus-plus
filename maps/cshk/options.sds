@@ -7,7 +7,7 @@
     STR(hub){
       STR(color)INT(1)
       STR(changeSpeedOnSlopes)BOOL(false)
-      STR(saveTick)BOOL(false)
+      STR(saveTick)BOOL(true)
       STR(jumpCount)INT(1)
       STR(canDoWallJump)BOOL(true)
       STR(canDoWallSlide)BOOL(false)
