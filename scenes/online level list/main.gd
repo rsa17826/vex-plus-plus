@@ -70,8 +70,7 @@ func _ready() -> void:
   var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + REPO_NAME + "/branches")).response
   var sha = ""
   for branch in branches:
-    if branch.name != BRANCH:
-      continue
+    if branch.name != BRANCH: continue
     sha = branch.commit.sha
     break
   if not sha:
@@ -104,8 +103,7 @@ func _ready() -> void:
   var loadedLevelCount = 0
   var levelsForCurrentVersionCount = 0
   for version in allData:
-    if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion:
-      continue
+    if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     pbox.add_group(str(version))
     for creator in allData[version]:
       creator = creator
@@ -149,4 +147,4 @@ func downloadLevel(version, creator, level):
     false
   )
   global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)])
-  OS.alert("Download complete", "The map is now being loaded.")
+  ToastParty.success("Download complete\nThe map is now being loaded.")

@@ -111,10 +111,10 @@ func showMoreOptions(level):
       var author = data.author
       var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
       if not author:
-        OS.alert("Please enter an author name")
+        ToastParty.err("Please enter an author name")
         return
       if not level:
-        OS.alert("Please enter a map name")
+        ToastParty.err("Please enter a map name")
         return
       await upload_file("levels/" + version + '/' + author + '/' + level + ".vex++", c)
       f.close()
@@ -142,15 +142,15 @@ func upload_file(file_path: String, base64_content: String) -> void:
   var res = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, json_body)
 
   if res.code == 200 or res.code == 201:
-    OS.alert("File upload was successful!")
+    ToastParty.success("File upload was successful!")
   elif res.code == 422:
-    OS.alert("ERROR 422")
+    ToastParty.error("ERROR 422")
     # OS.alert("level already exists")
   else:
     log.err(res.code)
     log.err(res.response)
     log.err(headers)
-    OS.alert("ERROR: " + str(res.code))
+    ToastParty.error("ERROR: " + str(res.code))
   
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes

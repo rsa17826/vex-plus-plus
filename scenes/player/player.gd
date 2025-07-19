@@ -609,7 +609,8 @@ func _physics_process(delta: float) -> void:
           # log.pp(velocity.y)
           if vel.user.y > -20 && state != States.wallHang:
             # log.pp("entering wall grab", CenterIsOnWall(), TopIsOnWall())
-            if CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj():
+            log.pp(levelFlags.canDoWallhang, "levelFlags.canDoWallhang")
+            if levelFlags.canDoWallhang && (CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj()):
               currentHungWall = $wallDetection/rightWall.get_collider() if getCurrentWallSide() == 1 else $wallDetection/leftWall.get_collider()
               hungWallSide = getCurrentWallSide()
               state = States.wallHang
@@ -914,6 +915,7 @@ func _physics_process(delta: float) -> void:
     # log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
+
 func onDifferentWall():
   if not lastWall:
     return false
