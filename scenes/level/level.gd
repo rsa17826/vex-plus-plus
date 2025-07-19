@@ -23,6 +23,42 @@ func loadLevel(level):
   global.tick = 0
   global.hoveredBlocks = []
   global.player.state = global.player.States.levelLoading
+  
+  # hide all mods
+  for child in global.ui.modifiers.get_node("jumpCount").get_children():
+    child.visible = false
+
+  var boolFlags = [
+    'autoRun',
+    "canDoWallJump",
+    "canDoWallSlide",
+    'canDoWallHang',
+    'saveTick',
+    'changeSpeedOnSlopes'
+  ]
+  for flag in boolFlags:
+    global.player.levelFlags[flag] = global.currentLevelSettings(flag)
+  for flag in boolFlags:
+    if global.defaultLevelSettings[flag]:
+      global.ui.modifiers.get_node(flag).visible = true
+      global.ui.modifiers.get_node(flag + '/nope').visible = !global.currentLevelSettings(flag)
+    else:
+      global.ui.modifiers.get_node(flag).visible = global.currentLevelSettings(flag)
+
+  var jumps = global.currentLevelSettings("jumpCount")
+  if jumps >= 4:
+    global.ui.modifiers.get_node('jumpCount/4+').visible = true
+  elif jumps == 1:
+    pass
+  elif jumps <= 0:
+    global.ui.modifiers.get_node('jumpCount/1').visible = true
+    global.ui.modifiers.get_node('jumpCount/nope').visible = true
+  else:
+    global.ui.modifiers.get_node('jumpCount/' + str(jumps)).visible = true
+
+  global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
+  global.player.MAX_JUMP_COUNT = global.currentLevelSettings("jumpCount")
+  
   # global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
   # log.pp(global.path.join(global.levelFolderPath, level), global.loadedLevels, global.beatLevels)
   global.ui.progressContainer.visible = true
@@ -60,19 +96,7 @@ func loadLevel(level):
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
-  
-  global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
-  global.player.MAX_JUMP_COUNT = global.currentLevelSettings("jumpCount")
-  var boolFlags = [
-    'autoRun',
-    "canDoWallJump",
-    "canDoWallSlide",
-    'canDoWallHang',
-    'saveTick',
-    'changeSpeedOnSlopes'
-  ]
-  for flag in boolFlags:
-    global.player.levelFlags[flag] = global.currentLevelSettings(flag)
+
   global.player.get_node("../CanvasLayer/editor bar")._ready()
   await global.wait()
   global.tick = 0
@@ -84,28 +108,7 @@ func loadLevel(level):
   global.player.updateCollidingBlocksEntered()
   await global.wait()
   global.tick = global.currentLevel().tick
-  for flag in boolFlags:
-    if global.defaultLevelSettings[flag]:
-      global.ui.modifiers.get_node(flag).visible = true
-      global.ui.modifiers.get_node(flag + '/nope').visible = !global.currentLevelSettings(flag)
-    else:
-      global.ui.modifiers.get_node(flag).visible = global.currentLevelSettings(flag)
-  var jumps = global.currentLevelSettings("jumpCount")
-
-  for child in global.ui.modifiers.get_node("jumpCount").get_children():
-    child.visible = false
-    
-  if jumps >= 4:
-    global.ui.modifiers.get_node('jumpCount/4+').visible = true
-  elif jumps == 1:
-    pass
-  elif jumps <= 0:
-    global.ui.modifiers.get_node('jumpCount/1').visible = true
-  else:
-    global.ui.modifiers.get_node('jumpCount/' + str(jumps)).visible = true
-
-  if jumps <= 0:
-    global.ui.modifiers.get_node('jumpCount/nope').visible = true
+  
   # await global.wait()
   # await global.wait(300)
   # global.savePlayerLevelData()
