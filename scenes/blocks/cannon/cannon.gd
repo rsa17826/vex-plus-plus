@@ -1,4 +1,4 @@
-@icon("images/1.png")
+@icon("images/editorBar.png")
 extends EditorBlock
 class_name BlockCannon
 

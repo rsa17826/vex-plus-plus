@@ -334,6 +334,7 @@ func _physics_process(delta: float) -> void:
       if ACTIONjump:
         vel.cannon = Vector2(0, -17000).rotated(activeCannon.rotation + activeCannon.rotNode.rotation) * activeCannon.scale
         log.pp(vel.cannon)
+        justAddedVels.cannon = 5
         vel.user = Vector2.ZERO
         state = States.jumping
         activeCannon.rotNode.rotation_degrees = 0
@@ -1341,6 +1342,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
   # !version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
   # !version ?-NOW! when respawning gols can still be interacted with
+  # !version ?-INF! collision is not checked while in cannons
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
