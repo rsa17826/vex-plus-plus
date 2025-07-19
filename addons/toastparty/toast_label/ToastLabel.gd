@@ -68,13 +68,13 @@ func update_text(_text: String) -> void:
   button_size = self.size
   update_x_position()
 
-func move_to(index: int) -> void:
+func move_to(index: int, animate: bool) -> void:
   update_x_position()
   var offset_y = (margin_between + button_size.y) * index
   var _y = get_y_pos(offset_y, gravity)
   position.y = _y
   # bottom
-  if index == 0:
+  if index == 0 and animate:
     _tween_in = get_tree().create_tween()
     _tween_in.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS) # pause mode
     _tween_in.stop()
