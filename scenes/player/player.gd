@@ -20,6 +20,13 @@ const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
+var levelFlags = {
+  "autoRun": false,
+  "canDoWallJump": true,
+  "canDoWallSlide": true,
+  "canDoWallhang": true,
+}
+var autoRunDirection: int = 1
 var cannonRotDelFrames: float = 0
 var remainingJumpCount: int = 0
 var poleCooldown = 0
@@ -31,6 +38,7 @@ var currentRespawnDelay: float = 0
 var activePulley: Node2D = null
 var activePole: Node2D = null
 var playerXIntent: float = 0
+var lastWallCollisionPoint: Variant
 var lastWall: EditorBlock
 var lastWallSide := 0
 var breakFromWall := false
@@ -221,6 +229,7 @@ func _process(delta: float) -> void:
 
 func clearWallData():
   lastWallSide = 0
+  lastWallCollisionPoint = null
   lastWall = null
   breakFromWall = false
   wallSlidingFrames = 0
@@ -327,7 +336,7 @@ func _physics_process(delta: float) -> void:
       if cannonRotDelFrames > 0:
         cannonRotDelFrames -= delta
       else:
-        activeCannon.rotNode.rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
+        activeCannon.rotNode.rotation_degrees += delta * WATER_TURNSPEED * getCurrentLrState()
       activeCannon.rotNode.rotation_degrees = clamp(activeCannon.rotNode.rotation_degrees, -25, 25)
       rotation = activeCannon.rotNode.rotation
       $anim.flip_h = rotation < 0
@@ -358,7 +367,7 @@ func _physics_process(delta: float) -> void:
       $CollisionShape2D.shape.size.y = unduckSize.y / 4
       %deathDetectors.scale = Vector2(1, 0.25)
 
-      var xIntent = Input.get_axis("left", "right")
+      var xIntent = getCurrentLrState()
       if xIntent > 0:
         $anim.flip_h = false
       elif xIntent < 0:
@@ -474,7 +483,10 @@ func _physics_process(delta: float) -> void:
         # set state to falling for when player exits the water
         state = States.falling
         # move forward or backward based on input
-        velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * Input.get_axis("down", "jump")
+        if levelFlags.autoRun:
+          velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * 1
+        else:
+          velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * Input.get_axis("down", "jump")
         velocity *= .8
         # only bounce out of the water if going up
         for v: String in vel:
@@ -484,6 +496,7 @@ func _physics_process(delta: float) -> void:
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
         lastWallSide = 0
+        lastWallCollisionPoint = null
         breakFromWall = false
         wallSlidingFrames = 0
         slideRecovery = 0
@@ -567,6 +580,7 @@ func _physics_process(delta: float) -> void:
             remainingJumpCount = MAX_JUMP_COUNT
           vel.user.y = 0
           lastWallSide = 0
+          lastWallCollisionPoint = null
           breakFromWall = false
           # if not moving or trying to not move, go idle
           if !vel.user || !playerXIntent || playerXIntent != vel.user.x:
@@ -581,9 +595,10 @@ func _physics_process(delta: float) -> void:
           # if not on floor and switching wall sides allow both walls again
           if (
             (lastWallSide && (getCurrentWallSide() && lastWallSide != getCurrentWallSide()))
-            or (lastWall && (getClosestWall() && lastWall != getClosestWall()))
+            or onDifferentWall()
             ) and not collidingWithNowj():
             lastWallSide = 0
+            lastWallCollisionPoint = null
             lastWall = null
             breakFromWall = false
             # remainingJumpCount = MAX_JUMP_COUNT
@@ -612,11 +627,13 @@ func _physics_process(delta: float) -> void:
               position -= Vector2(0, 5).rotated(defaultAngle)
               breakFromWall = true
               lastWallSide = 0
+              lastWallCollisionPoint = null
               lastWall = null
 
           # if not in wall hang state and near a wall
           if state != States.wallHang && getCurrentWallSide() and not collidingWithNowj():
             lastWallSide = getCurrentWallSide()
+            lastWallCollisionPoint = getCurrentWallRay().get_collision_point()
             lastWall = getCurrentWall()
           if CenterIsOnWall() && not is_on_floor() && !breakFromWall \
           && vel.user.y > 0 && wallBreakDownFrames <= 0 \
@@ -644,6 +661,7 @@ func _physics_process(delta: float) -> void:
         # jump from walljump
         if state == States.wallSliding && !breakFromWall and not onStickyFloor and ACTIONjump:
           # remainingJumpCount -= 1
+          autoRunDirection *= -1
           state = States.jumping
           breakFromWall = true
 
@@ -677,7 +695,7 @@ func _physics_process(delta: float) -> void:
           or duckRecovery > 0:
           playerXIntent = 0
         else:
-          playerXIntent = MOVESPEED * Input.get_axis("left", "right") * \
+          playerXIntent = MOVESPEED * getCurrentLrState() * \
           (2 if speedLeverActive else 1)
 
         # enter slide mode when pressing down key and on the ground
@@ -896,6 +914,26 @@ func _physics_process(delta: float) -> void:
     # log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
+func onDifferentWall():
+  if not lastWall:
+    return false
+  if getCurrentWall() && lastWall != getCurrentWall():
+    if not lastWallCollisionPoint:
+      return true
+    return getCurrentWallRay().get_collision_point().x != lastWallCollisionPoint.x
+
+func getCurrentWallRay() -> RayCast2D:
+  if $wallDetection/rightWall.is_colliding() and $wallDetection/leftWall.is_colliding():
+    if $anim.flip_h: return $wallDetection/leftWall
+    else: return $wallDetection/rightWall
+  if $wallDetection/rightWall.is_colliding(): return $wallDetection/rightWall
+  if $wallDetection/leftWall.is_colliding(): return $wallDetection/leftWall
+  return null
+
+func getCurrentLrState():
+  if levelFlags.autoRun:
+    return autoRunDirection
+  return Input.get_axis("left", "right")
 
 func applyHeat(delta):
   var heatToAdd = 0
@@ -1148,12 +1186,7 @@ func BottomIsOnWall() -> bool:
   return is_on_wall() && ($wallDetection/leftWallBottom.is_colliding() || $wallDetection/rightWallBottom.is_colliding())
 
 func getClosestWall() -> EditorBlock:
-  if $wallDetection/rightWall.is_colliding() and $wallDetection/leftWall.is_colliding():
-    if $anim.flip_h: return $wallDetection/leftWall.get_collider().root
-    else: return $wallDetection/rightWall.get_collider().root
-  if $wallDetection/rightWall.is_colliding(): return $wallDetection/rightWall.get_collider().root
-  if $wallDetection/leftWall.is_colliding(): return $wallDetection/leftWall.get_collider().root
-  return null
+  return getCurrentWallRay().get_collider().root if getCurrentWallRay() else null
 
 func getCurrentWall() -> EditorBlock:
   if !is_on_wall(): return null
@@ -1162,11 +1195,11 @@ func getCurrentWallSide() -> int:
   if !is_on_wall(): return 0
   return getClosestWallSide()
 func getClosestWallSide() -> int:
-  if $wallDetection/rightWall.is_colliding() and $wallDetection/leftWall.is_colliding():
-    if $anim.flip_h: return -1
-    else: return 1
-  if $wallDetection/rightWall.is_colliding(): return 1
-  if $wallDetection/leftWall.is_colliding(): return -1
+  var temp = getCurrentWallRay()
+  if temp == $wallDetection/rightWall:
+    return 1
+  if temp == $wallDetection/leftWall:
+    return -1
   return 0
 
 func setRot(rot):
@@ -1210,6 +1243,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
     vel[v] = Vector2.ZERO
   velocity = Vector2.ZERO
   playerXIntent = 0
+  lastWallCollisionPoint = null
   lastWallSide = 0
   lastWall = null
   pulleyNoDieTimer = 0
@@ -1401,7 +1435,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ??add powerups
 # ??!!don't allow wall jump wall change if new wall has same x contact position as last wall did
 # !!!add ui showing level modifiers
+# when first loading level blocks attach incorrectly until respawn
 
 # grab
 # walljump
 # max key hold count
+# cant stop moving
