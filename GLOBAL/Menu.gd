@@ -144,15 +144,6 @@ func camel_case_to_spaces(camel_case_string: String):
       result += char
   return result
 
-func formatName(name):
-  match get_all_data().menuOptionNameFormat:
-    0: return name
-    1: return camel_case_to_spaces(name.to_camel_case())
-    2: return camel_case_to_spaces(name.to_camel_case()).to_upper()
-    3: return name.to_snake_case()
-    4: return name.to_snake_case().to_upper()
-    5: return name.to_camel_case()
-
 func show_menu():
   startGroup("menu options")
   add_bool("onlyExpandSingleGroup", true)
@@ -170,6 +161,18 @@ func show_menu():
   var arr = []
   # for key in keys:
   #   arr.append(key)
+  var data = get_all_data()
+  var onlyExpandSingleGroup = data.onlyExpandSingleGroup
+  var menuOptionNameFormat = data.menuOptionNameFormat
+  var formatName = func formatName(name):
+    match menuOptionNameFormat:
+      0: return name
+      1: return camel_case_to_spaces(name.to_camel_case())
+      2: return camel_case_to_spaces(name.to_camel_case()).to_upper()
+      3: return name.to_snake_case()
+      4: return name.to_snake_case().to_upper()
+      5: return name.to_camel_case()
+      
   for key in keys:
     if key not in used_keys:
       #log.pp("INVALID KEY IN USER OPTIONS:", key)
@@ -187,7 +190,7 @@ func show_menu():
       "startGroup":
         var group = FoldableContainer.new()
         group.folded = true
-        if get_all_data().onlyExpandSingleGroup:
+        if onlyExpandSingleGroup:
           group.foldable_group = GROUP
         group.title = thing.name.substr(len("startGroup"))
         var vbox = VBoxContainer.new()
@@ -198,7 +201,7 @@ func show_menu():
         currentParent.pop_back()
       "range":
         var node = preload(path + "range.tscn").instantiate()
-        node.get_node("Label").text = formatName(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
         var range_node = node.get_node("HSlider")
         range_node.allow_greater = thing.allow_greater
         range_node.allow_lesser = thing.allow_lesser
@@ -222,7 +225,7 @@ func show_menu():
         #   "default": default
         # })
         var node = preload(path + "spinbox.tscn").instantiate()
-        node.get_node("Label").text = formatName(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
         var range_node = node.get_node("HSlider")
         range_node.allow_greater = thing.allow_greater
         range_node.allow_lesser = thing.allow_lesser
@@ -235,7 +238,7 @@ func show_menu():
         currentParent[len(currentParent) - 1].add_child(node)
       "bool":
         var node = preload(path + "bool.tscn").instantiate()
-        node.get_node("Label").text = formatName(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
         node.get_node("CheckButton").button_pressed = thing.user
         node.get_node("CheckButton").toggled.connect(__changed.bind(thing.name, node))
         currentParent[len(currentParent) - 1].add_child(node)
@@ -243,7 +246,7 @@ func show_menu():
         var node = preload(path + "multi select.tscn").instantiate()
         # node.get_node("optbtn/Label").text = thing.name
         var select = node.get_node("optbtn/OptionButton")
-        select.text = formatName(thing.name)
+        select.text = formatName.call(thing.name)
         node.options = thing.options
         node.selected = thing.user
         node.option_changed.connect(__changed.bind(thing.name, node))
@@ -262,7 +265,7 @@ func show_menu():
         # if len(c) != 4:
         #   c = thing.default.split(",")
         # colorSelect.color = Color(c[0], c[1], c[2], c[3])
-        node.get_node("Label").text = formatName(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
         colorSelect.color = Color.hex(int(thing.user))
         colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
         currentParent[len(currentParent) - 1].add_child(node)
@@ -270,7 +273,7 @@ func show_menu():
         var node: Control = preload(path + "color.tscn").instantiate()
         var colorSelect := node.get_node("HSlider")
         colorSelect.edit_alpha = false
-        node.get_node("Label").text = formatName(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
         # var c = thing.user.split(",")
         # if len(c) != 4:
         #   c = thing.default.split(",")
@@ -280,7 +283,7 @@ func show_menu():
         currentParent[len(currentParent) - 1].add_child(node)
       "single select":
         var node = preload(path + "single select.tscn").instantiate()
-        node.get_node("Label").text = formatName(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
         # node.get_node("OptionButton").value = str(thing.user)
         var select = node.get_node("OptionButton")
         select.clear()
@@ -309,7 +312,7 @@ func show_menu():
       "named range":
         var newarr = sort_dict_to_arr(thing.options)
         var node = preload(path + "named range.tscn").instantiate()
-        node.get_node("Label").text = formatName(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
         var range_node = node.get_node("HSlider")
         range_node.min_value = newarr[0][0]
         range_node.max_value = newarr[-1][0]
