@@ -79,6 +79,31 @@ offset_right = 162.98
 offset_bottom = 170.0
 columns = 3
 
+[node name="_base" type="Control" parent="modifiers"]
+visible = false
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="main" type="TextureRect" parent="modifiers/_base"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "when moving up a slope the player will be slower and when moving down a slope the player will be faster"
+texture = ExtResource("14_hc5d0")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="modifiers/_base"]
+layout_mode = 0
+offset_left = -12.5
+offset_top = 25.0
+offset_right = 37.5
+offset_bottom = 75.0
+rotation = -0.7853982
+tooltip_text = "the player speed will be the same going up or down slopes"
+texture = ExtResource("6_pfayw")
+expand_mode = 1
+
 [node name="canDoWallSlide" type="Control" parent="modifiers"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
@@ -256,7 +281,7 @@ layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
 tooltip_text = "when moving up a slope the player will be slower and when moving down a slope the player will be faster"
-texture = ExtResource("9_hl07w")
+texture = ExtResource("14_hc5d0")
 expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/changeSpeedOnSlopes"]

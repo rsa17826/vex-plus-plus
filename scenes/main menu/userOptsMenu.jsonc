@@ -166,7 +166,7 @@
   },
   {
     "thing": "group",
-    "name": "random editor settings",
+    "name": "editor settings",
     "value": [
       {
         "thing": "option",
@@ -289,6 +289,18 @@
         "type": "rgba",
         "key": "boxSelectColor",
         "defaultValue": 1483315998.0
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "info",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showUnchangedLevelMods",
+        "defaultValue": false
       }
     ]
   },

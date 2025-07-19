@@ -15,6 +15,9 @@ func onProgress(prog, max):
   if prog % 50 == 0:
     await global.wait(150)
 
+func modVis(mod, val):
+  global.ui.modifiers.get_node(mod).visible = val
+
 func loadLevel(level):
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
@@ -25,8 +28,8 @@ func loadLevel(level):
   global.player.state = global.player.States.levelLoading
   
   # hide all mods
-  for child in global.ui.modifiers.get_node("jumpCount").get_children():
-    child.visible = false
+  for child in global.ui.modifiers.get_children():
+    child.visible = global.useropts.showUnchangedLevelMods
 
   var boolFlags = [
     'autoRun',
@@ -39,28 +42,34 @@ func loadLevel(level):
   for flag in boolFlags:
     global.player.levelFlags[flag] = global.currentLevelSettings(flag)
   for flag in boolFlags:
-    if global.defaultLevelSettings[flag]:
-      global.ui.modifiers.get_node(flag).visible = true
-      global.ui.modifiers.get_node(flag + '/nope').visible = !global.currentLevelSettings(flag)
+    if global.useropts.showUnchangedLevelMods:
+      modVis(flag, true)
+      modVis(flag + '/nope', !global.currentLevelSettings(flag))
     else:
-      global.ui.modifiers.get_node(flag).visible = global.currentLevelSettings(flag)
+      if global.currentLevelSettings(flag) == global.defaultLevelSettings[flag]:
+        modVis(flag, false)
+      else:
+        modVis(flag, global.currentLevelSettings(flag))
+        modVis(flag + '/nope', !global.currentLevelSettings(flag))
+    log.pp(flag, global.currentLevelSettings(flag))
 
   var jumps = global.currentLevelSettings("jumpCount")
+  for child in global.ui.modifiers.get_node('jumpCount').get_children():
+    child.visible = false
   if jumps >= 4:
-    global.ui.modifiers.get_node('jumpCount/4+').visible = true
+    modVis('jumpCount/4+', true)
   elif jumps == 1:
-    pass
+    if global.useropts.showUnchangedLevelMods:
+      modVis('jumpCount/1', true)
   elif jumps <= 0:
-    global.ui.modifiers.get_node('jumpCount/1').visible = true
-    global.ui.modifiers.get_node('jumpCount/nope').visible = true
+    modVis('jumpCount/1', true)
+    modVis('jumpCount/nope', true)
   else:
-    global.ui.modifiers.get_node('jumpCount/' + str(jumps)).visible = true
+    modVis('jumpCount/' + str(jumps), true)
 
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
   global.player.MAX_JUMP_COUNT = global.currentLevelSettings("jumpCount")
   
-  # global.levelColor = int(global.levelOpts.stages[global.currentLevel().name].color)
-  # log.pp(global.path.join(global.levelFolderPath, level), global.loadedLevels, global.beatLevels)
   global.ui.progressContainer.visible = true
   var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
   .call(global.path.join(global.levelFolderPath, level + '.sds'),
