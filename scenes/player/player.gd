@@ -20,7 +20,8 @@ const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
-var remainingJumpCount = 0
+var cannonRotDelFrames: float = 0
+var remainingJumpCount: int = 0
 var poleCooldown = 0
 var deathSources: Array[EditorBlock] = []
 var targetingLasers: Array[BlockTargetingLaser] = []
@@ -98,9 +99,9 @@ var justAddedVels := {
   "conveyer": 0,
   "cannon": 0,
 }
-var stopVelOnGround := ["bounce", "waterExit"]
-var stopVelOnWall := ["bounce", "waterExit"]
-var stopVelOnCeil := ["bounce", "waterExit"]
+var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole"]
+var stopVelOnWall := ["bounce", "waterExit", "cannon", "pole"]
+var stopVelOnCeil := ["bounce", "waterExit", "cannon", "pole"]
 
 @onready var unduckSize: Vector2 = Vector2(8, 33) # $CollisionShape2D.shape.size
 @onready var unduckPos: Vector2 = Vector2.ZERO # $CollisionShape2D.position
@@ -322,14 +323,20 @@ func _physics_process(delta: float) -> void:
         return
       global_position = activeCannon.thingThatMoves.global_position + (Vector2(0, -130) * activeCannon.scale)
       activeCannon.top_level = true
-      activeCannon.rotNode.rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
-      activeCannon.rotNode.rotation_degrees = clamp(activeCannon.rotNode.rotation_degrees, -35, 35)
+      if cannonRotDelFrames > 0:
+        cannonRotDelFrames -= delta
+      else:
+        activeCannon.rotNode.rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
+      activeCannon.rotNode.rotation_degrees = clamp(activeCannon.rotNode.rotation_degrees, -25, 25)
+      rotation = activeCannon.rotNode.rotation
+      $anim.flip_h = rotation < 0
       $anim.animation = "idle"
       if ACTIONjump:
-        activeCannon.rotNode.rotation_degrees = 0
-        vel.cannon = Vector2(0, -17000).rotated(activeCannon.rotation) * activeCannon.scale
+        vel.cannon = Vector2(0, -17000).rotated(activeCannon.rotation + activeCannon.rotNode.rotation) * activeCannon.scale
+        log.pp(vel.cannon)
         vel.user = Vector2.ZERO
         state = States.jumping
+        activeCannon.rotNode.rotation_degrees = 0
         activeCannon = null
     States.swingingOnPole:
       if inWaters:
@@ -887,7 +894,6 @@ func _physics_process(delta: float) -> void:
     # log.pp($Camera2D.position, changeInPosition)
 
     # log.pp($Camera2D.position_smoothing_speed, maxVel)
-  log.pp(remainingJumpCount, playerKT)
 
 func applyHeat(delta):
   var heatToAdd = 0
@@ -1187,6 +1193,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   lastCollidingBlocks = []
   heat = 0
   targetingLasers = []
+  activeCannon = null
   activePulley = null
   global.stopTicking = true
   deadTimer = max(respawnTime, 0)
