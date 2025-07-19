@@ -59,32 +59,32 @@ func move_positions(direction, gravity, animate):
   if direction == "left" and gravity == "bottom":
     for index in label_bottom_left.size():
       var _label = label_bottom_left[index]
-      _label.move_to(label_bottom_left.size() - 1 - index, animate)
+      _label.move_to(label_bottom_left.size() - 1 - index, animate, index==0)
   
   elif direction == "left" and gravity == "top":
     for index in label_top_left.size():
       var _label = label_top_left[index]
-      _label.move_to(label_top_left.size() - 1 - index, animate)
+      _label.move_to(label_top_left.size() - 1 - index, animate, index==0)
 
   elif direction == "right" and gravity == "bottom":
     for index in label_bottom_right.size():
       var _label = label_bottom_right[index]
-      _label.move_to(label_bottom_right.size() - 1 - index, animate)
+      _label.move_to(label_bottom_right.size() - 1 - index, animate, index==0)
 
   elif direction == "right" and gravity == "top":
     for index in label_top_right.size():
       var _label = label_top_right[index]
-      _label.move_to(label_top_right.size() - 1 - index, animate)
+      _label.move_to(label_top_right.size() - 1 - index, animate, index==0)
 
   elif direction == "center" and gravity == "bottom":
     for index in label_bottom_center.size():
       var _label = label_bottom_center[index]
-      _label.move_to(label_bottom_center.size() - 1 - index, animate)
+      _label.move_to(label_bottom_center.size() - 1 - index, animate, index==0)
   
   elif direction == "center" and gravity == "top":
     for index in label_top_center.size():
       var _label = label_top_center[index]
-      _label.move_to(label_top_center.size() - 1 - index, animate)
+      _label.move_to(label_top_center.size() - 1 - index, animate, index==0)
   
 func remove_label_from_array(label):
   if label.direction == "left":
@@ -143,7 +143,7 @@ func error(msg):
 func success(msg):
   show({
     "text": msg,
-    "bgcolor": Color(0, .4, 0, .5),
+    "bgcolor": Color(0.0235294118, 1, 0, .3),
     "color": Color(1, 1, 1, 1),
     "gravity": "top",
     "direction": "right"
@@ -152,7 +152,7 @@ func success(msg):
 func info(msg):
   show({
     "text": msg,
-    "bgcolor": Color(0, 0, .7, .7),
+    "bgcolor": Color(0, 0.8941176471, 1, .2),
     "color": Color(1, 1, 1, 1),
     "gravity": "top",
     "direction": "right"

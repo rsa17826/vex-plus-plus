@@ -68,13 +68,13 @@ func update_text(_text: String) -> void:
   button_size = self.size
   update_x_position()
 
-func move_to(index: int, animate: bool) -> void:
+func move_to(index: int, animate: bool, isFinal) -> void:
   update_x_position()
   var offset_y = (margin_between + button_size.y) * index
   var _y = get_y_pos(offset_y, gravity)
   position.y = _y
   # bottom
-  if index == 0 and animate:
+  if isFinal and animate:
     _tween_in = get_tree().create_tween()
     _tween_in.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS) # pause mode
     _tween_in.stop()
@@ -82,9 +82,9 @@ func move_to(index: int, animate: bool) -> void:
     var delayed = 0.03
     (
       _tween_in
-      .tween_property(self , "position", Vector2(position.x - margins.left - margins.left - size.x - offset_position.x, _y), .1)
-      .set_trans(Tween.TRANS_QUINT)
-      .set_ease(Tween.EASE_IN)
+      .tween_property(self , "position", Vector2(position.x - margins.left - margins.left - size.x - offset_position.x, _y), .3)
+      .set_trans(Tween.TRANS_QUAD)
+      .set_ease(Tween.EASE_OUT)
       .set_delay(delayed)
     )
     _tween_in.play()
