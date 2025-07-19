@@ -987,9 +987,10 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   if block is BlockGlass \
   and playerSide.bottom \
   and applyRot(velocity).y >= -SMALL \
-  and vel.user.y > -SMALL \
+  and vel.user.y > SMALL \
   and Input.is_action_pressed(&"down") \
   :
+    log.pp(applyRot(velocity).y, vel.user.y)
     block.__disable()
   if block is BlockBouncy \
   and blockSide.top \
@@ -1344,6 +1345,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
   # !version ?-NOW! when respawning gols can still be interacted with
   # !version ?-INF! collision is not checked while in cannons
+  # !version ?-91! ice blocks don't require falling to break
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1397,8 +1399,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ??!!?make gravity rotators only affect the things that enter them
 # !!!make invisible blocks make all blocks attached to them also invisible
 # ??add powerups
+# ??!!don't allow wall jump wall change if new wall has same x contact position as last wall did
 
 # grab
-# jump count
 # walljump
 # max key hold count

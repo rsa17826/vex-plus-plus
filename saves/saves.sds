@@ -404,7 +404,7 @@
     STR(beatLevels)[]
   }
   STR(cshk){
-    STR(lastSpawnPoint)VEC2(351.472564697266,-105.080284118652)
+    STR(lastSpawnPoint)VEC2(451.472564697266,-155.080291748047)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
