@@ -172,7 +172,7 @@ func show_menu():
       3: return name.to_snake_case()
       4: return name.to_snake_case().to_upper()
       5: return name.to_camel_case()
-      
+
   for key in keys:
     if key not in used_keys:
       #log.pp("INVALID KEY IN USER OPTIONS:", key)
@@ -322,7 +322,6 @@ func show_menu():
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
-
       _:
         log.warn("no method is set to add", thing.type)
   # #log.pp(arr)
