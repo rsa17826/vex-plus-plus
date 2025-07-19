@@ -20,12 +20,7 @@ const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
-var levelFlags = {
-  "autoRun": false,
-  "canDoWallJump": true,
-  "canDoWallSlide": true,
-  "canDoWallHang": true,
-}
+var levelFlags = {}
 var autoRunDirection: int = 1
 var cannonRotDelFrames: float = 0
 var remainingJumpCount: int = 0
