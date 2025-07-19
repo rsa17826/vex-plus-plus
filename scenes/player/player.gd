@@ -1400,6 +1400,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!!make invisible blocks make all blocks attached to them also invisible
 # ??add powerups
 # ??!!don't allow wall jump wall change if new wall has same x contact position as last wall did
+# !!!add ui showing level modifiers
 
 # grab
 # walljump

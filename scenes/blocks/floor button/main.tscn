@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="63_ynnot"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
-size = Vector2(692, 21)
+size = Vector2(600, 21)
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_xt2eu"]
 points = PackedVector2Array(-320, -11.75, -350, 12.25, 350, 12.25, 320, -11.75)
