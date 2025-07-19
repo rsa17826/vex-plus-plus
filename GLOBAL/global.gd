@@ -1140,6 +1140,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   # breakpoint
   currentLevel().spawnPoint = player.global_position - player.get_parent().global_position
   currentLevel().up_direction = player.up_direction
+  currentLevel().autoRunDirection = player.autoRunDirection
 
   var prevLevelDataFound = false
   for level in beatLevels:
@@ -1208,6 +1209,7 @@ func savePlayerLevelData() -> void:
   
   currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
   currentLevel().up_direction = player.up_direction
+  currentLevel().autoRunDirection = player.autoRunDirection
   currentLevel().blockSaveData = saveBlockData()
   log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
   sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
@@ -1218,6 +1220,7 @@ func newLevelSaveData(levelname):
     "name": levelname,
     "spawnPoint": Vector2.ZERO,
     "up_direction": Vector2.UP,
+    "autoRunDirection": 1,
     "tick": 0,
     "blockSaveData": {},
   }.duplicate()
@@ -1446,7 +1449,10 @@ const defaultLevelSettings = {
   "color": 1,
   "changeSpeedOnSlopes": false,
   "saveTick": false,
-  "maxJumpCount": 1,
+  "jumpCount": 1,
+  "autoRun": false,
+  "canDoWallhang": true,
+  "canDoWallSlide": true,
 }
 
 func currentLevelSettings(key: Variant = null) -> Variant:
