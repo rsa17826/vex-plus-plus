@@ -1451,7 +1451,7 @@ const defaultLevelSettings = {
   "saveTick": false,
   "jumpCount": 1,
   "autoRun": false,
-  "canDoWallhang": true,
+  "canDoWallHang": true,
   "canDoWallSlide": true,
 }
 

@@ -9,8 +9,9 @@
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
       STR(jumpCount)INT(1)
-      STR(canDoWallJump)BOOL(false)
-      STR(canDoWallHang)BOOL(false)
+      STR(canDoWallJump)BOOL(true)
+      STR(canDoWallSlide)BOOL(false)
+      STR(canDoWallHang)BOOL(true)
     }
   }
 }

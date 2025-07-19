@@ -24,7 +24,7 @@ var levelFlags = {
   "autoRun": false,
   "canDoWallJump": true,
   "canDoWallSlide": true,
-  "canDoWallhang": true,
+  "canDoWallHang": true,
 }
 var autoRunDirection: int = 1
 var cannonRotDelFrames: float = 0
@@ -561,13 +561,7 @@ func _physics_process(delta: float) -> void:
         if state == States.wallHang || state == States.wallSliding:
           # remainingJumpCount = MAX_JUMP_COUNT
           if not is_on_wall() and getClosestWallSide():
-            var ray: RayCast2D
-            match getClosestWallSide():
-              1:
-                ray = $wallDetection/rightWall
-              -1:
-                ray = $wallDetection/leftWall
-
+            var ray: RayCast2D = getClosestWallRay()
             var origin: Vector2 = ray.global_transform.origin
             var collision_point := ray.get_collision_point()
             var distance := origin.distance_to(collision_point)
@@ -594,9 +588,10 @@ func _physics_process(delta: float) -> void:
         else:
           # if not on floor and switching wall sides allow both walls again
           if (
+            levelFlags.canDoWallSlide &&
             (lastWallSide && (getCurrentWallSide() && lastWallSide != getCurrentWallSide()))
             or onDifferentWall()
-            ) and not collidingWithNowj():
+          ) and not collidingWithNowj():
             lastWallSide = 0
             lastWallCollisionPoint = null
             lastWall = null
@@ -609,8 +604,7 @@ func _physics_process(delta: float) -> void:
           # log.pp(velocity.y)
           if vel.user.y > -20 && state != States.wallHang:
             # log.pp("entering wall grab", CenterIsOnWall(), TopIsOnWall())
-            log.pp(levelFlags.canDoWallhang, "levelFlags.canDoWallhang")
-            if levelFlags.canDoWallhang && (CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj()):
+            if levelFlags.canDoWallHang && (CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj()):
               currentHungWall = $wallDetection/rightWall.get_collider() if getCurrentWallSide() == 1 else $wallDetection/leftWall.get_collider()
               hungWallSide = getCurrentWallSide()
               state = States.wallHang
@@ -634,11 +628,15 @@ func _physics_process(delta: float) -> void:
           # if not in wall hang state and near a wall
           if state != States.wallHang && getCurrentWallSide() and not collidingWithNowj():
             lastWallSide = getCurrentWallSide()
-            lastWallCollisionPoint = getCurrentWallRay().get_collision_point()
+            lastWallCollisionPoint = getClosestWallRay().get_collision_point()
             lastWall = getCurrentWall()
-          if CenterIsOnWall() && not is_on_floor() && !breakFromWall \
-          && vel.user.y > 0 && wallBreakDownFrames <= 0 \
-          and not collidingWithNowj():
+          if (
+            levelFlags.canDoWallSlide and (
+              CenterIsOnWall() && not is_on_floor() && !breakFromWall \
+              && vel.user.y > 0 && wallBreakDownFrames <= 0 \
+              and not collidingWithNowj()
+            )
+          ):
             vel.user.y = WALL_SLIDE_SPEED
             
             # remainingJumpCount = MAX_JUMP_COUNT
@@ -660,7 +658,7 @@ func _physics_process(delta: float) -> void:
         if breakFromWall:
           wallSlidingFrames = 0
         # jump from walljump
-        if state == States.wallSliding && !breakFromWall and not onStickyFloor and ACTIONjump:
+        if levelFlags.canDoWallJump and (state == States.wallSliding && !breakFromWall and not onStickyFloor and ACTIONjump):
           # remainingJumpCount -= 1
           autoRunDirection *= -1
           state = States.jumping
@@ -922,9 +920,9 @@ func onDifferentWall():
   if getCurrentWall() && lastWall != getCurrentWall():
     if not lastWallCollisionPoint:
       return true
-    return getCurrentWallRay().get_collision_point().x != lastWallCollisionPoint.x
+    return getClosestWallRay().get_collision_point().x != lastWallCollisionPoint.x
 
-func getCurrentWallRay() -> RayCast2D:
+func getClosestWallRay() -> RayCast2D:
   if $wallDetection/rightWall.is_colliding() and $wallDetection/leftWall.is_colliding():
     if $anim.flip_h: return $wallDetection/leftWall
     else: return $wallDetection/rightWall
@@ -1188,7 +1186,7 @@ func BottomIsOnWall() -> bool:
   return is_on_wall() && ($wallDetection/leftWallBottom.is_colliding() || $wallDetection/rightWallBottom.is_colliding())
 
 func getClosestWall() -> EditorBlock:
-  return getCurrentWallRay().get_collider().root if getCurrentWallRay() else null
+  return getClosestWallRay().get_collider().root if getClosestWallRay() else null
 
 func getCurrentWall() -> EditorBlock:
   if !is_on_wall(): return null
@@ -1197,7 +1195,7 @@ func getCurrentWallSide() -> int:
   if !is_on_wall(): return 0
   return getClosestWallSide()
 func getClosestWallSide() -> int:
-  var temp = getCurrentWallRay()
+  var temp = getClosestWallRay()
   if temp == $wallDetection/rightWall:
     return 1
   if temp == $wallDetection/leftWall:
