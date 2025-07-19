@@ -333,7 +333,6 @@ fancy_folder_icons/rules={
 "res://scenes/blocks/spark block/clockwise/": "res://scenes/blocks/spark block/clockwise/images/1.png",
 "res://scenes/blocks/spark block/counterClockwise/": "res://scenes/blocks/spark block/counterClockwise/images/1.png",
 "res://scenes/player/": "res://scenes/player/images/anim/idle/1.png",
-"res://scenes/player/images/**": "res://scenes/blocks/image.png",
 "res://scenes/player/player.tscn": "res://scenes/player/images/anim/idle/1.png"
 }
 fancy_folder_icons/openRules=false
