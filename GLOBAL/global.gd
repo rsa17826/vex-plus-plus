@@ -1453,6 +1453,7 @@ const defaultLevelSettings = {
   "autoRun": false,
   "canDoWallHang": true,
   "canDoWallSlide": true,
+  "canDoWallJump": true,
 }
 
 func currentLevelSettings(key: Variant = null) -> Variant:
