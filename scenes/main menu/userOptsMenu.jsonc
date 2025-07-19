@@ -202,6 +202,12 @@
       },
       {
         "thing": "option",
+        "type": "bool",
+        "key": "noCornerGrabsForScaling",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
         "type": "range",
         "key": "blockGhostAlpha",
         "defaultValue": 0.3,
@@ -301,18 +307,6 @@
         "type": "bool",
         "key": "showUnchangedLevelMods",
         "defaultValue": false
-      }
-    ]
-  },
-  {
-    "thing": "group",
-    "name": "?",
-    "value": [
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "noCornerGrabsForScaling",
-        "defaultValue": false
       },
       {
         "thing": "option",
@@ -327,5 +321,10 @@
         "defaultValue": true
       }
     ]
+  },
+  {
+    "thing": "group",
+    "name": "?",
+    "value": []
   }
 ]
