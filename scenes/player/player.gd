@@ -322,7 +322,7 @@ func _physics_process(delta: float) -> void:
         state = States.falling
         return
       global_position = activeCannon.thingThatMoves.global_position + (Vector2(0, -130) * activeCannon.scale)
-      activeCannon.top_level = true
+      # activeCannon.top_level = true
       if cannonRotDelFrames > 0:
         cannonRotDelFrames -= delta
       else:

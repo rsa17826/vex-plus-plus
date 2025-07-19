@@ -7,13 +7,13 @@ class_name BlockCannon
 func on_body_entered(body: Node) -> void:
   if body is Player:
     if global.player.activeCannon && global.player.activeCannon == self: return
-    if global.player.activeCannon:
-      global.player.activeCannon.top_level = false
+    # if global.player.activeCannon:
+    #   global.player.activeCannon.top_level = false
     global.player.state = global.player.States.inCannon
     global.player.activeCannon = self
     global.player.cannonRotDelFrames = 0.07
     
 func on_respawn() -> void:
-  top_level = false
+  # top_level = false
   rotNode.rotation_degrees = 0
   $collisionNode.position = Vector2.ZERO
