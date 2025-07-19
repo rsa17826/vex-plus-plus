@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dslqhsidwaq5a"]
+[gd_scene load_steps=9 format=3 uid="uid://dslqhsidwaq5a"]
 
 [ext_resource type="Script" uid="uid://faukmaae00rx" path="res://scenes/blocks/cannon/cannon.gd" id="1_1jh5p"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_0e32w"]
-[ext_resource type="Texture2D" uid="uid://donp6sg30n8g1" path="res://scenes/blocks/cannon/images/1.png" id="2_wy60s"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_1jh5p"]
+[ext_resource type="Texture2D" uid="uid://dcd36eg0503w6" path="res://scenes/blocks/cannon/images/bottom.png" id="3_b7g7s"]
+[ext_resource type="Texture2D" uid="uid://buceiiggnddor" path="res://scenes/blocks/cannon/images/top.png" id="4_wipba"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wy60s"]
 size = Vector2(72, 169)
@@ -14,12 +15,13 @@ size = Vector2(228, 92)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e32w"]
 size = Vector2(332, 9.5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("rotNode", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["attaches to things"]]
 script = ExtResource("1_1jh5p")
-ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
+rotNode = NodePath("collisionNode/Top")
+ghostIconNode = NodePath("collisionNode/bottom")
+editorBarIconNode = NodePath("collisionNode/bottom")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/CollisionShape2D2"), NodePath("collisionNode/attach detector/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D")]
+hidableSprites = [NodePath("collisionNode/Top"), NodePath("collisionNode/bottom")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
 thingThatMoves = NodePath("collisionNode")
 oddScaleOffsetForce = Dictionary[String, int]({
@@ -33,11 +35,16 @@ collision_mask = 2
 script = ExtResource("2_0e32w")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Top" type="Sprite2D" parent="collisionNode"]
+position = Vector2(0, -88.715)
+scale = Vector2(0.606, 0.606)
+texture = ExtResource("4_wipba")
+
+[node name="bottom" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
 position = Vector2(0, -88.815)
 scale = Vector2(0.606, 0.606)
-texture = ExtResource("2_wy60s")
+texture = ExtResource("3_b7g7s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, -91.418)

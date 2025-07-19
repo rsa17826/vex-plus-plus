@@ -10,10 +10,10 @@
 script = ExtResource("1_bovvr")
 boxSelectDrawingNode = NodePath("CanvasLayer/boxSelectDrawingNode")
 
+[node name="blocks" type="Node2D" parent="."]
+
 [node name="player" parent="." instance=ExtResource("2_b2cq8")]
 position = Vector2(61, 383)
-
-[node name="blocks" type="Node2D" parent="."]
 
 [node name="autosaveTimer" type="Timer" parent="."]
 ignore_time_scale = true
