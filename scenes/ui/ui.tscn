@@ -1,17 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=15 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
 [ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
 [ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
+[ext_resource type="Texture2D" uid="uid://bh5nkeis3bmvj" path="res://scenes/player/levelFlagImages/nope.png" id="6_pfayw"]
+[ext_resource type="Texture2D" uid="uid://dwoncen3jiuv0" path="res://scenes/player/levelFlagImages/canDoWallSlide.png" id="7_jcn1r"]
+[ext_resource type="Texture2D" uid="uid://dquotko52oiag" path="res://scenes/player/levelFlagImages/canDoWallHang.png" id="8_uegxj"]
+[ext_resource type="Texture2D" uid="uid://u5oq6wq5r0wf" path="res://scenes/player/levelFlagImages/1 jump.png" id="9_hl07w"]
+[ext_resource type="Texture2D" uid="uid://bd60qbqc1fq7s" path="res://scenes/player/levelFlagImages/canDoWallJump.png" id="9_swkix"]
+[ext_resource type="Texture2D" uid="uid://gwjisq38njy3" path="res://scenes/player/levelFlagImages/2 jumps.png" id="10_swkix"]
+[ext_resource type="Texture2D" uid="uid://c8mgwucaxddj8" path="res://scenes/player/levelFlagImages/3 jumps.png" id="11_hc5d0"]
+[ext_resource type="Texture2D" uid="uid://nsc828vkp3sq" path="res://scenes/player/levelFlagImages/4+ jumps.png" id="12_n3vwu"]
+[ext_resource type="Texture2D" uid="uid://dyse3nbxu1fjr" path="res://scenes/player/levelFlagImages/placeholder.png" id="14_hc5d0"]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers")]
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("saved")
 editorBar = NodePath("editor bar")
 progressContainer = NodePath("ProgressContainer")
 progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
+modifiers = NodePath("modifiers")
 
 [node name="star counter" type="Label" parent="."]
 offset_left = 57.0
@@ -61,3 +71,201 @@ grow_vertical = 2
 [node name="ProgressBar" type="ProgressBar" parent="ProgressContainer/CenterContainer"]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
+
+[node name="modifiers" type="GridContainer" parent="."]
+offset_left = 4.98
+offset_top = 120.0
+offset_right = 162.98
+offset_bottom = 170.0
+columns = 3
+
+[node name="canDoWallSlide" type="Control" parent="modifiers"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="main" type="TextureRect" parent="modifiers/canDoWallSlide"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "the player can slide down walls"
+texture = ExtResource("7_jcn1r")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="modifiers/canDoWallSlide"]
+layout_mode = 0
+offset_left = -12.5
+offset_top = 25.0
+offset_right = 37.5
+offset_bottom = 75.0
+rotation = -0.7853982
+tooltip_text = "the player can not slide down walls"
+texture = ExtResource("6_pfayw")
+expand_mode = 1
+
+[node name="canDoWallHang" type="Control" parent="modifiers"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="main" type="TextureRect" parent="modifiers/canDoWallHang"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "the player will grab onto ledges when jumping up a wall"
+texture = ExtResource("8_uegxj")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="modifiers/canDoWallHang"]
+layout_mode = 0
+offset_left = -12.5
+offset_top = 25.0
+offset_right = 37.5
+offset_bottom = 75.0
+rotation = -0.7853982
+tooltip_text = "the player will not grab onto ledges"
+texture = ExtResource("6_pfayw")
+expand_mode = 1
+
+[node name="canDoWallJump" type="Control" parent="modifiers"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="main" type="TextureRect" parent="modifiers/canDoWallJump"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "the player can walljump"
+texture = ExtResource("9_swkix")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="modifiers/canDoWallJump"]
+layout_mode = 0
+offset_left = -12.5
+offset_top = 25.0
+offset_right = 37.5
+offset_bottom = 75.0
+rotation = -0.7853982
+tooltip_text = "walljumping is disabled"
+texture = ExtResource("6_pfayw")
+expand_mode = 1
+
+[node name="autoRun" type="Control" parent="modifiers"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="main" type="TextureRect" parent="modifiers/autoRun"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "the player will keep running"
+texture = ExtResource("8_uegxj")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="modifiers/autoRun"]
+layout_mode = 0
+offset_left = -12.5
+offset_top = 25.0
+offset_right = 37.5
+offset_bottom = 75.0
+rotation = -0.7853982
+tooltip_text = "the player can move left and right normally"
+texture = ExtResource("6_pfayw")
+expand_mode = 1
+
+[node name="jumpCount" type="Control" parent="modifiers"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="1" type="TextureRect" parent="modifiers/jumpCount"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "the player has 1 jump"
+texture = ExtResource("9_hl07w")
+expand_mode = 1
+
+[node name="2" type="TextureRect" parent="modifiers/jumpCount"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "the player has a double jump"
+texture = ExtResource("10_swkix")
+expand_mode = 1
+
+[node name="3" type="TextureRect" parent="modifiers/jumpCount"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "the player has a tripple jump"
+texture = ExtResource("11_hc5d0")
+expand_mode = 1
+
+[node name="4+" type="TextureRect" parent="modifiers/jumpCount"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "the player has a 4 or more jumps"
+texture = ExtResource("12_n3vwu")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="modifiers/jumpCount"]
+layout_mode = 0
+offset_left = -12.5
+offset_top = 25.0
+offset_right = 37.5
+offset_bottom = 75.0
+rotation = -0.7853982
+tooltip_text = "the player is not able to jump"
+texture = ExtResource("6_pfayw")
+expand_mode = 1
+
+[node name="saveTick" type="Control" parent="modifiers"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="main" type="TextureRect" parent="modifiers/saveTick"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "when the game is saved the tick will be saved with it meaning that when you respawn blocks will reset back to where they were when you reached the checkpoint instead of the default position"
+texture = ExtResource("14_hc5d0")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="modifiers/saveTick"]
+layout_mode = 0
+offset_left = -12.5
+offset_top = 25.0
+offset_right = 37.5
+offset_bottom = 75.0
+rotation = -0.7853982
+texture = ExtResource("6_pfayw")
+expand_mode = 1
+
+[node name="changeSpeedOnSlopes" type="Control" parent="modifiers"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="main" type="TextureRect" parent="modifiers/changeSpeedOnSlopes"]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "when moving up a slope the player will be slower and when moving down a slope the player will be faster"
+texture = ExtResource("9_hl07w")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="modifiers/changeSpeedOnSlopes"]
+layout_mode = 0
+offset_left = -12.5
+offset_top = 25.0
+offset_right = 37.5
+offset_bottom = 75.0
+rotation = -0.7853982
+tooltip_text = "the player speed will be the same going up or down slopes"
+texture = ExtResource("6_pfayw")
+expand_mode = 1

@@ -63,10 +63,16 @@ func loadLevel(level):
   
   global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
   global.player.MAX_JUMP_COUNT = global.currentLevelSettings("jumpCount")
-  global.player.levelFlags.autoRun = global.currentLevelSettings("autoRun")
-  global.player.levelFlags.canDoWallSlide = global.currentLevelSettings("canDoWallSlide")
-  global.player.levelFlags.canDoWallJump = global.currentLevelSettings("canDoWallJump")
-  global.player.levelFlags.canDoWallHang = global.currentLevelSettings("canDoWallHang")
+  var boolFlags = [
+    'autoRun',
+    "canDoWallJump",
+    "canDoWallSlide",
+    'canDoWallHang',
+    'saveTick',
+    'changeSpeedOnSlopes'
+  ]
+  for flag in boolFlags:
+    global.player.levelFlags[flag] = global.currentLevelSettings(flag)
   global.player.get_node("../CanvasLayer/editor bar")._ready()
   await global.wait()
   global.tick = 0
@@ -78,6 +84,28 @@ func loadLevel(level):
   global.player.updateCollidingBlocksEntered()
   await global.wait()
   global.tick = global.currentLevel().tick
+  for flag in boolFlags:
+    if global.defaultLevelSettings[flag]:
+      global.ui.modifiers.get_node(flag).visible = true
+      global.ui.modifiers.get_node(flag + '/nope').visible = !global.currentLevelSettings(flag)
+    else:
+      global.ui.modifiers.get_node(flag).visible = global.currentLevelSettings(flag)
+  var jumps = global.currentLevelSettings("jumpCount")
+
+  for child in global.ui.modifiers.get_node("jumpCount").get_children():
+    child.visible = false
+    
+  if jumps >= 4:
+    global.ui.modifiers.get_node('jumpCount/4+').visible = true
+  elif jumps == 1:
+    pass
+  elif jumps <= 0:
+    global.ui.modifiers.get_node('jumpCount/1').visible = true
+  else:
+    global.ui.modifiers.get_node('jumpCount/' + str(jumps)).visible = true
+
+  if jumps <= 0:
+    global.ui.modifiers.get_node('jumpCount/nope').visible = true
   # await global.wait()
   # await global.wait(300)
   # global.savePlayerLevelData()
