@@ -6,10 +6,12 @@ var menu_index := 0
 var parent = null
 var used_keys = []
 var currentParent = []
+var groups = []
 var GROUP = FoldableGroup.new()
 func _init(_parent, save_path: String = "main") -> void:
   parent = _parent
   currentParent = [_parent]
+  groups = []
   full_save_path = "user://" + save_path + \
   (" - EDITOR" if OS.has_feature("editor") else '') \
   +".sds"
@@ -22,18 +24,20 @@ func _init(_parent, save_path: String = "main") -> void:
   # #log.pp("loading", _parent.name, save_path)
 
 # add a add that is multiselect/singleselect/range but with images instead of text either from a list of images or a dir full of images
+
 # add optional icon to add_bool
 func startGroup(name):
-  _add_any("startGroup" + name, {
+  groups.append(name)
+  _add_any("startGroup - " + name, {
     "type": "startGroup",
     "name": name,
-    'default': null
+    'default': false
   })
   # var group = FoldableContainer.new()
   # parent.add_child(group)
   # currentParent.append(group)
 func endGroup():
-  _add_any("endGroup" + str(randf()), {
+  _add_any("endGroup" + groups.pop_back(), {
     "type": "endGroup",
     'default': null
   })
@@ -117,7 +121,8 @@ const path = "res://GLOBAL/menu things/"
 func get_all_data():
   var newobj = {}
   for key in menu_data.keys():
-    if 'type' in menu_data[key] and menu_data[key].type in ['startGroup', 'endGroup']: continue
+    # if 'type' in menu_data[key] and menu_data[key].type in ['startGroup', 'endGroup']: continue
+    if 'type' in menu_data[key] and menu_data[key].type in ['endGroup']: continue
     if "user" in menu_data[key]:
       newobj[key] = menu_data[key].user
     else:
@@ -191,12 +196,15 @@ func show_menu():
         group.folded = !data.dontCollapseGroups
         if data.onlyExpandSingleGroup and not data.dontCollapseGroups:
           group.foldable_group = GROUP
-        if data.dontCollapseGroups:
-          group.folding_changed.connect(func(folded):
-            if folded:
-              group.folded=false
-            )
-        group.title = thing.name.substr(len("startGroup"))
+        group.folded = !!thing.user
+        group.folding_changed.connect(func(folded):
+          if folded and data.dontCollapseGroups:
+            group.folded=false
+          menu_data[thing.name].user=group.folded
+          onchanged.emit()
+          save()
+          )
+        group.title = formatName.call(thing.name.substr(len("startGroup - ")))
         var vbox = VBoxContainer.new()
         group.add_child(vbox)
         currentParent[len(currentParent) - 1].add_child(group)
