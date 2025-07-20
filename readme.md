@@ -101,6 +101,11 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **blockGridSnapSize**: the size of the grid that blocks will snap to when being moved or resized.
 - **singleAxisAlignByDefault**: if true blocks will only be movable along a single axis at a time by default. if false blocks can be moved freely.
 - **newlyCreatedBlocksRotationTakesPlayerRotation**: if true when the player is rotated all new blocks that can be rotated will be rotated to the players current direction instead of the default direction, eg if the player has gravity upside down creating a checkpoint will create it upside down.
+- **dontCollapseGroups**: if true the menu groups will not collapse when you click on them.
+- **onlyExpandSingleGroup**: if true when expanding a group other expanded groups will be collapsed.
+- **saveExpandedGroups**: saves which groups are currently expanded.
+- **loadExpandedGroups**: loads which groups were previously saved as expanded.
+- **menuOptionNameFormat**: reformats the menu option names in the selected way.
 
 ### block settings that apply to many blocks
 
