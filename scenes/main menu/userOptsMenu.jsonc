@@ -305,6 +305,24 @@
       {
         "thing": "option",
         "type": "bool",
+        "key": "showLevelModsWhileEditing",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showLevelModsWhilePlaying",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showUnchangedLevelMods",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
         "key": "showUnchangedLevelMods",
         "defaultValue": false
       },
