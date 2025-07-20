@@ -387,9 +387,9 @@ func _physics_process(delta: float) -> void:
         log.err("no thingThatMoves", block.id)
         breakpoint
       if block.cloneEventsHere.following:
-        block.thingThatMoves.position += (lastMovementStep / block.global_scale).rotated(-block.rotation)
+        block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
       else:
-        block.unusedOffset += (lastMovementStep / block.global_scale).rotated(-block.rotation)
+        block.unusedOffset += lastMovementStep.rotated(-block.rotation) / block.global_scale
 var left_edge: float
 var right_edge: float
 var top_edge: float

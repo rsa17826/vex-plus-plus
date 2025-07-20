@@ -424,7 +424,7 @@
     STR(beatLevels)[]
   }
   STR(real map #12){
-    STR(lastSpawnPoint)VEC2(334.472564697266,-452.080291748047)
+    STR(lastSpawnPoint)VEC2(-365.527435302734,-302.080291748047)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -438,10 +438,10 @@
               STR(texture)STR(1)
             }
             INT(2){
-              STR(texture)STR(1)
+              STR(texture)STR(2)
             }
             INT(3){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
           }
         }
