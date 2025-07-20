@@ -98,9 +98,15 @@ var blockOptionsArray := []
 ## rclick menu
 var pm: PopupMenu
 ## used for following blocks
-var attach_children: Array[EditorBlock] = []
+var attach_children: Array[EditorBlock] = []:
+  get():
+    attach_children = attach_children.filter(global.isAlive)
+    return attach_children
 ## used for following blocks
-var attach_parents: Array[EditorBlock] = []
+var attach_parents: Array[EditorBlock] = []:
+  get():
+    attach_parents = attach_parents.filter(global.isAlive)
+    return attach_parents
 ## when being moved in the editor
 var isBeingMoved := false
 ## the positional offset caused by setting following to false in attach detector
@@ -119,7 +125,7 @@ func _on_mouse_exited() -> void:
   isHovered = false
 
 func onEditorMove(moveDist) -> void:
-  for block: EditorBlock in attach_parents.filter(func(e): return is_instance_valid(e)):
+  for block: EditorBlock in attach_parents:
     block.attach_children.erase(self )
   attach_parents = []
   if self in global.boxSelect_selectedBlocks:
@@ -144,7 +150,7 @@ func respawn() -> void:
     thingThatMoves.position = Vector2.ZERO
   
   if is_in_group("canBeAttachedTo"):
-    for block: EditorBlock in attach_children.filter(func(e): return is_instance_valid(e)):
+    for block: EditorBlock in attach_children:
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
@@ -382,7 +388,7 @@ func _physics_process(delta: float) -> void:
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):
-    for block: EditorBlock in attach_children.filter(func(e): return is_instance_valid(e)):
+    for block: EditorBlock in attach_children:
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
