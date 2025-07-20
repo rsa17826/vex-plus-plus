@@ -276,6 +276,7 @@ texture = ExtResource("6_pfayw")
 expand_mode = 1
 
 [node name="saveTick" type="Control" parent="modifiers"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
