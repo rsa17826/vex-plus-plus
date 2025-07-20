@@ -41,8 +41,7 @@ scale = Vector2(0.566, 0.566)
 texture = ExtResource("4_7eqtn")
 
 [node name="death" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
-visible = false
-position = Vector2(-729, -50)
+position = Vector2(-729, -38)
 collision_layer = 2064
 collision_mask = 2
 script = ExtResource("2_8qfqg")
@@ -64,11 +63,12 @@ scale = Vector2(2.34568, 2.34568)
 texture = ExtResource("3_86yqw")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(0, -50)
+position = Vector2(0, -36)
 collision_layer = 2048
 collision_mask = 32768
 script = ExtResource("4_lcjsb")
 root = NodePath("..")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_8qfqg")

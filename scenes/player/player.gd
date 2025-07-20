@@ -284,6 +284,7 @@ func _physics_process(delta: float) -> void:
       REAL_GRAV = GRAVITY * delta
   match state:
     States.dead:
+      log.pp(up_direction)
       if not global.showEditorUi:
         $Camera2D.global_rotation = defaultAngle
       slowCamRot = false
@@ -1209,7 +1210,7 @@ func getClosestWallSide() -> int:
 func setRot(rot):
   var startRot = $Camera2D.global_rotation
   rotation = rot
-  if camRotLock:
+  if camRotLock and global.showEditorUi:
     $Camera2D.global_rotation = camRotLock
   else:
     $Camera2D.global_rotation = startRot
