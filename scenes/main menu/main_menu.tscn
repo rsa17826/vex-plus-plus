@@ -8,7 +8,7 @@ font_color = Color(0, 0, 0, 1)
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
-[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer")]
+[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +18,7 @@ grow_vertical = 2
 script = ExtResource("1_cbjxn")
 optsmenunode = NodePath("OPTS/ScrollContainer/VBoxContainer")
 levelContainer = NodePath("LEVELS/MarginContainer/ScrollContainer/HFlowContainer")
+scrollContainer = NodePath("OPTS/ScrollContainer")
 metadata/_edit_lock_ = true
 
 [node name="LEVELS" type="Control" parent="."]

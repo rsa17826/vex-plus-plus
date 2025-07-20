@@ -146,6 +146,7 @@ func camel_case_to_spaces(camel_case_string: String):
 
 func show_menu():
   startGroup("menu options")
+  add_bool("dontCollapseGroups", false)
   add_bool("onlyExpandSingleGroup", true)
   add_single_select("menuOptionNameFormat", [
     'unchanged',
@@ -162,10 +163,8 @@ func show_menu():
   # for key in keys:
   #   arr.append(key)
   var data = get_all_data()
-  var onlyExpandSingleGroup = data.onlyExpandSingleGroup
-  var menuOptionNameFormat = data.menuOptionNameFormat
   var formatName = func formatName(name):
-    match menuOptionNameFormat:
+    match data.menuOptionNameFormat:
       0: return name
       1: return camel_case_to_spaces(name.to_camel_case())
       2: return camel_case_to_spaces(name.to_camel_case()).to_upper()
@@ -189,9 +188,14 @@ func show_menu():
     match thing.type:
       "startGroup":
         var group = FoldableContainer.new()
-        group.folded = true
-        if onlyExpandSingleGroup:
+        group.folded = !data.dontCollapseGroups
+        if data.onlyExpandSingleGroup and not data.dontCollapseGroups:
           group.foldable_group = GROUP
+        if data.dontCollapseGroups:
+          group.folding_changed.connect(func(folded):
+            if folded:
+              group.folded=false
+            )
         group.title = thing.name.substr(len("startGroup"))
         var vbox = VBoxContainer.new()
         group.add_child(vbox)

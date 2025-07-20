@@ -6,6 +6,7 @@ const REPO_NAME = "vex-plus-plus-level-codes"
 
 @export var optsmenunode: Control
 @export var levelContainer: Control
+@export var scrollContainer: ScrollContainer
 
 var __menu
 @onready var pm: PopupMenu = PopupMenu.new()
@@ -173,6 +174,11 @@ func loadUserOptions() -> void:
         __menu.endGroup()
   __menu.show_menu()
   __menu.onchanged.connect(updateUserOpts)
+  scrollContainer.set_deferred('scroll_vertical', int(global.file.read("user://scrollContainerscroll_vertical", false, "0")))
+  scrollContainer.gui_input.connect(func(event):
+    # scroll up or down then save scroll position
+    if event.button_mask == 8 || event.button_mask == 16:
+      global.file.write("user://scrollContainerscroll_vertical", str(scrollContainer.scroll_vertical), false))
 
   updateUserOpts()
 
