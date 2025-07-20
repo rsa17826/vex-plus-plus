@@ -891,9 +891,9 @@ func localInput(event: InputEvent) -> void:
     return
   if openMsgBoxCount: return
   if Input.is_action_just_pressed(&"toggle_hide_non_ghosts", true):
-    # ToastParty.error('a')
-    # ToastParty.info('a')
-    # ToastParty.success('a')
+    ToastParty.error('a')
+    ToastParty.info('a')
+    ToastParty.success('a')
     hideNonGhosts = !hideNonGhosts
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
@@ -1371,7 +1371,7 @@ var useropts := {}
 var checkpoints: Array = []
 
 func animate(speed: int, steps: Array) -> float:
-  # animation time is baised on global.tick
+  # animation time is based on global.tick
   # dict arr is like [
   #   {
   #     "until": 120, // time to stop this animation at - this animation goes from 0 to 120
@@ -1412,11 +1412,11 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> voi
 
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, "New map")
-  var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
   var fullDirPath := path.join(MAP_FOLDER, foldername)
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
     return
+  var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
   DirAccess.make_dir_absolute(fullDirPath)
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"),
     {

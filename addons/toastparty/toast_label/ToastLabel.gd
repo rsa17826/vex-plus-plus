@@ -68,13 +68,13 @@ func update_text(_text: String) -> void:
   button_size = self.size
   update_x_position()
 
-func move_to(index: int, animate: bool, isFinal) -> void:
-  update_x_position()
+func move_to(index: int, animate: bool) -> void:
   var offset_y = (margin_between + self.size.y) * index
   var _y = get_y_pos(offset_y, gravity)
   position.y = _y
   # bottom
-  if isFinal and animate:
+  if animate:
+    update_x_position()
     _tween_in = get_tree().create_tween()
     _tween_in.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS) # pause mode
     _tween_in.stop()
@@ -88,8 +88,8 @@ func move_to(index: int, animate: bool, isFinal) -> void:
       .set_delay(delayed)
     )
     _tween_in.play()
-  else:
-    position = Vector2(position.x - margins.left - margins.left - size.x - offset_position.x, _y)
+  # else:
+  #   position = Vector2(position.x - margins.left - margins.left - size.x - offset_position.x, _y)
     # _tween_in = get_tree().create_tween()
     # _tween_in.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS) # pause mode
     # _tween_in.stop()
@@ -110,7 +110,12 @@ func _tween_destroy_label_timer():
   # tween alpha to 0
   var tween_alpha = get_tree().create_tween()
   tween_alpha.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS) # pause mode
-  tween_alpha.tween_property(self , "modulate:a", .2, 0.8).set_delay(timer_to_destroy)
+  tween_alpha \
+  .tween_property(self , "position:x", resolution.x + margins.left, .3) \
+  .set_trans(Tween.TRANS_QUAD) \
+  .set_ease(Tween.EASE_OUT) \
+  .set_delay(timer_to_destroy)
+  # tween_alpha.tween_property(self , "modulate:a", .2, 0.8).set_delay(timer_to_destroy)
   tween_alpha.tween_callback(_tween_destroy_label_complete)
 
 func get_y_pos(offset=0, _gravity="top") -> float:
