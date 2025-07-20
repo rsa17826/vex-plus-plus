@@ -31,6 +31,7 @@ func _add_new_label(config):
   label.connect("remove_label", remove_label_from_array)
   label.remove_label.connect(func(...a):
     move_positions(config.direction, config.gravity, false)
+    move_positions.call_deferred(config.direction, config.gravity, false)
   )
   
   if config.direction == "left":
@@ -59,32 +60,32 @@ func move_positions(direction, gravity, animate):
   if direction == "left" and gravity == "bottom":
     for index in label_bottom_left.size():
       var _label = label_bottom_left[index]
-      _label.move_to(label_bottom_left.size() - 1 - index, animate, index==0)
+      _label.move_to(label_bottom_left.size() - 1 - index, animate && index == 0)
   
   elif direction == "left" and gravity == "top":
     for index in label_top_left.size():
       var _label = label_top_left[index]
-      _label.move_to(label_top_left.size() - 1 - index, animate, index==0)
+      _label.move_to(label_top_left.size() - 1 - index, animate && index == 0)
 
   elif direction == "right" and gravity == "bottom":
     for index in label_bottom_right.size():
       var _label = label_bottom_right[index]
-      _label.move_to(label_bottom_right.size() - 1 - index, animate, index==0)
+      _label.move_to(label_bottom_right.size() - 1 - index, animate && index == 0)
 
   elif direction == "right" and gravity == "top":
     for index in label_top_right.size():
       var _label = label_top_right[index]
-      _label.move_to(label_top_right.size() - 1 - index, animate, index==0)
+      _label.move_to(label_top_right.size() - 1 - index, animate && index == 0)
 
   elif direction == "center" and gravity == "bottom":
     for index in label_bottom_center.size():
       var _label = label_bottom_center[index]
-      _label.move_to(label_bottom_center.size() - 1 - index, animate, index==0)
+      _label.move_to(label_bottom_center.size() - 1 - index, animate && index == 0)
   
   elif direction == "center" and gravity == "top":
     for index in label_top_center.size():
       var _label = label_top_center[index]
-      _label.move_to(label_top_center.size() - 1 - index, animate, index==0)
+      _label.move_to(label_top_center.size() - 1 - index, animate && index == 0)
   
 func remove_label_from_array(label):
   if label.direction == "left":
