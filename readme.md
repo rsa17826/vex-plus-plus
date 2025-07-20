@@ -515,6 +515,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **autoRun**: the player will auto run to the right to start, and will turn around when jumping off a wall slide, but not a wall hang.
 - **jumpCount**: the player will have this many jumps. jumps are regained when landing on the ground or on a wall hang. jumps are lost when jumping off a wall hang, jumping from the ground or from in the air, but are not lost or gained when in a wall slide, so settings jump count to 0 will prevent the player from jumping from the ground, but not prevent walljumping or wall hanging.
+- **changeSpeedOnSlopes**: if true when moving up a slope the player will be slower and when moving down a slope the player will be faster otherwise the player speed will be the same going up or down slopes.
 - **canDoWallHang**: if false the player will not be able to hang on walls.
 - **canDoWallSlide**: if false the player will not be able to slide down.
 - **canDoWallJump**: if false the player will not be able to jump off walls.

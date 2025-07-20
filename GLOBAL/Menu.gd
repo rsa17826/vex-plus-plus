@@ -153,6 +153,8 @@ func show_menu():
   startGroup("menu options")
   add_bool("dontCollapseGroups", false)
   add_bool("onlyExpandSingleGroup", true)
+  add_bool("saveExpandedGroups", true)
+  add_bool("loadExpandedGroups", true)
   add_single_select("menuOptionNameFormat", [
     'unchanged',
     "spaces",
@@ -196,11 +198,15 @@ func show_menu():
         group.folded = !data.dontCollapseGroups
         if data.onlyExpandSingleGroup and not data.dontCollapseGroups:
           group.foldable_group = GROUP
-        group.folded = !!thing.user
+        if data.loadExpandedGroups:
+          group.folded = !thing.user
         group.folding_changed.connect(func(folded):
           if folded and data.dontCollapseGroups:
             group.folded=false
-          menu_data[thing.name].user=group.folded
+          if menu_data.saveExpandedGroups.user \
+          if 'user' in menu_data.saveExpandedGroups \
+          else menu_data.saveExpandedGroups.default:
+            menu_data[thing.name].user=!group.folded
           onchanged.emit()
           save()
           )
@@ -224,7 +230,7 @@ func show_menu():
         range_node.value = thing.user
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
-        log.pp(currentParent)
+        # log.pp(currentParent)
         currentParent[len(currentParent) - 1].add_child(node)
       "spinbox":
         #       dd_any(key, {
