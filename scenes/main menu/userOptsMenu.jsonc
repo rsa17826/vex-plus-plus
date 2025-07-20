@@ -323,12 +323,6 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "showUnchangedLevelMods",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
         "key": "showLevelLoadingProgressBar",
         "defaultValue": true
       },
@@ -339,10 +333,5 @@
         "defaultValue": true
       }
     ]
-  },
-  {
-    "thing": "group",
-    "name": "?",
-    "value": []
   }
 ]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=17 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
 [ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
 [ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
+[ext_resource type="Script" uid="uid://bm4jy6lxw5rp8" path="res://scenes/ui/modifiers.gd" id="6_0i47d"]
 [ext_resource type="Texture2D" uid="uid://bh5nkeis3bmvj" path="res://scenes/player/levelFlagImages/nope.png" id="6_pfayw"]
 [ext_resource type="Texture2D" uid="uid://dwoncen3jiuv0" path="res://scenes/player/levelFlagImages/canDoWallSlide.png" id="7_jcn1r"]
 [ext_resource type="Texture2D" uid="uid://dquotko52oiag" path="res://scenes/player/levelFlagImages/canDoWallHang.png" id="8_uegxj"]
@@ -79,6 +80,7 @@ offset_top = 120.0
 offset_right = 162.98
 offset_bottom = 170.0
 columns = 3
+script = ExtResource("6_0i47d")
 
 [node name="_base" type="Control" parent="modifiers"]
 visible = false
