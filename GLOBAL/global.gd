@@ -1368,8 +1368,6 @@ func loadMapInfo(levelPackName: String) -> Variant:
 
 var useropts := {}
 
-var checkpoints: Array = []
-
 func animate(speed: int, steps: Array) -> float:
   # animation time is based on global.tick
   # dict arr is like [
@@ -1855,11 +1853,6 @@ func createNewBlock(data) -> EditorBlock:
     log.err("Error loading block", id)
   return
 
-var portals = []:
-  get():
-    portals = portals.filter(isAlive)
-    return portals
-
 var boxSelect_selectedBlocks = []
 @onready var MAP_FOLDER = path.abs('res://maps')
 
@@ -1899,7 +1892,15 @@ var hoveredBrushes: Array[Node2D] = []
 
 signal gravChanged
 
-var buttonWalls: Array[EditorBlock] = []:
+var checkpoints: Array[BlockCheckpoint] = []:
+  get():
+    checkpoints = checkpoints.filter(isAlive)
+    return checkpoints
+var portals: Array[BlockPortal] = []:
+  get():
+    portals = portals.filter(isAlive)
+    return portals
+var buttonWalls: Array[BlockButtonDeactivatedWall] = []:
   get():
     buttonWalls = buttonWalls.filter(isAlive)
     return buttonWalls

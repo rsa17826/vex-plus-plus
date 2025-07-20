@@ -18,7 +18,7 @@ func on_physics_process(delta: float) -> void:
   for i in range(len(shurikens)):
     var shuriken = shurikens[i]
     var time = fmod(global.tick + (i / 1.4), 4.5)
-    var pos = global.rerange(clampf(time, 0, 4), 0, 4, 0, 745.0)
+    var pos = global.rerange(clampf(time, 0, 4), 0, 4, 0, 735.0)
     shuriken.visible = true
     shuriken.position.x = pos
     var s = 1
