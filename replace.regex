@@ -43,3 +43,10 @@ make it so that when i tab in a function it is replaced with the correct one
 @flags gm
 @endregex
 
+@name replace ['a'] with .a
+@file \.gd$
+@regex (?<=[\w_\]])\[(['"])([\w_]+)\1\]
+@replace .$2
+@flags gm
+@endregex
+
