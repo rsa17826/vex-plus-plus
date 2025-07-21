@@ -44,7 +44,6 @@ texture = ExtResource("3_qno0g")
 
 [node name="Controls" parent="." instance=ExtResource("4_g5kmx")]
 visible = false
-remapping_mode = null
 
 [node name="ProgressContainer" type="Control" parent="."]
 visible = false
@@ -81,7 +80,7 @@ visible = false
 top_level = true
 offset_right = 158.0
 offset_bottom = 158.0
-color = Color(0.12718874, 0.029320808, 0.22564827, 1)
+color = Color(0, 0.049301185, 0.12897289, 1)
 
 [node name="modifiers" type="GridContainer" parent="."]
 offset_left = 4.98
