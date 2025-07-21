@@ -24,6 +24,7 @@ func toggleEditor():
     global.ui.modifiersEditorBg.visible = true
     global.ui.modifiersEditorBg.size = size + Vector2(bgPadding, bgPadding) * 2
     global.ui.modifiersEditorBg.global_position = global_position - Vector2(bgPadding, bgPadding)
+    global.ui.modifiersEditorBg.color = Color.hex(global.useropts.modifierEditorBgColor)
   else:
     global.ui.modifiersEditorBg.visible = false
     updateUi(global.player.levelFlags)
