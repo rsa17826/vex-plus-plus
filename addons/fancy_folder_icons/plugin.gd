@@ -361,7 +361,6 @@ func _enter_tree() -> void:
       textureAppliesToNestedFolders = temp.textureAppliesToNestedFolders
   ProjectSettings.set_setting("plugin/fancy_folder_icons/rules", rules)
   ProjectSettings.set_setting("plugin/fancy_folder_icons/textureAppliesToNestedFolders", textureAppliesToNestedFolders)
-  PROPERTY_HINT_TYPE_STRING
   var property_info = {
     "name": "plugin/fancy_folder_icons/rules",
     "type": TYPE_DICTIONARY,
