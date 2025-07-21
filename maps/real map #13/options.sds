@@ -6,7 +6,6 @@
   STR(stages){
     STR(hub){
       STR(color)INT(1)
-      STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
       STR(jumpCount)INT(0)
       STR(canDoWallJump)BOOL(true)

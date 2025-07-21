@@ -17,13 +17,14 @@
 [ext_resource type="Texture2D" uid="uid://dyse3nbxu1fjr" path="res://scenes/player/levelFlagImages/placeholder.png" id="14_hc5d0"]
 [ext_resource type="Texture2D" uid="uid://db55mv41mlepw" path="res://scenes/player/levelFlagImages/changeSpeedOnSlopes.png" id="15_n3vwu"]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "modifiersEditorBg")]
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("saved")
 editorBar = NodePath("editor bar")
 progressContainer = NodePath("ProgressContainer")
 progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 modifiers = NodePath("modifiers")
+modifiersEditorBg = NodePath("modifiers editor bg")
 
 [node name="star counter" type="Label" parent="."]
 offset_left = 57.0
@@ -43,6 +44,7 @@ texture = ExtResource("3_qno0g")
 
 [node name="Controls" parent="." instance=ExtResource("4_g5kmx")]
 visible = false
+remapping_mode = null
 
 [node name="ProgressContainer" type="Control" parent="."]
 visible = false
@@ -74,11 +76,18 @@ grow_vertical = 2
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 
+[node name="modifiers editor bg" type="ColorRect" parent="."]
+visible = false
+top_level = true
+offset_right = 158.0
+offset_bottom = 158.0
+color = Color(0.12718874, 0.029320808, 0.22564827, 1)
+
 [node name="modifiers" type="GridContainer" parent="."]
 offset_left = 4.98
 offset_top = 120.0
 offset_right = 162.98
-offset_bottom = 170.0
+offset_bottom = 280.0
 columns = 3
 script = ExtResource("6_0i47d")
 
@@ -92,18 +101,16 @@ mouse_filter = 1
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
-tooltip_text = "when moving up a slope the player will be slower and when moving down a slope the player will be faster"
 texture = ExtResource("14_hc5d0")
 expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/_base"]
 layout_mode = 0
-offset_left = -12.5
+offset_left = -10.0
 offset_top = 25.0
-offset_right = 37.5
+offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
-tooltip_text = "the player speed will be the same going up or down slopes"
 texture = ExtResource("6_pfayw")
 expand_mode = 1
 
@@ -122,9 +129,9 @@ expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/canDoWallSlide"]
 layout_mode = 0
-offset_left = -12.5
+offset_left = -10.0
 offset_top = 25.0
-offset_right = 37.5
+offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
 tooltip_text = "the player can not slide down walls"
@@ -146,9 +153,9 @@ expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/canDoWallHang"]
 layout_mode = 0
-offset_left = -12.5
+offset_left = -10.0
 offset_top = 25.0
-offset_right = 37.5
+offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
 tooltip_text = "the player will not grab onto ledges"
@@ -170,9 +177,9 @@ expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/canDoWallJump"]
 layout_mode = 0
-offset_left = -12.5
+offset_left = -10.0
 offset_top = 25.0
-offset_right = 37.5
+offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
 tooltip_text = "walljumping is disabled"
@@ -189,14 +196,14 @@ layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
 tooltip_text = "the player will keep running"
-texture = ExtResource("8_uegxj")
+texture = ExtResource("14_hc5d0")
 expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/autoRun"]
 layout_mode = 0
-offset_left = -12.5
+offset_left = -10.0
 offset_top = 25.0
-offset_right = 37.5
+offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
 tooltip_text = "the player can move left and right normally"
@@ -242,9 +249,9 @@ expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/jumpCount"]
 layout_mode = 0
-offset_left = -12.5
+offset_left = -10.0
 offset_top = 25.0
-offset_right = 37.5
+offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
 tooltip_text = "the player is not able to jump"
@@ -266,9 +273,9 @@ expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/changeSpeedOnSlopes"]
 layout_mode = 0
-offset_left = -12.5
+offset_left = -10.0
 offset_top = 25.0
-offset_right = 37.5
+offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
 tooltip_text = "the player speed will be the same going up or down slopes"
@@ -276,7 +283,6 @@ texture = ExtResource("6_pfayw")
 expand_mode = 1
 
 [node name="saveTick" type="Control" parent="modifiers"]
-visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
@@ -291,10 +297,18 @@ expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="modifiers/saveTick"]
 layout_mode = 0
-offset_left = -12.5
+offset_left = -10.0
 offset_top = 25.0
-offset_right = 37.5
+offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
 texture = ExtResource("6_pfayw")
 expand_mode = 1
+
+[connection signal="gui_input" from="modifiers/canDoWallSlide" to="modifiers" method="_on_gui_input" flags=18]
+[connection signal="gui_input" from="modifiers/canDoWallHang" to="modifiers" method="_on_gui_input" flags=18]
+[connection signal="gui_input" from="modifiers/canDoWallJump" to="modifiers" method="_on_gui_input" flags=18]
+[connection signal="gui_input" from="modifiers/autoRun" to="modifiers" method="_on_gui_input" flags=18]
+[connection signal="gui_input" from="modifiers/jumpCount" to="modifiers" method="_on_gui_input" flags=18]
+[connection signal="gui_input" from="modifiers/changeSpeedOnSlopes" to="modifiers" method="_on_gui_input" flags=18]
+[connection signal="gui_input" from="modifiers/saveTick" to="modifiers" method="_on_gui_input" flags=18]

@@ -24,8 +24,8 @@ func loadLevel(level):
   global.hoveredBlocks = []
   global.player.state = global.player.States.levelLoading
 
-  global.ui.modifiers.updateUi(global.player.levelFlags)
-  global.ui.modifiers.loadModsToPlayer(global.player.levelFlags)
+  global.ui.modifiers.updateUi(global.currentLevelSettings())
+  global.ui.modifiers.loadModsToPlayer()
   
   
   global.ui.progressContainer.visible = true
