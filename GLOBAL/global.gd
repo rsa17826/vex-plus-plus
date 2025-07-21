@@ -895,8 +895,8 @@ func localInput(event: InputEvent) -> void:
     # ToastParty.info('a')
     # ToastParty.success('a')
     hideNonGhosts = !hideNonGhosts
-  if Input.is_action_pressed(&"edit_level_mods", true):
-    ui.updateUi(player.levelFlags, true)
+  if Input.is_action_just_pressed(&"edit_level_mods", true):
+    ui.modifiers.toggleEditor()
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
@@ -1465,7 +1465,10 @@ func currentLevelSettings(key: Variant = null) -> Variant:
     if key in levelOpts.stages[currentLevel().name] else \
     defaultLevelSettings[key]
     return data
-  return levelOpts.stages[currentLevel().name]
+  var data = defaultLevelSettings.duplicate()
+  for k in levelOpts.stages[currentLevel().name]:
+    data[k] = levelOpts.stages[currentLevel().name][k]
+  return data
 
 func fullscreen(state: int = 0) -> void:
   var mode := DisplayServer.window_get_mode()

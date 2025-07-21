@@ -11,15 +11,29 @@ func _process(delta: float) -> void:
 func modVis(mod, val):
   get_node(mod).visible = val
 
-var currentLevelSettings: Dictionary[String, Variant]
+var currentLevelSettings: Dictionary
+
+var editorOpen := false
+
+func toggleEditor():
+  editorOpen = !editorOpen
+  if editorOpen:
+    updateUi(global.player.levelFlags, true)
+    global.ui.modifiersEditorBg.visible = true
+    global.ui.modifiersEditorBg.size = size
+    global.ui.modifiersEditorBg.global_position = global_position
+  else:
+    global.ui.modifiersEditorBg.visible = false
+    updateUi(global.player.levelFlags)
 
 func updateUi(
-  data: Dictionary[String, Variant],
+  data: Dictionary,
   showAllMods: bool = global.useropts.showUnchangedLevelMods
 ):
   currentLevelSettings = data
   # hide all mods
   for child in get_children():
+    if child.name == '_base': continue
     child.visible = showAllMods
 
   for k in data:
@@ -44,20 +58,49 @@ func updateUi(
             if v >= 4:
               modVis('jumpCount/4+', true)
             elif v == 1:
+              modVis('jumpCount/1', true)
               modVis('jumpCount', showAllMods)
             elif v <= 0:
               modVis('jumpCount/1', true)
               modVis('jumpCount/nope', true)
             else:
               modVis('jumpCount/' + str(v), true)
+          "color":
+            pass
           _:
             log.err('updateUi: unknown key:', k, v)
             breakpoint
     log.pp(k, v)
 
-func loadModsToPLayer():
+func loadModsToPlayer():
   for child in get_children():
+    if child.name == '_base': continue
     global.player.levelFlags[child.name] = currentLevelSettings[child.name]
     
-  global.player.floor_constant_speed = !currentLevelSettings["changeSpeedOnSlopes"]
-  global.player.MAX_JUMP_COUNT = currentLevelSettings["jumpCount"]
+  global.player.floor_constant_speed = !currentLevelSettings.changeSpeedOnSlopes
+  global.player.MAX_JUMP_COUNT = currentLevelSettings.jumpCount
+
+func _on_gui_input(event: InputEvent, source: Control) -> void:
+  if !global.ui.modifiers.editorOpen: return
+  if event is InputEventMouseButton and event.button_mask == MOUSE_BUTTON_LEFT:
+    var flag = source.name
+    var type = (func():
+      match typeof(global.player.levelFlags[flag]):
+        TYPE_INT: return global.PromptTypes.int
+        TYPE_FLOAT: return global.PromptTypes.float
+        TYPE_STRING: return global.PromptTypes.string
+        TYPE_BOOL: return global.PromptTypes.bool
+        _: log.err(type_string(typeof(global.player.levelFlags[flag])), flag)
+    ).call()
+    global.player.levelFlags[flag] = await global.prompt(
+      flag,
+      type,
+      global.player.levelFlags[flag],
+      global.defaultLevelSettings[flag]
+    )
+    updateUi(global.player.levelFlags, true)
+    loadModsToPlayer()
+    saveModsToFile()
+
+func saveModsToFile():
+  pass

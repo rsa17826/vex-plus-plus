@@ -175,6 +175,7 @@ var onRightSide := false
 
 var last_input_event: InputEvent
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+  if global.ui.modifiers.editorOpen: return
   if cloneEventsHere and 'on_input_event' in cloneEventsHere:
     cloneEventsHere.on_input_event(viewport, event, shape_idx)
   if last_input_event == event: return
@@ -349,6 +350,7 @@ func editOption(idx: int) -> void:
 func _physics_process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
   if global.stopTicking: return
+  if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
   if (global.selectedBlock == self || self in global.boxSelect_selectedBlocks) && Input.is_action_pressed(&"editor_select"): return
   if _DISABLED and not dontDisablePhysicsProcess: return
@@ -412,6 +414,7 @@ var bottom_edge: float
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
+  if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
   if !_DISABLED:
     for node in hidableSprites:
