@@ -241,6 +241,8 @@ func _physics_process(delta: float) -> void:
     defaultAngle = 0
   # log.pp(defaultAngle, up_direction, up_direction.rotated(defaultAngle))
   if state == States.levelLoading: return
+  if global.ui.modifiers.editorOpen: return
+  if global.openMsgBoxCount: return
   if state in [
     States.idle,
     States.moving,
