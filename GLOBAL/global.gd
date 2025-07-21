@@ -895,6 +895,8 @@ func localInput(event: InputEvent) -> void:
     # ToastParty.info('a')
     # ToastParty.success('a')
     hideNonGhosts = !hideNonGhosts
+  if Input.is_action_pressed(&"edit_level_mods", true):
+    ui.updateUi(player.levelFlags, true)
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
       boxSelectDrawEndPos = get_viewport().get_mouse_position()

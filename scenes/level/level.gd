@@ -15,9 +15,6 @@ func onProgress(prog, max):
   if prog % 50 == 0:
     await global.wait(150)
 
-func modVis(mod, val):
-  global.ui.modifiers.get_node(mod).visible = val
-
 func loadLevel(level):
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
@@ -26,49 +23,10 @@ func loadLevel(level):
   global.tick = 0
   global.hoveredBlocks = []
   global.player.state = global.player.States.levelLoading
+
+  global.ui.modifiers.updateUi(global.player.levelFlags)
+  global.ui.modifiers.loadModsToPlayer(global.player.levelFlags)
   
-  # hide all mods
-  for child in global.ui.modifiers.get_children():
-    child.visible = global.useropts.showUnchangedLevelMods
-
-  var boolFlags = [
-    'autoRun',
-    "canDoWallJump",
-    "canDoWallSlide",
-    'canDoWallHang',
-    'saveTick',
-    'changeSpeedOnSlopes'
-  ]
-  for flag in boolFlags:
-    global.player.levelFlags[flag] = global.currentLevelSettings(flag)
-  for flag in boolFlags:
-    if global.useropts.showUnchangedLevelMods:
-      modVis(flag, true)
-      modVis(flag + '/nope', !global.currentLevelSettings(flag))
-    else:
-      if global.currentLevelSettings(flag) == global.defaultLevelSettings[flag]:
-        modVis(flag, false)
-      else:
-        modVis(flag, true)
-        modVis(flag + '/nope', !global.currentLevelSettings(flag))
-    log.pp(flag, global.currentLevelSettings(flag))
-
-  var jumps = global.currentLevelSettings("jumpCount")
-  for child in global.ui.modifiers.get_node('jumpCount').get_children():
-    child.visible = false
-  modVis('jumpCount', true)
-  if jumps >= 4:
-    modVis('jumpCount/4+', true)
-  elif jumps == 1:
-    modVis('jumpCount', global.useropts.showUnchangedLevelMods)
-  elif jumps <= 0:
-    modVis('jumpCount/1', true)
-    modVis('jumpCount/nope', true)
-  else:
-    modVis('jumpCount/' + str(jumps), true)
-
-  global.player.floor_constant_speed = !global.currentLevelSettings("changeSpeedOnSlopes")
-  global.player.MAX_JUMP_COUNT = global.currentLevelSettings("jumpCount")
   
   global.ui.progressContainer.visible = true
   var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
