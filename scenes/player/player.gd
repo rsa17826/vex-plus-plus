@@ -1035,7 +1035,6 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   and vel.user.y > SMALL \
   and Input.is_action_pressed(&"down") \
   :
-    log.pp(applyRot(velocity).y, vel.user.y)
     block.__disable()
   if block is BlockBouncy \
   and blockSide.top \
