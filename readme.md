@@ -54,6 +54,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **block_z_up**: moves the block back in the list of nodes to make it render before the other blocks. the selected block is moved up until it is before 1 block that it is currently in front of and not just by 1.
 - **block_z_down**: same as block_z_up but moves it down instead of up.
 - **invert_single_axis_align**: hold while moving a block to invert the value of singleAxisAlignByDefault.
+- **edit_level_mods**: press to toggle the level mod editor on and off.
 - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 ### Play Controls
