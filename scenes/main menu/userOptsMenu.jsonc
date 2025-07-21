@@ -294,7 +294,13 @@
         "thing": "option",
         "type": "rgba",
         "key": "boxSelectColor",
-        "defaultValue": 1483315998.0
+        "defaultValue": 1483315998
+      },
+      {
+        "thing": "option",
+        "type": "rgba",
+        "key": "modifierEditorBgColor",
+        "defaultValue": 860671
       }
     ]
   },

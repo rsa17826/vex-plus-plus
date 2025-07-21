@@ -1,5 +1,7 @@
 extends GridContainer
 
+var bgPadding = 5
+
 func _process(delta: float) -> void:
   if global.useropts.showLevelModsWhilePlaying and !global.showEditorUi:
     visible = true
@@ -20,8 +22,8 @@ func toggleEditor():
   if editorOpen:
     updateUi(global.player.levelFlags, true)
     global.ui.modifiersEditorBg.visible = true
-    global.ui.modifiersEditorBg.size = size
-    global.ui.modifiersEditorBg.global_position = global_position
+    global.ui.modifiersEditorBg.size = size + Vector2(bgPadding, bgPadding) * 2
+    global.ui.modifiersEditorBg.global_position = global_position - Vector2(bgPadding, bgPadding)
   else:
     global.ui.modifiersEditorBg.visible = false
     updateUi(global.player.levelFlags)
@@ -70,7 +72,6 @@ func updateUi(
           _:
             log.err('updateUi: unknown key:', k, v)
             breakpoint
-    log.pp(k, v)
 
 func loadModsToPlayer():
   for child in get_children():
@@ -103,4 +104,14 @@ func _on_gui_input(event: InputEvent, source: Control) -> void:
     saveModsToFile()
 
 func saveModsToFile():
-  pass
+  var f = global.path.join(
+    global.MAP_FOLDER,
+    global.mainLevelName,
+    "/options.sds"
+  )
+  var data = sds.loadDataFromFile(f)
+  data.stages[global.currentLevel().name] = currentLevelSettings
+  sds.saveDataToFile(
+    f,
+    data
+  )
