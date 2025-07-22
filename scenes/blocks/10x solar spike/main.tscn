@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bv6oyo4ycxuk"]
+[gd_scene load_steps=10 format=3 uid="uid://bv6oyo4ycxuk"]
 
 [ext_resource type="Script" uid="uid://b28aql2gntdyg" path="res://scenes/blocks/10x solar spike/10x solar spike.gd" id="1_bsfh0"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_i230j"]
 [ext_resource type="Texture2D" uid="uid://bvqr7ruckoocs" path="res://scenes/blocks/10x solar spike/images/outline.png" id="3_i230j"]
 [ext_resource type="Texture2D" uid="uid://e7wvg5u5iyhw" path="res://scenes/blocks/10x solar spike/images/1.png" id="3_t5pol"]
+[ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="4_t5pol"]
 [ext_resource type="Texture2D" uid="uid://cg0kckohh82mm" path="res://scenes/blocks/10x solar spike/images/editorBar.png" id="4_tq28u"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="5_nk033"]
 
@@ -18,7 +19,7 @@ script = ExtResource("1_bsfh0")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
 editorBarIconNode = NodePath("Node2D/collisionNode/EditorBar")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/attach detector/CollisionShape2D")]
-hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
+hidableSprites = [NodePath("Node2D/collisionNode/textureRect")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
 thingThatMoves = NodePath("Node2D/collisionNode")
 ghostFollowNode = NodePath("Node2D")
@@ -35,12 +36,24 @@ script = ExtResource("2_i230j")
 root = NodePath("../..")
 
 [node name="outline" type="Sprite2D" parent="Node2D/collisionNode"]
+visible = false
 use_parent_material = true
 position = Vector2(0, -72.5)
 scale = Vector2(0.977654, 1)
 texture = ExtResource("3_i230j")
 
+[node name="outline2" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_t5pol")]
+position = Vector2(0, -70.63)
+root = NodePath("../../..")
+texture = ExtResource("3_i230j")
+
+[node name="textureRect" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_t5pol")]
+position = Vector2(0, -70.63)
+root = NodePath("../../..")
+texture = ExtResource("3_t5pol")
+
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/collisionNode"]
+visible = false
 use_parent_material = true
 position = Vector2(0, -72.5)
 scale = Vector2(0.977654, 1)
