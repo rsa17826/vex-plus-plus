@@ -968,7 +968,7 @@ func collidingWithNowj():
   var bodies = %nowjDetector.get_overlapping_bodies()
   var collision = false
   # log.pp(wallSIde)
-  log.pp(bodies)
+  # log.pp(bodies)
   for body in bodies:
     var block: EditorBlock = body.root
     var angdiff = angle_difference(deg_to_rad(block.startRotation_degrees), defaultAngle)
