@@ -11,7 +11,7 @@
 size = Vector2(688, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
-size = Vector2(692, 18)
+size = Vector2(688, 18)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale", "attaches to things", "death"]]
 script = ExtResource("1_c5k05")
@@ -33,9 +33,10 @@ root = NodePath("../..")
 
 [node name="textureRect" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("3_6prq1")]
 position = Vector2(0, -70.63)
-scale = Vector2(0.983, 1)
+scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("2_fcna3")
+editorSize = Vector2(700, 123)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
 position = Vector2(0, -57.5)
@@ -62,8 +63,8 @@ debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 [node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
 visible = false
 use_parent_material = true
-position = Vector2(0, -69.515)
-scale = Vector2(0.983, 1)
+position = Vector2(0, -69.51501)
+scale = Vector2(0.961, 1)
 texture = ExtResource("2_fcna3")
 
 [connection signal="body_entered" from="Node2D/collisionNode" to="." method="_on_body_entered"]
