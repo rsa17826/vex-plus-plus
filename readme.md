@@ -147,7 +147,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **10x spike**: kills the player on contact
 
   - rotatable
-    - i plan to replace this and the single spike with a scalable spike that tiles the spike texture instead
+  - scalable
   - **settings**:
     - **color**
     - **attachesToThings**
@@ -155,6 +155,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **10x solar spike**: kills the player on contact if lights are on
 
   - rotatable
+  - scalable
   - **settings**:
     - **color**
     - **attachesToThings**
@@ -162,6 +163,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **10x inverse solar spike**: kills the player on contact if lights are off
 
   - rotatable
+  - scalable
   - **settings**:
     - **color**
     - **attachesToThings**
@@ -497,6 +499,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **floor button**: when pressed by player/bomb/pushable box, toggles off all button deactivated walls that have the same buttonId as this. the button deactivated wall is reenabled when all buttons of the corisponding buttonId are depressed.
 
+  - scalable
+  - rotatable
   - **settings**:
     - **buttonId**: unique identifier used to identify which things should be affected by this.
 
@@ -517,6 +521,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **Invisible**: gets less visible the closer the player is to it
 
+  - scalable
+  - **settings**:
+
+- **undeath**: if the player collides with this block while flying bact to the spawnpoint the player will instead be revived right where the player collided with the block at. user restarts will bypass this block.
+
+  - scalable
   - **settings**:
 
 ### level flags
@@ -527,3 +537,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **canDoWallHang**: if false the player will not be able to hang on walls.
 - **canDoWallSlide**: if false the player will not be able to slide down.
 - **canDoWallJump**: if false the player will not be able to jump off walls.
+
+<!--
+- \*\*.*[\r\s\n]+-\*
+-->
