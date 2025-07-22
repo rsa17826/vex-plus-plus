@@ -342,6 +342,7 @@ fancy_folder_icons/rules={
 "res://scenes/blocks/spark block/": "res://scenes/blocks/spark block/clockwise/images/spark.png",
 "res://scenes/blocks/spark block/clockwise/": "res://scenes/blocks/spark block/clockwise/images/1.png",
 "res://scenes/blocks/spark block/counterClockwise/": "res://scenes/blocks/spark block/counterClockwise/images/1.png",
+"res://scenes/blocks/textureRect/": "res://scenes/ui/levelFlagImages/placeholder.png",
 "res://scenes/player/": "res://scenes/player/images/anim/idle/1.png",
 "res://scenes/player/player.tscn": "res://scenes/player/images/anim/idle/1.png"
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dqlraso3fslo8"
-path="res://.godot/imported/1 - Copy - Copy.png-41215c42489959363aa8cc249c2b0966.ctex"
+uid="uid://ciog0m5ftww5o"
+path="res://.godot/imported/1 (3).png-d139c042a853e395f6bd6da9f741d964.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player/levelFlagImages/1 - Copy - Copy.png"
-dest_files=["res://.godot/imported/1 - Copy - Copy.png-41215c42489959363aa8cc249c2b0966.ctex"]
+source_file="res://scenes/ui/levelFlagImages/1 (3).png"
+dest_files=["res://.godot/imported/1 (3).png-d139c042a853e395f6bd6da9f741d964.ctex"]
 
 [params]
 

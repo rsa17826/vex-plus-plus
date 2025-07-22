@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcd1h5fc5cd56"]
+
+[ext_resource type="Script" uid="uid://dmyvfdosafpmh" path="res://scenes/blocks/textureRect/sprite_2d.gd" id="1_5t8xv"]
+[ext_resource type="Texture2D" uid="uid://dpvi6a7laflid" path="res://scenes/blocks/10x spike/images/1.png" id="2_a20yq"]
+
+[node name="textureRect" type="Node2D"]
+use_parent_material = true
+script = ExtResource("1_5t8xv")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -359.02274
+offset_top = -58.5
+offset_right = 346.97726
+offset_bottom = 64.5
+texture = ExtResource("2_a20yq")
+expand_mode = 1
+stretch_mode = 1

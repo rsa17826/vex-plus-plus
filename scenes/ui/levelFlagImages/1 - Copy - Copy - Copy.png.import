@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://db55mv41mlepw"
-path="res://.godot/imported/changeSpeedOnSlopes.png-8fdfdd1e81a74776857b5c7466dfec56.ctex"
+uid="uid://dhs1qndmdn2wa"
+path="res://.godot/imported/1 - Copy - Copy - Copy.png-9f16e7b35b2997fe095e6e2febca9bb2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player/levelFlagImages/changeSpeedOnSlopes.png"
-dest_files=["res://.godot/imported/changeSpeedOnSlopes.png-8fdfdd1e81a74776857b5c7466dfec56.ctex"]
+source_file="res://scenes/ui/levelFlagImages/1 - Copy - Copy - Copy.png"
+dest_files=["res://.godot/imported/1 - Copy - Copy - Copy.png-9f16e7b35b2997fe095e6e2febca9bb2.ctex"]
 
 [params]
 

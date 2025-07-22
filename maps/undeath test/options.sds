@@ -5,14 +5,13 @@
   STR(version)INT(95)
   STR(stages){
     STR(hub){
-      STR(color)INT(2)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallJump)BOOL(true)
+      STR(autoRun)BOOL(false)
+      STR(jumpCount)INT(10)
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
-      STR(jumpCount)INT(1)
-      STR(autoRun)BOOL(false)
-      STR(canDoWallHang)BOOL(true)
-      STR(canDoWallSlide)BOOL(true)
-      STR(canDoWallJump)BOOL(true)
     }
   }
 }

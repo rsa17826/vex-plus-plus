@@ -1525,7 +1525,7 @@ func localReady() -> void:
   var unusedBlockNames = [
     "basic",
     "slope",
-    "single spike",
+    # "single spike",
     "10x spike",
     "10x solar spike",
     "10x inverse solar spike",
