@@ -34,7 +34,7 @@ root = NodePath("../..")
 [node name="Sprite2D" type="Node2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
 use_parent_material = true
 position = Vector2(0, -72.5)
-scale = Vector2(0.977654, 1)
+scale = Vector2(0.983, 1)
 script = ExtResource("3_6prq1")
 root = NodePath("../../..")
 
