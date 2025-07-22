@@ -49,9 +49,9 @@
     }
   }
   {
-    STR(x)FLOAT(475.0)
+    STR(x)FLOAT(1375.0)
     STR(y)FLOAT(-50.0)
-    STR(w)FLOAT(6.4999977350235)
+    STR(w)FLOAT(22.499990940094)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
@@ -89,17 +89,6 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
-    STRNAME(options){
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(275.0)
-    STR(y)FLOAT(50.0)
-    STR(w)FLOAT(2.50000005960464)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(undeath)
     STRNAME(options){
       STR(color)STR(#fff)
     }
@@ -189,6 +178,77 @@
     STR(id)STR(10x spike)
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(550.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(45.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(500.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(375.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(3.49999895691872)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(6225.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(119.499971389771)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(250.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(200.0)
+    STR(w)FLOAT(4.00000017881393)
+    STR(h)FLOAT(4.00000017881393)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(undeath)
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }

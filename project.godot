@@ -312,6 +312,10 @@ copy_path="res://temp"
 
 limits/debugger/max_chars_per_second=327680
 
+[physics]
+
+common/max_physics_steps_per_frame=15
+
 [plugin]
 
 fancy_folder_icons/textureAppliesToNestedFolders=false

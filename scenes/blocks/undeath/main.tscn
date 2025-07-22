@@ -1,8 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv5nph6lo28xa"]
+[gd_scene load_steps=8 format=3 uid="uid://dv5nph6lo28xa"]
 
 [ext_resource type="Script" uid="uid://ngccytguo6ax" path="res://scenes/blocks/undeath/undeath.gd" id="1_qunpq"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_07iil"]
 [ext_resource type="Texture2D" uid="uid://b5vm1bqa5sk5o" path="res://scenes/blocks/undeath/images/1.png" id="3_irq6n"]
+[ext_resource type="Script" uid="uid://dmyvfdosafpmh" path="res://scenes/blocks/10x spike/sprite_2d.gd" id="4_irq6n"]
+[ext_resource type="Texture2D" uid="uid://dso76sy80ytot" path="res://scenes/blocks/undeath/images/skull.png" id="5_2tv7p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qunpq"]
+size = Vector2(695, 695)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -26,11 +31,26 @@ root = NodePath("..")
 texture = ExtResource("3_irq6n")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-visible = false
-shape = SubResource("RectangleShape2D_gwpbw")
-debug_color = Color(1, 0, 0, 0.419608)
+shape = SubResource("RectangleShape2D_qunpq")
+debug_color = Color(0, 0.6310628, 0.4561599, 0.41960785)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Sprite2D2" type="Node2D" parent="collisionNode" node_paths=PackedStringArray("root")]
+use_parent_material = true
+scale = Vector2(0.983, 1)
+script = ExtResource("4_irq6n")
+root = NodePath("../..")
+
+[node name="TextureRect" type="TextureRect" parent="collisionNode/Sprite2D2"]
+offset_right = 700.0
+offset_bottom = 700.0
+texture = ExtResource("5_2tv7p")
+stretch_mode = 1
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 2056
+collision_mask = 2
+script = ExtResource("2_07iil")
+root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 visible = false

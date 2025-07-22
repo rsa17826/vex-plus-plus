@@ -23,7 +23,7 @@ const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
 var lastDeathWasForced := false
-var shouldStopDying: Array[BlockUndeath] = []
+# var shouldStopDying: Array[BlockUndeath] = []
 var levelFlags: Dictionary[String, Variant] = {}
 var autoRunDirection: int = 1
 var cannonRotDelFrames: float = 0
@@ -991,7 +991,7 @@ func tryAndDieSquish():
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
   or (len(collsiionOn_left) and len(collsiionOn_right)):
     log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
-    die()
+    die(DEATH_TIME, false, true)
 
 func calcHitDir(normal):
   var hitTop = normal.distance_to(up_direction) < 0.77
@@ -1226,9 +1226,9 @@ func stopDying():
 
 func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
-  if shouldStopDying and not forced: return
+  # if shouldStopDying and not forced: return
   lastDeathWasForced = forced
-  shouldStopDying = []
+  # shouldStopDying = []
   # get_parent().__disable()
   # process_mode = Node.PROCESS_MODE_DISABLED
   updateCollidingBlocksExited()
