@@ -1221,7 +1221,7 @@ signal OnPlayerFullRestart
 func stopDying():
   if state == States.dead:
     state = States.falling
-    get_parent().__enable()
+    get_parent().__enable.call_deferred()
     global.stopTicking = false
 
 func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:

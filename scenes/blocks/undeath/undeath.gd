@@ -4,9 +4,7 @@ class_name BlockUndeath
 
 func on_body_entered(body: Node2D) -> void:
   if not self in global.player.shouldStopDying:
-    global.player.shouldStopDying.append(self )
     if global.player.state == global.player.States.dead and not global.player.lastDeathWasForced:
-      await global.wait()
       global.player.stopDying()
       var top = thingThatMoves.global_position.y - (sizeInPx.y / 2)
       var left = thingThatMoves.global_position.x - (sizeInPx.x / 2)
@@ -26,11 +24,11 @@ func on_body_entered(body: Node2D) -> void:
       # Snap player to closest edge
       if closest_edge == dist_left:
         global.player.global_position.x = left
-      if closest_edge == dist_right:
+      elif closest_edge == dist_right:
         global.player.global_position.x = right
-      if closest_edge == dist_top:
+      elif closest_edge == dist_top:
         global.player.global_position.y = top
-      if closest_edge == dist_bottom:
+      elif closest_edge == dist_bottom:
         global.player.global_position.y = bottom
 
 func on_body_exited(body: Node2D) -> void:
