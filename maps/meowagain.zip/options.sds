@@ -2,7 +2,7 @@
   STR(start)STR(meowagain)
   STR(author)STR(yippieskippy)
   STR(description)STR(idk i havent made the map yet)
-  STR(version)INT(14)
+  STR(version)INT(94)
   STR(stages){
     STR(meowagain){
       STR(color)INT(2)
