@@ -157,7 +157,7 @@ func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   global.loadMap(level, fromSave)
-
+var editorOnlyOptions := []
 func loadUserOptions() -> void:
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
@@ -190,6 +190,8 @@ func updateUserOpts() -> void:
   else:
     lastWinMode = global.useropts.windowMode
   global.useropts = __menu.get_all_data()
+  for option in editorOnlyOptions:
+    global.useropts[option.key] = option.defaultValue
   if lastWinMode == null or lastWinMode != global.useropts.windowMode:
     shouldChangeFsState = true
   if shouldChangeFsState:
@@ -204,7 +206,9 @@ func updateUserOpts() -> void:
   sds.prettyPrint = !global.useropts.smallerSaveFiles
 
 func __loadOptions(thing) -> void:
-  if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"): return
+  if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):
+    editorOnlyOptions.append(thing)
+    return
   match thing.type:
     "bool":
       __menu.add_bool(thing.key, thing.defaultValue)
