@@ -4,6 +4,7 @@ class_name BlockUndeath
 
 func on_body_entered(body: Node2D) -> void:
   if not self in global.player.shouldStopDying:
+    global.player.shouldStopDying.append(self )
     if global.player.state == global.player.States.dead and not global.player.lastDeathWasForced:
       global.player.stopDying()
       var top = thingThatMoves.global_position.y - (sizeInPx.y / 2)
