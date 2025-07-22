@@ -1587,6 +1587,7 @@ func localReady() -> void:
     "arrow",
     "conveyer",
     "oneway",
+    "undeath",
     # "path",
   ]
   for thing in editorBarData:

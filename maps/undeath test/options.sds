@@ -1,0 +1,18 @@
+{
+  STR(start)STR(hub)
+  STR(author)STR()
+  STR(description)STR()
+  STR(version)INT(95)
+  STR(stages){
+    STR(hub){
+      STR(color)INT(2)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+      STR(jumpCount)INT(1)
+      STR(autoRun)BOOL(false)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallJump)BOOL(true)
+    }
+  }
+}

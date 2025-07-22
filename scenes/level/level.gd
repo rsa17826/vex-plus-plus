@@ -72,7 +72,7 @@ func loadLevel(level):
   global.stopTicking = false
   global.ui.progressContainer.visible = false
   global.player.state = global.player.States.falling
-  global.player.updateCollidingBlocksEntered()
+  # global.player.updateCollidingBlocksEntered()
   await global.wait()
   global.tick = global.currentLevel().tick
   
