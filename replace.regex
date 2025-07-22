@@ -14,12 +14,6 @@ make it so that when i tab in a function it is replaced with the correct one
 @endregex
 
 @file scenes/blocks/([^/]+)/\1\.gd$
-@regex func _on_physics_process
-@replace func on_physics_process
-@flags gm
-@endregex
-
-@file scenes/blocks/([^/]+)/\1\.gd$
 @regex ^func ((?:_physics)?_process)
 @replace func on$1
 @flags gm

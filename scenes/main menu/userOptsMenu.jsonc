@@ -154,18 +154,6 @@
   },
   {
     "thing": "group",
-    "name": "debug",
-    "value": [
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showHitboxes",
-        "defaultValue": false
-      }
-    ]
-  },
-  {
-    "thing": "group",
     "name": "editor settings",
     "value": [
       {
@@ -337,6 +325,25 @@
         "type": "bool",
         "key": "showLevelLoadingBehindProgressBar",
         "defaultValue": true
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "debug",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showHitboxes",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "slowTime",
+        "editorOnly": true,
+        "defaultValue": false
       }
     ]
   }

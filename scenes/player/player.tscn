@@ -1115,7 +1115,7 @@ z_index = 10
 script = ExtResource("1_hdu4s")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
-collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/top/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/left/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/right/CollisionShape2D2"), NodePath("CharacterBody2D/deathDetectors/bottom/CollisionShape2D")]
+collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/top/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/left/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/right/CollisionShape2D2"), NodePath("CharacterBody2D/deathDetectors/bottom/CollisionShape2D"), NodePath("CharacterBody2D/nowjDetector/CollisionShape2D"), NodePath("CharacterBody2D/stickyFloorDetector/CollisionShape2D"), NodePath("CharacterBody2D/respawn detection area/CollisionShape2D2")]
 ignoreMissingNodes = true
 metadata/_edit_lock_ = true
 

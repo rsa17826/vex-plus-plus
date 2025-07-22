@@ -204,6 +204,7 @@ func updateUserOpts() -> void:
   sds.prettyPrint = !global.useropts.smallerSaveFiles
 
 func __loadOptions(thing) -> void:
+  if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"): return
   match thing.type:
     "bool":
       __menu.add_bool(thing.key, thing.defaultValue)
