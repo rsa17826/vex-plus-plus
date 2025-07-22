@@ -49,9 +49,9 @@
     }
   }
   {
-    STR(x)FLOAT(200.0)
+    STR(x)FLOAT(475.0)
     STR(y)FLOAT(-50.0)
-    STR(w)FLOAT(1.00000004470348)
+    STR(w)FLOAT(6.4999977350235)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
@@ -175,6 +175,18 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(525.0)
+    STR(y)FLOAT(-225.0)
+    STR(w)FLOAT(6.4999977350235)
+    STR(h)FLOAT(9.53658509254456)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x spike)
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
