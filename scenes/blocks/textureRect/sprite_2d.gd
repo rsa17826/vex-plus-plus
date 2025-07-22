@@ -19,7 +19,7 @@ func property_changed(what):
 
 func _ready() -> void:
   if Engine.is_editor_hint():
-    EditorInterface.get_inspector().property_edited.connect(property_changed)
+    Engine.get_singleton(&"EditorInterface").get_inspector().property_edited.connect(property_changed)
     property_changed('a')
   else:
     $TextureRect.texture = texture
