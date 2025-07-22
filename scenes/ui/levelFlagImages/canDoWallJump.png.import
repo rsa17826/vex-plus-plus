@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8mgwucaxddj8"
-path="res://.godot/imported/3 jumps.png-7b8e6bf595705e6e44db7679434f6710.ctex"
+uid="uid://bd60qbqc1fq7s"
+path="res://.godot/imported/canDoWallJump.png-4594c7cb01159b2ffee708c0379f4ef4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player/levelFlagImages/3 jumps.png"
-dest_files=["res://.godot/imported/3 jumps.png-7b8e6bf595705e6e44db7679434f6710.ctex"]
+source_file="res://scenes/ui/levelFlagImages/canDoWallJump.png"
+dest_files=["res://.godot/imported/canDoWallJump.png-4594c7cb01159b2ffee708c0379f4ef4.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca833kp76cibq"
-path="res://.godot/imported/nope full.png-bc8e37c2cc544e129fd03f2b6b96a877.ctex"
+uid="uid://dquotko52oiag"
+path="res://.godot/imported/canDoWallHang.png-b52f0256b62126d18ce11ca228db9b96.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/player/levelFlagImages/nope full.png"
-dest_files=["res://.godot/imported/nope full.png-bc8e37c2cc544e129fd03f2b6b96a877.ctex"]
+source_file="res://scenes/ui/levelFlagImages/canDoWallHang.png"
+dest_files=["res://.godot/imported/canDoWallHang.png-b52f0256b62126d18ce11ca228db9b96.ctex"]
 
 [params]
 
