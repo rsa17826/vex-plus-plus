@@ -62,7 +62,7 @@ debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 [node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
 visible = false
 use_parent_material = true
-position = Vector2(0, -83.965)
+position = Vector2(0, -69.515)
 scale = Vector2(0.983, 1)
 texture = ExtResource("2_fcna3")
 
