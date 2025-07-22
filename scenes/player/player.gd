@@ -1393,6 +1393,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-NOW! when respawning gols can still be interacted with
   # !version ?-INF! collision is not checked while in cannons
   # !version ?-91! ice blocks don't require falling to break
+  # !version ?-94! traveling through a goal while dying counts as winning
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
