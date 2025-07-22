@@ -530,7 +530,7 @@
     STR(y)FLOAT(305.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(-0.0)
+    STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(true)
@@ -543,11 +543,33 @@
     STR(y)FLOAT(-50.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(-0.0)
+    STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(true)
       STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(200.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(inverse solar)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(100.0)
+    STR(y)FLOAT(-300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(solar)
+    STRNAME(options){
       STR(color)STR(#fff)
     }
   }

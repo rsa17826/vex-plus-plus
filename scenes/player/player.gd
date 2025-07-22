@@ -23,6 +23,7 @@ const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
 var lastDeathWasForced := false
+var respawnCooldown: float = 0
 # var shouldStopDying: Array[BlockUndeath] = []
 var levelFlags: Dictionary[String, Variant] = {}
 var autoRunDirection: int = 1
@@ -244,9 +245,12 @@ func _physics_process(delta: float) -> void:
   if abs(defaultAngle) < .0001:
     defaultAngle = 0
   # log.pp(defaultAngle, up_direction, up_direction.rotated(defaultAngle))
-  if state == States.levelLoading: return
+  if state == States.levelLoading:
+    respawnCooldown = 0
+    return
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
+  respawnCooldown -= delta * 60
   if state in [
     States.idle,
     States.moving,
@@ -1225,6 +1229,10 @@ func stopDying():
     global.stopTicking = false
 
 func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
+  if respawnCooldown >= 0 and not forced:
+    deathSources = []
+    return
+  respawnCooldown = respawnTime
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   # if shouldStopDying and not forced: return
   lastDeathWasForced = forced

@@ -24,6 +24,7 @@ cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
 thingThatMoves = NodePath("Node2D/collisionNode")
 ghostFollowNode = NodePath("Node2D")
 dontDisablePhysicsProcess = true
+DONT_ENABLE_ON_RESPAWN = true
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, 11)
@@ -51,7 +52,7 @@ editorSize = Vector2(700, 100)
 
 [node name="textureRect" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_27cwt")]
 position = Vector2(0, -70.63)
-scale = Vector2(0.983, 1)
+scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("3_yx31i")
 editorSize = Vector2(700, 123)

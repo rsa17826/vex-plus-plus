@@ -24,6 +24,7 @@ cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
 thingThatMoves = NodePath("Node2D/collisionNode")
 ghostFollowNode = NodePath("Node2D")
 dontDisablePhysicsProcess = true
+DONT_ENABLE_ON_RESPAWN = true
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(0, 11)
