@@ -27,7 +27,6 @@ func loadLevel(level):
   global.ui.modifiers.updateUi(global.currentLevelSettings())
   global.ui.modifiers.loadModsToPlayer()
   
-  
   global.ui.progressContainer.visible = true
   var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
   .call(global.path.join(global.levelFolderPath, level + '.sds'),
@@ -80,7 +79,7 @@ func loadLevel(level):
   # await global.wait(300)
   # global.savePlayerLevelData()
   # await global.wait()
-  # global.player.die(0, false)
+  # global.player.die(0, false, true)
   # global.player.deathPosition = global.player.lastSpawnPoint
 
 func save():
