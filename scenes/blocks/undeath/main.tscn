@@ -30,13 +30,13 @@ root = NodePath("..")
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("3_irq6n")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-shape = SubResource("RectangleShape2D_qunpq")
-debug_color = Color(0, 0.6310628, 0.4561599, 0.41960785)
-
 [node name="textureRect" parent="collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_irq6n")]
 root = NodePath("../..")
 texture = ExtResource("5_2tv7p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+shape = SubResource("RectangleShape2D_qunpq")
+debug_color = Color(0, 0.6310628, 0.4561599, 0.41960785)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 2056

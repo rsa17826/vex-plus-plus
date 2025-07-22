@@ -12,11 +12,11 @@
 size = Vector2(688, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
-size = Vector2(692, 18)
+size = Vector2(688, 18)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["EDITOR_OPTION_rotate", "attaches to things", "death"]]
 script = ExtResource("1_bsfh0")
-ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
+ghostIconNode = NodePath("Node2D/collisionNode/ghost")
 editorBarIconNode = NodePath("Node2D/collisionNode/EditorBar")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/textureRect")]
@@ -29,7 +29,6 @@ dontDisablePhysicsProcess = true
 position = Vector2(0, 11)
 
 [node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
-unique_name_in_owner = true
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_i230j")
@@ -44,19 +43,23 @@ texture = ExtResource("3_i230j")
 
 [node name="outline2" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_t5pol")]
 position = Vector2(0, -70.63)
+scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("3_i230j")
+editorSize = Vector2(700, 123)
 
 [node name="textureRect" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_t5pol")]
 position = Vector2(0, -70.63)
+scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("3_t5pol")
+editorSize = Vector2(700, 123)
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/collisionNode"]
+[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
 visible = false
 use_parent_material = true
 position = Vector2(0, -72.5)
-scale = Vector2(0.977654, 1)
+scale = Vector2(0.961, 1)
 texture = ExtResource("3_t5pol")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]

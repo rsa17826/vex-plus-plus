@@ -94,8 +94,8 @@
     }
   }
   {
-    STR(x)FLOAT(0.0)
-    STR(y)FLOAT(-250.0)
+    STR(x)FLOAT(-50.0)
+    STR(y)FLOAT(-300.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -218,12 +218,36 @@
     }
   }
   {
-    STR(x)FLOAT(6225.0)
+    STR(x)FLOAT(6200.0)
     STR(y)FLOAT(-100.0)
     STR(w)FLOAT(119.499971389771)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
+    STR(id)STR(10x solar spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(6200.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(119.499971389771)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(6200.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(119.499971389771)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x inverse solar spike)
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
@@ -343,6 +367,186 @@
     STR(r)FLOAT(-0.00000124231303)
     STR(id)STR(10x spike)
     STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12300.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STRNAME(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12300.0)
+    STR(y)FLOAT(50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12400.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(portal)
+    STRNAME(options){
+      STR(portalId)INT(2)
+      STR(exitId)INT(2)
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(portal)
+    STRNAME(options){
+      STR(portalId)INT(2)
+      STR(exitId)INT(2)
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12400.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12500.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12550.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12500.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12400.0)
+    STR(y)FLOAT(-250.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12150.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12200.0)
+    STR(y)FLOAT(5900.0)
+    STR(w)FLOAT(119.499971389771)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12500.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(12500.0)
+    STR(y)FLOAT(150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(595.0)
+    STR(y)FLOAT(305.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-0.0)
+    STR(id)STR(checkpoint)
+    STRNAME(options){
+      STR(multiUse)BOOL(true)
+      STR(attachesToThings)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-0.0)
+    STR(id)STR(checkpoint)
+    STRNAME(options){
+      STR(multiUse)BOOL(true)
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
     }
