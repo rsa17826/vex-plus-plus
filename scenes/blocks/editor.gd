@@ -230,12 +230,12 @@ func _on_body_entered(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
   # if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
   #   cloneEventsHere.on_on_body_entered(body)
-  if respawning:
-    if body in collisionQueue and collisionQueue[body] == "exited":
-      collisionQueue.erase(body)
-    else:
-      collisionQueue[body] = "entered"
-    return
+  # if respawning:
+  #   if body in collisionQueue and collisionQueue[body] == "exited":
+  #     collisionQueue.erase(body)
+  #   else:
+  #     collisionQueue[body] = "entered"
+  #   return
   if 'on_body_entered' in self:
     self.on_body_entered.call(body)
   if is_in_group("death"):
@@ -377,15 +377,15 @@ func _physics_process(delta: float) -> void:
   if respawning:
     respawning -= 1
 
-    if not respawning:
-      if collisionQueue:
-        log.pp(collisionQueue, id)
-        for block in collisionQueue:
-          if collisionQueue[block] == "exited":
-            _on_body_exited(block)
-          else:
-            _on_body_entered(block)
-        collisionQueue = {}
+    # if not respawning:
+    #   if collisionQueue:
+    #     log.pp(collisionQueue, id)
+    #     for block in collisionQueue:
+    #       if collisionQueue[block] == "exited":
+    #         _on_body_exited(block)
+    #       else:
+    #         _on_body_entered(block)
+    #     collisionQueue = {}
       
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
@@ -644,7 +644,7 @@ func __disable() -> void:
     collider.disabled = true
   for sprite in hidableSprites:
     sprite.visible = false
-
+  # get_parent().collisionShapes.map(func(e):return e.disabled)
 ## enables the node collision and shows the sprites
 func __enable() -> void:
   # if not _DISABLED: return

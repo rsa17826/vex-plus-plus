@@ -266,8 +266,7 @@ func _physics_process(delta: float) -> void:
   if !Input.is_action_pressed(&"jump"):
     ACTIONjump = false
   var onStickyFloor = %stickyFloorDetector.get_overlapping_areas()
-  # Engine.time_scale = .3
-  Engine.time_scale = 1
+  Engine.time_scale = .3 if global.useropts.slowTime else 1.0
   if global.openMsgBoxCount: return
   if Input.is_action_pressed(&"editor_select"):
     if get_parent() in global.boxSelect_selectedBlocks or get_parent() == global.selectedBlock:
@@ -317,12 +316,12 @@ func _physics_process(delta: float) -> void:
           position = Vector2(0, -1.9)
         state = States.falling
         Engine.time_scale = 1
-        $CollisionShape2D.disabled = false
-        await global.wait()
-        updateCollidingBlocksEntered()
+        get_parent().__enable()
+        # await global.wait()
+        # updateCollidingBlocksEntered()
         global.stopTicking = false
-        await global.wait()
-        await global.wait()
+      else:
+        get_parent().__disable()
       return
     States.inCannon:
       remainingJumpCount = MAX_JUMP_COUNT
@@ -1221,6 +1220,8 @@ signal OnPlayerFullRestart
 
 func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
+  get_parent().__disable()
+  # process_mode = Node.PROCESS_MODE_DISABLED
   updateCollidingBlocksExited()
   if full:
     lastSpawnPoint = Vector2.ZERO
@@ -1300,19 +1301,25 @@ func _on_left_body_exited(body: Node2D) -> void:
   if body in collsiionOn_left:
     collsiionOn_left.erase(body)
 
-func updateCollidingBlocksEntered():
-  # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
-  for block in (
-    %"respawn detection area".get_overlapping_bodies()
-    +%"respawn detection area".get_overlapping_areas()
-  ):
-    if 'root' not in block:
-      log.pp(block, block.id if 'id' in block else 'no id')
-      breakpoint
-    else:
-      block.root._on_body_entered(self , false)
+# func updateCollidingBlocksEntered():
+#   log.pp("respawn", (
+#     %"respawn detection area".get_overlapping_bodies()
+#     + %"respawn detection area".get_overlapping_areas()
+#   ))
+#   for block in (
+#     %"respawn detection area".get_overlapping_bodies()
+#     +%"respawn detection area".get_overlapping_areas()
+#   ):
+#     if 'root' not in block:
+#       log.pp(block, block.id if 'id' in block else 'no id')
+#       breakpoint
+#     else:
+#       block.root._on_body_entered(self , false)
 func updateCollidingBlocksExited():
-  # log.pp("respawn", %"respawn detection area".get_overlapping_bodies())
+  # log.pp("respawn", (
+  #   %"respawn detection area".get_overlapping_bodies()
+  #   + %"respawn detection area".get_overlapping_areas()
+  # ))
   for block in (
     %"respawn detection area".get_overlapping_bodies()
     +%"respawn detection area".get_overlapping_areas()
