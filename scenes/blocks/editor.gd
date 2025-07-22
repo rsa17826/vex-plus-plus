@@ -211,20 +211,6 @@ func showPopupMenu():
   global.popupStarted = false
 
 var collisionQueue := {}
-func _on_body_exited(body: Node2D, real=true) -> void:
-  if global.player.state == global.player.States.levelLoading: return
-  # if global.player.state == global.player.States.dead and body is Player: return
-  if respawning:
-    if body in collisionQueue and collisionQueue[body] == "entered":
-      collisionQueue.erase(body)
-    else:
-      collisionQueue[body] = "exited"
-    return
-  if 'on_body_exited' in self:
-    self.on_body_exited.call(body)
-  if is_in_group("death"):
-    self._on_body_exitedDEATH.call(body)
-
 ## don't overite - use on_body_entered instead
 func _on_body_entered(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
@@ -240,6 +226,21 @@ func _on_body_entered(body: Node2D, real=true) -> void:
     self.on_body_entered.call(body)
   if is_in_group("death"):
     self._on_body_enteredDEATH.call(body)
+    
+## don't overite - use on_body_exited instead
+func _on_body_exited(body: Node2D, real=true) -> void:
+  if global.player.state == global.player.States.levelLoading: return
+  # if global.player.state == global.player.States.dead and body is Player: return
+  if respawning:
+    if body in collisionQueue and collisionQueue[body] == "entered":
+      collisionQueue.erase(body)
+    else:
+      collisionQueue[body] = "exited"
+    return
+  if 'on_body_exited' in self:
+    self.on_body_exited.call(body)
+  if is_in_group("death"):
+    self._on_body_exitedDEATH.call(body)
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
