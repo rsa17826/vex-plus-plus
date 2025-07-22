@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+@export var deadPlayerCollisionShape: CollisionShape2D
+
 var MAX_JUMP_COUNT = 0
 const GRAVITY = 1280
 const MAX_PULLEY_NO_DIE_TIME = 50
@@ -20,6 +22,8 @@ const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
 
+var lastDeathWasForced := false
+var shouldStopDying: Array[BlockUndeath] = []
 var levelFlags: Dictionary[String, Variant] = {}
 var autoRunDirection: int = 1
 var cannonRotDelFrames: float = 0
@@ -163,9 +167,9 @@ func _input(event: InputEvent) -> void:
   # log.pp(event.to_string(), global.showEditorUi)
   if global.openMsgBoxCount: return
   if Input.is_action_just_pressed(&"restart"):
-    die()
+    die(DEATH_TIME, false, true)
   if Input.is_action_just_pressed(&"full_restart"):
-    die(DEATH_TIME, true)
+    die(DEATH_TIME, true, true)
   if event is InputEventMouseMotion and not global.showEditorUi:
     camRotLock = defaultAngle
     global.showEditorUi = true
@@ -285,7 +289,7 @@ func _physics_process(delta: float) -> void:
       REAL_GRAV = GRAVITY * delta
   match state:
     States.dead:
-      log.pp(up_direction)
+      # log.pp(up_direction)
       if not global.showEditorUi:
         $Camera2D.global_rotation = defaultAngle
       slowCamRot = false
@@ -314,13 +318,9 @@ func _physics_process(delta: float) -> void:
           position = lastSpawnPoint
         else:
           position = Vector2(0, -1.9)
-        state = States.falling
-        Engine.time_scale = 1
-        get_parent().__enable()
-        # await global.wait()
-        # updateCollidingBlocksEntered()
-        global.stopTicking = false
+        stopDying()
       else:
+        # deadPlayerCollisionShape.disabled = false
         get_parent().__disable()
       return
     States.inCannon:
@@ -867,15 +867,15 @@ func _physics_process(delta: float) -> void:
       $Camera2D.position_smoothing_enabled = false
     else:
       $Camera2D.position_smoothing_enabled = true
-      $Camera2D.position_smoothing_speed = clamp(maxVel, 5, 50)
+      $Camera2D.position_smoothing_speed = clamp(maxVel, 5, 10)
     # var smoothingFactor: float = global.rerange(maxVel, 0, 400, 5, 19)
 
     # smoothingFactor = clamp(smoothingFactor, 5, 19)
 
     # var startPos = $Camera2D.position
     # $Camera2D.position = changeInPosition
-    if maxVel > 5:
-      $Camera2D.position -= ($Camera2D.position - changeInPosition) * 15 * delta
+    # if maxVel > 5:
+    #   $Camera2D.position -= ($Camera2D.position - changeInPosition) * 15 * delta
     # Vector2(
     #   pow(changeInPosition.x,1) * 3.7,
     #   pow(changeInPosition.y,1) * 3.7
@@ -886,7 +886,7 @@ func _physics_process(delta: float) -> void:
     # if ($Camera2D.position.y > 0) != (startPos.y > 0):
     #   $Camera2D.position.y = 0
     # $Camera2D.position_smoothing_speed = smoothingFactor
-    $Camera2D.position -= $Camera2D.position * .5 * delta
+    # $Camera2D.position -= $Camera2D.position * .5 * delta
   var camrot = $Camera2D.global_rotation
   if camrot < 0:
     camrot += deg_to_rad(360)
@@ -1218,9 +1218,18 @@ func setRot(rot):
 signal OnPlayerDied
 signal OnPlayerFullRestart
 
-func die(respawnTime: int = DEATH_TIME, full:=false) -> void:
+func stopDying():
+  if state == States.dead:
+    state = States.falling
+    get_parent().__enable()
+    global.stopTicking = false
+
+func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
-  get_parent().__disable()
+  if shouldStopDying and not forced: return
+  lastDeathWasForced = forced
+  shouldStopDying = []
+  # get_parent().__disable()
   # process_mode = Node.PROCESS_MODE_DISABLED
   updateCollidingBlocksExited()
   if full:

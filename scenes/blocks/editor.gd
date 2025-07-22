@@ -27,6 +27,7 @@ extends Node2D
 @export var dontDisablePhysicsProcess := false
 ## disables editor features suchas moving, scaling, selecting
 @export var EDITOR_IGNORE: bool = false
+@export var SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: bool = false
 ## prevents the node from being moved by respawning
 @export var DONT_MOVE: bool = false
 @export_group("IGNORE")
@@ -214,6 +215,7 @@ var collisionQueue := {}
 ## don't overite - use on_body_entered instead
 func _on_body_entered(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
+  if global.player.state == global.player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
   # if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
   #   cloneEventsHere.on_on_body_entered(body)
   # if respawning:
@@ -230,6 +232,7 @@ func _on_body_entered(body: Node2D, real=true) -> void:
 ## don't overite - use on_body_exited instead
 func _on_body_exited(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
+  if global.player.state == global.player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
   # if global.player.state == global.player.States.dead and body is Player: return
   if respawning:
     if body in collisionQueue and collisionQueue[body] == "entered":
