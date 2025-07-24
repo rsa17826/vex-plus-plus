@@ -12,5 +12,6 @@ DONT_SAVE = true
 DONT_MOVE = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
+modulate = Color(2.667754, 2.3687663, 2.0697784, 0.78431374)
+scale = Vector2(0.02, 0.02)
 texture = ExtResource("2_ktyr5")
