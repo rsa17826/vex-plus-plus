@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://lgau7cy4xe3d"]
+[gd_scene load_steps=5 format=3 uid="uid://lgau7cy4xe3d"]
 
 [ext_resource type="Script" uid="uid://cyrlfxpwpne5d" path="res://scenes/blocks/path/path.gd" id="1_qvsey"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_5skgb"]
-[ext_resource type="Script" uid="uid://ejl3nvj5lk7h" path="res://scenes/blocks/path/pf.gd" id="2_j4cuf"]
 [ext_resource type="Texture2D" uid="uid://6eonn1qykbd0" path="res://scenes/blocks/path/images/1.png" id="2_qvsey"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvsey"]
@@ -23,13 +22,6 @@ root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_qvsey")
-
-[node name="Path2D" type="Path2D" parent="."]
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-rotates = false
-cubic_interp = false
-script = ExtResource("2_j4cuf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.34902)

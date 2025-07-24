@@ -79,6 +79,7 @@ func _draw() -> void:
 func on_respawn():
   maxProgress = getMaxProgress()
   var p := selectedOptions.path.split(',') as Array
+  path = [Vector2.ZERO]
   while p:
     path.append(Vector2(float(p.pop_front()), float(p.pop_front())))
 
