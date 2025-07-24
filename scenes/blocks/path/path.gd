@@ -5,41 +5,74 @@ class_name BlockPath
 var maxProgress: float
 const editNodeSpawner = preload("res://scenes/blocks/path/editNode.tscn")
 
-var time: float = 0
 var lastStartTime: float = 0
 var started: bool = false
+var currentTick: float = 0
+var savedMovement: float = 0
+
+enum Restarts {
+  never,
+  always,
+  ifStopped,
+}
+
+enum EndReachedActions {
+  stop,
+  loop,
+  reverse,
+}
 
 func generateBlockOpts():
   blockOptions.path = {
     "default": "1003.0,89.0,562.0,449.0,24.0,266.0,1003.0,89.0",
     "type": global.PromptTypes.string
   }
-  blockOptions.endMode = {
+  blockOptions.endReachedAction = {
     "default": 0,
     "type": global.PromptTypes._enum,
-    "values": ['stop', 'restart', "back"],
+    "values": EndReachedActions,
   }
-  blockOptions.start = {
+  blockOptions.startOnLoad = {
+    "default": true,
+    "type": global.PromptTypes.bool
+  }
+  blockOptions.startOnPress = {
+    "default": false,
+    "type": global.PromptTypes.bool,
+    'onChange': func(val):
+      if val:
+        selectedOptions.startWhilePressed = false
+      return true,
+  }
+  blockOptions.startWhilePressed = {
+    "default": false,
+    "type": global.PromptTypes.bool,
+    'onChange': func(val):
+      if val:
+        selectedOptions.startOnPress = false
+      return true,
+  }
+  blockOptions.buttonId = {
+    "type": global.PromptTypes.int,
     "default": 0,
-    "type": global.PromptTypes._enum,
-    "values": [
-      'instantly',
-      'onPress',
-      "whilePressed"
-    ],
+    'showIf': func():
+      return selectedOptions.startOnPress or selectedOptions.startWhilePressed,
   }
   blockOptions.restart = {
     "default": 0,
     "type": global.PromptTypes._enum,
-    "values": [
-      'never',
-      'always',
-      "ifStopped"
-    ],
+    "values": Restarts,
+    'showIf': func():
+      return selectedOptions.startWhilePressed or selectedOptions.startOnPress,
   }
-  blockOptions.buttonId = {"type": global.PromptTypes.int, "default": 0}
-  blockOptions.speed = {
+  blockOptions.forwardSpeed = {
     "default": 150,
+    "type": global.PromptTypes.int,
+  }
+  blockOptions.backwardSpeed = {
+    "default": 150,
+    'showIf': func():
+      return selectedOptions.endReachedAction == EndReachedActions.reverse,
     "type": global.PromptTypes.int,
   }
 
@@ -71,28 +104,33 @@ func fromProgressToPoint(prog) -> Vector2:
   return path[path.size() - 1]
 
 func on_physics_process(delta: float) -> void:
-  var currentTick = (func():
-    match selectedOptions.start:
-      0: return global.tick
-      1:
-        if lastStartTime:
-          return global.tick - lastStartTime
-        return 0
-      2: return global.tick - lastStartTime
-    ).call()
+  if not started: return
+  currentTick = (func():
+    if selectedOptions.startOnLoad or selectedOptions.startOnPress: return global.tick - lastStartTime
+    if selectedOptions.startWhilePressed: return global.tick - lastStartTime + savedMovement
+  ).call()
   var currentPointPos = (func():
-    match selectedOptions.endMode:
-      0:
-        if (currentTick * selectedOptions.speed) >= maxProgress and selectedOptions.restart == 2:
-          started = false
-        return fromProgressToPoint(currentTick * selectedOptions.speed)
-      1: return fromProgressToPoint(fmod(currentTick * selectedOptions.speed, maxProgress))
-      2:
-        var time = fmod(currentTick * selectedOptions.speed, maxProgress * 2)
-        if time <= maxProgress:
-          return fromProgressToPoint(time)
+    match selectedOptions.endReachedAction:
+      EndReachedActions.stop:
+        if \
+        (currentTick * selectedOptions.forwardSpeed) >= maxProgress \
+        and (
+          selectedOptions.restart == Restarts.ifStopped
+          or selectedOptions.restart == Restarts.always
+        ):
+          if selectedOptions.restart == Restarts.ifStopped:
+            started = false
+          set_deferred("currentTick", 0)
+        return fromProgressToPoint(currentTick * selectedOptions.forwardSpeed)
+      EndReachedActions.loop: return fromProgressToPoint(fmod(currentTick * selectedOptions.forwardSpeed, maxProgress))
+      EndReachedActions.reverse:
+        var forwardTime = maxProgress / selectedOptions.forwardSpeed
+        var backwardTime = maxProgress / selectedOptions.backwardSpeed
+        var time = fmod(currentTick, forwardTime + backwardTime)
+        if time <= forwardTime:
+          return fromProgressToPoint(time * selectedOptions.forwardSpeed)
         else:
-          return fromProgressToPoint(maxProgress - (time - maxProgress))
+          return fromProgressToPoint(maxProgress - (time - forwardTime) * selectedOptions.backwardSpeed)
       _: return Vector2.ZERO
     ).call()
   for child in attach_children:
@@ -127,7 +165,7 @@ func on_button_activated(id, btn):
   if !selectedOptions.buttonId: return
   if id == selectedOptions.buttonId:
     if started:
-      if selectedOptions.restart == 1:
+      if selectedOptions.restart == Restarts.always:
         lastStartTime = global.tick
     else:
       lastStartTime = global.tick
@@ -136,7 +174,9 @@ func on_button_activated(id, btn):
 func on_button_deactivated(id, btn):
   if !selectedOptions.buttonId: return
   if id == selectedOptions.buttonId:
-    pass
+    if selectedOptions.startWhilePressed:
+      started = false
+      savedMovement = currentTick
 
 func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
   var idx = pathEditNodes.find(node)
@@ -150,7 +190,7 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
     on_respawn()
 
 func on_respawn():
-  started = false
+  started = selectedOptions.startOnLoad
   updateVisible()
   if not global.onButtonActivated.is_connected(on_button_activated):
     global.onButtonActivated.connect(on_button_activated)

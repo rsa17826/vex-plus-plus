@@ -129,7 +129,7 @@ func respawn() -> void:
   respawning = 2
   if thingThatMoves:
     thingThatMoves.position = Vector2.ZERO
-  
+
   if is_in_group("canBeAttachedTo"):
     for block: EditorBlock in attach_children:
       if !block.thingThatMoves:
@@ -186,10 +186,18 @@ func showPopupMenu():
   for k: String in blockOptions:
     var val
     if blockOptions[k].type == global.PromptTypes._enum:
-      val = blockOptions[k].values[selectedOptions[k]]
+      val = blockOptions[k].values[selectedOptions[k]] \
+      if blockOptions[k].values is Array else \
+      blockOptions[k].values.keys()[selectedOptions[k]]
     else:
       val = selectedOptions[k]
     pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '') + " = " + str(val))
+    pm.set_item_disabled(i,
+      !(
+        'showIf' not in blockOptions[k]
+        or blockOptions[k].showIf.call()
+      )
+    )
     i += 1
   global.popupStarted = true
   pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
@@ -213,7 +221,7 @@ func _on_body_entered(body: Node2D, real=true) -> void:
     self.on_body_entered.call(body)
   if is_in_group("death"):
     self._on_body_enteredDEATH.call(body)
-    
+
 ## don't overite - use on_body_exited instead
 func _on_body_exited(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
@@ -246,7 +254,7 @@ func _ready() -> void:
   if null in hidableSprites:
     log.err("a hidableSprites is null", self , name, id)
     breakpoint
-    
+
   if not collisionShapes:
     if get_node_or_null("CollisionShape2D"):
       collisionShapes = [$CollisionShape2D]
@@ -267,7 +275,7 @@ func _ready() -> void:
   if global.useropts.allowCustomColors:
     blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
   setupOptions()
-  
+
   __enable.call_deferred()
   respawn.call_deferred()
   if global.useropts.allowCustomColors:
@@ -276,10 +284,10 @@ func _ready() -> void:
     cloneEventsHere.on_ready()
   if 'on_ready' in self:
     self.on_ready.call()
-    
+
 func generateBlockOpts():
   pass
-  
+
 func toType(opt: Variant) -> void:
   match blockOptions[opt].type:
     global.PromptTypes.string:
@@ -339,10 +347,13 @@ func editOption(idx: int) -> void:
     blockOptions[k].default,
     blockOptions[k].values if "values" in blockOptions[k] else []
   )
-  log.pp(newData, "newData")
+  if \
+  'onChange' not in blockOptions[k] \
+  or blockOptions[k].onChange.call(selectedOptions[k]):
+    selectedOptions[k] = newData
+    toType(k)
+  # log.pp(newData, "newData")
   # if !newData: return
-  selectedOptions[k] = newData
-  toType(k)
   respawn()
   _ready()
   onOptionEdit.call()
@@ -356,13 +367,13 @@ func _physics_process(delta: float) -> void:
   if (global.selectedBlock == self || self in global.boxSelect_selectedBlocks) && Input.is_action_pressed(&"editor_select"): return
   if _DISABLED and not dontDisablePhysicsProcess: return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
-  # 
+  #
   # if currentPath:
     # if not pathFollowNode:
     #   log.err("no path follow node", id)
     #   breakpoint
     # pathFollowNode.position += currentPath.lastMovementStep * currentPath.scale
-  # 
+  #
   if cloneEventsHere and 'on_physics_process' in cloneEventsHere:
     cloneEventsHere.on_physics_process(delta)
   if 'on_physics_process' in self:
@@ -387,7 +398,7 @@ func _physics_process(delta: float) -> void:
     #       else:
     #         _on_body_entered(block)
     #     collisionQueue = {}
-      
+
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
   if is_in_group("canBeAttachedTo"):

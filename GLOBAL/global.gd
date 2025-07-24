@@ -137,7 +137,7 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant
   if same(confirmed, "default"):
     promptCanvas.queue_free.call_deferred()
     return default
-    
+
   var val: Variant
   match type:
     PromptTypes.confirm: val = confirmed
@@ -848,7 +848,7 @@ func localProcess(delta: float) -> void:
         lastSelectedBlock = justPaintedBlock
       if selectedBlock:
         lastSelectedBlock = selectedBlock
-    
+
 func setBlockStartPos(block: Node) -> void:
   block.startPosition = block.position
   # if block != rotresetBlock:
@@ -959,7 +959,7 @@ func localInput(event: InputEvent) -> void:
 
   if !Input.is_action_pressed(&"editor_select"):
     editorInScaleMode = Input.is_action_pressed(&"editor_scale")
-    
+
   if not editorInScaleMode:
     if not editorInRotateMode and Input.is_action_pressed(&"editor_rotate") and !Input.is_action_pressed(&"editor_select"):
       lastMousePos = Vector2.ZERO
@@ -1066,7 +1066,7 @@ func localInput(event: InputEvent) -> void:
         level.save()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-    
+
   if Input.is_action_just_pressed(&"move_selected_left"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
     updateGridSize()
@@ -1143,7 +1143,7 @@ func loadInnerLevel(innerLevel: String) -> void:
       break
   if !prevLevelDataFound:
     global.loadedLevels.append(newLevelSaveData(innerLevel))
-    
+
   if currentLevel().name not in levelOpts.stages:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
   await wait()
@@ -1198,7 +1198,7 @@ func savePlayerLevelData() -> void:
     "loadedLevels": loadedLevels,
     "beatLevels": beatLevels,
   }
-  
+
   currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
   currentLevel().up_direction = player.up_direction
   currentLevel().autoRunDirection = player.autoRunDirection
@@ -1216,7 +1216,7 @@ func newLevelSaveData(levelname):
     "tick": 0,
     "blockSaveData": {},
   }.duplicate()
-  
+
 func saveBlockData():
   var blockSaveData = {}
   var blockIds = {}
@@ -1335,9 +1335,9 @@ var totalLevelCount
 
 func loadMapInfo(levelPackName: String) -> Variant:
   var options: Variant = sds.loadDataFromFile(path.join(MAP_FOLDER, levelPackName, "/options.sds"))
-  
+
   totalLevelCount = len(DirAccess.get_files_at(path.join(MAP_FOLDER, levelPackName))) - 1
-    
+
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
@@ -1595,7 +1595,7 @@ func localReady() -> void:
 func _notification(what):
   if what == NOTIFICATION_WM_CLOSE_REQUEST:
     quitGame()
-    
+
 func quitGame():
   if useropts.saveOnExit:
     if level and is_instance_valid(level):
@@ -1700,10 +1700,10 @@ func getAllPathsInDirectory(dir_path: String):
   var files = []
   var item
   var item_path
-  
+
   var dir := DirAccess.open(dir_path)
   if dir == null: printerr("Could not open folder", dir_path); return
-  
+
   dir.list_dir_begin()
   item = dir.get_next()
   while item != "":
@@ -1715,7 +1715,7 @@ func getAllPathsInDirectory(dir_path: String):
       files.append(item_path)
     item = dir.get_next()
   dir.list_dir_end()
-  
+
   return files
 func zipDir(fromPath: String, toPath: String):
   fromPath = path.join(fromPath)
@@ -1733,7 +1733,7 @@ func zipDir(fromPath: String, toPath: String):
     writer.write_file(file.get_buffer(file.get_length()))
     file.close()
     writer.close_file()
-  
+
   # dir.list_dir_end()
   writer.close()
   return OK
@@ -1906,7 +1906,7 @@ var portals: Array[BlockPortal] = []:
 #   get():
 #     buttonWalls = buttonWalls.filter(isAlive)
 #     return buttonWalls
-    
+
 var isFirstTimeMenuIsLoaded := true
 
 func setEditorUiState(val):

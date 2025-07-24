@@ -138,10 +138,19 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
     - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
-    - **endMode**: what will happen when the block reaches the end of the path.
-      - **stop**: the block will stop being moved by the path.
-      - **restart**: the block will continue to be moved along the path restarting from the start of the path.
-      - **back**: the block will go back to the start backwards along the path then continue going forward after reaching the start again.
+    - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
+    - **startOnPress**: starts to move when a button with the same buttonId is pressed.
+    - **startWhilePressed**: starts to move when a button with the same buttonId is pressed and pauses when the button is released.
+    - **endReachedAction**: what will happen when the block reaches the end of the path.
+      - **stop**: the block will stop being moved by the path. also allows restart set to ifStopped to start the path again.
+      - **loop**: the block will continue to be moved along the path restarting from the start of the path.
+      - **reverse**: the block will go back to the start backwards along the path then continue going forward after reaching the start again.
+    - **restart**: onay available when using a button start mode.
+      - **never**: the button will activate the path once then never activate it again.
+      - **always**: when a button with the same buttonId is pressed, it will restart from the beginning of the path wherever in the path anything was before.
+      - **ifStopped**: only if the path is stopped will the button presses restart it.
+    - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
+    - **backwardSpeed**: the speed that blocks are moved at while going backwards along the path.
 
 - **basic**: has solid collision
 
