@@ -244,7 +244,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(50.0,-100.0,150.0,-100.0,50.0,100.0,-50.0,100.0)
+      STR(path)STR(50.0,-100.0,150.0,-100.0,50.0,100.0,-50.0,100.0,0,0)
       STR(color)STR(#fff)
       STR(endMode)INT(2)
       STR(start)INT(1)
@@ -254,7 +254,7 @@
       STR(startOnLoad)BOOL(false)
       STR(startOnPress)BOOL(false)
       STR(startWhilePressed)BOOL(true)
-      STR(endReachedAction)INT(0)
+      STR(endReachedAction)INT(1)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
     }
@@ -289,7 +289,7 @@
       STR(startOnLoad)BOOL(true)
       STR(startOnPress)BOOL(true)
       STR(startWhilePressed)BOOL(false)
-      STR(endReachedAction)INT(0)
+      STR(endReachedAction)INT(1)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
     }
@@ -339,6 +339,46 @@
       STR(endReachedAction)INT(2)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(300)
+    }
+  }
+  {
+    STR(x)FLOAT(-50.0)
+    STR(y)FLOAT(-500.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(path)
+    STRNAME(options){
+      STR(path)STR(150.0,-150.0,150.0,-50.0,250.0,-50.0,250.0,50.0,0.0,0.0)
+      STR(endReachedAction)INT(0)
+      STR(startOnLoad)BOOL(true)
+      STR(startOnPress)BOOL(false)
+      STR(startWhilePressed)BOOL(false)
+      STR(buttonId)INT(0)
+      STR(restart)INT(0)
+      STR(forwardSpeed)INT(150)
+      STR(backwardSpeed)INT(150)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(250.0)
+    STR(y)FLOAT(-600.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(path)
+    STRNAME(options){
+      STR(path)STR(50.0,-100.0,150.0,-100.0,150.0,100.0,0.0,150.0,0.0,0.0)
+      STR(endReachedAction)INT(0)
+      STR(startOnLoad)BOOL(true)
+      STR(startOnPress)BOOL(false)
+      STR(startWhilePressed)BOOL(false)
+      STR(buttonId)INT(0)
+      STR(restart)INT(0)
+      STR(forwardSpeed)INT(150)
+      STR(backwardSpeed)INT(150)
+      STR(color)STR(#fff)
     }
   }
 ]
