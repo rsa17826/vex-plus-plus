@@ -9,6 +9,8 @@ const REPO_NAME = "vex-plus-plus-level-codes"
 @export var scrollContainer: ScrollContainer
 
 var __menu
+var newestLevel
+
 @onready var pm: PopupMenu = PopupMenu.new()
 func _ready() -> void:
   add_child(pm)
@@ -19,6 +21,7 @@ func _ready() -> void:
   dirs.sort_custom(func(a, s):
     return global.loadMapInfo(a).version > global.loadMapInfo(s).version
   )
+  newestLevel = dirs[0] if dirs else null
   for level: String in dirs:
     var node := levelNode.instantiate()
     node.levelname.text = level
@@ -204,6 +207,15 @@ func updateUserOpts() -> void:
         global.fullscreen(-1)
 
   sds.prettyPrint = !global.useropts.smallerSaveFiles
+  var arr: Array = OS.get_cmdline_args() as Array
+  while arr:
+    var thing = arr.pop_front()
+    if thing == '--loadMap':
+      var mapName = arr.pop_front()
+      if mapName == 'NEWEST':
+        loadLevel(newestLevel, true)
+      else:
+        loadLevel(mapName, true)
 
 func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):

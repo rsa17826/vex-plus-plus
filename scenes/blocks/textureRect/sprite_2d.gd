@@ -12,7 +12,6 @@ func property_changed(what):
   # log.pp(what, "changed to", self [what])
   $TextureRect.texture = texture
   $TextureRect.scale = Vector2(1, 1)
-  # $TextureRect.position = Vector2(0, 0) / 7
   $TextureRect.position = Vector2.ZERO
   $TextureRect.position = - editorSize / 2
   $TextureRect.size = editorSize
@@ -29,6 +28,5 @@ func _process(delta: float) -> void:
   if Engine.is_editor_hint(): return
   global_scale = startScale
   $TextureRect.scale = Vector2(1, 1) / (1 if root.normalScale else 7)
-  # $TextureRect.position = Vector2(0, 0) / 7
   $TextureRect.position = - (root.sizeInPx / global_scale) / 2
   $TextureRect.size = root.sizeInPx * 7 / global_scale

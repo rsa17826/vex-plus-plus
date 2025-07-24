@@ -33,6 +33,10 @@ gdscript/warnings/unreachable_pattern=2
 window/size/mode=1
 window/stretch/mode="canvas_items"
 
+[editor]
+
+run/main_run_args="--loadMap NEWEST"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
