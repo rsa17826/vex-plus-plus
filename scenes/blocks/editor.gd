@@ -180,7 +180,12 @@ func showPopupMenu():
   if global.popupStarted: return
   var i := 0
   for k: String in blockOptions:
-    pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type] + " = " + str(selectedOptions[k]))
+    var val
+    if blockOptions[k].type == global.PromptTypes._enum:
+      val = blockOptions[k].values[selectedOptions[k]]
+    else:
+      val = selectedOptions[k]
+    pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '') + " = " + str(val))
     i += 1
   global.popupStarted = true
   pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
