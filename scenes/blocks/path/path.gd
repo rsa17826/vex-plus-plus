@@ -87,6 +87,7 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
     # remove the Vector2.ZERO from the front
     path.pop_front()
     selectedOptions.path = ','.join(path.map(func(e): return str(e.x) + ',' + str(e.y)))
+    # don't know why I need both, ill have to fix this later
     respawn()
     on_respawn()
 
