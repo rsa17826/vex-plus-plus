@@ -44,3 +44,10 @@ make it so that when i tab in a function it is replaced with the correct one
 @flags gm
 @endregex
 
+@name replace print with log.pp
+@file \.gd$
+@regex (?<=  |^)print\(
+@replace log.pp(
+@flags gm
+@endregex
+
