@@ -3,17 +3,18 @@ extends EditorBlock
 class_name BlockPath
 
 const SPEED = 150
+var maxProgress: float
 
 func generateBlockOpts():
   blockOptions.path = {"default": "1003.0,89.0,562.0,449.0,24.0,266.0,1003.0,89.0",
   "type": global.PromptTypes.string}
+  blockOptions.endMode = {
+    "default": 0,
+    "type": global.PromptTypes._enum,
+    "values": ['stop', 'restart', "back"],
+  }
 
-var path = [
-  50 * Vector2(0, 0),
-  50 * Vector2(1, 1),
-  50 * Vector2(2, 3),
-  50 * Vector2(-5, 3),
-]
+var path: Array = []
 
 func getMaxProgress() -> float:
   var total_distance = 0
@@ -40,16 +41,52 @@ func fromProgressToPoint(prog) -> Vector2:
   return path[path.size() - 1]
 
 func on_physics_process(delta: float) -> void:
-  log.pp(fromProgressToPoint(global.tick * SPEED))
-  global.player.global_position = fromProgressToPoint(global.tick * SPEED) + global_position
-  global.player.vel.user = Vector2.ZERO
+  # log.pp(fromProgressToPoint(global.tick * SPEED))
+  var currentPointPos = (func():
+    match selectedOptions.endMode:
+      0: return fromProgressToPoint(global.tick * SPEED)
+      1: return fromProgressToPoint(fmod(global.tick * SPEED, maxProgress))
+      2:
+        var time = fmod(global.tick * SPEED, maxProgress * 2)
+        if time <= maxProgress:
+          return fromProgressToPoint(time)
+        else:
+          return fromProgressToPoint(maxProgress - (time - maxProgress))
+      _: return Vector2.ZERO
+    ).call()
+  for child in attach_children:
+    child.thingThatMoves.global_position = (
+      currentPointPos
+      + global_position
+      + (child.startPosition - startPosition)
+    )
+
+func on_process(delta: float) -> void:
+  queue_redraw()
+
+func _draw() -> void:
+  var lastPoint = global_position
+  for idx in range(len(path)):
+    var point = path[idx]
+    draw_line(
+      to_local(lastPoint),
+      to_local(global_position + point),
+      Color(0, 1, 0),
+      10
+    )
+    lastPoint = global_position + point
 
 func on_respawn():
-  log.pp('getMaxProgress: ', getMaxProgress())
-  log.pp('getPointProgress: ', getPointProgress(1))
-  log.pp('getPointProgress: ', getPointProgress(2))
-  log.pp('fromProgressToPoint: ', fromProgressToPoint(2.5))
-  log.pp('fromProgressToPoint: ', fromProgressToPoint(3.6))
+  maxProgress = getMaxProgress()
+  var p := selectedOptions.path.split(',') as Array
+  while p:
+    path.append(Vector2(float(p.pop_front()), float(p.pop_front())))
+
+  # log.pp('getMaxProgress: ', getMaxProgress())
+  # log.pp('getPointProgress: ', getPointProgress(1))
+  # log.pp('getPointProgress: ', getPointProgress(2))
+  # log.pp('fromProgressToPoint: ', fromProgressToPoint(2.5))
+  # log.pp('fromProgressToPoint: ', fromProgressToPoint(3.6))
 
   # $Path2D/PathFollow2D.progress = 0
   # scale = Vector2(1, 1)

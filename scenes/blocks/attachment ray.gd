@@ -45,7 +45,7 @@ func on_respawn():
 #     root.add_to_group(group)
 
 func tryaddgroups():
-  for block in get_overlapping_bodies():
+  for block in get_overlapping_bodies() + get_overlapping_areas():
     block = block.root
     # if root.id=='key':
     #   log.pp(block.id, block.is_in_group("canBeAttachedTo"))

@@ -114,11 +114,20 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant
       promptCanvas.enumEdit.clear()
       for thing: String in singleArrValues:
         promptCanvas.enumEdit.add_item(thing)
-      promptCanvas.enumEdit.select(-1 if startVal == null else singleArrValues.find(startVal))
+      promptCanvas.enumEdit.select(-1 if startVal == null else startVal)
       promptCanvas.enumEdit.connect("item_selected", _on_submit)
       promptCanvas.enumEdit.visible = true
       promptCanvas.enumEdit.grab_focus()
       promptCanvas.btnOk.visible = false
+    # PromptTypes._enum:
+    #   promptCanvas.enumEdit.clear()
+    #   for thing: String in singleArrValues:
+    #     promptCanvas.enumEdit.add_item(thing)
+    #   promptCanvas.enumEdit.select(-1 if startVal == null else singleArrValues.find(startVal))
+    #   promptCanvas.enumEdit.connect("item_selected", _on_submit)
+    #   promptCanvas.enumEdit.visible = true
+    #   promptCanvas.enumEdit.grab_focus()
+    #   promptCanvas.btnOk.visible = false
 
   promptCanvas.btnOk.connect("pressed", _on_submit)
   promptCanvas.btnCancel.connect("pressed", _on_cancel)
@@ -136,7 +145,8 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant
     PromptTypes.string: val = promptCanvas.strEdit.text if confirmed else startVal
     PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else startVal
     PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else startVal
-    PromptTypes._enum: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else startVal
+    PromptTypes._enum: val = int(promptCanvas.enumEdit.selected) if confirmed else startVal
+    # PromptTypes._enum: val = singleArrValues[int(promptCanvas.enumEdit.selected)] if confirmed else startVal
     PromptTypes.rgb: val = promptCanvas.colEdit.color
     PromptTypes.rgba: val = promptCanvas.colEdit.color
   Input.mouse_mode = lastMouseMode
