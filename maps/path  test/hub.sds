@@ -94,7 +94,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(50.0,-100.0,150.0,-100.0,400.0,0.0,-1000.0,100.0)
+      STR(path)STR(50.0,-100.0,150.0,-100.0,50.0,100.0,-1000.0,100.0)
       STR(color)STR(#fff)
       STR(endMode)INT(1)
     }
@@ -154,6 +154,17 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(leftright)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-4150.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(79.0000257492065)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(undeath)
     STRNAME(options){
       STR(color)STR(#fff)
     }

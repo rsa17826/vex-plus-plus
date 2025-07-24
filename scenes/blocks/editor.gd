@@ -452,7 +452,7 @@ func _process(delta: float) -> void:
               breakpoint
             collider.disabled = true
         ghost.use_parent_material = false
-        ghost.material.set_shader_parameter("color", Color("#6013ff"))
+        ghost.material.set_shader_parameter("color", Color.hex(global.useropts.selectedBlockOutlineColor))
       else:
         # if not mouse down
         if !Input.is_action_pressed(&"editor_select"):
@@ -464,7 +464,7 @@ func _process(delta: float) -> void:
                 breakpoint
               collider.disabled = false
           # set border to hovered color
-          ghost.material.set_shader_parameter("color", Color("#6e6e00"))
+          ghost.material.set_shader_parameter("color", Color.hex(global.useropts.hoveredBlockOutlineColor))
           # and if first hovered block, show border
           if global.hoveredBlocks && self == global.hoveredBlocks[0] \
             or self in global.boxSelect_selectedBlocks:
@@ -524,6 +524,8 @@ func _process(delta: float) -> void:
             # log.pp("ed", onLeftSide, onRightSide)
 
             # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select
+            ghost.material.set_shader_parameter("xSize", global.useropts.blockOutlineSize / (sizeInPx.x / 100))
+            ghost.material.set_shader_parameter("ySize", global.useropts.blockOutlineSize / (sizeInPx.y / 100))
             ghost.material.set_shader_parameter("showTop",
               self in global.boxSelect_selectedBlocks or \
               not global.editorInScaleMode or \

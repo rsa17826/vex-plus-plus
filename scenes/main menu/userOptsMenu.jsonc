@@ -281,6 +281,27 @@
       {
         "thing": "option",
         "type": "rgba",
+        "key": "selectedBlockOutlineColor",
+        "defaultValue": 1611923455
+      },
+      {
+        "thing": "option",
+        "type": "rgba",
+        "key": "hoveredBlockOutlineColor",
+        "defaultValue": 1852702975
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "blockOutlineSize",
+        "defaultValue": 0.0215,
+        "step": 0.0001,
+        "max": 0.5,
+        "min": 0.0001
+      },
+      {
+        "thing": "option",
+        "type": "rgba",
         "key": "boxSelectColor",
         "defaultValue": 1483315998
       },
