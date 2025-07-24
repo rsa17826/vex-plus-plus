@@ -1259,7 +1259,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   # Engine.time_scale = 1
   # log.pp("Loading Level Pack:", levelPackName)
   levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
-  var levelPackInfo: Dictionary = await loadMapInfo(levelPackName)
+  var levelPackInfo: Variant = await loadMapInfo(levelPackName)
   if !levelPackInfo: return
   var startFile := path.join(levelFolderPath, levelPackInfo.start + '.sds')
   if !file.isFile(startFile):
@@ -1526,6 +1526,7 @@ func localReady() -> void:
     "basic",
     "slope",
     # "single spike",
+    "path",
     "10x spike",
     "10x solar spike",
     "10x inverse solar spike",
