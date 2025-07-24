@@ -173,10 +173,10 @@ func _input(event: InputEvent) -> void:
     die(DEATH_TIME, true, true)
   if event is InputEventMouseMotion and not global.showEditorUi:
     camRotLock = defaultAngle
-    global.showEditorUi = true
+    global.setEditorUiState(true)
   if Input.is_action_pressed(&"editor_pan") and not global.showEditorUi:
     camRotLock = defaultAngle
-    global.showEditorUi = true
+    global.setEditorUiState(true)
     if not camLockPos:
       camLockPos = $Camera2D.global_position
     Input.set_default_cursor_shape(Input.CURSOR_DRAG)
@@ -213,7 +213,7 @@ func _input(event: InputEvent) -> void:
   if state != States.dead and global.showEditorUi:
     for action: String in ["right", "jump", "left"]:
       if Input.is_action_pressed(action, true):
-        global.showEditorUi = false
+        global.setEditorUiState(false)
         camState = CamStates.player
         camLockPos = Vector2.ZERO
         # $Camera2D.position_smoothing_enabled = true

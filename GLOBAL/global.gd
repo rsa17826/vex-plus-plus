@@ -771,7 +771,7 @@ func localProcess(delta: float) -> void:
 
       selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize.x, 2500.0 / 7.0)
       selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize.y, 2500.0 / 7.0)
-      global.showEditorUi = true
+      global.setEditorUiState(true)
       var moveDist = selectedBlock.global_position - selectedBlock.startPosition
       setBlockStartPos(selectedBlock)
       selectedBlock.onEditorMove(moveDist)
@@ -996,7 +996,7 @@ func localInput(event: InputEvent) -> void:
         await level.loadLevel(currentLevel().name)
         loadBlockData()
         await wait()
-        showEditorUi = false
+        setEditorUiState(false)
         # player.state = player.States.levelLoading
         player.deathPosition = currentLevel().spawnPoint
         player.lastSpawnPoint = currentLevel().spawnPoint
@@ -1047,9 +1047,9 @@ func localInput(event: InputEvent) -> void:
   if Input.is_action_just_pressed(&"toggle_hitboxes", true):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
-    showEditorUi = !showEditorUi
+    setEditorUiState(!showEditorUi)
     await wait(1)
-    showEditorUi = !showEditorUi
+    setEditorUiState(!showEditorUi)
   if Input.is_action_just_pressed(&"quit", true):
     quitGame()
   if Input.is_action_just_pressed(&"move_player_to_mouse", true):
@@ -1291,7 +1291,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   await level.loadLevel(currentLevel().name)
   loadBlockData()
   await wait()
-  showEditorUi = false
+  setEditorUiState(false)
   player.camLockPos = Vector2.ZERO
   # player.state = player.States.levelLoading
   if loadFromSave and saveData:
@@ -1886,6 +1886,7 @@ func isAlive(e):
 var hoveredBrushes: Array[Node2D] = []
 
 signal gravChanged
+signal onEditorStateChanged
 
 var checkpoints: Array[BlockCheckpoint] = []:
   get():
@@ -1901,6 +1902,10 @@ var buttonWalls: Array[BlockButtonDeactivatedWall] = []:
     return buttonWalls
     
 var isFirstTimeMenuIsLoaded := true
+
+func setEditorUiState(val):
+  showEditorUi = val
+  onEditorStateChanged.emit()
 
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 

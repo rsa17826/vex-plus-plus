@@ -65,20 +65,26 @@ func on_physics_process(delta: float) -> void:
       + (child.startPosition - startPosition)
     )
 
-func on_process(delta: float) -> void:
+func on_ready() -> void:
+  if not global.onEditorStateChanged.is_connected(updateVisible):
+    global.onEditorStateChanged.connect(updateVisible)
+  
+func updateVisible() -> void:
+  $Sprite2D.visible = global.useropts.showPathBlockInPlay or global.showEditorUi
   queue_redraw()
 
 func _draw() -> void:
   var lastPoint = global_position
-  for idx in range(len(path)):
-    var point = path[idx]
-    draw_line(
-      to_local(lastPoint),
-      to_local(global_position + point),
-      global.useropts.pathColor,
-      10
-    )
-    lastPoint = global_position + point
+  if global.useropts.showPathLineInPlay or global.showEditorUi:
+    for idx in range(len(path)):
+      var point = path[idx]
+      draw_line(
+        to_local(lastPoint),
+        to_local(global_position + point),
+        global.useropts.pathColor,
+        10
+      )
+      lastPoint = global_position + point
 
 func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
   var idx = pathEditNodes.find(node)
@@ -92,6 +98,7 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
     on_respawn()
 
 func on_respawn():
+  updateVisible()
   maxProgress = getMaxProgress()
   var p := selectedOptions.path.split(',') as Array
   # start at the paths location
