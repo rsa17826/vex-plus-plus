@@ -71,7 +71,7 @@ func _draw() -> void:
     draw_line(
       to_local(lastPoint),
       to_local(global_position + point),
-      Color(0, 1, 0),
+      global.useropts.pathColor,
       10
     )
     lastPoint = global_position + point

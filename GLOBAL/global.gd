@@ -1499,7 +1499,7 @@ func fullscreen(state: int = 0) -> void:
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
 
 func localReady() -> void:
-  log.pp(Color("#000d21").to_rgba32())
+  log.pp(Color("#009dc1ff").to_rgba32())
   DirAccess.make_dir_recursive_absolute(MAP_FOLDER)
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://saves/"))
@@ -1923,6 +1923,8 @@ var buttonWalls: Array[BlockButtonDeactivatedWall] = []:
     buttonWalls = buttonWalls.filter(isAlive)
     return buttonWalls
     
+var isFirstTimeMenuIsLoaded := true
+
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
