@@ -239,23 +239,24 @@ func _ready() -> void:
     global.player.OnPlayerDied.connect(respawn)
 
   blockOptions = {}
-  
+
   if not hidableSprites and not ignoreMissingNodes:
-    log.err("hidableSprites is null", self , name)
+    log.err("hidableSprites is null", self , name, id)
     breakpoint
-  if hidableSprites.find(null):
-    log.err("a hidableSprites is null", self , name)
+  if null in hidableSprites:
+    log.err("a hidableSprites is null", self , name, id)
     breakpoint
     
   if not collisionShapes:
     if get_node_or_null("CollisionShape2D"):
       collisionShapes = [$CollisionShape2D]
     elif not ignoreMissingNodes:
-      log.err("collisionShapes is null", self , name)
+      log.err("collisionShapes is null", self , name, id)
       breakpoint
-  if collisionShapes.find(null):
-    log.err("a collisionShapes is null", self , name)
+  if null in collisionShapes:
+    log.err("a collisionShapes is null", self , name, id)
     breakpoint
+
   if not EDITOR_IGNORE and not ghost:
     createEditorGhost()
   generateBlockOpts()

@@ -64,6 +64,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ### Settings
 
+- **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
+- **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
+- **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
 - **pathColor**: the color of the path created in the level editor by the path block.
 - **editorBarBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equally larger or smaller
 - **autosaveInterval**: how long in seconds between autosaves. 0 is disabled
