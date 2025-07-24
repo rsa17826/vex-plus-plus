@@ -16,8 +16,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - launcher not required, but allows easy access to any old version, and allows you to know when there is an update whenever opening the launcher.
 - launcher also has a button to update the launcher
 
-## Game Controls
-
 ### Editor Controls
 
 - **show_keybinds**: can show and hide the control rebind menu while editing a level - control editor starts visible on the main menu
@@ -66,6 +64,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ### Settings
 
+- **pathColor**: the color of the path created in the level editor by the path block.
 - **editorBarBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equally larger or smaller
 - **autosaveInterval**: how long in seconds between autosaves. 0 is disabled
 - **saveOnExit**: saves the level when opening the menu - make work on game close and on enter inner level
@@ -130,6 +129,16 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - ? might be more
 
 ### Blocks
+
+- **path**: blocks that attach to this will be moved along the path
+
+  - **settings**:
+    - **color**
+    - **path**: a string of points separated by commas each being an x, then y, that are used to make the path.
+    - **endMode**: what will happen when the block reaches the end of the path.
+      - stop: the block will stop being moved by the path.
+      - restart: the block will continue to be moved along the path restarting from the start of the path.
+      - back: the block will go back to the start backwards along the path then continue going forward after reaching the start again.
 
 - **basic**: has solid collision
 
