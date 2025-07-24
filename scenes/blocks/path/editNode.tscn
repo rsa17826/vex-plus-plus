@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://qb3a72wo461"]
+
+[ext_resource type="Script" uid="uid://db87qlxuxyl5d" path="res://scenes/blocks/path/edit_node.gd" id="1_ktyr5"]
+[ext_resource type="Texture2D" uid="uid://de8nanobu4kyg" path="res://scenes/blocks/path/images/point.png" id="2_ktyr5"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode")]
+script = ExtResource("1_ktyr5")
+ghostIconNode = NodePath("Sprite2D")
+ignoreMissingNodes = true
+normalScale = true
+DONT_SAVE = true
+DONT_MOVE = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("2_ktyr5")

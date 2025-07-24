@@ -94,6 +94,7 @@ func save():
     },
   ]
   for child in $blocks.get_children():
+    if child.DONT_SAVE: continue
     var obj = {
       "x": child.startPosition.x,
       "y": child.startPosition.y,

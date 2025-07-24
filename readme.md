@@ -134,7 +134,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
     - **color**
-    - **path**: a string of points separated by commas each being an x, then y, that are used to make the path.
+    - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
     - **endMode**: what will happen when the block reaches the end of the path.
       - **stop**: the block will stop being moved by the path.
       - **restart**: the block will continue to be moved along the path restarting from the start of the path.

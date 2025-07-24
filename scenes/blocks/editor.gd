@@ -28,6 +28,7 @@ extends Node2D
 ## disables editor features suchas moving, scaling, selecting
 @export var EDITOR_IGNORE: bool = false
 @export var SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: bool = false
+@export var DONT_SAVE: bool = false
 @export var DONT_ENABLE_ON_RESPAWN: bool = false
 ## prevents the node from being moved by respawning
 @export var DONT_MOVE: bool = false

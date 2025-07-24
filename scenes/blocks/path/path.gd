@@ -4,10 +4,13 @@ class_name BlockPath
 
 const SPEED = 150
 var maxProgress: float
+const editNodeSpawner = preload("res://scenes/blocks/path/editNode.tscn")
 
 func generateBlockOpts():
-  blockOptions.path = {"default": "1003.0,89.0,562.0,449.0,24.0,266.0,1003.0,89.0",
-  "type": global.PromptTypes.string}
+  blockOptions.path = {
+    "default": "1003.0,89.0,562.0,449.0,24.0,266.0,1003.0,89.0",
+    "type": global.PromptTypes.string
+  }
   blockOptions.endMode = {
     "default": 0,
     "type": global.PromptTypes._enum,
@@ -15,6 +18,7 @@ func generateBlockOpts():
   }
 
 var path: Array = []
+var pathEditNodes: Array[BlockPath_editNode] = []
 
 func getMaxProgress() -> float:
   var total_distance = 0
@@ -22,13 +26,13 @@ func getMaxProgress() -> float:
     total_distance += path[i].distance_to(path[i - 1])
   return total_distance
 
-func getPointProgress(idx) -> float:
-  if idx < 0 or idx >= path.size():
-    return 0
-  var point_distance = 0
-  for i in range(1, idx + 1):
-    point_distance += path[i].distance_to(path[i - 1])
-  return point_distance
+# func getPointProgress(idx) -> float:
+#   if idx < 0 or idx >= path.size():
+#     return 0
+#   var point_distance = 0
+#   for i in range(1, idx + 1):
+#     point_distance += path[i].distance_to(path[i - 1])
+#   return point_distance
 
 func fromProgressToPoint(prog) -> Vector2:
   var current_distance = 0
@@ -76,12 +80,32 @@ func _draw() -> void:
     )
     lastPoint = global_position + point
 
+func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
+  var idx = pathEditNodes.find(node)
+  path[idx + 1] = node.startPosition - global_position
+  if moveStopped:
+    # remove the Vector2.ZERO from the front
+    path.pop_front()
+    selectedOptions.path = ','.join(path.map(func(e): return str(e.x) + ',' + str(e.y)))
+    respawn.call_deferred()
+
 func on_respawn():
   maxProgress = getMaxProgress()
   var p := selectedOptions.path.split(',') as Array
+  # start at the paths location
   path = [Vector2.ZERO]
+  for node in pathEditNodes:
+    node.queue_free()
+  pathEditNodes = []
   while p:
-    path.append(Vector2(float(p.pop_front()), float(p.pop_front())))
+    var newPoint = Vector2(float(p.pop_front()), float(p.pop_front()))
+    path.append(newPoint)
+    var editNode = editNodeSpawner.instantiate()
+    editNode.global_position = newPoint + global_position
+    editNode.startPosition = newPoint + global_position
+    editNode.path = self
+    pathEditNodes.append(editNode)
+    global.level.get_node('blocks').add_child(editNode)
 
   # log.pp('getMaxProgress: ', getMaxProgress())
   # log.pp('getPointProgress: ', getPointProgress(1))
