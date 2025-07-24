@@ -287,6 +287,12 @@
       {
         "thing": "option",
         "type": "rgba",
+        "key": "pathColor",
+        "defaultValue": 10338815
+      },
+      {
+        "thing": "option",
+        "type": "rgba",
         "key": "modifierEditorBgColor",
         "defaultValue": 860671
       }

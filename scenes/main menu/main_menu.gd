@@ -207,15 +207,17 @@ func updateUserOpts() -> void:
         global.fullscreen(-1)
 
   sds.prettyPrint = !global.useropts.smallerSaveFiles
-  var arr: Array = OS.get_cmdline_args() as Array
-  while arr:
-    var thing = arr.pop_front()
-    if thing == '--loadMap':
-      var mapName = arr.pop_front()
-      if mapName == 'NEWEST':
-        loadLevel(newestLevel, true)
-      else:
-        loadLevel(mapName, true)
+  if global.isFirstTimeMenuIsLoaded:
+    global.isFirstTimeMenuIsLoaded = false
+    var arr: Array = OS.get_cmdline_args() as Array
+    while arr:
+      var thing = arr.pop_front()
+      if thing == '--loadMap':
+        var mapName = arr.pop_front()
+        if mapName == 'NEWEST':
+          loadLevel(newestLevel, true)
+        else:
+          loadLevel(mapName, true)
 
 func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):
