@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://lgau7cy4xe3d"]
 
-[ext_resource type="Script" uid="uid://cyrlfxpwpne5d" path="res://scenes/blocks/path/main.gd" id="1_qvsey"]
+[ext_resource type="Script" uid="uid://cyrlfxpwpne5d" path="res://scenes/blocks/path/path.gd" id="1_qvsey"]
 [ext_resource type="Script" uid="uid://ejl3nvj5lk7h" path="res://scenes/blocks/path/pf.gd" id="2_j4cuf"]
-[ext_resource type="Texture2D" uid="uid://p7u5ck1elbkk" path="res://scenes/blocks/path/images/1.png" id="2_qvsey"]
+[ext_resource type="Texture2D" uid="uid://6eonn1qykbd0" path="res://scenes/blocks/path/images/1.png" id="2_qvsey"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvsey"]
 size = Vector2(1240.38, 984.194)
@@ -32,6 +32,5 @@ script = ExtResource("2_j4cuf")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.34902)
-position = Vector2(547.5, 367)
-scale = Vector2(0.175536, 0.0809524)
+scale = Vector2(5, 5)
 texture = ExtResource("2_qvsey")

@@ -4,7 +4,7 @@
     STR(y)FLOAT(-65.0)
   }
   {
-    STR(x)FLOAT(0.0)
+    STR(x)FLOAT(-150.0)
     STR(y)FLOAT(0.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
@@ -23,6 +23,29 @@
     STR(id)STR(path)
     STRNAME(options){
       STR(path)STR(1003.0,89.0,562.0,449.0,24.0,266.0,1003.0,89.0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-50.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(undeath)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
