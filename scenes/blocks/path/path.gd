@@ -87,7 +87,8 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
     # remove the Vector2.ZERO from the front
     path.pop_front()
     selectedOptions.path = ','.join(path.map(func(e): return str(e.x) + ',' + str(e.y)))
-    respawn.call_deferred()
+    respawn()
+    on_respawn()
 
 func on_respawn():
   maxProgress = getMaxProgress()
@@ -106,47 +107,3 @@ func on_respawn():
     editNode.path = self
     pathEditNodes.append(editNode)
     global.level.get_node('blocks').add_child(editNode)
-
-  # log.pp('getMaxProgress: ', getMaxProgress())
-  # log.pp('getPointProgress: ', getPointProgress(1))
-  # log.pp('getPointProgress: ', getPointProgress(2))
-  # log.pp('fromProgressToPoint: ', fromProgressToPoint(2.5))
-  # log.pp('fromProgressToPoint: ', fromProgressToPoint(3.6))
-
-  # $Path2D/PathFollow2D.progress = 0
-  # scale = Vector2(1, 1)
-  # await global.wait()
-  # $Path2D.curve = Curve2D.new()
-  # var blocks = global.level.get_node("blocks").get_children().filter(func(block):
-  #   return block is Node2D \
-  #   and block != self \
-  #   and block != global.player.get_parent() \
-  #   and "root" in block \
-  #   and block.pathFollowNode
-  #   )
-  # log.pp(blocks)
-  # var pathinfo = (selectedOptions.path.split(",") as Array).map(func(e):
-  #   return float(e))
-  # log.pp(pathinfo)
-  # var lastPos = null
-  # var dist = 0
-  # while len(pathinfo):
-  #   var pos := Vector2(pathinfo.pop_front(), pathinfo.pop_front())
-  #   $Path2D.curve.add_point(pos)
-  #   if lastPos != null:
-  #     dist += lastPos.distance_to(pos)
-  #   log.pp(dist, lastPos)
-  #   for block in blocks:
-  #     if abs(block.global_position - (pos + position)) < Vector2(10, 10):
-  #       blocks.erase(block)
-  #       addToPath(block, dist)
-  #   lastPos = pos
-
-# func addToPath(block, startDist):
-#   log.pp(block)
-#   var currentPath = $Path2D/PathFollow2D.duplicate()
-#   $Path2D.add_child(currentPath)
-#   currentPath.startDist = startDist
-#   currentPath.block = block
-#   block.reparent(currentPath)
-#   block.position = Vector2.ZERO
