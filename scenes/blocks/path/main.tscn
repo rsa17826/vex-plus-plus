@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cyrlfxpwpne5d" path="res://scenes/blocks/path/path.gd" id="1_qvsey"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_5skgb"]
-[ext_resource type="Texture2D" uid="uid://6eonn1qykbd0" path="res://scenes/blocks/path/images/1.png" id="2_qvsey"]
+[ext_resource type="Texture2D" uid="uid://b5a17elf0qcs3" path="res://scenes/blocks/path/images/1.png" id="2_qvsey"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvsey"]
-size = Vector2(50, 50)
+size = Vector2(100, 100)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["canBeAttachedTo"]]
 script = ExtResource("1_qvsey")
@@ -13,6 +13,10 @@ ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("Area2D/CollisionShape2D")]
 hidableSprites = [NodePath("Sprite2D")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.144, 0.144)
+texture = ExtResource("2_qvsey")
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 32768
@@ -22,8 +26,3 @@ root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_qvsey")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.34902)
-scale = Vector2(5, 5)
-texture = ExtResource("2_qvsey")
