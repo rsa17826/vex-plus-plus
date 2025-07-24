@@ -24,7 +24,7 @@ enum EndReachedActions {
 
 func generateBlockOpts():
   blockOptions.path = {
-    "default": "1003.0,89.0,562.0,449.0,24.0,266.0,1003.0,89.0",
+    "default": "50.0,-100.0,150.0,-100.0,50.0,100.0,-50.0,100.0,0,0",
     "type": global.PromptTypes.string
   }
   blockOptions.endReachedAction = {
@@ -181,6 +181,7 @@ func on_button_deactivated(id, btn):
 func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
   var idx = pathEditNodes.find(node)
   path[idx + 1] = node.startPosition - global_position
+  updateVisible()
   if moveStopped:
     # remove the Vector2.ZERO from the front
     path.pop_front()
@@ -190,6 +191,9 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
     on_respawn()
 
 func on_respawn():
+  savedMovement = 0
+  currentTick = 0
+  lastStartTime = 0
   started = selectedOptions.startOnLoad
   updateVisible()
   if not global.onButtonActivated.is_connected(on_button_activated):
