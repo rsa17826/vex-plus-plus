@@ -27,8 +27,11 @@ extends Node2D
 @export var dontDisablePhysicsProcess := false
 ## disables editor features suchas moving, scaling, selecting
 @export var EDITOR_IGNORE: bool = false
+## dont't stop sending collisions during player respawn
 @export var SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: bool = false
+## prevents the node from being saved with the level
 @export var DONT_SAVE: bool = false
+## don't call __enable when the node respawns
 @export var DONT_ENABLE_ON_RESPAWN: bool = false
 ## prevents the node from being moved by respawning
 @export var DONT_MOVE: bool = false
@@ -236,12 +239,23 @@ func _ready() -> void:
     global.player.OnPlayerDied.connect(respawn)
 
   blockOptions = {}
+  
+  if not hidableSprites and not ignoreMissingNodes:
+    log.err("hidableSprites is null", self , name)
+    breakpoint
+  if hidableSprites.find(null):
+    log.err("a hidableSprites is null", self , name)
+    breakpoint
+    
   if not collisionShapes:
     if get_node_or_null("CollisionShape2D"):
       collisionShapes = [$CollisionShape2D]
     elif not ignoreMissingNodes:
       log.err("collisionShapes is null", self , name)
       breakpoint
+  if collisionShapes.find(null):
+    log.err("a collisionShapes is null", self , name)
+    breakpoint
   if not EDITOR_IGNORE and not ghost:
     createEditorGhost()
   generateBlockOpts()

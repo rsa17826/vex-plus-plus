@@ -352,6 +352,24 @@
         "type": "bool",
         "key": "showLevelLoadingBehindProgressBar",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showPathBlockInPlay",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showPathLineInPlay",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showPathEditNodesInPlay",
+        "defaultValue": true
       }
     ]
   },
