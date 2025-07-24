@@ -2,9 +2,12 @@
 extends EditorBlock
 class_name BlockPath
 
-const SPEED = 150
 var maxProgress: float
 const editNodeSpawner = preload("res://scenes/blocks/path/editNode.tscn")
+
+var time: float = 0
+var lastStartTime: float = 0
+var started: bool = false
 
 func generateBlockOpts():
   blockOptions.path = {
@@ -15,6 +18,29 @@ func generateBlockOpts():
     "default": 0,
     "type": global.PromptTypes._enum,
     "values": ['stop', 'restart', "back"],
+  }
+  blockOptions.start = {
+    "default": 0,
+    "type": global.PromptTypes._enum,
+    "values": [
+      'instantly',
+      'onPress',
+      "whilePressed"
+    ],
+  }
+  blockOptions.restart = {
+    "default": 0,
+    "type": global.PromptTypes._enum,
+    "values": [
+      'never',
+      'always',
+      "ifStopped"
+    ],
+  }
+  blockOptions.buttonId = {"type": global.PromptTypes.int, "default": 0}
+  blockOptions.speed = {
+    "default": 150,
+    "type": global.PromptTypes.int,
   }
 
 var path: Array = []
@@ -45,13 +71,24 @@ func fromProgressToPoint(prog) -> Vector2:
   return path[path.size() - 1]
 
 func on_physics_process(delta: float) -> void:
-  # log.pp(fromProgressToPoint(global.tick * SPEED))
+  var currentTick = (func():
+    match selectedOptions.start:
+      0: return global.tick
+      1:
+        if lastStartTime:
+          return global.tick - lastStartTime
+        return 0
+      2: return global.tick - lastStartTime
+    ).call()
   var currentPointPos = (func():
     match selectedOptions.endMode:
-      0: return fromProgressToPoint(global.tick * SPEED)
-      1: return fromProgressToPoint(fmod(global.tick * SPEED, maxProgress))
+      0:
+        if (currentTick * selectedOptions.speed) >= maxProgress and selectedOptions.restart == 2:
+          started = false
+        return fromProgressToPoint(currentTick * selectedOptions.speed)
+      1: return fromProgressToPoint(fmod(currentTick * selectedOptions.speed, maxProgress))
       2:
-        var time = fmod(global.tick * SPEED, maxProgress * 2)
+        var time = fmod(currentTick * selectedOptions.speed, maxProgress * 2)
         if time <= maxProgress:
           return fromProgressToPoint(time)
         else:
@@ -68,7 +105,7 @@ func on_physics_process(delta: float) -> void:
 func on_ready() -> void:
   if not global.onEditorStateChanged.is_connected(updateVisible):
     global.onEditorStateChanged.connect(updateVisible)
-  
+
 func updateVisible() -> void:
   $Sprite2D.visible = global.useropts.showPathBlockInPlay or global.showEditorUi
   queue_redraw()
@@ -86,6 +123,21 @@ func _draw() -> void:
       )
       lastPoint = global_position + point
 
+func on_button_activated(id, btn):
+  if !selectedOptions.buttonId: return
+  if id == selectedOptions.buttonId:
+    if started:
+      if selectedOptions.restart == 1:
+        lastStartTime = global.tick
+    else:
+      lastStartTime = global.tick
+    started = true
+
+func on_button_deactivated(id, btn):
+  if !selectedOptions.buttonId: return
+  if id == selectedOptions.buttonId:
+    pass
+
 func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
   var idx = pathEditNodes.find(node)
   path[idx + 1] = node.startPosition - global_position
@@ -98,7 +150,12 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
     on_respawn()
 
 func on_respawn():
+  started = false
   updateVisible()
+  if not global.onButtonActivated.is_connected(on_button_activated):
+    global.onButtonActivated.connect(on_button_activated)
+  if not global.onButtonDeactivated.is_connected(on_button_deactivated):
+    global.onButtonDeactivated.connect(on_button_deactivated)
   maxProgress = getMaxProgress()
   var p := selectedOptions.path.split(',') as Array
   # start at the paths location

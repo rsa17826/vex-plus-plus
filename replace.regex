@@ -51,3 +51,10 @@ make it so that when i tab in a function it is replaced with the correct one
 @flags gm
 @endregex
 
+@name extra end spaces
+@file \.gd$
+@regex  +$
+@replace 
+@flags gm
+@endregex
+

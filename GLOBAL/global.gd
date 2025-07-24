@@ -1887,6 +1887,12 @@ var hoveredBrushes: Array[Node2D] = []
 
 signal gravChanged
 signal onEditorStateChanged
+signal onButtonActivated
+signal onButtonDeactivated
+var activeBtns: Array[EditorBlock] = []:
+  get():
+    activeBtns = activeBtns.filter(isAlive)
+    return activeBtns
 
 var checkpoints: Array[BlockCheckpoint] = []:
   get():
@@ -1896,16 +1902,17 @@ var portals: Array[BlockPortal] = []:
   get():
     portals = portals.filter(isAlive)
     return portals
-var buttonWalls: Array[BlockButtonDeactivatedWall] = []:
-  get():
-    buttonWalls = buttonWalls.filter(isAlive)
-    return buttonWalls
+# var buttonWalls: Array[BlockButtonDeactivatedWall] = []:
+#   get():
+#     buttonWalls = buttonWalls.filter(isAlive)
+#     return buttonWalls
     
 var isFirstTimeMenuIsLoaded := true
 
 func setEditorUiState(val):
   showEditorUi = val
   onEditorStateChanged.emit()
+
 
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 

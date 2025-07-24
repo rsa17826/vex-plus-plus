@@ -25,6 +25,10 @@
       STR(path)STR(1003.0,89.0,562.0,449.0,-75.0,400.0,1003.0,89.0)
       STR(color)STR(#fff)
       STR(endMode)INT(0)
+      STR(start)INT(0)
+      STR(buttonId)INT(0)
+      STR(speed)INT(150)
+      STR(restart)INT(0)
     }
   }
   {
@@ -94,9 +98,13 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(50.0,-100.0,150.0,-100.0,50.0,100.0,-1000.0,100.0)
+      STR(path)STR(50.0,-100.0,150.0,-100.0,50.0,100.0,-50.0,100.0)
       STR(color)STR(#fff)
-      STR(endMode)INT(1)
+      STR(endMode)INT(0)
+      STR(start)INT(1)
+      STR(buttonId)INT(1)
+      STR(speed)INT(150)
+      STR(restart)INT(2)
     }
   }
   {
@@ -110,6 +118,10 @@
       STR(path)STR(500.0,0.0,-100.0,150.0,400.0,200.0,800.0,50.0)
       STR(color)STR(#fff)
       STR(endMode)INT(2)
+      STR(start)INT(0)
+      STR(buttonId)INT(0)
+      STR(speed)INT(150)
+      STR(restart)INT(0)
     }
   }
   {
@@ -186,10 +198,23 @@
     STR(y)FLOAT(-150.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(-0.0)
+    STR(r)FLOAT(0.0)
     STR(id)STR(10x solar spike)
     STRNAME(options){
       STR(attachesToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-200.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(floor button)
+    STRNAME(options){
+      STR(buttonId)INT(1)
+      STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
