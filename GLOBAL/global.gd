@@ -779,6 +779,7 @@ func localProcess(delta: float) -> void:
       # if trying to create new block
       if justPaintedBlock:
         selectedBlock = justPaintedBlock
+        selectedBlock.isBeingPlaced = true
         selectedBlockOffset = Vector2.ZERO
         # log.pp(selectedBlock.ghost, selectedBlock.id)
         var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
@@ -1013,8 +1014,6 @@ func localInput(event: InputEvent) -> void:
       level.save()
   if Input.is_action_pressed(&"editor_delete", true):
     for block in boxSelect_selectedBlocks:
-      # selectedBlock = null
-      # breakpoint
       if !is_instance_valid(block): return
       if block == global.player.get_parent(): return
       if block.is_queued_for_deletion(): return

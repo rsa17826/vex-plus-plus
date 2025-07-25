@@ -389,6 +389,9 @@ func on_physics_process(delta: float) -> void: pass
 
 ## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved
 func _physics_process(delta: float) -> void:
+  if isBeingPlaced:
+    if !(global.selectedBlock == self ):
+      isBeingPlaced = false
   if global.player.state == global.player.States.dead: return
   if global.stopTicking: return
   if global.ui.modifiers.editorOpen: return
