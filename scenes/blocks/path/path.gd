@@ -10,7 +10,6 @@ var started: bool = false
 var currentTick: float = 0
 var savedMovement: float = 0
 var lastDesiredPosition: Vector2
-var moving: int = 0
 
 enum Restarts {
   never,
@@ -144,7 +143,6 @@ func on_physics_process(delta: float) -> void:
 func on_ready() -> void:
   if not global.onEditorStateChanged.is_connected(updateVisible):
     global.onEditorStateChanged.connect(updateVisible)
-  # reloadPathData()
 
 func updateVisible() -> void:
   $Sprite2D.visible = global.useropts.showPathBlockInPlay or global.showEditorUi
@@ -181,7 +179,6 @@ func on_button_deactivated(id, btn):
       savedMovement = currentTick
 
 func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
-  log.pp(moveStopped, "moveStopped")
   var idx = pathEditNodes.find(node)
   path[idx + 1] = node.startPosition - global_position
   updateVisible()
@@ -205,14 +202,14 @@ func on_respawn():
   if not global.onButtonDeactivated.is_connected(on_button_deactivated):
     global.onButtonDeactivated.connect(on_button_deactivated)
   maxProgress = getMaxProgress()
-  if not moving:
+  if not isBeingMoved:
     var p := selectedOptions.path.split(',') as Array
     # start at the paths location
     path = [Vector2.ZERO]
     for node in pathEditNodes:
       node.queue_free()
     pathEditNodes = []
-    while p:
+    while len(p) >= 2:
       var newPoint = Vector2(float(p.pop_front()), float(\
       p.pop_front())).rotated(deg_to_rad(startRotation_degrees))
       path.append(newPoint)
@@ -223,23 +220,16 @@ func on_respawn():
       pathEditNodes.append(editNode)
       global.level.get_node('blocks').add_child(editNode)
 
-# func reloadPathData():
-
 func onEditorMove(moveDist: Vector2) -> void:
   super (moveDist)
+  if isBeingPlaced: return
   for i in range(len(path)):
     path[i] -= moveDist
   path[0] = Vector2.ZERO
-  log.pp(path)
-  moving = 2
 
-func on_process(delta):
-  if moving:
-    moving -= 1
-    if not moving:
-      savePath()
-      on_respawn()
-      # reloadPathData()
+func onEditorMoveEnded():
+  savePath()
+  on_respawn()
 
 func savePath():
   # remove the Vector2.ZERO from the front

@@ -711,7 +711,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(100.0,0.0,-50.0,100.0,-200.0,50.0,-200.0,150.0)
+      STR(path)STR(100.0,0.0,0.0,100.0,-100.0,150.0,-200.0,50.0,-200.0,150.0)
       STR(endReachedAction)INT(0)
       STR(startOnLoad)BOOL(true)
       STR(startOnPress)BOOL(false)

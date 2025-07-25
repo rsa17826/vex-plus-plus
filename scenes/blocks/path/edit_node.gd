@@ -2,7 +2,7 @@ extends EditorBlock
 class_name BlockPath_editNode
 
 var moving = false
-var path: EditorBlock
+var path: BlockPath
 
 func onEditorMove(moveDist) -> void:
   super (moveDist)
@@ -24,3 +24,20 @@ func on_process(delta):
     return
   if moving:
     path.updatePoint(self , !respawning)
+
+func generateBlockOpts():
+  blockOptions.addNewPoint = {
+    "type": 'BUTTON',
+    "onChange": func():
+      var idx = path.pathEditNodes.find(self )
+      path.path.insert(idx + 1, path.path[idx])
+      path.updatePoint(self , true)
+  }
+
+func onDelete():
+  if !global.isAlive(path): return
+  var idx = path.pathEditNodes.find(self )
+  path.pathEditNodes.erase(self)
+  path.path.remove_at(idx + 1)
+  path.savePath()
+  path.respawn.call_deferred()

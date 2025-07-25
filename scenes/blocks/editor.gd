@@ -42,6 +42,8 @@ extends Node2D
 ## prevents selecting this block - selection box still appears, need to fix later
 @export var NO_SELECTING: bool = false
 
+var isBeingPlaced := false
+
 enum boolOrNull {
   _false = -1,
   _true = 1,
@@ -195,13 +197,16 @@ func showPopupMenu():
   var i := 0
   for k: String in blockOptions:
     var val
-    if blockOptions[k].type == global.PromptTypes._enum:
-      val = blockOptions[k].values[selectedOptions[k]] \
-      if blockOptions[k].values is Array else \
-      blockOptions[k].values.keys()[selectedOptions[k]]
-    else:
-      val = selectedOptions[k]
-    pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '') + " = " + str(val))
+    if blockOptions[k].type is global.PromptTypes:
+      if blockOptions[k].type == global.PromptTypes._enum:
+        val = blockOptions[k].values[selectedOptions[k]] \
+        if blockOptions[k].values is Array else \
+        blockOptions[k].values.keys()[selectedOptions[k]]
+      else:
+        val = selectedOptions[k]
+      pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '') + " = " + str(val))
+    elif blockOptions[k].type == 'BUTTON':
+      pm.set_item_text(i, k)
     pm.set_item_disabled(i,
       !(
         'showIf' not in blockOptions[k]
@@ -289,7 +294,7 @@ func _ready() -> void:
 
   __enable.call_deferred()
   respawn.call_deferred()
-  if global.useropts.allowCustomColors:
+  if global.useropts.allowCustomColors and not NO_CUSTOM_COLOR_IN_MENU:
     self.modulate = Color(selectedOptions.color)
   if cloneEventsHere and 'on_ready' in cloneEventsHere:
     cloneEventsHere.on_ready()
@@ -351,13 +356,24 @@ func editOption(idx: int) -> void:
     return
   # log.pp("editing", idx, blockOptions)
   var k: String = blockOptionsArray[idx]
-  var newData: Variant = await global.prompt(
-    k,
-    blockOptions[k].type,
-    selectedOptions[k],
-    blockOptions[k].default,
-    blockOptions[k].values if "values" in blockOptions[k] else []
-  )
+  var newData: Variant
+  if blockOptions[k].type is global.PromptTypes:
+    newData = await global.prompt(
+      k,
+      blockOptions[k].type,
+      selectedOptions[k],
+      blockOptions[k].default,
+      blockOptions[k].values if "values" in blockOptions[k] else []
+    )
+  elif blockOptions[k].type == 'BUTTON':
+    if blockOptions[k].onChange.call():
+      respawn()
+      _ready()
+    onOptionEdit.call()
+    return
+  else:
+    log.err("unknown type", k, blockOptions[k])
+    breakpoint
   if \
   'onChange' not in blockOptions[k] \
   or blockOptions[k].onChange.call(selectedOptions[k]):
@@ -427,13 +443,7 @@ var right_edge: float
 var top_edge: float
 var bottom_edge: float
 
-# func boolsToV2(u, d, l, r):
-#   var v = Vector2.ZERO
-#   if u: v.y -= 1
-#   if d: v.y += 1
-#   if l: v.x -= 1
-#   if r: v.x += 1
-#   return v
+func onEditorMoveEnded(): pass
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
@@ -495,7 +505,9 @@ func _process(delta: float) -> void:
         # if not mouse down
         if !Input.is_action_pressed(&"editor_select"):
           if not _DISABLED:
-            isBeingMoved = false
+            if isBeingMoved:
+              onEditorMoveEnded()
+              isBeingMoved = false
             for collider in collisionShapes:
               if not collider and not ignoreMissingNodes:
                 log.pp("invalid collisionShapes", collider, collisionShapes, id)
@@ -619,6 +631,7 @@ func _process(delta: float) -> void:
   on_process(delta)
 
 func on_process(delta: float): pass
+func onDelete(): pass
 
 func createEditorGhost() -> void:
   if not ghostIconNode:
