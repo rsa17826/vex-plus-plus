@@ -5,6 +5,7 @@ var moving = false
 var path: EditorBlock
 
 func onEditorMove(moveDist) -> void:
+  super (moveDist)
   moving = true
 
 func on_ready() -> void:

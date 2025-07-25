@@ -1848,11 +1848,15 @@ func createNewBlock(data) -> EditorBlock:
     log.err("Error loading block", id)
   return
 
-var boxSelect_selectedBlocks = []
+var boxSelect_selectedBlocks: Array[EditorBlock] = []:
+  get():
+    boxSelect_selectedBlocks = boxSelect_selectedBlocks.filter(isAlive)
+    return boxSelect_selectedBlocks
+
 @onready var MAP_FOLDER = path.abs('res://maps')
 
 func boxSelectReleased():
-  boxSelect_selectedBlocks = []
+  # boxSelect_selectedBlocks = []
   var rect = [
     Vector2(
       min(boxSelectRealStartPos.x, boxSelectRealEndPos.x),
@@ -1870,7 +1874,8 @@ func boxSelectReleased():
     var pos = block.global_position
     if pos.x + (block.sizeInPx.x / 2) >= rect[0][0] and pos.x - (block.sizeInPx.x / 2) <= rect[1][0]:
       if pos.y + (block.sizeInPx.y / 2) >= rect[0][1] and pos.y - (block.sizeInPx.y / 2) <= rect[1][1]:
-        boxSelect_selectedBlocks.append(block)
+        if block not in boxSelect_selectedBlocks:
+          boxSelect_selectedBlocks.append(block)
 
   boxSelectDrawStartPos = Vector2.ZERO
   boxSelectDrawEndPos = Vector2.ZERO
@@ -1912,7 +1917,6 @@ var isFirstTimeMenuIsLoaded := true
 func setEditorUiState(val):
   showEditorUi = val
   onEditorStateChanged.emit()
-
 
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 

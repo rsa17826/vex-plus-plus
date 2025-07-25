@@ -14,7 +14,7 @@ func on_respawn() -> void:
     global.portals.append(self)
 
 func on_body_entered(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     if global.lastPortal == self: return
     if selectedOptions.exitId == 0: return
     for portal in global.portals:
