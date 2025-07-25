@@ -4,7 +4,7 @@ extends Node2D
 #   loadLevel(global.currentLevel().name)
 func _init() -> void:
   global.level = self
-  
+
 @export var boxSelectDrawingNode: Control
 
 func onProgress(prog, max):
@@ -26,7 +26,7 @@ func loadLevel(level):
 
   global.ui.modifiers.updateUi(global.currentLevelSettings())
   global.ui.modifiers.loadModsToPlayer()
-  
+
   global.ui.progressContainer.visible = true
   var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
   .call(global.path.join(global.levelFolderPath, level + '.sds'),
@@ -74,7 +74,7 @@ func loadLevel(level):
   # global.player.updateCollidingBlocksEntered()
   await global.wait()
   global.tick = global.currentLevel().tick
-  
+
   # await global.wait()
   # await global.wait(300)
   # global.savePlayerLevelData()
@@ -114,6 +114,7 @@ func save():
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.version = int(global.file.read("res://VERSION", false, "-1"))
+  opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
   sds.saveDataToFile(global.path.join(global.levelFolderPath, "options.sds"), opts)
   global.ui.levelSaved.modulate.a = 1
   await global.wait(1000)
