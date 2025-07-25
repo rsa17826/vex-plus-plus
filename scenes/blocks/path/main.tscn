@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://lgau7cy4xe3d"]
+[gd_scene load_steps=6 format=3 uid="uid://lgau7cy4xe3d"]
 
 [ext_resource type="Script" uid="uid://cyrlfxpwpne5d" path="res://scenes/blocks/path/path.gd" id="1_qvsey"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_5skgb"]
 [ext_resource type="Texture2D" uid="uid://b5a17elf0qcs3" path="res://scenes/blocks/path/images/1.png" id="2_qvsey"]
+[ext_resource type="Texture2D" uid="uid://dst2df26xneqn" path="res://scenes/blocks/path/images/2.png" id="2_vcsin"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvsey"]
 size = Vector2(100, 100)
@@ -10,12 +11,16 @@ size = Vector2(100, 100)
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes") groups=["canBeAttachedTo"]]
 script = ExtResource("1_qvsey")
 ghostIconNode = NodePath("Sprite2D")
-editorBarIconNode = NodePath("Sprite2D")
+editorBarIconNode = NodePath("Sprite2D2")
 collisionShapes = [NodePath("Area2D/CollisionShape2D")]
 ignoreMissingNodes = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.144, 0.144)
+texture = ExtResource("2_vcsin")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+visible = false
 texture = ExtResource("2_qvsey")
 
 [node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("root")]
