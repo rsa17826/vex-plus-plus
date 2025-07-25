@@ -13,7 +13,7 @@ ignoreMissingNodes = true
 normalScale = true
 dontDisablePhysicsProcess = true
 EDITOR_IGNORE = true
-DONT_MOVE = true
+DONT_SAVE = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-10, 0)

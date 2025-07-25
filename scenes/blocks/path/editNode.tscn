@@ -9,7 +9,8 @@ ghostIconNode = NodePath("Sprite2D")
 ignoreMissingNodes = true
 normalScale = true
 DONT_SAVE = true
-DONT_MOVE = true
+DONT_MOVE_ON_RESPAWN = true
+NO_RCLICK_MENU = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(2.667754, 2.3687663, 2.0697784, 0.78431374)
