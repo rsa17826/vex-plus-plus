@@ -411,7 +411,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(50.0,-100.0,150.0,-100.0,150.0,100.0,0.0,150.0,0.0,0.0)
+      STR(path)STR(50,-100,150,-100,150,100,0,150,0,0)
       STR(endReachedAction)INT(0)
       STR(startOnLoad)BOOL(true)
       STR(startOnPress)BOOL(false)
@@ -711,7 +711,27 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(100.0,0.0,0.0,100.0,-100.0,150.0,-200.0,50.0,-200.0,150.0)
+      STR(path)STR(50,50,0,100,-100,150,-200,50,-200,150)
+      STR(endReachedAction)INT(0)
+      STR(startOnLoad)BOOL(true)
+      STR(startOnPress)BOOL(false)
+      STR(startWhilePressed)BOOL(false)
+      STR(buttonId)INT(0)
+      STR(restart)INT(0)
+      STR(forwardSpeed)INT(150)
+      STR(backwardSpeed)INT(150)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-400.0)
+    STR(y)FLOAT(-1300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(path)
+    STRNAME(options){
+      STR(path)STR(50,-100,150,-100,50,100,200,50)
       STR(endReachedAction)INT(0)
       STR(startOnLoad)BOOL(true)
       STR(startOnPress)BOOL(false)

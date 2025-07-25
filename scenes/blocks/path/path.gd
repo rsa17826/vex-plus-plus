@@ -202,7 +202,7 @@ func on_respawn():
   if not global.onButtonDeactivated.is_connected(on_button_deactivated):
     global.onButtonDeactivated.connect(on_button_deactivated)
   maxProgress = getMaxProgress()
-  if not isBeingMoved:
+  if not isBeingMoved or isBeingPlaced or global.useropts.movingPathNodeMovesEntirePath:
     var p := selectedOptions.path.split(',') as Array
     # start at the paths location
     path = [Vector2.ZERO]
@@ -222,7 +222,7 @@ func on_respawn():
 
 func onEditorMove(moveDist: Vector2) -> void:
   super (moveDist)
-  if isBeingPlaced: return
+  if isBeingPlaced or global.useropts.movingPathNodeMovesEntirePath: return
   for i in range(len(path)):
     path[i] -= moveDist
   path[0] = Vector2.ZERO
@@ -236,8 +236,8 @@ func savePath():
   path.pop_front()
   selectedOptions.path = ','.join(
     path.map(func(e): return \
-      str(e.rotated(-deg_to_rad(startRotation_degrees)).x) + ',' + \
-      str(e.rotated(-deg_to_rad(startRotation_degrees)).y)
+      str(int(e.rotated(-deg_to_rad(startRotation_degrees)).x)) + ',' + \
+      str(int(e.rotated(-deg_to_rad(startRotation_degrees)).y))
     )
   )
   path.push_front(Vector2.ZERO)
