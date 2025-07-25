@@ -799,6 +799,7 @@ func localProcess(delta: float) -> void:
         if justPaintedBlock.is_in_group("EDITOR_OPTION_rotate") \
         else 0.0
         justPaintedBlock.id = blockNames[selectedBrush.id]
+        justPaintedBlock.isBeingPlaced = true
         lastSelectedBrush = selectedBrush
         # create a new block
         # justPaintedBlock.scale = selectedBrush.normalScale
@@ -1019,7 +1020,8 @@ func localInput(event: InputEvent) -> void:
       if block.is_queued_for_deletion(): return
       if block in hoveredBlocks:
         hoveredBlocks.erase(block)
-      block.queue_free()
+      block.onDelete()
+      block.queue_free.call_deferred()
     boxSelect_selectedBlocks = []
     # log.pp(selectedBlock, lastSelectedBlock)
     if selectedBlock && is_instance_valid(selectedBlock):
@@ -1028,6 +1030,7 @@ func localInput(event: InputEvent) -> void:
         hoveredBlocks.erase(selectedBlock)
       lastSelectedBlock = selectedBlock.duplicate()
       lastSelectedBlock.id = selectedBlock.id
+      selectedBlock.onDelete()
       selectedBlock.queue_free.call_deferred()
       selectedBlock = null
     else:
