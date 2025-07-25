@@ -1458,3 +1458,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # max key hold count
 
 # !!fix blocks sometimes ending up near 00
+
+# add add new point button to path man node
+# make sure buttons don't try and save values
