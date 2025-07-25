@@ -35,11 +35,12 @@ extends Node2D
 @export var DONT_ENABLE_ON_RESPAWN: bool = false
 ## prevents the node from being moved by respawning
 @export var DONT_MOVE_ON_RESPAWN: bool = false
-
+## prevents the color option from appearing in this blocks rclick menu
+@export var NO_CUSTOM_COLOR_IN_MENU: bool = false
+## disables the rclick menu for this block
 @export var NO_RCLICK_MENU: bool = false
+## prevents selecting this block - selection box still appears, need to fix later
 @export var NO_SELECTING: bool = false
-@export_group("IGNORE")
-@export var pathFollowNode: Node2D
 
 enum boolOrNull {
   _false = -1,
@@ -108,16 +109,16 @@ func _on_mouse_entered() -> void:
 func _on_mouse_exited() -> void:
   isHovered = false
 
-func onEditorMove(moveDist) -> void:
+func onEditorMove(moveDist: Vector2) -> void:
   for block: EditorBlock in attach_parents:
     block.attach_children.erase(self )
   attach_parents = []
-  if self in global.boxSelect_selectedBlocks:
+  if self in global.boxSelect_selectedBlocks and moveDist != Vector2.ZERO:
     for block in global.boxSelect_selectedBlocks:
       if block == self: continue
       block.startPosition += moveDist
       block.global_position += moveDist
-      block.respawn()
+      block.onEditorMove(Vector2.ZERO)
   respawn()
 
 ## overite this to receive event when data for this block is loaded
@@ -282,7 +283,7 @@ func _ready() -> void:
   if is_in_group("attaches to things"):
     blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
 
-  if global.useropts.allowCustomColors:
+  if global.useropts.allowCustomColors and not NO_CUSTOM_COLOR_IN_MENU:
     blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
   setupOptions()
 
