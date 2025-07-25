@@ -2,7 +2,7 @@
   STR(start)STR(hub)
   STR(author)STR()
   STR(description)STR()
-  STR(version)INT(96)
+  STR(version)INT(98)
   STR(stages){
     STR(hub){
       STR(canDoWallSlide)BOOL(true)

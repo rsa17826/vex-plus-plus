@@ -9,6 +9,7 @@ var lastStartTime: float = 0
 var started: bool = false
 var currentTick: float = 0
 var savedMovement: float = 0
+var lastDesiredPosition: Vector2
 
 enum Restarts {
   never,
@@ -106,10 +107,12 @@ func fromProgressToPoint(prog) -> Vector2:
 func on_physics_process(delta: float) -> void:
   if not started: return
   currentTick = (func():
-    if selectedOptions.startOnLoad or selectedOptions.startOnPress: return global.tick - lastStartTime
-    if selectedOptions.startWhilePressed: return global.tick - lastStartTime + savedMovement
+    if selectedOptions.startOnLoad or selectedOptions.startOnPress:
+      return global.tick - lastStartTime
+    if selectedOptions.startWhilePressed:
+      return global.tick - lastStartTime + savedMovement
   ).call()
-  var currentPointPos = (func():
+  var desiredPosition = (func():
     match selectedOptions.endReachedAction:
       EndReachedActions.stop:
         if \
@@ -134,11 +137,8 @@ func on_physics_process(delta: float) -> void:
       _: return Vector2.ZERO
     ).call()
   for child in attach_children:
-    child.thingThatMoves.global_position = (
-      currentPointPos
-      + global_position
-      + (child.startPosition - startPosition)
-    )
+    child.thingThatMoves.global_position += desiredPosition - lastDesiredPosition
+  lastDesiredPosition = desiredPosition
 
 func on_ready() -> void:
   if not global.onEditorStateChanged.is_connected(updateVisible):
@@ -191,6 +191,7 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
     on_respawn()
 
 func on_respawn():
+  lastDesiredPosition = Vector2.ZERO
   savedMovement = 0
   currentTick = 0
   lastStartTime = 0
@@ -208,7 +209,7 @@ func on_respawn():
     node.queue_free()
   pathEditNodes = []
   while p:
-    var newPoint = Vector2(float(p.pop_front()), float(p.pop_front()))
+    var newPoint = Vector2(float(p.pop_front()), float(p.pop_front())).rotated(rotation)
     path.append(newPoint)
     var editNode = editNodeSpawner.instantiate()
     editNode.global_position = newPoint + global_position

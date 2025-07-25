@@ -34,7 +34,10 @@ extends Node2D
 ## don't call __enable when the node respawns
 @export var DONT_ENABLE_ON_RESPAWN: bool = false
 ## prevents the node from being moved by respawning
-@export var DONT_MOVE: bool = false
+@export var DONT_MOVE_ON_RESPAWN: bool = false
+
+@export var NO_RCLICK_MENU: bool = false
+@export var NO_SELECTING: bool = false
 @export_group("IGNORE")
 @export var pathFollowNode: Node2D
 
@@ -137,7 +140,7 @@ func respawn() -> void:
         breakpoint
       block.respawn()
     attach_children = []
-  if not DONT_MOVE:
+  if not DONT_MOVE_ON_RESPAWN:
     global_position = startPosition
     rotation_degrees = startRotation_degrees
     scale = startScale
@@ -146,8 +149,10 @@ func respawn() -> void:
 
   if cloneEventsHere and 'on_respawn' in cloneEventsHere:
     cloneEventsHere.on_respawn()
-  if 'on_respawn' in self:
-    self.on_respawn.call()
+  on_respawn()
+
+func on_respawn():
+  pass
 
 var onBottomSide := false
 var onTopSide := false
@@ -171,11 +176,15 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
         and not global.hoveredBrushes \
         :
         # log.pp(event.to_string(), shape_idx, viewport)
+        if NO_RCLICK_MENU: return
         if not pm: return
         # log.pp(blockOptions, event.as_text(), self, self.name)
         showPopupMenu()
       # select blocks when clicking them
       elif event.is_action_pressed(&"editor_select") && Input.is_action_just_pressed(&"editor_select"):
+        if NO_SELECTING:
+          global.hoveredBlocks.pop_front()
+          if not global.hoveredBlocks: return
         respawn()
         global_position = startPosition
         global.selectBlock()
@@ -217,10 +226,12 @@ func _on_body_entered(body: Node2D, real=true) -> void:
   #   else:
   #     collisionQueue[body] = "entered"
   #   return
-  if 'on_body_entered' in self:
-    self.on_body_entered.call(body)
+  on_body_entered(body)
   if is_in_group("death"):
-    self._on_body_enteredDEATH.call(body)
+    _on_body_enteredDEATH(body)
+
+func on_body_entered(body: Node2D): pass
+func on_body_exited(body: Node2D): pass
 
 ## don't overite - use on_body_exited instead
 func _on_body_exited(body: Node2D, real=true) -> void:
@@ -233,10 +244,9 @@ func _on_body_exited(body: Node2D, real=true) -> void:
     else:
       collisionQueue[body] = "exited"
     return
-  if 'on_body_exited' in self:
-    self.on_body_exited.call(body)
+  on_body_exited(body)
   if is_in_group("death"):
-    self._on_body_exitedDEATH.call(body)
+    _on_body_exitedDEATH(body)
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
@@ -282,8 +292,8 @@ func _ready() -> void:
     self.modulate = Color(selectedOptions.color)
   if cloneEventsHere and 'on_ready' in cloneEventsHere:
     cloneEventsHere.on_ready()
-  if 'on_ready' in self:
-    self.on_ready.call()
+  on_ready()
+func on_ready(): pass
 
 func generateBlockOpts():
   pass
@@ -358,6 +368,8 @@ func editOption(idx: int) -> void:
   _ready()
   onOptionEdit.call()
 
+func on_physics_process(delta: float) -> void: pass
+
 ## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved
 func _physics_process(delta: float) -> void:
   if global.player.state == global.player.States.dead: return
@@ -376,8 +388,7 @@ func _physics_process(delta: float) -> void:
   #
   if cloneEventsHere and 'on_physics_process' in cloneEventsHere:
     cloneEventsHere.on_physics_process(delta)
-  if 'on_physics_process' in self:
-    self.on_physics_process.call(delta)
+  on_physics_process(delta)
   # if respawning:
   #   lastMovementStep = Vector2.ZERO
   # else:
@@ -457,7 +468,7 @@ func _process(delta: float) -> void:
     #   ghost.global_rotation = ghostFollowNode.global_rotation
     ghost.use_parent_material = true
     if global.hoveredBlocks && self == global.hoveredBlocks[0] \
-      or self in global.boxSelect_selectedBlocks:
+      or self in global.boxSelect_selectedBlocks and not NO_SELECTING:
       ghost.modulate.a = global.useropts.hoveredBlockGhostAlpha
     else:
       ghost.modulate.a = global.useropts.blockGhostAlpha
@@ -493,7 +504,7 @@ func _process(delta: float) -> void:
           ghost.material.set_shader_parameter("color", Color.hex(global.useropts.hoveredBlockOutlineColor))
           # and if first hovered block, show border
           if global.hoveredBlocks && self == global.hoveredBlocks[0] \
-            or self in global.boxSelect_selectedBlocks:
+            or self in global.boxSelect_selectedBlocks and not NO_SELECTING:
             var mouse_pos := get_global_mouse_position().rotated(-deg_to_rad(startRotation_degrees))
 
             var node_pos := ghost.global_position.rotated(-deg_to_rad(startRotation_degrees))
@@ -549,9 +560,9 @@ func _process(delta: float) -> void:
             # global.scaleOnLeftSide = v.x == -1
             # log.pp("ed", onLeftSide, onRightSide)
 
-            # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select
             ghost.material.set_shader_parameter("xSize", global.useropts.blockOutlineSize / (sizeInPx.x / 100))
             ghost.material.set_shader_parameter("ySize", global.useropts.blockOutlineSize / (sizeInPx.y / 100))
+            # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select
             ghost.material.set_shader_parameter("showTop",
               self in global.boxSelect_selectedBlocks or \
               not global.editorInScaleMode or \
@@ -604,15 +615,16 @@ func _process(delta: float) -> void:
           else:
             # __disable outline
             ghost.use_parent_material = true
-  if 'on_process' in self:
-    self.on_process.call(delta)
+  on_process(delta)
+
+func on_process(delta: float): pass
 
 func createEditorGhost() -> void:
   if not ghostIconNode:
     log.err("ghost icon node is null", name)
     breakpoint
   ghost = ghostIconNode.duplicate()
-  ghost.material = preload("res://scenes/blocks/selectedBorder.tres")
+  ghost.material = preload("res://scenes/blocks/selectedBorder.tres").duplicate()
   ghost.scale = ghostIconNode.scale
   ghost.name = "ghost"
   # ghost.modulate.a = .2

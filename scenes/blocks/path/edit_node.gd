@@ -10,7 +10,7 @@ func onEditorMove(moveDist) -> void:
 func on_ready() -> void:
   if not global.onEditorStateChanged.is_connected(updateVisible):
     global.onEditorStateChanged.connect(updateVisible)
-  
+
 func updateVisible():
   visible = global.useropts.showPathEditNodesInPlay or global.showEditorUi
 
@@ -18,5 +18,8 @@ func on_respawn():
   updateVisible()
 
 func on_process(delta):
+  if not global.isAlive(path):
+    queue_free()
+    return
   if moving:
     path.updatePoint(self , !respawning)
