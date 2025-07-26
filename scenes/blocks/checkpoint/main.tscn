@@ -11,7 +11,7 @@ radius = 130.00096
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_or7js"]
 size = Vector2(21, 6)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_rotate", "attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=[]]
 script = ExtResource("1_ju53q")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -24,6 +24,8 @@ oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
 "y": -1
 })
+EDITOR_OPTION_rotate = true
+attachesToThings = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3072

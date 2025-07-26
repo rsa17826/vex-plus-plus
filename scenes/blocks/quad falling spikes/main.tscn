@@ -150,12 +150,14 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_rotate", "attaches to things", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["death"]]
 script = ExtResource("1_cdvup")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIconNode = NodePath("Node2D/Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/AnimatedSprite2D")]
+EDITOR_OPTION_rotate = true
+attachesToThings = true
 
 [node name="Node2D" type="Node2D" parent="."]
 

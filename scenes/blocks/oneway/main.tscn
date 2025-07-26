@@ -143,7 +143,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ep0pb"]
 size = Vector2(700, 6)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode") groups=[]]
 script = ExtResource("1_rch08")
 ghostIconNode = NodePath("collisionNode/editorBar")
 editorBarIconNode = NodePath("collisionNode/editorBar")
@@ -151,6 +151,8 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisi
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/Node2D/AnimatedSprite2D3"), NodePath("collisionNode/Node2D/AnimatedSprite2D5"), NodePath("collisionNode/Node2D/AnimatedSprite2D6"), NodePath("collisionNode/Node2D/AnimatedSprite2D4"), NodePath("collisionNode/Node2D/AnimatedSprite2D7"), NodePath("collisionNode/Node2D/AnimatedSprite2D8"), NodePath("collisionNode/Node2D/AnimatedSprite2D9"), NodePath("collisionNode/Node2D/AnimatedSprite2D10")]
 thingThatMoves = NodePath("collisionNode")
 pathFollowNode = NodePath("collisionNode")
+EDITOR_OPTION_scale = true
+EDITOR_OPTION_rotate = true
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 10240

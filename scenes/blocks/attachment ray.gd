@@ -48,9 +48,9 @@ func tryaddgroups():
   for block in get_overlapping_bodies() + get_overlapping_areas():
     block = block.root
     # if root.id=='key':
-    #   log.pp(block.id, block.is_in_group("canBeAttachedTo"))
+    #   log.pp(block.id, block.canBeAttachedTo)
     # log.pp(block, "is overlapping")
-    if block.is_in_group("canBeAttachedTo"):
+    if block.canBeAttachedTo:
       # if not block in self parents
       if block not in root.attach_parents:
         root.attach_parents.append(block)

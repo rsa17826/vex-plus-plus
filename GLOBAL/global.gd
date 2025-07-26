@@ -685,13 +685,13 @@ func localProcess(delta: float) -> void:
     player.moving = 2
     # when trying to rotate blocks
     if editorInRotateMode && selectedBlock \
-    and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
+    and (selectedBlock.EDITOR_OPTION_rotate \
     or global.useropts.allowRotatingAnything):
       # handled in localinput now
       pass
     # when trying to scale blocks
     elif editorInScaleMode && selectedBlock \
-    and (selectedBlock.is_in_group("EDITOR_OPTION_scale") \
+    and (selectedBlock.EDITOR_OPTION_scale \
     or global.useropts.allowScalingAnything):
       if !scaleOnTopSide \
       and !scaleOnBottomSide \
@@ -797,7 +797,7 @@ func localProcess(delta: float) -> void:
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
         justPaintedBlock.rotation_degrees = player.rotation_degrees \
-        if justPaintedBlock.is_in_group("EDITOR_OPTION_rotate") \
+        if justPaintedBlock.EDITOR_OPTION_rotate \
         else 0.0
         justPaintedBlock.id = blockNames[selectedBrush.id]
         justPaintedBlock.isBeingPlaced = true
@@ -971,7 +971,7 @@ func localInput(event: InputEvent) -> void:
     editorInRotateMode = Input.is_action_pressed(&"editor_rotate")
   if editorInRotateMode and event is InputEventMouseMotion and event.screen_relative:
     if selectedBlock \
-      and (selectedBlock.is_in_group("EDITOR_OPTION_rotate") \
+      and (selectedBlock.EDITOR_OPTION_rotate \
       or global.useropts.allowRotatingAnything) and lastMousePos:
       var mpos: Vector2 = selectedBlock.get_global_mouse_position()
       selectedBlock.look_at(mpos)
@@ -1109,7 +1109,7 @@ func localInput(event: InputEvent) -> void:
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
         justPaintedBlock.rotation_degrees = player.rotation_degrees \
-        if justPaintedBlock.is_in_group("EDITOR_OPTION_rotate") \
+        if justPaintedBlock.EDITOR_OPTION_rotate \
         else 0.0
         justPaintedBlock.id = block
         lastSelectedBrush = selectedBrush

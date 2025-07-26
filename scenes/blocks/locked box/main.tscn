@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["EDITOR_OPTION_scale", "canBeAttachedTo"]]
+[node name="collisionNode" type="StaticBody2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites")]
 collision_layer = 34824
 collision_mask = 0
 input_pickable = true
@@ -15,6 +15,8 @@ ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]
 hidableSprites = [NodePath("Sprite2D")]
+EDITOR_OPTION_scale = true
+canBeAttachedTo = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true

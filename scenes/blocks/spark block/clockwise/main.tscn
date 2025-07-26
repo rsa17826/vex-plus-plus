@@ -11,7 +11,7 @@ size = Vector2(700, 700)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ooncx"]
 radius = 31.0161
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode") groups=["EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode") groups=[]]
 script = ExtResource("1_lv01i")
 spark = NodePath("collisionNode/spark")
 sprite = NodePath("collisionNode/Sprite2D")
@@ -21,6 +21,7 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisi
 hidableSprites = [NodePath("collisionNode/spark/Sprite2D"), NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 pathFollowNode = NodePath("collisionNode")
+EDITOR_OPTION_scale = true
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 2056

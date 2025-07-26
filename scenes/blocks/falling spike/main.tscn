@@ -16,7 +16,7 @@ size = Vector2(73, 18)
 [sub_resource type="CircleShape2D" id="CircleShape2D_4c23b"]
 radius = 5.09902
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToFall", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_rotate", "attaches to things", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToFall", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_4c23b")
 nodeToFall = NodePath("Node2D")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
@@ -25,6 +25,8 @@ collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
 thingThatMoves = NodePath("Node2D/collisionNode")
+EDITOR_OPTION_rotate = true
+attachesToThings = true
 
 [node name="Node2D" type="Node2D" parent="."]
 

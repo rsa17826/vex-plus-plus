@@ -14,7 +14,7 @@ radius = 30.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qfqg"]
 radius = 127.016
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("shurikenBase", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "ghostFollowNode") groups=["EDITOR_OPTION_rotate", "attaches to things", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("shurikenBase", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_8qfqg")
 shurikenBase = NodePath("Node2D/death")
 ghostIconNode = NodePath("Node2D/Sprite2D")
@@ -24,6 +24,8 @@ hidableSprites = [NodePath("Node2D/Spawner")]
 cloneEventsHere = NodePath("attach detector")
 ghostFollowNode = NodePath("Node2D")
 mouseRotationOffset = 0
+EDITOR_OPTION_rotate = true
+attachesToThings = true
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(733, 0)

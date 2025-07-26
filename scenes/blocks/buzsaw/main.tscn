@@ -11,7 +11,7 @@ radius = 298.3
 [sub_resource type="CircleShape2D" id="CircleShape2D_v7uox"]
 radius = 306.863
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["EDITOR_OPTION_scale", "attaches to things", "buzsaw - generic", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["buzsaw - generic", "death"]]
 script = ExtResource("1_v7uox")
 ghostIconNode = NodePath("collisionNode/right rot")
 editorBarIconNode = NodePath("collisionNode/right rot")
@@ -23,6 +23,8 @@ usePlayerRotationOnRespawn = false
 pathFollowNode = NodePath("collisionNode")
 BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/left rot")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("collisionNode/right rot")
+EDITOR_OPTION_scale = true
+attachesToThings = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3088
@@ -42,7 +44,7 @@ scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_lsihx")
 flip_h = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" groups=["EDITOR_OPTION_scale"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" groups=[]]
 shape = SubResource("CircleShape2D_xvl4e")
 debug_color = Color(1, 0, 0, 0.419608)
 

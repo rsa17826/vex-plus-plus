@@ -112,7 +112,7 @@ size = Vector2(630, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvu3y"]
 size = Vector2(1, 630)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "boomSprite", "boomShape", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale", "canBeAttachedTo"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "boomSprite", "boomShape", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=[]]
 script = ExtResource("1_o857y")
 blockDieArea = NodePath("CharacterBody2D/block die area")
 boomSprite = NodePath("CharacterBody2D/AnimatedSprite2D")
@@ -124,6 +124,8 @@ hidableSprites = [NodePath("CharacterBody2D/Sprite2D")]
 cloneEventsHere = NodePath("CharacterBody2D")
 thingThatMoves = NodePath("CharacterBody2D")
 usePlayerRotationOnRespawn = false
+EDITOR_OPTION_scale = true
+canBeAttachedTo = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 34984
