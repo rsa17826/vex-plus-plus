@@ -252,7 +252,7 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=[]]
 script = ExtResource("1_4g13r")
 anim = NodePath("collisionNode/center")
 ghostIconNode = NodePath("collisionNode/editorBar")
@@ -261,6 +261,7 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/center"), NodePath("collisionNode/border")]
 cloneEventsHere = NodePath("collisionNode")
 thingThatMoves = NodePath("collisionNode")
+EDITOR_OPTION_scale = true
 
 [node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 2056

@@ -42,6 +42,13 @@ extends Node2D
 ## prevents selecting this block - selection box still appears, need to fix later
 @export var NO_SELECTING: bool = false
 
+## prevents selecting this block - selection box still appears, need to fix later
+
+@export var EDITOR_OPTION_scale: bool = false
+@export var EDITOR_OPTION_rotate: bool = false
+@export var attachesToThings: bool = false
+@export var canBeAttachedTo: bool = false
+
 var isBeingPlaced := false
 
 enum boolOrNull {
@@ -136,7 +143,7 @@ func respawn() -> void:
   if thingThatMoves:
     thingThatMoves.position = Vector2.ZERO
 
-  if is_in_group("canBeAttachedTo"):
+  if canBeAttachedTo:
     for block: EditorBlock in attach_children:
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
@@ -285,7 +292,7 @@ func _ready() -> void:
     createEditorGhost()
   generateBlockOpts()
 
-  if is_in_group("attaches to things"):
+  if attachesToThings:
     blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
 
   if global.useropts.allowCustomColors and not NO_CUSTOM_COLOR_IN_MENU:
@@ -432,7 +439,7 @@ func _physics_process(delta: float) -> void:
 
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
-  if is_in_group("canBeAttachedTo"):
+  if canBeAttachedTo:
     for block: EditorBlock in attach_children:
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
@@ -586,7 +593,7 @@ func _process(delta: float) -> void:
                 onTopSide and
                 global.editorInScaleMode and
                 (
-                  is_in_group("EDITOR_OPTION_scale") or
+                  EDITOR_OPTION_scale or
                   global.useropts.allowScalingAnything
                 )
               )
@@ -598,7 +605,7 @@ func _process(delta: float) -> void:
                 onBottomSide and
                 global.editorInScaleMode and
                 (
-                  is_in_group("EDITOR_OPTION_scale") or
+                  EDITOR_OPTION_scale or
                   global.useropts.allowScalingAnything
                 )
               )
@@ -610,7 +617,7 @@ func _process(delta: float) -> void:
                 onLeftSide and
                 global.editorInScaleMode and
                 (
-                  is_in_group("EDITOR_OPTION_scale") or
+                  EDITOR_OPTION_scale or
                   global.useropts.allowScalingAnything
                 )
               )
@@ -622,7 +629,7 @@ func _process(delta: float) -> void:
                 onRightSide and
                 global.editorInScaleMode and
                 (
-                  is_in_group("EDITOR_OPTION_scale") or
+                  EDITOR_OPTION_scale or
                   global.useropts.allowScalingAnything
                 )
               )

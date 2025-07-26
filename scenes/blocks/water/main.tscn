@@ -28,7 +28,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(702, 702)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode") groups=["EDITOR_OPTION_scale", "attaches to things", "water"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode") groups=["water"]]
 script = ExtResource("1_4qql6")
 sprite = NodePath("collisionNode/AnimatedSprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -40,6 +40,8 @@ thingThatMoves = NodePath("collisionNode")
 bigSnapX = 1
 bigSnapY = 1
 pathFollowNode = NodePath("collisionNode")
+EDITOR_OPTION_scale = true
+attachesToThings = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 1028

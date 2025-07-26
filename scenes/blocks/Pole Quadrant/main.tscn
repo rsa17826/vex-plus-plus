@@ -10,7 +10,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_pha53"]
 radius = 46.3897
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode") groups=["attaches to things"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode") groups=[]]
 script = ExtResource("1_6ey8g")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/editorBar")
@@ -20,6 +20,7 @@ hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("collisionNode")
 pathFollowNode = NodePath("collisionNode")
+attachesToThings = true
 
 [node name="collisionNode" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("2_pha53")
