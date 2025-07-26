@@ -820,8 +820,8 @@ func _physics_process(delta: float) -> void:
             if !justAddedVels[n]:
               vel[n] = Vector2.ZERO
         vel.conveyer = global.clearLow(vel.conveyer)
-        if vel.conveyer:
-          log.pp(vel.conveyer)
+        # if vel.conveyer:
+        #   log.pp(vel.conveyer)
         # move using all velocities
         velocity = Vector2.ZERO
         if state != States.wallHang:

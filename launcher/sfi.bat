@@ -23,7 +23,12 @@ if "%~1"=="-p" (
 goto parseArgs
 
 :endParse
+:: Replace / with \ in folderPath and iconPath
+set "folderPath=%folderPath:/=\%"
+set "iconPath=%iconPath:/=\%"
 
+if "%folderPath:~-1%" == "/" set "folderPath=%folderPath:~0,-1%"
+if "%folderPath:~-1%" == "\" set "folderPath=%folderPath:~0,-1%"
 :: Check if both arguments are provided
 if "%folderPath%"=="" (
   echo Folder path is required. Use -p to specify it.
@@ -41,13 +46,23 @@ echo [.ShellClassInfo]
 echo IconFile=foldericon.ico
 echo IconIndex=0
 ) > "%folderPath%\desktop.ini"
-del "%folderPath%/foldericon.ico" > nul
-copy /Y /B "%iconPath%" "%folderPath%/foldericon.ico" > nul
+
+set "iconFilePath=%folderPath%\foldericon.ico"
+
+if exist "%iconPath%" (
+  echo Copying icon file...
+  echo %iconPath%
+  echo %iconFilePath%
+  copy /Y /B "%iconPath%" "%iconFilePath%"
+) else (
+  echo Icon file not found: %iconPath%
+  exit /b 1
+)
 
 :: Set the attributes for the folder and the desktop.ini file
 attrib +s "%folderPath%"
 attrib +h "%folderPath%\desktop.ini"
-attrib +h "%folderPath%/foldericon.ico"
+attrib +h "%iconFilePath%"
 
 echo Folder icon set successfully.
 endlocal
