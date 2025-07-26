@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dst2df26xneqn"
-path="res://.godot/imported/2.png-a993e35058b013c871ea9589daf281cd.ctex"
+uid="uid://di7oyndixkyjl"
+path="res://.godot/imported/32.png-6f7cf365d8c4b9a60b9cacc3d242968e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/path/images/2.png"
-dest_files=["res://.godot/imported/2.png-a993e35058b013c871ea9589daf281cd.ctex"]
+source_file="res://scenes/blocks/conveyer/images/arrows/32.png"
+dest_files=["res://.godot/imported/32.png-6f7cf365d8c4b9a60b9cacc3d242968e.ctex"]
 
 [params]
 

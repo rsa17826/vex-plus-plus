@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://ci41d41j1ais5"]
+[gd_scene load_steps=38 format=3 uid="uid://ci41d41j1ais5"]
 
 [ext_resource type="Script" uid="uid://dnjw8lovocsct" path="res://scenes/blocks/conveyer/conveyer.gd" id="1_enkcj"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_u1hgo"]
@@ -34,6 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://d16mispquhbht" path="res://scenes/blocks/conveyer/images/arrows/28.png" id="31_8ol5x"]
 [ext_resource type="Texture2D" uid="uid://boeye2q6gpt7c" path="res://scenes/blocks/conveyer/images/arrows/29.png" id="32_8vsqi"]
 [ext_resource type="Texture2D" uid="uid://drxl5nb1auvxw" path="res://scenes/blocks/conveyer/images/arrows/30.png" id="33_g76sr"]
+[ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="35_cuh3p"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3vqki"]
 animations = [{
@@ -136,7 +137,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["EDITOR_OPTION_rotate", "EDITOR_OPTION_scale"]]
 script = ExtResource("1_enkcj")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/editorBar")
@@ -144,7 +145,6 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/AnimatedSprite2D")]
 thingThatMoves = NodePath("collisionNode")
 mouseRotationOffset = 180
-pathFollowNode = NodePath("collisionNode")
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 2056
@@ -164,7 +164,7 @@ texture = ExtResource("4_utmle")
 rotation = -1.5707964
 sprite_frames = SubResource("SpriteFrames_3vqki")
 autoplay = "default"
-frame_progress = 0.54169065
+script = ExtResource("35_cuh3p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
