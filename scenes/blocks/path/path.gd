@@ -76,6 +76,13 @@ func generateBlockOpts():
       return selectedOptions.endReachedAction == EndReachedActions.reverse,
     "type": global.PromptTypes.int,
   }
+  blockOptions.addNewPoint = {
+    "type": 'BUTTON',
+    "onChange": func():
+      path.insert(0, Vector2.ZERO)
+      savePath()
+      respawn()
+  }
 
 var path: Array[Vector2] = []
 var pathEditNodes: Array[BlockPath_editNode] = []
@@ -184,10 +191,7 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
   updateVisible()
   if moveStopped:
     savePath()
-    # don't know why I need both, ill have to fix this later
     respawn()
-    on_respawn()
-    # reloadPathData()
 
 func on_respawn():
   if self in global.boxSelect_selectedBlocks: return
@@ -229,7 +233,7 @@ func onEditorMove(moveDist: Vector2) -> void:
 
 func onEditorMoveEnded():
   savePath()
-  on_respawn()
+  respawn()
 
 func savePath():
   # remove the Vector2.ZERO from the front
