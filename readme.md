@@ -562,3 +562,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 <!--
 - \*\*.*[\r\s\n]+-\*
 -->
+
+### command line arguments
+- **--loadMap**
+  - load map from file
