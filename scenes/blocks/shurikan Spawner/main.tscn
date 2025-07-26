@@ -25,7 +25,8 @@ cloneEventsHere = NodePath("attach detector")
 ghostFollowNode = NodePath("Node2D")
 mouseRotationOffset = 0
 EDITOR_OPTION_rotate = true
-attachesToThings = true
+canAttachToThings = true
+canAttachToPaths = true
 
 [node name="Node2D" type="Node2D" parent="."]
 position = Vector2(733, 0)

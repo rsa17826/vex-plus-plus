@@ -100,7 +100,7 @@
     STR(id)STR(Pulley)
     STR(options){
       STR(direction)STR(right)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -112,7 +112,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

@@ -115,7 +115,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 ### block settings that apply to many blocks
 
 - **color**: changes the modulate of the block
-- **attachesToThings**: if true the block will be able to attach to most blocks that move
+- **canAttachToThings**: if true the block will be able to attach to most blocks that move
   - updown
   - downup
   - leftright
@@ -163,7 +163,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - rotatable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **10x spike**: kills the player on contact
 
@@ -171,7 +171,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **10x solar spike**: kills the player on contact if lights are on
 
@@ -179,7 +179,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **10x inverse solar spike**: kills the player on contact if lights are off
 
@@ -187,7 +187,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **updown**: has solid collision and moves up than down
 
@@ -209,7 +209,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **solar**: has solid collision when lights are on.
 
@@ -280,7 +280,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - i plan to add better win effects for beating the main level
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
     - **requiredLevelCount**: the amount of levels that you must beat before being able to win by touching this goal
 
 - **buzsaw**: kills the player on contact
@@ -288,7 +288,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **bouncing buzsaw**: kills the player on contact and falls until hitting a solid block where it will start bouncing up until reaching the start height where it will start falling back down again
 
@@ -301,7 +301,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - rotatable cannons could be good
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **checkpoint**: sets the player respawn location to this location
 
@@ -309,7 +309,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
     - **multiUse**: if true you can recollect this checkpoint else this checkpoint will only be collectable once
 
 - **closing spikes**: kills the player on contact will open slowly then close quickly
@@ -317,49 +317,49 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **Gravity Down Lever**: when the player is inside the lever and presses down the player gravity will be halved or reverted to normal if it was halved before
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **Gravity Up Lever**: when the player is inside the lever and presses down the player gravity will be doubled or reverted to normal if it was doubled before
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **speed Up Lever**: when the player is inside the lever and presses down the player speed will be doubled or reverted to normal if it was doubled before
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **key**: when the player comes in contact with this it will start following the player until ised to unlock a locked box
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **light switch**: when the player comes in contact with this it will toggle the lights on/off which will disable/enable all solar blocks.
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **blue only light switch**: when the player comes in contact with this it will toggle the lights on leaving only the solar blocks on.
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **red only light switch**: when the player comes in contact with this it will toggle the lights off leaving only the inverse solar blocks on.
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **Pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
 
@@ -367,7 +367,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - when on Pulley you can press up to become temporarily invincible
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
     - **direction**
       - left: it will move left
       - left: it will move right
@@ -379,7 +379,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **Rotating Buzzsaw**: kills the player on contact and will spin clockwise
 
@@ -387,7 +387,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **Scythe**: kills the player on contact and will spin counterclockwise
 
@@ -395,13 +395,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **star**: when the player collects this it will stay collected. the star counter in the top left shows the current number of stars collected and total for the current level. the inner levels will have their star counter on the block before entering.
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **death boundary**: kills the player on contact
 
@@ -426,20 +426,20 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **falling spike**: kills the player on contact when in line with the player it will start falling until hitting a solid block
 
   - rotatable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
     - **portalId**: the id of this portal as used for finding an exit portal
     - **exitId**: the id this portal uses to find its exit portal
       - eg portalId = 1, exitId = 2, means that entering this portal will take the player to the portal with portalId = 2 and will be found with a portal set to have exitId = 1
@@ -448,21 +448,21 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **pole quadrant**: spins 4 poles
 
   - rotatable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
 
   - scalable
   - **settings**:
     - **color**
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **spark block/counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
 
@@ -492,13 +492,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - rotatable
   - **settings**:
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **arrow**: points at things; can be rotated
 
   - rotatable
   - **settings**:
-    - **attachesToThings**
+    - **canAttachToThings**
 
 - **conveyer**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
 

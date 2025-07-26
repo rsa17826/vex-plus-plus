@@ -22,7 +22,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -34,7 +34,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -46,7 +46,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -59,7 +59,7 @@
     STR(id)STR(goal)
     STR(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

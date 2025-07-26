@@ -558,7 +558,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -571,7 +571,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -584,7 +584,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -597,7 +597,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -610,7 +610,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

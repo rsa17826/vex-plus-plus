@@ -12,7 +12,7 @@ radius = 298.3
 [sub_resource type="CircleShape2D" id="CircleShape2D_nfkyx"]
 radius = 306.863
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToScale", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["buzsaw - generic", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToScale", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["buzsaw - generic", "death"]]
 script = ExtResource("1_jf1xb")
 nodeToScale = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -21,11 +21,11 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/Sprite2D2")]
 cloneEventsHere = NodePath("collisionNode/attach detector")
 thingThatMoves = NodePath("collisionNode")
-pathFollowNode = NodePath("collisionNode")
+EDITOR_OPTION_scale = true
+canAttachToThings = true
+canAttachToPaths = true
 BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/Sprite2D")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("collisionNode/Sprite2D2")
-EDITOR_OPTION_scale = true
-attachesToThings = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3088

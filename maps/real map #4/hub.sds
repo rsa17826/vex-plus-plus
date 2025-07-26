@@ -44,7 +44,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -67,7 +67,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -79,7 +79,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -91,7 +91,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -103,7 +103,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -115,7 +115,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -127,7 +127,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -139,7 +139,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -151,7 +151,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -163,7 +163,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -175,7 +175,7 @@
     STR(r)FLOAT(270.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -209,7 +209,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -221,7 +221,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -233,7 +233,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -245,7 +245,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -257,7 +257,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -269,7 +269,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -281,7 +281,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -293,7 +293,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -305,7 +305,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -317,7 +317,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -329,7 +329,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -341,7 +341,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -354,7 +354,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(false)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -377,7 +377,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(speed Up Lever)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -411,7 +411,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -423,7 +423,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -435,7 +435,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -447,7 +447,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -459,7 +459,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -471,7 +471,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -483,7 +483,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -495,7 +495,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -507,7 +507,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -519,7 +519,7 @@
     STR(r)FLOAT(-90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -542,7 +542,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(speed Up Lever)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -554,7 +554,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -566,7 +566,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -578,7 +578,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -590,7 +590,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -602,7 +602,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -614,7 +614,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -626,7 +626,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -638,7 +638,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -650,7 +650,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -662,7 +662,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -674,7 +674,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -686,7 +686,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -698,7 +698,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -710,7 +710,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -722,7 +722,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -734,7 +734,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -746,7 +746,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -758,7 +758,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -770,7 +770,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -804,7 +804,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(nowj)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -816,7 +816,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(nowj)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -829,7 +829,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -841,7 +841,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -853,7 +853,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -865,7 +865,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -877,7 +877,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -889,7 +889,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -901,7 +901,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -913,7 +913,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -925,7 +925,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -937,7 +937,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -949,7 +949,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -961,7 +961,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -973,7 +973,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -985,7 +985,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -997,7 +997,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1009,7 +1009,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1021,7 +1021,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1033,7 +1033,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1045,7 +1045,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1057,7 +1057,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1069,7 +1069,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1081,7 +1081,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1093,7 +1093,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(nowj)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1105,7 +1105,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1117,7 +1117,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1129,7 +1129,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1141,7 +1141,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1153,7 +1153,7 @@
     STR(r)FLOAT(-180.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1210,7 +1210,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1233,7 +1233,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1245,7 +1245,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1257,7 +1257,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1269,7 +1269,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1281,7 +1281,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1293,7 +1293,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1305,7 +1305,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1317,7 +1317,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1329,7 +1329,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1341,7 +1341,7 @@
     STR(r)FLOAT(120.000007629395)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1353,7 +1353,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(falling spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1376,7 +1376,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(nowj)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1388,7 +1388,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(nowj)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1422,7 +1422,7 @@
     STR(r)FLOAT(45.0)
     STR(id)STR(single spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1434,7 +1434,7 @@
     STR(r)FLOAT(360.0)
     STR(id)STR(single spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1446,7 +1446,7 @@
     STR(r)FLOAT(450.0)
     STR(id)STR(single spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1469,7 +1469,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1503,7 +1503,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(single spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1515,7 +1515,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(single spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1527,7 +1527,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(single spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1539,7 +1539,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(single spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1552,7 +1552,7 @@
     STR(id)STR(goal)
     STR(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1586,7 +1586,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(single spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1598,7 +1598,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1610,7 +1610,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -1622,7 +1622,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(10x spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

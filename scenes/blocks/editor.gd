@@ -46,8 +46,8 @@ extends Node2D
 
 @export var EDITOR_OPTION_scale: bool = false
 @export var EDITOR_OPTION_rotate: bool = false
-@export var attachesToThings: bool = false
-@export var canBeAttachedTo: bool = false
+@export var canAttachToThings: bool = false
+@export var canAttachToPaths: bool = false
 
 var isBeingPlaced := false
 
@@ -143,13 +143,12 @@ func respawn() -> void:
   if thingThatMoves:
     thingThatMoves.position = Vector2.ZERO
 
-  if canBeAttachedTo:
-    for block: EditorBlock in attach_children:
-      if !block.thingThatMoves:
-        log.err("no thingThatMoves", block.id)
-        breakpoint
-      block.respawn()
-    attach_children = []
+  for block: EditorBlock in attach_children:
+    if !block.thingThatMoves:
+      log.err("no thingThatMoves", block.id)
+      breakpoint
+    block.respawn()
+  attach_children = []
   if not DONT_MOVE_ON_RESPAWN:
     global_position = startPosition
     rotation_degrees = startRotation_degrees
@@ -292,8 +291,10 @@ func _ready() -> void:
     createEditorGhost()
   generateBlockOpts()
 
-  if attachesToThings:
-    blockOptions.attachesToThings = {"type": global.PromptTypes.bool, "default": true}
+  if canAttachToThings:
+    blockOptions.canAttachToThings = {"type": global.PromptTypes.bool, "default": true}
+  if canAttachToPaths:
+    blockOptions.canAttachToPaths = {"type": global.PromptTypes.bool, "default": true}
 
   if global.useropts.allowCustomColors and not NO_CUSTOM_COLOR_IN_MENU:
     blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
@@ -439,15 +440,14 @@ func _physics_process(delta: float) -> void:
 
   if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
     cloneEventsHere.postMovementStep()
-  if canBeAttachedTo:
-    for block: EditorBlock in attach_children:
-      if !block.thingThatMoves:
-        log.err("no thingThatMoves", block.id)
-        breakpoint
-      if block.cloneEventsHere.following:
-        block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
-      else:
-        block.unusedOffset += lastMovementStep.rotated(-block.rotation) / block.global_scale
+  for block: EditorBlock in attach_children:
+    if !block.thingThatMoves:
+      log.err("no thingThatMoves", block.id)
+      breakpoint
+    if block.cloneEventsHere.following:
+      block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
+    else:
+      block.unusedOffset += lastMovementStep.rotated(-block.rotation) / block.global_scale
 var left_edge: float
 var right_edge: float
 var top_edge: float

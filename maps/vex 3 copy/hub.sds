@@ -68,7 +68,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

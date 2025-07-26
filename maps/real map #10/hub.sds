@@ -68,7 +68,7 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(buttonId)INT(3)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -114,7 +114,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -139,7 +139,7 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(buttonId)INT(2)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -152,7 +152,7 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(buttonId)INT(1)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -188,7 +188,7 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(buttonId)INT(1)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -235,7 +235,7 @@
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(false)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -258,7 +258,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -281,7 +281,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -293,7 +293,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -316,7 +316,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -373,7 +373,7 @@
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(false)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -396,7 +396,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -452,7 +452,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(shurikan Spawner)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -486,7 +486,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(10x spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -543,7 +543,7 @@
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -555,7 +555,7 @@
     STR(r)FLOAT(89.9999465942383)
     STR(id)STR(10x solar spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -567,7 +567,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(red only light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -579,7 +579,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(blue only light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -591,7 +591,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(blue only light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -603,7 +603,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(blue only light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -637,7 +637,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -649,7 +649,7 @@
     STR(r)FLOAT(179.999877929688)
     STR(id)STR(nowj)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -661,7 +661,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Scythe)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -673,7 +673,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -685,7 +685,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -708,7 +708,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x solar spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -720,7 +720,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x inverse solar spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -732,7 +732,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -755,7 +755,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -767,7 +767,7 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(10x inverse solar spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -846,7 +846,7 @@
     STR(id)STR(goal)
     STRNAME(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

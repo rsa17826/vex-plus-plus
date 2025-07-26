@@ -66,7 +66,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Rotating Buzzsaw)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -78,7 +78,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -134,7 +134,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -147,7 +147,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(false)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -170,7 +170,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(growing buzsaw)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -248,7 +248,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

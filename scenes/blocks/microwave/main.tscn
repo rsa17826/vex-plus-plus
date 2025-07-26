@@ -1,20 +1,26 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2wmpetbb1hu1"]
+[gd_scene load_steps=7 format=3 uid="uid://c2wmpetbb1hu1"]
 
 [ext_resource type="Script" uid="uid://d4gkhycd4t62p" path="res://scenes/blocks/microwave/microwave.gd" id="1_6ctlr"]
 [ext_resource type="Texture2D" uid="uid://c1uimaul3yjaq" path="res://scenes/blocks/microwave/images/1.png" id="2_lmkjq"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_mg46y"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_7o8kn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=[]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7h0f2"]
+size = Vector2(702, 702)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_6ctlr")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
+cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
+canAttachToPaths = true
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 8
@@ -29,3 +35,16 @@ texture = ExtResource("2_lmkjq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("4_7o8kn")
+root = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
+z_index = 3
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_7h0f2")
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
+metadata/_edit_lock_ = true

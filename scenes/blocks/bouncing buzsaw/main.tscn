@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://juewjf0r37e0"]
+[gd_scene load_steps=9 format=3 uid="uid://juewjf0r37e0"]
 
 [ext_resource type="Script" uid="uid://c5ds4wbynqg5y" path="res://scenes/blocks/bouncing buzsaw/bouncing buzsaw.gd" id="1_sq8c8"]
 [ext_resource type="Texture2D" uid="uid://6piyx4pmutk2" path="res://scenes/blocks/buzsaw/images/1.png" id="2_807tk"]
 [ext_resource type="Script" uid="uid://cop22motknsjj" path="res://scenes/blocks/bouncing buzsaw/character_body_2d.gd" id="2_ogg4d"]
 [ext_resource type="Texture2D" uid="uid://bj872x80mv3ry" path="res://scenes/blocks/bouncing buzsaw/images/editorBar.png" id="3_807tk"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="5_sq8c8"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="6_7byde"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xvl4e"]
 radius = 299.202
@@ -20,11 +21,10 @@ collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("Chara
 hidableSprites = [NodePath("CharacterBody2D/Sprite2D"), NodePath("CharacterBody2D/left rot")]
 cloneEventsHere = NodePath("CharacterBody2D")
 thingThatMoves = NodePath("CharacterBody2D")
-usePlayerRotationOnRespawn = false
+EDITOR_OPTION_scale = true
+canAttachToPaths = true
 BUZSAW_GENERIC_spriteToRotateRight = NodePath("CharacterBody2D/left rot")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("CharacterBody2D/editorBar")
-EDITOR_OPTION_scale = true
-canBeAttachedTo = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
@@ -63,6 +63,16 @@ root = NodePath("../..")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/collisionNode"]
 shape = SubResource("CircleShape2D_ogg4d")
 debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("6_7byde")
+root = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
+shape = SubResource("CircleShape2D_ogg4d")
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
 
 [connection signal="body_entered" from="CharacterBody2D/collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="CharacterBody2D/collisionNode" to="." method="_on_body_exited"]

@@ -25,7 +25,7 @@ oddScaleOffsetForce = Dictionary[String, int]({
 "y": -1
 })
 metadata/_edit_lock_ = true
-attachesToThings = true
+canAttachToThings = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3072

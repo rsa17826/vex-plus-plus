@@ -22,7 +22,8 @@ cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
 EDITOR_OPTION_rotate = true
-attachesToThings = true
+canAttachToThings = true
+canAttachToPaths = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3088
