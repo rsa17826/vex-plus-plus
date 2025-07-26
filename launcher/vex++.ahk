@@ -33,11 +33,9 @@ versionListView := ui.Add("ListView", "vVersionList w290 h300", [
 try FileDelete("c.bat")
 try DirDelete("temp", 1)
 try FileDelete("temp.zip")
-if FileExist("launcher.exe") and FileExist("vex++.exe") {
-  try FileDelete("launcher.exe")
-}
 try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
+DirCreate("launcherData")
 
 hasProcessRunning() {
   ; if the game process is running
@@ -70,21 +68,27 @@ hasProcessRunning() {
   }
 }
 
-if hasProcessRunning() and F.read("game data/lastRanVersion.txt") {
+if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   args := ""
   for arg in A_Args {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
-  run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", F.read("game data/lastRanVersion.txt")))
+  run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", F.read("launcherData/lastRanVersion.txt")))
   ExitApp()
 }
 
-loop files A_ScriptDir "\icons\*.ico" {
-  p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
+sfi(p, i) {
   DirCreate(p)
   try FileDelete(path.join(p, "foldericon.ico"))
-  run('sfi.bat -p "' p '" -i "' A_LoopFileFullPath '"', , 'hide')
+  run('sfi.bat -p "' p '" -i "' i '"', , 'hide')
 }
+
+sfi(path.join(A_ScriptDir, 'launcherData'), path.join(A_ScriptDir, "icons", "exes.ico"))
+loop files A_ScriptDir "\icons\*.ico" {
+  p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
+  sfi(p, A_LoopFileFullPath)
+}
+
 SetTimer(() {
   ; remove folders named *.png if they already were created
   loop files A_ScriptDir "/game data/**.png", 'd'
@@ -97,7 +101,7 @@ SetTimer(() {
     FileDelete(A_LoopFileFullPath)
 }, -1000)
 
-offline := A_Args.join(" ").includes("offline")
+offline := 1 || A_Args.join(" ").includes("offline")
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
 ui.Show("AutoSize")
@@ -150,7 +154,7 @@ if !offline {
 }
 
 i := 0
-lastRanVersion := F.read("game data/lastRanVersion.txt")
+lastRanVersion := F.read("launcherData/lastRanVersion.txt")
 for thing in listedVersions.sort((a, s) {
   if lastRanVersion {
     if a.version == lastRanVersion and s.version != lastRanVersion {
@@ -184,10 +188,17 @@ for thing in listedVersions.sort((a, s) {
 
 versionListView.ModifyCol(2)
 versionListView.ModifyCol(3)
-ogcButtonDownloadSelectedVersion := ui.Add("Button", , "Download All Versions")
-ogcButtonDownloadSelectedVersion.OnEvent("Click", DownloadAll)
-ogcButtonDownloadSelectedVersion := ui.Add("Button", , "Update Self")
-ogcButtonDownloadSelectedVersion.OnEvent("Click", UpdateSelf)
+guiCtrl := ui.Add("Edit", 'w290', F.read("launcherData/defaultArgs.txt"))
+guiCtrl.OnEvent("change", (elem, *) {
+  F.write("launcherData/defaultArgs.txt", elem.text)
+})
+
+GuiSetPlaceholder(guiCtrl, "extra game arguments go here")
+
+guiCtrl := ui.Add("Button", , "Download All Versions")
+guiCtrl.OnEvent("Click", DownloadAll)
+guiCtrl := ui.Add("Button", , "Update Self")
+guiCtrl.OnEvent("Click", UpdateSelf)
 ui.Show("AutoSize")
 
 UpdateSelf(*) {
@@ -303,7 +314,8 @@ runSelectedVersion() {
   for arg in A_Args {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
-  F.write("game data/lastRanVersion.txt", selectedVersion)
+  args .= ' ' F.read("launcherData/defaultArgs.txt")
+  F.write("launcherData/lastRanVersion.txt", selectedVersion)
   run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", selectedVersion))
   ExitApp()
 }
