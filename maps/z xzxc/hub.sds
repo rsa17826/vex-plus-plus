@@ -34,7 +34,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -46,7 +46,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -69,7 +69,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -81,7 +81,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -93,7 +93,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -105,7 +105,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -117,7 +117,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -129,7 +129,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -141,7 +141,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -153,7 +153,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -165,7 +165,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -177,7 +177,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -189,7 +189,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -246,7 +246,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -291,7 +291,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -325,7 +325,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pole)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -337,7 +337,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -383,7 +383,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(true)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -440,7 +440,7 @@
     STR(id)STR(Pulley)
     STR(options){
       STR(direction)STR(right)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -485,7 +485,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(sticky floor)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -497,7 +497,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(arrow)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -509,7 +509,7 @@
     STR(r)FLOAT(23489.998046875)
     STR(id)STR(nowj)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -522,7 +522,7 @@
     STR(id)STR(checkpoint)
     STR(options){
       STR(multiUse)BOOL(false)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

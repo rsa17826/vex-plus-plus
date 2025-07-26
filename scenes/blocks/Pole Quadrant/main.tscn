@@ -10,7 +10,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_pha53"]
 radius = 46.3897
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "pathFollowNode") groups=[]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_6ey8g")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/editorBar")
@@ -19,8 +19,8 @@ collisionShapes = [NodePath("attach detector/CollisionShape2D"), NodePath("attac
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("collisionNode")
-pathFollowNode = NodePath("collisionNode")
-attachesToThings = true
+canAttachToThings = true
+canAttachToPaths = true
 
 [node name="collisionNode" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 script = ExtResource("2_pha53")
@@ -40,22 +40,18 @@ texture = ExtResource("4_dc0lt")
 [node name="Node2D" parent="collisionNode" instance=ExtResource("4_6ey8g")]
 position = Vector2(-317, 0)
 EDITOR_IGNORE = true
-DONT_MOVE = true
 
 [node name="Node2D2" parent="collisionNode" instance=ExtResource("4_6ey8g")]
 position = Vector2(317, 0)
 EDITOR_IGNORE = true
-DONT_MOVE = true
 
 [node name="Node2D3" parent="collisionNode" instance=ExtResource("4_6ey8g")]
 position = Vector2(0, -317)
 EDITOR_IGNORE = true
-DONT_MOVE = true
 
 [node name="Node2D4" parent="collisionNode" instance=ExtResource("4_6ey8g")]
 position = Vector2(0, 317)
 EDITOR_IGNORE = true
-DONT_MOVE = true
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0

@@ -23,7 +23,7 @@
     STR(id)STR(goal)
     STRNAME(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -48,7 +48,7 @@
     STRNAME(options){
       STR(portalId)INT(1)
       STR(exitId)INT(0)
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -62,7 +62,7 @@
     STRNAME(options){
       STR(portalId)INT(0)
       STR(exitId)INT(1)
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -74,7 +74,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -87,7 +87,7 @@
     STR(id)STR(goal)
     STRNAME(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -100,7 +100,7 @@
     STR(id)STR(goal)
     STRNAME(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -113,7 +113,7 @@
     STR(id)STR(goal)
     STRNAME(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -126,7 +126,7 @@
     STR(id)STR(goal)
     STRNAME(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -139,7 +139,7 @@
     STR(id)STR(goal)
     STRNAME(options){
       STR(requiredLevelCount)INT(0)
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -151,7 +151,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STRNAME(options){
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }

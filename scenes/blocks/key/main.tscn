@@ -12,7 +12,7 @@ height = 302.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ctm0x"]
 radius = 155.013
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=[]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_h0pg7")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
@@ -24,8 +24,9 @@ oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
 "y": -1
 })
+canAttachToThings = true
+canAttachToPaths = true
 metadata/_edit_group_ = true
-attachesToThings = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3200

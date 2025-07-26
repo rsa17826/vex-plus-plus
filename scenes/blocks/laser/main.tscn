@@ -15,7 +15,7 @@ radius = 127.016
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b11d5"]
 load_path = "res://.godot/imported/charge.png-f13578aad774daff13f3cd2d2feaacd3.ctex"
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("charge1", "charge2", "charge3", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=[]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("charge1", "charge2", "charge3", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_ohbiw")
 charge1 = NodePath("collisionNode/1")
 charge2 = NodePath("collisionNode/2")
@@ -30,7 +30,8 @@ oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
 "y": -1
 })
-attachesToThings = true
+canAttachToThings = true
+canAttachToPaths = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 1024

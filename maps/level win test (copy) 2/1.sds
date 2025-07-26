@@ -37,7 +37,7 @@
     STR(options){
       STR(color)STR(#fff)
       STR(multiUse)BOOL(false)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -50,7 +50,7 @@
     STR(options){
       STR(color)STR(#fff)
       STR(multiUse)BOOL(false)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -74,7 +74,7 @@
     STR(options){
       STR(color)STR(#fff)
       STR(multiUse)BOOL(false)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -97,7 +97,7 @@
     STR(id)STR(star)
     STR(options){
       STR(color)STR(#fff)
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
     }
   }
 ]

@@ -26,7 +26,8 @@ hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
 thingThatMoves = NodePath("Node2D/collisionNode")
 EDITOR_OPTION_rotate = true
-attachesToThings = true
+canAttachToThings = true
+canAttachToPaths = true
 
 [node name="Node2D" type="Node2D" parent="."]
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://dsjamtdbnxv2p"]
+[gd_scene load_steps=24 format=3 uid="uid://dsjamtdbnxv2p"]
 
 [ext_resource type="Script" uid="uid://x0qfdvkjrelx" path="res://scenes/blocks/bomb/bomb.gd" id="1_o857y"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_82r38"]
 [ext_resource type="Script" uid="uid://dskov0xiwapge" path="res://scenes/blocks/bomb/character_body_2d.gd" id="2_nku45"]
 [ext_resource type="Texture2D" uid="uid://d2h2dshw58tiq" path="res://scenes/blocks/bomb/images/1 (2).png" id="3_o857y"]
 [ext_resource type="Texture2D" uid="uid://b2287wo04din2" path="res://scenes/blocks/bomb/images/Explosion.png" id="4_82r38"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="6_e08ji"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nku45"]
 atlas = ExtResource("4_82r38")
@@ -112,7 +113,10 @@ size = Vector2(630, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvu3y"]
 size = Vector2(1, 630)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "boomSprite", "boomShape", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=[]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_58cn1"]
+size = Vector2(702, 702)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("blockDieArea", "boomSprite", "boomShape", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_o857y")
 blockDieArea = NodePath("CharacterBody2D/block die area")
 boomSprite = NodePath("CharacterBody2D/AnimatedSprite2D")
@@ -123,9 +127,8 @@ collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("Chara
 hidableSprites = [NodePath("CharacterBody2D/Sprite2D")]
 cloneEventsHere = NodePath("CharacterBody2D")
 thingThatMoves = NodePath("CharacterBody2D")
-usePlayerRotationOnRespawn = false
 EDITOR_OPTION_scale = true
-canBeAttachedTo = true
+canAttachToPaths = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 34984
@@ -214,6 +217,19 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/bottom"]
 shape = SubResource("RectangleShape2D_nku45")
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("6_e08ji")
+root = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
+z_index = 3
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_58cn1")
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
+metadata/_edit_lock_ = true
 
 [connection signal="area_entered" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="CharacterBody2D/water detection area" to="CharacterBody2D" method="_on_area_2d_area_exited"]

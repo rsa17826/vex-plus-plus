@@ -22,7 +22,7 @@
     STR(r)FLOAT(359.999755859375)
     STR(id)STR(nowj)
     STRNAME(options){
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -100,7 +100,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(nowj)
     STRNAME(options){
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }
@@ -123,7 +123,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(nowj)
     STRNAME(options){
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }
   }

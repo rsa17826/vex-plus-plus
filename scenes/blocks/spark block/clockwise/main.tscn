@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bs3gl2bshih77"]
+[gd_scene load_steps=9 format=3 uid="uid://bs3gl2bshih77"]
 
 [ext_resource type="Script" uid="uid://cbw0xqfhfuolq" path="res://scenes/blocks/spark block/clockwise/spark clockwise.gd" id="1_lv01i"]
-[ext_resource type="Texture2D" uid="uid://ckvrig04jknje" path="res://scenes/blocks/spark block/counterClockwise/images/1.png" id="2_tyx8y"]
+[ext_resource type="Texture2D" uid="uid://ckvrig04jknje" path="res://scenes/blocks/spark block/clockwise/images/1.png" id="2_tyx8y"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_d7myr"]
 [ext_resource type="Texture2D" uid="uid://7p2w81jgd18p" path="res://scenes/blocks/spark block/counterClockwise/images/spark.png" id="3_kbh7l"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="5_f1om2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -11,7 +12,10 @@ size = Vector2(700, 700)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ooncx"]
 radius = 31.0161
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "pathFollowNode") groups=[]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6p4y"]
+size = Vector2(702, 702)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_lv01i")
 spark = NodePath("collisionNode/spark")
 sprite = NodePath("collisionNode/Sprite2D")
@@ -19,9 +23,10 @@ ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/spark/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/spark/Sprite2D"), NodePath("collisionNode/Sprite2D")]
+cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("collisionNode")
-pathFollowNode = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
+canAttachToPaths = true
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 2056
@@ -48,6 +53,18 @@ texture = ExtResource("3_kbh7l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/spark"]
 shape = SubResource("CircleShape2D_ooncx")
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("5_f1om2")
+root = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
+z_index = 3
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_y6p4y")
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="collisionNode/spark" to="." method="_on_body_enteredDEATH"]
 [connection signal="body_exited" from="collisionNode/spark" to="." method="_on_body_exitedDEATH"]

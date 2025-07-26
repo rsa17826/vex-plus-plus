@@ -66,7 +66,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STR(attachesToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
       STR(multiUse)BOOL(false)
     }
@@ -79,7 +79,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
       STR(multiUse)BOOL(false)
     }
@@ -103,7 +103,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STR(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
       STR(multiUse)BOOL(true)
     }

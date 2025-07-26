@@ -14,7 +14,7 @@ points = PackedVector2Array(-320, -11.75, -350, 12.25, 350, 12.25, 320, -11.75)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfxqp"]
 size = Vector2(676, 16)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=[]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_6nqtq")
 sprite = NodePath("collisionNode/sprite")
 ghostIconNode = NodePath("collisionNode/sprite")
@@ -27,7 +27,8 @@ oddScaleOffsetForce = Dictionary[String, int]({
 "x": 0,
 "y": -1
 })
-attachesToThings = true
+canAttachToThings = true
+canAttachToPaths = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3072

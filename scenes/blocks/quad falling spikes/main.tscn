@@ -157,7 +157,7 @@ editorBarIconNode = NodePath("Node2D/Sprite2D")
 collisionShapes = [NodePath("CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/AnimatedSprite2D")]
 EDITOR_OPTION_rotate = true
-attachesToThings = true
+canAttachToThings = true
 
 [node name="Node2D" type="Node2D" parent="."]
 

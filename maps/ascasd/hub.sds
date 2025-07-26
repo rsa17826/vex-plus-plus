@@ -22,7 +22,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -34,7 +34,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(red only light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -46,7 +46,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(blue only light switch)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -80,7 +80,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x solar spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -92,7 +92,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x inverse solar spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -104,7 +104,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x inverse solar spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -116,7 +116,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x solar spike)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }
@@ -139,7 +139,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(laser)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
       STR(MAX_COOLDOWN)FLOAT(1.0)
     }
@@ -152,7 +152,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(laser)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
       STR(MAX_COOLDOWN)FLOAT(1.0)
     }
@@ -165,7 +165,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(laser)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
       STR(MAX_COOLDOWN)FLOAT(1.5)
     }
@@ -178,7 +178,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(laser)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
       STR(MAX_COOLDOWN)FLOAT(1.0)
     }
@@ -191,7 +191,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(laser)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
       STR(MAX_COOLDOWN)FLOAT(1.0)
     }
@@ -204,7 +204,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(laser)
     STRNAME(options){
-      STR(attachesToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
       STR(MAX_COOLDOWN)FLOAT(1.0)
     }

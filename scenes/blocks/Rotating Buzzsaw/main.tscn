@@ -25,7 +25,8 @@ oddScaleOffsetForce = Dictionary[String, int]({
 })
 EDITOR_OPTION_scale = true
 EDITOR_OPTION_rotate = true
-attachesToThings = true
+canAttachToThings = true
+canAttachToPaths = true
 
 [node name="Node2D" type="Node2D" parent="."]
 
