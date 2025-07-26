@@ -565,4 +565,4 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ### command line arguments
 - **--loadMap**
-  - load map from file
+  - load map by name or NEWEST to load the newest map
