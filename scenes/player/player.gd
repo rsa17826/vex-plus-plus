@@ -108,7 +108,7 @@ var justAddedVels := {
   "cannon": 0,
 }
 var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole"]
-var stopVelOnWall := ["bounce", "waterExit", "cannon", "pole"]
+var stopVelOnWall := ["bounce", "waterExit", "cannon", "pole", "conveyer"]
 var stopVelOnCeil := ["bounce", "waterExit", "cannon", "pole"]
 
 @onready var unduckSize: Vector2 = Vector2(8, 33) # $CollisionShape2D.shape.size
@@ -1454,9 +1454,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ??add powerups
 # when first loading level blocks attach incorrectly until respawn
 
-# grab
-# max key hold count
+# ?grab
+# ?max key hold count
 
 # !!fix blocks sometimes ending up near 00
-
-# add add new point button to path man node

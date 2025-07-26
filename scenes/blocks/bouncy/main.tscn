@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://5od8d4wti2hf"]
+[gd_scene load_steps=37 format=3 uid="uid://5od8d4wti2hf"]
 
 [ext_resource type="Script" uid="uid://bc6jr1lmgmcnr" path="res://scenes/blocks/bouncy/bouncy.gd" id="1_7c4dh"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_5w21f"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://d16mispquhbht" path="res://scenes/blocks/conveyer/images/arrows/28.png" id="31_sdx42"]
 [ext_resource type="Texture2D" uid="uid://boeye2q6gpt7c" path="res://scenes/blocks/conveyer/images/arrows/29.png" id="32_4j50w"]
 [ext_resource type="Texture2D" uid="uid://drxl5nb1auvxw" path="res://scenes/blocks/conveyer/images/arrows/30.png" id="33_0cc2m"]
+[ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="34_ru33d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -142,7 +143,6 @@ editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
-usePlayerRotationOnRespawn = false
 
 [node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 2056
@@ -163,3 +163,4 @@ position = Vector2(0, -284)
 scale = Vector2(1, 0.18857142)
 sprite_frames = SubResource("SpriteFrames_er0d8")
 autoplay = "default"
+script = ExtResource("34_ru33d")
