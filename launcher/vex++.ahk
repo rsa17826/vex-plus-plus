@@ -23,7 +23,7 @@ ui := Gui("+AlwaysOnTop")
 ui.OnEvent("Close", GuiClose)
 ui.Add("Text", , "Vex++ Version Manager")
 
-newestExeVersion := "4.5.beta2"
+newestExeVersion := "4.5.beta3"
 
 versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Version",
@@ -101,7 +101,7 @@ SetTimer(() {
     FileDelete(A_LoopFileFullPath)
 }, -1000)
 
-offline := 1 || A_Args.join(" ").includes("offline")
+offline := A_Args.join(" ").includes("offline")
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
 ui.Show("AutoSize")
