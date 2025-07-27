@@ -15,12 +15,17 @@ func on_respawn() -> void:
   $collisionNode.position = Vector2.ZERO
   if collected:
     __disable.call_deferred()
-  
+
 func on_body_entered(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     __disable.call_deferred()
     collected = true
     global.savePlayerLevelData()
+
+func __enable() -> void:
+  # for when attached to things like locked box and solar
+  if not collected:
+    super ()
 
 func onSave() -> Array[String]:
   return ["collected"]

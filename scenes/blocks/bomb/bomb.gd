@@ -63,7 +63,6 @@ func onFrameChanged():
         block.explode()
       else:
         block.__disable.call_deferred()
-        log.pp(block.id)
 
 func explode():
   if exploded: return
