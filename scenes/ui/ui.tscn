@@ -321,7 +321,7 @@ script = ExtResource("18_ygedu")
 layout_mode = 2
 
 [node name="image" type="TextureRect" parent="signal list/signalDisplay"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 expand_mode = 1
 
