@@ -113,12 +113,7 @@ func fromProgressToPoint(prog) -> Vector2:
 
 func on_physics_process(delta: float) -> void:
   if not started: return
-  currentTick = (func():
-    if selectedOptions.startOnLoad or selectedOptions.startOnPress:
-      return global.tick - lastStartTime
-    if selectedOptions.startWhilePressed:
-      return global.tick - lastStartTime + savedMovement
-  ).call()
+  currentTick = global.tick - lastStartTime + savedMovement
   var desiredPosition = (func():
     match selectedOptions.endReachedAction:
       EndReachedActions.stop:

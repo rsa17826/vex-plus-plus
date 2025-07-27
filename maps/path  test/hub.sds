@@ -2015,4 +2015,75 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(-25.0)
+    STR(y)FLOAT(-2025.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-0.00000001577709)
+    STR(id)STR(input detector)
+    STRNAME(options){
+      STR(action)INT(0)
+      STR(signalOutputId)INT(1)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-300.0)
+    STR(y)FLOAT(-2050.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(path)
+    STRNAME(options){
+      STR(path)STR(50,-100,150,-100,50,100,-50,100,0,0)
+      STR(endReachedAction)INT(1)
+      STR(startOnLoad)BOOL(true)
+      STR(startOnPress)BOOL(false)
+      STR(startWhilePressed)BOOL(true)
+      STR(signalInputId)INT(1)
+      STR(restart)INT(0)
+      STR(forwardSpeed)INT(150)
+      STR(backwardSpeed)INT(150)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-300.0)
+    STR(y)FLOAT(-2000.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(50.0)
+    STR(y)FLOAT(-2050.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(floor button)
+    STRNAME(options){
+      STR(signalOutputId)INT(1)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(150.0)
+    STR(y)FLOAT(-2800.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

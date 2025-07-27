@@ -25,6 +25,7 @@ cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("Node2D/ttm")
 ghostFollowNode = NodePath("Node2D")
 mouseRotationOffset = 0
+dontDisablePhysicsProcess = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
@@ -35,6 +36,7 @@ position = Vector2(735, 0)
 [node name="ttm" type="Node2D" parent="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D/ttm"]
+visible = false
 use_parent_material = true
 position = Vector2(-365, -53)
 scale = Vector2(0.565528, 0.565528)

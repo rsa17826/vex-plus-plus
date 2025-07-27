@@ -66,14 +66,14 @@ func loadLevel(level):
   global.player.get_node("../CanvasLayer/editor bar")._ready()
   await global.wait()
   global.tick = 0
-  for block in $blocks.get_children():
-    block.respawn()
   global.stopTicking = false
   global.ui.progressContainer.visible = false
   global.player.state = global.player.States.falling
   # global.player.updateCollidingBlocksEntered()
   await global.wait()
   global.tick = global.currentLevel().tick
+  await global.wait()
+  global.player.die.call_deferred()
 
   # await global.wait()
   # await global.wait(300)

@@ -1578,6 +1578,7 @@ func localReady() -> void:
     "conveyer",
     "oneway",
     "undeath",
+    "input detector",
     # "path",
   ]
   for thing in editorBarData:
@@ -1920,7 +1921,7 @@ var activeSignals: Dictionary[int, Array] = {}
 
 func sendSignal(id, node, val):
   if not id:
-    log.error("sendSignal: invalid ID provided", id, node.root.id, val)
+    log.pp("sendSignal: invalid ID provided", id, node.root.id, val)
     return
   if id not in activeSignals:
     activeSignals[id] = []
