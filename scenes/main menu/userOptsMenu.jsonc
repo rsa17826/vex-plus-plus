@@ -392,13 +392,13 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "showTotalActiveCounts",
+        "key": "showTotalActiveSignalCounts",
         "defaultValue": true
       },
       {
         "thing": "option",
         "type": "bool",
-        "key": "showActivatedBlocksSeparately",
+        "key": "showWhatBlocksAreSendingSignals",
         "defaultValue": true
       },
       {

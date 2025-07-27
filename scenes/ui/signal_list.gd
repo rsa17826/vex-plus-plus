@@ -27,14 +27,14 @@ func onSignalChanged(id, on):
     listOfLoadedSignals[id].visible = true
   else:
     listOfLoadedSignals[id].get_node("image").texture = ON if on else OFF
-  if global.useropts.showTotalActiveCounts:
+  if global.useropts.showTotalActiveSignalCounts:
     listOfLoadedSignals[id].get_node("count").text = str(len(global.activeSignals[id]))
   for block in global.activeSignals[id]:
     if block.id not in blockData:
       blockData[block.id] = {'count': 0, 'ghost': block.ghost}
     blockData[block.id].count += 1
 
-  if global.useropts.showActivatedBlocksSeparately:
+  if global.useropts.showWhatBlocksAreSendingSignals:
     for blockImageNode in listOfLoadedSignals[id].blockImages:
       blockImageNode.queue_free()
     listOfLoadedSignals[id].blockImages = []
