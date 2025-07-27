@@ -381,6 +381,36 @@
   },
   {
     "thing": "group",
+    "name": "signal display",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showSignalList",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showTotalActiveCounts",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showActivatedBlocksSeparately",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "onlyShowActiveSignals",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "thing": "group",
     "name": "debug",
     "value": [
       {
