@@ -1005,7 +1005,7 @@ func localInput(event: InputEvent) -> void:
         player.camLockPos = Vector2.ZERO
         player.goto(player.deathPosition)
         player.die(0, false, true)
-        player.die(5, false, true)
+        player.die(15, false, true)
         # player.die(3, false, true)
         global.tick = global.currentLevel().tick
         # savePlayerLevelData()
@@ -1154,6 +1154,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
   player.die(0, true, true)
+  player.die(5, true, true)
   loadBlockData()
   await savePlayerLevelData()
   loadingLevel = false
@@ -1182,7 +1183,7 @@ func win() -> void:
   player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
   player.die(0, false, true)
-  player.die(5, false, true)
+  player.die(15, false, true)
   await wait()
   loadBlockData()
   savePlayerLevelData()
@@ -1305,8 +1306,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
   player.die(0, false, true)
-  player.die(5, false, true)
-  # player.die(3, false, true)
+  player.die(15, false, true)
   global.tick = global.currentLevel().tick
 
 func loadBlockData():
@@ -1917,7 +1917,11 @@ func setEditorUiState(val):
   onEditorStateChanged.emit()
 
 signal signalChanged
-var activeSignals: Dictionary[int, Array] = {}
+var activeSignals: Dictionary[int, Array] = {}:
+  get():
+    for id in activeSignals:
+      activeSignals[id] = activeSignals[id].filter(isAlive)
+    return activeSignals
 
 func sendSignal(id, node, val):
   if not id:
@@ -1928,13 +1932,10 @@ func sendSignal(id, node, val):
   if val:
     if node not in activeSignals[id]:
       activeSignals[id].append(node)
-    if activeSignals[id]:
-      signalChanged.emit(id, true)
   else:
     if node in activeSignals[id]:
       activeSignals[id].erase(node)
-      if not activeSignals[id]:
-        signalChanged.emit(id, false)
+  signalChanged.emit(id, !!activeSignals[id])
 
 func onSignalChanged(cb):
   if !signalChanged.is_connected(cb):

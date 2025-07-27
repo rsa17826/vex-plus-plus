@@ -1,17 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://t0p3dylelopo"]
+[gd_scene load_steps=3 format=3 uid="uid://t0p3dylelopo"]
 
 [ext_resource type="Script" uid="uid://di2ejgmceqnt8" path="res://scenes/blocks/input detector/input detector.gd" id="1_3gfgm"]
 [ext_resource type="Texture2D" uid="uid://c8eak1swi3vex" path="res://scenes/blocks/input detector/images/1.png" id="2_33fxx"]
-[ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_6ofxt"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_3gfgm")
+sprite = NodePath("Node2D/Sprite2D")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIconNode = NodePath("Node2D/Sprite2D")
 hidableSprites = [NodePath("Node2D/Sprite2D")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
-EDITOR_OPTION_rotate = true
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -19,4 +18,3 @@ EDITOR_OPTION_rotate = true
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_33fxx")
-script = ExtResource("3_6ofxt")
