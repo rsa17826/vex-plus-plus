@@ -12,9 +12,6 @@ const OFF = preload("res://scenes/ui/images/off.png")
 func onSignalChanged(id, on):
   if id not in listOfLoadedSignals:
     listOfLoadedSignals[id] = $signalDisplay.duplicate()
-    # var label := Label.new()
-    # label.name = "signal id"
-    # listOfLoadedSignals[id].add_child(label)
     add_child(listOfLoadedSignals[id])
     listOfLoadedSignals[id].visible = true
     listOfLoadedSignals[id].get_node("signal id").text = 'ID: ' + str(id)
