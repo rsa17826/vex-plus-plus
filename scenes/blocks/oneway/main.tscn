@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://b3g2mft1jrgrr"]
+[gd_scene load_steps=42 format=3 uid="uid://b3g2mft1jrgrr"]
 
 [ext_resource type="Script" uid="uid://dya3y1jksp2cu" path="res://scenes/blocks/oneway/oneway.gd" id="1_rch08"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_0wow3"]
@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://d16mispquhbht" path="res://scenes/blocks/conveyer/images/arrows/28.png" id="31_p1iko"]
 [ext_resource type="Texture2D" uid="uid://boeye2q6gpt7c" path="res://scenes/blocks/conveyer/images/arrows/29.png" id="32_7udvv"]
 [ext_resource type="Texture2D" uid="uid://drxl5nb1auvxw" path="res://scenes/blocks/conveyer/images/arrows/30.png" id="33_dffxe"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="36_xp0y3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -143,12 +144,16 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ep0pb"]
 size = Vector2(700, 6)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yni2j"]
+size = Vector2(700, 700)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_rch08")
 ghostIconNode = NodePath("collisionNode/editorBar")
 editorBarIconNode = NodePath("collisionNode/editorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/2nd collision/CollisionShape2D"), NodePath("collisionNode/wall grab collision/CollisionShape2D2")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/Node2D/AnimatedSprite2D3"), NodePath("collisionNode/Node2D/AnimatedSprite2D5"), NodePath("collisionNode/Node2D/AnimatedSprite2D6"), NodePath("collisionNode/Node2D/AnimatedSprite2D4"), NodePath("collisionNode/Node2D/AnimatedSprite2D7"), NodePath("collisionNode/Node2D/AnimatedSprite2D8"), NodePath("collisionNode/Node2D/AnimatedSprite2D9"), NodePath("collisionNode/Node2D/AnimatedSprite2D10")]
+cloneEventsHere = NodePath("attach detector")
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
 EDITOR_OPTION_rotate = true
@@ -251,6 +256,19 @@ collision_mask = 0
 position = Vector2(0, -347)
 shape = SubResource("RectangleShape2D_ep0pb")
 debug_color = Color(0.8510969, 0.0008730918, 0.89873534, 0.41960785)
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("36_xp0y3")
+root = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
+z_index = 3
+position = Vector2(0,0)
+shape = SubResource("RectangleShape2D_yni2j")
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
+metadata/_edit_lock_ = true
 
 [connection signal="input_event" from="collisionNode" to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="collisionNode" to="." method="_on_mouse_entered"]

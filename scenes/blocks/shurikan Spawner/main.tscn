@@ -14,14 +14,15 @@ radius = 30.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qfqg"]
 radius = 127.016
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("shurikenBase", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "ghostFollowNode") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("shurikenBase", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_8qfqg")
-shurikenBase = NodePath("Node2D/death")
-ghostIconNode = NodePath("Node2D/Sprite2D")
+shurikenBase = NodePath("Node2D/ttm/death")
+ghostIconNode = NodePath("Node2D/ttm/Sprite2D")
 editorBarIconNode = NodePath("EditorBar")
 collisionShapes = [NodePath("attach detector/CollisionShape2D")]
-hidableSprites = [NodePath("Node2D/Spawner")]
+hidableSprites = [NodePath("Node2D/ttm/Spawner")]
 cloneEventsHere = NodePath("attach detector")
+thingThatMoves = NodePath("Node2D/ttm")
 ghostFollowNode = NodePath("Node2D")
 mouseRotationOffset = 0
 EDITOR_OPTION_rotate = true
@@ -29,33 +30,34 @@ canAttachToThings = true
 canAttachToPaths = true
 
 [node name="Node2D" type="Node2D" parent="."]
-position = Vector2(733, 0)
+position = Vector2(735, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
-visible = false
+[node name="ttm" type="Node2D" parent="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/ttm"]
 use_parent_material = true
 position = Vector2(-365, -53)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_y1blk")
 
-[node name="Spawner" type="Sprite2D" parent="Node2D"]
+[node name="Spawner" type="Sprite2D" parent="Node2D/ttm"]
 position = Vector2(-729, -53)
 scale = Vector2(0.566, 0.566)
 texture = ExtResource("4_7eqtn")
 
-[node name="death" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
-position = Vector2(-729, -38)
+[node name="death" type="Area2D" parent="Node2D/ttm" node_paths=PackedStringArray("root")]
+position = Vector2(-729, -37)
 collision_layer = 2064
 collision_mask = 2
 script = ExtResource("2_8qfqg")
-root = NodePath("../..")
+root = NodePath("../../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/death"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/ttm/death"]
 shape = SubResource("CircleShape2D_86yqw")
 debug_color = Color(1, 0, 0, 0.419608)
 metadata/_edit_lock_ = true
 
-[node name="Death" type="Sprite2D" parent="Node2D/death"]
+[node name="Death" type="Sprite2D" parent="Node2D/ttm/death"]
 scale = Vector2(0.566, 0.566)
 texture = ExtResource("5_ne3b7")
 metadata/_edit_lock_ = true
@@ -78,5 +80,5 @@ shape = SubResource("CircleShape2D_8qfqg")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 metadata/_edit_lock_ = true
 
-[connection signal="body_entered" from="Node2D/death" to="." method="_on_body_enteredDEATH"]
-[connection signal="body_exited" from="Node2D/death" to="." method="_on_body_exitedDEATH"]
+[connection signal="body_entered" from="Node2D/ttm/death" to="." method="_on_body_enteredDEATH"]
+[connection signal="body_exited" from="Node2D/ttm/death" to="." method="_on_body_exitedDEATH"]

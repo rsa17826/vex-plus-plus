@@ -11,14 +11,15 @@ radius = 85.3288
 [sub_resource type="CircleShape2D" id="CircleShape2D_782ym"]
 radius = 72.0069
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_4olmi")
-nodeToSpin = NodePath("Node2D")
+nodeToSpin = NodePath("Node2D/collisionNode")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
 editorBarIconNode = NodePath("editor bar icon node")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 cloneEventsHere = NodePath("Node2D/collisionNode/attach detector")
+thingThatMoves = NodePath("Node2D")
 oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
 "y": -1
@@ -27,8 +28,10 @@ EDITOR_OPTION_scale = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
+metadata/_edit_lock_ = true
 
 [node name="Node2D" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
 collision_layer = 3088
@@ -41,21 +44,25 @@ use_parent_material = true
 position = Vector2(0, -314)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_3gtnp")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
 position = Vector2(0, -596)
 shape = SubResource("CircleShape2D_4olmi")
 debug_color = Color(1, 0, 0, 0.419608)
+metadata/_edit_lock_ = true
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("3_4olmi")
 root = NodePath("../../..")
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode/attach detector"]
 shape = SubResource("CircleShape2D_782ym")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+metadata/_edit_lock_ = true
 
 [node name="editor bar icon node" type="Sprite2D" parent="."]
 visible = false
@@ -64,6 +71,7 @@ position = Vector2(0, -314)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_3gtnp")
 offset = Vector2(0, 628)
+metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="Node2D/collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Node2D/collisionNode" to="." method="_on_body_exited"]
