@@ -614,7 +614,7 @@
     STR(beatLevels)[]
   }
   STR(path  test){
-    STR(lastSpawnPoint)VEC2(-98.5274276733398,-1355.08032226563)
+    STR(lastSpawnPoint)VEC2(601.472595214844,-1355.08032226563)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -628,13 +628,19 @@
               STR(texture)STR(1)
             }
             INT(2){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
             INT(3){
               STR(texture)STR(1)
             }
             INT(4){
               STR(texture)STR(1)
+            }
+            INT(5){
+              STR(texture)STR(1)
+            }
+            INT(6){
+              STR(texture)STR(2)
             }
           }
           STR(star){

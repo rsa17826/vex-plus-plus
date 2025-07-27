@@ -379,10 +379,11 @@ func _physics_process(delta: float) -> void:
       else:
         activePole.root.timingIndicator.rotation_degrees = 45 # - activePole.root.timingIndicator.get_parent().rotation_degrees
         activePole.root.timingIndicator.position = Vector2(55.5, 55.5)
+      remainingJumpCount = MAX_JUMP_COUNT
       if Input.is_action_just_pressed(&"jump"):
+        remainingJumpCount -= 1
         if ($anim.frame >= 3 and $anim.frame <= 9) or $anim.frame >= 27:
           # this one should be user because it makes the falling better
-          remainingJumpCount = MAX_JUMP_COUNT
           vel.user.y = JUMP_POWER
 
           # but this should be pole as that way it does something as user.x is set to xintent
@@ -394,16 +395,14 @@ func _physics_process(delta: float) -> void:
             Object.CONNECT_ONE_SHOT)
           state = States.jumping
         else:
-          remainingJumpCount = 0
           vel.user.y = 0
-
           state = States.falling
         activePole.root.timingIndicator.visible = false
         activePole = null
         poleCooldown = MAX_POLE_COOLDOWN
       elif Input.is_action_just_pressed(&"down"):
+        remainingJumpCount -= 1
         vel.user.y = 0
-
         activePole.root.timingIndicator.visible = false
         activePole = null
         state = States.falling
