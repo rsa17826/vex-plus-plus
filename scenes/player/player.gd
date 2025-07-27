@@ -380,7 +380,7 @@ func _physics_process(delta: float) -> void:
         activePole.root.timingIndicator.rotation_degrees = 45 # - activePole.root.timingIndicator.get_parent().rotation_degrees
         activePole.root.timingIndicator.position = Vector2(55.5, 55.5)
       remainingJumpCount = MAX_JUMP_COUNT
-      if Input.is_action_just_pressed(&"jump"):
+      if ACTIONjump:
         remainingJumpCount -= 1
         if ($anim.frame >= 3 and $anim.frame <= 9) or $anim.frame >= 27:
           # this one should be user because it makes the falling better
