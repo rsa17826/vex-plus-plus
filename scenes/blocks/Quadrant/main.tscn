@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://brcolawc3qs7n"]
+[gd_scene load_steps=8 format=3 uid="uid://brcolawc3qs7n"]
 
 [ext_resource type="Script" uid="uid://bi5py51bhqxtt" path="res://scenes/blocks/Quadrant/quadrant.gd" id="1_hhki4"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_1btjx"]
 [ext_resource type="Texture2D" uid="uid://qft54tfxwmsw" path="res://scenes/blocks/Quadrant/images/1.png" id="2_i6m5c"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_hhki4"]
+[ext_resource type="Texture2D" uid="uid://dnmyaxa33m3nk" path="res://scenes/blocks/Quadrant/images/editorBar.png" id="4_0y668"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hhki4"]
 radius = 28.2312
@@ -15,7 +16,7 @@ radius = 47.3814
 script = ExtResource("1_hhki4")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/editorBar")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D2"), NodePath("collisionNode/CollisionShape2D3"), NodePath("collisionNode/CollisionShape2D4"), NodePath("collisionNode/CollisionShape2D5"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("attach detector")]
@@ -35,6 +36,12 @@ root = NodePath("..")
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_i6m5c")
+
+[node name="editorBar" type="Sprite2D" parent="collisionNode"]
+visible = false
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("4_0y668")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(-317, 0)
