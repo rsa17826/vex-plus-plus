@@ -321,14 +321,14 @@ script = ExtResource("18_ygedu")
 [node name="signal id" type="Label" parent="signal list/signalDisplay"]
 layout_mode = 2
 
-[node name="count" type="Label" parent="signal list/signalDisplay"]
-layout_mode = 2
-
 [node name="image" type="TextureRect" parent="signal list/signalDisplay"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 texture = ExtResource("18_svq4k")
 expand_mode = 1
+
+[node name="count" type="Label" parent="signal list/signalDisplay"]
+layout_mode = 2
 
 [connection signal="gui_input" from="modifiers/canDoWallSlide" to="modifiers" method="_on_gui_input" flags=18]
 [connection signal="gui_input" from="modifiers/canDoWallHang" to="modifiers" method="_on_gui_input" flags=18]
