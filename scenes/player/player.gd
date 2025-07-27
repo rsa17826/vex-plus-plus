@@ -1362,7 +1362,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
     v = Vector2(x, y).rotated(global.player.defaultAngle)
   return global.clearLow(v)
 
-# zipline
+# ?zipline
 # ??add tooltips to blocks in block picker
 
 # add animations for
@@ -1375,7 +1375,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # ????fix spike sizes not being the same
 
-# add undo/redo history
+# !!add undo/redo history
 
 # ?allow user to reorder the levels in the editor
 # ??allow user to reorder the block picker from editor ui
@@ -1413,7 +1413,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
-# ?add invinsabliity lever
 
 # add level thumbnails
 

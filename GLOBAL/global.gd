@@ -1920,6 +1920,28 @@ func setEditorUiState(val):
   showEditorUi = val
   onEditorStateChanged.emit()
 
+signal signalChanged
+var activeSignals: Dictionary[int, Array] = {}
+
+func sendSignal(id, node, val):
+  if not id:
+    log.error("sendSignal: invalid ID provided", id, node.root.id, val)
+    return
+  if val:
+    if node not in activeSignals[id]:
+      activeSignals[id].append(node)
+    if activeSignals[id]:
+      signalChanged.emit(id, true)
+  else:
+    if node in activeSignals[id]:
+      activeSignals[id].erase(node)
+      if not activeSignals[id]:
+        signalChanged.emit(id, false)
+
+func onSignalChanged(cb):
+  if !signalChanged.is_connected(cb):
+    signalChanged.connect(cb)
+
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
