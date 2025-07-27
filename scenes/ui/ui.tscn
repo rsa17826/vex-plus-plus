@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=20 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -16,6 +16,9 @@
 [ext_resource type="Texture2D" uid="uid://nsc828vkp3sq" path="res://scenes/ui/levelFlagImages/4+ jumps.png" id="12_n3vwu"]
 [ext_resource type="Texture2D" uid="uid://dyse3nbxu1fjr" path="res://scenes/ui/levelFlagImages/placeholder.png" id="14_hc5d0"]
 [ext_resource type="Texture2D" uid="uid://db55mv41mlepw" path="res://scenes/ui/levelFlagImages/changeSpeedOnSlopes.png" id="15_n3vwu"]
+[ext_resource type="Script" uid="uid://bwg7pflyvki0i" path="res://scenes/ui/signal_list.gd" id="17_4w2x3"]
+[ext_resource type="Texture2D" uid="uid://c27t3qm7x6iee" path="res://scenes/ui/images/off.png" id="18_svq4k"]
+[ext_resource type="Script" uid="uid://dmne1p24c556w" path="res://scenes/ui/signal_display.gd" id="18_ygedu"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "modifiersEditorBg")]
 script = ExtResource("1_oiwrs")
@@ -302,6 +305,29 @@ offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
 texture = ExtResource("6_pfayw")
+expand_mode = 1
+
+[node name="signal list" type="VBoxContainer" parent="."]
+offset_top = 297.0
+offset_right = 172.0
+offset_bottom = 567.0
+script = ExtResource("17_4w2x3")
+
+[node name="signalDisplay" type="HBoxContainer" parent="signal list"]
+visible = false
+layout_mode = 2
+script = ExtResource("18_ygedu")
+
+[node name="signal id" type="Label" parent="signal list/signalDisplay"]
+layout_mode = 2
+
+[node name="count" type="Label" parent="signal list/signalDisplay"]
+layout_mode = 2
+
+[node name="image" type="TextureRect" parent="signal list/signalDisplay"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+texture = ExtResource("18_svq4k")
 expand_mode = 1
 
 [connection signal="gui_input" from="modifiers/canDoWallSlide" to="modifiers" method="_on_gui_input" flags=18]

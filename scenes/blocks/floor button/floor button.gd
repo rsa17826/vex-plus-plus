@@ -2,11 +2,12 @@
 extends EditorBlock
 class_name BlockFloorButton
 
+@export var sprite: Sprite2D
+
 var blocksCurrentlyPressingThisButton := []:
   get():
     blocksCurrentlyPressingThisButton = blocksCurrentlyPressingThisButton.filter(global.isAlive)
     return blocksCurrentlyPressingThisButton
-@export var sprite: Sprite2D
 
 func on_body_entered(body: Node) -> void:
   if !selectedOptions.signalOutputId: return
@@ -15,6 +16,9 @@ func on_body_entered(body: Node) -> void:
   if blocksCurrentlyPressingThisButton:
     setTexture(sprite, "pressed")
     global.sendSignal(selectedOptions.signalOutputId, self , true)
+
+func on_ready():
+  global.sendSignal(selectedOptions.signalOutputId, self , false)
 
 func on_respawn() -> void:
   thingThatMoves.position = Vector2.ZERO

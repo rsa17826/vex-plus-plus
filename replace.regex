@@ -7,7 +7,7 @@
 
 make it so that when i tab in a function it is replaced with the correct one
 
-@file scenes/blocks/([^/]+)/\1\.gd$
+@file \.gd$
 @regex func func 
 @replace func 
 @flags gm
@@ -31,7 +31,7 @@ make it so that when i tab in a function it is replaced with the correct one
 @flags gm
 @endregex
 
-@file scenes/blocks/([^/]+)/\1\.gd$
+@file \.gd$
 @regex body == global.player
 @replace body is Player
 @flags gm

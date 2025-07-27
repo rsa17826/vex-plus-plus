@@ -72,8 +72,6 @@ func loadLevel(level):
   # global.player.updateCollidingBlocksEntered()
   await global.wait()
   global.tick = global.currentLevel().tick
-  await global.wait()
-  global.player.die.call_deferred()
 
   # await global.wait()
   # await global.wait(300)
