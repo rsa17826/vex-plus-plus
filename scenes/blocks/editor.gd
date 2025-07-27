@@ -11,7 +11,7 @@ extends Node2D
 ## sprites to hide when node disabled
 @export var hidableSprites: Array[Node]
 ## sends some events to this node
-@export var cloneEventsHere: Node
+@export var cloneEventsHere: Array[Node]
 ## the node that lastMovementStep should be calculated from
 @export var thingThatMoves: Node2D
 @export var ghostFollowNode: Node2D = self
@@ -147,6 +147,7 @@ func respawn() -> void:
     if !block.thingThatMoves:
       log.err("no thingThatMoves", block.id)
       breakpoint
+    # log.pp(block == self , block.name, block.id, self.name, self.id)
     block.respawn()
   attach_children = []
   if not DONT_MOVE_ON_RESPAWN:
@@ -156,8 +157,9 @@ func respawn() -> void:
   if !isBeingMoved and not DONT_ENABLE_ON_RESPAWN:
     __enable.call_deferred()
 
-  if cloneEventsHere and 'on_respawn' in cloneEventsHere:
-    cloneEventsHere.on_respawn()
+  for thing in cloneEventsHere:
+    if 'on_respawn' in thing:
+      thing.on_respawn()
   on_respawn()
 
 func on_respawn():
@@ -171,8 +173,9 @@ var onRightSide := false
 var last_input_event: InputEvent
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   if global.ui.modifiers.editorOpen: return
-  if cloneEventsHere and 'on_input_event' in cloneEventsHere:
-    cloneEventsHere.on_input_event(viewport, event, shape_idx)
+  for thing in cloneEventsHere:
+    if 'on_input_event' in thing:
+      thing.on_input_event(viewport, event, shape_idx)
   if last_input_event == event: return
   last_input_event = event
   # if selecting this block
@@ -230,14 +233,6 @@ var collisionQueue := {}
 func _on_body_entered(body: Node2D, real=true) -> void:
   if global.player.state == global.player.States.levelLoading: return
   if global.player.state == global.player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
-  # if cloneEventsHere and 'on_on_body_entered' in cloneEventsHere:
-  #   cloneEventsHere.on_on_body_entered(body)
-  # if respawning:
-  #   if body in collisionQueue and collisionQueue[body] == "exited":
-  #     collisionQueue.erase(body)
-  #   else:
-  #     collisionQueue[body] = "entered"
-  #   return
   on_body_entered(body)
   if is_in_group("death"):
     _on_body_enteredDEATH(body)
@@ -304,8 +299,9 @@ func _ready() -> void:
   respawn.call_deferred()
   if global.useropts.allowCustomColors and not NO_CUSTOM_COLOR_IN_MENU:
     self.modulate = Color(selectedOptions.color)
-  if cloneEventsHere and 'on_ready' in cloneEventsHere:
-    cloneEventsHere.on_ready()
+  for thing in cloneEventsHere:
+    if 'on_ready' in thing:
+      thing.on_ready()
   on_ready()
 func on_ready(): pass
 
@@ -414,8 +410,9 @@ func _physics_process(delta: float) -> void:
     #   breakpoint
     # pathFollowNode.position += currentPath.lastMovementStep * currentPath.scale
   #
-  if cloneEventsHere and 'on_physics_process' in cloneEventsHere:
-    cloneEventsHere.on_physics_process(delta)
+  for thing in cloneEventsHere:
+    if 'on_physics_process' in thing:
+      thing.on_physics_process(delta)
   on_physics_process(delta)
   # if respawning:
   #   lastMovementStep = Vector2.ZERO
@@ -438,16 +435,19 @@ func _physics_process(delta: float) -> void:
     #         _on_body_entered(block)
     #     collisionQueue = {}
 
-  if cloneEventsHere and 'postMovementStep' in cloneEventsHere:
-    cloneEventsHere.postMovementStep()
+  for thing in cloneEventsHere:
+    if 'postMovementStep' in thing:
+      thing.postMovementStep()
   for block: EditorBlock in attach_children:
     if !block.thingThatMoves:
       log.err("no thingThatMoves", block.id)
       breakpoint
-    if block.cloneEventsHere.following:
-      block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
-    else:
-      block.unusedOffset += lastMovementStep.rotated(-block.rotation) / block.global_scale
+    for thing in block.cloneEventsHere:
+      if thing is AttachDetector:
+        if thing.following:
+          block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
+        else:
+          block.unusedOffset += lastMovementStep.rotated(-block.rotation) / block.global_scale
 var left_edge: float
 var right_edge: float
 var top_edge: float
@@ -687,8 +687,9 @@ func setTexture(node: Node, newTexture: String) -> void:
 ## disables the node collision and hides the sprites
 func __disable() -> void:
   # if _DISABLED: return
-  if cloneEventsHere and 'on_disable' in cloneEventsHere:
-    cloneEventsHere.on_disable()
+  for thing in cloneEventsHere:
+    if 'on_disable' in thing:
+      thing.on_disable()
   _DISABLED = true
   for collider in collisionShapes:
     collider.disabled = true
@@ -698,8 +699,9 @@ func __disable() -> void:
 ## enables the node collision and shows the sprites
 func __enable() -> void:
   # if not _DISABLED: return
-  if cloneEventsHere and 'on_enable' in cloneEventsHere:
-    cloneEventsHere.on_enable()
+  for thing in cloneEventsHere:
+    if 'on_enable' in thing:
+      thing.on_enable()
   _DISABLED = false
   for collider in collisionShapes:
     collider.disabled = false

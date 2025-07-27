@@ -1792,10 +1792,22 @@
     STR(y)FLOAT(-2150.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(-0.0)
+    STR(r)FLOAT(0.0)
     STR(id)STR(Rotating Buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(50.0)
+    STR(y)FLOAT(-2275.0)
+    STR(w)FLOAT(0.08000003825873)
+    STR(h)FLOAT(0.26000008359551)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bomb)
+    STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }

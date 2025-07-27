@@ -1,4 +1,5 @@
 extends Area2D
+class_name AttachDetector
 
 @export var root: EditorBlock
 
@@ -6,7 +7,10 @@ var following = true
 
 func on_respawn():
   if not root:
-    log.err("root not set", name, get_parent().id, get_parent().get_parent().id, get_parent().get_parent().get_parent().id)
+    var parent = self
+    while 'id' not in parent:
+      parent = parent.get_parent()
+    log.err("root not set", name, parent.id)
     breakpoint
   if root.canAttachToPaths and root.selectedOptions.canAttachToPaths: pass
   elif root.canAttachToThings and root.selectedOptions.canAttachToThings: pass
@@ -25,6 +29,7 @@ func on_respawn():
 func tryaddgroups():
   for block in get_overlapping_bodies() + get_overlapping_areas():
     block = block.root
+    if block == root: continue
     # if root.id=='locked box':
     #   log.pp(block.id, block.canBeAttachedTo)
     # log.pp(block, "is overlapping")

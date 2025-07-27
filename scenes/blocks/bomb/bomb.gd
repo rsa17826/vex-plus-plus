@@ -58,12 +58,12 @@ func onFrameChanged():
       block.die.call_deferred()
     else:
       block = block.root
-      if block == self:
-        continue
+      if block == self: continue
       if block is BlockBomb:
         block.explode()
       else:
         block.__disable.call_deferred()
+        log.pp(block.id)
 
 func explode():
   if exploded: return

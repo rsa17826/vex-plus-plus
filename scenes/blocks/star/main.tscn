@@ -17,7 +17,7 @@ ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
-cloneEventsHere = NodePath("collisionNode/attach detector")
+cloneEventsHere = [NodePath("collisionNode/attach detector")]
 thingThatMoves = NodePath("collisionNode")
 oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
