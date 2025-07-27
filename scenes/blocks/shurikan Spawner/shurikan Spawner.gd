@@ -13,14 +13,14 @@ func on_ready():
       collisionShapes.append(shuriken.get_node("CollisionShape2D"))
       shurikens.append(shuriken)
     shurikenBase.queue_free()
-    
+
 func on_physics_process(delta: float) -> void:
   for i in range(len(shurikens)):
     var shuriken = shurikens[i]
     var time = fmod(global.tick + (i / 1.4), 4.5)
     var pos = global.rerange(clampf(time, 0, 4), 0, 4, 0, 735.0)
     shuriken.visible = true
-    shuriken.position.x = pos
+    shuriken.position = Vector2(pos, -37.0) + thingThatMoves.position
     var s = 1
     if time > 4:
       s = global.rerange(time, 4, 4.5, 1, 0)

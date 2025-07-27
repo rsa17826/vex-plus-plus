@@ -9,7 +9,7 @@
 size = Vector2(700, 700)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oa5gc"]
-size = Vector2(702, 702)
+size = Vector2(700, 700)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_6hd43")
@@ -45,7 +45,7 @@ root = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
 z_index = 3
-position = Vector2(-1, -1)
+position = Vector2(0,0)
 shape = SubResource("RectangleShape2D_oa5gc")
 debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
 metadata/_edit_lock_ = true
