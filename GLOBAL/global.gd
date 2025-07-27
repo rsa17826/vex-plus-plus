@@ -1894,17 +1894,12 @@ var hoveredBrushes: Array[Node2D] = []
 
 signal gravChanged
 signal onEditorStateChanged
-signal onButtonActivated
-signal onButtonDeactivated
-var activeBtns: Array[EditorBlock] = []:
-  get():
-    activeBtns = activeBtns.filter(isAlive)
-    return activeBtns
 
 var checkpoints: Array[BlockCheckpoint] = []:
   get():
     checkpoints = checkpoints.filter(isAlive)
     return checkpoints
+
 var portals: Array[BlockPortal] = []:
   get():
     portals = portals.filter(isAlive)
@@ -1927,6 +1922,8 @@ func sendSignal(id, node, val):
   if not id:
     log.error("sendSignal: invalid ID provided", id, node.root.id, val)
     return
+  if id not in activeSignals:
+    activeSignals[id] = []
   if val:
     if node not in activeSignals[id]:
       activeSignals[id].append(node)

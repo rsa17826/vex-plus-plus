@@ -36,6 +36,7 @@
       STR(endReachedAction)INT(0)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -123,6 +124,7 @@
       STR(endReachedAction)INT(0)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -224,6 +226,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
       STR(canAttachToPaths)BOOL(true)
+      STR(signalOutputId)INT(0)
     }
   }
   {
@@ -247,6 +250,7 @@
       STR(endReachedAction)INT(1)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -283,6 +287,7 @@
       STR(endReachedAction)INT(1)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -332,6 +337,7 @@
       STR(endReachedAction)INT(2)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(300)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -352,6 +358,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -372,6 +379,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -419,6 +427,7 @@
       STR(endReachedAction)INT(0)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -439,6 +448,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -459,6 +469,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -479,6 +490,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -539,6 +551,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -559,6 +572,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -640,6 +654,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
       STR(canAttachToPaths)BOOL(true)
+      STR(signalOutputId)INT(2)
     }
   }
   {
@@ -660,6 +675,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -705,6 +721,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -733,6 +750,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
       STR(canAttachToPaths)BOOL(true)
+      STR(signalOutputId)INT(1)
     }
   }
   {
@@ -753,6 +771,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -773,6 +792,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -990,6 +1010,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -1177,6 +1198,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(signalOutputId)INT(0)
     }
   }
   {
@@ -1190,6 +1212,7 @@
       STR(buttonId)INT(0)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {
@@ -1786,6 +1809,7 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(signalInputId)INT(0)
     }
   }
   {

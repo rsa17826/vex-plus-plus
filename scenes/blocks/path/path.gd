@@ -53,7 +53,7 @@ func generateBlockOpts():
         selectedOptions.startOnPress = false
       return true,
   }
-  blockOptions.buttonId = {
+  blockOptions.signalInputId = {
     "type": global.PromptTypes.int,
     "default": 0,
     'showIf': func():
@@ -168,22 +168,19 @@ func _draw() -> void:
       )
       lastPoint = global_position + point
 
-func on_button_activated(id, btn):
-  if !selectedOptions.buttonId: return
-  if id == selectedOptions.buttonId:
-    if started:
-      if selectedOptions.restart == Restarts.always:
+func on_signal_changed(id, on):
+  if id == selectedOptions.signalInputId:
+    if on:
+      if started:
+        if selectedOptions.restart == Restarts.always:
+          lastStartTime = global.tick
+      else:
         lastStartTime = global.tick
+      started = true
     else:
-      lastStartTime = global.tick
-    started = true
-
-func on_button_deactivated(id, btn):
-  if !selectedOptions.buttonId: return
-  if id == selectedOptions.buttonId:
-    if selectedOptions.startWhilePressed:
-      started = false
-      savedMovement = currentTick
+      if selectedOptions.startWhilePressed:
+        started = false
+        savedMovement = currentTick
 
 func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
   var idx = pathEditNodes.find(node)
@@ -201,10 +198,7 @@ func on_respawn():
   lastStartTime = 0
   started = selectedOptions.startOnLoad
   updateVisible()
-  if not global.onButtonActivated.is_connected(on_button_activated):
-    global.onButtonActivated.connect(on_button_activated)
-  if not global.onButtonDeactivated.is_connected(on_button_deactivated):
-    global.onButtonDeactivated.connect(on_button_deactivated)
+  global.onSignalChanged(on_signal_changed)
   maxProgress = getMaxProgress()
   if not isBeingMoved or isBeingPlaced or global.useropts.movingPathNodeMovesEntirePath:
     var p := selectedOptions.path.split(',') as Array
