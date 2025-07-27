@@ -1,7 +1,8 @@
 extends VBoxContainer
 
 func _ready():
-  global.onSignalChanged(onSignalChanged)
+  if global.useropts.showSignalList:
+    global.onSignalChanged(onSignalChanged)
 
 var listOfLoadedSignals := {}
 
@@ -19,21 +20,29 @@ func onSignalChanged(id, on):
     listOfLoadedSignals[id].get_node("signal id").text = 'ID: ' + str(id)
 
   var blockData := {}
-  listOfLoadedSignals[id].get_node("image").texture = ON if on else OFF
-  listOfLoadedSignals[id].get_node("count").text = str(len(global.activeSignals[id]))
+  if global.useropts.onlyShowActiveSignals:
+    if not on:
+      listOfLoadedSignals[id].visible = false
+      return
+    listOfLoadedSignals[id].visible = true
+  else:
+    listOfLoadedSignals[id].get_node("image").texture = ON if on else OFF
+  if global.useropts.showTotalActiveCounts:
+    listOfLoadedSignals[id].get_node("count").text = str(len(global.activeSignals[id]))
   for block in global.activeSignals[id]:
     if block.id not in blockData:
       blockData[block.id] = {'count': 0, 'ghost': block.ghost}
     blockData[block.id].count += 1
 
-  for blockImageNode in listOfLoadedSignals[id].blockImages:
-    blockImageNode.queue_free()
-  listOfLoadedSignals[id].blockImages = []
+  if global.useropts.showActivatedBlocksSeparately:
+    for blockImageNode in listOfLoadedSignals[id].blockImages:
+      blockImageNode.queue_free()
+    listOfLoadedSignals[id].blockImages = []
 
-  for i in blockData:
-    var blockImageNode = $signalDisplay.duplicate()
-    blockImageNode.visible = true
-    listOfLoadedSignals[id].add_child(blockImageNode)
-    listOfLoadedSignals[id].blockImages.append(blockImageNode)
-    blockImageNode.get_node("count").text = str(blockData[i].count)
-    blockImageNode.get_node("image").texture = blockData[i].ghost.texture
+    for i in blockData:
+      var blockImageNode = $signalDisplay.duplicate()
+      blockImageNode.visible = true
+      listOfLoadedSignals[id].add_child(blockImageNode)
+      listOfLoadedSignals[id].blockImages.append(blockImageNode)
+      blockImageNode.get_node("count").text = str(blockData[i].count)
+      blockImageNode.get_node("image").texture = blockData[i].ghost.texture
