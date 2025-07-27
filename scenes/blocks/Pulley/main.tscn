@@ -32,7 +32,7 @@ ghostIconNode = NodePath("movable/Sprite2D")
 editorBarIconNode = NodePath("movable/Sprite2D")
 collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("movable/wall to side with player off/CollisionShape2D"), NodePath("movable/wall to side with player off/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("movable/Sprite2D")]
-cloneEventsHere = NodePath("attach detector")
+cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("movable")
 canAttachToThings = true
 
