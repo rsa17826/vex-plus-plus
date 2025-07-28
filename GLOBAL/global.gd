@@ -1930,9 +1930,13 @@ var signalChanges = {}
 func sendSignals():
   var sc = signalChanges.duplicate()
   signalChanges = {}
+  var text = ''
   for id in sc:
-    # log.pp("update signal changes", sc)
+    # log.pp("update signal changes", sc, activeSignals)
+    text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
     signalChanged.emit(id, !!activeSignals[id], sc[id])
+  log.pp(text.substr(1))
+  ToastParty.info(text.substr(1))
 
 func sendSignal(id, node, val):
   if not id:

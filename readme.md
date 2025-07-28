@@ -134,7 +134,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - ? might be more
 
 - **signalOutputId**: the signal to emit.
-  - all signals are sent at the end of the frame and will only be sent if they are still valid at the end of the frame, eg turning a signal off then back on again in the same frame won't cause it to emit again, so if you have to not gates inverting each others signals, it will only emit once then stop until you turn one of their signals off or on again .
+  - all signals are sent at the end of the frame.
 
 ## Blocks
 
