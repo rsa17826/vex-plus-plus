@@ -179,7 +179,7 @@ static func color_wrap(s, opts={}):
         color = colors.get(s_type)
 
     if color == null:
-      print("log.gd could not determine color for object: %s type: (%s)" % [str(s), typeof(s)])
+      log.pp("log.gd could not determine color for object: %s type: (%s)" % [str(s), typeof(s)])
 
     return "[color=%s]%s[/color]" % [color, s]
   else:
@@ -380,6 +380,7 @@ static func warn(...msgs) -> void:
   rich_msgs.push_front("[color=yellow][WARN][/color]")
   print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
+  Console.print_warning(m)
   push_warning(m)
 
 static func err(...msgs) -> void:
@@ -387,6 +388,7 @@ static func err(...msgs) -> void:
   rich_msgs.push_front("[color=red][ERR][/color]")
   print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
+  Console.print_error(m)
   push_error(m)
 
 static func error(...msgs) -> void:
@@ -394,4 +396,5 @@ static func error(...msgs) -> void:
   rich_msgs.push_front("[color=red][ERR][/color]")
   print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
+  Console.print_error(m)
   push_error(m)

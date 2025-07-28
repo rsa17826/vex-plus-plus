@@ -81,7 +81,7 @@ func loadLevel(level):
   # global.player.deathPosition = global.player.lastSpawnPoint
 
 func save():
-  if len($blocks.get_children()):
+  if !len($blocks.get_children()):
     log.err("nothing to save")
     return
   if global.useropts.showIconOnSave:
