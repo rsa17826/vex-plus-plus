@@ -11,6 +11,7 @@ editorBarIconNode = NodePath("Node2D/Sprite2D")
 hidableSprites = [NodePath("Node2D/Sprite2D")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
+EDITOR_OPTION_rotate = true
 
 [node name="Node2D" type="Node2D" parent="."]
 

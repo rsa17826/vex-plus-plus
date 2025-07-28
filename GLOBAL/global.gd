@@ -977,6 +977,7 @@ func localInput(event: InputEvent) -> void:
       selectedBlock.look_at(mpos)
       selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
       selectedBlock.rotation = selectedBlock.rotation
+      selectedBlock.onRotate()
       if !Input.is_action_pressed(&"editor_disable_grid_snap"):
         selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
       setBlockStartPos(selectedBlock)
