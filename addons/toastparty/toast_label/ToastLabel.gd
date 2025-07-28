@@ -30,19 +30,19 @@ func _ready():
 func _clean_config(config: Dictionary) -> Dictionary:
   var _config = config
   if not _config.has("text"):
-    _config["text"] = "Toast Label"
+    _config.text = "Toast Label"
   if not _config.has("text_size"):
-    _config["text_size"] = 18
+    _config.text_size = 18
   if not _config.has("bgcolor"):
-    _config["bgcolor"] = Color(0, 0, 0, .7)
+    _config.bgcolor = Color(0, 0, 0, .7)
   if not _config.has("direction"):
-    _config["direction"] = "center"
+    _config.direction = "center"
   if not _config.has("gravity"):
-    _config["gravity"] = "bottom"
+    _config.gravity = "bottom"
   if not _config.has("color"):
-    _config["color"] = Color(1, 1, 1, 1)
+    _config.color = Color(1, 1, 1, 1)
   if not _config.has("use_font"):
-    _config["use_font"] = true
+    _config.use_font = true
   return _config
 
 func init(config: Dictionary) -> void:

@@ -1932,8 +1932,7 @@ func sendSignals():
   signalChanges = {}
   for id in sc:
     # log.pp("update signal changes", sc)
-    for thing in sc[id]:
-      signalChanged.emit(id, !!activeSignals[id], thing)
+    signalChanged.emit(id, !!activeSignals[id], sc[id])
 
 func sendSignal(id, node, val):
   if not id:
@@ -1953,7 +1952,6 @@ func sendSignal(id, node, val):
     signalChanges[id] = []
   signalChanges[id].append(node)
   # log.pp(signalChanges[id], id)
-  # signalChanged.emit()
 
 func onSignalChanged(cb):
   if !signalChanged.is_connected(cb):
