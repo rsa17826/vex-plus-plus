@@ -193,7 +193,8 @@ func _draw() -> void:
       )
       lastPoint = global_position + point
 
-func on_signal_changed(id, on):
+func on_signal_changed(id, on, caller):
+  if caller == self: return
   if id == selectedOptions.signalInputId:
     if on:
       if not canRestart: return

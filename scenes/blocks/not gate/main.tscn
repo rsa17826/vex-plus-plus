@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://q65bo204aiit"]
+
+[ext_resource type="Script" uid="uid://dh1o7ux4sxyuk" path="res://scenes/blocks/not gate/not gate.gd" id="1_cdiki"]
+[ext_resource type="Texture2D" uid="uid://7plhgqwympa" path="res://scenes/blocks/not gate/images/1.png" id="2_3yt6x"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+script = ExtResource("1_cdiki")
+ghostIconNode = NodePath("Node2D/Sprite2D")
+editorBarIconNode = NodePath("Node2D/Sprite2D")
+hidableSprites = [NodePath("Node2D/Sprite2D")]
+thingThatMoves = NodePath("Node2D")
+ignoreMissingNodes = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_3yt6x")
