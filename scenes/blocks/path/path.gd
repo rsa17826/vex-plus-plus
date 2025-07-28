@@ -202,6 +202,7 @@ func on_signal_changed(id, on, callers):
         if selectedOptions.restart == Restarts.always:
           lastStartTime = global.tick
         else:
+          lastStartTime = global.tick
           canRestart = false
       else:
         lastStartTime = global.tick
@@ -226,7 +227,7 @@ func on_respawn():
   currentTick = 0
   lastStartTime = 0
   started = selectedOptions.startOnLoad
-  canRestart = selectedOptions.restart == Restarts.always
+  canRestart = true # selectedOptions.restart == Restarts.always or not started
   updateVisible()
   global.onSignalChanged(on_signal_changed)
   maxProgress = getMaxProgress()

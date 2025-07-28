@@ -33,7 +33,7 @@ func _add_new_label(config):
     move_positions(config.direction, config.gravity, false)
     move_positions.call_deferred(config.direction, config.gravity, false)
   )
-  
+
   if config.direction == "left":
     if config.gravity == "top":
       label_top_left.insert(0, label)
@@ -52,7 +52,7 @@ func _add_new_label(config):
 
   # Configuration of the label
   label.init(config)
-  
+
   # Move all labels to new positions when a new label is added
   move_positions(config.direction, config.gravity, true)
 
@@ -61,7 +61,7 @@ func move_positions(direction, gravity, animate):
     for index in label_bottom_left.size():
       var _label = label_bottom_left[index]
       _label.move_to(label_bottom_left.size() - 1 - index, animate && index == 0)
-  
+
   elif direction == "left" and gravity == "top":
     for index in label_top_left.size():
       var _label = label_top_left[index]
@@ -81,12 +81,12 @@ func move_positions(direction, gravity, animate):
     for index in label_bottom_center.size():
       var _label = label_bottom_center[index]
       _label.move_to(label_bottom_center.size() - 1 - index, animate && index == 0)
-  
+
   elif direction == "center" and gravity == "top":
     for index in label_top_center.size():
       var _label = label_top_center[index]
       _label.move_to(label_top_center.size() - 1 - index, animate && index == 0)
-  
+
 func remove_label_from_array(label):
   if label.direction == "left":
     if label.gravity == "top":
@@ -119,13 +119,13 @@ func clean_config(config):
 
   if not config.has("gravity"):
     config.gravity = "top"
-  
+
   if not config.has("bgcolor"):
     config.bgcolor = Color(0, 0, 0, 0.7)
 
   if not config.has("color"):
     config.color = Color(1, 1, 1, 1)
-  
+
   return config
 
 func show(config={}):

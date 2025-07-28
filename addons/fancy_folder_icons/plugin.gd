@@ -71,7 +71,7 @@ class Docky extends RefCounted:
               tx = load(texture_path)
               var img: Image = tx.get_image()
               mt[m][1] = m.length() + 1
-              img.resize(int(plugin.size.x) * 10, int(plugin.size.y) * 10)
+              img.resize(int(plugin.size.x) * 4, int(plugin.size.y) * 4)
               tx = ImageTexture.create_from_image(img)
             dock.set_item_icon(mt[m][0], tx)
             break
