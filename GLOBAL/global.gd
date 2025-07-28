@@ -1515,7 +1515,6 @@ func localReady() -> void:
   var unusedBlockNames = [
     "basic",
     "slope",
-    # "single spike",
     "path",
     "10x spike",
     "10x solar spike",
@@ -1580,7 +1579,7 @@ func localReady() -> void:
     "oneway",
     "undeath",
     "input detector",
-    # "path",
+    "not gate",
   ]
   for thing in editorBarData:
     if thing is String:
@@ -1936,7 +1935,7 @@ func sendSignal(id, node, val):
   else:
     if node in activeSignals[id]:
       activeSignals[id].erase(node)
-  signalChanged.emit(id, !!activeSignals[id])
+  signalChanged.emit(id, !!activeSignals[id], node)
 
 func onSignalChanged(cb):
   if !signalChanged.is_connected(cb):

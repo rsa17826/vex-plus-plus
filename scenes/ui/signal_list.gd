@@ -9,7 +9,8 @@ var listOfLoadedSignals := {}
 const ON = preload("res://scenes/ui/images/on.png")
 const OFF = preload("res://scenes/ui/images/off.png")
 
-func onSignalChanged(id, on):
+func onSignalChanged(id, on, caller):
+  if caller == self: return
   if id not in listOfLoadedSignals:
     listOfLoadedSignals[id] = $signalDisplay.duplicate()
     add_child(listOfLoadedSignals[id])
