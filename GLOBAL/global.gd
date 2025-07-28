@@ -671,6 +671,7 @@ func updateGridSize():
   #     gridSize.y = global.useropts.largeBlockGridSnapSize
 
 func localProcess(delta: float) -> void:
+  sendSignals()
   if not global.useropts: return
   updateGridSize()
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
@@ -977,7 +978,7 @@ func localInput(event: InputEvent) -> void:
       selectedBlock.look_at(mpos)
       selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
       selectedBlock.rotation = selectedBlock.rotation
-      selectedBlock.onRotate()
+      selectedBlock.onEditorRotate()
       if !Input.is_action_pressed(&"editor_disable_grid_snap"):
         selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
       setBlockStartPos(selectedBlock)
@@ -1580,6 +1581,7 @@ func localReady() -> void:
     "undeath",
     "input detector",
     "not gate",
+    "and gate",
   ]
   for thing in editorBarData:
     if thing is String:
@@ -1923,6 +1925,16 @@ var activeSignals: Dictionary[int, Array] = {}:
       activeSignals[id] = activeSignals[id].filter(isAlive)
     return activeSignals
 
+var signalChanges = {}
+
+func sendSignals():
+  var sc = signalChanges.duplicate()
+  signalChanges = {}
+  for id in sc:
+    # log.pp("update signal changes", sc)
+    for thing in sc[id]:
+      signalChanged.emit(id, !!activeSignals[id], thing)
+
 func sendSignal(id, node, val):
   if not id:
     log.pp("sendSignal: invalid ID provided", id, node.root.id, val)
@@ -1931,11 +1943,17 @@ func sendSignal(id, node, val):
     activeSignals[id] = []
   if val:
     if node not in activeSignals[id]:
+      # log.pp(node.id, "added")
       activeSignals[id].append(node)
   else:
     if node in activeSignals[id]:
+      # log.pp(node.id, "removed")
       activeSignals[id].erase(node)
-  signalChanged.emit(id, !!activeSignals[id], node)
+  if id not in signalChanges:
+    signalChanges[id] = []
+  signalChanges[id].append(node)
+  # log.pp(signalChanges[id], id)
+  # signalChanged.emit()
 
 func onSignalChanged(cb):
   if !signalChanged.is_connected(cb):

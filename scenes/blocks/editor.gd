@@ -112,7 +112,7 @@ var unusedOffset = Vector2.ZERO
 func onSave() -> Array[String]:
   return []
 
-func onRotate(): pass
+func onEditorRotate(): pass
 
 func _on_mouse_entered() -> void:
   isHovered = true
