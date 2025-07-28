@@ -33,7 +33,7 @@ func _input(event):
     global.sendSignal(selectedOptions.signalOutputId, self , false)
     # setTexture(sprite, "2")
 
-func onRotate():
+func onEditorRotate():
   log.pp(startRotation_degrees)
   match int(round(startRotation_degrees)):
     0: selectedOptions.action = 0

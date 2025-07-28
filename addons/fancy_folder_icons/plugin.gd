@@ -39,9 +39,9 @@ func get_buffer() -> Dictionary:
 class Docky extends RefCounted:
   var drawing: bool = false
   var dock: ItemList = null
-  
+
   var plugin: Object = null
-  
+
   func _init(set_plugin: Object) -> void:
     plugin = set_plugin
 
@@ -49,7 +49,7 @@ class Docky extends RefCounted:
     if !dock: return
     var buffer: Dictionary = plugin.get_buffer()
     var mt: Dictionary = {}
-    
+
     for x: int in dock.item_count:
       var data: String = str(dock.get_item_metadata(x))
       mt[data] = [x, 0]
@@ -71,31 +71,31 @@ class Docky extends RefCounted:
               tx = load(texture_path)
               var img: Image = tx.get_image()
               mt[m][1] = m.length() + 1
-              img.resize(int(plugin.size.x) * 4, int(plugin.size.y) * 4)
+              img.resize(int(plugin.size.x) * 10, int(plugin.size.y) * 10)
               tx = ImageTexture.create_from_image(img)
             dock.set_item_icon(mt[m][0], tx)
             break
     _dispose.call_deferred()
     return
-    
+
   func _dispose() -> void:
     var o: Variant = self
     for __: int in range(2):
       await Engine.get_main_loop().process_frame
     if is_instance_valid(o):
       o.set_deferred(&"drawing", false)
-  
+
   func _on_change() -> void:
     if drawing: return
     drawing = true
     update_icons.call_deferred()
-  
+
   func update(new_dock: ItemList) -> void:
     dock = new_dock
-    
+
     if !dock.draw.is_connected(_on_change):
       dock.draw.connect(_on_change)
-    
+
     #if dock.item_count > 0:
       #var icon : Texture2D = dock.get_item_icon(0)
 
@@ -156,10 +156,10 @@ func update() -> void:
     _docky = null
 
   _explore(item)
-  
+
   if is_instance_valid(_docky):
     _docky.update_icons()
-    
+
   set_deferred(&"_busy", false)
 
 func matches(key, item, retval):
@@ -247,7 +247,7 @@ func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -
   if errQueue:
     for err in errQueue:
       log.err(err)
-      
+
   if texture != null:
     if as_root or !FileAccess.file_exists(meta):
       item.set_icon(0, texture)
@@ -268,7 +268,7 @@ func _get_dummy_tree_node() -> void:
 
 func _on_select_texture(tx: Texture2D, texture_path: String, paths: PackedStringArray) -> void:
   if tx.get_size() != size:
-    print("Image selected '", texture_path.get_file(), "' size: ", tx.get_size(), " resized to ", size.x, "x", size.y)
+    log.pp("Image selected '", texture_path.get_file(), "' size: ", tx.get_size(), " resized to ", size.x, "x", size.y)
     var img: Image = tx.get_image()
     img.resize(int(size.x), int(size.y))
     tx = ImageTexture.create_from_image(img)
@@ -311,7 +311,7 @@ func get_docky() -> ItemList:
   if dock:
     out = dock.find_child("*FileSystemList*", true, false)
   return out
-  
+
 func _ready() -> void:
   set_physics_process(false)
   var dock: FileSystemDock = EditorInterface.get_file_system_dock()
@@ -330,7 +330,7 @@ func _ready() -> void:
   fs.filesystem_changed.connect(_def_update)
 
   _def_update()
-  
+
 var _enable_icons_on_split: bool = true
 
 func _enter_tree() -> void:
@@ -338,11 +338,11 @@ func _enter_tree() -> void:
 
   _menu_service = ResourceLoader.load("res://addons/fancy_folder_icons/menu_fancy.gd").new()
   _menu_service.iconize_paths.connect(_on_iconize)
-  
+
   var vp: Viewport = Engine.get_main_loop().root
   vp.focus_entered.connect(_on_wnd)
   vp.focus_exited.connect(_out_wnd)
-  
+
   var editor: EditorSettings = EditorInterface.get_editor_settings()
   if editor:
     editor.settings_changed.connect(_on_change_settings)
@@ -387,7 +387,7 @@ func _on_change_settings() -> void:
   if ProjectSettings.get_setting("plugin/fancy_folder_icons/openRules", false):
     ProjectSettings.set_setting("plugin/fancy_folder_icons/openRules", false)
     OS.shell_open(ProjectSettings.globalize_path(RULES_FILE))
-      
+
 func _exit_tree() -> void:
   if is_instance_valid(_popup):
     _popup.queue_free()
@@ -413,7 +413,7 @@ func _exit_tree() -> void:
   var editor: EditorSettings = EditorInterface.get_editor_settings()
   if editor:
     editor.settings_changed.disconnect(_on_change_settings)
-  
+
   #region user_dat
   var cfg: ConfigFile = ConfigFile.new()
   for k: String in _buffer.keys():
@@ -430,11 +430,11 @@ func _exit_tree() -> void:
 
   if !fs.is_queued_for_deletion():
     fs.filesystem_changed.emit()
-    
+
   var vp: Viewport = Engine.get_main_loop().root
   vp.focus_entered.disconnect(_on_wnd)
   vp.focus_exited.disconnect(_out_wnd)
-  
+
 func _on_wnd() -> void: set_physics_process(true)
 func _out_wnd() -> void: set_physics_process(false)
 
