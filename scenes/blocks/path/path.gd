@@ -7,6 +7,7 @@ const editNodeSpawner = preload("res://scenes/blocks/path/editNode.tscn")
 
 var lastStartTime: float = 0
 var started: bool = false
+var canRestart: bool = false
 var currentTick: float = 0
 var savedMovement: float = 0
 var lastDesiredPosition: Vector2
@@ -43,6 +44,7 @@ func generateBlockOpts():
     'onChange': func(val):
       if val:
         selectedOptions.startWhilePressed = false
+        selectedOptions.startWhilePressedBackWhileNotPressed = false
       return true,
   }
   blockOptions.startWhilePressed = {
@@ -50,6 +52,16 @@ func generateBlockOpts():
     "type": global.PromptTypes.bool,
     'onChange': func(val):
       if val:
+        selectedOptions.startOnPress = false
+        selectedOptions.startWhilePressedBackWhileNotPressed = false
+      return true,
+  }
+  blockOptions.startWhilePressedBackWhileNotPressed = {
+    "default": false,
+    "type": global.PromptTypes.bool,
+    'onChange': func(val):
+      if val:
+        selectedOptions.startWhilePressed = false
         selectedOptions.startOnPress = false
       return true,
   }
@@ -114,28 +126,46 @@ func fromProgressToPoint(prog) -> Vector2:
 func on_physics_process(delta: float) -> void:
   if not started: return
   currentTick = global.tick - lastStartTime + savedMovement
+  var isBackwards: bool = selectedOptions.forwardSpeed < 0
   var desiredPosition = (func():
     match selectedOptions.endReachedAction:
       EndReachedActions.stop:
-        if \
-        (currentTick * selectedOptions.forwardSpeed) >= maxProgress \
-        and (
-          selectedOptions.restart == Restarts.ifStopped
-          or selectedOptions.restart == Restarts.always
-        ):
-          if selectedOptions.restart == Restarts.ifStopped:
-            started = false
-          set_deferred("currentTick", 0)
-        return fromProgressToPoint(currentTick * selectedOptions.forwardSpeed)
-      EndReachedActions.loop: return fromProgressToPoint(fmod(currentTick * selectedOptions.forwardSpeed, maxProgress))
-      EndReachedActions.reverse:
-        var forwardTime = maxProgress / selectedOptions.forwardSpeed
-        var backwardTime = maxProgress / selectedOptions.backwardSpeed
-        var time = fmod(currentTick, forwardTime + backwardTime)
-        if time <= forwardTime:
-          return fromProgressToPoint(time * selectedOptions.forwardSpeed)
+        if (currentTick * abs(selectedOptions.forwardSpeed)) >= maxProgress:
+          started = false
+          if selectedOptions.restart == Restarts.never:
+            canRestart = false
+          elif selectedOptions.restart == Restarts.ifStopped:
+            canRestart = true
+
+            set_deferred("currentTick", 0)
+        if isBackwards:
+          return fromProgressToPoint(maxProgress - (currentTick * abs(selectedOptions.forwardSpeed)))
+        return fromProgressToPoint(currentTick * abs(selectedOptions.forwardSpeed))
+      EndReachedActions.loop:
+        var time = fmod(currentTick * abs(selectedOptions.forwardSpeed), maxProgress)
+        if isBackwards:
+          return fromProgressToPoint(maxProgress - time)
         else:
-          return fromProgressToPoint(maxProgress - (time - forwardTime) * selectedOptions.backwardSpeed)
+          return fromProgressToPoint(time)
+      EndReachedActions.reverse:
+        var forwardTime = maxProgress / abs(selectedOptions.forwardSpeed)
+        var backwardTime = maxProgress / abs(selectedOptions.backwardSpeed)
+        var time = fmod(currentTick, forwardTime + backwardTime)
+        # if isBackwards:
+        if time > forwardTime:
+          isBackwards = selectedOptions.backwardSpeed < 0
+        else:
+          isBackwards = selectedOptions.forwardSpeed < 0
+        if isBackwards:
+          if time <= forwardTime:
+            return fromProgressToPoint(maxProgress - (time * abs(selectedOptions.forwardSpeed)))
+          else:
+            return fromProgressToPoint((time - forwardTime) * abs(selectedOptions.backwardSpeed))
+        else:
+          if time <= forwardTime:
+            return fromProgressToPoint(time * abs(selectedOptions.forwardSpeed))
+          else:
+            return fromProgressToPoint(maxProgress - ((time - forwardTime) * abs(selectedOptions.backwardSpeed)))
       _: return Vector2.ZERO
     ).call()
   for child in attach_children:
@@ -166,14 +196,17 @@ func _draw() -> void:
 func on_signal_changed(id, on):
   if id == selectedOptions.signalInputId:
     if on:
+      if not canRestart: return
       if started:
         if selectedOptions.restart == Restarts.always:
           lastStartTime = global.tick
+        else:
+          canRestart = false
       else:
         lastStartTime = global.tick
       started = true
     else:
-      if selectedOptions.startWhilePressed:
+      if selectedOptions.startWhilePressed or selectedOptions.startWhilePressedBackWhileNotPressed:
         started = false
         savedMovement = currentTick
 
@@ -192,6 +225,7 @@ func on_respawn():
   currentTick = 0
   lastStartTime = 0
   started = selectedOptions.startOnLoad
+  canRestart = selectedOptions.restart == Restarts.always
   updateVisible()
   global.onSignalChanged(on_signal_changed)
   maxProgress = getMaxProgress()
