@@ -9,6 +9,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - [Settings](#settings)
 - [Explanations](#explanations)
 - [General Information](#general-information)
+- [command line arguments](#command-line-arguments)
 
 ## extra info
 
@@ -16,7 +17,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - launcher not required, but allows easy access to any old version, and allows you to know when there is an update whenever opening the launcher.
 - launcher also has a button to update the launcher
 
-### Editor Controls
+## Editor Controls
 
 - **show_keybinds**: can show and hide the control rebind menu while editing a level - control editor starts visible on the main menu
 
@@ -55,14 +56,14 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **edit_level_mods**: press to toggle the level mod editor on and off.
 - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
-### Play Controls
+## Play Controls
 
 - **jump**: causes the player to jump and if the camera will refocus the player
 - **down**: causes the player to crouch or slide while on the ground and if in the air will cause the player to be able to break glass when fell on
 - **left**: causes the player to move left
 - **right**: causes the player to move right
 
-### Settings
+## Settings
 
 - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
 - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
@@ -112,7 +113,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **loadExpandedGroups**: loads which groups were previously saved as expanded.
 - **menuOptionNameFormat**: reformats the menu option names in the selected way.
 
-### block settings that apply to many blocks
+## block settings that apply to many blocks
 
 - **color**: changes the modulate of the block
 - **canAttachToThings**: if true the block will be able to attach to most blocks that move
@@ -135,7 +136,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **signalOutputId**: the signal to emit.
   - all signals are sent at the end of the frame and will only be sent if they are still valid at the end of the frame, eg turning a signal off then back on again in the same frame won't cause it to emit again, so if you have to not gates inverting each others signals, it will only emit once then stop until you turn one of their signals off or on again .
 
-### Blocks
+## Blocks
 
 - **input detector**: when the player is pressing the set direction a signal will be emitted.
 
@@ -570,7 +571,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - scalable
   - **settings**:
 
-### level flags
+## level flags
 
 - **autoRun**: the player will auto run to the right to start, and will turn around when jumping off a wall slide, but not a wall hang.
 - **jumpCount**: the player will have this many jumps. jumps are regained when landing on the ground or on a wall hang. jumps are lost when jumping off a wall hang, jumping from the ground or from in the air, but are not lost or gained when in a wall slide, so settings jump count to 0 will prevent the player from jumping from the ground, but not prevent walljumping or wall hanging.
@@ -583,7 +584,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - \*\*.*[\r\s\n]+-\*
 -->
 
-### command line arguments
+## command line arguments
 
 - **--loadMap**
   - load map by name or NEWEST to load the newest map
