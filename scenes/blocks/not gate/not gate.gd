@@ -10,7 +10,7 @@ func on_respawn():
   global.onSignalChanged(onSignalChanged)
   global.sendSignal(selectedOptions.signalOutputId, self , false)
 
-func onSignalChanged(id, on, caller):
-  if caller == self: return
+func onSignalChanged(id, on, callers):
+  if self in callers: return
   if id == selectedOptions.signalInputId:
     global.sendSignal(selectedOptions.signalOutputId, self , !on)

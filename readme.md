@@ -116,6 +116,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **color**: changes the modulate of the block
 - **canAttachToThings**: if true the block will be able to attach to most blocks that move
+
   - updown
   - downup
   - leftright
@@ -131,7 +132,26 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - locked box
   - ? might be more
 
+- **signalOutputId**: the signal to emit.
+  - all signals are sent at the end of the frame and will only be sent if they are still valid at the end of the frame, eg turning a signal off then back on again in the same frame won't cause it to emit again, so if you have to not gates inverting each others signals, it will only emit once then stop until you turn one of their signals off or on again .
+
 ### Blocks
+
+- **input detector**: when the player is pressing the set direction a signal will be emitted.
+
+  - **signalOutputId**:
+  - **action**: the action to detect.
+
+- **not gate**: will invert a signal.
+
+  - **signalInputId**: the signal to detect.
+  - **signalOutputId**:
+
+- **and gate**: will send a signal only if both signals are on.
+
+  - **signalAInputId**: one signal to detect.
+  - **signalBInputId**: the other signal to detect.
+  - **signalOutputId**:
 
 - **path**: blocks that attach to this will be moved along the path
 
@@ -564,5 +584,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 -->
 
 ### command line arguments
+
 - **--loadMap**
   - load map by name or NEWEST to load the newest map
