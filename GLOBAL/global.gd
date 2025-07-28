@@ -1051,9 +1051,14 @@ func localInput(event: InputEvent) -> void:
   if Input.is_action_just_pressed(&"toggle_hitboxes", true):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
-    setEditorUiState(!showEditorUi)
-    await wait(1)
-    setEditorUiState(!showEditorUi)
+    var tree := get_tree()
+    var node_stack: Array[Node] = [tree.get_root()]
+    while not node_stack.is_empty():
+      var node: Node = node_stack.pop_back()
+      if is_instance_valid(node):
+        if node is CollisionShape2D or node is CollisionPolygon2D or node is RayCast2D:
+          node.queue_redraw()
+        node_stack.append_array(node.get_children())
   if Input.is_action_just_pressed(&"quit", true):
     quitGame()
   if Input.is_action_just_pressed(&"move_player_to_mouse", true):
@@ -1660,7 +1665,7 @@ func tryAndLoadMapFromZip(from, to):
       return e)
   else:
     tempFiles = files
-  log.warn(files, tempFiles)
+  log.pp(files, tempFiles)
   if "options.sds" not in tempFiles:
     log.err("not a valid map file", from, to, files)
     return
@@ -1935,8 +1940,9 @@ func sendSignals():
     # log.pp("update signal changes", sc, activeSignals)
     text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
     signalChanged.emit(id, !!activeSignals[id], sc[id])
-  log.pp(text.substr(1))
-  ToastParty.info(text.substr(1))
+  if text:
+    Console.print_info(text)
+  # log.pp()
 
 func sendSignal(id, node, val):
   if not id:

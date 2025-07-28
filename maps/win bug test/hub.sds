@@ -12,6 +12,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -25,6 +26,7 @@
       STR(requiredLevelCount)INT(0)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -36,6 +38,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -50,6 +53,7 @@
       STR(exitId)INT(0)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -64,6 +68,7 @@
       STR(exitId)INT(1)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -76,6 +81,7 @@
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -89,6 +95,7 @@
       STR(requiredLevelCount)INT(0)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -102,6 +109,7 @@
       STR(requiredLevelCount)INT(0)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -115,6 +123,7 @@
       STR(requiredLevelCount)INT(0)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -128,6 +137,7 @@
       STR(requiredLevelCount)INT(0)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -141,6 +151,7 @@
       STR(requiredLevelCount)INT(0)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -152,6 +163,20 @@
     STR(id)STR(water)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
+      STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
+    }
+  }
+  {
+    STR(x)FLOAT(-75.0)
+    STR(y)FLOAT(-25.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(input detector)
+    STRNAME(options){
+      STR(action)INT(0)
+      STR(signalOutputId)INT(1)
       STR(color)STR(#fff)
     }
   }
