@@ -125,6 +125,8 @@ func onEditorMove(moveDist: Vector2) -> void:
     block.attach_children.erase(self )
   attach_parents = []
   if self in global.boxSelect_selectedBlocks and moveDist != Vector2.ZERO:
+    isBeingMoved = true
+    log.pp("isBeingMoved")
     for block in global.boxSelect_selectedBlocks:
       if block == self: continue
       block.startPosition += moveDist
@@ -516,7 +518,7 @@ func _process(delta: float) -> void:
       else:
         # if not mouse down
         if !Input.is_action_pressed(&"editor_select"):
-          if not _DISABLED:
+          if not _DISABLED or 1:
             if isBeingMoved:
               onEditorMoveEnded()
               isBeingMoved = false

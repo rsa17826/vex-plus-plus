@@ -798,7 +798,7 @@ func localProcess(delta: float) -> void:
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
         justPaintedBlock.rotation_degrees = player.rotation_degrees \
-        if justPaintedBlock.EDITOR_OPTION_rotate \
+        if justPaintedBlock.EDITOR_OPTION_rotate and not player.inWaters \
         else 0.0
         justPaintedBlock.id = blockNames[selectedBrush.id]
         justPaintedBlock.isBeingPlaced = true
@@ -930,7 +930,6 @@ func localInput(event: InputEvent) -> void:
       if not Input.is_action_pressed(&"editor_pan", true):
         boxSelect_selectedBlocks = []
       # selectedBlock._ready.call(false)
-
   if Input.is_action_just_pressed(&"new_level_file", true):
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
@@ -1116,7 +1115,7 @@ func localInput(event: InputEvent) -> void:
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
         justPaintedBlock.rotation_degrees = player.rotation_degrees \
-        if justPaintedBlock.EDITOR_OPTION_rotate \
+        if justPaintedBlock.EDITOR_OPTION_rotate and not player.inWaters \
         else 0.0
         justPaintedBlock.id = block
         lastSelectedBrush = selectedBrush

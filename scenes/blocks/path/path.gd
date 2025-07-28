@@ -221,7 +221,9 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
     respawn()
 
 func on_respawn():
-  if self in global.boxSelect_selectedBlocks: return
+  if self in global.boxSelect_selectedBlocks:
+    for node in pathEditNodes:
+      if node in global.boxSelect_selectedBlocks: return
   lastDesiredPosition = Vector2.ZERO
   savedMovement = 0
   currentTick = 0
@@ -251,12 +253,14 @@ func on_respawn():
 
 func onEditorMove(moveDist: Vector2) -> void:
   super (moveDist)
+  log.pp(isBeingPlaced, "isBeingPlaced")
   if isBeingPlaced or global.useropts.movingPathNodeMovesEntirePath: return
   for i in range(len(path)):
     path[i] -= moveDist
   path[0] = Vector2.ZERO
 
 func onEditorMoveEnded():
+  log.pp("onEditorMoveEnded")
   savePath()
   respawn()
 
