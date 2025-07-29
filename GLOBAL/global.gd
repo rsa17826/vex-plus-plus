@@ -827,16 +827,17 @@ func localProcess(delta: float) -> void:
         if b.oddScaleOffsetForce.x:
           isXOnOddScale = b.oddScaleOffsetForce.x == 1
         else:
-          isXOnOddScale = (fmod(selectedBlock.sizeInPx.x + (gridSize.x / 2), gridSize.x * 2)) > (gridSize.x)
+          isXOnOddScale = (fmod(abs(selectedBlock.sizeInPx.rotated(selectedBlock.rotation).x) + (gridSize.x / 2), gridSize.x * 2)) > (gridSize.x)
         if b.oddScaleOffsetForce.y:
           isYOnOddScale = b.oddScaleOffsetForce.y == 1
         else:
-          isYOnOddScale = (fmod(selectedBlock.sizeInPx.y + (gridSize.x / 2), gridSize.y * 2)) > (gridSize.y)
+          isYOnOddScale = (fmod(abs(selectedBlock.sizeInPx.rotated(selectedBlock.rotation).y) + (gridSize.x / 2), gridSize.y * 2)) > (gridSize.y)
         # offset the block on the sides that are odd to make it align with the grid
         extraOffset = Vector2(
           (gridSize.x / 2.0) if isXOnOddScale else 0.0,
           (gridSize.y / 2.0) if isYOnOddScale else 0.0,
         )
+        # log.pp(isXOnOddScale, isYOnOddScale, extraOffset)
         # log.pp(isXOnOddScale, isYOnOddScale, extraOffset, selectedBlock.sizeInPx, selectedBlock.defaultSizeInPx)
 
         selectedBlock.global_position = mpos + selectedBlockOffset - (selectedBlock.sizeInPx / 2)
@@ -1942,6 +1943,7 @@ func sendSignals():
   signalChanges = {}
   # var text = ''
   for id in sc:
+    ui.signalList.onSignalChanged(id, !!activeSignals[id], sc[id])
     if id in lastSignals and (lastSignals[id] == !!activeSignals[id]): continue
     lastSignals[id] = !!activeSignals[id]
     # log.pp("update signal changes", sc, activeSignals)
