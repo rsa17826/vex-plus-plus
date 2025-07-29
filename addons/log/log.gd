@@ -1,7 +1,7 @@
 @tool
 extends Object
 class_name log
-
+# @noregex
 static func assoc(opts: Dictionary, key: String, val):
   var _opts = opts.duplicate(true)
   _opts[key] = val
@@ -427,7 +427,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       + (spaces(tab) if not isarrafterdict else "") \
       +"{" \
       + getcolor("END") \
-      +"\n  "
+      +"\n  " + spaces(tab)
       var arr = []
       for k in item:
         var v = item[k]
@@ -435,7 +435,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
           coloritem(k, tab)
         ) + getcolor("END") + getcolor("orange") + ": " + getcolor("END") + coloritem(v, tab, true))
       text += (
-        (getcolor("orange") + "," + getcolor("END") + "\n  ").join(
+        (getcolor("orange") + "," + getcolor("END") + "\n  " + spaces(tab)).join(
           arr
         )
       )
@@ -496,7 +496,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     +")" + getcolor("end")
   if item is bool:
     return getcolor("blue") + str(item) + getcolor("end")
-  log.pp(type_string(typeof(item)))
+  print("UNSET ITEM TYPE: " + type_string(typeof(item)) + ' - ' + str(item))
   return spaces(tab) + '"' + str(item) + '"'
 
 ## public print fns ###########################################################################

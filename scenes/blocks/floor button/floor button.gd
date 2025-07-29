@@ -10,6 +10,7 @@ var blocksCurrentlyPressingThisButton := []:
     return blocksCurrentlyPressingThisButton
 
 func on_body_entered(body: Node) -> void:
+  # log.pp("on_body_", body in blocksCurrentlyPressingThisButton, body is Player, blocksCurrentlyPressingThisButton)
   if !selectedOptions.signalOutputId: return
   if body not in blocksCurrentlyPressingThisButton:
     blocksCurrentlyPressingThisButton.append(body)
@@ -21,9 +22,17 @@ func on_ready():
   global.sendSignal(selectedOptions.signalOutputId, self , false)
 
 func on_respawn() -> void:
+  await global.wait()
+  var overlaps = ($collisionNode as Area2D).get_overlapping_bodies() + ($collisionNode as Area2D).get_overlapping_areas()
+  # log.pp("respawn", overlaps)
+  for body in blocksCurrentlyPressingThisButton:
+    on_body_exited(body)
+  for body in overlaps:
+    on_body_entered(body)
   thingThatMoves.position = Vector2.ZERO
 
 func on_body_exited(body: Node) -> void:
+  # log.pp("on_body_exited", body in blocksCurrentlyPressingThisButton, body is Player, blocksCurrentlyPressingThisButton)
   if body in blocksCurrentlyPressingThisButton:
     blocksCurrentlyPressingThisButton.erase(body)
   if not blocksCurrentlyPressingThisButton:

@@ -669,7 +669,7 @@
     STR(beatLevels)[]
   }
   STR(win bug test){
-    STR(lastSpawnPoint)VEC2(-98.5274276733398,-5.08028602600098)
+    STR(lastSpawnPoint)VEC2(1.47257053852081,-5.08028602600098)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
