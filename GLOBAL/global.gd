@@ -347,6 +347,11 @@ func waituntil(cb: Callable) -> Signal:
   # for link in global.link.links:
   #   if link.node.is_inside_tree() and link.node.is_node_ready():
   #     link.node[link.prop] = link.cb.call(link.val)
+func dictmap(dict, cb):
+  for key in dict:
+    dict[key] = cb.call(key, dict[key])
+  return dict
+
 class timer:
   static var time: float = 0
   static var started: bool = false
@@ -1934,13 +1939,14 @@ var signalChanges = {}
 func sendSignals():
   var sc = signalChanges.duplicate()
   signalChanges = {}
-  var text = ''
+  # var text = ''
   for id in sc:
     # log.pp("update signal changes", sc, activeSignals)
-    text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
+    # text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
     signalChanged.emit(id, !!activeSignals[id], sc[id])
-  if text:
-    Console.print_info(text)
+  log.pp("asdklasjdlkasd", {"asd": "asdasddsa", 123123: [1238732112398, "asdkasjdkl", 12321]})
+  # if text:
+  #   Console.print_info(text)
   # log.pp()
 
 func sendSignal(id, node, val):

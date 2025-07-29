@@ -15,11 +15,11 @@ static func log_prefix(stack):
     var basename = call_site.source.get_file().get_basename()
     var line_num = str(call_site.get("line", 0))
     if call_site.source.match("*/test/*"):
-      return "{" + basename + ":" + line_num + "}: "
+      return getcolor("cyan") + "{" + basename + ":" + line_num + "}: " + getcolor("end")
     elif call_site.source.match("*/addons/*"):
-      return "<" + basename + ":" + line_num + ">: "
+      return getcolor("red") + "<" + basename + ":" + line_num + ">: " + getcolor("end")
     else:
-      return "[" + basename + ":" + line_num + "]: "
+      return getcolor("pink") + "[" + basename + ":" + line_num + "]: " + getcolor("end")
 
 ## colors ###########################################################################
 
@@ -54,10 +54,10 @@ static var COLORS_TERMINAL_SAFE = {
   "vector_value": "green",
   "class_name": "magenta",
   TYPE_NIL: "pink",
-  TYPE_BOOL: "pink",
+  TYPE_BOOL: "blue",
   TYPE_INT: "green",
   TYPE_FLOAT: "green",
-  TYPE_STRING: "pink",
+  TYPE_STRING: "purple",
   TYPE_VECTOR2: "green",
   TYPE_VECTOR2I: "green",
   TYPE_RECT2: "green",
@@ -359,12 +359,130 @@ static func to_printable(msgs, opts={}):
 
 ## public print fns ###########################################################################
 
-static func pp(...msgs) -> void:
-  var m = log.to_printable(msgs, {stack=get_stack()})
-  print_rich(m)
+static func getcolor(color: String):
+  match color.to_lower():
+    "end":
+      return "[/color]"
+    "nc":
+      return "[/color]"
+    _: return '[color=' + color + ']'
 
+static func spaces(count) -> String:
+  var s = ''
+  for i in range(count):
+    s += ' '
+  return s
+
+static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false, lastitemwasovermax: bool = false) -> String:
+  var wrapat: int = 10
+  tab += 2
+  if item is Callable:
+    return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + "" + getcolor("BLUE") + "" + item.__name__ + "" + getcolor("END") + "" + getcolor("RED") + ">" + getcolor("END") + ""
+
+  if item is String:
+    return getcolor("purple") + '"' + str(item) + '"' + getcolor("END")
+  if item is int or item is float:
+    return getcolor("GREEN") + str(item) + getcolor("END")
+
+  if item is Dictionary:
+    if not len(item):
+      return "{}"
+    if len(JSON.stringify(item)) + tab < wrapat:
+      var text = getcolor("orange") \
+      # + "\n"
+      + (spaces(tab) if not isarrafterdict else "") \
+      +"{ " \
+      + getcolor("END")
+      var arr = []
+      for k in item:
+        var v = item[k]
+        arr.append(getcolor("purple") + (
+          ' "' + k + '"' if k is String else coloritem(k, tab)
+        ) + getcolor("END") + " " + getcolor("orange") + ": " + getcolor("END") + "" + coloritem(v, tab, true) + "")
+
+      text += ("" + getcolor("orange") + "," + getcolor("END") + " ").join(
+        arr
+      )
+      text += getcolor("orange") \
+      +" }" \
+      + getcolor("END")
+      return text
+    else:
+      var text = getcolor("orange") \
+      # + "\n"
+      + (spaces(tab) if not isarrafterdict else "") \
+      +"{" \
+      + getcolor("END") \
+      +"\n  "
+      var arr = []
+      for k in item:
+        var v = item[k]
+        arr.append(getcolor("purple") + (
+          coloritem(k, tab)
+        ) + getcolor("END") + "" + getcolor("orange") + ": " + getcolor("END") + "" + coloritem(v, tab, true) + "")
+      text += (
+        ("" + getcolor("orange") + "," + getcolor("END") + "\n  ").join(
+          arr
+        )
+      )
+      text += " \n" \
+      + getcolor("orange") \
+      + spaces(tab) \
+      +"}" \
+      + getcolor("END")
+      return text
+  if item is Array:
+    if len(JSON.stringify(item)) + tab < wrapat:
+      var text = getcolor("orange") \
+      + ("" if isarrafterdict else spaces(tab)) \
+      +"[ " \
+      + getcolor("END") \
+      + (\
+        ("" + getcolor("orange") + "," + getcolor("END") + " ").join(
+          item.map(
+            func(newitem):
+              return coloritem(newitem, tab),
+          )
+        )
+      ) \
+      + getcolor("orange") \
+      +" ]" \
+      + getcolor("END")
+      return text
+    else:
+      var text = getcolor("orange") \
+      + ("" if isarrafterdict else spaces(tab)) \
+      +"[\n" \
+      + getcolor("END") \
+      + (
+        ("" + getcolor("orange") + "," + getcolor("END") + "\n").join(
+          item.map(
+            func(newitem): return (
+              "  " + spaces(tab)
+              if newitem is String \
+              or newitem is int \
+              or newitem is float \
+              else ""
+            ) \
+            + coloritem(newitem, tab),
+          )
+        )
+      ) + getcolor("orange") \
+      +"\n" \
+      + spaces(tab) \
+      +"]" \
+      + getcolor("END")
+      return text
+
+  log.pp(type_string(typeof(item)))
+  return spaces(tab) + '"' + str(item) + '"'
+static func pp(...msgs) -> void:
+  print_rich(
+    log_prefix(get_stack()) + " - ".join(msgs.map(coloritem)),
+    # getcolor("END"),
+  )
 static func info(...msgs) -> void:
-  var m = log.to_printable(msgs, {stack=get_stack()})
+  var m = log_prefix(get_stack()) + " - ".join(msgs.map(coloritem))
   print_rich(m)
 
 static func log(...msgs) -> void:
@@ -377,24 +495,26 @@ static func prn(...msgs) -> void:
 
 static func warn(...msgs) -> void:
   var rich_msgs = msgs.duplicate()
-  rich_msgs.push_front("[color=yellow][WARN][/color]")
-  print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
+  rich_msgs.push_front("[color=yellow][WARN][ / color]")
+  print_rich(log_prefix(get_stack()) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   Console.print_warning(m)
   push_warning(m)
 
 static func err(...msgs) -> void:
   var rich_msgs = msgs.duplicate()
-  rich_msgs.push_front("[color=red][ERR][/color]")
-  print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
+  rich_msgs.push_front("[color=red][ERR][ / color]")
+  print_rich(log_prefix(get_stack()) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   Console.print_error(m)
+  ToastParty.error(m)
   push_error(m)
 
 static func error(...msgs) -> void:
   var rich_msgs = msgs.duplicate()
-  rich_msgs.push_front("[color=red][ERR][/color]")
-  print_rich(log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
+  rich_msgs.push_front("[color=red][ERR][ / color]")
+  print_rich(log_prefix(get_stack()) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   Console.print_error(m)
+  ToastParty.error(m)
   push_error(m)
