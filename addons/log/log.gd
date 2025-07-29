@@ -365,22 +365,38 @@ static func getcolor(color: String):
       return "[/color]"
     _: return '[color=' + color + ']'
 
-static func spaces(count) -> String:
+static func spaces(count: int) -> String:
   var s = ''
   for i in range(count):
     s += ' '
   return s
 
+static func format_int_with_commas(number: int) -> String:
+  var result = ""
+  var count = 0
+  var str_number = str(number)
+
+  for i in range(str_number.length() - 1, -1, -1):
+    if count == 3:
+      result = "," + result
+      count = 0
+    result = str_number[i] + result
+    count += 1
+
+  return result
+
 static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false, lastitemwasovermax: bool = false) -> String:
-  var wrapat: int = 10
+  var wrapat: int = 60
   tab += 2
   if item is Callable:
-    return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + "" + getcolor("BLUE") + "" + item.__name__ + "" + getcolor("END") + "" + getcolor("RED") + ">" + getcolor("END") + ""
+    return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + getcolor("BLUE") + item.name + getcolor("END") + getcolor("RED") + ">" + getcolor("END")
 
   if item is String:
     return getcolor("purple") + '"' + str(item) + '"' + getcolor("END")
-  if item is int or item is float:
-    return getcolor("GREEN") + str(item) + getcolor("END")
+  if item is int:
+    return getcolor("GREEN") + format_int_with_commas(item) + getcolor("END")
+  if item is float:
+    return getcolor("GREEN") + format_int_with_commas(item) + '.' + str(item).split(".")[1] + getcolor("END")
 
   if item is Dictionary:
     if not len(item):
@@ -395,10 +411,10 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       for k in item:
         var v = item[k]
         arr.append(getcolor("purple") + (
-          ' "' + k + '"' if k is String else coloritem(k, tab)
-        ) + getcolor("END") + " " + getcolor("orange") + ": " + getcolor("END") + "" + coloritem(v, tab, true) + "")
+          '"' + k + '"' if k is String else coloritem(k, tab)
+        ) + getcolor("END") + " " + getcolor("orange") + ": " + getcolor("END") + coloritem(v, tab, true))
 
-      text += ("" + getcolor("orange") + "," + getcolor("END") + " ").join(
+      text += (getcolor("orange") + "," + getcolor("END") + " ").join(
         arr
       )
       text += getcolor("orange") \
@@ -417,9 +433,9 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
         var v = item[k]
         arr.append(getcolor("purple") + (
           coloritem(k, tab)
-        ) + getcolor("END") + "" + getcolor("orange") + ": " + getcolor("END") + "" + coloritem(v, tab, true) + "")
+        ) + getcolor("END") + getcolor("orange") + ": " + getcolor("END") + coloritem(v, tab, true))
       text += (
-        ("" + getcolor("orange") + "," + getcolor("END") + "\n  ").join(
+        (getcolor("orange") + "," + getcolor("END") + "\n  ").join(
           arr
         )
       )
@@ -436,7 +452,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       +"[ " \
       + getcolor("END") \
       + (\
-        ("" + getcolor("orange") + "," + getcolor("END") + " ").join(
+        (getcolor("orange") + "," + getcolor("END") + " ").join(
           item.map(
             func(newitem):
               return coloritem(newitem, tab),
@@ -453,7 +469,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       +"[\n" \
       + getcolor("END") \
       + (
-        ("" + getcolor("orange") + "," + getcolor("END") + "\n").join(
+        (getcolor("orange") + "," + getcolor("END") + "\n").join(
           item.map(
             func(newitem): return (
               "  " + spaces(tab)
