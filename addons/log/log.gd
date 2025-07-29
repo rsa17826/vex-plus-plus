@@ -399,8 +399,6 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     return getcolor("GREEN") + format_int_with_commas(item) + '.' + str(item).split(".")[1] + getcolor("END")
 
   if item is Dictionary:
-    if not len(item):
-      return "{}"
     if len(JSON.stringify(item)) + tab < wrapat:
       var text = getcolor("orange") \
       # + "\n"
