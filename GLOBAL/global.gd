@@ -1217,7 +1217,7 @@ func savePlayerLevelData() -> void:
   currentLevel().up_direction = player.up_direction
   currentLevel().autoRunDirection = player.autoRunDirection
   currentLevel().blockSaveData = saveBlockData()
-  log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
+  # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
   sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
   savingPlayerLevelData = false
 
