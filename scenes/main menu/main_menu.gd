@@ -155,7 +155,7 @@ func upload_file(file_path: String, base64_content: String) -> void:
     log.err(res.response)
     log.err(headers)
     ToastParty.error("ERROR: " + str(res.code))
-  
+
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes
   get_tree().set_debug_collisions_hint(global.hitboxesShown)

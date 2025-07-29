@@ -371,19 +371,12 @@ static func spaces(count: int) -> String:
     s += ' '
   return s
 
-static func format_int_with_commas(number: int) -> String:
-  var result = ""
-  var count = 0
-  var str_number = str(number)
-
-  for i in range(str_number.length() - 1, -1, -1):
-    if count == 3:
-      result = "," + result
-      count = 0
-    result = str_number[i] + result
-    count += 1
-
-  return result
+static func format_int_with_commas(number: Variant) -> String:
+  var rest = '.' + str(number).split(".")[1] if number is float else ''
+  number = str(int(floor(number)))
+  for i in range(number.length() - 3, 0, -3):
+    number = number.insert(i, ',')
+  return number + rest
 
 static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false, lastitemwasovermax: bool = false) -> String:
   var wrapat: int = 60
@@ -391,12 +384,12 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
   if item is Callable:
     return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + getcolor("BLUE") + item.name + getcolor("END") + getcolor("RED") + ">" + getcolor("END")
 
+  if item is StringName:
+    return getcolor("darkorange") + "&" + getcolor("END") + '"' + getcolor("purple") + str(item) + getcolor("END") + getcolor("darkorange") + '"' + getcolor("END")
   if item is String:
     return getcolor("purple") + '"' + str(item) + '"' + getcolor("END")
-  if item is int:
+  if item is int or item is float:
     return getcolor("GREEN") + format_int_with_commas(item) + getcolor("END")
-  if item is float:
-    return getcolor("GREEN") + format_int_with_commas(item) + '.' + str(item).split(".")[1] + getcolor("END")
 
   if item is Dictionary:
     if len(JSON.stringify(item)) + tab < wrapat:
