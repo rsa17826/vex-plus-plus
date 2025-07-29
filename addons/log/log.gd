@@ -396,6 +396,8 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     return getcolor("GREEN") + format_int_with_commas(item) + getcolor("END")
 
   if item is Dictionary:
+    if not item:
+      return getcolor("orange") + "{ }" + getcolor("end")
     if len(JSON.stringify(item)) + tab < wrapat:
       var text = getcolor("orange") \
       # + "\n"
@@ -441,6 +443,8 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       + getcolor("END")
       return text
   if item is Array:
+    if not item:
+      return getcolor("orange") + "[ ]" + getcolor("end")
     if len(JSON.stringify(item)) + tab < wrapat:
       var text = getcolor("orange") \
       + ("" if isarrafterdict else spaces(tab)) \
