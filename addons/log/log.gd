@@ -424,7 +424,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     else:
       var text = getcolor("orange") \
       # + "\n"
-      + (spaces(tab) if not isarrafterdict else "") \
+      + ("" if isarrafterdict else spaces(tab)) \
       +"{" \
       + getcolor("END") \
       +"\n  " + spaces(tab)
