@@ -19,7 +19,7 @@ static func log_prefix(stack):
     elif call_site.source.match("*/addons/*"):
       return getcolor("red") + "<" + basename + ":" + line_num + ">: " + getcolor("end")
     else:
-      return getcolor("pink") + "[" + basename + ":" + line_num + "]: " + getcolor("end")
+      return getcolor("lightblue") + "[" + basename + ":" + line_num + "]: " + getcolor("end")
 
 ## colors ###########################################################################
 
@@ -357,8 +357,6 @@ static func to_printable(msgs, opts={}):
       m += "%s " % str(msg)
   return m.trim_suffix(" ")
 
-## public print fns ###########################################################################
-
 static func getcolor(color: String):
   match color.to_lower():
     "end":
@@ -473,9 +471,20 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       +"]" \
       + getcolor("END")
       return text
-
+  if item is Vector2 or item is Vector2i:
+    return getcolor("darkgreen") \
+    + ("Vector2i" if item is Vector2i else "Vector2") + "(" + \
+    getcolor("end") + coloritem(item.x) + getcolor("darkgreen") \
+    +", " \
+    + getcolor("end") + coloritem(item.y) + getcolor("darkgreen") \
+    +")" + getcolor("end")
+  if item is bool:
+    return getcolor("blue") + str(item) + getcolor("end")
   log.pp(type_string(typeof(item)))
   return spaces(tab) + '"' + str(item) + '"'
+
+## public print fns ###########################################################################
+
 static func pp(...msgs) -> void:
   print_rich(
     log_prefix(get_stack()) + " - ".join(msgs.map(coloritem)),

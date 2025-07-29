@@ -1944,7 +1944,6 @@ func sendSignals():
     # log.pp("update signal changes", sc, activeSignals)
     # text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
     signalChanged.emit(id, !!activeSignals[id], sc[id])
-  log.pp("asdklasjdlkasd", {"asd": "asdasddsa", 123123: [1238732112398, "asdkasjdkl", 12321]})
   # if text:
   #   Console.print_info(text)
   # log.pp()
