@@ -199,7 +199,7 @@ func on_signal_changed(id, on, callers):
     if on:
       if not canRestart: return
       if started:
-        if selectedOptions.restart == Restarts.always:
+        if selectedOptions.restart == Restarts.always or selectedOptions.startWhilePressed:
           lastStartTime = global.tick
         else:
           lastStartTime = global.tick

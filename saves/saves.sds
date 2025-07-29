@@ -669,7 +669,7 @@
     STR(beatLevels)[]
   }
   STR(win bug test){
-    STR(lastSpawnPoint)VEC2(1.47257053852081,-5.08028602600098)
+    STR(lastSpawnPoint)VEC2(151.472564697266,-255.080291748047)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -680,6 +680,9 @@
         STR(blockSaveData){
           STR(checkpoint){
             INT(1){
+              STR(texture)STR(1)
+            }
+            INT(2){
               STR(texture)STR(2)
             }
           }
