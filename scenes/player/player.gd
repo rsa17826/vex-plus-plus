@@ -1400,16 +1400,16 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-28! pulling levers allows clipping through moving blocks
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
   # ?!version ?-NOW! can push boxes while sliding
-  # ?!version ?-NOW! spawnpoint being inside water and doing full restart while in spawn water causes player to not be in water
+  # ?!version ?-<104! spawnpoint being inside water and doing full restart while in spawn water causes player to not be in water
   # ?!version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
-  # ?!version ?-NOW! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
-  # ?!version ?-NOW! bombs on conveyers that fall can explode after the player respawns
+  # ?!version ?-<104! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
+  # ?!version ?-NOW! exploded bombs reexplode after respawning
   # !version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
   # !version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
-  # !version ?-NOW! when respawning gols can still be interacted with
   # !version ?-INF! collision is not checked while in cannons
   # !version ?-91! ice blocks don't require falling to break
   # !version ?-94! traveling through a goal while dying counts as winning
+  # !version ?-105! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
