@@ -248,9 +248,11 @@ sprite_frames = SubResource("SpriteFrames_yjroi")
 autoplay = "default"
 frame_progress = 0.20303714
 
-[node name="wall grab collision" type="Area2D" parent="collisionNode"]
+[node name="wall grab collision" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
 collision_layer = 16384
 collision_mask = 0
+script = ExtResource("2_0wow3")
+root = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode/wall grab collision"]
 position = Vector2(0, -347)
@@ -265,7 +267,6 @@ root = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
 z_index = 3
-position = Vector2(0,0)
 shape = SubResource("RectangleShape2D_yni2j")
 debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
 metadata/_edit_lock_ = true
