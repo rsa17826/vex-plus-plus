@@ -374,7 +374,11 @@ static func spaces(count: int) -> String:
 static func format_int_with_commas(number: Variant) -> String:
   var rest = '.' + str(number).split(".")[1] if number is float else ''
   number = str(int(floor(number)))
-  for i in range(number.length() - 3, 0, -3):
+  for i in range(
+    number.length() - (3 +
+      (1 if number.begins_with('-') else 0)
+    ), 0, -3
+  ):
     number = number.insert(i, ',')
   return number + rest
 
@@ -385,7 +389,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + getcolor("BLUE") + item.name + getcolor("END") + getcolor("RED") + ">" + getcolor("END")
 
   if item is StringName:
-    return getcolor("darkorange") + "&" + getcolor("END") + '"' + getcolor("purple") + str(item) + getcolor("END") + getcolor("darkorange") + '"' + getcolor("END")
+    return getcolor("darkorange") + "&\"" + getcolor("END") + getcolor("purple") + str(item) + getcolor("END") + getcolor("darkorange") + '"' + getcolor("END")
   if item is String:
     return getcolor("purple") + '"' + str(item) + '"' + getcolor("END")
   if item is int or item is float:
