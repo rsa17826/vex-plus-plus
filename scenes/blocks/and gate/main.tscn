@@ -17,3 +17,10 @@ ignoreMissingNodes = true
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_kuw5x")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
