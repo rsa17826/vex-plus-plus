@@ -37,7 +37,7 @@ func on_process(delta):
   if cooldown > 0:
     cooldown -= delta
     updateCharge()
-    
+
 func updateCharge():
   var maxCooldown: float = selectedOptions.maxCooldown
   if cooldown > maxCooldown / 2.0:

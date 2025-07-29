@@ -10,10 +10,10 @@ size = Vector2(20, 4)
 [node name="Projectile" type="Node2D" groups=["death"]]
 script = ExtResource("1_1kh7o")
 ignoreMissingNodes = true
-normalScale = true
 dontDisablePhysicsProcess = true
 EDITOR_IGNORE = true
 DONT_SAVE = true
+DONT_MOVE_ON_RESPAWN = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-10, 0)

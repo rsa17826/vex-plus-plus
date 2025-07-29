@@ -4,6 +4,9 @@ class_name BlockLaser_Projectile
 const speed = 300
 
 func on_ready():
+  if global.player.OnPlayerDied.is_connected(queue_free):
+    queue_free()
+    return
   global.player.OnPlayerDied.connect(queue_free)
 
 func on_physics_process(delta: float) -> void:
