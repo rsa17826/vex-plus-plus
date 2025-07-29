@@ -430,16 +430,80 @@
     }
   }
   {
-    STR(x)FLOAT(300.0)
+    STR(x)FLOAT(425.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.50000001490116)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(oneway)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(600.0)
+    STR(y)FLOAT(-25.0)
+    STR(w)FLOAT(1.50000001490116)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-90.0)
+    STR(id)STR(oneway)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(250.0)
     STR(y)FLOAT(-350.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(laser)
+    STR(id)STR(basic)
     STRNAME(options){
-      STR(maxCooldown)FLOAT(1.0)
-      STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(250.0)
+    STR(y)FLOAT(-400.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(path)
+    STRNAME(options){
+      STR(path)STR(150,0)
+      STR(endReachedAction)INT(0)
+      STR(startOnLoad)BOOL(false)
+      STR(startOnPress)BOOL(false)
+      STR(startWhilePressed)BOOL(false)
+      STR(startWhilePressedBackWhileNotPressed)BOOL(true)
+      STR(signalInputId)INT(3)
+      STR(restart)INT(2)
+      STR(forwardSpeed)INT(150)
+      STR(backwardSpeed)INT(150)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(150.0)
+    STR(y)FLOAT(-250.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(path)
+    STRNAME(options){
+      STR(path)STR(150,50)
+      STR(endReachedAction)INT(0)
+      STR(startOnLoad)BOOL(false)
+      STR(startOnPress)BOOL(false)
+      STR(startWhilePressed)BOOL(false)
+      STR(startWhilePressedBackWhileNotPressed)BOOL(true)
+      STR(signalInputId)INT(3)
+      STR(restart)INT(2)
+      STR(forwardSpeed)INT(150)
+      STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
     }
   }

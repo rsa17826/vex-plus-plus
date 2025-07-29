@@ -22,11 +22,15 @@ func on_ready():
   global.sendSignal(selectedOptions.signalOutputId, self , false)
 
 func on_respawn() -> void:
-  await global.wait()
-  var overlaps = ($collisionNode as Area2D).get_overlapping_bodies() + ($collisionNode as Area2D).get_overlapping_areas()
-  # log.pp("respawn", overlaps)
+  thingThatMoves.position = Vector2.ZERO
   for body in blocksCurrentlyPressingThisButton:
     on_body_exited(body)
+  await global.wait(100)
+  var overlaps = ($collisionNode as Area2D).get_overlapping_bodies() + ($collisionNode as Area2D).get_overlapping_areas()
+  log.pp("respawn", overlaps, blocksCurrentlyPressingThisButton)
+  for body in blocksCurrentlyPressingThisButton:
+    on_body_exited(body)
+  blocksCurrentlyPressingThisButton = []
   for body in overlaps:
     on_body_entered(body)
   thingThatMoves.position = Vector2.ZERO

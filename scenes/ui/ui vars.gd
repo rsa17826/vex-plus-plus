@@ -5,5 +5,6 @@ extends CanvasLayer
 @export var progressBar: ProgressBar
 @export var modifiers: GridContainer
 @export var modifiersEditorBg: ColorRect
+@export var signalList: Control
 func _init() -> void:
   global.ui = self

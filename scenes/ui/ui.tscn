@@ -19,7 +19,7 @@
 [ext_resource type="Script" uid="uid://bwg7pflyvki0i" path="res://scenes/ui/signal_list.gd" id="17_4w2x3"]
 [ext_resource type="Script" uid="uid://dmne1p24c556w" path="res://scenes/ui/signal_display.gd" id="18_ygedu"]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "modifiersEditorBg")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "modifiersEditorBg", "signalList")]
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("saved")
 editorBar = NodePath("editor bar")
@@ -27,6 +27,7 @@ progressContainer = NodePath("ProgressContainer")
 progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 modifiers = NodePath("modifiers")
 modifiersEditorBg = NodePath("modifiers editor bg")
+signalList = NodePath("signal list")
 
 [node name="star counter" type="Label" parent="."]
 offset_left = 57.0
