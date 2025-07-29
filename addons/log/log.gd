@@ -496,6 +496,16 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     +")" + getcolor("end")
   if item is bool:
     return getcolor("blue") + str(item) + getcolor("end")
+  if item is Node2D or item is Control or item is Node3D:
+    var color = getcolor(
+      'lightblue' if item is Node2D else
+      'lightgreen' if item is Control else
+      'pink' if item is Node3D else ''
+    )
+    return color + str(item) \
+    .replace("#", getcolor("end") + getcolor("darkred") + "#") \
+    .replace(">", getcolor("end") + color + ">") \
+    + getcolor('end')
   print("UNSET ITEM TYPE: " + type_string(typeof(item)) + ' - ' + str(item))
   return spaces(tab) + '"' + str(item) + '"'
 
