@@ -202,7 +202,6 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
           global.hoveredBlocks.pop_front()
           if not global.hoveredBlocks: return
         respawn()
-        global_position = startPosition
         global.selectBlock()
 
 func showPopupMenu():
