@@ -16,9 +16,9 @@ func on_respawn():
 
 func onSignalChanged(id, on, callers):
   if self in callers: return
+  if id not in [selectedOptions.signalAInputId, selectedOptions.signalBInputId]: return
   if id == selectedOptions.signalAInputId:
     aon = on
   elif id == selectedOptions.signalBInputId:
     bon = on
-  if id in [selectedOptions.signalAInputId, selectedOptions.signalBInputId]:
-    global.sendSignal(selectedOptions.signalOutputId, self , aon and bon)
+  global.sendSignal(selectedOptions.signalOutputId, self , aon and bon)

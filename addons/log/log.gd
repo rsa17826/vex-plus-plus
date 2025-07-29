@@ -464,10 +464,10 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
           item.map(
             func(newitem): return (
               "  " + spaces(tab)
-              if newitem is String \
-              or newitem is int \
-              or newitem is float \
-              else ""
+              # if newitem is String \
+              # or newitem is int \
+              # or newitem is float \
+              # else ""
             ) \
             + coloritem(newitem, tab),
           )
@@ -489,9 +489,9 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     return getcolor("blue") + str(item) + getcolor("end")
   if item is Node2D or item is Control or item is Node3D:
     var color = getcolor(
-      'lightblue' if item is Node2D else
-      'lightgreen' if item is Control else
-      'pink' if item is Node3D else ''
+      'blue' if item is Node2D else
+      'green' if item is Control else
+      'red' if item is Node3D else ''
     )
     return color + str(item) \
     .replace("#", getcolor("end") + getcolor("darkred") + "#") \
