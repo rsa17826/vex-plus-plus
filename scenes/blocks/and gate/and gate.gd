@@ -20,4 +20,5 @@ func onSignalChanged(id, on, callers):
     aon = on
   elif id == selectedOptions.signalBInputId:
     bon = on
-  global.sendSignal(selectedOptions.signalOutputId, self , aon and bon)
+  if id in [selectedOptions.signalAInputId, selectedOptions.signalBInputId]:
+    global.sendSignal(selectedOptions.signalOutputId, self , aon and bon)

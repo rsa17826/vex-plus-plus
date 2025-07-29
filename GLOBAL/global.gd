@@ -1939,13 +1939,13 @@ var signalChanges = {}
 func sendSignals():
   var sc = signalChanges.duplicate()
   signalChanges = {}
-  # var text = ''
+  var text = ''
   for id in sc:
     # log.pp("update signal changes", sc, activeSignals)
-    # text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
+    text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
     signalChanged.emit(id, !!activeSignals[id], sc[id])
-  # if text:
-  #   Console.print_info(text)
+  if text:
+    Console.print_info(text)
   # log.pp()
 
 func sendSignal(id, node, val):
