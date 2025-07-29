@@ -1935,17 +1935,20 @@ var activeSignals: Dictionary[int, Array] = {}:
     return activeSignals
 
 var signalChanges = {}
+var lastSignals: Dictionary[int, bool] = {}
 
 func sendSignals():
   var sc = signalChanges.duplicate()
   signalChanges = {}
   var text = ''
   for id in sc:
+    if id in lastSignals and (lastSignals[id] == !!activeSignals[id]): continue
+    lastSignals[id] = !!activeSignals[id]
     # log.pp("update signal changes", sc, activeSignals)
     text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
     signalChanged.emit(id, !!activeSignals[id], sc[id])
   if text:
-    Console.print_info(text)
+    log.pp(activeSignals, text)
   # log.pp()
 
 func sendSignal(id, node, val):
