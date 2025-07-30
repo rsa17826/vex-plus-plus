@@ -539,7 +539,7 @@ static func warn(...msgs) -> void:
   rich_msgs.push_front("[color=yellow][WARN][ / color]")
   print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
-  Console.print_warning(m)
+  # Console.print_warning(m)
   push_warning(m)
 
 static func err(...msgs) -> void:
