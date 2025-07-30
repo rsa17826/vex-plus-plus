@@ -1,7 +1,7 @@
 @icon("res://images/sprites/DefineSprite_1608/1.png")
 class_name EditorBlock
 extends Node2D
-
+@export var np: NodePreview
 ## sprite to use for the ghost
 @export var ghostIconNode: Sprite2D
 ## sprite to show in the editor bar

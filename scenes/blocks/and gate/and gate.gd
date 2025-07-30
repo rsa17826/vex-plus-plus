@@ -1,6 +1,10 @@
-@icon("images/1.png")
+@icon("images/editorBar.png")
 extends EditorBlock
 class_name BlockAndGate
+
+@export var labelInpa: Label
+@export var labelInpb: Label
+@export var labelOut: Label
 
 var aon = false
 var bon = true
@@ -12,6 +16,9 @@ func generateBlockOpts():
 
 func on_respawn():
   global.onSignalChanged(onSignalChanged)
+  labelInpa.text = str(selectedOptions.signalAInputId)
+  labelInpb.text = str(selectedOptions.signalBInputId)
+  labelOut.text = str(selectedOptions.signalOutputId)
   global.sendSignal(selectedOptions.signalOutputId, self , false)
 
 func onSignalChanged(id, on, callers):

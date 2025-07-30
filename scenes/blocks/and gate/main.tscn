@@ -1,26 +1,58 @@
-[gd_scene load_steps=3 format=3 uid="uid://denfyag2fj8wm"]
+[gd_scene load_steps=5 format=3 uid="uid://denfyag2fj8wm"]
 
 [ext_resource type="Script" uid="uid://bc30gpfd5nitt" path="res://scenes/blocks/and gate/and gate.gd" id="1_li100"]
-[ext_resource type="Texture2D" uid="uid://duhdn3su3pirg" path="res://scenes/blocks/and gate/images/1.png" id="2_kuw5x"]
+[ext_resource type="Texture2D" uid="uid://duhdn3su3pirg" path="res://scenes/blocks/and gate/images/symbols.png" id="2_kuw5x"]
+[ext_resource type="Texture2D" uid="uid://c7gjocrhs1wbd" path="res://scenes/blocks/and gate/images/editorBar.png" id="2_ug4bm"]
+[ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="4_ug4bm"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInpa", "labelInpb", "labelOut", "np", "ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_li100")
-ghostIconNode = NodePath("Node2D/Sprite2D")
-editorBarIconNode = NodePath("Node2D/Sprite2D")
-hidableSprites = [NodePath("Node2D/Sprite2D")]
+labelInpa = NodePath("Node2D/Label")
+labelInpb = NodePath("Node2D/Label2")
+labelOut = NodePath("Node2D/Label3")
+np = NodePath("")
+ghostIconNode = NodePath("Node2D/symbols")
+editorBarIconNode = NodePath("Node2D/editorBar")
+hidableSprites = [NodePath("Node2D/symbols")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+[node name="editorBar" type="Sprite2D" parent="Node2D"]
+visible = false
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_ug4bm")
+
+[node name="symbols" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_kuw5x")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-mouse_filter = 2
+[node name="Label" type="Label" parent="Node2D"]
+offset_left = -113.0
+offset_top = -105.0
+offset_right = -10.0
+offset_bottom = -22.0
+text = "12"
+label_settings = ExtResource("4_ug4bm")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Node2D"]
+offset_left = 27.0
+offset_top = -66.0
+offset_right = 130.0
+offset_bottom = 17.0
+text = "12"
+label_settings = ExtResource("4_ug4bm")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Node2D"]
+offset_left = -31.0
+offset_top = 13.0
+offset_right = 72.0
+offset_bottom = 96.0
+text = "12"
+label_settings = ExtResource("4_ug4bm")
+horizontal_alignment = 1
