@@ -40,7 +40,7 @@ run/main_run_args="--loadMap NEWEST"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
+enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/nodepreview/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
 
 [file_customization]
 
@@ -339,6 +339,7 @@ fancy_folder_icons/rules={
 "res://scenes/blocks/**/main.tscn": "res://scenes/blocks/$1/images/editorBar.png||res://scenes/blocks/$1/images/1.png||res://scenes/blocks/$1/images/unpressed.png||res://scenes/blocks/$1/images/ghost.png",
 "res://scenes/blocks/*/": "res://scenes/blocks/$1/images/editorBar.png||res://scenes/blocks/$1/images/1.png||res://scenes/blocks/$1/images/unpressed.png||res://scenes/blocks/$1/images/ghost.png",
 "res://scenes/blocks/conveyer/images/arrows/": "res://scenes/blocks/conveyer/images/editorBar.png",
+"res://scenes/blocks/labelSettings/": "res://none.png",
 "res://scenes/blocks/laser/projectile.tscn": "res://scenes/blocks/laser/images/projectile.png",
 "res://scenes/blocks/spark block/": "res://scenes/blocks/spark block/clockwise/images/spark.png",
 "res://scenes/blocks/spark block/clockwise/": "res://scenes/blocks/spark block/clockwise/images/1.png",

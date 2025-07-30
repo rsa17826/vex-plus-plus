@@ -547,7 +547,7 @@ static func err(...msgs) -> void:
   rich_msgs.push_front("[color=red][ERR][ / color]")
   print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
-  Console.print_error(m)
+  # Console.print_error(m)
   ToastParty.error(m)
   push_error(m)
 
@@ -556,6 +556,6 @@ static func error(...msgs) -> void:
   rich_msgs.push_front("[color=red][ERR][ / color]")
   print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
-  Console.print_error(m)
+  # Console.print_error(m)
   ToastParty.error(m)
   push_error(m)

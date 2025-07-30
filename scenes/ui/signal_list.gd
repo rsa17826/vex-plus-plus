@@ -29,7 +29,7 @@ func onSignalChanged(id, on, callers):
     listOfLoadedSignals[id].get_node("count").text = str(len(global.activeSignals[id]))
   for block in global.activeSignals[id]:
     if block.id not in blockData:
-      blockData[block.id] = {'count': 0, 'ghost': block.ghost}
+      blockData[block.id] = {'count': 0, 'block': block}
     blockData[block.id].count += 1
 
   if global.useropts.showWhatBlocksAreSendingSignals:
@@ -43,4 +43,4 @@ func onSignalChanged(id, on, callers):
       listOfLoadedSignals[id].add_child(blockImageNode)
       listOfLoadedSignals[id].blockImages.append(blockImageNode)
       blockImageNode.get_node("count").text = str(blockData[i].count)
-      blockImageNode.get_node("image").texture = blockData[i].ghost.texture
+      blockImageNode.get_node("image").texture = blockData[i].block.editorBarIconNode.texture

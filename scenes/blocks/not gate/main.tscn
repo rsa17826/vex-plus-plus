@@ -1,19 +1,47 @@
-[gd_scene load_steps=3 format=3 uid="uid://q65bo204aiit"]
+[gd_scene load_steps=5 format=3 uid="uid://q65bo204aiit"]
 
 [ext_resource type="Script" uid="uid://dh1o7ux4sxyuk" path="res://scenes/blocks/not gate/not gate.gd" id="1_cdiki"]
-[ext_resource type="Texture2D" uid="uid://7plhgqwympa" path="res://scenes/blocks/not gate/images/1.png" id="2_3yt6x"]
+[ext_resource type="Texture2D" uid="uid://bym3pyq0sarty" path="res://scenes/blocks/not gate/images/editorBar.png" id="2_3yt6x"]
+[ext_resource type="Texture2D" uid="uid://budpmybh5q5q8" path="res://scenes/blocks/not gate/images/symbols.png" id="3_ketuk"]
+[ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="4_ketuk"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInp", "labelOut", "ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_cdiki")
-ghostIconNode = NodePath("Node2D/Sprite2D")
-editorBarIconNode = NodePath("Node2D/Sprite2D")
-hidableSprites = [NodePath("Node2D/Sprite2D")]
+labelInp = NodePath("Node2D/Label")
+labelOut = NodePath("Node2D/Label2")
+ghostIconNode = NodePath("Node2D/Sprite2D2")
+editorBarIconNode = NodePath("Node2D/editorBar")
+hidableSprites = [NodePath("Node2D/Label"), NodePath("Node2D/Label2"), NodePath("Node2D/Sprite2D2")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+[node name="editorBar" type="Sprite2D" parent="Node2D"]
+visible = false
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_3yt6x")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("3_ketuk")
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_left = -88.0
+offset_top = -81.0
+offset_right = 15.0
+offset_bottom = 2.0
+text = "12"
+label_settings = ExtResource("4_ketuk")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Node2D"]
+offset_left = 12.0
+offset_top = -9.0
+offset_right = 115.0
+offset_bottom = 74.0
+text = "12"
+label_settings = ExtResource("4_ketuk")
+horizontal_alignment = 1
