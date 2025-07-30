@@ -20,7 +20,6 @@ boot_splash/minimum_display_time=500
 global="*res://GLOBAL/global.gd"
 AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_config.tscn"
 ToastParty="*res://addons/toastparty/toast-autoload.gd"
-Console="*res://addons/console/console.gd"
 
 [debug]
 
@@ -40,7 +39,7 @@ run/main_run_args="--loadMap NEWEST"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/nodepreview/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
+enabled=PackedStringArray("res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/nodepreview/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
 
 [file_customization]
 
