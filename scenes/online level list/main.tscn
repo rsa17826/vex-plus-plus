@@ -16,7 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_706a5")
 versionNodeHolder = NodePath("ScrollContainer/HBoxContainer")
 pbox = NodePath("ScrollContainer/HBoxContainer/PropertiesBox")
-loadingText = NodePath("VFlowContainer/HFlowContainer/Label")
+loadingText = NodePath("Control/HFlowContainer/Label")
 levelListContainerNode = NodePath("ScrollContainer/HBoxContainer")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
@@ -36,36 +36,54 @@ layout_mode = 2
 script = ExtResource("2_1ujms")
 metadata/_custom_type_script = "uid://dtk8xcpxhq7fx"
 
-[node name="VFlowContainer" type="VBoxContainer" parent="."]
+[node name="Control" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 offset_top = -324.0
-offset_bottom = -205.0
+offset_bottom = -170.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="HBoxContainer" parent="VFlowContainer"]
-layout_mode = 2
-size_flags_horizontal = 8
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 236.0
+offset_bottom = 31.0
+size_flags_horizontal = 0
 
-[node name="Button" type="Button" parent="VFlowContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "exit"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_left = 916.0
+offset_right = 1152.0
+offset_bottom = 31.0
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="Button" type="Button" parent="Control/HBoxContainer2"]
 layout_mode = 2
 text = "load level list"
 
-[node name="Button2" type="Button" parent="VFlowContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="Control/HBoxContainer2"]
 layout_mode = 2
 text = "load level by id"
 
-[node name="HFlowContainer" type="HFlowContainer" parent="VFlowContainer"]
-layout_mode = 2
+[node name="HFlowContainer" type="HFlowContainer" parent="Control"]
+layout_mode = 0
+offset_top = 70.0
+offset_right = 1152.0
+offset_bottom = 154.0
 alignment = 1
 
-[node name="Label" type="Label" parent="VFlowContainer/HFlowContainer"]
+[node name="Label" type="Label" parent="Control/HFlowContainer"]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_1ujms")
 
-[connection signal="pressed" from="VFlowContainer/VBoxContainer/Button" to="." method="loadOnlineLevels"]
-[connection signal="pressed" from="VFlowContainer/VBoxContainer/Button2" to="." method="loadLevelById"]
+[connection signal="pressed" from="Control/HBoxContainer/Button" to="." method="loadMenu"]
+[connection signal="pressed" from="Control/HBoxContainer2/Button" to="." method="loadOnlineLevels"]
+[connection signal="pressed" from="Control/HBoxContainer2/Button2" to="." method="loadLevelById"]

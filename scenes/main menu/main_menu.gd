@@ -140,7 +140,7 @@ func upload_file(file_path: String, base64_content: String) -> void:
   }
 
   var getRes = (await global.httpGet(url, headers, HTTPClient.METHOD_GET)).response
-
+  log.pp('getRes', getRes)
   if "sha" in getRes:
     var temp = file_path.split("/")
     var name = temp[-1].substr(0, len(temp[ - 1]) - 6)
@@ -152,15 +152,15 @@ func upload_file(file_path: String, base64_content: String) -> void:
     body.sha = getRes.sha
 
   ToastParty.info("File upload started!")
-  var res = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, JSON.stringify(body))
+  var putRes = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, JSON.stringify(body))
 
-  if res.code == 200 or res.code == 201:
+  if putRes.code == 200 or putRes.code == 201:
     ToastParty.success("File upload was successful!")
   else:
-    log.err(res.code)
-    log.err(res.response)
+    log.err(putRes.code)
+    log.err(putRes.response)
     log.err(headers)
-    ToastParty.error("File upload failed with error code: " + str(res.code))
+    ToastParty.error("File upload failed with error code: " + str(putRes.code))
 
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes

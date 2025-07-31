@@ -430,7 +430,7 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "loadOnlineLevelListOnStartup",
+        "key": "loadOnlineLevelListOnSceneLoad",
         "defaultValue": true
       }
     ]
