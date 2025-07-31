@@ -448,9 +448,14 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       +"}" \
       + getcolor("END")
       return text
-  if item is Array:
+  if item is Array or item is PackedStringArray:
+    var prefix = ''
+    var postfix = ''
+    if item is PackedStringArray:
+      prefix = getcolor("darkgreen") + "PackedStringArray(" + getcolor("END")
+    if prefix: postfix = getcolor("darkgreen") + ")" + getcolor("END")
     if not item:
-      return getcolor("orange") + "[ ]" + getcolor("end")
+      return prefix + getcolor("orange") + "[ ]" + getcolor("end") + postfix
     if len(JSON.stringify(item)) + tab < wrapat:
       var text = getcolor("orange") \
       + ("" if isarrafterdict else spaces(tab)) \
@@ -458,7 +463,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       + getcolor("END") \
       + (\
         (getcolor("orange") + "," + getcolor("END") + " ").join(
-          item.map(
+          (item as Array).map(
             func(newitem):
               return coloritem(newitem, tab),
           )
@@ -467,7 +472,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       + getcolor("orange") \
       +" ]" \
       + getcolor("END")
-      return text
+      return prefix + text + postfix
     else:
       var text = getcolor("orange") \
       + ("" if isarrafterdict else spaces(tab)) \
@@ -475,7 +480,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       + getcolor("END") \
       + (
         (getcolor("orange") + "," + getcolor("END") + "\n").join(
-          item.map(
+          (item as Array).map(
             func(newitem): return (
               "  " + spaces(tab)
               # if newitem is String \
@@ -491,7 +496,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       + spaces(tab) \
       +"]" \
       + getcolor("END")
-      return text
+      return prefix + text + postfix
   if item is Vector2 or item is Vector2i:
     return getcolor("darkgreen") \
     + ("Vector2i" if item is Vector2i else "Vector2") + "(" + \
