@@ -282,5 +282,4 @@ func _on_load_online_levels_pressed() -> void:
   get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
 
 func _on_open_readme_pressed() -> void:
-  var p = "https://github.com/rsa17826/vex-plus-plus#vex"
-  OS.shell_open(p)
+  OS.shell_open("https://github.com/rsa17826/vex-plus-plus#vex")
