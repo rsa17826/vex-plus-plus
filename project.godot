@@ -301,7 +301,7 @@ locale/translations=PackedStringArray("res://addons/maaacks_input_remapping/base
 2d_physics/layer_14="ONEWAY"
 2d_physics/layer_15="ONEWAY WALLJUMPABLE"
 2d_physics/layer_16="CAN BE ATTACHED TO"
-2d_physics/layer_17="DEAD PLAYER"
+2d_physics/layer_17="UNDEATH BLOCK"
 
 [maaacks_input_remapping]
 
