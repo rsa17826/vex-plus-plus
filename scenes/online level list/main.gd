@@ -66,7 +66,7 @@ const REPO_NAME = "vex-plus-plus-level-codes"
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/git/trees/e8ce6f3c20559ef736e5ab289d15002a5fe2aa6f?recursive=1
 
 func _ready() -> void:
-  if global.useropts.loadOnlineLevelListOnStartup:
+  if global.useropts.loadOnlineLevelListOnSceneLoad:
     loadOnlineLevels()
 
 func loadOnlineLevels():
@@ -163,7 +163,9 @@ func loadLevelById() -> void:
   var data = (
     await global.prompt(
       "Enter the ID of the level you want to load",
-      global.PromptTypes.string
+      global.PromptTypes.string,
+      "",
+      "",
     )
   ).split("/")
   if len(data) != 3:
@@ -171,3 +173,6 @@ func loadLevelById() -> void:
     return
   if !data[2].ends_with(".vex++"): data[2] += ".vex++"
   downloadLevel(data[0], data[1], data[2])
+
+func loadMenu() -> void:
+  get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
