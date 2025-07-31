@@ -17,7 +17,7 @@ const WATER_TURNSPEED = 170
 const WATER_MOVESPEED = 4000
 const WATER_EXIT_BOUNCE_FORCE = -600
 const WALL_SLIDE_SPEED = 35
-const DEATH_TIME = 20
+var DEATH_TIME = 20
 const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 12
 const SMALL = .00001
@@ -70,6 +70,7 @@ var collsiionOn_left := []
 var collsiionOn_right := []
 
 var lastSpawnPoint := Vector2.ZERO
+var tempLastSpawnPoint := Vector2.ZERO
 
 var moving := 0
 
@@ -152,6 +153,7 @@ func _init() -> void:
   global.player = self
 
 func _ready() -> void:
+  DEATH_TIME = max(5, global.useropts.playerRespawnTime)
   Input.mouse_mode = mouseMode
   global.gravChanged.connect(func(lastUpDir, newUpDir):
     for v in vel:
@@ -294,6 +296,8 @@ func _physics_process(delta: float) -> void:
   match state:
     States.dead:
       # log.pp(up_direction)
+      var respawnPosition = tempLastSpawnPoint if tempLastSpawnPoint else lastSpawnPoint
+      log.pp(tempLastSpawnPoint, "tempLastSpawnPoint")
       if not global.showEditorUi:
         $Camera2D.global_rotation = defaultAngle
       slowCamRot = false
@@ -301,9 +305,9 @@ func _physics_process(delta: float) -> void:
       deadTimer = clampf(deadTimer, 0, currentRespawnDelay)
       # global.tick = global.currentLevel().tick
       if currentRespawnDelay == 0:
-        position = lastSpawnPoint
+        position = respawnPosition
       else:
-        position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, lastSpawnPoint)
+        position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, respawnPosition)
       pulleyNoDieTimer = 0
       inWaters = []
       # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
@@ -318,8 +322,8 @@ func _physics_process(delta: float) -> void:
       $Camera2D.reset_smoothing()
       up_direction = global.currentLevel().up_direction
       if deadTimer <= 0:
-        if lastSpawnPoint:
-          position = lastSpawnPoint
+        if respawnPosition:
+          position = respawnPosition
         else:
           position = Vector2(0, -1.9)
         stopDying()
@@ -1223,6 +1227,7 @@ signal OnPlayerFullRestart
 
 func stopDying():
   if state == States.dead:
+    tempLastSpawnPoint = Vector2.ZERO
     state = States.falling
     get_parent().__enable.call_deferred()
     global.stopTicking = false
@@ -1288,6 +1293,23 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if full:
     OnPlayerFullRestart.emit()
   _physics_process(0)
+  if not forced:
+    tryChangeRespawnLocation()
+
+func tryChangeRespawnLocation():
+  var deathRay := RayCast2D.new()
+  deathRay.collide_with_areas = true
+  deathRay.collide_with_bodies = false
+  deathRay.target_position = lastSpawnPoint - deathPosition
+  deathRay.collision_mask = 65536
+  add_child(deathRay)
+  deathRay.force_raycast_update()
+  log.pp(lastSpawnPoint - deathPosition, 'lastSpawnPoint - deathPosition')
+  if deathRay.is_colliding():
+    log.pp(deathRay.get_collision_point(), 'deathRay.get_collision_point()')
+    tempLastSpawnPoint = (deathRay.get_collision_point() - get_parent().position) \
+    + (deathRay.get_collision_normal() * Vector2(4, 33 / 2.0))
+  deathRay.queue_free()
 
 func _on_bottom_body_entered(body: Node2D) -> void:
   if body not in collsiionOn_bottom:
