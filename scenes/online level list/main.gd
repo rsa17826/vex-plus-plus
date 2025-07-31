@@ -166,7 +166,7 @@ func loadLevelById() -> void:
       global.PromptTypes.string
     )
   ).split("/")
-  if len(data) < 3:
+  if len(data) != 3:
     ToastParty.error("Invalid input")
     return
   if !data[2].ends_with(".vex++"): data[2] += ".vex++"
