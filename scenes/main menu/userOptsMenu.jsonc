@@ -411,6 +411,20 @@
   },
   {
     "thing": "group",
+    "name": "player",
+    "value": [
+      {
+        "thing": "option",
+        "type": "range",
+        "key": "playerRespawnTime",
+        "defaultValue": 20,
+        "min": 5,
+        "max": 50
+      }
+    ]
+  },
+  {
+    "thing": "group",
     "name": "debug",
     "value": [
       {
