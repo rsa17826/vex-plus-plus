@@ -128,7 +128,6 @@ func showMoreOptions(level):
 func upload_file(file_path: String, base64_content: String) -> void:
   var url = "https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/" + global.urlEncode(file_path)
   log.pp("Request URL: ", url)
-
   var headers: PackedStringArray = [
     "Authorization: token %s" % GITHUB_TOKEN,
     "Content-Type: application/vnd.github.v3+json"
@@ -140,21 +139,28 @@ func upload_file(file_path: String, base64_content: String) -> void:
     "branch": BRANCH
   }
 
-  var json_body = JSON.stringify(body)
-  # log.pp("Request Body: ", json_body)
+  var getRes = (await global.httpGet(url, headers, HTTPClient.METHOD_GET)).response
 
-  var res = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, json_body)
+  if "sha" in getRes:
+    var temp = file_path.split("/")
+    var name = temp[-1].substr(0, len(temp[ - 1]) - 6)
+    if await global.prompt(
+      "there is already a level you have previously uploaded with that name. Do you want to overwrite it?\n" +
+      "if so, type the name of that level here: " + name,
+      global.PromptTypes.string
+    ) != name: return
+    body.sha = getRes.sha
+
+  ToastParty.info("File upload started!")
+  var res = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, JSON.stringify(body))
 
   if res.code == 200 or res.code == 201:
     ToastParty.success("File upload was successful!")
-  elif res.code == 422:
-    ToastParty.error("ERROR 422")
-    # OS.alert("level already exists")
   else:
     log.err(res.code)
     log.err(res.response)
     log.err(headers)
-    ToastParty.error("ERROR: " + str(res.code))
+    ToastParty.error("File upload failed with error code: " + str(res.code))
 
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes
