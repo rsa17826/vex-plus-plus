@@ -53,7 +53,7 @@ size_flags_horizontal = 8
 
 [node name="Button" type="Button" parent="VFlowContainer/VBoxContainer"]
 layout_mode = 2
-text = "reload"
+text = "load level list"
 
 [node name="Button2" type="Button" parent="VFlowContainer/VBoxContainer"]
 layout_mode = 2
