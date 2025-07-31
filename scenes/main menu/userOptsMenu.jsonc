@@ -245,12 +245,6 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "onlyShowLevelsForCurrentVersion",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
         "key": "allowCustomColors",
         "defaultValue": true
       }
@@ -420,6 +414,24 @@
         "defaultValue": 20,
         "min": 5,
         "max": 50
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "online level list",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "onlyShowLevelsForCurrentVersion",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "loadOnlineLevelListOnStartup",
+        "defaultValue": true
       }
     ]
   },

@@ -1695,12 +1695,12 @@ func tryAndLoadMapFromZip(from, to):
     file.store_buffer(buffer)
   return true
 
-func tryAndGetMapZipsFromArr(args):
+func tryAndGetMapZipsFromArr(args) -> bool:
   var mapFound = false
   for p in args:
     if FileAccess.file_exists(p):
       log.pp("AKSJDHSADKJHDHJDSKDSHKJDSA", p)
-      if !('.' in p and ('/' in p or '\\' in p)): return
+      if !('.' in p and ('/' in p or '\\' in p)): continue
       # add the intended folder to the end of the path to force it to go into the correct folder
       var moveto = path.join(MAP_FOLDER, regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
       if tryAndLoadMapFromZip(p, moveto):
@@ -1710,6 +1710,7 @@ func tryAndGetMapZipsFromArr(args):
     get_tree().reload_current_scene.call_deferred()
     DisplayServer.window_move_to_foreground()
   log.pp("get_tree().current_scene", get_tree().current_scene.name)
+  return mapFound
 
 func getAllPathsInDirectory(dir_path: String):
   var files = []
