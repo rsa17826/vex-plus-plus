@@ -7,6 +7,7 @@ const REPO_NAME = "vex-plus-plus-level-codes"
 @export var versionNodeHolder: Control
 @export var pbox: Control
 @export var loadingText: Label
+@export var levelListContainerNode: Control
 
 # func loadVersions():
 #   var data = (
@@ -65,6 +66,10 @@ const REPO_NAME = "vex-plus-plus-level-codes"
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/git/trees/e8ce6f3c20559ef736e5ab289d15002a5fe2aa6f?recursive=1
 
 func _ready() -> void:
+  if global.useropts.loadOnlineLevelListOnStartup:
+    loadOnlineLevels()
+
+func loadOnlineLevels():
   loadingText.text = "Loading..."
   loadingText.visible = true
   var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + REPO_NAME + "/branches")).response
@@ -102,6 +107,9 @@ func _ready() -> void:
   log.pp(allData)
   var loadedLevelCount = 0
   var levelsForCurrentVersionCount = 0
+  for child in levelListContainerNode.get_children():
+    child.queue_free()
+
   for version in allData:
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     pbox.add_group(str(version))
@@ -126,7 +134,7 @@ func _ready() -> void:
       pbox.end_group()
     pbox.end_group()
     pbox = PropertiesBox.new()
-    $ScrollContainer/HBoxContainer.add_child(pbox)
+    levelListContainerNode.add_child(pbox)
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
   else:
@@ -146,5 +154,20 @@ func downloadLevel(version, creator, level):
     global.path.abs("res://downloaded maps/" + level),
     false
   )
-  global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)])
-  ToastParty.success("Download complete\nThe map is now being loaded.")
+  if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)]):
+    ToastParty.success("Download complete\nThe map has been loaded.")
+  else:
+    ToastParty.error("Download failed or was not a valid map.")
+
+func loadLevelById() -> void:
+  var data = (
+    await global.prompt(
+      "Enter the ID of the level you want to load",
+      global.PromptTypes.string
+    )
+  ).split("/")
+  if len(data) < 3:
+    ToastParty.error("Invalid input")
+    return
+  if !data[2].ends_with(".vex++"): data[2] += ".vex++"
+  downloadLevel(data[0], data[1], data[2])
