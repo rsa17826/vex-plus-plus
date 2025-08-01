@@ -533,7 +533,6 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
 static func pp(...msgs) -> void:
   print_rich(
     log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)),
-    # getcolor("END"),
   )
 static func info(...msgs) -> void:
   var m = log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem))
@@ -544,7 +543,6 @@ static func warn(...msgs) -> void:
   rich_msgs.push_front("[color=yellow][WARN][ / color]")
   print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
-  # Console.print_warning(m)
   push_warning(m)
 
 static func err(...msgs) -> void:
@@ -552,8 +550,8 @@ static func err(...msgs) -> void:
   rich_msgs.push_front("[color=red][ERR][ / color]")
   print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
-  # Console.print_error(m)
-  ToastParty.error(m)
+  if not Engine.is_editor_hint():
+    ToastParty.error(m)
   push_error(m)
 
 static func error(...msgs) -> void:
@@ -561,6 +559,6 @@ static func error(...msgs) -> void:
   rich_msgs.push_front("[color=red][ERR][ / color]")
   print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
-  # Console.print_error(m)
-  ToastParty.error(m)
+  if not Engine.is_editor_hint():
+    ToastParty.error(m)
   push_error(m)

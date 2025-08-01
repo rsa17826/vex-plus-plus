@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bsub1ew4qiin4"]
+[gd_scene load_steps=5 format=3 uid="uid://bsub1ew4qiin4"]
 
 [ext_resource type="Script" uid="uid://dn3r2t10v2hdb" path="res://scenes/main menu/main_menu.gd" id="1_cbjxn"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="2_8w606"]
+[ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/main menu/loading animation.tscn" id="2_vifqf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cbjxn"]
 font_color = Color(0, 0, 0, 1)
@@ -135,6 +136,8 @@ offset_bottom = 26.0
 text = "OPTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AnimatedSprite2D" parent="." instance=ExtResource("2_vifqf")]
 
 [connection signal="pressed" from="BTNS/new map btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="BTNS/open level folder" to="." method="_on_open_level_folder_pressed"]

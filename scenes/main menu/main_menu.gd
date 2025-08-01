@@ -46,7 +46,6 @@ func _ready() -> void:
     levelContainer.add_child(node)
   loadUserOptions()
   %version.text = "VERSION: " + str(global.VERSION)
-  # $CTRLS/VBoxContainer/InputMappingContainer/InputActionsTree._build_ui_tree()
 
 func showMoreOptions(level):
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
@@ -120,12 +119,14 @@ func showMoreOptions(level):
       if not level:
         ToastParty.err("Please enter a map name")
         return
-      await upload_file("levels/" + version + '/' + author + '/' + level + ".vex++", c)
+      await upload_file("levels/" + version + '/' + author + '/' + level + ".vex++", c, author)
       f.close()
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
 
-func upload_file(file_path: String, base64_content: String) -> void:
+func upload_file(file_path: String, base64_content: String, author: Variant = null) -> void:
+  $AnimatedSprite2D.visible = true
+  $AnimatedSprite2D.frame = 0
   var url = "https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/" + global.urlEncode(file_path)
   log.pp("Request URL: ", url)
   var headers: PackedStringArray = [
@@ -142,13 +143,13 @@ func upload_file(file_path: String, base64_content: String) -> void:
   var getRes = (await global.httpGet(url, headers, HTTPClient.METHOD_GET)).response
   log.pp('getRes', getRes)
   if "sha" in getRes:
-    var temp = file_path.split("/")
-    var name = temp[-1].substr(0, len(temp[ - 1]) - 6)
-    if await global.prompt(
+    if author and await global.prompt(
       "there is already a level you have previously uploaded with that name. Do you want to overwrite it?\n" +
-      "if so, type the name of that level here: " + name,
+      "if so, enter your creator name here: " + author,
       global.PromptTypes.string
-    ) != name: return
+    ) != author:
+      $AnimatedSprite2D.visible = false
+      return
     body.sha = getRes.sha
 
   ToastParty.info("File upload started!")
@@ -161,12 +162,15 @@ func upload_file(file_path: String, base64_content: String) -> void:
     log.err(putRes.response)
     log.err(headers)
     ToastParty.error("File upload failed with error code: " + str(putRes.code))
+  $AnimatedSprite2D.visible = false
 
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   global.loadMap(level, fromSave)
+
 var editorOnlyOptions := []
+
 func loadUserOptions() -> void:
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
