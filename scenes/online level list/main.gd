@@ -70,6 +70,8 @@ func _ready() -> void:
     loadOnlineLevels()
 
 func loadOnlineLevels():
+  $AnimatedSprite2D.visible = true
+  $AnimatedSprite2D.frame = 0
   loadingText.text = "Loading..."
   loadingText.visible = true
   var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + REPO_NAME + "/branches")).response
@@ -139,6 +141,7 @@ func loadOnlineLevels():
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
   else:
     loadingText.text = 'Loaded levels: ' + str(levelsForCurrentVersionCount) + " / " + str(loadedLevelCount)
+  $AnimatedSprite2D.visible = false
 
 func downloadLevel(version, creator, level):
   var url = (
