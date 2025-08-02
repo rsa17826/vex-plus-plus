@@ -20,6 +20,7 @@ boot_splash/minimum_display_time=500
 global="*res://GLOBAL/global.gd"
 AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_config.tscn"
 ToastParty="*res://addons/toastparty/toast-autoload.gd"
+PopupMenuTransperiancyEnabler="*res://theme/popup menu transperiancy enabler.gd"
 
 [debug]
 
