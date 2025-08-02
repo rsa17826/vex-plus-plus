@@ -80,6 +80,9 @@ func updateBlockMenuValues() -> void:
     )
     i += 3
     var val
+    $outputContainer.get_child(i + 1).modulate.a = 0
+    if 'default' in blockOptions[k] and !global.same(selectedOptions[k], blockOptions[k].default):
+      $outputContainer.get_child(i + 1).modulate.a = 1
     if blockOptions[k].type is global.PromptTypes:
       if blockOptions[k].type == global.PromptTypes._enum:
         val = blockOptions[k].values.find(selectedOptions[k]) \
@@ -88,14 +91,12 @@ func updateBlockMenuValues() -> void:
       else:
         val = selectedOptions[k]
       var node = $outputContainer.get_child(i)
-      $outputContainer.get_child(i - 1).text = k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '')
-      $outputContainer.get_child(i + 1).modulate.a = 0
-      if 'default' in blockOptions[k] and !global.same(selectedOptions[k], blockOptions[k].default):
-        $outputContainer.get_child(i + 1).modulate.a = 1
+      $outputContainer.get_child(i - 1).text = k # + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '')
       match blockOptions[k].type:
         global.PromptTypes.bool:
           node.button_pressed = val
           node.disabled = disabled
+          node.text = k
         global.PromptTypes.int:
           node.value = val
           node.editable = !disabled

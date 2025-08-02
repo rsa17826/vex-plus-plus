@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=21 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://bwg7pflyvki0i" path="res://scenes/ui/signal_list.gd" id="17_4w2x3"]
 [ext_resource type="Script" uid="uid://dmne1p24c556w" path="res://scenes/ui/signal_display.gd" id="18_ygedu"]
 [ext_resource type="Script" uid="uid://dglshyvotds0f" path="res://scenes/ui/block_menu.gd" id="19_ygedu"]
+[ext_resource type="Theme" uid="uid://hcngdgj1e5qk" path="res://theme/1ui.tres" id="20_ygedu"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "modifiersEditorBg", "signalList", "blockMenu")]
 script = ExtResource("1_oiwrs")
@@ -338,10 +339,12 @@ anchor_bottom = 1.0
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 10
+theme = ExtResource("20_ygedu")
 script = ExtResource("19_ygedu")
 
 [node name="outputContainer" type="GridContainer" parent="block menu"]
 layout_mode = 2
+theme = ExtResource("20_ygedu")
 theme_override_constants/v_separation = 1
 columns = 3
 
@@ -419,7 +422,6 @@ offset_bottom = 20.0
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 20
 
 [connection signal="gui_input" from="modifiers/canDoWallSlide" to="modifiers" method="_on_gui_input" flags=18]
