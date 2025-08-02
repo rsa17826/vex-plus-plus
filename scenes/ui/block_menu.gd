@@ -56,6 +56,9 @@ func showBlockMenu():
         _:
           log.pp(k, "Unknown type: ", blockOptions[k].type)
     $outputContainer.add_child(node)
+    var resetNode = $base/reset.duplicate()
+    resetNode.pressed.connect(onThingReset.bind(k, node))
+    $outputContainer.add_child(resetNode)
   updateBlockMenuValues()
 
 func clearItems():
@@ -69,13 +72,13 @@ func updateBlockMenuValues() -> void:
     return
   var blockOptions = block.blockOptions
   var selectedOptions = block.selectedOptions
-  var i := -1
+  var i := -2
   for k: String in block.blockOptions:
     var disabled: bool = !(
       'showIf' not in blockOptions[k]
       or blockOptions[k].showIf.call()
     )
-    i += 2
+    i += 3
     var val
     if blockOptions[k].type is global.PromptTypes:
       if blockOptions[k].type == global.PromptTypes._enum:
@@ -86,6 +89,9 @@ func updateBlockMenuValues() -> void:
         val = selectedOptions[k]
       var node = $outputContainer.get_child(i)
       $outputContainer.get_child(i - 1).text = k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '')
+      $outputContainer.get_child(i + 1).modulate.a = 0
+      if 'default' in blockOptions[k] and !global.same(selectedOptions[k], blockOptions[k].default):
+        $outputContainer.get_child(i + 1).modulate.a = 1
       match blockOptions[k].type:
         global.PromptTypes.bool:
           node.button_pressed = val
@@ -118,7 +124,30 @@ func updateBlockMenuValues() -> void:
           )
         _:
           log.pp(k, "Unknown type: ", blockOptions[k].type)
+      $outputContainer.get_child(i + 1).disabled = disabled
       node.visible = true
+
+func onThingReset(...data) -> void:
+  var node = data.pop_back()
+  var k = data.pop_back()
+  if !global.isAlive(global.lastSelectedBlock):
+    clearItems()
+    return
+
+  var block = global.lastSelectedBlock
+  var blockOptions = block.blockOptions
+  var selectedOptions = block.selectedOptions
+
+  var val = blockOptions[k].default
+  if \
+  'onChange' not in blockOptions[k] \
+  or blockOptions[k].onChange.call(val):
+    selectedOptions[k] = val
+    block.toType(k)
+  block.respawn()
+  block._ready()
+  block.onOptionEdit.call()
+  updateBlockMenuValues()
 
 func onThingChanged(...data) -> void:
   var node = data.pop_back()
