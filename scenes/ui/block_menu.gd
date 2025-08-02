@@ -176,3 +176,12 @@ func onThingChanged(...data) -> void:
   block._ready()
   block.onOptionEdit.call()
   updateBlockMenuValues()
+
+func _input(event):
+  if not event is InputEventMouseButton: return
+  if not event.pressed: return
+  var control_rect = self.get_rect()
+  control_rect.position = Vector2.ZERO
+  var local_rect = control_rect
+  if local_rect.has_point(get_local_mouse_position()): return
+  get_viewport().gui_release_focus()
