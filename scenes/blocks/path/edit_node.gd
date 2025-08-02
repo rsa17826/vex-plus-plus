@@ -37,7 +37,7 @@ func generateBlockOpts():
 func onDelete():
   if !global.isAlive(path): return
   var idx = path.pathEditNodes.find(self )
-  path.pathEditNodes.erase(self)
+  path.pathEditNodes.erase(self )
   path.path.remove_at(idx + 1)
   path.savePath()
   path.respawn.call_deferred()

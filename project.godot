@@ -35,7 +35,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
-run/main_run_args="--loadMap NEWEST0"
+run/main_run_args="--loadMap NEWEST"
 
 [editor_plugins]
 

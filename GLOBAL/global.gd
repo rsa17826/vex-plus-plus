@@ -649,6 +649,7 @@ func selectBlock() -> void:
   selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
   var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
+  ui.blockMenu.showBlockMenu()
 
 var lastSelectedBlock: Node2D
 var lastSelectedBrush: Node2D

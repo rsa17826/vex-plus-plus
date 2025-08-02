@@ -6,5 +6,7 @@ extends CanvasLayer
 @export var modifiers: GridContainer
 @export var modifiersEditorBg: ColorRect
 @export var signalList: Control
+@export var blockMenu: Control
+
 func _init() -> void:
   global.ui = self
