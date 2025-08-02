@@ -28,15 +28,18 @@ func _input(event: InputEvent) -> void:
   if selected == 1 and Input.is_action_just_pressed("editor_edit_special"):
     var block = load("res://scenes/blocks/" + blockName + "/main.tscn").instantiate()
     block.id = blockName
+
+    var pm: PopupMenu = PopupMenu.new()
+    var can := CanvasLayer.new()
+
     block.onOptionEdit = func() -> void:
       log.pp(block.selectedOptions)
       global.defaultBlockOpts[blockName] = block.selectedOptions
       sds.saveDataToFile("user://defaultBlockOpts.sds", global.defaultBlockOpts)
       await global.wait()
       block.queue_free.call_deferred()
+      can.queue_free.call_deferred()
 
-    var pm: PopupMenu = PopupMenu.new()
-    var can := CanvasLayer.new()
     add_child(can)
     can.add_child(pm)
     pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
