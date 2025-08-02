@@ -73,6 +73,10 @@ func updateBlockMenuValues() -> void:
   var selectedOptions = block.selectedOptions
   var i := 0
   for k: String in block.blockOptions:
+    var disabled: bool = !(
+      'showIf' not in blockOptions[k]
+      or blockOptions[k].showIf.call()
+    )
     i += 1
     var val
     if blockOptions[k].type is global.PromptTypes:
@@ -87,19 +91,25 @@ func updateBlockMenuValues() -> void:
       match blockOptions[k].type:
         global.PromptTypes.bool:
           node.get_node("CheckButton").button_pressed = val
+          node.get_node("CheckButton").disabled = disabled
         global.PromptTypes.int:
           node.get_node("SpinBox").value = val
+          node.get_node("SpinBox").editable = !disabled
         global.PromptTypes.float:
           node.get_node("SpinBox").value = val
+          node.get_node("SpinBox").disabled = disabled
         global.PromptTypes.string:
           node.get_node("LineEdit").text = val
+          node.get_node("LineEdit").editable = !disabled
         global.PromptTypes.rgb:
           node.get_node("ColorPickerButton").color = val
+          node.get_node("ColorPickerButton").disabled = disabled
         global.PromptTypes.rgba:
           node.get_node("ColorPickerButton").color = val
-
+          node.get_node("ColorPickerButton").disabled = disabled
         global.PromptTypes._enum:
           var ob: OptionButton = node.get_node("OptionButton")
+          ob.disabled = disabled
           ob.clear()
           for thing: String in blockOptions[k].values:
             ob.add_item(thing)
