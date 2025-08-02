@@ -506,6 +506,34 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     +")" + getcolor("end")
   if item is bool:
     return getcolor("blue") + str(item) + getcolor("end")
+  if item is Color:
+    return getcolor("darkgreen") + "Color(" + getcolor("end") + (
+      getcolor("pink") if item.r < .66 else
+      getcolor("red")
+    ) + str(item.r) + getcolor("orange") + ', ' + getcolor("end") + (
+      getcolor("lightgreen") if item.g < .66 else
+      getcolor("green")
+    ) + str(item.g) + getcolor("orange") + ', ' + getcolor("end") + (
+      getcolor("lightblue") if item.b < .66 else
+      getcolor("blue")
+    ) + str(item.b) + getcolor("orange") + ', ' + getcolor("end") \
+    + getcolor("white") + str(item.a) + getcolor("end") \
+    + getcolor("darkgreen") + ')' + getcolor("end")
+    # return getcolor("darkgreen") + "Color(" + getcolor("end") + (
+    #   getcolor("white") if item.r < .33 else
+    #   getcolor("pink") if item.r < .66 else
+    #   getcolor("red")
+    # ) + str(item.r) + getcolor("orange") + ', ' + getcolor("end") + (
+    #   getcolor("white") if item.g < .33 else
+    #   getcolor("lightgreen") if item.g < .66 else
+    #   getcolor("green")
+    # ) + str(item.g) + getcolor("orange") + ', ' + getcolor("end") + (
+    #   getcolor("white") if item.b < .33 else
+    #   getcolor("lightblue") if item.b < .66 else
+    #   getcolor("blue")
+    # ) + str(item.b) + getcolor("orange") + ', ' + getcolor("end") \
+    # + getcolor("white") + str(item.a) + getcolor("end") \
+    # + getcolor("darkgreen") + ')' + getcolor("end")
   if item is Node:
     var color = getcolor(
       'blue' if item is Node2D else
