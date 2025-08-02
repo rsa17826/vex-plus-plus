@@ -88,8 +88,6 @@ var blockOptions: Dictionary[String, Variant]
 var selectedOptions := {}
 ## options in the rclick menu
 var blockOptionsArray := []
-## rclick menu
-# var pm: PopupMenu
 ## used for following blocks
 var attach_children: Array[EditorBlock] = []:
   get():
@@ -202,33 +200,6 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
           if not global.hoveredBlocks: return
         respawn()
         global.selectBlock()
-
-# func showPopupMenu():
-#   if global.popupStarted: return
-#   var i := 0
-#   for k: String in blockOptions:
-#     var val
-#     if blockOptions[k].type is global.PromptTypes:
-#       if blockOptions[k].type == global.PromptTypes._enum:
-#         val = blockOptions[k].values[selectedOptions[k]] \
-#         if blockOptions[k].values is Array else \
-#         blockOptions[k].values.keys()[selectedOptions[k]]
-#       else:
-#         val = selectedOptions[k]
-#       pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '') + " = " + str(val))
-#     elif blockOptions[k].type == 'BUTTON':
-#       pm.set_item_text(i, k)
-#     pm.set_item_disabled(i,
-#       !(
-#         'showIf' not in blockOptions[k]
-#         or blockOptions[k].showIf.call()
-#       )
-#     )
-#     i += 1
-#   global.popupStarted = true
-#   pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
-#   await global.wait()
-#   global.popupStarted = false
 
 var collisionQueue := {}
 ## don't overite - use on_body_entered instead

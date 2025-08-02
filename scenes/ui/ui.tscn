@@ -332,10 +332,12 @@ expand_mode = 1
 layout_mode = 2
 
 [node name="block menu" type="VBoxContainer" parent="."]
-offset_left = 374.0
-offset_top = 1.0
-offset_right = 546.0
-offset_bottom = 648.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 10
 script = ExtResource("19_ygedu")
 
 [node name="base" type="Control" parent="block menu"]
@@ -373,7 +375,7 @@ text = "name"
 layout_mode = 2
 min_value = -999999999.0
 max_value = 999999999999999.0
-step = 0.010000000009313226
+step = 0.01000000000931322
 allow_greater = true
 allow_lesser = true
 

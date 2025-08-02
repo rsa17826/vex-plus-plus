@@ -23,7 +23,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **editor_select**: when pressed while hovering over a block it will select the block under your mouse cursor. move the mouse while pressed to move the selected block
 
-- **editor_edit_special**: when pressed while hovering over a block it will bring up a menu for the currently hovered block
+- **editor_edit_special**: when pressed while hovering over a block it in the block picker will allow you to edit defaults for that block
 - **editor_scale**: hold this button to switch from moving blocks with editor_select to scaling blocks
 - **editor_rotate**: hold this button to switch from moving blocks with editor_select to rotating blocks
 - **editor_delete**: press this while selecting a block with editor_select to delete it from the level
