@@ -89,7 +89,7 @@ var selectedOptions := {}
 ## options in the rclick menu
 var blockOptionsArray := []
 ## rclick menu
-var pm: PopupMenu
+# var pm: PopupMenu
 ## used for following blocks
 var attach_children: Array[EditorBlock] = []:
   get():
@@ -185,50 +185,50 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   if global.hoveredBlocks && self == global.hoveredBlocks[0]:
     if !Input.is_action_pressed(&"editor_pan"):
       # edit block menu on rbutton
-      if event.is_action_pressed(&"editor_edit_special") \
-        && Input.is_action_just_pressed(&"editor_edit_special") \
-        and not global.openMsgBoxCount \
-        and not global.hoveredBrushes \
-        :
-        # log.pp(event.to_string(), shape_idx, viewport)
-        if NO_RCLICK_MENU: return
-        if not pm: return
-        # log.pp(blockOptions, event.as_text(), self, self.name)
-        showPopupMenu()
+      # if event.is_action_pressed(&"editor_edit_special") \
+      #   && Input.is_action_just_pressed(&"editor_edit_special") \
+      #   and not global.openMsgBoxCount \
+      #   and not global.hoveredBrushes \
+      #   :
+      #   # log.pp(event.to_string(), shape_idx, viewport)
+      #   if NO_RCLICK_MENU: return
+      #   if not pm: return
+      #   # log.pp(blockOptions, event.as_text(), self, self.name)
+      #   showPopupMenu()
       # select blocks when clicking them
-      elif event.is_action_pressed(&"editor_select") && Input.is_action_just_pressed(&"editor_select"):
+      if event.is_action_pressed(&"editor_select") && Input.is_action_just_pressed(&"editor_select"):
         if NO_SELECTING:
           global.hoveredBlocks.pop_front()
           if not global.hoveredBlocks: return
         respawn()
         global.selectBlock()
 
-func showPopupMenu():
-  if global.popupStarted: return
-  var i := 0
-  for k: String in blockOptions:
-    var val
-    if blockOptions[k].type is global.PromptTypes:
-      if blockOptions[k].type == global.PromptTypes._enum:
-        val = blockOptions[k].values[selectedOptions[k]] \
-        if blockOptions[k].values is Array else \
-        blockOptions[k].values.keys()[selectedOptions[k]]
-      else:
-        val = selectedOptions[k]
-      pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '') + " = " + str(val))
-    elif blockOptions[k].type == 'BUTTON':
-      pm.set_item_text(i, k)
-    pm.set_item_disabled(i,
-      !(
-        'showIf' not in blockOptions[k]
-        or blockOptions[k].showIf.call()
-      )
-    )
-    i += 1
-  global.popupStarted = true
-  pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
-  await global.wait()
-  global.popupStarted = false
+# func showPopupMenu():
+#   if global.popupStarted: return
+#   var i := 0
+#   for k: String in blockOptions:
+#     var val
+#     if blockOptions[k].type is global.PromptTypes:
+#       if blockOptions[k].type == global.PromptTypes._enum:
+#         val = blockOptions[k].values[selectedOptions[k]] \
+#         if blockOptions[k].values is Array else \
+#         blockOptions[k].values.keys()[selectedOptions[k]]
+#       else:
+#         val = selectedOptions[k]
+#       pm.set_item_text(i, k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '') + " = " + str(val))
+#     elif blockOptions[k].type == 'BUTTON':
+#       pm.set_item_text(i, k)
+#     pm.set_item_disabled(i,
+#       !(
+#         'showIf' not in blockOptions[k]
+#         or blockOptions[k].showIf.call()
+#       )
+#     )
+#     i += 1
+#   global.popupStarted = true
+#   pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
+#   await global.wait()
+#   global.popupStarted = false
 
 var collisionQueue := {}
 ## don't overite - use on_body_entered instead
@@ -328,7 +328,8 @@ func toType(opt: Variant) -> void:
       selectedOptions[opt] = selectedOptions[opt]
 
 func setupOptions() -> void:
-  if pm: return
+  # if pm: return
+  if selectedOptions: return
   if !blockOptions: return
   for opt: String in blockOptions:
     if opt in selectedOptions:
@@ -342,19 +343,19 @@ func setupOptions() -> void:
     elif "default" in blockOptions[opt]:
       selectedOptions[opt] = blockOptions[opt].default
       toType(opt)
-  var can := CanvasLayer.new()
-  add_child(can)
-  pm = PopupMenu.new()
-  can.add_child(pm)
-  pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
-  var i := 0
+  # var can := CanvasLayer.new()
+  # add_child(can)
+  # # pm = PopupMenu.new()
+  # can.add_child(pm)
+  # pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
+  # var i := 0
   blockOptionsArray = []
   for k: String in blockOptions:
     blockOptionsArray.append(k)
-    pm.add_item('', i)
-    i += 1
-  pm.add_item('cancel', i)
-  pm.connect("index_pressed", editOption)
+  #   pm.add_item('', i)
+  #   i += 1
+  # pm.add_item('cancel', i)
+  # pm.connect("index_pressed", editOption)
 
 func editOption(idx: int) -> void:
   if idx >= len(blockOptionsArray):

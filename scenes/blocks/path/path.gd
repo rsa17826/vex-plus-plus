@@ -221,6 +221,7 @@ func updatePoint(node: BlockPath_editNode, moveStopped: bool) -> void:
   if moveStopped:
     savePath()
     respawn()
+    global.lastSelectedBlock = pathEditNodes[idx]
 
 func on_respawn():
   if self in global.boxSelect_selectedBlocks:

@@ -391,7 +391,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
   var wrapat: int = 60
   tab += 2
   if item is Callable:
-    return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + getcolor("BLUE") + item.name + getcolor("END") + getcolor("RED") + ">" + getcolor("END")
+    return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + getcolor("BLUE") + str(item) + getcolor("END") + getcolor("RED") + ">" + getcolor("END")
 
   if item is StringName:
     return getcolor("darkorange") + "&\"" + getcolor("END") + getcolor("purple") + str(item) + getcolor("END") + getcolor("darkorange") + '"' + getcolor("END")

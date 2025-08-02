@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=20 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -18,8 +18,9 @@
 [ext_resource type="Texture2D" uid="uid://db55mv41mlepw" path="res://scenes/ui/levelFlagImages/changeSpeedOnSlopes.png" id="15_n3vwu"]
 [ext_resource type="Script" uid="uid://bwg7pflyvki0i" path="res://scenes/ui/signal_list.gd" id="17_4w2x3"]
 [ext_resource type="Script" uid="uid://dmne1p24c556w" path="res://scenes/ui/signal_display.gd" id="18_ygedu"]
+[ext_resource type="Script" uid="uid://dglshyvotds0f" path="res://scenes/ui/block_menu.gd" id="19_ygedu"]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "modifiersEditorBg", "signalList")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "modifiersEditorBg", "signalList", "blockMenu")]
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("saved")
 editorBar = NodePath("editor bar")
@@ -28,6 +29,7 @@ progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 modifiers = NodePath("modifiers")
 modifiersEditorBg = NodePath("modifiers editor bg")
 signalList = NodePath("signal list")
+blockMenu = NodePath("block menu")
 
 [node name="star counter" type="Label" parent="."]
 offset_left = 57.0
@@ -327,6 +329,131 @@ layout_mode = 2
 expand_mode = 1
 
 [node name="count" type="Label" parent="signal list/signalDisplay"]
+layout_mode = 2
+
+[node name="block menu" type="VBoxContainer" parent="."]
+offset_left = 374.0
+offset_top = 1.0
+offset_right = 546.0
+offset_bottom = 648.0
+script = ExtResource("19_ygedu")
+
+[node name="base" type="Control" parent="block menu"]
+layout_mode = 2
+
+[node name="int" type="HBoxContainer" parent="block menu/base"]
+visible = false
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 30.0
+
+[node name="name" type="Label" parent="block menu/base/int"]
+layout_mode = 2
+text = "name"
+
+[node name="SpinBox" type="SpinBox" parent="block menu/base/int"]
+layout_mode = 2
+min_value = -999999999.0
+max_value = 999999999999999.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+
+[node name="float" type="HBoxContainer" parent="block menu/base"]
+visible = false
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 30.0
+
+[node name="name" type="Label" parent="block menu/base/float"]
+layout_mode = 2
+text = "name"
+
+[node name="SpinBox" type="SpinBox" parent="block menu/base/float"]
+layout_mode = 2
+min_value = -999999999.0
+max_value = 999999999999999.0
+step = 0.010000000009313226
+allow_greater = true
+allow_lesser = true
+
+[node name="button" type="HBoxContainer" parent="block menu/base"]
+visible = false
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 30.0
+
+[node name="Button" type="Button" parent="block menu/base/button"]
+layout_mode = 2
+text = "val"
+
+[node name="bool" type="HBoxContainer" parent="block menu/base"]
+visible = false
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 30.0
+
+[node name="name" type="Label" parent="block menu/base/bool"]
+layout_mode = 2
+text = "name"
+
+[node name="CheckButton" type="CheckButton" parent="block menu/base/bool"]
+layout_mode = 2
+
+[node name="rgba" type="HBoxContainer" parent="block menu/base"]
+visible = false
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 30.0
+
+[node name="name" type="Label" parent="block menu/base/rgba"]
+layout_mode = 2
+text = "name"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="block menu/base/rgba"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+
+[node name="rgb" type="HBoxContainer" parent="block menu/base"]
+visible = false
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 30.0
+
+[node name="name" type="Label" parent="block menu/base/rgb"]
+layout_mode = 2
+text = "name"
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="block menu/base/rgb"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+text = "O"
+edit_alpha = false
+
+[node name="string" type="HBoxContainer" parent="block menu/base"]
+visible = false
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 30.0
+
+[node name="name" type="Label" parent="block menu/base/string"]
+layout_mode = 2
+text = "name"
+
+[node name="LineEdit" type="LineEdit" parent="block menu/base/string"]
+layout_mode = 2
+
+[node name="enum" type="HBoxContainer" parent="block menu/base"]
+visible = false
+layout_mode = 0
+offset_right = 172.0
+offset_bottom = 30.0
+
+[node name="name" type="Label" parent="block menu/base/enum"]
+layout_mode = 2
+text = "name"
+
+[node name="OptionButton" type="OptionButton" parent="block menu/base/enum"]
 layout_mode = 2
 
 [connection signal="gui_input" from="modifiers/canDoWallSlide" to="modifiers" method="_on_gui_input" flags=18]
