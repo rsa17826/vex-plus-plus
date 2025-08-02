@@ -336,8 +336,7 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
-scale = Vector2(0.8, 0.8)
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 size_flags_vertical = 10
 script = ExtResource("19_ygedu")
 
@@ -415,6 +414,7 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
 
 [connection signal="gui_input" from="modifiers/canDoWallSlide" to="modifiers" method="_on_gui_input" flags=18]
 [connection signal="gui_input" from="modifiers/canDoWallHang" to="modifiers" method="_on_gui_input" flags=18]
