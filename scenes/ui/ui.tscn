@@ -360,6 +360,7 @@ max_value = 999999999999999.0
 rounded = true
 allow_greater = true
 allow_lesser = true
+select_all_on_focus = true
 
 [node name="float" type="HBoxContainer" parent="block menu/base"]
 visible = false
@@ -378,6 +379,7 @@ max_value = 999999999999999.0
 step = 0.01000000000931322
 allow_greater = true
 allow_lesser = true
+select_all_on_focus = true
 
 [node name="button" type="HBoxContainer" parent="block menu/base"]
 visible = false
@@ -444,6 +446,9 @@ text = "name"
 
 [node name="LineEdit" type="LineEdit" parent="block menu/base/string"]
 layout_mode = 2
+expand_to_text_length = true
+emoji_menu_enabled = false
+select_all_on_focus = true
 
 [node name="enum" type="HBoxContainer" parent="block menu/base"]
 visible = false
