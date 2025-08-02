@@ -81,7 +81,7 @@ func updateBlockMenuValues() -> void:
     var val
     if blockOptions[k].type is global.PromptTypes:
       if blockOptions[k].type == global.PromptTypes._enum:
-        val = blockOptions[k].values[selectedOptions[k]] \
+        val = blockOptions[k].values.find(selectedOptions[k]) \
         if blockOptions[k].values is Array else \
         blockOptions[k].values.keys()[selectedOptions[k]]
       else:
@@ -113,11 +113,10 @@ func updateBlockMenuValues() -> void:
           ob.clear()
           for thing: String in blockOptions[k].values:
             ob.add_item(thing)
-          log.pp(blockOptions[k].values.values(), val, blockOptions[k].values)
+          log.pp(blockOptions[k].values, val)
           ob.select(
-            blockOptions[k].values[val] \
-            if blockOptions[k].values is Dictionary \
-            else blockOptions[k].values.find(val)
+            blockOptions[k].values[val] if blockOptions[k].values is Dictionary else
+            val
           )
         _:
           log.pp(k, "Unknown type: ", blockOptions[k].type)
@@ -148,7 +147,7 @@ func onThingChanged(...data) -> void:
       global.PromptTypes.rgba:
         return node.get_node("ColorPickerButton").color
       global.PromptTypes._enum:
-        return node.get_node("OptionButton").selected
+        return node.get_node("OptionButton").selected if blockOptions[k].values is Dictionary else blockOptions[k].values[node.get_node("OptionButton").selected]
       'BUTTON':
         pass
       _:

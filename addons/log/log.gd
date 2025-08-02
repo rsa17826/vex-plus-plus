@@ -519,9 +519,9 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     #   'pink' if item is Node3D else
     #   'white' if item is Node else 'black'
     # )
-    return color + str(item) \
-    .replace("<", getcolor("end") + getcolor("red") + "<"
-    + getcolor("end") + color) \
+    return getcolor("red") + "<" + getcolor("end") + color + str(item) \
+    .replace(":", getcolor("red") + ":" + color) \
+    .replace("<", '') \
     .replace("#", getcolor("end") + getcolor("darkred") + "#") \
     .replace(">", getcolor("end") + getcolor("red") + ">") \
     + getcolor('end')

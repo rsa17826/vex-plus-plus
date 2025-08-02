@@ -651,7 +651,14 @@ func selectBlock() -> void:
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
   ui.blockMenu.showBlockMenu()
 
-var lastSelectedBlock: Node2D
+var lastSelectedBlock: Node2D:
+  set(val):
+    lastSelectedBlock = val
+    if not val:
+      ui.blockMenu.clearItems()
+    # else:
+    #   ui.blockMenu.showBlockMenu()
+
 var lastSelectedBrush: Node2D
 
 func updateGridSize():
