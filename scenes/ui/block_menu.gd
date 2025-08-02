@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends Control
 
 var lastShownBlock
 
@@ -18,52 +18,50 @@ func showBlockMenu():
   var blockOptions = block.blockOptions
   var selectedOptions = block.selectedOptions
   log.pp(block.selectedOptions, block.blockOptions)
-  # var i := 0
   clearItems()
   await global.wait()
   for k: String in block.blockOptions:
     var node
     if global.same(blockOptions[k].type, 'BUTTON'):
       node = menuNodes[blockOptions[k].type].duplicate()
-      node.get_node("Button").text = k
-      node.get_node("Button").pressed.connect(onThingChanged.bind(k, node))
+      node.text = k
+      node.pressed.connect(onThingChanged.bind(k, node))
+      var nameNode = $base/label.duplicate()
+      nameNode.custom_minimum_size = node.size + Vector2(0, 2)
+      nameNode.size = node.size + Vector2(0, 2)
+      nameNode.text = ''
+      $outputContainer.add_child(nameNode)
     else:
       node = menuNodes[blockOptions[k].type].duplicate()
-      node.get_node("name").text = k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '')
+      var nameNode = $base/label.duplicate()
+      nameNode.text = k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '')
+      nameNode.custom_minimum_size = node.size + Vector2(0, 2)
+      nameNode.size = node.size + Vector2(0, 2)
+      $outputContainer.add_child(nameNode)
       match blockOptions[k].type:
         global.PromptTypes.bool:
-          node.get_node("CheckButton").toggled.connect(onThingChanged.bind(k, node))
+          node.toggled.connect(onThingChanged.bind(k, node))
         global.PromptTypes.int:
-          node.get_node("SpinBox").value_changed.connect(onThingChanged.bind(k, node))
+          node.value_changed.connect(onThingChanged.bind(k, node))
         global.PromptTypes.float:
-          node.get_node("SpinBox").value_changed.connect(onThingChanged.bind(k, node))
+          node.value_changed.connect(onThingChanged.bind(k, node))
         global.PromptTypes.string:
-          node.get_node("LineEdit").text_changed.connect(onThingChanged.bind(k, node))
+          node.text_changed.connect(onThingChanged.bind(k, node))
         global.PromptTypes.rgb:
-          node.get_node("ColorPickerButton").color_changed.connect(onThingChanged.bind(k, node))
+          node.color_changed.connect(onThingChanged.bind(k, node))
         global.PromptTypes.rgba:
-          node.get_node("ColorPickerButton").color_changed.connect(onThingChanged.bind(k, node))
-
+          node.color_changed.connect(onThingChanged.bind(k, node))
         global.PromptTypes._enum:
-          var ob: OptionButton = node.get_node("OptionButton")
-          ob.item_selected.connect(onThingChanged.bind(k, node))
+          node.item_selected.connect(onThingChanged.bind(k, node))
         _:
           log.pp(k, "Unknown type: ", blockOptions[k].type)
-    node.visible = true
-    add_child(node)
+    $outputContainer.add_child(node)
   updateBlockMenuValues()
 
-    # pm.set_item_disabled(i,
-    #   !(
-    #     'showIf' not in blockOptions[k]
-    #     or blockOptions[k].showIf.call()
-    #   )
-    # )
-    # i += 1
 func clearItems():
-  for child in get_children():
-    if child.name == "base": continue
+  for child in $outputContainer.get_children():
     child.queue_free()
+
 func updateBlockMenuValues() -> void:
   var block = global.lastSelectedBlock
   if block != lastShownBlock:
@@ -71,13 +69,13 @@ func updateBlockMenuValues() -> void:
     return
   var blockOptions = block.blockOptions
   var selectedOptions = block.selectedOptions
-  var i := 0
+  var i := -1
   for k: String in block.blockOptions:
     var disabled: bool = !(
       'showIf' not in blockOptions[k]
       or blockOptions[k].showIf.call()
     )
-    i += 1
+    i += 2
     var val
     if blockOptions[k].type is global.PromptTypes:
       if blockOptions[k].type == global.PromptTypes._enum:
@@ -86,29 +84,29 @@ func updateBlockMenuValues() -> void:
         blockOptions[k].values.keys()[selectedOptions[k]]
       else:
         val = selectedOptions[k]
-      var node = get_child(i)
-      node.get_node("name").text = k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '')
+      var node = $outputContainer.get_child(i)
+      $outputContainer.get_child(i - 1).text = k + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '')
       match blockOptions[k].type:
         global.PromptTypes.bool:
-          node.get_node("CheckButton").button_pressed = val
-          node.get_node("CheckButton").disabled = disabled
+          node.button_pressed = val
+          node.disabled = disabled
         global.PromptTypes.int:
-          node.get_node("SpinBox").value = val
-          node.get_node("SpinBox").editable = !disabled
+          node.value = val
+          node.editable = !disabled
         global.PromptTypes.float:
-          node.get_node("SpinBox").value = val
-          node.get_node("SpinBox").disabled = disabled
+          node.value = val
+          node.disabled = disabled
         global.PromptTypes.string:
-          node.get_node("LineEdit").text = val
-          node.get_node("LineEdit").editable = !disabled
+          node.text = val
+          node.editable = !disabled
         global.PromptTypes.rgb:
-          node.get_node("ColorPickerButton").color = val
-          node.get_node("ColorPickerButton").disabled = disabled
+          node.color = val
+          node.disabled = disabled
         global.PromptTypes.rgba:
-          node.get_node("ColorPickerButton").color = val
-          node.get_node("ColorPickerButton").disabled = disabled
+          node.color = val
+          node.disabled = disabled
         global.PromptTypes._enum:
-          var ob: OptionButton = node.get_node("OptionButton")
+          var ob: OptionButton = node
           ob.disabled = disabled
           ob.clear()
           for thing: String in blockOptions[k].values:
@@ -135,19 +133,19 @@ func onThingChanged(...data) -> void:
   var val = (func():
     match blockOptions[k].type:
       global.PromptTypes.bool:
-        return node.get_node("CheckButton").button_pressed
+        return node.button_pressed
       global.PromptTypes.int:
-        return node.get_node("SpinBox").value
+        return node.value
       global.PromptTypes.float:
-        return node.get_node("SpinBox").value
+        return node.value
       global.PromptTypes.string:
-        return node.get_node("LineEdit").text
+        return node.text
       global.PromptTypes.rgb:
-        return node.get_node("ColorPickerButton").color
+        return node.color
       global.PromptTypes.rgba:
-        return node.get_node("ColorPickerButton").color
+        return node.color
       global.PromptTypes._enum:
-        return node.get_node("OptionButton").selected if blockOptions[k].values is Dictionary else blockOptions[k].values[node.get_node("OptionButton").selected]
+        return node.selected if blockOptions[k].values is Dictionary else blockOptions[k].values[node.selected]
       'BUTTON':
         pass
       _:
@@ -179,7 +177,7 @@ func onThingChanged(...data) -> void:
 func _input(event):
   if not event is InputEventMouseButton: return
   if not event.pressed: return
-  var control_rect = self.get_rect()
+  var control_rect = $outputContainer.get_rect()
   control_rect.position = Vector2.ZERO
   var local_rect = control_rect
   if local_rect.has_point(get_local_mouse_position()): return

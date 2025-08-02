@@ -331,30 +331,29 @@ expand_mode = 1
 [node name="count" type="Label" parent="signal list/signalDisplay"]
 layout_mode = 2
 
-[node name="block menu" type="VBoxContainer" parent="."]
+[node name="block menu" type="HBoxContainer" parent="."]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 grow_vertical = 0
-size_flags_horizontal = 0
+scale = Vector2(0.8, 0.8)
+size_flags_horizontal = 2
 size_flags_vertical = 10
 script = ExtResource("19_ygedu")
 
+[node name="outputContainer" type="GridContainer" parent="block menu"]
+layout_mode = 2
+theme_override_constants/v_separation = 1
+columns = 2
+
 [node name="base" type="Control" parent="block menu"]
-layout_mode = 2
-
-[node name="int" type="HBoxContainer" parent="block menu/base"]
 visible = false
+layout_mode = 2
+
+[node name="int" type="SpinBox" parent="block menu/base"]
 layout_mode = 0
-offset_right = 172.0
-offset_bottom = 30.0
-
-[node name="name" type="Label" parent="block menu/base/int"]
-layout_mode = 2
-text = "name"
-
-[node name="SpinBox" type="SpinBox" parent="block menu/base/int"]
-layout_mode = 2
+offset_right = 86.5625
+offset_bottom = 31.0
 min_value = -999999999.0
 max_value = 999999999999999.0
 rounded = true
@@ -362,18 +361,10 @@ allow_greater = true
 allow_lesser = true
 select_all_on_focus = true
 
-[node name="float" type="HBoxContainer" parent="block menu/base"]
-visible = false
+[node name="float" type="SpinBox" parent="block menu/base"]
 layout_mode = 0
-offset_right = 172.0
-offset_bottom = 30.0
-
-[node name="name" type="Label" parent="block menu/base/float"]
-layout_mode = 2
-text = "name"
-
-[node name="SpinBox" type="SpinBox" parent="block menu/base/float"]
-layout_mode = 2
+offset_right = 86.5625
+offset_bottom = 31.0
 min_value = -999999999.0
 max_value = 999999999999999.0
 step = 0.01000000000931322
@@ -381,87 +372,49 @@ allow_greater = true
 allow_lesser = true
 select_all_on_focus = true
 
-[node name="button" type="HBoxContainer" parent="block menu/base"]
-visible = false
+[node name="button" type="Button" parent="block menu/base"]
 layout_mode = 0
-offset_right = 172.0
-offset_bottom = 30.0
-
-[node name="Button" type="Button" parent="block menu/base/button"]
-layout_mode = 2
+offset_right = 31.0
+offset_bottom = 31.0
 text = "val"
 
-[node name="bool" type="HBoxContainer" parent="block menu/base"]
-visible = false
+[node name="bool" type="CheckButton" parent="block menu/base"]
 layout_mode = 0
-offset_right = 172.0
-offset_bottom = 30.0
+offset_right = 44.0
+offset_bottom = 24.0
 
-[node name="name" type="Label" parent="block menu/base/bool"]
-layout_mode = 2
-text = "name"
-
-[node name="CheckButton" type="CheckButton" parent="block menu/base/bool"]
-layout_mode = 2
-
-[node name="rgba" type="HBoxContainer" parent="block menu/base"]
-visible = false
-layout_mode = 0
-offset_right = 172.0
-offset_bottom = 30.0
-
-[node name="name" type="Label" parent="block menu/base/rgba"]
-layout_mode = 2
-text = "name"
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="block menu/base/rgba"]
+[node name="rgba" type="ColorPickerButton" parent="block menu/base"]
 custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
-
-[node name="rgb" type="HBoxContainer" parent="block menu/base"]
-visible = false
 layout_mode = 0
-offset_right = 172.0
+offset_right = 30.0
 offset_bottom = 30.0
 
-[node name="name" type="Label" parent="block menu/base/rgb"]
-layout_mode = 2
-text = "name"
-
-[node name="ColorPickerButton" type="ColorPickerButton" parent="block menu/base/rgb"]
+[node name="rgb" type="ColorPickerButton" parent="block menu/base"]
 custom_minimum_size = Vector2(30, 30)
-layout_mode = 2
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 31.0
 text = "O"
 edit_alpha = false
 
-[node name="string" type="HBoxContainer" parent="block menu/base"]
-visible = false
-layout_mode = 0
-offset_right = 172.0
-offset_bottom = 30.0
-
-[node name="name" type="Label" parent="block menu/base/string"]
-layout_mode = 2
-text = "name"
-
-[node name="LineEdit" type="LineEdit" parent="block menu/base/string"]
+[node name="string" type="LineEdit" parent="block menu/base"]
 custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 31.0
 emoji_menu_enabled = false
 select_all_on_focus = true
 
-[node name="enum" type="HBoxContainer" parent="block menu/base"]
-visible = false
+[node name="enum" type="OptionButton" parent="block menu/base"]
 layout_mode = 0
-offset_right = 172.0
-offset_bottom = 30.0
+offset_right = 32.0
+offset_bottom = 20.0
 
-[node name="name" type="Label" parent="block menu/base/enum"]
-layout_mode = 2
-text = "name"
-
-[node name="OptionButton" type="OptionButton" parent="block menu/base/enum"]
-layout_mode = 2
+[node name="label" type="Label" parent="block menu/base"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 
 [connection signal="gui_input" from="modifiers/canDoWallSlide" to="modifiers" method="_on_gui_input" flags=18]
 [connection signal="gui_input" from="modifiers/canDoWallHang" to="modifiers" method="_on_gui_input" flags=18]
