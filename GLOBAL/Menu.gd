@@ -43,6 +43,13 @@ func endGroup():
   })
   # currentParent.pop_back()
 # ADDS
+func add_file(key, single: bool = false, default='') -> void:
+  # return float|int
+  _add_any(key, {
+    "type": "file",
+    "single": single,
+    "default": default
+  })
 func add_range(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false) -> void:
   # return float|int
   _add_any(key, {
@@ -217,6 +224,16 @@ func show_menu():
         currentParent.append(vbox)
       "endGroup":
         currentParent.pop_back()
+      "file":
+        var node = preload(path + "file.tscn").instantiate()
+
+        node.get_node("Label").text = formatName.call(thing.name)
+        node.get_node("Button").text = 'pick a file' if thing.single else 'pick files'
+        var fileNode = node.get_node("FileDialog")
+        fileNode.files = thing.user
+        fileNode['file_selected' if thing.single else 'files_selected'].connect(__changed.bind(thing.name, node))
+        __changed.call(thing.name, node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "range":
         var node = preload(path + "range.tscn").instantiate()
         node.get_node("Label").text = formatName.call(thing.name)
@@ -388,6 +405,9 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     "rgb":
       var c=node.get_node("HSlider").color
       menu_data[name].user=c.to_rgba32() # global.join(',', c.r, c.g, c.b)
+    "file":
+      await global.wait()
+      menu_data[name].user=node.get_node("FileDialog").files
     _:
       log.err("cant save type: " + menu_data[name].type)
   onchanged.emit()

@@ -2,6 +2,12 @@ extends Control
 
 var lastShownBlock
 
+func _ready() -> void:
+  global.onEditorStateChanged.connect(onEditorStateChanged)
+
+func onEditorStateChanged():
+  visible = global.showEditorUi
+
 func showBlockMenu():
   var menuNodes := {
     "BUTTON": $base/button,

@@ -2,16 +2,16 @@
   STR(start)STR(hub)
   STR(author)STR(rssaromeo)
   STR(description)STR(my first nojump map)
-  STR(version)INT(94)
+  STR(version)INT(93)
   STR(stages){
     STR(hub){
-      STR(canDoWallSlide)BOOL(true)
-      STR(canDoWallHang)BOOL(true)
-      STR(canDoWallJump)BOOL(true)
-      STR(autoRun)BOOL(false)
-      STR(jumpCount)INT(0)
+      STR(color)INT(1)
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
+      STR(jumpCount)INT(0)
+      STR(canDoWallJump)BOOL(true)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallHang)BOOL(true)
     }
   }
 }
