@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=10 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
 [ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
 [ext_resource type="PackedScene" uid="uid://be824ve2c7lm3" path="res://scenes/ui/modifiers/modifiers.tscn" id="6_jcn1r"]
+[ext_resource type="Theme" uid="uid://hcngdgj1e5qk" path="res://theme/1ui.tres" id="6_uegxj"]
 [ext_resource type="PackedScene" uid="uid://bcgvwxwk7bf6b" path="res://scenes/ui/signal list/signal_list.tscn" id="7_uegxj"]
 [ext_resource type="PackedScene" uid="uid://cs4s80p62mgl5" path="res://scenes/ui/block menu/block_menu.tscn" id="8_y220t"]
 
@@ -46,6 +47,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("6_uegxj")
 
 [node name="levelHider" type="ColorRect" parent="ProgressContainer"]
 layout_mode = 1

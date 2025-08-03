@@ -108,7 +108,7 @@ func updateBlockMenuValues() -> void:
           node.editable = !disabled
         global.PromptTypes.float:
           node.value = val
-          node.disabled = disabled
+          node.editable = !disabled
         global.PromptTypes.string:
           node.text = val
           node.editable = !disabled

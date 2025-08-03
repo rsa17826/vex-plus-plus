@@ -315,7 +315,7 @@
         "thing": "option",
         "type": "file",
         "key": "editorBackgroundTexture",
-        "defaultValue": "res://scenes/ui/images/1.png"
+        "defaultValue": ""
       },
       {
         "thing": "option",

@@ -1,9 +1,10 @@
-[gd_resource type="Theme" load_steps=34 format=4 uid="uid://hcngdgj1e5qk"]
+[gd_resource type="Theme" load_steps=35 format=4 uid="uid://hcngdgj1e5qk"]
 
 [ext_resource type="StyleBox" uid="uid://bevpbxq0fnxrk" path="res://theme/new_style_box_flat.tres" id="1_64rh0"]
 [ext_resource type="Texture2D" uid="uid://bb45a1m0xr8kp" path="res://scenes/ui/images/on.png" id="2_27u43"]
 [ext_resource type="Texture2D" uid="uid://c27t3qm7x6iee" path="res://scenes/ui/images/off.png" id="3_ht7sy"]
 [ext_resource type="StyleBox" uid="uid://cuxegvft4b4s4" path="res://theme/popup menu panel_style_box_flat.tres" id="4_27u43"]
+[ext_resource type="StyleBox" uid="uid://ct7nyk7igch6l" path="res://theme/filled_new_style_box_flat.tres" id="5_ht7sy"]
 
 [sub_resource type="Image" id="Image_o71gb"]
 data = {
@@ -2772,6 +2773,14 @@ CheckButton/styles/hover = ExtResource("1_64rh0")
 CheckButton/styles/hover_pressed = ExtResource("1_64rh0")
 CheckButton/styles/normal = ExtResource("1_64rh0")
 CheckButton/styles/pressed = ExtResource("1_64rh0")
+HScrollBar/styles/grabber = ExtResource("5_ht7sy")
+HScrollBar/styles/grabber_highlight = ExtResource("5_ht7sy")
+HScrollBar/styles/grabber_pressed = ExtResource("5_ht7sy")
+HScrollBar/styles/scroll = ExtResource("1_64rh0")
+HScrollBar/styles/scroll_focus = ExtResource("1_64rh0")
+HSlider/styles/grabber_area = ExtResource("1_64rh0")
+HSlider/styles/grabber_area_highlight = ExtResource("1_64rh0")
+HSlider/styles/slider = ExtResource("1_64rh0")
 Label/colors/font_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
 Label/constants/line_spacing = 3
@@ -2781,11 +2790,11 @@ Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 16
 Label/fonts/font = SubResource("FontFile_y0kyo")
-LineEdit/colors/caret_color = Color(0, 0, 0, 1)
+LineEdit/colors/caret_color = Color(0.1279304, 1.5979409e-05, 0.5217334, 1)
 LineEdit/colors/font_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
-LineEdit/colors/font_placeholder_color = Color(0, 0, 0, 0.6)
+LineEdit/colors/font_placeholder_color = Color(0.101960786, 0.09411765, 0.29411766, 0.6)
 LineEdit/colors/font_selected_color = Color(0.092550196, 9.62615e-08, 0.65088284, 1)
-LineEdit/colors/font_uneditable_color = Color(0, 0, 0, 0.5019608)
+LineEdit/colors/font_uneditable_color = Color(0.101960786, 0.09411765, 0.29411766, 0.5176471)
 LineEdit/colors/selection_color = Color(0, 0, 0, 0.27450982)
 LineEdit/styles/focus = ExtResource("1_64rh0")
 LineEdit/styles/normal = ExtResource("1_64rh0")
@@ -2796,6 +2805,7 @@ OptionButton/colors/font_focus_color = Color(0.105882354, 0.09803922, 0.30588236
 OptionButton/colors/font_hover_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 OptionButton/colors/font_hover_pressed_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 OptionButton/colors/font_pressed_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
+OptionButton/constants/align_to_largest_stylebox = 1
 OptionButton/constants/arrow_margin = 6
 OptionButton/constants/h_separation = 4
 OptionButton/constants/modulate_arrow = 1
@@ -2825,6 +2835,8 @@ PopupMenu/styles/separator = SubResource("StyleBoxLine_64rh0")
 PopupPanel/colors/title_color = Color(0, 0, 0, 0)
 PopupPanel/colors/title_outline_modulate = Color(0, 0, 0, 0)
 PopupPanel/styles/panel = ExtResource("1_64rh0")
+ProgressBar/styles/background = ExtResource("1_64rh0")
+ProgressBar/styles/fill = ExtResource("5_ht7sy")
 ScrollContainer/styles/focus = SubResource("StyleBoxEmpty_64rh0")
 ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_27u43")
 SpinBox/colors/down_disabled_icon_modulate = Color(0.101960786, 0.09411765, 0.29411766, 0.5176471)
@@ -2835,3 +2847,26 @@ SpinBox/colors/up_disabled_icon_modulate = Color(0.101960786, 0.09411765, 0.2941
 SpinBox/colors/up_hover_icon_modulate = Color(0.101960786, 0.09411765, 0.29411766, 1)
 SpinBox/colors/up_icon_modulate = Color(0.21568628, 0.20392157, 0.5411765, 1)
 SpinBox/colors/up_pressed_icon_modulate = Color(0.101960786, 0.09411765, 0.29411766, 1)
+TextEdit/colors/caret_background_color = Color(0, 0, 0, 1)
+TextEdit/colors/caret_color = Color(0.12941177, 0, 0.52156866, 1)
+TextEdit/colors/current_line_color = Color(0.25, 0.25, 0.26, 0.8)
+TextEdit/colors/font_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
+TextEdit/colors/font_outline_color = Color(0, 0, 0, 1)
+TextEdit/colors/font_placeholder_color = Color(0.101960786, 0.09411765, 0.29411766, 0.6)
+TextEdit/colors/font_readonly_color = Color(0.101960786, 0.09411765, 0.29411766, 0.5176471)
+TextEdit/colors/font_selected_color = Color(0.09411765, 0, 0.6509804, 1)
+TextEdit/colors/search_result_border_color = Color(0.3, 0.3, 0.3, 0.4)
+TextEdit/colors/search_result_color = Color(0.3, 0.3, 0.3, 1)
+TextEdit/colors/selection_color = Color(0, 0, 0, 0.27450982)
+TextEdit/colors/word_highlighted_color = Color(0.5, 0.5, 0.5, 0.25)
+TextEdit/styles/focus = ExtResource("1_64rh0")
+TextEdit/styles/normal = ExtResource("1_64rh0")
+TextEdit/styles/read_only = ExtResource("1_64rh0")
+VScrollBar/styles/grabber = ExtResource("5_ht7sy")
+VScrollBar/styles/grabber_highlight = ExtResource("5_ht7sy")
+VScrollBar/styles/grabber_pressed = ExtResource("5_ht7sy")
+VScrollBar/styles/scroll = ExtResource("1_64rh0")
+VScrollBar/styles/scroll_focus = ExtResource("1_64rh0")
+VSlider/styles/grabber_area = ExtResource("1_64rh0")
+VSlider/styles/grabber_area_highlight = ExtResource("1_64rh0")
+VSlider/styles/slider = ExtResource("1_64rh0")
