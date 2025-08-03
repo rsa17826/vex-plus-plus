@@ -210,7 +210,8 @@ func _unhandled_input(event: InputEvent) -> void:
       if startPos != mousePos:
         isFakeMouseMovement = true
         Input.warp_mouse(mousePos * global.stretchScale)
-    camLockPos = $Camera2D.global_position
+    if not camLockPos:
+      camLockPos = $Camera2D.global_position
 
   if state != States.dead and global.showEditorUi:
     for action: String in ["right", "jump", "left"]:

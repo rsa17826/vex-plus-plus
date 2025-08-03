@@ -390,6 +390,11 @@ static func format_int_with_commas(number: Variant) -> String:
 static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false, lastitemwasovermax: bool = false) -> String:
   var wrapat: int = 60
   tab += 2
+  if not is_instance_valid(item) and str(item) == "<Freed Object>":
+    return getcolor("red") + "<Freed Object>" + getcolor("end")
+  if item == null:
+    return getcolor("blue") + "null" + getcolor("end")
+    
   if item is Callable:
     return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + getcolor("BLUE") + str(item) + getcolor("END") + getcolor("RED") + ">" + getcolor("END")
 
@@ -534,6 +539,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     # ) + str(item.b) + getcolor("orange") + ', ' + getcolor("end") \
     # + getcolor("white") + str(item.a) + getcolor("end") \
     # + getcolor("darkgreen") + ')' + getcolor("end")
+
   if item is Node:
     var color = getcolor(
       'blue' if item is Node2D else
