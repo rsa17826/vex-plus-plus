@@ -36,7 +36,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
-run/main_run_args="--loadMap NEWEST"
+run/main_run_args="--loadMap NEWESTd"
 
 [editor_plugins]
 
@@ -353,3 +353,4 @@ fancy_folder_icons/openRules=false
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
+environment/defaults/default_clear_color=Color(0.2200941, 0.24928997, 0.35839027, 1)

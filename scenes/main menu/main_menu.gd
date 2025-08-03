@@ -302,3 +302,7 @@ func _on_load_online_levels_pressed() -> void:
 
 func _on_open_readme_pressed() -> void:
   OS.shell_open("https://github.com/rsa17826/vex-plus-plus#vex")
+
+func _input(event: InputEvent) -> void:
+  if Input.is_key_pressed(KEY_T):
+    breakpoint

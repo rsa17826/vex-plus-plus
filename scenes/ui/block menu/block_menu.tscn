@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cs4s80p62mgl5"]
 
-[ext_resource type="Theme" uid="uid://hcngdgj1e5qk" path="res://theme/1ui.tres" id="1_l2rbo"]
+[ext_resource type="Theme" uid="uid://dy8ewmwsagc5j" path="res://theme/THEME.tres" id="1_l2rbo"]
 [ext_resource type="Script" uid="uid://dglshyvotds0f" path="res://scenes/ui/block_menu.gd" id="2_oork6"]
 
 [node name="block menu" type="HBoxContainer"]
