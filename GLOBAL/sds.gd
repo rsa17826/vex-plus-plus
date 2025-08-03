@@ -288,14 +288,18 @@ static func loadData(d: String, progress=null) -> Variant:
         # thisdata = getDataReg.call(r"\((true|false)\)", 1)
         thisdata = thisdata == "true"
       "STR":
+        # if 'loadOnlineLevelListOnSceneLoad' not in remainingData and '\\' in remainingData:
+        #   log.pp(remainingData)
+        #   breakpoint
         thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
         .replace(r"\)", "PERIN" + UNSET) # replace the escaped escapes, then replace the escaped )s with data not used in the saved data to let the regex detect the real ending )
         thisdata = thisdata.substr(1, thisdata.find(")") - 1) # get the data from the start ( to the first real ), not escaped ), that were hid just above
         thisdata = thisdata.replace("ESCAPED" + UNSET, "\\\\").replace("PERIN" + UNSET, ")") # restore the hidden \ and )s
         remainingData = remainingData.substr(len(thisdata \
-        .replace("\\", "\\\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
+        .replace("\\", "\\").replace(")", r"\)") # re expand the replacements to make same length as the escaped chars would be
         ) + 2)
+        thisdata = thisdata.replace("\\\\", '\\')
       "STRNAME":
         thisdata = remainingData \
         .replace("\\\\", "ESCAPED" + UNSET) \
@@ -316,7 +320,7 @@ static func loadData(d: String, progress=null) -> Variant:
         if type == UNSET:
           return UNSET
         return
-    
+
     remainingData = remainingData.strip_edges()
     if !global.same(thisdata, UNSET):
       if len(_stack):
@@ -564,7 +568,7 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
         if type == UNSET:
           return UNSET
         return
-    
+
     RemainingData[IDX] = RemainingData[IDX].strip_edges()
     if !global.same(thisdata, UNSET):
       if len(_stack):

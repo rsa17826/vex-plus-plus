@@ -162,7 +162,7 @@ func _ready() -> void:
 
 var defaultAngle: float
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
   if event is InputEventMouseMotion and isFakeMouseMovement:
     isFakeMouseMovement = false
