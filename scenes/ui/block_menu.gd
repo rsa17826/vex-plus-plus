@@ -22,8 +22,8 @@ func showBlockMenu():
   var block = global.lastSelectedBlock
   lastShownBlock = block
   var blockOptions = block.blockOptions
-  var selectedOptions = block.selectedOptions
-  log.pp(block.selectedOptions, block.blockOptions)
+  # var selectedOptions = block.selectedOptions
+  # log.pp(block.selectedOptions, block.blockOptions)
   clearItems()
   await global.wait()
   for k: String in block.blockOptions:
@@ -165,7 +165,7 @@ func onThingChanged(...data) -> void:
   var block = global.lastSelectedBlock
   var blockOptions = block.blockOptions
   var selectedOptions = block.selectedOptions
-  log.pp(k, node, "changed")
+  # log.pp(k, node, "changed")
   var val = (func():
     match blockOptions[k].type:
       global.PromptTypes.bool:

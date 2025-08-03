@@ -651,14 +651,15 @@ func selectBlock() -> void:
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
   ui.blockMenu.showBlockMenu()
 
-var lastSelectedBlock: Node2D:
+var lastSelectedBlock: EditorBlock:
   set(val):
     lastSelectedBlock = val
     if not val:
       ui.blockMenu.clearItems()
     # else:
     #   ui.blockMenu.showBlockMenu()
-
+  get():
+    return lastSelectedBlock
 var lastSelectedBrush: Node2D
 
 func updateGridSize():
@@ -1042,19 +1043,32 @@ func localInput(event: InputEvent) -> void:
       if selectedBlock == global.player.get_parent(): return
       if selectedBlock in hoveredBlocks:
         hoveredBlocks.erase(selectedBlock)
+      # var temp = selectedBlock.duplicate()
+      # temp.id = selectedBlock.id
+      # temp.scale = selectedBlock.scale
+      # temp.rotation_degrees = selectedBlock.rotation_degrees
+      # temp.selectedOptions = selectedBlock.selectedOptions.duplicate()
       lastSelectedBlock = selectedBlock.duplicate()
+      lastSelectedBlock.selectedOptions = selectedBlock.selectedOptions.duplicate()
       lastSelectedBlock.id = selectedBlock.id
       selectedBlock.onDelete()
       selectedBlock.queue_free.call_deferred()
       selectedBlock = null
     else:
       if useropts.deleteLastSelectedBlockIfNoBlockIsCurrentlySelected:
+        log.pp(selectedBlock, lastSelectedBlock)
         if lastSelectedBlock && is_instance_valid(lastSelectedBlock):
           if lastSelectedBlock == global.player.get_parent(): return
           if lastSelectedBlock in hoveredBlocks:
             hoveredBlocks.erase(lastSelectedBlock)
+          var temp = lastSelectedBlock.duplicate()
+          temp.id = lastSelectedBlock.id
+          temp.scale = lastSelectedBlock.scale
+          temp.rotation_degrees = lastSelectedBlock.rotation_degrees
+          temp.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
+          lastSelectedBlock.onDelete()
           lastSelectedBlock.queue_free.call_deferred()
-          lastSelectedBlock = null
+          lastSelectedBlock = temp
 
   if mainLevelName:
     if Input.is_action_just_pressed(&"reload_map_from_last_save", true):
