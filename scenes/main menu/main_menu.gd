@@ -203,6 +203,7 @@ func updateUserOpts() -> void:
   else:
     lastWinMode = global.useropts.windowMode
   global.useropts = __menu.get_all_data()
+  log.pp('editorOnlyOptions', editorOnlyOptions)
   for option in editorOnlyOptions:
     global.useropts[option.key] = option.defaultValue
 

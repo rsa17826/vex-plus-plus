@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gwjisq38njy3"
-path="res://.godot/imported/2 jumps.png-ee990afcbc8442172b8ed521d0a9d917.ctex"
+uid="uid://beqwxrd3kleai"
+path="res://.godot/imported/1.png-195d40c2ef80d9195c9aa15ce0ff7055.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/levelFlagImages/2 jumps.png"
-dest_files=["res://.godot/imported/2 jumps.png-ee990afcbc8442172b8ed521d0a9d917.ctex"]
+source_file="res://images/a/sprites/DefineSprite_1302_gravityChange/1.png"
+dest_files=["res://.godot/imported/1.png-195d40c2ef80d9195c9aa15ce0ff7055.ctex"]
 
 [params]
 

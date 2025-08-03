@@ -69,8 +69,8 @@ custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 
 [node name="modifiers" parent="." instance=ExtResource("6_jcn1r")]
-offset_top = 150.0
-offset_bottom = 200.0
+offset_top = 120.0
+offset_bottom = 120.0
 
 [node name="signal list" parent="." instance=ExtResource("7_uegxj")]
 

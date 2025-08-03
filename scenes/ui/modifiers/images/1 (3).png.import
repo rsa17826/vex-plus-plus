@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwoncen3jiuv0"
-path="res://.godot/imported/canDoWallSlide.png-194374faf4e58cda57a1e8e21942d580.ctex"
+uid="uid://ciog0m5ftww5o"
+path="res://.godot/imported/1 (3).png-701252f9ab3396cd77c3504874942932.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/levelFlagImages/canDoWallSlide.png"
-dest_files=["res://.godot/imported/canDoWallSlide.png-194374faf4e58cda57a1e8e21942d580.ctex"]
+source_file="res://scenes/ui/modifiers/images/1 (3).png"
+dest_files=["res://.godot/imported/1 (3).png-701252f9ab3396cd77c3504874942932.ctex"]
 
 [params]
 
