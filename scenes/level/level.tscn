@@ -10,6 +10,7 @@
 [node name="level" type="Node2D" node_paths=PackedStringArray("boxSelectDrawingNode")]
 script = ExtResource("1_bovvr")
 boxSelectDrawingNode = NodePath("CanvasLayer/boxSelectDrawingNode")
+metadata/_edit_lock_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -24,8 +25,10 @@ grow_vertical = 2
 mouse_filter = 2
 stretch_mode = 1
 script = ExtResource("3_wcngd")
+metadata/_edit_lock_ = true
 
 [node name="blocks" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="player" parent="." instance=ExtResource("2_b2cq8")]
 position = Vector2(61, 383)
@@ -43,8 +46,10 @@ offset_right = 1152.0
 offset_bottom = 648.0
 mouse_filter = 2
 script = ExtResource("5_urvlt")
+metadata/_edit_lock_ = true
 
 [node name="Node2D" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Node2D" type="Node2D" parent="Node2D"]
 

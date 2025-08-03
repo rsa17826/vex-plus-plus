@@ -205,11 +205,13 @@ func updateUserOpts() -> void:
   global.useropts = __menu.get_all_data()
   for option in editorOnlyOptions:
     global.useropts[option.key] = option.defaultValue
+
   if lastWinMode == null or lastWinMode != global.useropts.windowMode:
     shouldChangeFsState = true
-  if shouldChangeFsState:
-    await global.wait(150)
-    get_window().size = Vector2(1152, 648)
+  if shouldChangeFsState or global.isFirstTimeMenuIsLoaded:
+    if global.isFirstTimeMenuIsLoaded:
+      get_window().size = Vector2(1152, 648)
+      await global.wait()
     match int(global.useropts.windowMode):
       0:
         global.fullscreen(1)

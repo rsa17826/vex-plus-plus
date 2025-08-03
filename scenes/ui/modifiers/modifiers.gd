@@ -1,4 +1,4 @@
-extends GridContainer
+extends Control
 
 var bgPadding = 5
 
@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
     visible = false
 
 func modVis(mod, val):
-  get_node(mod).visible = val
+  $GridContainer.get_node(mod).visible = val
 
 var currentLevelSettings: Dictionary
 
@@ -21,12 +21,12 @@ func toggleEditor():
   editorOpen = !editorOpen
   if editorOpen:
     updateUi(global.player.levelFlags, true)
-    global.ui.modifiersEditorBg.visible = true
-    global.ui.modifiersEditorBg.size = size + Vector2(bgPadding, bgPadding) * 2
-    global.ui.modifiersEditorBg.global_position = global_position - Vector2(bgPadding, bgPadding)
-    global.ui.modifiersEditorBg.color = Color.hex(global.useropts.modifierEditorBgColor)
+    $"modifiers editor bg".visible = true
+    $"modifiers editor bg".size = $GridContainer.size + Vector2(bgPadding, bgPadding) * 2
+    $"modifiers editor bg".global_position = global_position - Vector2(bgPadding, bgPadding)
+    $"modifiers editor bg".color = Color.hex(global.useropts.modifierEditorBgColor)
   else:
-    global.ui.modifiersEditorBg.visible = false
+    $"modifiers editor bg".visible = false
     updateUi(global.player.levelFlags)
 
 func updateUi(
@@ -35,7 +35,7 @@ func updateUi(
 ):
   currentLevelSettings = data
   # hide all mods
-  for child in get_children():
+  for child in $GridContainer.get_children():
     if child.name == '_base': continue
     child.visible = showAllMods
 
@@ -55,7 +55,7 @@ func updateUi(
       _:
         match k:
           'jumpCount':
-            for child in get_node('jumpCount').get_children():
+            for child in $GridContainer.get_node('jumpCount').get_children():
               child.visible = false
             modVis('jumpCount', true)
             if v >= 4:
@@ -75,10 +75,10 @@ func updateUi(
             breakpoint
 
 func loadModsToPlayer():
-  for child in get_children():
+  for child in $GridContainer.get_children():
     if child.name == '_base': continue
     global.player.levelFlags[child.name] = currentLevelSettings[child.name]
-    
+
   global.player.floor_constant_speed = !currentLevelSettings.changeSpeedOnSlopes
   global.player.MAX_JUMP_COUNT = currentLevelSettings.jumpCount
 

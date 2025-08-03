@@ -3,7 +3,7 @@ extends CanvasLayer
 @export var editorBar: Node2D
 @export var progressContainer: Control
 @export var progressBar: ProgressBar
-@export var modifiers: GridContainer
+@export var modifiers: Control
 @export var modifiersEditorBg: ColorRect
 @export var signalList: Control
 @export var blockMenu: Control
