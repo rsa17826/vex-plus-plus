@@ -8,7 +8,7 @@
     STR(id)STR(goal)
     STR(options){
       STR(requiredLevelCount)INT(0)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
     }
   }

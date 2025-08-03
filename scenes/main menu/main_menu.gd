@@ -278,6 +278,12 @@ func __loadOptions(thing) -> void:
         thing.key,
         thing.defaultValue,
       )
+    "file":
+      __menu.add_file(
+        thing.key,
+        thing.single if "single" in thing else true,
+        thing.defaultValue,
+      )
 
 func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()

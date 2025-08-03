@@ -313,6 +313,12 @@
       },
       {
         "thing": "option",
+        "type": "file",
+        "key": "editorBackgroundTexture",
+        "defaultValue": ""
+      },
+      {
+        "thing": "option",
         "type": "rgba",
         "key": "modifierEditorBgColor",
         "defaultValue": 860671
