@@ -1,34 +1,30 @@
 [gd_scene load_steps=12 format=3 uid="uid://be824ve2c7lm3"]
 
 [ext_resource type="Script" uid="uid://b6h0y67wm6mxg" path="res://scenes/ui/modifiers/modifiers.gd" id="1_dt3tg"]
-[ext_resource type="Texture2D" uid="uid://dyse3nbxu1fjr" path="res://scenes/ui/levelFlagImages/placeholder.png" id="2_y06cl"]
-[ext_resource type="Texture2D" uid="uid://bh5nkeis3bmvj" path="res://scenes/ui/levelFlagImages/nope.png" id="3_1qclt"]
-[ext_resource type="Texture2D" uid="uid://dwoncen3jiuv0" path="res://scenes/ui/levelFlagImages/canDoWallSlide.png" id="4_8ra60"]
-[ext_resource type="Texture2D" uid="uid://dquotko52oiag" path="res://scenes/ui/levelFlagImages/canDoWallHang.png" id="5_31ouh"]
-[ext_resource type="Texture2D" uid="uid://bd60qbqc1fq7s" path="res://scenes/ui/levelFlagImages/canDoWallJump.png" id="6_0oxwt"]
-[ext_resource type="Texture2D" uid="uid://u5oq6wq5r0wf" path="res://scenes/ui/levelFlagImages/1 jump.png" id="7_ob0qt"]
-[ext_resource type="Texture2D" uid="uid://gwjisq38njy3" path="res://scenes/ui/levelFlagImages/2 jumps.png" id="8_coan7"]
-[ext_resource type="Texture2D" uid="uid://c8mgwucaxddj8" path="res://scenes/ui/levelFlagImages/3 jumps.png" id="9_16mno"]
-[ext_resource type="Texture2D" uid="uid://nsc828vkp3sq" path="res://scenes/ui/levelFlagImages/4+ jumps.png" id="10_fmbj4"]
-[ext_resource type="Texture2D" uid="uid://db55mv41mlepw" path="res://scenes/ui/levelFlagImages/changeSpeedOnSlopes.png" id="11_a68qm"]
+[ext_resource type="Texture2D" uid="uid://dyse3nbxu1fjr" path="res://scenes/ui/modifiers/images/placeholder.png" id="2_y06cl"]
+[ext_resource type="Texture2D" uid="uid://bh5nkeis3bmvj" path="res://scenes/ui/modifiers/images/nope.png" id="3_1qclt"]
+[ext_resource type="Texture2D" uid="uid://dwoncen3jiuv0" path="res://scenes/ui/modifiers/images/canDoWallSlide.png" id="4_8ra60"]
+[ext_resource type="Texture2D" uid="uid://dquotko52oiag" path="res://scenes/ui/modifiers/images/canDoWallHang.png" id="5_31ouh"]
+[ext_resource type="Texture2D" uid="uid://bd60qbqc1fq7s" path="res://scenes/ui/modifiers/images/canDoWallJump.png" id="6_0oxwt"]
+[ext_resource type="Texture2D" uid="uid://u5oq6wq5r0wf" path="res://scenes/ui/modifiers/images/1 jump.png" id="7_ob0qt"]
+[ext_resource type="Texture2D" uid="uid://gwjisq38njy3" path="res://scenes/ui/modifiers/images/2 jumps.png" id="8_coan7"]
+[ext_resource type="Texture2D" uid="uid://c8mgwucaxddj8" path="res://scenes/ui/modifiers/images/3 jumps.png" id="9_16mno"]
+[ext_resource type="Texture2D" uid="uid://nsc828vkp3sq" path="res://scenes/ui/modifiers/images/4+ jumps.png" id="10_fmbj4"]
+[ext_resource type="Texture2D" uid="uid://db55mv41mlepw" path="res://scenes/ui/modifiers/images/changeSpeedOnSlopes.png" id="11_a68qm"]
 
 [node name="modifiers" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 50.0
-offset_bottom = 50.0
 script = ExtResource("1_dt3tg")
 
 [node name="modifiers editor bg" type="ColorRect" parent="."]
 visible = false
-top_level = true
 layout_mode = 0
 offset_right = 158.0
 offset_bottom = 158.0
 color = Color(0, 0.049301185, 0.12897289, 1)
 
 [node name="GridContainer" type="GridContainer" parent="."]
-top_level = true
 layout_mode = 0
 offset_right = 158.0
 offset_bottom = 158.0

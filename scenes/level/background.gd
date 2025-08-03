@@ -15,4 +15,4 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
   if modSize:
-    position = round((global.player.get_node("Camera2D").position - size / 2) / modSize) * modSize
+    position = round((global.player.get_node("Camera2D").global_position - size / 2) / modSize) * modSize
