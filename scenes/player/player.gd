@@ -136,11 +136,6 @@ enum States {
 }
 
 var isFakeMouseMovement: bool = false
-var camState: CamStates = CamStates.player
-enum CamStates {
-  player,
-  editor,
-}
 
 var gravState: GravStates = GravStates.normal
 enum GravStates {
@@ -188,15 +183,15 @@ func _unhandled_input(event: InputEvent) -> void:
     else:
       mouseMode = Input.MOUSE_MODE_CONFINED_HIDDEN
 
-  # if event is InputEventMouseButton:
   if event is InputEventMouseMotion and event.screen_relative:
     if state == States.dead \
     and mouseMode != Input.MOUSE_MODE_CONFINED: return
     mouseMode = Input.MOUSE_MODE_CONFINED
-    camState = CamStates.editor
+    if not camLockPos:
+      camLockPos = $Camera2D.global_position
     $Camera2D.reset_smoothing()
     if Input.is_action_pressed(&"editor_select") and Input.is_action_pressed(&"editor_pan"):
-      $Camera2D.global_position -= (event.relative.rotated($Camera2D.global_rotation)) * global.useropts.editorScrollSpeed
+      camLockPos -= (event.relative.rotated($Camera2D.global_rotation)) * global.useropts.editorScrollSpeed
       var mousePos := get_viewport().get_mouse_position()
       var startPos := mousePos
       if mousePos.x <= 0:
@@ -210,16 +205,14 @@ func _unhandled_input(event: InputEvent) -> void:
       if startPos != mousePos:
         isFakeMouseMovement = true
         Input.warp_mouse(mousePos * global.stretchScale)
-    if not camLockPos:
-      camLockPos = $Camera2D.global_position
+    log.pp(camLockPos, "camLockPos")
+    updateCamLockPos()
 
   if state != States.dead and global.showEditorUi:
     for action: String in ["right", "jump", "left"]:
       if Input.is_action_pressed(action, true):
         global.setEditorUiState(false)
-        camState = CamStates.player
         camLockPos = Vector2.ZERO
-        # $Camera2D.position_smoothing_enabled = true
         $Camera2D.position = Vector2.ZERO
         break
 
@@ -1181,7 +1174,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   # breakpoint
 
 func updateCamLockPos():
-  if camLockPos:
+  if global.showEditorUi:
     $Camera2D.global_position = camLockPos
     $Camera2D.reset_smoothing()
 
