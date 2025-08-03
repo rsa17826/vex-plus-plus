@@ -314,7 +314,25 @@
       {
         "thing": "option",
         "type": "file",
-        "key": "editorBackgroundTexture",
+        "key": "editorTilingBackgroundTexture",
+        "defaultValue": ""
+      },
+      {
+        "thing": "option",
+        "type": "file",
+        "key": "editorBackgroundPath",
+        "defaultValue": ""
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "editorBackgroundScaleToMaxSize",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "file",
+        "key": "editorStickerPath",
         "defaultValue": ""
       },
       {

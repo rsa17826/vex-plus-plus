@@ -228,7 +228,7 @@ func show_menu():
         var node = preload(path + "file.tscn").instantiate()
         node.get_node("Label").text = formatName.call(thing.name)
         node.get_node("Button").text = 'pick a file' if thing.single else 'pick files'
-        node.get_node("Button").tooltip_text = 'selected file: ' + thing.user
+        node.get_node("Button").tooltip_text = 'selected file: ' + str(thing.user)
         var fileNode = node.get_node("FileDialog")
         fileNode.files = thing.user
         fileNode.single = thing.single

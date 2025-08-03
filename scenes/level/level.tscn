@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c71tvwdcssf5m" path="res://scenes/level/level.gd" id="1_bovvr"]
 [ext_resource type="PackedScene" uid="uid://cecm0tp3hsdnh" path="res://scenes/player/player.tscn" id="2_b2cq8"]
 [ext_resource type="Script" uid="uid://bcd1vbaj8suck" path="res://scenes/level/grid.gd" id="3_b2cq8"]
-[ext_resource type="Script" uid="uid://dc0fl2url3l1m" path="res://scenes/level/background.gd" id="3_wcngd"]
+[ext_resource type="Script" uid="uid://dc0fl2url3l1m" path="res://scenes/level/tiling background.gd" id="3_wcngd"]
 [ext_resource type="Script" uid="uid://fgu8i5y0iued" path="res://scenes/level/autosave_timer.gd" id="4_xb4v1"]
 [ext_resource type="Script" uid="uid://b7v5fgrc0mgvo" path="res://scenes/level/boxSelectDrawingNode.gd" id="5_urvlt"]
 
@@ -12,7 +12,7 @@ script = ExtResource("1_bovvr")
 boxSelectDrawingNode = NodePath("CanvasLayer/boxSelectDrawingNode")
 metadata/_edit_lock_ = true
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="tiling background" type="TextureRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

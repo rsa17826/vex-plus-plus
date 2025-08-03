@@ -1,16 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=12 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
+[ext_resource type="Script" uid="uid://d0s8e8eppjwrw" path="res://scenes/ui/background.gd" id="3_hl07w"]
 [ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
 [ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
 [ext_resource type="PackedScene" uid="uid://be824ve2c7lm3" path="res://scenes/ui/modifiers/modifiers.tscn" id="6_jcn1r"]
-[ext_resource type="Theme" uid="uid://hcngdgj1e5qk" path="res://theme/1ui.tres" id="6_uegxj"]
+[ext_resource type="Theme" uid="uid://dy8ewmwsagc5j" path="res://theme/THEME.tres" id="6_uegxj"]
 [ext_resource type="PackedScene" uid="uid://bcgvwxwk7bf6b" path="res://scenes/ui/signal list/signal_list.tscn" id="7_uegxj"]
 [ext_resource type="PackedScene" uid="uid://cs4s80p62mgl5" path="res://scenes/ui/block menu/block_menu.tscn" id="8_y220t"]
+[ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="10_y220t"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu")]
+layer = 2
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("saved")
 editorBar = NodePath("editor bar")
@@ -25,19 +28,24 @@ offset_left = 57.0
 offset_top = 43.0
 offset_right = 97.0
 offset_bottom = 66.0
+theme = ExtResource("6_uegxj")
 script = ExtResource("5_0dwhk")
+metadata/_edit_lock_ = true
 
 [node name="editor bar" parent="." instance=ExtResource("2_5gxme")]
 visible = false
+metadata/_edit_lock_ = true
 
 [node name="saved" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(1095.5499, 559.55)
 scale = Vector2(0.19960955, 0.19960955)
 texture = ExtResource("3_qno0g")
+metadata/_edit_lock_ = true
 
 [node name="Controls" parent="." instance=ExtResource("4_g5kmx")]
 visible = false
+metadata/_edit_lock_ = true
 
 [node name="ProgressContainer" type="Control" parent="."]
 visible = false
@@ -48,6 +56,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("6_uegxj")
+metadata/_edit_lock_ = true
 
 [node name="levelHider" type="ColorRect" parent="ProgressContainer"]
 layout_mode = 1
@@ -56,7 +65,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.301961, 0.301961, 0.301961, 1)
+color = Color(0.21960784, 0.2509804, 0.35686275, 1)
 
 [node name="CenterContainer" type="CenterContainer" parent="ProgressContainer"]
 layout_mode = 1
@@ -73,7 +82,46 @@ layout_mode = 2
 [node name="modifiers" parent="." instance=ExtResource("6_jcn1r")]
 offset_top = 120.0
 offset_bottom = 120.0
+metadata/_edit_lock_ = true
 
 [node name="signal list" parent="." instance=ExtResource("7_uegxj")]
+theme = ExtResource("6_uegxj")
+metadata/_edit_lock_ = true
 
 [node name="block menu" parent="." instance=ExtResource("8_y220t")]
+metadata/_edit_lock_ = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="sticker" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 3
+script = ExtResource("10_y220t")
+metadata/_edit_lock_ = true
+
+[node name="background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="background" type="TextureRect" parent="background"]
+custom_minimum_size = Vector2(1152, 648)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("3_hl07w")
+metadata/_edit_lock_ = true

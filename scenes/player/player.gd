@@ -205,7 +205,7 @@ func _unhandled_input(event: InputEvent) -> void:
       if startPos != mousePos:
         isFakeMouseMovement = true
         Input.warp_mouse(mousePos * global.stretchScale)
-    log.pp(camLockPos, "camLockPos")
+    # log.pp(camLockPos, "camLockPos")
     updateCamLockPos()
 
   if state != States.dead and global.showEditorUi:
