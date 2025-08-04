@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bxqm1u3q1wtqg"]
 
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
-[ext_resource type="Theme" uid="uid://dy8ewmwsagc5j" path="res://theme/THEME.tres" id="1_j8h1a"]
+[ext_resource type="Theme" uid="uid://dy8ewmwsagc5j" path="res://themes/blue/THEME.tres" id="1_j8h1a"]
 [ext_resource type="Script" uid="uid://dtk8xcpxhq7fx" path="res://addons/tnowe_extra_controls/elements/properties_box.gd" id="2_1ujms"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/main menu/loading animation.tscn" id="2_7t3ru"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://irxf2xv7q3m4"]
 
 [ext_resource type="Script" uid="uid://botycuh4sqcbo" path="res://scenes/main menu/lvl_sel_item.gd" id="1_4oddt"]
-[ext_resource type="Theme" uid="uid://dy8ewmwsagc5j" path="res://theme/THEME.tres" id="1_lwd02"]
+[ext_resource type="Theme" uid="uid://dy8ewmwsagc5j" path="res://themes/blue/THEME.tres" id="1_lwd02"]
 
 [node name="lvlSelItem" type="VFlowContainer" node_paths=PackedStringArray("levelname", "creator", "description", "version", "newSaveBtn", "loadSaveBtn", "moreOptsBtn")]
 theme = ExtResource("1_lwd02")
