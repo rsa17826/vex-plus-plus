@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=52 format=4 uid="uid://dy8ewmwsagc5j"]
+[gd_resource type="Theme" load_steps=54 format=4 uid="uid://dy8ewmwsagc5j"]
 
 [ext_resource type="StyleBox" uid="uid://vj7u8wl3xngj" path="res://themes/blue/button/flat.tres" id="1_ph67c"]
 [ext_resource type="StyleBox" uid="uid://dytorq3qkedj3" path="res://themes/blue/check button/flat.tres" id="2_2dmk8"]
@@ -11,6 +11,7 @@
 [ext_resource type="StyleBox" uid="uid://umn4ya7upygl" path="res://themes/blue/hscrollbar/hscrollbar - flat.tres" id="9_gfojd"]
 [ext_resource type="StyleBox" uid="uid://cavo2rd1cnbaf" path="res://themes/blue/hslider/flat.tres" id="9_x2n2j"]
 [ext_resource type="StyleBox" uid="uid://cuxegvft4b4s4" path="res://themes/blue/popup menu panel/flat.tres" id="11_d5rfc"]
+[ext_resource type="StyleBox" uid="uid://l1lsc7353ijh" path="res://themes/blue/spinbox/arrow background - flat.tres" id="12_enmrm"]
 [ext_resource type="StyleBox" uid="uid://bqw555r3yjxvl" path="res://themes/blue/vscrollbar/flat.tres" id="12_gfojd"]
 [ext_resource type="StyleBox" uid="uid://c7vvvf1ychpkq" path="res://themes/blue/tree/flat.tres" id="13_d5rfc"]
 [ext_resource type="StyleBox" uid="uid://cqv2oludoybsv" path="res://themes/blue/vslider/flat.tres" id="14_d5rfc"]
@@ -2770,6 +2771,8 @@ _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\">
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4ft8p"]
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4e4mo"]
+
 [sub_resource type="SVGTexture" id="SVGTexture_mcuwi"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".85\" stroke-width=\"2\" d=\"m2 4 4 4 4-4\"/></svg>
 "
@@ -2829,6 +2832,7 @@ CheckBox/colors/font_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 CheckBox/colors/font_disabled_color = Color(0.09151302, 1.8770993e-06, 0.4672976, 0.5176471)
 CheckBox/colors/font_focus_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 CheckBox/colors/font_hover_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
+CheckBox/colors/font_outline_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 CheckBox/colors/font_pressed_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 CheckBox/styles/disabled = ExtResource("2_2dmk8")
 CheckBox/styles/disabled_mirrored = ExtResource("2_2dmk8")
@@ -2893,6 +2897,7 @@ HSlider/styles/grabber_area = ExtResource("9_x2n2j")
 HSlider/styles/grabber_area_highlight = ExtResource("9_x2n2j")
 HSlider/styles/slider = ExtResource("9_x2n2j")
 Label/colors/font_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
 Label/constants/line_spacing = 3
 Label/constants/outline_size = 0
@@ -2902,6 +2907,7 @@ Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 16
 Label/fonts/font = SubResource("FontFile_y0kyo")
 Label/styles/focus = SubResource("StyleBoxEmpty_4ft8p")
+Label/styles/normal = SubResource("StyleBoxEmpty_4e4mo")
 LineEdit/colors/caret_color = Color(0.1279304, 1.5979409e-05, 0.5217334, 1)
 LineEdit/colors/font_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 LineEdit/colors/font_placeholder_color = Color(0.101960786, 0.09411765, 0.29411766, 0.6)
@@ -2977,6 +2983,10 @@ SpinBox/colors/up_disabled_icon_modulate = Color(0.101960786, 0.09411765, 0.2941
 SpinBox/colors/up_hover_icon_modulate = Color(0.101960786, 0.09411765, 0.29411766, 1)
 SpinBox/colors/up_icon_modulate = Color(0.21568628, 0.20392157, 0.5411765, 1)
 SpinBox/colors/up_pressed_icon_modulate = Color(0.101960786, 0.09411765, 0.29411766, 1)
+SpinBox/styles/down_background_hovered = ExtResource("12_enmrm")
+SpinBox/styles/down_background_pressed = ExtResource("12_enmrm")
+SpinBox/styles/up_background_hovered = ExtResource("12_enmrm")
+SpinBox/styles/up_background_pressed = ExtResource("12_enmrm")
 TabBar/colors/drop_mark_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
 TabBar/colors/font_disabled_color = Color(0.101960786, 0.09411765, 0.29411766, 0.5176471)
 TabBar/colors/font_hovered_color = Color(0.105882354, 0.09803922, 0.30588236, 1)

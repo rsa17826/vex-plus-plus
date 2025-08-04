@@ -1,14 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsub1ew4qiin4"]
+[gd_scene load_steps=5 format=3 uid="uid://bsub1ew4qiin4"]
 
 [ext_resource type="Script" uid="uid://dn3r2t10v2hdb" path="res://scenes/main menu/main_menu.gd" id="1_cbjxn"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="2_8w606"]
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="2_okfgx"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/main menu/loading animation.tscn" id="2_vifqf"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_cbjxn"]
-font_color = Color(0, 0, 0, 1)
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
 
 [node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer")]
 layout_mode = 3
@@ -103,7 +98,8 @@ text = "play tut"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 33.295)
 layout_mode = 2
-label_settings = SubResource("LabelSettings_cbjxn")
+theme_override_colors/font_outline_color = Color(0.17254902, 0.19607843, 0.28627452, 1)
+theme_override_constants/outline_size = 4
 vertical_alignment = 1
 
 [node name="CTRLS" parent="." instance=ExtResource("2_8w606")]

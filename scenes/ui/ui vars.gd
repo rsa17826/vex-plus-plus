@@ -4,7 +4,6 @@ extends CanvasLayer
 @export var progressContainer: Control
 @export var progressBar: ProgressBar
 @export var modifiers: Control
-@export var modifiersEditorBg: ColorRect
 @export var signalList: Control
 @export var blockMenu: Control
 
