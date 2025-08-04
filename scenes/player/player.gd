@@ -1474,3 +1474,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!fix blocks sometimes ending up near 00
 # !!multi select doesn't trigger on move end
 # add button to get level id
+
+# add presets to menu options

@@ -6,8 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
 [ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
+[ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="6_4kltc"]
 [ext_resource type="PackedScene" uid="uid://be824ve2c7lm3" path="res://scenes/ui/modifiers/modifiers.tscn" id="6_jcn1r"]
-[ext_resource type="Theme" uid="uid://dy8ewmwsagc5j" path="res://themes/blue/THEME.tres" id="6_uegxj"]
 [ext_resource type="PackedScene" uid="uid://bcgvwxwk7bf6b" path="res://scenes/ui/signal list/signal_list.tscn" id="7_uegxj"]
 [ext_resource type="PackedScene" uid="uid://cs4s80p62mgl5" path="res://scenes/ui/block menu/block_menu.tscn" id="8_y220t"]
 [ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="10_y220t"]
@@ -28,7 +28,6 @@ offset_left = 57.0
 offset_top = 43.0
 offset_right = 97.0
 offset_bottom = 66.0
-theme = ExtResource("6_uegxj")
 script = ExtResource("5_0dwhk")
 metadata/_edit_lock_ = true
 
@@ -55,7 +54,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("6_uegxj")
 metadata/_edit_lock_ = true
 
 [node name="levelHider" type="ColorRect" parent="ProgressContainer"]
@@ -66,6 +64,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.21960784, 0.2509804, 0.35686275, 1)
+script = ExtResource("6_4kltc")
 
 [node name="CenterContainer" type="CenterContainer" parent="ProgressContainer"]
 layout_mode = 1
@@ -85,7 +84,6 @@ offset_bottom = 120.0
 metadata/_edit_lock_ = true
 
 [node name="signal list" parent="." instance=ExtResource("7_uegxj")]
-theme = ExtResource("6_uegxj")
 metadata/_edit_lock_ = true
 
 [node name="block menu" parent="." instance=ExtResource("8_y220t")]

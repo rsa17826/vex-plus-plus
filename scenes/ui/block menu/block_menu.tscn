@@ -1,6 +1,5 @@
 [gd_scene load_steps=3 format=3 uid="uid://cs4s80p62mgl5"]
 
-[ext_resource type="Theme" uid="uid://dy8ewmwsagc5j" path="res://themes/blue/THEME.tres" id="1_l2rbo"]
 [ext_resource type="Script" uid="uid://dglshyvotds0f" path="res://scenes/ui/block_menu.gd" id="2_oork6"]
 
 [node name="block menu" type="HBoxContainer"]
@@ -10,12 +9,10 @@ anchor_bottom = 1.0
 grow_vertical = 0
 size_flags_horizontal = 0
 size_flags_vertical = 10
-theme = ExtResource("1_l2rbo")
 script = ExtResource("2_oork6")
 
 [node name="outputContainer" type="GridContainer" parent="."]
 layout_mode = 2
-theme = ExtResource("1_l2rbo")
 theme_override_constants/v_separation = 1
 columns = 3
 
