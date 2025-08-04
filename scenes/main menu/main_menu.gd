@@ -13,10 +13,6 @@ var newestLevel
 
 @onready var pm: PopupMenu = PopupMenu.new()
 func _ready() -> void:
-  RenderingServer.set_default_clear_color("#4d4d4d")
-  # RenderingServer.set_default_clear_color("#38405b")
-  # propagate_call("update")
-  # 2c3249
   add_child(pm)
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -200,6 +196,7 @@ func loadUserOptions() -> void:
   updateUserOpts()
 
 func updateUserOpts() -> void:
+  var shouldReload = false
   var shouldChangeFsState = false
   var lastWinMode
   if 'windowMode' not in global.useropts:
@@ -230,7 +227,8 @@ func updateUserOpts() -> void:
       get_window().theme = null
     else:
       get_window().theme = load("res://themes/" + ["default", "blue", "black"][global.useropts.theme] + "/THEME.tres")
-    get_tree().reload_current_scene.call_deferred()
+    RenderingServer.set_default_clear_color(["#4d4d4d", "#38405b", "#4d4d4d"][global.useropts.theme])
+    shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   if global.isFirstTimeMenuIsLoaded:
     global.isFirstTimeMenuIsLoaded = false
@@ -239,10 +237,14 @@ func updateUserOpts() -> void:
       var thing = arr.pop_front()
       if thing == '--loadMap':
         var mapName = arr.pop_front()
+        shouldReload = false
         if mapName == 'NEWEST':
           loadLevel(newestLevel, true)
         else:
           loadLevel(mapName, true)
+
+  if shouldReload:
+    get_tree().reload_current_scene.call_deferred()
 
 func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):
@@ -314,7 +316,3 @@ func _on_load_online_levels_pressed() -> void:
 
 func _on_open_readme_pressed() -> void:
   OS.shell_open("https://github.com/rsa17826/vex-plus-plus#vex")
-
-func _input(event: InputEvent) -> void:
-  if Input.is_key_pressed(KEY_T):
-    breakpoint
