@@ -20,7 +20,7 @@ boot_splash/minimum_display_time=500
 global="*res://GLOBAL/global.gd"
 AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_config.tscn"
 ToastParty="*res://addons/toastparty/toast-autoload.gd"
-PopupMenuTransperiancyEnabler="*res://themes/blue/popup menu transperiancy enabler.gd"
+PopupMenuTransperiancyEnabler="*res://themes/popup menu transperiancy enabler.gd"
 
 [debug]
 
@@ -36,7 +36,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
-run/main_run_args="--loadMap NEWESTd"
+run/main_run_args="a--loadMap NEWEST"
 
 [editor_plugins]
 
@@ -353,4 +353,3 @@ fancy_folder_icons/openRules=false
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
-environment/defaults/default_clear_color=Color(0.2200941, 0.24928997, 0.35839027, 1)

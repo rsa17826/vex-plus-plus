@@ -13,6 +13,10 @@ var newestLevel
 
 @onready var pm: PopupMenu = PopupMenu.new()
 func _ready() -> void:
+  RenderingServer.set_default_clear_color("#4d4d4d")
+  # RenderingServer.set_default_clear_color("#38405b")
+  # propagate_call("update")
+  # 2c3249
   add_child(pm)
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -202,6 +206,7 @@ func updateUserOpts() -> void:
     shouldChangeFsState = true
   else:
     lastWinMode = global.useropts.windowMode
+  var lastTheme = global.useropts.theme if 'theme' in global.useropts else null
   global.useropts = __menu.get_all_data()
   log.pp('editorOnlyOptions', editorOnlyOptions)
   for option in editorOnlyOptions:
@@ -209,6 +214,7 @@ func updateUserOpts() -> void:
 
   if lastWinMode == null or lastWinMode != global.useropts.windowMode:
     shouldChangeFsState = true
+  log.pp(lastTheme, global.useropts.theme, "asd")
   if shouldChangeFsState or global.isFirstTimeMenuIsLoaded:
     if global.isFirstTimeMenuIsLoaded:
       get_window().size = Vector2(1152, 648)
@@ -219,6 +225,12 @@ func updateUserOpts() -> void:
       1:
         global.fullscreen(-1)
 
+  if global.useropts.theme != lastTheme:
+    if global.useropts.theme == 0:
+      get_window().theme = null
+    else:
+      get_window().theme = load("res://themes/" + ["default", "blue", "black"][global.useropts.theme] + "/THEME.tres")
+    get_tree().reload_current_scene.call_deferred()
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   if global.isFirstTimeMenuIsLoaded:
     global.isFirstTimeMenuIsLoaded = false

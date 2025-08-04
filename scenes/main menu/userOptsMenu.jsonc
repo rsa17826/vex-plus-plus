@@ -340,6 +340,13 @@
         "type": "rgba",
         "key": "modifierEditorBgColor",
         "defaultValue": 860671
+      },
+      {
+        "thing": "option",
+        "type": "single select",
+        "key": "theme",
+        "defaultValue": 1,
+        "options": ["default", "blue", "black"]
       }
     ]
   },
