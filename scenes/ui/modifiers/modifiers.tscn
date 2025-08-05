@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://be824ve2c7lm3"]
+[gd_scene load_steps=13 format=3 uid="uid://be824ve2c7lm3"]
 
 [ext_resource type="Script" uid="uid://b6h0y67wm6mxg" path="res://scenes/ui/modifiers/modifiers.gd" id="1_dt3tg"]
 [ext_resource type="Texture2D" uid="uid://dyse3nbxu1fjr" path="res://scenes/ui/modifiers/images/placeholder.png" id="2_y06cl"]
@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://dwoncen3jiuv0" path="res://scenes/ui/modifiers/images/canDoWallSlide.png" id="4_8ra60"]
 [ext_resource type="Texture2D" uid="uid://dquotko52oiag" path="res://scenes/ui/modifiers/images/canDoWallHang.png" id="5_31ouh"]
 [ext_resource type="Texture2D" uid="uid://bd60qbqc1fq7s" path="res://scenes/ui/modifiers/images/canDoWallJump.png" id="6_0oxwt"]
-[ext_resource type="Texture2D" uid="uid://u5oq6wq5r0wf" path="res://scenes/ui/modifiers/images/1 jump.png" id="7_ob0qt"]
+[ext_resource type="Texture2D" uid="uid://u5oq6wq5r0wf" path="res://scenes/ui/modifiers/images/autoRun.png" id="7_ob0qt"]
 [ext_resource type="Texture2D" uid="uid://gwjisq38njy3" path="res://scenes/ui/modifiers/images/2 jumps.png" id="8_coan7"]
+[ext_resource type="Texture2D" uid="uid://comclkgfivfrl" path="res://scenes/ui/modifiers/images/1 jump.png" id="8_y06cl"]
 [ext_resource type="Texture2D" uid="uid://c8mgwucaxddj8" path="res://scenes/ui/modifiers/images/3 jumps.png" id="9_16mno"]
 [ext_resource type="Texture2D" uid="uid://nsc828vkp3sq" path="res://scenes/ui/modifiers/images/4+ jumps.png" id="10_fmbj4"]
 [ext_resource type="Texture2D" uid="uid://db55mv41mlepw" path="res://scenes/ui/modifiers/images/changeSpeedOnSlopes.png" id="11_a68qm"]
@@ -135,7 +136,7 @@ layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
 tooltip_text = "the player will keep running"
-texture = ExtResource("2_y06cl")
+texture = ExtResource("7_ob0qt")
 expand_mode = 1
 
 [node name="nope" type="TextureRect" parent="GridContainer/autoRun"]
@@ -159,7 +160,7 @@ layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
 tooltip_text = "the player has 1 jump"
-texture = ExtResource("7_ob0qt")
+texture = ExtResource("8_y06cl")
 expand_mode = 1
 
 [node name="2" type="TextureRect" parent="GridContainer/jumpCount"]
