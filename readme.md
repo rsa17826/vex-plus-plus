@@ -112,6 +112,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **saveExpandedGroups**: saves which groups are currently expanded.
 - **loadExpandedGroups**: loads which groups were previously saved as expanded.
 - **menuOptionNameFormat**: reformats the menu option names in the selected way.
+- **editorBackgroundPath**: path to the background image for the editor.
+- **editorBackgroundScaleToMaxSize**: if true the background image will scale to fit the screen.
+- **editorStickerPath**: path to the sticker image for the editor.
+- **toastStayTime**: how long the toast stays on screen in seconds.
+- **theme**: the theme used for the entire application.
+- **levelTilingBackgroundPath**: this image will be tiled across the level.
 
 ## block settings that apply to many blocks
 

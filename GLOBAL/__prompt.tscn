@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://ccobtxlykollf"]
+[gd_scene load_steps=13 format=3 uid="uid://ccobtxlykollf"]
 
 [ext_resource type="Script" uid="uid://in0c53flu1jr" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
+[ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="2_4ps5d"]
 
 [sub_resource type="InputEventKey" id="InputEventKey_s0bsq"]
 device = -1
@@ -56,6 +57,7 @@ custom_minimum_size = Vector2(50, 50)
 offset_right = 294.0
 offset_bottom = 121.0
 color = Color(0.223103, 0.223103, 0.223103, 1)
+script = ExtResource("2_4ps5d")
 
 [node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
 layout_mode = 0

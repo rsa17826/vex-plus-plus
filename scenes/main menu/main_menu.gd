@@ -128,8 +128,9 @@ func showMoreOptions(levelName, levelData):
         ToastParty.err("authors name must be set")
         return
       var levelCode = str(levelData.version) + '/' + levelData.author + "/" + levelName
-      if levelCode.find("//"):
-        ToastParty.err("invalid level data")
+      if levelCode.find("//") != -1:
+        ToastParty.err("invalid level data " + levelCode)
+        log.err(levelCode)
         return
       var url = (
         "https://raw.githubusercontent.com/rsa17826/" +

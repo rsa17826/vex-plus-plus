@@ -160,7 +160,7 @@ func downloadLevel(version, creator, level):
   if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)]):
     ToastParty.success("Download complete\nThe map has been loaded.")
   else:
-    ToastParty.error("Download failed or was not a valid map.")
+    ToastParty.error("Download failed, the map doesn't exist, or the map was invalid.")
 
 func loadLevelById() -> void:
   var data = (
