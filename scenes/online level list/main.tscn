@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
 [ext_resource type="Script" uid="uid://dtk8xcpxhq7fx" path="res://addons/tnowe_extra_controls/elements/properties_box.gd" id="2_1ujms"]
-[ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/main menu/loading animation.tscn" id="2_7t3ru"]
+[ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_7t3ru"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("versionNodeHolder", "pbox", "loadingText", "levelListContainerNode")]
 layout_mode = 3
