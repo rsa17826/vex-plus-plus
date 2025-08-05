@@ -132,6 +132,14 @@ func show(config={}):
   var _config_cleaned = clean_config(config)
   _add_new_label(_config_cleaned)
 
+func err(msg):
+  show({
+    "text": msg,
+    "bgcolor": Color(1, 0, 0, .4),
+    "color": Color(1, 1, 1, 1),
+    "gravity": "top",
+    "direction": "right"
+  })
 func error(msg):
   show({
     "text": msg,

@@ -42,12 +42,12 @@ func _ready() -> void:
       node.tooltip_text = data.description if data.description else "NO DESCRIPTION SET"
       node.newSaveBtn.tooltip_text = node.tooltip_text
       node.loadSaveBtn.tooltip_text = node.tooltip_text
-    node.moreOptsBtn.connect("pressed", showMoreOptions.bind(level))
+    node.moreOptsBtn.connect("pressed", showMoreOptions.bind(level, data))
     levelContainer.add_child(node)
   loadUserOptions()
   %version.text = "VERSION: " + str(global.VERSION)
 
-func showMoreOptions(level):
+func showMoreOptions(levelName, levelData):
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
   var i := 0
   pm.clear()
@@ -58,7 +58,8 @@ func showMoreOptions(level):
     "show in file explorer",
     "open settings file",
     "export",
-    "upload"
+    "upload",
+    "copy level share code",
   ]:
     pm.add_item(k, i)
     i += 1
@@ -71,44 +72,44 @@ func showMoreOptions(level):
   match res:
     0:
       global.copyDir(
-        global.path.join(global.MAP_FOLDER, level),
-        global.path.join(global.MAP_FOLDER, level + " (copy)")
+        global.path.join(global.MAP_FOLDER, levelName),
+        global.path.join(global.MAP_FOLDER, levelName + " (copy)")
       )
       get_tree().reload_current_scene()
     1:
-      OS.move_to_trash((global.path.join(global.MAP_FOLDER, level)))
+      OS.move_to_trash((global.path.join(global.MAP_FOLDER, levelName)))
       get_tree().reload_current_scene()
     2:
       DirAccess.rename_absolute(
-        global.path.join(global.MAP_FOLDER, level),
+        global.path.join(global.MAP_FOLDER, levelName),
         global.path.join(global.MAP_FOLDER,
           (await global.prompt(
             "Rename map",
             global.PromptTypes.string,
-            level
+            levelName
           )).replace("/", '').replace("\\", '')
         )
       )
       get_tree().reload_current_scene()
     3:
-      OS.shell_open(global.path.join(global.MAP_FOLDER, level))
+      OS.shell_open(global.path.join(global.MAP_FOLDER, levelName))
     4:
-      OS.shell_open(global.path.join(global.MAP_FOLDER, level, "options.sds"))
+      OS.shell_open(global.path.join(global.MAP_FOLDER, levelName, "options.sds"))
     5:
-      log.pp(level)
+      log.pp(levelName)
       global.zipDir(
-        global.path.join(global.MAP_FOLDER, level),
-        global.path.abs("res://exports/" + level + ".vex++")
+        global.path.join(global.MAP_FOLDER, levelName),
+        global.path.abs("res://exports/" + levelName + ".vex++")
       )
       OS.shell_open(global.path.abs("res://exports"))
     6:
-      var outpath = global.path.abs("res://exports/" + level + ".vex++")
+      var outpath = global.path.abs("res://exports/" + levelName + ".vex++")
       global.zipDir(
-        global.path.join(global.MAP_FOLDER, level),
+        global.path.join(global.MAP_FOLDER, levelName),
         outpath
       )
       var f = FileAccess.open(outpath, FileAccess.READ)
-      var data = sds.loadDataFromFile(global.path.join(global.MAP_FOLDER, level, "/options.sds"))
+      var data = sds.loadDataFromFile(global.path.join(global.MAP_FOLDER, levelName, "/options.sds"))
 
       var version = str(data.version)
       var author = data.author
@@ -116,11 +117,33 @@ func showMoreOptions(level):
       if not author:
         ToastParty.err("Please enter an author name")
         return
-      if not level:
+      if not levelName:
         ToastParty.err("Please enter a map name")
         return
-      await upload_file("levels/" + version + '/' + author + '/' + level + ".vex++", c, author)
+      await upload_file("levels/" + version + '/' + author + '/' + levelName + ".vex++", c, author)
       f.close()
+    7:
+      # log.pp(levelData, levelData.author)
+      if not levelData.author:
+        ToastParty.err("authors name must be set")
+        return
+      var levelCode = str(levelData.version) + '/' + levelData.author + "/" + levelName
+      if levelCode.find("//"):
+        ToastParty.err("invalid level data")
+        return
+      var url = (
+        "https://raw.githubusercontent.com/rsa17826/" +
+        REPO_NAME + "/" + BRANCH + "/levels/" +
+        global.urlEncode(str(levelData.version) + '/' + levelData.author + "/" + levelName) + '.vex++'
+      )
+      var data = await global.httpGet(url, [], HTTPClient.METHOD_GET)
+      if data.code == 200:
+        DisplayServer.clipboard_set(levelCode)
+        ToastParty.success("level code copied to clipboard")
+      else:
+        ToastParty.err("level has not been uploaded. it must be uploaded before the code will work")
+        DisplayServer.clipboard_set(levelCode)
+      # log.pp(data.code, data, levelData, levelData.author, url)
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
 
