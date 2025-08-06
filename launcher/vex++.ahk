@@ -23,8 +23,9 @@ ui := Gui("+AlwaysOnTop")
 ui.OnEvent("Close", GuiClose)
 ui.Add("Text", , "Vex++ Version Manager")
 
+apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 newestExeVersion := "4.5.beta3"
-
+doingSomething := 0
 versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Version",
   "Status",
@@ -36,6 +37,15 @@ try FileDelete("temp.zip")
 try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
+if FileExist("updating self") {
+  releases := FetchReleases(apiUrl)
+  F.write("launcherData/launcherVersion", releases.Length)
+  if F.read("updating self") == 'silent' {
+    FileDelete("updating self")
+    ExitApp()
+  }
+  FileDelete("updating self")
+}
 
 hasProcessRunning() {
   ; if the game process is running
@@ -102,11 +112,18 @@ SetTimer(() {
 }, -1000)
 
 offline := A_Args.join(" ").includes("offline")
+silentUpdate := A_Args.join(" ").includes("update")
+
+if silentUpdate {
+  releases := FetchReleases(apiUrl)
+  UpdateSelf()
+  ExitApp()
+}
+
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
 ui.Show("AutoSize")
 ; Define the GitHub API URL for fetching releases
-apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 addedVersions := []
 listedVersions := []
 ; Fetch the releases from the GitHub API
@@ -152,7 +169,6 @@ if !offline {
     }
   }
 }
-
 i := 0
 lastRanVersion := F.read("launcherData/lastRanVersion.txt")
 for thing in listedVersions.sort((a, s) {
@@ -202,6 +218,12 @@ guiCtrl.OnEvent("Click", UpdateSelf)
 ui.Show("AutoSize")
 
 UpdateSelf(*) {
+  global doingSomething
+  if doingSomething {
+    MsgBox("already doing something, wait till done")
+    return
+  }
+  doingSomething := 1
   maxVersion := 0
   url := ''
   for release in releases {
@@ -213,7 +235,14 @@ UpdateSelf(*) {
   }
   if (url) {
     ; ToolTip("Downloading...")
-    DownloadFile(url, "temp.zip")
+    if silentUpdate {
+      F.write("updating self", "silent")
+      DownloadFile(url, "temp.zip", , 1)
+    }
+    else {
+      F.write("updating self", "normal")
+      DownloadFile(url, "temp.zip", , 1)
+    }
     unzip("temp.zip", "temp")
     FileDelete("temp.zip")
 
@@ -366,6 +395,11 @@ updateRow(row, version?, status?, runtext?) {
 }
 
 DownloadAll(*) {
+  global doingSomething
+  if doingSomething {
+    MsgBox("already doing something, wait till done")
+    return
+  }
   ; Loop through each release to download and extract the ZIP file
   i := 0
   for thing in listedVersions {
@@ -378,6 +412,12 @@ DownloadAll(*) {
 
 ; Handle the download button click
 DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]) {
+  global doingSomething
+  if doingSomething {
+    MsgBox("already doing something, wait till done")
+    return
+  }
+  doingSomething := 1
   ; Find the release corresponding to the selected version
   for release in releases {
     ; print(release.tag_name, selectedVersion)
@@ -437,10 +477,17 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     versionListView.Modify(row, "Col2", "Failed")
     MsgBox("Failed to find download URL for version " selectedVersion ".")
   }
+  doingSomething := 0
 }
 
 ; Function to fetch releases from the GitHub API
 FetchReleases(apiUrl) {
+  global doingSomething
+  if doingSomething {
+    MsgBox("already doing something, wait till done")
+    return
+  }
+  doingSomething := 1
   ret := []
   i := 0
   while 1 {
@@ -467,7 +514,7 @@ FetchReleases(apiUrl) {
   }
   ; Clean up the temporary JSON file
   try FileDelete(jsonFile)
-
+  doingSomething := 0
   return ret
 }
 
