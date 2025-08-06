@@ -156,8 +156,17 @@ func _ready() -> void:
   )
 
 var defaultAngle: float
+var startedPanning: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
+  var shouldPan: bool = Input.is_action_pressed(&"editor_pan")
+  if global.useropts.autoPanWhenClickingEmptySpace:
+    if not Input.is_action_pressed(&"editor_pan"):
+      if (!global.hoveredBlocks or startedPanning) and !global.selectedBlock and Input.is_action_pressed(&"editor_select", true):
+        startedPanning = true
+        shouldPan = true
+      else:
+        startedPanning = false
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
   if event is InputEventMouseMotion and isFakeMouseMovement:
     isFakeMouseMovement = false
@@ -171,7 +180,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if event is InputEventMouseMotion and not global.showEditorUi:
     camRotLock = defaultAngle
     global.setEditorUiState(true)
-  if Input.is_action_pressed(&"editor_pan") and not global.showEditorUi:
+  if (shouldPan) and not global.showEditorUi:
     camRotLock = defaultAngle
     global.setEditorUiState(true)
     if not camLockPos:
@@ -190,7 +199,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if not camLockPos:
       camLockPos = $Camera2D.global_position
     $Camera2D.reset_smoothing()
-    if Input.is_action_pressed(&"editor_select") and Input.is_action_pressed(&"editor_pan"):
+    if Input.is_action_pressed(&"editor_select") and shouldPan:
       camLockPos -= (event.relative.rotated($Camera2D.global_rotation)) * global.useropts.editorScrollSpeed
       var mousePos := get_viewport().get_mouse_position()
       var startPos := mousePos

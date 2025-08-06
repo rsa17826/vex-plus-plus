@@ -410,6 +410,7 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     "file":
       await global.wait()
       menu_data[name].user=node.get_node("FileDialog").files
+      (node.get_node("FileDialog") as FileDialog).current_dir=path.get_basename()
       node.get_node("Button").tooltip_text='selected file: ' + menu_data[name].user
     _:
       log.err("cant save type: " + menu_data[name].type)
