@@ -39,7 +39,7 @@ FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "
 DirCreate("launcherData")
 if not FileExist("launcherData/launcherVersion") {
   try FileDelete(A_startup "/vex++ updater.lnk")
-  FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate")
+  FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
 }
 releases := 0
 loadReleases() {
@@ -48,14 +48,15 @@ loadReleases() {
     return
   releases := FetchReleases(apiUrl)
 }
-silentUpdate := A_Args.join(" ").includes("update")
+selfUpdate := A_Args.join(" ").includes("update")
+silent := A_Args.join(" ").includes("silent")
 if A_Args.join(" ").includes("tryupdate") {
   loadReleases()
   if F.read("launcherData/launcherVersion") != releases.Length {
-    silentUpdate := 1
+    selfUpdate := 1
   }
 }
-if silentUpdate {
+if selfUpdate {
   loadReleases()
   UpdateSelf()
   ExitApp()
@@ -164,8 +165,12 @@ versionListView.OnEvent("DoubleClick", LV_DoubleClick)
 versionListView.ModifyCol(2)
 versionListView.ModifyCol(3)
 ui.Show("AutoSize")
+newUpdateAvailable := 0
 if !offline {
   loadReleases()
+  if F.read("launcherData/launcherVersion") != releases.Length {
+    newUpdateAvailable := 1
+  }
   for release in releases {
     versionName := release.tag_name
     versionPath := "versions/" versionName
@@ -230,7 +235,10 @@ GuiSetPlaceholder(guiCtrl, "extra game arguments go here")
 
 guiCtrl := ui.Add("Button", , "Download All Versions")
 guiCtrl.OnEvent("Click", DownloadAll)
-guiCtrl := ui.Add("Button", , "Update Self")
+if newUpdateAvailable
+  guiCtrl := ui.Add("Button", , "new launcher version available - click to update")
+else
+  guiCtrl := ui.Add("Button", , "launcher is up to date")
 guiCtrl.OnEvent("Click", UpdateSelf)
 updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
 guiCtrl := ui.AddCheckbox(updateOnBoot ? "+Checked" : '', "check for updates on startup")
@@ -240,7 +248,7 @@ guiCtrl.OnEvent("Click", (elem, info) {
   updateOnBoot := elem.Value
   try FileDelete(A_startup "/vex++ updater.lnk")
   if updateOnBoot {
-    FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate")
+    FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
   }
 })
 ui.Show("AutoSize")
@@ -263,14 +271,8 @@ UpdateSelf(*) {
   }
   if (url) {
     ; ToolTip("Downloading...")
-    if silentUpdate {
-      F.write("updating self", "silent")
-      DownloadFile(url, "temp.zip", , 1)
-    }
-    else {
-      F.write("updating self", "normal")
-      DownloadFile(url, "temp.zip", , 1)
-    }
+    F.write("updating self", silent ? "silent" : "normal")
+    DownloadFile(url, "temp.zip", , !silent)
     unzip("temp.zip", "temp")
     FileDelete("temp.zip")
 
