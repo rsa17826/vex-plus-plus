@@ -1,14 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://b31y1p0vb51q7"]
+[gd_scene load_steps=5 format=3 uid="uid://b31y1p0vb51q7"]
 
 [ext_resource type="Script" uid="uid://dur43asy3t3mf" path="res://scenes/editor bar/editor_bar.gd" id="1_qpmov"]
 [ext_resource type="Script" uid="uid://btiov2nidp8ca" path="res://scenes/editor bar/editor_bar_item.gd" id="2_ckwjv"]
+[ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="3_g2vmx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpmov"]
 size = Vector2(700, 700)
 
 [node name="editor bar" type="Node2D"]
 script = ExtResource("1_qpmov")
-maxId = 20
 
 [node name="item" type="Area2D" parent="."]
 script = ExtResource("2_ckwjv")
@@ -21,6 +21,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 color = Color(0.172833, 0.172833, 0.172833, 1)
+script = ExtResource("3_g2vmx")
 
 [connection signal="mouse_entered" from="item" to="item" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="item" to="item" method="_on_mouse_exited"]

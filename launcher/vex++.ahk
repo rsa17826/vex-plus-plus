@@ -221,13 +221,15 @@ guiCtrl.OnEvent("change", (elem, *) {
 
 GuiSetPlaceholder(guiCtrl, "extra game arguments go here")
 
-guiCtrl := ui.Add("Button", , "Download All Versions")
-guiCtrl.OnEvent("Click", DownloadAll)
-if newUpdateAvailable
-  guiCtrl := ui.Add("Button", , "new launcher version available - click to update")
-else
-  guiCtrl := ui.Add("Button", , "launcher is up to date")
-guiCtrl.OnEvent("Click", UpdateSelf)
+if not offline {
+  guiCtrl := ui.Add("Button", , "Download All Versions")
+  guiCtrl.OnEvent("Click", DownloadAll)
+  if newUpdateAvailable
+    guiCtrl := ui.Add("Button", , "new launcher version available - click to update")
+  else
+    guiCtrl := ui.Add("Button", , "launcher is up to date")
+  guiCtrl.OnEvent("Click", UpdateSelf)
+}
 updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
 guiCtrl := ui.AddCheckbox(updateOnBoot ? "+Checked" : '', "check for updates on startup")
 guiCtrl.OnEvent("Click", (elem, info) {

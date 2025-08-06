@@ -89,10 +89,10 @@ metadata/_edit_lock_ = true
 [node name="block menu" parent="." instance=ExtResource("8_y220t")]
 metadata/_edit_lock_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="sticker" type="CanvasLayer" parent="."]
 layer = 3
 
-[node name="sticker" type="TextureRect" parent="CanvasLayer"]
+[node name="sticker" type="TextureRect" parent="sticker"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
