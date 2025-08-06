@@ -228,7 +228,6 @@ func show_menu():
         var node = preload(path + "file.tscn").instantiate()
         node.get_node("Label").text = formatName.call(thing.name)
         node.get_node("Button").text = 'pick a file' if thing.single else 'pick files'
-        node.get_node("Button").tooltip_text = 'selected file: ' + str(thing.user)
         var fileNode = node.get_node("FileDialog")
         fileNode.files = thing.user
         fileNode.single = thing.single
@@ -410,7 +409,6 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     "file":
       await global.wait()
       menu_data[name].user=node.get_node("FileDialog").files
-      (node.get_node("FileDialog") as FileDialog).current_dir=path.get_basename()
       node.get_node("Button").tooltip_text='selected file: ' + menu_data[name].user
     _:
       log.err("cant save type: " + menu_data[name].type)
