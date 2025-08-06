@@ -37,8 +37,28 @@ try FileDelete("temp.zip")
 try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
-if FileExist("updating self") {
+releases := 0
+loadReleases() {
+  global releases
+  if releases
+    return
   releases := FetchReleases(apiUrl)
+}
+silentUpdate := A_Args.join(" ").includes("update")
+if A_Args.join(" ").includes("tryupdate") {
+  loadReleases()
+  if F.read("launcherData/launcherVersion") != releases.Length {
+    silentUpdate := 1
+  }
+}
+if silentUpdate {
+  loadReleases()
+  UpdateSelf()
+  ExitApp()
+}
+
+if FileExist("updating self") {
+  loadReleases()
   F.write("launcherData/launcherVersion", releases.Length)
   if F.read("updating self") == 'silent' {
     FileDelete("updating self")
@@ -112,13 +132,6 @@ SetTimer(() {
 }, -1000)
 
 offline := A_Args.join(" ").includes("offline")
-silentUpdate := A_Args.join(" ").includes("update")
-
-if silentUpdate {
-  releases := FetchReleases(apiUrl)
-  UpdateSelf()
-  ExitApp()
-}
 
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
@@ -148,7 +161,7 @@ versionListView.ModifyCol(2)
 versionListView.ModifyCol(3)
 ui.Show("AutoSize")
 if !offline {
-  releases := FetchReleases(apiUrl)
+  loadReleases()
   for release in releases {
     versionName := release.tag_name
     versionPath := "versions/" versionName
