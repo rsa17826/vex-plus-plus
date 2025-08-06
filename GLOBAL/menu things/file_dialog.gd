@@ -1,6 +1,9 @@
 extends FileDialog
 
 func _on_button_pressed() -> void:
+  var file: String = files if files is String else files[0]
+  current_dir = file.get_base_dir()
+  current_path = file
   visible = true
 
 var single: bool = true

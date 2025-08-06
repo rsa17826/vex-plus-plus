@@ -159,6 +159,12 @@
       {
         "thing": "option",
         "type": "bool",
+        "key": "autoPanWhenClickingEmptySpace",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
         "key": "movingPathNodeMovesEntirePath",
         "defaultValue": false
       },

@@ -65,6 +65,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ## Settings
 
+- **autoPanWhenClickingEmptySpace**: when dragging on an empty space, with no blocks on it, it will treat it as if editor_pan was pressed.
 - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
 - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
 - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.

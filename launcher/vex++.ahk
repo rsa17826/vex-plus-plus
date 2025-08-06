@@ -37,6 +37,10 @@ try FileDelete("temp.zip")
 try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
+if not FileExist("launcherData/launcherVersion") {
+  try FileDelete(A_startup "/vex++ updater.lnk")
+  FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate")
+}
 releases := 0
 loadReleases() {
   global releases
@@ -228,12 +232,23 @@ guiCtrl := ui.Add("Button", , "Download All Versions")
 guiCtrl.OnEvent("Click", DownloadAll)
 guiCtrl := ui.Add("Button", , "Update Self")
 guiCtrl.OnEvent("Click", UpdateSelf)
+updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
+guiCtrl := ui.AddCheckbox(updateOnBoot ? "+Checked" : '', "check for updates on startup")
+guiCtrl.OnEvent("Click", (elem, info) {
+  print(elem, info)
+  global updateOnBoot
+  updateOnBoot := elem.Value
+  try FileDelete(A_startup "/vex++ updater.lnk")
+  if updateOnBoot {
+    FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate")
+  }
+})
 ui.Show("AutoSize")
 
 UpdateSelf(*) {
   global doingSomething
   if doingSomething {
-    MsgBox("already doing something, wait till done")
+    aotMsgBox("already doing something, wait till done")
     return
   }
   doingSomething := 1
@@ -320,7 +335,7 @@ getExeVersion(version, default?) {
 runSelectedVersion() {
   selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]
   if !path.info(A_ScriptDir, "versions", selectedVersion, "vex.pck").isfile
-    return MsgBox("The selected version is not valid!", "Error", 0x30 | 0x1000)
+    return aotMsgBox("The selected version is not valid!", "Error", 0x30 | 0x1000)
 
   exeVersion := getExeVersion(selectedVersion, () {
     ; if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
@@ -332,8 +347,8 @@ runSelectedVersion() {
     ; }
   })
   if !exeVersion
-    return ; MsgBox("Could not find the required executable version.")
-  ; MsgBox('exeVersion ' exeVersion)
+    return ; aotMsgBox("Could not find the required executable version.")
+  ; aotMsgBox('exeVersion ' exeVersion)
   if !hasProcessRunning() {
     try {
       FileCopy(
@@ -348,7 +363,7 @@ runSelectedVersion() {
       )
     }
     catch {
-      MsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR", 0x1000)
+      aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR", 0x1000)
     }
   }
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
@@ -410,7 +425,7 @@ updateRow(row, version?, status?, runtext?) {
 DownloadAll(*) {
   global doingSomething
   if doingSomething {
-    MsgBox("already doing something, wait till done")
+    aotMsgBox("already doing something, wait till done")
     return
   }
   ; Loop through each release to download and extract the ZIP file
@@ -427,7 +442,7 @@ DownloadAll(*) {
 DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]) {
   global doingSomething
   if doingSomething {
-    MsgBox("already doing something, wait till done")
+    aotMsgBox("already doing something, wait till done")
     return
   }
   doingSomething := 1
@@ -471,7 +486,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     ; _f.write(target)
     ; _f.close()
     loop files A_ScriptDir "/game data/exes/*", 'D' {
-      ; MsgBox("reading file: " A_LoopFileName)
+      ; aotMsgBox("reading file: " A_LoopFileName)
       if FileRead(A_LoopFileFullPath "/vex.exe", "UTF-16-RAW") == target {
         version := A_LoopFileName
         break
@@ -488,7 +503,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
   } else {
     listedVersions[row].status = "Failed"
     versionListView.Modify(row, "Col2", "Failed")
-    MsgBox("Failed to find download URL for version " selectedVersion ".")
+    aotMsgBox("Failed to find download URL for version " selectedVersion ".")
   }
   doingSomething := 0
 }
@@ -497,7 +512,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
 FetchReleases(apiUrl) {
   global doingSomething
   if doingSomething {
-    MsgBox("already doing something, wait till done")
+    aotMsgBox("already doing something, wait till done")
     return
   }
   doingSomething := 1
