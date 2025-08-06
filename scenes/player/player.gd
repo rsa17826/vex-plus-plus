@@ -180,7 +180,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if event is InputEventMouseMotion and not global.showEditorUi:
     camRotLock = defaultAngle
     global.setEditorUiState(true)
-  if (shouldPan) and not global.showEditorUi:
+  if shouldPan and not global.showEditorUi:
     camRotLock = defaultAngle
     global.setEditorUiState(true)
     if not camLockPos:
@@ -311,6 +311,11 @@ func _physics_process(delta: float) -> void:
         position = respawnPosition
       else:
         position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, respawnPosition)
+      $Camera2D.position = Vector2.ZERO
+      log.pp($Camera2D.global_position)
+      if global.showEditorUi:
+        if not camLockPos:
+          camLockPos = $Camera2D.global_position
       pulleyNoDieTimer = 0
       inWaters = []
       # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
