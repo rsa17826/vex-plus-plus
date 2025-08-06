@@ -573,25 +573,19 @@ static func info(...msgs) -> void:
   print_rich(m)
 
 static func warn(...msgs) -> void:
-  var rich_msgs = msgs.duplicate()
-  rich_msgs.push_front("[color=yellow][WARN][ / color]")
-  print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
+  print_rich("[color=yellow][WARN][/color]: " + log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   push_warning(m)
 
 static func err(...msgs) -> void:
-  var rich_msgs = msgs.duplicate()
-  rich_msgs.push_front("[color=red][ERR][ / color]")
-  print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
+  print_rich("[color=red][ERR][/color]: " + log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   if not Engine.is_editor_hint():
     ToastParty.error(m)
   push_error(m)
 
 static func error(...msgs) -> void:
-  var rich_msgs = msgs.duplicate()
-  rich_msgs.push_front("[color=red][ERR][ / color]")
-  print_rich(log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
+  print_rich("[color=red][ERR][/color]: " + log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   if not Engine.is_editor_hint():
     ToastParty.error(m)

@@ -92,7 +92,7 @@ func loadOnlineLevels():
   var levels = (await global.httpGet(
     url
   )).response
-  var allData = {}
+  var allData := {}
   for level in levels.tree:
     var data = global.regMatch(level.path, r"^levels/(\d+)/([^/]+)/([^/]+\.vex\+\+)$")
     if not data:
@@ -111,8 +111,9 @@ func loadOnlineLevels():
   var levelsForCurrentVersionCount = 0
   for child in levelListContainerNode.get_children():
     child.queue_free()
-
-  for version in allData:
+  var arr := allData.keys()
+  arr.sort()
+  for version in arr:
     pbox = PropertiesBox.new()
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     pbox.add_group(str(version))
