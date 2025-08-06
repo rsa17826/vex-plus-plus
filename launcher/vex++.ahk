@@ -124,18 +124,6 @@ loop files A_ScriptDir "\icons\*.ico" {
   sfi(p, A_LoopFileFullPath)
 }
 
-SetTimer(() {
-  ; remove folders named *.png if they already were created
-  loop files A_ScriptDir "/game data/**.png", 'd'
-    DirDelete(A_LoopFileFullPath, 1)
-  ; remove pngs from icons folder
-  loop files A_ScriptDir "/icons/**.png", 'f'
-    FileDelete(A_LoopFileFullPath)
-  ; remove imports from icons folder
-  loop files A_ScriptDir "/icons/**.import", 'f'
-    FileDelete(A_LoopFileFullPath)
-}, -1000)
-
 offline := A_Args.join(" ").includes("offline")
 
 DirCreate("versions")
