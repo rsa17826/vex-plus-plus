@@ -167,6 +167,10 @@ func _unhandled_input(event: InputEvent) -> void:
         shouldPan = true
       else:
         startedPanning = false
+      if !Input.is_action_pressed(&"editor_select", true):
+        startedPanning = false
+        shouldPan = false
+
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
   if event is InputEventMouseMotion and isFakeMouseMovement:
     isFakeMouseMovement = false
@@ -355,6 +359,7 @@ func _physics_process(delta: float) -> void:
       $anim.flip_h = rotation < 0
       $anim.animation = "idle"
       if ACTIONjump:
+        remainingJumpCount -= 1
         vel.cannon = Vector2(0, -17000).rotated(activeCannon.rotation + activeCannon.rotNode.rotation) * activeCannon.scale
         log.pp(vel.cannon)
         justAddedVels.cannon = 5
@@ -454,6 +459,7 @@ func _physics_process(delta: float) -> void:
         tryAndDieHazards()
 
       if Input.is_action_just_pressed(&"down") or inWaters:
+        remainingJumpCount -= 1
         state = States.falling
       applyHeat(delta)
       updateKeyFollowPosition(delta)
@@ -1443,6 +1449,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-91! ice blocks don't require falling to break
   # !version ?-94! traveling through a goal while dying counts as winning
   # !version ?-105! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
+  # !version ?-113! pulleys and cannons give an extra jump
+  # ?!version ?-NOW! falling off a small ledge gives an extra jump
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
