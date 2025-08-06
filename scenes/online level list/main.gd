@@ -113,6 +113,7 @@ func loadOnlineLevels():
     child.queue_free()
 
   for version in allData:
+    pbox = PropertiesBox.new()
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     pbox.add_group(str(version))
     for creator in allData[version]:
@@ -135,7 +136,6 @@ func loadOnlineLevels():
         pbox._group_stack[len(pbox._group_stack) - 1].add_child(node)
       pbox.end_group()
     pbox.end_group()
-    pbox = PropertiesBox.new()
     levelListContainerNode.add_child(pbox)
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
