@@ -488,7 +488,7 @@ func _process(delta: float) -> void:
       else:
         # if not mouse down
         if !Input.is_action_pressed(&"editor_select"):
-          if not _DISABLED or 1:
+          if not _DISABLED:
             if isBeingMoved:
               onEditorMoveEnded()
               isBeingMoved = false
