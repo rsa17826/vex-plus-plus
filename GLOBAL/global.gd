@@ -1224,7 +1224,7 @@ func win() -> void:
 
 var savingPlayerLevelData := false
 
-func savePlayerLevelData() -> void:
+func savePlayerLevelData(blocksOnly:=false) -> void:
   if savingPlayerLevelData: return
   savingPlayerLevelData = true
   await wait()
@@ -1235,10 +1235,10 @@ func savePlayerLevelData() -> void:
     "loadedLevels": loadedLevels,
     "beatLevels": beatLevels,
   }
-
-  currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
-  currentLevel().up_direction = player.up_direction
-  currentLevel().autoRunDirection = player.autoRunDirection
+  if !blocksOnly:
+    currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
+    currentLevel().up_direction = player.up_direction
+    currentLevel().autoRunDirection = player.autoRunDirection
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
   sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
