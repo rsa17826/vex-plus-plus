@@ -325,9 +325,15 @@ getExeVersion(version, default?) {
 }
 
 runSelectedVersion() {
+  global doingSomething
+  if doingSomething {
+    aotMsgBox("already doing something, wait till done")
+    return
+  }
+  doingSomething := 1
   selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]
   if !path.info(A_ScriptDir, "versions", selectedVersion, "vex.pck").isfile
-    return aotMsgBox("The selected version is not valid!", "Error", 0x30 | 0x1000)
+    return aotMsgBox("The selected version is not valid!", "Error", 0x30)
 
   exeVersion := getExeVersion(selectedVersion, () {
     ; if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
@@ -355,7 +361,7 @@ runSelectedVersion() {
       )
     }
     catch {
-      aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR", 0x1000)
+      aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR")
     }
   }
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
