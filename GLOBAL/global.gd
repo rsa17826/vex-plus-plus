@@ -1659,8 +1659,8 @@ func getProcess(pid: int):
 var hitboxesShown := false
 
 func tryAndLoadMapFromZip(from, to):
-  var reader = ZIPReader.new()
-  var err = reader.open(from)
+  var reader := ZIPReader.new()
+  var err := reader.open(from)
   if err:
     log.warn(from, err)
     return
@@ -1712,9 +1712,10 @@ func tryAndLoadMapFromZip(from, to):
     # Not all ZIP archives are strictly ordered, so we need to do this in case
     # the file entry comes before the folder entry.
     root_dir.make_dir_recursive(root_dir.get_current_dir().path_join(outpath).get_base_dir())
-    var file = FileAccess.open(root_dir.get_current_dir().path_join(outpath), FileAccess.WRITE)
+    var file := FileAccess.open(root_dir.get_current_dir().path_join(outpath), FileAccess.WRITE)
     var buffer = reader.read_file(file_path)
     file.store_buffer(buffer)
+    file.close()
   return true
 
 func tryAndGetMapZipsFromArr(args) -> bool:

@@ -153,7 +153,7 @@ func downloadLevel(version, creator, level):
   log.pp(url)
   await global.httpGet(url,
     PackedStringArray(),
-    0,
+    HTTPClient.METHOD_GET,
     '',
     global.path.abs("res://downloaded maps/" + level),
     false

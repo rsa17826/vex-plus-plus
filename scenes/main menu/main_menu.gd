@@ -120,7 +120,7 @@ func showMoreOptions(levelName, levelData):
       if not levelName:
         ToastParty.err("Please enter a map name")
         return
-      await upload_file("levels/" + version + '/' + author + '/' + levelName + ".vex++", c, author)
+      await upload_file("levels/" + version + '/' + author + '/' + levelName + ".vex++", c, data)
       f.close()
     7:
       # log.pp(levelData, levelData.author)
@@ -148,7 +148,11 @@ func showMoreOptions(levelName, levelData):
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
 
-func upload_file(file_path: String, base64_content: String, author: Variant = null) -> void:
+func upload_file(file_path: String, base64_content: String, offlineLevelData: Dictionary) -> void:
+  var cleanup = func():
+    $AnimatedSprite2D.visible = false
+    DirAccess.remove_absolute("user://tempLevelOptions.sds")
+    DirAccess.remove_absolute("user://tempLevel.zip")
   $AnimatedSprite2D.visible = true
   $AnimatedSprite2D.frame = 0
   var url = "https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/" + global.urlEncode(file_path)
@@ -164,15 +168,56 @@ func upload_file(file_path: String, base64_content: String, author: Variant = nu
     "branch": BRANCH
   }
 
-  var getRes = (await global.httpGet(url, headers, HTTPClient.METHOD_GET)).response
-  log.pp('getRes', getRes)
+  var getRes = (await global.httpGet(url + "?rand=" + str(randf()), headers, HTTPClient.METHOD_GET)).response
+  # log.pp('getRes', getRes)
   if "sha" in getRes:
-    if author and await global.prompt(
+    DirAccess.remove_absolute("user://tempLevelOptions.sds")
+    DirAccess.remove_absolute("user://tempLevel.zip")
+    await global.httpGet("https://raw.githubusercontent.com/rsa17826/" +
+      REPO_NAME + "/main/" +
+      global.urlEncode(file_path) + "?rand=" + str(randf()),
+      PackedStringArray(),
+      HTTPClient.METHOD_GET,
+      '',
+      "user://tempLevel.zip",
+      false
+    )
+    var versionCheckPassed = false
+    var reader = ZIPReader.new()
+    var err = reader.open("user://tempLevel.zip")
+    var onlineLevelData = {"levelVersion": - 1}
+    if err:
+      log.warn("failed to download level data")
+      await global.wait(1000)
+    else:
+      reader.get_files()
+      var file = FileAccess.open("user://tempLevelOptions.sds", FileAccess.WRITE)
+      var buffer := reader.read_file("options.sds", false)
+      file.store_buffer(buffer)
+      file.close()
+      onlineLevelData = sds.loadDataFromFile("user://tempLevelOptions.sds")
+      log.pp(onlineLevelData, offlineLevelData, onlineLevelData.levelVersion < offlineLevelData.levelVersion, onlineLevelData.levelVersion, offlineLevelData.levelVersion)
+      if "levelVersion" not in onlineLevelData:
+        onlineLevelData.levelVersion = -1
+      if onlineLevelData.levelVersion < offlineLevelData.levelVersion:
+        versionCheckPassed = true
+      if not versionCheckPassed:
+        global.prompt(
+          "this level you are trying to upload is not newer than the version already uploaded" +
+          "\n\n ONLINE LEVEL VERSION: " + str(onlineLevelData.levelVersion) +
+          ' - LOCAL LEVEL VERSION: ' + str(offlineLevelData.levelVersion),
+          global.PromptTypes.info
+        )
+        cleanup.call()
+        return
+    if offlineLevelData.author and await global.prompt(
       "there is already a level you have previously uploaded with that name. Do you want to overwrite it?\n" +
-      "if so, enter your creator name here: " + author,
+      "if so, enter your creator name here: " + offlineLevelData.author +
+      "\n\n ONLINE LEVEL VERSION: " + str(onlineLevelData.levelVersion) +
+      ' - LOCAL LEVEL VERSION: ' + str(offlineLevelData.levelVersion),
       global.PromptTypes.string
-    ) != author:
-      $AnimatedSprite2D.visible = false
+    ) != offlineLevelData.author:
+      cleanup.call()
       return
     body.sha = getRes.sha
 
@@ -186,7 +231,7 @@ func upload_file(file_path: String, base64_content: String, author: Variant = nu
     log.err(putRes.response)
     log.err(headers)
     ToastParty.error("File upload failed with error code: " + str(putRes.code))
-  $AnimatedSprite2D.visible = false
+  cleanup.call()
 
 func loadLevel(level, fromSave) -> void:
   global.hitboxesShown = global.useropts.showHitboxes
@@ -340,7 +385,3 @@ func _on_load_online_levels_pressed() -> void:
 
 func _on_open_readme_pressed() -> void:
   OS.shell_open("https://github.com/rsa17826/vex-plus-plus#vex")
-
-func _input(event: InputEvent) -> void:
-  if Input.is_key_pressed(KEY_T):
-    breakpoint
