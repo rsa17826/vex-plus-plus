@@ -20,7 +20,7 @@ func on_body_entered(body: Node) -> void:
   if body is Player:
     __disable.call_deferred()
     collected = true
-    global.savePlayerLevelData()
+    global.savePlayerLevelData(true)
 
 func __enable() -> void:
   # for when attached to things like locked box and solar

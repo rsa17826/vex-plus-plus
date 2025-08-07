@@ -1450,6 +1450,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-94! traveling through a goal while dying counts as winning
   # !version ?-105! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
   # !version ?-113! pulleys and cannons give an extra jump
+  # !version ?-113! stars saved block and player data, now they only save block data
   # ?!version ?-NOW! falling off a small ledge gives an extra jump
 
 # add level option to change canPressDownToShortHop and make sh work
