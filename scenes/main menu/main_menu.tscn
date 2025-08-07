@@ -13,55 +13,57 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cbjxn")
-optsmenunode = NodePath("OPTS/ScrollContainer/VBoxContainer")
-levelContainer = NodePath("LEVELS/MarginContainer/ScrollContainer/HFlowContainer")
-scrollContainer = NodePath("OPTS/ScrollContainer")
+optsmenunode = NodePath("VFlowContainer/OPTS/ScrollContainer/VBoxContainer")
+levelContainer = NodePath("VFlowContainer/LEVELS2/ScrollContainer/HFlowContainer")
+scrollContainer = NodePath("VFlowContainer/OPTS/ScrollContainer")
 metadata/_edit_lock_ = true
 
-[node name="OPTS" type="MarginContainer" parent="."]
-layout_mode = 0
+[node name="VFlowContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_top = 24.0
-offset_right = 718.0
-offset_bottom = 420.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="ColorRect" type="ColorRect" parent="OPTS"]
+[node name="OPTS" type="MarginContainer" parent="VFlowContainer"]
+custom_minimum_size = Vector2(418, 588)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="ColorRect" type="ColorRect" parent="VFlowContainer/OPTS"]
 layout_mode = 2
 color = Color(0.1716782, 0.19685069, 0.28747162, 1)
 script = ExtResource("2_okfgx")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="OPTS"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VFlowContainer/OPTS"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="OPTS/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VFlowContainer/OPTS/ScrollContainer"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="LEVELS" type="Control" parent="."]
-anchors_preset = 0
-offset_top = 443.0
-offset_right = 1149.0
-offset_bottom = 609.0
+[node name="LEVELS2" type="MarginContainer" parent="VFlowContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="LEVELS"]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 166.0
+[node name="ColorRect" type="ColorRect" parent="VFlowContainer/LEVELS2"]
+layout_mode = 2
 color = Color(0.1764706, 0.1764706, 0.1764706, 1)
 script = ExtResource("2_okfgx")
 
-[node name="MarginContainer" type="MarginContainer" parent="LEVELS"]
-layout_mode = 0
-offset_left = 2.0
-offset_right = 1150.0
-offset_bottom = 166.0
-
-[node name="ScrollContainer" type="ScrollContainer" parent="LEVELS/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VFlowContainer/LEVELS2"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="HFlowContainer" type="VFlowContainer" parent="LEVELS/MarginContainer/ScrollContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="VFlowContainer/LEVELS2/ScrollContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
 [node name="BTNS" type="VFlowContainer" parent="."]
@@ -89,6 +91,10 @@ layout_mode = 2
 tooltip_text = "opens external webpage"
 text = "instructions"
 
+[node name="change keybinds" type="Button" parent="BTNS"]
+layout_mode = 2
+text = "change keybinds"
+
 [node name="play tut" type="Button" parent="BTNS"]
 visible = false
 layout_mode = 2
@@ -103,16 +109,27 @@ theme_override_constants/outline_size = 4
 vertical_alignment = 1
 
 [node name="CTRLS" parent="." instance=ExtResource("2_8w606")]
+visible = false
 layout_mode = 1
-offset_left = 706.0
-offset_right = 18.0
-offset_bottom = -205.0
+offset_left = 344.0
+offset_top = 102.5
+offset_right = -344.0
+offset_bottom = -102.4989
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_right = 705.0
+offset_right = 418.0
 offset_bottom = 26.0
 text = "OPTIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 423.0
+offset_right = 1152.0
+offset_bottom = 26.0
+text = "LOCAL LEVELS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -122,3 +139,4 @@ vertical_alignment = 1
 [connection signal="pressed" from="BTNS/open level folder" to="." method="_on_open_level_folder_pressed"]
 [connection signal="pressed" from="BTNS/load online levels" to="." method="_on_load_online_levels_pressed"]
 [connection signal="pressed" from="BTNS/open readme" to="." method="_on_open_readme_pressed"]
+[connection signal="pressed" from="BTNS/change keybinds" to="." method="_on_change_keybinds_pressed"]

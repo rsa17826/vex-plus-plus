@@ -354,7 +354,7 @@
         "thing": "option",
         "type": "single select",
         "key": "theme",
-        "defaultValue": 1,
+        "defaultValue": 2,
         "options": ["default", "blue", "black"]
       }
     ]
