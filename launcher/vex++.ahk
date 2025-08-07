@@ -31,9 +31,11 @@ versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Status",
   "Run",
 ])
+if FileExist("c.bat"){
+  aotMsgBox("launcher update was successful")
+}
 try FileDelete("c.bat")
 try DirDelete("temp", 1)
-try FileDelete("temp.zip")
 try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
@@ -48,8 +50,11 @@ loadReleases() {
     return
   releases := FetchReleases(apiUrl)
 }
+
 selfUpdate := A_Args.join(" ").includes("update")
 silent := A_Args.join(" ").includes("silent")
+offline := A_Args.join(" ").includes("offline")
+
 if A_Args.join(" ").includes("tryupdate") {
   loadReleases()
   if F.read("launcherData/launcherVersion") != releases.Length {
@@ -63,15 +68,31 @@ if selfUpdate {
 }
 
 if FileExist("updating self") {
-  loadReleases()
-  F.write("launcherData/launcherVersion", releases.Length)
-  if F.read("updating self") == 'silent' {
+  if FileExist('temp.zip') {
+    if F.read("updating self") == 'silent' {
+      FileDelete("updating self")
+      FileDelete("temp.zip")
+    } else {
+      FileDelete("updating self")
+      FileDelete("temp.zip")
+      aotMsgBox("failed while updating the launcher!!!")
+    }
+  } else {
+    loadReleases()
+    F.write("launcherData/launcherVersion", releases.Length)
+    if F.read("updating self") == 'silent' {
+      FileDelete("updating self")
+      ExitApp()
+    }
     FileDelete("updating self")
-    ExitApp()
   }
-  FileDelete("updating self")
 }
-
+else{
+  if FileExist('temp.zip') {
+    FileDelete("temp.zip")
+    aotMsgBox("failed while installing a game version!!")
+  }
+}
 hasProcessRunning() {
   ; if the game process is running
   if FileExist("game data/process") {
@@ -123,8 +144,6 @@ loop files A_ScriptDir "\icons\*.ico" {
   p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
   sfi(p, A_LoopFileFullPath)
 }
-
-offline := A_Args.join(" ").includes("offline")
 
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
