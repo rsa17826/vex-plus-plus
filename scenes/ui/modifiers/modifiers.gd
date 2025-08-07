@@ -24,7 +24,6 @@ func toggleEditor():
     $"modifiers editor bg".visible = true
     $"modifiers editor bg".size = $GridContainer.size + Vector2(bgPadding, bgPadding) * 2
     $"modifiers editor bg".global_position = global_position - Vector2(bgPadding, bgPadding)
-    $"modifiers editor bg".color = Color.hex(global.useropts.modifierEditorBgColor)
   else:
     $"modifiers editor bg".visible = false
     updateUi(global.player.levelFlags)

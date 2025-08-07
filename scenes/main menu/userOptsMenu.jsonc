@@ -343,12 +343,6 @@
       },
       {
         "thing": "option",
-        "type": "rgba",
-        "key": "modifierEditorBgColor",
-        "defaultValue": 860671
-      },
-      {
-        "thing": "option",
         "type": "range",
         "min": 0,
         "max": 10,

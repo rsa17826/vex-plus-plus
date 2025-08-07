@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://be824ve2c7lm3"]
+[gd_scene load_steps=14 format=3 uid="uid://be824ve2c7lm3"]
 
 [ext_resource type="Script" uid="uid://b6h0y67wm6mxg" path="res://scenes/ui/modifiers/modifiers.gd" id="1_dt3tg"]
+[ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="2_1qclt"]
 [ext_resource type="Texture2D" uid="uid://dyse3nbxu1fjr" path="res://scenes/ui/modifiers/images/placeholder.png" id="2_y06cl"]
 [ext_resource type="Texture2D" uid="uid://bh5nkeis3bmvj" path="res://scenes/ui/modifiers/images/nope.png" id="3_1qclt"]
 [ext_resource type="Texture2D" uid="uid://dwoncen3jiuv0" path="res://scenes/ui/modifiers/images/canDoWallSlide.png" id="4_8ra60"]
@@ -24,6 +25,7 @@ layout_mode = 0
 offset_right = 158.0
 offset_bottom = 158.0
 color = Color(0, 0.049301185, 0.12897289, 1)
+script = ExtResource("2_1qclt")
 
 [node name="GridContainer" type="GridContainer" parent="."]
 layout_mode = 0

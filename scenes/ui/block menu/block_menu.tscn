@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cs4s80p62mgl5"]
+[gd_scene load_steps=2 format=3 uid="uid://cs4s80p62mgl5"]
 
-[ext_resource type="Script" uid="uid://dglshyvotds0f" path="res://scenes/ui/block_menu.gd" id="2_oork6"]
+[ext_resource type="Script" uid="uid://dglshyvotds0f" path="res://scenes/ui/block menu/block_menu.gd" id="2_oork6"]
 
 [node name="block menu" type="HBoxContainer"]
 anchors_preset = 2

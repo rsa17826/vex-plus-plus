@@ -880,7 +880,6 @@ func _physics_process(delta: float) -> void:
       # log.pp(heat, "Heat")
       applyHeat(delta)
       updateKeyFollowPosition(delta)
-
   if !global.showEditorUi:
     var changeInPosition: Vector2 = global_position - frameStartPosition
     var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
