@@ -385,3 +385,6 @@ func _on_load_online_levels_pressed() -> void:
 
 func _on_open_readme_pressed() -> void:
   OS.shell_open("https://github.com/rsa17826/vex-plus-plus#vex")
+
+func _on_change_keybinds_pressed() -> void:
+  $CTRLS.visible = !$CTRLS.visible
