@@ -696,7 +696,7 @@ func localProcess(delta: float) -> void:
   if not player: return
   # if a block is selected
   if selectedBlock or (selectedBrush and selectedBrush.selected == 2):
-    var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
+    var mpos: Vector2 = player.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
     player.moving = 2
     # when trying to rotate blocks
     if editorInRotateMode && selectedBlock \

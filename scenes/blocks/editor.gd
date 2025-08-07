@@ -431,7 +431,6 @@ func onEditorMoveEnded(): pass
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
-  if global.player.state == global.player.States.dead: return
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
   if !_DISABLED:
@@ -612,6 +611,7 @@ func _process(delta: float) -> void:
           else:
             # __disable outline
             ghost.use_parent_material = true
+  if global.player.state == global.player.States.dead: return
   on_process(delta)
 
 func on_process(delta: float): pass
