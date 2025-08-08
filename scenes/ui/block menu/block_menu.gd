@@ -52,7 +52,7 @@ func showBlockMenu():
         global.PromptTypes.float:
           node.value_changed.connect(onThingChanged.bind(k, node))
         global.PromptTypes.string:
-          node.text_changed.connect(onThingChanged.bind(k, node))
+          node.text_submitted.connect(onThingChanged.bind(k, node))
         global.PromptTypes.rgb:
           node.color_changed.connect(onThingChanged.bind(k, node))
         global.PromptTypes.rgba:
@@ -63,7 +63,7 @@ func showBlockMenu():
           log.pp(k, "Unknown type: ", blockOptions[k].type)
     $outputContainer.add_child(node)
     var resetNode = $base/reset.duplicate()
-    resetNode.pressed.connect(onThingReset.bind(k, node))
+    resetNode.pressed.connect(onThingReset.bind(k))
     $outputContainer.add_child(resetNode)
   updateBlockMenuValues()
 
@@ -135,7 +135,6 @@ func updateBlockMenuValues() -> void:
       node.visible = true
 
 func onThingReset(...data) -> void:
-  var node = data.pop_back()
   var k = data.pop_back()
   if !global.isAlive(global.lastSelectedBlock):
     clearItems()

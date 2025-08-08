@@ -541,14 +541,15 @@ func _physics_process(delta: float) -> void:
           vel.pole.x -= 2 * sign(vel.pole.x) * delta * 60
           # if abs(vel.pole.x) < 5:
           #   vel.pole.x = 0
-
         floor_snap_length = 5
+        # log.pp(remainingJumpCount, "remainingJumpCount", States.keys()[state])
         # reset angle when exiting water
         # setRot(defaultAngle)
         setRot(lerp_angle(rotation, defaultAngle, .2))
         $CollisionShape2D.rotation = 0
         if state == States.wallHang:
           if (CenterIsOnWall() and !TopIsOnWall()):
+            remainingJumpCount -= 1
             state = States.falling
         # hide the water animations
         $anim.visible = true
@@ -635,7 +636,7 @@ func _physics_process(delta: float) -> void:
               if loopIdx >= 20:
                 position -= Vector2(0, loopIdx).rotated(defaultAngle)
                 log.pp("fell off wall hang")
-                # remainingJumpCount -= 1
+                remainingJumpCount -= 1
                 state = States.falling
               position -= Vector2(0, 5).rotated(defaultAngle)
               breakFromWall = true
@@ -732,6 +733,9 @@ func _physics_process(delta: float) -> void:
           if vel.user.y < 0:
             state = States.jumping
           else:
+            # for when getting pushed off a wall
+            if state == States.wallHang:
+              remainingJumpCount -= 1
             state = States.falling
 
         # # # do a short hop if pressing down after jumping
@@ -850,6 +854,7 @@ func _physics_process(delta: float) -> void:
         #   breakpoint
         # log.pp(velocity, vel.user == vel.user.vector)
         if state == States.wallHang and not getClosestWallSide():
+          remainingJumpCount -= 1
           state = States.falling
         for n: String in vel:
           if justAddedVels[n]:
@@ -1450,7 +1455,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-105! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
   # !version ?-113! pulleys and cannons give an extra jump
   # !version ?-113! stars saved block and player data, now they only save block data
-  # ?!version ?-NOW! falling off a small ledge gives an extra jump
+  # ?!version ?-115! getting pushed off a ledge doesn't remove a jump
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
