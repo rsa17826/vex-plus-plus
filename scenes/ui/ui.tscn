@@ -20,14 +20,14 @@ editorBar = NodePath("editor bar")
 progressContainer = NodePath("ProgressContainer")
 progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 modifiers = NodePath("modifiers")
-signalList = NodePath("signal list")
-blockMenu = NodePath("block menu")
+signalList = NodePath("HBoxContainer/signal list")
+blockMenu = NodePath("HBoxContainer/block menu")
 
 [node name="star counter" type="Label" parent="."]
-offset_left = 57.0
-offset_top = 43.0
-offset_right = 97.0
-offset_bottom = 66.0
+offset_left = 4.0
+offset_top = 17.0
+offset_right = 44.0
+offset_bottom = 40.0
 script = ExtResource("5_0dwhk")
 metadata/_edit_lock_ = true
 
@@ -79,14 +79,29 @@ custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 
 [node name="modifiers" parent="." instance=ExtResource("6_jcn1r")]
-offset_top = 120.0
-offset_bottom = 120.0
+offset_top = 75.0
+offset_bottom = 75.0
 metadata/_edit_lock_ = true
 
-[node name="signal list" parent="." instance=ExtResource("7_uegxj")]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 10
+mouse_filter = 2
+
+[node name="signal list" parent="HBoxContainer" instance=ExtResource("7_uegxj")]
+layout_mode = 2
+size_flags_vertical = 8
 metadata/_edit_lock_ = true
 
-[node name="block menu" parent="." instance=ExtResource("8_y220t")]
+[node name="block menu" parent="HBoxContainer" instance=ExtResource("8_y220t")]
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 1
+size_flags_vertical = 8
 metadata/_edit_lock_ = true
 
 [node name="sticker" type="CanvasLayer" parent="."]
