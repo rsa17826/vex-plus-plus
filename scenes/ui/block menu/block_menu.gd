@@ -8,7 +8,11 @@ func _ready() -> void:
 func onEditorStateChanged():
   visible = global.showEditorUi
 
+var showBlockMenuACTIVE: bool = false
+
 func showBlockMenu():
+  if showBlockMenuACTIVE: return
+  showBlockMenuACTIVE = true
   var menuNodes := {
     "BUTTON": $base/button,
     global.PromptTypes.bool: $base/bool,
@@ -66,6 +70,8 @@ func showBlockMenu():
     resetNode.pressed.connect(onThingReset.bind(k))
     $outputContainer.add_child(resetNode)
   updateBlockMenuValues()
+  await global.wait()
+  showBlockMenuACTIVE = false
 
 func clearItems():
   for child in $outputContainer.get_children():
@@ -169,7 +175,7 @@ func onThingChanged(...data) -> void:
   if not block.blockOptions:
     clearItems()
     return
-  log.pp(block.blockOptions, block)
+  # log.pp(block.blockOptions, block)
   # log.pp(k, node, "changed")
   var val = (func():
     match blockOptions[k].type:

@@ -639,8 +639,8 @@ var selectedBlockStartPosition: Vector2
 
 func selectBlock() -> void:
   # select the top hovered block
-  var block: EditorBlock = hoveredBlocks[0]
-  hoveredBlocks.pop_front.call_deferred()
+  log.pp(hoveredBlocks, selectedBlock, 1)
+  var block: EditorBlock = hoveredBlocks.pop_front()
   selectedBlock = block
   lastSelectedBlock = block
   var bpos: Vector2 = block.position
@@ -650,6 +650,7 @@ func selectBlock() -> void:
   var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
   ui.blockMenu.showBlockMenu()
+  log.pp(hoveredBlocks, selectedBlock)
 
 var lastSelectedBlock: EditorBlock:
   set(val):
