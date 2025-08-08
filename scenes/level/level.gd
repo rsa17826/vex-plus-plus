@@ -13,7 +13,7 @@ func onProgress(prog, max):
   global.ui.progressBar.max_value = max
   global.ui.progressBar.value = prog
   if prog % 50 == 0:
-    await global.wait(150)
+    await global.wait()
 
 func loadLevel(level):
   if !is_instance_valid(global.ui): return

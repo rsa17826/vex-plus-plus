@@ -5,7 +5,7 @@ class_name BlockInputDetector
 @export var labelOut: Label
 @export var sprite: Sprite2D
 
-var actions = ["jump", "down", "left", "right"]
+enum actions {jump, down, left, right}
 var lastInput = null
 
 func generateBlockOpts():
@@ -25,7 +25,7 @@ func on_respawn():
   labelOut.rotation = - rotation
 
 func _input(event):
-  var temp = Input.is_action_pressed(actions[selectedOptions.action])
+  var temp = Input.is_action_pressed(actions.keys()[selectedOptions.action])
   if temp != lastInput:
     lastInput = temp
   else: return

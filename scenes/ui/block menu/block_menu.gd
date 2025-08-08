@@ -145,6 +145,8 @@ func onThingReset(...data) -> void:
   var selectedOptions = block.selectedOptions
 
   var val = blockOptions[k].default
+  if k == 'signalOutputId':
+    global.sendSignal(selectedOptions.signalOutputId, block, false)
   if \
   'onChange' not in blockOptions[k] \
   or blockOptions[k].onChange.call(val):
@@ -164,6 +166,10 @@ func onThingChanged(...data) -> void:
   var block = global.lastSelectedBlock
   var blockOptions = block.blockOptions
   var selectedOptions = block.selectedOptions
+  if not block.blockOptions:
+    clearItems()
+    return
+  log.pp(block.blockOptions, block)
   # log.pp(k, node, "changed")
   var val = (func():
     match blockOptions[k].type:
@@ -197,6 +203,8 @@ func onThingChanged(...data) -> void:
   else:
     log.err("unknown type", k, blockOptions[k])
     breakpoint
+  if k == 'signalOutputId':
+    global.sendSignal(selectedOptions.signalOutputId, block, false)
   if \
   'onChange' not in blockOptions[k] \
   or blockOptions[k].onChange.call(val):

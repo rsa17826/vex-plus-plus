@@ -392,7 +392,7 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
     if not RemainingData[IDX]:
       # log.warn(_stack, stack, 4)
       return _stack[len(_stack) - 1]
-    if progress and i % 100 == 0:
+    if progress and i % 350 == 0:
       await global.wait()
     i += 1
     # var getDataReg := func(reg: String, group:=0) -> String:

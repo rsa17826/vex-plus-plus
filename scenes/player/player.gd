@@ -158,7 +158,23 @@ func _ready() -> void:
 var defaultAngle: float
 var startedPanning: bool = false
 
+func _input(event: InputEvent) -> void:
+  if global.openMsgBoxCount: return
 func _unhandled_input(event: InputEvent) -> void:
+  if global.openMsgBoxCount: return
+  if Input.is_action_just_pressed(&"restart"):
+    die(DEATH_TIME, false, true)
+  if Input.is_action_just_pressed(&"full_restart"):
+    die(DEATH_TIME, true, true)
+
+  if state != States.dead and global.showEditorUi:
+    for action: String in ["right", "jump", "left"]:
+      if Input.is_action_pressed(action, true):
+        global.setEditorUiState(false)
+        camLockPos = Vector2.ZERO
+        $Camera2D.position = Vector2.ZERO
+        break
+
   var shouldPan: bool = Input.is_action_pressed(&"editor_pan")
   if global.useropts.autoPanWhenClickingEmptySpace:
     if not Input.is_action_pressed(&"editor_pan"):
@@ -177,10 +193,6 @@ func _unhandled_input(event: InputEvent) -> void:
     return
   # log.pp(event.to_string(), global.showEditorUi)
   if global.openMsgBoxCount: return
-  if Input.is_action_just_pressed(&"restart"):
-    die(DEATH_TIME, false, true)
-  if Input.is_action_just_pressed(&"full_restart"):
-    die(DEATH_TIME, true, true)
   if event is InputEventMouseMotion and not global.showEditorUi:
     camRotLock = defaultAngle
     global.setEditorUiState(true)
@@ -204,6 +216,7 @@ func _unhandled_input(event: InputEvent) -> void:
       camLockPos = $Camera2D.global_position
     $Camera2D.reset_smoothing()
     if Input.is_action_pressed(&"editor_select") and shouldPan:
+      global.ui.blockMenu.clearItems()
       camLockPos -= (event.relative.rotated($Camera2D.global_rotation)) * global.useropts.editorScrollSpeed
       var mousePos := get_viewport().get_mouse_position()
       var startPos := mousePos
@@ -221,16 +234,9 @@ func _unhandled_input(event: InputEvent) -> void:
     # log.pp(camLockPos, "camLockPos")
     updateCamLockPos()
 
-  if state != States.dead and global.showEditorUi:
-    for action: String in ["right", "jump", "left"]:
-      if Input.is_action_pressed(action, true):
-        global.setEditorUiState(false)
-        camLockPos = Vector2.ZERO
-        $Camera2D.position = Vector2.ZERO
-        break
-
   if mouseMode == Input.mouse_mode: return
   Input.mouse_mode = mouseMode
+
 
 func _process(delta: float) -> void:
   if global.openMsgBoxCount: return
@@ -334,6 +340,7 @@ func _physics_process(delta: float) -> void:
       $Camera2D.reset_smoothing()
       up_direction = global.currentLevel().up_direction
       if deadTimer <= 0:
+        global.resendActiveSignals()
         if respawnPosition:
           position = respawnPosition
         else:
@@ -848,7 +855,6 @@ func _physics_process(delta: float) -> void:
             vel[n] *= (velDecay[n]) # * delta * 60
         # if Input.is_key_pressed(KEY_T):
         #   breakpoint
-        # log.pp(velocity, vel.user == vel.user.vector)
         if state == States.wallHang and not getClosestWallSide():
           remainingJumpCount -= 1
           state = States.falling
