@@ -547,10 +547,10 @@ func _physics_process(delta: float) -> void:
         # setRot(defaultAngle)
         setRot(lerp_angle(rotation, defaultAngle, .2))
         $CollisionShape2D.rotation = 0
-        if state == States.wallHang:
-          if (CenterIsOnWall() and !TopIsOnWall()):
-            remainingJumpCount -= 1
-            state = States.falling
+        # if state == States.wallHang:
+        #   if (CenterIsOnWall() and !TopIsOnWall()):
+        #     # remainingJumpCount -= 1
+        #     state = States.falling
         # hide the water animations
         $anim.visible = true
         $waterAnimTop.visible = false
@@ -636,7 +636,7 @@ func _physics_process(delta: float) -> void:
               if loopIdx >= 20:
                 position -= Vector2(0, loopIdx).rotated(defaultAngle)
                 log.pp("fell off wall hang")
-                remainingJumpCount -= 1
+                # remainingJumpCount -= 1
                 state = States.falling
               position -= Vector2(0, 5).rotated(defaultAngle)
               breakFromWall = true
