@@ -39,7 +39,7 @@ extends Node2D
 ## disables the rclick menu for this block
 @export var NO_RCLICK_MENU: bool = false
 ## prevents selecting this block - selection box still appears, need to fix later
-@export var NO_SELECTING: bool = false
+# @export var NO_SELECTING: bool = false
 
 ## prevents selecting this block - selection box still appears, need to fix later
 
@@ -179,6 +179,12 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
       thing.on_input_event(viewport, event, shape_idx)
   if last_input_event == event: return
   last_input_event = event
+
+  if event is InputEventMouseMotion and !event.is_echo() and (event as InputEventMouseMotion).relative:
+    # log.pp(event.relative)
+    if not EDITOR_IGNORE:
+      if isHovered and self not in global.hoveredBlocks:
+        global.hoveredBlocks.append(self )
   # if selecting this block
   if global.hoveredBlocks && self == global.hoveredBlocks[0]:
     if !Input.is_action_pressed(&"editor_pan"):
@@ -195,11 +201,11 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
       #   showPopupMenu()
       # select blocks when clicking them
       if event.is_action_pressed(&"editor_select") && Input.is_action_just_pressed(&"editor_select"):
-        if NO_SELECTING:
-          global.hoveredBlocks.pop_front()
-          if not global.hoveredBlocks: return
+        # if NO_SELECTING:
+        #   global.hoveredBlocks.pop_front()
+        #   if not global.hoveredBlocks: return
         respawn()
-        global.selectBlock()
+        global.selectBlock.call_deferred()
 
 var collisionQueue := {}
 ## don't overite - use on_body_entered instead
@@ -422,6 +428,7 @@ func _physics_process(delta: float) -> void:
           block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
         else:
           block.unusedOffset += lastMovementStep.rotated(-block.rotation) / block.global_scale
+
 var left_edge: float
 var right_edge: float
 var top_edge: float
@@ -431,6 +438,7 @@ func onEditorMoveEnded(): pass
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
+  ghost.use_parent_material = true
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
   if !_DISABLED:
@@ -440,177 +448,171 @@ func _process(delta: float) -> void:
       else:
         node.visible = true
 
+  if not EDITOR_IGNORE:
+    if self in global.hoveredBlocks and !isHovered:
+      global.hoveredBlocks.erase(self )
   # if global.player.state == global.player.States.dead:
   #   respawn()
   #   return
   if is_in_group("buzsaw - generic"):
     _processBUZSAW_GENERIC(delta)
-
-  if not EDITOR_IGNORE:
-    if isHovered:
-      if self not in global.hoveredBlocks:
-        global.hoveredBlocks.append(self )
-    else:
-      if self in global.hoveredBlocks:
-        global.hoveredBlocks.erase(self )
-
     # if ghostFollowNode == self:
     #   ghost.rotation_degrees = 0
     # else:
     #   log.pp(ghost.global_position, ghostFollowNode.global_position, global_position, id)
     #   ghost.global_position = ghostFollowNode.global_position
     #   ghost.global_rotation = ghostFollowNode.global_rotation
-    ghost.use_parent_material = true
-    if global.hoveredBlocks && self == global.hoveredBlocks[0] \
-      or self in global.boxSelect_selectedBlocks and not NO_SELECTING:
-      ghost.modulate.a = global.useropts.hoveredBlockGhostAlpha
+  ghost.use_parent_material = true
+  if global.hoveredBlocks && self == global.hoveredBlocks[0] \
+    or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
+    ghost.modulate.a = global.useropts.hoveredBlockGhostAlpha
+  else:
+    ghost.modulate.a = global.useropts.blockGhostAlpha
+
+  ghost.visible = global.showEditorUi
+  if Input.is_action_pressed(&"editor_box_select"): return
+  if global.showEditorUi and not Input.is_action_pressed(&"editor_pan"):
+    if global.selectedBlock == self:
+      if Input.is_action_pressed(&"editor_select"):
+        if self not in global.boxSelect_selectedBlocks:
+          global.boxSelect_selectedBlocks = []
+        global_position = startPosition
+      if not _DISABLED:
+        isBeingMoved = true
+        for collider in collisionShapes:
+          if not collider:
+            log.pp(collider, collisionShapes, id)
+            breakpoint
+          collider.disabled = true
+      ghost.use_parent_material = false
+      ghost.material.set_shader_parameter("color", Color.hex(global.useropts.selectedBlockOutlineColor))
     else:
-      ghost.modulate.a = global.useropts.blockGhostAlpha
-
-    ghost.visible = global.showEditorUi
-    if Input.is_action_pressed(&"editor_box_select"): return
-    if global.showEditorUi and not Input.is_action_pressed(&"editor_pan"):
-      if global.selectedBlock == self:
-        if Input.is_action_pressed(&"editor_select"):
-          if self not in global.boxSelect_selectedBlocks:
-            global.boxSelect_selectedBlocks = []
-          global_position = startPosition
+      # if not mouse down
+      if !Input.is_action_pressed(&"editor_select"):
         if not _DISABLED:
-          isBeingMoved = true
+          if isBeingMoved:
+            onEditorMoveEnded()
+            isBeingMoved = false
           for collider in collisionShapes:
-            if not collider:
-              log.pp(collider, collisionShapes, id)
+            if not collider and not ignoreMissingNodes:
+              log.pp("invalid collisionShapes", collider, collisionShapes, id)
               breakpoint
-            collider.disabled = true
-        ghost.use_parent_material = false
-        ghost.material.set_shader_parameter("color", Color.hex(global.useropts.selectedBlockOutlineColor))
-      else:
-        # if not mouse down
-        if !Input.is_action_pressed(&"editor_select"):
-          if not _DISABLED:
-            if isBeingMoved:
-              onEditorMoveEnded()
-              isBeingMoved = false
-            for collider in collisionShapes:
-              if not collider and not ignoreMissingNodes:
-                log.pp("invalid collisionShapes", collider, collisionShapes, id)
-                breakpoint
-              collider.disabled = false
-          # set border to hovered color
-          ghost.material.set_shader_parameter("color", Color.hex(global.useropts.hoveredBlockOutlineColor))
-          # and if first hovered block, show border
-          if global.hoveredBlocks && self == global.hoveredBlocks[0] \
-            or self in global.boxSelect_selectedBlocks and not NO_SELECTING:
-            var mouse_pos := get_global_mouse_position().rotated(-deg_to_rad(startRotation_degrees))
+            collider.disabled = false
+        # set border to hovered color
+        ghost.material.set_shader_parameter("color", Color.hex(global.useropts.hoveredBlockOutlineColor))
+        # and if first hovered block, show border
+        if global.hoveredBlocks && self == global.hoveredBlocks[0] \
+          or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
+          var mouse_pos := get_global_mouse_position().rotated(-deg_to_rad(startRotation_degrees))
 
-            var node_pos := ghost.global_position.rotated(-deg_to_rad(startRotation_degrees))
-            var node_size: Vector2 = ghost.texture.get_size() * ghost.scale * scale
-            left_edge = node_pos.x - node_size.x / 2
-            right_edge = node_pos.x + node_size.x / 2
-            top_edge = node_pos.y - node_size.y / 2
-            bottom_edge = node_pos.y + node_size.y / 2
+          var node_pos := ghost.global_position.rotated(-deg_to_rad(startRotation_degrees))
+          var node_size: Vector2 = ghost.texture.get_size() * ghost.scale * scale
+          left_edge = node_pos.x - node_size.x / 2
+          right_edge = node_pos.x + node_size.x / 2
+          top_edge = node_pos.y - node_size.y / 2
+          bottom_edge = node_pos.y + node_size.y / 2
 
-            var leftDist: float = abs(mouse_pos.x - left_edge)
-            var rightDist: float = abs(mouse_pos.x - right_edge)
-            var topDist: float = abs(mouse_pos.y - top_edge)
-            var bottomDist: float = abs(mouse_pos.y - bottom_edge)
-            var testDist := 7
+          var leftDist: float = abs(mouse_pos.x - left_edge)
+          var rightDist: float = abs(mouse_pos.x - right_edge)
+          var topDist: float = abs(mouse_pos.y - top_edge)
+          var bottomDist: float = abs(mouse_pos.y - bottom_edge)
+          var testDist := 7
 
-            # set the sides that you are close enough to to be selecting
-            onTopSide = topDist < testDist
-            onBottomSide = bottomDist < testDist
-            onLeftSide = leftDist < testDist
-            onRightSide = rightDist < testDist
-            if global.useropts.noCornerGrabsForScaling and node_size.y != node_size.x:
-              if onTopSide and onRightSide:
-                if node_size.y < node_size.x:
-                  onTopSide = false
-                else:
-                  onRightSide = false
-              elif onTopSide and onLeftSide:
-                if node_size.y < node_size.x:
-                  onTopSide = false
-                else:
-                  onLeftSide = false
-              elif onBottomSide and onRightSide:
-                if node_size.y < node_size.x:
-                  onBottomSide = false
-                else:
-                  onRightSide = false
-              elif onBottomSide and onLeftSide:
-                if node_size.y < node_size.x:
-                  onBottomSide = false
-                else:
-                  onLeftSide = false
+          # set the sides that you are close enough to to be selecting
+          onTopSide = topDist < testDist
+          onBottomSide = bottomDist < testDist
+          onLeftSide = leftDist < testDist
+          onRightSide = rightDist < testDist
+          if global.useropts.noCornerGrabsForScaling and node_size.y != node_size.x:
+            if onTopSide and onRightSide:
+              if node_size.y < node_size.x:
+                onTopSide = false
+              else:
+                onRightSide = false
+            elif onTopSide and onLeftSide:
+              if node_size.y < node_size.x:
+                onTopSide = false
+              else:
+                onLeftSide = false
+            elif onBottomSide and onRightSide:
+              if node_size.y < node_size.x:
+                onBottomSide = false
+              else:
+                onRightSide = false
+            elif onBottomSide and onLeftSide:
+              if node_size.y < node_size.x:
+                onBottomSide = false
+              else:
+                onLeftSide = false
 
-            # var v = boolsToV2(onTopSide, onBottomSide, onLeftSide, onRightSide).rotated(deg_to_rad(startRotation_degrees))
+          # var v = boolsToV2(onTopSide, onBottomSide, onLeftSide, onRightSide).rotated(deg_to_rad(startRotation_degrees))
 
-            # store the selected sides in global
-            global.scaleOnTopSide = onTopSide
-            global.scaleOnBottomSide = onBottomSide
-            global.scaleOnRightSide = onRightSide
-            global.scaleOnLeftSide = onLeftSide
-            # global.scaleOnTopSide = v.y == -1
-            # global.scaleOnBottomSide = v.y == 1
-            # global.scaleOnRightSide = v.x == 1
-            # global.scaleOnLeftSide = v.x == -1
-            # log.pp("ed", onLeftSide, onRightSide)
+          # store the selected sides in global
+          global.scaleOnTopSide = onTopSide
+          global.scaleOnBottomSide = onBottomSide
+          global.scaleOnRightSide = onRightSide
+          global.scaleOnLeftSide = onLeftSide
+          # global.scaleOnTopSide = v.y == -1
+          # global.scaleOnBottomSide = v.y == 1
+          # global.scaleOnRightSide = v.x == 1
+          # global.scaleOnLeftSide = v.x == -1
+          # log.pp("ed", onLeftSide, onRightSide)
 
-            ghost.material.set_shader_parameter("xSize", global.useropts.blockOutlineSize / (sizeInPx.x / 100))
-            ghost.material.set_shader_parameter("ySize", global.useropts.blockOutlineSize / (sizeInPx.y / 100))
-            # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select
-            ghost.material.set_shader_parameter("showTop",
-              self in global.boxSelect_selectedBlocks or \
-              not global.editorInScaleMode or \
+          ghost.material.set_shader_parameter("xSize", global.useropts.blockOutlineSize / (sizeInPx.x / 100))
+          ghost.material.set_shader_parameter("ySize", global.useropts.blockOutlineSize / (sizeInPx.y / 100))
+          # show what sides are being selected if editorInScaleMode and is scalable or all if selected with box select
+          ghost.material.set_shader_parameter("showTop",
+            self in global.boxSelect_selectedBlocks or \
+            not global.editorInScaleMode or \
+            (
+              onTopSide and
+              global.editorInScaleMode and
               (
-                onTopSide and
-                global.editorInScaleMode and
-                (
-                  EDITOR_OPTION_scale or
-                  global.useropts.allowScalingAnything
-                )
+                EDITOR_OPTION_scale or
+                global.useropts.allowScalingAnything
               )
             )
-            ghost.material.set_shader_parameter("showBottom",
-              self in global.boxSelect_selectedBlocks or \
-              not global.editorInScaleMode or \
+          )
+          ghost.material.set_shader_parameter("showBottom",
+            self in global.boxSelect_selectedBlocks or \
+            not global.editorInScaleMode or \
+            (
+              onBottomSide and
+              global.editorInScaleMode and
               (
-                onBottomSide and
-                global.editorInScaleMode and
-                (
-                  EDITOR_OPTION_scale or
-                  global.useropts.allowScalingAnything
-                )
+                EDITOR_OPTION_scale or
+                global.useropts.allowScalingAnything
               )
             )
-            ghost.material.set_shader_parameter("showLeft",
-              self in global.boxSelect_selectedBlocks or \
-              not global.editorInScaleMode or \
+          )
+          ghost.material.set_shader_parameter("showLeft",
+            self in global.boxSelect_selectedBlocks or \
+            not global.editorInScaleMode or \
+            (
+              onLeftSide and
+              global.editorInScaleMode and
               (
-                onLeftSide and
-                global.editorInScaleMode and
-                (
-                  EDITOR_OPTION_scale or
-                  global.useropts.allowScalingAnything
-                )
+                EDITOR_OPTION_scale or
+                global.useropts.allowScalingAnything
               )
             )
-            ghost.material.set_shader_parameter("showRight",
-              self in global.boxSelect_selectedBlocks or \
-              not global.editorInScaleMode or \
+          )
+          ghost.material.set_shader_parameter("showRight",
+            self in global.boxSelect_selectedBlocks or \
+            not global.editorInScaleMode or \
+            (
+              onRightSide and
+              global.editorInScaleMode and
               (
-                onRightSide and
-                global.editorInScaleMode and
-                (
-                  EDITOR_OPTION_scale or
-                  global.useropts.allowScalingAnything
-                )
+                EDITOR_OPTION_scale or
+                global.useropts.allowScalingAnything
               )
             )
-            ghost.use_parent_material = false
-          else:
-            # __disable outline
-            ghost.use_parent_material = true
+          )
+          ghost.use_parent_material = false
+        else:
+          # disable outline
+          ghost.use_parent_material = true
   if global.player.state == global.player.States.dead: return
   on_process(delta)
 
