@@ -547,10 +547,6 @@ func _physics_process(delta: float) -> void:
         # setRot(defaultAngle)
         setRot(lerp_angle(rotation, defaultAngle, .2))
         $CollisionShape2D.rotation = 0
-        # if state == States.wallHang:
-        #   if (CenterIsOnWall() and !TopIsOnWall()):
-        #     # remainingJumpCount -= 1
-        #     state = States.falling
         # hide the water animations
         $anim.visible = true
         $waterAnimTop.visible = false
@@ -879,7 +875,8 @@ func _physics_process(delta: float) -> void:
         # if floorRayCollision:
         #   handleCollision(floorRayCollision, Vector2(0, -1), 1)
         # trying to fix some downward collisions not having correct normal
-        position += applyRot(Vector2(0, safe_margin))
+        if state != States.wallHang:
+          position += applyRot(Vector2(0, safe_margin))
         tryAndDieHazards()
         tryAndDieSquish()
       # log.pp(heat, "Heat")

@@ -740,6 +740,9 @@
             INT(2){
               STR(texture)STR(2)
             }
+            INT(3){
+              STR(texture)STR(3)
+            }
           }
         }
       }
