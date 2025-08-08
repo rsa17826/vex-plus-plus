@@ -1069,6 +1069,7 @@ func localInput(event: InputEvent) -> void:
           lastSelectedBlock.onDelete()
           lastSelectedBlock.queue_free.call_deferred()
           lastSelectedBlock = temp
+          ui.blockMenu.clearItems()
 
   if mainLevelName:
     if Input.is_action_just_pressed(&"reload_map_from_last_save", true):
@@ -1961,7 +1962,15 @@ var activeSignals: Dictionary[int, Array] = {}:
 
 var signalChanges = {}
 var lastSignals: Dictionary[int, bool] = {}
-
+func resendActiveSignals():
+  log.pp(activeSignals)
+  for id in activeSignals:
+    ui.signalList.onSignalChanged(id, !!activeSignals[id], activeSignals[id])
+    lastSignals[id] = !!activeSignals[id]
+    # log.pp("update signal changes", activeSignals, activeSignals)
+    # text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
+    log.pp(id, !!activeSignals[id], activeSignals[id])
+    signalChanged.emit(id, !!activeSignals[id], activeSignals[id])
 func sendSignals():
   var sc = signalChanges.duplicate()
   signalChanges = {}
