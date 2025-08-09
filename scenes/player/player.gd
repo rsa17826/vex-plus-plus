@@ -309,7 +309,7 @@ func _physics_process(delta: float) -> void:
     States.dead:
       # log.pp(up_direction)
       var respawnPosition = tempLastSpawnPoint if tempLastSpawnPoint else lastSpawnPoint
-      log.pp(tempLastSpawnPoint, "tempLastSpawnPoint")
+      # log.pp(tempLastSpawnPoint, "tempLastSpawnPoint")
       if not global.showEditorUi:
         $Camera2D.global_rotation = defaultAngle
       slowCamRot = false
@@ -321,7 +321,7 @@ func _physics_process(delta: float) -> void:
       else:
         position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, respawnPosition)
       $Camera2D.position = Vector2.ZERO
-      log.pp($Camera2D.global_position)
+      # log.pp($Camera2D.global_position)
       if global.showEditorUi:
         if not camLockPos:
           camLockPos = $Camera2D.global_position
@@ -1257,13 +1257,16 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     deathSources = []
     return
   respawnCooldown = respawnTime
-  log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
+  # log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   # if shouldStopDying and not forced: return
   lastDeathWasForced = forced
   # shouldStopDying = []
   # get_parent().__disable()
   # process_mode = Node.PROCESS_MODE_DISABLED
   updateCollidingBlocksExited()
+  var dontResetPlayerData := false
+  if not forced and state != States.levelLoading and not full:
+    dontResetPlayerData = !!tryChangeRespawnLocation()
   if full:
     lastSpawnPoint = Vector2.ZERO
     global.tick = 0
@@ -1285,14 +1288,9 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   global.stopTicking = true
   deadTimer = max(respawnTime, 0)
   currentRespawnDelay = respawnTime
-  gravState = GravStates.normal
   deathPosition = position
   if state != States.levelLoading:
     state = States.dead
-  keys = []
-  for v: String in vel:
-    vel[v] = Vector2.ZERO
-  velocity = Vector2.ZERO
   playerXIntent = 0
   lastWallCollisionPoint = null
   lastWallSide = 0
@@ -1308,31 +1306,36 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   collsiionOn_bottom = []
   collsiionOn_left = []
   collsiionOn_right = []
-  lightsOut = false
-  speedLeverActive = false
   deathSources = []
   global.lastPortal = null
-  OnPlayerDied.emit()
+  if !dontResetPlayerData:
+    gravState = GravStates.normal
+    keys = []
+    for v: String in vel:
+      vel[v] = Vector2.ZERO
+    velocity = Vector2.ZERO
+    lightsOut = false
+    speedLeverActive = false
+    OnPlayerDied.emit()
   if full:
     OnPlayerFullRestart.emit()
   _physics_process(0)
-  if not forced:
-    tryChangeRespawnLocation()
 
 func tryChangeRespawnLocation():
   var deathRay := RayCast2D.new()
   deathRay.collide_with_areas = true
   deathRay.collide_with_bodies = false
-  deathRay.target_position = lastSpawnPoint - deathPosition
+  deathRay.target_position = lastSpawnPoint - position
   deathRay.collision_mask = 65536
   add_child(deathRay)
   deathRay.force_raycast_update()
   log.pp(lastSpawnPoint - deathPosition, 'lastSpawnPoint - deathPosition')
   if deathRay.is_colliding():
-    log.pp(deathRay.get_collision_point(), 'deathRay.get_collision_point()')
+    log.pp(deathRay.get_collision_point(), 'deathRay.get_collision_point()', deathRay.get_collision_normal())
     tempLastSpawnPoint = (deathRay.get_collision_point() - get_parent().position) \
     + (deathRay.get_collision_normal() * Vector2(4, 33 / 2.0))
   deathRay.queue_free()
+  return tempLastSpawnPoint
 
 func _on_bottom_body_entered(body: Node2D) -> void:
   if body not in collsiionOn_bottom:

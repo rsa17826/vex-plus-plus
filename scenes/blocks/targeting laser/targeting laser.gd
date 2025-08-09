@@ -34,9 +34,12 @@ func on_physics_process(delta: float) -> void:
 
 func _draw() -> void:
   if self in global.player.targetingLasers:
-    var end = Vector2(-668.0, 0)
+    # var end = ray.target_position.rotated(thingThatMoves.rotation)
+    var end = Vector2.ZERO
     if ray.is_colliding():
       end = to_local(ray.get_collision_point())
+    # else:
+    #   log.err("no collision")
     draw_line(
       Vector2.ZERO + thingThatMoves.position,
       end,

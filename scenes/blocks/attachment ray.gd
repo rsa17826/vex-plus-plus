@@ -30,8 +30,8 @@ func tryaddgroups():
   for block in get_overlapping_bodies() + get_overlapping_areas():
     block = block.root
     if block == root: continue
-    # if root.id=='locked box':
-    #   log.pp(block.id, block.canBeAttachedTo)
+    # if root.id == '10x spike':
+    #   log.pp(block.id, root.selectedOptions.canAttachToThings, root.canAttachToThings)
     # log.pp(block, "is overlapping")
     if (
       root.canAttachToThings

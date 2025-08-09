@@ -158,6 +158,9 @@ func respawn() -> void:
   if !isBeingMoved and not DONT_ENABLE_ON_RESPAWN:
     __enable.call_deferred()
 
+  for sprite in hidableSprites:
+    sprite.modulate.a = 1
+
   for thing in cloneEventsHere:
     if 'on_respawn' in thing:
       thing.on_respawn()

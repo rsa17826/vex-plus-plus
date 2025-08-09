@@ -30,3 +30,4 @@ func _process(delta: float) -> void:
   $TextureRect.scale = Vector2(1, 1) / (1 if root.normalScale else 7)
   $TextureRect.position = - (root.sizeInPx / global_scale) / 2
   $TextureRect.size = root.sizeInPx * 7 / global_scale
+
