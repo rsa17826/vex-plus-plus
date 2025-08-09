@@ -9,21 +9,11 @@
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
     }
-    STR(solar){
+    STR(unnamed level){
       STR(color)INT(5)
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
     }
-    STR(moving blocks){
-      STR(color)INT(1)
-      STR(changeSpeedOnSlopes)BOOL(false)
-      STR(saveTick)BOOL(false)
-    }
-    STR(levers){
-      STR(color)INT(3)
-      STR(changeSpeedOnSlopes)BOOL(false)
-      STR(saveTick)BOOL(false)
-    }
   }
-  STRNAME(levelVersion)INT(302)
+  STRNAME(levelVersion)INT(303)
 }

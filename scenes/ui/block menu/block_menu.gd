@@ -210,18 +210,15 @@ func onThingChanged(...data) -> void:
   or blockOptions[k].onChange.call(val):
     selectedOptions[k] = val
     block.toType(k)
-  # log.pp(newData, "newData")
-  # if !newData: return
   block.respawn()
   block._ready()
   block.onOptionEdit.call()
   updateBlockMenuValues()
 
 func _input(event):
-  if not event is InputEventMouseButton: return
-  if not event.pressed: return
-  var control_rect = $outputContainer.get_rect()
-  control_rect.position = Vector2.ZERO
-  var local_rect = control_rect
-  if local_rect.has_point(get_local_mouse_position()): return
-  get_viewport().gui_release_focus()
+  if event is InputEventMouseButton and event.pressed:
+    var control_rect = $outputContainer.get_rect()
+    control_rect.position = Vector2.ZERO
+    var local_rect = control_rect
+    if !local_rect.has_point(get_local_mouse_position()):
+      get_viewport().gui_release_focus()
