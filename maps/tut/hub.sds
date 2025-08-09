@@ -122,8 +122,8 @@
     }
   }
   {
-    STR(x)FLOAT(200.0)
-    STR(y)FLOAT(-1300.0)
+    STR(x)FLOAT(350.0)
+    STR(y)FLOAT(-1250.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -785,8 +785,8 @@
     }
   }
   {
-    STR(x)FLOAT(250.0)
-    STR(y)FLOAT(-1400.0)
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(-1350.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -870,8 +870,8 @@
     }
   }
   {
-    STR(x)FLOAT(150.0)
-    STR(y)FLOAT(-1400.0)
+    STR(x)FLOAT(300.0)
+    STR(y)FLOAT(-1350.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)

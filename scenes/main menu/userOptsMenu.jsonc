@@ -493,5 +493,17 @@
         "defaultValue": false
       }
     ]
+  },
+  {
+    "thing": "group",
+    "name": "misc",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "openExportsDirectoryOnExport",
+        "defaultValue": true
+      }
+    ]
   }
 ]
