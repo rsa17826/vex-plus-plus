@@ -19,7 +19,7 @@ func on_physics_process(delta: float) -> void:
   var closest_point = Vector2(closest_x, closest_y)
   var distance = pos.distance_to(closest_point)
   var newval = clamp(global.rerange(distance, 70, 700, 0.0, 1.0), 0.0, 1.0)
-  sprite.self_modulate.a = lerp(sprite.self_modulate.a, newval, 0.2)
+  sprite.modulate.a = lerp(sprite.modulate.a, newval, 0.2)
   for block: EditorBlock in attach_children:
     for childSprite: Node2D in block.hidableSprites:
-      childSprite.self_modulate.a = sprite.self_modulate.a
+      childSprite.modulate.a = sprite.modulate.a

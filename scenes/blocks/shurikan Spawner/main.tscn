@@ -48,6 +48,7 @@ scale = Vector2(0.566, 0.566)
 texture = ExtResource("4_7eqtn")
 
 [node name="death" type="Area2D" parent="Node2D/ttm" node_paths=PackedStringArray("root")]
+visible = false
 position = Vector2(-729, -37)
 collision_layer = 2064
 collision_mask = 2
