@@ -984,7 +984,6 @@ func _unhandled_input(event: InputEvent) -> void:
       lastMousePos = Vector2.ZERO
     if !lastMousePos and selectedBlock:
       lastMousePos = selectedBlock.get_viewport_transform() * selectedBlock.global_position
-      log.pp(lastMousePos)
     editorInRotateMode = Input.is_action_pressed(&"editor_rotate")
   if editorInRotateMode and event is InputEventMouseMotion and event.screen_relative:
     if selectedBlock \

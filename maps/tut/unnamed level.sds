@@ -2385,4 +2385,41 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(200.0)
+    STR(y)FLOAT(-325.0)
+    STR(w)FLOAT(0.2000000923872)
+    STR(h)FLOAT(1.25000034272671)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(inverse solar)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1800.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(star)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1727.5)
+    STR(y)FLOAT(-2701.5)
+    STR(w)FLOAT(0.15000012144446)
+    STR(h)FLOAT(3.66999888420105)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]
