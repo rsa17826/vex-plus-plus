@@ -750,35 +750,35 @@
     STR(beatLevels)[]
   }
   STR(tut){
-    STR(lastSpawnPoint)VEC2(451.472564697266,-1055.08032226563)
+    STR(lastSpawnPoint)VEC2(201.472564697266,-555.080261230469)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
-        STR(spawnPoint)VEC2(138.7255859375,-1.57329559326172)
+        STR(spawnPoint)VEC2(126.172187805176,-1.49461364746094)
         STR(up_direction)VEC2(0.0,-1.0)
         STR(autoRunDirection)INT(-1)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
-          STR(checkpoint){
-            INT(1){
-              STR(texture)STR(1)
-            }
-            INT(2){
-              STR(texture)STR(1)
-            }
-            INT(3){
-              STR(texture)STR(1)
-            }
-            INT(4){
-              STR(texture)STR(3)
-            }
-            INT(5){
-              STR(texture)STR(2)
-            }
-          }
           STR(star){
             INT(1){
               STR(collected)BOOL(true)
+            }
+            INT(2){
+              STR(collected)BOOL(false)
+            }
+            INT(3){
+              STR(collected)BOOL(true)
+            }
+          }
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(3)
+            }
+            INT(2){
+              STR(texture)STR(2)
+            }
+            INT(3){
+              STR(texture)STR(3)
             }
           }
         }

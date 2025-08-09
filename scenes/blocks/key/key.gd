@@ -16,11 +16,16 @@ func on_body_entered(body: Node) -> void:
 func on_respawn() -> void:
   following = false
   thingThatMoves.position += unusedOffset
+  $collisionNode.global_rotation = 0
   unusedOffset = Vector2.ZERO
   $collisionNode.position = Vector2.ZERO
   if $collisionNode in global.player.keys:
     global.player.keys.erase($collisionNode)
   __enable()
+
+func onDelete():
+  if $collisionNode in global.player.keys:
+    global.player.keys.erase($collisionNode)
 
 func on_process(delta: float) -> void:
   if !following: return

@@ -9,8 +9,8 @@ class_name BlockClosingSpikes
 
 func on_physics_process(delta: float) -> void:
   rotation_degrees = 0
-  leftCollisionShape.global_position = startPosition + %collisionNode.global_position - global_position
-  rightCollisionShape.global_position = startPosition + %collisionNode.global_position - global_position
+  leftCollisionShape.global_position.x = startPosition.x + %collisionNode.global_position.x - global_position.x
+  rightCollisionShape.global_position.x = startPosition.x + %collisionNode.global_position.x - global_position.x
 
   var newOffset := global.animate(80, [
     {

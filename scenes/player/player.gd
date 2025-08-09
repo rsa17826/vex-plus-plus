@@ -237,7 +237,6 @@ func _unhandled_input(event: InputEvent) -> void:
   if mouseMode == Input.mouse_mode: return
   Input.mouse_mode = mouseMode
 
-
 func _process(delta: float) -> void:
   if global.openMsgBoxCount: return
   updateCamLockPos()
@@ -1400,6 +1399,10 @@ func updateKeyFollowPosition(delta):
     var direction = (leader.global_position - follower.global_position).normalized()
     var target_position = leader.global_position - direction * follow_distance
     follower.global_position = lerp(follower.global_position, target_position, .3)
+    var rotOffset = deg_to_rad(clamp(30 - (i * 3), -30, 30))
+    if follower.global_position.x > global_position.x:
+      rotOffset = - rotOffset
+    follower.global_rotation = lerp_angle(follower.global_rotation, global_rotation + rotOffset, .3)
 func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   var v
   if x is Vector2:
