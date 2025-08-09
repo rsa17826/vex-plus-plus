@@ -175,7 +175,7 @@ func _input(event: InputEvent) -> void:
   # localInput(event)
 
 # func isActionJustPressedWithNoExtraMods(thing: String) -> bool:
-#   return Input.is_action_just_pressed(thing) and isActionPressedWithNoExtraMods(thing)
+#   return event.is_action_pressed(thing) and isActionPressedWithNoExtraMods(thing)
 # # func isActionJustReleasedWithNoExtraMods(thing: String) -> bool:
 # #   return Input.is_action_just_released(thing) and isActionPressedWithNoExtraMods(thing)
 # func isActionPressedWithNoExtraMods(thing: String) -> bool:
@@ -554,7 +554,7 @@ func sinFrom(start: float, end: float, time: float, speed: float = 1) -> float:
 #   func _update_key_press_states() -> void:
 #     for key in self._data.key_names.keys():
 #       if !key_names[key]: continue
-#       if Input.is_action_just_pressed(key_names[key]):
+#       if event.is_action_pressed(key_names[key]):
 #         trypress[key].just_pressed = KEY_MAX_BUFFER
 #       elif trypress[key].just_pressed:
 #         trypress[key].just_pressed -= 1
@@ -913,19 +913,19 @@ func _unhandled_input(event: InputEvent) -> void:
     isFakeMouseMovement = false
     return
   if openMsgBoxCount: return
-  if Input.is_action_just_pressed(&"toggle_hide_non_ghosts", true):
+  if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     # ToastParty.error('a')
     # ToastParty.info('a')
     # ToastParty.success('a')
     hideNonGhosts = !hideNonGhosts
-  if Input.is_action_just_pressed(&"edit_level_mods", true):
+  if event.is_action_pressed(&"edit_level_mods", false, true):
     ui.modifiers.toggleEditor()
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
       boxSelectRealEndPos = player.get_global_mouse_position()
       level.boxSelectDrawingNode.updateRect()
-  if Input.is_action_just_pressed(&"editor_box_select", true):
+  if event.is_action_pressed(&"editor_box_select", false, true):
     if level and is_instance_valid(level):
       boxSelectDrawStartPos = get_viewport().get_mouse_position()
       boxSelectRealStartPos = player.get_global_mouse_position()
@@ -934,9 +934,9 @@ func _unhandled_input(event: InputEvent) -> void:
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
       boxSelectRealEndPos = player.get_global_mouse_position()
       boxSelectReleased()
-  if Input.is_action_just_pressed(&"block_z_up"):
+  if event.is_action_pressed(&"block_z_up"):
     moveBlockZ(selectedBlock, "up")
-  if Input.is_action_just_pressed(&"block_z_down"):
+  if event.is_action_pressed(&"block_z_down"):
     moveBlockZ(selectedBlock, "down")
   if Input.is_action_just_released(&"editor_select"):
     if selectedBlock:
@@ -946,12 +946,12 @@ func _unhandled_input(event: InputEvent) -> void:
       if not Input.is_action_pressed(&"editor_pan", true):
         boxSelect_selectedBlocks = []
       # selectedBlock._ready.call(false)
-  if Input.is_action_just_pressed(&"new_level_file", true):
+  if event.is_action_pressed(&"new_level_file", false, true):
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
-  if Input.is_action_just_pressed(&"new_map_folder", true):
+  if event.is_action_pressed(&"new_map_folder", false, true):
     createNewMapFolder()
-  if Input.is_action_just_pressed(&"duplicate_block", true):
+  if event.is_action_pressed(&"duplicate_block", false, true):
     # log.pp(lastSelectedBrush, lastSelectedBlock)
     if lastSelectedBlock:
       selectedBrush = lastSelectedBrush
@@ -969,9 +969,9 @@ func _unhandled_input(event: InputEvent) -> void:
       lastSelectedBrush.selected = 0
       selectedBrush.selected = 0
       # log.pp(justPaintedBlock.selectedOptions)
-  if Input.is_action_just_pressed(&"toggle_fullscreen", true):
+  if event.is_action_pressed(&"toggle_fullscreen", false, true):
     fullscreen()
-  if Input.is_action_just_pressed(&"editor_select"):
+  if event.is_action_pressed(&"editor_select"):
     if selectedBlock:
       selectedBlock.onEditorMove(Vector2.ZERO)
 
@@ -1008,7 +1008,7 @@ func _unhandled_input(event: InputEvent) -> void:
         )
         isFakeMouseMovement = true
         Input.warp_mouse(newMousePos)
-  if Input.is_action_just_pressed(&"exit_inner_level", true):
+  if event.is_action_pressed(&"exit_inner_level", false, true):
     if level and is_instance_valid(level):
       if len(loadedLevels) > 1:
         loadedLevels.pop_back()
@@ -1026,7 +1026,7 @@ func _unhandled_input(event: InputEvent) -> void:
         # player.die(3, false, true)
         global.tick = global.currentLevel().tick
         # savePlayerLevelData()
-  if Input.is_action_just_pressed(&"save", true):
+  if event.is_action_pressed(&"save", false, true):
     if level and is_instance_valid(level):
       level.save()
   if Input.is_action_pressed(&"editor_delete", true):
@@ -1073,11 +1073,11 @@ func _unhandled_input(event: InputEvent) -> void:
           ui.blockMenu.clearItems()
 
   if mainLevelName:
-    if Input.is_action_just_pressed(&"reload_map_from_last_save", true):
+    if event.is_action_pressed(&"reload_map_from_last_save", true):
       loadMap.call_deferred(mainLevelName, true)
-    if Input.is_action_just_pressed(&"fully_reload_map", true):
+    if event.is_action_pressed(&"fully_reload_map", true):
       loadMap.call_deferred(mainLevelName, false)
-  if Input.is_action_just_pressed(&"toggle_hitboxes", true):
+  if event.is_action_pressed(&"toggle_hitboxes", false, true):
     hitboxesShown = !hitboxesShown
     get_tree().set_debug_collisions_hint(hitboxesShown)
     var tree := get_tree()
@@ -1088,45 +1088,45 @@ func _unhandled_input(event: InputEvent) -> void:
         if node is CollisionShape2D or node is CollisionPolygon2D or node is RayCast2D:
           node.queue_redraw()
         node_stack.append_array(node.get_children())
-  if Input.is_action_just_pressed(&"quit", true):
+  if event.is_action_pressed(&"quit", false, true):
     quitGame()
-  if Input.is_action_just_pressed(&"move_player_to_mouse", true):
+  if event.is_action_pressed(&"move_player_to_mouse", false, true):
     if player and is_instance_valid(player):
       # move player feet to mouse position
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition + player.applyRot(0, -17))
-  if Input.is_action_just_pressed(&"toggle_pause", true):
+  if event.is_action_pressed(&"toggle_pause", false, true):
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking
       # global.tick = 0
-  if Input.is_action_just_pressed(&"load", true):
+  if event.is_action_pressed(&"load", false, true):
     if useropts.saveOnExit:
       if level and is_instance_valid(level):
         level.save()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
-  if Input.is_action_just_pressed(&"move_selected_left"):
+  if event.is_action_pressed(&"move_selected_left"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
     updateGridSize()
     var moveDist = Vector2(-1, 0) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
-  if Input.is_action_just_pressed(&"move_selected_right"):
+  if event.is_action_pressed(&"move_selected_right"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
     updateGridSize()
     var moveDist = Vector2(1, 0) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
-  if Input.is_action_just_pressed(&"move_selected_up"):
+  if event.is_action_pressed(&"move_selected_up"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
     updateGridSize()
     var moveDist = Vector2(0, -1) * gridSize
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
-  if Input.is_action_just_pressed(&"move_selected_down"):
+  if event.is_action_pressed(&"move_selected_down"):
     if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
     updateGridSize()
     var moveDist = Vector2(0, 1) * gridSize
@@ -1135,7 +1135,7 @@ func _unhandled_input(event: InputEvent) -> void:
     lastSelectedBlock.onEditorMove(moveDist)
   if showEditorUi:
     for block in blockNames:
-      if Input.is_action_just_pressed("CREATE NEW - " + block.replace("/", "_"), true):
+      if event.is_action_pressed("CREATE NEW - " + block.replace("/", "_"), false, true):
         log.pp(block)
         selectedBrush = lastSelectedBrush
         selectedBrush.selected = 2
