@@ -101,7 +101,8 @@ func showMoreOptions(levelName, levelData):
         global.path.join(global.MAP_FOLDER, levelName),
         global.path.abs("res://exports/" + levelName + ".vex++")
       )
-      OS.shell_open(global.path.abs("res://exports"))
+      if global.useropts.openExportsDirectoryOnExport:
+        OS.shell_open(global.path.abs("res://exports"))
     6:
       var outpath = global.path.abs("res://exports/" + levelName + ".vex++")
       global.zipDir(

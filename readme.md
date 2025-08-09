@@ -65,6 +65,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ## Settings
 
+- **openExportsDirectoryOnExport**: if true, after exporting a level, it will open the exports directory.
 - **autoPanWhenClickingEmptySpace**: when dragging on an empty space, with no blocks on it, it will treat it as if editor_pan was pressed.
 - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
 - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
