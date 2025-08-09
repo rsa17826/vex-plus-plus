@@ -264,6 +264,10 @@ func _ready() -> void:
   if not EDITOR_IGNORE and not ghost:
     createEditorGhost()
   generateBlockOpts()
+  for k in blockOptions:
+    if global.same(blockOptions[k].type, global.PromptTypes._enum):
+      if !(blockOptions[k].values is Array):
+        blockOptions[k].values = blockOptions[k].values.keys()
 
   if canAttachToThings:
     blockOptions.canAttachToThings = {"type": global.PromptTypes.bool, "default": true}
@@ -438,7 +442,8 @@ func onEditorMoveEnded(): pass
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
-  ghost.use_parent_material = true
+  if EDITOR_IGNORE: return
+  # if not ghost: return
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
   if !_DISABLED:

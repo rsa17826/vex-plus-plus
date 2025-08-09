@@ -41,7 +41,7 @@ position = Vector2(0, -70.63)
 scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("2_fcna3")
-editorSize = Vector2(700, 123)
+editorSize = Vector2(701, 123)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
 position = Vector2(0, -57.5)

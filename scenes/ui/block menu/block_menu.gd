@@ -96,12 +96,7 @@ func updateBlockMenuValues() -> void:
     if 'default' in blockOptions[k] and !global.same(selectedOptions[k], blockOptions[k].default):
       $outputContainer.get_child(i + 1).modulate.a = 1
     if blockOptions[k].type is global.PromptTypes:
-      if blockOptions[k].type == global.PromptTypes._enum:
-        val = blockOptions[k].values.find(selectedOptions[k]) \
-        if blockOptions[k].values is Array else \
-        blockOptions[k].values.keys()[selectedOptions[k]]
-      else:
-        val = selectedOptions[k]
+      val = selectedOptions[k]
       var node = $outputContainer.get_child(i)
       $outputContainer.get_child(i - 1).text = k # + ": " + global.PromptTypes.keys()[blockOptions[k].type].replace("_", '')
       match blockOptions[k].type:
@@ -132,7 +127,6 @@ func updateBlockMenuValues() -> void:
             ob.add_item(thing)
           log.pp(blockOptions[k].values, val)
           ob.select(
-            blockOptions[k].values[val] if blockOptions[k].values is Dictionary else
             val
           )
         _:
@@ -192,7 +186,7 @@ func onThingChanged(...data) -> void:
       global.PromptTypes.rgba:
         return node.color
       global.PromptTypes._enum:
-        return node.selected if blockOptions[k].values is Dictionary else blockOptions[k].values[node.selected]
+        return node.selected
       'BUTTON':
         pass
       _:

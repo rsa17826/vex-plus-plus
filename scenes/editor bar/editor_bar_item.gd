@@ -51,9 +51,7 @@ func _input(event: InputEvent) -> void:
       var val
       if block.blockOptions[k].type is global.PromptTypes:
         if block.blockOptions[k].type == global.PromptTypes._enum:
-          val = block.blockOptions[k].values[block.selectedOptions[k]] \
-          if block.blockOptions[k].values is Array else \
-          block.blockOptions[k].values.keys()[block.selectedOptions[k]]
+          val = block.blockOptions[k].values[block.selectedOptions[k]]
         else:
           val = block.selectedOptions[k]
         pm.add_item(k + ": " + global.PromptTypes.keys()[block.blockOptions[k].type].replace("_", '') + " = " + str(val), i)

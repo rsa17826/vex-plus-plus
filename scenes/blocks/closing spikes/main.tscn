@@ -30,6 +30,7 @@ canAttachToThings = true
 canAttachToPaths = true
 
 [node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, 13)
 
 [node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true

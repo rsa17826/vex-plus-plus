@@ -17,28 +17,26 @@ func on_respawn():
     if global.player.activePulley == self:
       global.player.state = global.player.States.falling
       global.player.activePulley = null
-  setTexture(sprite, selectedOptions.direction)
+  setTexture(sprite, ["left", 'right', "user"][selectedOptions.direction])
   await global.wait()
   $movable.position = Vector2.ZERO
   # get_node("../attach detector").on_respawn()
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
-  if respawning:
-    return
+  if respawning: return
   if not %"has ceil".get_overlapping_bodies():
     # fix for if the ceil is placed after the pulley is
     $movable.position = Vector2(0, 1)
     await global.wait()
     $movable.position = Vector2.ZERO
     await global.wait()
-    if not %"has ceil".get_overlapping_bodies():
-      return
+    if not %"has ceil".get_overlapping_bodies(): return
   match selectedOptions.direction:
-    "right":
-      direction = 1
-    "left":
+    0:
       direction = -1
-    "user":
+    1:
+      direction = 1
+    2:
       direction = -1 if global.player.get_node("anim").flip_h else 1
   moving = true
   global.player.activePulley = self
@@ -48,8 +46,7 @@ func on_physics_process(delta: float) -> void:
   if respawning:
     moving = false
     return
-  if not moving:
-    return
+  if not moving: return
   nodeToMove.position.x += SPEED * delta * direction
   if global.player.state == global.player.States.onPulley and \
   %"wall to side with player on".get_overlapping_bodies():
@@ -65,5 +62,6 @@ func generateBlockOpts():
   ]}
 
 func _on_has_ceil_body_exited(body: Node2D) -> void:
+  if not %"has ceil": return
   if not %"has ceil".get_overlapping_bodies():
     on_respawn()

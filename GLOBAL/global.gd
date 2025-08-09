@@ -172,7 +172,7 @@ func _input(event: InputEvent) -> void:
   #     __pressedKeys.push_back(event.keycode)
   #   elif event.keycode in __pressedKeys:
   #     __pressedKeys.erase(event.keycode)
-  localInput(event)
+  # localInput(event)
 
 # func isActionJustPressedWithNoExtraMods(thing: String) -> bool:
 #   return Input.is_action_just_pressed(thing) and isActionPressedWithNoExtraMods(thing)
@@ -639,7 +639,7 @@ var selectedBlockStartPosition: Vector2
 
 func selectBlock() -> void:
   # select the top hovered block
-  log.pp(hoveredBlocks, selectedBlock, 1)
+  # log.pp(hoveredBlocks, selectedBlock, 1)
   var block: EditorBlock = hoveredBlocks.pop_front()
   selectedBlock = block
   lastSelectedBlock = block
@@ -907,7 +907,7 @@ func moveBlockZ(block, ud):
     if idx:
       blocks.move_child(selectedBlock, idx)
 
-func localInput(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
   if event is InputEventMouseMotion and isFakeMouseMovement:
     isFakeMouseMovement = false
