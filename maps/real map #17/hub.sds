@@ -147,8 +147,8 @@
     }
   }
   {
-    STR(x)FLOAT(-350.0)
-    STR(y)FLOAT(-250.0)
+    STR(x)FLOAT(-150.0)
+    STR(y)FLOAT(-350.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -1159,18 +1159,6 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(undeath)
-    STRNAME(options){
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(-350.0)
-    STR(y)FLOAT(-150.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(bomb)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
