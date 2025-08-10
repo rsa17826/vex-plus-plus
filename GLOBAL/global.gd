@@ -1965,6 +1965,7 @@ var signalChanges = {}
 var lastSignals: Dictionary[int, bool] = {}
 func resendActiveSignals():
   # log.pp(activeSignals)
+  if not isAlive(ui): return
   for id in activeSignals:
     ui.signalList.onSignalChanged(id, !!activeSignals[id], activeSignals[id])
     lastSignals[id] = !!activeSignals[id]
@@ -1976,6 +1977,7 @@ func sendSignals():
   var sc = signalChanges.duplicate()
   signalChanges = {}
   # var text = ''
+  if not isAlive(ui): return
   for id in sc:
     ui.signalList.onSignalChanged(id, !!activeSignals[id], sc[id])
     if id in lastSignals and (lastSignals[id] == !!activeSignals[id]): continue
