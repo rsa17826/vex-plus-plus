@@ -31,7 +31,7 @@ versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Status",
   "Run",
 ])
-if FileExist("c.bat"){
+if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
 }
 try FileDelete("c.bat")
@@ -40,8 +40,7 @@ try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
 if not FileExist("launcherData/launcherVersion") {
-  try FileDelete(A_startup "/vex++ updater.lnk")
-  FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
+  try FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
 }
 releases := 0
 loadReleases() {
