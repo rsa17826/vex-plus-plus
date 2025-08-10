@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxqm1u3q1wtqg"]
+[gd_scene load_steps=3 format=3 uid="uid://bxqm1u3q1wtqg"]
 
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
-[ext_resource type="Script" uid="uid://dtk8xcpxhq7fx" path="res://addons/tnowe_extra_controls/elements/properties_box.gd" id="2_1ujms"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_7t3ru"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("versionNodeHolder", "pbox", "loadingText", "levelListContainerNode")]
+[node name="Control" type="Control" node_paths=PackedStringArray("versionNodeHolder", "loadingText", "levelListContainerNode")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,82 +11,62 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_706a5")
-versionNodeHolder = NodePath("ScrollContainer/HBoxContainer")
-pbox = NodePath("ScrollContainer/HBoxContainer/PropertiesBox")
-loadingText = NodePath("Control/VBoxContainer/HFlowContainer/Label")
-levelListContainerNode = NodePath("ScrollContainer/HBoxContainer")
+versionNodeHolder = NodePath("VBoxContainer/ScrollContainer/HBoxContainer")
+loadingText = NodePath("VBoxContainer/HFlowContainer/Label")
+levelListContainerNode = NodePath("VBoxContainer/ScrollContainer/HBoxContainer")
 metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_7t3ru")]
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 136.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_lock_ = true
+mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
-layout_mode = 2
-metadata/_edit_lock_ = true
-
-[node name="PropertiesBox" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
-layout_mode = 2
-script = ExtResource("2_1ujms")
-metadata/_custom_type_script = "uid://dtk8xcpxhq7fx"
-metadata/_edit_lock_ = true
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -324.0
-offset_bottom = -170.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_lock_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 154.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "exit"
 metadata/_edit_lock_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Button2" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "load level list"
 
-[node name="Button3" type="Button" parent="Control/VBoxContainer/HBoxContainer"]
+[node name="Button3" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "load level by id"
 metadata/_edit_lock_ = true
 
-[node name="HFlowContainer" type="HFlowContainer" parent="Control/VBoxContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/HFlowContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HFlowContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 61
 text = "adsasdasdasdasd"
 metadata/_edit_lock_ = true
 
-[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/Button" to="." method="loadMenu"]
-[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/Button2" to="." method="loadOnlineLevels"]
-[connection signal="pressed" from="Control/VBoxContainer/HBoxContainer/Button3" to="." method="loadLevelById"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="loadMenu"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="loadOnlineLevels"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button3" to="." method="loadLevelById"]

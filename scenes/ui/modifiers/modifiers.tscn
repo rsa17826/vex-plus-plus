@@ -17,6 +17,7 @@
 [node name="modifiers" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("1_dt3tg")
 
 [node name="modifiers editor bg" type="ColorRect" parent="."]

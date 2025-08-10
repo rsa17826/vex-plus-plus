@@ -1,2 +1,0 @@
-extends Control
-var version
