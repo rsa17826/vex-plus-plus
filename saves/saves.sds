@@ -873,13 +873,13 @@
     ]
   }
   STR(wekldjdsf){
-    STR(lastSpawnPoint)VEC2(101.47257232666,54.9197158813477)
+    STR(lastSpawnPoint)VEC2(151.472564697266,54.9197158813477)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
         STR(up_direction)VEC2(0.0,-1.0)
-        STR(autoRunDirection)INT(1)
+        STR(autoRunDirection)INT(-1)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(checkpoint){
@@ -887,10 +887,53 @@
               STR(texture)STR(1)
             }
             INT(2){
+              STR(texture)STR(1)
+            }
+            INT(3){
               STR(texture)STR(2)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
+  STR(real map #17){
+    STR(lastSpawnPoint)VEC2(951.472595214844,-2355.08032226563)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(-1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(false)
+            }
+            INT(2){
+              STR(collected)BOOL(false)
+            }
+            INT(3){
+              STR(collected)BOOL(true)
+            }
+          }
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(1)
+            }
+            INT(2){
+              STR(texture)STR(3)
             }
             INT(3){
               STR(texture)STR(1)
+            }
+            INT(4){
+              STR(texture)STR(1)
+            }
+            INT(5){
+              STR(texture)STR(2)
             }
           }
         }
