@@ -339,15 +339,15 @@ func _physics_process(delta: float) -> void:
       $Camera2D.reset_smoothing()
       up_direction = global.currentLevel().up_direction
       if deadTimer <= 0:
-        global.resendActiveSignals()
         if respawnPosition:
           position = respawnPosition
         else:
           position = Vector2(0, -1.9)
-        stopDying()
-      else:
-        # deadPlayerCollisionShape.disabled = false
-        get_parent().__disable()
+        stopDying.call_deferred()
+        # global.resendActiveSignals.call_deferred()
+      # else:
+      #   # deadPlayerCollisionShape.disabled = false
+      #   get_parent().__disable()
       return
     States.inCannon:
       remainingJumpCount = MAX_JUMP_COUNT
@@ -1249,6 +1249,7 @@ func stopDying():
   if state == States.dead:
     tempLastSpawnPoint = Vector2.ZERO
     state = States.falling
+    await global.wait()
     get_parent().__enable.call_deferred()
     global.stopTicking = false
 
@@ -1256,6 +1257,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if respawnCooldown >= 0 and not forced:
     deathSources = []
     return
+  get_parent().__disable.call_deferred()
   respawnCooldown = respawnTime
   # log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   # if shouldStopDying and not forced: return

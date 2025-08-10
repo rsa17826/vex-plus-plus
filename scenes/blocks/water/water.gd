@@ -23,10 +23,10 @@ func on_physics_process(delta: float) -> void:
   # lower frame counters
   if waterReenterTimer > 0:
     waterReenterTimer -= delta * 60
-    
+
   if eletric and self in global.player.inWaters:
     global.player.deathSources.append(self)
-      
+
   if playerInsideWater:
     if self not in global.player.inWaters and waterReenterTimer <= 0:
       global.player.inWaters.append(self)
@@ -34,14 +34,14 @@ func on_physics_process(delta: float) -> void:
     global.player.inWaters.erase(self)
 
 func on_body_exited(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     playerInsideWater = false
     waterReenterTimer = MAX_REENTER_TIME
 
 func on_body_entered(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     playerInsideWater = true
-    
+
 func on_area_exited(body: Node) -> void:
   if body.is_in_group("spark"):
     eletric.erase(body)
