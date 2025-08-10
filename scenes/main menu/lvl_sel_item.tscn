@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://botycuh4sqcbo" path="res://scenes/main menu/lvl_sel_item.gd" id="1_4oddt"]
 
 [node name="lvlSelItem" type="VFlowContainer" node_paths=PackedStringArray("levelname", "creator", "description", "version", "newSaveBtn", "loadSaveBtn", "moreOptsBtn")]
+offset_right = 107.0
+offset_bottom = 147.0
 script = ExtResource("1_4oddt")
 levelname = NodePath("VBoxContainer/Label")
 creator = NodePath("VBoxContainer/Label2")

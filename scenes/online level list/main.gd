@@ -114,8 +114,8 @@ func loadOnlineLevels():
   arr.sort()
   const versionNode := preload("res://scenes/online level list/version.tscn")
   const creatorNode := preload("res://scenes/online level list/creator.tscn")
-  const levelNode := preload("res://scenes/main menu/lvl_sel_item.tscn")
-  # const levelNode := preload("res://scenes/online level list/level.tscn")
+  # const levelNode := preload("res://scenes/main menu/lvl_sel_item.tscn")
+  const levelNode := preload("res://scenes/online level list/level.tscn")
   for version in arr:
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     var v = versionNode.instantiate()
@@ -128,13 +128,9 @@ func loadOnlineLevels():
       v.get_node("VBoxContainer").add_child(c)
       for level in allData[version][creator]:
         var l = levelNode.instantiate()
-        l.version.visible = false
         l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
-        l.creator.text = creator
-        l.newSaveBtn.text = "download level"
-        l.newSaveBtn.pressed.connect(downloadLevel.bind(version, creator, level))
-        l.loadSaveBtn.visible = false
-        l.moreOptsBtn.visible = false
+        # l.creator.text = creator
+        l.downloadBtn.pressed.connect(downloadLevel.bind(version, creator, level))
         c.get_node("VBoxContainer").add_child(l)
 
   if global.useropts.onlyShowLevelsForCurrentVersion:

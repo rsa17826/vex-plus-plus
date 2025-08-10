@@ -1517,3 +1517,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # add button to get level id
 
 # add presets to menu options
+
+# fix conveyor with boxes
+# fix puley through small gaps with player on it

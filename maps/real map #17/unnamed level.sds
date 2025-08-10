@@ -1452,19 +1452,6 @@
     }
   }
   {
-    STR(x)FLOAT(-143.0)
-    STR(y)FLOAT(-2252.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(key)
-    STRNAME(options){
-      STR(canAttachToPaths)BOOL(true)
-      STR(canAttachToThings)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(-180.0)
     STR(y)FLOAT(-2250.0)
     STR(w)FLOAT(1.00000004470348)
@@ -2418,6 +2405,19 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(32.5)
+    STR(y)FLOAT(-2212.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(329.999969482422)
+    STR(id)STR(arrow)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }

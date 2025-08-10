@@ -1,9 +1,30 @@
-[gd_scene format=3 uid="uid://dko8ao3frr5h5"]
+[gd_scene load_steps=2 format=3 uid="uid://dko8ao3frr5h5"]
 
-[node name="level" type="Control"]
-layout_mode = 3
+[ext_resource type="Script" uid="uid://ddfavdy8d2s1a" path="res://scenes/online level list/level.gd" id="1_tkgcj"]
+
+[node name="level" type="VFlowContainer" node_paths=PackedStringArray("levelname", "creator", "downloadBtn")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_tkgcj")
+levelname = NodePath("VBoxContainer/Label")
+creator = NodePath("VBoxContainer/Label2")
+downloadBtn = NodePath("VBoxContainer/Button")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "level 1"
+
+[node name="Label2" type="Label" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "c"
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "download level"
