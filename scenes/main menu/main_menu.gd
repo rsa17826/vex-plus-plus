@@ -310,8 +310,14 @@ func updateUserOpts() -> void:
         shouldReload = false
         if mapName == 'NEWEST':
           loadLevel(newestLevel, true)
+          return
         else:
           loadLevel(mapName, true)
+          return
+      if thing == '--loadOnlineLevels':
+        shouldReload = false
+        get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
+        return
 
   if shouldReload:
     get_tree().reload_current_scene.call_deferred()

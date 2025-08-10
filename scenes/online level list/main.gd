@@ -112,59 +112,31 @@ func loadOnlineLevels():
     child.queue_free()
   var arr := allData.keys()
   arr.sort()
+  const versionNode := preload("res://scenes/online level list/version.tscn")
+  const creatorNode := preload("res://scenes/online level list/creator.tscn")
+  const levelNode := preload("res://scenes/main menu/lvl_sel_item.tscn")
+  # const levelNode := preload("res://scenes/online level list/level.tscn")
   for version in arr:
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
-  var pbox := makeNodes(HBoxContainer.new(), {},
-  arr.map(func(version): return makeNodes(FoldableContainer.new(), {
-    "title": str(version),
-    "folded": version != global.VERSION
-  }, [makeNodes(VBoxContainer.new(), {},
-  allData[version].keys().map(
-    func(creator): return makeNodes(
-      FoldableContainer.new(),
-      {"title": creator},
-      allData[version][creator].map(
-        func(level):
-          if version == global.VERSION:
-            levelsForCurrentVersionCount += 1
-          loadedLevelCount += 1
-          var node := preload("res://scenes/main menu/lvl_sel_item.tscn").instantiate()
-          node.version.visible=false
-          node.levelname.text=global.regReplace(level, r"\.vex\+\+$", '')
-          node.creator.text=creator
-          node.newSaveBtn.text="download level"
-          node.newSaveBtn.pressed.connect(downloadLevel.bind(version, creator, level))
-          node.loadSaveBtn.visible=false
-          node.moreOptsBtn.visible=false
-          return node)
-    )
-  ))]),
-  )
-  )
+    var v = versionNode.instantiate()
+    v.title = str(version)
+    v.folded = version != global.VERSION
+    levelListContainerNode.add_child(v)
+    for creator in allData[version]:
+      var c = creatorNode.instantiate()
+      c.title = creator
+      v.get_node("VBoxContainer").add_child(c)
+      for level in allData[version][creator]:
+        var l = levelNode.instantiate()
+        l.version.visible = false
+        l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
+        l.creator.text = creator
+        l.newSaveBtn.text = "download level"
+        l.newSaveBtn.pressed.connect(downloadLevel.bind(version, creator, level))
+        l.loadSaveBtn.visible = false
+        l.moreOptsBtn.visible = false
+        c.get_node("VBoxContainer").add_child(l)
 
-  # pbox.title = str(version)
-  # pbox.folded = version != global.VERSION
-  # pbox = VBoxContainer.new()
-  # for creator in allData[version]:
-  #   # creator = creator
-  #   # var pbox2 := FoldableContainer.new()
-  #   # pbox2.title = creator
-  #   # pbox.add_child(pbox2)
-  #   for level in allData[version][creator]:
-  #     if version == global.VERSION:
-  #       levelsForCurrentVersionCount += 1
-  #     loadedLevelCount += 1
-  #     log.pp(creator, level)
-  #     var node := preload("res://scenes/main menu/lvl_sel_item.tscn").instantiate()
-  #     node.version.visible = false
-  #     node.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
-  #     node.creator.text = creator
-  #     node.newSaveBtn.text = "download level"
-  #     node.newSaveBtn.pressed.connect(downloadLevel.bind(version, creator, level))
-  #     node.loadSaveBtn.visible = false
-  #     node.moreOptsBtn.visible = false
-  #     pbox.add_child(node)
-  levelListContainerNode.add_child(pbox)
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
   else:

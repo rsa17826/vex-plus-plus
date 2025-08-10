@@ -11,9 +11,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_706a5")
-versionNodeHolder = NodePath("VBoxContainer/ScrollContainer/HBoxContainer")
+versionNodeHolder = NodePath("")
 loadingText = NodePath("VBoxContainer/HFlowContainer/Label")
-levelListContainerNode = NodePath("VBoxContainer/ScrollContainer/HBoxContainer")
+levelListContainerNode = NodePath("VBoxContainer/ScrollContainer/GridContainer")
 metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_7t3ru")]
@@ -63,8 +63,9 @@ layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer"]
 layout_mode = 2
+columns = 20
 metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="loadMenu"]
