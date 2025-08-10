@@ -13,67 +13,85 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cbjxn")
-optsmenunode = NodePath("VFlowContainer/OPTS/ScrollContainer/VBoxContainer")
-levelContainer = NodePath("VFlowContainer/LEVELS/ScrollContainer/HFlowContainer")
-scrollContainer = NodePath("VFlowContainer/OPTS/ScrollContainer")
+optsmenunode = NodePath("HBoxContainer/VBoxContainer/OPTS/ScrollContainer/VBoxContainer")
+levelContainer = NodePath("HBoxContainer/VBoxContainer2/LEVELS/ScrollContainer/HFlowContainer")
+scrollContainer = NodePath("HBoxContainer/VBoxContainer/OPTS/ScrollContainer")
 metadata/_edit_lock_ = true
 
-[node name="VFlowContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 24.0
 offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="OPTS" type="MarginContainer" parent="VFlowContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "OPTIONS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OPTS" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="VFlowContainer/OPTS"]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer/OPTS"]
 layout_mode = 2
 color = Color(0.1716782, 0.19685069, 0.28747162, 1)
 script = ExtResource("2_okfgx")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VFlowContainer/OPTS"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/OPTS"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VFlowContainer/OPTS/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/OPTS/ScrollContainer"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="LEVELS" type="MarginContainer" parent="VFlowContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "LOCAL LEVELS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LEVELS" type="MarginContainer" parent="HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="VFlowContainer/LEVELS"]
+[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2/LEVELS"]
 layout_mode = 2
 color = Color(0.1764706, 0.1764706, 0.1764706, 1)
 script = ExtResource("2_okfgx")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="VFlowContainer/LEVELS"]
+[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer2/LEVELS"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="HFlowContainer" type="HFlowContainer" parent="VFlowContainer/LEVELS/ScrollContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="HBoxContainer/VBoxContainer2/LEVELS/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
-[node name="BTNS" type="VFlowContainer" parent="."]
+[node name="BTNS" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 0
 offset_left = 2.0
 offset_top = 614.075
-offset_right = 152.0
-offset_bottom = 645.075
+offset_right = 675.0
+offset_bottom = 647.075
 
 [node name="new map btn" type="Button" parent="BTNS"]
 layout_mode = 2
@@ -116,23 +134,6 @@ offset_left = 344.0
 offset_top = 102.5
 offset_right = -344.0
 offset_bottom = -102.4989
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_right = 418.0
-offset_bottom = 26.0
-text = "OPTIONS"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="."]
-layout_mode = 0
-offset_left = 423.0
-offset_right = 1152.0
-offset_bottom = 26.0
-text = "LOCAL LEVELS"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_vifqf")]
 

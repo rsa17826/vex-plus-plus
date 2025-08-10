@@ -55,13 +55,12 @@ func on_physics_process(delta: float) -> void:
     on_respawn()
 
 func generateBlockOpts():
-  blockOptions.direction = {"type": global.PromptTypes._enum, "default": "right", "values": [
+  blockOptions.direction = {"type": global.PromptTypes._enum, "default": 1, "values": [
     "left",
     "right",
     "user"
   ]}
 
 func _on_has_ceil_body_exited(body: Node2D) -> void:
-  if not %"has ceil": return
   if not %"has ceil".get_overlapping_bodies():
     on_respawn()
