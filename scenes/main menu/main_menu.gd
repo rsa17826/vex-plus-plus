@@ -375,7 +375,7 @@ func __loadOptions(thing) -> void:
 func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()
   if not level: return
-  global.useropts = __menu.get_all_data()
+  updateUserOpts()
   loadLevel(level, false)
 
 func _on_open_level_folder_pressed() -> void:
