@@ -5,7 +5,6 @@ const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
 @export var versionNodeHolder: Control
-@export var pbox: Control
 @export var loadingText: Label
 @export var levelListContainerNode: Control
 
@@ -114,35 +113,75 @@ func loadOnlineLevels():
   var arr := allData.keys()
   arr.sort()
   for version in arr:
-    pbox = PropertiesBox.new()
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
-    pbox.add_group(str(version))
-    for creator in allData[version]:
-      creator = creator
-      pbox.add_group(creator)
-      for level in allData[version][creator]:
-        if version == global.VERSION:
-          levelsForCurrentVersionCount += 1
-        loadedLevelCount += 1
-        log.pp(creator, level)
-        const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
-        var node := levelNode.instantiate()
-        node.version.visible = false
-        node.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
-        node.creator.text = creator
-        node.newSaveBtn.text = "download level"
-        node.newSaveBtn.pressed.connect(downloadLevel.bind(version, creator, level))
-        node.loadSaveBtn.visible = false
-        node.moreOptsBtn.visible = false
-        pbox._group_stack[len(pbox._group_stack) - 1].add_child(node)
-      pbox.end_group()
-    pbox.end_group()
-    levelListContainerNode.add_child(pbox)
+  var pbox := makeNodes(HBoxContainer.new(), {},
+  arr.map(func(version): return makeNodes(FoldableContainer.new(), {
+    "title": str(version),
+    "folded": version != global.VERSION
+  }, [makeNodes(VBoxContainer.new(), {},
+  allData[version].keys().map(
+    func(creator): return makeNodes(
+      FoldableContainer.new(),
+      {"title": creator},
+      allData[version][creator].map(
+        func(level):
+          if version == global.VERSION:
+            levelsForCurrentVersionCount += 1
+          loadedLevelCount += 1
+          var node := preload("res://scenes/main menu/lvl_sel_item.tscn").instantiate()
+          node.version.visible=false
+          node.levelname.text=global.regReplace(level, r"\.vex\+\+$", '')
+          node.creator.text=creator
+          node.newSaveBtn.text="download level"
+          node.newSaveBtn.pressed.connect(downloadLevel.bind(version, creator, level))
+          node.loadSaveBtn.visible=false
+          node.moreOptsBtn.visible=false
+          return node)
+    )
+  ))]),
+  )
+  )
+
+  # pbox.title = str(version)
+  # pbox.folded = version != global.VERSION
+  # pbox = VBoxContainer.new()
+  # for creator in allData[version]:
+  #   # creator = creator
+  #   # var pbox2 := FoldableContainer.new()
+  #   # pbox2.title = creator
+  #   # pbox.add_child(pbox2)
+  #   for level in allData[version][creator]:
+  #     if version == global.VERSION:
+  #       levelsForCurrentVersionCount += 1
+  #     loadedLevelCount += 1
+  #     log.pp(creator, level)
+  #     var node := preload("res://scenes/main menu/lvl_sel_item.tscn").instantiate()
+  #     node.version.visible = false
+  #     node.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
+  #     node.creator.text = creator
+  #     node.newSaveBtn.text = "download level"
+  #     node.newSaveBtn.pressed.connect(downloadLevel.bind(version, creator, level))
+  #     node.loadSaveBtn.visible = false
+  #     node.moreOptsBtn.visible = false
+  #     pbox.add_child(node)
+  levelListContainerNode.add_child(pbox)
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
   else:
     loadingText.text = 'Loaded levels: ' + str(levelsForCurrentVersionCount) + " / " + str(loadedLevelCount)
   $AnimatedSprite2D.visible = false
+
+func makeNodes(node, data, children) -> Node:
+  # log.pp(node, data, children, len(children))
+  # if not node:
+  #   breakpoint
+  for k in data:
+    node[k] = data[k]
+  for child in children:
+    # if not child:
+    #   breakpoint
+    node.add_child(child)
+  return node
 
 func downloadLevel(version, creator, level):
   var url = (
