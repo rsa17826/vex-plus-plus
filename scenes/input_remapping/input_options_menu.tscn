@@ -11,6 +11,9 @@ remapping_mode = 1
 enabled = true
 lock = true
 
+[node name="Label" parent="VBoxContainer/InputMappingContainer" index="0"]
+visible = false
+
 [node name="InputActionsList" parent="VBoxContainer/InputMappingContainer" index="1"]
 visible = false
 
@@ -19,3 +22,9 @@ visible = true
 custom_minimum_size = Vector2(400, 365.63)
 input_action_names = Array[StringName]([])
 readable_action_names = Array[StringName]([])
+
+[node name="Button" type="Button" parent="VBoxContainer/InputMappingContainer/HBoxContainer" index="1"]
+layout_mode = 2
+text = "close"
+
+[connection signal="pressed" from="VBoxContainer/InputMappingContainer/HBoxContainer/Button" to="." method="close"]
