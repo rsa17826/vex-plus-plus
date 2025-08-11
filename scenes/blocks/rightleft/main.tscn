@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dl14xmv50p4ch"]
+
+[ext_resource type="Script" uid="uid://btnqprnkd4aps" path="res://scenes/blocks/rightleft/rightleft.gd" id="1_qxchx"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_sb4hv"]
+[ext_resource type="Texture2D" uid="uid://d07mf4rhohcpj" path="res://scenes/blocks/rightleft/images/1.png" id="3_f8km7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
+size = Vector2(700, 700)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+script = ExtResource("1_qxchx")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/Sprite2D")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+thingThatMoves = NodePath("collisionNode")
+
+[node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 34824
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("2_sb4hv")
+root = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+texture = ExtResource("3_f8km7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+shape = SubResource("RectangleShape2D_gwpbw")
