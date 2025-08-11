@@ -473,6 +473,7 @@ func _physics_process(delta: float) -> void:
       wallBreakDownFrames = 0
       $anim.animation = "duck start"
       vel.user.y = 0
+      updateKeyFollowPosition(delta)
       return
     States.pullingLever:
       setRot(defaultAngle)
@@ -1401,7 +1402,7 @@ func updateKeyFollowPosition(delta):
     var direction = (leader.global_position - follower.global_position).normalized()
     var target_position = leader.global_position - direction * follow_distance
     follower.global_position = lerp(follower.global_position, target_position, .3)
-    var rotOffset = deg_to_rad(clamp(30 - (i * 3), -30, 30))
+    var rotOffset = deg_to_rad(global.sinFrom(30, -30, i, .2))
     if follower.global_position.x > global_position.x:
       rotOffset = - rotOffset
     follower.global_rotation = lerp_angle(follower.global_rotation, global_rotation + rotOffset, .3)

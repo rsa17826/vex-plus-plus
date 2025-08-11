@@ -33,7 +33,7 @@ root = NodePath("..")
 
 [node name="timing indicator" type="Sprite2D" parent="collisionNode"]
 visible = false
-modulate = Color(1, 1, 1, 0.282353)
+self_modulate = Color(1, 1, 1, 0.28235295)
 position = Vector2(55.5, 55.5)
 rotation = 0.785398
 scale = Vector2(0.75, 0.75)
