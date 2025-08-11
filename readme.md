@@ -602,5 +602,5 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 ### custom editor bar block placements
 
-to reorder the blocks in the editor bar, create a file called `editorBar.sds` and if using the launcher,place it in the `game data` folder otherwise just place it in the game's directory.
+to reorder the blocks in the editor bar, create a file called `editorBar.sds` and if using the launcher, place it in the `game data` folder otherwise just place it in the game's directory.
 [example file](./editorBar.sds)
