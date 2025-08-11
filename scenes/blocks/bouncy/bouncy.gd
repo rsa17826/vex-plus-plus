@@ -26,8 +26,8 @@ func start() -> void:
 
   # Calculate the offset needed to position the player directly above the block
   var offset_vector = Vector2(0, half_player_height - half_rotated_height).rotated(-radrot)
-  log.pp(global.player.defaultAngle, extraRot, radrot)
-  log.pp(offset_vector, half_player_height)
+  # log.pp(global.player.defaultAngle, extraRot, radrot)
+  # log.pp(offset_vector, half_player_height)
   original_contact_position -= Vector2(0, half_player_height).rotated(radrot)
 
 func on_respawn():
