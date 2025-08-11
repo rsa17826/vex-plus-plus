@@ -1133,6 +1133,8 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
       vel.conveyer.y = - speed
     elif playerSide.top and blockSide.top:
       pass
+    elif playerSide.top and blockSide.bottom:
+      pass
     else:
       log.err("invalid collision direction!!!", normal, playerSide, blockSide)
 

@@ -1,4 +1,5 @@
 extends CharacterBody2D
+const SMALL = .00001
 
 @export var root: EditorBlock
 
@@ -6,6 +7,7 @@ var collsiionOn_top = []
 var collsiionOn_bottom = []
 var collsiionOn_left = []
 var collsiionOn_right = []
+
 var vel := {
   "conveyer": Vector2.ZERO,
   "default": Vector2.ZERO,
@@ -19,7 +21,7 @@ func _ready() -> void:
     for v in vel:
       vel[v]=vel[v].rotated(angle_difference(lastUpDir.angle(), newUpDir.angle()))
   )
-  
+
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
   if root.exploded: return
@@ -47,14 +49,68 @@ func on_physics_process(delta: float) -> void:
     var normal := collision.get_normal()
     var rotatedNormal = global.player.applyRot(normal)
     block = block.root
-    if (block is BlockConveyer) \
-    and rotatedNormal == global.player.applyRot(Vector2.UP) \
-    and lastvel.y >= 0 \
-    :
-      if block is BlockConveyer:
-        vel.conveyer.x = 400
-      else:
-        vel.conveyer.x = -400
+    handleCollision(block, normal, collision.get_depth(), collision.get_position())
+
+func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2) -> void:
+  var block: EditorBlock = b.root
+  var blockSide = global.player.calcHitDir(normal.rotated(global.player.defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
+
+  var v = normal.rotated(-global.player.defaultAngle)
+  var vv = Vector2.UP
+  var hitTop = v.distance_to(vv) < 0.77
+  var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180))) < 0.77
+  var hitLeft = v.distance_to(vv.rotated(deg_to_rad(-90))) < 0.77
+  var hitRight = v.distance_to(vv.rotated(deg_to_rad(90))) < 0.77
+  var single = len([hitTop, hitBottom, hitLeft, hitRight].filter(func(e): return e)) == 1
+  var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft, "single": single}
+
+  if (block is BlockPushableBox or block is BlockBomb) \
+  and is_on_floor() \
+  and (playerSide.left or playerSide.right) \
+  :
+    block.thingThatMoves.vel.default -= (normal.rotated(-global.player.defaultAngle) * depth * 200)
+  # if block is BlockConveyer:
+  #   if rotatedNormal != UP:
+    # log.err([rotatedNormal, UP], global.player.defaultAngle, up_direction, [normal, Vector2.UP])
+
+  if (block is BlockConveyer) \
+  # and playerSide.bottom \
+  and vel.default.y >= -SMALL \
+  :
+    var speed = 400
+    # log.pp(normal == Vector2(-1, 0), blockSide)
+    # log.pp(playerSide, blockSide)
+    if not blockSide.single: return
+    if playerSide.bottom and blockSide.top:
+      vel.conveyer.x = - speed
+    elif playerSide.bottom and blockSide.bottom:
+      vel.conveyer.x = speed
+    elif playerSide.bottom and blockSide.left:
+      pass
+    elif playerSide.bottom and blockSide.right:
+      pass
+    elif playerSide.left and blockSide.left:
+      pass
+    elif playerSide.right and blockSide.right:
+      pass
+    elif playerSide.right and blockSide.left:
+      pass
+    elif playerSide.left and blockSide.right:
+      pass
+    elif playerSide.left and blockSide.top:
+      vel.conveyer.y = - speed
+    elif playerSide.left and blockSide.bottom:
+      vel.conveyer.y = speed
+    elif playerSide.right and blockSide.top:
+      vel.conveyer.y = speed
+    elif playerSide.right and blockSide.bottom:
+      vel.conveyer.y = - speed
+    elif playerSide.top and blockSide.top:
+      pass
+    elif playerSide.top and blockSide.bottom:
+      pass
+    else:
+      log.err("invalid collision direction!!!", normal, playerSide, blockSide)
 
 func on_ready(first=false):
   vel.conveyer = Vector2.ZERO
