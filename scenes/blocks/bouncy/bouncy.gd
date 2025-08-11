@@ -14,18 +14,18 @@ func start() -> void:
   original_contact_position = global.player.global_position
 
   var radrot := deg_to_rad(startRotation_degrees)
-  log.pp(global.player.defaultAngle)
-  var extraRot = global.player.angle_distance(radrot, global.player.global_rotation)
+  # # log.pp(global.player.defaultAngle)
+  # var extraRot = global.player.angle_distance(radrot, global.player.global_rotation)
 
   var playerGhost: Node2D = global.player.get_parent().ghost
   var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
 
-  # Calculate the half sizes
+  # # Calculate the half sizes
   var half_player_height = abs(playerGhostSize.y / 2)
-  var half_rotated_height = abs(playerGhostSize.rotated(extraRot).y / 2)
+  # var half_rotated_height = abs(playerGhostSize.rotated(extraRot).y / 2)
 
-  # Calculate the offset needed to position the player directly above the block
-  var offset_vector = Vector2(0, half_player_height - half_rotated_height).rotated(-radrot)
+  # # Calculate the offset needed to position the player directly above the block
+  # var offset_vector = Vector2(0, half_player_height - half_rotated_height).rotated(-radrot)
   # log.pp(global.player.defaultAngle, extraRot, radrot)
   # log.pp(offset_vector, half_player_height)
   original_contact_position -= Vector2(0, half_player_height).rotated(radrot)
