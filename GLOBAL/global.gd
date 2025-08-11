@@ -812,8 +812,8 @@ func localProcess(delta: float) -> void:
           justPaintedBlock.scale = Vector2(1, 1)
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
-        justPaintedBlock.rotation_degrees = player.rotation_degrees \
-        if justPaintedBlock.EDITOR_OPTION_rotate and not player.inWaters \
+        justPaintedBlock.rotation_degrees = rad_to_deg(player.defaultAngle) \
+        if justPaintedBlock.EDITOR_OPTION_rotate \
         else 0.0
         justPaintedBlock.id = blockNames[selectedBrush.id]
         justPaintedBlock.isBeingPlaced = true
@@ -1093,6 +1093,10 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"move_player_to_mouse", false, true):
     if player and is_instance_valid(player):
       # move player feet to mouse position
+      player.state = player.States.falling
+      player.activePole = null
+      player.activePulley = null
+      player.activeCannon = null
       player.goto(player.get_global_mouse_position() - player.get_parent().startPosition + player.applyRot(0, -17))
   if event.is_action_pressed(&"toggle_pause", false, true):
     if level and is_instance_valid(level):
@@ -1144,8 +1148,8 @@ func _unhandled_input(event: InputEvent) -> void:
           justPaintedBlock.scale = Vector2(1, 1)
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
-        justPaintedBlock.rotation_degrees = player.rotation_degrees \
-        if justPaintedBlock.EDITOR_OPTION_rotate and not player.inWaters \
+        justPaintedBlock.rotation_degrees = rad_to_deg(player.defaultAngle) \
+        if justPaintedBlock.EDITOR_OPTION_rotate \
         else 0.0
         justPaintedBlock.id = block
         lastSelectedBrush = selectedBrush
