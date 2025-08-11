@@ -60,9 +60,9 @@ debug_color = Color(0, 1, 0, 0.419608)
 [node name="has ceil" type="Area2D" parent="movable"]
 unique_name_in_owner = true
 light_mask = 0
-position = Vector2(31.4, 36.194)
+position = Vector2(31.4, 35.194)
 collision_layer = 0
-collision_mask = 264
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/has ceil"]
 position = Vector2(-1, -43)
@@ -95,10 +95,12 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player off"]
 position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_6wthr")
+debug_color = Color(0.8674059, 0.00055273355, 0.8582879, 0.41960785)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player off"]
 position = Vector2(-30, 0)
 shape = SubResource("RectangleShape2D_6wthr")
+debug_color = Color(0.88438714, 0.00031747043, 0.81226826, 0.41960785)
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 position = Vector2(30.4, 36.194)

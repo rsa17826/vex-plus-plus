@@ -158,8 +158,6 @@ func _ready() -> void:
 var defaultAngle: float
 var startedPanning: bool = false
 
-func _input(event: InputEvent) -> void:
-  if global.openMsgBoxCount: return
 func _unhandled_input(event: InputEvent) -> void:
   if global.openMsgBoxCount: return
   if Input.is_action_just_pressed(&"restart"):
@@ -457,10 +455,7 @@ func _physics_process(delta: float) -> void:
         if pulleyNoDieTimer <= 0:
           $anim.animation = "on pulley"
           $anim.frame = 9
-      if collsiionOn_right or collsiionOn_left:
-        activePulley.respawn()
-        global_position = lastpos
-      # log.pp(pulleyNoDieTimer)
+
       if pulleyNoDieTimer <= 0:
         tryAndDieHazards()
 
@@ -537,7 +532,7 @@ func _physics_process(delta: float) -> void:
           var normal := collision.get_normal()
           var depth := collision.get_depth()
 
-          handleCollision(block, normal, depth)
+          handleCollision(block, normal, depth, collision.get_position())
 
         wasJustInWater = true
         move_and_slide()
@@ -875,13 +870,13 @@ func _physics_process(delta: float) -> void:
 
           # if block == floorRayCollision:
           #   floorRayCollision = null
-          handleCollision(block, normal, depth)
+          handleCollision(block, normal, depth, collision.get_position())
 
         # if floorRayCollision:
         #   handleCollision(floorRayCollision, Vector2(0, -1), 1)
         # trying to fix some downward collisions not having correct normal
-        if state != States.wallHang:
-          position += applyRot(Vector2(0, safe_margin))
+        # if state != States.wallHang:
+        #   position += applyRot(Vector2(0, safe_margin))
         tryAndDieHazards()
         tryAndDieSquish()
       # log.pp(heat, "Heat")
@@ -1029,7 +1024,7 @@ func calcHitDir(normal):
 
   return {"top": hitTop, "bottom": hitBottom, "left": hitLeft, "right": hitRight, "single": single}
 
-func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
+func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2) -> void:
   var block: EditorBlock = b.root
   var blockSide = calcHitDir(normal.rotated(defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
 
@@ -1067,6 +1062,8 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float) -> void:
   and applyRot(velocity).y >= -SMALL \
   and not inWaters \
   :
+    global_position = position
+    # log.err(normal * depth)
     block.start()
   if block is BlockInnerLevel \
   and playerSide.bottom \
@@ -1517,6 +1514,3 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # add button to get level id
 
 # add presets to menu options
-
-# fix conveyor with boxes
-# fix puley through small gaps with player on it
