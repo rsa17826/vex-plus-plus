@@ -127,6 +127,9 @@ func loadOnlineLevels():
       c.title = creator
       v.get_node("VBoxContainer").add_child(c)
       for level in allData[version][creator]:
+        if version == global.VERSION:
+          levelsForCurrentVersionCount += 1
+        loadedLevelCount += 1
         var l = levelNode.instantiate()
         l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
         # l.creator.text = creator
