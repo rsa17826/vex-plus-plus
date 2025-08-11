@@ -1012,7 +1012,7 @@ func tryAndDieHazards():
 func tryAndDieSquish():
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
   or (len(collsiionOn_left) and len(collsiionOn_right)):
-    log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
+    # log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
     die(DEATH_TIME, false, true)
 
 func calcHitDir(normal):
