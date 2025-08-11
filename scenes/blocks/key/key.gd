@@ -26,7 +26,3 @@ func on_respawn() -> void:
 func onDelete():
   if $collisionNode in global.player.keys:
     global.player.keys.erase($collisionNode)
-
-func on_process(delta: float) -> void:
-  if !following: return
-  # $collisionNode.global_position = global.player.global_position
