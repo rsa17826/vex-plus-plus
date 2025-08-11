@@ -16,6 +16,7 @@ func on_respawn():
     nodeToMove.position = Vector2.ZERO
     if global.player.activePulley == self:
       global.player.state = global.player.States.falling
+      global.player.remainingJumpCount -= 1
       global.player.activePulley = null
   setTexture(sprite, ["left", 'right', "user"][selectedOptions.direction])
   await global.wait()
@@ -48,12 +49,14 @@ func on_physics_process(delta: float) -> void:
     return
   if not moving: return
   nodeToMove.position.x += SPEED * delta * direction
-  if global.player.state == global.player.States.onPulley and \
-  %"wall to side with player on".get_overlapping_bodies():
+  if global.player.state == global.player.States.onPulley \
+  and global.player.activePulley == self \
+  and %"wall to side with player on".get_overlapping_bodies():
     global.player.state = global.player.States.falling
-    # global.player.remainingJumpCount -= 1
+    global.player.activePulley = null
+    global.player.remainingJumpCount -= 1
   if %"wall to side with player off".get_overlapping_bodies():
-    on_respawn()
+    respawn()
 
 func generateBlockOpts():
   blockOptions.direction = {"type": global.PromptTypes._enum, "default": 1, "values": [
@@ -64,4 +67,4 @@ func generateBlockOpts():
 
 func _on_has_ceil_body_exited(body: Node2D) -> void:
   if not %"has ceil".get_overlapping_bodies():
-    on_respawn()
+    respawn()
