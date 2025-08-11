@@ -51,6 +51,7 @@ func on_physics_process(delta: float) -> void:
   if global.player.state == global.player.States.onPulley and \
   %"wall to side with player on".get_overlapping_bodies():
     global.player.state = global.player.States.falling
+    # global.player.remainingJumpCount -= 1
   if %"wall to side with player off".get_overlapping_bodies():
     on_respawn()
 
