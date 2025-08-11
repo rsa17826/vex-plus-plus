@@ -70,6 +70,9 @@ func _input(event: InputEvent) -> void:
         updateItem(item)
 
 func newItem(name, id) -> void:
+  if name == null:
+    nodeCount += 1
+    return
   var clone = load("res://scenes/blocks/" + name + "/main.tscn")
   if !clone: return
   nodeCount += 1

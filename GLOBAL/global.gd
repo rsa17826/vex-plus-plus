@@ -1139,6 +1139,7 @@ func _unhandled_input(event: InputEvent) -> void:
     lastSelectedBlock.onEditorMove(moveDist)
   if showEditorUi:
     for block in blockNames:
+      if !block: continue
       if event.is_action_pressed("CREATE NEW - " + block.replace("/", "_"), false, true):
         log.pp(block)
         selectedBrush = lastSelectedBrush
@@ -1549,6 +1550,9 @@ func localReady() -> void:
   else:
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
+  loadEditorBarData()
+
+func loadEditorBarData():
   var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
   var tempBlockNames = []
   var unusedBlockNames = [
@@ -1622,18 +1626,22 @@ func localReady() -> void:
     "not gate",
     "and gate",
   ]
-  for thing in editorBarData:
-    if thing is String:
-      thing = {"name": thing, "remove": false}
-    if thing.name in unusedBlockNames:
-      unusedBlockNames.erase(thing.name)
-    var remove = thing.remove if "remove" in thing else false
-    if !remove:
-      tempBlockNames.append(thing.name)
+  if useropts and editorBarData:
+    var i = 0
+    for k in editorBarData:
+      for thing in editorBarData[k]:
+        i += 1
+        if thing in unusedBlockNames:
+          unusedBlockNames.erase(thing)
+        if k != 'remove':
+          tempBlockNames.append(thing)
+      while i % int(useropts.editorBarColumns) != 0:
+        i += 1
+        tempBlockNames.append(null)
   blockNames = tempBlockNames + unusedBlockNames
 
   for block in blockNames:
-    if !InputMap.has_action("CREATE NEW - " + block.replace("/", "_")):
+    if block and !InputMap.has_action("CREATE NEW - " + block.replace("/", "_")):
       InputMap.add_action("CREATE NEW - " + block.replace("/", "_"))
 
 func _notification(what):

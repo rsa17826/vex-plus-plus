@@ -300,6 +300,7 @@ func updateUserOpts() -> void:
     RenderingServer.set_default_clear_color(["#4d4d4d", "#38405b", "#4d4d4d"][global.useropts.theme])
     shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
+  global.loadEditorBarData()
   if global.isFirstTimeMenuIsLoaded:
     global.isFirstTimeMenuIsLoaded = false
     var arr: Array = OS.get_cmdline_args() as Array

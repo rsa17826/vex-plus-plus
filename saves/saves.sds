@@ -873,7 +873,7 @@
     ]
   }
   STR(wekldjdsf){
-    STR(lastSpawnPoint)VEC2(651.472595214844,54.9197158813477)
+    STR(lastSpawnPoint)VEC2(301.472564697266,-145.080291748047)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -893,13 +893,13 @@
               STR(texture)STR(1)
             }
             INT(4){
-              STR(texture)STR(1)
+              STR(texture)STR(2)
             }
             INT(5){
               STR(texture)STR(1)
             }
             INT(6){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
           }
         }

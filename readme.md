@@ -597,3 +597,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - when opening the game it loads a map by name or NEWEST to load the newest map.
 - **--loadOnlineLevels**
   - opens the online levels list when starting the game.
+
+## extra
+
+### custom editor bar block placements
+
+to reorder the blocks in the editor bar, create a file called `editorBar.sds` and if using the launcher,place it in the `game data` folder otherwise just place it in the game's directory.
+[example file](./editorBar.sds)
