@@ -7,7 +7,7 @@ var following := false
 func on_body_entered(body: Node) -> void:
   if body is Player and not following and not $collisionNode in global.player.keys:
     global.player.keys.push_front($collisionNode)
-    log.pp("key added", $collisionNode)
+    # log.pp("key added", $collisionNode)
     following = true
     randOffset = global.randfrom(-10, 10)
     for thing in cloneEventsHere:
