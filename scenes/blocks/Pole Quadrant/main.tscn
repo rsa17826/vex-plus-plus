@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bjpbt3rbcl7nx" path="res://scenes/blocks/Pole Quadrant/Pole Quadrant.gd" id="1_6ey8g"]
 [ext_resource type="Texture2D" uid="uid://hiewhh1a6v25" path="res://scenes/blocks/Pole Quadrant/images/1.png" id="2_a867g"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_pha53"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_oq442"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_oq442"]
 [ext_resource type="PackedScene" uid="uid://ckbwrk1t23iw7" path="res://scenes/blocks/pole/main.tscn" id="4_6ey8g"]
 [ext_resource type="Texture2D" uid="uid://dyui7u0dn8a0d" path="res://scenes/blocks/Pole Quadrant/images/editorBar.png" id="4_12gxb"]
 [ext_resource type="Texture2D" uid="uid://erovvqpsf5j" path="res://scenes/blocks/Pole Quadrant/images/ghost.png" id="4_dc0lt"]

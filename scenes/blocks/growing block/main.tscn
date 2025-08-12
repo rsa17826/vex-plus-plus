@@ -63,7 +63,7 @@
 [ext_resource type="Texture2D" uid="uid://drci2np6vlwuk" path="res://scenes/blocks/growing block/images/DefineSprite_1404/59.png" id="62_bs4lx"]
 [ext_resource type="Texture2D" uid="uid://lx1x5xxlbqe1" path="res://scenes/blocks/growing block/images/396.svg" id="63_i6im3"]
 [ext_resource type="Texture2D" uid="uid://6lthlmymdbw" path="res://scenes/blocks/growing block/images/1 (2).png" id="63_lcemo"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="64_lcemo"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="64_lcemo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)

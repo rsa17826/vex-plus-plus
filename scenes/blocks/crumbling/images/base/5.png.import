@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://digoon1se5rub"
-path="res://.godot/imported/editorBar.png-41a2d369f7f52d9a667a3b6b8676cbc8.ctex"
+uid="uid://cws3le7a2y8d3"
+path="res://.godot/imported/5.png-198f707052e3bdab3c1376a7449c6258.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/crumbling/images/editorBar.png"
-dest_files=["res://.godot/imported/editorBar.png-41a2d369f7f52d9a667a3b6b8676cbc8.ctex"]
+source_file="res://scenes/blocks/crumbling/images/base/5.png"
+dest_files=["res://.godot/imported/5.png-198f707052e3bdab3c1376a7449c6258.ctex"]
 
 [params]
 

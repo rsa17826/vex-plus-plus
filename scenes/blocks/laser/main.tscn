@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bnad5udrdr20s" path="res://scenes/blocks/laser/laser.gd" id="1_ohbiw"]
 [ext_resource type="Texture2D" uid="uid://b4m5lblw4m1y3" path="res://scenes/blocks/laser/images/1.png" id="2_gc2qo"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_ohbiw"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="3_vu0mu"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_vu0mu"]
 [ext_resource type="Texture2D" uid="uid://bl535axaktyqd" path="res://scenes/blocks/laser/images/nocharge.png" id="6_5lvo6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vu0mu"]

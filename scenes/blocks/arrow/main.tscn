@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ch5ha1l5tyj4l" path="res://scenes/blocks/arrow/arrow.gd" id="1_7ht56"]
 [ext_resource type="Texture2D" uid="uid://78xbn3c3mw11" path="res://scenes/blocks/arrow/images/1.png" id="2_07hpw"]
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_7ht56"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_l7mwn"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_l7mwn"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_urqaa"]
 radius = 160.253

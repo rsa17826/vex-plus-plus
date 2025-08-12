@@ -62,7 +62,7 @@
 [ext_resource type="Texture2D" uid="uid://coge852ytxqjs" path="res://scenes/blocks/goal/images/58.png" id="59_ihfjo"]
 [ext_resource type="Texture2D" uid="uid://bp5g0m5bhsmap" path="res://scenes/blocks/goal/images/59.png" id="60_s260v"]
 [ext_resource type="Texture2D" uid="uid://c1usr55sffg2o" path="res://scenes/blocks/goal/images/60.png" id="61_u3ie7"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="62_0d1cd"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="62_0d1cd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_geocb"]
 animations = [{

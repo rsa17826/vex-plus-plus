@@ -35,7 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://d16mispquhbht" path="res://scenes/blocks/conveyer/images/arrows/28.png" id="31_p1iko"]
 [ext_resource type="Texture2D" uid="uid://boeye2q6gpt7c" path="res://scenes/blocks/conveyer/images/arrows/29.png" id="32_7udvv"]
 [ext_resource type="Texture2D" uid="uid://drxl5nb1auvxw" path="res://scenes/blocks/conveyer/images/arrows/30.png" id="33_dffxe"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="36_xp0y3"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="36_xp0y3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)

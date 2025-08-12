@@ -725,7 +725,9 @@ func _physics_process(delta: float) -> void:
           state = States.sliding
 
         # check for falling
-        if !is_on_floor() && !is_on_wall() && (!(($wallDetection/leftWall.is_colliding() || $wallDetection/rightWall.is_colliding()))):
+        if !is_on_floor() \
+        && !is_on_wall() \
+        && !getClosestWallRay():
           if vel.user.y < 0:
             state = States.jumping
           else:
@@ -807,25 +809,19 @@ func _physics_process(delta: float) -> void:
                 $anim.animation = "idle"
 
         # set the sprite direction based on playerXIntent
-        if playerXIntent > 0:
-          $anim.flip_h = false
-        elif playerXIntent < 0:
-          $anim.flip_h = true
 
-        # when trying to slide, if not moving enough, duck instead
+        # when trying to slide and not moving enough, duck instead
         if state == States.sliding:
           # if sliding reduce speed reuction
           if abs(vel.user.x) < 10:
             vel.user.x = 0
-          # while sliding, facing direction is speed not intent
-          if vel.user.x > 0:
-            $anim.flip_h = false
-          elif vel.user.x < 0:
-            $anim.flip_h = true
           vel.user.x *= 0.98 # * delta * 60
-
         # if state is not sliding
         else:
+          if playerXIntent > 0:
+            $anim.flip_h = false
+          elif playerXIntent < 0:
+            $anim.flip_h = true
           # if user not trying to move set user xvel to 0
           if playerXIntent == 0:
             vel.user.x = 0
@@ -1106,6 +1102,8 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
     position -= Vector2(0, 2).rotated(defaultAngle)
 
+  if (block is BlockCrumbling):
+    block.start()
   if (block is BlockPushableBox or block is BlockBomb) \
   and is_on_floor() \
   and (playerSide.left or playerSide.right) \

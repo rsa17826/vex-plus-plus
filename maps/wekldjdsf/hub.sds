@@ -2036,4 +2036,28 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(1050.0)
+    STR(y)FLOAT(-1100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1150.0)
+    STR(y)FLOAT(-1000.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(crumbling)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
 ]

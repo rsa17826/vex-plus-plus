@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://dskov0xiwapge" path="res://scenes/blocks/bomb/character_body_2d.gd" id="2_nku45"]
 [ext_resource type="Texture2D" uid="uid://d2h2dshw58tiq" path="res://scenes/blocks/bomb/images/1 (2).png" id="3_o857y"]
 [ext_resource type="Texture2D" uid="uid://b2287wo04din2" path="res://scenes/blocks/bomb/images/Explosion.png" id="4_82r38"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="6_e08ji"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_e08ji"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nku45"]
 atlas = ExtResource("4_82r38")
