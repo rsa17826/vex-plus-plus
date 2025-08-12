@@ -1625,6 +1625,8 @@ func loadEditorBarData():
     "input detector",
     "not gate",
     "and gate",
+    "crumbling",
+    "rotator",
   ]
   if useropts and editorBarData:
     var i = 0

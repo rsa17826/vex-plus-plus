@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://cole8rnu1qegd"]
+
+[ext_resource type="Script" uid="uid://cpy4rh7pi7qvh" path="res://scenes/blocks/rotator/rotator.gd" id="1_mai7y"]
+[ext_resource type="Texture2D" uid="uid://c4ni5re2d1ah5" path="res://scenes/blocks/rotator/images/editorBar.png" id="2_b3ec0"]
+[ext_resource type="Texture2D" uid="uid://bsfwpshu20rfo" path="res://scenes/blocks/rotator/images/symbols.png" id="3_nvu3a"]
+[ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="4_e6ogk"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInpa", "labelInpb", "labelOut", "ghostIconNode", "editorBarIconNode", "thingThatMoves")]
+script = ExtResource("1_mai7y")
+labelInpa = NodePath("Node2D/Label")
+labelInpb = NodePath("Node2D/Label2")
+labelOut = NodePath("Node2D/Label3")
+ghostIconNode = NodePath("Node2D/symbols")
+editorBarIconNode = NodePath("Node2D/editorBar")
+thingThatMoves = NodePath("Node2D")
+ignoreMissingNodes = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="editorBar" type="Sprite2D" parent="Node2D"]
+visible = false
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_b3ec0")
+
+[node name="symbols" type="Sprite2D" parent="Node2D"]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("3_nvu3a")
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_left = -113.0
+offset_top = -105.0
+offset_right = -10.0
+offset_bottom = -22.0
+text = "12"
+label_settings = ExtResource("4_e6ogk")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Node2D"]
+offset_left = 27.0
+offset_top = -66.0
+offset_right = 130.0
+offset_bottom = 17.0
+text = "12"
+label_settings = ExtResource("4_e6ogk")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="Node2D"]
+offset_left = -31.0
+offset_top = 13.0
+offset_right = 72.0
+offset_bottom = 96.0
+text = "12"
+label_settings = ExtResource("4_e6ogk")
+horizontal_alignment = 1

@@ -697,7 +697,7 @@ func _physics_process(delta: float) -> void:
           breakFromWall = false
           # press down to detach from wallhang
           if Input.is_action_pressed(&"down"):
-            position += Vector2(0, 8).rotated(defaultAngle)
+            position += Vector2(0, 6).rotated(defaultAngle)
             wallBreakDownFrames = MAX_WALL_BREAK_FROM_DOWN_FRAMES
             remainingJumpCount -= 1
             state = States.falling
@@ -769,7 +769,7 @@ func _physics_process(delta: float) -> void:
             remainingJumpCount -= 1
             state = States.wallSliding
           else:
-            position -= Vector2(0, 2).rotated(defaultAngle)
+            position -= Vector2(0, 1).rotated(defaultAngle)
 
         # animations
         if $anim.animation == "jumping off pole" and vel.user.y != 0:
@@ -817,7 +817,7 @@ func _physics_process(delta: float) -> void:
           # if sliding reduce speed reuction
           if abs(vel.user.x) < 10:
             vel.user.x = 0
-          # while sliding facing direction is speed not intent
+          # while sliding, facing direction is speed not intent
           if vel.user.x > 0:
             $anim.flip_h = false
           elif vel.user.x < 0:
