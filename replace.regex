@@ -7,11 +7,6 @@
 
 make it so that when i tab in a function it is replaced with the correct one
 
-@regex a
-@replace a
-@flags gm
-@endregex
-
 @file \.gd$
 @regex func func 
 @replace func 

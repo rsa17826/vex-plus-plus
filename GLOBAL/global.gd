@@ -907,6 +907,16 @@ func moveBlockZ(block, ud):
     if idx:
       blocks.move_child(selectedBlock, idx)
 
+func duplicate_block(block: EditorBlock) -> EditorBlock:
+  var newBlock: EditorBlock = load("res://scenes/blocks/" + block.id + "/main.tscn").instantiate()
+  newBlock.scale = block.scale
+  newBlock.rotation_degrees = block.rotation_degrees
+  newBlock.selectedOptions = block.selectedOptions.duplicate()
+  newBlock.id = block.id
+  level.get_node("blocks").add_child(newBlock)
+  setBlockStartPos(newBlock)
+  return newBlock
+
 func _unhandled_input(event: InputEvent) -> void:
   if !InputMap.has_action("quit"): return
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
@@ -953,23 +963,36 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"new_map_folder", false, true):
     createNewMapFolder()
   if event.is_action_pressed(&"duplicate_block", false, true):
-    # log.pp(lastSelectedBrush, lastSelectedBlock)
-    if lastSelectedBlock:
-      selectedBrush = lastSelectedBrush
-      selectedBrush.selected = 2
-      justPaintedBlock = load("res://scenes/blocks/" + lastSelectedBlock.id + "/main.tscn").instantiate()
-      justPaintedBlock.scale = lastSelectedBlock.scale
-      justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
-      justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
-      justPaintedBlock.id = lastSelectedBlock.id
-      # lastSelectedBrush = selectedBrush
-      level.get_node("blocks").add_child(justPaintedBlock)
-      justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
-      setBlockStartPos(justPaintedBlock)
-      localProcess(0)
-      lastSelectedBrush.selected = 0
-      selectedBrush.selected = 0
-      # log.pp(justPaintedBlock.selectedOptions)
+    if boxSelect_selectedBlocks:
+      var mpos := boxSelect_selectedBlocks[0].get_global_mouse_position()
+      var arr: Array[EditorBlock] = []
+      for block in boxSelect_selectedBlocks:
+        if block == player.get_parent(): return
+        if !isAlive(block): return
+        var posOffset = mpos - block.startPosition
+        var newBlock := duplicate_block(block)
+        newBlock.global_position = mpos - posOffset
+        setBlockStartPos(newBlock)
+        arr.append(newBlock)
+      boxSelect_selectedBlocks = arr
+    else:
+      # log.pp(lastSelectedBrush, lastSelectedBlock)
+      if lastSelectedBlock:
+        selectedBrush = lastSelectedBrush
+        selectedBrush.selected = 2
+        justPaintedBlock = load("res://scenes/blocks/" + lastSelectedBlock.id + "/main.tscn").instantiate()
+        justPaintedBlock.scale = lastSelectedBlock.scale
+        justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
+        justPaintedBlock.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
+        justPaintedBlock.id = lastSelectedBlock.id
+        # lastSelectedBrush = selectedBrush
+        level.get_node("blocks").add_child(justPaintedBlock)
+        justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
+        setBlockStartPos(justPaintedBlock)
+        localProcess(0)
+        lastSelectedBrush.selected = 0
+        selectedBrush.selected = 0
+        # log.pp(justPaintedBlock.selectedOptions)
   if event.is_action_pressed(&"toggle_fullscreen", false, true):
     fullscreen()
   if event.is_action_pressed(&"editor_select"):
