@@ -575,15 +575,15 @@ func _physics_process(delta: float) -> void:
             position += Vector2(0, 2).rotated(defaultAngle)
           return
 
-        if state == States.wallHang || state == States.wallSliding:
-          # remainingJumpCount = MAX_JUMP_COUNT
-          if not is_on_wall() and getClosestWallSide():
-            var ray: RayCast2D = getClosestWallRay()
-            var origin: Vector2 = ray.global_transform.origin
-            var collision_point := ray.get_collision_point()
-            var distance := origin.distance_to(collision_point)
-            # log.pp(distance * getClosestWallSide())
-            position += Vector2((distance) * getClosestWallSide(), 0).rotated(defaultAngle)
+        # if state == States.wallHang || state == States.wallSliding:
+        # remainingJumpCount = MAX_JUMP_COUNT
+        if not is_on_wall() and getClosestWallSide():
+          var ray: RayCast2D = getClosestWallRay()
+          var origin: Vector2 = ray.global_transform.origin
+          var collision_point := ray.get_collision_point()
+          var distance := origin.distance_to(collision_point)
+          # log.pp(distance * getClosestWallSide())
+          position += Vector2((distance) * getClosestWallSide(), 0).rotated(defaultAngle) * 2
         # if on floor reset kt, user y velocity, and allow both wall sides again
         if is_on_floor():
           if !onStickyFloor:
@@ -677,12 +677,10 @@ func _physics_process(delta: float) -> void:
         # jump from walljump
         if (
           levelFlags.canDoWallJump
-          and (
-          state == States.wallSliding
-          && !breakFromWall
+          and state == States.wallSliding
+          and !breakFromWall
           and not onStickyFloor
-            and ACTIONjump
-          )
+          and ACTIONjump
         ):
           # remainingJumpCount -= 1
           autoRunDirection *= -1
@@ -699,7 +697,7 @@ func _physics_process(delta: float) -> void:
           breakFromWall = false
           # press down to detach from wallhang
           if Input.is_action_pressed(&"down"):
-            position += Vector2(0, 5).rotated(defaultAngle)
+            position += Vector2(0, 8).rotated(defaultAngle)
             wallBreakDownFrames = MAX_WALL_BREAK_FROM_DOWN_FRAMES
             remainingJumpCount -= 1
             state = States.falling
@@ -755,6 +753,23 @@ func _physics_process(delta: float) -> void:
           $CollisionShape2D.position.y = unduckPos.y
           %deathDetectors.scale = Vector2(1, 1)
           %deathDetectors.position.y = 0
+        if state == States.wallHang && (CenterIsOnWall() && TopIsOnWall() and not collidingWithNowj()):
+          # currentHungWall = getCurrentWall()
+          hungWallSide = getCurrentWallSide()
+          var loopIdx: int = 0
+          while TopIsOnWall() and loopIdx < 20:
+            loopIdx += 1
+            log.pp(loopIdx)
+            position -= Vector2(0, 1).rotated(defaultAngle)
+            $wallDetection/leftWallTop.force_raycast_update()
+            $wallDetection/rightWallTop.force_raycast_update()
+          if loopIdx >= 20:
+            position += Vector2(0, loopIdx).rotated(defaultAngle)
+            log.pp("fell off wall hang to wallSliding")
+            remainingJumpCount -= 1
+            state = States.wallSliding
+          else:
+            position -= Vector2(0, 2).rotated(defaultAngle)
 
         # animations
         if $anim.animation == "jumping off pole" and vel.user.y != 0:
@@ -802,6 +817,11 @@ func _physics_process(delta: float) -> void:
           # if sliding reduce speed reuction
           if abs(vel.user.x) < 10:
             vel.user.x = 0
+          # while sliding facing direction is speed not intent
+          if vel.user.x > 0:
+            $anim.flip_h = false
+          elif vel.user.x < 0:
+            $anim.flip_h = true
           vel.user.x *= 0.98 # * delta * 60
 
         # if state is not sliding
@@ -1105,39 +1125,33 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   :
     var speed = 400
     # log.pp(normal == Vector2(-1, 0), blockSide)
-    # log.pp(playerSide, blockSide)
+    # log.pp(vel.conveyer)
     if not blockSide.single: return
     if playerSide.bottom and blockSide.top:
       vel.conveyer.x = - speed
     elif playerSide.bottom and blockSide.bottom:
       vel.conveyer.x = speed
-    elif playerSide.bottom and blockSide.left:
-      pass
-    elif playerSide.bottom and blockSide.right:
-      pass
-    elif playerSide.left and blockSide.left:
-      pass
-    elif playerSide.right and blockSide.right:
-      pass
-    elif playerSide.right and blockSide.left:
-      pass
-    elif playerSide.left and blockSide.right:
-      pass
+    elif playerSide.bottom and blockSide.left: return
+    elif playerSide.bottom and blockSide.right: return
+    elif playerSide.left and blockSide.left: return
+    elif playerSide.right and blockSide.right: return
+    elif playerSide.right and blockSide.left: return
+    elif playerSide.left and blockSide.right: return
     elif playerSide.left and blockSide.top:
       vel.conveyer.y = - speed
+      wallSlidingFrames = 0
     elif playerSide.left and blockSide.bottom:
       vel.conveyer.y = speed
     elif playerSide.right and blockSide.top:
       vel.conveyer.y = speed
     elif playerSide.right and blockSide.bottom:
       vel.conveyer.y = - speed
-    elif playerSide.top and blockSide.top:
-      pass
-    elif playerSide.top and blockSide.bottom:
-      pass
+      wallSlidingFrames = 0
+    elif playerSide.top and blockSide.top: return
+    elif playerSide.top and blockSide.bottom: return
     else:
       log.err("invalid collision direction!!!", normal, playerSide, blockSide)
-
+    justAddedVels.conveyer = 3
     # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
     # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]
     # var hitLeft = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(-90))))]
