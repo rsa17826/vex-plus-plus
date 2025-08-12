@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bqfsu54jl5sn6" path="res://scenes/blocks/falling/falling.gd" id="1_5sjlu"]
 [ext_resource type="Script" uid="uid://buak8m5w6gqde" path="res://scenes/blocks/falling/collision_node.gd" id="2_5sjlu"]
 [ext_resource type="Texture2D" uid="uid://dob2mmgvfhaoi" path="res://scenes/blocks/falling/images/1.png" id="2_mcurt"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_fjkq7"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_fjkq7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)

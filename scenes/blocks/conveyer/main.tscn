@@ -35,7 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://boeye2q6gpt7c" path="res://scenes/blocks/conveyer/images/arrows/29.png" id="32_8vsqi"]
 [ext_resource type="Texture2D" uid="uid://drxl5nb1auvxw" path="res://scenes/blocks/conveyer/images/arrows/30.png" id="33_g76sr"]
 [ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="35_cuh3p"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="36_60tkb"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="36_60tkb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3vqki"]
 animations = [{

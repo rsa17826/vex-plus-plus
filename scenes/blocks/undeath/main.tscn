@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b5vm1bqa5sk5o" path="res://scenes/blocks/undeath/images/editorBar.png" id="4_2tv7p"]
 [ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="4_irq6n"]
 [ext_resource type="Texture2D" uid="uid://dso76sy80ytot" path="res://scenes/blocks/undeath/images/skull.png" id="5_2tv7p"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="7_peial"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="7_peial"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qunpq"]
 size = Vector2(695, 695)

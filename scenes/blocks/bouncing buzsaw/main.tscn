@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://cop22motknsjj" path="res://scenes/blocks/bouncing buzsaw/character_body_2d.gd" id="2_ogg4d"]
 [ext_resource type="Texture2D" uid="uid://bj872x80mv3ry" path="res://scenes/blocks/bouncing buzsaw/images/editorBar.png" id="3_807tk"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="5_sq8c8"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="6_7byde"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_7byde"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xvl4e"]
 radius = 299.202

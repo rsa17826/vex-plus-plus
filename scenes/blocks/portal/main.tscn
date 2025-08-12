@@ -62,7 +62,7 @@
 [ext_resource type="Texture2D" uid="uid://dvst8ifw7kbfu" path="res://scenes/blocks/portal/images/58.png" id="60_4o30m"]
 [ext_resource type="Texture2D" uid="uid://c8m0l38ux1iym" path="res://scenes/blocks/portal/images/59.png" id="61_dlxwt"]
 [ext_resource type="Texture2D" uid="uid://de186pusijf4i" path="res://scenes/blocks/portal/images/60.png" id="62_u5uwj"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="63_0dop3"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="63_0dop3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
 size = Vector2(294, 412)

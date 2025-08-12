@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/Pulley/images/1.png" id="2_omc7y"]
 [ext_resource type="Script" uid="uid://1dvo3ligvvh5" path="res://scenes/blocks/Pulley/pulley.gd" id="2_u2153"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_svsk0"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_svsk0"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_svsk0"]
 
 [sub_resource type="GDScript" id="GDScript_svsk0"]
 script/source = "extends Sprite2D

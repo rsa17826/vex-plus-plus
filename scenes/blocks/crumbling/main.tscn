@@ -1,18 +1,95 @@
-[gd_scene load_steps=3 format=3 uid="uid://24h0n7ixbq4f"]
+[gd_scene load_steps=17 format=3 uid="uid://24h0n7ixbq4f"]
 
 [ext_resource type="Script" uid="uid://i5yrt30hom5h" path="res://scenes/blocks/crumbling/crumbling.gd" id="1_1su8o"]
-[ext_resource type="Texture2D" uid="uid://digoon1se5rub" path="res://scenes/blocks/crumbling/images/editorBar.png" id="2_xx35n"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_jj508"]
+[ext_resource type="Texture2D" uid="uid://clncqvx1myjrc" path="res://scenes/blocks/crumbling/images/base/1.png" id="3_jj508"]
+[ext_resource type="Script" path="res://scenes/blocks/attach detector.gd" id="3_livsr"]
+[ext_resource type="Texture2D" uid="uid://bnu5xkix86phw" path="res://scenes/blocks/crumbling/images/cracks/1.png" id="3_vhjlh"]
+[ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="4_bc68f"]
+[ext_resource type="Texture2D" uid="uid://c5r1rw2p1tt1u" path="res://scenes/blocks/crumbling/images/cracks/2.png" id="4_qhxsv"]
+[ext_resource type="Texture2D" uid="uid://dy4rtn15yfycb" path="res://scenes/blocks/crumbling/images/cracks/3.png" id="5_bc68f"]
+[ext_resource type="Texture2D" uid="uid://bnbhqy46mevi1" path="res://scenes/blocks/crumbling/images/cracks/0.png" id="5_rgm6v"]
+[ext_resource type="Texture2D" uid="uid://c7xqxyt2vghq6" path="res://scenes/blocks/crumbling/images/cracks/4.png" id="6_rgm6v"]
+[ext_resource type="Texture2D" uid="uid://dqtijhrqov0fc" path="res://scenes/blocks/crumbling/images/cracks/5.png" id="7_uc55j"]
+[ext_resource type="Texture2D" uid="uid://kr8ch7aqojir" path="res://scenes/blocks/crumbling/images/cracks/6.png" id="8_tl0gm"]
+[ext_resource type="Texture2D" uid="uid://dhnu4oil2gvtt" path="res://scenes/blocks/crumbling/images/cracks/7.png" id="9_be2fd"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+[sub_resource type="SpriteFrames" id="SpriteFrames_bc68f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_rgm6v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vhjlh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_qhxsv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bc68f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_rgm6v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_uc55j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_tl0gm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_be2fd")
+}],
+"loop": false,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4p2bk"]
+size = Vector2(700, 700)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jj508"]
+size = Vector2(700, 700)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites")]
 script = ExtResource("1_1su8o")
-ghostIconNode = NodePath("Node2D/editorBar")
-editorBarIconNode = NodePath("Node2D/editorBar")
-hidableSprites = [NodePath("Node2D/editorBar")]
-thingThatMoves = NodePath("Node2D")
+anim = NodePath("Node2D/AnimatedSprite2D")
+ghostIconNode = NodePath("Node2D/Sprite2D")
+editorBarIconNode = NodePath("Node2D/Sprite2D")
+collisionShapes = [NodePath("Node2D/CollisionShape2D"), NodePath("attach detector/CollisionShape2D2")]
+hidableSprites = [NodePath("Node2D/AnimatedSprite2D"), NodePath("Node2D/Sprite2D")]
 ignoreMissingNodes = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 34824
+collision_mask = 0
+script = ExtResource("2_jj508")
+root = NodePath("..")
 
-[node name="editorBar" type="Sprite2D" parent="Node2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("3_jj508")
+script = ExtResource("4_bc68f")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+visible = false
 use_parent_material = true
-texture = ExtResource("2_xx35n")
+position = Vector2(0, -1)
+sprite_frames = SubResource("SpriteFrames_bc68f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
+visible = false
+shape = SubResource("RectangleShape2D_4p2bk")
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("3_livsr")
+root = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
+visible = false
+z_index = 3
+shape = SubResource("RectangleShape2D_jj508")
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
+metadata/_edit_lock_ = true

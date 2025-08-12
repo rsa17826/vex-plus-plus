@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://jiuswetajmxn" path="res://scenes/blocks/10x inverse solar spike/images/1.png" id="3_yx31i"]
 [ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="4_27cwt"]
 [ext_resource type="Texture2D" uid="uid://vntxrtlyx02l" path="res://scenes/blocks/10x inverse solar spike/images/editorBar.png" id="4_inxcf"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="5_27cwt"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_27cwt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gece"]
 size = Vector2(688, 92)

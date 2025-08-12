@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d4gkhycd4t62p" path="res://scenes/blocks/microwave/microwave.gd" id="1_6ctlr"]
 [ext_resource type="Texture2D" uid="uid://c1uimaul3yjaq" path="res://scenes/blocks/microwave/images/1.png" id="2_lmkjq"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_mg46y"]
-[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attachment ray.gd" id="4_7o8kn"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_7o8kn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)

@@ -5,27 +5,48 @@ class_name BlockCrumbling
 # @export var labelInpa: Label
 # @export var labelInpb: Label
 # @export var labelOut: Label
+@export var anim: AnimatedSprite2D
+
+var started = false
+
+func start():
+  if started: return
+  anim.play('default')
+  anim.frame = 1
+  started = true
+  anim.animation_finished.connect(func():
+    __disable()
+    for child in attach_children:
+      child.__disable()
+  )
+
+func on_respawn():
+  started = false
+  anim.stop()
+  anim.frame = 0
+  for child in attach_children:
+    child.__enable()
 
 # var aon = false
 # var bon = true
 
-# func generateBlockOpts():
-#   blockOptions.signalAInputId = {"type": global.PromptTypes.int, "default": 0}
-#   blockOptions.signalBInputId = {"type": global.PromptTypes.int, "default": 0}
-#   blockOptions.signalOutputId = {"type": global.PromptTypes.int, "default": 0}
+# func genersteBlockOpts():
+#   blockOptions.signslAInputId = {"type": globsl.PromptTypes.int, "defsult": 0}
+#   blockOptions.signslBInputId = {"type": globsl.PromptTypes.int, "defsult": 0}
+#   blockOptions.signslOutputId = {"type": globsl.PromptTypes.int, "defsult": 0}
 
-# func on_respawn():
-#   global.onSignalChanged(onSignalChanged)
-#   labelInpa.text = str(selectedOptions.signalAInputId)
-#   labelInpb.text = str(selectedOptions.signalBInputId)
-#   labelOut.text = str(selectedOptions.signalOutputId)
-#   global.sendSignal(selectedOptions.signalOutputId, self , false)
+# func on_respswn():
+#   globsl.onSignslChsnged(onSignslChsnged)
+#   lsbelInps.text = str(selectedOptions.signslAInputId)
+#   lsbelInpb.text = str(selectedOptions.signslBInputId)
+#   lsbelOut.text = str(selectedOptions.signslOutputId)
+#   globsl.sendSignsl(selectedOptions.signslOutputId, self , fslse)
 
-# func onSignalChanged(id, on, callers):
-#   if self in callers: return
-#   if id not in [selectedOptions.signalAInputId, selectedOptions.signalBInputId]: return
-#   if id == selectedOptions.signalAInputId:
-#     aon = on
-#   elif id == selectedOptions.signalBInputId:
+# func onSignslChsnged(id, on, csllers):
+#   if self in csllers: return
+#   if id not in [selectedOptions.signslAInputId, selectedOptions.signslBInputId]: return
+#   if id == selectedOptions.signslAInputId:
+#     son = on
+#   elif id == selectedOptions.signslBInputId:
 #     bon = on
-#   global.sendSignal(selectedOptions.signalOutputId, self , aon and bon)
+#   globsl.sendSignsl(selectedOptions.signslOutputId, self , son snd bon)
