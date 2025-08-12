@@ -911,6 +911,12 @@
               STR(texture)STR(3)
             }
             INT(10){
+              STR(texture)STR(3)
+            }
+            INT(11){
+              STR(texture)STR(3)
+            }
+            INT(12){
               STR(texture)STR(2)
             }
           }
