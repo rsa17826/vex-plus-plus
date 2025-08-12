@@ -697,7 +697,7 @@ func localProcess(delta: float) -> void:
   if not player: return
   # if a block is selected
   if selectedBlock or (selectedBrush and selectedBrush.selected == 2):
-    var mpos: Vector2 = player.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
+    var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
     player.moving = 2
     # when trying to rotate blocks
     if editorInRotateMode && selectedBlock \
@@ -831,42 +831,46 @@ func localProcess(delta: float) -> void:
       else:
         # check if block scale is odd
         var b = selectedBlock
-        var extraOffset: Vector2 = Vector2.ZERO
-        var isXOnOddScale
-        var isYOnOddScale
-        if b.oddScaleOffsetForce.x:
-          isXOnOddScale = b.oddScaleOffsetForce.x == 1
-        else:
-          isXOnOddScale = (fmod(abs(selectedBlock.sizeInPx.rotated(selectedBlock.rotation).x) + (gridSize.x / 2), gridSize.x * 2)) > (gridSize.x)
-        if b.oddScaleOffsetForce.y:
-          isYOnOddScale = b.oddScaleOffsetForce.y == 1
-        else:
-          isYOnOddScale = (fmod(abs(selectedBlock.sizeInPx.rotated(selectedBlock.rotation).y) + (gridSize.x / 2), gridSize.y * 2)) > (gridSize.y)
-        # offset the block on the sides that are odd to make it align with the grid
-        extraOffset = Vector2(
-          (gridSize.x / 2.0) if isXOnOddScale else 0.0,
-          (gridSize.y / 2.0) if isYOnOddScale else 0.0,
-        )
-        # log.pp(isXOnOddScale, isYOnOddScale, extraOffset)
-        # log.pp(isXOnOddScale, isYOnOddScale, extraOffset, selectedBlock.sizeInPx, selectedBlock.defaultSizeInPx)
-
-        selectedBlock.global_position = mpos + selectedBlockOffset - (selectedBlock.sizeInPx / 2)
-
-        var offset = (selectedBlock.global_position - selectedBlockStartPosition)
-        if Input.is_action_pressed(&"invert_single_axis_align") != global.useropts.singleAxisAlignByDefault:
-          if abs(offset.x) > abs(offset.y):
-            offset.y = 0
-          elif abs(offset.x) < abs(offset.y):
-            offset.x = 0
-        selectedBlock.global_position = selectedBlockStartPosition + offset
-        selectedBlock.global_position = round((selectedBlock.global_position + extraOffset) / gridSize) * gridSize - extraOffset
-        var moveDist = selectedBlock.global_position - selectedBlock.startPosition
-        setBlockStartPos(selectedBlock)
-        selectedBlock.onEditorMove(moveDist)
+        b.global_position = mpos + selectedBlockOffset
+        snapToGrid(b, gridSize)
+        var moveDist = b.global_position - b.startPosition
+        setBlockStartPos(b)
+        b.onEditorMove(moveDist)
       if justPaintedBlock:
         lastSelectedBlock = justPaintedBlock
       if selectedBlock:
         lastSelectedBlock = selectedBlock
+
+func snapToGrid(b: EditorBlock, gridSize: Vector2) -> void:
+  var extraOffset: Vector2 = Vector2.ZERO
+  var isXOnOddScale
+  var isYOnOddScale
+  if b.oddScaleOffsetForce.x:
+    isXOnOddScale = b.oddScaleOffsetForce.x == 1
+  else:
+    isXOnOddScale = (fmod(abs(b.sizeInPx.rotated(b.rotation).x) + (gridSize.x / 2), gridSize.x * 2)) > (gridSize.x)
+  if b.oddScaleOffsetForce.y:
+    isYOnOddScale = b.oddScaleOffsetForce.y == 1
+  else:
+    isYOnOddScale = (fmod(abs(b.sizeInPx.rotated(b.rotation).y) + (gridSize.x / 2), gridSize.y * 2)) > (gridSize.y)
+  # offset the block on the sides that are odd to make it align with the grid
+  extraOffset = Vector2(
+    (gridSize.x / 2.0) if isXOnOddScale else 0.0,
+    (gridSize.y / 2.0) if isYOnOddScale else 0.0,
+  )
+  # log.pp(isXOnOddScale, isYOnOddScale, extraOffset)
+  # log.pp(isXOnOddScale, isYOnOddScale, extraOffset, b.sizeInPx, b.defaultSizeInPx)
+
+  b.global_position = b.global_position - (b.sizeInPx / 2)
+
+  var offset = (b.global_position - selectedBlockStartPosition)
+  if Input.is_action_pressed(&"invert_single_axis_align") != global.useropts.singleAxisAlignByDefault:
+    if abs(offset.x) > abs(offset.y):
+      offset.y = 0
+    elif abs(offset.x) < abs(offset.y):
+      offset.x = 0
+  b.global_position = selectedBlockStartPosition + offset
+  b.global_position = round((b.global_position + extraOffset) / gridSize) * gridSize - extraOffset
 
 func setBlockStartPos(block: Node) -> void:
   block.startPosition = block.position
@@ -964,15 +968,18 @@ func _unhandled_input(event: InputEvent) -> void:
     createNewMapFolder()
   if event.is_action_pressed(&"duplicate_block", false, true):
     if boxSelect_selectedBlocks:
-      var mpos := boxSelect_selectedBlocks[0].get_global_mouse_position()
+      var targetBlock: EditorBlock = lastSelectedBlock if lastSelectedBlock in boxSelect_selectedBlocks else boxSelect_selectedBlocks[0]
+      var mpos := targetBlock.get_global_mouse_position()
+      var diff = targetBlock.startPosition - mpos
       var arr: Array[EditorBlock] = []
       for block in boxSelect_selectedBlocks:
         if block == player.get_parent(): return
         if !isAlive(block): return
         var posOffset = mpos - block.startPosition
         var newBlock := duplicate_block(block)
-        newBlock.global_position = mpos - posOffset
+        newBlock.global_position = mpos - posOffset - diff
         setBlockStartPos(newBlock)
+        snapToGrid(newBlock, Vector2(global.useropts.blockGridSnapSize, global.useropts.blockGridSnapSize))
         arr.append(newBlock)
       boxSelect_selectedBlocks = arr
     else:
