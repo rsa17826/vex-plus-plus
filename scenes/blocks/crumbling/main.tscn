@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://24h0n7ixbq4f"]
+
+[ext_resource type="Script" uid="uid://i5yrt30hom5h" path="res://scenes/blocks/crumbling/crumbling.gd" id="1_1su8o"]
+[ext_resource type="Texture2D" uid="uid://digoon1se5rub" path="res://scenes/blocks/crumbling/images/editorBar.png" id="2_xx35n"]
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+script = ExtResource("1_1su8o")
+ghostIconNode = NodePath("Node2D/editorBar")
+editorBarIconNode = NodePath("Node2D/editorBar")
+hidableSprites = [NodePath("Node2D/editorBar")]
+thingThatMoves = NodePath("Node2D")
+ignoreMissingNodes = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="editorBar" type="Sprite2D" parent="Node2D"]
+use_parent_material = true
+texture = ExtResource("2_xx35n")
