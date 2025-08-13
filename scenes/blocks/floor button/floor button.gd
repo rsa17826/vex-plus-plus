@@ -45,3 +45,6 @@ func on_body_exited(body: Node) -> void:
 
 func generateBlockOpts():
   blockOptions.signalOutputId = {"type": global.PromptTypes.int, "default": 0}
+
+func onDelete():
+  global.sendSignal(selectedOptions.signalOutputId, self , false)

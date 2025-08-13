@@ -2547,15 +2547,15 @@
     }
   }
   {
-    STR(x)FLOAT(2025.0)
-    STR(y)FLOAT(-1275.0)
+    STR(x)FLOAT(2024.5)
+    STR(y)FLOAT(-1275.5)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(rotator)
     STRNAME(options){
-      STR(signalInputId)INT(0)
-      STR(speed)FLOAT(50.0)
+      STR(signalInputId)INT(1)
+      STR(speed)FLOAT(50.0013221502304)
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)

@@ -7,14 +7,14 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvsey"]
 size = Vector2(100, 100)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes") groups=[]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes")]
 script = ExtResource("1_qvsey")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("Area2D/CollisionShape2D")]
 ignoreMissingNodes = true
+EDITOR_OPTION_scale = true
 EDITOR_OPTION_rotate = true
-canBeAttachedTo = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.144, 0.144)
