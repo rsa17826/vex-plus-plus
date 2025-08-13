@@ -92,7 +92,12 @@ func updateBlockMenuValues() -> void:
     )
     i += 3
     var val
+    if not $outputContainer.get_child(i + 1):
+      showBlockMenu()
+      return
     $outputContainer.get_child(i + 1).modulate.a = 0
+    if 'default' in blockOptions[k] and k not in selectedOptions:
+      selectedOptions[k] = blockOptions[k].default
     if 'default' in blockOptions[k] and !global.same(selectedOptions[k], blockOptions[k].default):
       $outputContainer.get_child(i + 1).modulate.a = 1
     if blockOptions[k].type is global.PromptTypes:

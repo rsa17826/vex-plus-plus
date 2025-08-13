@@ -342,7 +342,7 @@ func _physics_process(delta: float) -> void:
         else:
           position = Vector2(0, -1.9)
         stopDying.call_deferred()
-        # global.resendActiveSignals.call_deferred()
+        global.resendActiveSignals.call_deferred()
       # else:
       #   # deadPlayerCollisionShape.disabled = false
       #   get_parent().__disable()
