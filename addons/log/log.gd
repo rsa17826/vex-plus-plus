@@ -590,3 +590,4 @@ static func error(...msgs) -> void:
   if not Engine.is_editor_hint():
     ToastParty.error(m)
   push_error(m)
+# [global:1956]: [ Vector2(1,412.115234375, -,1023.69079589844), Vector2(1,539.82604980469, -895.979919433594) ]
