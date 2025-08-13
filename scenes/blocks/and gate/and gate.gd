@@ -29,3 +29,6 @@ func onSignalChanged(id, on, callers):
   elif id == selectedOptions.signalBInputId:
     bon = on
   global.sendSignal(selectedOptions.signalOutputId, self , aon and bon)
+
+func onDelete():
+  global.sendSignal(selectedOptions.signalOutputId, self , false)
