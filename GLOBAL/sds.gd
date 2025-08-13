@@ -178,7 +178,6 @@ static func loadData(d: String, progress=null) -> Variant:
             lastItem.append(thing1)
         # log.pp(_stack)
         return _stack[0]
-
       var dataToInsert: Variant = _stack.pop_back()
       var thingToPutDataIn: Variant = _stack.pop_back()
       # log.warn(thingToPutDataIn, dataToInsert)
@@ -430,7 +429,6 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
             lastItem.append(thing1)
         # log.pp(_stack)
         return _stack[0]
-
       var dataToInsert: Variant = _stack.pop_back()
       var thingToPutDataIn: Variant = _stack.pop_back()
       # log.warn(thingToPutDataIn, dataToInsert)
