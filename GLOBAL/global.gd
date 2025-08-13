@@ -978,8 +978,8 @@ func _unhandled_input(event: InputEvent) -> void:
         var posOffset = mpos - block.startPosition
         var newBlock := duplicate_block(block)
         newBlock.global_position = mpos - posOffset - diff
-        setBlockStartPos(newBlock)
         snapToGrid(newBlock, Vector2(global.useropts.blockGridSnapSize, global.useropts.blockGridSnapSize))
+        setBlockStartPos(newBlock)
         arr.append(newBlock)
       boxSelect_selectedBlocks = arr
     else:
@@ -2008,6 +2008,7 @@ var activeSignals: Dictionary[int, Array] = {}:
 
 var signalChanges = {}
 var lastSignals: Dictionary[int, bool] = {}
+
 func resendActiveSignals():
   # log.pp(activeSignals)
   if not isAlive(ui): return
@@ -2018,6 +2019,7 @@ func resendActiveSignals():
     # text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
     # log.pp(id, !!activeSignals[id], activeSignals[id])
     signalChanged.emit(id, !!activeSignals[id], activeSignals[id])
+
 func sendSignals():
   var sc = signalChanges.duplicate()
   signalChanges = {}
