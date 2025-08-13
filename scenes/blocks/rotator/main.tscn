@@ -1,56 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://cole8rnu1qegd"]
+[gd_scene load_steps=6 format=3 uid="uid://cole8rnu1qegd"]
 
 [ext_resource type="Script" uid="uid://cpy4rh7pi7qvh" path="res://scenes/blocks/rotator/rotator.gd" id="1_mai7y"]
 [ext_resource type="Texture2D" uid="uid://c4ni5re2d1ah5" path="res://scenes/blocks/rotator/images/editorBar.png" id="2_b3ec0"]
-[ext_resource type="Texture2D" uid="uid://bsfwpshu20rfo" path="res://scenes/blocks/rotator/images/symbols.png" id="3_nvu3a"]
-[ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="4_e6ogk"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_gl3cm"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_mai7y"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInpa", "labelInpb", "labelOut", "ghostIconNode", "editorBarIconNode", "thingThatMoves")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ce0x"]
+radius = 240.45
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_mai7y")
-labelInpa = NodePath("Node2D/Label")
-labelInpb = NodePath("Node2D/Label2")
-labelOut = NodePath("Node2D/Label3")
 ghostIconNode = NodePath("Node2D/symbols")
-editorBarIconNode = NodePath("Node2D/editorBar")
+editorBarIconNode = NodePath("Node2D/symbols")
+collisionShapes = [NodePath("Node2D/CollisionShape2D"), NodePath("attach detector/CollisionShape2D")]
+hidableSprites = [NodePath("Node2D/symbols")]
+cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("Node2D")
-ignoreMissingNodes = true
+canAttachToThings = true
+canAttachToPaths = true
 
-[node name="Node2D" type="Node2D" parent="."]
-
-[node name="editorBar" type="Sprite2D" parent="Node2D"]
-visible = false
-use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
-texture = ExtResource("2_b3ec0")
+[node name="Node2D" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 32768
+collision_mask = 0
+script = ExtResource("2_gl3cm")
+root = NodePath("..")
 
 [node name="symbols" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
-texture = ExtResource("3_nvu3a")
+texture = ExtResource("2_b3ec0")
 
-[node name="Label" type="Label" parent="Node2D"]
-offset_left = -113.0
-offset_top = -105.0
-offset_right = -10.0
-offset_bottom = -22.0
-text = "12"
-label_settings = ExtResource("4_e6ogk")
-horizontal_alignment = 1
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
+shape = SubResource("CircleShape2D_5ce0x")
 
-[node name="Label2" type="Label" parent="Node2D"]
-offset_left = 27.0
-offset_top = -66.0
-offset_right = 130.0
-offset_bottom = 17.0
-text = "12"
-label_settings = ExtResource("4_e6ogk")
-horizontal_alignment = 1
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("4_mai7y")
+root = NodePath("..")
 
-[node name="Label3" type="Label" parent="Node2D"]
-offset_left = -31.0
-offset_top = 13.0
-offset_right = 72.0
-offset_bottom = 96.0
-text = "12"
-label_settings = ExtResource("4_e6ogk")
-horizontal_alignment = 1
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
+shape = SubResource("CircleShape2D_5ce0x")
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)

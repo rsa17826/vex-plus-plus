@@ -59,7 +59,7 @@ ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIconNode = NodePath("Node2D/Sprite2D")
 collisionShapes = [NodePath("Node2D/CollisionShape2D"), NodePath("attach detector/CollisionShape2D2")]
 hidableSprites = [NodePath("Node2D/AnimatedSprite2D"), NodePath("Node2D/Sprite2D")]
-ignoreMissingNodes = true
+canAttachToPaths = true
 
 [node name="Node2D" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 34824
@@ -72,13 +72,11 @@ texture = ExtResource("3_jj508")
 script = ExtResource("4_bc68f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
-visible = false
 use_parent_material = true
 position = Vector2(0, -1)
 sprite_frames = SubResource("SpriteFrames_bc68f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
-visible = false
 shape = SubResource("RectangleShape2D_4p2bk")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
@@ -88,7 +86,6 @@ script = ExtResource("3_livsr")
 root = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
-visible = false
 z_index = 3
 shape = SubResource("RectangleShape2D_jj508")
 debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
