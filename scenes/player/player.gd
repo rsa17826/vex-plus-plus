@@ -1479,6 +1479,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-113! pulleys and cannons give an extra jump
   # !version ?-113! stars saved block and player data, now they only save block data
   # ?!version ?-115! getting pushed off a ledge doesn't remove a jump
+  # ?!version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
