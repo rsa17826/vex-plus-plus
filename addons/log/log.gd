@@ -380,9 +380,8 @@ static func format_int_with_commas(number: Variant) -> String:
   var rest = '.' + str(number).split(".")[1] if number is float else ''
   number = str(int(floor(number)))
   for i in range(
-    number.length() - (3 +
-      (1 if number.begins_with('-') else 0)
-    ), 0, -3
+    number.length() - (3
+    ), (1 if number.begins_with('-') else 0), -3
   ):
     number = number.insert(i, ',')
   return number + rest
