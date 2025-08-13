@@ -38,7 +38,6 @@
       STR(inverse solar)
       STR(key)
       STR(locked box)
-      STR(portal)
     ]
     STR(death)[
       STR(buzsaw)
@@ -56,6 +55,8 @@
       STR(checkpoint)
   STR(star)
   STR(goal)
+      STR(portal)
+
     STR(death boundary)
   STR(block death boundary)
     ]

@@ -1549,6 +1549,7 @@ func fullscreen(state: int = 0) -> void:
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
 
 func localReady() -> void:
+  log.pp(sds.loadDataFromFile("res://maps/tut/hub.sds"))
   log.pp(Color("#6e6e00").to_rgba32())
   DirAccess.make_dir_recursive_absolute(MAP_FOLDER)
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))

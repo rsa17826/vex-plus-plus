@@ -434,14 +434,14 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       + ("" if isarrafterdict else spaces(tab)) \
       +"{" \
       + getcolor("END") \
-      +"\n  " + spaces(tab)
+      +"\n"
       var arr = []
       for k in item:
         var v = item[k]
         arr.append(getcolor("purple") + (
           coloritem(k, tab)
         ) + getcolor("END") + getcolor("orange") + ": " + getcolor("END") + coloritem(v, tab, true))
-      text += (
+      text += spaces(tab + 2) + (
         (getcolor("orange") + "," + getcolor("END") + "\n  " + spaces(tab)).join(
           arr
         )
@@ -486,7 +486,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
         (getcolor("orange") + "," + getcolor("END") + "\n").join(
           (item as Array).map(
             func(newitem): return (
-              "  " + spaces(tab)
+              spaces(tab)
               # if newitem is String \
               # or newitem is int \
               # or newitem is float \
@@ -565,7 +565,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
 
 static func pp(...msgs) -> void:
   print_rich(
-    log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)),
+    log_prefix(get_stack(), true) + '\n\n\n' + " - ".join(msgs.map(coloritem)),
   )
 static func info(...msgs) -> void:
   var m = log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem))
