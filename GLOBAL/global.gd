@@ -965,7 +965,9 @@ func _unhandled_input(event: InputEvent) -> void:
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
   if event.is_action_pressed(&"new_map_folder", false, true):
-    createNewMapFolder()
+    await createNewMapFolder()
+    if get_tree().current_scene.name == &"main menu":
+      get_tree().reload_current_scene()
   if event.is_action_pressed(&"duplicate_block", false, true):
     if boxSelect_selectedBlocks:
       var targetBlock: EditorBlock = lastSelectedBlock if lastSelectedBlock in boxSelect_selectedBlocks else boxSelect_selectedBlocks[0]

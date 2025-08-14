@@ -83,7 +83,7 @@ func showMoreOptions(levelName, levelData):
       )
       get_tree().reload_current_scene()
     1:
-      OS.move_to_trash((global.path.join(global.MAP_FOLDER, levelName)))
+      OS.move_to_trash(global.path.join(global.MAP_FOLDER, levelName))
       get_tree().reload_current_scene()
     2:
       DirAccess.rename_absolute(
