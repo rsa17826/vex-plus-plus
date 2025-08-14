@@ -888,12 +888,7 @@ func _physics_process(delta: float) -> void:
           # if block == floorRayCollision:
           #   floorRayCollision = null
           handleCollision(block, normal, depth, collision.get_position())
-echo Version: 122
-Compress-Archive -Path "D:\godotgames\exports\vex\launcher\*" -DestinationPath "D:\godotgames\exports\vex\launcher.zip" -Force
-Compress-Archive -Path "D:\godotgames\exports\vex\windows\*" -DestinationPath "D:\godotgames\exports\vex\windows.zip" -Force
-gh release create "122" "D:\godotgames\exports\vex\launcher.zip" "D:\godotgames\exports\vex\windows.zip" --notes ""
-Remove-Item "D:\godotgames\exports\vex\launcher.zip" -Force
-Remove-Item "D:\godotgames\exports\vex\windows.zip" -Force
+
         # if floorRayCollision:
         #   handleCollision(floorRayCollision, Vector2(0, -1), 1)
         # trying to fix some downward collisions not having correct normal
