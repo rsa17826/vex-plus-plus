@@ -46,7 +46,7 @@ func _ready() -> void:
     levelContainer.add_child(node)
   loadUserOptions()
   %version.text = "VERSION: " + str(global.VERSION)
-
+var levelMenuPromise
 func showMoreOptions(levelName, levelData):
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
   var i := 0
@@ -64,12 +64,18 @@ func showMoreOptions(levelName, levelData):
     pm.add_item(k, i)
     i += 1
   pm.add_item('< cancel >', i)
-  var promise = Promise.new()
-  pm.connect("index_pressed", promise.resolve)
+  if levelMenuPromise:
+    levelMenuPromise.resolve(-1)
+  levelMenuPromise = Promise.new()
+  pm.index_pressed.connect(func(e):
+    if levelMenuPromise:
+      levelMenuPromise.resolve(e)
+    levelMenuPromise=null, CONNECT_ONE_SHOT)
   pm.popup.call_deferred(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
-  var res = await promise.wait()
+  var res = await levelMenuPromise.wait()
   log.pp(res)
   match res:
+    -1: return
     0:
       global.copyDir(
         global.path.join(global.MAP_FOLDER, levelName),

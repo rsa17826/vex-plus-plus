@@ -549,6 +549,9 @@ func _physics_process(delta: float) -> void:
         # setRot(defaultAngle)
         setRot(lerp_angle(rotation, defaultAngle, .2))
         $CollisionShape2D.rotation = 0
+        # if state == States.wallHang:
+        #   if (CenterIsOnWall() and !TopIsOnWall()):
+        #     state = States.falling
         # hide the water animations
         $anim.visible = true
         $waterAnimTop.visible = false
@@ -575,15 +578,16 @@ func _physics_process(delta: float) -> void:
             position += Vector2(0, 2).rotated(defaultAngle)
           return
 
-        # if state == States.wallHang || state == States.wallSliding:
-        # remainingJumpCount = MAX_JUMP_COUNT
-        if not is_on_wall() and getClosestWallSide():
-          var ray: RayCast2D = getClosestWallRay()
-          var origin: Vector2 = ray.global_transform.origin
-          var collision_point := ray.get_collision_point()
-          var distance := origin.distance_to(collision_point)
-          # log.pp(distance * getClosestWallSide())
-          position += Vector2((distance) * getClosestWallSide(), 0).rotated(defaultAngle) * 2
+        if state == States.wallHang || state == States.wallSliding:
+          # remainingJumpCount = MAX_JUMP_COUNT
+          if not is_on_wall() and getClosestWallSide():
+            var ray: RayCast2D = getClosestWallRay()
+            var origin: Vector2 = ray.global_transform.origin
+            var collision_point := ray.get_collision_point()
+            var distance := origin.distance_to(collision_point)
+            # log.pp(distance * getClosestWallSide())
+            position += Vector2((distance) * getClosestWallSide(), 0).rotated(defaultAngle)
+            # position += Vector2((distance) * getClosestWallSide(), 0).rotated(defaultAngle) * 2
         # if on floor reset kt, user y velocity, and allow both wall sides again
         if is_on_floor():
           if !onStickyFloor:
