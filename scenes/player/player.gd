@@ -1030,7 +1030,7 @@ func tryAndDieSquish():
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
   or (len(collsiionOn_left) and len(collsiionOn_right)):
     # log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
-    die(DEATH_TIME, false, true)
+    die(DEATH_TIME, false, false)
 
 func calcHitDir(normal):
   var hitTop = normal.distance_to(up_direction) < 0.77

@@ -1549,7 +1549,37 @@ func fullscreen(state: int = 0) -> void:
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
 
 func localReady() -> void:
-  log.pp(sds.loadDataFromFile("res://maps/tut/hub.sds"))
+#   log.test([123,
+#   [
+#   "res://scenes/blocks/selectedBorder.tres/images/editorBar.png",
+#   "res://scenes/blocks/selectedBorder.tres/images/1.png",
+#   "res://scenes/blocks/selectedBorder.tres/images/unpressed.png",
+#   "res://scenes/blocks/selectedBorder.tres/images/ghost.png",
+#   112
+#   ],
+# " does not exist, ITEM:",
+# "res://scenes/blocks/selectedBorder.tres"
+# ])
+#   log.test([
+#   [
+#     [
+#       [
+#         {
+#           's': [
+#             "res://scenes/blocks/selectedBorder.tres/images/editorBar.png",
+#             "res://scenes/blocks/selectedBorder.tres/images/1.png",
+#             "res://scenes/blocks/selectedBorder.tres/images/unpressed.png",
+#             "res://scenes/blocks/selectedBorder.tres/images/ghost.png",
+#             112
+#           ]
+#         }
+#       ]
+#     ]
+#   ],
+#   " does not exist, ITEM:",
+#   "res://scenes/blocks/selectedBorder.tres"
+# ])
+
   log.pp(Color("#6e6e00").to_rgba32())
   DirAccess.make_dir_recursive_absolute(MAP_FOLDER)
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))

@@ -374,6 +374,7 @@ static func spaces(count: int) -> String:
   var s = ''
   for i in range(count):
     s += ' '
+    # s += str(count) + ' '
   return s
 
 static func format_int_with_commas(number: Variant) -> String:
@@ -431,7 +432,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     else:
       var text = getcolor("orange") \
       # + "\n"
-      + ("" if isarrafterdict else spaces(tab)) \
+      # + ("" if isarrafterdict else '') \
       +"{" \
       + getcolor("END") \
       +"\n"
@@ -479,18 +480,14 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       return prefix + text + postfix
     else:
       var text = getcolor("orange") \
-      + ("" if isarrafterdict else spaces(tab)) \
+      # + ("" if isarrafterdict else '') \
       +"[\n" \
       + getcolor("END") \
       + (
         (getcolor("orange") + "," + getcolor("END") + "\n").join(
           (item as Array).map(
             func(newitem): return (
-              spaces(tab)
-              # if newitem is String \
-              # or newitem is int \
-              # or newitem is float \
-              # else ""
+              spaces(tab + 2)
             ) \
             + coloritem(newitem, tab),
           )
@@ -562,6 +559,11 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
   return spaces(tab) + '"' + str(item) + '"'
 
 ## public print fns ###########################################################################
+static func test(...msgs) -> void:
+  print_rich(
+    'TEST:\n\n' + " - ".join(msgs.map(coloritem)),
+  )
+  global.get_tree().quit()
 
 static func pp(...msgs) -> void:
   print_rich(
@@ -589,14 +591,3 @@ static func error(...msgs) -> void:
   if not Engine.is_editor_hint():
     ToastParty.error(m)
   push_error(m)
-
-# [ERR]: <plugin:249>: [
-#   [
-#   "res://scenes/blocks/selectedBorder.tres/images/editorBar.png",
-#   "res://scenes/blocks/selectedBorder.tres/images/1.png",
-#   "res://scenes/blocks/selectedBorder.tres/images/unpressed.png",
-#   "res://scenes/blocks/selectedBorder.tres/images/ghost.png"
-#   ],
-# " does not exist, ITEM:",
-# "res://scenes/blocks/selectedBorder.tres"
-# ]
