@@ -1471,7 +1471,8 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> voi
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"), opts)
 
 func createNewMapFolder() -> Variant:
-  var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, "New map")
+  var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, '')
+  if !foldername: return
   var fullDirPath := path.join(MAP_FOLDER, foldername)
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
@@ -1579,7 +1580,6 @@ func localReady() -> void:
 #   " does not exist, ITEM:",
 #   "res://scenes/blocks/selectedBorder.tres"
 # ])
-
   log.pp(Color("#6e6e00").to_rgba32())
   DirAccess.make_dir_recursive_absolute(MAP_FOLDER)
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))
