@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://lqi3vvs0ulj8"]
+[gd_scene load_steps=68 format=3 uid="uid://lqi3vvs0ulj8"]
 
 [ext_resource type="Script" uid="uid://bnljxqtbxhhy7" path="res://scenes/blocks/portal/portal.gd" id="1_2avja"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_qv0m4"]
@@ -63,9 +63,7 @@
 [ext_resource type="Texture2D" uid="uid://c8m0l38ux1iym" path="res://scenes/blocks/portal/images/59.png" id="61_dlxwt"]
 [ext_resource type="Texture2D" uid="uid://de186pusijf4i" path="res://scenes/blocks/portal/images/60.png" id="62_u5uwj"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="63_0dop3"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
-size = Vector2(294, 412)
+[ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="63_qv0m4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_nqnf4"]
 animations = [{
@@ -255,6 +253,9 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
+size = Vector2(294, 412)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vfxqp"]
 size = Vector2(318, 439)
 
@@ -285,15 +286,16 @@ visible = false
 use_parent_material = true
 texture = ExtResource("3_an6f3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-position = Vector2(0, 2)
-shape = SubResource("RectangleShape2D_t2pxc")
-debug_color = Color(0, 1, 0, 0.419608)
-
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="collisionNode"]
 sprite_frames = SubResource("SpriteFrames_nqnf4")
 autoplay = "default"
 frame_progress = 0.00319535
+script = ExtResource("63_qv0m4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_t2pxc")
+debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0

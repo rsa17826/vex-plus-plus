@@ -26,6 +26,7 @@ func on_physics_process(delta: float) -> void:
       if block is BlockKey and block.following: continue
       var offset = block.thingThatMoves.global_position - thingThatMoves.global_position
       # block.thingThatMoves.rotation_degrees += selectedOptions.speed
+      block.thingThatMoves.rotation_degrees += selectedOptions.speed * delta
       var newpos = thingThatMoves.global_position + \
       (offset) \
       .rotated(deg_to_rad(selectedOptions.speed * delta))

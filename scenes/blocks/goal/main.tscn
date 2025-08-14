@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://dauqqb8fvhoev"]
+[gd_scene load_steps=68 format=3 uid="uid://dauqqb8fvhoev"]
 
 [ext_resource type="Script" uid="uid://j3yhw2jokqj" path="res://scenes/blocks/goal/goal.gd" id="1_0d1cd"]
 [ext_resource type="Texture2D" uid="uid://c2dmbt52fls6a" path="res://scenes/blocks/goal/images/1.png" id="2_0d1cd"]
@@ -63,6 +63,7 @@
 [ext_resource type="Texture2D" uid="uid://bp5g0m5bhsmap" path="res://scenes/blocks/goal/images/59.png" id="60_s260v"]
 [ext_resource type="Texture2D" uid="uid://c1usr55sffg2o" path="res://scenes/blocks/goal/images/60.png" id="61_u3ie7"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="62_0d1cd"]
+[ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="63_pmh6p"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_geocb"]
 animations = [{
@@ -291,6 +292,7 @@ texture = ExtResource("2_0d1cd")
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_geocb")
 autoplay = "default"
+script = ExtResource("63_pmh6p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, 2)
