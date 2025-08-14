@@ -565,7 +565,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
 
 static func pp(...msgs) -> void:
   print_rich(
-    log_prefix(get_stack(), true) + '\n\n\n' + " - ".join(msgs.map(coloritem)),
+    log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)),
   )
 static func info(...msgs) -> void:
   var m = log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem))
@@ -589,3 +589,14 @@ static func error(...msgs) -> void:
   if not Engine.is_editor_hint():
     ToastParty.error(m)
   push_error(m)
+
+# [ERR]: <plugin:249>: [
+#   [
+#   "res://scenes/blocks/selectedBorder.tres/images/editorBar.png",
+#   "res://scenes/blocks/selectedBorder.tres/images/1.png",
+#   "res://scenes/blocks/selectedBorder.tres/images/unpressed.png",
+#   "res://scenes/blocks/selectedBorder.tres/images/ghost.png"
+#   ],
+# " does not exist, ITEM:",
+# "res://scenes/blocks/selectedBorder.tres"
+# ]
