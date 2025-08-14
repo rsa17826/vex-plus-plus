@@ -14,6 +14,8 @@ func on_physics_process(delta: float) -> void:
 
 func on_body_entered(body: Node2D) -> void:
   if body is Player: return
+  if body.root is BlockCrumbling:
+    body.root.start()
   if body.root is BlockBomb:
     body.root.explode()
   queue_free.call_deferred()

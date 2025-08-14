@@ -56,7 +56,7 @@
         "thing": "option",
         "type": "bool",
         "key": "showGridInEdit",
-        "defaultValue": false
+        "defaultValue": true
       },
       {
         "thing": "option",
