@@ -969,18 +969,20 @@ func _unhandled_input(event: InputEvent) -> void:
     if get_tree().current_scene.name == &"main menu":
       get_tree().reload_current_scene()
   if event.is_action_pressed(&"duplicate_block", false, true):
-    if boxSelect_selectedBlocks:
+    if boxSelect_selectedBlocks.filter(func(e): return e.id and not e.DONT_SAVE):
       var targetBlock: EditorBlock = lastSelectedBlock if lastSelectedBlock in boxSelect_selectedBlocks else boxSelect_selectedBlocks[0]
       var mpos := targetBlock.get_global_mouse_position()
       var diff = targetBlock.startPosition - mpos
+      if diff.length() < 150:
+        diff -= Vector2(300, 0)
+        player.camLockPos += Vector2(300, 0)
       var arr: Array[EditorBlock] = []
-      for block in boxSelect_selectedBlocks:
+      for block in boxSelect_selectedBlocks.filter(func(e): return e.id and not e.DONT_SAVE):
         if block == player.get_parent(): return
         if !isAlive(block): return
         var posOffset = mpos - block.startPosition
         var newBlock := duplicate_block(block)
         newBlock.global_position = mpos - posOffset - diff
-        snapToGrid(newBlock, Vector2(global.useropts.blockGridSnapSize, global.useropts.blockGridSnapSize))
         setBlockStartPos(newBlock)
         arr.append(newBlock)
       boxSelect_selectedBlocks = arr
@@ -1500,15 +1502,15 @@ func createNewMapFolder() -> Variant:
     }
   )
   await createNewLevelFile(foldername, startLevel)
-  var o = []
-  log.pp(OS.execute("cmd", [
-    "/c",
-    'mklink /J "' +
-    path.join(MAP_FOLDER, foldername, "/custom blocks") +
-    '" "' +
-    path.abs("res://custom blocks") +
-    '"'
-  ], o), o)
+  # var o = []
+  # log.pp(OS.execute("cmd", [
+  #   "/c",
+  #   'mklink /J "' +
+  #   path.join(MAP_FOLDER, foldername, "/custom blocks") +
+  #   '" "' +
+  #   path.abs("res://custom blocks") +
+  #   '"'
+  # ], o), o)
   return foldername
 
 const defaultLevelSettings = {

@@ -873,13 +873,13 @@
     ]
   }
   STR(wekldjdsf){
-    STR(lastSpawnPoint)VEC2(651.472595214844,54.9197158813477)
+    STR(lastSpawnPoint)VEC2(1151.47253417969,-745.080261230469)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(up_direction)VEC2(0.0,1.0)
-        STR(autoRunDirection)INT(-1)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(1)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(checkpoint){
@@ -899,22 +899,22 @@
               STR(texture)STR(1)
             }
             INT(6){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
             INT(7){
-              STR(texture)STR(3)
+              STR(texture)STR(1)
             }
             INT(8){
-              STR(texture)STR(3)
+              STR(texture)STR(1)
             }
             INT(9){
-              STR(texture)STR(3)
+              STR(texture)STR(1)
             }
             INT(10){
-              STR(texture)STR(3)
+              STR(texture)STR(2)
             }
             INT(11){
-              STR(texture)STR(3)
+              STR(texture)STR(1)
             }
           }
         }
