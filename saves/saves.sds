@@ -873,13 +873,13 @@
     ]
   }
   STR(wekldjdsf){
-    STR(lastSpawnPoint)VEC2(1151.47253417969,-745.080261230469)
+    STR(lastSpawnPoint)VEC2(13127.74609375,-861.723571777344)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
         STR(up_direction)VEC2(0.0,-1.0)
-        STR(autoRunDirection)INT(1)
+        STR(autoRunDirection)INT(-1)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(checkpoint){
@@ -911,9 +911,144 @@
               STR(texture)STR(1)
             }
             INT(10){
-              STR(texture)STR(2)
+              STR(texture)STR(3)
             }
             INT(11){
+              STR(texture)STR(3)
+            }
+            INT(12){
+              STR(texture)STR(3)
+            }
+            INT(13){
+              STR(texture)STR(3)
+            }
+            INT(14){
+              STR(texture)STR(3)
+            }
+            INT(15){
+              STR(texture)STR(3)
+            }
+            INT(16){
+              STR(texture)STR(3)
+            }
+            INT(17){
+              STR(texture)STR(1)
+            }
+            INT(18){
+              STR(texture)STR(1)
+            }
+            INT(19){
+              STR(texture)STR(3)
+            }
+            INT(20){
+              STR(texture)STR(3)
+            }
+            INT(21){
+              STR(texture)STR(3)
+            }
+            INT(22){
+              STR(texture)STR(3)
+            }
+            INT(23){
+              STR(texture)STR(3)
+            }
+            INT(24){
+              STR(texture)STR(1)
+            }
+            INT(25){
+              STR(texture)STR(1)
+            }
+            INT(26){
+              STR(texture)STR(1)
+            }
+            INT(27){
+              STR(texture)STR(1)
+            }
+            INT(28){
+              STR(texture)STR(1)
+            }
+            INT(29){
+              STR(texture)STR(1)
+            }
+            INT(30){
+              STR(texture)STR(1)
+            }
+            INT(31){
+              STR(texture)STR(1)
+            }
+            INT(32){
+              STR(texture)STR(1)
+            }
+            INT(33){
+              STR(texture)STR(1)
+            }
+            INT(34){
+              STR(texture)STR(1)
+            }
+            INT(35){
+              STR(texture)STR(1)
+            }
+            INT(36){
+              STR(texture)STR(1)
+            }
+            INT(37){
+              STR(texture)STR(1)
+            }
+            INT(38){
+              STR(texture)STR(1)
+            }
+            INT(39){
+              STR(texture)STR(1)
+            }
+            INT(40){
+              STR(texture)STR(1)
+            }
+            INT(41){
+              STR(texture)STR(1)
+            }
+            INT(42){
+              STR(texture)STR(1)
+            }
+            INT(43){
+              STR(texture)STR(1)
+            }
+            INT(44){
+              STR(texture)STR(1)
+            }
+            INT(45){
+              STR(texture)STR(1)
+            }
+            INT(46){
+              STR(texture)STR(3)
+            }
+            INT(47){
+              STR(texture)STR(1)
+            }
+            INT(48){
+              STR(texture)STR(1)
+            }
+            INT(49){
+              STR(texture)STR(1)
+            }
+            INT(50){
+              STR(texture)STR(1)
+            }
+            INT(51){
+              STR(texture)STR(2)
+            }
+            INT(52){
+              STR(texture)STR(1)
+            }
+            INT(53){
+              STR(texture)STR(1)
+            }
+            INT(54){
+              STR(texture)STR(1)
+            }
+            INT(55){
+              STR(texture)STR(1)
+            }
+            INT(56){
               STR(texture)STR(1)
             }
           }
