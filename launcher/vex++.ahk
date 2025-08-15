@@ -86,7 +86,7 @@ if FileExist("updating self") {
     FileDelete("updating self")
   }
 }
-else{
+else {
   if FileExist('temp.zip') {
     FileDelete("temp.zip")
     aotMsgBox("failed while installing a game version!!")
@@ -139,9 +139,12 @@ sfi(p, i) {
 }
 
 sfi(path.join(A_ScriptDir, 'launcherData'), path.join(A_ScriptDir, "icons", "exes.ico"))
+sfi(path.join(A_ScriptDir, 'launcherData/exes'), path.join(A_ScriptDir, "icons", "exes.ico"))
 loop files A_ScriptDir "\icons\*.ico" {
   p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
-  sfi(p, A_LoopFileFullPath)
+  if DirExist(p) {
+    sfi(p, A_LoopFileFullPath)
+  }
 }
 
 DirCreate("versions")
@@ -320,7 +323,7 @@ getExeVersion(version, default?) {
   p := path.join(A_ScriptDir, "versions", version, "exeVersion.txt")
   if FileExist(p) {
     exever := F.read(p)
-    if DirExist(path.join(A_ScriptDir, "game data/exes", exever))
+    if DirExist(path.join(A_ScriptDir, "launcherData/exes", exever))
       return exever
     inp := input("exe version `"" exever "`" not found", '', '', "", newestExeVersion)
     if inp {
@@ -368,12 +371,12 @@ runSelectedVersion() {
   if !hasProcessRunning() {
     try {
       FileCopy(
-        path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.console.exe"),
+        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
         path.join(A_ScriptDir, "game data/vex.console.exe"),
         1
       )
       FileCopy(
-        path.join(A_ScriptDir, "game data/exes", exeVersion, "vex.exe"),
+        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
         path.join(A_ScriptDir, "game data/vex.exe"),
         1
       )
@@ -501,7 +504,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     ; _f := FileOpen("D:\Games\vex++\tempEXECMP", "w", "UTF-16-RAW")
     ; _f.write(target)
     ; _f.close()
-    loop files A_ScriptDir "/game data/exes/*", 'D' {
+    loop files A_ScriptDir "/launcherData/exes/*", 'D' {
       ; aotMsgBox("reading file: " A_LoopFileName)
       if FileRead(A_LoopFileFullPath "/vex.exe", "UTF-16-RAW") == target {
         version := A_LoopFileName

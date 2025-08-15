@@ -1127,6 +1127,8 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"move_player_to_mouse", false, true):
     if player and is_instance_valid(player):
       # move player feet to mouse position
+      if player.state == player.States.dead:
+        player.stopDying()
       player.state = player.States.falling
       player.activePole = null
       player.activePulley = null
@@ -1876,7 +1878,7 @@ var ui: CanvasLayer
 func copyDir(source: String, destination: String):
   DirAccess.make_dir_recursive_absolute(destination)
 
-  var source_dir = DirAccess.open(source);
+  var source_dir = DirAccess.open(source)
 
   for filename in source_dir.get_files():
     source_dir.copy(
