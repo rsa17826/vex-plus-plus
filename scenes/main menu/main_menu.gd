@@ -174,7 +174,7 @@ func upload_file(file_path: String, base64_content: String, offlineLevelData: Di
     "content": base64_content,
     "branch": BRANCH
   }
-
+  ToastParty.info("Checking if level exists on server...")
   var getRes = (await global.httpGet(url + "?rand=" + str(randf()), headers, HTTPClient.METHOD_GET)).response
   # log.pp('getRes', getRes)
   if "sha" in getRes:
