@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://i5yrt30hom5h" path="res://scenes/blocks/crumbling/crumbling.gd" id="1_1su8o"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_jj508"]
 [ext_resource type="Texture2D" uid="uid://clncqvx1myjrc" path="res://scenes/blocks/crumbling/images/base/1.png" id="3_jj508"]
-[ext_resource type="Script" path="res://scenes/blocks/attach detector.gd" id="3_livsr"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_livsr"]
 [ext_resource type="Texture2D" uid="uid://bnu5xkix86phw" path="res://scenes/blocks/crumbling/images/cracks/1.png" id="3_vhjlh"]
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="4_bc68f"]
 [ext_resource type="Texture2D" uid="uid://c5r1rw2p1tt1u" path="res://scenes/blocks/crumbling/images/cracks/2.png" id="4_qhxsv"]
@@ -59,6 +59,7 @@ ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIconNode = NodePath("Node2D/Sprite2D")
 collisionShapes = [NodePath("Node2D/CollisionShape2D"), NodePath("attach detector/CollisionShape2D2")]
 hidableSprites = [NodePath("Node2D/AnimatedSprite2D"), NodePath("Node2D/Sprite2D")]
+EDITOR_OPTION_scale = true
 canAttachToPaths = true
 
 [node name="Node2D" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]

@@ -30,6 +30,7 @@ oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
 "y": -1
 })
+EDITOR_OPTION_scale = true
 canAttachToThings = true
 canAttachToPaths = true
 
