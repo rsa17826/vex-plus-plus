@@ -1179,4 +1179,27 @@
     ]
     STR(beatLevels)[]
   }
+  STR(pole test){
+    STR(lastSpawnPoint)VEC2(-101.47257232666,-504.919708251953)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,1.0)
+        STR(autoRunDirection)INT(1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(1)
+            }
+            INT(2){
+              STR(texture)STR(2)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
 }
