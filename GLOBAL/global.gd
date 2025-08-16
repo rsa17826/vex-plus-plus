@@ -1321,7 +1321,7 @@ func saveBlockData():
         blockSaveData[block.id][blockIds[block.id]][thing] = block.get(thing)
   return blockSaveData
 
-func loadMap(levelPackName: String, loadFromSave: bool) -> void:
+func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   # log.pp("loadFromSave", loadFromSave)
   var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
   if levelPackName in saveData:
@@ -1334,11 +1334,11 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   # log.pp("Loading Level Pack:", levelPackName)
   levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
   var levelPackInfo: Variant = await loadMapInfo(levelPackName)
-  if !levelPackInfo: return
+  if !levelPackInfo: return false
   var startFile := path.join(levelFolderPath, levelPackInfo.start + '.sds')
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
-    return
+    return false
   # levelPackInfo.version = int(levelPackInfo.version)
   if not same(levelPackInfo.version, VERSION):
     var gameVersionIsNewer: bool = VERSION > levelPackInfo.version
@@ -1352,7 +1352,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
           "> the current game version is newer than what the level was made in"
           , PromptTypes.confirm
         )
-        if not data: return
+        if not data: return false
     else:
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
         var data = await prompt(
@@ -1363,7 +1363,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
           "< the current game version might not have all the features needed to play this level"
           , PromptTypes.confirm
         )
-        if not data: return
+        if not data: return false
   levelOpts = levelPackInfo
 
   if loadFromSave and saveData:
@@ -1392,6 +1392,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> void:
   player.die(0, false, true)
   player.die(15, false, true)
   global.tick = global.currentLevel().tick
+  return true
 
 func loadBlockData():
   if not "blockSaveData" in currentLevel(): return

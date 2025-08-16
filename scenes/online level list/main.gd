@@ -4,7 +4,6 @@ var GITHUB_TOKEN = global.getToken()
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
-@export var versionNodeHolder: Control
 @export var loadingText: Label
 @export var levelListContainerNode: Control
 
@@ -120,7 +119,7 @@ func loadOnlineLevels():
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     var v = versionNode.instantiate()
     v.title = str(version)
-    v.folded = version != global.VERSION
+    v.folded = false if global.useropts.autoExpandAllGroups else version != global.VERSION
     levelListContainerNode.add_child(v)
     for creator in allData[version]:
       var c = creatorNode.instantiate()
