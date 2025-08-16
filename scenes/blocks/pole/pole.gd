@@ -18,6 +18,10 @@ func on_body_entered(body: Node) -> void:
 
 func on_respawn():
   timingIndicator.visible = false
+  if global.player.activePole == $collisionNode:
+    global.player.activePole = null
+    if global.player.state == global.player.States.swingingOnPole:
+      global.player.state = global.player.States.falling
   $collisionNode.position = Vector2.ZERO
   await global.wait()
   timingIndicator.visible = false
