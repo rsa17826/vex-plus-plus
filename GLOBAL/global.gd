@@ -1811,9 +1811,9 @@ func tryAndLoadMapFromZip(from, to):
 
 func tryAndGetMapZipsFromArr(args) -> bool:
   var mapFound = false
-  for p in args:
-    if FileAccess.file_exists(p):
-      log.pp("AKSJDHSADKJHDHJDSKDSHKJDSA", p)
+  for p: String in args:
+    if !p.begins_with('uid://') and FileAccess.file_exists(p):
+      log.pp("tryAndGetMapZipsFromArr, found a map at:", p)
       if !('.' in p and ('/' in p or '\\' in p)): continue
       # add the intended folder to the end of the path to force it to go into the correct folder
       var moveto = path.join(MAP_FOLDER, regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
