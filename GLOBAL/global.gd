@@ -1500,11 +1500,7 @@ func createNewMapFolder() -> Variant:
         PromptTypes.string,
         "",
       ),
-      "description": await prompt(
-        "Enter a description of the map:",
-        PromptTypes.string,
-        "",
-      ),
+      "description": "",
       "version": VERSION,
       "stages": {
       }
