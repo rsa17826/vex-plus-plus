@@ -1,5 +1,6 @@
 ﻿{
   STR(basic blocks)[
+    STR(basic - noWJ)
     STR(basic)
     STR(slope)
     STR(crumbling)
@@ -28,8 +29,8 @@
   STR(moving blocks)[
     STR(updown)
     STR(downup)
-    STR(leftRight)
-    STR(rightLeft)
+    STR(leftright)
+    STR(rightleft)
     STR(growing block)
   ]
   STR(solars)[
@@ -45,10 +46,10 @@
     STR(buzsaw)
     STR(bouncing buzsaw)
     STR(growing buzsaw)
-    STR(quadrant)
-    STR(rotating buzzsaw)
-    STR(scythe)
-    STR(shurikan spawner)
+    STR(Quadrant)
+    STR(Rotating Buzzsaw)
+    STR(Scythe)
+    STR(shurikan Spawner)
     STR(falling spike)
     STR(laser)
     STR(targeting laser)
@@ -62,16 +63,16 @@
     STR(block death boundary)
   ]
   STR(levers/grabbables)[
-    STR(gravity down lever)
-    STR(gravity up lever)
-    STR(speed up lever)
+    STR(Gravity Down Lever)
+    STR(Gravity up Lever)
+    STR(speed Up Lever)
     STR(pole)
-    STR(pole quadrant)
-    STR(pulley)
+    STR(Pole Quadrant)
+    STR(Pulley)
   ]
   STR(decorations/misc2)[
     STR(arrow)
-    STR(noWJ)
+    STR(nowj)
     STR(sticky floor)
     STR(cannon)
     STR(undeath)
@@ -85,5 +86,4 @@
     STR(path)
     STR(button deactivated wall)
   ]
-  STR(remove)[]
 }

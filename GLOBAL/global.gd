@@ -1706,7 +1706,10 @@ func loadEditorBarData():
         i += 1
         if thing in unusedBlockNames:
           unusedBlockNames.erase(thing)
-        if k != 'remove':
+        if k == 'remove':
+          if InputMap.has_action("CREATE NEW - " + thing.replace("/", "_")):
+            InputMap.erase_action("CREATE NEW - " + thing.replace("/", "_"))
+        else:
           tempBlockNames.append(thing)
       while i % int(useropts.editorBarColumns) != 0:
         i += 1
