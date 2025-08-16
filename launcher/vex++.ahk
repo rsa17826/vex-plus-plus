@@ -365,8 +365,11 @@ runSelectedVersion() {
     return exeVersion
     ; }
   })
-  if !exeVersion
-    return ; aotMsgBox("Could not find the required executable version.")
+  if !exeVersion {
+    doingSomething := 0
+    return
+    ; aotMsgBox("Could not find the required executable version.")
+  }
   ; aotMsgBox('exeVersion ' exeVersion)
   if !hasProcessRunning() {
     try {
