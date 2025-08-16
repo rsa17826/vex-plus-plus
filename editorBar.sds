@@ -1,5 +1,6 @@
 ﻿{
   STR(basic blocks)[
+    STR(testblock)
     STR(basic)
     STR(slope)
     STR(crumbling)

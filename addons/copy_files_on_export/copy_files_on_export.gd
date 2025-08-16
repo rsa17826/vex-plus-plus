@@ -32,30 +32,26 @@ func _export_begin(features: PackedStringArray, _is_debug: bool, path: String, _
   # here which will be compressed into the final ZIP.
   var export_path: String = path.get_base_dir()
 
-  if not len(export_path):
-    return
-  global.file.write("res://VERSION", str(int(global.file.read("res://VERSION", false)) + 1), false)
+  if not len(export_path): return
+  # global.file.write("res://VERSION", str(int(global.file.read("res://VERSION", false)) + 1), false)
   for file_set: CFOEFileSet in _get_files():
     var file_set_features: PackedStringArray = file_set.features
 
-    if len(file_set_features) and not _feature_match(features, file_set_features):
-      continue
+    if len(file_set_features) and not _feature_match(features, file_set_features): continue
     log.pp(export_path.path_join(file_set.dest))
     if DirAccess.dir_exists_absolute(export_path.path_join(file_set.dest)):
       global.remove_recursive(export_path.path_join(file_set.dest))
     _copy(file_set.source, export_path.path_join(file_set.dest))
 
 func _export_end() -> void:
-  global.file.write("res://VERSION", str(int(global.file.read("res://VERSION", false)) - 1), false)
+  # global.file.write("res://VERSION", str(int(global.file.read("res://VERSION", false)) - 1), false)
 
   # if not len(source_data):
   #   _push_err("Error reading or file empty - \"%s\"! Skipping." % source_path)
   #   return
 
   DirAccess.remove_absolute(r"D:\godotgames\exports\vex\windows\exeVersion.txt")
-  if not len(zip_path):
-    return
-
+  if not len(zip_path): return
   # handle MacOS ZIP export
   var writer: ZIPPacker = ZIPPacker.new()
   var err: Error = writer.open(zip_path, ZIPPacker.ZipAppend.APPEND_ADDINZIP)
@@ -68,9 +64,7 @@ func _export_end() -> void:
   for file_set: CFOEFileSet in _get_files():
     var file_set_features: PackedStringArray = file_set.features
 
-    if len(file_set_features) and not _feature_match(_features, file_set_features):
-      continue
-
+    if len(file_set_features) and not _feature_match(_features, file_set_features): continue
     _write_to_zip(writer, file_set.source, file_set.dest)
 
   zip_path = ""
@@ -83,7 +77,7 @@ func _push_err(error: String) -> void:
   push_error(MESSAGE_FORMAT % error)
 
 func _log(info: String) -> void:
-  print(MESSAGE_FORMAT % info)
+  log.pp(MESSAGE_FORMAT % info)
 
 func _feature_match(requested_features: PackedStringArray, limited_features: PackedStringArray) -> bool:
   for feature: String in limited_features:
@@ -105,8 +99,7 @@ func _copy(source_path: String, dest_path: String) -> void:
     sub_paths.append_array(DirAccess.get_directories_at(source_path))
 
     for sub_path in sub_paths:
-      if _ignore_path(source_path.path_join(sub_path)):
-        continue
+      if _ignore_path(source_path.path_join(sub_path)): continue
       _copy(source_path.path_join(sub_path), dest_path.path_join(sub_path))
     return
 
@@ -133,8 +126,7 @@ func _write_to_zip(zip_packer: ZIPPacker, source_path: String, dest_path: String
     sub_paths.append_array(DirAccess.get_directories_at(source_path))
 
     for sub_path in sub_paths:
-      if _ignore_path(source_path.path_join(sub_path)):
-        continue
+      if _ignore_path(source_path.path_join(sub_path)): continue
       _write_to_zip(zip_packer, source_path.path_join(sub_path), dest_path.path_join(sub_path))
     return
 
