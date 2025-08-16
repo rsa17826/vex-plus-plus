@@ -28,9 +28,10 @@ PopupMenuTransperiancyEnabler="*res://themes/popup menu transperiancy enabler.gd
 file_logging/enable_file_logging=true
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
+gdscript/warnings/shadowed_variable_base_class=0
+gdscript/warnings/shadowed_global_identifier=0
 gdscript/warnings/unreachable_pattern=2
 gdscript/warnings/incompatible_ternary=0
-gdscript/warnings/return_value_discarded=1
 
 [display]
 

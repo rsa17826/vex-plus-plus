@@ -18,7 +18,7 @@ var _tween_in: Tween
 # local variables
 var gravity = "bottom" # top, bottom
 var direction = "center" # left, right, center
-var timer_to_destroy = global.useropts.toastStayTime # seconds by default
+var timer_to_destroy = global.useropts.toastStayTime if 'toastStayTime' in global.useropts else 2
 
 func _ready():
   _set_resolution()
