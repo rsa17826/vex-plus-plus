@@ -7,3 +7,4 @@ extends CanvasLayer
 @export var btnOk: Button
 @export var btnCancel: Button
 @export var btnDefault: Button
+@export var textEdit: TextEdit

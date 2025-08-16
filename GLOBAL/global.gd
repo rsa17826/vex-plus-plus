@@ -41,7 +41,8 @@ enum PromptTypes {
   # multiSelect,
   bool,
   rgb,
-  rgba
+  rgba,
+  multiLineString
 }
 
 func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant = null, default: Variant = null, singleArrValues: Variant = []) -> Variant:
@@ -62,6 +63,7 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant
   promptCanvas.strEdit.visible = false
   promptCanvas.enumEdit.visible = false
   promptCanvas.colEdit.visible = false
+  promptCanvas.textEdit.visible = false
   # log.pp(type)
   promptCanvas.btnCancel.text = "cancel"
   promptCanvas.btnOk.text = "ok"
@@ -88,6 +90,10 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant
     PromptTypes.bool:
       promptCanvas.btnCancel.text = "false"
       promptCanvas.btnOk.text = "true"
+    PromptTypes.multiLineString:
+      promptCanvas.textEdit.text = '' if startVal == null else startVal
+      promptCanvas.textEdit.visible = true
+      promptCanvas.textEdit.grab_focus()
     PromptTypes.string:
       promptCanvas.strEdit.text = '' if startVal == null else startVal
       promptCanvas.strEdit.connect("text_submitted", _on_submit)
@@ -143,6 +149,7 @@ func prompt(msg: String, type: PromptTypes = PromptTypes.info, startVal: Variant
     PromptTypes.confirm: val = confirmed
     PromptTypes.bool: val = confirmed
     PromptTypes.string: val = promptCanvas.strEdit.text if confirmed else startVal
+    PromptTypes.multiLineString: val = promptCanvas.textEdit.text if confirmed else startVal
     PromptTypes.float: val = float(promptCanvas.numEdit.value) if confirmed else startVal
     PromptTypes.int: val = int(promptCanvas.numEdit.value) if confirmed else startVal
     PromptTypes._enum: val = int(promptCanvas.enumEdit.selected) if confirmed else startVal

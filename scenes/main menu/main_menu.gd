@@ -22,10 +22,10 @@ func _ready() -> void:
     return global.loadMapInfo(a).version > global.loadMapInfo(s).version
   )
   newestLevel = dirs[0] if dirs else null
-  for level: String in dirs:
+  for levelName: String in dirs:
     var node := levelNode.instantiate()
-    node.levelname.text = level
-    var data = global.loadMapInfo(level)
+    node.levelname.text = levelName
+    var data = global.loadMapInfo(levelName)
     var versiontext = "V" + str(data.version) + " "
     if data.version > global.VERSION:
       versiontext += ">"
@@ -37,12 +37,12 @@ func _ready() -> void:
     node.creator.text = ("Author: " + data.author) if data else "INVALID LEVEL"
     node.description.text = data.description if data else "INVALID LEVEL"
     if data:
-      node.newSaveBtn.connect("pressed", loadLevel.bind(level, false))
-      node.loadSaveBtn.connect("pressed", loadLevel.bind(level, true))
+      node.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
+      node.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
       node.tooltip_text = data.description if data.description else "NO DESCRIPTION SET"
       node.newSaveBtn.tooltip_text = node.tooltip_text
       node.loadSaveBtn.tooltip_text = node.tooltip_text
-    node.moreOptsBtn.connect("pressed", showMoreOptions.bind(level, data))
+    node.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
     levelContainer.add_child(node)
   loadUserOptions()
   %version.text = "VERSION: " + str(global.VERSION)
@@ -57,6 +57,7 @@ func showMoreOptions(levelName, levelData):
     "rename",
     "show in file explorer",
     "open settings file",
+    "edit description",
     "export",
     "upload",
     "copy level share code",
@@ -86,22 +87,38 @@ func showMoreOptions(levelName, levelData):
       OS.move_to_trash(global.path.join(global.MAP_FOLDER, levelName))
       get_tree().reload_current_scene()
     2:
+      var newName = (await global.prompt(
+        "Rename map",
+        global.PromptTypes.string,
+        levelName
+      )).replace("/", '').replace("\\", '')
       DirAccess.rename_absolute(
         global.path.join(global.MAP_FOLDER, levelName),
         global.path.join(global.MAP_FOLDER,
-          (await global.prompt(
-            "Rename map",
-            global.PromptTypes.string,
-            levelName
-          )).replace("/", '').replace("\\", '')
+          newName
         )
       )
+      var saveData: Dictionary = sds.loadDataFromFile(global.path.abs("res://saves/saves.sds"), {})
+      saveData[newName] = saveData[levelName]
+      saveData.erase(levelName)
+      sds.saveDataToFile(global.path.abs("res://saves/saves.sds"), saveData)
       get_tree().reload_current_scene()
     3:
       OS.shell_open(global.path.join(global.MAP_FOLDER, levelName))
     4:
       OS.shell_open(global.path.join(global.MAP_FOLDER, levelName, "options.sds"))
     5:
+      var data = global.loadMapInfo(levelName)
+      var desc: String = await global.prompt(
+        "enter description",
+        global.PromptTypes.multiLineString,
+        data.description
+      )
+      if data.description != desc:
+        data.description = desc
+        sds.saveDataToFile(global.path.join(global.MAP_FOLDER, levelName, "/options.sds"), data)
+        get_tree().reload_current_scene()
+    6:
       log.pp(levelName)
       global.zipDir(
         global.path.join(global.MAP_FOLDER, levelName),
@@ -109,7 +126,7 @@ func showMoreOptions(levelName, levelData):
       )
       if global.useropts.openExportsDirectoryOnExport:
         OS.shell_open(global.path.abs("res://exports"))
-    6:
+    7:
       var outpath = global.path.abs("res://exports/" + levelName + ".vex++")
       global.zipDir(
         global.path.join(global.MAP_FOLDER, levelName),
@@ -129,7 +146,7 @@ func showMoreOptions(levelName, levelData):
         return
       await upload_file("levels/" + version + '/' + author + '/' + levelName + ".vex++", c, data)
       f.close()
-    7:
+    8:
       # log.pp(levelData, levelData.author)
       if not levelData.author:
         ToastParty.err("authors name must be set")
