@@ -82,7 +82,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **warnWhenOpeningLevelInNewerGameVersion**: when you open a level in an newer version of the game, you will be warned that it may not work properly.
 - **editorBarOffset**: can be used to place the editor bar a the bottom of the screen instead of the top, or just shift it down a bit to prevent it from being covered by other programs while in fullscreen or when the window is otherwise at the top of the screen
 - **blockGhostAlpha**: changes the alpha of the ghost blocks - used to show where a block is actually placed suchas keys that have been collected, moving blocks that are moving, etc.
-- **hoveredBlockGhostAlpha**: same as blockGhostAlpha but for when you hover over them and not working yet.
 - **saveLevelOnWin**: save the level when you win it.
 - **showHitboxes**: sets the default hitbox state for whenever entering a level
 - **showIconOnSave**: shows a save icon when the level is saved. low opacity when save stared and fully visible when saving finished.

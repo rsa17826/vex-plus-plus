@@ -473,7 +473,7 @@ func _process(delta: float) -> void:
   ghost.use_parent_material = true
   if global.hoveredBlocks && self == global.hoveredBlocks[0] \
     or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
-    ghost.modulate.a = global.useropts.hoveredBlockGhostAlpha
+    ghost.modulate.a = 1
   else:
     ghost.modulate.a = global.useropts.blockGhostAlpha
 

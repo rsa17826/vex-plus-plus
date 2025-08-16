@@ -1550,3 +1550,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix nowjs not working again
 # fix spike vscaling
 # fix editor bar cp high
+# pole indicator on death
