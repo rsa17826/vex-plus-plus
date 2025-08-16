@@ -1693,7 +1693,7 @@ func loadEditorBarData():
     "not gate",
     "and gate",
     "crumbling",
-    "rotator",
+    # "rotator",
   ]
   if useropts and editorBarData:
     var i = 0
