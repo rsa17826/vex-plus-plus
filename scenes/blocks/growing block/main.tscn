@@ -297,7 +297,6 @@ root = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
 z_index = 3
-position = Vector2(0,0)
 shape = SubResource("RectangleShape2D_6fssk")
 debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
 metadata/_edit_lock_ = true
