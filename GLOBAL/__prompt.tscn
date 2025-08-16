@@ -41,7 +41,7 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_pvg46"]
 events = [SubResource("InputEventKey_6rfjk"), SubResource("InputEventJoypadButton_ge371")]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "colEdit", "btnOk", "btnCancel", "btnDefault")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "colEdit", "btnOk", "btnCancel", "btnDefault", "textEdit")]
 script = ExtResource("1_ffns6")
 promptText = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Label")
 strEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit")
@@ -51,6 +51,7 @@ colEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Colo
 btnOk = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button")
 btnCancel = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button2")
 btnDefault = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button3")
+textEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/TextEdit")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(50, 50)
@@ -69,7 +70,7 @@ layout_mode = 2
 alignment = 1
 last_wrap_alignment = 2
 
-[node name="VFlowContainer" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
+[node name="VFlowContainer" type="VBoxContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
 layout_mode = 2
 
 [node name="Label" type="Label" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
@@ -97,6 +98,10 @@ allow_reselect = true
 [node name="ColorPickerButton" type="ColorPickerButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
 layout_mode = 2
 text = "COLOR"
+
+[node name="TextEdit" type="TextEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+custom_minimum_size = Vector2(750, 300)
+layout_mode = 2
 
 [node name="VFlowContainer2" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
 layout_direction = 2

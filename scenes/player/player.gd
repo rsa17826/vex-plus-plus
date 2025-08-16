@@ -1546,8 +1546,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # readd single spike
 # ?fix locked box in wall not unlocking
 # offset player save when moving player in editor
-# ?fix block hovered color not appearing
 # fix nowjs not working again
 # fix spike vscaling
 # fix editor bar cp high
-# pole indicator on death
