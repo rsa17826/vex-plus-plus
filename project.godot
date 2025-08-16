@@ -38,7 +38,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
-run/main_run_args="--loadMap wekldjdsf --load OnlineLevels"
+run/main_run_args="--loadMap \"pole test\" --load OnlineLevels"
 
 [editor_plugins]
 
