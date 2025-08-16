@@ -1543,3 +1543,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix spike vscaling
 # fix editor bar cp high
 # set bloack theme tooltips bg color
+# nodie star
