@@ -394,13 +394,16 @@ func _physics_process(delta: float) -> void:
         $anim.flip_h = false
       elif xIntent < 0:
         $anim.flip_h = true
+      activePole.root.timingIndicator.visible = true
+      activePole.root.timingIndicator.global_rotation = 0
+      var parentRotation = activePole.global_rotation - activePole.rotation
       if $anim.flip_h:
-        activePole.root.timingIndicator.rotation_degrees = 135 # - activePole.root.timingIndicator.get_parent().rotation_degrees
-        activePole.root.timingIndicator.position = applyRot(Vector2(-55.5, 55.5))
+        activePole.root.timingIndicator.rotation = deg_to_rad(135) - parentRotation
+        activePole.root.timingIndicator.position = applyRot(Vector2(-55.5, 55.5)).rotated(-parentRotation)
       else:
-        activePole.root.timingIndicator.rotation_degrees = 45 # - activePole.root.timingIndicator.get_parent().rotation_degrees
-        activePole.root.timingIndicator.position = applyRot(Vector2(55.5, 55.5))
-      activePole.root.timingIndicator.rotation+=defaultAngle
+        activePole.root.timingIndicator.rotation = deg_to_rad(45) - parentRotation
+        activePole.root.timingIndicator.position = applyRot(Vector2(55.5, 55.5)).rotated(-parentRotation)
+      activePole.root.timingIndicator.rotation += defaultAngle
       remainingJumpCount = MAX_JUMP_COUNT
       if ACTIONjump:
         remainingJumpCount -= 1
