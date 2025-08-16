@@ -1542,3 +1542,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # fix player sprite offsets
 # fix signal list changing size shigfting block menu
+# fix signal list not reset on level exit
+# readd single spike
+# ?fix locked box in wall not unlocking
+# offset player save when moving player in editor
+# ?fix block hovered color not appearing
+# fix nowjs not working again
+# fix spike vscaling
+# fix editor bar cp high
