@@ -1469,11 +1469,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version 29-29! dying while pulling levers causes global.tick to stay at 0
   # !version ?-28! pulling levers allows clipping through moving blocks
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
-  # ?!version ?-NOW! can push boxes while sliding
+  # !version ?-NOW! can push boxes while sliding
   # ?!version ?-<104! spawnpoint being inside water and doing full restart while in spawn water causes player to not be in water
-  # ?!version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
-  # ?!version ?-<104! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
-  # ?!version ?-NOW! exploded bombs reexplode after respawning
+  # !version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
+  # !version ?-<104! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
+  # !version ?-NOW! exploded bombs reexplode after respawning
   # !version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
   # !version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
   # !version ?-INF! collision is not checked while in cannons
@@ -1482,8 +1482,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-105! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
   # !version ?-113! pulleys and cannons give an extra jump
   # !version ?-113! stars saved block and player data, now they only save block data
-  # ?!version ?-115! getting pushed off a ledge doesn't remove a jump
-  # ?!version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
+  # !version ?-115! getting pushed off a ledge doesn't remove a jump
+  # !version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
 
 # add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
