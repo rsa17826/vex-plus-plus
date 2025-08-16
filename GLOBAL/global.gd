@@ -1823,7 +1823,7 @@ func tryAndGetMapZipsFromArr(args) -> bool:
     await wait(1000)
     get_tree().reload_current_scene.call_deferred()
     DisplayServer.window_move_to_foreground()
-  log.pp("get_tree().current_scene", get_tree().current_scene.name)
+  # log.pp("get_tree().current_scene", get_tree().current_scene.name)
   return mapFound
 
 func getAllPathsInDirectory(dir_path: String):
