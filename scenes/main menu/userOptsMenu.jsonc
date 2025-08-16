@@ -463,6 +463,12 @@
         "type": "bool",
         "key": "loadOnlineLevelListOnSceneLoad",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "autoExpandAllGroups",
+        "defaultValue": false
       }
     ]
   },

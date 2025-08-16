@@ -1490,19 +1490,15 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-115! getting pushed off a ledge doesn't remove a jump
   # !version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
 
-# add level option to change canPressDownToShortHop and make sh work
+# ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
 
-# add level thumbnails
+# !!?add level thumbnails
 
 # add star requirement for inner level
 # ?add star finder
 
-# add cmd arg to play level by name/path
-
 # make clicking to release copy not select blocks
-
-# make pole quadrent pole indicators rotate correctly
 
 # ?stop player from lever when nolonger standing on block
 # make it so that if the player dies instantly after respawning stop player process
@@ -1532,11 +1528,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!when first loading level blocks attach incorrectly until respawn
 
 # ?grab
-# ?max key hold count
 
 # !!fix blocks sometimes ending up near 00
 # !!multi select doesn't trigger on move end
-# add button to get level id
 
 # add presets to menu options
 
@@ -1549,3 +1543,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix nowjs not working again
 # fix spike vscaling
 # fix editor bar cp high
+# set bloack theme tooltips bg color

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_7t3ru"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("versionNodeHolder", "loadingText", "levelListContainerNode")]
+[node name="Control" type="Control" node_paths=PackedStringArray("loadingText", "levelListContainerNode")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,7 +11,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_706a5")
-versionNodeHolder = NodePath("")
 loadingText = NodePath("VBoxContainer/HFlowContainer/Label")
 levelListContainerNode = NodePath("VBoxContainer/ScrollContainer/GridContainer")
 metadata/_edit_lock_ = true
@@ -63,9 +62,10 @@ layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer"]
+[node name="GridContainer" type="HFlowContainer" parent="VBoxContainer/ScrollContainer"]
 layout_mode = 2
-columns = 20
+size_flags_horizontal = 3
+size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="loadMenu"]

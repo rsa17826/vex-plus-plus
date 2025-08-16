@@ -257,10 +257,10 @@ func upload_file(file_path: String, base64_content: String, offlineLevelData: Di
     ToastParty.error("File upload failed with error code: " + str(putRes.code))
   cleanup.call()
 
-func loadLevel(level, fromSave) -> void:
+func loadLevel(level, fromSave) -> bool:
   global.hitboxesShown = global.useropts.showHitboxes
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
-  global.loadMap(level, fromSave)
+  return await global.loadMap(level, fromSave)
 
 var editorOnlyOptions := []
 
@@ -333,11 +333,9 @@ func updateUserOpts() -> void:
         var mapName = arr.pop_front()
         shouldReload = false
         if mapName == 'NEWEST':
-          loadLevel(newestLevel, true)
-          return
+          if await loadLevel(newestLevel, true): return
         else:
-          loadLevel(mapName, true)
-          return
+          if await loadLevel(mapName, true): return
       if thing == '--loadOnlineLevels':
         shouldReload = false
         get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
