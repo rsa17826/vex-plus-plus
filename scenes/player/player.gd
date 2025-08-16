@@ -148,6 +148,7 @@ func _init() -> void:
   global.player = self
 
 func _ready() -> void:
+  $anim.use_parent_material = false
   DEATH_TIME = max(5, global.useropts.playerRespawnTime)
   Input.mouse_mode = mouseMode
   global.gravChanged.connect(func(lastUpDir, newUpDir):
@@ -1538,3 +1539,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # add button to get level id
 
 # add presets to menu options
+
+# fix player sprite offsets
+# fix signal list changing size shigfting block menu
