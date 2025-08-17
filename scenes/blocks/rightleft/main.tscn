@@ -15,6 +15,7 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
+canAttachToPaths = true
 
 [node name="collisionNode" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 34824
