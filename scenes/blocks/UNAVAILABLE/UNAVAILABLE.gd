@@ -18,7 +18,7 @@ func onIdChanged(id):
     'r': startRotation_degrees,
     'id': id
   }
-  if !FileAccess.file_exists("res://scenes/blocks/" + id + "/main.tscn"):
+  if !ResourceLoader.exists("res://scenes/blocks/" + id + "/main.tscn"):
     log.err("Error: Block " + id + " is not a valid block id!")
     return false
   thing.options = {}
