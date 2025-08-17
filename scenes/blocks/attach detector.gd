@@ -12,6 +12,8 @@ func on_respawn():
       parent = parent.get_parent()
     log.err("root not set", name, parent.id)
     breakpoint
+  if 'canAttachToPaths' not in root.selectedOptions: return
+  if 'canAttachToThings' not in root.selectedOptions: return
   if root.canAttachToPaths and root.selectedOptions.canAttachToPaths: pass
   elif root.canAttachToThings and root.selectedOptions.canAttachToThings: pass
   else: return
