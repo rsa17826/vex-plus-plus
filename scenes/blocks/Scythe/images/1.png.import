@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8lrtymj4pb1g"
-path="res://.godot/imported/1.png-9c82c8a040eea0cbf1d9def20e228acb.ctex"
+uid="uid://bel1gbuoebwwg"
+path="res://.godot/imported/1.png-b5b81f7714c17d7e6d5d75db0c2e9e64.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/Scythe/images/1.png"
-dest_files=["res://.godot/imported/1.png-9c82c8a040eea0cbf1d9def20e228acb.ctex"]
+source_file="res://scenes/blocks/scythe/images/1.png"
+dest_files=["res://.godot/imported/1.png-b5b81f7714c17d7e6d5d75db0c2e9e64.ctex"]
 
 [params]
 

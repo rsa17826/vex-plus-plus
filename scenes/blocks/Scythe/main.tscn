@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b7yl772m88qju"]
 
-[ext_resource type="Script" uid="uid://da8bgrmwr06av" path="res://scenes/blocks/Scythe/scythe.gd" id="1_7nvoe"]
-[ext_resource type="Texture2D" uid="uid://c8lrtymj4pb1g" path="res://scenes/blocks/Scythe/images/1.png" id="2_crksl"]
+[ext_resource type="Script" uid="uid://da8bgrmwr06av" path="res://scenes/blocks/scythe/scythe.gd" id="1_7nvoe"]
+[ext_resource type="Texture2D" uid="uid://c8lrtymj4pb1g" path="res://scenes/blocks/scythe/images/1.png" id="2_crksl"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_ljnhe"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_7nvoe"]
 

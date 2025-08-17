@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://erovvqpsf5j"
-path="res://.godot/imported/ghost.png-2c65ffa098a19397716939a5267224f2.ctex"
+path="res://.godot/imported/ghost.png-441c677cb9283ed39603e7a1517c0c40.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/Pole Quadrant/images/ghost.png"
-dest_files=["res://.godot/imported/ghost.png-2c65ffa098a19397716939a5267224f2.ctex"]
+source_file="res://scenes/blocks/pole quadrant/images/ghost.png"
+dest_files=["res://.godot/imported/ghost.png-441c677cb9283ed39603e7a1517c0c40.ctex"]
 
 [params]
 

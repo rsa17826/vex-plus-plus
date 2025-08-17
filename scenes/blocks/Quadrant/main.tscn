@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://brcolawc3qs7n"]
 
-[ext_resource type="Script" uid="uid://bi5py51bhqxtt" path="res://scenes/blocks/Quadrant/quadrant.gd" id="1_hhki4"]
+[ext_resource type="Script" uid="uid://bi5py51bhqxtt" path="res://scenes/blocks/quadrant/quadrant.gd" id="1_hhki4"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_1btjx"]
-[ext_resource type="Texture2D" uid="uid://qft54tfxwmsw" path="res://scenes/blocks/Quadrant/images/1.png" id="2_i6m5c"]
+[ext_resource type="Texture2D" uid="uid://qft54tfxwmsw" path="res://scenes/blocks/quadrant/images/1.png" id="2_i6m5c"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_hhki4"]
-[ext_resource type="Texture2D" uid="uid://dnmyaxa33m3nk" path="res://scenes/blocks/Quadrant/images/editorBar.png" id="4_0y668"]
+[ext_resource type="Texture2D" uid="uid://dnmyaxa33m3nk" path="res://scenes/blocks/quadrant/images/editorBar.png" id="4_0y668"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hhki4"]
 radius = 28.2312
