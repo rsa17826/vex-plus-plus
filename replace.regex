@@ -1,7 +1,7 @@
 @name same line return
 @file \.gd$
-@regex :\s*(return|continue|break)\s*$
-@replace : $1
+@regex :\s*(return|continue|break|pass)(\s)*$
+@replace : $1$2
 @flags gm
 @endregex
 
