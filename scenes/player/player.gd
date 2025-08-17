@@ -161,6 +161,8 @@ var startedPanning: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
   if global.openMsgBoxCount: return
+  if Input.is_action_just_pressed(&"save_current_location_as_last_checkpoint"):
+    lastSpawnPoint = (global_position - get_parent().global_position)
   if Input.is_action_just_pressed(&"restart"):
     die(DEATH_TIME, false, true)
   if Input.is_action_just_pressed(&"full_restart"):
