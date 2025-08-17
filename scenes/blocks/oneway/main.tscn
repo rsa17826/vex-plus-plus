@@ -274,6 +274,3 @@ metadata/_edit_lock_ = true
 [connection signal="input_event" from="collisionNode" to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="collisionNode" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="collisionNode" to="." method="_on_mouse_exited"]
-[connection signal="input_event" from="collisionNode/2nd collision" to="." method="_on_input_event"]
-[connection signal="mouse_entered" from="collisionNode/2nd collision" to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="collisionNode/2nd collision" to="." method="_on_mouse_exited"]
