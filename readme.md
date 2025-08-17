@@ -231,6 +231,11 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
 
+- **rightLeft**: has solid collision and moves than left right
+
+  - **settings**:
+    - **color**
+
 - **water**: when the player enters they are changed to swim mode and reverted to platformer mode on exit.
 
   - scalable
@@ -574,6 +579,11 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
 
 - **undeath**: if the player collides with this block while flying bact to the spawnpoint the player will instead be revived right where the player collided with the block at. user restarts will bypass this block.
+
+  - scalable
+  - **settings**:
+
+- **crumbling**: if the player collides with this block the block will start to crumble and be destroyed after a certain amount of time. only respawns on death.
 
   - scalable
   - **settings**:
