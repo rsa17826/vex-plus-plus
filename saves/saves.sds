@@ -1237,6 +1237,11 @@
               STR(texture)STR(2)
             }
           }
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(true)
+            }
+          }
         }
       }
     ]

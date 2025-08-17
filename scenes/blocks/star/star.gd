@@ -4,12 +4,19 @@ class_name BlockStar
 
 var collected = false
 
-func on_ready() -> void:
-  pass
+func on_ready() -> void: pass
 
 func onDataLoaded() -> void:
   if collected:
     __disable()
+
+func generateBlockOpts():
+  blockOptions.unCollect = {
+    "type": 'BUTTON',
+    "onChange": func():
+      collected = false
+      __enable()
+  }
 
 func on_respawn() -> void:
   $collisionNode.position = Vector2.ZERO
