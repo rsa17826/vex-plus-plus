@@ -1,3 +1,4 @@
+
 @name same line return
 @file \.gd$
 @regex :\s*(return|continue|break|pass)(\s)*$
