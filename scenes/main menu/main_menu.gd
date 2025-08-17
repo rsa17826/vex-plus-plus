@@ -116,6 +116,7 @@ func showMoreOptions(levelName, levelData):
       )
       if data.description != desc:
         data.description = desc
+        data.levelVersion += 1
         sds.saveDataToFile(global.path.join(global.MAP_FOLDER, levelName, "/options.sds"), data)
         get_tree().reload_current_scene()
     6:
