@@ -783,8 +783,7 @@ func _physics_process(delta: float) -> void:
             position -= Vector2(0, 1).rotated(defaultAngle)
 
         # animations
-        if $anim.animation == "jumping off pole" and vel.user.y != 0:
-          pass
+        if $anim.animation == "jumping off pole" and vel.user.y != 0: pass
         else:
           if duckRecovery > 0:
             $anim.animation = "duck end"
@@ -1551,7 +1550,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!!add block name as tooltip to editor bar
 # make multiselected block rotatable
 # !!add way fort blocks to update shown block data - paths
-# make new path point spawn offset
 # red not work with path
 # show all blocks being hovered over
 # fix rotating paths

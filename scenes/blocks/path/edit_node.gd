@@ -29,15 +29,18 @@ func generateBlockOpts():
   blockOptions.addNewPoint = {
     "type": 'BUTTON',
     "onChange": func():
-      var idx = path.pathEditNodes.find(self )
-      path.path.insert(idx + 1, path.path[idx])
-      path.updatePoint(self , true)
+      var idx = path.pathEditNodes.find(self ) + 1
+      log.pp(path.path, idx)
+      path.path.insert(idx+1, path.path[idx] + Vector2(max(10, global.useropts.blockGridSnapSize), 0))
+      log.pp(path.path, idx)
+      path.savePath()
+      path.respawn()
   }
 
 func onDelete():
   if !global.isAlive(path): return
-  var idx = path.pathEditNodes.find(self )
+  var idx = path.pathEditNodes.find(self ) + 1
   path.pathEditNodes.erase(self )
-  path.path.remove_at(idx + 1)
+  path.path.remove_at(idx)
   path.savePath()
   path.respawn.call_deferred()
