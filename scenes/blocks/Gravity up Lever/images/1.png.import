@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4ud1nry604qc"
-path="res://.godot/imported/1.png-d66c9d16cf2e34f4ad7da692459f19ac.ctex"
+uid="uid://c5vioucts1kr0"
+path="res://.godot/imported/1.png-22eada85b0714446ae10c8bf387e47b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/Gravity up Lever/images/1.png"
-dest_files=["res://.godot/imported/1.png-d66c9d16cf2e34f4ad7da692459f19ac.ctex"]
+source_file="res://scenes/blocks/gravity up lever/images/1.png"
+dest_files=["res://.godot/imported/1.png-22eada85b0714446ae10c8bf387e47b6.ctex"]
 
 [params]
 

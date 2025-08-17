@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chgd77re0upw"
-path="res://.godot/imported/1.png-2c86f5043db81f282fc1a1102bda4181.ctex"
+uid="uid://cfx6ddmfsu13f"
+path="res://.godot/imported/1.png-b4213046d711e329bf99c04592223420.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/speed Up Lever/images/1.png"
-dest_files=["res://.godot/imported/1.png-2c86f5043db81f282fc1a1102bda4181.ctex"]
+source_file="res://scenes/blocks/speed up lever/images/1.png"
+dest_files=["res://.godot/imported/1.png-b4213046d711e329bf99c04592223420.ctex"]
 
 [params]
 

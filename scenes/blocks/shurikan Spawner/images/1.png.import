@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8obyd2ujfj3y"
-path="res://.godot/imported/1.png-97ce066035bf70bd301dd6a87ef7e58e.ctex"
+path="res://.godot/imported/1.png-7bd1b408d6ad429191f74164b15e9219.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/shurikan Spawner/images/1.png"
-dest_files=["res://.godot/imported/1.png-97ce066035bf70bd301dd6a87ef7e58e.ctex"]
+source_file="res://scenes/blocks/shurikan spawner/images/1.png"
+dest_files=["res://.godot/imported/1.png-7bd1b408d6ad429191f74164b15e9219.ctex"]
 
 [params]
 

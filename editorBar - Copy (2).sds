@@ -1,0 +1,89 @@
+﻿{
+  STR(basic blocks)[
+    STR(basic)
+    STR(slope)
+    STR(crumbling)
+    STR(microwave)
+    STR(invisible)
+    STR(glass)
+    STR(bouncy)
+    STR(falling)
+    STR(donup)
+    STR(spark block/counterClockwise)
+    STR(spark block/clockwise)
+    STR(conveyer)
+    STR(water)
+    STR(oneway)
+    STR(gravity rotator)
+    STR(bomb)
+    STR(pushable box)
+  ]
+  STR(spikes)[
+    STR(closing spikes)
+    STR(single spike)
+    STR(10x spike)
+    STR(10x solar spike)
+    STR(10x inverse solar spike)
+  ]
+  STR(moving blocks)[
+    STR(updown)
+    STR(downup)
+    STR(leftRight)
+    STR(rightLeft)
+    STR(growing block)
+  ]
+  STR(solars)[
+    STR(light switch)
+    STR(red only light switch)
+    STR(blue only light switch)
+    STR(solar)
+    STR(inverse solar)
+    STR(key)
+    STR(locked box)
+  ]
+  STR(death)[
+    STR(buzsaw)
+    STR(bouncing buzsaw)
+    STR(growing buzsaw)
+    STR(quadrant)
+    STR(rotating buzzsaw)
+    STR(scythe)
+    STR(shurikan spawner)
+    STR(falling spike)
+    STR(laser)
+    STR(targeting laser)
+  ]
+  STR(misc)[
+    STR(checkpoint)
+    STR(star)
+    STR(goal)
+    STR(portal)
+    STR(death boundary)
+    STR(block death boundary)
+  ]
+  STR(levers/grabbables)[
+    STR(gravity down lever)
+    STR(gravity up lever)
+    STR(speed up lever)
+    STR(pole)
+    STR(pole quadrant)
+    STR(pulley)
+  ]
+  STR(decorations/misc2)[
+    STR(arrow)
+    STR(noWJ)
+    STR(sticky floor)
+    STR(cannon)
+    STR(undeath)
+    STR(inner level)
+  ]
+  STR(signal)[
+    STR(floor button)
+    STR(input detector)
+    STR(not gate)
+    STR(and gate)
+    STR(path)
+    STR(button deactivated wall)
+  ]
+  STR(remove)[]
+}

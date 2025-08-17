@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://qft54tfxwmsw"
-path="res://.godot/imported/1.png-2e846456d8137bb6a60b8aa6fbdfa994.ctex"
+path="res://.godot/imported/1.png-35d769f31fabbae63b963ae2ce54a6b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/Quadrant/images/1.png"
-dest_files=["res://.godot/imported/1.png-2e846456d8137bb6a60b8aa6fbdfa994.ctex"]
+source_file="res://scenes/blocks/quadrant/images/1.png"
+dest_files=["res://.godot/imported/1.png-35d769f31fabbae63b963ae2ce54a6b6.ctex"]
 
 [params]
 
