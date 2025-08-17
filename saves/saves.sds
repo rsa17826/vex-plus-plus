@@ -1202,4 +1202,24 @@
     ]
     STR(beatLevels)[]
   }
+  STR(water bug v2 electric boogaloo){
+    STR(lastSpawnPoint)VEC2(6.47257137298584,-35.0802841186523)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(2)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
 }

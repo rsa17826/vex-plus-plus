@@ -119,13 +119,13 @@ func loadOnlineLevels():
     var v = versionNode.instantiate()
     v.title = str(version)
     v.folded = false if global.useropts.autoExpandAllGroups else version != global.VERSION
-    v.text = str(version).to_lower()
+    v.text = str(version).to_lower().replace('\n', '')
     v.allText = v.text
     levelListContainerNode.add_child(v)
     for creator in allData[version]:
       var c = creatorNode.instantiate()
       c.title = creator
-      c.text = creator.to_lower()
+      c.text = creator.to_lower().replace('\n', '')
       c.allText = c.text
       v.get_node("VBoxContainer").add_child(c)
       for level in allData[version][creator]:
@@ -134,12 +134,12 @@ func loadOnlineLevels():
         loadedLevelCount += 1
         var l = levelNode.instantiate()
         onTextChanged.connect(func(text): otc.call(text, l, c, v), ConnectFlags.CONNECT_DEFERRED)
-        l.text = global.regReplace(level, r"\.vex\+\+$", '').to_lower()
         l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
+        l.text = l.levelname.text.to_lower().replace('\n', '')
         l.downloadBtn.pressed.connect(downloadLevel.bind(version, creator, level))
         c.get_node("VBoxContainer").add_child(l)
-        c.allText += '\n----------------------\n' + l.text
-      v.allText += '\n----------------------\n' + c.allText
+        c.allText += '\n' + l.text
+      v.allText += '\n' + c.allText
 
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
@@ -159,6 +159,7 @@ func loadOnlineLevels():
 #     node.add_child(child)
 #   return node
 func otc(text: String, level: Control, creator: Control, version: Control):
+  if not level or not creator or not version: return
   # log.pp(text, level.text, [creator.text, creator.allText], [version.text, version.allText])
   version.visible = true
   creator.visible = true
