@@ -1545,7 +1545,7 @@ func currentLevelSettings(key: Variant = null) -> Variant:
     if key in levelOpts.stages[currentLevel().name] else \
     defaultLevelSettings[key]
     return data
-  var data = defaultLevelSettings.duplicate()
+  var data: Dictionary = defaultLevelSettings.duplicate()
   for k in levelOpts.stages[currentLevel().name]:
     data[k] = levelOpts.stages[currentLevel().name][k]
   return data
