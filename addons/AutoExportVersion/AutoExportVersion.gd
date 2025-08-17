@@ -10,7 +10,7 @@ extends EditorPlugin
 ## Locations where the version can be stored See [member STORE_LOCATION].
 enum VersionStoreLocation {
 	## Store the version in script at path from [member SCRIPT_PATH].
-	SCRIPT, 
+	SCRIPT,
 	## Store the version in project setting [member PROJECT_SETTING_NAME].
 	PROJECT_SETTING,
 }
@@ -99,9 +99,9 @@ func _enter_tree() -> void:
 	ProjectSettings.set_initial_value(setting_name, PROJECT_SETTING_NAME)
 	
 	setting_name = "addons/AutoExportVersion/version_config_file"
-	if not ProjectSettings.has_setting(setting_name):
-		ProjectSettings.set_setting(setting_name, CONFIG_PATH)
-		DirAccess.copy_absolute("res://addons/AutoExportVersion/auto_export_version_config_file.gd", CONFIG_PATH)
+	# if not ProjectSettings.has_setting(setting_name):
+	# 	ProjectSettings.set_setting(setting_name, CONFIG_PATH)
+	# 	DirAccess.copy_absolute("res://addons/AutoExportVersion/auto_export_version_config_file.gd", CONFIG_PATH)
 	ProjectSettings.add_property_info({ "name": setting_name, "type": TYPE_STRING, "hint": PROPERTY_HINT_SAVE_FILE })
 	ProjectSettings.set_initial_value(setting_name, CONFIG_PATH)
 	
