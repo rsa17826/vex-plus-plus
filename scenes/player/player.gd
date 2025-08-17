@@ -1546,3 +1546,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # nodie star
 # !!!add search to online level list
 # invalid block block
+# block not snap to grid until drag starts
+# !!!add block name as tooltip to editor bar
