@@ -76,6 +76,7 @@
     STR(cannon)
     STR(undeath)
     STR(inner level)
+    STR(UNAVAILABLE)
   ]
   STR(signal)[
     STR(floor button)
