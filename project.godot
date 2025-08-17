@@ -40,7 +40,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
-run/main_run_args="--loadMap \"pole test\" --loadOnlineLevel"
+run/main_run_args="--loadMap \"pole test \" --loadOnlineLevels"
 
 [editor_plugins]
 

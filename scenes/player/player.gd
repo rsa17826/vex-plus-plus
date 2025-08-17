@@ -1553,3 +1553,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!add way fort blocks to update shown block data - paths
 # make new path point spawn offset
 # red not work with path
+# show all blocks being hovered over
