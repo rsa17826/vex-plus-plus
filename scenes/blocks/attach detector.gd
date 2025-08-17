@@ -14,11 +14,11 @@ func on_respawn():
     breakpoint
   if root.canAttachToPaths:
     if not ('canAttachToPaths' in root.selectedOptions):
-      log.warn(root.id)
+      log.warn('canAttachToPaths', root.id)
       return
   if root.canAttachToThings:
     if not ('canAttachToThings' in root.selectedOptions):
-      log.warn(root.id)
+      log.warn('canAttachToThings', root.id)
       return
   if root.canAttachToPaths and root.selectedOptions.canAttachToPaths: pass
   elif root.canAttachToThings and root.selectedOptions.canAttachToThings: pass
