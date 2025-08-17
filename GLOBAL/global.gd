@@ -1473,24 +1473,33 @@ func animate(speed: int, steps: Array) -> float:
       prevTime = steps[i].until
   return newOffset
 
-func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> void:
+func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> bool:
+  var badChars := "^[\\w\\d _-]+"
   if not levelName:
     levelName = await prompt("enter the level name", PromptTypes.string, "")
+  levelPackName = regReplace(levelPackName, badChars, '_')
+  levelName = regReplace(levelName, badChars, '_')
+  if !levelPackName or !levelName:
+    return false
   var fullDirPath := path.join(MAP_FOLDER, levelPackName)
   var opts: Dictionary = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
   opts.stages[levelName] = defaultLevelSettings.duplicate()
   opts.stages[levelName].color = randfrom(1, 11)
   file.write(path.join(fullDirPath, levelName + ".sds"), '', false)
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"), opts)
+  return true
 
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, '')
+  var badChars := "^[\\w\\d _-]+"
+  foldername = regReplace(foldername, badChars, '_')
   if !foldername: return
   var fullDirPath := path.join(MAP_FOLDER, foldername)
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
     return
   var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
+  startLevel = regReplace(startLevel, badChars, '_')
   DirAccess.make_dir_absolute(fullDirPath)
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"),
     {
@@ -1506,7 +1515,8 @@ func createNewMapFolder() -> Variant:
       }
     }
   )
-  await createNewLevelFile(foldername, startLevel)
+  if ! await createNewLevelFile(foldername, startLevel):
+    return false
   # var o = []
   # log.pp(OS.execute("cmd", [
   #   "/c",
