@@ -1477,8 +1477,8 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
   var badChars := "^[\\w\\d _-]+"
   if not levelName:
     levelName = await prompt("enter the level name", PromptTypes.string, "")
-  levelPackName = regReplace(levelPackName, badChars, '_')
-  levelName = regReplace(levelName, badChars, '_')
+  levelPackName = fixPath(levelPackName)
+  levelName = fixPath(levelName)
   if !levelPackName or !levelName:
     return false
   var fullDirPath := path.join(MAP_FOLDER, levelPackName)
@@ -1489,17 +1489,20 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"), opts)
   return true
 
+func fixPath(path):
+  var badChars := "^[\\w\\d _-]+"
+  return regReplace(path, badChars, "_").strip_edges()
+
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, '')
-  var badChars := "^[\\w\\d _-]+"
-  foldername = regReplace(foldername, badChars, '_')
+  foldername = fixPath(foldername)
   if !foldername: return
   var fullDirPath := path.join(MAP_FOLDER, foldername)
   if DirAccess.dir_exists_absolute(fullDirPath):
     await prompt("Folder already exists!")
     return
   var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
-  startLevel = regReplace(startLevel, badChars, '_')
+  startLevel = fixPath(startLevel)
   DirAccess.make_dir_absolute(fullDirPath)
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"),
     {
@@ -1758,12 +1761,13 @@ func getProcess(pid: int):
 
 var hitboxesShown := false
 
-func tryAndLoadMapFromZip(from, to):
+func tryAndLoadMapFromZip(from: String, to: String):
   var reader := ZIPReader.new()
   var err := reader.open(from)
   if err:
     log.warn(from, err)
     return
+  to = to.strip_edges()
 
   # Destination directory for the extracted files (this folder must exist before extraction).
   # Not all ZIP archives put everything in a single root folder,
@@ -1807,7 +1811,7 @@ func tryAndLoadMapFromZip(from, to):
   for file_path in files:
     var outpath = file_path
     if allInSameDir:
-      outpath = regReplace(file_path, r"^[^/\\]+[/\\]", '')
+      outpath = regReplace(file_path, r"^[^/\\]+[/\\]", '').strip_edges()
     # If the current entry is a directory.
     if file_path.ends_with("/"):
       root_dir.make_dir_recursive(outpath)
