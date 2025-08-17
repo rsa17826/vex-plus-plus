@@ -63,7 +63,6 @@ func loadLevel(level):
       if thing.id not in invalidBlockErrors:
         invalidBlockErrors[thing.id] = 0
       invalidBlockErrors[thing.id] += 1
-      thing.fakeId = thing.id
       if not 'options' in thing:
         thing.options = {}
       thing.options.fakeId = thing.id
@@ -121,6 +120,10 @@ func save():
 
     if child.selectedOptions:
       obj.options = child.selectedOptions
+    if child.id == "UNAVAILABLE":
+      obj.id = child.selectedOptions.fakeId
+      if 'options' in obj:
+        obj.options.erase("fakeId")
     data.append(obj)
   log.pp(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
