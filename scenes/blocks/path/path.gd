@@ -171,6 +171,7 @@ func on_physics_process(delta: float) -> void:
     ).call()
   for child in attach_children:
     child.thingThatMoves.global_position += desiredPosition - lastDesiredPosition
+    child.onPathMove(desiredPosition - lastDesiredPosition)
   lastDesiredPosition = desiredPosition
 
 func on_ready() -> void:

@@ -15,6 +15,18 @@
     }
   }
   {
+    STR(x)FLOAT(100.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bouncy)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
     STR(x)FLOAT(-175.0)
     STR(y)FLOAT(-35.0)
     STR(w)FLOAT(1.00000004470348)
@@ -23,6 +35,71 @@
     STR(id)STR(spark counterClockwise)
     STRNAME(options){
       STR(test)STR(asdasdadsasds)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(100.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(path)
+    STRNAME(options){
+      STR(path)STR(350,50)
+      STR(endReachedAction)INT(2)
+      STR(startOnLoad)BOOL(true)
+      STR(startOnPress)BOOL(true)
+      STR(startWhilePressed)BOOL(false)
+      STR(signalInputId)INT(1)
+      STR(restart)INT(0)
+      STR(forwardSpeed)INT(150)
+      STR(backwardSpeed)INT(150)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(125.0)
+    STR(y)FLOAT(25.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(input detector)
+    STRNAME(options){
+      STR(action)INT(0)
+      STR(signalOutputId)INT(1)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(100.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(path)
+    STRNAME(options){
+      STR(path)STR(150,0)
+      STR(endReachedAction)INT(0)
+      STR(startOnLoad)BOOL(true)
+      STR(startOnPress)BOOL(false)
+      STR(startWhilePressed)BOOL(false)
+      STR(signalInputId)INT(0)
+      STR(restart)INT(0)
+      STR(forwardSpeed)INT(150)
+      STR(backwardSpeed)INT(150)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-100.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bouncy)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
   }
