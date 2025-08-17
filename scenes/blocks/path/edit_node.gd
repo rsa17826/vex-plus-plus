@@ -30,9 +30,7 @@ func generateBlockOpts():
     "type": 'BUTTON',
     "onChange": func():
       var idx = path.pathEditNodes.find(self ) + 1
-      log.pp(path.path, idx)
       path.path.insert(idx+1, path.path[idx] + Vector2(max(10, global.useropts.blockGridSnapSize), 0))
-      log.pp(path.path, idx)
       path.savePath()
       path.respawn()
   }
