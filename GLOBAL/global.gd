@@ -229,8 +229,7 @@ func _input(event: InputEvent) -> void:
 class cache:
   var cache := {}
   var _data := {}
-  func _init() -> void:
-    pass
+  func _init() -> void: pass
   func __has(thing: Variant) -> bool:
     if "lastinp" in self._data:
       log.err("lastinp should not exist", self )

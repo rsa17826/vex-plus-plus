@@ -28,7 +28,7 @@ func on_body_entered(body: Node) -> void:
 
 func on_respawn() -> void:
   thingThatMoves.position = Vector2.ZERO
-  
+
 func on_ready() -> void:
   if not self in global.checkpoints:
     global.checkpoints.append(self )
