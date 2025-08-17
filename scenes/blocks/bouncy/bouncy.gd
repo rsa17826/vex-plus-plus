@@ -6,6 +6,8 @@ var bouncing := false
 var bounceState: float = 0
 var bounceForce: float = 0
 
+@export var animated: Node2D
+
 func start() -> void:
   if bouncing: return
   bouncing = true
@@ -37,6 +39,9 @@ func on_respawn():
 
 var original_contact_position: Vector2
 
+func onPathMove(dist):
+  original_contact_position += dist
+
 func on_process(delta: float) -> void:
   if respawning: return
   if bouncing:
@@ -53,18 +58,18 @@ func on_process(delta: float) -> void:
       global.player.vel.bounce = Vector2(0, bounceForce).rotated(radrot).rotated(-global.player.defaultAngle)
       global.player.justAddedVels.bounce = 3
       global.player.state = global.player.States.jumping
-      respawn()
+      on_respawn()
 
     var size: Vector2 = ghost.texture.get_size() * startScale
 
     if bounceState <= 50:
       # Start by going down
-      global_position = startPosition + Vector2(0, global.rerange(bounceState, 0, 50, 0, (size.y / 4.0))).rotated(radrot)
+      animated.global_position = thingThatMoves.global_position + Vector2(0, global.rerange(bounceState, 0, 50, 0, (size.y / 4.0))).rotated(radrot)
       scale.y = global.rerange(bounceState, 0, 50, startScale.y, startScale.y / 2)
     else:
       # Then go back up
       scale.y = global.rerange(bounceState, 50, 100, startScale.y / 2, startScale.y)
-      global_position = startPosition + Vector2(0, global.rerange(bounceState, 100, 50, 0, (size.y / 4.0))).rotated(radrot)
+      animated.global_position = thingThatMoves.global_position + Vector2(0, global.rerange(bounceState, 100, 50, 0, (size.y / 4.0))).rotated(radrot)
 
     var node_size := sizeInPx * scale
 

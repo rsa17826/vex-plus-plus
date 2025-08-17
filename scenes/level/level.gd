@@ -119,7 +119,7 @@ func save():
       obj.h = child.startScale.y
 
     if child.selectedOptions:
-      obj.options = child.selectedOptions
+      obj.options = child.selectedOptions.duplicate()
     if child.id == "UNAVAILABLE":
       obj.id = child.selectedOptions.fakeId
       if 'options' in obj:

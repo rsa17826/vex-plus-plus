@@ -108,7 +108,7 @@ var unusedOffset = Vector2.ZERO
 ## overite this to return properties to save
 func onSave() -> Array[String]:
   return []
-
+func onPathMove(dist): pass
 func onEditorRotate(): pass
 
 func _on_mouse_entered() -> void:

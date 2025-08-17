@@ -16,16 +16,16 @@ func onIdChanged(id):
     'w': startScale.x,
     'h': startScale.y,
     'r': startRotation_degrees,
-    'id': selectedOptions.fakeId
+    'id': id
   }
-  if FileAccess.file_exists("res://scenes/blocks/" + thing.id + "/main.tscn"):
-    log.err("Error: Block " + thing.id + " is not a valid block id!")
-    return
-  thing.fakeId = thing.id
+  if !FileAccess.file_exists("res://scenes/blocks/" + id + "/main.tscn"):
+    log.err("Error: Block " + id + " is not a valid block id!")
+    return false
   thing.options = {}
   for k in selectedOptions:
     if k != 'fakeId':
       thing.options[k] = selectedOptions[k]
-  thing.id = selectedOptions.fakeId
+  thing.id = id
   global.level.get_node("blocks").add_child(global.createNewBlock(thing))
+  queue_free.call_deferred()
   return true

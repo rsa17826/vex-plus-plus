@@ -140,12 +140,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ojg4n"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("animated", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_7c4dh")
-ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
+animated = NodePath("collisionNode/animated")
+ghostIconNode = NodePath("collisionNode/animated/Sprite2D")
+editorBarIconNode = NodePath("collisionNode/animated/Sprite2D")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D")]
+hidableSprites = [NodePath("collisionNode/animated/Sprite2D")]
 cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
@@ -159,14 +160,16 @@ input_pickable = true
 script = ExtResource("2_5w21f")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
-use_parent_material = true
-texture = ExtResource("2_gtnmy")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="collisionNode"]
+[node name="animated" type="Node2D" parent="collisionNode"]
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode/animated"]
+use_parent_material = true
+texture = ExtResource("2_gtnmy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="collisionNode/animated"]
 sprite_frames = SubResource("SpriteFrames_er0d8")
 autoplay = "default"
 script = ExtResource("34_ru33d")
