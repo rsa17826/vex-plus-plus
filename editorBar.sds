@@ -76,7 +76,6 @@
     STR(cannon)
     STR(undeath)
     STR(inner level)
-    STR(UNAVAILABLE)
   ]
   STR(signal)[
     STR(floor button)
@@ -86,5 +85,7 @@
     STR(path)
     STR(button deactivated wall)
   ]
-  STR(remove)[]
+  STR(remove)[
+    STR(UNAVAILABLE)
+  ]
 }
