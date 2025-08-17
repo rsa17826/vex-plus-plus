@@ -1545,11 +1545,13 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # set bloack theme tooltips bg color
 # nodie star
 # !!!add search to online level list
-# invalid block block
+# make scale only on one side setting work
+# make scale min size work on ?spikes
+# make option to randomize level modifiers on level creation
 # block not snap to grid until drag starts
 # !!!add block name as tooltip to editor bar
-# make multiselected block rotatable
-# !!add way fort blocks to update shown block data - paths
+# make multiselected block rotatable/scalable
+# !!add way for blocks to update shown block data - paths
 # red not work with path
 # show all blocks being hovered over
 # fix rotating paths
