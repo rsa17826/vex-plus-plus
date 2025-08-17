@@ -57,12 +57,23 @@ func loadLevel(level):
   global.player.get_parent().global_position = Vector2(leveldata[0].x, leveldata[0].y)
   global.player.global_position = Vector2(leveldata[0].x, leveldata[0].y)
   global.player.get_parent().startPosition = Vector2(leveldata[0].x, leveldata[0].y)
+  var invalidBlockErrors := {}
   for thing in leveldata.slice(1):
+    if !FileAccess.file_exists("res://scenes/blocks/" + thing.id + "/main.tscn"):
+      if thing.id not in invalidBlockErrors:
+        invalidBlockErrors[thing.id] = 0
+      invalidBlockErrors[thing.id] += 1
+      thing.fakeId = thing.id
+      if not 'options' in thing:
+        thing.options = {}
+      thing.options.fakeId = thing.id
+      thing.id = "UNAVAILABLE"
     $blocks.add_child(global.createNewBlock(thing))
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
-
+  for thing in invalidBlockErrors:
+    log.err("Invalid block: \n\"" + thing + '"\n used "' + str(invalidBlockErrors[thing]) + "\" times")
   global.player.get_node("../CanvasLayer/editor bar")._ready()
   await global.wait()
   global.tick = 0
