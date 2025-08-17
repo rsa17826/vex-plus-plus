@@ -1548,3 +1548,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # invalid block block
 # block not snap to grid until drag starts
 # !!!add block name as tooltip to editor bar
+# make multiselected block rotatable
+# !!add way fort blocks to update shown block data - paths
+# make new path point spawn offset
+# red not work with path
