@@ -243,7 +243,8 @@
         "thing": "option",
         "type": "bool",
         "key": "allowCustomColors",
-        "defaultValue": true
+        "defaultValue": true,
+        "editorOnly": true
       }
     ]
   },

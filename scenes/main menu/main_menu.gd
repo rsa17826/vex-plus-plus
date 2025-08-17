@@ -60,6 +60,7 @@ func showMoreOptions(levelName, levelData):
     "edit description",
     "export",
     "upload",
+    "restore level from downloaded state",
     "copy level share code",
   ]:
     pm.add_item(k, i)
@@ -148,6 +149,12 @@ func showMoreOptions(levelName, levelData):
       await upload_file("levels/" + version + '/' + author + '/' + levelName + ".vex++", c, data)
       f.close()
     8:
+      if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
+      if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + levelName + '.vex++')]):
+        ToastParty.success("The map has been successfully restored.")
+      else:
+        ToastParty.error("restoring failed, the map doesn't exist, or the map was invalid.")
+    9:
       # log.pp(levelData, levelData.author)
       if not levelData.author:
         ToastParty.err("authors name must be set")
@@ -305,7 +312,7 @@ func updateUserOpts() -> void:
 
   if lastWinMode == null or lastWinMode != global.useropts.windowMode:
     shouldChangeFsState = true
-  log.pp(lastTheme, global.useropts.theme, "asd")
+  # log.pp(lastTheme, global.useropts.theme, "asd")
   if shouldChangeFsState or global.isFirstTimeMenuIsLoaded:
     if global.isFirstTimeMenuIsLoaded:
       get_window().size = Vector2(1152, 648)
@@ -321,7 +328,7 @@ func updateUserOpts() -> void:
       get_window().theme = null
     else:
       get_window().theme = load("res://themes/" + ["default", "blue", "black"][global.useropts.theme] + "/THEME.tres")
-    RenderingServer.set_default_clear_color(["#4d4d4d", "#38405b", "#4d4d4d"][global.useropts.theme])
+    RenderingServer.set_default_clear_color(["#4d4d4d", "#4b567aff", "#4d4d4d"][global.useropts.theme])
     shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   global.loadEditorBarData()
