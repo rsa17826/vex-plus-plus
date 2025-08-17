@@ -57,6 +57,12 @@ theme_override_font_sizes/font_size = 61
 text = "adsasdasdasdasd"
 metadata/_edit_lock_ = true
 
+[node name="search" type="LineEdit" parent="VBoxContainer"]
+layout_mode = 2
+placeholder_text = "search"
+keep_editing_on_text_submit = true
+clear_button_enabled = true
+
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -71,3 +77,4 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="loadMenu"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="loadOnlineLevels"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button3" to="." method="loadLevelById"]
+[connection signal="text_changed" from="VBoxContainer/search" to="." method="_on_search_text_changed"]

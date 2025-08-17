@@ -113,27 +113,33 @@ func loadOnlineLevels():
   arr.sort()
   const versionNode := preload("res://scenes/online level list/version.tscn")
   const creatorNode := preload("res://scenes/online level list/creator.tscn")
-  # const levelNode := preload("res://scenes/main menu/lvl_sel_item.tscn")
   const levelNode := preload("res://scenes/online level list/level.tscn")
   for version in arr:
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     var v = versionNode.instantiate()
     v.title = str(version)
     v.folded = false if global.useropts.autoExpandAllGroups else version != global.VERSION
+    v.text = str(version).to_lower()
+    v.allText = v.text
     levelListContainerNode.add_child(v)
     for creator in allData[version]:
       var c = creatorNode.instantiate()
       c.title = creator
+      c.text = creator.to_lower()
+      c.allText = c.text
       v.get_node("VBoxContainer").add_child(c)
       for level in allData[version][creator]:
         if version == global.VERSION:
           levelsForCurrentVersionCount += 1
         loadedLevelCount += 1
         var l = levelNode.instantiate()
+        onTextChanged.connect(func(text): otc.call(text, l, c, v), ConnectFlags.CONNECT_DEFERRED)
+        l.text = global.regReplace(level, r"\.vex\+\+$", '').to_lower()
         l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
-        # l.creator.text = creator
         l.downloadBtn.pressed.connect(downloadLevel.bind(version, creator, level))
         c.get_node("VBoxContainer").add_child(l)
+        c.allText += '\n----------------------\n' + l.text
+      v.allText += '\n----------------------\n' + c.allText
 
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
@@ -141,17 +147,38 @@ func loadOnlineLevels():
     loadingText.text = 'Loaded levels: ' + str(levelsForCurrentVersionCount) + " / " + str(loadedLevelCount)
   $AnimatedSprite2D.visible = false
 
-func makeNodes(node, data, children) -> Node:
-  # log.pp(node, data, children, len(children))
-  # if not node:
-  #   breakpoint
-  for k in data:
-    node[k] = data[k]
-  for child in children:
-    # if not child:
-    #   breakpoint
-    node.add_child(child)
-  return node
+# func makeNodes(node, data, children) -> Node:
+#   # log.pp(node, data, children, len(children))
+#   # if not node:
+#   #   breakpoint
+#   for k in data:
+#     node[k] = data[k]
+#   for child in children:
+#     # if not child:
+#     #   breakpoint
+#     node.add_child(child)
+#   return node
+func otc(text: String, level: Control, creator: Control, version: Control):
+  # log.pp(text, level.text, [creator.text, creator.allText], [version.text, version.allText])
+  version.visible = true
+  creator.visible = true
+  level.visible = true
+  if not text: return
+  text = text.to_lower()
+  if (text in (version.allText as String)):
+    version.visible = true
+    if (text in (version.text as String)): return
+  else:
+    version.visible = false
+  if (text in (creator.allText as String)):
+    creator.visible = true
+    if (text in (creator.text as String)): return
+  else:
+    creator.visible = false
+  if (text in (level.text as String)):
+    level.visible = true
+  else:
+    level.visible = false
 
 func downloadLevel(version, creator, level):
   var url = (
@@ -189,3 +216,7 @@ func loadLevelById() -> void:
 
 func loadMenu() -> void:
   get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
+
+signal onTextChanged
+func _on_search_text_changed(new_text: String) -> void:
+  onTextChanged.emit(new_text)
