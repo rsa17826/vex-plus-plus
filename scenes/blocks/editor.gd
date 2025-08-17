@@ -132,11 +132,9 @@ func onEditorMove(moveDist: Vector2) -> void:
   respawn()
 
 ## overite this to receive event when data for this block is loaded
-func onDataLoaded() -> void:
-  pass
+func onDataLoaded() -> void: pass
 ## overite this to receive event when data for all blocks loaded
-func onAllDataLoaded() -> void:
-  pass
+func onAllDataLoaded() -> void: pass
 
 ## don't overite - use on_respawn instead
 func respawn() -> void:
@@ -166,8 +164,7 @@ func respawn() -> void:
       thing.on_respawn()
   on_respawn()
 
-func on_respawn():
-  pass
+func on_respawn(): pass
 
 var onBottomSide := false
 var onTopSide := false
@@ -291,8 +288,7 @@ func _ready() -> void:
   on_ready()
 func on_ready(): pass
 
-func generateBlockOpts():
-  pass
+func generateBlockOpts(): pass
 
 func toType(opt: Variant) -> void:
   match blockOptions[opt].type:
