@@ -183,4 +183,16 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(575.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(0.50000007450581)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]
