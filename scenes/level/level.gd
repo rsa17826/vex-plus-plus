@@ -59,7 +59,7 @@ func loadLevel(level):
   global.player.get_parent().startPosition = Vector2(leveldata[0].x, leveldata[0].y)
   var invalidBlockErrors := {}
   for thing in leveldata.slice(1):
-    if !FileAccess.file_exists("res://scenes/blocks/" + thing.id + "/main.tscn"):
+    if !ResourceLoader.exists("res://scenes/blocks/" + thing.id + "/main.tscn"):
       if thing.id not in invalidBlockErrors:
         invalidBlockErrors[thing.id] = 0
       invalidBlockErrors[thing.id] += 1

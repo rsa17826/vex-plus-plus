@@ -1,0 +1,3 @@
+{STR(start)STR(npvic)STR(author)STR(Yippie)STR(description)STR(a short level that i want to elongate and add a golden berry to, 
+but i cant be bothered and river didnt add it yet..... 
+....meow!!)STR(version)INT(127)STR(stages){STR(npvic){STR(canDoWallSlide)BOOL(true)STR(canDoWallHang)BOOL(true)STR(canDoWallJump)BOOL(true)STR(autoRun)BOOL(false)STR(jumpCount)INT(1)STR(changeSpeedOnSlopes)BOOL(false)STR(saveTick)BOOL(false)}}STRNAME(levelVersion)INT(32)}
