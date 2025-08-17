@@ -3,11 +3,10 @@
 [ext_resource type="Script" uid="uid://cfgws8pfjxcrp" path="res://scenes/blocks/UNAVAILABLE/UNAVAILABLE.gd" id="1_dkhu5"]
 [ext_resource type="Texture2D" uid="uid://c1re2gen1eeca" path="res://scenes/blocks/image.png" id="3_5huf3"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode")]
 script = ExtResource("1_dkhu5")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
-thingThatMoves = NodePath("")
 ignoreMissingNodes = true
 normalScale = true
 EDITOR_OPTION_scale = true
