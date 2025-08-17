@@ -1797,6 +1797,11 @@ func tryAndLoadMapFromZip(from, to):
     log.err("not a valid map file", from, to, files)
     return
   log.pp("loading map from", from, "to", to)
+  if DirAccess.dir_exists_absolute(to):
+    OS.move_to_trash(to)
+    await wait(100)
+    if DirAccess.dir_exists_absolute(to):
+      DirAccess.remove_absolute(to)
   DirAccess.make_dir_recursive_absolute(to)
   var root_dir = DirAccess.open(to)
   for file_path in files:
@@ -1807,7 +1812,11 @@ func tryAndLoadMapFromZip(from, to):
     if file_path.ends_with("/"):
       root_dir.make_dir_recursive(outpath)
       continue
-
+    if FileAccess.file_exists(outpath):
+      OS.move_to_trash(outpath)
+      await wait(100)
+      if FileAccess.file_exists(outpath):
+        DirAccess.remove_absolute(outpath)
     # Write file contents, creating folders automatically when needed.
     # Not all ZIP archives are strictly ordered, so we need to do this in case
     # the file entry comes before the folder entry.
@@ -1826,7 +1835,7 @@ func tryAndGetMapZipsFromArr(args) -> bool:
       if !('.' in p and ('/' in p or '\\' in p)): continue
       # add the intended folder to the end of the path to force it to go into the correct folder
       var moveto = path.join(MAP_FOLDER, regMatch(p, r"[/\\]([^/\\]+)\.[^/\\]+$")[1])
-      if tryAndLoadMapFromZip(p, moveto):
+      if await tryAndLoadMapFromZip(p, moveto):
         mapFound = true
   if mapFound and get_tree().current_scene.name == "main menu":
     await wait(1000)
