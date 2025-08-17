@@ -266,6 +266,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - scalable
   - **settings**:
+    - **canAttachToThings**
     - **color**
 
 - **locked box**: has solid collision but when the player comes in contact with it and has a key, the key and block are disabled.
