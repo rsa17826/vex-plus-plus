@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=13 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://be824ve2c7lm3" path="res://scenes/ui/modifiers/modifiers.tscn" id="6_jcn1r"]
 [ext_resource type="PackedScene" uid="uid://bcgvwxwk7bf6b" path="res://scenes/ui/signal list/signal_list.tscn" id="7_uegxj"]
 [ext_resource type="PackedScene" uid="uid://cs4s80p62mgl5" path="res://scenes/ui/block menu/block_menu.tscn" id="8_y220t"]
+[ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="9_hl07w"]
 [ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="10_y220t"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu")]
@@ -20,7 +21,7 @@ editorBar = NodePath("editor bar")
 progressContainer = NodePath("ProgressContainer")
 progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 modifiers = NodePath("CanvasLayer/modifiers")
-signalList = NodePath("HBoxContainer/signal list")
+signalList = NodePath("HBoxContainer/MarginContainer/MaxSizeContainer/signal list")
 blockMenu = NodePath("HBoxContainer/block menu")
 
 [node name="star counter" type="Label" parent="."]
@@ -95,15 +96,25 @@ grow_vertical = 2
 size_flags_vertical = 10
 mouse_filter = 2
 
-[node name="signal list" parent="HBoxContainer" instance=ExtResource("7_uegxj")]
-layout_mode = 2
-size_flags_vertical = 8
-metadata/_edit_lock_ = true
-
 [node name="block menu" parent="HBoxContainer" instance=ExtResource("8_y220t")]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 1
+size_flags_vertical = 8
+metadata/_edit_lock_ = true
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+
+[node name="MaxSizeContainer" type="Container" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+script = ExtResource("9_hl07w")
+max_size = Vector2(-1, 648)
+metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
+
+[node name="signal list" parent="HBoxContainer/MarginContainer/MaxSizeContainer" instance=ExtResource("7_uegxj")]
+layout_mode = 2
 size_flags_vertical = 8
 metadata/_edit_lock_ = true
 
