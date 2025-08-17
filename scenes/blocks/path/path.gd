@@ -92,7 +92,7 @@ func generateBlockOpts():
   blockOptions.addNewPoint = {
     "type": 'BUTTON',
     "onChange": func():
-      path.insert(0, Vector2.ZERO)
+      path.insert(1, Vector2(max(10, global.useropts.blockGridSnapSize), 0))
       savePath()
       respawn()
   }
@@ -271,6 +271,7 @@ func onEditorMoveEnded():
 func savePath():
   # remove the Vector2.ZERO from the front
   path.pop_front()
+  log.pp(path, "path")
   selectedOptions.path = ','.join(
     path.map(func(e): return \
       str(int(e.rotated(-deg_to_rad(startRotation_degrees)).x)) + ',' + \
