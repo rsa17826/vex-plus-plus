@@ -158,4 +158,16 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(225.0)
+    STR(y)FLOAT(250.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-45.0)
+    STR(id)STR(oneway)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]
