@@ -772,7 +772,7 @@ func _physics_process(delta: float) -> void:
           var loopIdx: int = 0
           while TopIsOnWall() and loopIdx < 20:
             loopIdx += 1
-            log.pp(loopIdx)
+            # log.pp(loopIdx)
             position -= Vector2(0, 1).rotated(defaultAngle)
             $wallDetection/leftWallTop.force_raycast_update()
             $wallDetection/rightWallTop.force_raycast_update()

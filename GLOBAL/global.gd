@@ -696,7 +696,6 @@ var mouseMovedFarEnoughToStartDrag = false
 
 func localProcess(delta: float) -> void:
   sendSignals()
-  log.pp(selectedBlockOffset)
   if not global.useropts: return
   updateGridSize()
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
