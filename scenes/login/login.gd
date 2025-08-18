@@ -25,13 +25,18 @@ func getAllChannels(page: int = 0) -> ChannelsAPI.ChannelPage:
   var res := await Talo.channels.get_channels(Talo.channels.GetChannelsOptions.new())
   log.pp(res)
   return res
+
 func _ready() -> void:
-  # Talo.player_auth.session_not_found.connect(on_session_not_found, Object.CONNECT_ONE_SHOT)
+  Talo.player_auth.session_not_found.connect(on_session_not_found, Object.CONNECT_ONE_SHOT)
   Talo.player_auth.session_found.connect(on_session_found, Object.CONNECT_ONE_SHOT)
+  Talo.players.identified.connect(on_identified)
+  %login.disabled = true
+  %register.disabled = true
   Talo.player_auth.start_session()
 
-# func on_session_not_found():
-#   log.err("Session not found")
+func on_session_not_found():
+  %login.disabled = false
+  %register.disabled = false
 
 func getOwnChannel() -> TaloChannel:
   var options := Talo.channels.GetChannelsOptions.new()
@@ -41,8 +46,6 @@ func getOwnChannel() -> TaloChannel:
   var res := await Talo.channels.get_channels(options)
   breakpoint
   if res.count == 0:
-    var a = Talo.current_alias
-    breakpoint
     return await createChannel(str(Talo.current_alias.id))
   log.pp(res)
   return res.channels[0]
@@ -80,12 +83,24 @@ func on_session_found():
   %Username.text = _name
 
 func _on_login_pressed() -> void:
+  %login.disabled = true
+  %register.disabled = true
   log.pp(await login(%Username.text, %Password.text))
-  Talo.player_auth.start_session()
+  %login.disabled = false
+  %register.disabled = false
 
 func _on_register_pressed() -> void:
+  %login.disabled = true
+  %register.disabled = true
   log.pp(await register(%Username.text, %Password.text))
-  Talo.player_auth.start_session()
+  %login.disabled = false
+  %register.disabled = false
+
+func on_identified(user: TaloPlayer):
+  log.pp(user, Talo.player_auth.session_manager.get_identifier())
+  log.pp("logun successful!!")
+  %login.disabled = false
+  %register.disabled = false
 
 # func _on_button_pressed() -> void:
 #   # await Talo.players.identify('username', 'ass')
