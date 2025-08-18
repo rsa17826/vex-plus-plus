@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://fei8golx0ysc" path="res://scenes/login/login.gd" id="1_d7qrr"]
 
-[node name="login" type="HBoxContainer"]
+[node name="login" type="CenterContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,35 +10,40 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d7qrr")
 
-[node name="Username" type="TextEdit" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Username" type="LineEdit" parent="VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 20)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-placeholder_text = "un"
+placeholder_text = "username"
 
-[node name="Password" type="TextEdit" parent="."]
+[node name="Password" type="LineEdit" parent="VBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 20)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-placeholder_text = "pa"
+placeholder_text = "password"
 
-[node name="EnableVerification" type="CheckBox" parent="."]
+[node name="Email" type="LineEdit" parent="VBoxContainer"]
 unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-text = "ev"
+placeholder_text = "email (OPTIONAL)"
 
-[node name="Email" type="TextEdit" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 20)
-layout_mode = 2
-placeholder_text = "em"
-
-[node name="ValidationLabel" type="Label" parent="."]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="."]
+[node name="login" type="Button" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
-text = "d"
+size_flags_horizontal = 3
+text = "login"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="register" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "register"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/register" to="." method="_on_register_pressed"]
