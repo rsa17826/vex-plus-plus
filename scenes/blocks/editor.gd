@@ -59,6 +59,10 @@ enum boolOrNull {
   unset = 0,
 }
 
+func updateSelectedOptionsUi() -> void:
+  if self == global.ui.blockMenu.lastShownBlock:
+    global.ui.blockMenu.updateBlockMenuValues()
+
 var onOptionEdit := func() -> void: pass
 
 var defaultSizeInPx: Vector2

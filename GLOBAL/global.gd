@@ -934,6 +934,23 @@ func _unhandled_input(event: InputEvent) -> void:
     isFakeMouseMovement = false
     return
   if openMsgBoxCount: return
+  if event.is_action_pressed(&"copy_block_position", false, true):
+    if lastSelectedBlock:
+      DisplayServer.clipboard_set(str(lastSelectedBlock.startPosition.x) + " " + str(lastSelectedBlock.startPosition.y))
+  if event.is_action_pressed(&"paste_block_position", false, true):
+    if lastSelectedBlock:
+      if selectedBlock:
+        selectedBlock = null
+      var data = DisplayServer.clipboard_get().split(' ')
+      if len(data) == 2:
+        data = Vector2(float(data[0]), float(data[1]))
+        var dist = lastSelectedBlock.startPosition - data
+        lastSelectedBlock.startPosition = data
+        lastSelectedBlock.onEditorMove(dist)
+        lastSelectedBlock.onEditorMoveEnded()
+        lastSelectedBlock.respawn()
+      else:
+        log.err("clip data not valid")
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     # ToastParty.error('a')
     # ToastParty.info('a')

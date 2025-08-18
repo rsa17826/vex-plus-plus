@@ -171,7 +171,7 @@
     }
   }
   {
-    STR(x)FLOAT(175.0)
+    STR(x)FLOAT(125.0)
     STR(y)FLOAT(175.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
@@ -179,7 +179,7 @@
     STR(id)STR(input detector)
     STRNAME(options){
       STR(action)INT(2)
-      STR(signalOutputId)INT(312)
+      STR(signalOutputId)INT(1)
       STR(color)STR(#fff)
     }
   }
