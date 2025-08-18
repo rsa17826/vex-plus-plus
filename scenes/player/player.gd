@@ -1558,3 +1558,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # show all blocks being hovered over
 # fix rotating paths
 # surprise spike
+# copy pos to other block

@@ -185,7 +185,7 @@ func downloadLevel(version, creator, level):
   var url = (
     "https://raw.githubusercontent.com/rsa17826/" +
     REPO_NAME + "/main/levels/" +
-    global.urlEncode(str(version) + '/' + creator + "/" + level)
+    global.urlEncode(str(version) + '/' + creator + "/" + level) + '?rand' + str(randf())
   )
   log.pp(url)
   await global.httpGet(url,
