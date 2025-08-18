@@ -691,8 +691,12 @@ func updateGridSize():
   #   selectedBlock.BigSnapStr.NEVER:
   #     gridSize.y = global.useropts.largeBlockGridSnapSize
 
+var mouseMoveStartPos = null
+var mouseMovedFarEnoughToStartDrag = false
+
 func localProcess(delta: float) -> void:
   sendSignals()
+  log.pp(selectedBlockOffset)
   if not global.useropts: return
   updateGridSize()
   if FileAccess.file_exists(path.abs("res://filesToOpen")):
@@ -704,6 +708,20 @@ func localProcess(delta: float) -> void:
   # if a block is selected
   if selectedBlock or (selectedBrush and selectedBrush.selected == 2):
     var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
+    if mouseMoveStartPos == null:
+      mouseMoveStartPos = mpos
+    if mouseMovedFarEnoughToStartDrag or (mouseMoveStartPos - mpos).length() >= useropts.minDistBeforeBlockDraggingStarts:
+      mouseMovedFarEnoughToStartDrag = true
+    else:
+      mpos = mouseMoveStartPos
+    if Input.is_key_pressed(KEY_ESCAPE):
+      var b = selectedBlock
+      b.global_position = selectedBlockStartPosition
+      var moveDist = b.global_position - b.startPosition
+      setBlockStartPos(b)
+      b.onEditorMove(moveDist)
+      selectedBlock = null
+      return
     player.moving = 2
     # when trying to rotate blocks
     if editorInRotateMode && selectedBlock \
@@ -837,8 +855,9 @@ func localProcess(delta: float) -> void:
       else:
         # check if block scale is odd
         var b = selectedBlock
-        b.global_position = mpos + selectedBlockOffset
-        snapToGrid(b, gridSize)
+        b.global_position = mpos + selectedBlockOffset if mouseMovedFarEnoughToStartDrag else selectedBlockStartPosition
+        if mouseMovedFarEnoughToStartDrag:
+          snapToGrid(b, gridSize)
         var moveDist = b.global_position - b.startPosition
         setBlockStartPos(b)
         b.onEditorMove(moveDist)
@@ -846,7 +865,9 @@ func localProcess(delta: float) -> void:
         lastSelectedBlock = justPaintedBlock
       if selectedBlock:
         lastSelectedBlock = selectedBlock
-
+  else:
+    mouseMoveStartPos = null
+    mouseMovedFarEnoughToStartDrag = false
 func snapToGrid(b: EditorBlock, gridSize: Vector2) -> void:
   var extraOffset: Vector2 = Vector2.ZERO
   var isXOnOddScale

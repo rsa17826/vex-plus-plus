@@ -158,6 +158,14 @@
     "value": [
       {
         "thing": "option",
+        "type": "range",
+        "key": "minDistBeforeBlockDraggingStarts",
+        "defaultValue": 5,
+        "min": 0,
+        "max": 100
+      },
+      {
+        "thing": "option",
         "type": "bool",
         "key": "autoPanWhenClickingEmptySpace",
         "defaultValue": false
