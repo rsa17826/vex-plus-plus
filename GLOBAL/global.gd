@@ -1087,6 +1087,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if level and is_instance_valid(level):
       level.save()
   if Input.is_action_pressed(&"editor_delete", true):
+    if !isAlive(level): return
     for block in boxSelect_selectedBlocks:
       if !is_instance_valid(block): return
       if block == global.player.get_parent(): return
@@ -1754,6 +1755,9 @@ func _notification(what):
     quitGame()
 
 func quitGame():
+  if !useropts:
+    get_tree().quit()
+    return
   if useropts.saveOnExit:
     if level and is_instance_valid(level):
       level.save()

@@ -2,6 +2,7 @@ extends Control
 
 var _name := ''
 var _password := ''
+var _channel
 
 func upload_file(filePath: String, id) -> TaloChannel:
   var f = FileAccess.open(filePath, FileAccess.READ)
@@ -54,7 +55,7 @@ func getOwnChannel() -> TaloChannel:
   var res := await Talo.channels.get_channels(options)
   breakpoint
   if res.count == 0:
-    return await createChannel(str(Talo.current_alias.id))
+    return await createChannel(Talo.player_auth.session_manager.get_identifier())
   log.pp(res)
   return res.channels[0]
 
@@ -92,12 +93,14 @@ func on_session_found():
 
 func _on_login_pressed() -> void:
   disable()
-  log.pp(await login(%Username.text, %Password.text))
+  if await login(%Username.text, %Password.text):
+    _channel = await getOwnChannel()
   enable()
 
 func _on_register_pressed() -> void:
   disable()
-  log.pp(await register(%Username.text, %Password.text))
+  if await register(%Username.text, %Password.text):
+    _channel = await getOwnChannel()
   enable()
 
 func on_identified(user: TaloPlayer):
