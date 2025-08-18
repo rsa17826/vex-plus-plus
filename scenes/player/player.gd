@@ -1550,10 +1550,10 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make scale only on one side setting work
 # make scale min size work on ?spikes
 # make option to randomize level modifiers on level creation
-# block not snap to grid until drag starts
 # !!!add block name as tooltip to editor bar
 # make multiselected block rotatable/scalable
 # show all blocks being hovered over
 # fix rotating paths
 # surprise spike
 # !!update numbers when searching online levels
+# make moving blocks not force their axis
