@@ -2148,3 +2148,4 @@ func onSignalChanged(cb):
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
 # .$2
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjU1NywiYXBpIjp0cnVlLCJpYXQiOjE3NTU1MjM5Nzd9.HEivuWdu14T25M_T0bKotyIzOy1FKGo6ENtjyFfD1dw

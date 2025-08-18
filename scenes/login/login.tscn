@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdixi4vcsxqd1"]
+
+[ext_resource type="Script" uid="uid://fei8golx0ysc" path="res://scenes/login/login.gd" id="1_d7qrr"]
+
+[node name="login" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d7qrr")
+
+[node name="Username" type="TextEdit" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+placeholder_text = "un"
+
+[node name="Password" type="TextEdit" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+placeholder_text = "pa"
+
+[node name="EnableVerification" type="CheckBox" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ev"
+
+[node name="Email" type="TextEdit" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 20)
+layout_mode = 2
+placeholder_text = "em"
+
+[node name="ValidationLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "d"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
