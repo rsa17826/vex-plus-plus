@@ -1811,8 +1811,10 @@ func tryAndLoadMapFromZip(from: String, to: String):
   for file_path in files:
     var outpath = file_path
     if allInSameDir:
-      outpath = regReplace(file_path, r"^[^/\\]+[/\\]", '').strip_edges()
+      outpath = regReplace(file_path, r"^[^/\\]+[/\\]", '')
+    outpath = outpath.strip_edges()
     # If the current entry is a directory.
+    log.pp(outpath, "outpath")
     if file_path.ends_with("/"):
       root_dir.make_dir_recursive(outpath)
       continue

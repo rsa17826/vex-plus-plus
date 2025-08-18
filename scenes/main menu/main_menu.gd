@@ -306,7 +306,7 @@ func updateUserOpts() -> void:
     lastWinMode = global.useropts.windowMode
   var lastTheme = global.useropts.theme if 'theme' in global.useropts else null
   global.useropts = __menu.get_all_data()
-  log.pp('editorOnlyOptions', editorOnlyOptions)
+  # log.pp('editorOnlyOptions', editorOnlyOptions)
   for option in editorOnlyOptions:
     global.useropts[option.key] = option.defaultValue
 
