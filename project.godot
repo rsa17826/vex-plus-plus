@@ -22,6 +22,7 @@ global="*res://GLOBAL/global.gd"
 AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_config.tscn"
 ToastParty="*res://addons/toastparty/toast-autoload.gd"
 PopupMenuTransperiancyEnabler="*res://themes/popup menu transperiancy enabler.gd"
+Talo="*res://addons/talo/talo_manager.gd"
 
 [debug]
 
@@ -44,7 +45,7 @@ run/main_run_args="--loadMap \"#unv\" --loadOnlineLevel"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/talo/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
 
 [file_customization]
 
