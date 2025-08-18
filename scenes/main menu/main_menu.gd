@@ -167,7 +167,7 @@ func showMoreOptions(levelName, levelData):
       var url = (
         "https://raw.githubusercontent.com/rsa17826/" +
         REPO_NAME + "/" + BRANCH + "/levels/" +
-        global.urlEncode(str(levelData.version) + '/' + levelData.author + "/" + levelName) + '.vex++'
+        global.urlEncode(str(levelData.version) + '/' + levelData.author + "/" + levelName) + '.vex++?rand=' + str(randf())
       )
       var data = await global.httpGet(url, [], HTTPClient.METHOD_GET)
       if data.code == 200:
