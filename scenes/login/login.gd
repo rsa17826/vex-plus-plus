@@ -1,117 +1,136 @@
 extends Control
 
-var _name := ''
-var _password := ''
-var _channel
+# var _name := ''
+# var _password := ''
+# var _channel
 
-func upload_file(filePath: String, id) -> TaloChannel:
-  var f = FileAccess.open(filePath, FileAccess.READ)
-  var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
-  return await Talo.channels.update(id, '', -1, {filePath: c})
+# func upload_file(filePath: String, id) -> void:
+#   var f = FileAccess.open(filePath, FileAccess.READ)
+#   var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
+#   # return await Talo.channels.update(id, '', -1, {filePath: c})
+#   await Talo.channels.set_storage_props(id, {"level": c})
 
-func createChannel(name: String, data: Dictionary[String, String]={}) -> TaloChannel:
-  var options := Talo.channels.CreateChannelOptions.new()
-  options.name = name
-  options.auto_cleanup = false
-  data.ownerId = str(Talo.current_alias.id)
-  data.username = name
-  options.props = (data as Dictionary[String, String])
-  var channel := await Talo.channels.create(options)
+# func createChannel(name: String, data: Dictionary[String, String]={}) -> TaloChannel:
+#   var options := Talo.channels.CreateChannelOptions.new()
+#   options.name = name
+#   options.auto_cleanup = false
+#   data.ownerId = str(Talo.current_alias.id)
+#   data.username = name
+#   options.props = (data as Dictionary[String, String])
+#   var channel := await Talo.channels.create(options)
 
-  log.pp(channel.name) # channel name
-  log.pp(channel.props) # [{ "prop_key": "prop_value" }]
-  return channel
+#   log.pp(channel.name) # channel name
+#   log.pp(channel.props) # [{ "prop_key": "prop_value" }]
+#   return channel
 
-func getAllChannels(page: int = 0) -> ChannelsAPI.ChannelPage:
-  var res := await Talo.channels.get_channels(Talo.channels.GetChannelsOptions.new())
-  log.pp(res)
-  return res
+# func getAllChannels(page: int = 0) -> ChannelsAPI.ChannelPage:
+#   var res := await Talo.channels.get_channels(Talo.channels.GetChannelsOptions.new())
+#   log.pp(res)
+#   return res
 
-func _ready() -> void:
-  Talo.player_auth.session_not_found.connect(on_session_not_found, Object.CONNECT_ONE_SHOT)
-  Talo.player_auth.session_found.connect(on_session_found, Object.CONNECT_ONE_SHOT)
-  Talo.players.identified.connect(on_identified)
-  disable()
-  Talo.player_auth.start_session()
+# func _ready() -> void:
+#   Talo.player_auth.session_not_found.connect(on_session_not_found, Object.CONNECT_ONE_SHOT)
+#   Talo.player_auth.session_found.connect(on_session_found, Object.CONNECT_ONE_SHOT)
+#   Talo.players.identified.connect(on_identified)
+#   disable()
+#   Talo.player_auth.start_session()
 
-func enable():
-  %login.disabled = false
-  %register.disabled = false
-  %"delete account".disabled = false
+# func enable():
+#   %login.disabled = false
+#   %register.disabled = false
+#   %"delete account".disabled = false
 
-func disable():
-  %login.disabled = true
-  %register.disabled = true
-  %"delete account".disabled = true
+# func disable():
+#   %login.disabled = true
+#   %register.disabled = true
+#   %"delete account".disabled = true
 
-func on_session_not_found():
-  enable()
+# func on_session_not_found():
+#   enable()
 
-func getOwnChannel() -> TaloChannel:
-  var options := Talo.channels.GetChannelsOptions.new()
-  options.page = 0
-  options.prop_key = "ownerId"
-  options.prop_value = str(Talo.current_alias.id)
-  var res := await Talo.channels.get_channels(options)
-  breakpoint
-  if res.count == 0:
-    return await createChannel(Talo.player_auth.session_manager.get_identifier())
-  log.pp(res)
-  return res.channels[0]
+# func getOwnChannel() -> TaloChannel:
+#   var options := Talo.channels.GetChannelsOptions.new()
+#   options.page = 0
+#   options.prop_key = "ownerId"
+#   options.prop_value = str(Talo.current_alias.id)
+#   var res := await Talo.channels.get_channels(options)
+#   breakpoint
+#   if res.count == 0:
+#     return await createChannel(Talo.player_auth.session_manager.get_identifier())
+#   log.pp(res)
+#   return res.channels[0]
 
-func register(name: String, password: String) -> bool:
-  var err := await Talo.player_auth.register(name, password)
-  if err:
-    log.err(err, "register failed")
-    match Talo.player_auth.last_error.get_code():
-      TaloAuthError.ErrorCode.IDENTIFIER_TAKEN:
-        log.err('register', "Username is already taken")
-      _:
-        log.warn('register', Talo.player_auth.last_error.get_string())
-    return false
-  return true
+# func register(name: String, password: String) -> bool:
+#   var err := await Talo.player_auth.register(name, password)
+#   if err:
+#     log.err(err, "register failed")
+#     match Talo.player_auth.last_error.get_code():
+#       TaloAuthError.ErrorCode.IDENTIFIER_TAKEN:
+#         log.err('register', "Username is already taken")
+#       _:
+#         log.warn('register', Talo.player_auth.last_error.get_string())
+#     return false
+#   return true
 
-func login(name: String, password: String) -> bool:
-  _name = name
-  _password = password
-  var res := await Talo.player_auth.login(name, password)
-  match res:
-    Talo.player_auth.LoginResult.FAILED:
-      match Talo.player_auth.last_error.get_code():
-        TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
-          log.err('login', "Username or password is incorrect")
-        _:
-          log.err('login', Talo.player_auth.last_error.get_string())
-    Talo.player_auth.LoginResult.VERIFICATION_REQUIRED:
-      log.err('login', "Verification required")
-    Talo.player_auth.LoginResult.OK: return true
-  return false
+# func login(name: String, password: String) -> bool:
+#   _name = name
+#   _password = password
+#   var res := await Talo.player_auth.login(name, password)
+#   match res:
+#     Talo.player_auth.LoginResult.FAILED:
+#       match Talo.player_auth.last_error.get_code():
+#         TaloAuthError.ErrorCode.INVALID_CREDENTIALS:
+#           log.err('login', "Username or password is incorrect")
+#         _:
+#           log.err('login', Talo.player_auth.last_error.get_string())
+#     Talo.player_auth.LoginResult.VERIFICATION_REQUIRED:
+#       log.err('login', "Verification required")
+#     Talo.player_auth.LoginResult.OK: return true
+#   return false
 
-func on_session_found():
-  _name = Talo.player_auth.session_manager.get_identifier()
-  %Username.text = _name
+# func on_session_found():
+#   _name = Talo.player_auth.session_manager.get_identifier()
+#   %Username.text = _name
+#   if Talo.current_alias:
+#     _channel = await getOwnChannel()
 
-func _on_login_pressed() -> void:
-  disable()
-  if await login(%Username.text, %Password.text):
-    _channel = await getOwnChannel()
-  enable()
+# func _on_login_pressed() -> void:
+#   disable()
+#   if await login(%Username.text, %Password.text):
+#     _channel = await getOwnChannel()
+#   enable()
 
-func _on_register_pressed() -> void:
-  disable()
-  if await register(%Username.text, %Password.text):
-    _channel = await getOwnChannel()
-  enable()
+# func _on_register_pressed() -> void:
+#   disable()
+#   if await register(%Username.text, %Password.text):
+#     _channel = await getOwnChannel()
+#   enable()
 
-func on_identified(user: TaloPlayer):
-  log.pp(user, Talo.player_auth.session_manager.get_identifier())
-  log.pp("login successful!!")
-  enable()
+# func on_identified(user: TaloPlayer):
+#   log.pp(user, Talo.player_auth.session_manager.get_identifier())
+#   log.pp("login successful!!")
+#   enable()
 
-func _on_delete_account_pressed() -> void:
-  disable()
-  await Talo.player_auth.delete_account(%Password.text)
-  enable()
+# func _on_delete_account_pressed() -> void:
+#   disable()
+#   await Talo.player_auth.delete_account(%Password.text)
+#   enable()
+
+# func _on_delete_account_2_pressed() -> void:
+#   if !_channel:
+#     _channel = await getOwnChannel()
+#   await upload_file(r"D:\Games\vex++\game data\exports\moving things.vex++", _channel.id)
+
+# func _on_delete_account_3_pressed() -> void:
+#   var channels = (await getAllChannels()).channels
+#   for channel in channels:
+#     var data = await Talo.channels.get_storage_prop(channel.id, "level", true)
+#     if !data:
+#       log.err("no data", channel.id, channel.name)
+#       continue
+#     log.pp(data.key, data.value)
+
+# --> PUT https://api.trytalo.com/v1/game-channels/2036/storage [200] { "channel": { "id": 2036.0, "name": "z", "owner": { "id": 34638.0, "service": "talo", "identifier": "z", "player": { "id": "22d8456e-c223-44b2-8422-0e48a1cdbacc", "props": [{ "key": "META_DEV_BUILD", "value": "1" }], "devBuild": true, "createdAt": "2025-08-18T18:39:54.000Z", "lastSeenAt": "2025-08-18T18:52:50.000Z", "groups": [], "auth": { "email": <null>, "verificationEnabled": false, "sessionCreatedAt": "2025-08-18T18:52:50.000Z" }, "presence": { "online": true, "customStatus": "", "updatedAt": "2025-08-18T18:52:50.000Z" } }, "lastSeenAt": "2025-08-18T18:52:41.000Z", "createdAt": "2025-08-18T18:39:54.000Z", "updatedAt": "2025-08-18T18:52:41.000Z" }, "totalMessages": 0.0, "props": [{ "key": "ownerId", "value": "34638" }, { "key": "username", "value": "z" }], "autoCleanup": false, "private": false, "temporaryMembership": false, "createdAt": "2025-08-18T18:51:03.000Z", "updatedAt": "2025-08-18T18:51:03.000Z" }, "upsertedProps": [], "deletedProps": [], "failedProps": [{ "key": "level", "error": "Prop value length (2316) exceeds 512 characters" }] }
 
 # func _on_button_pressed() -> void:
 #   # await Talo.players.identify('username', 'ass')
