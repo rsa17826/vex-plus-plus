@@ -1554,7 +1554,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!!add block name as tooltip to editor bar
 # make multiselected block rotatable/scalable
 # !!add way for blocks to update shown block data - paths
-# red not work with path
 # show all blocks being hovered over
 # fix rotating paths
 # surprise spike

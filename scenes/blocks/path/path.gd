@@ -278,4 +278,5 @@ func savePath():
       str(int(e.rotated(-deg_to_rad(startRotation_degrees)).y))
     )
   )
+  updateSelectedOptionsUi()
   path.push_front(Vector2.ZERO)

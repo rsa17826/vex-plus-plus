@@ -43,3 +43,4 @@ func onEditorRotate():
     180: selectedOptions.action = 1
     270: selectedOptions.action = 2
     90: selectedOptions.action = 3
+  updateSelectedOptionsUi()

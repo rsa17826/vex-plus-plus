@@ -121,7 +121,10 @@ func showMoreOptions(levelName, levelData):
         sds.saveDataToFile(global.path.join(global.MAP_FOLDER, levelName, "/options.sds"), data)
         get_tree().reload_current_scene()
     6:
-      log.pp(levelName)
+      # log.pp(levelName)
+      if FileAccess.file_exists(global.path.abs("res://exports/" + levelName + ".vex++")):
+        OS.move_to_trash(global.path.abs("res://exports/" + levelName + ".vex++"))
+        await global.wait(100)
       global.zipDir(
         global.path.join(global.MAP_FOLDER, levelName),
         global.path.abs("res://exports/" + levelName + ".vex++")
