@@ -30,13 +30,21 @@ func _ready() -> void:
   Talo.player_auth.session_not_found.connect(on_session_not_found, Object.CONNECT_ONE_SHOT)
   Talo.player_auth.session_found.connect(on_session_found, Object.CONNECT_ONE_SHOT)
   Talo.players.identified.connect(on_identified)
-  %login.disabled = true
-  %register.disabled = true
+  disable()
   Talo.player_auth.start_session()
 
-func on_session_not_found():
+func enable():
   %login.disabled = false
   %register.disabled = false
+  %"delete account".disabled = false
+
+func disable():
+  %login.disabled = true
+  %register.disabled = true
+  %"delete account".disabled = true
+
+func on_session_not_found():
+  enable()
 
 func getOwnChannel() -> TaloChannel:
   var options := Talo.channels.GetChannelsOptions.new()
@@ -83,24 +91,24 @@ func on_session_found():
   %Username.text = _name
 
 func _on_login_pressed() -> void:
-  %login.disabled = true
-  %register.disabled = true
+  disable()
   log.pp(await login(%Username.text, %Password.text))
-  %login.disabled = false
-  %register.disabled = false
+  enable()
 
 func _on_register_pressed() -> void:
-  %login.disabled = true
-  %register.disabled = true
+  disable()
   log.pp(await register(%Username.text, %Password.text))
-  %login.disabled = false
-  %register.disabled = false
+  enable()
 
 func on_identified(user: TaloPlayer):
   log.pp(user, Talo.player_auth.session_manager.get_identifier())
-  log.pp("logun successful!!")
-  %login.disabled = false
-  %register.disabled = false
+  log.pp("login successful!!")
+  enable()
+
+func _on_delete_account_pressed() -> void:
+  disable()
+  await Talo.player_auth.delete_account(%Password.text)
+  enable()
 
 # func _on_button_pressed() -> void:
 #   # await Talo.players.identify('username', 'ass')
