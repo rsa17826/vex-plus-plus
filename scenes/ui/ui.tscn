@@ -152,3 +152,20 @@ expand_mode = 1
 stretch_mode = 5
 script = ExtResource("3_hl07w")
 metadata/_edit_lock_ = true
+
+[node name="hoveredBlocksList" type="PanelContainer" parent="."]
+offset_right = 86.0
+offset_bottom = 23.0
+
+[node name="Panel" type="Panel" parent="hoveredBlocksList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="hoveredBlocksList"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="hoveredBlocksList/VBoxContainer"]
+layout_mode = 2
+text = "asdasdasd"
