@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
     %selectedBlock.visible = true
   else:
     %selectedBlock.visible = false
-  $MaxSizeContainer/hoveredBlocksList/VBoxContainer/HSeparator.visible = blocks and global.selectedBlock
+  %HSeparator.visible = blocks and global.selectedBlock
   var i = 0
   for label in labels:
     if i >= len(blocks):
