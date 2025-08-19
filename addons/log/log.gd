@@ -377,7 +377,7 @@ static func spaces(count: int) -> String:
     # s += str(count) + ' '
   return s
 
-static func format_int_with_commas(number: Variant) -> String:
+static func format_number_with_commas(number: Variant) -> String:
   if global.same(number, INF):
     return "INF"
   if global.same(number, -INF):
@@ -410,7 +410,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
   if item is String:
     return getcolor("purple") + '"' + str(item) + '"' + getcolor("END")
   if item is int or item is float:
-    return getcolor("GREEN") + format_int_with_commas(item) + getcolor("END")
+    return getcolor("GREEN") + format_number_with_commas(item) + getcolor("END")
 
   if item is Dictionary:
     if not item:

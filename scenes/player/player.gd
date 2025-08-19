@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-@export var deadPlayerCollisionShape: CollisionShape2D
+# @export var deadPlayerCollisionShape: CollisionShape2D
 
 var MAX_JUMP_COUNT = 0
 const GRAVITY = 1280
@@ -297,7 +297,7 @@ func _physics_process(delta: float) -> void:
     return
   var frameStartPosition := global_position
   $waterRay.rotation = - rotation + defaultAngle
-  $anim.position = Vector2(0, 0.145)
+  # $AnimationPlayer.position = Vector2(0, 0.145)
   var REAL_GRAV: float = 0
   match gravState:
     GravStates.down:
@@ -329,7 +329,7 @@ func _physics_process(delta: float) -> void:
       pulleyNoDieTimer = 0
       inWaters = []
       # Engine.time_scale = clampf(global.rerange(deadTimer, currentRespawnDelay, 0, 4, .001), .001, 4)
-      $anim.animation = "die"
+      $AnimationPlayer.current_animation = "die"
       # setRot(defaultAngle)
       setRot(lerp_angle(rotation, defaultAngle, .2))
       $CollisionShape2D.rotation = 0
@@ -364,7 +364,7 @@ func _physics_process(delta: float) -> void:
       activeCannon.rotNode.rotation_degrees = clamp(activeCannon.rotNode.rotation_degrees, -25, 25)
       rotation = activeCannon.rotNode.rotation
       $anim.flip_h = rotation < 0
-      $anim.animation = "idle"
+      $AnimationPlayer.current_animation = "idle"
       if ACTIONjump:
         remainingJumpCount -= 1
         vel.cannon = Vector2(0, -17000).rotated(activeCannon.rotation + activeCannon.rotNode.rotation) * activeCannon.scale
@@ -384,7 +384,7 @@ func _physics_process(delta: float) -> void:
       $CollisionShape2D.rotation = defaultAngle
       # rotation += 6 * delta
       global_position = activePole.global_position
-      $anim.animation = "on pole"
+      $AnimationPlayer.current_animation = "on pole"
       playerKT = 0
 
       vel.user = Vector2.ZERO
@@ -410,16 +410,16 @@ func _physics_process(delta: float) -> void:
       remainingJumpCount = MAX_JUMP_COUNT
       if ACTIONjump:
         remainingJumpCount -= 1
-        if ($anim.frame >= 3 and $anim.frame <= 9) or $anim.frame >= 27:
+        if ($AnimationPlayer.frame >= 3 and $AnimationPlayer.frame <= 9) or $AnimationPlayer.frame >= 27:
           # this one should be user because it makes the falling better
           vel.user.y = JUMP_POWER
 
           # but this should be pole as that way it does something as user.x is set to xintent
           vel.pole.x = 50 * (-1 if $anim.flip_h else 1)
-          $anim.animation = "jumping off pole"
-          $anim.animation_looped.connect(func():
-            if $anim.animation == "jumping off pole":
-              $anim.animation="jump",
+          $AnimationPlayer.current_animation = "jumping off pole"
+          $AnimationPlayer.animation_looped.connect(func():
+            if $AnimationPlayer.current_animation == "jumping off pole":
+              $AnimationPlayer.current_animation="jump",
             Object.CONNECT_ONE_SHOT)
           state = States.jumping
         else:
@@ -449,19 +449,19 @@ func _physics_process(delta: float) -> void:
       remainingJumpCount = MAX_JUMP_COUNT
       var lastpos := global_position
       global_position = activePulley.nodeToMove.global_position + Vector2(7, 19)
-      $anim.position = Vector2(5, 5.145)
-      $anim.position.x *= activePulley.direction
+      $AnimationPlayer.position = Vector2(5, 5.145)
+      $AnimationPlayer.position.x *= activePulley.direction
       $anim.flip_h = activePulley.direction == -1
       if pulleyNoDieTimer <= 0:
-        $anim.animation = "on pulley"
+        $AnimationPlayer.current_animation = "on pulley"
         if ACTIONjump:
           pulleyNoDieTimer = MAX_PULLEY_NO_DIE_TIME
-          $anim.animation = "pulley invins"
+          $AnimationPlayer.current_animation = "pulley invins"
       else:
         pulleyNoDieTimer -= delta * 60
         if pulleyNoDieTimer <= 0:
-          $anim.animation = "on pulley"
-          $anim.frame = 9
+          $AnimationPlayer.current_animation = "on pulley"
+          $AnimationPlayer.frame = 9
 
       if pulleyNoDieTimer <= 0:
         tryAndDieHazards()
@@ -478,15 +478,15 @@ func _physics_process(delta: float) -> void:
       slideRecovery = 0
       duckRecovery = 0
       wallBreakDownFrames = 0
-      $anim.animation = "duck start"
+      $AnimationPlayer.current_animation = "duck start"
       vel.user.y = 0
       updateKeyFollowPosition(delta)
       return
     States.pullingLever:
       setRot(defaultAngle)
       $CollisionShape2D.rotation = 0
-      $anim.animation = "pulling lever"
-      $anim.animation_looped.connect(func() -> void:
+      $AnimationPlayer.current_animation = "pulling lever"
+      $AnimationPlayer.animation_looped.connect(func() -> void:
         if state == States.dead: return
         state=States.idle, Object.CONNECT_ONE_SHOT)
       tryAndDieHazards()
@@ -785,38 +785,38 @@ func _physics_process(delta: float) -> void:
             position -= Vector2(0, 1).rotated(defaultAngle)
 
         # animations
-        if $anim.animation == "jumping off pole" and vel.user.y != 0: pass
+        if $AnimationPlayer.current_animation == "jumping off pole" and vel.user.y != 0: pass
         else:
           if duckRecovery > 0:
-            $anim.animation = "duck end"
+            $AnimationPlayer.current_animation = "duck end"
           elif slideRecovery > 0:
-            $anim.animation = "slide end"
+            $AnimationPlayer.current_animation = "slide end"
           else:
             match state:
               States.idle:
-                $anim.animation = "idle"
+                $AnimationPlayer.current_animation = "idle"
               States.moving:
-                $anim.animation = "run"
+                $AnimationPlayer.current_animation = "run"
               States.jumping:
-                $anim.animation = "jump"
+                $AnimationPlayer.current_animation = "jump"
               States.falling:
-                $anim.animation = "jump"
+                $AnimationPlayer.current_animation = "jump"
               States.wallSliding:
                 if breakFromWall:
-                  $anim.animation = "jump"
+                  $AnimationPlayer.current_animation = "jump"
                 else:
-                  $anim.animation = "wall slide"
+                  $AnimationPlayer.current_animation = "wall slide"
               States.sliding:
                 if abs(vel.user.x) < 10:
-                  $anim.animation = "duck start"
+                  $AnimationPlayer.current_animation = "duck start"
                 else:
-                  $anim.animation = "slide start"
+                  $AnimationPlayer.current_animation = "slide start"
               States.wallHang:
-                $anim.animation = "wall hang"
+                $AnimationPlayer.current_animation = "wall hang"
               States.pushing:
-                $anim.animation = "pushing box"
+                $AnimationPlayer.current_animation = "pushing box"
               _:
-                $anim.animation = "idle"
+                $AnimationPlayer.current_animation = "idle"
 
         # set the sprite direction based on playerXIntent
 
@@ -1108,7 +1108,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   and playerSide.bottom \
   :
     block.thingThatMoves.vel.default -= Vector2(getClosestWallSide() * 140, 0)
-    $anim.animation = "kicking box"
+    $AnimationPlayer.current_animation = "kicking box"
     boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
     position -= Vector2(0, 2).rotated(defaultAngle)
 
@@ -1121,7 +1121,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   :
     block.thingThatMoves.vel.default -= (normal.rotated(-defaultAngle) * depth * 200)
     state = States.pushing
-    $anim.animation = "pushing box"
+    $AnimationPlayer.current_animation = "pushing box"
   # if block is BlockConveyer:
   #   if rotatedNormal != UP:
     # log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
@@ -1542,9 +1542,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ?fix locked box in wall not unlocking
 # offset player save when moving player in editor
 # fix nowjs not working again
-# fix spike vscaling
+# fix spike vscaling to not be from center
 # fix editor bar cp high
-# set bloack theme tooltips bg color
+# set black theme tooltips bg color
 # nodie star
 # !!!add search to online level list
 # make scale only on one side setting work

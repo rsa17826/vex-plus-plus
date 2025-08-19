@@ -4,4 +4,4 @@
 
 [resource]
 shader = ExtResource("1_27jbp")
-shader_parameter/replace_0 = Vector4(0, 0, 0, 1)
+shader_parameter/replace = Vector4(0, 0, 0, 0)
