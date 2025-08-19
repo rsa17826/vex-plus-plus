@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://ckgxdnqr5psft"]
+
+[ext_resource type="Script" uid="uid://b61x67e1j2rbg" path="res://scenes/ui/hovered blocks list/hovered_blocks_list.gd" id="1_o0lte"]
+[ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="2_pmg3e"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("listElem", "ttm")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 86.0
+offset_bottom = 23.0
+mouse_filter = 2
+script = ExtResource("1_o0lte")
+listElem = NodePath("MaxSizeContainer/hoveredBlocksList/VBoxContainer")
+ttm = NodePath("MaxSizeContainer")
+
+[node name="MaxSizeContainer" type="Container" parent="."]
+layout_mode = 0
+offset_right = 10.0
+offset_bottom = 10.0
+script = ExtResource("2_pmg3e")
+metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
+
+[node name="hoveredBlocksList" type="PanelContainer" parent="MaxSizeContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MaxSizeContainer/hoveredBlocksList"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2

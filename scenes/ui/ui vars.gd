@@ -6,6 +6,7 @@ extends CanvasLayer
 @export var modifiers: Control
 @export var signalList: Control
 @export var blockMenu: Control
+@export var hoveredBlockList: Control
 
 func _init() -> void:
   global.ui = self
