@@ -643,7 +643,10 @@ var justPaintedBlock: EditorBlock = null
 var gridSize: Vector2 = Vector2(5, 5)
 var selectedBlockStartPosition: Vector2
 
+var selecting := false
 func selectBlock() -> void:
+  if selecting: return
+  selecting = true
   # select the top hovered block
   # log.pp(hoveredBlocks, selectedBlock, 1)
   var block: EditorBlock = hoveredBlocks.pop_front()
@@ -657,6 +660,7 @@ func selectBlock() -> void:
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
   ui.blockMenu.showBlockMenu()
   log.pp(hoveredBlocks, selectedBlock)
+  set_deferred("selecting", false)
 
 var lastSelectedBlock: EditorBlock:
   set(val):

@@ -1012,7 +1012,8 @@ func moveAnimations():
   ).call()
   temp[0].x *= flip_h
   temp[1].x *= flip_h
-  $anim.position = lerp($anim.position, temp[0], .6)
+  $anim.position = temp[0]
+  # $anim.position = lerp($anim.position, temp[0], .6)
   for collider in [
     $CollisionShape2D,
     $nowjDetector,

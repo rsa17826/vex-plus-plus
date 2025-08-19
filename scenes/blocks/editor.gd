@@ -191,11 +191,14 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   if last_input_event == event: return
   last_input_event = event
 
-  if event is InputEventMouseMotion and !event.is_echo() and (event as InputEventMouseMotion).relative:
-    # log.pp(event.relative)
-    if not EDITOR_IGNORE:
-      if isHovered and self not in global.hoveredBlocks:
-        global.hoveredBlocks.append(self )
+  if not EDITOR_IGNORE:
+    if isHovered and self not in global.hoveredBlocks:
+      global.hoveredBlocks.append(self )
+  # if event is InputEventMouseMotion and !event.is_echo() and (event as InputEventMouseMotion).relative:
+  #   # log.pp(event.relative)
+  #   if not EDITOR_IGNORE:
+  #     if isHovered and self not in global.hoveredBlocks:
+  #       global.hoveredBlocks.append(self )
   # if selecting this block
   if global.hoveredBlocks && self == global.hoveredBlocks[0]:
     if !Input.is_action_pressed(&"editor_pan"):
