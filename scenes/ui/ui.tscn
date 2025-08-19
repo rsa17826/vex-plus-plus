@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=14 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -12,8 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://cs4s80p62mgl5" path="res://scenes/ui/block menu/block_menu.tscn" id="8_y220t"]
 [ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="9_hl07w"]
 [ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="10_y220t"]
+[ext_resource type="PackedScene" uid="uid://ckgxdnqr5psft" path="res://scenes/ui/hovered blocks list/hovered_blocks_list.tscn" id="13_swkix"]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList")]
 layer = 2
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("saved")
@@ -23,6 +24,7 @@ progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 modifiers = NodePath("CanvasLayer/modifiers")
 signalList = NodePath("HBoxContainer/MarginContainer/MaxSizeContainer/signal list")
 blockMenu = NodePath("HBoxContainer/block menu")
+hoveredBlockList = NodePath("hoveredBlocksList")
 
 [node name="star counter" type="Label" parent="."]
 offset_left = 4.0
@@ -153,19 +155,4 @@ stretch_mode = 5
 script = ExtResource("3_hl07w")
 metadata/_edit_lock_ = true
 
-[node name="hoveredBlocksList" type="PanelContainer" parent="."]
-offset_right = 86.0
-offset_bottom = 23.0
-
-[node name="Panel" type="Panel" parent="hoveredBlocksList"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="hoveredBlocksList"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Label" type="Label" parent="hoveredBlocksList/VBoxContainer"]
-layout_mode = 2
-text = "asdasdasd"
+[node name="hoveredBlocksList" parent="." instance=ExtResource("13_swkix")]
