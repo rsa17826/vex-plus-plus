@@ -19,7 +19,7 @@ const WATER_EXIT_BOUNCE_FORCE = -600
 const WALL_SLIDE_SPEED = 35
 var DEATH_TIME = 20
 const MAX_BOX_KICK_RECOVER_TIME = 22
-const MAX_POLE_COOLDOWN = 12
+const MAX_POLE_COOLDOWN = 4
 const SMALL = .00001
 
 var lastDeathWasForced := false
@@ -161,11 +161,11 @@ var startedPanning: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
   if global.openMsgBoxCount: return
-  if Input.is_action_just_pressed(&"save_current_location_as_last_checkpoint"):
+  if Input.is_action_just_pressed(&"save_current_location_as_last_checkpoint", true):
     lastSpawnPoint = (global_position - get_parent().global_position)
-  if Input.is_action_just_pressed(&"restart"):
+  if Input.is_action_just_pressed(&"restart", true):
     die(DEATH_TIME, false, true)
-  if Input.is_action_just_pressed(&"full_restart"):
+  if Input.is_action_just_pressed(&"full_restart", true):
     die(DEATH_TIME, true, true)
 
   if state != States.dead and global.showEditorUi:
@@ -1555,3 +1555,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!update numbers when searching online levels
 # fix pole regrab time
 # pause player while in inputs
+# make escape work for scaling and rotating

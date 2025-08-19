@@ -28,3 +28,14 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer/Panel"]
+layout_mode = 2
+text = "adsasdasdasd"
+
+[node name="HSeparator" type="HSeparator" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer"]
+visible = false
+layout_mode = 2

@@ -6,6 +6,9 @@ func onEditorMove(moveDist: Vector2) -> void:
   if moveDist:
     player.lastSpawnPoint -= moveDist
 
+func on_ready() -> void:
+  id = 'player'
+
 func onEditorMoveEnded():
   var saveData: Variant = sds.loadDataFromFile(global.path.abs("res://saves/saves.sds"), {})
   saveData[global.mainLevelName].lastSpawnPoint = player.lastSpawnPoint

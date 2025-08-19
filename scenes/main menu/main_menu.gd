@@ -129,6 +129,7 @@ func showMoreOptions(levelName, levelData):
         global.path.join(global.MAP_FOLDER, levelName),
         global.path.abs("res://exports/" + levelName + ".vex++")
       )
+      ToastParty.info("map exported successfully")
       if global.useropts.openExportsDirectoryOnExport:
         OS.shell_open(global.path.abs("res://exports"))
     7:
