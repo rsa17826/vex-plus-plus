@@ -34,9 +34,5 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "adsasdasdasd"
 
-[node name="Panel" type="PanelContainer" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer"]
-visible = false
-layout_mode = 2
-
 [node name="HSeparator" type="HSeparator" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer"]
 layout_mode = 2
