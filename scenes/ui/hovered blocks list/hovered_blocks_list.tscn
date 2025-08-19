@@ -35,4 +35,5 @@ layout_mode = 2
 text = "adsasdasdasd"
 
 [node name="HSeparator" type="HSeparator" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
