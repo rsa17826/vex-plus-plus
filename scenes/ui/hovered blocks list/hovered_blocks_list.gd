@@ -7,24 +7,26 @@ var labels := []
 
 func _process(delta: float) -> void:
   ttm.visible = true
-  if not global.useropts.showHoveredBlocksList or not global.showEditorUi or not global.hoveredBlocks:
+  if not global.useropts.showHoveredBlocksList or not global.showEditorUi or not (global.hoveredBlocks or global.selectedBlock):
     ttm.visible = false
     return
-  while len(global.hoveredBlocks) > len(labels):
+  var blocks = global.hoveredBlocks.filter(func(e): return e != global.selectedBlock)
+  while len(blocks) > len(labels):
     var l = Label.new()
     labels.append(l)
     listElem.add_child(l)
   if global.selectedBlock:
     %selectedBlock.text = global.selectedBlock.id
-    %selectedBlock.get_parent().visible = true
+    %selectedBlock.visible = true
   else:
-    %selectedBlock.get_parent().visible = false
+    %selectedBlock.visible = false
+  $MaxSizeContainer/hoveredBlocksList/VBoxContainer/HSeparator.visible = blocks and global.selectedBlock
   var i = 0
   for label in labels:
-    if i >= len(global.hoveredBlocks):
+    if i >= len(blocks):
       label.visible = false
     else:
       label.visible = true
-      labels[i].text = global.hoveredBlocks[i].id
+      labels[i].text = blocks[i].id
     i += 1
   ttm.position = get_local_mouse_position() + Vector2(20, 20)
