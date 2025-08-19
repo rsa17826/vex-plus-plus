@@ -14,6 +14,11 @@ func _process(delta: float) -> void:
     var l = Label.new()
     labels.append(l)
     listElem.add_child(l)
+  if global.selectedBlock:
+    %selectedBlock.text = global.selectedBlock.id
+    %selectedBlock.get_parent().visible = true
+  else:
+    %selectedBlock.get_parent().visible = false
   var i = 0
   for label in labels:
     if i >= len(global.hoveredBlocks):
