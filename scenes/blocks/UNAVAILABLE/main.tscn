@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://ccsu4mbj53lpt"]
 
 [ext_resource type="Script" uid="uid://cfgws8pfjxcrp" path="res://scenes/blocks/UNAVAILABLE/UNAVAILABLE.gd" id="1_dkhu5"]
-[ext_resource type="Texture2D" uid="uid://c1re2gen1eeca" path="res://scenes/blocks/image.png" id="3_5huf3"]
+[ext_resource type="Texture2D" uid="uid://u2nkfbx6d6s3" path="res://scenes/blocks/UNAVAILABLE/images/1.png" id="2_ic37n"]
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode")]
 script = ExtResource("1_dkhu5")
@@ -16,4 +16,4 @@ canAttachToPaths = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
-texture = ExtResource("3_5huf3")
+texture = ExtResource("2_ic37n")

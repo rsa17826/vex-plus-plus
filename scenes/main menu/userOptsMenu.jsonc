@@ -1,7 +1,7 @@
 [
   {
     "thing": "group",
-    "name": "editorBar",
+    "name": "editor bar",
     "value": [
       {
         "thing": "option",
@@ -156,6 +156,12 @@
     "thing": "group",
     "name": "editor settings",
     "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "randomizeLevelModifiersOnLevelCreation",
+        "defaultValue": true
+      },
       {
         "thing": "option",
         "type": "range",
