@@ -378,6 +378,12 @@ static func spaces(count: int) -> String:
   return s
 
 static func format_int_with_commas(number: Variant) -> String:
+  if global.same(number, INF):
+    return "INF"
+  if global.same(number, -INF):
+    return "-INF"
+  if is_nan(number):
+    return "NAN"
   var rest = '.' + str(number).split(".")[1] if number is float else ''
   number = str(int(floor(number)))
   for i in range(

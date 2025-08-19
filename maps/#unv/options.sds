@@ -2,12 +2,12 @@
   STR(start)STR(hub)
   STR(author)STR()
   STR(description)STR()
-  STR(version)INT(133)
+  STR(version)INT(134)
   STR(stages){
     STR(hub){
       STR(color)INT(4)
       STR(changeSpeedOnSlopes)BOOL(false)
     }
   }
-  STRNAME(levelVersion)INT(41)
+  STRNAME(levelVersion)INT(48)
 }

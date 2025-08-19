@@ -3,4 +3,4 @@ extends EditorBlock
 class_name BlockRightLeft
 
 func on_physics_process(delta: float) -> void:
-  thingThatMoves.global_position.x = startPosition.x + sin(global.tick * 1.5) * 200
+  moveTo(Vector2(startPosition.x + sin(global.tick * 1.5) * 200, startPosition.y))
