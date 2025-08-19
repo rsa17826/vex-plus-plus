@@ -372,6 +372,12 @@
       {
         "thing": "option",
         "type": "bool",
+        "key": "showHoveredBlocksList",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
         "key": "showLevelModsWhileEditing",
         "defaultValue": true
       },
@@ -385,7 +391,7 @@
         "thing": "option",
         "type": "bool",
         "key": "showUnchangedLevelMods",
-        "defaultValue": false
+        "defaultValue": true
       },
       {
         "thing": "option",

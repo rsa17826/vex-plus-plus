@@ -660,7 +660,6 @@ func selectBlock() -> void:
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
   ui.blockMenu.showBlockMenu()
   hoveredBlocks.push_back(block)
-  log.pp(hoveredBlocks, selectedBlock)
   set_deferred("selecting", false)
 
 var lastSelectedBlock: EditorBlock:

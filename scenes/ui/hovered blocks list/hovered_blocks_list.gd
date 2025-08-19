@@ -7,7 +7,7 @@ var labels := []
 
 func _process(delta: float) -> void:
   ttm.visible = true
-  if not global.showEditorUi or not global.hoveredBlocks:
+  if not global.useropts.showHoveredBlocksList or not global.showEditorUi or not global.hoveredBlocks:
     ttm.visible = false
     return
   while len(global.hoveredBlocks) > len(labels):
@@ -22,6 +22,4 @@ func _process(delta: float) -> void:
       label.visible = true
       labels[i].text = global.hoveredBlocks[i].id
     i += 1
-  if get_local_mouse_position():
-    ttm.position = get_local_mouse_position() + Vector2(20, 20)
-  log.pp(ttm.position)
+  ttm.position = get_local_mouse_position() + Vector2(20, 20)
