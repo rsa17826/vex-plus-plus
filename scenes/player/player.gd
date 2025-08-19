@@ -469,7 +469,6 @@ func _physics_process(delta: float) -> void:
       if Input.is_action_just_pressed(&"down") or inWaters:
         remainingJumpCount -= 1
         state = States.falling
-      moveAnimations()
       applyHeat(delta)
       updateKeyFollowPosition(delta)
     States.bouncing:
@@ -1008,20 +1007,22 @@ func moveAnimations():
       &'kicking box':
         return [Vector2(0, 1.145), Vector2.ZERO]
       _:
-        log.warn($anim.animation)
-        return Vector2(10.0, 10.145)
+        log.err($anim.animation, "has no set position")
+        return [Vector2(10.0, 10.145), Vector2.ZERO]
   ).call()
   temp[0].x *= flip_h
   temp[1].x *= flip_h
   $anim.position = lerp($anim.position, temp[0], .6)
-  for collider in [$CollisionShape2D,
-  $nowjDetector,
-  $stickyFloorDetector,
-  $"respawn detection area",
-  $wallDetection,
-  $waterRay,
-  $floorRay,
-  $deathDetectors]:
+  for collider in [
+    $CollisionShape2D,
+    $nowjDetector,
+    $stickyFloorDetector,
+    $"respawn detection area",
+    $wallDetection,
+    $waterRay,
+    $floorRay,
+    $deathDetectors
+  ]:
     collider.position = temp[1]
 
 func onDifferentWall() -> bool:
@@ -1216,66 +1217,6 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     else:
       log.err("invalid collision direction!!!", normal, playerSide, blockSide)
     justAddedVels.conveyer = 3
-    # var hitTop = [normal.rotated(defaultAngle), (up_direction)]
-    # var hitBottom = [normal.rotated(defaultAngle), (up_direction.rotated(deg_to_rad(180)))]
-    # var hitLeft = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(-90))))]
-    # var hitRight = [normal.rotated(defaultAngle), ((up_direction.rotated(deg_to_rad(90))))]
-    # log.pp(normal, up_direction, "hitTop", hitTop, "hitBottom", hitBottom, "hitLeft", hitLeft, "hitRight", hitRight)
-    # var maxDir = 0
-    # var testDir = up_direction.rotated(-block.rotation)
-    # if hit.left:
-    #   testDir = testDir.rotated(90)
-    # if hit.right:
-    #   testDir = testDir.rotated(-90)
-    # if abs(testDir.x) > abs(maxDir):
-    #   maxDir = testDir.x
-    # if abs(testDir.y) > abs(maxDir):
-    #   log.pp(testDir.y, maxDir, abs(testDir.y) > maxDir)
-    #   maxDir = testDir.y
-    # else: return
-    # log.pp(normal, maxDir, testDir, rad_to_deg(block.rotation), hit.left, hit.right, playerSide.bottom, hitBottom, normal, applyRot(Vector2.RIGHT), Vector2.RIGHT)
-    # var shouldFlipConveyerDirection = maxDir < 0
-    # if shouldFlipConveyerDirection:
-    #   vel.conveyer.x = -400
-    # else:
-    #   vel.conveyer.x = 400
-    # if hit.left || hit.right:
-    #   if (hit.right == shouldFlipConveyerDirection):
-    #     vel.conveyer.y = abs(vel.conveyer.x)
-    #   else:
-    #     vel.conveyer.y = abs(vel.conveyer.x) * -1
-    #   vel.conveyer.x = 0
-
-  # if !block.root.lastMovementStep: return
-  # if block.is_in_group("falling"):
-  #   position.y += block.root.lastMovementStep.y / 4
-  # else:
-  #   log.pp(block.root.lastMovementStep.y)
-  # fixes falling thru blocks visually, but collision not changed
-  # position += block.lastMovementStep
-  #   if str(normal / abs(normal)) == str(block.root.lastMovementStep / abs(block.root.lastMovementStep)):
-  #     log.pp("closer", depth, block.root.lastMovementStep)
-  #     posOffset = Vector2.ZERO
-  #     posOffset += block.root.lastMovementStep
-  #     posOffset -= sign(block.root.lastMovementStep) * 1.1
-  #   else:
-  #     posOffset += block.root.lastMovementStep
-
-  #   if normal.x:
-  #     posOffset.y /= 4.0
-  #   # posOffset += block.root.lastMovementStep / 4
-  #   # if state != States.wallSliding && state != States.wallHang:
-  #   #   posOffset.y = 0
-  #   # if posOffset.y:
-  #   #   if CenterIsOnWall():
-  #   #     if state == States.wallHang || state == States.wallSliding:
-  #   #       posOffset += posOffset / 2
-  # return posOffset
-  # return Vector2.ZERO
-
-  # log.err(posOffset)
-  # state = States.falling
-  # breakpoint
 
 func updateCamLockPos():
   if global.showEditorUi:
@@ -1605,7 +1546,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!!add search to online level list
 # make scale only on one side setting work
 # make scale min size work on ?spikes
-# make option to randomize level modifiers on level creation
 # !!!add block name as tooltip to editor bar
 # make multiselected block rotatable/scalable
 # show all blocks being hovered over
@@ -1613,3 +1553,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # surprise spike
 # !!update numbers when searching online levels
 # fix pole regrab time
+# pause player while in inputs

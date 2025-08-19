@@ -1512,7 +1512,6 @@ func animate(speed: int, steps: Array) -> float:
   return newOffset
 
 func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> bool:
-  var badChars := "^[\\w\\d _-]+"
   if not levelName:
     levelName = await prompt("enter the level name", PromptTypes.string, "")
   levelPackName = fixPath(levelPackName)
@@ -1521,14 +1520,33 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
     return false
   var fullDirPath := path.join(MAP_FOLDER, levelPackName)
   var opts: Dictionary = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
-  opts.stages[levelName] = defaultLevelSettings.duplicate()
-  opts.stages[levelName].color = randfrom(1, 11)
+  var d = defaultLevelSettings.duplicate()
+  opts.stages[levelName] = d
+  for k in d:
+    if k in ['saveTick', 'color']: continue
+    if typeof(d[k]) == TYPE_BOOL:
+      d[k] = !!randfrom(0, 1)
+      continue
+    match k:
+      "jumpCount":
+        d[k] = randfrom(0, 2)
+      _:
+        log.err("random setting not set for: ", k)
+  if d.autoRun and randfrom(1, 3) == 1:
+    d.autoRun = false
+  if d.autoRun and not d.canDoWallJump and not d.canDoWallSlide:
+    d.autoRun = false
+  if d.autoRun and not d.canDoWallJump:
+    d.canDoWallJump = true
+  if d.canDoWallJump and not d.canDoWallSlide:
+    d.canDoWallSlide = true
+  d.color = randfrom(1, 11)
   file.write(path.join(fullDirPath, levelName + ".sds"), '', false)
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"), opts)
   return true
 
 func fixPath(path):
-  var badChars := "^[\\w\\d _-]+"
+  var badChars := "[^\\w\\d _-]+"
   return regReplace(path, badChars, "_").strip_edges()
 
 func createNewMapFolder() -> Variant:
