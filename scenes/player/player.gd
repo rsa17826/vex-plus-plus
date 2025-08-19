@@ -448,7 +448,6 @@ func _physics_process(delta: float) -> void:
 
       vel.user = Vector2.ZERO
       remainingJumpCount = MAX_JUMP_COUNT
-      var lastpos := global_position
       global_position = activePulley.nodeToMove.global_position + Vector2(7, 19)
       # $anim.position = Vector2(5, 5.145)
       # $anim.position.x *= activePulley.direction
