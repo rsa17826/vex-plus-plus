@@ -50,6 +50,12 @@ extends Node2D
 
 var isBeingPlaced := false
 
+var intendedPositionOfThingThatMoves := Vector2.ZERO
+
+func moveTo(pos: Vector2):
+  thingThatMoves.global_position += pos - intendedPositionOfThingThatMoves
+  intendedPositionOfThingThatMoves += pos - intendedPositionOfThingThatMoves
+
 enum boolOrNull {
   _false = -1,
   _true = 1,
@@ -145,6 +151,7 @@ func respawn() -> void:
   respawning = 2
   if thingThatMoves:
     thingThatMoves.position = Vector2.ZERO
+    intendedPositionOfThingThatMoves = thingThatMoves.global_position
 
   for block: EditorBlock in attach_children:
     if !block.thingThatMoves:
