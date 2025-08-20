@@ -75,12 +75,10 @@ last_wrap_alignment = 2
 layout_mode = 2
 
 [node name="Label" type="Label" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
-visible = false
 layout_mode = 2
 text = "asdasdasdsad"
 
 [node name="LineEdit" type="LineEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
-visible = false
 layout_mode = 2
 expand_to_text_length = true
 clear_button_enabled = true
@@ -88,7 +86,6 @@ deselect_on_focus_loss_enabled = false
 select_all_on_focus = true
 
 [node name="LineEdit2" type="SpinBox" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
-visible = false
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
@@ -96,17 +93,14 @@ update_on_text_changed = true
 select_all_on_focus = true
 
 [node name="OptionButton" type="OptionButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
-visible = false
 layout_mode = 2
 allow_reselect = true
 
 [node name="ColorPickerButton" type="ColorPickerButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
-visible = false
 layout_mode = 2
 text = "COLOR"
 
 [node name="TextEdit" type="TextEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
-visible = false
 custom_minimum_size = Vector2(750, 300)
 layout_mode = 2
 
