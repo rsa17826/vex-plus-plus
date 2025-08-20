@@ -126,14 +126,14 @@
     }
   }
   {
-    STR(x)FLOAT(-300.0)
-    STR(y)FLOAT(250.0)
+    STR(x)FLOAT(150.0)
+    STR(y)FLOAT(350.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(150,0,150,50)
+      STR(path)STR(-300,-100,-300,-50)
       STR(endReachedAction)INT(0)
       STR(startOnLoad)BOOL(true)
       STR(startOnPress)BOOL(false)
@@ -463,9 +463,9 @@
     }
   }
   {
-    STR(x)FLOAT(-700.0)
+    STR(x)FLOAT(-658.5)
     STR(y)FLOAT(450.0)
-    STR(w)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.83000016212463)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -523,12 +523,108 @@
     }
   }
   {
-    STR(x)FLOAT(-554.5)
+    STR(x)FLOAT(-646.0)
     STR(y)FLOAT(150.0)
-    STR(w)FLOAT(1.86000001430511)
+    STR(w)FLOAT(0.0500000002794)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-300.0)
+    STR(y)FLOAT(150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(gravity rotator)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-200.0)
+    STR(y)FLOAT(150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(gravity rotator)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-200.0)
+    STR(y)FLOAT(250.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(gravity rotator)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-300.0)
+    STR(y)FLOAT(250.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(270.0)
+    STR(id)STR(gravity rotator)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-450.0)
+    STR(y)FLOAT(75.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(44.9999694824219)
+    STR(id)STR(gravity rotator)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-525.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-45.0)
+    STR(id)STR(gravity rotator)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-600.0)
+    STR(y)FLOAT(75.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(224.999786376953)
+    STR(id)STR(gravity rotator)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-525.0)
+    STR(y)FLOAT(150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(135.0)
+    STR(id)STR(gravity rotator)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
