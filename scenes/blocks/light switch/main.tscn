@@ -15,6 +15,7 @@ size = Vector2(84, 88)
 script = ExtResource("1_qvpra")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_4fpvc")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("collisionNode/attach detector")]

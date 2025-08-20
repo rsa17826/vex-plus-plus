@@ -12,6 +12,7 @@ radius = 192.66
 script = ExtResource("1_mai7y")
 ghostIconNode = NodePath("Node2D/symbols")
 editorBarIconNode = NodePath("Node2D/symbols")
+editorBarIcon = ExtResource("2_b3ec0")
 collisionShapes = [NodePath("Node2D/CollisionShape2D"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/symbols")]
 cloneEventsHere = [NodePath("attach detector")]

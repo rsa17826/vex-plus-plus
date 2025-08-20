@@ -21,6 +21,7 @@ spark = NodePath("collisionNode/spark")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_tyx8y")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/spark/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/spark/Sprite2D"), NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("attach detector")]
@@ -62,7 +63,6 @@ root = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
 z_index = 3
-position = Vector2(0,0)
 shape = SubResource("RectangleShape2D_y6p4y")
 metadata/_edit_lock_ = true
 

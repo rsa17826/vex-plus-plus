@@ -16,6 +16,7 @@ script = ExtResource("1_owjk4")
 ray = NodePath("collisionNode/RayCast2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_erc21")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("collisionNode/attach detector")]

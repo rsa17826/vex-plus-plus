@@ -17,7 +17,8 @@ size = Vector2(688, 18)
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_mlwc1")
 ghostIconNode = NodePath("Node2D/collisionNode/ghost")
-editorBarIconNode = NodePath("Node2D/collisionNode/EditorBar")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("4_inxcf")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/textureRect")]
 cloneEventsHere = [NodePath("Node2D/collisionNode/attach detector")]
@@ -72,11 +73,6 @@ texture = ExtResource("3_yx31i")
 position = Vector2(0, -57.5)
 shape = SubResource("RectangleShape2D_1gece")
 debug_color = Color(1, 0, 0, 0.419608)
-
-[node name="EditorBar" type="Sprite2D" parent="Node2D/collisionNode"]
-visible = false
-scale = Vector2(1.54286, 1.54286)
-texture = ExtResource("4_inxcf")
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
 position = Vector2(0, -72.5)

@@ -16,6 +16,7 @@ script = ExtResource("1_nb43j")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_1ds4b")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("attach detector")]

@@ -17,8 +17,9 @@ radius = 127.016
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("shurikenBase", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_8qfqg")
 shurikenBase = NodePath("Node2D/ttm/death")
-ghostIconNode = NodePath("Node2D/ttm/Sprite2D")
-editorBarIconNode = NodePath("EditorBar")
+ghostIconNode = NodePath("Node2D/ttm/ghost")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("3_86yqw")
 collisionShapes = [NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/ttm/Spawner")]
 cloneEventsHere = [NodePath("attach detector")]
@@ -35,7 +36,7 @@ position = Vector2(735, 0)
 
 [node name="ttm" type="Node2D" parent="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/ttm"]
+[node name="ghost" type="Sprite2D" parent="Node2D/ttm"]
 visible = false
 use_parent_material = true
 position = Vector2(-365, -53)
@@ -64,11 +65,6 @@ metadata/_edit_lock_ = true
 scale = Vector2(0.566, 0.566)
 texture = ExtResource("5_ne3b7")
 metadata/_edit_lock_ = true
-
-[node name="EditorBar" type="Sprite2D" parent="."]
-visible = false
-scale = Vector2(2.34568, 2.34568)
-texture = ExtResource("3_86yqw")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 position = Vector2(0, -36)

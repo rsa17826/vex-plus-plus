@@ -5,25 +5,19 @@
 [ext_resource type="Texture2D" uid="uid://c7gjocrhs1wbd" path="res://scenes/blocks/and gate/images/editorBar.png" id="2_ug4bm"]
 [ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="4_ug4bm"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInpa", "labelInpb", "labelOut", "np", "ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInpa", "labelInpb", "labelOut", "ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_li100")
 labelInpa = NodePath("Node2D/Label")
 labelInpb = NodePath("Node2D/Label2")
 labelOut = NodePath("Node2D/Label3")
-np = NodePath("")
 ghostIconNode = NodePath("Node2D/symbols")
-editorBarIconNode = NodePath("Node2D/editorBar")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("2_ug4bm")
 hidableSprites = [NodePath("Node2D/symbols")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 
 [node name="Node2D" type="Node2D" parent="."]
-
-[node name="editorBar" type="Sprite2D" parent="Node2D"]
-visible = false
-use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
-texture = ExtResource("2_ug4bm")
 
 [node name="symbols" type="Sprite2D" parent="Node2D"]
 use_parent_material = true

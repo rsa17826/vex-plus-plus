@@ -2,7 +2,7 @@
   STR(start)STR(hub)
   STR(author)STR(z)
   STR(description)STR()
-  STR(version)INT(136)
+  STR(version)INT(137)
   STR(stages){
     STR(hub){
       STR(color)INT(6)
@@ -15,5 +15,5 @@
       STR(canDoWallJump)BOOL(false)
     }
   }
-  STRNAME(levelVersion)INT(3)
+  STRNAME(levelVersion)INT(22)
 }

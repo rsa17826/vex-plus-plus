@@ -10,6 +10,7 @@ labelOut = NodePath("Node2D/Label")
 sprite = NodePath("Node2D/Sprite2D")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIconNode = NodePath("Node2D/Sprite2D")
+editorBarIcon = ExtResource("2_33fxx")
 hidableSprites = [NodePath("Node2D/Sprite2D")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true

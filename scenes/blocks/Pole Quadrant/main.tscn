@@ -15,7 +15,8 @@ radius = 46.3897
 script = ExtResource("1_6ey8g")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/ghost")
-editorBarIconNode = NodePath("collisionNode/editorBar")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("4_12gxb")
 collisionShapes = [NodePath("attach detector/CollisionShape2D"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("attach detector")]
@@ -31,12 +32,6 @@ root = NodePath("..")
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_a867g")
-
-[node name="editorBar" type="Sprite2D" parent="collisionNode"]
-visible = false
-use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
-texture = ExtResource("4_12gxb")
 
 [node name="ghost" type="Sprite2D" parent="collisionNode"]
 visible = false

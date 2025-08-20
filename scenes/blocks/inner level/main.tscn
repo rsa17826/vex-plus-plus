@@ -18,6 +18,7 @@ label = NodePath("collisionNode/Label")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIconNode = NodePath("collisionNode/ghost")
+editorBarIcon = ExtResource("3_0xqb5")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/Label")]
 cloneEventsHere = [NodePath("attach detector")]

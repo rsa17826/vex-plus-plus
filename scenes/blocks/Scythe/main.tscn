@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b7yl772m88qju"]
 
 [ext_resource type="Script" uid="uid://da8bgrmwr06av" path="res://scenes/blocks/scythe/scythe.gd" id="1_7nvoe"]
-[ext_resource type="Texture2D" uid="uid://c8lrtymj4pb1g" path="res://scenes/blocks/scythe/images/1.png" id="2_crksl"]
+[ext_resource type="Texture2D" uid="uid://bel1gbuoebwwg" path="res://scenes/blocks/scythe/images/1.png" id="2_crksl"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_ljnhe"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_7nvoe"]
 
@@ -22,6 +22,7 @@ script = ExtResource("1_7nvoe")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_crksl")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/CollisionShape2D2"), NodePath("collisionNode/CollisionShape2D3"), NodePath("collisionNode/CollisionShape2D4"), NodePath("collisionNode/CollisionShape2D5"), NodePath("collisionNode/CollisionShape2D6")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("collisionNode/attach detector")]

@@ -20,7 +20,8 @@ rightCollisionShape = NodePath("Node2D/collisionNode/CollisionShape2D2")
 leftSprite = NodePath("Node2D/collisionNode/leftHalf")
 rightSprite = NodePath("Node2D/collisionNode/rightHalf")
 ghostIconNode = NodePath("Node2D/collisionNode/ghost")
-editorBarIconNode = NodePath("Node2D/collisionNode/editorBar")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("3_fyg8o")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/CollisionShape2D2")]
 hidableSprites = [NodePath("Node2D/collisionNode/leftHalf"), NodePath("Node2D/collisionNode/rightHalf")]
 cloneEventsHere = [NodePath("Node2D/collisionNode/attach detector")]
@@ -38,12 +39,6 @@ collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_mvqdb")
 root = NodePath("../..")
-
-[node name="editorBar" type="Sprite2D" parent="Node2D/collisionNode"]
-visible = false
-use_parent_material = true
-scale = Vector2(3.6, 3.6)
-texture = ExtResource("3_fyg8o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
 unique_name_in_owner = true

@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://0rl1xrpcfl0"]
+
+[ext_resource type="Shader" uid="uid://ujtadvsjrkir" path="res://scenes/blocks/oneway/new_shader.gdshader" id="1_c8p0t"]
+
+[resource]
+shader = ExtResource("1_c8p0t")
+shader_parameter/end = Color(0.13685009, 0.0001870361, 0.6951662, 1)
+shader_parameter/start = Color(0.003921569, 0.2, 0, 1)

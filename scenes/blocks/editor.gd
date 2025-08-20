@@ -4,7 +4,15 @@ extends Node2D
 ## sprite to use for the ghost
 @export var ghostIconNode: Sprite2D
 ## sprite to show in the editor bar
-@export var editorBarIconNode: Sprite2D
+@export var mainColor: Color
+## sprite to show in the editor bar
+@export var editorBarIcon: Texture2D:
+  get():
+    if editorBarIconUsesLevelColor:
+      return load(editorBarIcon.resource_path.replace("/1.png", '/' + str(global.currentLevelSettings("color")) + '.png'))
+    return editorBarIcon
+## sprite to show in the editor bar
+@export var editorBarIconUsesLevelColor: bool = false
 ## sprites to disable when node disabled
 @export var collisionShapes: Array[CollisionShape2D]
 ## sprites to hide when node disabled
@@ -255,7 +263,7 @@ func _ready() -> void:
   # if !is_in_group("dontRespawnOnPlayerDeath"):
   if !global.player.OnPlayerDied.is_connected(respawn):
     global.player.OnPlayerDied.connect(respawn)
-
+  log.pp(mainColor)
   blockOptions = {}
 
   if not hidableSprites and not ignoreMissingNodes:
@@ -264,6 +272,15 @@ func _ready() -> void:
   if null in hidableSprites:
     log.err("a hidableSprites is null", self , name, id)
     breakpoint
+
+  # if not ('color' in selectedOptions):
+  #   selectedOptions.color='#fff'
+  # for thing in hidableSprites:
+  #   var shader = preload("res://scenes/blocks/oneway/main.tres").duplicate()
+  #   shader.set_shader_parameter("start", mainColor)
+  #   shader.set_shader_parameter("end", Color(selectedOptions.color))
+  #   thing.use_parent_material = false
+  #   thing.material = shader
 
   if not collisionShapes:
     if get_node_or_null("CollisionShape2D"):
