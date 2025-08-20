@@ -741,6 +741,7 @@ func localProcess(delta: float) -> void:
       and !scaleOnLeftSide \
       and !scaleOnRightSide \
       : return
+      if not mouseMovedFarEnoughToStartDrag: return
       mpos = mpos
       var r = selectedBlock.rotation
       var b = selectedBlock
@@ -786,12 +787,11 @@ func localProcess(delta: float) -> void:
         Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
       # make block no less than 10% default size
       var mousePos := get_viewport().get_mouse_position()
-      var minSize := gridSize / 700.0
-      log.pp(minSize)
+      var minSize := Vector2(5, 5) / 700.0
       # var minSize := 0.1 / 7.0
       # need to make it stop moving - cant figure out how yet
       if selectedBlock.scale.x < minSize.x:
-        # selectedBlock.scale.x = minSize
+        # selectedBlock.scale.x = minSize.x
         if scaleOnLeftSide:
           scaleOnLeftSide = false
           scaleOnRightSide = true
@@ -802,7 +802,7 @@ func localProcess(delta: float) -> void:
           moveMouse.call(mousePos - Vector2(minSize.x * 700, 0))
 
       if selectedBlock.scale.y < minSize.y:
-        # selectedBlock.scale.y = minSize
+        # selectedBlock.scale.y = minSize.y
         if scaleOnTopSide:
           scaleOnTopSide = false
           scaleOnBottomSide = true
@@ -811,7 +811,7 @@ func localProcess(delta: float) -> void:
           scaleOnTopSide = true
           scaleOnBottomSide = false
           moveMouse.call(mousePos - Vector2(0, minSize.y * 700))
-
+      # log.pp(minSize, selectedBlock.scale)
       selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize.x, 2500.0 / 7.0)
       selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize.y, 2500.0 / 7.0)
       global.setEditorUiState(true)

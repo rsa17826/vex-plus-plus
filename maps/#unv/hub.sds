@@ -510,4 +510,28 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(-500.0)
+    STR(y)FLOAT(299.5)
+    STR(w)FLOAT(1.00000014901161)
+    STR(h)FLOAT(0.0199999997858)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-554.5)
+    STR(y)FLOAT(150.0)
+    STR(w)FLOAT(1.86000001430511)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

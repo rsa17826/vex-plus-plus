@@ -9,6 +9,18 @@
 make it so that when i tab in a function it is replaced with the correct one
 
 @file \.gd$
+@regex \bTrue\b
+@replace true
+@flags gm
+@endregex
+
+@file \.gd$
+@regex \bFalse\b
+@replace false
+@flags gm
+@endregex
+
+@file \.gd$
 @regex Vector2\(0, 0\)
 @replace Vector2.ZERO
 @flags gm
