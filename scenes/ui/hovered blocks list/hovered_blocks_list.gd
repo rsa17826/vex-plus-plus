@@ -7,7 +7,7 @@ var labels := []
 
 func _process(delta: float) -> void:
   ttm.visible = true
-  if not global.useropts.showHoveredBlocksList or not global.showEditorUi or not (global.hoveredBlocks or global.selectedBlock):
+  if global.openMsgBoxCount or not global.useropts.showHoveredBlocksList or not global.showEditorUi or not (global.hoveredBlocks or global.selectedBlock):
     ttm.visible = false
     return
   var blocks = global.hoveredBlocks.filter(func(e): return e != global.selectedBlock)
