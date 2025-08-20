@@ -20,7 +20,8 @@ radius = 5.09902
 script = ExtResource("1_4c23b")
 nodeToFall = NodePath("Node2D")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
-editorBarIconNode = NodePath("Node2D/collisionNode/EditorBar")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("3_4c23b")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("Node2D/collisionNode/attach detector")]
@@ -48,11 +49,6 @@ texture = ExtResource("2_dnmi0")
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_xrsct")
 debug_color = Color(1, 0, 0, 0.419608)
-
-[node name="EditorBar" type="Sprite2D" parent="Node2D/collisionNode"]
-visible = false
-scale = Vector2(1.54286, 1.54286)
-texture = ExtResource("3_4c23b")
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true

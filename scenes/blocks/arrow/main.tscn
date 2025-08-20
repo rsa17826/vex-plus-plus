@@ -12,6 +12,7 @@ radius = 160.253
 script = ExtResource("1_7ht56")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIconNode = NodePath("Node2D/Sprite2D")
+editorBarIcon = ExtResource("2_07hpw")
 hidableSprites = [NodePath("Node2D/Sprite2D")]
 cloneEventsHere = [NodePath("Node2D/attach detector")]
 thingThatMoves = NodePath("Node2D")

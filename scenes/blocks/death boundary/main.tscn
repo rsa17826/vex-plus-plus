@@ -11,9 +11,9 @@ size = Vector2(700, 700)
 script = ExtResource("1_x528a")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_x528a")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
-usePlayerRotationOnRespawn = false
 EDITOR_OPTION_scale = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]

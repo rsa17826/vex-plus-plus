@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://3b5rdxoob147"]
 
-[ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/pulley/images/1.png" id="2_omc7y"]
+[ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/pulley/images/editorBar.png" id="2_omc7y"]
 [ext_resource type="Script" uid="uid://1dvo3ligvvh5" path="res://scenes/blocks/pulley/pulley.gd" id="2_u2153"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_svsk0"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_svsk0"]
@@ -30,6 +30,7 @@ nodeToMove = NodePath("movable")
 sprite = NodePath("movable/Sprite2D")
 ghostIconNode = NodePath("movable/Sprite2D")
 editorBarIconNode = NodePath("movable/Sprite2D")
+editorBarIcon = ExtResource("2_omc7y")
 collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("movable/wall to side with player off/CollisionShape2D"), NodePath("movable/wall to side with player off/CollisionShape2D2"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("movable/Sprite2D")]
 cloneEventsHere = [NodePath("attach detector")]

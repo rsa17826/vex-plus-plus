@@ -1,6 +1,7 @@
-[gd_scene load_steps=68 format=3 uid="uid://dlurtuab261td"]
+[gd_scene load_steps=69 format=3 uid="uid://dlurtuab261td"]
 
 [ext_resource type="Script" uid="uid://gnrxu8simiih" path="res://scenes/blocks/growing block/growing block.gd" id="1_4g13r"]
+[ext_resource type="Texture2D" uid="uid://f3fey26e7kkh" path="res://scenes/blocks/growing block/images/editorBar.png" id="2_6fssk"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_pfmaw"]
 [ext_resource type="Texture2D" uid="uid://c1uvel3auybsv" path="res://scenes/blocks/growing block/images/DefineSprite_1404/1.png" id="4_i6im3"]
 [ext_resource type="Texture2D" uid="uid://cksdlp1ksksh5" path="res://scenes/blocks/growing block/images/DefineSprite_1404/2.png" id="5_lcemo"]
@@ -259,8 +260,9 @@ size = Vector2(700, 700)
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_4g13r")
 anim = NodePath("collisionNode/center")
-ghostIconNode = NodePath("collisionNode/editorBar")
-editorBarIconNode = NodePath("collisionNode/editorBar")
+ghostIconNode = NodePath("collisionNode/ghost")
+editorBarIconNode = NodePath("collisionNode/ghost")
+editorBarIcon = ExtResource("2_6fssk")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/center"), NodePath("collisionNode/border")]
 cloneEventsHere = [NodePath("attach detector")]
@@ -285,7 +287,7 @@ autoplay = "default"
 [node name="border" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("63_i6im3")
 
-[node name="editorBar" type="Sprite2D" parent="collisionNode"]
+[node name="ghost" type="Sprite2D" parent="collisionNode"]
 visible = false
 texture = ExtResource("63_lcemo")
 

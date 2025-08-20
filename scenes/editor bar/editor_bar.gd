@@ -32,7 +32,7 @@ func _ready() -> void:
   log.pp(global.useropts.editorBarPosition, "global.useropts.editorBarPosition")
   match global.useropts.editorBarPosition:
     0:
-      position = Vector2(0, 0)
+      position = Vector2.ZERO
     1:
       position = Vector2(0, global.windowSize.y - $ColorRect.size.y)
     2:
@@ -78,11 +78,12 @@ func newItem(name, id) -> void:
   nodeCount += 1
   clone = clone.instantiate()
   var item = $item.duplicate()
-  if 'editorBarIconNode' not in clone or not clone.editorBarIconNode:
-    log.err("clone.editorBarIconNode not found", clone.name, id, name)
+  if 'editorBarIcon' not in clone or not clone.editorBarIcon:
+    log.err("clone.editorBarIcon not found", clone.name, id, name)
     breakpoint
-  var icon = clone.editorBarIconNode.duplicate()
-  icon.visible = true
+  var icon = Sprite2D.new()
+  # if clone.editorBarIconUsesLevelColor:
+  icon.texture = clone.editorBarIcon
   item.add_child(icon)
   item.id = id
   item.blockName = name

@@ -16,7 +16,8 @@ radius = 306.041
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["buzsaw - generic", "death"]]
 script = ExtResource("1_sq8c8")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
-editorBarIconNode = NodePath("CharacterBody2D/editorBar")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("3_807tk")
 collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/collisionNode/CollisionShape2D2")]
 hidableSprites = [NodePath("CharacterBody2D/Sprite2D"), NodePath("CharacterBody2D/left rot")]
 cloneEventsHere = [NodePath("CharacterBody2D")]
@@ -24,7 +25,7 @@ thingThatMoves = NodePath("CharacterBody2D")
 EDITOR_OPTION_scale = true
 canAttachToPaths = true
 BUZSAW_GENERIC_spriteToRotateRight = NodePath("CharacterBody2D/left rot")
-BUZSAW_GENERIC_spriteToRotateLeft = NodePath("CharacterBody2D/editorBar")
+BUZSAW_GENERIC_spriteToRotateLeft = NodePath("")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
@@ -43,12 +44,6 @@ use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_807tk")
 flip_h = true
-
-[node name="editorBar" type="Sprite2D" parent="CharacterBody2D"]
-visible = false
-use_parent_material = true
-scale = Vector2(2.84762, 2.84762)
-texture = ExtResource("3_807tk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CircleShape2D_xvl4e")

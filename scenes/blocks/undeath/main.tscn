@@ -19,10 +19,11 @@ size = Vector2(700, 700)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_qunpq")
-ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/editorBar")
+ghostIconNode = NodePath("collisionNode/ghost")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("4_2tv7p")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D")]
+hidableSprites = [NodePath("collisionNode/ghost")]
 cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
 SEND_COLLISIONS_DOURING_PLAYER_RESPAWN = true
@@ -35,12 +36,8 @@ collision_mask = 0
 script = ExtResource("2_07iil")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="ghost" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("3_2tv7p")
-
-[node name="editorBar" type="Sprite2D" parent="collisionNode"]
-visible = false
-texture = ExtResource("4_2tv7p")
 
 [node name="textureRect" parent="collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_irq6n")]
 root = NodePath("../..")

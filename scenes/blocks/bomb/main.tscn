@@ -123,6 +123,7 @@ boomSprite = NodePath("CharacterBody2D/AnimatedSprite2D")
 boomShape = NodePath("CharacterBody2D/block die area/CollisionShape2D")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIconNode = NodePath("CharacterBody2D/Sprite2D")
+editorBarIcon = ExtResource("3_o857y")
 collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/water detection area/CollisionShape2D2"), NodePath("CharacterBody2D/block die area/CollisionShape2D")]
 hidableSprites = [NodePath("CharacterBody2D/Sprite2D")]
 cloneEventsHere = [NodePath("CharacterBody2D"), NodePath("attach detector")]

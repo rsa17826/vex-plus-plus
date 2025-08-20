@@ -9,21 +9,16 @@
 script = ExtResource("1_cdiki")
 labelInp = NodePath("Node2D/Label")
 labelOut = NodePath("Node2D/Label2")
-ghostIconNode = NodePath("Node2D/Sprite2D2")
-editorBarIconNode = NodePath("Node2D/editorBar")
-hidableSprites = [NodePath("Node2D/Label"), NodePath("Node2D/Label2"), NodePath("Node2D/Sprite2D2")]
+ghostIconNode = NodePath("Node2D/ghost")
+editorBarIconNode = NodePath("")
+editorBarIcon = ExtResource("2_3yt6x")
+hidableSprites = [NodePath("Node2D/Label"), NodePath("Node2D/Label2"), NodePath("Node2D/ghost")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="editorBar" type="Sprite2D" parent="Node2D"]
-visible = false
-use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
-texture = ExtResource("2_3yt6x")
-
-[node name="Sprite2D2" type="Sprite2D" parent="Node2D"]
+[node name="ghost" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("3_ketuk")

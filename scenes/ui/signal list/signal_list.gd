@@ -43,4 +43,4 @@ func onSignalChanged(id, on, callers):
       listOfLoadedSignals[id].add_child(blockImageNode)
       listOfLoadedSignals[id].blockImages.append(blockImageNode)
       blockImageNode.get_node("count").text = str(blockData[i].count)
-      blockImageNode.get_node("image").texture = blockData[i].block.editorBarIconNode.texture
+      blockImageNode.get_node("image").texture = blockData[i].block.editorBarIcon

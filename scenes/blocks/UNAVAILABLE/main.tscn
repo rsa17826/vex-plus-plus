@@ -7,6 +7,7 @@
 script = ExtResource("1_dkhu5")
 ghostIconNode = NodePath("Sprite2D")
 editorBarIconNode = NodePath("Sprite2D")
+editorBarIcon = ExtResource("2_ic37n")
 ignoreMissingNodes = true
 normalScale = true
 EDITOR_OPTION_scale = true

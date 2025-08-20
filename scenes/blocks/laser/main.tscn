@@ -22,6 +22,7 @@ charge2 = NodePath("collisionNode/2")
 charge3 = NodePath("collisionNode/3")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_gc2qo")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/bg"), NodePath("collisionNode/1"), NodePath("collisionNode/2"), NodePath("collisionNode/3")]
 cloneEventsHere = [NodePath("collisionNode/attach detector")]
