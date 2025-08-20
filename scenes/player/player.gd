@@ -1468,9 +1468,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # known:
   # !version ?-24! when respawning inside water you don't enter the water as collision is disabled while respawning
-  # /!version ?-INF! kt doesnt reset while entering water
+  # !version ?-INF! kt doesnt reset while entering water
+    # 136/rssaromeo/uno mas - water jump
   # ?!version ?-<136! holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
-  # /!version ?-NOW! sliding into water causes shrunken hitbox
+  # !version ?-NOW! sliding into water causes shrunken hitbox
+    # 136/rssaromeo/uno mas - water crouch
   # !version ?-NOW! when leaving water directly onto a wall you can grab the wall lower than intended
   # !version ?-<136! when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
   # !version ?-28! levers can be pulled even when not on ground
@@ -1479,6 +1481,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-28! pulling levers allows clipping through moving blocks
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
   # !version ?-NOW! can push boxes while sliding
+    # 136/rssaromeo/uno mas - slide push
   # ?!version ?-<104! spawnpoint being inside water and doing full restart while in spawn water causes player to not be in water
   # !version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
   # !version ?-<104! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
@@ -1494,8 +1497,10 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-115! getting pushed off a ledge doesn't remove a jump
   # !version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
   # !version ?-126! respawning with a solar block disabled would cause blocks to not attach to it
+    # 125/rssaromeo/uno mas - solar attach bug
   # !version ?-NOW! cpops
-  # !version ?-135! negative size spikes don't have a texture
+  # /!version ?-135! negative size spikes don't have a texture
+    # 135/rssaromeo/uno mas - invisible spikes - no alpha
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
