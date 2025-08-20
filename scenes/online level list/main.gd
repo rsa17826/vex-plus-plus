@@ -72,7 +72,7 @@ func loadOnlineLevels():
   $AnimatedSprite2D.frame = 0
   loadingText.text = "Loading..."
   loadingText.visible = true
-  var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + REPO_NAME + "/branches")).response
+  var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + REPO_NAME + "/branches" + '?rand=' + str(randf()))).response
   var sha = ""
   for branch in branches:
     if branch.name != BRANCH: continue
@@ -84,7 +84,7 @@ func loadOnlineLevels():
   var url = (
     "https://api.github.com/repos/rsa17826/" +
     REPO_NAME + "/git/trees/" + sha +
-    "?recursive=1"
+    "?recursive=1" + '&rand=' + str(randf())
   )
   log.pp(url)
   var levels = (await global.httpGet(
