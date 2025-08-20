@@ -1489,6 +1489,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-115! getting pushed off a ledge doesn't remove a jump
   # !version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
   # !version ?-126! respawning with a solar block disabled would cause blocks to not attach to it
+  # !version ?-NOW! cpops
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1556,3 +1557,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix pole regrab time
 # pause player while in inputs
 # make escape work for scaling and rotating
+# search multiple terms at once
