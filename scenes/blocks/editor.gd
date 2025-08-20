@@ -539,9 +539,20 @@ func _process(delta: float) -> void:
           # set the sides that you are close enough to to be selecting
           onTopSide = topDist < testDist
           onBottomSide = bottomDist < testDist
+          if onTopSide and onBottomSide:
+            if topDist < bottomDist:
+              onBottomSide = false
+            else:
+              onTopSide = false
+
           onLeftSide = leftDist < testDist
           onRightSide = rightDist < testDist
-          if global.useropts.noCornerGrabsForScaling and node_size.y != node_size.x:
+          if onLeftSide and onRightSide:
+            if leftDist < rightDist:
+              onRightSide = false
+            else:
+              onLeftSide = false
+          if global.useropts.noCornerGrabsForScaling:
             if onTopSide and onRightSide:
               if node_size.y < node_size.x:
                 onTopSide = false
