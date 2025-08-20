@@ -1110,12 +1110,11 @@ size = Vector2(14, 31.8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q53ni"]
 size = Vector2(10, 1)
 
-[node name="player" type="Node2D" node_paths=PackedStringArray("player", "ghostIconNode", "editorBarIconNode", "collisionShapes")]
+[node name="player" type="Node2D" node_paths=PackedStringArray("player", "ghostIconNode", "collisionShapes")]
 z_index = 10
 script = ExtResource("1_4v6xr")
 player = NodePath("CharacterBody2D")
 ghostIconNode = NodePath("Sprite2D")
-editorBarIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/top/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/left/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/right/CollisionShape2D2"), NodePath("CharacterBody2D/deathDetectors/bottom/CollisionShape2D"), NodePath("CharacterBody2D/nowjDetector/CollisionShape2D"), NodePath("CharacterBody2D/stickyFloorDetector/CollisionShape2D"), NodePath("CharacterBody2D/respawn detection area/CollisionShape2D2")]
 ignoreMissingNodes = true
 DONT_ENABLE_ON_RESPAWN = true

@@ -550,7 +550,7 @@ func _physics_process(delta: float) -> void:
           vel.pole.x -= 2 * sign(vel.pole.x) * delta * 60
           # if abs(vel.pole.x) < 5:
           #   vel.pole.x = 0
-        floor_snap_length = 5
+        floor_snap_length = 7
         # log.pp(remainingJumpCount, "remainingJumpCount", States.keys()[state])
         # reset angle when exiting water
         # setRot(defaultAngle)
