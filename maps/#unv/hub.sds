@@ -12,7 +12,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
+088o      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
