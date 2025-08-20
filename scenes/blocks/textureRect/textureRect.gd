@@ -1,6 +1,6 @@
 @tool
-
 extends Node2D
+# @noregex
 
 @export var root: EditorBlock = null
 @export var texture: Texture2D = null
@@ -28,6 +28,5 @@ func _process(delta: float) -> void:
   if Engine.is_editor_hint(): return
   global_scale = startScale
   $TextureRect.scale = Vector2(1, 1) / (1 if root.normalScale else 7)
-  $TextureRect.position = - (root.sizeInPx / global_scale) / 2
-  $TextureRect.size = root.sizeInPx * 7 / global_scale
-
+  $TextureRect.position = - (abs(root.sizeInPx) / abs(global_scale)) / 2
+  $TextureRect.size = abs(root.sizeInPx) * 7 / abs(global_scale)

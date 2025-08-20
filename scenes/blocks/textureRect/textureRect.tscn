@@ -1,16 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://dcd1h5fc5cd56"]
+[gd_scene load_steps=2 format=3 uid="uid://dcd1h5fc5cd56"]
 
-[ext_resource type="Script" uid="uid://dmyvfdosafpmh" path="res://scenes/blocks/textureRect/sprite_2d.gd" id="1_5t8xv"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s0s8k"]
+[ext_resource type="Script" uid="uid://dmyvfdosafpmh" path="res://scenes/blocks/textureRect/textureRect.gd" id="1_5t8xv"]
 
 [node name="textureRect" type="Node2D"]
 use_parent_material = true
 script = ExtResource("1_5t8xv")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_right = 50.0
-offset_bottom = 50.0
-texture = SubResource("NoiseTexture2D_s0s8k")
+offset_left = -350.0
+offset_top = -350.0
+offset_right = 350.0
+offset_bottom = 350.0
 expand_mode = 1
 stretch_mode = 1

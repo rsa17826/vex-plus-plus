@@ -1025,6 +1025,11 @@ func moveAnimations():
     $deathDetectors
   ]:
     collider.position = temp[1]
+  if state == States.sliding:
+    $CollisionShape2D.shape.size.y = unduckSize.y / 2
+    $CollisionShape2D.position.y = unduckPos.y + (unduckSize.y / 4)
+    %deathDetectors.scale = Vector2(1, 0.5)
+    %deathDetectors.position.y = (unduckSize.y / 4)
 
 func onDifferentWall() -> bool:
   if not lastWall:
@@ -1463,11 +1468,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # known:
   # !version ?-24! when respawning inside water you don't enter the water as collision is disabled while respawning
-  # !version ?-INF! kt doesnt reset while entering water
-  # !version ?-NOW! holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
-  # !version ?-NOW! sliding into water causes shrunken hitbox
+  # /!version ?-INF! kt doesnt reset while entering water
+  # ?!version ?-<136! holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
+  # /!version ?-NOW! sliding into water causes shrunken hitbox
   # !version ?-NOW! when leaving water directly onto a wall you can grab the wall lower than intended
-  # !version ?-NOW! when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
+  # !version ?-<136! when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
   # !version ?-28! levers can be pulled even when not on ground
   # ?!version 26-NOW! portal wrongwarp when falling through portals building speed then a moving block moves in your path where you slide on the wall then fall back into the same portal that you were previously using to build speed
   # !version 29-29! dying while pulling levers causes global.tick to stay at 0
@@ -1490,6 +1495,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
   # !version ?-126! respawning with a solar block disabled would cause blocks to not attach to it
   # !version ?-NOW! cpops
+  # !version ?-135! negative size spikes don't have a texture
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped

@@ -160,7 +160,7 @@
         "thing": "option",
         "type": "bool",
         "key": "randomizeLevelModifiersOnLevelCreation",
-        "defaultValue": true
+        "defaultValue": false
       },
       {
         "thing": "option",
