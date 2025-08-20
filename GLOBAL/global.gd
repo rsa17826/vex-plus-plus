@@ -642,6 +642,8 @@ var selectedBrush: Node
 var justPaintedBlock: EditorBlock = null
 var gridSize: Vector2 = Vector2(5, 5)
 var selectedBlockStartPosition: Vector2
+var selectedBlockStartScale: Vector2
+var selectedBlockStartRotation: float
 
 var selecting := false
 func selectBlock() -> void:
@@ -655,6 +657,8 @@ func selectBlock() -> void:
   var bpos: Vector2 = block.position
   var mpos: Vector2 = player.get_global_mouse_position()
   selectedBlockStartPosition = bpos
+  selectedBlockStartScale = block.scale
+  selectedBlockStartRotation = block.rotation
   selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
   var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
   selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
@@ -720,6 +724,8 @@ func localProcess(delta: float) -> void:
     if Input.is_key_pressed(KEY_ESCAPE):
       var b = selectedBlock
       b.global_position = selectedBlockStartPosition
+      b.scale = selectedBlockStartScale
+      b.rotation = selectedBlockStartRotation
       var moveDist = b.global_position - b.startPosition
       setBlockStartPos(b)
       b.onEditorMove(moveDist)
@@ -742,47 +748,48 @@ func localProcess(delta: float) -> void:
       and !scaleOnRightSide \
       : return
       if not mouseMovedFarEnoughToStartDrag: return
-      mpos = mpos
       var r = selectedBlock.rotation
       var b = selectedBlock
       var startPos = selectedBlock.global_position
-      gridSize = gridSize.rotated(r)
+      # gridSize = gridSize.rotated(r)
+      var testrot = -r
+      # mpos = mpos.rotated(testrot)
       # mpos = round(mpos / gridSize) * gridSize
       # startPos = round(startPos / gridSize) * gridSize
 
-      # sizeInPx = sizeInPx.rotated(-deg_to_rad(-selectedBlock.startRotation_degrees))
-
+      # sizeInPx = sizeInPx.rotated(-deg_to_rad(-b.startRotation_degrees))
+      var scale = b.scale.rotated(testrot)
       # log.pp(b.rotation_degrees, b.rect.right)
-      var top_edge: float = (startPos - (b.sizeInPx / 2.0)).y
-      var bottom_edge: float = (startPos + (b.sizeInPx / 2.0)).y
-      var right_edge: float = (startPos + (b.sizeInPx / 2.0)).x
-      var left_edge: float = (startPos - (b.sizeInPx / 2.0)).x
+      var top_edge: float = (startPos - (b.sizeInPx.rotated(testrot) / 2.0)).y
+      var bottom_edge: float = (startPos + (b.sizeInPx.rotated(testrot) / 2.0)).y
+      var right_edge: float = (startPos + (b.sizeInPx.rotated(testrot) / 2.0)).x
+      var left_edge: float = (startPos - (b.sizeInPx.rotated(testrot) / 2.0)).x
       var offset = Vector2.ZERO
       # scale on the selected sides
       var mouseDistInPx: float
       if scaleOnTopSide:
         mouseDistInPx = (top_edge - mpos.y)
         mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
-        b.scale.y = (b.scale.y + (mouseDistInPx / b.sizeInPx.y * b.scale.y))
+        scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.rotated(testrot).y * scale.y))
         offset -= Vector2(0, mouseDistInPx / 2)
       elif scaleOnBottomSide:
         mouseDistInPx = (mpos.y - bottom_edge)
         mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
-        b.scale.y = (b.scale.y + (mouseDistInPx / b.sizeInPx.y * b.scale.y))
+        scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.rotated(testrot).y * scale.y))
         offset += Vector2(0, mouseDistInPx / 2)
       if scaleOnLeftSide:
         mouseDistInPx = (left_edge - mpos.x)
         mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
-        b.scale.x = (b.scale.x + (mouseDistInPx / b.sizeInPx.x * b.scale.x))
+        scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.rotated(testrot).x * scale.x))
         offset -= Vector2(mouseDistInPx / 2, 0)
       elif scaleOnRightSide:
         mouseDistInPx = (mpos.x - right_edge)
         mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
-        b.scale.x = (b.scale.x + (mouseDistInPx / b.sizeInPx.x * b.scale.x))
+        scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.rotated(testrot).x * scale.x))
         offset += Vector2(mouseDistInPx / 2, 0)
       # log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
-      selectedBlock.global_position = startPos + offset
-      # selectedBlock.global_position = round((selectedBlock.global_position) / gridSize) * gridSize
+      b.global_position = startPos + offset
+      # b.global_position = round((b.global_position) / gridSize) * gridSize
       var moveMouse := func(pos: Vector2) -> void:
         Input.warp_mouse(pos * Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y))
       # make block no less than 10% default size
@@ -790,8 +797,8 @@ func localProcess(delta: float) -> void:
       var minSize := Vector2(5, 5) / 700.0
       # var minSize := 0.1 / 7.0
       # need to make it stop moving - cant figure out how yet
-      if selectedBlock.scale.x < minSize.x:
-        # selectedBlock.scale.x = minSize.x
+      if scale.x < minSize.x:
+        # scale.x = minSize.x
         if scaleOnLeftSide:
           scaleOnLeftSide = false
           scaleOnRightSide = true
@@ -801,8 +808,8 @@ func localProcess(delta: float) -> void:
           scaleOnRightSide = false
           moveMouse.call(mousePos - Vector2(minSize.x * 700, 0))
 
-      if selectedBlock.scale.y < minSize.y:
-        # selectedBlock.scale.y = minSize.y
+      if scale.y < minSize.y:
+        # scale.y = minSize.y
         if scaleOnTopSide:
           scaleOnTopSide = false
           scaleOnBottomSide = true
@@ -811,13 +818,14 @@ func localProcess(delta: float) -> void:
           scaleOnTopSide = true
           scaleOnBottomSide = false
           moveMouse.call(mousePos - Vector2(0, minSize.y * 700))
-      # log.pp(minSize, selectedBlock.scale)
-      selectedBlock.scale.x = clamp(selectedBlock.scale.x, minSize.x, 2500.0 / 7.0)
-      selectedBlock.scale.y = clamp(selectedBlock.scale.y, minSize.y, 2500.0 / 7.0)
+      # log.pp(minSize, scale)
+      scale.x = clamp(scale.x, minSize.x, 2500.0 / 7.0)
+      scale.y = clamp(scale.y, minSize.y, 2500.0 / 7.0)
+      b.scale = scale.rotated(-testrot)
       global.setEditorUiState(true)
-      var moveDist = selectedBlock.global_position - selectedBlock.startPosition
-      setBlockStartPos(selectedBlock)
-      selectedBlock.onEditorMove(moveDist)
+      var moveDist = b.global_position - b.startPosition
+      setBlockStartPos(b)
+      b.onEditorMove(moveDist)
     else:
       # if trying to create new block
       if justPaintedBlock:
@@ -951,6 +959,11 @@ func duplicate_block(block: EditorBlock) -> EditorBlock:
   setBlockStartPos(newBlock)
   return newBlock
 
+var copiedBlockData := {
+  'position': Vector2.ZERO,
+  'scale': Vector2(1, 1),
+  'rotation': 0,
+}
 func _unhandled_input(event: InputEvent) -> void:
   if !InputMap.has_action("quit"): return
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
@@ -960,21 +973,41 @@ func _unhandled_input(event: InputEvent) -> void:
   if openMsgBoxCount: return
   if event.is_action_pressed(&"copy_block_position", false, true):
     if lastSelectedBlock:
-      DisplayServer.clipboard_set(str(lastSelectedBlock.startPosition.x) + " " + str(lastSelectedBlock.startPosition.y))
+      copiedBlockData.position = lastSelectedBlock.startPosition
+  if event.is_action_pressed(&"copy_block_scale", false, true):
+    if lastSelectedBlock:
+      copiedBlockData.scale = lastSelectedBlock.scale
+  if event.is_action_pressed(&"copy_block_rotation", false, true):
+    if lastSelectedBlock:
+      copiedBlockData.rotation = lastSelectedBlock.rotation
+      # DisplayServer.clipboard_set(str(lastSelectedBlock.startPosition.x) + " " + str(lastSelectedBlock.startPosition.y))
   if event.is_action_pressed(&"paste_block_position", false, true):
     if lastSelectedBlock:
       if selectedBlock:
         selectedBlock = null
-      var data = DisplayServer.clipboard_get().split(' ')
-      if len(data) == 2:
-        data = Vector2(float(data[0]), float(data[1]))
-        var dist = lastSelectedBlock.startPosition - data
-        lastSelectedBlock.startPosition = data
-        lastSelectedBlock.onEditorMove(dist)
-        lastSelectedBlock.onEditorMoveEnded()
-        lastSelectedBlock.respawn()
-      else:
-        log.err("clip data not valid")
+      var dist = lastSelectedBlock.startPosition - copiedBlockData.position
+      lastSelectedBlock.startPosition = copiedBlockData.position
+      lastSelectedBlock.onEditorMove(dist)
+      lastSelectedBlock.onEditorMoveEnded()
+      lastSelectedBlock.respawn()
+  if event.is_action_pressed(&"paste_block_scale", false, true):
+    if lastSelectedBlock:
+      if selectedBlock:
+        selectedBlock = null
+      lastSelectedBlock.scale = copiedBlockData.scale
+      setBlockStartPos(lastSelectedBlock)
+      lastSelectedBlock.onEditorMove(Vector2.ZERO)
+      lastSelectedBlock.onEditorMoveEnded()
+      lastSelectedBlock.respawn()
+  if event.is_action_pressed(&"paste_block_rotation", false, true):
+    if lastSelectedBlock:
+      if selectedBlock:
+        selectedBlock = null
+      lastSelectedBlock.rotation = copiedBlockData.rotation
+      setBlockStartPos(lastSelectedBlock)
+      lastSelectedBlock.onEditorMove(Vector2.ZERO)
+      lastSelectedBlock.onEditorMoveEnded()
+      lastSelectedBlock.respawn()
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     # ToastParty.error('a')
     # ToastParty.info('a')
