@@ -1801,6 +1801,7 @@ func loadEditorBarData():
     "oneway",
     "undeath",
     "input detector",
+    "player state detector",
     "not gate",
     "and gate",
     "crumbling",
@@ -1818,9 +1819,11 @@ func loadEditorBarData():
             InputMap.erase_action("CREATE NEW - " + thing.replace("/", "_"))
         else:
           tempBlockNames.append(thing)
-      while i % int(useropts.editorBarColumns) != 0:
-        i += 1
-        tempBlockNames.append(null)
+      if k != 'remove':
+        while i % int(useropts.editorBarColumns) != 0:
+          i += 1
+          tempBlockNames.append(null)
+          # tempBlockNames.append('basic')
   blockNames = tempBlockNames + unusedBlockNames
 
   for block in blockNames:

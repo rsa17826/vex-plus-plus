@@ -58,7 +58,7 @@ func on_process(delta: float) -> void:
       global.player.vel.bounce = Vector2(0, bounceForce).rotated(radrot).rotated(-global.player.defaultAngle)
       global.player.justAddedVels.bounce = 3
       global.player.state = global.player.States.jumping
-      on_respawn()
+      on_respawn.call_deferred()
 
     var size: Vector2 = ghost.texture.get_size() * startScale
 
