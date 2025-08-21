@@ -4,6 +4,7 @@ class_name Player
 # @export var deadPlayerCollisionShape: CollisionShape2D
 
 var MAX_JUMP_COUNT = 0
+var DEATH_TIME = 20
 const GRAVITY = 1280
 const MAX_PULLEY_NO_DIE_TIME = 50
 const MOVESPEED = 220
@@ -11,13 +12,12 @@ const JUMP_POWER = -430
 const MAX_WALL_SLIDE_FRAMES = 120
 const MAX_SLIDE_RECOVER_TIME = 14
 const MAX_WALL_BREAK_FROM_DOWN_FRAMES = 10
-const MAX_KT_TIMER = 8
-const MAX_WATER_KT_TIMER = 8
+const MAX_KT_TIMER = 6
+const MAX_WATER_KT_TIMER = 6
 const WATER_TURNSPEED = 170
 const WATER_MOVESPEED = 4000
 const WATER_EXIT_BOUNCE_FORCE = -600
 const WALL_SLIDE_SPEED = 35
-var DEATH_TIME = 20
 const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 4
 const SMALL = .00001
