@@ -1155,8 +1155,13 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   and blockSide.top \
   and applyRot(velocity).y >= -SMALL \
   and not inWaters \
+  and not block.respawnTimer > 0 \
   :
-    global_position = position
+    # breakpoint
+    # global_position = position
+    # breakpoint
+    global_position = position - Vector2(4, 0).rotated(defaultAngle)
+    # breakpoint
     # log.err(normal * depth)
     block.start()
   if block is BlockInnerLevel \
