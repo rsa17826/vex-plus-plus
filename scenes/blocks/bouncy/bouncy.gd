@@ -10,6 +10,7 @@ var bounceForce: float = 0
 
 func start() -> void:
   if bouncing: return
+  if respawnTimer > 0: return
   bouncing = true
   bounceState = 0
   global.player.state = global.player.States.bouncing
@@ -30,12 +31,17 @@ func start() -> void:
   # var offset_vector = Vector2(0, half_player_height - half_rotated_height).rotated(-radrot)
   # log.pp(global.player.defaultAngle, extraRot, radrot)
   # log.pp(offset_vector, half_player_height)
+  # log.err(extraRot, radrot)
   original_contact_position -= Vector2(0, half_player_height).rotated(radrot)
 
+var respawnTimer = 0
+
 func on_respawn():
+  respawnTimer = 0
   bounceState = 0
   bouncing = false
   bounceForce = 0
+  animated.position = Vector2.ZERO
 
 var original_contact_position: Vector2
 
@@ -43,6 +49,11 @@ func onPathMove(dist):
   original_contact_position += dist
 
 func on_process(delta: float) -> void:
+  if respawnTimer > 0:
+    respawnTimer -= delta * 60
+    if respawnTimer <= 0:
+      on_respawn.call_deferred()
+    return
   if respawning: return
   if bouncing:
     var sizeInPx := ghostIconNode.texture.get_size()
@@ -58,7 +69,7 @@ func on_process(delta: float) -> void:
       global.player.vel.bounce = Vector2(0, bounceForce).rotated(radrot).rotated(-global.player.defaultAngle)
       global.player.justAddedVels.bounce = 3
       global.player.state = global.player.States.jumping
-      on_respawn.call_deferred()
+      respawnTimer = 10
 
     var size: Vector2 = ghost.texture.get_size() * startScale
 
