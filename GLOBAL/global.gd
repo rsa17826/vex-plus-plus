@@ -1201,6 +1201,7 @@ func _unhandled_input(event: InputEvent) -> void:
       var node: Node = node_stack.pop_back()
       if is_instance_valid(node):
         if node is CollisionShape2D or node is CollisionPolygon2D or node is RayCast2D:
+          node.visible = true
           node.queue_redraw()
         node_stack.append_array(node.get_children())
   if event.is_action_pressed(&"quit", false, true):
