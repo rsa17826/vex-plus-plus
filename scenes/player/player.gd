@@ -159,6 +159,7 @@ var defaultAngle: float
 var startedPanning: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
+  if get_viewport().gui_get_focus_owner(): return
   if global.openMsgBoxCount: return
   if Input.is_action_just_pressed(&"save_current_location_as_last_checkpoint", true):
     lastSpawnPoint = (global_position - get_parent().global_position)
@@ -291,6 +292,7 @@ func _physics_process(delta: float) -> void:
   var onStickyFloor = %stickyFloorDetector.get_overlapping_areas()
   Engine.time_scale = .3 if global.useropts.slowTime else 1.0
   if global.openMsgBoxCount: return
+  if get_viewport().gui_get_focus_owner(): return
   if Input.is_action_pressed(&"editor_select"):
     if get_parent() in global.boxSelect_selectedBlocks or get_parent() == global.selectedBlock:
       position = Vector2.ZERO
@@ -1565,5 +1567,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!update numbers when searching online levels
 # fix pole regrab time
 # pause player while in inputs
-# make escape work for scaling and rotating
 # search multiple terms at once

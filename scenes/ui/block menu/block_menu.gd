@@ -192,13 +192,11 @@ func onThingChanged(...data) -> void:
         return node.color
       global.PromptTypes._enum:
         return node.selected
-      'BUTTON':
-        pass
+      'BUTTON': pass
       _:
         log.pp(k, "Unknown type: ", blockOptions[k].type)
     ).call()
-  if blockOptions[k].type is global.PromptTypes:
-    pass
+  if blockOptions[k].type is global.PromptTypes: pass
   elif blockOptions[k].type == 'BUTTON':
     if blockOptions[k].onChange.call():
       block.respawn()
