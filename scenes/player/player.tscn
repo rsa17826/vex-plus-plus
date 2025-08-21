@@ -1157,7 +1157,7 @@ use_parent_material = true
 position = Vector2(-3, 0.145)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
-animation = &"slide start"
+animation = &"kicking box"
 autoplay = "idle"
 metadata/_edit_lock_ = true
 
