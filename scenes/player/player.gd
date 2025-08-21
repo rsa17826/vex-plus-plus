@@ -549,9 +549,12 @@ func _physics_process(delta: float) -> void:
       else:
         if vel.pole:
           vel.pole.x -= 2 * sign(vel.pole.x) * delta * 60
-          # if abs(vel.pole.x) < 5:
-          #   vel.pole.x = 0
-        floor_snap_length = 7
+        if vel.user.y < -SMALL:
+          floor_snap_length = 2
+        else:
+          floor_snap_length = 6
+          if speedLeverActive:
+            floor_snap_length = 9
         # log.pp(remainingJumpCount, "remainingJumpCount", States.keys()[state])
         # reset angle when exiting water
         # setRot(defaultAngle)
@@ -1553,18 +1556,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # offset player save when moving player in editor
 # fix nowjs not working again
 # fix spike vscaling to not be from center
-# fix editor bar cp high
 # set black theme tooltips bg color
 # nodie star
-# !!!add search to online level list
-# make scale only on one side setting work
-# make scale min size work on ?spikes
 # !!!add block name as tooltip to editor bar
 # make multiselected block rotatable/scalable
-# show all blocks being hovered over
 # fix rotating paths
 # surprise spike
 # !!update numbers when searching online levels
-# fix pole regrab time
-# pause player while in inputs
 # search multiple terms at once
