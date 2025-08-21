@@ -15,5 +15,5 @@
       STR(canDoWallJump)BOOL(true)
     }
   }
-  STRNAME(levelVersion)INT(81)
+  STRNAME(levelVersion)INT(86)
 }

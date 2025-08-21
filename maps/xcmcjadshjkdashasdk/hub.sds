@@ -257,4 +257,16 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(650.0)
+    STR(y)FLOAT(-450.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(0.11000009253621)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bouncy)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

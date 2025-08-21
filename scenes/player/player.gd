@@ -1569,3 +1569,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # surprise spike
 # !!update numbers when searching online levels
 # search multiple terms at once
+# !!fix bouncy inconsistent bounce height
+# !!fix bouncy inconsistent bounce end scale/position

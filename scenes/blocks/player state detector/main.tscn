@@ -1,40 +1,48 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn55n257uo2gp"]
+[gd_scene load_steps=7 format=3 uid="uid://bn55n257uo2gp"]
 
 [ext_resource type="Script" uid="uid://di4b0nkw3a0ys" path="res://scenes/blocks/player state detector/player state detector.gd" id="1_s3b8s"]
-[ext_resource type="Texture2D" uid="uid://brhinnfdh0b5" path="res://scenes/blocks/player state detector/images/background/1.png" id="2_qpure"]
+[ext_resource type="Texture2D" uid="uid://cm1me8y2re2cd" path="res://scenes/blocks/player state detector/images/1.png" id="2_qpure"]
+[ext_resource type="Texture2D" uid="uid://brhinnfdh0b5" path="res://scenes/blocks/player state detector/images/background/1.png" id="3_7kfv3"]
 [ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="3_kss10"]
 [ext_resource type="Texture2D" uid="uid://bf7ewiq0a5e06" path="res://scenes/blocks/player state detector/images/player/idle.png" id="3_qpure"]
+[ext_resource type="Texture2D" uid="uid://bplqy0qy878v4" path="res://scenes/blocks/player state detector/images/symbols.png" id="4_dpfy3"]
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelOut", "bgSprite", "playerSprite", "ghostIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_s3b8s")
 labelOut = NodePath("Node2D/Label")
-bgSprite = NodePath("Node2D/bg")
+bgSprite = NodePath("Node2D/active")
 playerSprite = NodePath("Node2D/player")
-ghostIconNode = NodePath("Node2D/bg")
+ghostIconNode = NodePath("Node2D/active")
 editorBarIcon = ExtResource("2_qpure")
-hidableSprites = [NodePath("Node2D/bg")]
+hidableSprites = [NodePath("Node2D/active")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 EDITOR_OPTION_rotate = true
 
 [node name="Node2D" type="Node2D" parent="."]
 
-[node name="bg" type="Sprite2D" parent="Node2D"]
+[node name="active" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
-texture = ExtResource("2_qpure")
+texture = ExtResource("3_7kfv3")
+
+[node name="bg" type="Sprite2D" parent="Node2D"]
+use_parent_material = true
+position = Vector2(-0.3360214, 0.6639786)
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("4_dpfy3")
 
 [node name="player" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
-position = Vector2(0, 31.999998)
+position = Vector2(-65.33603, -31.336023)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("3_qpure")
 
 [node name="Label" type="Label" parent="Node2D"]
-offset_left = -51.5
-offset_top = -99.0
-offset_right = 51.5
-offset_bottom = -16.0
+offset_left = -0.33602142
+offset_top = -3.3360214
+offset_right = 102.66398
+offset_bottom = 79.66398
 pivot_offset = Vector2(51.5, 41.5)
 text = "12"
 label_settings = ExtResource("3_kss10")
