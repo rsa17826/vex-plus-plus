@@ -75,7 +75,6 @@ var tempLastSpawnPoint := Vector2.ZERO
 var moving := 0
 
 var inWaters: Array[BlockWater] = []
-var lastCollidingBlocks: Array = []
 
 var ACTIONjump: bool = false:
   get():
@@ -1282,7 +1281,9 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if respawnCooldown >= 0 and not forced:
     deathSources = []
     return
-  get_parent().__disable.call_deferred()
+  if state != States.levelLoading:
+    state = States.dead
+  get_parent().__disable()
   respawnCooldown = respawnTime
   # log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   # if shouldStopDying and not forced: return
@@ -1307,7 +1308,6 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     autoRunDirection = global.currentLevel().autoRunDirection
   $CollisionShape2D.disabled = true
   slowCamRot = false
-  lastCollidingBlocks = []
   heat = 0
   targetingLasers = []
   activeCannon = null
@@ -1316,8 +1316,6 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   deadTimer = max(respawnTime, 0)
   currentRespawnDelay = respawnTime
   deathPosition = position
-  if state != States.levelLoading:
-    state = States.dead
   playerXIntent = 0
   lastWallCollisionPoint = null
   lastWallSide = 0
