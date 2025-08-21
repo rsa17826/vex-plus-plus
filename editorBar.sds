@@ -80,6 +80,7 @@
   STR(signal)[
     STR(floor button)
     STR(input detector)
+    STR(player state detector)
     STR(not gate)
     STR(and gate)
     STR(path)
