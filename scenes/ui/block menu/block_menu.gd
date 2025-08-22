@@ -130,7 +130,6 @@ func updateBlockMenuValues() -> void:
           ob.clear()
           for thing: String in blockOptions[k].values:
             ob.add_item(thing)
-          log.pp(blockOptions[k].values, val)
           ob.select(
             val
           )
@@ -165,10 +164,10 @@ func onThingReset(...data) -> void:
 func onThingChanged(...data) -> void:
   var node = data.pop_back()
   var k = data.pop_back()
-  if !global.isAlive(global.lastSelectedBlock):
+  if !global.isAlive(lastShownBlock):
     clearItems()
     return
-  var block = global.lastSelectedBlock
+  var block = lastShownBlock
   var blockOptions = block.blockOptions
   var selectedOptions = block.selectedOptions
   if not block.blockOptions:

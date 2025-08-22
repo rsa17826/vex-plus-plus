@@ -1160,7 +1160,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     # breakpoint
     # global_position = position
     # breakpoint
-    global_position = position - Vector2(4, 0).rotated(defaultAngle)
+    global_position = position - Vector2(4, 0)
     # breakpoint
     # log.err(normal * depth)
     block.start()
@@ -1552,9 +1552,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add presets to menu options
 
-# fix signal list not reset on level exit
+# !!fix signal list not removing items when selopt is changed
 # ?fix locked box in wall not unlocking
-# offset player save when moving player in editor
 # fix nowjs not working again
 # fix spike vscaling to not be from center
 # set black theme tooltips bg color

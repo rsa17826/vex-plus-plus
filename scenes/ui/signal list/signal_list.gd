@@ -8,10 +8,16 @@ var listOfLoadedSignals := {}
 const ON = preload("res://scenes/ui/images/on.png")
 const OFF = preload("res://scenes/ui/images/off.png")
 
+func removeSignal(id):
+  if id not in listOfLoadedSignals: return
+  listOfLoadedSignals[id].queue_free()
+  listOfLoadedSignals.erase(id)
+
 func onSignalChanged(id, on, callers):
   if self in callers: return
   if !global.useropts.showSignalList: return
   if id not in listOfLoadedSignals:
+    if len(listOfLoadedSignals) > 50: return
     listOfLoadedSignals[id] = $signalDisplay.duplicate()
     add_child(listOfLoadedSignals[id])
     listOfLoadedSignals[id].visible = true
@@ -39,6 +45,7 @@ func onSignalChanged(id, on, callers):
 
     for i in blockData:
       var blockImageNode = $signalDisplay.duplicate()
+      blockImageNode.get_node("signal id").queue_free()
       blockImageNode.visible = true
       listOfLoadedSignals[id].add_child(blockImageNode)
       listOfLoadedSignals[id].blockImages.append(blockImageNode)
