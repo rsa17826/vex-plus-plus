@@ -1552,8 +1552,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add presets to menu options
 
-# fix player sprite offsets
-# fix signal list changing size shigfting block menu
 # fix signal list not reset on level exit
 # ?fix locked box in wall not unlocking
 # offset player save when moving player in editor

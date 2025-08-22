@@ -26,7 +26,7 @@ func loadLevel(level):
 
   global.ui.modifiers.updateUi(global.currentLevelSettings())
   global.ui.modifiers.loadModsToPlayer()
-
+  global.activeSignals = {}
   global.ui.progressContainer.visible = true
   var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
   .call(global.path.join(global.levelFolderPath, level + '.sds'),
