@@ -1571,3 +1571,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # search multiple terms at once
 # !!fix bouncy inconsistent bounce height
 # !!fix bouncy inconsistent bounce end scale/position
+# add button to add custom key to unavailables
