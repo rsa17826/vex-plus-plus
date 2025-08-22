@@ -283,7 +283,21 @@ UpdateSelf(*) {
   if (url) {
     ; ToolTip("Downloading...")
     F.write("updating self", silent ? "silent" : "normal")
-    DownloadFile(url, "temp.zip", , !silent)
+    tryCount := 0
+    while (1) {
+      try {
+        tryCount += 1
+        DownloadFile(url, "temp.zip", , !silent)
+        break
+      } catch {
+        if (tryCount > 10) {
+          FileDelete("updating self")
+          try FileDelete("temp.zip")
+          ExitApp()
+        }
+        Sleep(10000)
+      }
+    }
     unzip("temp.zip", "temp")
     FileDelete("temp.zip")
 
