@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bcgvwxwk7bf6b"]
 
 [ext_resource type="Script" uid="uid://bwg7pflyvki0i" path="res://scenes/ui/signal list/signal_list.gd" id="1_6p4pr"]
-[ext_resource type="Script" path="res://scenes/ui/signal list/signal_display.gd" id="2_7evox"]
+[ext_resource type="Script" uid="uid://dmne1p24c556w" path="res://scenes/ui/signal list/signal_display.gd" id="2_7evox"]
 
 [node name="signal list" type="VBoxContainer"]
 offset_top = 297.0

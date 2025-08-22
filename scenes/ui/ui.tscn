@@ -22,7 +22,7 @@ editorBar = NodePath("editor bar")
 progressContainer = NodePath("ProgressContainer")
 progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
 modifiers = NodePath("CanvasLayer/modifiers")
-signalList = NodePath("HBoxContainer/MarginContainer/MaxSizeContainer/signal list")
+signalList = NodePath("HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("HBoxContainer/block menu")
 hoveredBlockList = NodePath("hoveredBlocksList")
 
@@ -100,7 +100,6 @@ size_flags_vertical = 10
 mouse_filter = 2
 
 [node name="block menu" parent="HBoxContainer" instance=ExtResource("8_y220t")]
-custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 8
@@ -110,17 +109,17 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 theme_override_constants/margin_left = 50
 
+[node name="signal list" parent="HBoxContainer/MarginContainer" instance=ExtResource("7_uegxj")]
+layout_mode = 2
+size_flags_vertical = 8
+mouse_filter = 2
+metadata/_edit_lock_ = true
+
 [node name="MaxSizeContainer" type="Container" parent="HBoxContainer/MarginContainer"]
 layout_mode = 2
 script = ExtResource("9_hl07w")
 max_size = Vector2(999, 648)
 metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
-
-[node name="signal list" parent="HBoxContainer/MarginContainer/MaxSizeContainer" instance=ExtResource("7_uegxj")]
-layout_mode = 2
-size_flags_vertical = 8
-mouse_filter = 2
-metadata/_edit_lock_ = true
 
 [node name="sticker" type="CanvasLayer" parent="."]
 layer = 5
