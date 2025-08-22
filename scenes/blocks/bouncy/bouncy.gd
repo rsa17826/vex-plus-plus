@@ -6,7 +6,7 @@ var bouncing := false
 var bounceState: float = 0
 var bounceForce: float = 0
 
-@export var animated: Node2D
+# @export var animated: Node2D
 
 func start() -> void:
   if bouncing: return
