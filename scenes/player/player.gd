@@ -1532,8 +1532,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # add reset to default button to settings
 # add texture to reset buttons
 # in rev grav
-  # pole indicators are not in correct location
-  # bouncys warp player to wrong side
   # pulleys set animation in wrong direction
   # dying in water causes bad rotation until respawn ends
 # make bouncing buzsaws follow gravity
