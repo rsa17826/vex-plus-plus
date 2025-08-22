@@ -662,6 +662,9 @@ func _physics_process(delta: float) -> void:
             lastWallSide = getCurrentWallSide()
             lastWallCollisionPoint = getClosestWallRay().get_collision_point()
             lastWall = getCurrentWall()
+
+          if state == States.wallSliding and collidingWithNowj():
+            state = States.falling
           if (
             levelFlags.canDoWallSlide and (
               CenterIsOnWall() && not is_on_floor() && !breakFromWall \
@@ -1522,48 +1525,44 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # ?stop player from lever when nolonger standing on block
 # make it so that if the player dies instantly after respawning stop player process
-# ??!!when blocks spawn check player collision
 # allow esc while in text box .prompt
 # add more ghost/editorBar costumes for the oneway
 # ?add way to change the block picker from the editor
-# !!?grabbing edge scales corner on small blocks
 # add extra animation frame to oneway
-# make balanced random
+# -make balanced random
 # add reset to default button to settings
-# add texture to reset buttons
+# ?add texture to reset buttons
 # in rev grav
   # pulleys set animation in wrong direction
   # dying in water causes bad rotation until respawn ends
-# make bouncing buzsaws follow gravity
+# -make bouncing buzsaws follow gravity
 
-# make conveyers work better with boxes like they do with the player and make the players conveyer code easier to read
-# !!!fix scaling of rotated blocks
+# -!!!fix scaling of rotated blocks
 # ?make ice and have it melt by targeting lasers/lazers
-# make pushable box and bomb and bouncing buzsaw rotation affect their gravity
-# ??add block id viewer to see what ids are used, where the ids are used at and how many times they're used and be able to warp to blocks by selected id. would work for things like portals and buttons and button deactvated walls
-# ??!!?make gravity rotators only affect the things that enter them
+# -make pushable box and bomb and bouncing buzsaw rotation affect their gravity
+# +-??add block id viewer to see what ids are used, where the ids are used at and how many times they're used and be able to warp to blocks by selected id. would work for things like portals and buttons and button deactvated walls
+# -??!!?make gravity rotators only affect the things that enter them
 # ??add powerups
-# !!when first loading level blocks attach incorrectly until respawn
+# ?!!when first loading level blocks attach incorrectly until respawn
 
 # ?grab
 
 # !!fix blocks sometimes ending up near 00
 # !!multi select doesn't trigger on move end
 
-# add presets to menu options
+# -add presets to menu options
 
-# !!fix signal list not removing items when selopt is changed
+# -!!fix signal list not removing items when selopt is changed
 # ?fix locked box in wall not unlocking
-# fix nowjs not working again
-# fix spike vscaling to not be from center
-# set black theme tooltips bg color
-# nodie star
-# !!!add block name as tooltip to editor bar
-# make multiselected block rotatable/scalable
-# fix rotating paths
-# surprise spike
-# !!update numbers when searching online levels
-# search multiple terms at once
+# -fix spike vscaling to not be from center
+# -set black theme tooltips bg color
+# -nodie star
+# -?!!!add block name as tooltip to editor bar
+# -make multiselected block rotatable/scalable
+# -fix rotating paths
+# -surprise spike
+# -!!update numbers when searching online levels
+# -search multiple terms at once
 # !!fix bouncy inconsistent bounce height
 # !!fix bouncy inconsistent bounce end scale/position
-# add button to add custom key to unavailables
+# -add button to add custom key to unavailables
