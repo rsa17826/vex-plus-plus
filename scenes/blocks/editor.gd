@@ -3,8 +3,8 @@ class_name EditorBlock
 extends Node2D
 ## sprite to use for the ghost
 @export var ghostIconNode: Sprite2D
-## sprite to show in the editor bar
-@export var mainColor: Color
+# @export var mainColor: Color
+
 ## sprite to show in the editor bar
 @export var editorBarIcon: Texture2D:
   get():
@@ -263,7 +263,7 @@ func _ready() -> void:
   # if !is_in_group("dontRespawnOnPlayerDeath"):
   if !global.player.OnPlayerDied.is_connected(respawn):
     global.player.OnPlayerDied.connect(respawn)
-  log.pp(mainColor)
+  # log.pp(mainColor)
   blockOptions = {}
 
   if not hidableSprites and not ignoreMissingNodes:

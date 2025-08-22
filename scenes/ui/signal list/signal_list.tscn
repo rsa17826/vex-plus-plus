@@ -4,9 +4,12 @@
 [ext_resource type="Script" uid="uid://dmne1p24c556w" path="res://scenes/ui/signal list/signal_display.gd" id="2_7evox"]
 
 [node name="signal list" type="VBoxContainer"]
-offset_top = 297.0
-offset_right = 172.0
-offset_bottom = 567.0
+clip_contents = true
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+alignment = 2
 script = ExtResource("1_6p4pr")
 
 [node name="signalDisplay" type="HBoxContainer" parent="."]
@@ -15,6 +18,7 @@ layout_mode = 2
 script = ExtResource("2_7evox")
 
 [node name="signal id" type="Label" parent="signalDisplay"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="image" type="TextureRect" parent="signalDisplay"]
