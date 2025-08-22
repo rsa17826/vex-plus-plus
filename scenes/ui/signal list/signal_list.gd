@@ -1,8 +1,7 @@
 extends VBoxContainer
 
 func _ready():
-  if global.useropts.showSignalList:
-    global.onSignalChanged(onSignalChanged)
+  visible = global.useropts.showSignalList
 
 var listOfLoadedSignals := {}
 
@@ -11,6 +10,7 @@ const OFF = preload("res://scenes/ui/images/off.png")
 
 func onSignalChanged(id, on, callers):
   if self in callers: return
+  if !global.useropts.showSignalList: return
   if id not in listOfLoadedSignals:
     listOfLoadedSignals[id] = $signalDisplay.duplicate()
     add_child(listOfLoadedSignals[id])
