@@ -172,8 +172,8 @@
     }
   }
   {
-    STR(x)FLOAT(234.0)
-    STR(y)FLOAT(-288.0)
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(-200.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(270.0)
