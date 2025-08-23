@@ -1717,96 +1717,98 @@ func localReady() -> void:
   var pid = int(file.read(path.abs("res://process"), false, "0"))
   log.pp("FILEPID", pid)
   log.pp("MYPID", OS.get_process_id())
-  getProcess(OS.get_process_id())
-  if getProcess(pid) \
-    and pid != OS.get_process_id() \
-    and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))) \
-  :
-    sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
-    DirAccess.remove_absolute(path.abs("res://process"))
-    get_tree().quit()
-  else:
-    file.write(path.abs("res://process"), str(OS.get_process_id()), false)
-    tryAndGetMapZipsFromArr(OS.get_cmdline_args())
-  loadEditorBarData()
+  # getProcess(OS.get_process_id())
+  # if getProcess(pid) \
+  #   and pid != OS.get_process_id() \
+  #   and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))) \
+  # :
+  #   sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
+  #   DirAccess.remove_absolute(path.abs("res://process"))
+  #   get_tree().quit()
+  # else:
+  #   file.write(path.abs("res://process"), str(OS.get_process_id()), false)
+  #   tryAndGetMapZipsFromArr(OS.get_cmdline_args())
+  # loadEditorBarData()
+
+const DEFAULT_BLOCK_LIST = [
+  "basic",
+  "slope",
+  "path",
+  "10x spike",
+  "10x solar spike",
+  "10x inverse solar spike",
+  "invisible",
+  "updown",
+  "downup",
+  "leftRight",
+  "rightLeft",
+  "growing block",
+  "gravity rotator",
+  "water",
+  "solar",
+  "inverse solar",
+  "pushable box",
+  "microwave",
+  "locked box",
+  "floor button",
+  "button deactivated wall",
+  "glass",
+  "falling",
+  "donup",
+  "bouncy",
+  "spark block/counterClockwise",
+  "spark block/clockwise",
+  "inner level",
+  "goal",
+  "buzsaw",
+  "bouncing buzsaw",
+  "cannon",
+  "checkpoint",
+  "closing spikes",
+  "gravity down lever",
+  "gravity up lever",
+  "speed up lever",
+  "growing buzsaw",
+  "key",
+  "light switch",
+  "red only light switch",
+  "blue only light switch",
+  "pole",
+  "pole quadrant",
+  "pulley",
+  "quadrant",
+  "rotating buzzsaw",
+  "scythe",
+  "shurikan spawner",
+  "star",
+  "laser",
+  "targeting laser",
+  # "ice",
+  "death boundary",
+  "block death boundary",
+  # "basic - nowj",
+  "noWJ",
+  "falling spike",
+  # "quad falling spikes",
+  "portal",
+  "bomb",
+  "sticky floor",
+  "arrow",
+  "conveyer",
+  "oneway",
+  "undeath",
+  "input detector",
+  "player state detector",
+  "not gate",
+  "and gate",
+  "crumbling",
+  # "rotator",
+]
 
 func loadEditorBarData():
   var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
   var tempBlockNames = []
-  var unusedBlockNames = [
-    "basic",
-    "slope",
-    "path",
-    "10x spike",
-    "10x solar spike",
-    "10x inverse solar spike",
-    "invisible",
-    "updown",
-    "downup",
-    "leftRight",
-    "rightLeft",
-    "growing block",
-    "gravity rotator",
-    "water",
-    "solar",
-    "inverse solar",
-    "pushable box",
-    "microwave",
-    "locked box",
-    "floor button",
-    "button deactivated wall",
-    "glass",
-    "falling",
-    "donup",
-    "bouncy",
-    "spark block/counterClockwise",
-    "spark block/clockwise",
-    "inner level",
-    "goal",
-    "buzsaw",
-    "bouncing buzsaw",
-    "cannon",
-    "checkpoint",
-    "closing spikes",
-    "gravity down lever",
-    "gravity up lever",
-    "speed up lever",
-    "growing buzsaw",
-    "key",
-    "light switch",
-    "red only light switch",
-    "blue only light switch",
-    "pole",
-    "pole quadrant",
-    "pulley",
-    "quadrant",
-    "rotating buzzsaw",
-    "scythe",
-    "shurikan spawner",
-    "star",
-    "laser",
-    "targeting laser",
-    # "ice",
-    "death boundary",
-    "block death boundary",
-    # "basic - nowj",
-    "noWJ",
-    "falling spike",
-    # "quad falling spikes",
-    "portal",
-    "bomb",
-    "sticky floor",
-    "arrow",
-    "conveyer",
-    "oneway",
-    "undeath",
-    "input detector",
-    "player state detector",
-    "not gate",
-    "and gate",
-    "crumbling",
-    # "rotator",
-  ]
+  var unusedBlockNames = DEFAULT_BLOCK_LIST.duplicate()
   if useropts and editorBarData:
     var i = 0
     for k in editorBarData:
@@ -1838,7 +1840,7 @@ func quitGame():
   if !useropts:
     get_tree().quit()
     return
-  if useropts.saveOnExit:
+  if 'saveOnExit' in useropts and useropts.saveOnExit:
     if level and is_instance_valid(level):
       level.save()
   if OS.get_process_id() == int(file.read(path.abs("res://process"), false)):
