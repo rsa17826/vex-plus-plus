@@ -56,12 +56,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **edit_level_mods**: press to toggle the level mod editor on and off.
 - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
-## Play Controls
-
-- **jump**: causes the player to jump and if the camera will refocus the player
-- **down**: causes the player to crouch or slide while on the ground and if in the air will cause the player to be able to break glass when fell on
-- **left**: causes the player to move left
-- **right**: causes the player to move right
 
 ## Settings
 
