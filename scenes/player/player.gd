@@ -1566,3 +1566,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!fix bouncy inconsistent bounce height
 # !!fix bouncy inconsistent bounce end scale/position
 # -add button to add custom key to unavailables
+# !!add serarch to level list

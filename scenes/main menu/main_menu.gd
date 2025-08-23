@@ -12,6 +12,7 @@ var __menu
 var newestLevel
 
 @onready var pm: PopupMenu = PopupMenu.new()
+
 func _ready() -> void:
   add_child(pm)
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")

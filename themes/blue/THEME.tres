@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=54 format=4 uid="uid://dy8ewmwsagc5j"]
+[gd_resource type="Theme" load_steps=47 format=4 uid="uid://dy8ewmwsagc5j"]
 
 [ext_resource type="StyleBox" uid="uid://vj7u8wl3xngj" path="res://themes/blue/button/flat.tres" id="1_ph67c"]
 [ext_resource type="StyleBox" uid="uid://dytorq3qkedj3" path="res://themes/blue/check button/flat.tres" id="2_2dmk8"]
@@ -2785,48 +2785,6 @@ color = Color(0.011764706, 0, 0.30980393, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5say6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0cw6q"]
-
-[sub_resource type="SVGTexture" id="SVGTexture_pa3n2"]
-resource_local_to_scene = false
-resource_name = ""
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_lw3t2"]
-resource_local_to_scene = false
-resource_name = ""
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_odea8"]
-resource_local_to_scene = false
-resource_name = ""
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\"/></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_puycq"]
-resource_local_to_scene = false
-resource_name = ""
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_h7igw"]
-resource_local_to_scene = false
-resource_name = ""
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_dxwg8"]
-resource_local_to_scene = false
-resource_name = ""
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".5\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_mcuwi"]
-resource_local_to_scene = false
-resource_name = ""
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".85\" stroke-width=\"2\" d=\"m2 4 4 4 4-4\"/></svg>
-"
 
 [resource]
 Button/colors/font_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
