@@ -71,7 +71,7 @@ func _ready() -> void:
         .replace("EDITOR_OPTION_scale", 'scalable') \
         .replace("EDITOR_OPTION_rotate", 'rotatable')
     if block.blockOptions:
-      text += "\n\n  - **settings**:"
+      text += "\n  - **settings**:"
       for k in block.blockOptions:
         var innerKeyVal = '    - **' + k + '**: '
         var innerLastText = ''
@@ -88,13 +88,12 @@ func _ready() -> void:
           # log.pp(innerLastText, "innerLastText")
         if !innerLastText:
           DisplayServer.clipboard_set(innerKeyVal)
-          innerLastText = await getinfo("block: " + id + '\n"' + innerKeyVal + '"')
+          innerLastText = await getinfo("block setting: " + id + '\n"' + innerKeyVal + '"')
         setKeys[k] = innerLastText
         text += "\n" + innerKeyVal + innerLastText
     block.queue_free()
-  # text+="- **input detector**"
   # log.pp(text)
-  global.file.write("res://test.md", text, false)
+  global.file.write("res://readme.md", global.regReplace(oldmd, "(<!-- start auto -->)[\\s\\S]+(<!-- end auto -->)", "$1\n" + text + "\n$2"), false)
   get_tree().quit()
 
 func getinfo(text):
