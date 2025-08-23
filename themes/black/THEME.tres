@@ -2744,33 +2744,33 @@ cache/0/16/1/glyphs/89/size = Vector2(12, 13)
 cache/0/16/1/glyphs/89/uv_rect = Rect2(66, 1, 12, 13)
 cache/0/16/1/glyphs/89/texture_idx = 0
 
-[sub_resource type="SVGTexture" id="SVGTexture_pa3n2"]
+[sub_resource type="DPITexture" id="DPITexture_pa3n2"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
 "
 
-[sub_resource type="SVGTexture" id="SVGTexture_lw3t2"]
+[sub_resource type="DPITexture" id="DPITexture_lw3t2"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
 "
 
-[sub_resource type="SVGTexture" id="SVGTexture_odea8"]
+[sub_resource type="DPITexture" id="DPITexture_odea8"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\"/></svg>
 "
 
-[sub_resource type="SVGTexture" id="SVGTexture_puycq"]
+[sub_resource type="DPITexture" id="DPITexture_puycq"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
 "
 
-[sub_resource type="SVGTexture" id="SVGTexture_h7igw"]
+[sub_resource type="DPITexture" id="DPITexture_h7igw"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
 "
 
-[sub_resource type="SVGTexture" id="SVGTexture_dxwg8"]
+[sub_resource type="DPITexture" id="DPITexture_dxwg8"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".5\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
 "
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4ft8p"]
 
-[sub_resource type="SVGTexture" id="SVGTexture_mcuwi"]
+[sub_resource type="DPITexture" id="DPITexture_mcuwi"]
 _source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".85\" stroke-width=\"2\" d=\"m2 4 4 4 4-4\"/></svg>
 "
 
@@ -2852,13 +2852,13 @@ CheckButton/constants/outline_size = 0
 CheckButton/font_sizes/font_size = 16
 CheckButton/fonts/font = SubResource("FontFile_y0kyo")
 CheckButton/icons/checked = ExtResource("3_dbsnw")
-CheckButton/icons/checked_disabled = SubResource("SVGTexture_pa3n2")
-CheckButton/icons/checked_disabled_mirrored = SubResource("SVGTexture_lw3t2")
-CheckButton/icons/checked_mirrored = SubResource("SVGTexture_odea8")
+CheckButton/icons/checked_disabled = SubResource("DPITexture_pa3n2")
+CheckButton/icons/checked_disabled_mirrored = SubResource("DPITexture_lw3t2")
+CheckButton/icons/checked_mirrored = SubResource("DPITexture_odea8")
 CheckButton/icons/unchecked = ExtResource("4_i66tb")
-CheckButton/icons/unchecked_disabled = SubResource("SVGTexture_puycq")
-CheckButton/icons/unchecked_disabled_mirrored = SubResource("SVGTexture_h7igw")
-CheckButton/icons/unchecked_mirrored = SubResource("SVGTexture_dxwg8")
+CheckButton/icons/unchecked_disabled = SubResource("DPITexture_puycq")
+CheckButton/icons/unchecked_disabled_mirrored = SubResource("DPITexture_h7igw")
+CheckButton/icons/unchecked_mirrored = SubResource("DPITexture_dxwg8")
 CheckButton/styles/disabled = ExtResource("2_uosty")
 CheckButton/styles/focus = ExtResource("2_uosty")
 CheckButton/styles/hover = ExtResource("2_uosty")
@@ -2938,7 +2938,7 @@ OptionButton/constants/h_separation = 4
 OptionButton/constants/modulate_arrow = 1
 OptionButton/constants/outline_size = 0
 OptionButton/fonts/font = SubResource("FontFile_y0kyo")
-OptionButton/icons/arrow = SubResource("SVGTexture_mcuwi")
+OptionButton/icons/arrow = SubResource("DPITexture_mcuwi")
 OptionButton/styles/disabled = ExtResource("5_yjunf")
 OptionButton/styles/disabled_mirrored = ExtResource("5_yjunf")
 OptionButton/styles/focus = ExtResource("5_yjunf")
