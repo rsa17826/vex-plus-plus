@@ -82,9 +82,9 @@ shadow_size = 1
 [sub_resource type="StyleBoxEmpty" id="2"]
 
 [sub_resource type="StyleBoxFlat" id="19"]
-bg_color = Color(0.145098, 0.152941, 0.196078, 0)
+bg_color = Color(0.145098, 0.152941, 0.196078, 1)
 border_width_bottom = 4
-border_color = Color(0.0823529, 0.0823529, 0.0980392, 0)
+border_color = Color(0.0823529, 0.0823529, 0.0980392, 1)
 expand_margin_left = 2.0
 expand_margin_top = 1.0
 expand_margin_right = 2.0
@@ -166,7 +166,7 @@ Tabs/styles/tab_fg = SubResource("5")
 TextEdit/styles/completion = SubResource("21")
 TextEdit/styles/focus = SubResource("16")
 TextEdit/styles/normal = SubResource("2")
-TooltipLabel/colors/font_color = Color(0.572549, 0.643137, 0.784314, 0)
+TooltipLabel/colors/font_color = Color(0.572549, 0.643137, 0.784314, 1)
 TooltipLabel/colors/font_color_shadow = Color(0, 0, 0, 0)
 TooltipPanel/styles/panel = SubResource("19")
 Tree/colors/custom_button_font_highlight = Color(0.94, 0.94, 0.94, 0.5)
