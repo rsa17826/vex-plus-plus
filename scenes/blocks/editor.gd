@@ -262,6 +262,12 @@ func _on_body_exited(body: Node2D, real=true) -> void:
 func _ready() -> void:
   if !global.player:
     generateBlockOpts()
+    if canAttachToThings:
+      blockOptions.canAttachToThings = {"type": global.PromptTypes.bool, "default": true}
+    if canAttachToPaths:
+      blockOptions.canAttachToPaths = {"type": global.PromptTypes.bool, "default": true}
+    if not NO_CUSTOM_COLOR_IN_MENU:
+      blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
     return
   if !global.player.OnPlayerFullRestart.is_connected(_ready):
     global.player.OnPlayerFullRestart.connect(_ready)
