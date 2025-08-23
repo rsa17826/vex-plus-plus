@@ -557,6 +557,7 @@ FetchReleases(apiUrl) {
   while 1 {
     i += 1
     jsonFile := A_Temp "\releases.json"
+    tryCount := 0
     while (1) {
       try {
         tryCount += 1
