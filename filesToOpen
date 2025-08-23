@@ -1,0 +1,7 @@
+[
+  STR(--scene)
+  STR(res://scenes/gen md/gen.tscn)
+  STR(--loadMap)
+  STR(NEWEST)
+  STR(--loadOnlineLevel)
+]
