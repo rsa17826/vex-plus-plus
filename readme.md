@@ -163,8 +163,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
 ### signal display
 - **showSignalList**: if true a list of all signals, the blocks that are sending the signals and weather or not the signal is active
-- **showTotalActiveSignalCounts**: ?
-- **showWhatBlocksAreSendingSignals**: ?
+- **showTotalActiveSignalCounts**: adds a number showing the total amount of signals that are currently sending on each signal id
+- **showWhatBlocksAreSendingSignals**: adds an image of the block that is sending on each signal id and a number showing the amount of blocks of the same type that are sending the signal
 - **onlyShowActiveSignals**: only shows signals if the signal is active and being sent
 ### player
 - **playerRespawnTime**: the time that the player takes to respawn after dying
