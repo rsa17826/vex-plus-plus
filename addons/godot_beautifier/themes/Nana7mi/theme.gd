@@ -9,7 +9,8 @@ func _ready() -> void:
   set_editor_setting("text_editor/script_list/current_script_background_color", Color.TRANSPARENT)
 
   set_text_editor_colors_by_cfg(get_file("assets/Nana7mi.tet"))
-  set_editor_setting("interface/theme/contrast", .15)
+  # set_editor_setting("interface/theme/contrast", .15)
+  set_editor_setting("interface/theme/contrast", 0)
   set_text_editor_color("background_color", Color("ffffff00"))
   var f = 'output'
   # var a = get_editor_interface()
