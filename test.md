@@ -1,4 +1,4 @@
-## Editor Controls
+## Controls
 
 - **show_keybinds**: can show and hide the control rebind menu while editing a level - control editor starts visible on the main menu
 - **jump**: causes the player to jump and if the camera will refocus the player
@@ -37,13 +37,13 @@
 - **block_z_down**: same as block_z_up but moves it down instead of up.
 - **invert_single_axis_align**: hold while moving a block to invert the value of singleAxisAlignByDefault.
 - **edit_level_mods**: press to toggle the level mod editor on and off.
-- **save_current_location_as_last_checkpoint**: asdkasdkjllkjdas
-- **copy_block_position**: asdkasdkjllkjdas
-- **copy_block_scale**: asdkasdkjllkjdas
-- **copy_block_rotation**: asdkasdkjllkjdas
-- **paste_block_position**: asdkasdkjllkjdas
-- **paste_block_scale**: asdkasdkjllkjdas
-- **paste_block_rotation**: asdkasdkjllkjdas
+- **save_current_location_as_last_checkpoint**: when pressed will save the players current location as a temporary checkpoint
+- **copy_block_position**: copies the last selected blocks position
+- **copy_block_scale**: copies the last selected blocks scale
+- **copy_block_rotation**: copies the last selected blocks rotation
+- **paste_block_position**: sets the rotation of the current block to that of the last coppied rotation
+- **paste_block_scale**: sets the last selected blocks scale to the last coppied scale\
+- **paste_block_rotation**: sets the last selected blocks rotationthat the last copied rotation
 - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 
@@ -72,10 +72,10 @@
 - **warnWhenOpeningLevelInNewerGameVersion**: when you open a level in an newer version of the game, you will be warned that it may not work properly.
 - **confirmKeyAssignmentDeletion**: adds a confirmation dialog before removing keys from the keybinds list.
 ### editor settings
-- **randomizeLevelModifiersOnLevelCreation**: asdkasdkjllkjdas
-- **minDistBeforeBlockDraggingStarts**: asdkasdkjllkjdas
+- **randomizeLevelModifiersOnLevelCreation**: when creating a new level the level modifiers will be set randomly
+- **minDistBeforeBlockDraggingStarts**: the distance the mouse has to move before the block will be moved or scaled
 - **autoPanWhenClickingEmptySpace**: when dragging on an empty space, with no blocks on it, it will treat it as if editor_pan was pressed.
-- **movingPathNodeMovesEntirePath**: asdkasdkjllkjdas
+- **movingPathNodeMovesEntirePath**: if true moving this will move the entire path, if false it will only move the first point
 - **newlyCreatedBlocksRotationTakesPlayerRotation**: if true when the player is rotated all new blocks that can be rotated will be rotated to the players current direction instead of the default direction, eg if the player has gravity upside down creating a checkpoint will create it upside down.
 - **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will always remove the block that was selected most recently.
 - **mouseLockDistanceWhileRotating**: this is how far away the mouse will be from the center of the selected object while holding the editor_rotate key. higher numbers move the mouse farther away. set to 0 to disable.
@@ -91,8 +91,8 @@
 - **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
 - **cameraRotationOnGravityChangeHappensInstantly**: makes is so that when the gravity changes the camera rotates instantly instead of rotating smoothly.
 ### theme
-- **selectedBlockOutlineColor**: asdkasdkjllkjdas
-- **hoveredBlockOutlineColor**: asdkasdkjllkjdas
+- **selectedBlockOutlineColor**: the outline color of the currently selected block
+- **hoveredBlockOutlineColor**: the outline color of the current hovered block
 - **blockOutlineSize**: the size of the block outline both for hover and select
 - **boxSelectColor**: the color that the box select will be
 - **pathColor**: the color of the path created in the level editor by the path block.
@@ -114,8 +114,8 @@
 - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
 ### signal display
 - **showSignalList**: if true a list of all signals, the blocks that are sending the signals and weather or not the signal is active
-- **showTotalActiveSignalCounts**: asdkasdkjllkjdas
-- **showWhatBlocksAreSendingSignals**: asdkasdkjllkjdas
+- **showTotalActiveSignalCounts**: ?
+- **showWhatBlocksAreSendingSignals**: ?
 - **onlyShowActiveSignals**: only shows signals if the signal is active and being sent
 ### player
 - **playerRespawnTime**: the time that the player takes to respawn after dying
@@ -128,7 +128,6 @@
 ### misc
 - **openExportsDirectoryOnExport**: if true, after exporting a level, it will open the exports directory.
 
-
 ## Blocks
 
 
@@ -137,11 +136,19 @@
   - scalable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **slope**: has solid collision on the borders but not in the middle.
 
   - scalable
   - rotatable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **path**: blocks that attach to this will be moved along the path
 
@@ -154,11 +161,12 @@
     - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
     - **startOnPress**: starts to move when a button with the same signalId is pressed.
     - **startWhilePressed**: starts to move when a button with the same signalId is pressed and pauses when the button is released.
-    - **signalInputId**: asdkasdkjllkjdas
+    - **signalInputId**: the id of the signal it is listening for
     - **restart**: only available when using a button start mode.
     - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
     - **backwardSpeed**: the speed that blocks are moved at while going backwards along the path.
-    - **addNewPoint**: asdkasdkjllkjdas
+    - **addNewPoint**: creates a new point right after this in the path
+    - **color**: sets the modulate property
 
 - **10x spike**: kills the player on contact
 
@@ -167,12 +175,22 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **10x solar spike**: kills the player on contact if lights are on
 
   - scalable
   - rotatable
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **10x inverse solar spike**: kills the player on contact if lights are off
 
@@ -181,35 +199,64 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **invisible**: gets less visible the closer the player is to it
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **updown**: has solid collision and moves up than down
 
   - scalable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **downup**: has solid collision and moves down than up
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **leftRight**: has solid collision and moves right than left
 
   - scalable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **rightLeft**: has solid collision and moves than left right
 
   - scalable
   - canAttachToPaths
 
-- **growing block**: asdkasdkjllkjdas
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
+- **growing block**: grows and shrinks
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **gravity rotator**: rotates gravity to face the direction of it points. is triggered by player/bomb/pushable box entering it.
 
@@ -217,26 +264,47 @@
   - rotatable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **water**: when the player enters they are changed to swim mode and reverted to platformer mode on exit.
 
   - scalable
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **solar**: has solid collision when lights are on.
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **inverse solar**: has solid collision when lights are off.
 
   - scalable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **pushable box**: has solid collision and can be pushed by the player while the player is on ground and in platformer mode.
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **microwave**: has solid collision
 
@@ -244,10 +312,19 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **locked box**: has solid collision but when the player comes in contact with it and has a key, the key and block are disabled.
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **floor button**: when pressed by player/bomb/pushable box it will send a signal
 
@@ -255,7 +332,10 @@
   - canAttachToPaths
 
   - **settings**:
-    - **signalOutputId**: asdkasdkjllkjdas
+    - **signalOutputId**: the id that will be sent
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **button deactivated wall**: active only whern its signal is off.
 
@@ -263,22 +343,36 @@
   - canAttachToPaths
 
   - **settings**:
-    - **signalInputId**: asdkasdkjllkjdas
+    - **signalInputId**: the id of the signal it is listening for
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **glass**: has solid collision but when the player comes in contact with it from the top and is holding down and has downwards velocity, the glass breaks and is disabled.
 
   - scalable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **falling**: has solid collision but when the player comes in contact with it from the top it will start to fall for ~2s before respawning.
 
   - scalable
   - canAttachToPaths
 
-- **donup**: asdkasdkjllkjdas
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
+- **donup**: like a falling block, but in reverse
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **bouncy**: has solid collision but when the player comes in contact with it from the top it will put the player in the bouncing state and bounce back up after a short period of time. the time and bounce height is determined by the blocks y size with bigger time and height from larger y scales. the player bounce direction is away from the top of the block so if the block is rotated, the bounce will be different.
 
@@ -286,15 +380,27 @@
   - rotatable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **spark block/counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
 
   - scalable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **spark block/clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **inner level**: has solid collision but when the player crouches on top of it the player will be transported to a new level, which upon being beat will send the player back to the previous level on top of it.
 
@@ -304,6 +410,8 @@
   - **settings**:
     - **level**: the level that you will be sent to
     - **requiredLevelCount**: the amount of levels that you must beat before being able to enter this level
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **goal**: when the player reaches this block they win and if inside an inner level they will go back to the previous level else they will just be reset to the last saved checkpoint.
 
@@ -313,6 +421,9 @@
 
   - **settings**:
     - **requiredLevelCount**: the amount of levels that you must beat before being able to enter this level
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **buzsaw**: kills the player on contact
 
@@ -320,15 +431,29 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **bouncing buzsaw**: kills the player on contact and falls until hitting a solid block where it will start bouncing up until reaching the start height where it will start falling back down again
 
   - scalable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **cannon**: NOT WORKING YET
 
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **checkpoint**: sets the player respawn location to this location
 
@@ -338,6 +463,9 @@
 
   - **settings**:
     - **multiUse**: if true you can recollect this checkpoint else this checkpoint will only be collectable once
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **closing spikes**: kills the player on contact will open slowly then close quickly
 
@@ -345,20 +473,40 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **gravity down lever**: when the player is inside the lever and presses down the player gravity will be halved or reverted to normal if it was halved before
 
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **gravity up lever**: when the player is inside the lever and presses down the player gravity will be doubled or reverted to normal if it was doubled before
 
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **speed up lever**: when the player is inside the lever and presses down the player speed will be doubled or reverted to normal if it was doubled before
 
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
 
@@ -366,42 +514,79 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **key**: when the player comes in contact with this it will start following the player until ised to unlock a locked box
 
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **light switch**: when the player comes in contact with this it will toggle the lights on/off which will disable/enable all solar blocks.
 
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **red only light switch**: when the player comes in contact with this it will toggle the lights off leaving only the inverse solar blocks on.
 
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **blue only light switch**: when the player comes in contact with this it will toggle the lights on leaving only the solar blocks on.
 
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **pole**: when the player contacts this the player will be able to swing on it and jump off with jump or drop off with down. when jumping off if in the blue part of the indicator then the jump will gain height else it will be like a drop
 
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **pole quadrant**: spins 4 poles
 
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
 
   - canAttachToThings
 
   - **settings**:
-    - **direction**: asdkasdkjllkjdas
+    - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **color**: sets the modulate property
 
 - **quadrant**: kills the player on contact and will spin clockwise
 
@@ -410,12 +595,22 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **rotating buzzsaw**: kills the player on contact and will spin clockwise
 
   - scalable
   - rotatable
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **scythe**: kills the player on contact and will spin counterclockwise
 
@@ -424,11 +619,21 @@
   - canAttachToThings
   - canAttachToPaths
 
-- **shurikan spawner**: asdkasdkjllkjdas
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
+- **shurikan spawner**: spawns a set of 3 shuricans which
 
   - rotatable
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **star**: when the player collects this it will stay collected. the star counter in the top left shows the current number of stars collected and total for the current level. the inner levels will have their star counter on the block before entering.
 
@@ -436,7 +641,10 @@
   - canAttachToPaths
 
   - **settings**:
-    - **unCollect**: asdkasdkjllkjdas
+    - **unCollect**: temporarily uncollects the star
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **laser**: when the player is in range the laser will shoot projectiles in the direction it is facing, these projectiles have a cooldown and are destroyed on contact with solid blocks. if the projectile hits a bomb the bomb will be exploded. the red circle on the laser shows the current cooldown - fully red means ready to fire.
 
@@ -446,19 +654,33 @@
 
   - **settings**:
     - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **targeting laser**: when the player is in range the laser will apply heat, more heat is applied if the player is closer. when the player is in water heat will dissipate faster. if the heat ray hits a bomb the bomb will be exploded.
 
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **death boundary**: kills the player on contact
 
   - scalable
 
+  - **settings**:
+    - **color**: sets the modulate property
+
 - **block death boundary**: kills most moving blocks on contact including collected keys and removes effects from the player when the player enters
 
   - scalable
+
+  - **settings**:
+    - **color**: sets the modulate property
 
 - **noWJ**: prevents the player from walljumping, wallsliding, and wall hanging when in contact with the player
 
@@ -467,11 +689,21 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **falling spike**: kills the player on contact when in line with the player it will start falling until hitting a solid block
 
   - rotatable
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
 
@@ -482,11 +714,18 @@
   - **settings**:
     - **portalId**: the id of this portal as used for finding an exit portal
     - **exitId**: the id this portal uses to find its exit portal
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **bomb**: like a pushable box but explodes when hit with a falling spike, falling to fast and colliging with the ground, being squished, or having a box, other bomb fall to fast on it, or being exploded by another bomb. when the player is inside of the explosion, they will be killed, when a block is in the explosion, it will be disabled. microwaves cant be exploded.
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **sticky floor**: makes the player not be able to jump while in contact with this and also prevents the player from regaining cyote time
 
@@ -495,11 +734,21 @@
   - canAttachToThings
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **arrow**: points at things; can be rotated
 
   - rotatable
   - canAttachToThings
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **conveyer**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
 
@@ -507,49 +756,69 @@
   - rotatable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **oneway**: like a block in the direction it is facing and like air in all other directions.
 
   - scalable
   - rotatable
   - canAttachToPaths
 
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **undeath**: if the player collides with this block while flying bact to the spawnpoint the player will instead be revived right where the player collided with the block at. user restarts will bypass this block.
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
 
 - **input detector**: when the player is pressing the set direction a signal will be emitted.
 
   - rotatable
 
   - **settings**:
-    - **action**: asdkasdkjllkjdas
-    - **signalOutputId**: asdkasdkjllkjdas
+    - **action**: the action to detect
+    - **signalOutputId**: the id that will be sent
+    - **color**: sets the modulate property
 
-- **player state detector**: asdkasdkjllkjdas
+- **player state detector**: sends a signal if the player is in the specified state
 
   - rotatable
 
   - **settings**:
-    - **state**: asdkasdkjllkjdas
-    - **signalOutputId**: asdkasdkjllkjdas
+    - **state**: the state to detect
+    - **signalOutputId**: the id that will be sent
+    - **color**: sets the modulate property
 
 - **not gate**: will invert a signal.
 
 
   - **settings**:
-    - **signalInputId**: asdkasdkjllkjdas
-    - **signalOutputId**: asdkasdkjllkjdas
+    - **signalInputId**: the id of the signal it is listening for
+    - **signalOutputId**: the id that will be sent
+    - **color**: sets the modulate property
 
 - **and gate**: will send a signal only if both signals are on.
 
 
   - **settings**:
-    - **signalAInputId**: asdkasdkjllkjdas
-    - **signalBInputId**: asdkasdkjllkjdas
-    - **signalOutputId**: asdkasdkjllkjdas
+    - **signalAInputId**: a signal to detect
+    - **signalBInputId**: other signal to detect
+    - **signalOutputId**: the id that will be sent
+    - **color**: sets the modulate property
 
 - **crumbling**: if the player collides with this block the block will start to crumble and be destroyed after a certain amount of time. only respawns on death.
 
   - scalable
   - canAttachToPaths
+
+  - **settings**:
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property

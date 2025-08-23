@@ -3,7 +3,7 @@ extends Control
 func _ready() -> void:
   global.useropts.theme = 1
   await global.wait()
-  # global.fullscreen(-1)
+  global.fullscreen(-1)
   # generate settings
   var text = ''
   var oldmd = global.file.read("res://readme.md", false)
@@ -48,7 +48,7 @@ func _ready() -> void:
             text += await getinfo("setting: " + a.key)
   # generate blocks
   var setKeys = {}
-  text += '\n\n\n## Blocks\n'
+  text += '\n\n## Blocks\n'
   for id in global.DEFAULT_BLOCK_LIST:
     var block = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     add_child(block)
@@ -75,8 +75,8 @@ func _ready() -> void:
       for k in block.blockOptions:
         var innerKeyVal = '    - **' + k + '**: '
         var innerLastText = ''
-        if id in setKeys:
-          innerLastText += setKeys[id][k]
+        if k in setKeys:
+          innerLastText += setKeys[k]
           lastText = ''
         if lastText:
           innerLastText = ''
@@ -89,7 +89,7 @@ func _ready() -> void:
         if !innerLastText:
           DisplayServer.clipboard_set(innerKeyVal)
           innerLastText = await getinfo("block: " + id + '\n"' + innerKeyVal + '"')
-        setKeys[id] = innerLastText
+        setKeys[k] = innerLastText
         text += "\n" + innerKeyVal + innerLastText
     block.queue_free()
   # text+="- **input detector**"
@@ -98,5 +98,5 @@ func _ready() -> void:
   get_tree().quit()
 
 func getinfo(text):
-  return "asdkasdkjllkjdas"
+  # return "asdkasdkjllkjdas"
   return await global.prompt(text, global.PromptTypes.string)
