@@ -244,9 +244,9 @@ func _explore(item: TreeItem, texture: Texture2D = null, as_root: bool = true) -
       texture = tx
       errQueue = []
       break
-  if errQueue:
-    for err in errQueue:
-      log.err(err)
+  # if errQueue:
+  #   for err in errQueue:
+  #     log.err(err)
 
   if texture != null:
     if as_root or !FileAccess.file_exists(meta):

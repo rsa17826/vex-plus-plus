@@ -39,3 +39,5 @@ launcher/versions
 exes
 exes/*
 addons/talo/settings.cfg
+
+**.ogv
