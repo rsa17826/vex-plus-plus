@@ -93,12 +93,18 @@ func _ready() -> void:
         text += "\n" + innerKeyVal + innerLastText
     block.queue_free()
   # log.pp(text)
+  var setKeysString = "<!-- "
+  for k in setKeys:
+    setKeysString += "\n    - **" + k + "**: " + setKeys[k]
+  setKeysString += "\n -->"
   global.file.write(
     "res://readme.md",
     global.regReplace(
       oldmd,
       "(<!-- start auto -->)[\\s\\S]+(<!-- end auto -->)",
-      "$1\n\n" + text + "\n\n$2"
+      "$1\n" +
+      setKeysString
+      + "\n\n" + text + "\n\n$2"
     ),
     false
   )
