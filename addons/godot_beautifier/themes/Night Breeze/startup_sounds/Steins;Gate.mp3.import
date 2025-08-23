@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://15u514brdle4"
+path="res://.godot/imported/Steins;Gate.mp3-d801f91d3924a233874491175cda2890.mp3str"
+
+[deps]
+
+source_file="res://addons/godot_beautifier/themes/Night Breeze/startup_sounds/Steins;Gate.mp3"
+dest_files=["res://.godot/imported/Steins;Gate.mp3-d801f91d3924a233874491175cda2890.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

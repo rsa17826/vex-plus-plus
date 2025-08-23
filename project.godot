@@ -23,6 +23,13 @@ AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_confi
 ToastParty="*res://addons/toastparty/toast-autoload.gd"
 PopupMenuTransperiancyEnabler="*res://themes/popup menu transperiancy enabler.gd"
 
+[beautifier]
+
+theme_script="res://addons/godot_beautifier/themes/Nana7mi/theme.gd"
+default_settings={
+"rendering/environment/defaults/default_clear_color": Color(0.11372549, 0.11372549, 0.11372549, 0.9098039)
+}
+
 [debug]
 
 file_logging/enable_file_logging=true
@@ -44,7 +51,7 @@ run/main_run_args="--loadMap \"NEWEST\" --loadOnlineLevel"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
+enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/godot_beautifier/plugin.cfg", "res://addons/grid_display/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tabby_explorer/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg")
 
 [file_customization]
 
@@ -395,3 +402,4 @@ fancy_folder_icons/openRules=false
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
+environment/defaults/default_clear_color=Color(0.1, 0.3, 0.33, 0.5)

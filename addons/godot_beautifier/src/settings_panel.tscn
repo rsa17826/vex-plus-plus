@@ -1,0 +1,97 @@
+[gd_scene load_steps=3 format=3 uid="uid://gtb46bofn0mu"]
+
+[ext_resource type="Script" path="res://addons/godot_beautifier/src/settings_panel.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://igtp4gf8qjm8" path="res://addons/godot_beautifier/src/logo.png" id="2_3bhel"]
+
+[node name="Settings" type="Window"]
+title = "Settings"
+size = Vector2i(460, 300)
+exclusive = true
+script = ExtResource("1")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_3bhel")
+stretch_mode = 5
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "GodotBeautifier
+Version 2.0.0"
+
+[node name="EnableRandom" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/EnableRandom"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/EnableRandom/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Enable Random Theme"
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/EnableRandom/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "On"
+
+[node name="SetTheme" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/SetTheme"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/SetTheme/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Set Theme"
+
+[node name="MenuButton" type="MenuButton" parent="MarginContainer/VBoxContainer/SetTheme/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+text = "Web Light"
+alignment = 0
+
+[node name="Github" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Github"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Github/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Source Code"
+
+[node name="LinkButton" type="LinkButton" parent="MarginContainer/VBoxContainer/Github/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+focus_mode = 2
+text = "Github"
+underline = 1
