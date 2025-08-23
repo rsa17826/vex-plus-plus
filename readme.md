@@ -278,7 +278,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **stop**: the block will stop being moved by the path. also allows restart set to ifStopped to start the path again.
       - **loop**: the block will continue to be moved along the path restarting from the start of the path.
       - **reverse**: the block will go back to the start backwards along the path then continue going forward after reaching the start again.
-    - **restart**: onay available when using a button start mode.
+    - **restart**: only available when using a button start mode.
       - **never**: the button will activate the path once then never activate it again.
       - **always**: when a button with the same signalId is pressed, it will restart from the beginning of the path wherever in the path anything was before.
       - **ifStopped**: only if the path is stopped will the button presses restart it.
@@ -332,7 +332,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
 
-- **leftright**: has solid collision and moves right than left
+- **leftRight**: has solid collision and moves right than left
 
   - **settings**:
     - **color**
@@ -458,19 +458,19 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **canAttachToThings**
 
-- **Gravity Down Lever**: when the player is inside the lever and presses down the player gravity will be halved or reverted to normal if it was halved before
+- **gravity down lever**: when the player is inside the lever and presses down the player gravity will be halved or reverted to normal if it was halved before
 
   - **settings**:
     - **color**
     - **canAttachToThings**
 
-- **Gravity Up Lever**: when the player is inside the lever and presses down the player gravity will be doubled or reverted to normal if it was doubled before
+- **gravity up lever**: when the player is inside the lever and presses down the player gravity will be doubled or reverted to normal if it was doubled before
 
   - **settings**:
     - **color**
     - **canAttachToThings**
 
-- **speed Up Lever**: when the player is inside the lever and presses down the player speed will be doubled or reverted to normal if it was doubled before
+- **speed up lever**: when the player is inside the lever and presses down the player speed will be doubled or reverted to normal if it was doubled before
 
   - **settings**:
     - **color**
@@ -500,7 +500,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **canAttachToThings**
 
-- **Pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
+- **pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
 
   - when on Pulley you can press down to drop off of it
   - when on Pulley you can press up to become temporarily invincible
@@ -512,7 +512,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - left: it will move right
       - user: it will move whichever way the player was facing when entering it
 
-- **Quadrant**: kills the player on contact and will spin clockwise
+- **quadrant**: kills the player on contact and will spin clockwise
 
   -rotatable
 
@@ -520,7 +520,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **canAttachToThings**
 
-- **Rotating Buzzsaw**: kills the player on contact and will spin clockwise
+- **rotating buzzsaw**: kills the player on contact and will spin clockwise
 
   -rotatable
 
@@ -528,7 +528,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**
     - **canAttachToThings**
 
-- **Scythe**: kills the player on contact and will spin counterclockwise
+- **scythe**: kills the player on contact and will spin counterclockwise
 
   -rotatable
 
@@ -559,7 +559,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **color**
 
-- **nowj**: prevents the player from walljumping, wallsliding, and wall hanging when in contact with the player
+- **noWJ**: prevents the player from walljumping, wallsliding, and wall hanging when in contact with the player
 
   - rotatable
   - scalable
@@ -679,7 +679,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
 
-- **Invisible**: gets less visible the closer the player is to it
+- **invisible**: gets less visible the closer the player is to it
 
   - scalable
   - **settings**:

@@ -8,7 +8,7 @@ extends Node2D
 ## sprite to show in the editor bar
 @export var editorBarIcon: Texture2D:
   get():
-    if editorBarIconUsesLevelColor:
+    if global.player and editorBarIconUsesLevelColor:
       return load(editorBarIcon.resource_path.replace("/1.png", '/' + str(global.currentLevelSettings("color")) + '.png'))
     return editorBarIcon
 ## sprite to show in the editor bar
@@ -232,6 +232,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 var collisionQueue := {}
 ## don't overite - use on_body_entered instead
 func _on_body_entered(body: Node2D, real=true) -> void:
+  if !global.player: return
   if global.player.state == global.player.States.levelLoading: return
   if global.player.state == global.player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
   on_body_entered(body)
@@ -243,6 +244,7 @@ func on_body_exited(body: Node2D): pass
 
 ## don't overite - use on_body_exited instead
 func _on_body_exited(body: Node2D, real=true) -> void:
+  if !global.player: return
   if global.player.state == global.player.States.levelLoading: return
   if global.player.state == global.player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
   # if global.player.state == global.player.States.dead and body is Player: return
@@ -258,6 +260,9 @@ func _on_body_exited(body: Node2D, real=true) -> void:
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
+  if !global.player:
+    generateBlockOpts()
+    return
   if !global.player.OnPlayerFullRestart.is_connected(_ready):
     global.player.OnPlayerFullRestart.connect(_ready)
   # if !is_in_group("dontRespawnOnPlayerDeath"):
@@ -407,6 +412,7 @@ func on_physics_process(delta: float) -> void: pass
 
 ## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved
 func _physics_process(delta: float) -> void:
+  if !global.player: return
   if isBeingPlaced:
     if !(global.selectedBlock == self ):
       isBeingPlaced = false
@@ -472,6 +478,7 @@ func onEditorMoveEnded(): pass
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
+  if !global.player: return
   if EDITOR_IGNORE: return
   # if not ghost: return
   if global.ui.modifiers.editorOpen: return
