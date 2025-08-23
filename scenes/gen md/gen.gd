@@ -93,7 +93,15 @@ func _ready() -> void:
         text += "\n" + innerKeyVal + innerLastText
     block.queue_free()
   # log.pp(text)
-  global.file.write("res://readme.md", global.regReplace(oldmd, "(<!-- start auto -->)[\\s\\S]+(<!-- end auto -->)", "$1\n" + text + "\n$2"), false)
+  global.file.write(
+    "res://readme.md",
+    global.regReplace(
+      oldmd,
+      "(<!-- start auto -->)[\\s\\S]+(<!-- end auto -->)",
+      "$1\n\n" + text + "\n\n$2"
+    ),
+    false
+  )
   get_tree().quit()
 
 func getinfo(text):
