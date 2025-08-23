@@ -178,7 +178,6 @@ func set_editor_setting(p_setting: String, p_value) -> void:
   _set_editor_setting(p_setting, p_value)
 
 func _set_editor_setting(p_setting: String, p_value) -> void:
-  log.pp(p_setting)
   if _EditorSettings.has_setting(p_setting):
     var old_value = get_editor_setting(p_setting)
     var cfg := ConfigFile.new()

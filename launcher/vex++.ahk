@@ -24,7 +24,7 @@ ui.OnEvent("Close", GuiClose)
 ui.Add("Text", , "Vex++ Version Manager")
 
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
-newestExeVersion := "4.5.beta3"
+newestExeVersion := "4.5.beta6"
 doingSomething := 0
 versionListView := ui.Add("ListView", "vVersionList w290 h300", [
   "Version",
