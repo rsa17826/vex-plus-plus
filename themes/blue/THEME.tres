@@ -2745,37 +2745,9 @@ cache/0/16/1/glyphs/89/size = Vector2(12, 13)
 cache/0/16/1/glyphs/89/uv_rect = Rect2(66, 1, 12, 13)
 cache/0/16/1/glyphs/89/texture_idx = 0
 
-[sub_resource type="SVGTexture" id="SVGTexture_pa3n2"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_lw3t2"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_odea8"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\"/></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_puycq"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_h7igw"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
-"
-
-[sub_resource type="SVGTexture" id="SVGTexture_dxwg8"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".5\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
-"
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4ft8p"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4e4mo"]
-
-[sub_resource type="SVGTexture" id="SVGTexture_mcuwi"]
-_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".85\" stroke-width=\"2\" d=\"m2 4 4 4 4-4\"/></svg>
-"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27u43"]
 content_margin_left = 4.0
@@ -2813,6 +2785,48 @@ color = Color(0.011764706, 0, 0.30980393, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5say6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0cw6q"]
+
+[sub_resource type="SVGTexture" id="SVGTexture_pa3n2"]
+resource_local_to_scene = false
+resource_name = ""
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
+"
+
+[sub_resource type="SVGTexture" id="SVGTexture_lw3t2"]
+resource_local_to_scene = false
+resource_name = ""
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".37\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\" fill-opacity=\".5\"/></svg>
+"
+
+[sub_resource type="SVGTexture" id="SVGTexture_odea8"]
+resource_local_to_scene = false
+resource_name = ""
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#fff\" fill-opacity=\".75\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#1a1a1a\"/></svg>
+"
+
+[sub_resource type="SVGTexture" id="SVGTexture_puycq"]
+resource_local_to_scene = false
+resource_name = ""
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
+"
+
+[sub_resource type="SVGTexture" id="SVGTexture_h7igw"]
+resource_local_to_scene = false
+resource_name = ""
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".25\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
+"
+
+[sub_resource type="SVGTexture" id="SVGTexture_dxwg8"]
+resource_local_to_scene = false
+resource_name = ""
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"16\"><g fill-opacity=\".5\"><rect width=\"30\" height=\"14\" x=\"1\" y=\"1\" fill=\"#1a1a1a\" rx=\"7\"/><circle cx=\"24\" cy=\"8\" r=\"5\" fill=\"#fff\"/></g></svg>
+"
+
+[sub_resource type="SVGTexture" id="SVGTexture_mcuwi"]
+resource_local_to_scene = false
+resource_name = ""
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"12\" height=\"12\"><path fill=\"none\" stroke=\"#b2b2b2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-opacity=\".85\" stroke-width=\"2\" d=\"m2 4 4 4 4-4\"/></svg>
+"
 
 [resource]
 Button/colors/font_color = Color(0.105882354, 0.09803922, 0.30588236, 1)
@@ -2857,13 +2871,7 @@ CheckButton/constants/outline_size = 0
 CheckButton/font_sizes/font_size = 16
 CheckButton/fonts/font = SubResource("FontFile_y0kyo")
 CheckButton/icons/checked = ExtResource("2_27u43")
-CheckButton/icons/checked_disabled = SubResource("SVGTexture_pa3n2")
-CheckButton/icons/checked_disabled_mirrored = SubResource("SVGTexture_lw3t2")
-CheckButton/icons/checked_mirrored = SubResource("SVGTexture_odea8")
 CheckButton/icons/unchecked = ExtResource("3_ht7sy")
-CheckButton/icons/unchecked_disabled = SubResource("SVGTexture_puycq")
-CheckButton/icons/unchecked_disabled_mirrored = SubResource("SVGTexture_h7igw")
-CheckButton/icons/unchecked_mirrored = SubResource("SVGTexture_dxwg8")
 CheckButton/styles/disabled = ExtResource("2_2dmk8")
 CheckButton/styles/focus = ExtResource("2_2dmk8")
 CheckButton/styles/hover = ExtResource("2_2dmk8")
@@ -2945,7 +2953,6 @@ OptionButton/constants/h_separation = 4
 OptionButton/constants/modulate_arrow = 1
 OptionButton/constants/outline_size = 0
 OptionButton/fonts/font = SubResource("FontFile_y0kyo")
-OptionButton/icons/arrow = SubResource("SVGTexture_mcuwi")
 OptionButton/styles/disabled = ExtResource("5_ph67c")
 OptionButton/styles/disabled_mirrored = ExtResource("5_ph67c")
 OptionButton/styles/focus = ExtResource("5_ph67c")

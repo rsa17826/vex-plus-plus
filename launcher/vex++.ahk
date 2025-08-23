@@ -557,7 +557,18 @@ FetchReleases(apiUrl) {
   while 1 {
     i += 1
     jsonFile := A_Temp "\releases.json"
-    Download(apiUrl "?page=" i, jsonFile)
+    while (1) {
+      try {
+        tryCount += 1
+        Download(apiUrl "?page=" i, jsonFile)
+        break
+      } catch {
+        if (tryCount > 10) {
+          ExitApp()
+        }
+        Sleep(10000)
+      }
+    }
 
     ; Read the JSON file
     data := FileRead(jsonFile)
