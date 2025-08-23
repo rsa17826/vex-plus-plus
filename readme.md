@@ -18,6 +18,35 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - launcher also has a button to update the launcher
 
 <!-- start auto -->
+<!-- 
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+    - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
+    - **endReachedAction**: what will happen when the block reaches the end of the path.
+    - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
+    - **startOnPress**: starts to move when a button with the same signalId is pressed.
+    - **startWhilePressed**: starts to move when a button with the same signalId is pressed and pauses when the button is released.
+    - **signalInputId**: the id of the signal it is listening for
+    - **restart**: only available when using a button start mode.
+    - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
+    - **backwardSpeed**: the speed that blocks are moved at while going backwards along the path.
+    - **addNewPoint**: creates a new point right after this in the path
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+    - **signalOutputId**: the id that will be sent
+    - **level**: the level that you will be sent to
+    - **requiredLevelCount**: the amount of levels that you must beat before being able to enter this level
+    - **multiUse**: if true you can recollect this checkpoint else this checkpoint will only be collectable once
+    - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
+    - **unCollect**: temporarily uncollects the star
+    - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
+    - **portalId**: the id of this portal as used for finding an exit portal
+    - **exitId**: the id this portal uses to find its exit portal
+    - **action**: the action to detect
+    - **state**: the state to detect
+    - **signalAInputId**: a signal to detect
+    - **signalBInputId**: other signal to detect
+ -->
+
 ## Controls
 
 - **show_keybinds**: can show and hide the control rebind menu while editing a level - control editor starts visible on the main menu
@@ -168,7 +197,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
-- **path**: blocks that attach to this will be moved along the path
+- **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
 
   - scalable
   - rotatable
@@ -192,7 +221,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -203,7 +232,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -214,7 +243,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -281,7 +310,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -315,7 +344,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -333,7 +362,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToPaths
   - **settings**:
     - **signalOutputId**: the id that will be sent
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -412,7 +441,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToPaths
   - **settings**:
     - **requiredLevelCount**: the amount of levels that you must beat before being able to enter this level
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -422,7 +451,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -439,7 +468,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -450,7 +479,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToPaths
   - **settings**:
     - **multiUse**: if true you can recollect this checkpoint else this checkpoint will only be collectable once
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -460,7 +489,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -469,7 +498,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -478,7 +507,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -487,7 +516,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -497,7 +526,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -506,7 +535,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -515,7 +544,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -524,7 +553,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -533,7 +562,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -542,7 +571,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -551,7 +580,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -560,7 +589,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - **settings**:
     - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **color**: sets the modulate property
 
 - **quadrant**: kills the player on contact and will spin clockwise
@@ -570,7 +599,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -581,7 +610,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -592,7 +621,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -602,7 +631,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -612,7 +641,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToPaths
   - **settings**:
     - **unCollect**: temporarily uncollects the star
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -623,7 +652,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToPaths
   - **settings**:
     - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -632,7 +661,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -655,7 +684,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -665,7 +694,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -677,7 +706,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **portalId**: the id of this portal as used for finding an exit portal
     - **exitId**: the id this portal uses to find its exit portal
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -696,7 +725,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -706,7 +735,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - canAttachToPaths
   - **settings**:
-    - **canAttachToThings**: allows the block to attach to other things, not paths
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
@@ -774,6 +803,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
+
 <!-- end auto -->
 
 <!--
