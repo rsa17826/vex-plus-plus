@@ -1,5 +1,5 @@
-const fs = require("fs")
-const readline = require("readline")
+import { readFileSync, writeFileSync } from "fs"
+import { createInterface } from "readline"
 
 class TreeNode {
   constructor(value) {
@@ -50,7 +50,7 @@ class BinarySearchTree {
 
 async function replaceInFile(filePath, regex, replacement) {
   try {
-    let data = fs.readFileSync(filePath, "utf-8")
+    let data = readFileSync(filePath, "utf-8")
     const matches = data.match(regex)
 
     console.log("Matches found:", matches)
@@ -66,7 +66,7 @@ async function replaceInFile(filePath, regex, replacement) {
     const results = []
     bst.inOrderTraversal(bst.root, results)
 
-    const rl = readline.createInterface({
+    const rl = createInterface({
       input: process.stdin,
       output: process.stdout,
     })
@@ -101,7 +101,7 @@ async function replaceInFile(filePath, regex, replacement) {
           )
           newData =
             newData.substring(0, matchIndex) +
-            "replacement" +
+            replacement +
             newData.substring(matchIndex + match.length)
           matchIndex = newData.indexOf(
             match,
@@ -111,7 +111,7 @@ async function replaceInFile(filePath, regex, replacement) {
       })
 
       // Write the new data to the file
-      fs.writeFileSync(filePath, newData)
+      writeFileSync(filePath, newData)
       console.log(
         "File updated with half of the matches replaced. Please check the file for changes."
       )
