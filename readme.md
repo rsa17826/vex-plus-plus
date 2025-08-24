@@ -93,6 +93,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **paste_block_position**: sets the rotation of the current block to that of the last copied rotation
 - **paste_block_scale**: sets the last selected blocks scale to the last copied scale
 - **paste_block_rotation**: sets the last selected blocks rotationthat the last copied rotation
+- **focus_on_player**: focuses the player and disables edit mode
 - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 ## Settings

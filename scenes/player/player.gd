@@ -186,12 +186,10 @@ func _unhandled_input(event: InputEvent) -> void:
     die(DEATH_TIME, true, true)
 
   if state != States.dead and global.showEditorUi:
-    for action: String in ["right", "jump", "left"]:
-      if Input.is_action_pressed(action, true):
-        global.setEditorUiState(false)
-        camLockPos = Vector2.ZERO
-        camera.position = Vector2.ZERO
-        break
+    if Input.is_action_just_pressed(&"focus_on_player", true):
+      global.setEditorUiState(false)
+      camLockPos = Vector2.ZERO
+      camera.position = Vector2.ZERO
 
   var shouldPan: bool = Input.is_action_pressed(&"editor_pan")
   if global.useropts.autoPanWhenClickingEmptySpace:
