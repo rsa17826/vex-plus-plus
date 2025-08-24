@@ -178,6 +178,7 @@ func set_editor_setting(p_setting: String, p_value) -> void:
   _set_editor_setting(p_setting, p_value)
 
 func _set_editor_setting(p_setting: String, p_value) -> void:
+  log.err(p_setting, p_value)
   if _EditorSettings.has_setting(p_setting):
     var old_value = get_editor_setting(p_setting)
     var cfg := ConfigFile.new()
@@ -208,25 +209,25 @@ func set_project_setting(p_setting: String, p_value) -> void:
 
     ProjectSettings.save()
 
-func set_text_editor_color(p_name: String, p_color: Color) -> void:
-  set_editor_setting("text_editor/highlighting/" + p_name, p_color)
+# func set_text_editor_color(p_name: String, p_color: Color) -> void:
+#   set_editor_setting("text_editor/highlighting/" + p_name, p_color)
 
-func set_text_editor_colors(p_dict: Dictionary) -> void:
-  for key in p_dict:
-    if key is String && p_dict[key] is String:
-      set_editor_setting("text_editor/theme/highlighting/" + key, Color(p_dict[key]))
+# func set_text_editor_colors(p_dict: Dictionary) -> void:
+#   for key in p_dict:
+#     if key is String && p_dict[key] is String:
+#       set_editor_setting("text_editor/theme/highlighting/" + key, Color(p_dict[key]))
 
-func set_text_editor_colors_by_cfg(p_path: String, p_section:="color_theme") -> void:
-  var cfg := ConfigFile.new()
-  var error := cfg.load(p_path)
+# func set_text_editor_colors_by_cfg(p_path: String, p_section:="color_theme") -> void:
+#   var cfg := ConfigFile.new()
+#   var error := cfg.load(p_path)
 
-  if error == OK:
-    var dict := {}
-    var keys := cfg.get_section_keys(p_section)
-    for key in keys:
-      dict[key] = cfg.get_value(p_section, key)
+#   if error == OK:
+#     var dict := {}
+#     var keys := cfg.get_section_keys(p_section)
+#     for key in keys:
+#       dict[key] = cfg.get_value(p_section, key)
 
-    set_text_editor_colors(dict)
+#     set_text_editor_colors(dict)
 
 #func set_theme_font(p_theme : Theme , p_type_name : String, p_dict : Dictionary) -> void:
 #	if !p_theme:
