@@ -1,9 +1,9 @@
 extends Control
+var fs = false
 
 func _ready() -> void:
   global.useropts.theme = 1
   await global.wait()
-  global.fullscreen(-1)
   # generate settings
   var text = ''
   var oldmd = global.file.read("res://readme.md", false)
@@ -111,5 +111,8 @@ func _ready() -> void:
   get_tree().quit()
 
 func getinfo(text):
+  if not fs:
+    global.fullscreen(-1)
+    fs = true
   # return "asdkasdkjllkjdas"
   return await global.prompt(text, global.PromptTypes.string)
