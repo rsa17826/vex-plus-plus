@@ -99,7 +99,7 @@ func generateBlockOpts():
       respawn()
   }
 
-var path: Array[Vector2] = []
+var path: Array = []
 var pathEditNodes: Array[BlockPath_editNode] = []
 
 func getMaxProgress() -> float:
@@ -282,3 +282,11 @@ func savePath():
   )
   updateSelectedOptionsUi()
   path.push_front(Vector2.ZERO)
+
+func onEditorRotate():
+  log.pp(startRotation_degrees, rad_to_deg(rotation))
+  path = path.map(func(e): return e.rotated(rotation - deg_to_rad(startRotation_degrees)))
+  queue_redraw()
+
+func onEditorRotateEnd():
+  respawn()

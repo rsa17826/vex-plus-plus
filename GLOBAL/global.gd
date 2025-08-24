@@ -964,6 +964,9 @@ var copiedBlockData := {
   'scale': Vector2(1, 1),
   'rotation': 0,
 }
+
+var lastRotatedBlock: EditorBlock
+
 func _unhandled_input(event: InputEvent) -> void:
   if !InputMap.has_action("quit"): return
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
@@ -1098,18 +1101,21 @@ func _unhandled_input(event: InputEvent) -> void:
       lastMousePos = Vector2.ZERO
     if !lastMousePos and selectedBlock:
       lastMousePos = selectedBlock.get_viewport_transform() * selectedBlock.global_position
+    if editorInRotateMode and !Input.is_action_pressed(&"editor_select") and lastRotatedBlock and lastRotatedBlock == lastSelectedBlock:
+      lastSelectedBlock.onEditorRotateEnd()
     editorInRotateMode = Input.is_action_pressed(&"editor_rotate")
   if editorInRotateMode and event is InputEventMouseMotion and event.screen_relative:
     if selectedBlock \
       and (selectedBlock.EDITOR_OPTION_rotate \
       or global.useropts.allowRotatingAnything) and lastMousePos:
+      lastRotatedBlock = selectedBlock
       var mpos: Vector2 = selectedBlock.get_global_mouse_position()
       selectedBlock.look_at(mpos)
       selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
-      selectedBlock.rotation = selectedBlock.rotation
-      selectedBlock.onEditorRotate()
       if !Input.is_action_pressed(&"editor_disable_grid_snap"):
         selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
+      selectedBlock.rotation = selectedBlock.rotation
+      selectedBlock.onEditorRotate()
       setBlockStartPos(selectedBlock)
       if useropts.mouseLockDistanceWhileRotating:
         var direction := (mpos - selectedBlock.global_position).normalized().rotated(-player.get_node("Camera2D").global_rotation)
