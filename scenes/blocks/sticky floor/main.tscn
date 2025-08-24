@@ -19,6 +19,10 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("attach 
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
+oddScaleOffsetForce = Dictionary[String, int]({
+"x": 0,
+"y": -1
+})
 EDITOR_OPTION_scale = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true

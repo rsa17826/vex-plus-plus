@@ -479,6 +479,7 @@ var top_edge: float
 var bottom_edge: float
 
 func onEditorMoveEnded(): pass
+func onEditorRotateEnd(): pass
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
