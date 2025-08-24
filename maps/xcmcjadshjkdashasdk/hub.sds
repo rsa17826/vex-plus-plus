@@ -607,4 +607,43 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(700.0)
+    STR(y)FLOAT(-598.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(sticky floor)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(770.0)
+    STR(y)FLOAT(-525.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(player state detector)
+    STRNAME(options){
+      STR(state)INT(14)
+      STR(signalOutputId)INT(827)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(740.0)
+    STR(y)FLOAT(-500.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(player state detector)
+    STRNAME(options){
+      STR(state)INT(15)
+      STR(signalOutputId)INT(827)
+      STR(color)STR(#fff)
+    }
+  }
 ]

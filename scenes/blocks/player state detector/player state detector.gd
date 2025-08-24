@@ -27,6 +27,8 @@ enum States {
   swingingOnPole,
   onPulley,
   pushing,
+  facingLeft,
+  facingRight,
 }
 
 func on_respawn():
@@ -67,6 +69,10 @@ func on_physics_process(delta: float) -> void:
         return p.state == p.States.onPulley
       States.pushing:
         return p.state == p.States.pushing
+      States.facingLeft:
+        return p.anim.flip_h
+      States.facingRight:
+        return !p.anim.flip_h
     ).call(global.player)
   if temp != lastInput:
     lastInput = temp

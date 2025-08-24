@@ -1108,7 +1108,7 @@ size = Vector2(1, 18)
 size = Vector2(14, 31.8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q53ni"]
-size = Vector2(10, 1)
+size = Vector2(10, 3)
 
 [node name="player" type="Node2D" node_paths=PackedStringArray("player", "ghostIconNode", "collisionShapes")]
 z_index = 10
@@ -1305,9 +1305,9 @@ collision_mask = 4096
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/stickyFloorDetector"]
-position = Vector2(0, 16.39)
+position = Vector2(0, 15.4)
 shape = SubResource("RectangleShape2D_q53ni")
-debug_color = Color(0.270588, 0, 0.419608, 0)
+debug_color = Color(0.27058825, 0, 0.41960785, 0.47843137)
 
 [node name="respawn detection area" type="Area2D" parent="CharacterBody2D"]
 unique_name_in_owner = true
