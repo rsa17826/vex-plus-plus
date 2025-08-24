@@ -1,4 +1,2 @@
-^r::{
-  try WinClose("vex (DEBUG)")
-  RunWait('"C:\Users\User\AppData\Roaming\Godot\app_userdata\Godot Version Manager\versions\Godot_v4.5-beta6_win64.exe" --path D:/godotgames/vex --scene "res://scenes/gen md/gen.tscn"')
-}
+try WinClose("vex (DEBUG)")
+RunWait('"C:\Users\User\AppData\Roaming\Godot\app_userdata\Godot Version Manager\versions\Godot_v4.5-beta6_win64.exe" --path D:/godotgames/vex --scene "res://scenes/gen md/gen.tscn"')

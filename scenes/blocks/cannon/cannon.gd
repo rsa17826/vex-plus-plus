@@ -12,8 +12,7 @@ func on_body_entered(body: Node) -> void:
     global.player.state = global.player.States.inCannon
     global.player.activeCannon = self
     global.player.cannonRotDelFrames = 0.07
-    
+
 func on_respawn() -> void:
   # top_level = false
   rotNode.rotation_degrees = 0
-  $collisionNode.position = Vector2.ZERO

@@ -1120,7 +1120,7 @@ ignoreMissingNodes = true
 DONT_ENABLE_ON_RESPAWN = true
 metadata/_edit_lock_ = true
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root", "stickyFloorDetector", "mainCollisionShape2D", "nowjDetector", "respawnDetectionArea", "leftWallDetection", "rightWallDetection", "leftWallTopDetection", "rightWallTopDetection", "waterRay", "deathDetectors", "wallDetectors", "anim", "waterAnimTop", "waterAnimBottom", "camera")]
 position = Vector2(0, -1.9)
 collision_layer = 2050
 collision_mask = 73788
@@ -1131,6 +1131,22 @@ floor_snap_length = 5.0
 platform_on_leave = 1
 platform_wall_layers = 63
 script = ExtResource("1_dovo2")
+root = NodePath("..")
+stickyFloorDetector = NodePath("stickyFloorDetector")
+mainCollisionShape2D = NodePath("CollisionShape2D")
+nowjDetector = NodePath("nowjDetector")
+respawnDetectionArea = NodePath("respawn detection area")
+leftWallDetection = NodePath("wallDetectors/leftWall")
+rightWallDetection = NodePath("wallDetectors/rightWall")
+leftWallTopDetection = NodePath("wallDetectors/leftWallTop")
+rightWallTopDetection = NodePath("wallDetectors/rightWallTop")
+waterRay = NodePath("waterRay")
+deathDetectors = NodePath("deathDetectors")
+wallDetectors = NodePath("wallDetectors")
+anim = NodePath("anim")
+waterAnimTop = NodePath("waterAnimTop")
+waterAnimBottom = NodePath("waterAnimBottom")
+camera = NodePath("Camera2D")
 metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
@@ -1179,10 +1195,10 @@ autoplay = "default"
 frame_progress = 0.429972
 metadata/_edit_lock_ = true
 
-[node name="wallDetection" type="Node2D" parent="CharacterBody2D"]
+[node name="wallDetectors" type="Node2D" parent="CharacterBody2D"]
 metadata/_edit_lock_ = true
 
-[node name="leftWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
+[node name="leftWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -22.575)
 target_position = Vector2(-4, 0)
@@ -1190,7 +1206,7 @@ collision_mask = 16392
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="rightWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
+[node name="rightWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -22.575)
 target_position = Vector2(4, 0)
@@ -1198,7 +1214,7 @@ collision_mask = 16392
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="leftWall" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
+[node name="leftWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -15.575)
 target_position = Vector2(-3, 0)
@@ -1206,7 +1222,7 @@ collision_mask = 16392
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="rightWall" type="RayCast2D" parent="CharacterBody2D/wallDetection"]
+[node name="rightWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -15.575)
 target_position = Vector2(3, 0)
@@ -1223,16 +1239,6 @@ collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
 collide_with_bodies = false
-metadata/_edit_lock_ = true
-
-[node name="floorRay" type="RayCast2D" parent="CharacterBody2D"]
-visible = false
-self_modulate = Color(0.87451, 0, 0.831373, 1)
-position = Vector2(1, 9.795)
-enabled = false
-target_position = Vector2(0, 15.63)
-collision_mask = 8
-hit_from_inside = true
 metadata/_edit_lock_ = true
 
 [node name="deathDetectors" type="Node2D" parent="CharacterBody2D"]

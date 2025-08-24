@@ -9,7 +9,6 @@ func on_body_exited(body: Node) -> void:
 func on_respawn() -> void:
   if global.lastPortal == self:
     global.lastPortal = null
-  $collisionNode.position = Vector2.ZERO
   if self not in global.portals:
     global.portals.append(self)
 

@@ -140,14 +140,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ojg4n"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("animated", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_7c4dh")
-animated = NodePath("collisionNode/animated")
 ghostIconNode = NodePath("collisionNode/animated/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/animated/Sprite2D")
 editorBarIcon = ExtResource("2_gtnmy")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/animated/Sprite2D")]
+hidableSprites = [NodePath("collisionNode/animated/Sprite2D"), NodePath("collisionNode/animated/AnimatedSprite2D")]
 cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
