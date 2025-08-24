@@ -1577,3 +1577,10 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!fix bouncy inconsistent bounce end scale/position
 # -add button to add custom key to unavailables
 # !!add serarch to level list
+
+# player area detector
+# timer block
+
+# signal list only in edit / play opts
+
+# fix hitbos show state when entering level

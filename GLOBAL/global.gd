@@ -1808,6 +1808,7 @@ const DEFAULT_BLOCK_LIST = [
   "not gate",
   "and gate",
   "crumbling",
+  "timer",
   # "rotator",
 ]
 
