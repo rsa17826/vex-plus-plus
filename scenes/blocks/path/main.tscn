@@ -7,10 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvsey"]
 size = Vector2(100, 100)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes")]
 script = ExtResource("1_qvsey")
+sprite = NodePath("Sprite2D")
 ghostIconNode = NodePath("Sprite2D")
-editorBarIconNode = NodePath("Sprite2D")
 editorBarIcon = ExtResource("2_vcsin")
 collisionShapes = [NodePath("Area2D/CollisionShape2D")]
 ignoreMissingNodes = true

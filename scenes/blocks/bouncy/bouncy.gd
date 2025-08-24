@@ -20,7 +20,7 @@ func start() -> void:
   # # log.pp(global.player.defaultAngle)
   # var extraRot = global.player.angle_distance(radrot, global.player.global_rotation)
 
-  var playerGhost: Node2D = global.player.get_parent().ghost
+  var playerGhost: Node2D = global.player.root.ghost
   var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
 
   # # Calculate the half sizes

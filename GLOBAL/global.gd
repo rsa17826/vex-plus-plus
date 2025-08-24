@@ -1058,7 +1058,7 @@ func _unhandled_input(event: InputEvent) -> void:
         player.camLockPos += Vector2(300, 0)
       var arr: Array[EditorBlock] = []
       for block in boxSelect_selectedBlocks.filter(func(e): return e.id and not e.DONT_SAVE):
-        if block == player.get_parent(): return
+        if block == player.root: return
         if !isAlive(block): return
         var posOffset = mpos - block.startPosition
         var newBlock := duplicate_block(block)
@@ -1147,7 +1147,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if !isAlive(level): return
     for block in boxSelect_selectedBlocks:
       if !is_instance_valid(block): return
-      if block == global.player.get_parent(): return
+      if block == global.player.root: return
       if block.is_queued_for_deletion(): return
       if block in hoveredBlocks:
         hoveredBlocks.erase(block)
@@ -1156,7 +1156,7 @@ func _unhandled_input(event: InputEvent) -> void:
     boxSelect_selectedBlocks = []
     # log.pp(selectedBlock, lastSelectedBlock)
     if selectedBlock && is_instance_valid(selectedBlock):
-      if selectedBlock == global.player.get_parent(): return
+      if selectedBlock == global.player.root: return
       if selectedBlock in hoveredBlocks:
         hoveredBlocks.erase(selectedBlock)
       # var temp = selectedBlock.duplicate()
@@ -1174,7 +1174,7 @@ func _unhandled_input(event: InputEvent) -> void:
       if useropts.deleteLastSelectedBlockIfNoBlockIsCurrentlySelected:
         log.pp(selectedBlock, lastSelectedBlock)
         if lastSelectedBlock && is_instance_valid(lastSelectedBlock):
-          if lastSelectedBlock == global.player.get_parent(): return
+          if lastSelectedBlock == global.player.root: return
           if lastSelectedBlock in hoveredBlocks:
             hoveredBlocks.erase(lastSelectedBlock)
           var temp = lastSelectedBlock.duplicate()
@@ -1215,7 +1215,7 @@ func _unhandled_input(event: InputEvent) -> void:
       player.activePole = null
       player.activePulley = null
       player.activeCannon = null
-      player.goto(player.get_global_mouse_position() - player.get_parent().startPosition + player.applyRot(0, -17))
+      player.goto(player.get_global_mouse_position() - player.root.startPosition + player.applyRot(0, -17))
   if event.is_action_pressed(&"toggle_pause", false, true):
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking
@@ -1291,7 +1291,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   loadingLevel = true
   player.state = player.States.levelLoading
   # breakpoint
-  currentLevel().spawnPoint = player.global_position - player.get_parent().global_position
+  currentLevel().spawnPoint = player.global_position - player.root.global_position
   currentLevel().up_direction = player.up_direction
   currentLevel().autoRunDirection = player.autoRunDirection
 
@@ -1717,18 +1717,18 @@ func localReady() -> void:
   var pid = int(file.read(path.abs("res://process"), false, "0"))
   log.pp("FILEPID", pid)
   log.pp("MYPID", OS.get_process_id())
-  # getProcess(OS.get_process_id())
-  # if getProcess(pid) \
-  #   and pid != OS.get_process_id() \
-  #   and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))) \
-  # :
-  #   sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
-  #   DirAccess.remove_absolute(path.abs("res://process"))
-  #   get_tree().quit()
-  # else:
-  #   file.write(path.abs("res://process"), str(OS.get_process_id()), false)
-  #   tryAndGetMapZipsFromArr(OS.get_cmdline_args())
-  # loadEditorBarData()
+  getProcess(OS.get_process_id())
+  if getProcess(pid) \
+    and pid != OS.get_process_id() \
+    and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))) \
+  :
+    sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
+    DirAccess.remove_absolute(path.abs("res://process"))
+    get_tree().quit()
+  else:
+    file.write(path.abs("res://process"), str(OS.get_process_id()), false)
+    tryAndGetMapZipsFromArr(OS.get_cmdline_args())
+  loadEditorBarData()
 
 const DEFAULT_BLOCK_LIST = [
   "basic",

@@ -5,6 +5,8 @@ class_name BlockPath
 var maxProgress: float
 const editNodeSpawner = preload("res://scenes/blocks/path/editNode.tscn")
 
+@export var sprite: Sprite2D
+
 var lastStartTime: float = 0
 var started: bool = false
 var canRestart: bool = false
@@ -179,7 +181,7 @@ func on_ready() -> void:
     global.onEditorStateChanged.connect(updateVisible)
 
 func updateVisible() -> void:
-  $Sprite2D.visible = global.useropts.showPathBlockInPlay or global.showEditorUi
+  sprite.visible = global.useropts.showPathBlockInPlay or global.showEditorUi
   queue_redraw()
 
 func _draw() -> void:

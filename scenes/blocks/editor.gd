@@ -176,7 +176,7 @@ func respawn() -> void:
     __enable.call_deferred()
 
   for sprite in hidableSprites:
-    sprite.modulate.a = 1
+    sprite.modulate = Color(selectedOptions.color)
 
   for thing in cloneEventsHere:
     if 'on_respawn' in thing:
@@ -316,14 +316,12 @@ func _ready() -> void:
   if canAttachToPaths:
     blockOptions.canAttachToPaths = {"type": global.PromptTypes.bool, "default": true}
 
-  if global.useropts.allowCustomColors and not NO_CUSTOM_COLOR_IN_MENU:
+  if not NO_CUSTOM_COLOR_IN_MENU:
     blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
   setupOptions()
 
   __enable.call_deferred()
   respawn.call_deferred()
-  if global.useropts.allowCustomColors and not NO_CUSTOM_COLOR_IN_MENU:
-    self.modulate = Color(selectedOptions.color)
   for thing in cloneEventsHere:
     if 'on_ready' in thing:
       thing.on_ready()

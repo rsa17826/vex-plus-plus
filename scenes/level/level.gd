@@ -54,9 +54,9 @@ func loadLevel(level):
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
-  global.player.get_parent().global_position = Vector2(leveldata[0].x, leveldata[0].y)
+  global.player.root.global_position = Vector2(leveldata[0].x, leveldata[0].y)
   global.player.global_position = Vector2(leveldata[0].x, leveldata[0].y)
-  global.player.get_parent().startPosition = Vector2(leveldata[0].x, leveldata[0].y)
+  global.player.root.startPosition = Vector2(leveldata[0].x, leveldata[0].y)
   var invalidBlockErrors := {}
   for thing in leveldata.slice(1):
     if !ResourceLoader.exists("res://scenes/blocks/" + thing.id + "/main.tscn"):
@@ -100,8 +100,8 @@ func save():
 
   var data: Array = [
     {
-      "x": global.player.get_parent().startPosition.x,
-      "y": global.player.get_parent().startPosition.y
+      "x": global.player.root.startPosition.x,
+      "y": global.player.root.startPosition.y
     },
   ]
   for child in $blocks.get_children():
