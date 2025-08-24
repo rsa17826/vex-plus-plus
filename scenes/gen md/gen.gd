@@ -11,6 +11,7 @@ func _ready() -> void:
   text += "## Controls\n"
   for action in InputMap.get_actions():
     if action.begins_with("ui_"): continue
+    if action.begins_with("CREATE NEW - "): continue
     var keyVal = "\n- **" + action + "**: "
     text += keyVal
     var lastText = ''
@@ -23,7 +24,7 @@ func _ready() -> void:
       DisplayServer.clipboard_set(keyVal)
       text += await getinfo("keybind: " + action)
   text += '\n- **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.'
-  text += '\n\n\n## Settings\n'
+  text += '\n\n## Settings'
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   for thing in data:
     match thing.thing:
@@ -31,7 +32,7 @@ func _ready() -> void:
         log.pp(thing)
         break
       "group":
-        text += '\n### ' + (thing.name)
+        text += '\n\n### ' + (thing.name) + '\n'
         # log.pp(thing.name, thing.value)
         for a in thing.value:
           if 'editorOnly' in a and a.editorOnly: continue
@@ -48,7 +49,7 @@ func _ready() -> void:
             text += await getinfo("setting: " + a.key)
   # generate blocks
   var setKeys = {}
-  text += '\n\n## Blocks\n'
+  text += '\n\n## Blocks'
   for id in global.DEFAULT_BLOCK_LIST:
     var block = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     add_child(block)
