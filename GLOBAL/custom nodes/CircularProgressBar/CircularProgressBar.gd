@@ -2,6 +2,8 @@
 extends Node2D
 class_name CircularProgressBar
 
+var __ready = false
+
 @export var bgColor: Color = Color(1, 0, 0):
   set(val):
     bgColor = val
@@ -15,8 +17,12 @@ class_name CircularProgressBar
     progress = clamp(val, 0, 100)
     updateProgress()
 
+func _ready() -> void:
+  __ready = true
+  updateProgress()
+
 func updateProgress():
-  if not $s1: return
+  if not __ready: return
   if progress > 100 / 2.0:
     $s1.rotation_degrees = global.rerange(progress, 100, 100 / 2.0, 0, 180)
     $s3.visible = false

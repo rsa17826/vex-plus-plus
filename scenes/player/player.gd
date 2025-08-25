@@ -1586,3 +1586,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix hitbos show state when entering level
 
 # jump refreshers
+
+# player direction not reset on death
