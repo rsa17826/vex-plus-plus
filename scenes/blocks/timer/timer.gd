@@ -33,14 +33,15 @@ func onSignalChanged(id, on, callers):
     lastOn = on
     if on:
       if chargeState == States.discharged:
+        chargeTimer = 0
         chargeState = States.charging
       if chargeState == States.discharging:
-        # chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.dischargeTime, 0, selectedOptions.chargeTime)
+        chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.dischargeTime, 0, selectedOptions.chargeTime)
         chargeState = States.charging
     else:
       if chargeState == States.charging:
-        chargeState = States.discharged
-        # chargeTimer = 0
+        chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.chargeTime, 0, selectedOptions.dischargeTime)
+        chargeState = States.discharging
       if chargeState == States.charged:
         chargeTimer = selectedOptions.dischargeTime
         chargeState = States.discharging
@@ -63,7 +64,6 @@ func on_physics_process(delta: float) -> void:
     States.charging:
       chargeTimer += delta
       if chargeTimer >= selectedOptions.chargeTime:
-        global.sendSignal(selectedOptions.signalOutputId, self , true)
         chargeState = States.charged
         global.sendSignal(selectedOptions.signalOutputId, self , true)
     States.discharging:
