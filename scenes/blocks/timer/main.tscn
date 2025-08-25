@@ -28,7 +28,7 @@ texture = ExtResource("2_10itm")
 [node name="charge" parent="Node2D" instance=ExtResource("3_10itm")]
 bgColor = Color(2.2621452e-06, 0.6986438, 7.70092e-07, 1)
 fgColor = Color(0.69803923, 0, 0, 1)
-progress = 92.01499999999942
+progress = 50.0
 
 [node name="Label" type="Label" parent="Node2D"]
 offset_left = -99.0
