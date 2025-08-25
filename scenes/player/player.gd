@@ -1304,6 +1304,9 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if respawnCooldown >= 0 and not forced:
     deathSources = []
     return
+
+  updateCollidingBlocksExited()
+
   if state != States.levelLoading:
     state = States.dead
   root.__disable()
@@ -1314,7 +1317,6 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   # shouldStopDying = []
   # root.__disable()
   # process_mode = Node.PROCESS_MODE_DISABLED
-  updateCollidingBlocksExited()
   var dontResetPlayerData := false
   if not forced and state != States.levelLoading and not full:
     dontResetPlayerData = !!tryChangeRespawnLocation()

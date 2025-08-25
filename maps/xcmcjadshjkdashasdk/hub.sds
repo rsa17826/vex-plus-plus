@@ -698,4 +698,18 @@
       STR(dontStopDischarging)BOOL(true)
     }
   }
+  {
+    STR(x)FLOAT(600.0)
+    STR(y)FLOAT(-750.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(laser)
+    STRNAME(options){
+      STR(maxCooldown)FLOAT(1.00100004673004)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

@@ -2,9 +2,7 @@
 extends EditorBlock
 class_name BlockLaser
 
-@export var charge1: Sprite2D
-@export var charge2: Sprite2D
-@export var charge3: Sprite2D
+@export var charge: CircularProgressBar
 
 var targetingPlayer := false
 var cooldown := 0.0
@@ -40,15 +38,7 @@ func on_process(delta):
 
 func updateCharge():
   var maxCooldown: float = selectedOptions.maxCooldown
-  if cooldown > maxCooldown / 2.0:
-    charge1.rotation_degrees = global.rerange(cooldown, maxCooldown, maxCooldown / 2.0, 0, 180)
-    # charge1.visible = true
-    # charge2.visible = true
-    charge3.visible = false
-  else:
-    charge3.visible = true
-    charge1.rotation_degrees = 180
-    charge3.rotation_degrees = clamp(global.rerange(cooldown, maxCooldown / 2.0, 0, 180, 360), 180, 360)
+  charge.progress = global.rerange(cooldown, maxCooldown, 0, 0, 100)
 
 func on_respawn():
   cooldown = 0
