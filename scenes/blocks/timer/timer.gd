@@ -13,8 +13,9 @@ var lastOn = false
 
 func generateBlockOpts():
   blockOptions.signalInputId = {"type": global.PromptTypes.int, "default": 0}
-  blockOptions.signalInputTime = {"type": global.PromptTypes.float, "default": 0}
+  blockOptions.chargeTime = {"type": global.PromptTypes.float, "default": 1}
   blockOptions.signalOutputId = {"type": global.PromptTypes.int, "default": 0}
+  blockOptions.dischargeTime = {"type": global.PromptTypes.float, "default": 1}
 
 func on_respawn():
   chargeState = States.discharged
@@ -37,6 +38,7 @@ func onSignalChanged(id, on, callers):
         chargeState = States.discharged
         chargeTimer = 0
       if chargeState == States.charged:
+        chargeTimer = selectedOptions.dischargeTime
         chargeState = States.discharging
 
 enum States {
@@ -47,13 +49,15 @@ enum States {
 }
 
 func on_physics_process(delta: float) -> void:
-  log.pp(States.keys()[chargeState])
-  charge.progress = global.rerange(chargeTimer, 0, selectedOptions.signalInputTime, 0, 100)
+  match chargeState:
+    States.charging, States.charged:
+      charge.progress = global.rerange(chargeTimer, 0, selectedOptions.chargeTime, 0, 100)
+    States.discharging, States.discharged:
+      charge.progress = global.rerange(chargeTimer, 0, selectedOptions.dischargeTime, 0, 100)
   match chargeState:
     States.charging:
       chargeTimer += delta
-      log.pp(chargeTimer)
-      if chargeTimer >= selectedOptions.signalInputTime:
+      if chargeTimer >= selectedOptions.chargeTime:
         global.sendSignal(selectedOptions.signalOutputId, self , true)
         chargeState = States.charged
         global.sendSignal(selectedOptions.signalOutputId, self , true)
