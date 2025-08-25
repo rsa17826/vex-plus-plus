@@ -14,12 +14,27 @@ var lastOn = false
 func generateBlockOpts():
   blockOptions.signalInputId = {"type": global.PromptTypes.int, "default": 0}
   blockOptions.chargeTime = {"type": global.PromptTypes.float, "default": 1}
-  blockOptions.dontStopCharging = {"type": global.PromptTypes.bool, "default": false}
-  blockOptions.clearChargeProgressSignalDeactivation = {"type": global.PromptTypes.bool, "default": false}
+  blockOptions.onSignalActivation = {
+    "type": global.PromptTypes._enum,
+    "default": 0,
+    'values': [
+      "ignore",
+      "reset",
+      "startDischarging"
+    ]
+  }
+
   blockOptions.signalOutputId = {"type": global.PromptTypes.int, "default": 0}
   blockOptions.dischargeTime = {"type": global.PromptTypes.float, "default": 1}
-  blockOptions.dontStopDischarging = {"type": global.PromptTypes.bool, "default": false}
-  blockOptions.clearDischargeProgressSignalActivation = {"type": global.PromptTypes.bool, "default": false}
+  blockOptions.onSignalDeactivation = {
+    "type": global.PromptTypes._enum,
+    "default": 0,
+    'values': [
+      "ignore",
+      "reset",
+      "startCharging"
+    ]
+  }
 
 func on_respawn():
   chargeState = States.discharged
@@ -40,16 +55,16 @@ func onSignalChanged(id, on, callers):
         chargeTimer = 0
         chargeState = States.charging
       if chargeState == States.discharging:
-        if selectedOptions.dontStopDischarging: return
-        if selectedOptions.clearDischargeProgressSignalActivation:
-          chargeTimer = selectedOptions.dischargeTime
+        match selectedOptions.onSignalActivation:
+          0: return
+          1: chargeTimer = selectedOptions.dischargeTime
         chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.dischargeTime, 0, selectedOptions.chargeTime)
         chargeState = States.charging
     else:
       if chargeState == States.charging:
-        if selectedOptions.dontStopCharging: return
-        if selectedOptions.clearChargeProgressSignalDeactivation:
-          chargeTimer = 0
+        match selectedOptions.onSignalDeactivation:
+          0: return
+          1: chargeTimer = 0
         chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.chargeTime, 0, selectedOptions.dischargeTime)
         chargeState = States.discharging
       if chargeState == States.charged:
