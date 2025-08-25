@@ -71,6 +71,4 @@ func on_physics_process(delta: float) -> void:
         chargeTimer -= delta
         if chargeTimer <= 0:
           chargeState = States.discharged
-          if lastOn:
-            chargeState = States.charging
           global.sendSignal(selectedOptions.signalOutputId, self , false)
