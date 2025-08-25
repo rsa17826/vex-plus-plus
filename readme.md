@@ -45,6 +45,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **state**: the state to detect
     - **signalAInputId**: a signal to detect
     - **signalBInputId**: other signal to detect
+    - **chargeTime**: the time it takes to get to full charge after which the signal will be sent
+    - **onSignalActivation**: what to do if discharging and a signal gets sent
+    - **dischargeTime**: the time it takes to discharge
+    - **onSignalDeactivation**: what to do if charging and the send signal gets deactivated
  -->
 
 ## Controls
@@ -830,6 +834,18 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToPaths
   - **settings**:
     - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
+- **timer**: when it recives a signal or stops reciving a signal will charge up or discharge, then when full or empty will start or stop sending a signal
+
+  - rotatable
+  - **settings**:
+    - **signalInputId**: the id of the signal it is listening for
+    - **chargeTime**: the time it takes to get to full charge after which the signal will be sent
+    - **onSignalActivation**: what to do if discharging and a signal gets sent
+    - **signalOutputId**: the id that will be sent
+    - **dischargeTime**: the time it takes to discharge
+    - **onSignalDeactivation**: what to do if charging and the send signal gets deactivated
     - **color**: sets the modulate property
 
 <!-- end auto -->

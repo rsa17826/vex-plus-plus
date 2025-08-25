@@ -1522,6 +1522,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-126! respawning with a solar block disabled would cause blocks to not attach to it
     # 125/rssaromeo/uno mas - solar attach bug
   # !version ?-NOW! cpops
+  # !version OLD-1-NOW! player direction not reset on death
   # /!version ?-135! negative size spikes don't have a texture
     # 135/rssaromeo/uno mas - invisible spikes - no alpha
 
@@ -1589,4 +1590,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # jump refreshers
 
-# player direction not reset on death
+# add info to readme about each option for a enum option
