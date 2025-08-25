@@ -621,19 +621,6 @@
     }
   }
   {
-    STR(x)FLOAT(770.0)
-    STR(y)FLOAT(-525.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(180.0)
-    STR(id)STR(player state detector)
-    STRNAME(options){
-      STR(state)INT(14)
-      STR(signalOutputId)INT(827)
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(740.0)
     STR(y)FLOAT(-500.0)
     STR(w)FLOAT(1.00000004470348)
@@ -660,6 +647,10 @@
       STR(color)STR(#fff)
       STR(chargeTime)FLOAT(1.00100004673004)
       STR(dischargeTime)FLOAT(5.00100004673004)
+      STR(dontStopCharging)BOOL(false)
+      STR(dontStopDischarging)BOOL(false)
+      STR(clearChargeProgressSignalDeactivation)BOOL(true)
+      STR(clearDischargeProgressSignalActivation)BOOL(true)
     }
   }
   {
@@ -687,6 +678,24 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1025.0)
+    STR(y)FLOAT(-425.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(timer)
+    STRNAME(options){
+      STR(signalInputId)INT(15)
+      STR(signalInputTime)FLOAT(2.00100004673004)
+      STR(signalOutputId)INT(15)
+      STR(color)STR(#fff)
+      STR(chargeTime)FLOAT(1.00100004673004)
+      STR(dischargeTime)FLOAT(5.00100004673004)
+      STR(dontStopCharging)BOOL(true)
+      STR(dontStopDischarging)BOOL(true)
     }
   }
 ]
