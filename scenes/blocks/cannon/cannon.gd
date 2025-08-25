@@ -11,7 +11,7 @@ func on_body_entered(body: Node) -> void:
     #   global.player.activeCannon.top_level = false
     global.player.state = global.player.States.inCannon
     global.player.activeCannon = self
-    global.player.cannonRotDelFrames = 0.07
+    global.player.cannonRotationDelayFrames = 0.07
 
 func on_respawn() -> void:
   # top_level = false

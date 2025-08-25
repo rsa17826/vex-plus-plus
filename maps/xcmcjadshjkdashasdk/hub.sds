@@ -146,10 +146,10 @@
     }
   }
   {
-    STR(x)FLOAT(175.0)
-    STR(y)FLOAT(-250.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(x)FLOAT(50.0)
+    STR(y)FLOAT(-550.0)
+    STR(w)FLOAT(4.07757204771042)
+    STR(h)FLOAT(8.88474774360657)
     STR(r)FLOAT(0.0)
     STR(id)STR(cannon)
     STRNAME(options){
@@ -655,7 +655,7 @@
     STR(id)STR(timer)
     STRNAME(options){
       STR(signalInputId)INT(10)
-      STR(signalInputTime)FLOAT(0.10099995136261)
+      STR(signalInputTime)FLOAT(2.00100004673004)
       STR(signalOutputId)INT(11)
       STR(color)STR(#fff)
     }
@@ -668,7 +668,7 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(player state detector)
     STRNAME(options){
-      STR(state)INT(2)
+      STR(state)INT(15)
       STR(signalOutputId)INT(10)
       STR(color)STR(#fff)
     }

@@ -2,6 +2,7 @@
 extends EditorBlock
 class_name BlockTimer
 
+@export var charge: CircularProgressBar
 @export var labelInp: Label
 @export var labelOut: Label
 @export var sprite: Sprite2D
@@ -47,6 +48,7 @@ enum States {
 
 func on_physics_process(delta: float) -> void:
   log.pp(States.keys()[chargeState])
+  charge.progress = global.rerange(chargeTimer, 0, selectedOptions.signalInputTime, 0, 100)
   match chargeState:
     States.charging:
       chargeTimer += delta
@@ -60,4 +62,6 @@ func on_physics_process(delta: float) -> void:
         chargeTimer -= delta
         if chargeTimer <= 0:
           chargeState = States.discharged
+          if lastOn:
+            chargeState = States.charging
           global.sendSignal(selectedOptions.signalOutputId, self , false)
