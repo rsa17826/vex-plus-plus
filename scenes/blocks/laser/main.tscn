@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bn4ddoim7p6xu"]
+[gd_scene load_steps=8 format=3 uid="uid://bn4ddoim7p6xu"]
 
 [ext_resource type="Script" uid="uid://bnad5udrdr20s" path="res://scenes/blocks/laser/laser.gd" id="1_ohbiw"]
 [ext_resource type="Texture2D" uid="uid://b4m5lblw4m1y3" path="res://scenes/blocks/laser/images/1.png" id="2_gc2qo"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_ohbiw"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_vu0mu"]
-[ext_resource type="Texture2D" uid="uid://bl535axaktyqd" path="res://scenes/blocks/laser/images/nocharge.png" id="6_5lvo6"]
+[ext_resource type="PackedScene" uid="uid://dyhvw50inaha1" path="res://GLOBAL/custom nodes/CircularProgressBar/CircularProgressBar.tscn" id="5_b11d5"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vu0mu"]
 radius = 1056.08
@@ -12,18 +12,13 @@ radius = 1056.08
 [sub_resource type="CircleShape2D" id="CircleShape2D_ohbiw"]
 radius = 127.016
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b11d5"]
-load_path = "res://.godot/imported/charge.png-f13578aad774daff13f3cd2d2feaacd3.ctex"
-
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("charge1", "charge2", "charge3", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("charge", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_ohbiw")
-charge1 = NodePath("collisionNode/1")
-charge2 = NodePath("collisionNode/2")
-charge3 = NodePath("collisionNode/3")
+charge = NodePath("collisionNode/circularProgressBar")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_gc2qo")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/bg"), NodePath("collisionNode/1"), NodePath("collisionNode/2"), NodePath("collisionNode/3")]
+hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/circularProgressBar")]
 cloneEventsHere = [NodePath("collisionNode/attach detector")]
 thingThatMoves = NodePath("collisionNode")
 oddScaleOffsetForce = Dictionary[String, int]({
@@ -59,27 +54,9 @@ root = NodePath("../..")
 shape = SubResource("CircleShape2D_ohbiw")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
-[node name="bg" type="Sprite2D" parent="collisionNode"]
-position = Vector2(14.999999, 0)
-rotation = -3.1415925
-scale = Vector2(0.566, 0.566)
-texture = ExtResource("6_5lvo6")
-
-[node name="1" type="Sprite2D" parent="collisionNode"]
-position = Vector2(15, 0)
-rotation = 3.1415927
-scale = Vector2(0.566, 0.566)
-texture = SubResource("CompressedTexture2D_b11d5")
-
-[node name="2" type="Sprite2D" parent="collisionNode"]
-position = Vector2(14.999999, 0)
-scale = Vector2(0.566, 0.566)
-texture = ExtResource("6_5lvo6")
-
-[node name="3" type="Sprite2D" parent="collisionNode"]
+[node name="circularProgressBar" parent="collisionNode" instance=ExtResource("5_b11d5")]
 position = Vector2(15, 0)
 scale = Vector2(0.566, 0.566)
-texture = SubResource("CompressedTexture2D_b11d5")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
