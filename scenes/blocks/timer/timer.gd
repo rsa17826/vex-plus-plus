@@ -26,6 +26,7 @@ func on_respawn():
   global.sendSignal(selectedOptions.signalOutputId, self , false)
 
 func onSignalChanged(id, on, callers):
+  breakpoint
   if self in callers: return
   if id == selectedOptions.signalInputId:
     if lastOn == on: return
@@ -33,10 +34,13 @@ func onSignalChanged(id, on, callers):
     if on:
       if chargeState == States.discharged:
         chargeState = States.charging
+      if chargeState == States.discharging:
+        # chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.dischargeTime, 0, selectedOptions.chargeTime)
+        chargeState = States.charging
     else:
       if chargeState == States.charging:
         chargeState = States.discharged
-        chargeTimer = 0
+        # chargeTimer = 0
       if chargeState == States.charged:
         chargeTimer = selectedOptions.dischargeTime
         chargeState = States.discharging
@@ -49,6 +53,7 @@ enum States {
 }
 
 func on_physics_process(delta: float) -> void:
+  log.pp(States.keys()[chargeState], chargeTimer, selectedOptions.chargeTime, selectedOptions.dischargeTime)
   match chargeState:
     States.charging, States.charged:
       charge.progress = global.rerange(chargeTimer, 0, selectedOptions.chargeTime, 0, 100)
