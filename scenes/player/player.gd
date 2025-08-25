@@ -44,7 +44,7 @@ var respawnCooldown: float = 0
 # var shouldStopDying: Array[BlockUndeath] = []
 var levelFlags: Dictionary[String, Variant] = {}
 var autoRunDirection: int = 1
-var cannonRotDelFrames: float = 0
+var cannonRotationDelayFrames: float = 0
 var remainingJumpCount: int = 0
 var poleCooldown: float = 0
 var deathSources: Array[EditorBlock] = []
@@ -374,8 +374,8 @@ func _physics_process(delta: float) -> void:
         return
       global_position = activeCannon.thingThatMoves.global_position + (Vector2(0, -130) * activeCannon.scale)
       # activeCannon.top_level = true
-      if cannonRotDelFrames > 0:
-        cannonRotDelFrames -= delta
+      if cannonRotationDelayFrames > 0:
+        cannonRotationDelayFrames -= delta
       else:
         activeCannon.rotNode.rotation_degrees += delta * WATER_TURNSPEED * getCurrentLrState()
       activeCannon.rotNode.rotation_degrees = clamp(activeCannon.rotNode.rotation_degrees, -25, 25)
@@ -384,7 +384,7 @@ func _physics_process(delta: float) -> void:
       anim.animation = "idle"
       if ACTIONjump:
         remainingJumpCount -= 1
-        vel.cannon = Vector2(0, -17000).rotated(activeCannon.rotation + activeCannon.rotNode.rotation) * activeCannon.scale
+        vel.cannon = Vector2(0, -17000).rotated(activeCannon.rotation + activeCannon.rotNode.rotation).rotated(-defaultAngle) * activeCannon.scale
         log.pp(vel.cannon)
         justAddedVels.cannon = 5
         vel.user = Vector2.ZERO
@@ -1584,3 +1584,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # signal list only in edit / play opts
 
 # fix hitbos show state when entering level
+
+# jump refreshers

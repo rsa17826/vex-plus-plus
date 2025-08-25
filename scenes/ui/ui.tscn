@@ -44,11 +44,6 @@ scale = Vector2(0.19960955, 0.19960955)
 texture = ExtResource("3_qno0g")
 metadata/_edit_lock_ = true
 
-[node name="Controls" parent="." instance=ExtResource("4_g5kmx")]
-visible = false
-mouse_filter = 0
-metadata/_edit_lock_ = true
-
 [node name="ProgressContainer" type="Control" parent="."]
 visible = false
 layout_mode = 3
@@ -154,3 +149,8 @@ script = ExtResource("3_hl07w")
 metadata/_edit_lock_ = true
 
 [node name="hoveredBlocksList" parent="." instance=ExtResource("13_swkix")]
+
+[node name="Controls" parent="." instance=ExtResource("4_g5kmx")]
+visible = false
+mouse_filter = 0
+metadata/_edit_lock_ = true

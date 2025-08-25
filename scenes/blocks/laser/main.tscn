@@ -15,13 +15,12 @@ radius = 127.016
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b11d5"]
 load_path = "res://.godot/imported/charge.png-f13578aad774daff13f3cd2d2feaacd3.ctex"
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("charge1", "charge2", "charge3", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("charge1", "charge2", "charge3", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_ohbiw")
 charge1 = NodePath("collisionNode/1")
 charge2 = NodePath("collisionNode/2")
 charge3 = NodePath("collisionNode/3")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_gc2qo")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/bg"), NodePath("collisionNode/1"), NodePath("collisionNode/2"), NodePath("collisionNode/3")]

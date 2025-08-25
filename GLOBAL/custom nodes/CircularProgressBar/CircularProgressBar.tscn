@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://dyhvw50inaha1"]
+
+[ext_resource type="Script" uid="uid://wgrt7q7ne3y0" path="res://scenes/blocks/timer/CircularProgressBar/CircularProgressBar.gd" id="1_s7i2b"]
+[ext_resource type="Texture2D" uid="uid://dv41ropyn3opt" path="res://scenes/blocks/timer/CircularProgressBar/charge.png" id="3_glkvt"]
+
+[node name="circularProgressBar" type="Node2D"]
+script = ExtResource("1_s7i2b")
+progress = 65.33999999999651
+
+[node name="bg" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+rotation = -3.1415925
+texture = ExtResource("3_glkvt")
+
+[node name="s1" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+rotation = 2.177752
+texture = ExtResource("3_glkvt")
+
+[node name="mid" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+texture = ExtResource("3_glkvt")
+
+[node name="s3" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(0, 0, 0, 1)
+rotation = 5.1647787
+texture = ExtResource("3_glkvt")

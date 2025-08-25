@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6e6ir5mloqny"]
+[gd_scene load_steps=5 format=3 uid="uid://c6e6ir5mloqny"]
 
 [ext_resource type="Script" uid="uid://dyqbknqe71eo0" path="res://scenes/blocks/timer/timer.gd" id="1_jha54"]
 [ext_resource type="Texture2D" uid="uid://dhgfxev2ca8bf" path="res://scenes/blocks/timer/images/1.png" id="2_10itm"]
 [ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="3_3qg1e"]
+[ext_resource type="PackedScene" uid="uid://dyhvw50inaha1" path="res://GLOBAL/custom nodes/CircularProgressBar/CircularProgressBar.tscn" id="3_10itm"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInp", "labelOut", "sprite", "ghostIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("charge", "labelInp", "labelOut", "sprite", "ghostIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_jha54")
+charge = NodePath("Node2D/charge")
 labelInp = NodePath("Node2D/Label")
 labelOut = NodePath("Node2D/Label2")
 sprite = NodePath("Node2D/Sprite2D")
@@ -22,6 +24,11 @@ EDITOR_OPTION_rotate = true
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_10itm")
+
+[node name="charge" parent="Node2D" instance=ExtResource("3_10itm")]
+bgColor = Color(2.2621452e-06, 0.6986438, 7.70092e-07, 1)
+fgColor = Color(0.69803923, 0, 0, 1)
+progress = 92.01499999999942
 
 [node name="Label" type="Label" parent="Node2D"]
 offset_left = -99.0
