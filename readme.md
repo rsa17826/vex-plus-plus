@@ -939,14 +939,14 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - rotatable
   - **settings**:
     - **signalInputId**: the id of the signal it is listening for
-    - **chargeTime**: a
-    - **onSignalDeactivationWhileCharging**: z
+    - **chargeTime**: the time it takes for a signal to be charged up
+    - **onSignalDeactivationWhileCharging**: what happens when its signal is deactivating while charging
       - **keepCharging**: the charge will keep increasing
       - **reset**: the charge progress will reset to 0
       - **startDischarging**: the charge will start going down
     - **signalOutputId**: the id that will be sent
-    - **dischargeTime**: s
-    - **onSignalActivationWhileDischarging**: d
+    - **dischargeTime**: the time it takes for a signal to be discharged
+    - **onSignalActivationWhileDischarging**: what happens when its signal is activating while discharging
       - **keepDischarging**: the charge will keep decreasing
       - **reset**: the charge will reset to dischargeTime
       - **startCharging**: the charge will start increasing
