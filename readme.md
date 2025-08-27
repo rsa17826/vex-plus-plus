@@ -408,7 +408,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **floor button**: when pressed by player/bomb/pushable box it will send a signal
- <img src="scenes/blocks/floor button/images/1.png" alt="Alt Text" width="50" height="50">
+ <img src="scenes/blocks/floor button/images/pressed.png" alt="Alt Text" width="50" height="50">
 
   - canAttachToThings
   - canAttachToPaths
@@ -484,7 +484,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **inner level**: has solid collision but when the player crouches on top of it the player will be transported to a new level, which upon being beat will send the player back to the previous level on top of it.
- <img src="scenes/blocks/inner level/images/1.png" alt="Alt Text" width="50" height="50">
+ <img src="scenes/blocks/inner level/images/ghost.png" alt="Alt Text" width="50" height="50">
 
   - scalable
   - canAttachToPaths
@@ -526,7 +526,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
-- **cannon**: NOT WORKING YET
+- **cannon**: the player can press left and right to rotate the cannon and jump to get shot out of the cannon in the direction it is facing
  <img src="scenes/blocks/cannon/images/editorBar.png" alt="Alt Text" width="50" height="50">
 
   - canAttachToThings
@@ -896,7 +896,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **crumbling**: if the player collides with this block the block will start to crumble and be destroyed after a certain amount of time. only respawns on death.
- <img src="scenes/blocks/crumbling/images/1.png" alt="Alt Text" width="50" height="50">
+ <img src="scenes/blocks/crumbling/images/base/1.png" alt="Alt Text" width="50" height="50">
 
   - scalable
   - canAttachToPaths
