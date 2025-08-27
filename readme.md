@@ -239,11 +239,17 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
     - **endReachedAction**: what will happen when the block reaches the end of the path.
+      - **stop**: when the block reaces the end of the path it will stop
+      - **loop**: when the block reaches the end of the path the block will go back to the start of the path and continue moving
+      - **reverse**: when the block reaches the end of the path it will go backwards
     - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
     - **startWhenSignalRecived**: starts to move when its signal is activated.
     - **startWhileSignalRecived**: starts to move when its signal is activated and pauses when the signal is deactivated.
     - **signalInputId**: the id of the signal it is listening for
     - **restart**: only available when using a button start mode.
+      - **never**: the path starts once and never again
+      - **always**: the path always restarts wherever any blocks are along the path
+      - **ifStopped**: the path will only restart if the path is stopped when its signal is received
     - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
     - **backwardSpeed**: the speed that blocks are moved at while going backwards along the path.
     - **addNewPoint**: creates a new point right after this in the path
@@ -666,6 +672,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToThings
   - **settings**:
     - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
+      - **left**: will always move left
+      - **right**: will always move right
+      - **user**: will move in the direction the player was facing when grabbing it
     - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **color**: sets the modulate property
 
@@ -866,6 +875,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - rotatable
   - **settings**:
     - **action**: the action to detect
+      - **jump**: detects the jump action
+      - **down**: detects the down action
+      - **left**: detects the left action
+      - **right**: detects the right action
     - **signalOutputId**: the id that will be sent
     - **color**: sets the modulate property
 
@@ -875,6 +888,22 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - rotatable
   - **settings**:
     - **state**: the state to detect
+      - **idle**: detects when the player is on the ground and not moving
+      - **moving**: detects when the player is on the ground and moving
+      - **jumping**: detects when the player has negative user y velocity
+      - **wallHang**: detects when the player is hanging on the corner of a wall
+      - **falling**: detects when the player has positive user y velocity
+      - **wallSliding**: detects when the player is sliding down the side of a wall
+      - **sliding**: detects when the player is sliding along the ground and has more than 10 user x velocity
+      - **ducking**: detects when the player is sliding along the ground and has less than 10 user x velocity
+      - **bouncing**: detects when the player is starting to be bounced by a bouncy block
+      - **inCannon**: detects when the player is in a cannon
+      - **pullingLever**: detects when the player is pulling a lever
+      - **swingingOnPole**: detects when the player is on a pole
+      - **onPulley**: detects when the player is on a pulley
+      - **pushing**: detects when the player is pushing a bomb/box
+      - **facingLeft**: detects whe the player is facing left
+      - **facingRight**: detects when the player is facing right
     - **signalOutputId**: the id that will be sent
     - **color**: sets the modulate property
 
@@ -912,9 +941,15 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **signalInputId**: the id of the signal it is listening for
     - **chargeTime**: a
     - **onSignalDeactivationWhileCharging**: z
+      - **keepCharging**: the charge will keep increasing
+      - **reset**: the charge progress will reset to 0
+      - **startDischarging**: the charge will start going down
     - **signalOutputId**: the id that will be sent
     - **dischargeTime**: s
     - **onSignalActivationWhileDischarging**: d
+      - **keepDischarging**: the charge will keep decreasing
+      - **reset**: the charge will reset to dischargeTime
+      - **startCharging**: the charge will start increasing
     - **color**: sets the modulate property
 
 <!-- end auto -->
