@@ -77,7 +77,16 @@ func _ready() -> void:
         return ResourceLoader.exists("res://scenes/blocks/" + id + "/images/" + e))
     ]
     # text += "\n ![" + id + "](" + "scenes/blocks/" + id + "/images/" + imageLocation + '){width=10 height=10}'
-    text += '\n <img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="50" height="50">'
+    var scale = Vector2(1, 1)
+    var image = load("res://scenes/blocks/" + id + "/images/" + imageLocation)
+    var origSize = image.get_size() * scale
+    var maxSize = max(origSize.x, origSize.y)
+    var scaleFactor = max(scale.x, scale.y) * (50 / maxSize)
+    # scale = Vector2(
+    #   scaleFactor,
+    #   scaleFactor
+    # )
+    text += '\n <img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="' + str(int(origSize.x * scaleFactor)) + '" height="' + str(int(origSize.y * scaleFactor)) + '">'
     text += '\n'
     for k in ['EDITOR_OPTION_scale', 'EDITOR_OPTION_rotate', 'canAttachToThings', 'canAttachToPaths']:
       if block[k]:
