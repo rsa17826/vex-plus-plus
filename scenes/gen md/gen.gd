@@ -123,7 +123,7 @@ func _ready() -> void:
               innerLastText = oldmd.split(enumKeyVal)[1].split("\n")[0]
             if not innerLastText:
               innerLastText = await getinfo("block setting: " + id + '\n"' + innerKeyVal + enumKey + '"')
-            text += "\n" + enumKeyVal + ": " + innerLastText
+            text += "\n" + enumKeyVal + innerLastText
     block.queue_free()
   # log.pp(text)
   var setKeysString = "<!-- "
