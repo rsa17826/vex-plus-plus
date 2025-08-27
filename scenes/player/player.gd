@@ -1582,7 +1582,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!add serarch to level list
 
 # player area detector
-# timer block
+
+# ?make boxes go through portals
+# !!add more ways to toggle lights
 
 # signal list only in edit / play opts
 
