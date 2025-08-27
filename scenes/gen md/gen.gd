@@ -63,7 +63,7 @@ func _ready() -> void:
     if lastText:
       text += lastText
     else:
-      DisplayServer.clipboard_set(keyVal)
+      # DisplayServer.clipboard_set(keyVal)
       text += await getinfo("block: " + id + '\n"' + keyVal + '"')
     text += '\n'
     for k in ['EDITOR_OPTION_scale', 'EDITOR_OPTION_rotate', 'canAttachToThings', 'canAttachToPaths']:
@@ -78,7 +78,7 @@ func _ready() -> void:
         var innerLastText = ''
         if k in setKeys:
           innerLastText += setKeys[k]
-          lastText = ''
+          # lastText = ''
         if lastText:
           innerLastText = ''
           if innerKeyVal in oldmd:

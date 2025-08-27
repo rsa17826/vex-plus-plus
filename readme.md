@@ -45,10 +45,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **state**: the state to detect
     - **signalAInputId**: a signal to detect
     - **signalBInputId**: other signal to detect
-    - **chargeTime**: the time it takes to get to full charge after which the signal will be sent
-    - **onSignalDeactivationWhileCharging**: what to do if charging and the send signal gets deactivated
-    - **dischargeTime**: the time it takes to discharge
-    - **onSignalActivationWhileDischarging**: what to do if discharging and a signal gets sent
+    - **chargeTime**: a
+    - **onSignalDeactivationWhileCharging**: z
+    - **dischargeTime**: s
+    - **onSignalActivationWhileDischarging**: d
  -->
 
 ## Controls
