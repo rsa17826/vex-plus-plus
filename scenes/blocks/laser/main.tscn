@@ -55,8 +55,8 @@ shape = SubResource("CircleShape2D_ohbiw")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
 
 [node name="circularProgressBar" parent="collisionNode" instance=ExtResource("5_b11d5")]
-position = Vector2(15, 0)
-scale = Vector2(0.566, 0.566)
+position = Vector2(15.5, 0)
+scale = Vector2(0.085, 0.085)
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
