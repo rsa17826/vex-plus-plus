@@ -40,21 +40,21 @@ func generateBlockOpts():
     "default": true,
     "type": global.PromptTypes.bool
   }
-  blockOptions.startOnPress = {
+  blockOptions.startWhenSignalRecived = {
     "default": false,
     "type": global.PromptTypes.bool,
     'onChange': func(val):
       if val:
-        selectedOptions.startWhilePressed = false
+        selectedOptions.startWhileSignalRecived = false
         # selectedOptions.startWhilePressedBackWhileNotPressed = false
       return true,
   }
-  blockOptions.startWhilePressed = {
+  blockOptions.startWhileSignalRecived = {
     "default": false,
     "type": global.PromptTypes.bool,
     'onChange': func(val):
       if val:
-        selectedOptions.startOnPress = false
+        selectedOptions.startWhenSignalRecived = false
         # selectedOptions.startWhilePressedBackWhileNotPressed = false
       return true,
   }
@@ -63,23 +63,23 @@ func generateBlockOpts():
   #   "type": global.PromptTypes.bool,
   #   'onChange': func(val):
   #     if val:
-  #       selectedOptions.startWhilePressed = false
-  #       selectedOptions.startOnPress = false
+  #       selectedOptions.startWhileSignalRecived = false
+  #       selectedOptions.startWhenSignalRecived = false
   #     return true,
   # }
   blockOptions.signalInputId = {
     "type": global.PromptTypes.int,
     "default": 0,
     'showIf': func():
-      return selectedOptions.startOnPress \
-      or selectedOptions.startWhilePressed,
+      return selectedOptions.startWhenSignalRecived \
+      or selectedOptions.startWhileSignalRecived,
   }
   blockOptions.restart = {
     "default": 0,
     "type": global.PromptTypes._enum,
     "values": Restarts,
     'showIf': func():
-      return selectedOptions.startWhilePressed or selectedOptions.startOnPress,
+      return selectedOptions.startWhileSignalRecived or selectedOptions.startWhenSignalRecived,
   }
   blockOptions.forwardSpeed = {
     "default": 150,
@@ -204,7 +204,7 @@ func on_signal_changed(id, on, callers):
       if not canRestart: return
       if started:
         if selectedOptions.restart == Restarts.never: return
-        if selectedOptions.restart == Restarts.always or selectedOptions.startWhilePressed:
+        if selectedOptions.restart == Restarts.always or selectedOptions.startWhileSignalRecived:
           lastStartTime = global.tick
         else:
           lastStartTime = global.tick
@@ -213,7 +213,7 @@ func on_signal_changed(id, on, callers):
         lastStartTime = global.tick
       started = true
     else:
-      if selectedOptions.startWhilePressed:
+      if selectedOptions.startWhileSignalRecived:
         started = false
         savedMovement = currentTick
 
