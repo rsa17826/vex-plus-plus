@@ -239,24 +239,24 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **settings**:
     - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
     - **endReachedAction**: what will happen when the block reaches the end of the path.
-      - **stop**: : when the block reaces the end of the path it will stop
-      - **loop**: : when the block reaches the end of the path the block will go back to the start of the path and continue moving
-      - **reverse**: : when the block reaches the end of the path it will go backwards
+      - **stop**: : : : when the block reaces the end of the path it will stop
+      - **loop**: : : : when the block reaches the end of the path the block will go back to the start of the path and continue moving
+      - **reverse**: : : : when the block reaches the end of the path it will go backwards
     - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
     - **startWhenSignalRecived**: starts to move when its signal is activated.
     - **startWhileSignalRecived**: starts to move when its signal is activated and pauses when the signal is deactivated.
     - **signalInputId**: the id of the signal it is listening for
     - **restart**: only available when using a button start mode.
-      - **never**: : the path starts once and never again
-      - **always**: : the path always restarts wherever any blocks are along the path
-      - **ifStopped**: : the path will only restart if the path is stopped when its signal is received
+      - **never**: : : : the path starts once and never again
+      - **always**: : : : the path always restarts wherever any blocks are along the path
+      - **ifStopped**: : : : the path will only restart if the path is stopped when its signal is received
     - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
     - **backwardSpeed**: the speed that blocks are moved at while going backwards along the path.
     - **addNewPoint**: creates a new point right after this in the path
     - **color**: sets the modulate property
 
 - **10x spike**: kills the player on contact
- <img src="scenes/blocks/10x spike/images/editorBar.png" alt="image of block 10x spike" width="50" height="50">
+ <img src="scenes/blocks/10x spike/images/editorBar.png" alt="image of block 10x spike" width="50" height="42">
 
   - scalable
   - rotatable
@@ -268,7 +268,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **10x solar spike**: kills the player on contact if lights are on
- <img src="scenes/blocks/10x solar spike/images/editorBar.png" alt="image of block 10x solar spike" width="50" height="50">
+ <img src="scenes/blocks/10x solar spike/images/editorBar.png" alt="image of block 10x solar spike" width="50" height="42">
 
   - scalable
   - rotatable
@@ -280,7 +280,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **10x inverse solar spike**: kills the player on contact if lights are off
- <img src="scenes/blocks/10x inverse solar spike/images/editorBar.png" alt="image of block 10x inverse solar spike" width="50" height="50">
+ <img src="scenes/blocks/10x inverse solar spike/images/editorBar.png" alt="image of block 10x inverse solar spike" width="50" height="42">
 
   - scalable
   - rotatable
@@ -414,7 +414,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **floor button**: when pressed by player/bomb/pushable box it will send a signal
- <img src="scenes/blocks/floor button/images/pressed.png" alt="image of block floor button" width="50" height="50">
+ <img src="scenes/blocks/floor button/images/pressed.png" alt="image of block floor button" width="50" height="2">
 
   - canAttachToThings
   - canAttachToPaths
@@ -501,7 +501,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **goal**: when the player reaches this block they win and if inside an inner level they will go back to the previous level else they will just be reset to the last saved checkpoint.
- <img src="scenes/blocks/goal/images/1.png" alt="image of block goal" width="50" height="50">
+ <img src="scenes/blocks/goal/images/1.png" alt="image of block goal" width="35" height="50">
 
   - scalable
   - canAttachToThings
@@ -513,7 +513,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **buzsaw**: kills the player on contact
- <img src="scenes/blocks/buzsaw/images/1.png" alt="image of block buzsaw" width="50" height="50">
+ <img src="scenes/blocks/buzsaw/images/1.png" alt="image of block buzsaw" width="49" height="50">
 
   - scalable
   - canAttachToThings
@@ -533,7 +533,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **cannon**: the player can press left and right to rotate the cannon and jump to get shot out of the cannon in the direction it is facing
- <img src="scenes/blocks/cannon/images/editorBar.png" alt="image of block cannon" width="50" height="50">
+ <img src="scenes/blocks/cannon/images/editorBar.png" alt="image of block cannon" width="50" height="26">
 
   - canAttachToThings
   - canAttachToPaths
@@ -543,7 +543,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **checkpoint**: sets the player respawn location to this location
- <img src="scenes/blocks/checkpoint/images/1.png" alt="image of block checkpoint" width="50" height="50">
+ <img src="scenes/blocks/checkpoint/images/1.png" alt="image of block checkpoint" width="50" height="38">
 
   - rotatable
   - canAttachToThings
@@ -566,7 +566,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **gravity down lever**: when the player is inside the lever and presses down the player gravity will be halved or reverted to normal if it was halved before
- <img src="scenes/blocks/gravity down lever/images/1.png" alt="image of block gravity down lever" width="50" height="50">
+ <img src="scenes/blocks/gravity down lever/images/1.png" alt="image of block gravity down lever" width="33" height="50">
 
   - canAttachToThings
   - canAttachToPaths
@@ -576,7 +576,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **gravity up lever**: when the player is inside the lever and presses down the player gravity will be doubled or reverted to normal if it was doubled before
- <img src="scenes/blocks/gravity up lever/images/1.png" alt="image of block gravity up lever" width="50" height="50">
+ <img src="scenes/blocks/gravity up lever/images/1.png" alt="image of block gravity up lever" width="33" height="50">
 
   - canAttachToThings
   - canAttachToPaths
@@ -586,7 +586,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **speed up lever**: when the player is inside the lever and presses down the player speed will be doubled or reverted to normal if it was doubled before
- <img src="scenes/blocks/speed up lever/images/1.png" alt="image of block speed up lever" width="50" height="50">
+ <img src="scenes/blocks/speed up lever/images/1.png" alt="image of block speed up lever" width="33" height="50">
 
   - canAttachToThings
   - canAttachToPaths
@@ -607,7 +607,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **key**: when the player comes in contact with this it will start following the player until ised to unlock a locked box
- <img src="scenes/blocks/key/images/1.png" alt="image of block key" width="50" height="50">
+ <img src="scenes/blocks/key/images/1.png" alt="image of block key" width="26" height="50">
 
   - canAttachToThings
   - canAttachToPaths
@@ -647,7 +647,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **pole**: when the player contacts this the player will be able to swing on it and jump off with jump or drop off with down. when jumping off if in the blue part of the indicator then the jump will gain height else it will be like a drop
- <img src="scenes/blocks/pole/images/editorBar.png" alt="image of block pole" width="50" height="50">
+ <img src="scenes/blocks/pole/images/editorBar.png" alt="image of block pole" width="50" height="45">
 
   - canAttachToThings
   - canAttachToPaths
@@ -657,7 +657,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **pole quadrant**: spins 4 poles
- <img src="scenes/blocks/pole quadrant/images/editorBar.png" alt="image of block pole quadrant" width="50" height="50">
+ <img src="scenes/blocks/pole quadrant/images/editorBar.png" alt="image of block pole quadrant" width="49" height="50">
 
   - canAttachToThings
   - canAttachToPaths
@@ -667,14 +667,14 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
- <img src="scenes/blocks/pulley/images/editorBar.png" alt="image of block pulley" width="50" height="50">
+ <img src="scenes/blocks/pulley/images/editorBar.png" alt="image of block pulley" width="50" height="31">
 
   - canAttachToThings
   - **settings**:
     - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
-      - **left**: : will always move left
-      - **right**: : will always move right
-      - **user**: : will move in the direction the player was facing when grabbing it
+      - **left**: : : : will always move left
+      - **right**: : : : will always move right
+      - **user**: : : : will move in the direction the player was facing when grabbing it
     - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **color**: sets the modulate property
 
@@ -691,7 +691,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **rotating buzzsaw**: kills the player on contact and will spin clockwise
- <img src="scenes/blocks/rotating buzzsaw/images/1.png" alt="image of block rotating buzzsaw" width="50" height="50">
+ <img src="scenes/blocks/rotating buzzsaw/images/1.png" alt="image of block rotating buzzsaw" width="13" height="49">
 
   - scalable
   - rotatable
@@ -703,7 +703,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **scythe**: kills the player on contact and will spin counterclockwise
- <img src="scenes/blocks/scythe/images/1.png" alt="image of block scythe" width="50" height="50">
+ <img src="scenes/blocks/scythe/images/1.png" alt="image of block scythe" width="44" height="49">
 
   - scalable
   - rotatable
@@ -715,7 +715,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **shurikan spawner**: spawns a set of 3 shuricans which
- <img src="scenes/blocks/shurikan spawner/images/editorBar.png" alt="image of block shurikan spawner" width="50" height="50">
+ <img src="scenes/blocks/shurikan spawner/images/editorBar.png" alt="image of block shurikan spawner" width="50" height="38">
 
   - rotatable
   - canAttachToThings
@@ -726,7 +726,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **star**: when the player collects this it will stay collected. the star counter in the top left shows the current number of stars collected and total for the current level. the inner levels will have their star counter on the block before entering.
- <img src="scenes/blocks/star/images/1.png" alt="image of block star" width="50" height="50">
+ <img src="scenes/blocks/star/images/1.png" alt="image of block star" width="50" height="47">
 
   - canAttachToThings
   - canAttachToPaths
@@ -737,7 +737,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **laser**: when the player is in range the laser will shoot projectiles in the direction it is facing, these projectiles have a cooldown and are destroyed on contact with solid blocks. if the projectile hits a bomb the bomb will be exploded. the red circle on the laser shows the current cooldown - fully red means ready to fire.
- <img src="scenes/blocks/laser/images/1.png" alt="image of block laser" width="50" height="50">
+ <img src="scenes/blocks/laser/images/1.png" alt="image of block laser" width="50" height="25">
 
   - scalable
   - canAttachToThings
@@ -749,7 +749,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **targeting laser**: when the player is in range the laser will apply heat, more heat is applied if the player is closer. when the player is in water heat will dissipate faster. if the heat ray hits a bomb the bomb will be exploded.
- <img src="scenes/blocks/targeting laser/images/1.png" alt="image of block targeting laser" width="50" height="50">
+ <img src="scenes/blocks/targeting laser/images/1.png" alt="image of block targeting laser" width="50" height="44">
 
   - canAttachToThings
   - canAttachToPaths
@@ -773,7 +773,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **noWJ**: prevents the player from walljumping, wallsliding, and wall hanging when in contact with the player
- <img src="scenes/blocks/noWJ/images/1.png" alt="image of block noWJ" width="50" height="50">
+ <img src="scenes/blocks/noWJ/images/1.png" alt="image of block noWJ" width="8" height="50">
 
   - scalable
   - rotatable
@@ -785,7 +785,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **falling spike**: kills the player on contact when in line with the player it will start falling until hitting a solid block
- <img src="scenes/blocks/falling spike/images/editorBar.png" alt="image of block falling spike" width="50" height="50">
+ <img src="scenes/blocks/falling spike/images/editorBar.png" alt="image of block falling spike" width="16" height="50">
 
   - rotatable
   - canAttachToThings
@@ -796,7 +796,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
- <img src="scenes/blocks/portal/images/1.png" alt="image of block portal" width="50" height="50">
+ <img src="scenes/blocks/portal/images/1.png" alt="image of block portal" width="35" height="50">
 
   - scalable
   - canAttachToThings
@@ -809,7 +809,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **bomb**: like a pushable box but explodes when hit with a falling spike, falling to fast and colliging with the ground, being squished, or having a box, other bomb fall to fast on it, or being exploded by another bomb. when the player is inside of the explosion, they will be killed, when a block is in the explosion, it will be disabled. microwaves cant be exploded.
- <img src="scenes/blocks/bomb/images/1.png" alt="image of block bomb" width="50" height="50">
+ <img src="scenes/blocks/bomb/images/1.png" alt="image of block bomb" width="50" height="25">
 
   - scalable
   - canAttachToPaths
@@ -818,7 +818,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **color**: sets the modulate property
 
 - **sticky floor**: makes the player not be able to jump while in contact with this and also prevents the player from regaining cyote time
- <img src="scenes/blocks/sticky floor/images/1.png" alt="image of block sticky floor" width="50" height="50">
+ <img src="scenes/blocks/sticky floor/images/1.png" alt="image of block sticky floor" width="50" height="8">
 
   - scalable
   - rotatable
@@ -875,10 +875,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - rotatable
   - **settings**:
     - **action**: the action to detect
-      - **jump**: : detects the jump action
-      - **down**: : detects the down action
-      - **left**: : will always move left
-      - **right**: : will always move right
+      - **jump**: : : : detects the jump action
+      - **down**: : : : detects the down action
+      - **left**: : : : will always move left
+      - **right**: : : : will always move right
     - **signalOutputId**: the id that will be sent
     - **color**: sets the modulate property
 
@@ -888,22 +888,22 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - rotatable
   - **settings**:
     - **state**: the state to detect
-      - **idle**: : detects when the player is on the ground and not moving
-      - **moving**: : detects when the player is on the ground and moving
-      - **jumping**: : detects when the player has negative user y velocity
-      - **wallHang**: : detects when the player is hanging on the corner of a wall
-      - **falling**: : detects when the player has positive user y velocity
-      - **wallSliding**: : detects when the player is sliding down the side of a wall
-      - **sliding**: : detects when the player is sliding along the ground and has more than 10 user x velocity
-      - **ducking**: : detects when the player is sliding along the ground and has less than 10 user x velocity
-      - **bouncing**: : detects when the player is starting to be bounced by a bouncy block
-      - **inCannon**: : detects when the player is in a cannon
-      - **pullingLever**: : detects when the player is pulling a lever
-      - **swingingOnPole**: : detects when the player is on a pole
-      - **onPulley**: : detects when the player is on a pulley
-      - **pushing**: : detects when the player is pushing a bomb/box
-      - **facingLeft**: : detects whe the player is facing left
-      - **facingRight**: : detects when the player is facing right
+      - **idle**: : : : detects when the player is on the ground and not moving
+      - **moving**: : : : detects when the player is on the ground and moving
+      - **jumping**: : : : detects when the player has negative user y velocity
+      - **wallHang**: : : : detects when the player is hanging on the corner of a wall
+      - **falling**: : : : detects when the player has positive user y velocity
+      - **wallSliding**: : : : detects when the player is sliding down the side of a wall
+      - **sliding**: : : : detects when the player is sliding along the ground and has more than 10 user x velocity
+      - **ducking**: : : : detects when the player is sliding along the ground and has less than 10 user x velocity
+      - **bouncing**: : : : detects when the player is starting to be bounced by a bouncy block
+      - **inCannon**: : : : detects when the player is in a cannon
+      - **pullingLever**: : : : detects when the player is pulling a lever
+      - **swingingOnPole**: : : : detects when the player is on a pole
+      - **onPulley**: : : : detects when the player is on a pulley
+      - **pushing**: : : : detects when the player is pushing a bomb/box
+      - **facingLeft**: : : : detects whe the player is facing left
+      - **facingRight**: : : : detects when the player is facing right
     - **signalOutputId**: the id that will be sent
     - **color**: sets the modulate property
 
@@ -941,15 +941,15 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **signalInputId**: the id of the signal it is listening for
     - **chargeTime**: the time it takes for a signal to be charged up
     - **onSignalDeactivationWhileCharging**: what happens when its signal is deactivating while charging
-      - **keepCharging**: : the charge will keep increasing
-      - **reset**: : the charge progress will reset to 0
-      - **startDischarging**: : the charge will start going down
+      - **keepCharging**: : : : the charge will keep increasing
+      - **reset**: : : : the charge progress will reset to 0
+      - **startDischarging**: : : : the charge will start going down
     - **signalOutputId**: the id that will be sent
     - **dischargeTime**: the time it takes for a signal to be discharged
     - **onSignalActivationWhileDischarging**: what happens when its signal is activating while discharging
-      - **keepDischarging**: : the charge will keep decreasing
-      - **reset**: : the charge progress will reset to 0
-      - **startCharging**: : the charge will start increasing
+      - **keepDischarging**: : : : the charge will keep decreasing
+      - **reset**: : : : the charge progress will reset to 0
+      - **startCharging**: : : : the charge will start increasing
     - **color**: sets the modulate property
 
 <!-- end auto -->
