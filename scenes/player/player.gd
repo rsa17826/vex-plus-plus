@@ -1591,3 +1591,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # jump refreshers
 
 # add info to readme about each option for a enum option
+
+# add correct image scaling to md like in editor bar
