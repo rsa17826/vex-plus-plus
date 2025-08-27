@@ -24,8 +24,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
     - **endReachedAction**: what will happen when the block reaches the end of the path.
     - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
-    - **startOnPress**: starts to move when a button with the same signalId is pressed.
-    - **startWhilePressed**: starts to move when a button with the same signalId is pressed and pauses when the button is released.
+    - **startWhenSignalRecived**: starts to move when its signal is activated.
+    - **startWhileSignalRecived**: starts to move when its signal is activated and pauses when the signal is deactivated.
     - **signalInputId**: the id of the signal it is listening for
     - **restart**: only available when using a button start mode.
     - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
@@ -240,8 +240,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
     - **endReachedAction**: what will happen when the block reaches the end of the path.
     - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
-    - **startOnPress**: starts to move when a button with the same signalId is pressed.
-    - **startWhilePressed**: starts to move when a button with the same signalId is pressed and pauses when the button is released.
+    - **startWhenSignalRecived**: starts to move when its signal is activated.
+    - **startWhileSignalRecived**: starts to move when its signal is activated and pauses when the signal is deactivated.
     - **signalInputId**: the id of the signal it is listening for
     - **restart**: only available when using a button start mode.
     - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
