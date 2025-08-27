@@ -14,11 +14,11 @@ var lastOn = false
 func generateBlockOpts():
   blockOptions.signalInputId = {"type": global.PromptTypes.int, "default": 0}
   blockOptions.chargeTime = {"type": global.PromptTypes.float, "default": 1}
-  blockOptions.onSignalActivation = {
+  blockOptions.onSignalDeactivationWhileCharging = {
     "type": global.PromptTypes._enum,
     "default": 0,
     'values': [
-      "ignore",
+      "keepCharging",
       "reset",
       "startDischarging"
     ]
@@ -26,11 +26,11 @@ func generateBlockOpts():
 
   blockOptions.signalOutputId = {"type": global.PromptTypes.int, "default": 0}
   blockOptions.dischargeTime = {"type": global.PromptTypes.float, "default": 1}
-  blockOptions.onSignalDeactivation = {
+  blockOptions.onSignalActivationWhileDischarging = {
     "type": global.PromptTypes._enum,
     "default": 0,
     'values': [
-      "ignore",
+      "keepDischarging",
       "reset",
       "startCharging"
     ]
@@ -54,14 +54,14 @@ func onSignalChanged(id, on, callers):
         chargeTimer = 0
         chargeState = States.charging
       if chargeState == States.discharging:
-        match selectedOptions.onSignalActivation:
+        match selectedOptions.onSignalActivationWhileDischarging:
           0: return
           1: chargeTimer = selectedOptions.dischargeTime
         chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.dischargeTime, 0, selectedOptions.chargeTime)
         chargeState = States.charging
     else:
       if chargeState == States.charging:
-        match selectedOptions.onSignalDeactivation:
+        match selectedOptions.onSignalDeactivationWhileCharging:
           0: return
           1: chargeTimer = 0
         chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.chargeTime, 0, selectedOptions.dischargeTime)

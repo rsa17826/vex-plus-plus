@@ -42,6 +42,7 @@ pressed = true
 events = [SubResource("InputEventKey_6rfjk"), SubResource("InputEventJoypadButton_ge371")]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "colEdit", "btnOk", "btnCancel", "btnDefault", "textEdit")]
+layer = 999
 script = ExtResource("1_ffns6")
 promptText = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Label")
 strEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/LineEdit")

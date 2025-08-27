@@ -224,3 +224,15 @@ func _input(event):
     var local_rect = control_rect
     if !local_rect.has_point(get_local_mouse_position()):
       get_viewport().gui_release_focus()
+
+func _unhandled_key_input(e: InputEvent) -> void:
+  if e.keycode == KEY_ESCAPE \
+  and e.physical_keycode == KEY_ESCAPE \
+  and e.pressed \
+  and not e.command_or_control_autoremap \
+  and not e.alt_pressed \
+  and not e.shift_pressed \
+  and not e.meta_pressed \
+  and not e.echo \
+  :
+    clearItems()

@@ -398,7 +398,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(player state detector)
     STRNAME(options){
-      STR(state)INT(12)
+      STR(state)INT(14)
       STR(signalOutputId)INT(825)
       STR(color)STR(#fff)
     }
@@ -634,11 +634,11 @@
     }
   }
   {
-    STR(x)FLOAT(575.0)
-    STR(y)FLOAT(-625.0)
+    STR(x)FLOAT(675.0)
+    STR(y)FLOAT(-725.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(180.0)
+    STR(r)FLOAT(0.0)
     STR(id)STR(timer)
     STRNAME(options){
       STR(signalInputId)INT(10)
@@ -651,6 +651,10 @@
       STR(dontStopDischarging)BOOL(false)
       STR(clearChargeProgressSignalDeactivation)BOOL(true)
       STR(clearDischargeProgressSignalActivation)BOOL(true)
+      STR(onSignalActivation)INT(0)
+      STR(onSignalDeactivation)INT(2)
+      STR(onSignalDeactivationWhileCharging)INT(0)
+      STR(onSignalActivationWhileDischarging)INT(0)
     }
   }
   {
