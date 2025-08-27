@@ -65,6 +65,18 @@ func _ready() -> void:
     else:
       # DisplayServer.clipboard_set(keyVal)
       text += await getinfo("block: " + id + '\n"' + keyVal + '"')
+    var imageLocation = [
+      "editorBar.png",
+      "1.png",
+    ][
+      [
+        "editorBar.png",
+        "1.png",
+      ].find_custom(func(e):
+        return ResourceLoader.exists("res://scenes/blocks/" + id + "/images/" + e))
+    ]
+    # text += "\n ![" + id + "](" + "scenes/blocks/" + id + "/images/" + imageLocation + '){width=10 height=10}'
+    text += '\n <img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="Alt Text" width="50" height="50">'
     text += '\n'
     for k in ['EDITOR_OPTION_scale', 'EDITOR_OPTION_rotate', 'canAttachToThings', 'canAttachToPaths']:
       if block[k]:
