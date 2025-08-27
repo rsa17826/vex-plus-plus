@@ -269,6 +269,15 @@ func _ready() -> void:
     if not NO_CUSTOM_COLOR_IN_MENU:
       blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
     return
+
+  var node_stack: Array[Node] = [ self ]
+  while not node_stack.is_empty():
+    var node: Node = node_stack.pop_back()
+    if is_instance_valid(node):
+      if node is CollisionShape2D or node is CollisionPolygon2D or node is RayCast2D:
+        node.visible = true
+      node_stack.append_array(node.get_children())
+
   if !global.player.OnPlayerFullRestart.is_connected(_ready):
     global.player.OnPlayerFullRestart.connect(_ready)
   # if !is_in_group("dontRespawnOnPlayerDeath"):

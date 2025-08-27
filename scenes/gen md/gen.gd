@@ -105,6 +105,16 @@ func _ready() -> void:
           innerLastText = await getinfo("block setting: " + id + '\n"' + innerKeyVal + '"')
         setKeys[k] = innerLastText
         text += "\n" + innerKeyVal + innerLastText
+        if global.same(block.blockOptions[k].type, global.PromptTypes._enum):
+          var values = block.blockOptions[k].values
+          for enumKey in values:
+            var enumKeyVal = "      - **" + enumKey + "**"
+            innerLastText = ''
+            if enumKeyVal in oldmd:
+              innerLastText = oldmd.split(enumKeyVal)[1].split("\n")[0]
+            if not innerLastText:
+              innerLastText = await getinfo("block setting: " + id + '\n"' + innerKeyVal + enumKey + '"')
+            text += "\n" + enumKeyVal + ": " + innerLastText
     block.queue_free()
   # log.pp(text)
   var setKeysString = "<!-- "

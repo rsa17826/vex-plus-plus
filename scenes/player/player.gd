@@ -1588,8 +1588,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # signal list only in edit / play opts
 
-# fix hitbos show state when entering level
-
 # jump refreshers
 
 # add info to readme about each option for a enum option
