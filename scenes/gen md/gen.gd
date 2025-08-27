@@ -21,7 +21,7 @@ func _ready() -> void:
       text += lastText
       continue
     else:
-      DisplayServer.clipboard_set(keyVal)
+      # DisplayServer.clipboard_set(keyVal)
       text += await getinfo("keybind: " + action)
   text += '\n- **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.'
   text += '\n\n## Settings'
@@ -45,7 +45,7 @@ func _ready() -> void:
             text += lastText
             continue
           else:
-            DisplayServer.clipboard_set(keyVal)
+            # DisplayServer.clipboard_set(keyVal)
             text += await getinfo("setting: " + a.key)
   # generate blocks
   var setKeys = {}
@@ -88,7 +88,7 @@ func _ready() -> void:
           #   innerLastText = innerOldMd.split(innerKeyVal)[1].split("\n")[0]
           # log.pp(innerLastText, "innerLastText")
         if !innerLastText:
-          DisplayServer.clipboard_set(innerKeyVal)
+          # DisplayServer.clipboard_set(innerKeyVal)
           innerLastText = await getinfo("block setting: " + id + '\n"' + innerKeyVal + '"')
         setKeys[k] = innerLastText
         text += "\n" + innerKeyVal + innerLastText
