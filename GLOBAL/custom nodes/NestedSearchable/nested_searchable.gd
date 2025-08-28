@@ -1,4 +1,4 @@
-extends Control
+extends Container
 class_name NestedSearchable
 
 @export var thisText: String

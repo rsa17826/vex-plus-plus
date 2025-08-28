@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bs4m3plcr416k" path="res://GLOBAL/custom nodes/NestedSearchable/nested_searchable.gd" id="1_h2lmx"]
 
-[node name="NestedSearchable" type="Control"]
-layout_mode = 3
+[node name="NestedSearchable" type="Container"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

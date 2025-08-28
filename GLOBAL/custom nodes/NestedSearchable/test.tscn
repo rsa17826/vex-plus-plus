@@ -17,100 +17,79 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="NestedSearchable" type="Control" parent="HBoxContainer"]
+[node name="NestedSearchable" type="Container" parent="HBoxContainer"]
 layout_mode = 2
+mouse_filter = 0
 script = ExtResource("1_na7io")
 thisText = "main root"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable2" type="Control" parent="HBoxContainer/NestedSearchable"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable2" type="Container" parent="HBoxContainer/NestedSearchable"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 1"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable3" type="Control" parent="HBoxContainer/NestedSearchable/NestedSearchable2"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable3" type="Container" parent="HBoxContainer/NestedSearchable/NestedSearchable2"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 2"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable4" type="Control" parent="HBoxContainer/NestedSearchable/NestedSearchable2/NestedSearchable3"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable4" type="Container" parent="HBoxContainer/NestedSearchable/NestedSearchable2/NestedSearchable3"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 3"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
 [node name="Label3" type="Label" parent="HBoxContainer/NestedSearchable/NestedSearchable2/NestedSearchable3/NestedSearchable4"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 
 
 4"
 
 [node name="Label2" type="Label" parent="HBoxContainer/NestedSearchable/NestedSearchable2/NestedSearchable3"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 
 3"
 
 [node name="Label3" type="Label" parent="HBoxContainer/NestedSearchable/NestedSearchable2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 2"
 
 [node name="Label" type="Label" parent="HBoxContainer/NestedSearchable"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "1"
 
-[node name="NestedSearchable2" type="Control" parent="HBoxContainer"]
+[node name="NestedSearchable2" type="Container" parent="HBoxContainer"]
 layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "main root2"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable2" type="Control" parent="HBoxContainer/NestedSearchable2"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable2" type="Container" parent="HBoxContainer/NestedSearchable2"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 12"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable3" type="Control" parent="HBoxContainer/NestedSearchable2/NestedSearchable2"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable3" type="Container" parent="HBoxContainer/NestedSearchable2/NestedSearchable2"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 22"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable4" type="Control" parent="HBoxContainer/NestedSearchable2/NestedSearchable2/NestedSearchable3"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable4" type="Container" parent="HBoxContainer/NestedSearchable2/NestedSearchable2/NestedSearchable3"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 32"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
 [node name="Label3" type="Label" parent="HBoxContainer/NestedSearchable2/NestedSearchable2/NestedSearchable3/NestedSearchable4"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 
 
@@ -118,60 +97,46 @@ text = "
 5"
 
 [node name="Label2" type="Label" parent="HBoxContainer/NestedSearchable2/NestedSearchable2/NestedSearchable3"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 
 3"
 
 [node name="Label3" type="Label" parent="HBoxContainer/NestedSearchable2/NestedSearchable2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 2"
 
 [node name="Label" type="Label" parent="HBoxContainer/NestedSearchable2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "1"
 
-[node name="NestedSearchable3" type="Control" parent="HBoxContainer"]
+[node name="NestedSearchable3" type="Container" parent="HBoxContainer"]
 layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "main root3"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable2" type="Control" parent="HBoxContainer/NestedSearchable3"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable2" type="Container" parent="HBoxContainer/NestedSearchable3"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 13"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable3" type="Control" parent="HBoxContainer/NestedSearchable3/NestedSearchable2"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable3" type="Container" parent="HBoxContainer/NestedSearchable3/NestedSearchable2"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 23"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
-[node name="NestedSearchable4" type="Control" parent="HBoxContainer/NestedSearchable3/NestedSearchable2/NestedSearchable3"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="NestedSearchable4" type="Container" parent="HBoxContainer/NestedSearchable3/NestedSearchable2/NestedSearchable3"]
+layout_mode = 2
 script = ExtResource("1_na7io")
 thisText = "sub child 33"
 metadata/_custom_type_script = "uid://bs4m3plcr416k"
 
 [node name="Label3" type="Label" parent="HBoxContainer/NestedSearchable3/NestedSearchable2/NestedSearchable3/NestedSearchable4"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 
 
@@ -180,22 +145,16 @@ text = "
 6"
 
 [node name="Label2" type="Label" parent="HBoxContainer/NestedSearchable3/NestedSearchable2/NestedSearchable3"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 
 3"
 
 [node name="Label3" type="Label" parent="HBoxContainer/NestedSearchable3/NestedSearchable2"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "
 2"
 
 [node name="Label" type="Label" parent="HBoxContainer/NestedSearchable3"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 2
 text = "1"
