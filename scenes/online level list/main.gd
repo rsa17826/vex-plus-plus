@@ -111,6 +111,7 @@ func loadOnlineLevels():
     child.queue_free()
   var arr := allData.keys()
   arr.sort()
+  arr.reverse()
   const versionNode := preload("res://scenes/online level list/version.tscn")
   const creatorNode := preload("res://scenes/online level list/creator.tscn")
   const levelNode := preload("res://scenes/online level list/level.tscn")
@@ -131,7 +132,7 @@ func loadOnlineLevels():
           levelsForCurrentVersionCount += 1
         loadedLevelCount += 1
         var l = levelNode.instantiate()
-        onTextChanged.connect(func(text): otc.call(text, l, c, v), ConnectFlags.CONNECT_DEFERRED)
+        onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
         l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
         l.thisText = l.levelname.text.to_lower().replace('\n', '')
         l.downloadBtn.pressed.connect(downloadLevel.bind(version, creator, level))
@@ -143,40 +144,9 @@ func loadOnlineLevels():
     loadingText.text = 'Loaded levels: ' + str(levelsForCurrentVersionCount) + " / " + str(loadedLevelCount)
   $AnimatedSprite2D.visible = false
 
-# func makeNodes(node, data, children) -> Node:
-#   # log.pp(node, data, children, len(children))
-#   # if not node:
-#   #   breakpoint
-#   for k in data:
-#     node[k] = data[k]
-#   for child in children:
-#     # if not child:
-#     #   breakpoint
-#     node.add_child(child)
-#   return node
-func otc(text: String, level: Control, creator: Control, version: NestedSearchable):
-  if not level or not creator or not version: return
+func otc(text: String, version: NestedSearchable):
+  if not version: return
   version.updateSearch(text)
-  # # log.pp(text, level.text, [creator.text, creator.allText], [version.text, version.allText])
-  # version.visible = true
-  # creator.visible = true
-  # level.visible = true
-  # if not text: return
-  # text = text.to_lower()
-  # if (text in (version.allText as String)):
-  #   version.visible = true
-  #   if (text in (version.text as String)): return
-  # else:
-  #   version.visible = false
-  # if (text in (creator.allText as String)):
-  #   creator.visible = true
-  #   if (text in (creator.text as String)): return
-  # else:
-  #   creator.visible = false
-  # if (text in (level.text as String)):
-  #   level.visible = true
-  # else:
-  #   level.visible = false
 
 func downloadLevel(version, creator, level):
   var url = (

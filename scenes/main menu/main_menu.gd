@@ -12,9 +12,12 @@ var __menu
 var newestLevel
 
 @onready var pm: PopupMenu = PopupMenu.new()
+func _on_search_text_changed(new_text: String) -> void:
+  onTextChanged.emit(new_text)
 
 func _ready() -> void:
   add_child(pm)
+  loadUserOptions()
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.MAP_FOLDER)
@@ -23,30 +26,73 @@ func _ready() -> void:
     return global.loadMapInfo(a).version > global.loadMapInfo(s).version
   )
   newestLevel = dirs[0] if dirs else null
+  var allData = {}
   for levelName: String in dirs:
-    var node := levelNode.instantiate()
-    node.levelname.text = levelName
     var data = global.loadMapInfo(levelName)
-    var versiontext = "V" + str(data.version) + " "
-    if data.version > global.VERSION:
-      versiontext += ">"
-    elif data.version < global.VERSION:
-      versiontext += "<"
-    else:
-      versiontext += "="
-    node.version.text = versiontext
-    node.creator.text = ("Author: " + data.author) if data else "INVALID LEVEL"
-    node.description.text = data.description if data else "INVALID LEVEL"
-    if data:
-      node.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
-      node.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
-      node.tooltip_text = data.description if data.description else "NO DESCRIPTION SET"
-      node.newSaveBtn.tooltip_text = node.tooltip_text
-      node.loadSaveBtn.tooltip_text = node.tooltip_text
-    node.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
-    levelContainer.add_child(node)
-  loadUserOptions()
+    if data.version not in allData:
+      allData[data.version] = {}
+    if data.author not in allData[data.version]:
+      allData[data.version][data.author] = []
+    allData[data.version][data.author].append(levelName)
+  log.pp(allData)
+
+  # for child in levelContainer.get_children():
+  #   child.queue_free()
+  var arr := allData.keys()
+  arr.sort()
+  arr.reverse()
+  const versionNode := preload("res://scenes/online level list/version.tscn")
+  const creatorNode := preload("res://scenes/online level list/creator.tscn")
+  # const levelNode := preload("res://scenes/online level list/level.tscn")
+  for version in arr:
+    var v = versionNode.instantiate()
+    v.title = str(version)
+    v.folded = false if global.useropts.autoExpandAllGroups else version != global.VERSION
+    v.thisText = str(version).to_lower().replace('\n', '')
+    levelContainer.add_child(v)
+    for creator in allData[version]:
+      var c = creatorNode.instantiate()
+      c.title = creator
+      c.thisText = creator.to_lower().replace('\n', '')
+      v.get_node("VBoxContainer").add_child(c)
+      for levelName in allData[version][creator]:
+        var l = levelNode.instantiate()
+        onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
+        l.levelname.text = levelName
+        l.thisText = l.levelname.text.to_lower().replace('\n', '')
+        l.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
+        l.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
+        c.get_node("VBoxContainer").add_child(l)
+  $AnimatedSprite2D.visible = false
+
+    # var node := levelNode.instantiate()
+    # node.levelname.text = levelName
+    # var data = global.loadMapInfo(levelName)
+    # var versiontext = "V" + str(data.version) + " "
+    # if data.version > global.VERSION:
+    #   versiontext += ">"
+    # elif data.version < global.VERSION:
+    #   versiontext += "<"
+    # else:
+    #   versiontext += "="
+    # node.version.text = versiontext
+    # node.author.text = ("Author: " + data.author) if data else "INVALID LEVEL"
+    # node.description.text = data.description if data else "INVALID LEVEL"
+    # if data:
+    #   node.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
+    #   node.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
+    #   node.tooltip_text = data.description if data.description else "NO DESCRIPTION SET"
+    #   node.newSaveBtn.tooltip_text = node.tooltip_text
+    #   node.loadSaveBtn.tooltip_text = node.tooltip_text
+    # node.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
+    # levelContainer.add_child(node)
   %version.text = "VERSION: " + str(global.VERSION)
+
+func otc(text: String, version: NestedSearchable):
+  if not version: return
+  version.updateSearch(text)
+signal onTextChanged
+
 var levelMenuPromise
 func showMoreOptions(levelName, levelData):
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
