@@ -1591,3 +1591,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # jump refreshers
 
 # add way to say creators should be hicher than versions
+
+# add separate options for expanding groups on main menu vs online level
