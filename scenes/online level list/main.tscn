@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxqm1u3q1wtqg"]
+[gd_scene load_steps=4 format=3 uid="uid://bxqm1u3q1wtqg"]
 
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_7t3ru"]
+[ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="3_7t3ru"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("loadingText", "levelListContainerNode")]
 layout_mode = 3
@@ -62,6 +63,7 @@ layout_mode = 2
 placeholder_text = "search"
 keep_editing_on_text_submit = true
 clear_button_enabled = true
+script = ExtResource("3_7t3ru")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer"]
 layout_mode = 2

@@ -1589,3 +1589,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # signal list only in edit / play opts
 
 # jump refreshers
+
+# add way to say creators should be hicher than versions

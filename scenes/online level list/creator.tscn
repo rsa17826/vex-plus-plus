@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dv5hgea1iccca"]
 
-[ext_resource type="Script" uid="uid://bs4m3plcr416k" path="res://GLOBAL/custom nodes/NestedSearchable/nested_searchable.gd" id="1_5mawy"]
+[ext_resource type="Script" uid="uid://bs4m3plcr416k" path="res://GLOBAL/scripts/NestedSearchable/nested_searchable.gd" id="1_5mawy"]
 
 [node name="creator" type="FoldableContainer"]
 anchors_preset = 15
