@@ -1,24 +1,33 @@
-extends Container
+extends Control
 class_name NestedSearchable
 
 @export var thisText: String
 
-func updateSearch(search: String, parentText: String = ''):
+func getChildNestedSearchables(startNode: Control = self ) -> Array[NestedSearchable]:
+  var nested_searchables: Array[NestedSearchable] = []
+  for child in startNode.get_children():
+    if child is NestedSearchable:
+      nested_searchables.append(child)
+    else:
+      nested_searchables += getChildNestedSearchables(child)
+  return nested_searchables
+
+func updateSearch(search: String, parentText: String = '', nested_searchable_parents:=[]):
   visible = false
-  for item in get_children():
-    if item is NestedSearchable:
-      item.updateSearch(search, thisText)
-  if search in parentText:
-    showChildren()
+  # breakpoint
+  for item in getChildNestedSearchables():
+    item.updateSearch(search, thisText, nested_searchable_parents + [ self ])
+  if not search:
+    visible = true
+    return
   if search in thisText:
-    var node = self
-    while 1:
-      node.visible = true
-      node = node.get_parent()
-      if !node or (not (node is NestedSearchable)): break
+    showChildren()
+  if search in parentText or search in thisText:
+    visible = true
+    for item in nested_searchable_parents:
+      item.visible = true
 
 func showChildren():
   visible = true
-  for item in get_children():
-    if item is NestedSearchable:
-      item.showChildren()
+  for node in getChildNestedSearchables():
+    node.showChildren()
