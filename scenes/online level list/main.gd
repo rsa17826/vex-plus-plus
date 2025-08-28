@@ -119,14 +119,12 @@ func loadOnlineLevels():
     var v = versionNode.instantiate()
     v.title = str(version)
     v.folded = false if global.useropts.autoExpandAllGroups else version != global.VERSION
-    v.text = str(version).to_lower().replace('\n', '')
-    v.allText = v.text
+    v.thisText = str(version).to_lower().replace('\n', '')
     levelListContainerNode.add_child(v)
     for creator in allData[version]:
       var c = creatorNode.instantiate()
       c.title = creator
-      c.text = creator.to_lower().replace('\n', '')
-      c.allText = c.text
+      c.thisText = creator.to_lower().replace('\n', '')
       v.get_node("VBoxContainer").add_child(c)
       for level in allData[version][creator]:
         if version == global.VERSION:
@@ -135,11 +133,9 @@ func loadOnlineLevels():
         var l = levelNode.instantiate()
         onTextChanged.connect(func(text): otc.call(text, l, c, v), ConnectFlags.CONNECT_DEFERRED)
         l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
-        l.text = l.levelname.text.to_lower().replace('\n', '')
+        l.thisText = l.levelname.text.to_lower().replace('\n', '')
         l.downloadBtn.pressed.connect(downloadLevel.bind(version, creator, level))
         c.get_node("VBoxContainer").add_child(l)
-        c.allText += '\n' + l.text
-      v.allText += '\n' + c.allText
 
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
@@ -158,28 +154,29 @@ func loadOnlineLevels():
 #     #   breakpoint
 #     node.add_child(child)
 #   return node
-func otc(text: String, level: Control, creator: Control, version: Control):
+func otc(text: String, level: Control, creator: Control, version: NestedSearchable):
   if not level or not creator or not version: return
-  # log.pp(text, level.text, [creator.text, creator.allText], [version.text, version.allText])
-  version.visible = true
-  creator.visible = true
-  level.visible = true
-  if not text: return
-  text = text.to_lower()
-  if (text in (version.allText as String)):
-    version.visible = true
-    if (text in (version.text as String)): return
-  else:
-    version.visible = false
-  if (text in (creator.allText as String)):
-    creator.visible = true
-    if (text in (creator.text as String)): return
-  else:
-    creator.visible = false
-  if (text in (level.text as String)):
-    level.visible = true
-  else:
-    level.visible = false
+  version.updateSearch(text)
+  # # log.pp(text, level.text, [creator.text, creator.allText], [version.text, version.allText])
+  # version.visible = true
+  # creator.visible = true
+  # level.visible = true
+  # if not text: return
+  # text = text.to_lower()
+  # if (text in (version.allText as String)):
+  #   version.visible = true
+  #   if (text in (version.text as String)): return
+  # else:
+  #   version.visible = false
+  # if (text in (creator.allText as String)):
+  #   creator.visible = true
+  #   if (text in (creator.text as String)): return
+  # else:
+  #   creator.visible = false
+  # if (text in (level.text as String)):
+  #   level.visible = true
+  # else:
+  #   level.visible = false
 
 func downloadLevel(version, creator, level):
   var url = (
