@@ -1,4 +1,4 @@
-@icon("res://images/sprites/DefineSprite_1608/1.png")
+@icon("editorIcon.png")
 class_name EditorBlock
 extends Node2D
 ## sprite to use for the ghost

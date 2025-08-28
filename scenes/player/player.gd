@@ -1592,4 +1592,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add way to say creators should be hicher than versions
 
-# add separate options for expanding groups on main menu vs online level
+# add separate options for expanding groups on main menu vs online levels
+
+# make multiselect outline visible while panning
