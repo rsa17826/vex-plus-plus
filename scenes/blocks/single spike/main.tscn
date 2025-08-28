@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmcqvvitqaa28"]
+[gd_scene load_steps=7 format=3 uid="uid://bmcqvvitqaa28"]
 
 [ext_resource type="Script" uid="uid://bs48vgemdehey" path="res://scenes/blocks/single spike/single spike.gd" id="1_sjua3"]
 [ext_resource type="Texture2D" uid="uid://b6f3mr66ft13k" path="res://scenes/blocks/single spike/images/1.png" id="2_8vy5t"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_jt7ue"]
-[ext_resource type="Texture2D" uid="uid://cbivbmkaj6cgy" path="res://images/blocks/sprites/Surprise Spike/1.png" id="2_t2pxc"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_sjua3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
@@ -35,7 +34,7 @@ root = NodePath("..")
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
 position = Vector2(0, -61.6579)
-texture = ExtResource("2_t2pxc")
+texture = ExtResource("2_8vy5t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, -54.9079)
