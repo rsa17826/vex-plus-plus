@@ -961,7 +961,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 -->
 
 ## Command Line Arguments
-
+## Launcher
+- **offline**: doesn't fetch release data from github
+- **silent**: suppresses all alerts and all inputs will auto use the default value
+- **version**: opens the game version specified in the next argument
+- **update**: updates the launcher to the newest version
+- **tryupdate**: updates the launcher to the newest version only if the newest version is different than the current version
+### Game
 - **--loadMap**
   - when opening the game it loads a map by name or NEWEST to load the newest map.
 - **--loadOnlineLevels**

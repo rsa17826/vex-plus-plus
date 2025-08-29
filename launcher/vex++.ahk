@@ -188,7 +188,12 @@ hasProcessRunning() {
       if WinGetProcessName("ahk_pid " pid) == "vex.exe" {
         hasExtraArgs := 0
         for arg in A_Args {
-          if arg == "offline"
+          if [
+            "offline",
+            "tryupdate",
+            "update",
+            "silent",
+          ].includes(arg)
             continue
           hasExtraArgs := 1
           break
