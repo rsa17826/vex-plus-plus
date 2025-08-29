@@ -18,13 +18,35 @@ func _on_search_text_changed(new_text: String) -> void:
 func _ready() -> void:
   add_child(pm)
   loadUserOptions()
+  loadLocalLevelList()
+    # var node := levelNode.instantiate()
+    # node.levelname.text = levelName
+    # var data = global.loadMapInfo(levelName)
+    # var versiontext = "V" + str(data.version) + " "
+    # if data.version > global.VERSION:
+    #   versiontext += ">"
+    # elif data.version < global.VERSION:
+    #   versiontext += "<"
+    # else:
+    #   versiontext += "="
+    # node.version.text = versiontext
+    # node.author.text = ("Author: " + data.author) if data else "INVALID LEVEL"
+    # node.description.text = data.description if data else "INVALID LEVEL"
+    # if data:
+    #   node.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
+    #   node.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
+    #   node.tooltip_text = data.description if data.description else "NO DESCRIPTION SET"
+    #   node.newSaveBtn.tooltip_text = node.tooltip_text
+    #   node.loadSaveBtn.tooltip_text = node.tooltip_text
+    # node.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
+    # levelContainer.add_child(node)
+  %version.text = "VERSION: " + str(global.VERSION)
+
+func loadLocalLevelList():
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.MAP_FOLDER)
   var dirs = (dir.get_directories() as Array)
-  dirs.sort_custom(func(a, s):
-    return global.loadMapInfo(a).version > global.loadMapInfo(s).version
-  )
   newestLevel = dirs[0] if dirs else null
   var allData = {}
   for levelName: String in dirs:
@@ -36,8 +58,8 @@ func _ready() -> void:
     allData[data.version][data.author][levelName] = data
   log.pp(allData)
 
-  # for child in levelContainer.get_children():
-  #   child.queue_free()
+  for child in levelContainer.get_children():
+    child.queue_free()
   var arr := allData.keys()
   arr.sort()
   arr.reverse()
@@ -68,28 +90,6 @@ func _ready() -> void:
         l.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
         c.get_node("VBoxContainer").add_child(l)
 
-    # var node := levelNode.instantiate()
-    # node.levelname.text = levelName
-    # var data = global.loadMapInfo(levelName)
-    # var versiontext = "V" + str(data.version) + " "
-    # if data.version > global.VERSION:
-    #   versiontext += ">"
-    # elif data.version < global.VERSION:
-    #   versiontext += "<"
-    # else:
-    #   versiontext += "="
-    # node.version.text = versiontext
-    # node.author.text = ("Author: " + data.author) if data else "INVALID LEVEL"
-    # node.description.text = data.description if data else "INVALID LEVEL"
-    # if data:
-    #   node.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
-    #   node.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
-    #   node.tooltip_text = data.description if data.description else "NO DESCRIPTION SET"
-    #   node.newSaveBtn.tooltip_text = node.tooltip_text
-    #   node.loadSaveBtn.tooltip_text = node.tooltip_text
-    # node.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
-    # levelContainer.add_child(node)
-  %version.text = "VERSION: " + str(global.VERSION)
 
 func otc(text: String, version: NestedSearchable):
   if not version: return
@@ -133,10 +133,10 @@ func showMoreOptions(levelName, levelData):
         global.path.join(global.MAP_FOLDER, levelName),
         global.path.join(global.MAP_FOLDER, levelName + " (copy)")
       )
-      get_tree().reload_current_scene()
+      loadLocalLevelList()
     1:
       OS.move_to_trash(global.path.join(global.MAP_FOLDER, levelName))
-      get_tree().reload_current_scene()
+      loadLocalLevelList()
     2:
       var newName = (await global.prompt(
         "Rename map",
@@ -154,7 +154,7 @@ func showMoreOptions(levelName, levelData):
         saveData[newName] = saveData[levelName]
         saveData.erase(levelName)
         sds.saveDataToFile(global.path.abs("res://saves/saves.sds"), saveData)
-      get_tree().reload_current_scene()
+      loadLocalLevelList()
     3:
       OS.shell_open(global.path.join(global.MAP_FOLDER, levelName))
     4:
@@ -170,7 +170,7 @@ func showMoreOptions(levelName, levelData):
         data.description = desc
         data.levelVersion += 1
         sds.saveDataToFile(global.path.join(global.MAP_FOLDER, levelName, "/options.sds"), data)
-        get_tree().reload_current_scene()
+        loadLocalLevelList()
     6:
       # log.pp(levelName)
       if FileAccess.file_exists(global.path.abs("res://exports/" + levelName + ".vex++")):

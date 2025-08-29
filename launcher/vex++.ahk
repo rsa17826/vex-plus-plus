@@ -523,7 +523,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     ; _f.close()
     loop files A_ScriptDir "/launcherData/exes/*", 'D' {
       ; aotMsgBox("reading file: " A_LoopFileName)
-      if FileRead(A_LoopFileFullPath "/vex.exe", "UTF-16-RAW") == target {
+      if FileRead(A_LoopFileFullPath "/vex.exe", "UTF-16-RAW") = target {
         version := A_LoopFileName
         break
       }
