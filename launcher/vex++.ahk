@@ -240,16 +240,14 @@ loop files A_ScriptDir "\icons\*.ico" {
 DirCreate("versions")
 ui.Title := "Vex++ Version Manager"
 ui.Show("AutoSize")
-; Define the GitHub API URL for fetching releases
-addedVersions := []
+localVersionList := []
 listedVersions := []
-; Fetch the releases from the GitHub API
 loop files A_ScriptDir "/versions/*", 'D' {
   dirname := path.info(A_LoopFileFullPath).nameandext
   versionName := dirname
   versionPath := "versions/" versionName
   status := offline ? "" : "LocalOnly"
-  addedVersions.push(versionName)
+  localVersionList.push(versionName)
   ; Add the version to the ListView
   listedVersions.push({
     version: versionName,
@@ -260,7 +258,6 @@ loop files A_ScriptDir "/versions/*", 'D' {
 }
 
 versionListView.OnEvent("DoubleClick", LV_DoubleClick)
-
 versionListView.ModifyCol(2)
 versionListView.ModifyCol(3)
 ui.Show("AutoSize")
@@ -274,13 +271,13 @@ if !offline {
     versionName := release.tag_name
     versionPath := "versions/" versionName
     status := DirExist(versionPath) ? "Installed" : "Not Installed"
-    if idx := addedVersions.IndexOf(versionName) {
+    if idx := localVersionList.IndexOf(versionName) {
       versionListView.Modify(idx, "Col2", "Installed")
       versionListView.Modify(idx, "Col3", "Run version " versionName)
       listedVersions[idx].status := "Installed"
       listedVersions[idx].runtext := "Run version " versionName
     } else {
-      addedVersions.push(versionName)
+      localVersionList.push(versionName)
       listedVersions.push({
         version: versionName,
         status: status,
@@ -290,41 +287,52 @@ if !offline {
     }
   }
 }
-i := 0
-lastRanVersion := F.read("launcherData/lastRanVersion.txt")
-for thing in listedVersions.sort((a, s) {
-  if lastRanVersion {
-    if a.version == lastRanVersion and s.version != lastRanVersion {
+sortVersionList()
+; SetTimer(sortVersionList)
+
+sortList(list) {
+  lastRanVersion := F.read("launcherData/lastRanVersion.txt")
+  return list.sort((a, s) {
+    if lastRanVersion {
+      if a.version == lastRanVersion and s.version != lastRanVersion {
+        return 1
+      }
+      if s.version == lastRanVersion and a.version != lastRanVersion {
+        return -1
+      }
+    }
+    if a.status == "LocalOnly" and s.status != "LocalOnly" {
       return 1
     }
-    if s.version == lastRanVersion and a.version != lastRanVersion {
+    if s.status == "LocalOnly" and a.status != "LocalOnly" {
       return -1
     }
+    if a.version.RegExMatch("^\d+$") && s.version.RegExMatch("^\d+$") {
+      return a.version - s.version
+    }
+    if a.version.RegExMatch("^\d+$") {
+      return 1
+    } else if s.version.RegExMatch("^\d+$") {
+      return -1
+    }
+    return StrCompare(a.version, s.version, "Logical")
+  }).Reverse()
+}
+sortVersionList() {
+  global listedVersions
+  i := 0
+  listedVersions := sortList(listedVersions)
+  for thing in listedVersions {
+    i += 1
+    versionListView.Modify(i, "Col1", thing.version)
+    versionListView.Modify(i, "Col2", thing.status)
+    versionListView.Modify(i, "Col3", thing.runtext)
   }
-  if a.status == "LocalOnly" and s.status != "LocalOnly" {
-    return 1
-  }
-  if s.status == "LocalOnly" and a.status != "LocalOnly" {
-    return -1
-  }
-  if a.version.RegExMatch("^\d+$") && s.version.RegExMatch("^\d+$") {
-    return a.version - s.version
-  }
-  if a.version.RegExMatch("^\d+$") {
-    return 1
-  } else if s.version.RegExMatch("^\d+$") {
-    return -1
-  }
-  return StrCompare(a.version, s.version, "Logical")
-}).Reverse() {
-  i += 1
-  versionListView.Modify(i, "Col1", thing.version)
-  versionListView.Modify(i, "Col2", thing.status)
-  versionListView.Modify(i, "Col3", thing.runtext)
+
+  versionListView.ModifyCol(2)
+  versionListView.ModifyCol(3)
 }
 
-versionListView.ModifyCol(2)
-versionListView.ModifyCol(3)
 guiCtrl := ui.Add("Edit", 'w290', F.read("launcherData/defaultArgs.txt"))
 guiCtrl.OnEvent("change", (elem, *) {
   F.write("launcherData/defaultArgs.txt", elem.text)
@@ -332,22 +340,29 @@ guiCtrl.OnEvent("change", (elem, *) {
 
 GuiSetPlaceholder(guiCtrl, "extra game arguments go here")
 
-guiCtrl := ui.Add("Button", , "open logs folder")
+if FileExist(path.info('./logs/vex++.exe.ans').abspath) {
+  guiCtrl := ui.Add("Button", , "open laucher log")
+  guiCtrl.OnEvent("Click", (*) {
+    run(path.info('./logs/vex++.exe.ans').abspath)
+  })
+}
+guiCtrl := ui.Add("Button", FileExist(path.info('./logs/vex++.exe.ans').abspath) ? 'y+-23 x+5' : '', "open game logs folder")
 guiCtrl.OnEvent("Click", (*) {
   run(A_AppData "\Godot\app_userdata\vex\logs\")
 })
 
+guiCtrl := ui.AddText("x10 y+-13 BackgroundTrans", '')
 if not offline {
-  guiCtrl := ui.Add("Button", , "Download All Versions")
+  guiCtrl := ui.Add("Button", '', "Download All Versions")
   guiCtrl.OnEvent("Click", DownloadAll)
   if newUpdateAvailable
-    guiCtrl := ui.Add("Button", , "new launcher version available - click to update")
+    guiCtrl := ui.Add("Button", '', "new launcher version available - click to update")
   else
-    guiCtrl := ui.Add("Button", , "launcher is up to date")
+    guiCtrl := ui.Add("Button", '', "launcher is up to date")
   guiCtrl.OnEvent("Click", UpdateSelf)
 }
 updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
-guiCtrl := ui.AddCheckbox(updateOnBoot ? "+Checked" : '', "check for updates on startup")
+guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on startup")
 guiCtrl.OnEvent("Click", (elem, info) {
   print(elem, info)
   global updateOnBoot
@@ -478,8 +493,10 @@ runSelectedVersion() {
   })
   if !exeVersion {
     doingSomething := 0
+    print("ERROR", "Could not find the required executable version at runSelectedVersion")
+    if !silent
+      aotMsgBox("Could not find the required executable version.")
     return
-    ; aotMsgBox("Could not find the required executable version.")
   }
   ; aotMsgBox('exeVersion ' exeVersion)
   if !hasProcessRunning() {
@@ -704,5 +721,5 @@ tryInput(text?, ifUnset?, title?, options?, default?) {
   if silent {
     return IsSet(default) ? default : unset
   }
-  input(text?, ifUnset?, title?, options?, default?)
+  return input(text?, ifUnset?, title?, options?, default?)
 }
