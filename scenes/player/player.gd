@@ -1595,3 +1595,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # add separate options for expanding groups on main menu vs online levels
 
 # make multiselect outline visible while panning
+
+# add outline to dusabled walls and change name
+
+# fix attachments to dusabled walls
+
+# see self signal sending?
+
+# fix path not effected by color
