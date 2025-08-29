@@ -61,7 +61,7 @@ if A_Args.includes("version") {
       pid := F.read("game data/process")
       if pid {
         try {
-          WinClose("ahk_pid " pid)
+          ProcessClose(WinGetProcessName("ahk_pid " pid))
           WinWaitClose("ahk_pid " pid)
         }
       }
