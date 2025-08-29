@@ -67,7 +67,6 @@ func _ready() -> void:
         l.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
         l.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
         c.get_node("VBoxContainer").add_child(l)
-  $AnimatedSprite2D.visible = false
 
     # var node := levelNode.instantiate()
     # node.levelname.text = levelName
