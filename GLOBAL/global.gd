@@ -1840,10 +1840,13 @@ func loadEditorBarData():
       InputMap.add_action("CREATE NEW - " + block.replace("/", "_"))
 
 func _notification(what):
+  if what == NOTIFICATION_PREDELETE: pass
   if what == NOTIFICATION_WM_CLOSE_REQUEST:
     quitGame()
 
 func quitGame():
+  # if Menu.GROUP:
+  #   Menu.GROUP.free()
   if !useropts:
     get_tree().quit()
     return
@@ -1954,8 +1957,7 @@ func tryAndGetMapZipsFromArr(args) -> bool:
       if await tryAndLoadMapFromZip(p, moveto):
         mapFound = true
   if mapFound and get_tree().current_scene.name == "main menu":
-    await wait(1000)
-    get_tree().reload_current_scene.call_deferred()
+    get_tree().current_scene.loadLocalLevelList()
     DisplayServer.window_move_to_foreground()
   # log.pp("get_tree().current_scene", get_tree().current_scene.name)
   return mapFound

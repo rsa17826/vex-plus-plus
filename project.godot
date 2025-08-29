@@ -33,6 +33,7 @@ default_settings={
 [debug]
 
 file_logging/enable_file_logging=true
+file_logging/max_log_files=50
 gdscript/warnings/unused_parameter=0
 gdscript/warnings/unused_signal=0
 gdscript/warnings/shadowed_variable_base_class=0
@@ -47,7 +48,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
-run/main_run_args="--loadMap \"NEWESTs\" --loadOnlineLevel"
+run/main_run_args="--verbose --loadMap \"NEWESTs\" --loadOnlineLevel"
 
 [editor_plugins]
 
