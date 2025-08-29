@@ -34,7 +34,7 @@ func loadLocalLevelList():
     if data.author not in allData[data.version]:
       allData[data.version][data.author] = {}
     allData[data.version][data.author][levelName] = data
-  log.pp(allData)
+  # log.pp(allData)
 
   for child in levelContainer.get_children():
     child.queue_free()
@@ -42,7 +42,8 @@ func loadLocalLevelList():
   arr.sort()
   arr.reverse()
   newestLevel = allData[arr[0]][allData[arr[0]].keys()[0]].keys()[0] if dirs else null
-  log.pp(newestLevel)
+  var launcherExists = FileAccess.file_exists("../../vex++.exe")
+  # log.pp(newestLevel)
   const versionNode := preload("res://scenes/online level list/version.tscn")
   const creatorNode := preload("res://scenes/online level list/creator.tscn")
   # const levelNode := preload("res://scenes/online level list/level.tscn")
@@ -63,13 +64,25 @@ func loadLocalLevelList():
         var l = levelNode.instantiate()
         onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
         l.levelname.text = levelName
+        var versiontext = "V" + str(data.version) + " "
+        if data.version > global.VERSION:
+          versiontext += ">"
+        elif data.version < global.VERSION:
+          versiontext += "<"
+        else:
+          versiontext += "="
+        l.openInCorrectVersion.text = 'open in ' + versiontext
+        l.version.text = versiontext
+        l.openInCorrectVersion.visible = data.version != global.VERSION and launcherExists
+        l.openInCorrectVersion.version = data.version
+        l.openInCorrectVersion.levelName = levelName
+        l.version.visible = data.version == global.VERSION or not launcherExists
         l.thisText = l.levelname.text.to_lower().replace('\n', '')
         l.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
         l.tooltip_text = description if description else "NO DESCRIPTION SET"
         l.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
         l.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
         c.get_node("VBoxContainer").add_child(l)
-
 
 func otc(text: String, version: NestedSearchable):
   if not version: return

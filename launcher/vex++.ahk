@@ -53,6 +53,71 @@ loadReleases() {
 selfUpdate := A_Args.join(" ").includes("update")
 silent := A_Args.join(" ").includes("silent")
 offline := A_Args.join(" ").includes("offline")
+if A_Args.includes("version") {
+  doingSomething := 1
+  try {
+    gameVersion := A_Args[A_Args.IndexOf("version") + 1]
+    if hasProcessRunning() {
+      pid := F.read("game data/process")
+      if pid {
+        try {
+          WinClose("ahk_pid " pid)
+          WinWaitClose("ahk_pid " pid)
+        }
+      }
+    }
+    msgbox(1)
+    args := ""
+    for arg in A_Args {
+      args .= ' "' . StrReplace(arg, '"', '\"') . '"'
+    }
+    msgbox(2)
+    try {
+      exeVersion := getExeVersion(gameVersion, () {
+        ; if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
+        exeVersion := input("Enter the exe version number.", '', '', "", newestExeVersion)
+        p := path.join(A_ScriptDir, "versions", gameVersion, "exeVersion.txt")
+        if exeVersion
+          F.write(p, exeVersion)
+        return exeVersion
+        ; }
+      })
+      if !exeVersion {
+        doingSomething := 0
+        return
+        ; aotMsgBox("Could not find the required executable version.")
+      }
+      FileCopy(
+        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
+        path.join(A_ScriptDir, "game data/vex.console.exe"),
+        1
+      )
+      FileCopy(
+        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
+        path.join(A_ScriptDir, "game data/vex.exe"),
+        1
+      )
+    }
+    catch Error as e {
+      print("ERROR", "start version 2", e.Message)
+      if not silent
+        aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR")
+    }
+    msgbox(3)
+
+    run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    ExitApp()
+  }
+  catch Error as e {
+    print("ERROR", "start version 1", e.Message)
+    if silent {
+      ExitApp(-1)
+    } else {
+      aotMsgBox("No version specified, you must specify a version number to open", "ERROR")
+    }
+  }
+  ExitApp()
+}
 
 if A_Args.join(" ").includes("tryupdate") {
   loadReleases()
@@ -289,11 +354,13 @@ UpdateSelf(*) {
         tryCount += 1
         DownloadFile(url, "temp.zip", , !silent)
         break
-      } catch {
+      } catch Error as e {
+        print("ERROR", "at updating self", e.Message)
         if (tryCount > 10) {
+          print("ERROR", "tryCount > 10 at updating self", e.Message)
           FileDelete("updating self")
           try FileDelete("temp.zip")
-          ExitApp()
+          ExitApp(-1)
         }
         Sleep(10000)
       }
@@ -398,8 +465,10 @@ runSelectedVersion() {
         1
       )
     }
-    catch {
-      aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR")
+    catch Error as e {
+      print("ERROR", "Could not copy the required file at runSelectedVersion", e.Message)
+      if not silent
+        aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR")
     }
   }
   ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
@@ -509,11 +578,12 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
         "Installed",
         "Run version " selectedVersion
       ]
-    } catch {
+    } catch Error as e {
       message := [
         "Failed to find vex.pck file",
         ""
       ]
+      print("ERROR", "Failed to find vex.pck file at DownloadSelected", e.Message)
       DirDelete("versions/" selectedVersion, 1)
     }
     target := FileRead(A_ScriptDir '/temp/vex.exe', "UTF-16-RAW")
@@ -563,9 +633,11 @@ FetchReleases(apiUrl) {
         tryCount += 1
         Download(apiUrl "?page=" i, jsonFile)
         break
-      } catch {
+      } catch Error as e {
+        print("ERROR", "at FetchReleases", e.Message)
         if (tryCount > 10) {
-          ExitApp()
+          print("ERROR", "tryCount > 10 at FetchReleases", e.Message)
+          ExitApp(-1)
         }
         Sleep(10000)
       }
