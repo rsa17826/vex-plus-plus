@@ -1050,7 +1050,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"new_map_folder", false, true):
     await createNewMapFolder()
     if get_tree().current_scene.name == &"main menu":
-      get_tree().reload_current_scene()
+      get_tree().current_scene.loadLocalLevelList()
   if event.is_action_pressed(&"duplicate_block", false, true):
     if boxSelect_selectedBlocks.filter(func(e): return e.id and not e.DONT_SAVE):
       var targetBlock: EditorBlock = lastSelectedBlock if lastSelectedBlock in boxSelect_selectedBlocks else boxSelect_selectedBlocks[0]
