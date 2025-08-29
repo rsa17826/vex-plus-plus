@@ -32,8 +32,8 @@ func _ready() -> void:
     if data.version not in allData:
       allData[data.version] = {}
     if data.author not in allData[data.version]:
-      allData[data.version][data.author] = []
-    allData[data.version][data.author].append(levelName)
+      allData[data.version][data.author] = {}
+    allData[data.version][data.author][levelName] = data
   log.pp(allData)
 
   # for child in levelContainer.get_children():
@@ -56,12 +56,16 @@ func _ready() -> void:
       c.thisText = creator.to_lower().replace('\n', '')
       v.get_node("VBoxContainer").add_child(c)
       for levelName in allData[version][creator]:
+        var data = allData[version][creator][levelName]
+        var description = data.description
         var l = levelNode.instantiate()
         onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
         l.levelname.text = levelName
         l.thisText = l.levelname.text.to_lower().replace('\n', '')
         l.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
+        l.tooltip_text = description if description else "NO DESCRIPTION SET"
         l.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
+        l.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
         c.get_node("VBoxContainer").add_child(l)
   $AnimatedSprite2D.visible = false
 
