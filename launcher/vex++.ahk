@@ -327,6 +327,11 @@ guiCtrl.OnEvent("change", (elem, *) {
 
 GuiSetPlaceholder(guiCtrl, "extra game arguments go here")
 
+guiCtrl := ui.Add("Button", , "open logs folder")
+guiCtrl.OnEvent("Click", (*) {
+  run(A_AppData "\Godot\app_userdata\vex\logs\")
+})
+
 if not offline {
   guiCtrl := ui.Add("Button", , "Download All Versions")
   guiCtrl.OnEvent("Click", DownloadAll)

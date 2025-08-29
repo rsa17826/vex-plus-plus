@@ -473,3 +473,6 @@ func _on_open_readme_pressed() -> void:
 
 func _on_change_keybinds_pressed() -> void:
   $CTRLS.visible = !$CTRLS.visible
+
+func _on_open_logs_pressed() -> void:
+  OS.shell_open(global.path.abs("user://logs/godot.log"))

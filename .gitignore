@@ -41,3 +41,5 @@ exes/*
 addons/talo/settings.cfg
 
 **.ogv
+
+**/vex++.exe

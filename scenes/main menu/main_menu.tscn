@@ -122,6 +122,10 @@ text = "instructions"
 layout_mode = 2
 text = "change keybinds"
 
+[node name="open logs" type="Button" parent="BTNS"]
+layout_mode = 2
+text = "open logs"
+
 [node name="play tut" type="Button" parent="BTNS"]
 visible = false
 layout_mode = 2
@@ -151,3 +155,4 @@ offset_bottom = -102.4989
 [connection signal="pressed" from="BTNS/load online levels" to="." method="_on_load_online_levels_pressed"]
 [connection signal="pressed" from="BTNS/open readme" to="." method="_on_open_readme_pressed"]
 [connection signal="pressed" from="BTNS/change keybinds" to="." method="_on_change_keybinds_pressed"]
+[connection signal="pressed" from="BTNS/open logs" to="." method="_on_open_logs_pressed"]
