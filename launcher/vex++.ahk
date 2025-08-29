@@ -50,48 +50,51 @@ loadReleases() {
   releases := FetchReleases(apiUrl)
 }
 
-selfUpdate := A_Args.join(" ").includes("update")
-silent := A_Args.join(" ").includes("silent")
-offline := A_Args.join(" ").includes("offline")
+selfUpdate := A_Args.includes("update")
+silent := A_Args.includes("silent")
+offline := A_Args.includes("offline")
 if A_Args.includes("version") {
   doingSomething := 1
   try {
     gameVersion := A_Args[A_Args.IndexOf("version") + 1]
-    if hasProcessRunning() {
-      pid := F.read("game data/process")
-      if pid {
-        try {
-          ProcessClose(WinGetProcessName("ahk_pid " pid))
-          WinWaitClose("ahk_pid " pid)
-        }
-      }
-    }
-    msgbox(1)
+    gameVersion := String(gameVersion)
+    ; if hasProcessRunning() {
+    ;   pid := F.read("game data/process")
+    ;   if pid {
+    ;     try {
+    ;       ProcessClose(WinGetProcessName("ahk_pid " pid))
+    ;       WinWaitClose("ahk_pid " pid)
+    ;     }
+    ;   }
+    ; }
     args := ""
     for arg in A_Args {
       args .= ' "' . StrReplace(arg, '"', '\"') . '"'
     }
-    msgbox(2)
+    ; consoleIsBlocked := 0
     try {
       exeVersion := getExeVersion(gameVersion, () {
-        ; if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
-        exeVersion := input("Enter the exe version number.", '', '', "", newestExeVersion)
+        exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
         p := path.join(A_ScriptDir, "versions", gameVersion, "exeVersion.txt")
-        if exeVersion
+        if exeVersion and not silent
           F.write(p, exeVersion)
         return exeVersion
-        ; }
       })
       if !exeVersion {
         doingSomething := 0
-        return
-        ; aotMsgBox("Could not find the required executable version.")
+        print("ERROR", "Could not find the required executable version at A_Args.includes(`"version`")")
+        if !silent
+          aotMsgBox("Could not find the required executable version.")
       }
+      ; try {
       FileCopy(
         path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
         path.join(A_ScriptDir, "game data/vex.console.exe"),
         1
       )
+      ; } catch {
+      ;   consoleIsBlocked := 1
+      ; }
       FileCopy(
         path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
         path.join(A_ScriptDir, "game data/vex.exe"),
@@ -99,17 +102,21 @@ if A_Args.includes("version") {
       )
     }
     catch Error as e {
-      print("ERROR", "start version 2", e.Message)
+      print("ERROR", "start version 2", e.Message, e.Line, e.Extra, e.Stack, A_LastError)
       if not silent
         aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR")
     }
-    msgbox(3)
-
+    args .= ' ' F.read("launcherData/defaultArgs.txt")
+    ; if consoleIsBlocked {
+    ;   args .= ' RESTART_LAUNCHER'
+    ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    ; } else {
     run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    ; }
     ExitApp()
   }
   catch Error as e {
-    print("ERROR", "start version 1", e.Message)
+    print("ERROR", "start version 1", e.Message, e.Line, e.Extra, e.Stack, '"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     if silent {
       ExitApp(-1)
     } else {
@@ -193,6 +200,7 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   for arg in A_Args {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
+  ; args .= ' ' F.read("launcherData/defaultArgs.txt")
   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", F.read("launcherData/lastRanVersion.txt")))
   ExitApp()
 }
@@ -355,9 +363,9 @@ UpdateSelf(*) {
         DownloadFile(url, "temp.zip", , !silent)
         break
       } catch Error as e {
-        print("ERROR", "at updating self", e.Message)
+        print("ERROR", "at updating self", e.Message, e.Line, e.Extra, e.Stack)
         if (tryCount > 10) {
-          print("ERROR", "tryCount > 10 at updating self", e.Message)
+          print("ERROR", "tryCount > 10 at updating self", e.Message, e.Line, e.Extra, e.Stack)
           FileDelete("updating self")
           try FileDelete("temp.zip")
           ExitApp(-1)
@@ -406,7 +414,7 @@ getExeVersion(version, default?) {
     exever := F.read(p)
     if DirExist(path.join(A_ScriptDir, "launcherData/exes", exever))
       return exever
-    inp := input("exe version `"" exever "`" not found", '', '', "", newestExeVersion)
+    inp := tryInput("exe version `"" exever "`" not found", '', '', "", newestExeVersion)
     if inp {
       F.write(p, inp)
       return inp
@@ -415,8 +423,8 @@ getExeVersion(version, default?) {
   }
   if IsSet(default)
     return default()
-  exeVersion := input("Enter the exe version number.", '', '', "", newestExeVersion)
-  if exeVersion
+  exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
+  if exeVersion and not silent
     F.write(p, exeVersion)
   return exeVersion
   ; if IsInteger(version) {
@@ -439,9 +447,9 @@ runSelectedVersion() {
 
   exeVersion := getExeVersion(selectedVersion, () {
     ; if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
-    exeVersion := input("Enter the exe version number.", '', '', "", newestExeVersion)
+    exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
     p := path.join(A_ScriptDir, "versions", selectedVersion, "exeVersion.txt")
-    if exeVersion
+    if exeVersion and not silent
       F.write(p, exeVersion)
     return exeVersion
     ; }
@@ -466,7 +474,7 @@ runSelectedVersion() {
       )
     }
     catch Error as e {
-      print("ERROR", "Could not copy the required file at runSelectedVersion", e.Message)
+      print("ERROR", "Could not copy the required file at runSelectedVersion", e.Message, e.Line, e.Extra, e.Stack)
       if not silent
         aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR")
     }
@@ -583,7 +591,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
         "Failed to find vex.pck file",
         ""
       ]
-      print("ERROR", "Failed to find vex.pck file at DownloadSelected", e.Message)
+      print("ERROR", "Failed to find vex.pck file at DownloadSelected", e.Message, e.Line, e.Extra, e.Stack)
       DirDelete("versions/" selectedVersion, 1)
     }
     target := FileRead(A_ScriptDir '/temp/vex.exe', "UTF-16-RAW")
@@ -634,9 +642,9 @@ FetchReleases(apiUrl) {
         Download(apiUrl "?page=" i, jsonFile)
         break
       } catch Error as e {
-        print("ERROR", "at FetchReleases", e.Message)
+        print("ERROR", "at FetchReleases", e.Message, e.Line, e.Extra, e.Stack)
         if (tryCount > 10) {
-          print("ERROR", "tryCount > 10 at FetchReleases", e.Message)
+          print("ERROR", "tryCount > 10 at FetchReleases", e.Message, e.Line, e.Extra, e.Stack)
           ExitApp(-1)
         }
         Sleep(10000)
@@ -668,4 +676,11 @@ FetchReleases(apiUrl) {
 
 GuiClose(*) {
   ExitApp()
+}
+
+tryInput(text?, ifUnset?, title?, options?, default?) {
+  if silent {
+    return IsSet(default) ? default : unset
+  }
+  input(text?, ifUnset?, title?, options?, default?)
 }

@@ -73,7 +73,7 @@ func loadLocalLevelList():
           versiontext += "="
         l.openInCorrectVersion.text = 'open in ' + versiontext
         l.version.text = versiontext
-        l.openInCorrectVersion.visible = data.version != global.VERSION and launcherExists
+        # l.openInCorrectVersion.visible = data.version != global.VERSION and launcherExists
         l.openInCorrectVersion.version = data.version
         l.openInCorrectVersion.levelName = levelName
         l.version.visible = data.version == global.VERSION or not launcherExists
