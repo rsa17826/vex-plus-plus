@@ -19,27 +19,6 @@ func _ready() -> void:
   add_child(pm)
   loadUserOptions()
   loadLocalLevelList()
-    # var node := levelNode.instantiate()
-    # node.levelname.text = levelName
-    # var data = global.loadMapInfo(levelName)
-    # var versiontext = "V" + str(data.version) + " "
-    # if data.version > global.VERSION:
-    #   versiontext += ">"
-    # elif data.version < global.VERSION:
-    #   versiontext += "<"
-    # else:
-    #   versiontext += "="
-    # node.version.text = versiontext
-    # node.author.text = ("Author: " + data.author) if data else "INVALID LEVEL"
-    # node.description.text = data.description if data else "INVALID LEVEL"
-    # if data:
-    #   node.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
-    #   node.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
-    #   node.tooltip_text = data.description if data.description else "NO DESCRIPTION SET"
-    #   node.newSaveBtn.tooltip_text = node.tooltip_text
-    #   node.loadSaveBtn.tooltip_text = node.tooltip_text
-    # node.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
-    # levelContainer.add_child(node)
   %version.text = "VERSION: " + str(global.VERSION)
 
 func loadLocalLevelList():
@@ -47,7 +26,6 @@ func loadLocalLevelList():
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.MAP_FOLDER)
   var dirs = (dir.get_directories() as Array)
-  newestLevel = dirs[0] if dirs else null
   var allData = {}
   for levelName: String in dirs:
     var data = global.loadMapInfo(levelName)
@@ -63,6 +41,8 @@ func loadLocalLevelList():
   var arr := allData.keys()
   arr.sort()
   arr.reverse()
+  newestLevel = allData[arr[0]][allData[arr[0]].keys()[0]].keys()[0] if dirs else null
+  log.pp(newestLevel)
   const versionNode := preload("res://scenes/online level list/version.tscn")
   const creatorNode := preload("res://scenes/online level list/creator.tscn")
   # const levelNode := preload("res://scenes/online level list/level.tscn")
