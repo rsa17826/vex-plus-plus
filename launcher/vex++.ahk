@@ -87,19 +87,31 @@ if A_Args.includes("version") {
           aotMsgBox("Could not find the required executable version.")
       }
       ; try {
-      FileCopy(
-        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
-        path.join(A_ScriptDir, "game data/vex.console.exe"),
-        1
-      )
+      ; FileCopy(
+      ;   path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
+      ;   path.join(A_ScriptDir, "game data/vex.console.exe"),
+      ;   1
+      ; )
       ; } catch {
       ;   consoleIsBlocked := 1
       ; }
-      FileCopy(
-        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
-        path.join(A_ScriptDir, "game data/vex.exe"),
-        1
-      )
+      i := 0
+      while i < 10 {
+        try {
+          FileCopy(
+            path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
+            path.join(A_ScriptDir, "game data/vex.exe"),
+            1
+          )
+          break
+        } catch {
+          i += 1
+          sleep(400)
+        }
+      }
+      if i >= 10 {
+        print("ERROR", "start version 3")
+      }
     }
     catch Error as e {
       print("ERROR", "start version 2", e.Message, e.Line, e.Extra, e.Stack, A_LastError)
@@ -111,12 +123,12 @@ if A_Args.includes("version") {
     ;   args .= ' RESTART_LAUNCHER'
     ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     ; } else {
-    run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     ; }
     ExitApp()
   }
   catch Error as e {
-    print("ERROR", "start version 1", e.Message, e.Line, e.Extra, e.Stack, '"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    print("ERROR", "start version 1", e.Message, e.Line, e.Extra, e.Stack, '"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     if silent {
       ExitApp(-1)
     } else {
@@ -462,11 +474,11 @@ runSelectedVersion() {
   ; aotMsgBox('exeVersion ' exeVersion)
   if !hasProcessRunning() {
     try {
-      FileCopy(
-        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
-        path.join(A_ScriptDir, "game data/vex.console.exe"),
-        1
-      )
+      ; FileCopy(
+      ;   path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
+      ;   path.join(A_ScriptDir, "game data/vex.console.exe"),
+      ;   1
+      ; )
       FileCopy(
         path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
         path.join(A_ScriptDir, "game data/vex.exe"),
@@ -486,7 +498,7 @@ runSelectedVersion() {
   }
   args .= ' ' F.read("launcherData/defaultArgs.txt")
   F.write("launcherData/lastRanVersion.txt", selectedVersion)
-  run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", selectedVersion))
+  run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", selectedVersion))
   ExitApp()
 }
 

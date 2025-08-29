@@ -1845,8 +1845,6 @@ func _notification(what):
     quitGame()
 
 func quitGame():
-  # if Menu.GROUP:
-  #   Menu.GROUP.free()
   if !useropts:
     get_tree().quit()
     return
