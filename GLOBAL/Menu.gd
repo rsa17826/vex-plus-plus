@@ -7,7 +7,7 @@ var parent = null
 var used_keys = []
 var currentParent = []
 var groups = []
-var GROUP = FoldableGroup.new()
+var GROUP: FoldableGroup
 func _init(_parent, save_path: String = "main") -> void:
   parent = _parent
   currentParent = [_parent]
@@ -24,7 +24,9 @@ func _init(_parent, save_path: String = "main") -> void:
   # #log.pp("loading", _parent.name, save_path)
 
 # add a add that is multiselect/singleselect/range but with images instead of text either from a list of images or a dir full of images
-
+func _notification(what):
+  if GROUP:
+    GROUP.free()
 # add optional icon to add_bool
 func startGroup(name):
   groups.append(name)
@@ -157,6 +159,8 @@ func camel_case_to_spaces(camel_case_string: String):
   return result
 
 func show_menu():
+  if GROUP:
+    GROUP.free()
   startGroup("menu options")
   add_bool("dontCollapseGroups", false)
   add_bool("onlyExpandSingleGroup", true)
@@ -204,6 +208,8 @@ func show_menu():
         var group = FoldableContainer.new()
         group.folded = !data.dontCollapseGroups
         if data.onlyExpandSingleGroup and not data.dontCollapseGroups:
+          if !GROUP:
+            GROUP = FoldableGroup.new()
           group.foldable_group = GROUP
         if data.loadExpandedGroups:
           group.folded = !thing.user
@@ -427,8 +433,7 @@ class __changed_proxy:
 func save():
   sds.saveDataToFile(full_save_path, get_all_data())
 
-func debug():
-  pass
+func debug(): pass
   #log.pp("menu_data", menu_data)
   #log.pp("get_all_data", get_all_data())
 
