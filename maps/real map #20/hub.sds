@@ -317,9 +317,9 @@
     }
   }
   {
-    STR(x)FLOAT(1575.0)
+    STR(x)FLOAT(1700.0)
     STR(y)FLOAT(-350.0)
-    STR(w)FLOAT(6.50000149011612)
+    STR(w)FLOAT(4.00000101327896)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -408,8 +408,8 @@
     }
   }
   {
-    STR(x)FLOAT(1625.0)
-    STR(y)FLOAT(-475.0)
+    STR(x)FLOAT(1575.0)
+    STR(y)FLOAT(-425.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -418,6 +418,34 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(contactOption)INT(1)
+    }
+  }
+  {
+    STR(x)FLOAT(1550.0)
+    STR(y)FLOAT(-400.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(sticky floor)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1575.0)
+    STR(y)FLOAT(-525.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(jump refresher)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+      STR(contactOption)INT(0)
     }
   }
 ]

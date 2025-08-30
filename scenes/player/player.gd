@@ -989,7 +989,7 @@ func _physics_process(delta: float) -> void:
     # log.pp(camera.position, changeInPosition)
 
     # log.pp(camera.position_smoothing_speed, maxVel)
-
+  log.pp(remainingJumpCount)
 func moveAnimations():
   var flip_h = -1 if anim.flip_h else 1
   var temp = (func():
@@ -1525,6 +1525,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version OLD-1-NOW! player direction not reset on death
   # /!version ?-135! negative size spikes don't have a texture
     # 135/rssaromeo/uno mas - invisible spikes - no alpha
+  # !version 147-INF! sticky floors don't modify jump count so jump refresher set to +1 can give infinite jumps if collected and the next place landed is a sticky floor
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1594,3 +1595,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # see self signal sending?
 
 # fix path not effected by color
+
+# ??add jump count display on player
