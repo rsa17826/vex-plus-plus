@@ -202,7 +202,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
 - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
-- **autoExpandAllGroups**: when loading an online level list, all groups are expanded, if false only the group for the current game version is expanded
+- **autoExpandAllGroupsInOnlineLevelList**: when loading an online level list, all groups are expanded, if false only the group for the current game version is expanded
 
 ### debug
 

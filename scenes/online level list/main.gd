@@ -119,7 +119,7 @@ func loadOnlineLevels():
     if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     var v = versionNode.instantiate()
     v.title = str(version)
-    v.folded = false if global.useropts.autoExpandAllGroups else version != global.VERSION
+    v.folded = false if global.useropts.autoExpandAllGroupsInOnlineLevelList else version != global.VERSION
     v.thisText = str(version).to_lower().replace('\n', '')
     levelListContainerNode.add_child(v)
     for creator in allData[version]:

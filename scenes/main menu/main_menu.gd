@@ -50,7 +50,7 @@ func loadLocalLevelList():
   for version in arr:
     var v = versionNode.instantiate()
     v.title = str(version)
-    v.folded = false if global.useropts.autoExpandAllGroups else version != global.VERSION
+    v.folded = false if global.useropts.autoExpandAllGroupsInLocalLevelList else version != global.VERSION
     v.thisText = str(version).to_lower().replace('\n', '')
     levelContainer.add_child(v)
     for creator in allData[version]:
