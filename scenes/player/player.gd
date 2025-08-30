@@ -1553,7 +1553,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # +-??add block id viewer to see what ids are used, where the ids are used at and how many times they're used and be able to warp to blocks by selected id. would work for things like portals and buttons and button deactvated walls
 # -??!!?make gravity rotators only affect the things that enter them
 # ??add powerups
-# ?!!when first loading level blocks attach incorrectly until respawn
+# ?!!when first loading level blocks attach incorrectly until respawn - could be fixed?
 
 # ?grab
 
