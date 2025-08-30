@@ -199,7 +199,13 @@ func _unhandled_input(event: InputEvent) -> void:
   var shouldPan: bool = Input.is_action_pressed(&"editor_pan")
   if global.useropts.autoPanWhenClickingEmptySpace:
     if not Input.is_action_pressed(&"editor_pan"):
-      if (!global.hoveredBlocks or startedPanning) and !global.selectedBlock and Input.is_action_pressed(&"editor_select", true):
+      if (
+        !global.hoveredBlocks
+        or startedPanning
+      ) \
+      and !global.selectedBlock \
+      and Input.is_action_pressed(&"editor_select", true) \
+      :
         startedPanning = true
         shouldPan = true
       else:
