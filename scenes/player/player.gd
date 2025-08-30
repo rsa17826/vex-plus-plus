@@ -1599,3 +1599,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ??add jump count display on player
 
 # !!add modifiers to readme
+
+# !!!fix no shrink past min size

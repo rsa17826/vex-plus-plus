@@ -632,8 +632,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - canAttachToPaths
   - **settings**:
     - **contactOption**: what to do when the player enters it
-      - **reset to max**resets the players jump count to the levels max jump count
-      - **add one**adds 1 to the players current jump count
+      - **reset to max**: resets the players jump count to the levels max jump count
+      - **add one**: adds 1 to the players current jump count
+      - **remove one**: removes 1 from the players current jump count
     - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property

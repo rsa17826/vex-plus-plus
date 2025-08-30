@@ -19,7 +19,7 @@ func on_body_entered(body: Node2D):
       rad_to_deg(angle_difference(curAngle.angle(), wantAngle.angle())),
       wantAngle.distance_to(curAngle)
     )
-    if wantAngle.distance_to(curAngle) > 1.5:
+    if wantAngle.distance_to(curAngle) > 1.65:
       body.deathSources.append(self )
     # log.pp(Vector2.UP.rotated(body.velocity.angle()), Vector2.UP.rotated(rotation))
 
