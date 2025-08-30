@@ -471,6 +471,18 @@
   },
   {
     "thing": "group",
+    "name": "localLevelList",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "autoExpandAllGroupsInLocalLevelList",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "thing": "group",
     "name": "online level list",
     "value": [
       {
@@ -488,7 +500,7 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "autoExpandAllGroups",
+        "key": "autoExpandAllGroupsInOnlineLevelList",
         "defaultValue": false
       }
     ]
