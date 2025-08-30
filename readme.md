@@ -624,6 +624,16 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
+- **jump refresher**: when the player touches this it will reset the players jumps to the max
+ <img src="scenes/blocks/jump refresher/images/1.png" alt="image of block jump refresher" width="50" height="50">
+
+  - canAttachToThings
+  - canAttachToPaths
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **key**: when the player comes in contact with this it will start following the player until ised to unlock a locked box
  <img src="scenes/blocks/key/images/1.png" alt="image of block key" width="26" height="50">
 
