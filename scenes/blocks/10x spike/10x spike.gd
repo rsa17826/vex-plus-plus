@@ -1,6 +1,6 @@
 @icon("images/editorBar.png")
 extends EditorBlock
-class_name Block10xSpike
+class_name Block10xOnewaySpike
 
 func on_respawn():
   # $Node2D.position = Vector2(0, 11-72.5)
