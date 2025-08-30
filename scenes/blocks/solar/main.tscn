@@ -12,10 +12,9 @@ size = Vector2(700, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dvwo"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_bxmnj")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_5qqdf")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
@@ -51,7 +50,6 @@ script = ExtResource("2_x30da")
 root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode2"]
-visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
