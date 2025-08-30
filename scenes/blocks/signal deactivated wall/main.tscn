@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://nxwnut3km1l6"]
 
-[ext_resource type="Script" uid="uid://b1q2k3wfgp6hf" path="res://scenes/blocks/button deactivated wall/button deactivated wall.gd" id="1_6hd43"]
+[ext_resource type="Script" uid="uid://b1q2k3wfgp6hf" path="res://scenes/blocks/signal deactivated wall/signal deactivated wall.gd" id="1_6hd43"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_0wgu6"]
-[ext_resource type="Texture2D" uid="uid://bec5vqx718f4n" path="res://scenes/blocks/button deactivated wall/images/1.png" id="3_etsxo"]
+[ext_resource type="Texture2D" uid="uid://bec5vqx718f4n" path="res://scenes/blocks/signal deactivated wall/images/1.png" id="3_etsxo"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_vjcpr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
@@ -11,16 +11,14 @@ size = Vector2(700, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oa5gc"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_6hd43")
 ghostIconNode = NodePath("collisionNode/ghost")
-editorBarIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("3_etsxo")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/ghost")]
 cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
-ignoreMissingNodes = true
 EDITOR_OPTION_scale = true
 canAttachToPaths = true
 

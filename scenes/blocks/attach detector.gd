@@ -24,15 +24,11 @@ func on_respawn():
   elif root.canAttachToThings and root.selectedOptions.canAttachToThings: pass
   else: return
   following = true
-  await global.wait()
-  await global.wait()
-  await global.wait()
-  await global.wait()
-  tryaddgroups()
-  await global.wait()
-  tryaddgroups()
-  await global.wait()
-  tryaddgroups()
+  var i = 0
+  while i < 6:
+    i += 1
+    await global.wait()
+    tryaddgroups()
 
 func tryaddgroups():
   for block in get_overlapping_bodies() + get_overlapping_areas():

@@ -84,7 +84,8 @@
     STR(not gate)
     STR(and gate)
     STR(path)
-    STR(button deactivated wall)
+    STR(signal deactivated wall)
+    STR(timer)
   ]
   STR(remove)[
     STR(UNAVAILABLE)
