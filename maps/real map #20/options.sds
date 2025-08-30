@@ -2,7 +2,7 @@
   STR(start)STR(hub)
   STR(author)STR(rssaromeo)
   STR(description)STR()
-  STR(version)INT(145)
+  STR(version)INT(147)
   STR(stages){
     STR(hub){
       STR(color)INT(10)
@@ -15,5 +15,5 @@
       STR(canDoWallJump)BOOL(true)
     }
   }
-  STRNAME(levelVersion)INT(79)
+  STRNAME(levelVersion)INT(93)
 }

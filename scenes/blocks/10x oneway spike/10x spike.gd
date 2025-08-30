@@ -10,8 +10,13 @@ func on_body_entered(body: Node2D):
   if body is Player:
     var wantAngle = global.clearLow(Vector2.UP.rotated(rotation))
     var curAngle = body.velocity.sign()
-    # log.pp(wantAngle, curAngle, wantAngle.distance_to(curAngle))
-    if wantAngle.distance_to(curAngle) >= 2:
+    # log.err(
+    #   wantAngle,
+    #   curAngle,
+    #   rad_to_deg(angle_difference(curAngle.angle(), wantAngle.angle())),
+    #   wantAngle.distance_to(curAngle)
+    # )
+    if wantAngle.distance_to(curAngle) > 1.5:
       body.deathSources.append(self )
     # log.pp(Vector2.UP.rotated(body.velocity.angle()), Vector2.UP.rotated(rotation))
 
