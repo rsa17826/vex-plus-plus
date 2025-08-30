@@ -426,8 +426,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
-- **button deactivated wall**: active only whern its signal is off.
- <img src="scenes/blocks/button deactivated wall/images/1.png" alt="image of block button deactivated wall" width="50" height="50">
+- **signal deactivated wall**: active only whern its signal is off.
+ <img src="scenes/blocks/signal deactivated wall/images/1.png" alt="image of block signal deactivated wall" width="50" height="50">
 
   - scalable
   - canAttachToPaths
