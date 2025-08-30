@@ -1141,7 +1141,8 @@ func _unhandled_input(event: InputEvent) -> void:
         player.lastSpawnPoint = currentLevel().spawnPoint
         player.camLockPos = Vector2.ZERO
         player.goto(player.deathPosition)
-        player.die(0, false, true)
+        player.die(1, false, true)
+        await wait()
         player.die(15, false, true)
         # player.die(3, false, true)
         global.tick = global.currentLevel().tick
@@ -1318,8 +1319,9 @@ func loadInnerLevel(innerLevel: String) -> void:
   player.deathPosition = player.lastSpawnPoint
   player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
-  player.die(0, true, true)
-  player.die(5, true, true)
+  player.die(1, false, true)
+  await wait()
+  player.die(15, false, true)
   loadBlockData()
   await savePlayerLevelData()
   loadingLevel = false
@@ -1347,7 +1349,8 @@ func win() -> void:
   player.deathPosition = player.lastSpawnPoint
   player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
-  player.die(0, false, true)
+  player.die(1, false, true)
+  await wait()
   player.die(15, false, true)
   await wait()
   loadBlockData()
@@ -1470,7 +1473,8 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
     player.lastSpawnPoint = Vector2.ZERO
   player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
-  player.die(0, false, true)
+  player.die(1, false, true)
+  await wait()
   player.die(15, false, true)
   global.tick = global.currentLevel().tick
   return true

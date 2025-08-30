@@ -361,8 +361,8 @@ func _physics_process(delta: float) -> void:
           position = respawnPosition
         else:
           position = Vector2(0, -1.9)
-        stopDying.call_deferred()
-        global.resendActiveSignals.call_deferred()
+        stopDying()
+        global.resendActiveSignals()
       return
     States.inCannon:
       remainingJumpCount = MAX_JUMP_COUNT
@@ -1594,8 +1594,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make multiselect outline visible while panning
 
 # add outline to dusabled walls and change name
-
-# fix attachments to dusabled walls
 
 # see self signal sending?
 
