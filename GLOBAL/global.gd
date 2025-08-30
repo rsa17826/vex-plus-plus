@@ -2141,8 +2141,9 @@ func boxSelectReleased():
     if block.isChildOfCustomBlock: continue
     if block.EDITOR_IGNORE: continue
     var pos = block.global_position
-    if pos.x + (block.sizeInPx.x / 2) >= rect[0][0] and pos.x - (block.sizeInPx.x / 2) <= rect[1][0]:
-      if pos.y + (block.sizeInPx.y / 2) >= rect[0][1] and pos.y - (block.sizeInPx.y / 2) <= rect[1][1]:
+    var size = block.sizeInPx.rotated(deg_to_rad(block.startRotation_degrees))
+    if pos.x + (size.x / 2) >= rect[0][0] and pos.x - (size.x / 2) <= rect[1][0]:
+      if pos.y + (size.y / 2) >= rect[0][1] and pos.y - (size.y / 2) <= rect[1][1]:
         if block not in boxSelect_selectedBlocks:
           boxSelect_selectedBlocks.append(block)
 

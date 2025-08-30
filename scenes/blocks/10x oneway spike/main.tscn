@@ -46,13 +46,11 @@ texture = ExtResource("5_srjnf")
 editorSize = Vector2(701, 123)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
-visible = false
 position = Vector2(0, -57.5)
 shape = SubResource("RectangleShape2D_1gece")
 debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
-visible = false
 position = Vector2(0, -72.5)
 collision_layer = 0
 collision_mask = 32768
