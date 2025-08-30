@@ -1597,3 +1597,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix path not effected by color
 
 # ??add jump count display on player
+
+# !!add modifiers to readme
