@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://diaf1skj6v3vg"]
+
+[ext_resource type="Script" uid="uid://cvb1vm5hrf6gq" path="res://scenes/blocks/jump refresher/pole.gd" id="1_ru51i"]
+[ext_resource type="Texture2D" uid="uid://8bvm0rjhmvnk" path="res://scenes/blocks/jump refresher/images/1.png" id="2_j21a7"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_xqv1t"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_jyduy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8tkfk"]
+radius = 93.00538
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_orajn"]
+radius = 197.0406
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+script = ExtResource("1_ru51i")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_j21a7")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+cloneEventsHere = [NodePath("attach detector")]
+thingThatMoves = NodePath("collisionNode")
+canAttachToThings = true
+canAttachToPaths = true
+
+[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 3072
+collision_mask = 2
+script = ExtResource("3_xqv1t")
+root = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_j21a7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+shape = SubResource("CircleShape2D_8tkfk")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 32768
+script = ExtResource("6_jyduy")
+root = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
+shape = SubResource("CircleShape2D_orajn")
+debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

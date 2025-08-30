@@ -1780,6 +1780,7 @@ const DEFAULT_BLOCK_LIST = [
   "gravity up lever",
   "speed up lever",
   "growing buzsaw",
+  "jump refresher",
   "key",
   "light switch",
   "red only light switch",
@@ -2172,10 +2173,6 @@ var portals: Array[BlockPortal] = []:
   get():
     portals = portals.filter(isAlive)
     return portals
-# var buttonWalls: Array[BlockButtonDeactivatedWall] = []:
-#   get():
-#     buttonWalls = buttonWalls.filter(isAlive)
-#     return buttonWalls
 
 var isFirstTimeMenuIsLoaded := true
 
