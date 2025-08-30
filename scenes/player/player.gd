@@ -1593,8 +1593,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # make multiselect outline visible while panning
 
-# add outline to dusabled walls and change name
-
 # see self signal sending?
 
 # fix path not effected by color
