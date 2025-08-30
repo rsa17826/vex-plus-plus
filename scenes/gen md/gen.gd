@@ -117,7 +117,7 @@ func _ready() -> void:
         if global.same(block.blockOptions[k].type, global.PromptTypes._enum):
           var values = block.blockOptions[k].values
           for enumKey in values:
-            var enumKeyVal = "      - **" + enumKey + "**"
+            var enumKeyVal = "      - **" + enumKey + "**: "
             innerLastText = ''
             if enumKeyVal in oldmd:
               innerLastText = oldmd.split(enumKeyVal)[1].split("\n")[0]

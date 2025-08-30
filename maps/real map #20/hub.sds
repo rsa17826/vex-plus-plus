@@ -445,7 +445,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
-      STR(contactOption)INT(0)
+      STR(contactOption)INT(2)
     }
   }
 ]
