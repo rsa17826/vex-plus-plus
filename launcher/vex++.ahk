@@ -23,6 +23,10 @@ ui := Gui("+AlwaysOnTop")
 ui.OnEvent("Close", GuiClose)
 ui.Add("Text", , "Vex++ Version Manager")
 
+bufferEqual(Buf1, Buf2) {
+  return Buf1.Size == Buf2.Size && DllCall("msvcrt\memcmp", "Ptr", Buf1, "Ptr", Buf2, "Ptr", Buf1.Size)
+}
+
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 newestExeVersion := "4.5.beta6"
 doingSomething := 0
@@ -35,7 +39,7 @@ if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
 }
 try FileDelete("c.bat")
-try DirDelete("temp", 1)
+; try DirDelete("temp", 1)
 try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
@@ -628,15 +632,26 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
       print("ERROR", "Failed to find vex.pck file at DownloadSelected", e.Message, e.Line, e.Extra, e.Stack)
       DirDelete("versions/" selectedVersion, 1)
     }
-    target := FileRead(A_ScriptDir '/temp/vex.exe', "UTF-16-RAW")
+    targetFile := FileOpen(A_ScriptDir '/temp/vex.exe', "r")
+    targetBuff := Buffer()
+    targetBuff.Size := targetFile.Length
+    target := targetFile.RawRead(targetBuff, targetFile.Length)
+
     updateRow(row, , "finding correct exe version", "")
     ; _f := FileOpen("D:\Games\vex++\tempEXECMP", "w", "UTF-16-RAW")
     ; _f.write(target)
     ; _f.close()
     loop files A_ScriptDir "/launcherData/exes/*", 'D' {
-      ; aotMsgBox("reading file: " A_LoopFileName)
-      if FileRead(A_LoopFileFullPath "/vex.exe", "UTF-16-RAW") = target {
+      updateRow(row, , "checking - " A_LoopFileName, "")
+      print("reading file: " A_LoopFileName)
+      testFile := FileOpen(A_LoopFileFullPath '/vex.exe', "r")
+      testBuff := Buffer()
+      testBuff.Size := testFile.Length
+      target := testFile.RawRead(testBuff, testFile.Length)
+      if BufferEqual(targetBuff, testBuff) {
         version := A_LoopFileName
+        updateRow(row, , "found correct exe version - " A_LoopFileName, "")
+        sleep(1500)
         break
       }
     }
