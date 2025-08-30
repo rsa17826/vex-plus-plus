@@ -1558,7 +1558,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ?grab
 
 # !!fix blocks sometimes ending up near 00
-# !!multi select doesn't trigger on move end
+# !!make multi select not trigger on move end
 
 # -add presets to menu options
 
@@ -1569,7 +1569,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # -nodie star
 # -?!!!add block name as tooltip to editor bar
 # -make multiselected block rotatable/scalable
-# -fix rotating paths
 # -surprise spike
 # -!!update numbers when searching online levels
 # -search multiple terms at once
