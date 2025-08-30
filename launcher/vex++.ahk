@@ -464,11 +464,6 @@ getExeVersion(version, default?) {
   if exeVersion and not silent
     F.write(p, exeVersion)
   return exeVersion
-  ; if IsInteger(version) {
-  ;   if version < 57
-  ;     return 4.4
-  ;   return 4.5
-  ; }
 }
 
 runSelectedVersion() {

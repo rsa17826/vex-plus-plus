@@ -1,6 +1,6 @@
 @icon("images/1.png")
 extends EditorBlock
-class_name BlockButtonDeactivatedWall
+class_name BlockSignalDeactivatedWall
 
 func on_respawn() -> void:
   global.onSignalChanged(on_signal_changed)

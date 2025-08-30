@@ -1757,7 +1757,7 @@ const DEFAULT_BLOCK_LIST = [
   "microwave",
   "locked box",
   "floor button",
-  "button deactivated wall",
+  "signal deactivated wall",
   "glass",
   "falling",
   "donup",

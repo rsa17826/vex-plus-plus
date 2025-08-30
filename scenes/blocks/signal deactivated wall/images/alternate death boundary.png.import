@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bec5vqx718f4n"
-path="res://.godot/imported/1.png-8da20382a97f33cc06b01b88b58b97c5.ctex"
+uid="uid://dtvawtpw82g7b"
+path="res://.godot/imported/alternate death boundary.png-091d1683d7e93bd921f8f44bf6acf3b8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/button deactivated wall/images/1.png"
-dest_files=["res://.godot/imported/1.png-8da20382a97f33cc06b01b88b58b97c5.ctex"]
+source_file="res://scenes/blocks/signal deactivated wall/images/alternate death boundary.png"
+dest_files=["res://.godot/imported/alternate death boundary.png-091d1683d7e93bd921f8f44bf6acf3b8.ctex"]
 
 [params]
 

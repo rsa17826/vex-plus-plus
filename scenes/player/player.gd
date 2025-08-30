@@ -363,9 +363,6 @@ func _physics_process(delta: float) -> void:
           position = Vector2(0, -1.9)
         stopDying.call_deferred()
         global.resendActiveSignals.call_deferred()
-      # else:
-      #   # deadPlayerCollisionShape.disabled = false
-      #   root.__disable()
       return
     States.inCannon:
       remainingJumpCount = MAX_JUMP_COUNT
