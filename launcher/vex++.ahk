@@ -57,6 +57,47 @@ loadReleases() {
 selfUpdate := A_Args.includes("update")
 silent := A_Args.includes("silent")
 offline := A_Args.includes("offline")
+
+if A_Args.join(" ").includes("tryupdate") {
+  loadReleases()
+  if F.read("launcherData/launcherVersion") != releases.Length {
+    selfUpdate := 1
+  }
+}
+if selfUpdate {
+  loadReleases()
+  UpdateSelf()
+  ExitApp()
+}
+
+if FileExist("updating self") {
+  if FileExist('temp.zip') {
+    if F.read("updating self") == 'silent' {
+      FileDelete("updating self")
+      FileDelete("temp.zip")
+    } else {
+      FileDelete("updating self")
+      FileDelete("temp.zip")
+      aotMsgBox("failed while updating the launcher!!!")
+    }
+  } else {
+    loadReleases()
+    F.write("launcherData/launcherVersion", releases.Length)
+    if F.read("updating self") == 'silent' {
+      FileDelete("updating self")
+      ExitApp()
+    }
+    FileDelete("updating self")
+  }
+}
+else {
+  if FileExist('temp.zip') {
+    FileDelete("temp.zip")
+    print("error", "failed while installing a game version!!")
+    aotMsgBox("failed while installing a game version!!")
+  }
+}
+
 if A_Args.includes("version") {
   doingSomething := 1
   try {
@@ -132,7 +173,7 @@ if A_Args.includes("version") {
     ExitApp()
   }
   catch Error as e {
-    print("ERROR", "start version 1", e.Message, e.Line, e.Extra, e.Stack, '"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    print("ERROR", "No version specified, you must specify a version number to open", "start version 1", e.Message, e.Line, e.Extra, e.Stack, '"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     if silent {
       ExitApp(-1)
     } else {
@@ -142,44 +183,6 @@ if A_Args.includes("version") {
   ExitApp()
 }
 
-if A_Args.join(" ").includes("tryupdate") {
-  loadReleases()
-  if F.read("launcherData/launcherVersion") != releases.Length {
-    selfUpdate := 1
-  }
-}
-if selfUpdate {
-  loadReleases()
-  UpdateSelf()
-  ExitApp()
-}
-
-if FileExist("updating self") {
-  if FileExist('temp.zip') {
-    if F.read("updating self") == 'silent' {
-      FileDelete("updating self")
-      FileDelete("temp.zip")
-    } else {
-      FileDelete("updating self")
-      FileDelete("temp.zip")
-      aotMsgBox("failed while updating the launcher!!!")
-    }
-  } else {
-    loadReleases()
-    F.write("launcherData/launcherVersion", releases.Length)
-    if F.read("updating self") == 'silent' {
-      FileDelete("updating self")
-      ExitApp()
-    }
-    FileDelete("updating self")
-  }
-}
-else {
-  if FileExist('temp.zip') {
-    FileDelete("temp.zip")
-    aotMsgBox("failed while installing a game version!!")
-  }
-}
 hasProcessRunning() {
   ; if the game process is running
   if FileExist("game data/process") {
