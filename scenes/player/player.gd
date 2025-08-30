@@ -18,7 +18,6 @@ class_name Player
 @export var waterAnimTop: AnimatedSprite2D
 @export var waterAnimBottom: AnimatedSprite2D
 @export var camera: Camera2D
-# @export var deadPlayerCollisionShape: CollisionShape2D
 
 var MAX_JUMP_COUNT = 0
 var DEATH_TIME = 20
@@ -41,7 +40,6 @@ const SMALL = .00001
 
 var lastDeathWasForced := false
 var respawnCooldown: float = 0
-# var shouldStopDying: Array[BlockUndeath] = []
 var levelFlags: Dictionary[String, Variant] = {}
 var autoRunDirection: int = 1
 var cannonRotationDelayFrames: float = 0
@@ -90,6 +88,13 @@ var lastSpawnPoint := Vector2.ZERO
 var tempLastSpawnPoint := Vector2.ZERO
 
 var moving := 0
+
+var velTotal: Vector2:
+  get():
+    var v := Vector2.ZERO
+    for k in vel:
+      v += vel[k]
+    return v
 
 var inWaters: Array[BlockWater] = []
 
@@ -1309,9 +1314,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   root.__disable()
   respawnCooldown = respawnTime
   # log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
-  # if shouldStopDying and not forced: return
   lastDeathWasForced = forced
-  # shouldStopDying = []
   # root.__disable()
   # process_mode = Node.PROCESS_MODE_DISABLED
   var dontResetPlayerData := false
@@ -1587,8 +1590,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # jump refreshers
 
 # add way to say creators should be higher than versions
-
-# add separate options for expanding groups on main menu vs online levels
 
 # see self signal sending?
 

@@ -9,13 +9,16 @@ func on_respawn():
 func on_body_entered(body: Node2D):
   if body is Player:
     var wantAngle = global.clearLow(Vector2.UP.rotated(rotation))
-    var curAngle = body.velocity.sign()
-    # log.err(
-    #   wantAngle,
-    #   curAngle,
-    #   rad_to_deg(angle_difference(curAngle.angle(), wantAngle.angle())),
-    #   wantAngle.distance_to(curAngle)
-    # )
+    var curAngle = body.velTotal.sign()
+    log.pp(
+      "oneway spikes entered:",
+      body.velocity,
+      body.velTotal,
+      wantAngle,
+      curAngle,
+      rad_to_deg(angle_difference(curAngle.angle(), wantAngle.angle())),
+      wantAngle.distance_to(curAngle)
+    )
     if wantAngle.distance_to(curAngle) > 1.5:
       body.deathSources.append(self )
     # log.pp(Vector2.UP.rotated(body.velocity.angle()), Vector2.UP.rotated(rotation))

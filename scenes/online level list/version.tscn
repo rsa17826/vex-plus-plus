@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://baqbcnumwhf2i"]
 
-[ext_resource type="Script" uid="uid://bqgetsu6xwah3" path="res://scenes/online level list/creator.gd" id="1_8omp8"]
+[ext_resource type="Script" uid="uid://bqgetsu6xwah3" path="res://scenes/online level list/unfold on search.gd" id="1_8omp8"]
 
 [node name="version" type="FoldableContainer"]
 anchors_preset = 15
