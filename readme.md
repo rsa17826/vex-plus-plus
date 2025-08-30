@@ -19,7 +19,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - launcher also has a button to update the launcher
 
 <!-- start auto -->
-<!-- 
+<!--
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
     - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
@@ -51,7 +51,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **onSignalDeactivationWhileCharging**: what happens when its signal is deactivating while charging
     - **dischargeTime**: the time it takes for a signal to be discharged
     - **onSignalActivationWhileDischarging**: what happens when its signal is activating while discharging
- -->
+-->
 
 ## Controls
 
@@ -991,13 +991,17 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 -->
 
 ## Command Line Arguments
+
 ## Launcher
+
 - **offline**: doesn't fetch release data from github
 - **silent**: suppresses all alerts and all inputs will auto use the default value
 - **version**: opens the game version specified in the next argument
 - **update**: updates the launcher to the newest version
 - **tryupdate**: updates the launcher to the newest version only if the newest version is different than the current version
+
 ### Game
+
 - **--loadMap**
   - when opening the game it loads a map by name or NEWEST to load the newest map.
 - **--loadOnlineLevels**

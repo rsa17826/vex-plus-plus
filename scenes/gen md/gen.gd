@@ -126,10 +126,10 @@ func _ready() -> void:
             text += "\n" + enumKeyVal + innerLastText
     block.queue_free()
   # log.pp(text)
-  var setKeysString = "<!-- "
+  var setKeysString = "<!--"
   for k in setKeys:
     setKeysString += "\n    - **" + k + "**: " + setKeys[k]
-  setKeysString += "\n -->"
+  setKeysString += "\n-->"
   global.file.write(
     "res://readme.md",
     global.regReplace(
