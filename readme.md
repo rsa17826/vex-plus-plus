@@ -269,6 +269,18 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **canAttachToPaths**: allows this block to attach to paths
     - **color**: sets the modulate property
 
+- **10x oneway spike**: kills the player when they collide with the tips of the spikes and are harmless in all other directions
+ <img src="scenes/blocks/10x oneway spike/images/editorBar.png" alt="image of block 10x oneway spike" width="50" height="42">
+
+  - scalable
+  - rotatable
+  - canAttachToThings
+  - canAttachToPaths
+  - **settings**:
+    - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+    - **canAttachToPaths**: allows this block to attach to paths
+    - **color**: sets the modulate property
+
 - **10x solar spike**: kills the player on contact if lights are on
  <img src="scenes/blocks/10x solar spike/images/editorBar.png" alt="image of block 10x solar spike" width="50" height="42">
 
