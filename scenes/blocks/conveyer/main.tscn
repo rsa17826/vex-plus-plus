@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ci41d41j1ais5"]
+[gd_scene load_steps=42 format=3 uid="uid://ci41d41j1ais5"]
 
 [ext_resource type="Script" uid="uid://dnjw8lovocsct" path="res://scenes/blocks/conveyer/conveyer.gd" id="1_enkcj"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_u1hgo"]
@@ -35,7 +35,9 @@
 [ext_resource type="Texture2D" uid="uid://boeye2q6gpt7c" path="res://scenes/blocks/conveyer/images/arrows/29.png" id="32_8vsqi"]
 [ext_resource type="Texture2D" uid="uid://drxl5nb1auvxw" path="res://scenes/blocks/conveyer/images/arrows/30.png" id="33_g76sr"]
 [ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="35_cuh3p"]
+[ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="36_02m14"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="36_60tkb"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="38_qxewa"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3vqki"]
 animations = [{
@@ -141,10 +143,9 @@ size = Vector2(700, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ngdk"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_enkcj")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("")
 editorBarIcon = ExtResource("4_utmle")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/AnimatedSprite2D")]
@@ -173,6 +174,7 @@ script = ExtResource("35_cuh3p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
+script = ExtResource("36_02m14")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
@@ -184,6 +186,7 @@ root = NodePath("..")
 z_index = 3
 shape = SubResource("RectangleShape2D_4ngdk")
 debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
+script = ExtResource("38_qxewa")
 metadata/_edit_lock_ = true
 
 [connection signal="input_event" from="collisionNode" to="." method="_on_input_event"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dxyx8pblcdhdi"]
+[gd_scene load_steps=10 format=3 uid="uid://dxyx8pblcdhdi"]
 
 [ext_resource type="Script" uid="uid://bjpbt3rbcl7nx" path="res://scenes/blocks/pole quadrant/Pole Quadrant.gd" id="1_6ey8g"]
 [ext_resource type="Texture2D" uid="uid://hiewhh1a6v25" path="res://scenes/blocks/pole quadrant/images/1.png" id="2_a867g"]
@@ -7,15 +7,15 @@
 [ext_resource type="PackedScene" uid="uid://ckbwrk1t23iw7" path="res://scenes/blocks/pole/main.tscn" id="4_6ey8g"]
 [ext_resource type="Texture2D" uid="uid://dyui7u0dn8a0d" path="res://scenes/blocks/pole quadrant/images/editorBar.png" id="4_12gxb"]
 [ext_resource type="Texture2D" uid="uid://erovvqpsf5j" path="res://scenes/blocks/pole quadrant/images/ghost.png" id="4_dc0lt"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="8_4uu3v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pha53"]
 radius = 46.3897
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_6ey8g")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/ghost")
-editorBarIconNode = NodePath("")
 editorBarIcon = ExtResource("4_12gxb")
 collisionShapes = [NodePath("attach detector/CollisionShape2D"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
@@ -85,4 +85,5 @@ metadata/_edit_lock_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_pha53")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+script = ExtResource("8_4uu3v")
 metadata/_edit_lock_ = true

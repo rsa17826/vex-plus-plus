@@ -1,17 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://do1igghgsgbtp"]
+[gd_scene load_steps=7 format=3 uid="uid://do1igghgsgbtp"]
 
 [ext_resource type="Script" uid="uid://ch5ha1l5tyj4l" path="res://scenes/blocks/arrow/arrow.gd" id="1_7ht56"]
 [ext_resource type="Texture2D" uid="uid://78xbn3c3mw11" path="res://scenes/blocks/arrow/images/1.png" id="2_07hpw"]
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_7ht56"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_l7mwn"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="5_x23bp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_urqaa"]
 radius = 160.253
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_7ht56")
 ghostIconNode = NodePath("Node2D/Sprite2D")
-editorBarIconNode = NodePath("Node2D/Sprite2D")
 editorBarIcon = ExtResource("2_07hpw")
 hidableSprites = [NodePath("Node2D/Sprite2D")]
 cloneEventsHere = [NodePath("Node2D/attach detector")]
@@ -38,3 +38,4 @@ root = NodePath("../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/attach detector"]
 shape = SubResource("CircleShape2D_urqaa")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+script = ExtResource("5_x23bp")

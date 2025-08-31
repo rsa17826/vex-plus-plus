@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bn4ddoim7p6xu"]
+[gd_scene load_steps=10 format=3 uid="uid://bn4ddoim7p6xu"]
 
 [ext_resource type="Script" uid="uid://bnad5udrdr20s" path="res://scenes/blocks/laser/laser.gd" id="1_ohbiw"]
 [ext_resource type="Texture2D" uid="uid://b4m5lblw4m1y3" path="res://scenes/blocks/laser/images/1.png" id="2_gc2qo"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_ohbiw"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_vu0mu"]
 [ext_resource type="PackedScene" uid="uid://dyhvw50inaha1" path="res://GLOBAL/custom nodes/CircularProgressBar/CircularProgressBar.tscn" id="5_b11d5"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="5_sj8as"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="7_a54fp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vu0mu"]
 radius = 1056.08
@@ -40,9 +42,14 @@ use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_gc2qo")
 
+[node name="circularProgressBar" parent="collisionNode" instance=ExtResource("5_b11d5")]
+position = Vector2(15.5, 0)
+scale = Vector2(0.085, 0.085)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("CircleShape2D_vu0mu")
 debug_color = Color(0.788237, 0.0985027, 1, 0.42)
+script = ExtResource("5_sj8as")
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
 collision_layer = 2048
@@ -53,10 +60,7 @@ root = NodePath("../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
 shape = SubResource("CircleShape2D_ohbiw")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
-
-[node name="circularProgressBar" parent="collisionNode" instance=ExtResource("5_b11d5")]
-position = Vector2(15.5, 0)
-scale = Vector2(0.085, 0.085)
+script = ExtResource("7_a54fp")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

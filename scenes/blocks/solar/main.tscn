@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://d22b7flpok0dj"]
+[gd_scene load_steps=10 format=3 uid="uid://d22b7flpok0dj"]
 
 [ext_resource type="Script" uid="uid://dnxea7h2f54um" path="res://scenes/blocks/solar/solar.gd" id="1_bxmnj"]
 [ext_resource type="Texture2D" uid="uid://bwsetcl3xh631" path="res://scenes/blocks/solar/images/1.png" id="2_5qqdf"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_x30da"]
 [ext_resource type="Texture2D" uid="uid://clq8vs0f2mlp8" path="res://scenes/blocks/solar/images/outline.png" id="3_1a15e"]
+[ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="5_jiwyo"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_x3vi8"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="6_sd1xo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -42,15 +44,17 @@ texture = ExtResource("2_5qqdf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
+script = ExtResource("5_jiwyo")
 
-[node name="collisionNode2" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="always allow reattaching" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 34824
 collision_mask = 0
 script = ExtResource("2_x30da")
 root = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="always allow reattaching"]
 shape = SubResource("RectangleShape2D_gwpbw")
+script = ExtResource("6_sd1xo")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0

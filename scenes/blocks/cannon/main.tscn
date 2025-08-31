@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dslqhsidwaq5a"]
+[gd_scene load_steps=12 format=3 uid="uid://dslqhsidwaq5a"]
 
 [ext_resource type="Script" uid="uid://faukmaae00rx" path="res://scenes/blocks/cannon/cannon.gd" id="1_1jh5p"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_0e32w"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://dcd36eg0503w6" path="res://scenes/blocks/cannon/images/bottom.png" id="3_b7g7s"]
 [ext_resource type="Texture2D" uid="uid://donp6sg30n8g1" path="res://scenes/blocks/cannon/images/editorBar.png" id="4_168jg"]
 [ext_resource type="Texture2D" uid="uid://buceiiggnddor" path="res://scenes/blocks/cannon/images/top.png" id="4_wipba"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="6_2aq8q"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="8_w6edl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wy60s"]
 size = Vector2(72, 169)
@@ -16,11 +18,10 @@ size = Vector2(228, 92)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e32w"]
 size = Vector2(332, 9.5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("rotNode", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("rotNode", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_1jh5p")
 rotNode = NodePath("collisionNode/Top")
-ghostIconNode = NodePath("collisionNode/editorBar")
-editorBarIconNode = NodePath("collisionNode/editorBar")
+ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("4_168jg")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/CollisionShape2D2")]
 hidableSprites = [NodePath("collisionNode/Top"), NodePath("collisionNode/bottom")]
@@ -50,7 +51,7 @@ position = Vector2(0, -88.815)
 scale = Vector2(0.606, 0.606)
 texture = ExtResource("3_b7g7s")
 
-[node name="editorBar" type="Sprite2D" parent="collisionNode"]
+[node name="ghost" type="Sprite2D" parent="collisionNode"]
 visible = false
 position = Vector2(0, -88.715)
 scale = Vector2(0.606, 0.606)
@@ -59,10 +60,12 @@ texture = ExtResource("4_168jg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, -91.418)
 shape = SubResource("RectangleShape2D_wy60s")
+script = ExtResource("6_2aq8q")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, -47.918)
 shape = SubResource("RectangleShape2D_1jh5p")
+script = ExtResource("6_2aq8q")
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
 position = Vector2(0, -88.918)
@@ -75,6 +78,7 @@ root = NodePath("../..")
 position = Vector2(0, 89)
 shape = SubResource("RectangleShape2D_0e32w")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+script = ExtResource("8_w6edl")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bqlhgiqwjyveu"]
+[gd_scene load_steps=9 format=3 uid="uid://bqlhgiqwjyveu"]
 
 [ext_resource type="Script" uid="uid://bw67yi3f0dlnb" path="res://scenes/blocks/star/star.gd" id="1_yus2l"]
 [ext_resource type="Texture2D" uid="uid://d4nv6nuio58a2" path="res://scenes/blocks/star/images/1.png" id="2_q34el"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_urqaa"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_yus2l"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_j2mgt"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="6_qgu1r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yus2l"]
 radius = 67.1863
@@ -11,10 +13,9 @@ radius = 67.1863
 [sub_resource type="CircleShape2D" id="CircleShape2D_urqaa"]
 radius = 130.138
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_yus2l")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_q34el")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
@@ -41,6 +42,7 @@ texture = ExtResource("2_q34el")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("CircleShape2D_yus2l")
 debug_color = Color(0, 1, 0, 0.419608)
+script = ExtResource("4_j2mgt")
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
 collision_layer = 0
@@ -51,6 +53,7 @@ root = NodePath("../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
 shape = SubResource("CircleShape2D_urqaa")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+script = ExtResource("6_qgu1r")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

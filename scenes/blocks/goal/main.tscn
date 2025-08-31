@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dauqqb8fvhoev"]
+[gd_scene load_steps=70 format=3 uid="uid://dauqqb8fvhoev"]
 
 [ext_resource type="Script" uid="uid://j3yhw2jokqj" path="res://scenes/blocks/goal/goal.gd" id="1_0d1cd"]
 [ext_resource type="Texture2D" uid="uid://c2dmbt52fls6a" path="res://scenes/blocks/goal/images/1.png" id="2_0d1cd"]
@@ -64,6 +64,8 @@
 [ext_resource type="Texture2D" uid="uid://c1usr55sffg2o" path="res://scenes/blocks/goal/images/60.png" id="61_u3ie7"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="62_0d1cd"]
 [ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="63_pmh6p"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="64_r60ri"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="66_ts5ps"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_geocb"]
 animations = [{
@@ -297,6 +299,7 @@ script = ExtResource("63_pmh6p")
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_t2pxc")
 debug_color = Color(0, 1, 0, 0.419608)
+script = ExtResource("64_r60ri")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
@@ -308,5 +311,6 @@ root = NodePath("..")
 position = Vector2(0, 3.5)
 shape = SubResource("RectangleShape2D_vfxqp")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+script = ExtResource("66_ts5ps")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]

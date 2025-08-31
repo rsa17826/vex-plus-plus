@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmcqvvitqaa28"]
+[gd_scene load_steps=9 format=3 uid="uid://bmcqvvitqaa28"]
 
 [ext_resource type="Script" uid="uid://bs48vgemdehey" path="res://scenes/blocks/single spike/single spike.gd" id="1_sjua3"]
 [ext_resource type="Texture2D" uid="uid://b6f3mr66ft13k" path="res://scenes/blocks/single spike/images/1.png" id="2_8vy5t"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_jt7ue"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_sjua3"]
+[ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_d0b0c"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="6_41y0u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
 size = Vector2(61, 109.5)
@@ -40,6 +42,7 @@ texture = ExtResource("2_8vy5t")
 position = Vector2(0, -54.9079)
 shape = SubResource("RectangleShape2D_t2pxc")
 debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("4_d0b0c")
 
 [node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
 position = Vector2(0, -74.657906)
@@ -52,6 +55,7 @@ root = NodePath("../..")
 position = Vector2(0, 68.35527)
 shape = SubResource("RectangleShape2D_jt7ue")
 debug_color = Color(0.876418, 0.343088, 0, 0.42)
+script = ExtResource("6_41y0u")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

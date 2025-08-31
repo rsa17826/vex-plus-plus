@@ -21,6 +21,9 @@ SetWorkingDir(A_ScriptDir)
 
 SILENT := A_Args.includes("silent")
 OFFLINE := A_Args.includes("offline")
+
+releases := 0
+
 if A_ScriptDir = "D:\godotgames\vex\launcher" and A_UserName = 'user' {
   aotMsgBox("don't run from here")
   ExitApp()
@@ -77,8 +80,6 @@ else {
     logerr("failed while installing a game version!!")
   }
 }
-
-releases := 0
 
 if A_Args.includes("tryupdate") {
   loadReleases()
