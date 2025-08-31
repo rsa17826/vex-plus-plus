@@ -19,73 +19,55 @@ SetWorkingDir(A_ScriptDir)
 ; @replace }).Reverse
 ; @endregex
 
-ui := Gui("+AlwaysOnTop")
-ui.OnEvent("Close", GuiClose)
-ui.Add("Text", , "Vex++ Version Manager")
-
-bufferEqual(Buf1, Buf2) {
-  return Buf1.Size == Buf2.Size && DllCall("msvcrt\memcmp", "Ptr", Buf1, "Ptr", Buf2, "Ptr", Buf1.Size)
-}
+SILENT := A_Args.includes("silent")
+OFFLINE := A_Args.includes("offline")
+A_Args := [
+  'version',
+  '999'
+]
 
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 newestExeVersion := "4.5.beta6"
 doingSomething := 0
-versionListView := ui.Add("ListView", "vVersionList w290 h300", [
-  "Version",
-  "Status",
-  "Run",
-])
 if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
 }
 try FileDelete("c.bat")
-; try DirDelete("temp", 1)
 try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
+DirCreate("versions")
 if not FileExist("launcherData/launcherVersion") {
   try FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
 }
-releases := 0
-loadReleases() {
-  global releases
-  if releases
-    return
-  releases := FetchReleases(apiUrl)
-}
-
-selfUpdate := A_Args.includes("update")
-silent := A_Args.includes("silent")
-offline := A_Args.includes("offline")
-
-if A_Args.join(" ").includes("tryupdate") {
-  loadReleases()
-  if F.read("launcherData/launcherVersion") != releases.Length {
-    selfUpdate := 1
+sfi(path.join(A_ScriptDir, 'launcherData'), path.join(A_ScriptDir, "icons", "exes.ico"))
+sfi(path.join(A_ScriptDir, 'launcherData/exes'), path.join(A_ScriptDir, "icons", "exes.ico"))
+loop files A_ScriptDir "\icons\*.ico" {
+  p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
+  if DirExist(p) {
+    sfi(p, A_LoopFileFullPath)
   }
 }
-if selfUpdate {
-  loadReleases()
-  UpdateSelf()
-  ExitApp()
-}
-
 if FileExist("updating self") {
   if FileExist('temp.zip') {
     if F.read("updating self") == 'silent' {
+      silent := 1
       FileDelete("updating self")
       FileDelete("temp.zip")
+      logerr("failed while updating the launcher!!!")
+      ExitApp(-1)
     } else {
       FileDelete("updating self")
       FileDelete("temp.zip")
-      aotMsgBox("failed while updating the launcher!!!")
+      logerr("failed while updating the launcher!!!")
+      ExitApp(-1)
     }
   } else {
     loadReleases()
     F.write("launcherData/launcherVersion", releases.Length)
     if F.read("updating self") == 'silent' {
       FileDelete("updating self")
-      ExitApp()
+      ExitApp(0)
     }
     FileDelete("updating self")
   }
@@ -93,132 +75,39 @@ if FileExist("updating self") {
 else {
   if FileExist('temp.zip') {
     FileDelete("temp.zip")
-    print("error", "failed while installing a game version!!")
-    aotMsgBox("failed while installing a game version!!")
+    logerr("failed while installing a game version!!")
   }
 }
 
+releases := 0
+
+if A_Args.includes("tryupdate") {
+  loadReleases()
+  if F.read("launcherData/launcherVersion") != releases.Length {
+    UpdateSelf()
+  }
+}
+if A_Args.includes("update") {
+  loadReleases()
+  UpdateSelf()
+}
 if A_Args.includes("version") {
-  doingSomething := 1
   try {
     gameVersion := A_Args[A_Args.IndexOf("version") + 1]
     gameVersion := String(gameVersion)
-    ; if hasProcessRunning() {
-    ;   pid := F.read("game data/process")
-    ;   if pid {
-    ;     try {
-    ;       ProcessClose(WinGetProcessName("ahk_pid " pid))
-    ;       WinWaitClose("ahk_pid " pid)
-    ;     }
-    ;   }
-    ; }
-    args := ""
-    for arg in A_Args {
-      args .= ' "' . StrReplace(arg, '"', '\"') . '"'
-    }
-    ; consoleIsBlocked := 0
-    try {
-      exeVersion := getExeVersion(gameVersion, () {
-        exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
-        p := path.join(A_ScriptDir, "versions", gameVersion, "exeVersion.txt")
-        if exeVersion and not silent
-          F.write(p, exeVersion)
-        return exeVersion
-      })
-      if !exeVersion {
-        doingSomething := 0
-        print("ERROR", "Could not find the required executable version at A_Args.includes(`"version`")")
-        if !silent
-          aotMsgBox("Could not find the required executable version.")
-      }
-      ; try {
-      ; FileCopy(
-      ;   path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
-      ;   path.join(A_ScriptDir, "game data/vex.console.exe"),
-      ;   1
-      ; )
-      ; } catch {
-      ;   consoleIsBlocked := 1
-      ; }
-      i := 0
-      while i < 10 {
-        try {
-          FileCopy(
-            path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
-            path.join(A_ScriptDir, "game data/vex.exe"),
-            1
-          )
-          break
-        } catch {
-          i += 1
-          sleep(400)
-        }
-      }
-      if i >= 10 {
-        print("ERROR", "start version 3")
-      }
-    }
-    catch Error as e {
-      print("ERROR", "start version 2", e.Message, e.Line, e.Extra, e.Stack, A_LastError)
-      if not silent
-        aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR")
-    }
-    args .= ' ' F.read("launcherData/defaultArgs.txt")
-    ; if consoleIsBlocked {
-    ;   args .= ' RESTART_LAUNCHER'
-    ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
-    ; } else {
-    run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
-    ; }
-    ExitApp()
+    runVersion(gameVersion)
+  } catch Error as e {
+    logerr("Could not get game version from command line.", e)
   }
-  catch Error as e {
-    print("ERROR", "No version specified, you must specify a version number to open", "start version 1", e.Message, e.Line, e.Extra, e.Stack, '"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
-    if silent {
-      ExitApp(-1)
-    } else {
-      aotMsgBox("No version specified, you must specify a version number to open", "ERROR")
-    }
-  }
+}
+if [
+  "update",
+  "version",
+  'tryupdate'
+].find(e => A_Args.includes(e)) {
   ExitApp()
 }
-
-hasProcessRunning() {
-  ; if the game process is running
-  if FileExist("game data/process") {
-    pid := F.read("game data/process")
-    if !pid {
-      return 0
-    }
-    if WinExist("ahk_pid " pid) {
-      ; if the game process is vex
-      if WinGetProcessName("ahk_pid " pid) == "vex.exe" {
-        hasExtraArgs := 0
-        for arg in A_Args {
-          if [
-            "offline",
-            "tryupdate",
-            "update",
-            "silent",
-          ].includes(arg)
-            continue
-          hasExtraArgs := 1
-          break
-        }
-        ; if there is args to pass to the game then return 1 else close the game and run normally
-        if hasExtraArgs {
-          WinActivate("ahk_pid " pid)
-          return 1
-        } else {
-          WinClose("ahk_pid " pid)
-          return 0
-        }
-      }
-    }
-    return 0
-  }
-}
-
+; if a vex++ file has been opened direct it to the last ran game version if the game is stil open
 if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   args := ""
   for arg in A_Args {
@@ -229,102 +118,115 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   ExitApp()
 }
 
-sfi(p, i) {
-  DirCreate(p)
-  try FileDelete(path.join(p, "foldericon.ico"))
-  run('sfi.bat -p "' p '" -i "' i '"', , 'hide')
-}
+; setup gui
+{
+  ui := Gui("+AlwaysOnTop")
+  ui.OnEvent("Close", GuiClose)
+  ui.Add("Text", , "Vex++ Version Manager")
+  versionListView := ui.Add("ListView", "vVersionList w290 h300", [
+    "Version",
+    "Status",
+    "Run",
+  ])
+  ui.Title := "Vex++ Version Manager"
 
-sfi(path.join(A_ScriptDir, 'launcherData'), path.join(A_ScriptDir, "icons", "exes.ico"))
-sfi(path.join(A_ScriptDir, 'launcherData/exes'), path.join(A_ScriptDir, "icons", "exes.ico"))
-loop files A_ScriptDir "\icons\*.ico" {
-  p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
-  if DirExist(p) {
-    sfi(p, A_LoopFileFullPath)
-  }
-}
-
-DirCreate("versions")
-ui.Title := "Vex++ Version Manager"
-ui.Show("AutoSize")
-localVersionList := []
-listedVersions := []
-loop files A_ScriptDir "/versions/*", 'D' {
-  dirname := path.info(A_LoopFileFullPath).nameandext
-  versionName := dirname
-  versionPath := "versions/" versionName
-  status := offline ? "" : "LocalOnly"
-  localVersionList.push(versionName)
-  ; Add the version to the ListView
-  listedVersions.push({
-    version: versionName,
-    status: status,
-    runtext: "Run version " versionName
-  })
-  versionListView.Add("", versionName, status, "Run version " versionName) ;, getExeVersion(versionPath, () => '???'))
-}
-
-versionListView.OnEvent("DoubleClick", LV_DoubleClick)
-versionListView.ModifyCol(2)
-versionListView.ModifyCol(3)
-ui.Show("AutoSize")
-newUpdateAvailable := 0
-if !offline {
-  loadReleases()
-  if F.read("launcherData/launcherVersion") != releases.Length {
-    newUpdateAvailable := 1
-  }
-  for release in releases {
-    versionName := release.tag_name
+  ; load local versions
+  localVersionList := []
+  listedVersions := []
+  loop files A_ScriptDir "/versions/*", 'D' {
+    dirname := path.info(A_LoopFileFullPath).nameandext
+    versionName := dirname
     versionPath := "versions/" versionName
-    status := DirExist(versionPath) ? "Installed" : "Not Installed"
-    if idx := localVersionList.IndexOf(versionName) {
-      versionListView.Modify(idx, "Col2", "Installed")
-      versionListView.Modify(idx, "Col3", "Run version " versionName)
-      listedVersions[idx].status := "Installed"
-      listedVersions[idx].runtext := "Run version " versionName
-    } else {
-      localVersionList.push(versionName)
-      listedVersions.push({
-        version: versionName,
-        status: status,
-        runtext: ""
-      })
-      versionListView.Add("", versionName, status, '')
+    status := OFFLINE ? "" : "LocalOnly"
+    localVersionList.push(versionName)
+    ; Add the version to the ListView
+    listedVersions.push({
+      version: versionName,
+      status: status,
+      runtext: "Run version " versionName
+    })
+    versionListView.Add("", versionName, status, "Run version " versionName) ;, getExeVersion(versionPath, () => '???'))
+  }
+
+  versionListView.OnEvent("DoubleClick", LV_DoubleClick)
+  versionListView.ModifyCol(2)
+  versionListView.ModifyCol(3)
+
+  ; show ui
+  ui.Show("AutoSize")
+
+  ; load online releases
+  if !OFFLINE {
+    loadReleases()
+    newUpdateAvailable := F.read("launcherData/launcherVersion") != releases.Length
+    for release in releases {
+      versionName := release.tag_name
+      versionPath := "versions/" versionName
+      status := DirExist(versionPath) ? "Installed" : "Not Installed"
+      if idx := localVersionList.IndexOf(versionName) {
+        versionListView.Modify(idx, "Col2", "Installed")
+        versionListView.Modify(idx, "Col3", "Run version " versionName)
+        listedVersions[idx].status := "Installed"
+        listedVersions[idx].runtext := "Run version " versionName
+      } else {
+        localVersionList.push(versionName)
+        listedVersions.push({
+          version: versionName,
+          status: status,
+          runtext: ""
+        })
+        versionListView.Add("", versionName, status, '')
+      }
     }
   }
-}
-sortVersionList()
-; SetTimer(sortVersionList)
+  ; default args textedit
+  guiCtrl := ui.Add("Edit", 'w290', F.read("launcherData/defaultArgs.txt"))
+  guiCtrl.OnEvent("change", (elem, *) {
+    F.write("launcherData/defaultArgs.txt", elem.text)
+  })
+  GuiSetPlaceholder(guiCtrl, "extra game arguments go here")
+  ; open laucher log btn
+  if FileExist(path.info('./logs/vex++.exe.ans').abspath) {
+    guiCtrl := ui.Add("Button", , "open laucher log")
+    guiCtrl.OnEvent("Click", (*) {
+      run(path.info('./logs/vex++.exe.ans').abspath)
+    })
+  }
+  ; open game logs folder btn
+  guiCtrl := ui.Add("Button", FileExist(path.info('./logs/vex++.exe.ans').abspath) ? 'y+-23 x+5' : '', "open game logs folder")
+  guiCtrl.OnEvent("Click", (*) {
+    run(A_AppData "\Godot\app_userdata\vex\logs\")
+  })
 
-sortList(list) {
-  lastRanVersion := F.read("launcherData/lastRanVersion.txt")
-  return list.sort((a, s) {
-    if lastRanVersion {
-      if a.version == lastRanVersion and s.version != lastRanVersion {
-        return 1
-      }
-      if s.version == lastRanVersion and a.version != lastRanVersion {
-        return -1
-      }
+  ; launcher update btn
+  guiCtrl := ui.AddText("x10 y+-13 BackgroundTrans", '')
+  if not OFFLINE {
+    guiCtrl := ui.Add("Button", '', "Download All Versions")
+    guiCtrl.OnEvent("Click", DownloadAll)
+    if newUpdateAvailable
+      guiCtrl := ui.Add("Button", '', "new launcher version available - click to update")
+    else
+      guiCtrl := ui.Add("Button", '', "launcher is up to date")
+    guiCtrl.OnEvent("Click", UpdateSelf)
+  }
+  ; check for updates on startup checkbox
+  updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
+  guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on startup")
+  guiCtrl.OnEvent("Click", (elem, info) {
+    print(elem, info)
+    global updateOnBoot
+    updateOnBoot := elem.Value
+    try FileDelete(A_startup "/vex++ updater.lnk")
+    if updateOnBoot {
+      FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
     }
-    if a.status == "LocalOnly" and s.status != "LocalOnly" {
-      return 1
-    }
-    if s.status == "LocalOnly" and a.status != "LocalOnly" {
-      return -1
-    }
-    if a.version.RegExMatch("^\d+$") && s.version.RegExMatch("^\d+$") {
-      return a.version - s.version
-    }
-    if a.version.RegExMatch("^\d+$") {
-      return 1
-    } else if s.version.RegExMatch("^\d+$") {
-      return -1
-    }
-    return StrCompare(a.version, s.version, "Logical")
-  }).Reverse()
+  })
+  sortVersionList()
+  ; SetTimer(sortVersionList)
+  ; update ui size
+  ui.Show("AutoSize")
 }
+
 sortVersionList() {
   global listedVersions
   i := 0
@@ -338,48 +240,36 @@ sortVersionList() {
 
   versionListView.ModifyCol(2)
   versionListView.ModifyCol(3)
-}
-
-guiCtrl := ui.Add("Edit", 'w290', F.read("launcherData/defaultArgs.txt"))
-guiCtrl.OnEvent("change", (elem, *) {
-  F.write("launcherData/defaultArgs.txt", elem.text)
-})
-
-GuiSetPlaceholder(guiCtrl, "extra game arguments go here")
-
-if FileExist(path.info('./logs/vex++.exe.ans').abspath) {
-  guiCtrl := ui.Add("Button", , "open laucher log")
-  guiCtrl.OnEvent("Click", (*) {
-    run(path.info('./logs/vex++.exe.ans').abspath)
-  })
-}
-guiCtrl := ui.Add("Button", FileExist(path.info('./logs/vex++.exe.ans').abspath) ? 'y+-23 x+5' : '', "open game logs folder")
-guiCtrl.OnEvent("Click", (*) {
-  run(A_AppData "\Godot\app_userdata\vex\logs\")
-})
-
-guiCtrl := ui.AddText("x10 y+-13 BackgroundTrans", '')
-if not offline {
-  guiCtrl := ui.Add("Button", '', "Download All Versions")
-  guiCtrl.OnEvent("Click", DownloadAll)
-  if newUpdateAvailable
-    guiCtrl := ui.Add("Button", '', "new launcher version available - click to update")
-  else
-    guiCtrl := ui.Add("Button", '', "launcher is up to date")
-  guiCtrl.OnEvent("Click", UpdateSelf)
-}
-updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
-guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on startup")
-guiCtrl.OnEvent("Click", (elem, info) {
-  print(elem, info)
-  global updateOnBoot
-  updateOnBoot := elem.Value
-  try FileDelete(A_startup "/vex++ updater.lnk")
-  if updateOnBoot {
-    FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
+  sortList(list) {
+    lastRanVersion := F.read("launcherData/lastRanVersion.txt")
+    return list.sort((a, s) {
+      if lastRanVersion {
+        if a.version == lastRanVersion and s.version != lastRanVersion {
+          return 1
+        }
+        if s.version == lastRanVersion and a.version != lastRanVersion {
+          return -1
+        }
+      }
+      if a.status == "LocalOnly" and s.status != "LocalOnly" {
+        return 1
+      }
+      if s.status == "LocalOnly" and a.status != "LocalOnly" {
+        return -1
+      }
+      if a.version.RegExMatch("^\d+$") && s.version.RegExMatch("^\d+$") {
+        return a.version - s.version
+      }
+      if a.version.RegExMatch("^\d+$") {
+        return 1
+      } else if s.version.RegExMatch("^\d+$") {
+        return -1
+      }
+      return StrCompare(a.version, s.version, "Logical")
+    }).Reverse()
   }
-})
-ui.Show("AutoSize")
+
+}
 
 UpdateSelf(*) {
   global doingSomething
@@ -399,12 +289,12 @@ UpdateSelf(*) {
   }
   if (url) {
     ; ToolTip("Downloading...")
-    F.write("updating self", silent ? "silent" : "normal")
+    F.write("updating self", SILENT ? "silent" : "normal")
     tryCount := 0
     while (1) {
       try {
         tryCount += 1
-        DownloadFile(url, "temp.zip", , !silent)
+        DownloadFile(url, "temp.zip", , !SILENT)
         break
       } catch Error as e {
         print("ERROR", "at updating self", e.Message, e.Line, e.Extra, e.Stack)
@@ -437,128 +327,108 @@ xcopy /y /i /s /e ".\temp\*" ".\"
 start vex++.exe
     )")
     run("cmd /c c.bat", , "hide")
-    ExitApp()
+    ExitApp(0)
   }
 }
-
-LV_DoubleClick(LV, RowNumber) {
-  Column := LV_SubItemHitTest(versionListView.hwnd)
-  RowText := LV.GetText(RowNumber) ; Get the text from the row's first field.
-  if Column == 2 {
-    DownloadSelected(RowNumber)
-  }
-  if Column == 3 {
-    runSelectedVersion()
-  }
-}
-
-getExeVersion(version, default?) {
-  p := path.join(A_ScriptDir, "versions", version, "exeVersion.txt")
-  if FileExist(p) {
-    exever := F.read(p)
-    if DirExist(path.join(A_ScriptDir, "launcherData/exes", exever))
-      return exever
-    inp := tryInput("exe version `"" exever "`" not found", '', '', "", newestExeVersion)
-    if inp {
-      F.write(p, inp)
-      return inp
-    }
+DownloadAll(*) {
+  global doingSomething
+  if doingSomething {
+    aotMsgBox("already doing something, wait till done")
     return
   }
-  if IsSet(default)
-    return default()
-  exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
-  if exeVersion and not silent
-    F.write(p, exeVersion)
-  return exeVersion
+  ; Loop through each release to download and extract the ZIP file
+  i := 0
+  for thing in listedVersions {
+    i += 1
+    if DirExist("versions/" thing.version)
+      continue
+    DownloadSelected(i, thing.version)
+  }
 }
-
 runSelectedVersion() {
+  runVersion(selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0])
+  F.write("launcherData/lastRanVersion.txt", selectedVersion)
+  ExitApp()
+}
+runVersion(gameVersion) {
   global doingSomething
   if doingSomething {
     aotMsgBox("already doing something, wait till done")
     return
   }
   doingSomething := 1
-  selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]
-  if !path.info(A_ScriptDir, "versions", selectedVersion, "vex.pck").isfile
-    return aotMsgBox("The selected version is not valid!", "Error", 0x30)
+  if !path.info(A_ScriptDir, "versions", gameVersion, "vex.pck").isfile
+    return logerr("The selected version is not valid! " path.info(A_ScriptDir, "versions", gameVersion, "vex.pck").abspath)
 
-  exeVersion := getExeVersion(selectedVersion, () {
-    ; if ListViewGetContent("Selected", versionListView, ui).includes("Installed") {
-    exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
-    p := path.join(A_ScriptDir, "versions", selectedVersion, "exeVersion.txt")
-    if exeVersion and not silent
-      F.write(p, exeVersion)
-    return exeVersion
+  try {
+    ; if hasProcessRunning() {
+    ;   pid := F.read("game data/process")
+    ;   if pid {
+    ;     try {
+    ;       ProcessClose(WinGetProcessName("ahk_pid " pid))
+    ;       WinWaitClose("ahk_pid " pid)
+    ;     }
+    ;   }
     ; }
-  })
-  if !exeVersion {
-    doingSomething := 0
-    print("ERROR", "Could not find the required executable version at runSelectedVersion")
-    if !silent
-      aotMsgBox("Could not find the required executable version.")
-    return
-  }
-  ; aotMsgBox('exeVersion ' exeVersion)
-  if !hasProcessRunning() {
+    ; consoleIsBlocked := 0
     try {
+      exeVersion := getExeVersion(gameVersion, () {
+        exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
+        p := path.join(A_ScriptDir, "versions", gameVersion, "exeVersion.txt")
+        if exeVersion and not SILENT
+          F.write(p, exeVersion)
+        return exeVersion
+      })
+      if !exeVersion {
+        doingSomething := 0
+        logerr("ERROR", "Could not find the required executable version at A_Args.includes(`"version`")")
+      }
+      ; try {
       ; FileCopy(
       ;   path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
       ;   path.join(A_ScriptDir, "game data/vex.console.exe"),
       ;   1
       ; )
-      FileCopy(
-        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
-        path.join(A_ScriptDir, "game data/vex.exe"),
-        1
-      )
+      ; } catch {
+      ;   consoleIsBlocked := 1
+      ; }
+      i := 0
+      while i < 10 {
+        try {
+          FileCopy(
+            path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.exe"),
+            path.join(A_ScriptDir, "game data/vex.exe"),
+            1
+          )
+          break
+        } catch {
+          i += 1
+          sleep(400)
+        }
+      }
+      if i >= 10 {
+        print("ERROR", "start version 3")
+      }
     }
     catch Error as e {
-      print("ERROR", "Could not copy the required file at runSelectedVersion", e.Message, e.Line, e.Extra, e.Stack)
-      if not silent
-        aotMsgBox("Could not copy the required file, make sure there is no other vex++ instance running and try again.", "ERROR")
+      logerr("Could not copy the required file at runSelectedVersion start version 2", e)
     }
+    args := ""
+    for arg in A_Args {
+      args .= ' "' . StrReplace(arg, '"', '\"') . '"'
+    }
+    args .= ' ' F.read("launcherData/defaultArgs.txt")
+    ; if consoleIsBlocked {
+    ;   args .= ' RESTART_LAUNCHER'
+    ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    ; } else {
+    run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    ; }
   }
-  ; print(path.join(path.info(exe).parentdir, "versions", selectedVersion))
-  args := ""
-  for arg in A_Args {
-    args .= ' "' . StrReplace(arg, '"', '\"') . '"'
+  catch Error as e {
+    logerr("No version specified, you must specify a version number to open", e)
   }
-  args .= ' ' F.read("launcherData/defaultArgs.txt")
-  F.write("launcherData/lastRanVersion.txt", selectedVersion)
-  run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", selectedVersion))
-  ExitApp()
 }
-
-LV_SubitemHitTest(HLV) {
-  ; To run this with AHK_Basic change all DllCall types "Ptr" to "UInt", please.
-  ; HLV - ListView's HWND
-  static LVM_SUBITEMHITTEST := 0x1039
-  POINT := Buffer(8, 0)
-  ; Get the current cursor position in screen coordinates
-  DllCall("User32.dll\GetCursorPos", "Ptr", POINT.Ptr)
-  ; Convert them to client coordinates related to the ListView
-  DllCall("User32.dll\ScreenToClient", "Ptr", HLV, "Ptr", POINT.Ptr)
-  ; Create a LVHITTESTINFO structure (see below)
-  LVHITTESTINFO := Buffer(24, 0)
-  ; Store the relative mouse coordinates
-  NumPut("Int", NumGet(POINT, 0, "Int"), LVHITTESTINFO, 0)
-  NumPut("Int", NumGet(POINT, 4, "Int"), LVHITTESTINFO, 4)
-  ; Send a LVM_SUBITEMHITTEST to the ListView
-  if (type(LVHITTESTINFO) = "Buffer") {
-    ErrorLevel := SendMessage(LVM_SUBITEMHITTEST, 0, LVHITTESTINFO, , "ahk_id " HLV)
-  } else {
-    ErrorLevel := SendMessage(LVM_SUBITEMHITTEST, 0, StrPtr(LVHITTESTINFO), , "ahk_id " HLV)
-  }
-  ; If no item was found on this position, the return value is -1
-  if (ErrorLevel = -1)
-    return 0
-  ; Get the corresponding subitem (column)
-  Subitem := NumGet(LVHITTESTINFO, 16, "Int") + 1
-  return Subitem
-}
-
 updateRow(row, version?, status?, runtext?) {
   if IsSet(version) {
     listedVersions[row].version := version
@@ -574,22 +444,6 @@ updateRow(row, version?, status?, runtext?) {
   }
   versionListView.ModifyCol(2)
   versionListView.ModifyCol(3)
-}
-
-DownloadAll(*) {
-  global doingSomething
-  if doingSomething {
-    aotMsgBox("already doing something, wait till done")
-    return
-  }
-  ; Loop through each release to download and extract the ZIP file
-  i := 0
-  for thing in listedVersions {
-    i += 1
-    if DirExist("versions/" thing.version)
-      continue
-    DownloadSelected(i, thing.version)
-  }
 }
 
 ; Handle the download button click
@@ -654,6 +508,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
       if BufferEqual(targetBuff, testBuff) {
         version := A_LoopFileName
         updateRow(row, , "found correct exe version - " A_LoopFileName, "")
+        print("found correct exe version - " A_LoopFileName)
         sleep(1500)
         break
       }
@@ -669,7 +524,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
   } else {
     listedVersions[row].status = "Failed"
     versionListView.Modify(row, "Col2", "Failed")
-    aotMsgBox("Failed to find download URL for version " selectedVersion ".")
+    logerr("Failed to find download URL for version " selectedVersion ".")
   }
   doingSomething := 0
 }
@@ -726,13 +581,134 @@ FetchReleases(apiUrl) {
   return ret
 }
 
-GuiClose(*) {
-  ExitApp()
+;
+
+bufferEqual(Buf1, Buf2) {
+  return Buf1.Size == Buf2.Size && DllCall("msvcrt\memcmp", "Ptr", Buf1, "Ptr", Buf2, "Ptr", Buf1.Size)
+}
+
+hasProcessRunning() {
+  ; if the game process is running
+  if FileExist("game data/process") {
+    pid := F.read("game data/process")
+    if !pid {
+      return 0
+    }
+    if WinExist("ahk_pid " pid) {
+      ; if the game process is vex
+      if WinGetProcessName("ahk_pid " pid) == "vex.exe" {
+        hasExtraArgs := 0
+        for arg in A_Args {
+          if [
+            "offline",
+            "tryupdate",
+            "update",
+            "silent",
+          ].includes(arg)
+            continue
+          hasExtraArgs := 1
+          break
+        }
+        ; if there is args to pass to the game then return 1 else close the game and run normally
+        if hasExtraArgs {
+          WinActivate("ahk_pid " pid)
+          return 1
+        } else {
+          WinClose("ahk_pid " pid)
+          return 0
+        }
+      }
+    }
+    return 0
+  }
+}
+
+sfi(p, i) {
+  DirCreate(p)
+  try FileDelete(path.join(p, "foldericon.ico"))
+  run('sfi.bat -p "' p '" -i "' i '"', , 'hide')
+}
+
+getExeVersion(version, default?) {
+  p := path.join(A_ScriptDir, "versions", version, "exeVersion.txt")
+  if FileExist(p) {
+    exever := F.read(p)
+    if DirExist(path.join(A_ScriptDir, "launcherData/exes", exever))
+      return exever
+    inp := tryInput("exe version `"" exever "`" not found", '', '', "", newestExeVersion)
+    if inp {
+      F.write(p, inp)
+      return inp
+    }
+    return
+  }
+  if IsSet(default)
+    return default()
+  exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
+  if exeVersion and not SILENT
+    F.write(p, exeVersion)
+  return exeVersion
+}
+
+LV_DoubleClick(LV, RowNumber) {
+  Column := LV_SubItemHitTest(versionListView.hwnd)
+  RowText := LV.GetText(RowNumber) ; Get the text from the row's first field.
+  if Column == 2 {
+    DownloadSelected(RowNumber)
+  }
+  if Column == 3 {
+    runSelectedVersion()
+  }
+}
+LV_SubitemHitTest(HLV) {
+  ; To run this with AHK_Basic change all DllCall types "Ptr" to "UInt", please.
+  ; HLV - ListView's HWND
+  static LVM_SUBITEMHITTEST := 0x1039
+  POINT := Buffer(8, 0)
+  ; Get the current cursor position in screen coordinates
+  DllCall("User32.dll\GetCursorPos", "Ptr", POINT.Ptr)
+  ; Convert them to client coordinates related to the ListView
+  DllCall("User32.dll\ScreenToClient", "Ptr", HLV, "Ptr", POINT.Ptr)
+  ; Create a LVHITTESTINFO structure (see below)
+  LVHITTESTINFO := Buffer(24, 0)
+  ; Store the relative mouse coordinates
+  NumPut("Int", NumGet(POINT, 0, "Int"), LVHITTESTINFO, 0)
+  NumPut("Int", NumGet(POINT, 4, "Int"), LVHITTESTINFO, 4)
+  ; Send a LVM_SUBITEMHITTEST to the ListView
+  if (type(LVHITTESTINFO) = "Buffer") {
+    ErrorLevel := SendMessage(LVM_SUBITEMHITTEST, 0, LVHITTESTINFO, , "ahk_id " HLV)
+  } else {
+    ErrorLevel := SendMessage(LVM_SUBITEMHITTEST, 0, StrPtr(LVHITTESTINFO), , "ahk_id " HLV)
+  }
+  ; If no item was found on this position, the return value is -1
+  if (ErrorLevel = -1)
+    return 0
+  ; Get the corresponding subitem (column)
+  Subitem := NumGet(LVHITTESTINFO, 16, "Int") + 1
+  return Subitem
+}
+
+loadReleases() {
+  global releases
+  if releases
+    return
+  releases := FetchReleases(apiUrl)
 }
 
 tryInput(text?, ifUnset?, title?, options?, default?) {
-  if silent {
+  if SILENT {
     return IsSet(default) ? default : unset
   }
   return input(text?, ifUnset?, title?, options?, default?)
+}
+logerr(msg, e?) {
+  ; ee := IsSet(e) ? e : OptObj({})
+  print("ERROR", msg, IsSet(e) ? (e.Message, e.Line, e.Extra, e.Stack) : unset, "A_LastError: ", A_LastError)
+  if !SILENT {
+    aotMsgBox(msg, "ERROR")
+  }
+}
+
+GuiClose(*) {
+  ExitApp()
 }
