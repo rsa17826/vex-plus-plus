@@ -1,11 +1,17 @@
 extends Control
 var fs = false
-
+var text = ''
+var indent = 0
+func getHash(count):
+  var h = ''
+  for i in range(count):
+    h += '#'
+  return h
 func _ready() -> void:
   global.useropts.theme = 1
   await global.wait()
   # generate settings
-  var text = ''
+  text = ''
   var oldmd = global.file.read("res://readme.md", false)
 
   text += "## Controls\n"
@@ -25,28 +31,33 @@ func _ready() -> void:
       text += await getinfo("keybind: " + action)
   text += '\n- **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.'
   text += '\n\n## Settings'
-  var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
-  for thing in data:
+  var addOption = func(addOption, thing):
     match thing.thing:
       "option":
-        log.pp(thing)
-        break
+        if 'editorOnly' in thing and thing.editorOnly: return
+        var keyVal = '- **' + thing.key + '**: '
+        text += '\n' + keyVal
+        var lastText = ''
+        if keyVal in oldmd:
+          lastText = oldmd.split(keyVal)[1].split("\n")[0]
+        if lastText:
+          text += lastText
+          return text
+        else:
+          # DisplayServer.clipboard_set(keyVal)
+          text += await getinfo("setting: " + thing.key)
+        return text
       "group":
-        text += '\n\n### ' + (thing.name) + '\n'
+        text += '\n\n' + getHash(indent) + '## ' + (thing.name) + '\n'
         # log.pp(thing.name, thing.value)
+        indent += 1
         for a in thing.value:
-          if 'editorOnly' in a and a.editorOnly: continue
-          var keyVal = '- **' + a.key + '**: '
-          text += '\n' + keyVal
-          var lastText = ''
-          if keyVal in oldmd:
-            lastText = oldmd.split(keyVal)[1].split("\n")[0]
-          if lastText:
-            text += lastText
-            continue
-          else:
-            # DisplayServer.clipboard_set(keyVal)
-            text += await getinfo("setting: " + a.key)
+          await addOption.call(addOption, a)
+
+  var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
+  for thing in data:
+    indent = 1
+    await addOption.call(addOption, thing)
   # generate blocks
   var setKeys = {}
   text += '\n\n## Blocks'

@@ -324,16 +324,7 @@ func loadUserOptions() -> void:
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
   for thing in data:
-    match thing.thing:
-      "option":
-        __loadOptions(thing)
-        break
-      "group":
-        __menu.startGroup(thing.name)
-        # log.pp(thing.name, thing.value)
-        for a in thing.value:
-          __loadOptions(a)
-        __menu.endGroup()
+    __loadOptions(thing)
   __menu.show_menu()
   __menu.onchanged.connect(updateUserOpts)
   scrollContainer.set_deferred('scroll_vertical', int(global.file.read("user://scrollContainerscroll_vertical", false, "0")))
@@ -404,57 +395,65 @@ func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):
     editorOnlyOptions.append(thing)
     return
-  match thing.type:
-    "bool":
-      __menu.add_bool(thing.key, thing.defaultValue)
-    "range":
-      __menu.add_range(
-        thing.key,
-        thing.min,
-        thing.max,
-        thing.step if "step" in thing else 1,
-        thing.defaultValue,
-        thing['allow lesser'] if "allow lesser" in thing else false,
-        thing['allow greater'] if "allow greater" in thing else false
-      )
-    "multi select":
-      __menu.add_multi_select(
-        thing.key,
-        thing.options,
-        thing.defaultValue
-      )
-    "single select":
-      __menu.add_single_select(
-        thing.key,
-        thing.options,
-        thing.defaultValue
-      )
-    "spinbox":
-      __menu.add_spinbox(
-        thing.key,
-        thing.min,
-        thing.max,
-        thing.step if "step" in thing else 1,
-        thing.defaultValue,
-        thing['allow lesser'] if "allow lesser" in thing else false,
-        thing['allow greater'] if "allow greater" in thing else false
-      )
-    "rgba":
-      __menu.add_rgba(
-        thing.key,
-        thing.defaultValue,
-      )
-    "rgb":
-      __menu.add_rgb(
-        thing.key,
-        thing.defaultValue,
-      )
-    "file":
-      __menu.add_file(
-        thing.key,
-        thing.single if "single" in thing else true,
-        thing.defaultValue,
-      )
+  match thing.thing:
+    "group":
+      __menu.startGroup(thing.name)
+      # log.pp(thing.name, thing.value)
+      for a in thing.value:
+        __loadOptions(a)
+      __menu.endGroup()
+    'option':
+      match thing.type:
+        "bool":
+          __menu.add_bool(thing.key, thing.defaultValue)
+        "range":
+          __menu.add_range(
+            thing.key,
+            thing.min,
+            thing.max,
+            thing.step if "step" in thing else 1,
+            thing.defaultValue,
+            thing['allow lesser'] if "allow lesser" in thing else false,
+            thing['allow greater'] if "allow greater" in thing else false
+          )
+        "multi select":
+          __menu.add_multi_select(
+            thing.key,
+            thing.options,
+            thing.defaultValue
+          )
+        "single select":
+          __menu.add_single_select(
+            thing.key,
+            thing.options,
+            thing.defaultValue
+          )
+        "spinbox":
+          __menu.add_spinbox(
+            thing.key,
+            thing.min,
+            thing.max,
+            thing.step if "step" in thing else 1,
+            thing.defaultValue,
+            thing['allow lesser'] if "allow lesser" in thing else false,
+            thing['allow greater'] if "allow greater" in thing else false
+          )
+        "rgba":
+          __menu.add_rgba(
+            thing.key,
+            thing.defaultValue,
+          )
+        "rgb":
+          __menu.add_rgb(
+            thing.key,
+            thing.defaultValue,
+          )
+        "file":
+          __menu.add_file(
+            thing.key,
+            thing.single if "single" in thing else true,
+            thing.defaultValue,
+          )
 
 func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()
