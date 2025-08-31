@@ -1,3 +1,4 @@
+@icon("res://scenes/hitbox scripts/images/attachDetector.png")
 extends Area2D
 class_name AttachDetector
 

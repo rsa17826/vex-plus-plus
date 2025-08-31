@@ -1,26 +1,28 @@
-[gd_scene load_steps=10 format=3 uid="uid://ph5lxkwfc644"]
+[gd_scene load_steps=13 format=3 uid="uid://ph5lxkwfc644"]
 
 [ext_resource type="Script" uid="uid://ftou0joy3qto" path="res://scenes/blocks/falling spike/falling spike.gd" id="1_4c23b"]
 [ext_resource type="Texture2D" uid="uid://cigd4s8a81h5b" path="res://scenes/blocks/falling spike/images/1.png" id="2_dnmi0"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_xrsct"]
 [ext_resource type="Texture2D" uid="uid://cbx3083cfw3l0" path="res://scenes/blocks/falling spike/images/editorBar.png" id="3_4c23b"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_o2sap"]
+[ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="5_0lsrf"]
 [ext_resource type="Script" uid="uid://dlnbosqoolh23" path="res://scenes/blocks/falling spike/player_detector.gd" id="5_4c23b"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="6_ihbm6"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="9_c5ykq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrsct"]
 size = Vector2(42, 74)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2sap"]
-size = Vector2(73, 18)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_4c23b"]
 radius = 5.09902
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToFall", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o2sap"]
+size = Vector2(73, 18)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToFall", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_4c23b")
 nodeToFall = NodePath("Node2D")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
-editorBarIconNode = NodePath("")
 editorBarIcon = ExtResource("3_4c23b")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
@@ -49,6 +51,27 @@ texture = ExtResource("2_dnmi0")
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_xrsct")
 debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("5_0lsrf")
+
+[node name="floor detection" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -64)
+collision_layer = 4224
+collision_mask = 8
+script = ExtResource("2_xrsct")
+root = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode/floor detection"]
+position = Vector2(0, -25)
+shape = SubResource("CircleShape2D_4c23b")
+script = ExtResource("6_ihbm6")
+
+[node name="playerDetector" type="RayCast2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+unique_name_in_owner = true
+position = Vector2(-0.5, -77)
+target_position = Vector2(0, -3000)
+collision_mask = 2
+script = ExtResource("5_4c23b")
+root = NodePath("../../..")
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
@@ -62,25 +85,7 @@ root = NodePath("../../..")
 position = Vector2(0.5, 65)
 shape = SubResource("RectangleShape2D_o2sap")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
-
-[node name="floor detection" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
-position = Vector2(-0.5, -64)
-collision_layer = 4224
-collision_mask = 8
-script = ExtResource("2_xrsct")
-root = NodePath("../../..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode/floor detection"]
-position = Vector2(0, -25)
-shape = SubResource("CircleShape2D_4c23b")
-
-[node name="playerDetector" type="RayCast2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
-unique_name_in_owner = true
-position = Vector2(-0.5, -77)
-target_position = Vector2(0, -3000)
-collision_mask = 2
-script = ExtResource("5_4c23b")
-root = NodePath("../../..")
+script = ExtResource("9_c5ykq")
 
 [connection signal="body_entered" from="Node2D/collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Node2D/collisionNode" to="." method="_on_body_exited"]

@@ -995,7 +995,7 @@ func _physics_process(delta: float) -> void:
     # log.pp(camera.position, changeInPosition)
 
     # log.pp(camera.position_smoothing_speed, maxVel)
-  log.pp(remainingJumpCount)
+
 func moveAnimations():
   var flip_h = -1 if anim.flip_h else 1
   var temp = (func():
@@ -1607,3 +1607,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!add modifiers to readme
 
 # !!!fix no shrink past min size
+
+# player state detector swimming

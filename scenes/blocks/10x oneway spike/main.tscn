@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsjkbric1dsls"]
+[gd_scene load_steps=11 format=3 uid="uid://dsjkbric1dsls"]
 
 [ext_resource type="Script" uid="uid://cll4vbalkgeky" path="res://scenes/blocks/10x oneway spike/10x oneway spike.gd" id="1_vaqfq"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_hef1k"]
 [ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="4_qjx6t"]
 [ext_resource type="Texture2D" uid="uid://k275ww1gt0ba" path="res://scenes/blocks/10x oneway spike/images/1.png" id="5_srjnf"]
+[ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="5_wbyu6"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_gqvbb"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="7_hef1k"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mc5my"]
 load_path = "res://.godot/imported/editorBar.png-d29126ec3c6f3c4ef6b913d290dbb812.ctex"
@@ -45,10 +47,18 @@ root = NodePath("../../..")
 texture = ExtResource("5_srjnf")
 editorSize = Vector2(701, 123)
 
+[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
+visible = false
+use_parent_material = true
+position = Vector2(0, -70.63)
+scale = Vector2(0.978, 1)
+texture = ExtResource("5_srjnf")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
 position = Vector2(0, -57.5)
 shape = SubResource("RectangleShape2D_1gece")
 debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("5_wbyu6")
 
 [node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
 position = Vector2(0, -72.5)
@@ -61,13 +71,7 @@ root = NodePath("../../..")
 position = Vector2(0, 65)
 shape = SubResource("RectangleShape2D_c5k05")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
-
-[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
-visible = false
-use_parent_material = true
-position = Vector2(0, -70.63)
-scale = Vector2(0.978, 1)
-texture = ExtResource("5_srjnf")
+script = ExtResource("7_hef1k")
 
 [connection signal="body_entered" from="Node2D/collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Node2D/collisionNode" to="." method="_on_body_exited"]

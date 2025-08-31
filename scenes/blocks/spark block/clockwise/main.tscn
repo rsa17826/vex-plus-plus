@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bs3gl2bshih77"]
+[gd_scene load_steps=12 format=3 uid="uid://bs3gl2bshih77"]
 
 [ext_resource type="Script" uid="uid://cbw0xqfhfuolq" path="res://scenes/blocks/spark block/clockwise/spark clockwise.gd" id="1_lv01i"]
 [ext_resource type="Texture2D" uid="uid://ckvrig04jknje" path="res://scenes/blocks/spark block/clockwise/images/1.png" id="2_tyx8y"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_d7myr"]
 [ext_resource type="Texture2D" uid="uid://7p2w81jgd18p" path="res://scenes/blocks/spark block/counterClockwise/images/spark.png" id="3_kbh7l"]
+[ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="4_7oqha"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_f1om2"]
+[ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="6_lgoh8"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="8_arjky"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -15,12 +18,11 @@ radius = 31.0161
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y6p4y"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("spark", "sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_lv01i")
 spark = NodePath("collisionNode/spark")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_tyx8y")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/spark/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/spark/Sprite2D"), NodePath("collisionNode/Sprite2D")]
@@ -42,6 +44,7 @@ texture = ExtResource("2_tyx8y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
+script = ExtResource("4_7oqha")
 
 [node name="spark" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root") groups=["spark"]]
 collision_layer = 1552
@@ -54,6 +57,7 @@ texture = ExtResource("3_kbh7l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/spark"]
 shape = SubResource("CircleShape2D_ooncx")
+script = ExtResource("6_lgoh8")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
@@ -64,6 +68,7 @@ root = NodePath("..")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="attach detector"]
 z_index = 3
 shape = SubResource("RectangleShape2D_y6p4y")
+script = ExtResource("8_arjky")
 metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="collisionNode/spark" to="." method="_on_body_enteredDEATH"]

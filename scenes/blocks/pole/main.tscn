@@ -1,11 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://ckbwrk1t23iw7"]
+[gd_scene load_steps=11 format=3 uid="uid://ckbwrk1t23iw7"]
 
 [ext_resource type="Script" uid="uid://dkllasnspy0jo" path="res://scenes/blocks/pole/pole.gd" id="1_rybel"]
 [ext_resource type="Texture2D" uid="uid://ddgowssalafse" path="res://scenes/blocks/pole/images/1.png" id="2_l1pjd"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_orajn"]
 [ext_resource type="Texture2D" uid="uid://25yeme5ig8rv" path="res://scenes/blocks/pole/images/editorBar.png" id="3_8tkfk"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_rybel"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="6_lkera"]
 [ext_resource type="Texture2D" uid="uid://pidiksqy76vq" path="res://scenes/blocks/pole/images/timing indicator.svg" id="6_wjp2b"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="8_ly1xr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8tkfk"]
 radius = 21.0
@@ -47,6 +49,7 @@ texture = ExtResource("2_l1pjd")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("CircleShape2D_8tkfk")
 debug_color = Color(0, 1, 0, 0.419608)
+script = ExtResource("6_lkera")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
@@ -57,6 +60,7 @@ root = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_orajn")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+script = ExtResource("8_ly1xr")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

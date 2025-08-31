@@ -1,10 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://brcolawc3qs7n"]
+[gd_scene load_steps=10 format=3 uid="uid://brcolawc3qs7n"]
 
 [ext_resource type="Script" uid="uid://bi5py51bhqxtt" path="res://scenes/blocks/quadrant/quadrant.gd" id="1_hhki4"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_1btjx"]
 [ext_resource type="Texture2D" uid="uid://qft54tfxwmsw" path="res://scenes/blocks/quadrant/images/1.png" id="2_i6m5c"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_hhki4"]
 [ext_resource type="Texture2D" uid="uid://dnmyaxa33m3nk" path="res://scenes/blocks/quadrant/images/editorBar.png" id="4_0y668"]
+[ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="5_6lkpl"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="7_sf4t6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hhki4"]
 radius = 28.2312
@@ -12,11 +14,10 @@ radius = 28.2312
 [sub_resource type="CircleShape2D" id="CircleShape2D_1btjx"]
 radius = 47.3814
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_hhki4")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
-editorBarIconNode = NodePath("")
 editorBarIcon = ExtResource("4_0y668")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D2"), NodePath("collisionNode/CollisionShape2D3"), NodePath("collisionNode/CollisionShape2D4"), NodePath("collisionNode/CollisionShape2D5"), NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
@@ -42,21 +43,25 @@ texture = ExtResource("2_i6m5c")
 position = Vector2(-317, 0)
 shape = SubResource("CircleShape2D_hhki4")
 debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("5_6lkpl")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, -317)
 shape = SubResource("CircleShape2D_hhki4")
 debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("5_6lkpl")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(316, 0)
 shape = SubResource("CircleShape2D_hhki4")
 debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("5_6lkpl")
 
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, 316)
 shape = SubResource("CircleShape2D_hhki4")
 debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("5_6lkpl")
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
@@ -67,6 +72,7 @@ root = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_1btjx")
 debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+script = ExtResource("7_sf4t6")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
