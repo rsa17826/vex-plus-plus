@@ -101,6 +101,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **paste_block_rotation**: sets the last selected blocks rotationthat the last copied rotation
 - **focus_on_player**: focuses the player and disables edit mode
 - **focus_search**: focuses the search bar
+- **toggle_tab_menu**: toggles the menu that allows toggling on/off visibility of different hitbox types separately
 - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 ## Settings
@@ -175,6 +176,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **editorStickerPath**: path to the sticker image for the editor.
 - **toastStayTime**: how long the toast stays on screen in seconds.
 - **theme**: the theme used for the entire application.
+
+#### hitbox theme
+
+- **attachDetectorHitboxColor**: the color of the hitbox of the attach detecors
+- **solidHitboxColor**: the color of the hitbox of the solids
+- **areaHitboxColor**: the color of the hitbox of the areas
+- **deathHitboxColor**: the color of the hitbox of the deadly areas
 
 ### info
 
