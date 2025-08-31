@@ -26,4 +26,4 @@ func updateColor() -> void:
       self.debug_color = Color('#00ff006b')
     Types.death:
       self.debug_color = Color('#ff00006b')
-      # 0.4196078431
+    # 0.4196078431
