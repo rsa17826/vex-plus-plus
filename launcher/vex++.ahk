@@ -21,11 +21,10 @@ SetWorkingDir(A_ScriptDir)
 
 SILENT := A_Args.includes("silent")
 OFFLINE := A_Args.includes("offline")
-A_Args := [
-  'version',
-  '999'
-]
-
+if A_ScriptDir = "D:\godotgames\vex\launcher" and A_UserName = 'user' {
+  aotMsgBox("don't run from here")
+  ExitApp()
+}
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 newestExeVersion := "4.5.beta6"
 doingSomething := 0
