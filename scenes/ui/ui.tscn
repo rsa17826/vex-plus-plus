@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=14 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bcgvwxwk7bf6b" path="res://scenes/ui/signal list/signal_list.tscn" id="7_uegxj"]
 [ext_resource type="PackedScene" uid="uid://cs4s80p62mgl5" path="res://scenes/ui/block menu/block_menu.tscn" id="8_y220t"]
 [ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="10_y220t"]
+[ext_resource type="PackedScene" uid="uid://boy84eq1dmt4t" path="res://scenes/tab menu/main.tscn" id="13_hc5d0"]
 [ext_resource type="PackedScene" uid="uid://ckgxdnqr5psft" path="res://scenes/ui/hovered blocks list/hovered_blocks_list.tscn" id="13_swkix"]
 
 [node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList")]
@@ -154,3 +155,9 @@ metadata/_edit_lock_ = true
 visible = false
 mouse_filter = 0
 metadata/_edit_lock_ = true
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="Main" parent="CanvasLayer2" instance=ExtResource("13_hc5d0")]
+visible = false

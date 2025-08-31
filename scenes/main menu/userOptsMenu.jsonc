@@ -362,6 +362,36 @@
         "key": "theme",
         "defaultValue": 2,
         "options": ["default", "blue", "black"]
+      },
+      {
+        "thing": "group",
+        "name": "hitbox theme",
+        "value": [
+          {
+            "thing": "option",
+            "type": "rgba",
+            "key": "attachDetectorHitboxColor",
+            "defaultValue": 3747020907
+          },
+          {
+            "thing": "option",
+            "type": "rgba",
+            "key": "solidHitboxColor",
+            "defaultValue": 10072939
+          },
+          {
+            "thing": "option",
+            "type": "rgba",
+            "key": "areaHitboxColor",
+            "defaultValue": 16711787
+          },
+          {
+            "thing": "option",
+            "type": "rgba",
+            "key": "deathHitboxColor",
+            "defaultValue": 4278190187
+          }
+        ]
       }
     ]
   },

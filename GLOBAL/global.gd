@@ -1711,7 +1711,7 @@ func localReady() -> void:
 #   " does not exist, ITEM:",
 #   "res://scenes/blocks/selectedBorder.tres"
 # ])
-  log.pp(Color("#6e6e00").to_rgba32())
+  # log.test(Color('#ff00006b').to_rgba32())
   DirAccess.make_dir_recursive_absolute(MAP_FOLDER)
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://saves/"))
@@ -2244,6 +2244,14 @@ func onSignalChanged(cb):
   if !signalChanged.is_connected(cb):
     signalChanged.connect(cb)
 
+var tabMenu
+var hitboxTypes := {
+  "attachDetector": true,
+  "death": true,
+  "area": true,
+  "solid": true
+}
+signal hitboxTypesChanged
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]

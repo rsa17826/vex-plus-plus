@@ -25,6 +25,7 @@ visible = false
 layout_mode = 0
 offset_right = 158.0
 offset_bottom = 158.0
+mouse_filter = 2
 color = Color(0, 0.049301185, 0.12897289, 1)
 script = ExtResource("2_1qclt")
 

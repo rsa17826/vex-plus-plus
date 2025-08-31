@@ -1,7 +1,23 @@
 extends Control
 class_name NestedSearchable
 
-@export var thisText: String
+var _self = self
+
+@export var pullFromNode: bool = false
+@export var thisText: String:
+  get():
+    if pullFromNode:
+      if _self is FoldableContainer:
+        return self.title
+      if (
+        _self is Label
+        or _self is Button
+        or _self is CheckBox
+        or _self is CheckButton
+      ):
+        return self.text
+      log.err(self , "Unknown type of node")
+    return thisText
 
 signal searchMatchedThis
 signal searchMatchedChildren
