@@ -20,7 +20,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_jf5yk")
-optsmenunode = NodePath("ScrollContainer/_")
+optsmenunode = NodePath("ScrollContainer/main")
 
 [node name="search" type="LineEdit" parent="Main"]
 visible = false
@@ -33,8 +33,13 @@ script = ExtResource("2_jf5yk")
 [node name="ScrollContainer" type="ScrollContainer" parent="Main"]
 layout_mode = 2
 size_flags_vertical = 3
+follow_focus = true
+draw_focus_border = true
+horizontal_scroll_mode = 2
+vertical_scroll_mode = 2
 
-[node name="_" type="VFlowContainer" parent="Main/ScrollContainer"]
+[node name="main" type="VFlowContainer" parent="Main/ScrollContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

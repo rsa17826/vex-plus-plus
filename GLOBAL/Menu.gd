@@ -3,7 +3,7 @@ class_name Menu
 var menu_data := {}
 var full_save_path: String
 var menu_index := 0
-var parent = null
+var parent: Node = null
 var used_keys = []
 var currentParent = []
 var groups = []
@@ -177,14 +177,15 @@ func show_menu():
   ], 0)
   endGroup()
   var mainVBox := VBoxContainer.new()
-  parent.add_child(mainVBox)
+  parent.replace_by(mainVBox)
   var searchBar: LineEdit = preload("res://GLOBAL/menu things/search.tscn").instantiate()
   var updateSearch = func(e):
-    for child: NestedSearchable in mainVBox.get_children().slice(1):
+    for child: NestedSearchable in parent.get_children():
       child.updateSearch(e)
   searchBar.text_changed.connect(updateSearch)
   mainVBox.add_child(searchBar)
-  currentParent = [mainVBox]
+  mainVBox.add_child(parent)
+  currentParent = [parent]
   var keys = menu_data.keys()
   var arr = []
   # for key in keys:
