@@ -85,8 +85,7 @@ func _input(event: InputEvent) -> void:
 func _ready() -> void:
   get_parent().visible = false
   visible = false
-  get_parent().size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
-  get_parent().scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
+  updateSize()
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
   __menu.onchanged.connect(updateUserOpts)
@@ -139,11 +138,13 @@ func updateUserOpts() -> void:
     while Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
       await global.wait(100)
     waitingForMouseUp = false
+  updateSize.call_deferred()
+
+func updateSize():
   size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
   scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
-  get_parent().size = Vector2(1152.0, 648.0)
-  get_parent().scale = Vector2(1, 1)
-  $ScrollContainer.size = Vector2(1152.0, 648.0)
-  $ScrollContainer.scale = Vector2(1, 1)
-  $ScrollContainer/_.size = Vector2(1152.0, 648.0)
-  $ScrollContainer/_.scale = Vector2(1, 1)
+  # optsmenunode.scale = Vector2(1, 1)
+  # optsmenunode.size = Vector2(1152.0, 648.0)
+  # optsmenunode.get_parent().scale = Vector2(1, 1)
+  # optsmenunode.get_parent().size = Vector2(1152.0, 648.0)
+  log.err(size, scale)

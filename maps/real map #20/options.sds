@@ -2,7 +2,7 @@
   STR(start)STR(hub)
   STR(author)STR(rssaromeo)
   STR(description)STR()
-  STR(version)INT(150)
+  STR(version)INT(151)
   STR(stages){
     STR(hub){
       STR(canDoWallSlide)BOOL(true)
@@ -14,5 +14,5 @@
       STR(saveTick)BOOL(false)
     }
   }
-  STRNAME(levelVersion)INT(120)
+  STRNAME(levelVersion)INT(124)
 }
