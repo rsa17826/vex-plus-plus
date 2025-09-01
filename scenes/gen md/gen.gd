@@ -99,7 +99,7 @@ func _ready() -> void:
     #   scaleFactor,
     #   scaleFactor
     # )
-    text += '\n    <br><img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="' + str(int(origSize.x * scaleFactor)) + '" height="' + str(int(origSize.y * scaleFactor)) + '">'
+    text += '\n    <br><br><img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="' + str(int(origSize.x * scaleFactor)) + '" height="' + str(int(origSize.y * scaleFactor)) + '">'
     text += '\n'
     for k in ['EDITOR_OPTION_scale', 'EDITOR_OPTION_rotate', 'canAttachToThings', 'canAttachToPaths']:
       if block[k]:
