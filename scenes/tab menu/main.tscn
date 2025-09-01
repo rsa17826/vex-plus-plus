@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://boy84eq1dmt4t"]
+[gd_scene load_steps=3 format=3 uid="uid://boy84eq1dmt4t"]
 
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="1_h3bri"]
 [ext_resource type="Script" uid="uid://caq4sfrulnhcy" path="res://scenes/tab menu/main.gd" id="1_jf5yk"]
-[ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="2_jf5yk"]
 
 [node name="ColorRect" type="ColorRect"]
 offset_right = 1152.0
@@ -22,19 +21,9 @@ mouse_filter = 2
 script = ExtResource("1_jf5yk")
 optsmenunode = NodePath("ScrollContainer/main")
 
-[node name="search" type="LineEdit" parent="Main"]
-visible = false
-layout_mode = 2
-placeholder_text = "search"
-keep_editing_on_text_submit = true
-clear_button_enabled = true
-script = ExtResource("2_jf5yk")
-
 [node name="ScrollContainer" type="ScrollContainer" parent="Main"]
 layout_mode = 2
 size_flags_vertical = 3
-follow_focus = true
-draw_focus_border = true
 horizontal_scroll_mode = 2
 vertical_scroll_mode = 2
 
