@@ -1215,6 +1215,7 @@ func _unhandled_input(event: InputEvent) -> void:
           node.visible = true
           node.queue_redraw()
         node_stack.append_array(node.get_children())
+    hitboxTypesChanged.emit()
   if event.is_action_pressed(&"quit", false, true):
     quitGame()
   if event.is_action_pressed(&"move_player_to_mouse", false, true):
