@@ -92,25 +92,6 @@ func _ready() -> void:
   for thing in data:
     __loadOptions(thing)
   __menu.show_menu()
-  # containers = getChildren()
-  # var data = sds.loadDataFromFile("user://tab_menu.sds", [])
-  # var i = 0
-  # for container in containers:
-  #   container.folded = data[i] if len(data) > i else false
-  #   i += 1
-
-# func getChildren(startNode: Control = self ) -> Array[FoldableContainer]:
-#   var nested_searchables: Array[FoldableContainer] = []
-#   for child in startNode.get_children():
-#     if child is FoldableContainer:
-#       nested_searchables.append(child)
-#     else:
-#       nested_searchables += getChildren(child)
-#   return nested_searchables
-
-# func saveFoldingState():
-#   var data = containers.map(func(e): return e.folded)
-#   sds.saveDataToFile("user://tab_menu.sds", data)
 
 func updateUserOpts() -> void:
   var shouldReload = false
@@ -148,7 +129,6 @@ func updateUserOpts() -> void:
     shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   if shouldReload:
-    # get_tree().reload_current_scene.call_deferred()
     global.level.save()
     global.loadMap.call_deferred(global.mainLevelName, true)
   global.hitboxTypesChanged.emit()
