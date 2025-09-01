@@ -34,22 +34,6 @@ doingSomething := 0
 if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
 }
-try FileDelete("c.bat")
-try FileDelete("vex++ offline.lnk")
-FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
-DirCreate("launcherData")
-DirCreate("versions")
-if not FileExist("launcherData/launcherVersion") {
-  try FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
-}
-sfi(path.join(A_ScriptDir, 'launcherData'), path.join(A_ScriptDir, "icons", "exes.ico"))
-sfi(path.join(A_ScriptDir, 'launcherData/exes'), path.join(A_ScriptDir, "icons", "exes.ico"))
-loop files A_ScriptDir "\icons\*.ico" {
-  p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
-  if DirExist(p) {
-    sfi(p, A_LoopFileFullPath)
-  }
-}
 if FileExist("updating self") {
   if FileExist('temp.zip') {
     if F.read("updating self") == 'silent' {
@@ -78,6 +62,22 @@ else {
   if FileExist('temp.zip') {
     FileDelete("temp.zip")
     logerr("failed while installing a game version!!")
+  }
+}
+try FileDelete("c.bat")
+try FileDelete("vex++ offline.lnk")
+FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
+DirCreate("launcherData")
+DirCreate("versions")
+if not FileExist("launcherData/launcherVersion") {
+  try FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
+}
+sfi(path.join(A_ScriptDir, 'launcherData'), path.join(A_ScriptDir, "icons", "exes.ico"))
+sfi(path.join(A_ScriptDir, 'launcherData/exes'), path.join(A_ScriptDir, "icons", "exes.ico"))
+loop files A_ScriptDir "\icons\*.ico" {
+  p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
+  if DirExist(p) {
+    sfi(p, A_LoopFileFullPath)
   }
 }
 
