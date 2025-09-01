@@ -29,6 +29,7 @@ enum States {
   pushing,
   facingLeft,
   facingRight,
+  swimming,
 }
 
 func on_respawn():
@@ -50,7 +51,7 @@ func on_physics_process(delta: float) -> void:
       States.wallHang:
         return p.state == p.States.wallHang
       States.falling:
-        return p.state == p.States.falling
+        return p.state == p.States.falling and not p.inWaters
       States.wallSliding:
         return p.state == p.States.wallSliding
       States.sliding:
@@ -73,8 +74,10 @@ func on_physics_process(delta: float) -> void:
         return p.anim.flip_h
       States.facingRight:
         return !p.anim.flip_h
+      States.swimming:
+        return !!p.inWaters
     ).call(global.player)
-  if temp != lastInput:
+  if !global.same(temp, lastInput):
     lastInput = temp
   else: return
   if temp:

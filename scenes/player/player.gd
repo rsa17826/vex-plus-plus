@@ -529,9 +529,7 @@ func _physics_process(delta: float) -> void:
         # turn player
         rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
         # dont store velocity from normal movement if in water
-
         vel.user = Vector2.ZERO
-
         # set state to falling for when player exits the water
         state = States.falling
         # move forward or backward based on input
@@ -547,26 +545,18 @@ func _physics_process(delta: float) -> void:
           vel.waterExit = Vector2(Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation - defaultAngle))
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
-        lastWallSide = 0
-        lastWallCollisionPoint = null
-        breakFromWall = false
-        wallSlidingFrames = 0
+        clearWallData()
         slideRecovery = 0
         duckRecovery = 0
-        wallBreakDownFrames = 0
         # can be used to prevent pressing jump quickly again after exiting water to get ~2x height
-        # playerKT = 0
-        if playerKT:
+        if playerKT > 0:
           playerKT = MAX_WATER_KT_TIMER
         for i in get_slide_collision_count():
           var collision := get_slide_collision(i)
           var block := collision.get_collider()
-
           var normal := collision.get_normal()
           var depth := collision.get_depth()
-
           handleCollision(block, normal, depth, collision.get_position())
-
         wasJustInWater = true
         move_and_slide()
         tryAndDieHazards()

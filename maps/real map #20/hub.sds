@@ -552,4 +552,43 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(1600.0)
+    STR(y)FLOAT(-500.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(water)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1725.0)
+    STR(y)FLOAT(-575.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(player state detector)
+    STRNAME(options){
+      STR(state)INT(4)
+      STR(signalOutputId)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1775.0)
+    STR(y)FLOAT(-575.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(player state detector)
+    STRNAME(options){
+      STR(state)INT(16)
+      STR(signalOutputId)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
 ]
