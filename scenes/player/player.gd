@@ -182,6 +182,7 @@ var startedPanning: bool = false
 
 func _unhandled_input(event: InputEvent) -> void:
   if get_viewport().gui_get_focus_owner(): return
+  if global.tabMenu.visible: return
   if global.openMsgBoxCount: return
   if Input.is_action_just_pressed(&"save_current_location_as_last_checkpoint", true):
     lastSpawnPoint = (global_position - root.global_position)
