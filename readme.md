@@ -101,7 +101,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - **paste_block_rotation**: sets the last selected blocks rotationthat the last copied rotation
 - **focus_on_player**: focuses the player and disables edit mode
 - **focus_search**: focuses the search bar
-- **toggle_tab_menu**: toggles the menu that allows toggling on/off visibility of different hitbox types separately
+- **toggle_tab_menu**: toggles the visibility of the tab menu
 - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 ## Settings
@@ -180,9 +180,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 #### hitbox theme
 
 - **attachDetectorHitboxColor**: the color of the hitbox of the attach detecors
+- **showAttachDetectorHitboxes**: if true the attach detector hitboxes will be visible when hitboxes are shown
 - **solidHitboxColor**: the color of the hitbox of the solids
+- **showDeathHitboxes**: if true the deadly area hitboxes will be visible when hitboxes are shown
 - **areaHitboxColor**: the color of the hitbox of the areas
+- **showAreaHitboxes**: if true the non deadly area hitboxes will be visible when hitboxes are shown
 - **deathHitboxColor**: the color of the hitbox of the deadly areas
+- **showSolidHitboxes**: if true the solid hitboxes will be visible when hitboxes are shown
 
 ### info
 
@@ -224,6 +228,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 ### misc
 
 - **openExportsDirectoryOnExport**: if true, after exporting a level, it will open the exports directory.
+- **tabMenuScale**: the scale of the in level tab menu
 
 ## Blocks
 
