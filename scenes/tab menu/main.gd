@@ -143,8 +143,4 @@ func updateUserOpts() -> void:
 func updateSize():
   size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
   scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
-  # optsmenunode.scale = Vector2(1, 1)
-  # optsmenunode.size = Vector2(1152.0, 648.0)
-  # optsmenunode.get_parent().scale = Vector2(1, 1)
-  # optsmenunode.get_parent().size = Vector2(1152.0, 648.0)
-  log.err(size, scale)
+  log.pp(size, scale, global.useropts.tabMenuScale)
