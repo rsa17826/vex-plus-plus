@@ -47,7 +47,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
-run/main_run_args="--loadMap \"NEWESTs\" --loadOnlineLevel"
+run/main_run_args="--loadMap \"NEWEST\" --loadOnlineLevel"
 
 [editor_plugins]
 

@@ -20,15 +20,15 @@ func _ready() -> void:
 func updateColor() -> void:
   match hitboxType:
     Types.attachDetector:
-      visible = global.hitboxTypes.attachDetector
+      visible = global.useropts.showAttachDetectorHitboxes
       self.debug_color = global.useropts.attachDetectorHitboxColor
     Types.solid:
-      visible = global.hitboxTypes.solid
+      visible = global.useropts.showDeathHitboxes
       self.debug_color = global.useropts.solidHitboxColor
     Types.area:
-      visible = global.hitboxTypes.area
+      visible = global.useropts.showAreaHitboxes
       self.debug_color = global.useropts.areaHitboxColor
     Types.death:
-      visible = global.hitboxTypes.death
+      visible = global.useropts.showSolidHitboxes
       self.debug_color = global.useropts.deathHitboxColor
     # 0.4196078431
