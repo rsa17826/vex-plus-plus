@@ -233,7 +233,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - ## Blocks
 
   - **basic**: has solid collision
-    <br><img src="scenes/blocks/basic/images/1.png" alt="image of block basic" width="50" height="50">
+    <br><br><img src="scenes/blocks/basic/images/1.png" alt="image of block basic" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -242,7 +242,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **slope**: has solid collision on the borders but not in the middle.
-    <br><img src="scenes/blocks/slope/images/1.png" alt="image of block slope" width="50" height="50">
+    <br><br><img src="scenes/blocks/slope/images/1.png" alt="image of block slope" width="50" height="50">
 
     - scalable
     - rotatable
@@ -252,7 +252,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
-    <br><img src="scenes/blocks/path/images/1.png" alt="image of block path" width="50" height="50">
+    <br><br><img src="scenes/blocks/path/images/1.png" alt="image of block path" width="50" height="50">
 
     - scalable
     - rotatable
@@ -276,7 +276,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **10x spike**: kills the player on contact
-    <br><img src="scenes/blocks/10x spike/images/editorBar.png" alt="image of block 10x spike" width="50" height="42">
+    <br><br><img src="scenes/blocks/10x spike/images/editorBar.png" alt="image of block 10x spike" width="50" height="42">
 
     - scalable
     - rotatable
@@ -288,7 +288,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **10x oneway spike**: kills the player when they collide with the tips of the spikes and are harmless in all other directions
-    <br><img src="scenes/blocks/10x oneway spike/images/editorBar.png" alt="image of block 10x oneway spike" width="50" height="42">
+    <br><br><img src="scenes/blocks/10x oneway spike/images/editorBar.png" alt="image of block 10x oneway spike" width="50" height="42">
 
     - scalable
     - rotatable
@@ -300,7 +300,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **10x solar spike**: kills the player on contact if lights are on
-    <br><img src="scenes/blocks/10x solar spike/images/editorBar.png" alt="image of block 10x solar spike" width="50" height="42">
+    <br><br><img src="scenes/blocks/10x solar spike/images/editorBar.png" alt="image of block 10x solar spike" width="50" height="42">
 
     - scalable
     - rotatable
@@ -312,7 +312,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **10x inverse solar spike**: kills the player on contact if lights are off
-    <br><img src="scenes/blocks/10x inverse solar spike/images/editorBar.png" alt="image of block 10x inverse solar spike" width="50" height="42">
+    <br><br><img src="scenes/blocks/10x inverse solar spike/images/editorBar.png" alt="image of block 10x inverse solar spike" width="50" height="42">
 
     - scalable
     - rotatable
@@ -324,7 +324,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **invisible**: gets less visible the closer the player is to it
-    <br><img src="scenes/blocks/invisible/images/1.png" alt="image of block invisible" width="50" height="50">
+    <br><br><img src="scenes/blocks/invisible/images/1.png" alt="image of block invisible" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -333,7 +333,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **updown**: has solid collision and moves up than down
-    <br><img src="scenes/blocks/updown/images/1.png" alt="image of block updown" width="50" height="50">
+    <br><br><img src="scenes/blocks/updown/images/1.png" alt="image of block updown" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -342,7 +342,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **downup**: has solid collision and moves down than up
-    <br><img src="scenes/blocks/downup/images/1.png" alt="image of block downup" width="50" height="50">
+    <br><br><img src="scenes/blocks/downup/images/1.png" alt="image of block downup" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -351,7 +351,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **leftRight**: has solid collision and moves right than left
-    <br><img src="scenes/blocks/leftRight/images/1.png" alt="image of block leftRight" width="50" height="50">
+    <br><br><img src="scenes/blocks/leftRight/images/1.png" alt="image of block leftRight" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -360,7 +360,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **rightLeft**: has solid collision and moves than left right
-    <br><img src="scenes/blocks/rightLeft/images/1.png" alt="image of block rightLeft" width="50" height="50">
+    <br><br><img src="scenes/blocks/rightLeft/images/1.png" alt="image of block rightLeft" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -369,7 +369,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **growing block**: grows and shrinks
-    <br><img src="scenes/blocks/growing block/images/editorBar.png" alt="image of block growing block" width="50" height="50">
+    <br><br><img src="scenes/blocks/growing block/images/editorBar.png" alt="image of block growing block" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -378,7 +378,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **gravity rotator**: rotates gravity to face the direction of it points. is triggered by player/bomb/pushable box entering it.
-    <br><img src="scenes/blocks/gravity rotator/images/1.png" alt="image of block gravity rotator" width="50" height="50">
+    <br><br><img src="scenes/blocks/gravity rotator/images/1.png" alt="image of block gravity rotator" width="50" height="50">
 
     - scalable
     - rotatable
@@ -388,7 +388,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **water**: when the player enters they are changed to swim mode and reverted to platformer mode on exit.
-    <br><img src="scenes/blocks/water/images/1.png" alt="image of block water" width="50" height="50">
+    <br><br><img src="scenes/blocks/water/images/1.png" alt="image of block water" width="50" height="50">
 
     - scalable
     - canAttachToThings
@@ -399,7 +399,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **solar**: has solid collision when lights are on.
-    <br><img src="scenes/blocks/solar/images/1.png" alt="image of block solar" width="50" height="50">
+    <br><br><img src="scenes/blocks/solar/images/1.png" alt="image of block solar" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -408,7 +408,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **inverse solar**: has solid collision when lights are off.
-    <br><img src="scenes/blocks/inverse solar/images/1.png" alt="image of block inverse solar" width="50" height="50">
+    <br><br><img src="scenes/blocks/inverse solar/images/1.png" alt="image of block inverse solar" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -417,7 +417,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **pushable box**: has solid collision and can be pushed by the player while the player is on ground and in platformer mode.
-    <br><img src="scenes/blocks/pushable box/images/1.png" alt="image of block pushable box" width="50" height="50">
+    <br><br><img src="scenes/blocks/pushable box/images/1.png" alt="image of block pushable box" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -426,7 +426,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **microwave**: has solid collision
-    <br><img src="scenes/blocks/microwave/images/1.png" alt="image of block microwave" width="50" height="50">
+    <br><br><img src="scenes/blocks/microwave/images/1.png" alt="image of block microwave" width="50" height="50">
 
     - scalable
     - canAttachToThings
@@ -437,7 +437,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **locked box**: has solid collision but when the player comes in contact with it and has a key, the key and block are disabled.
-    <br><img src="scenes/blocks/locked box/images/1.png" alt="image of block locked box" width="50" height="50">
+    <br><br><img src="scenes/blocks/locked box/images/1.png" alt="image of block locked box" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -446,7 +446,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **floor button**: when pressed by player/bomb/pushable box it will send a signal
-    <br><img src="scenes/blocks/floor button/images/pressed.png" alt="image of block floor button" width="50" height="2">
+    <br><br><img src="scenes/blocks/floor button/images/pressed.png" alt="image of block floor button" width="50" height="2">
 
     - canAttachToThings
     - canAttachToPaths
@@ -457,7 +457,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **signal deactivated wall**: active only whern its signal is off.
-    <br><img src="scenes/blocks/signal deactivated wall/images/1.png" alt="image of block signal deactivated wall" width="50" height="50">
+    <br><br><img src="scenes/blocks/signal deactivated wall/images/1.png" alt="image of block signal deactivated wall" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -467,7 +467,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **glass**: has solid collision but when the player comes in contact with it from the top and is holding down and has downwards velocity, the glass breaks and is disabled.
-    <br><img src="scenes/blocks/glass/images/1.png" alt="image of block glass" width="50" height="50">
+    <br><br><img src="scenes/blocks/glass/images/1.png" alt="image of block glass" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -476,7 +476,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **falling**: has solid collision but when the player comes in contact with it from the top it will start to fall for ~2s before respawning.
-    <br><img src="scenes/blocks/falling/images/1.png" alt="image of block falling" width="50" height="50">
+    <br><br><img src="scenes/blocks/falling/images/1.png" alt="image of block falling" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -485,7 +485,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **donup**: like a falling block, but in reverse
-    <br><img src="scenes/blocks/donup/images/1.png" alt="image of block donup" width="50" height="50">
+    <br><br><img src="scenes/blocks/donup/images/1.png" alt="image of block donup" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -494,7 +494,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **bouncy**: has solid collision but when the player comes in contact with it from the top it will put the player in the bouncing state and bounce back up after a short period of time. the time and bounce height is determined by the blocks y size with bigger time and height from larger y scales. the player bounce direction is away from the top of the block so if the block is rotated, the bounce will be different.
-    <br><img src="scenes/blocks/bouncy/images/1.png" alt="image of block bouncy" width="50" height="50">
+    <br><br><img src="scenes/blocks/bouncy/images/1.png" alt="image of block bouncy" width="50" height="50">
 
     - scalable
     - rotatable
@@ -504,7 +504,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **spark block/counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
-    <br><img src="scenes/blocks/spark block/counterClockwise/images/1.png" alt="image of block spark block/counterClockwise" width="50" height="50">
+    <br><br><img src="scenes/blocks/spark block/counterClockwise/images/1.png" alt="image of block spark block/counterClockwise" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -513,7 +513,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **spark block/clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
-    <br><img src="scenes/blocks/spark block/clockwise/images/1.png" alt="image of block spark block/clockwise" width="50" height="50">
+    <br><br><img src="scenes/blocks/spark block/clockwise/images/1.png" alt="image of block spark block/clockwise" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -522,7 +522,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **inner level**: has solid collision but when the player crouches on top of it the player will be transported to a new level, which upon being beat will send the player back to the previous level on top of it.
-    <br><img src="scenes/blocks/inner level/images/ghost.png" alt="image of block inner level" width="50" height="50">
+    <br><br><img src="scenes/blocks/inner level/images/ghost.png" alt="image of block inner level" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -533,7 +533,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **goal**: when the player reaches this block they win and if inside an inner level they will go back to the previous level else they will just be reset to the last saved checkpoint.
-    <br><img src="scenes/blocks/goal/images/1.png" alt="image of block goal" width="35" height="50">
+    <br><br><img src="scenes/blocks/goal/images/1.png" alt="image of block goal" width="35" height="50">
 
     - scalable
     - canAttachToThings
@@ -545,7 +545,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **buzsaw**: kills the player on contact
-    <br><img src="scenes/blocks/buzsaw/images/1.png" alt="image of block buzsaw" width="49" height="50">
+    <br><br><img src="scenes/blocks/buzsaw/images/1.png" alt="image of block buzsaw" width="49" height="50">
 
     - scalable
     - canAttachToThings
@@ -556,7 +556,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **bouncing buzsaw**: kills the player on contact and falls until hitting a solid block where it will start bouncing up until reaching the start height where it will start falling back down again
-    <br><img src="scenes/blocks/bouncing buzsaw/images/editorBar.png" alt="image of block bouncing buzsaw" width="50" height="50">
+    <br><br><img src="scenes/blocks/bouncing buzsaw/images/editorBar.png" alt="image of block bouncing buzsaw" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -565,7 +565,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **cannon**: the player can press left and right to rotate the cannon and jump to get shot out of the cannon in the direction it is facing
-    <br><img src="scenes/blocks/cannon/images/editorBar.png" alt="image of block cannon" width="50" height="26">
+    <br><br><img src="scenes/blocks/cannon/images/editorBar.png" alt="image of block cannon" width="50" height="26">
 
     - canAttachToThings
     - canAttachToPaths
@@ -575,7 +575,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **checkpoint**: sets the player respawn location to this location
-    <br><img src="scenes/blocks/checkpoint/images/1.png" alt="image of block checkpoint" width="50" height="38">
+    <br><br><img src="scenes/blocks/checkpoint/images/1.png" alt="image of block checkpoint" width="50" height="38">
 
     - rotatable
     - canAttachToThings
@@ -587,7 +587,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **closing spikes**: kills the player on contact will open slowly then close quickly
-    <br><img src="scenes/blocks/closing spikes/images/editorBar.png" alt="image of block closing spikes" width="50" height="50">
+    <br><br><img src="scenes/blocks/closing spikes/images/editorBar.png" alt="image of block closing spikes" width="50" height="50">
 
     - rotatable
     - canAttachToThings
@@ -598,7 +598,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **gravity down lever**: when the player is inside the lever and presses down the player gravity will be halved or reverted to normal if it was halved before
-    <br><img src="scenes/blocks/gravity down lever/images/1.png" alt="image of block gravity down lever" width="33" height="50">
+    <br><br><img src="scenes/blocks/gravity down lever/images/1.png" alt="image of block gravity down lever" width="33" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -608,7 +608,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **gravity up lever**: when the player is inside the lever and presses down the player gravity will be doubled or reverted to normal if it was doubled before
-    <br><img src="scenes/blocks/gravity up lever/images/1.png" alt="image of block gravity up lever" width="33" height="50">
+    <br><br><img src="scenes/blocks/gravity up lever/images/1.png" alt="image of block gravity up lever" width="33" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -618,7 +618,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **speed up lever**: when the player is inside the lever and presses down the player speed will be doubled or reverted to normal if it was doubled before
-    <br><img src="scenes/blocks/speed up lever/images/1.png" alt="image of block speed up lever" width="33" height="50">
+    <br><br><img src="scenes/blocks/speed up lever/images/1.png" alt="image of block speed up lever" width="33" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -628,7 +628,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
-    <br><img src="scenes/blocks/growing buzsaw/images/editorBar.png" alt="image of block growing buzsaw" width="50" height="50">
+    <br><br><img src="scenes/blocks/growing buzsaw/images/editorBar.png" alt="image of block growing buzsaw" width="50" height="50">
 
     - scalable
     - canAttachToThings
@@ -639,7 +639,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **jump refresher**: when the player touches this it will reset the players jumps to the levels max or add 1
-    <br><img src="scenes/blocks/jump refresher/images/1.png" alt="image of block jump refresher" width="50" height="50">
+    <br><br><img src="scenes/blocks/jump refresher/images/1.png" alt="image of block jump refresher" width="50" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -653,7 +653,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **key**: when the player comes in contact with this it will start following the player until ised to unlock a locked box
-    <br><img src="scenes/blocks/key/images/1.png" alt="image of block key" width="26" height="50">
+    <br><br><img src="scenes/blocks/key/images/1.png" alt="image of block key" width="26" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -663,7 +663,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **light switch**: when the player comes in contact with this it will toggle the lights on/off which will disable/enable all solar blocks.
-    <br><img src="scenes/blocks/light switch/images/1.png" alt="image of block light switch" width="50" height="50">
+    <br><br><img src="scenes/blocks/light switch/images/1.png" alt="image of block light switch" width="50" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -673,7 +673,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **red only light switch**: when the player comes in contact with this it will toggle the lights off leaving only the inverse solar blocks on.
-    <br><img src="scenes/blocks/red only light switch/images/1.png" alt="image of block red only light switch" width="50" height="50">
+    <br><br><img src="scenes/blocks/red only light switch/images/1.png" alt="image of block red only light switch" width="50" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -683,7 +683,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **blue only light switch**: when the player comes in contact with this it will toggle the lights on leaving only the solar blocks on.
-    <br><img src="scenes/blocks/blue only light switch/images/1.png" alt="image of block blue only light switch" width="50" height="50">
+    <br><br><img src="scenes/blocks/blue only light switch/images/1.png" alt="image of block blue only light switch" width="50" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -693,7 +693,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **pole**: when the player contacts this the player will be able to swing on it and jump off with jump or drop off with down. when jumping off if in the blue part of the indicator then the jump will gain height else it will be like a drop
-    <br><img src="scenes/blocks/pole/images/editorBar.png" alt="image of block pole" width="50" height="45">
+    <br><br><img src="scenes/blocks/pole/images/editorBar.png" alt="image of block pole" width="50" height="45">
 
     - canAttachToThings
     - canAttachToPaths
@@ -703,7 +703,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **pole quadrant**: spins 4 poles
-    <br><img src="scenes/blocks/pole quadrant/images/editorBar.png" alt="image of block pole quadrant" width="49" height="50">
+    <br><br><img src="scenes/blocks/pole quadrant/images/editorBar.png" alt="image of block pole quadrant" width="49" height="50">
 
     - canAttachToThings
     - canAttachToPaths
@@ -713,7 +713,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
-    <br><img src="scenes/blocks/pulley/images/editorBar.png" alt="image of block pulley" width="50" height="31">
+    <br><br><img src="scenes/blocks/pulley/images/editorBar.png" alt="image of block pulley" width="50" height="31">
 
     - canAttachToThings
     - ### settings:
@@ -725,7 +725,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **quadrant**: kills the player on contact and will spin clockwise
-    <br><img src="scenes/blocks/quadrant/images/editorBar.png" alt="image of block quadrant" width="50" height="50">
+    <br><br><img src="scenes/blocks/quadrant/images/editorBar.png" alt="image of block quadrant" width="50" height="50">
 
     - scalable
     - rotatable
@@ -737,7 +737,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **rotating buzzsaw**: kills the player on contact and will spin clockwise
-    <br><img src="scenes/blocks/rotating buzzsaw/images/1.png" alt="image of block rotating buzzsaw" width="13" height="49">
+    <br><br><img src="scenes/blocks/rotating buzzsaw/images/1.png" alt="image of block rotating buzzsaw" width="13" height="49">
 
     - scalable
     - rotatable
@@ -749,7 +749,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **scythe**: kills the player on contact and will spin counterclockwise
-    <br><img src="scenes/blocks/scythe/images/1.png" alt="image of block scythe" width="44" height="49">
+    <br><br><img src="scenes/blocks/scythe/images/1.png" alt="image of block scythe" width="44" height="49">
 
     - scalable
     - rotatable
@@ -761,7 +761,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **shurikan spawner**: spawns a set of 3 shuricans which
-    <br><img src="scenes/blocks/shurikan spawner/images/editorBar.png" alt="image of block shurikan spawner" width="50" height="38">
+    <br><br><img src="scenes/blocks/shurikan spawner/images/editorBar.png" alt="image of block shurikan spawner" width="50" height="38">
 
     - rotatable
     - canAttachToThings
@@ -772,7 +772,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **star**: when the player collects this it will stay collected. the star counter in the top left shows the current number of stars collected and total for the current level. the inner levels will have their star counter on the block before entering.
-    <br><img src="scenes/blocks/star/images/1.png" alt="image of block star" width="50" height="47">
+    <br><br><img src="scenes/blocks/star/images/1.png" alt="image of block star" width="50" height="47">
 
     - canAttachToThings
     - canAttachToPaths
@@ -783,7 +783,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **laser**: when the player is in range the laser will shoot projectiles in the direction it is facing, these projectiles have a cooldown and are destroyed on contact with solid blocks. if the projectile hits a bomb the bomb will be exploded. the red circle on the laser shows the current cooldown - fully red means ready to fire.
-    <br><img src="scenes/blocks/laser/images/1.png" alt="image of block laser" width="50" height="25">
+    <br><br><img src="scenes/blocks/laser/images/1.png" alt="image of block laser" width="50" height="25">
 
     - scalable
     - canAttachToThings
@@ -795,7 +795,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **targeting laser**: when the player is in range the laser will apply heat, more heat is applied if the player is closer. when the player is in water heat will dissipate faster. if the heat ray hits a bomb the bomb will be exploded.
-    <br><img src="scenes/blocks/targeting laser/images/1.png" alt="image of block targeting laser" width="50" height="44">
+    <br><br><img src="scenes/blocks/targeting laser/images/1.png" alt="image of block targeting laser" width="50" height="44">
 
     - canAttachToThings
     - canAttachToPaths
@@ -805,21 +805,21 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **death boundary**: kills the player on contact
-    <br><img src="scenes/blocks/death boundary/images/1.png" alt="image of block death boundary" width="50" height="50">
+    <br><br><img src="scenes/blocks/death boundary/images/1.png" alt="image of block death boundary" width="50" height="50">
 
     - scalable
     - ### settings:
       - **color**: sets the modulate property
 
   - **block death boundary**: kills most moving blocks on contact including collected keys and removes effects from the player when the player enters
-    <br><img src="scenes/blocks/block death boundary/images/1.png" alt="image of block block death boundary" width="50" height="50">
+    <br><br><img src="scenes/blocks/block death boundary/images/1.png" alt="image of block block death boundary" width="50" height="50">
 
     - scalable
     - ### settings:
       - **color**: sets the modulate property
 
   - **noWJ**: prevents the player from walljumping, wallsliding, and wall hanging when in contact with the player
-    <br><img src="scenes/blocks/noWJ/images/1.png" alt="image of block noWJ" width="8" height="50">
+    <br><br><img src="scenes/blocks/noWJ/images/1.png" alt="image of block noWJ" width="8" height="50">
 
     - scalable
     - rotatable
@@ -831,7 +831,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **falling spike**: kills the player on contact when in line with the player it will start falling until hitting a solid block
-    <br><img src="scenes/blocks/falling spike/images/editorBar.png" alt="image of block falling spike" width="16" height="50">
+    <br><br><img src="scenes/blocks/falling spike/images/editorBar.png" alt="image of block falling spike" width="16" height="50">
 
     - rotatable
     - canAttachToThings
@@ -842,7 +842,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
-    <br><img src="scenes/blocks/portal/images/1.png" alt="image of block portal" width="35" height="50">
+    <br><br><img src="scenes/blocks/portal/images/1.png" alt="image of block portal" width="35" height="50">
 
     - scalable
     - canAttachToThings
@@ -855,7 +855,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **bomb**: like a pushable box but explodes when hit with a falling spike, falling to fast and colliging with the ground, being squished, or having a box, other bomb fall to fast on it, or being exploded by another bomb. when the player is inside of the explosion, they will be killed, when a block is in the explosion, it will be disabled. microwaves cant be exploded.
-    <br><img src="scenes/blocks/bomb/images/1.png" alt="image of block bomb" width="50" height="25">
+    <br><br><img src="scenes/blocks/bomb/images/1.png" alt="image of block bomb" width="50" height="25">
 
     - scalable
     - canAttachToPaths
@@ -864,7 +864,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **sticky floor**: makes the player not be able to jump while in contact with this and also prevents the player from regaining cyote time
-    <br><img src="scenes/blocks/sticky floor/images/1.png" alt="image of block sticky floor" width="50" height="8">
+    <br><br><img src="scenes/blocks/sticky floor/images/1.png" alt="image of block sticky floor" width="50" height="8">
 
     - scalable
     - rotatable
@@ -876,7 +876,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **arrow**: points at things; can be rotated
-    <br><img src="scenes/blocks/arrow/images/1.png" alt="image of block arrow" width="50" height="50">
+    <br><br><img src="scenes/blocks/arrow/images/1.png" alt="image of block arrow" width="50" height="50">
 
     - rotatable
     - canAttachToThings
@@ -887,7 +887,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **conveyer**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
-    <br><img src="scenes/blocks/conveyer/images/editorBar.png" alt="image of block conveyer" width="50" height="50">
+    <br><br><img src="scenes/blocks/conveyer/images/editorBar.png" alt="image of block conveyer" width="50" height="50">
 
     - scalable
     - rotatable
@@ -897,7 +897,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **oneway**: like a block in the direction it is facing and like air in all other directions.
-    <br><img src="scenes/blocks/oneway/images/editorBar.png" alt="image of block oneway" width="50" height="50">
+    <br><br><img src="scenes/blocks/oneway/images/editorBar.png" alt="image of block oneway" width="50" height="50">
 
     - scalable
     - rotatable
@@ -907,7 +907,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **undeath**: if the player collides with this block while flying bact to the spawnpoint the player will instead be revived right where the player collided with the block at. user restarts will bypass this block.
-    <br><img src="scenes/blocks/undeath/images/editorBar.png" alt="image of block undeath" width="50" height="50">
+    <br><br><img src="scenes/blocks/undeath/images/editorBar.png" alt="image of block undeath" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -916,7 +916,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **input detector**: when the player is pressing the set direction a signal will be emitted.
-    <br><img src="scenes/blocks/input detector/images/1.png" alt="image of block input detector" width="50" height="50">
+    <br><br><img src="scenes/blocks/input detector/images/1.png" alt="image of block input detector" width="50" height="50">
 
     - rotatable
     - ### settings:
@@ -929,7 +929,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **player state detector**: sends a signal if the player is in the specified state
-    <br><img src="scenes/blocks/player state detector/images/1.png" alt="image of block player state detector" width="50" height="50">
+    <br><br><img src="scenes/blocks/player state detector/images/1.png" alt="image of block player state detector" width="50" height="50">
 
     - rotatable
     - ### settings:
@@ -954,7 +954,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **not gate**: will invert a signal.
-    <br><img src="scenes/blocks/not gate/images/editorBar.png" alt="image of block not gate" width="50" height="50">
+    <br><br><img src="scenes/blocks/not gate/images/editorBar.png" alt="image of block not gate" width="50" height="50">
 
     - ### settings:
       - **signalInputId**: the id of the signal it is listening for
@@ -962,7 +962,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **and gate**: will send a signal only if both signals are on.
-    <br><img src="scenes/blocks/and gate/images/editorBar.png" alt="image of block and gate" width="50" height="50">
+    <br><br><img src="scenes/blocks/and gate/images/editorBar.png" alt="image of block and gate" width="50" height="50">
 
     - ### settings:
       - **signalAInputId**: a signal to detect
@@ -971,7 +971,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **crumbling**: if the player collides with this block the block will start to crumble and be destroyed after a certain amount of time. only respawns on death.
-    <br><img src="scenes/blocks/crumbling/images/base/1.png" alt="image of block crumbling" width="50" height="50">
+    <br><br><img src="scenes/blocks/crumbling/images/base/1.png" alt="image of block crumbling" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -980,7 +980,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **timer**: when it recives a signal or stops reciving a signal will charge up or discharge, then when full or empty will start or stop sending a signal
-    <br><img src="scenes/blocks/timer/images/1.png" alt="image of block timer" width="50" height="50">
+    <br><br><img src="scenes/blocks/timer/images/1.png" alt="image of block timer" width="50" height="50">
 
     - rotatable
     - ### settings:
