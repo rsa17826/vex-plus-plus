@@ -5,6 +5,7 @@ var containers: Array[FoldableContainer] = []
 
 var __menu: Menu
 var editorOnlyOptions := []
+var waitingForMouseUp := false
 
 func _init() -> void:
   global.tabMenu = self
@@ -77,11 +78,14 @@ func __loadOptions(thing) -> void:
 func _input(event: InputEvent) -> void:
   if event is InputEventKey:
     if Input.is_action_just_pressed(&"toggle_tab_menu", true):
-      get_parent().visible = !get_parent().visible
+      visible = !visible
+      get_parent().visible = visible
+      if visible:
+        Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 func _ready() -> void:
-  size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
-  scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
+  get_parent().size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
+  get_parent().scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
   __menu.onchanged.connect(updateUserOpts)
@@ -148,3 +152,10 @@ func updateUserOpts() -> void:
     global.level.save()
     global.loadMap.call_deferred(global.mainLevelName, true)
   global.hitboxTypesChanged.emit()
+  if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT) and not waitingForMouseUp:
+    waitingForMouseUp = true
+    while Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+      await global.wait(100)
+    waitingForMouseUp = false
+    get_parent().size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
+    get_parent().scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
