@@ -5,7 +5,6 @@
 [ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="2_jf5yk"]
 
 [node name="ColorRect" type="ColorRect"]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -13,16 +12,14 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+color = Color(0.18538326, 0.18538326, 0.18538326, 0.18039216)
 script = ExtResource("1_h3bri")
-alpha = false
 
 [node name="Main" type="VBoxContainer" parent="." node_paths=PackedStringArray("optsmenunode")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 18.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -43,7 +40,7 @@ script = ExtResource("2_jf5yk")
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="_" type="HFlowContainer" parent="Main/ScrollContainer"]
+[node name="_" type="VFlowContainer" parent="Main/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
