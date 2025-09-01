@@ -39,6 +39,7 @@ func onAnimationLooped():
   __disable.call_deferred()
 
 func onFrameChanged():
+  if respawning: return
   match boomSprite.frame:
     1:
       boomShape.shape.radius = 605.67
@@ -55,7 +56,7 @@ func onFrameChanged():
   ):
     if block is Player:
       await global.wait()
-      block.die.call_deferred()
+      block.deathSources.append(self)
     else:
       block = block.root
       if block == self: continue
