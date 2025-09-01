@@ -8,15 +8,16 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - [Controls](#Controls)
 - [Settings](#Settings)
 - [Blocks](#Blocks)
-- [Command Line Arguments](#command-Line-Arguments)
+- [Command Line Arguments](#Command-Line-Arguments)
 - [Extra](#extra)
+
   - [Custom Editor Bar Block Placements](#custom-Editor-Bar-Block-Placements)
 
-## Extra Info
+- ## Extra Info
 
-- press editor_edit_special on a block in the block picker to modify the default options of that block that will be used when first placing it
-- launcher not required, but allows easy access to any old version, and allows you to know when there is an update whenever opening the launcher.
-- launcher also has a button to update the launcher
+  - press editor_edit_special on a block in the block picker to modify the default options of that block that will be used when first placing it
+  - launcher not required, but allows easy access to any old version, and allows you to know when there is an update whenever opening the launcher.
+  - launcher also has a button to update the launcher
 
 <!-- start auto -->
 <!--
@@ -1004,26 +1005,23 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - \*\*.*[\r\s\n]+-\*
 -->
 
-## Command Line Arguments
+- ## Command Line Arguments
 
-## Launcher
+  - ## Launcher
 
-- **offline**: doesn't fetch release data from github
-- **silent**: suppresses all alerts and all inputs will auto use the default value
-- **version**: opens the game version specified in the next argument
-- **update**: updates the launcher to the newest version
-- **tryupdate**: updates the launcher to the newest version only if the newest version is different than the current version
+    - **offline**: doesn't fetch release data from github
+    - **silent**: suppresses all alerts and all inputs will auto use the default value
+    - **version**: opens the game version specified in the next argument
+    - **update**: updates the launcher to the newest version
+    - **tryupdate**: updates the launcher to the newest version only if the newest version is different than the current version
 
-### Game
+  - ### Game
 
-- **--loadMap**
-  - when opening the game it loads a map by name or NEWEST to load the newest map.
-- **--loadOnlineLevels**
-  - opens the online levels list when starting the game.
+    - **--loadMap**: when opening the game it loads a map by name or NEWEST to load the newest map.
+    - **--loadOnlineLevels**: opens the online levels list when starting the game.
 
-## Extra
+- ## Extra
 
-### Custom Editor Bar Block Placements
-
-to reorder the blocks in the editor bar, create a file called `editorBar.sds` and if using the launcher, place it in the `game data` folder otherwise just place it in the game's directory.
-[example file](./editorBar.sds)
+  - ### Custom Editor Bar Block Placements
+    to reorder the blocks in the editor bar, create a file called `editorBar.sds` and if using the launcher, place it in the `game data` folder otherwise just place it in the game's directory.
+    [example file](./editorBar.sds)
