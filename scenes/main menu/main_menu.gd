@@ -323,10 +323,10 @@ var editorOnlyOptions := []
 func loadUserOptions() -> void:
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
+  __menu.onchanged.connect(updateUserOpts)
   for thing in data:
     __loadOptions(thing)
   __menu.show_menu()
-  __menu.onchanged.connect(updateUserOpts)
   scrollContainer.set_deferred('scroll_vertical', int(global.file.read("user://scrollContainerscroll_vertical", false, "0")))
   scrollContainer.gui_input.connect(func(event):
     # scroll up or down then save scroll position
