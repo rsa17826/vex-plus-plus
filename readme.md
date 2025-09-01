@@ -951,6 +951,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **pushing**: detects when the player is pushing a bomb/box
         - **facingLeft**: detects whe the player is facing left
         - **facingRight**: detects when the player is facing right
+        - **swimming**: detects when the player is in water
       - **signalOutputId**: the id that will be sent
       - **color**: sets the modulate property
 
