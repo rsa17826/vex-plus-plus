@@ -26,6 +26,8 @@ func on_respawn():
   else: return
   following = true
   var i = 0
+  await global.wait()
+  await global.wait()
   while i < 6:
     i += 1
     await global.wait()

@@ -1585,8 +1585,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # signal list only in edit / play opts
 
-# jump refreshers
-
 # add way to say creators should be higher than versions
 
 # see self signal sending?
@@ -1598,5 +1596,3 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!add modifiers to readme
 
 # !!!fix no shrink past min size
-
-# player state detector swimming
