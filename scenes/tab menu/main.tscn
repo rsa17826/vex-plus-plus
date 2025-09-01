@@ -1,14 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://boy84eq1dmt4t"]
+[gd_scene load_steps=4 format=3 uid="uid://boy84eq1dmt4t"]
 
+[ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="1_h3bri"]
 [ext_resource type="Script" uid="uid://caq4sfrulnhcy" path="res://scenes/tab menu/main.gd" id="1_jf5yk"]
 [ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="2_jf5yk"]
-[ext_resource type="Script" uid="uid://68hro0il35nt" path="res://scenes/tab menu/scripts/hitboxes.gd" id="4_07pjq"]
-[ext_resource type="Script" uid="uid://bs4m3plcr416k" path="res://GLOBAL/scripts/NestedSearchable/nested_searchable.gd" id="4_jf5yk"]
 
-[node name="Main" type="VBoxContainer" node_paths=PackedStringArray("optsmenunode")]
+[node name="ColorRect" type="ColorRect"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_h3bri")
+
+[node name="Main" type="VBoxContainer" parent="." node_paths=PackedStringArray("optsmenunode")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 18.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -17,7 +28,7 @@ mouse_filter = 2
 script = ExtResource("1_jf5yk")
 optsmenunode = NodePath("ScrollContainer/_")
 
-[node name="search" type="LineEdit" parent="."]
+[node name="search" type="LineEdit" parent="Main"]
 visible = false
 layout_mode = 2
 placeholder_text = "search"
@@ -25,70 +36,12 @@ keep_editing_on_text_submit = true
 clear_button_enabled = true
 script = ExtResource("2_jf5yk")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="_" type="HFlowContainer" parent="ScrollContainer"]
+[node name="_" type="HFlowContainer" parent="Main/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
-
-[node name="hitboxes" type="FoldableContainer" parent="ScrollContainer/_"]
-layout_mode = 2
-title = "hitboxes"
-script = ExtResource("4_07pjq")
-pullFromNode = true
-thisText = "hitboxes"
-
-[node name="_" type="VBoxContainer" parent="ScrollContainer/_/hitboxes"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="attachDetector" type="HBoxContainer" parent="ScrollContainer/_/hitboxes/_"]
-layout_mode = 2
-mouse_filter = 2
-script = ExtResource("4_jf5yk")
-
-[node name="attachDetector" type="CheckButton" parent="ScrollContainer/_/hitboxes/_/attachDetector"]
-layout_mode = 2
-text = "attachDetector"
-
-[node name="solid" type="HBoxContainer" parent="ScrollContainer/_/hitboxes/_"]
-layout_mode = 2
-mouse_filter = 2
-script = ExtResource("4_jf5yk")
-pullFromNode = true
-thisText = "attachDetector"
-
-[node name="solid" type="CheckButton" parent="ScrollContainer/_/hitboxes/_/solid"]
-layout_mode = 2
-text = "solid"
-
-[node name="area" type="HBoxContainer" parent="ScrollContainer/_/hitboxes/_"]
-layout_mode = 2
-mouse_filter = 2
-script = ExtResource("4_jf5yk")
-pullFromNode = true
-thisText = "attachDetector"
-
-[node name="area" type="CheckButton" parent="ScrollContainer/_/hitboxes/_/area"]
-layout_mode = 2
-text = "area"
-
-[node name="death" type="HBoxContainer" parent="ScrollContainer/_/hitboxes/_"]
-layout_mode = 2
-mouse_filter = 2
-script = ExtResource("4_jf5yk")
-pullFromNode = true
-thisText = "attachDetector"
-
-[node name="death" type="CheckButton" parent="ScrollContainer/_/hitboxes/_/death"]
-layout_mode = 2
-text = "death"
-
-[connection signal="toggled" from="ScrollContainer/_/hitboxes/_/attachDetector/attachDetector" to="ScrollContainer/_/hitboxes" method="_on_attach_detector_toggled"]
-[connection signal="toggled" from="ScrollContainer/_/hitboxes/_/solid/solid" to="ScrollContainer/_/hitboxes" method="_on_solid_toggled"]
-[connection signal="toggled" from="ScrollContainer/_/hitboxes/_/area/area" to="ScrollContainer/_/hitboxes" method="_on_area_toggled"]
-[connection signal="toggled" from="ScrollContainer/_/hitboxes/_/death/death" to="ScrollContainer/_/hitboxes" method="_on_death_toggled"]

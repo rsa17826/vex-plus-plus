@@ -77,13 +77,14 @@ func __loadOptions(thing) -> void:
 func _input(event: InputEvent) -> void:
   if event is InputEventKey:
     if Input.is_action_just_pressed(&"toggle_tab_menu", true):
-      visible = !visible
+      get_parent().visible = !get_parent().visible
 
 func _ready() -> void:
   size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
   scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
+  __menu.onchanged.connect(updateUserOpts)
   for thing in data:
     __loadOptions(thing)
   __menu.show_menu()
@@ -143,4 +144,7 @@ func updateUserOpts() -> void:
     shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   if shouldReload:
-    get_tree().reload_current_scene.call_deferred()
+    # get_tree().reload_current_scene.call_deferred()
+    global.level.save()
+    global.loadMap.call_deferred(global.mainLevelName, true)
+  global.hitboxTypesChanged.emit()

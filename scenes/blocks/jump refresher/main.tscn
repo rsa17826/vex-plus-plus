@@ -16,7 +16,7 @@ radius = 197.0406
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
 script = ExtResource("1_ru51i")
 sprite = NodePath("collisionNode/Sprite2D")
-ghostIconNode = NodePath("collisionNode/Sprite2D")
+ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("2_j21a7")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
@@ -46,7 +46,6 @@ texture = ExtResource("4_rc0bb")
 shape = SubResource("CircleShape2D_8tkfk")
 debug_color = Color(0, 1, 0, 0.419608)
 script = ExtResource("6_ru51i")
-hitboxType = 2
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0
