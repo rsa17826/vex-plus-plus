@@ -31,7 +31,7 @@ func _ready() -> void:
     else:
       # DisplayServer.clipboard_set(keyVal)
       text += await getinfo("keybind: " + action)
-  text += '\n- **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.'
+  text += '\n  - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.'
   text += '\n\n- ## Settings'
   var addOption = func(addOption, thing):
     match thing.thing:
@@ -99,7 +99,7 @@ func _ready() -> void:
     #   scaleFactor,
     #   scaleFactor
     # )
-    text += '\n    <img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="' + str(int(origSize.x * scaleFactor)) + '" height="' + str(int(origSize.y * scaleFactor)) + '">'
+    text += '\n    <br><img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="' + str(int(origSize.x * scaleFactor)) + '" height="' + str(int(origSize.y * scaleFactor)) + '">'
     text += '\n'
     for k in ['EDITOR_OPTION_scale', 'EDITOR_OPTION_rotate', 'canAttachToThings', 'canAttachToPaths']:
       if block[k]:
