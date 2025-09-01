@@ -1,55 +1,6 @@
 [
   {
     "thing": "group",
-    "name": "editor bar",
-    "value": [
-      {
-        "thing": "option",
-        "type": "range",
-        "key": "editorBarBlockSize",
-        "defaultValue": 50,
-        "min": 10,
-        "max": 100
-      },
-      {
-        "thing": "option",
-        "type": "range",
-        "key": "editorBarScrollSpeed",
-        "defaultValue": 1,
-        "min": -40,
-        "max": 40,
-        "step": 1
-      },
-      {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "editorBarOffset",
-        "defaultValue": 0,
-        "min": 0,
-        "max": 638,
-        "step": 1
-      },
-      {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "editorBarColumns",
-        "defaultValue": 1,
-        "max": 400,
-        "min": 1,
-        "allow lesser": false,
-        "allow greater": true
-      },
-      {
-        "thing": "option",
-        "type": "single select",
-        "key": "editorBarPosition",
-        "defaultValue": 0,
-        "options": ["top/left", "bottom", "right"]
-      }
-    ]
-  },
-  {
-    "thing": "group",
     "name": "grid",
     "value": [
       {
@@ -234,6 +185,55 @@
         "type": "bool",
         "key": "singleAxisAlignByDefault",
         "defaultValue": false
+      },
+      {
+        "thing": "group",
+        "name": "editor bar",
+        "value": [
+          {
+            "thing": "option",
+            "type": "range",
+            "key": "editorBarBlockSize",
+            "defaultValue": 50,
+            "min": 10,
+            "max": 100
+          },
+          {
+            "thing": "option",
+            "type": "range",
+            "key": "editorBarScrollSpeed",
+            "defaultValue": 1,
+            "min": -40,
+            "max": 40,
+            "step": 1
+          },
+          {
+            "thing": "option",
+            "type": "spinbox",
+            "key": "editorBarOffset",
+            "defaultValue": 0,
+            "min": 0,
+            "max": 638,
+            "step": 1
+          },
+          {
+            "thing": "option",
+            "type": "spinbox",
+            "key": "editorBarColumns",
+            "defaultValue": 1,
+            "max": 400,
+            "min": 1,
+            "allow lesser": false,
+            "allow greater": true
+          },
+          {
+            "thing": "option",
+            "type": "single select",
+            "key": "editorBarPosition",
+            "defaultValue": 0,
+            "options": ["top/left", "bottom", "right"]
+          }
+        ]
       }
     ]
   },
@@ -592,7 +592,7 @@
         "thing": "option",
         "type": "range",
         "key": "tabMenuScale",
-        "defaultValue": 0.75,
+        "defaultValue": 1.0,
         "min": 0.2,
         "max": 3.0,
         "step": 0.01

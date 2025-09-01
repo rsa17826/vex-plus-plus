@@ -2,11 +2,13 @@ extends Control
 var fs = false
 var text = ''
 var indent = 0
-func getHash(count):
+
+func getIndent(count):
   var h = ''
   for i in range(count):
-    h += '#'
+    h += '  '
   return h
+
 func _ready() -> void:
   global.useropts.theme = 1
   await global.wait()
@@ -14,12 +16,12 @@ func _ready() -> void:
   text = ''
   var oldmd = global.file.read("res://readme.md", false)
 
-  text += "## Controls\n"
+  text += "- ## Controls\n"
   for action in InputMap.get_actions():
     if action.begins_with("ui_"): continue
     if action.begins_with("CREATE NEW - "): continue
-    var keyVal = "\n- **" + action + "**: "
-    text += keyVal
+    var keyVal = "- **" + action + "**: "
+    text += '\n' + getIndent(1) + keyVal
     var lastText = ''
     if keyVal in oldmd:
       lastText = oldmd.split(keyVal)[1].split("\n")[0]
@@ -30,13 +32,13 @@ func _ready() -> void:
       # DisplayServer.clipboard_set(keyVal)
       text += await getinfo("keybind: " + action)
   text += '\n- **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.'
-  text += '\n\n## Settings'
+  text += '\n\n- ## Settings'
   var addOption = func(addOption, thing):
     match thing.thing:
       "option":
         if 'editorOnly' in thing and thing.editorOnly: return
         var keyVal = '- **' + thing.key + '**: '
-        text += '\n' + keyVal
+        text += '\n' + getIndent(indent + 1) + keyVal
         var lastText = ''
         if keyVal in oldmd:
           lastText = oldmd.split(keyVal)[1].split("\n")[0]
@@ -48,26 +50,26 @@ func _ready() -> void:
           text += await getinfo("setting: " + thing.key)
         return text
       "group":
-        text += '\n\n' + getHash(indent) + '## ' + (thing.name) + '\n'
-        # log.pp(thing.name, thing.value)
         indent += 1
+        text += '\n\n' + getIndent(indent) + '- ### ' + (thing.name) + '\n'
+        # log.pp(thing.name, thing.value)
         for a in thing.value:
           await addOption.call(addOption, a)
 
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   for thing in data:
-    indent = 1
+    indent = 0
     await addOption.call(addOption, thing)
   # generate blocks
   var setKeys = {}
-  text += '\n\n## Blocks'
+  text += '\n\n- ## Blocks'
   for id in global.DEFAULT_BLOCK_LIST:
     var block = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     add_child(block)
     await global.wait()
     # log.pp(id, block)
     var keyVal = '- **' + id + '**: '
-    text += "\n\n" + keyVal
+    text += "\n\n" + getIndent(indent) + keyVal
     var lastText = ''
     if keyVal in oldmd:
       lastText = oldmd.split(keyVal)[1].split("\n")[0]
@@ -97,17 +99,17 @@ func _ready() -> void:
     #   scaleFactor,
     #   scaleFactor
     # )
-    text += '\n  <img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="' + str(int(origSize.x * scaleFactor)) + '" height="' + str(int(origSize.y * scaleFactor)) + '">'
+    text += '\n    <img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="' + str(int(origSize.x * scaleFactor)) + '" height="' + str(int(origSize.y * scaleFactor)) + '">'
     text += '\n'
     for k in ['EDITOR_OPTION_scale', 'EDITOR_OPTION_rotate', 'canAttachToThings', 'canAttachToPaths']:
       if block[k]:
-        text += "\n  - " + k \
+        text += "\n    - " + k \
         .replace("EDITOR_OPTION_scale", 'scalable') \
         .replace("EDITOR_OPTION_rotate", 'rotatable')
     if block.blockOptions:
-      text += "\n  - **settings**:"
+      text += "\n    - ### settings:"
       for k in block.blockOptions:
-        var innerKeyVal = '    - **' + k + '**: '
+        var innerKeyVal = '      - **' + k + '**: '
         var innerLastText = ''
         if k in setKeys:
           innerLastText += setKeys[k]
@@ -128,7 +130,7 @@ func _ready() -> void:
         if global.same(block.blockOptions[k].type, global.PromptTypes._enum):
           var values = block.blockOptions[k].values
           for enumKey in values:
-            var enumKeyVal = "      - **" + enumKey + "**: "
+            var enumKeyVal = "        - **" + enumKey + "**: "
             innerLastText = ''
             if enumKeyVal in oldmd:
               innerLastText = oldmd.split(enumKeyVal)[1].split("\n")[0]
