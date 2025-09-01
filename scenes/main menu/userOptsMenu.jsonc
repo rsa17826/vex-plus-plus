@@ -375,9 +375,21 @@
           },
           {
             "thing": "option",
+            "type": "bool",
+            "key": "showAttachDetectorHitboxes",
+            "defaultValue": true
+          },
+          {
+            "thing": "option",
             "type": "rgba",
             "key": "solidHitboxColor",
             "defaultValue": 10072939
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showDeathHitboxes",
+            "defaultValue": true
           },
           {
             "thing": "option",
@@ -387,9 +399,21 @@
           },
           {
             "thing": "option",
+            "type": "bool",
+            "key": "showAreaHitboxes",
+            "defaultValue": true
+          },
+          {
+            "thing": "option",
             "type": "rgba",
             "key": "deathHitboxColor",
             "defaultValue": 4278190187
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showSolidHitboxes",
+            "defaultValue": true
           }
         ]
       }
@@ -563,6 +587,15 @@
         "type": "bool",
         "key": "openExportsDirectoryOnExport",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "range",
+        "key": "tabMenuScale",
+        "defaultValue": 0.75,
+        "min": 0.2,
+        "max": 3.0,
+        "step": 0.01
       }
     ]
   }
