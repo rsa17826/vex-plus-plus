@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends NestedSearchable
 
 var options = []
 var selected = []
@@ -16,7 +16,7 @@ func _ready() -> void:
     clone.get_node("cloner/CheckBox").toggled.connect(_on_check_box_toggled.bind(option))
     $cloneContainer.add_child(clone)
   main_cloner.queue_free()
-  
+
 func _on_option_button_pressed() -> void:
   $cloneContainer.visible = !$cloneContainer.visible
 

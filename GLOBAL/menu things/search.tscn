@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://be6ecr8nki4ef"]
+
+[ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="1_rsdkr"]
+
+[node name="search" type="LineEdit"]
+placeholder_text = "search"
+keep_editing_on_text_submit = true
+clear_button_enabled = true
+script = ExtResource("1_rsdkr")

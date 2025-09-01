@@ -23,7 +23,7 @@ signal searchMatchedThis
 signal searchMatchedChildren
 signal searchCleared
 
-func getChildNestedSearchables(startNode: Control = self ) -> Array[NestedSearchable]:
+func getChildNestedSearchables(startNode: Node = self ) -> Array[NestedSearchable]:
   var nested_searchables: Array[NestedSearchable] = []
   for child in startNode.get_children():
     if child is NestedSearchable:
