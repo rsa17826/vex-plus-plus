@@ -85,16 +85,11 @@ if FileExist("updating self") {
   if FileExist('temp.zip') {
     if F.read("updating self") == 'silent' {
       silent := 1
-      FileDelete("updating self")
-      FileDelete("temp.zip")
-      logerr("failed while updating the launcher!!!")
-      ExitApp(-1)
-    } else {
-      FileDelete("updating self")
-      FileDelete("temp.zip")
-      logerr("failed while updating the launcher!!!")
-      ExitApp(-1)
     }
+    FileDelete("updating self")
+    FileDelete("temp.zip")
+    logerr("failed while updating the launcher!!!")
+    ExitApp(-1)
   } else {
     loadReleases()
     F.write("launcherData/launcherVersion", releases.Length)
