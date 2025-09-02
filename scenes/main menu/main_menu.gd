@@ -332,7 +332,6 @@ func loadUserOptions() -> void:
     # scroll up or down then save scroll position
     if event.button_mask == 8 || event.button_mask == 16:
       global.file.write("user://scrollContainerscroll_vertical", str(scrollContainer.scroll_vertical), false))
-
   updateUserOpts()
 
 func updateUserOpts() -> void:
@@ -383,6 +382,10 @@ func updateUserOpts() -> void:
           if await loadLevel(newestLevel, true): return
         else:
           if await loadLevel(mapName, true): return
+      if thing == '--downloadMap':
+        var data = arr.pop_front()
+        shouldReload = false
+        await downloadMap(data.split("/")[0], data.split("/")[1], data.split("/")[2])
       if thing == '--loadOnlineLevels':
         shouldReload = false
         get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
@@ -390,6 +393,25 @@ func updateUserOpts() -> void:
 
   if shouldReload:
     get_tree().reload_current_scene.call_deferred()
+
+func downloadMap(version, creator, level):
+  var url = (
+    "https://raw.githubusercontent.com/rsa17826/" +
+    REPO_NAME + "/main/levels/" +
+    global.urlEncode(str(version) + '/' + creator + "/" + level) + '?rand=' + str(randf())
+  )
+  log.pp(url)
+  await global.httpGet(url,
+    PackedStringArray(),
+    HTTPClient.METHOD_GET,
+    '',
+    global.path.abs("res://downloaded maps/" + level),
+    false
+  )
+  if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)]):
+    ToastParty.success("Download complete\nThe map has been loaded.")
+  else:
+    ToastParty.error("Download failed, the map doesn't exist, or the map was invalid.")
 
 func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):
