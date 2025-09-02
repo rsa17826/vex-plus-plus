@@ -28,21 +28,39 @@ if A_ScriptDir = "D:\godotgames\vex\launcher" and A_UserName = 'user' {
   ExitApp()
 }
 
-PROTO.add("vex++", (data) {
-  try {
-    data := data.split('/')
-    switch data[1] {
-      case "downloadLevel":
-        data.RemoveAt(1)
-        if data.length == 3 {
-          runVersion(data[1], '--downloadLevel "' data.join('/') '" --loadLevel "' data[3] '"')
-        }
-        else {
-          logerr("failed to download level " data.join("/") ' is not the correct length!!')
-        }
-    }
+if A_Args.includes("registerProtocols") and not A_IsAdmin {
+  args := ""
+  for arg in A_Args {
+    args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
-})
+  Run('*RunAs "' . A_AhkPath . '" "' . A_ScriptFullPath . '"' . args, A_WorkingDir)
+  ExitApp()
+}
+if PROTO.isSelf('vex++') or A_Args.includes("registerProtocols")
+  PROTO.add("vex++", (data) {
+    try {
+      data := data.split('/')
+      switch data[1] {
+        case "downloadLevel":
+          data.RemoveAt(1)
+          if data.length == 3 {
+            runVersion(data[1], '--downloadLevel "' data.join('/') '" --loadLevel "' data[3] '"')
+          }
+          else {
+            logerr("failed to download level " data.join("/") ' is not the correct length!!')
+          }
+      }
+    }
+  }, 1)
+
+if [
+  'vex++'
+].find(p => !PROTO.isSelf(p)) {
+  if !FileExist("CREATE PROTOCOL HANDLER.lnk")
+    FileCreateShortcut(A_ScriptFullPath, "CREATE PROTOCOL HANDLER.lnk", , "registerProtocols")
+} else {
+  try FileDelete("CREATE PROTOCOL HANDLER.lnk")
+}
 
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 newestExeVersion := "4.5.beta6"

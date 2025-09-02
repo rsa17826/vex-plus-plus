@@ -205,7 +205,7 @@ func showMoreOptions(levelName, levelData):
       if not levelData.author:
         ToastParty.err("authors name must be set")
         return
-      var levelCode = str(levelData.version) + '/' + levelData.author + "/" + levelName
+      var levelCode = 'vex++:downloadMap/' + str(levelData.version) + '/' + levelData.author + "/" + levelName
       if levelCode.find("//") != -1:
         ToastParty.err("invalid level data " + levelCode)
         log.err(levelCode)

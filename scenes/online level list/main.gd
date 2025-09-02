@@ -147,7 +147,7 @@ func otc(text: String, version: NestedSearchable):
   version.updateSearch(text)
 
 func loadLevelById() -> void:
-  var data = (
+  var data: String = (
     await global.prompt(
       "Enter the ID of the level you want to load",
       global.PromptTypes.string,
@@ -155,6 +155,7 @@ func loadLevelById() -> void:
       "",
     )
   ).split("/")
+  data = data.trim_prefix("vex++:downloadMap/")
   if len(data) != 3:
     ToastParty.error("Invalid input")
     return
