@@ -4,15 +4,14 @@
 
 #Include *i <AutoThemed>
 
+#Include <compiledArgFixer>
+
 try TraySetIcon("icon.ico")
 SetWorkingDir(A_ScriptDir)
-#Include *i <vars>
 
 #Include <Misc>
 
-#Include *i <betterui> ; betterui
-
-#Include *i <textfind> ; FindText, setSpeed, doClick
+#Include <protocol>
 
 ; @name terst
 ; @regex \}\)\s+\.\s+Reverse
@@ -28,6 +27,23 @@ if A_ScriptDir = "D:\godotgames\vex\launcher" and A_UserName = 'user' {
   aotMsgBox("don't run from here")
   ExitApp()
 }
+
+PROTO.add("vex++", (data) {
+  try {
+    data := data.split('/')
+    switch data[1] {
+      case "downloadLevel":
+        data.RemoveAt(1)
+        if data.length == 3 {
+          runVersion(data[1], '--downloadLevel "' data.join('/') '" --loadLevel "' data[3] '"')
+        }
+        else {
+          logerr("failed to download level " data.join("/") ' is not the correct length!!')
+        }
+    }
+  }
+})
+
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 newestExeVersion := "4.5.beta6"
 doingSomething := 0
@@ -350,7 +366,7 @@ runSelectedVersion() {
   F.write("launcherData/lastRanVersion.txt", selectedVersion)
   ExitApp()
 }
-runVersion(gameVersion) {
+runVersion(gameVersion, newArgs := '') {
   global doingSomething
   if doingSomething {
     aotMsgBox("already doing something, wait till done")
@@ -418,6 +434,8 @@ runVersion(gameVersion) {
       args .= ' "' . StrReplace(arg, '"', '\"') . '"'
     }
     args .= ' ' F.read("launcherData/defaultArgs.txt")
+    if newArgs
+      args .= ' ' newArgs
     ; if consoleIsBlocked {
     ;   args .= ' RESTART_LAUNCHER'
     ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
