@@ -389,6 +389,8 @@ class path:
   static func abs(p: String) -> String:
     if OS.has_feature("editor"):
       return ProjectSettings.globalize_path(p)
+    if global.starts_with(p, "user://"):
+      return ProjectSettings.globalize_path(p)
     if global.starts_with(p, "res://"):
       return OS.get_executable_path().get_base_dir() + '/' + p.substr(6)
     return p
@@ -2057,6 +2059,7 @@ func httpGet(
   http_request.request_completed.connect(func(result, response_code, headers, body):
     # log.pp("DKLKLSADKLSDAKLKSADL", result, response_code, headers, body)
     var response
+    log.pp(body)
     if asjson:
       response=JSON.parse_string(body.get_string_from_utf8())
       if len(str(response)) < 100:
@@ -2258,6 +2261,7 @@ const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
 func downloadMap(version, creator, level):
+  ToastParty.info("the map " + level + " by " + creator + " has started downloading.")
   var url = (
     "https://raw.githubusercontent.com/rsa17826/" +
     REPO_NAME + "/main/levels/" +
@@ -2272,9 +2276,9 @@ func downloadMap(version, creator, level):
     false
   )
   if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)]):
-    ToastParty.success("Download complete\nThe map has been loaded.")
+    ToastParty.success("Download complete\nthe map " + level + " by " + creator + " has been loaded.")
   else:
-    ToastParty.error("Download failed, the map doesn't exist, or the map was invalid.")
+    ToastParty.error("Download failed, the map " + level + " by " + creator + " doesn't exist, or the map was invalid.")
 
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 

@@ -1,7 +1,7 @@
 ﻿;@Ahk2Exe-SetMainIcon ../pole.ico
 #Requires AutoHotkey v2.0
 #SingleInstance Force
-
+; A_DebuggerName
 #Include *i <AutoThemed>
 
 #Include <compiledArgFixer>
@@ -18,15 +18,25 @@ SetWorkingDir(A_ScriptDir)
 ; @replace }).Reverse
 ; @endregex
 
-SILENT := A_Args.includes("silent")
-OFFLINE := A_Args.includes("offline")
-
-releases := 0
-
 if A_ScriptDir = "D:\godotgames\vex\launcher" and A_UserName = 'user' {
   aotMsgBox("don't run from here")
   ExitApp()
 }
+
+apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
+newestExeVersion := "4.5.beta6"
+doingSomething := 0
+releases := 0
+validGameArgs := A_Args.filter(e => ![
+  "offline",
+  "tryupdate",
+  "update",
+  "silent",
+  "registerProtocols",
+].includes(e)).filter(e => !e.startsWith("vex++:"))
+
+SILENT := A_Args.includes("silent")
+OFFLINE := A_Args.includes("offline")
 
 if A_Args.includes("registerProtocols") and not A_IsAdmin {
   args := ""
@@ -36,19 +46,25 @@ if A_Args.includes("registerProtocols") and not A_IsAdmin {
   Run('*RunAs "' . A_AhkPath . '" "' . A_ScriptFullPath . '"' . args, A_WorkingDir)
   ExitApp()
 }
+
 if PROTO.isSelf('vex++') or A_Args.includes("registerProtocols")
   PROTO.add("vex++", (data) {
     try {
       data := data.split('/')
       switch data[1] {
-        case "downloadLevel":
+        case "downloadMap":
           data.RemoveAt(1)
           if data.length == 3 {
-            runVersion(data[1], '--downloadLevel "' data.join('/') '" --loadLevel "' data[3] '"')
+            if runVersion(data[1], '--downloadMap "' data.join('/') '" --loadMap "' data[3] '"')
+              ExitApp(0)
+            else
+              ExitApp(-1)
           }
           else {
             logerr("failed to download level " data.join("/") ' is not the correct length!!')
           }
+        default:
+          logerr("no message found " data.join('/'))
       }
     }
   }, 1)
@@ -62,9 +78,6 @@ if [
   try FileDelete("CREATE PROTOCOL HANDLER.lnk")
 }
 
-apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
-newestExeVersion := "4.5.beta6"
-doingSomething := 0
 if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
 }
@@ -137,14 +150,15 @@ if A_Args.includes("version") {
 if [
   "update",
   "version",
-  'tryupdate'
+  'tryupdate',
+  "registerProtocols",
 ].find(e => A_Args.includes(e)) {
   ExitApp()
 }
 ; if a vex++ file has been opened direct it to the last ran game version if the game is stil open
 if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   args := ""
-  for arg in A_Args {
+  for arg in validGameArgs {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
   ; args .= ' ' F.read("launcherData/defaultArgs.txt")
@@ -418,11 +432,11 @@ runVersion(gameVersion, newArgs := '') {
         logerr("ERROR", "Could not find the required executable version at A_Args.includes(`"version`")")
       }
       ; try {
-      ; FileCopy(
-      ;   path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
-      ;   path.join(A_ScriptDir, "game data/vex.console.exe"),
-      ;   1
-      ; )
+      FileCopy(
+        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
+        path.join(A_ScriptDir, "game data/vex.console.exe"),
+        1
+      )
       ; } catch {
       ;   consoleIsBlocked := 1
       ; }
@@ -448,7 +462,7 @@ runVersion(gameVersion, newArgs := '') {
       logerr("Could not copy the required file at runSelectedVersion start version 2", e)
     }
     args := ""
-    for arg in A_Args {
+    for arg in validGameArgs {
       args .= ' "' . StrReplace(arg, '"', '\"') . '"'
     }
     args .= ' ' F.read("launcherData/defaultArgs.txt")
@@ -458,7 +472,8 @@ runVersion(gameVersion, newArgs := '') {
     ;   args .= ' RESTART_LAUNCHER'
     ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     ; } else {
-    run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    return 1
     ; }
   }
   catch Error as e {
@@ -634,14 +649,7 @@ hasProcessRunning() {
       ; if the game process is vex
       if WinGetProcessName("ahk_pid " pid) == "vex.exe" {
         hasExtraArgs := 0
-        for arg in A_Args {
-          if [
-            "offline",
-            "tryupdate",
-            "update",
-            "silent",
-          ].includes(arg)
-            continue
+        for arg in validGameArgs {
           hasExtraArgs := 1
           break
         }

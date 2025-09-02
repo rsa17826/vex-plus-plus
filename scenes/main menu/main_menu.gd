@@ -382,7 +382,8 @@ func updateUserOpts() -> void:
           if await loadLevel(mapName, true): return
       if thing == '--downloadMap':
         var data = arr.pop_front()
-        shouldReload = false
+        shouldReload = true
+        if !data.ends_with('.vex++'): data += '.vex++'
         await global.downloadMap(data.split("/")[0], data.split("/")[1], data.split("/")[2])
       if thing == '--loadOnlineLevels':
         shouldReload = false
