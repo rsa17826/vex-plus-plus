@@ -1,15 +1,13 @@
 extends Control
 
 var GITHUB_TOKEN = global.getToken()
-const BRANCH = "main"
-const REPO_NAME = "vex-plus-plus-level-codes"
 
 @export var loadingText: Label
 @export var levelListContainerNode: Control
 
 # func loadVersions():
 #   var data = (
-#     await global.httpGet("https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/levels")
+#     await global.httpGet("https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/contents/levels")
 #   ).response
 #   return data.filter(func(e): return e.type == "dir").map(func(e): return e.name)
 
@@ -18,7 +16,7 @@ const REPO_NAME = "vex-plus-plus-level-codes"
 #   for version in versions:
 #     var creators = (
 #       await global.httpGet("https://api.github.com/repos/rsa17826/" +
-#         REPO_NAME + "/contents/levels/" +
+#         global.REPO_NAME + "/contents/levels/" +
 #         global.urlEncode(version)
 #       )
 #     ).response
@@ -31,7 +29,7 @@ const REPO_NAME = "vex-plus-plus-level-codes"
 #       pbox.add_group(creator)
 #       var levels = (
 #         await global.httpGet("https://api.github.com/repos/rsa17826/" +
-#           REPO_NAME + "/contents/levels/" +
+#           global.REPO_NAME + "/contents/levels/" +
 #           global.urlEncode(version + '/' + creator)
 #         )
 #       ).response
@@ -43,7 +41,7 @@ const REPO_NAME = "vex-plus-plus-level-codes"
 #         node.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
 #         node.creator.text = creator
 #         node.newSaveBtn.text = "download level"
-#         node.newSaveBtn.pressed.connect(downloadLevel.bind(version, creator, level))
+#         node.newSaveBtn.pressed.connect(global.downloadMap.bind(version, creator, level))
 #         node.loadSaveBtn.visible = false
 #         node.moreOptsBtn.visible = false
 #         pbox._group_stack[len(pbox._group_stack) - 1].add_child(node)
@@ -72,10 +70,10 @@ func loadOnlineLevels():
   $AnimatedSprite2D.frame = 0
   loadingText.text = "Loading..."
   loadingText.visible = true
-  var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + REPO_NAME + "/branches" + '?rand=' + str(randf()))).response
+  var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/branches" + '?rand=' + str(randf()))).response
   var sha = ""
   for branch in branches:
-    if branch.name != BRANCH: continue
+    if branch.name != global.BRANCH: continue
     sha = branch.commit.sha
     break
   if not sha:
@@ -83,7 +81,7 @@ func loadOnlineLevels():
     return
   var url = (
     "https://api.github.com/repos/rsa17826/" +
-    REPO_NAME + "/git/trees/" + sha +
+    global.REPO_NAME + "/git/trees/" + sha +
     "?recursive=1" + '&rand=' + str(randf())
   )
   log.pp(url)
@@ -135,7 +133,7 @@ func loadOnlineLevels():
         onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
         l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
         l.thisText = l.levelname.text.to_lower().replace('\n', '')
-        l.downloadBtn.pressed.connect(downloadLevel.bind(version, creator, level))
+        l.downloadBtn.pressed.connect(global.downloadMap.bind(version, creator, level))
         c.get_node("VBoxContainer").add_child(l)
 
   if global.useropts.onlyShowLevelsForCurrentVersion:
@@ -147,25 +145,6 @@ func loadOnlineLevels():
 func otc(text: String, version: NestedSearchable):
   if not version: return
   version.updateSearch(text)
-
-func downloadLevel(version, creator, level):
-  var url = (
-    "https://raw.githubusercontent.com/rsa17826/" +
-    REPO_NAME + "/main/levels/" +
-    global.urlEncode(str(version) + '/' + creator + "/" + level) + '?rand=' + str(randf())
-  )
-  log.pp(url)
-  await global.httpGet(url,
-    PackedStringArray(),
-    HTTPClient.METHOD_GET,
-    '',
-    global.path.abs("res://downloaded maps/" + level),
-    false
-  )
-  if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)]):
-    ToastParty.success("Download complete\nThe map has been loaded.")
-  else:
-    ToastParty.error("Download failed, the map doesn't exist, or the map was invalid.")
 
 func loadLevelById() -> void:
   var data = (
@@ -180,7 +159,7 @@ func loadLevelById() -> void:
     ToastParty.error("Invalid input")
     return
   if !data[2].ends_with(".vex++"): data[2] += ".vex++"
-  downloadLevel(data[0], data[1], data[2])
+  global.downloadMap(data[0], data[1], data[2])
 
 func loadMenu() -> void:
   get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
