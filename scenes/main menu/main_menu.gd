@@ -1,8 +1,6 @@
 extends Control
 
 var GITHUB_TOKEN = global.getToken()
-const BRANCH = "main"
-const REPO_NAME = "vex-plus-plus-level-codes"
 
 @export var optsmenunode: Control
 @export var levelContainer: Control
@@ -214,7 +212,7 @@ func showMoreOptions(levelName, levelData):
         return
       var url = (
         "https://raw.githubusercontent.com/rsa17826/" +
-        REPO_NAME + "/" + BRANCH + "/levels/" +
+        global.REPO_NAME + "/" + global.BRANCH + "/levels/" +
         global.urlEncode(str(levelData.version) + '/' + levelData.author + "/" + levelName) + '.vex++?rand=' + str(randf())
       )
       var data = await global.httpGet(url, [], HTTPClient.METHOD_GET)
@@ -235,7 +233,7 @@ func upload_file(file_path: String, base64_content: String, offlineLevelData: Di
     DirAccess.remove_absolute("user://tempLevel.zip")
   $AnimatedSprite2D.visible = true
   $AnimatedSprite2D.frame = 0
-  var url = "https://api.github.com/repos/rsa17826/" + REPO_NAME + "/contents/" + global.urlEncode(file_path)
+  var url = "https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/contents/" + global.urlEncode(file_path)
   log.pp("Request URL: ", url)
   var headers: PackedStringArray = [
     "Authorization: token %s" % GITHUB_TOKEN,
@@ -245,7 +243,7 @@ func upload_file(file_path: String, base64_content: String, offlineLevelData: Di
   var body = {
     "message": "Add new file",
     "content": base64_content,
-    "branch": BRANCH
+    "branch": global.BRANCH
   }
   ToastParty.info("Checking if level exists on server...")
   var getRes = (await global.httpGet(url + "?rand=" + str(randf()), headers, HTTPClient.METHOD_GET)).response
@@ -254,7 +252,7 @@ func upload_file(file_path: String, base64_content: String, offlineLevelData: Di
     DirAccess.remove_absolute("user://tempLevelOptions.sds")
     DirAccess.remove_absolute("user://tempLevel.zip")
     await global.httpGet("https://raw.githubusercontent.com/rsa17826/" +
-      REPO_NAME + "/main/" +
+      global.REPO_NAME + "/main/" +
       global.urlEncode(file_path) + "?rand=" + str(randf()),
       PackedStringArray(),
       HTTPClient.METHOD_GET,
@@ -385,7 +383,7 @@ func updateUserOpts() -> void:
       if thing == '--downloadMap':
         var data = arr.pop_front()
         shouldReload = false
-        await downloadMap(data.split("/")[0], data.split("/")[1], data.split("/")[2])
+        await global.downloadMap(data.split("/")[0], data.split("/")[1], data.split("/")[2])
       if thing == '--loadOnlineLevels':
         shouldReload = false
         get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
@@ -393,25 +391,6 @@ func updateUserOpts() -> void:
 
   if shouldReload:
     get_tree().reload_current_scene.call_deferred()
-
-func downloadMap(version, creator, level):
-  var url = (
-    "https://raw.githubusercontent.com/rsa17826/" +
-    REPO_NAME + "/main/levels/" +
-    global.urlEncode(str(version) + '/' + creator + "/" + level) + '?rand=' + str(randf())
-  )
-  log.pp(url)
-  await global.httpGet(url,
-    PackedStringArray(),
-    HTTPClient.METHOD_GET,
-    '',
-    global.path.abs("res://downloaded maps/" + level),
-    false
-  )
-  if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)]):
-    ToastParty.success("Download complete\nThe map has been loaded.")
-  else:
-    ToastParty.error("Download failed, the map doesn't exist, or the map was invalid.")
 
 func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):

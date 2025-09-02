@@ -2253,6 +2253,29 @@ var hitboxTypes := {
   "solid": true
 }
 signal hitboxTypesChanged
+
+const BRANCH = "main"
+const REPO_NAME = "vex-plus-plus-level-codes"
+
+func downloadMap(version, creator, level):
+  var url = (
+    "https://raw.githubusercontent.com/rsa17826/" +
+    REPO_NAME + "/main/levels/" +
+    global.urlEncode(str(version) + '/' + creator + "/" + level) + '?rand=' + str(randf())
+  )
+  log.pp(url)
+  await global.httpGet(url,
+    PackedStringArray(),
+    HTTPClient.METHOD_GET,
+    '',
+    global.path.abs("res://downloaded maps/" + level),
+    false
+  )
+  if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level)]):
+    ToastParty.success("Download complete\nThe map has been loaded.")
+  else:
+    ToastParty.error("Download failed, the map doesn't exist, or the map was invalid.")
+
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
