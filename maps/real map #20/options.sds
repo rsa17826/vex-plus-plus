@@ -2,17 +2,18 @@
   STR(start)STR(hub)
   STR(author)STR(rssaromeo)
   STR(description)STR()
-  STR(version)INT(151)
+  STR(version)INT(146)
   STR(stages){
     STR(hub){
-      STR(canDoWallSlide)BOOL(true)
-      STR(canDoWallHang)BOOL(true)
-      STR(canDoWallJump)BOOL(true)
-      STR(autoRun)BOOL(false)
-      STR(jumpCount)INT(1)
+      STR(color)INT(10)
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(saveTick)BOOL(false)
+      STR(jumpCount)INT(1)
+      STR(autoRun)BOOL(false)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallJump)BOOL(true)
     }
   }
-  STRNAME(levelVersion)INT(162)
+  STRNAME(levelVersion)INT(129)
 }
