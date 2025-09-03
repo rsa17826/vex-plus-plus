@@ -562,71 +562,71 @@ func _process(delta: float) -> void:
       # and if first hovered block, show border
       if global.hoveredBlocks && self == global.hoveredBlocks[0] \
         or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
-        var mouse_pos := get_global_mouse_position().rotated(-deg_to_rad(startRotation_degrees))
+        if !Input.is_action_pressed(&"editor_select"):
+          var mouse_pos := get_global_mouse_position().rotated(-deg_to_rad(startRotation_degrees))
 
-        var node_pos := ghost.global_position.rotated(-deg_to_rad(startRotation_degrees))
-        var node_size: Vector2 = ghost.texture.get_size() * ghost.scale * scale
-        left_edge = node_pos.x - node_size.x / 2
-        right_edge = node_pos.x + node_size.x / 2
-        top_edge = node_pos.y - node_size.y / 2
-        bottom_edge = node_pos.y + node_size.y / 2
+          var node_pos := ghost.global_position.rotated(-deg_to_rad(startRotation_degrees))
+          var node_size: Vector2 = ghost.texture.get_size() * ghost.scale * scale
+          left_edge = node_pos.x - node_size.x / 2
+          right_edge = node_pos.x + node_size.x / 2
+          top_edge = node_pos.y - node_size.y / 2
+          bottom_edge = node_pos.y + node_size.y / 2
 
-        var leftDist: float = abs(mouse_pos.x - left_edge)
-        var rightDist: float = abs(mouse_pos.x - right_edge)
-        var topDist: float = abs(mouse_pos.y - top_edge)
-        var bottomDist: float = abs(mouse_pos.y - bottom_edge)
-        var testDist := 7
+          var leftDist: float = abs(mouse_pos.x - left_edge)
+          var rightDist: float = abs(mouse_pos.x - right_edge)
+          var topDist: float = abs(mouse_pos.y - top_edge)
+          var bottomDist: float = abs(mouse_pos.y - bottom_edge)
+          var testDist := 7
 
-        # set the sides that you are close enough to to be selecting
-        onTopSide = topDist < testDist
-        onBottomSide = bottomDist < testDist
-        if onTopSide and onBottomSide:
-          if topDist < bottomDist:
-            onBottomSide = false
-          else:
-            onTopSide = false
-
-        onLeftSide = leftDist < testDist
-        onRightSide = rightDist < testDist
-        if onLeftSide and onRightSide:
-          if leftDist < rightDist:
-            onRightSide = false
-          else:
-            onLeftSide = false
-        if global.useropts.noCornerGrabsForScaling:
-          if onTopSide and onRightSide:
-            if node_size.y < node_size.x:
-              onTopSide = false
-            else:
-              onRightSide = false
-          elif onTopSide and onLeftSide:
-            if node_size.y < node_size.x:
-              onTopSide = false
-            else:
-              onLeftSide = false
-          elif onBottomSide and onRightSide:
-            if node_size.y < node_size.x:
+          # set the sides that you are close enough to to be selecting
+          onTopSide = topDist < testDist
+          onBottomSide = bottomDist < testDist
+          if onTopSide and onBottomSide:
+            if topDist < bottomDist:
               onBottomSide = false
             else:
+              onTopSide = false
+
+          onLeftSide = leftDist < testDist
+          onRightSide = rightDist < testDist
+          if onLeftSide and onRightSide:
+            if leftDist < rightDist:
               onRightSide = false
-          elif onBottomSide and onLeftSide:
-            if node_size.y < node_size.x:
-              onBottomSide = false
             else:
               onLeftSide = false
+          if global.useropts.noCornerGrabsForScaling:
+            if onTopSide and onRightSide:
+              if node_size.y < node_size.x:
+                onTopSide = false
+              else:
+                onRightSide = false
+            elif onTopSide and onLeftSide:
+              if node_size.y < node_size.x:
+                onTopSide = false
+              else:
+                onLeftSide = false
+            elif onBottomSide and onRightSide:
+              if node_size.y < node_size.x:
+                onBottomSide = false
+              else:
+                onRightSide = false
+            elif onBottomSide and onLeftSide:
+              if node_size.y < node_size.x:
+                onBottomSide = false
+              else:
+                onLeftSide = false
 
-        # var v = boolsToV2(onTopSide, onBottomSide, onLeftSide, onRightSide).rotated(deg_to_rad(startRotation_degrees))
-
-        # store the selected sides in global
-        global.scaleOnTopSide = onTopSide
-        global.scaleOnBottomSide = onBottomSide
-        global.scaleOnRightSide = onRightSide
-        global.scaleOnLeftSide = onLeftSide
-        # global.scaleOnTopSide = v.y == -1
-        # global.scaleOnBottomSide = v.y == 1
-        # global.scaleOnRightSide = v.x == 1
-        # global.scaleOnLeftSide = v.x == -1
-        # log.pp("ed", onLeftSide, onRightSide)
+          # var v = boolsToV2(onTopSide, onBottomSide, onLeftSide, onRightSide).rotated(deg_to_rad(startRotation_degrees))
+          # store the selected sides in global
+          global.scaleOnTopSide = onTopSide
+          global.scaleOnBottomSide = onBottomSide
+          global.scaleOnRightSide = onRightSide
+          global.scaleOnLeftSide = onLeftSide
+          # global.scaleOnTopSide = v.y == -1
+          # global.scaleOnBottomSide = v.y == 1
+          # global.scaleOnRightSide = v.x == 1
+          # global.scaleOnLeftSide = v.x == -1
+          # log.pp("ed", onLeftSide, onRightSide)
 
         ghost.material.set_shader_parameter("xSize", global.useropts.blockOutlineSize / (sizeInPx.x / 100))
         ghost.material.set_shader_parameter("ySize", global.useropts.blockOutlineSize / (sizeInPx.y / 100))
