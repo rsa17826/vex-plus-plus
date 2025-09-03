@@ -191,15 +191,30 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### info
 
-    - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
-    - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
-    - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
-    - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
-    - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
-    - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
-    - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
-    - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
-    - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
+
+    - ### hovered block list
+
+      - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
+
+      - ### selected block
+
+        - **showSelectedBlockId**: adds the id of the current selected block to the hovered block list
+        - **showSelectedBlockPosition**: adds the position of the current selected block to the hovered block list
+        - **showSelectedBlockRotation**: adds the rotation of the current selected block to the hovered block list
+
+        - ### hovered blocks
+
+          - **showHoveredBlockId**: adds the id of hovered blocks to the hovered block list
+          - **showHoveredBlockPosition**: adds the position of hovered blocks to the hovered block list
+          - **showHoveredBlockRotation**: adds the rotation of hovered blocks to the hovered block list
+          - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
+          - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
+          - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
+          - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
+          - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
+          - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
+          - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
+          - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
 
   - ### signal display
 
