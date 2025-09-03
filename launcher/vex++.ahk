@@ -35,6 +35,16 @@ validGameArgs := A_Args.filter(e => ![
   "registerProtocols",
 ].includes(e)).filter(e => !e.startsWith("vex++:"))
 
+settings := JSON.parse(f.read('launcherData/settings.json', '{}'), , 0)
+gettings := OptObj(settings)
+saveSettings()
+saveSettings() {
+  global gettings
+  gettings := OptObj(settings)
+  temp := JSON.stringify(settings)
+  f.write('launcherData/settings.json', temp)
+}
+
 SILENT := A_Args.includes("silent")
 OFFLINE := A_Args.includes("offline")
 
@@ -264,6 +274,12 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
       FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
     }
   })
+  guiCtrl := ui.AddCheckbox((gettings.openGameConsole ? "+Checked" : '') '', "open console with game - breaks opening different version from inside game")
+  guiCtrl.OnEvent("Click", (elem, info) {
+    print(elem, info)
+    settings.openGameConsole := elem.Value
+    saveSettings()
+  })
   sortVersionList()
   ; SetTimer(sortVersionList)
   ; update ui size
@@ -427,11 +443,12 @@ runVersion(gameVersion, newArgs := '') {
         logerr("ERROR", "Could not find the required executable version at A_Args.includes(`"version`")")
       }
       ; try {
-      FileCopy(
-        path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
-        path.join(A_ScriptDir, "game data/vex.console.exe"),
-        1
-      )
+      if settings.openGameConsole
+        FileCopy(
+          path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
+          path.join(A_ScriptDir, "game data/vex.console.exe"),
+          1
+        )
       ; } catch {
       ;   consoleIsBlocked := 1
       ; }
@@ -467,12 +484,12 @@ runVersion(gameVersion, newArgs := '') {
     ;   args .= ' RESTART_LAUNCHER'
     ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     ; } else {
-    run('"' . path.join(A_ScriptDir, "game data/vex.console.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    run('"' . path.join(A_ScriptDir, "game data/vex" (gettings.openGameConsole ? ".console" : '') ".exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     return 1
     ; }
   }
   catch Error as e {
-    logerr("No version specified, you must specify a version number to open", e)
+    logerr("error while running runVersion gameVersion " gameVersion, e)
   }
 }
 updateRow(row, version?, status?, runtext?) {
