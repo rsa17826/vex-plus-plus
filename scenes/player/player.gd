@@ -1664,3 +1664,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix being unable to wallhang in small spaces
 
 # !!!fix box select not worjing on rotated blocks
+
+# when loading level from file open game versiuon that the level is for
