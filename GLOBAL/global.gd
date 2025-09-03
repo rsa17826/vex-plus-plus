@@ -723,7 +723,7 @@ func localProcess(delta: float) -> void:
       mouseMovedFarEnoughToStartDrag = true
     else:
       mpos = mouseMoveStartPos
-    if Input.is_key_pressed(KEY_ESCAPE):
+    if Input.is_key_pressed(KEY_ESCAPE) and selectedBlock:
       var b = selectedBlock
       b.global_position = selectedBlockStartPosition
       b.scale = selectedBlockStartScale
