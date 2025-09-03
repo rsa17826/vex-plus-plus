@@ -424,10 +424,64 @@
     "name": "info",
     "value": [
       {
-        "thing": "option",
-        "type": "bool",
-        "key": "showHoveredBlocksList",
-        "defaultValue": true
+        "thing": "group",
+        "name": "hovered block list",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showHoveredBlocksList",
+            "defaultValue": true
+          },
+          {
+            "thing": "group",
+            "name": "selected block",
+            "value": [
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSelectedBlockId",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSelectedBlockPosition",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSelectedBlockRotation",
+                "defaultValue": true
+              }
+            ]
+          },
+          {
+            "thing": "group",
+            "name": "hovered blocks",
+            "value": [
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showHoveredBlockId",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showHoveredBlockPosition",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showHoveredBlockRotation",
+                "defaultValue": true
+              }
+            ]
+          }
+        ]
       },
       {
         "thing": "option",
