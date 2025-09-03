@@ -239,7 +239,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### debug
 
-    - **showHitboxes**: sets the default hitbox state for whenever entering a level
+    - **showHitboxesByDefault**: sets the default hitbox state for whenever entering a level
 
   - ### misc
 

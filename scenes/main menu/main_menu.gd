@@ -312,7 +312,7 @@ func upload_file(file_path: String, base64_content: String, offlineLevelData: Di
   cleanup.call()
 
 func loadLevel(level, fromSave) -> bool:
-  global.hitboxesShown = global.useropts.showHitboxes
+  global.hitboxesShown = global.useropts.showHitboxesByDefault
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   return await global.loadMap(level, fromSave)
 
