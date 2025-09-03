@@ -55,6 +55,7 @@ func _ready() -> void:
         # log.pp(thing.name, thing.value)
         for a in thing.value:
           await addOption.call(addOption, a)
+        indent -= 1
 
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   for thing in data:
