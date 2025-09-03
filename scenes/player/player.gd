@@ -381,14 +381,14 @@ func _physics_process(delta: float) -> void:
       if inWaters:
         state = States.falling
         return
-      global_position = activeCannon.thingThatMoves.global_position + (Vector2(0, -130) * activeCannon.scale)
+      global_position = activeCannon.thingThatMoves.global_position + (Vector2(0, -130) * activeCannon.scale).rotated(activeCannon.rotation).rotated(-defaultAngle)
       # activeCannon.top_level = true
       if cannonRotationDelayFrames > 0:
         cannonRotationDelayFrames -= delta
       else:
         activeCannon.rotNode.rotation_degrees += delta * WATER_TURNSPEED * getCurrentLrState()
       activeCannon.rotNode.rotation_degrees = clamp(activeCannon.rotNode.rotation_degrees, -25, 25)
-      rotation = activeCannon.rotNode.rotation
+      rotation = activeCannon.rotNode.rotation + activeCannon.rotation
       anim.flip_h = rotation < 0
       anim.animation = "idle"
       if ACTIONjump:
