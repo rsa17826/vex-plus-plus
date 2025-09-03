@@ -4,9 +4,9 @@
     STR(y)FLOAT(-65.0)
   }
   {
-    STR(x)FLOAT(0.0)
+    STR(x)FLOAT(150.0)
     STR(y)FLOAT(0.0)
-    STR(w)FLOAT(1.00000004470348)
+    STR(w)FLOAT(4.00000017881393)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -16,14 +16,27 @@
     }
   }
   {
-    STR(x)FLOAT(375.0)
+    STR(x)FLOAT(350.0)
     STR(y)FLOAT(-25.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
+    STR(r)FLOAT(45.0)
     STR(id)STR(quadrant)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(150.0)
+    STR(y)FLOAT(-200.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(targeting laser)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
