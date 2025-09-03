@@ -2177,7 +2177,7 @@ func boxSelectReleased():
       max(boxSelectRealStartPos.y, boxSelectRealEndPos.y)
     ),
   ]
-  log.pp(rect)
+  # log.pp(rect)
 
   var rect_min = rect[0]
   var rect_max = rect[1]
