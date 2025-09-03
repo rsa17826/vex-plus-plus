@@ -670,6 +670,36 @@ func _physics_process(delta: float) -> void:
               lastWallSide = 0
               lastWallCollisionPoint = null
               lastWall = null
+            # if levelFlags.canDoWallHang && ((
+            #   is_on_wall() and (
+            #     (
+            #       leftWallDetection.is_colliding() and not leftWallTopDetection.is_colliding()
+            #     ) or (
+            #       rightWallDetection.is_colliding() and not rightWallTopDetection.is_colliding()
+            #     )
+            #   )
+            # ) and not collidingWithNowj()):
+            #   currentHungWall = rightWallDetection.get_collider() if getCurrentWallSide() == 1 else leftWallDetection.get_collider()
+            #   hungWallSide = getCurrentWallSide()
+            #   state = States.wallHang
+            #   var loopIdx: int = 0
+            #   var ray = rightWallTopDetection if getCurrentWallSide() == 1 else leftWallTopDetection
+            #   log.pp(ray, getCurrentWallSide())
+            #   while !ray.is_colliding() and loopIdx < 20:
+            #     loopIdx += 1
+            #     position += Vector2(0, 1).rotated(defaultAngle)
+            #     ray.force_raycast_update()
+            #     # rightWallTopDetection.force_raycast_update()
+            #   if loopIdx >= 20:
+            #     position -= Vector2(0, loopIdx).rotated(defaultAngle)
+            #     log.pp("fell off wall hang")
+            #     # remainingJumpCount -= 1
+            #     state = States.falling
+            #   position -= Vector2(0, 5).rotated(defaultAngle)
+            #   breakFromWall = true
+            #   lastWallSide = 0
+            #   lastWallCollisionPoint = null
+            #   lastWall = null
 
           # if not in wall hang state and near a wall
           if state != States.wallHang && getCurrentWallSide() and not collidingWithNowj():
@@ -804,6 +834,35 @@ func _physics_process(delta: float) -> void:
             state = States.wallSliding
           else:
             position -= Vector2(0, 1).rotated(defaultAngle)
+
+        # if state == States.wallHang && ((
+        #   is_on_wall() and (
+        #     (
+        #       getCurrentWallSide() == -1 and leftWallDetection.is_colliding() and leftWallTopDetection.is_colliding()
+        #     ) or (
+        #       getCurrentWallSide() == 1 and rightWallDetection.is_colliding() and rightWallTopDetection.is_colliding()
+        #     )
+        #   )
+        # ) and not collidingWithNowj()):
+        #   # currentHungWall = getCurrentWall()
+        #   hungWallSide = getCurrentWallSide()
+        #   var loopIdx: int = 0
+        #   currentHungWall = rightWallDetection.get_collider() if getCurrentWallSide() == 1 else leftWallDetection.get_collider()
+        #   var ray = rightWallTopDetection if 1 == 1 else leftWallTopDetection
+        #   log.pp(ray, getCurrentWallSide(), 222)
+
+        #   while ray.is_colliding() and loopIdx < 20:
+        #     loopIdx += 1
+        #     # log.pp(loopIdx)
+        #     position -= Vector2(0, 1).rotated(defaultAngle)
+        #     ray.force_raycast_update()
+        #   if loopIdx >= 20:
+        #     position += Vector2(0, loopIdx).rotated(defaultAngle)
+        #     log.pp("fell off wall hang to wallSliding")
+        #     remainingJumpCount -= 1
+        #     state = States.wallSliding
+        #   else:
+        #     position -= Vector2(0, 1).rotated(defaultAngle)
 
         # animations
         if anim.animation == "jumping off pole" and vel.user.y != 0: pass
@@ -1601,6 +1660,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!!fix no shrink past min size
 
 # fix being able to rotate/scale player
-# fix being unable to wallhang in small spaces
 
-# fix cannons not working upside down
+# fix being unable to wallhang in small spaces
