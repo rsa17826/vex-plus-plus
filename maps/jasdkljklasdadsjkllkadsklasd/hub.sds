@@ -117,10 +117,10 @@
     }
   }
   {
-    STR(x)FLOAT(-50.0)
-    STR(y)FLOAT(-391.5)
-    STR(w)FLOAT(3.00000002980232)
-    STR(h)FLOAT(0.66000008583069)
+    STR(x)FLOAT(-325.0)
+    STR(y)FLOAT(-375.0)
+    STR(w)FLOAT(3.5)
+    STR(h)FLOAT(0.50000002235174)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STRNAME(options){
