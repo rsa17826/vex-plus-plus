@@ -178,17 +178,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **toastStayTime**: how long the toast stays on screen in seconds.
     - **theme**: the theme used for the entire application.
 
-    - ### hitbox theme
-
-      - **attachDetectorHitboxColor**: the color of the hitbox of the attach detecors
-      - **showAttachDetectorHitboxes**: if true the attach detector hitboxes will be visible when hitboxes are shown
-      - **solidHitboxColor**: the color of the hitbox of the solids
-      - **showDeathHitboxes**: if true the deadly area hitboxes will be visible when hitboxes are shown
-      - **areaHitboxColor**: the color of the hitbox of the areas
-      - **showAreaHitboxes**: if true the non deadly area hitboxes will be visible when hitboxes are shown
-      - **deathHitboxColor**: the color of the hitbox of the deadly areas
-      - **showSolidHitboxes**: if true the solid hitboxes will be visible when hitboxes are shown
-
   - ### info
 
 
@@ -239,7 +228,30 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### debug
 
-    - **showHitboxesByDefault**: sets the default hitbox state for whenever entering a level
+
+    - ### hitboxes
+
+      - **showHitboxesByDefault**: sets the default hitbox state for whenever entering a level
+
+      - ### solid hitboxes
+
+        - **solidHitboxColor**: the color of the hitbox of the solids
+        - **showSolidHitboxes**: if true the solid hitboxes will be visible when hitboxes are shown
+
+        - ### attach detector hitboxes
+
+          - **attachDetectorHitboxColor**: the color of the hitbox of the attach detecors
+          - **showAttachDetectorHitboxes**: if true the attach detector hitboxes will be visible when hitboxes are shown
+
+          - ### area hitboxes
+
+            - **areaHitboxColor**: the color of the hitbox of the areas
+            - **showAreaHitboxes**: if true the non deadly area hitboxes will be visible when hitboxes are shown
+
+            - ### death hitboxes
+
+              - **showDeathHitboxes**: if true the deadly area hitboxes will be visible when hitboxes are shown
+              - **deathHitboxColor**: the color of the hitbox of the deadly areas
 
   - ### misc
 
