@@ -2137,6 +2137,34 @@ var boxSelect_selectedBlocks: Array[EditorBlock] = []:
 
 @onready var MAP_FOLDER = path.abs('res://maps')
 
+func get_rotated_corners(center: Vector2, size: Vector2, rotation: float) -> Array:
+  var half_size = size / 2
+  var corners = [
+    Vector2(-half_size.x, -half_size.y),
+    Vector2(half_size.x, -half_size.y),
+    Vector2(half_size.x, half_size.y),
+    Vector2(-half_size.x, half_size.y)
+  ]
+
+  var rotated_corners = []
+  for corner in corners:
+    var rotated_corner = corner.rotated(rotation) + center
+    rotated_corners.append(rotated_corner)
+
+  return rotated_corners
+
+func is_point_in_polygon(point: Vector2, polygon: Array) -> bool:
+  var inside = false
+  var n = polygon.size()
+
+  for i in range(n):
+    var j = (i + 1) % n
+    if ((polygon[i].y > point.y) != (polygon[j].y > point.y)) and \
+      (point.x < (polygon[j].x - polygon[i].x) * (point.y - polygon[i].y) / (polygon[j].y - polygon[i].y) + polygon[i].x):
+      inside = !inside
+
+  return inside
+
 func boxSelectReleased():
   # boxSelect_selectedBlocks = []
   var rect = [
@@ -2150,15 +2178,42 @@ func boxSelectReleased():
     ),
   ]
   log.pp(rect)
+
+  var rect_min = rect[0]
+  var rect_max = rect[1]
+  var selection_center = (rect_min + rect_max) / 2
+  var selection_size = rect_max - rect_min
+  var selection_rotation = 0 # Assuming the selection rectangle is not rotated
+
+  # Get the corners of the selection rectangle
+  var selection_corners = get_rotated_corners(selection_center, selection_size, selection_rotation)
+
   for block: EditorBlock in level.get_node("blocks").get_children():
     if block.isChildOfCustomBlock: continue
     if block.EDITOR_IGNORE: continue
     var pos = block.global_position
-    var size = block.sizeInPx.rotated(deg_to_rad(block.startRotation_degrees))
-    if pos.x + (size.x / 2) >= rect[0][0] and pos.x - (size.x / 2) <= rect[1][0]:
-      if pos.y + (size.y / 2) >= rect[0][1] and pos.y - (size.y / 2) <= rect[1][1]:
-        if block not in boxSelect_selectedBlocks:
-          boxSelect_selectedBlocks.append(block)
+    var size = block.sizeInPx
+    var rot = deg_to_rad(block.startRotation_degrees)
+
+    # Get the rotated corners of the block
+    var rotated_corners = get_rotated_corners(pos, size, rot)
+
+    # Check if any corner of the block is inside the selection rectangle
+    var intersects = false
+    for corner in rotated_corners:
+      if is_point_in_polygon(corner, selection_corners):
+        intersects = true
+        break
+
+    # If no corner of the block is inside the selection rectangle, check if any corner of the selection rectangle is inside the block
+    if not intersects:
+      for corner in selection_corners:
+        if is_point_in_polygon(corner, rotated_corners):
+          intersects = true
+          break
+
+    if intersects and block not in boxSelect_selectedBlocks:
+      boxSelect_selectedBlocks.append(block)
 
   boxSelectDrawStartPos = Vector2.ZERO
   boxSelectDrawEndPos = Vector2.ZERO
