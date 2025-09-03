@@ -274,7 +274,7 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
       FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
     }
   })
-  guiCtrl := ui.AddCheckbox((gettings.openGameConsole ? "+Checked" : '') '', "open console with game - breaks opening different version from inside game")
+  guiCtrl := ui.AddCheckbox((gettings.openGameConsole ? "+Checked" : '') '', "open console with game`nbreaks opening different version from inside game")
   guiCtrl.OnEvent("Click", (elem, info) {
     print(elem, info)
     settings.openGameConsole := elem.Value
