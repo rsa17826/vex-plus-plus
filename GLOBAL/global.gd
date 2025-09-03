@@ -754,7 +754,7 @@ func localProcess(delta: float) -> void:
       var b = selectedBlock
       var startPos = selectedBlock.global_position
       # gridSize = gridSize.rotated(r)
-      var testrot = -r
+      var testrot = 0
       # mpos = mpos.rotated(testrot)
       # mpos = round(mpos / gridSize) * gridSize
       # startPos = round(startPos / gridSize) * gridSize
@@ -821,9 +821,11 @@ func localProcess(delta: float) -> void:
           scaleOnBottomSide = false
           moveMouse.call(mousePos - Vector2(0, minSize.y * 700))
       # log.pp(minSize, scale)
-      scale.x = clamp(scale.x, minSize.x, 2500.0 / 7.0)
-      scale.y = clamp(scale.y, minSize.y, 2500.0 / 7.0)
       b.scale = scale.rotated(-testrot)
+      b.scale.x = (round((b.scale.x * b.defaultSizeInPx.x) / gridSize.x) * gridSize.x) / b.defaultSizeInPx.x
+      b.scale.y = (round((b.scale.y * b.defaultSizeInPx.y) / gridSize.y) * gridSize.y) / b.defaultSizeInPx.y
+      b.scale.x = clamp(b.scale.x, minSize.x, 2500.0 / 7.0)
+      b.scale.y = clamp(b.scale.y, minSize.y, 2500.0 / 7.0)
       global.setEditorUiState(true)
       var moveDist = b.global_position - b.startPosition
       setBlockStartPos(b)
