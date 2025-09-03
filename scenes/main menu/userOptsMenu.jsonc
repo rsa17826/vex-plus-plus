@@ -362,60 +362,6 @@
         "key": "theme",
         "defaultValue": 2,
         "options": ["default", "blue", "black"]
-      },
-      {
-        "thing": "group",
-        "name": "hitbox theme",
-        "value": [
-          {
-            "thing": "option",
-            "type": "rgba",
-            "key": "attachDetectorHitboxColor",
-            "defaultValue": 3747020907
-          },
-          {
-            "thing": "option",
-            "type": "bool",
-            "key": "showAttachDetectorHitboxes",
-            "defaultValue": true
-          },
-          {
-            "thing": "option",
-            "type": "rgba",
-            "key": "solidHitboxColor",
-            "defaultValue": 10072939
-          },
-          {
-            "thing": "option",
-            "type": "bool",
-            "key": "showDeathHitboxes",
-            "defaultValue": true
-          },
-          {
-            "thing": "option",
-            "type": "rgba",
-            "key": "areaHitboxColor",
-            "defaultValue": 16711787
-          },
-          {
-            "thing": "option",
-            "type": "bool",
-            "key": "showAreaHitboxes",
-            "defaultValue": true
-          },
-          {
-            "thing": "option",
-            "type": "rgba",
-            "key": "deathHitboxColor",
-            "defaultValue": 4278190187
-          },
-          {
-            "thing": "option",
-            "type": "bool",
-            "key": "showSolidHitboxes",
-            "defaultValue": true
-          }
-        ]
       }
     ]
   },
@@ -620,15 +566,93 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "showHitboxes",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
         "key": "slowTime",
         "editorOnly": true,
         "defaultValue": false
+      },
+      {
+        "thing": "group",
+        "name": "hitboxes",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showHitboxesByDefault",
+            "defaultValue": false
+          },
+          {
+            "thing": "group",
+            "name": "solid hitboxes",
+            "value": [
+              {
+                "thing": "option",
+                "type": "rgba",
+                "key": "solidHitboxColor",
+                "defaultValue": 10072939
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSolidHitboxes",
+                "defaultValue": true
+              }
+            ]
+          },
+          {
+            "thing": "group",
+            "name": "attach detector hitboxes",
+            "value": [
+              {
+                "thing": "option",
+                "type": "rgba",
+                "key": "attachDetectorHitboxColor",
+                "defaultValue": 3747020907
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showAttachDetectorHitboxes",
+                "defaultValue": true
+              }
+            ]
+          },
+          {
+            "thing": "group",
+            "name": "area hitboxes",
+            "value": [
+              {
+                "thing": "option",
+                "type": "rgba",
+                "key": "areaHitboxColor",
+                "defaultValue": 16711787
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showAreaHitboxes",
+                "defaultValue": true
+              }
+            ]
+          },
+          {
+            "thing": "group",
+            "name": "death hitboxes",
+            "value": [
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showDeathHitboxes",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "rgba",
+                "key": "deathHitboxColor",
+                "defaultValue": 4278190187
+              }
+            ]
+          }
+        ]
       }
     ]
   },

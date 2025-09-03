@@ -892,7 +892,10 @@ func _physics_process(delta: float) -> void:
         velocity = Vector2.ZERO
         if state != States.wallHang:
           for n: String in vel:
-            velocity += applyRot(vel[n])
+            if n == 'user' and playerKT > 0:
+              velocity += applyRot(Vector2(vel[n].x, 0))
+            else:
+              velocity += applyRot(vel[n])
           for n: String in vel:
             vel[n] *= (velDecay[n]) # * delta * 60
         # if Input.is_key_pressed(KEY_T):
@@ -1596,3 +1599,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!add modifiers to readme
 
 # !!!fix no shrink past min size
+
+# fix being able to rotate/scale player
+# fix being unable to wallhang in small spaces
+
+# fix cannons not working upside down
