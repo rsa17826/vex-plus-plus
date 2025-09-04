@@ -618,13 +618,13 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     } else {
       version := selectedVersion
       i := 2
-      while DirExist("versions/" version) {
+      while DirExist("launcherData/exes/" version) {
         version := selectedVersion " - " i
         i += 1
       }
-      DirCreate("versions/" selectedVersion)
-      FileCopy("temp/vex.exe", "versions/" selectedVersion '/vex.exe')
-      FileCopy("temp/vex.console.exe", "versions/" selectedVersion '/vex.console.exe')
+      DirCreate("launcherData/exes/" selectedVersion)
+      FileCopy("temp/vex.exe", "launcherData/exes/" selectedVersion '/vex.exe')
+      FileCopy("temp/vex.console.exe", "launcherData/exes/" selectedVersion '/vex.console.exe')
       F.write("versions/" selectedVersion "/exeVersion.txt", version)
     }
     ; version := getExeVersion(selectedVersion)
