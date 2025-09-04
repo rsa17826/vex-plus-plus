@@ -750,7 +750,7 @@ func localProcess(delta: float) -> void:
       and !scaleOnRightSide \
       : return
       if not mouseMovedFarEnoughToStartDrag: return
-      var r = selectedBlock.rotation
+      # var r = selectedBlock.rotation
       var b = selectedBlock
       var startPos = selectedBlock.global_position
       # gridSize = gridSize.rotated(r)
@@ -1327,12 +1327,12 @@ func loadInnerLevel(innerLevel: String) -> void:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
   await wait()
   await level.loadLevel(innerLevel)
-  player.deathPosition = player.lastSpawnPoint
+  player.deathPosition = Vector2.ZERO
   player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
   player.die(1, false, true)
   await wait()
-  player.die(15, false, true)
+  player.die(15, true, true)
   loadBlockData()
   await savePlayerLevelData()
   loadingLevel = false

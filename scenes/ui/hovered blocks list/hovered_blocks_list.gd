@@ -40,30 +40,15 @@ func _process(delta: float) -> void:
     i += 1
   ttm.position = get_local_mouse_position() + Vector2(20, 20)
 
-func getBlockData(block, isSelected):
-  return (getId(block, isSelected) + getPos(block, isSelected) + getRot(block, isSelected)).strip_edges()
-
-func getId(block, isSelected):
-  if isSelected:
-    if not global.useropts.showSelectedBlockId:
-      return ''
-  else:
-    if not global.useropts.showHoveredBlockId:
-      return ''
-  return block.id
-func getPos(block, isSelected):
-  if isSelected:
-    if not global.useropts.showSelectedBlockPosition:
-      return ''
-  else:
-    if not global.useropts.showHoveredBlockPosition:
-      return ''
-  return " (" + str(int(block.startPosition.x)) + ', ' + str(int(block.startPosition.y)) + ")"
-func getRot(block, isSelected):
-  if isSelected:
-    if not global.useropts.showSelectedBlockRotation:
-      return ''
-  else:
-    if not global.useropts.showHoveredBlockRotation:
-      return ''
-  return " R" + str(int(block.startRotation_degrees))
+func getBlockData(block: EditorBlock, isSelected: bool) -> String:
+  var table = {
+    'pxx': str(int(block.sizeInPx.x)),
+    'pxy': str(int(block.sizeInPx.y)),
+    'sx': '%.3f' % (block.scale.x),
+    'sy': '%.3f' % (block.scale.y),
+    'posx': str(int(block.startPosition.x)),
+    'posy': str(int(block.startPosition.y)),
+    'rot': str(int(block.startRotation_degrees)),
+    'id': block.id
+  }
+  return (global.useropts.selectedBlockFormatString if isSelected else global.useropts.hoveredBlockFormatString).format(table)

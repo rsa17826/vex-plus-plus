@@ -23,6 +23,8 @@ func __loadOptions(thing) -> void:
       __menu.endGroup()
     'option':
       match thing.type:
+        "lineedit":
+          __menu.add_lineedit(thing.key, thing.defaultValue, thing.placeholder if 'placeholder' in thing else '')
         "bool":
           __menu.add_bool(thing.key, thing.defaultValue)
         "range":

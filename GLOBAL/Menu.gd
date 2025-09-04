@@ -45,6 +45,20 @@ func endGroup():
   })
   # currentParent.pop_back()
 # ADDS
+func add_textarea(key, default='', placeholder:='') -> void:
+  # return float|int
+  _add_any(key, {
+    "type": "textarea",
+    "placeholder": placeholder,
+    "default": default
+  })
+func add_lineedit(key, default='', placeholder:='') -> void:
+  # return float|int
+  _add_any(key, {
+    "type": "lineedit",
+    "placeholder": placeholder,
+    "default": default
+  })
 func add_file(key, single: bool = false, default='') -> void:
   # return float|int
   _add_any(key, {
@@ -270,6 +284,26 @@ func show_menu():
         __changed.call(thing.name, node)
         # log.pp(currentParent)
         currentParent[len(currentParent) - 1].add_child(node)
+      "textarea":
+        var node = preload(path + "textarea.tscn").instantiate()
+        node.thisText = formatName.call(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
+        var textAreaNode = node.get_node("TextEdit")
+        textAreaNode.text = thing.user
+        textAreaNode.placeholder_text = thing.placeholder
+        textAreaNode.text_changed.connect(__changed.bind(thing.name, node))
+        __changed.call(thing.name, node)
+        currentParent[len(currentParent) - 1].add_child(node)
+      "lineedit":
+        var node = preload(path + "lineedit.tscn").instantiate()
+        node.thisText = formatName.call(thing.name)
+        node.get_node("Label").text = formatName.call(thing.name)
+        var lineEditNode = node.get_node("LineEdit")
+        lineEditNode.text = thing.user
+        lineEditNode.placeholder_text = thing.placeholder
+        lineEditNode.text_changed.connect(__changed.bind(thing.name, node))
+        __changed.call(thing.name, node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "spinbox":
         #       dd_any(key, {
         #   "type": "spinbox",
@@ -437,6 +471,10 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
       await global.wait()
       menu_data[name].user=node.get_node("FileDialog").files
       node.get_node("Button").tooltip_text='selected file: ' + menu_data[name].user
+    "lineedit":
+      menu_data[name].user=node.get_node("LineEdit").text
+    "textarea":
+      menu_data[name].user=node.get_node("TextEdit").text
     _:
       log.err("cant save type: " + menu_data[name].type)
   onchanged.emit()

@@ -539,13 +539,13 @@ func _process(delta: float) -> void:
         if self not in global.boxSelect_selectedBlocks:
           global.boxSelect_selectedBlocks = []
         global_position = startPosition
-      if not _DISABLED:
-        isBeingMoved = true
-        for collider in collisionShapes:
-          if not collider:
-            log.pp(collider, collisionShapes, id)
-            breakpoint
-          collider.disabled = true
+        if not _DISABLED:
+          isBeingMoved = true
+          for collider in collisionShapes:
+            if not collider:
+              log.pp(collider, collisionShapes, id)
+              breakpoint
+            collider.disabled = true
       ghost.use_parent_material = false
       ghost.material.set_shader_parameter("color", Color.hex(global.useropts.selectedBlockOutlineColor))
     else:
