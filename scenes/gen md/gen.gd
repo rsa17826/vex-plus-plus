@@ -64,6 +64,7 @@ func _ready() -> void:
   # generate blocks
   var setKeys = {}
   text += '\n\n- ## Blocks'
+  indent = 1
   for id in global.DEFAULT_BLOCK_LIST:
     var block = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     add_child(block)
