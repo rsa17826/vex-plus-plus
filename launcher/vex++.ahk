@@ -29,7 +29,6 @@ if FileExist('@setup.bat') {
 
 logPrints := 1
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
-newestExeVersion := "4.5.beta6"
 doingSomething := 0
 releases := 0
 selfPath := A_ScriptDir '\' (A_IsCompiled ? "vex++.exe" : "vex++.cmd")
@@ -469,7 +468,7 @@ runVersion(gameVersion, newArgs := '') {
     ; consoleIsBlocked := 0
     try {
       exeVersion := getExeVersion(gameVersion, () {
-        exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
+        exeVersion := tryInput("Enter the exe version number.", '', '', "", "")
         p := path.join(A_ScriptDir, "versions", gameVersion, "exeVersion.txt")
         if exeVersion and not SILENT
           F.write(p, exeVersion)
@@ -739,7 +738,7 @@ getExeVersion(version, default?) {
     exever := F.read(p)
     if DirExist(path.join(A_ScriptDir, "launcherData/exes", exever))
       return exever
-    inp := tryInput("exe version `"" exever "`" not found", '', '', "", newestExeVersion)
+    inp := tryInput("exe version `"" exever "`" not found", '', '', "", "")
     if inp {
       F.write(p, inp)
       return inp
@@ -748,7 +747,7 @@ getExeVersion(version, default?) {
   }
   if IsSet(default)
     return default()
-  exeVersion := tryInput("Enter the exe version number.", '', '', "", newestExeVersion)
+  exeVersion := tryInput("Enter the exe version number.", '', '', "", "")
   if exeVersion and not SILENT
     F.write(p, exeVersion)
   return exeVersion
