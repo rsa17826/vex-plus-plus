@@ -2137,36 +2137,44 @@ var boxSelect_selectedBlocks: Array[EditorBlock] = []:
 
 @onready var MAP_FOLDER = path.abs('res://maps')
 
-func get_rotated_corners(center: Vector2, size: Vector2, rotation: float) -> Array:
-  var half_size = size / 2
-  var corners = [
-    Vector2(-half_size.x, -half_size.y),
-    Vector2(half_size.x, -half_size.y),
-    Vector2(half_size.x, half_size.y),
-    Vector2(-half_size.x, half_size.y)
-  ]
+class Polygon:
+  var points: Array
 
-  var rotated_corners = []
-  for corner in corners:
-    var rotated_corner = corner.rotated(rotation) + center
-    rotated_corners.append(rotated_corner)
+  func _init(points: Array):
+    self.points = points
 
-  return rotated_corners
+func IsPolygonsIntersecting(a: Polygon, b: Polygon) -> bool:
+  for polygon in [a, b]:
+    for i in range(polygon.points.size()):
+      var i2 = (i + 1) % polygon.points.size()
+      var p1 = polygon.points[i]
+      var p2 = polygon.points[i2]
 
-func is_point_in_polygon(point: Vector2, polygon: Array) -> bool:
-  var inside = false
-  var n = polygon.size()
+      var normal = Vector2(p2.y - p1.y, p1.x - p2.x)
 
-  for i in range(n):
-    var j = (i + 1) % n
-    if ((polygon[i].y > point.y) != (polygon[j].y > point.y)) and \
-      (point.x < (polygon[j].x - polygon[i].x) * (point.y - polygon[i].y) / (polygon[j].y - polygon[i].y) + polygon[i].x):
-      inside = !inside
+      var minA = null
+      var maxA = null
+      for p in a.points:
+        var projected = normal.dot(p)
+        if minA == null or projected < minA:
+          minA = projected
+        if maxA == null or projected > maxA:
+          maxA = projected
 
-  return inside
+      var minB = null
+      var maxB = null
+      for p in b.points:
+        var projected = normal.dot(p)
+        if minB == null or projected < minB:
+          minB = projected
+        if maxB == null or projected > maxB:
+          maxB = projected
+
+      if maxA < minB or maxB < minA:
+        return false
+  return true
 
 func boxSelectReleased():
-  # boxSelect_selectedBlocks = []
   var rect = [
     Vector2(
       min(boxSelectRealStartPos.x, boxSelectRealEndPos.x),
@@ -2177,43 +2185,30 @@ func boxSelectReleased():
       max(boxSelectRealStartPos.y, boxSelectRealEndPos.y)
     ),
   ]
-  # log.pp(rect)
 
-  var rect_min = rect[0]
-  var rect_max = rect[1]
-  var selection_center = (rect_min + rect_max) / 2
-  var selection_size = rect_max - rect_min
-  var selection_rotation = 0 # Assuming the selection rectangle is not rotated
-
-  # Get the corners of the selection rectangle
-  var selection_corners = get_rotated_corners(selection_center, selection_size, selection_rotation)
+  var selection_polygon = Polygon.new([
+    rect[0],
+    Vector2(rect[1].x, rect[0].y),
+    rect[1],
+    Vector2(rect[0].x, rect[1].y)
+  ])
 
   for block: EditorBlock in level.get_node("blocks").get_children():
-    if block.isChildOfCustomBlock: continue
-    if block.EDITOR_IGNORE: continue
+    if block.isChildOfCustomBlock or block.EDITOR_IGNORE: continue
     var pos = block.global_position
     var size = block.sizeInPx
     var rot = deg_to_rad(block.startRotation_degrees)
 
-    # Get the rotated corners of the block
-    var rotated_corners = get_rotated_corners(pos, size, rot)
+    var block_polygon = Polygon.new([
+      pos + Vector2(-size.x / 2, -size.y / 2).rotated(rot),
+      pos + Vector2(size.x / 2, -size.y / 2).rotated(rot),
+      pos + Vector2(size.x / 2, size.y / 2).rotated(rot),
+      pos + Vector2(-size.x / 2, size.y / 2).rotated(rot)
+    ])
 
-    # Check if any corner of the block is inside the selection rectangle
-    var intersects = false
-    for corner in rotated_corners:
-      if is_point_in_polygon(corner, selection_corners):
-        intersects = true
-        break
-
-    # If no corner of the block is inside the selection rectangle, check if any corner of the selection rectangle is inside the block
-    if not intersects:
-      for corner in selection_corners:
-        if is_point_in_polygon(corner, rotated_corners):
-          intersects = true
-          break
-
-    if intersects and block not in boxSelect_selectedBlocks:
-      boxSelect_selectedBlocks.append(block)
+    if IsPolygonsIntersecting(selection_polygon, block_polygon):
+      if block not in boxSelect_selectedBlocks:
+        boxSelect_selectedBlocks.append(block)
 
   boxSelectDrawStartPos = Vector2.ZERO
   boxSelectDrawEndPos = Vector2.ZERO

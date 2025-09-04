@@ -23,10 +23,17 @@ if A_ScriptDir = "D:\godotgames\vex\launcher" and A_UserName = 'user' {
   ExitApp()
 }
 
+if FileExist('@setup.bat') {
+  FileDelete('@setup.bat')
+}
+
+logPrints := 1
 apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 newestExeVersion := "4.5.beta6"
 doingSomething := 0
 releases := 0
+selfPath := A_ScriptDir '/' (A_IsCompiled ? "vex++.exe" : "vex++.cmd")
+
 validGameArgs := A_Args.filter(e => ![
   "offline",
   "tryupdate",
@@ -46,14 +53,17 @@ saveSettings() {
 }
 
 SILENT := A_Args.includes("silent")
-OFFLINE := A_Args.includes("offline")
+OFFLINE := 1 || A_Args.includes("offline")
 
 if A_Args.includes("registerProtocols") and not A_IsAdmin {
   args := ""
   for arg in A_Args {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
-  Run('*RunAs "' . A_AhkPath . '" "' . A_ScriptFullPath . '"' . args, A_WorkingDir)
+  if A_IsCompiled
+    Run('*RunAs "' A_ScriptFullPath . '"' . args, A_WorkingDir)
+  else
+    Run('*RunAs "' . A_AhkPath . '" "' . A_ScriptFullPath . '"' . args, A_WorkingDir)
   ExitApp()
 }
 
@@ -74,16 +84,19 @@ if PROTO.isSelf('vex++') or A_Args.includes("registerProtocols")
             logerr("failed to download level " data.join("/") ' is not the correct length!!')
           }
         default:
-          logerr("no message found " data.join('/'))
+          logerr("nothing found for `"" data[1] "`"`ndata received:`n" data.join('/'))
       }
-    }
+    } catch Error as e
+      logerr(data, e)
   }, 1)
 
 if [
   'vex++'
 ].find(p => !PROTO.isSelf(p)) {
   if !FileExist("CREATE PROTOCOL HANDLER.lnk")
-    FileCreateShortcut(A_ScriptFullPath, "CREATE PROTOCOL HANDLER.lnk", , "registerProtocols")
+    FileCreateShortcut(
+      selfPath
+      , "CREATE PROTOCOL HANDLER.lnk", , "registerProtocols")
 } else {
   try FileDelete("CREATE PROTOCOL HANDLER.lnk")
 }
@@ -118,16 +131,30 @@ else {
 }
 try FileDelete("c.bat")
 try FileDelete("vex++ offline.lnk")
-FileCreateShortcut(A_ScriptDir "\vex++.exe", "vex++ offline.lnk", A_ScriptDir, "offline")
+FileCreateShortcut(selfPath, "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
+DirCreate("game data")
 DirCreate("versions")
 if not FileExist("launcherData/launcherVersion") {
   try FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
 }
-sfi(path.join(A_ScriptDir, 'launcherData'), path.join(A_ScriptDir, "icons", "exes.ico"))
-sfi(path.join(A_ScriptDir, 'launcherData/exes'), path.join(A_ScriptDir, "icons", "exes.ico"))
+icon(s, e := unset) {
+  if !IsSet(e)
+    e := s
+  if path.isdir(s)
+    sfi(path.join(A_ScriptDir, s), path.join(A_ScriptDir, "icons", e ".ico"))
+}
+
+icon("logs")
+icon("versions", "exes")
+icon("lib", "exes")
+icon("launcherData", 'exes')
+icon("launcherData/exes", 'exes')
+icon("icons", 'exes')
+icon("ahk")
+icon("game data", "pole")
 loop files A_ScriptDir "\icons\*.ico" {
-  p := path.join(A_ScriptDir, 'game data', path.info(A_LoopFileFullPath).name)
+  p := path.join(A_ScriptDir, 'game data', path.name(A_LoopFileFullPath))
   if DirExist(p) {
     sfi(p, A_LoopFileFullPath)
   }
@@ -370,9 +397,16 @@ UpdateSelf(*) {
     FileDelete("temp.zip")
 
     ; if script doesnt exist then don't update it
-    if !FileExist("vex++.ahk")
+    if A_IsCompiled {
       try FileDelete("temp/vex++.ahk")
-    ; remove all pngs as only icos are needed and imports
+      try FileDelete("temp/vex++.cmd")
+      try DirDelete("temp/lib", 1)
+      try DirDelete("temp/ahk", 1)
+    } else {
+      try FileDelete('temp/vex++.exe')
+    }
+    try FileDelete('temp/@setup.bat')
+    ; remove all pngs and imports as only icos are needed
     loop files "temp/icons/*.png", 'f'
       try FileDelete(A_LoopFileFullPath)
     loop files "temp/icons/*.import", 'f'
@@ -383,8 +417,8 @@ UpdateSelf(*) {
 @echo off
 timeout /t 1 /nobreak >nul
 xcopy /y /i /s /e ".\temp\*" ".\"
-start vex++.exe
-    )")
+
+    )" "start `"`"" selfPath '"')
     run("cmd /c c.bat", , "hide")
     ExitApp(0)
   }
@@ -443,7 +477,7 @@ runVersion(gameVersion, newArgs := '') {
         logerr("ERROR", "Could not find the required executable version at A_Args.includes(`"version`")")
       }
       ; try {
-      if settings.openGameConsole
+      if gettings.openGameConsole
         FileCopy(
           path.join(A_ScriptDir, "launcherData/exes", exeVersion, "vex.console.exe"),
           path.join(A_ScriptDir, "game data/vex.console.exe"),
@@ -572,7 +606,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
         version := A_LoopFileName
         updateRow(row, , "found correct exe version - " A_LoopFileName, "")
         print("found correct exe version - " A_LoopFileName)
-        sleep(1500)
+        sleep(500)
         break
       }
     }
