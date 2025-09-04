@@ -32,7 +32,7 @@ apiUrl := "https://api.github.com/repos/rsa17826/vex-plus-plus/releases"
 newestExeVersion := "4.5.beta6"
 doingSomething := 0
 releases := 0
-selfPath := A_ScriptDir '/' (A_IsCompiled ? "vex++.exe" : "vex++.cmd")
+selfPath := A_ScriptDir '\' (A_IsCompiled ? "vex++.exe" : "vex++.cmd")
 
 validGameArgs := A_Args.filter(e => ![
   "offline",
@@ -53,7 +53,7 @@ saveSettings() {
 }
 
 SILENT := A_Args.includes("silent")
-OFFLINE := 1 || A_Args.includes("offline")
+OFFLINE := A_Args.includes("offline")
 
 if A_Args.includes("registerProtocols") and not A_IsAdmin {
   args := ""
@@ -112,15 +112,18 @@ if FileExist("updating self") {
     FileDelete("updating self")
     FileDelete("temp.zip")
     logerr("failed while updating the launcher!!!")
+    try DirDelete("temp", 1)
     ExitApp(-1)
   } else {
     loadReleases()
     F.write("launcherData/launcherVersion", releases.Length)
     if F.read("updating self") == 'silent' {
       FileDelete("updating self")
+      try DirDelete("temp", 1)
       ExitApp(0)
     }
     FileDelete("updating self")
+    try DirDelete("temp", 1)
   }
 }
 else {
@@ -418,7 +421,7 @@ UpdateSelf(*) {
 timeout /t 1 /nobreak >nul
 xcopy /y /i /s /e ".\temp\*" ".\"
 
-    )" "start `"`"" selfPath '"')
+    )" "start `"`" `"" selfPath '"')
     run("cmd /c c.bat", , "hide")
     ExitApp(0)
   }
@@ -610,10 +613,16 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
         break
       }
     }
-    if IsSet(version)
+    if IsSet(version) {
       F.write("versions/" selectedVersion "/exeVersion.txt", version)
-    else
-      version := getExeVersion(selectedVersion)
+    } else {
+      version := selectedVersion
+      DirCreate("versions/" selectedVersion)
+      FileCopy("temp/vex.exe", "versions/" selectedVersion '/vex.exe')
+      FileCopy("temp/vex.console.exe", "versions/" selectedVersion '/vex.console.exe')
+      F.write("versions/" selectedVersion "/exeVersion.txt", version)
+    }
+    ; version := getExeVersion(selectedVersion)
     ; Clean up temporary files
     FileDelete("temp.zip")
     DirDelete("temp", 1)
