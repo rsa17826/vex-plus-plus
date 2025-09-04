@@ -421,7 +421,7 @@ UpdateSelf(*) {
 timeout /t 1 /nobreak >nul
 xcopy /y /i /s /e ".\temp\*" ".\"
 
-    )" "start `"`" `"" selfPath '"')
+    )" (A_IsCompiled ? "start `"`" `"" selfPath '"' : '"' selfPath '"'))
     run("cmd /c c.bat", , "hide")
     ExitApp(0)
   }
@@ -617,6 +617,11 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
       F.write("versions/" selectedVersion "/exeVersion.txt", version)
     } else {
       version := selectedVersion
+      i := 2
+      while DirExist("versions/" version) {
+        version := selectedVersion " - " i
+        i += 1
+      }
       DirCreate("versions/" selectedVersion)
       FileCopy("temp/vex.exe", "versions/" selectedVersion '/vex.exe')
       FileCopy("temp/vex.console.exe", "versions/" selectedVersion '/vex.console.exe')
