@@ -380,52 +380,18 @@
             "defaultValue": true
           },
           {
-            "thing": "group",
-            "name": "selected block",
-            "value": [
-              {
-                "thing": "option",
-                "type": "bool",
-                "key": "showSelectedBlockId",
-                "defaultValue": true
-              },
-              {
-                "thing": "option",
-                "type": "bool",
-                "key": "showSelectedBlockPosition",
-                "defaultValue": true
-              },
-              {
-                "thing": "option",
-                "type": "bool",
-                "key": "showSelectedBlockRotation",
-                "defaultValue": true
-              }
-            ]
+            "thing": "option",
+            "type": "lineedit",
+            "key": "selectedBlockFormatString",
+            "defaultValue": "{id} X:{posx}, Y:{posy} {pxx}px X {pxy}px {rot}°",
+            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy}"
           },
           {
-            "thing": "group",
-            "name": "hovered blocks",
-            "value": [
-              {
-                "thing": "option",
-                "type": "bool",
-                "key": "showHoveredBlockId",
-                "defaultValue": true
-              },
-              {
-                "thing": "option",
-                "type": "bool",
-                "key": "showHoveredBlockPosition",
-                "defaultValue": true
-              },
-              {
-                "thing": "option",
-                "type": "bool",
-                "key": "showHoveredBlockRotation",
-                "defaultValue": true
-              }
-            ]
+            "thing": "option",
+            "type": "lineedit",
+            "key": "hoveredBlockFormatString",
+            "defaultValue": "{id}",
+            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy}"
           }
         ]
       },

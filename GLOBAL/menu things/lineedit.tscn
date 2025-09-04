@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwdqlflfbay8f"]
+
+[ext_resource type="Script" uid="uid://bs4m3plcr416k" path="res://GLOBAL/scripts/NestedSearchable/nested_searchable.gd" id="1_6xnm3"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+offset_right = 160.0
+offset_bottom = 23.0
+script = ExtResource("1_6xnm3")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="."]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+expand_to_text_length = true

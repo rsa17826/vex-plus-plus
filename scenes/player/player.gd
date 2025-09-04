@@ -1666,3 +1666,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!!fix box select not worjing on rotated blocks
 
 # when loading level from file open game versiuon that the level is for
+
+# bouncing persists on pole
+
+# !!!fix player moving when creating basic block
+
+# diable collision on block creation

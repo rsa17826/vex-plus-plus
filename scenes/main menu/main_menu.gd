@@ -6,7 +6,7 @@ var GITHUB_TOKEN = global.getToken()
 @export var levelContainer: Control
 @export var scrollContainer: ScrollContainer
 
-var __menu
+var __menu: Menu
 var newestLevel
 
 @onready var pm: PopupMenu = PopupMenu.new()
@@ -406,6 +406,8 @@ func __loadOptions(thing) -> void:
       __menu.endGroup()
     'option':
       match thing.type:
+        "lineedit":
+          __menu.add_lineedit(thing.key, thing.defaultValue, thing.placeholder if 'placeholder' in thing else '')
         "bool":
           __menu.add_bool(thing.key, thing.defaultValue)
         "range":
