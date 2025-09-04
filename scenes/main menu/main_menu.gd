@@ -40,7 +40,7 @@ func loadLocalLevelList():
   arr.sort()
   arr.reverse()
   newestLevel = allData[arr[0]][allData[arr[0]].keys()[0]].keys()[0] if dirs else null
-  var launcherExists = FileAccess.file_exists("../../vex++.exe")
+  var launcherExists = FileAccess.file_exists("../../vex++.exe") or FileAccess.file_exists(r"..\..\vex++.cmd")
   # log.pp(newestLevel)
   const versionNode := preload("res://scenes/online level list/version.tscn")
   const creatorNode := preload("res://scenes/online level list/creator.tscn")
