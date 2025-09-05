@@ -360,6 +360,9 @@ func setupOptions() -> void:
   # if pm: return
   for k in blockOptions:
     if k not in selectedOptions:
+      if global.same(blockOptions[k].type, "BUTTON"): continue
+      if 'default' not in blockOptions[k]:
+        log.err(blockOptions[k], k, id)
       selectedOptions[k] = blockOptions[k].default
   if selectedOptions: return
   if !blockOptions: return
