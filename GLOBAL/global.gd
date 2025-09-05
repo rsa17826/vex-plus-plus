@@ -1017,6 +1017,15 @@ func _unhandled_input(event: InputEvent) -> void:
       lastSelectedBlock.onEditorMove(Vector2.ZERO)
       lastSelectedBlock.onEditorMoveEnded()
       lastSelectedBlock.respawn()
+  if event.is_action_pressed(&"lock_selected_block", false, true):
+    if selectedBlock:
+      lastSelectedBlock = selectedBlock
+      selectedBlock = null
+    if lastSelectedBlock:
+      lastSelectedBlock.EDITOR_IGNORE = true
+      if lastSelectedBlock in hoveredBlocks:
+        hoveredBlocks.erase(lastSelectedBlock)
+      lastSelectedBlock = null
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     # ToastParty.error('a')
     # ToastParty.info('a')
