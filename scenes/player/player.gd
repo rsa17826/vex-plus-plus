@@ -1671,4 +1671,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # !!!fix player moving when creating basic block
 
-# diable collision on block creation
+# disable collision on block creation
+# when reentering inner level load back at last checkpoint
