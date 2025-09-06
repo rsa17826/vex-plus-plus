@@ -36,6 +36,7 @@ const WATER_EXIT_BOUNCE_FORCE = -600
 const WALL_SLIDE_SPEED = 35
 const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 4
+const MAX_ZIPLINE_COOLDOWN = 10
 const SMALL = .00001
 
 var ziplineCooldown := 0.0
@@ -390,7 +391,7 @@ func _physics_process(delta: float) -> void:
       if inWaters:
         state = States.falling
         return
-      global_position = activeCannon.thingThatMoves.global_position + (Vector2(0, -130) * activeCannon.scale).rotated(activeCannon.rotation).rotated(-defaultAngle)
+      global_position = activeCannon.thingThatMoves.global_position + (Vector2(0, -130) * activeCannon.scale).rotated(activeCannon.rotation)
       # activeCannon.top_level = true
       if cannonRotationDelayFrames > 0:
         cannonRotationDelayFrames -= delta
@@ -528,13 +529,13 @@ func _physics_process(delta: float) -> void:
       if ACTIONjump:
         ACTIONjump = true
         state = States.jumping
-        ziplineCooldown = 15
+        ziplineCooldown = MAX_ZIPLINE_COOLDOWN
         _physics_process(delta)
         return
       if Input.is_action_pressed(&"down"):
         remainingJumpCount -= 1
         state = States.falling
-        ziplineCooldown = 15
+        ziplineCooldown = MAX_ZIPLINE_COOLDOWN
         _physics_process(delta)
         return
       # playerXIntent = MOVESPEED * getCurrentLrState() * \
@@ -1620,10 +1621,10 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # known:
   # !version ?-24! when respawning inside water you don't enter the water as collision is disabled while respawning
   # !version ?-INF! kt doesnt reset while entering water
-    # 136/rssaromeo/uno mas - water jump
+    # vex++:downloadMap/136/rssaromeo/uno mas - water jump
   # ?!version ?-<136! holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
   # !version ?-NOW! sliding into water causes shrunken hitbox
-    # 136/rssaromeo/uno mas - water crouch
+    # vex++:downloadMap/136/rssaromeo/uno mas - water crouch
   # !version ?-NOW! when leaving water directly onto a wall you can grab the wall lower than intended
   # !version ?-<136! when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
   # !version ?-28! levers can be pulled even when not on ground
@@ -1632,7 +1633,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-28! pulling levers allows clipping through moving blocks
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
   # !version ?-NOW! can push boxes while sliding
-    # 136/rssaromeo/uno mas - slide push
+    # vex++:downloadMap/136/rssaromeo/uno mas - slide push
   # ?!version ?-<104! spawnpoint being inside water and doing full restart while in spawn water causes player to not be in water
   # !version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
   # !version ?-<104! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
@@ -1648,12 +1649,13 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-115! getting pushed off a ledge doesn't remove a jump
   # !version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
   # !version ?-126! respawning with a solar block disabled would cause blocks to not attach to it
-    # 125/rssaromeo/uno mas - solar attach bug
+    # vex++:downloadMap/125/rssaromeo/uno mas - solar attach bug
   # !version ?-NOW! cpops
   # !version OLD-1-NOW! player direction not reset on death
   # /!version ?-135! negative size spikes don't have a texture
-    # 135/rssaromeo/uno mas - invisible spikes - no alpha
+    # vex++:downloadMap/135/rssaromeo/uno mas - invisible spikes - no alpha
   # !version 147-INF! sticky floors don't modify jump count so jump refresher set to +1 can give infinite jumps if collected and the next place landed is a sticky floor
+  # ?!version 161-161! attaching more than 2 puleys to each other can sometimes cause a large boost upwards
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
