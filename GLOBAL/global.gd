@@ -1835,6 +1835,7 @@ const DEFAULT_BLOCK_LIST = [
   "and gate",
   "crumbling",
   "timer",
+  "zipline",
   # "rotator",
 ]
 
@@ -2244,6 +2245,11 @@ var portals: Array[BlockPortal] = []:
   get():
     portals = portals.filter(isAlive)
     return portals
+
+var ziplines: Array[BlockZipline] = []:
+  get():
+    ziplines = ziplines.filter(isAlive)
+    return ziplines
 
 var isFirstTimeMenuIsLoaded := true
 
