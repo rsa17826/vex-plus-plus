@@ -1761,6 +1761,7 @@ func localReady() -> void:
   loadEditorBarData()
 
 const DEFAULT_BLOCK_LIST = [
+  "quad falling spikes",
   "basic",
   "slope",
   "path",

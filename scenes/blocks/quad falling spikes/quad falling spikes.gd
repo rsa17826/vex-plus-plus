@@ -1,39 +1,42 @@
 @icon("images/1.png")
 extends EditorBlock
 
-# var respawnTimer = 0
-# const RESPAWN_TIME = 150
+var respawnTimer = 0
+const RESPAWN_TIME = 150
+var falling: bool = false
 
-# func on_ready():
-#   %fs.onFallStarted.connect(onFallStarted)
-#   %fs2.onFallStarted.connect(onFallStarted)
-#   %fs3.onFallStarted.connect(onFallStarted)
-#   %fs4.onFallStarted.connect(onFallStarted)
+const speed = 3500.0
+var fallingNodes := []
 
-# func onFallStarted():
-#   for c in [%fs, %fs2, %fs3, %fs4]:
-#     if not c.falling:
-#       c.startFalling()
+@onready var spikes = [%up, %down, %left, %right]
 
-# func on_respawn():
-#   %fs.respawn()
-#   %fs2.respawn()
-#   %fs3.respawn()
-#   %fs4.respawn()
+func playerDetected():
+  for nodeToFall in spikes:
+    var node = nodeToFall.duplicate()
+    node.visible = true
+    fallingNodes.append(node)
+  falling = true
 
-# func on_process(delta):
-#   if respawnTimer > 0:
-#     respawnTimer -= delta * 60
-#     return
-  
-#   respawnTimer = RESPAWN_TIME
-#   %AnimatedSprite2D.play()
-#   for c in [%fs, %fs2, %fs3, %fs4]:
-#     # c.respawn()
-#     c.startFalling()
+func on_respawn():
+  falling = false
+  position = startPosition
 
-# func _on_floor_detection_body_entered(body: Node2D) -> void:
-#   %fs._on_floor_detection_body_entered(self)
-#   %fs2._on_floor_detection_body_entered(self)
-#   %fs3._on_floor_detection_body_entered(self)
-#   %fs4._on_floor_detection_body_entered(self)
+func on_physics_process(delta: float) -> void:
+  if respawnTimer > 0:
+    respawning = 2
+    respawnTimer -= delta * 60
+    if respawnTimer < 0:
+      respawning = 0
+      respawnTimer = 0
+    for nodeToFall in spikes:
+      nodeToFall.scale = global.rerange(respawnTimer, RESPAWN_TIME, 0, Vector2(.1, .1), Vector2(1, 1))
+    return
+  if falling:
+    for nodeToFall in fallingNodes:
+      nodeToFall.position += Vector2(0, -speed * delta).rotated(nodeToFall.rotation)
+
+func _on_floor_detection_body_entered(body: Node2D) -> void:
+  if body.root is BlockBomb:
+    body.root.explode()
+  respawnTimer = RESPAWN_TIME
+  on_respawn()
