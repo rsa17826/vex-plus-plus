@@ -1,4 +1,4 @@
-[gd_scene load_steps=253 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene load_steps=289 format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://b1v0la88o0qxe" path="res://scenes/player/playerEditor.gd" id="1_4v6xr"]
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
@@ -244,9 +244,47 @@
 [ext_resource type="Texture2D" uid="uid://cia2ut17on6xe" path="res://scenes/player/images/waterAnimBottom/default/27.png" id="126_cedje"]
 [ext_resource type="Texture2D" uid="uid://df34vpyhk6dqh" path="res://scenes/player/images/waterAnimBottom/default/28.png" id="127_2fetk"]
 [ext_resource type="PackedScene" uid="uid://cwssfufu0ym50" path="res://scenes/ui/ui.tscn" id="200_1ymuf"]
+[ext_resource type="Texture2D" uid="uid://cyj6j7eqqnwc3" path="res://scenes/player/images/anim/zipline/1.png" id="200_xb8ft"]
+[ext_resource type="Texture2D" uid="uid://gjkmnbog6r28" path="res://scenes/player/images/anim/zipline/2.png" id="201_mro88"]
+[ext_resource type="Texture2D" uid="uid://cm2luntxec4tx" path="res://scenes/player/images/anim/zipline/3.png" id="202_ya4ln"]
+[ext_resource type="Texture2D" uid="uid://dk5l1ywf83c3o" path="res://scenes/player/images/anim/zipline/4.png" id="203_yopjo"]
+[ext_resource type="Texture2D" uid="uid://cvymwjcb5n6gj" path="res://scenes/player/images/anim/zipline/5.png" id="204_wtqmm"]
+[ext_resource type="Texture2D" uid="uid://cm5e657cch4iy" path="res://scenes/player/images/anim/zipline/6.png" id="205_7cqnf"]
+[ext_resource type="Texture2D" uid="uid://camsootiygmys" path="res://scenes/player/images/anim/zipline/7.png" id="206_q07wn"]
+[ext_resource type="Texture2D" uid="uid://c31d8ahntovb" path="res://scenes/player/images/anim/zipline/8.png" id="207_72ejc"]
+[ext_resource type="Texture2D" uid="uid://bbv58ho8rv2lr" path="res://scenes/player/images/anim/zipline/9.png" id="208_m1gsv"]
+[ext_resource type="Texture2D" uid="uid://dg1nghul6fwt7" path="res://scenes/player/images/anim/zipline/10.png" id="209_2yvq7"]
+[ext_resource type="Texture2D" uid="uid://1f0fyqk5wed1" path="res://scenes/player/images/anim/zipline/11.png" id="210_7qaaa"]
+[ext_resource type="Texture2D" uid="uid://o0s77glnvj67" path="res://scenes/player/images/anim/zipline/12.png" id="211_yoiq4"]
+[ext_resource type="Texture2D" uid="uid://dglixbt7p0c27" path="res://scenes/player/images/anim/zipline/13.png" id="212_4anq4"]
+[ext_resource type="Texture2D" uid="uid://kdpfe5gxkl3m" path="res://scenes/player/images/anim/zipline/14.png" id="213_mkwaq"]
+[ext_resource type="Texture2D" uid="uid://b7k6aam5bmpb5" path="res://scenes/player/images/anim/zipline/15.png" id="214_0falv"]
+[ext_resource type="Texture2D" uid="uid://dlx7cuk0016se" path="res://scenes/player/images/anim/zipline/16.png" id="215_wvqjg"]
+[ext_resource type="Texture2D" uid="uid://bxfkq24bo5rx4" path="res://scenes/player/images/anim/zipline/17.png" id="216_xwj34"]
+[ext_resource type="Texture2D" uid="uid://cgpoo6lh7qkbx" path="res://scenes/player/images/anim/zipline/18.png" id="217_2ggvy"]
+[ext_resource type="Texture2D" uid="uid://xjampq7e21ck" path="res://scenes/player/images/anim/zipline/19.png" id="218_hvgvr"]
+[ext_resource type="Texture2D" uid="uid://bnadpwgv8mqm3" path="res://scenes/player/images/anim/zipline/20.png" id="219_c63qf"]
+[ext_resource type="Texture2D" uid="uid://cu35pd2lpkm3h" path="res://scenes/player/images/anim/zipline/21.png" id="220_nqymb"]
+[ext_resource type="Texture2D" uid="uid://b1x73mr3kxvep" path="res://scenes/player/images/anim/zipline/22.png" id="221_n2wjg"]
+[ext_resource type="Texture2D" uid="uid://bnsb87sfo4cvf" path="res://scenes/player/images/anim/zipline/23.png" id="222_vh6pe"]
+[ext_resource type="Texture2D" uid="uid://dbi405dgotg1y" path="res://scenes/player/images/anim/zipline/24.png" id="223_0b2jo"]
+[ext_resource type="Texture2D" uid="uid://bsnfim0o4q6vc" path="res://scenes/player/images/anim/zipline/25.png" id="224_4ttds"]
+[ext_resource type="Texture2D" uid="uid://dtmem7dg7hemn" path="res://scenes/player/images/anim/zipline/26.png" id="225_8ri8i"]
+[ext_resource type="Texture2D" uid="uid://cwiemktuvxccq" path="res://scenes/player/images/anim/zipline/27.png" id="226_vlfn3"]
+[ext_resource type="Texture2D" uid="uid://csg3lt15lyr04" path="res://scenes/player/images/anim/zipline/28.png" id="227_klwgm"]
+[ext_resource type="Texture2D" uid="uid://cox6658duywlv" path="res://scenes/player/images/anim/zipline/29.png" id="228_xfldr"]
+[ext_resource type="Texture2D" uid="uid://5xcqsdu4k012" path="res://scenes/player/images/anim/zipline/30.png" id="229_uanu0"]
+[ext_resource type="Texture2D" uid="uid://c3sxaihy8skl4" path="res://scenes/player/images/anim/zipline/31.png" id="230_gt5hh"]
+[ext_resource type="Texture2D" uid="uid://cbsy3ujxu3le" path="res://scenes/player/images/anim/zipline/32.png" id="231_fwbd6"]
+[ext_resource type="Texture2D" uid="uid://ds6dunw7pxo0c" path="res://scenes/player/images/anim/zipline/33.png" id="232_cgixr"]
+[ext_resource type="Texture2D" uid="uid://bg1xyggv1udyc" path="res://scenes/player/images/anim/zipline/34.png" id="233_hsum7"]
+[ext_resource type="Texture2D" uid="uid://b0nvp7owgx5ix" path="res://scenes/player/images/anim/zipline/35.png" id="234_0ax6y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
 size = Vector2(8, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xb8ft"]
+size = Vector2(8, 9.4)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2t3bg"]
 animations = [{
@@ -925,6 +963,119 @@ animations = [{
 "loop": true,
 "name": &"wall slide",
 "speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("200_xb8ft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("201_mro88")
+}, {
+"duration": 1.0,
+"texture": ExtResource("202_ya4ln")
+}, {
+"duration": 1.0,
+"texture": ExtResource("203_yopjo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("204_wtqmm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("205_7cqnf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("206_q07wn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("207_72ejc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("208_m1gsv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("209_2yvq7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("210_7qaaa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("211_yoiq4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("212_4anq4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("213_mkwaq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("214_0falv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("215_wvqjg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("216_xwj34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("217_2ggvy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("218_hvgvr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("219_c63qf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("220_nqymb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("221_n2wjg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("222_vh6pe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("223_0b2jo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("224_4ttds")
+}, {
+"duration": 1.0,
+"texture": ExtResource("225_8ri8i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("226_vlfn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("227_klwgm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("228_xfldr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("229_uanu0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("230_gt5hh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("231_fwbd6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("232_cgixr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("233_hsum7")
+}, {
+"duration": 100000.01,
+"texture": ExtResource("234_0ax6y")
+}, {
+"duration": 10000000000.0,
+"texture": ExtResource("234_0ax6y")
+}],
+"loop": true,
+"name": &"zipline",
+"speed": 60.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3gk6k"]
@@ -1167,14 +1318,25 @@ shape = SubResource("RectangleShape2D_dovo2")
 debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true
 
+[node name="ziplineDetector" type="Area2D" parent="CharacterBody2D"]
+collision_layer = 131072
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetector"]
+position = Vector2(0, -11.8)
+shape = SubResource("RectangleShape2D_xb8ft")
+debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
+metadata/_edit_lock_ = true
+
 [node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D"]
 material = ExtResource("3_4v6xr")
 use_parent_material = true
 position = Vector2(-3, 0.145)
 scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_2t3bg")
-animation = &"kicking box"
+animation = &"zipline"
 autoplay = "idle"
+frame_progress = 0.9135871
 metadata/_edit_lock_ = true
 
 [node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D"]
