@@ -103,6 +103,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **focus_on_player**: focuses the player and disables edit mode
   - **focus_search**: focuses the search bar
   - **toggle_tab_menu**: toggles the visibility of the tab menu
+  - **lock_selected_block**: locks the last selected block preventing it from being selected again until the level is reloaded
   - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 - ## Settings
@@ -180,12 +181,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### info
 
+
     - ### hovered block list
 
       - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
       - **selectedBlockFormatString**: string showing how to format the data for the selected block
       - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id)
-
     - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
     - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
     - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
@@ -217,6 +218,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **autoExpandAllGroupsInOnlineLevelList**: when loading the online level list, all groups are expanded, if false only the group for the current game version is expanded
 
   - ### debug
+
 
     - ### hitboxes
 
