@@ -45,8 +45,10 @@ metadata/_edit_lock_ = true
 z_index = 50
 position = Vector2(0, -113)
 target_position = Vector2(32, 38)
-collision_mask = 2
+collision_mask = 131072
 hit_from_inside = true
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 0

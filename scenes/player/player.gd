@@ -507,15 +507,19 @@ func _physics_process(delta: float) -> void:
       updateKeyFollowPosition(delta)
     States.onZipline:
       clearWallData()
+      log.pp($anim.animation, $anim.frame)
+      $anim.animation = 'zipline'
       var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
       var lowerZipline = activeZipline if targetZipline.global_position.y < activeZipline.global_position.y else targetZipline
       var higherZipline = targetZipline if lowerZipline == activeZipline else activeZipline
       remainingJumpCount = MAX_JUMP_COUNT
-
+      vel.user.y = 0
       var direction = (lowerZipline.global_position - higherZipline.global_position).normalized()
-
-      vel.zipline *= .6
-      vel.zipline += direction * heightDiff
+      if $anim.frame > 24:
+        $anim.flip_h = higherZipline.global_position.x > lowerZipline.global_position.x
+      else:
+        $anim.flip_h = applyRot(velocity).x < 0
+      vel.zipline = (direction * heightDiff) * clamp($anim.frame, 1, 34) / 34.0
       if ACTIONjump:
         ACTIONjump = true
         state = States.jumping
@@ -527,16 +531,20 @@ func _physics_process(delta: float) -> void:
         ziplineCooldown = 10
         _physics_process(delta)
         return
-      playerXIntent = MOVESPEED * getCurrentLrState() * \
-        (2 if speedLeverActive else 1)
-      vel.user = Vector2(playerXIntent, 0)
-      vel.user = vel.zipline.normalized() * vel.user.length() * (-1 if vel.user.x < 0 else 1)
+      # playerXIntent = MOVESPEED * getCurrentLrState() * \
+      #   (2 if speedLeverActive else 1)
+      # vel.user = Vector2(playerXIntent, 0)
+      var uservel = vel.zipline.normalized() * vel.user.length() * (-1 if vel.user.x < 0 else 1)
       velocity = Vector2.ZERO
-      for n: String in vel:
-        if n == 'user' and playerKT > 0:
-          velocity += applyRot(Vector2(vel[n].x, 0))
-        else:
-          velocity += applyRot(vel[n])
+      vel.user *= .95
+      # if $anim.frame >= 34:
+      # for n: String in vel:
+      #   if n == 'user' and playerKT > 0:
+      #     velocity += applyRot(Vector2(vel[n].x, 0))
+      #   else:
+      #     velocity += applyRot(vel[n])
+      velocity += applyRot(vel.zipline)
+      velocity += applyRot(uservel)
       for n: String in vel:
         vel[n] *= (velDecay[n]) # * delta * 60
       # if Input.is_key_pressed(KEY_T):
@@ -545,6 +553,7 @@ func _physics_process(delta: float) -> void:
         if justAddedVels[n]:
           justAddedVels[n] -= 1
       move_and_slide()
+      tryAndDieHazards()
 
     States.bouncing:
       setRot(defaultAngle)
@@ -1110,6 +1119,8 @@ func moveAnimations():
       &'jump':
         return [Vector2(2.0, 0.145), Vector2.ZERO]
       &'idle':
+        return [Vector2(0.0, 0.145), Vector2.ZERO]
+      &'zipline':
         return [Vector2(0.0, 0.145), Vector2.ZERO]
       &'wall slide':
         return [Vector2(0.0, 0.145), Vector2.ZERO]

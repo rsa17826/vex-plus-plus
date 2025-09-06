@@ -469,4 +469,32 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(-950.0)
+    STR(y)FLOAT(-575.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(zipline)
+    STRNAME(options){
+      STR(id)INT(11)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-950.0)
+    STR(y)FLOAT(-1325.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(zipline)
+    STRNAME(options){
+      STR(id)INT(11)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]
