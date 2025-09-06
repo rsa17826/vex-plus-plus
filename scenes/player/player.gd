@@ -507,6 +507,7 @@ func _physics_process(delta: float) -> void:
       updateKeyFollowPosition(delta)
     States.onZipline:
       clearWallData()
+      setRot(defaultAngle)
       # log.pp($anim.animation, $anim.frame)
       $anim.animation = 'zipline'
       var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
@@ -523,18 +524,20 @@ func _physics_process(delta: float) -> void:
       if ACTIONjump:
         ACTIONjump = true
         state = States.jumping
-        ziplineCooldown = 10
+        ziplineCooldown = 15
         _physics_process(delta)
         return
       if Input.is_action_pressed(&"down"):
+        remainingJumpCount -= 1
         state = States.falling
-        ziplineCooldown = 10
+        ziplineCooldown = 15
         _physics_process(delta)
         return
       # playerXIntent = MOVESPEED * getCurrentLrState() * \
       #   (2 if speedLeverActive else 1)
       # vel.user = Vector2(playerXIntent, 0)
-      var uservel = vel.zipline.normalized() * vel.user.length() * (-1 if vel.user.x < 0 else 1)
+      log.pp(direction)
+      var uservel = direction.normalized().abs() * vel.user.length() * (-1 if vel.user.x < 0 else 1)
       velocity = Vector2.ZERO
       vel.user *= .95
       # if $anim.frame >= 34:
