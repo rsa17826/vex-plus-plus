@@ -38,6 +38,7 @@ const MAX_BOX_KICK_RECOVER_TIME = 22
 const MAX_POLE_COOLDOWN = 4
 const SMALL = .00001
 
+var ziplineCooldown := 0.0
 var lastDeathWasForced := false
 var respawnCooldown: float = 0
 var levelFlags: Dictionary[String, Variant] = {}
@@ -74,6 +75,8 @@ var speedLeverActive: bool = false
 var slowCamRot := true
 var camRotLock: float = 0
 var activeCannon: BlockCannon
+var activeZipline: BlockZipline
+var targetZipline: BlockZipline
 
 var lightsOut: bool = false
 
@@ -112,6 +115,7 @@ var vel: Dictionary[String, Vector2] = {
   "bounce": Vector2.ZERO,
   "conveyer": Vector2.ZERO,
   "cannon": Vector2.ZERO,
+  "zipline": Vector2.ZERO,
 }
 var velDecay := {
   "pole": 1,
@@ -119,7 +123,8 @@ var velDecay := {
   "waterExit": .9,
   "cannon": .9,
   "bounce": 0.95,
-  "conveyer": .9
+  "conveyer": .9,
+  "zipline": .95,
 }
 var justAddedVels := {
   "pole": 0,
@@ -128,9 +133,10 @@ var justAddedVels := {
   "bounce": 0,
   "conveyer": 0,
   "cannon": 0,
+  "zipline": 0,
 }
-var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole"]
-var stopVelOnWall := ["bounce", "waterExit", "cannon", "pole", "conveyer"]
+var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole", "zipline"]
+var stopVelOnWall := ["bounce", "waterExit", "cannon", "pole", "conveyer", "zipline"]
 var stopVelOnCeil := ["bounce", "waterExit", "cannon", "pole"]
 
 @onready var unduckSize: Vector2 = Vector2(8, 33) # mainCollisionShape2D.shape.size
@@ -153,6 +159,7 @@ enum States {
   swingingOnPole,
   onPulley,
   pushing,
+  onZipline,
   levelLoading,
 }
 
@@ -294,6 +301,7 @@ func _physics_process(delta: float) -> void:
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
   respawnCooldown -= delta * 60
+  ziplineCooldown -= delta * 60
   if state in [
     States.idle,
     States.moving,
@@ -309,6 +317,7 @@ func _physics_process(delta: float) -> void:
     States.swingingOnPole,
     States.onPulley,
     States.pushing,
+    States.onZipline,
     # States.levelLoading,
   ] \
   and not inWaters:
@@ -496,6 +505,47 @@ func _physics_process(delta: float) -> void:
         state = States.falling
       applyHeat(delta)
       updateKeyFollowPosition(delta)
+    States.onZipline:
+      clearWallData()
+      var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
+      var lowerZipline = activeZipline if targetZipline.global_position.y < activeZipline.global_position.y else targetZipline
+      var higherZipline = targetZipline if lowerZipline == activeZipline else activeZipline
+      remainingJumpCount = MAX_JUMP_COUNT
+
+      var direction = (lowerZipline.global_position - higherZipline.global_position).normalized()
+
+      vel.zipline *= .6
+      vel.zipline += direction * heightDiff
+      if ACTIONjump:
+        ACTIONjump = true
+        state = States.jumping
+        ziplineCooldown = 10
+        _physics_process(delta)
+        return
+      if Input.is_action_pressed(&"down"):
+        state = States.falling
+        ziplineCooldown = 10
+        _physics_process(delta)
+        return
+      playerXIntent = MOVESPEED * getCurrentLrState() * \
+        (2 if speedLeverActive else 1)
+      vel.user = Vector2(playerXIntent, 0)
+      vel.user = vel.zipline.normalized() * vel.user.length() * (-1 if vel.user.x < 0 else 1)
+      velocity = Vector2.ZERO
+      for n: String in vel:
+        if n == 'user' and playerKT > 0:
+          velocity += applyRot(Vector2(vel[n].x, 0))
+        else:
+          velocity += applyRot(vel[n])
+      for n: String in vel:
+        vel[n] *= (velDecay[n]) # * delta * 60
+      # if Input.is_key_pressed(KEY_T):
+      #   breakpoint
+      for n: String in vel:
+        if justAddedVels[n]:
+          justAddedVels[n] -= 1
+      move_and_slide()
+
     States.bouncing:
       setRot(defaultAngle)
       mainCollisionShape2D.rotation = 0
