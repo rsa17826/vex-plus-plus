@@ -21,7 +21,7 @@ levelSaved = NodePath("saved")
 editorBar = NodePath("editor bar")
 progressContainer = NodePath("ProgressContainer")
 progressBar = NodePath("ProgressContainer/CenterContainer/ProgressBar")
-modifiers = NodePath("CanvasLayer/modifiers")
+modifiers = NodePath("modifier display/modifiers")
 signalList = NodePath("HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("HBoxContainer/block menu")
 hoveredBlockList = NodePath("hoveredBlocksList")
@@ -77,10 +77,10 @@ grow_vertical = 2
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="modifier display" type="CanvasLayer" parent="."]
 layer = 3
 
-[node name="modifiers" parent="CanvasLayer" instance=ExtResource("6_jcn1r")]
+[node name="modifiers" parent="modifier display" instance=ExtResource("6_jcn1r")]
 offset_top = 75.0
 offset_bottom = 75.0
 metadata/_edit_lock_ = true
@@ -156,8 +156,8 @@ visible = false
 mouse_filter = 0
 metadata/_edit_lock_ = true
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="tab menu" type="CanvasLayer" parent="."]
 layer = 3
 
-[node name="Main" parent="CanvasLayer2" instance=ExtResource("13_hc5d0")]
+[node name="Main" parent="tab menu" instance=ExtResource("13_hc5d0")]
 visible = false
