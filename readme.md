@@ -861,6 +861,15 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
+  - **quad falling spikes**: when the player comes in line with this in one of the 4 cardinal directions it will shoot out 4 spikes in each direction, it is not deadly if it has just shot ts spikes
+    <br><br><img src="scenes/blocks/quad falling spikes/images/editorBar.png" alt="image of block quad falling spikes" width="49" height="50">
+
+    - rotatable
+    - canAttachToThings
+    - ### settings:
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **color**: sets the modulate property
+
   - **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
     <br><br><img src="scenes/blocks/portal/images/1.png" alt="image of block portal" width="35" height="50">
 
