@@ -52,6 +52,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **onSignalDeactivationWhileCharging**: what happens when its signal is deactivating while charging
     - **dischargeTime**: the time it takes for a signal to be discharged
     - **onSignalActivationWhileDischarging**: what happens when its signal is activating while discharging
+    - **id**: the ziplines with the same id will be connected
 -->
 
 - ## Controls
@@ -1016,6 +1017,18 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **keepDischarging**: the charge will keep decreasing
         - **reset**: the charge progress will reset to 0
         - **startCharging**: the charge will start increasing
+      - **color**: sets the modulate property
+
+  - **zipline**: the player can slide down the zipline from one to another
+    <br><br><img src="scenes/blocks/zipline/images/1.png" alt="image of block zipline" width="7" height="50">
+
+    - scalable
+    - canAttachToThings
+    - canAttachToPaths
+    - ### settings:
+      - **id**: the ziplines with the same id will be connected
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
 <!-- end auto -->
