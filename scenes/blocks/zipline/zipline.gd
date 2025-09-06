@@ -17,9 +17,18 @@ func generateBlockOpts():
   }
 
 func on_process(delta: float) -> void:
-  targetZipline = global.ziplines[global.ziplines.find_custom(func(e):
-    return e.selectedOptions.id == selectedOptions.id
-  )]
+  var idx = global.ziplines.find_custom(func(e):
+    return \
+      e.selectedOptions.id == selectedOptions.id \
+      and e != self \
+      and !(e.startPosition.y > startPosition.y)
+    )
+  if idx == -1:
+    targetZipline = null
+    return
+  targetZipline = global.ziplines[
+    idx
+  ]
   queue_redraw()
 
 func on_physics_process(delta: float) -> void:
@@ -37,16 +46,21 @@ func on_physics_process(delta: float) -> void:
   # log.pp(targetZipline.position - position)
   if ray.is_colliding() or cd > 0:
     if global.player.ziplineCooldown > 0: return
-    var loopCount = 0
-    ray.position += global.player.applyRot(Vector2(0, 10))
-    while ray.is_colliding() and loopCount < 1000:
-      ray.force_raycast_update()
-      loopCount += 1
-      ray.position -= global.player.applyRot(Vector2(0, 1))
-    log.pp(loopCount)
-    global.player.global_position += global.player.applyRot(Vector2(0, clamp((loopCount - 10), 0, INF) / 7.0))
-    global.player.global_position += global.player.applyRot(Vector2(0, -20))
-    ray.position += global.player.applyRot(Vector2(0, loopCount - 10))
+    var diff = ray.get_collision_point().y - global.player.global_position.y
+    log.pp(diff)
+    # global.player.global_position.y = ray.get_collision_point().y
+    global.player.global_position.y += diff + 6
+
+    # var loopCount = 0
+    # ray.position += global.player.applyRot(Vector2(0, 10))
+    # while ray.is_colliding() and loopCount < 1000:
+    #   ray.force_raycast_update()
+    #   loopCount += 1
+    #   ray.position -= global.player.applyRot(Vector2(0, 1))
+    # log.pp(loopCount)
+    # global.player.global_position += global.player.applyRot(Vector2(0, clamp((loopCount - 10), 0, INF) / 7.0))
+    # global.player.global_position += global.player.applyRot(Vector2(0, -20))
+    # ray.position += global.player.applyRot(Vector2(0, loopCount - 10))
     if global.player.activeZipline != self and cd <= 0:
       cd = 4
     global.player.activeZipline = self
