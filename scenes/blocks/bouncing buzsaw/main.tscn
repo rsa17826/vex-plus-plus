@@ -16,7 +16,7 @@ radius = 299.202
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogg4d"]
 radius = 306.041
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "BUZSAW_GENERIC_spriteToRotateRight") groups=["buzsaw - generic", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "BUZSAW_GENERIC_spriteToRotateLeft", "BUZSAW_GENERIC_spriteToRotateRight") groups=["buzsaw - generic", "death"]]
 script = ExtResource("1_sq8c8")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIcon = ExtResource("3_807tk")
@@ -26,6 +26,7 @@ cloneEventsHere = [NodePath("CharacterBody2D")]
 thingThatMoves = NodePath("CharacterBody2D")
 EDITOR_OPTION_scale = true
 canAttachToPaths = true
+BUZSAW_GENERIC_spriteToRotateLeft = NodePath("CharacterBody2D/Sprite2D")
 BUZSAW_GENERIC_spriteToRotateRight = NodePath("CharacterBody2D/left rot")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
@@ -35,16 +36,16 @@ collision_mask = 72
 script = ExtResource("2_ogg4d")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
-texture = ExtResource("2_807tk")
-
 [node name="left rot" type="Sprite2D" parent="CharacterBody2D"]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_807tk")
 flip_h = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+use_parent_material = true
+scale = Vector2(0.565528, 0.565528)
+texture = ExtResource("2_807tk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("CircleShape2D_xvl4e")

@@ -520,7 +520,7 @@ func _physics_process(delta: float) -> void:
         $anim.flip_h = higherZipline.global_position.x > lowerZipline.global_position.x
       else:
         $anim.flip_h = applyRot(velocity).x < 0
-      vel.zipline = (direction * heightDiff) * clamp($anim.frame, 1, 34) / 34.0
+      vel.zipline = (direction * heightDiff) * (clamp($anim.frame, 1, 34) / 34.0) * 2.5
       if ACTIONjump:
         ACTIONjump = true
         state = States.jumping
@@ -536,7 +536,6 @@ func _physics_process(delta: float) -> void:
       # playerXIntent = MOVESPEED * getCurrentLrState() * \
       #   (2 if speedLeverActive else 1)
       # vel.user = Vector2(playerXIntent, 0)
-      log.pp(direction)
       var uservel = direction.normalized().abs() * vel.user.length() * (-1 if vel.user.x < 0 else 1)
       velocity = Vector2.ZERO
       vel.user *= .95

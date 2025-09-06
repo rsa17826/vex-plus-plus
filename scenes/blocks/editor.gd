@@ -774,9 +774,9 @@ func _on_body_exitedDEATH(body: Node) -> void:
 
 # res://scenes/blocks/buzsaw/images/1.png
 @export_group("BUZSAW - GENERIC")
-@export var BUZSAW_GENERIC_spriteToRotateRight: Sprite2D
 @export var BUZSAW_GENERIC_spriteToRotateLeft: Sprite2D
+@export var BUZSAW_GENERIC_spriteToRotateRight: Sprite2D
 func _processBUZSAW_GENERIC(delta: float) -> void:
   var speed = 80.0
-  spin(speed, BUZSAW_GENERIC_spriteToRotateRight)
   spin(-speed, BUZSAW_GENERIC_spriteToRotateLeft)
+  spin(speed, BUZSAW_GENERIC_spriteToRotateRight)
