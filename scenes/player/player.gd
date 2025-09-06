@@ -507,7 +507,7 @@ func _physics_process(delta: float) -> void:
       updateKeyFollowPosition(delta)
     States.onZipline:
       clearWallData()
-      log.pp($anim.animation, $anim.frame)
+      # log.pp($anim.animation, $anim.frame)
       $anim.animation = 'zipline'
       var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
       var lowerZipline = activeZipline if targetZipline.global_position.y < activeZipline.global_position.y else targetZipline
