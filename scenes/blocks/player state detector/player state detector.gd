@@ -30,6 +30,7 @@ enum States {
   facingLeft,
   facingRight,
   swimming,
+  onZipline,
 }
 
 func on_respawn():
@@ -70,6 +71,8 @@ func on_physics_process(delta: float) -> void:
         return p.state == p.States.onPulley
       States.pushing:
         return p.state == p.States.pushing
+      States.onZipline:
+        return p.state == p.States.onZipline
       States.facingLeft:
         return p.anim.flip_h
       States.facingRight:
