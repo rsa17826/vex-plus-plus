@@ -23,7 +23,11 @@ func on_process(delta: float) -> void:
   queue_redraw()
 
 func on_physics_process(delta: float) -> void:
-  if !targetZipline or targetZipline == self: return
+  if !targetZipline or targetZipline == self or global.player.state == global.player.States.sliding:
+    ray.target_position = Vector2.ZERO
+    ray.enabled = false
+    return
+  ray.enabled = true
   cd -= 1
   # log.pp(colliding())
   ray.target_position = targetZipline.position - position
@@ -34,15 +38,17 @@ func on_physics_process(delta: float) -> void:
   if ray.is_colliding() or cd > 0:
     if global.player.ziplineCooldown > 0: return
     var loopCount = 0
-    while ray.is_colliding() and loopCount < 200:
+    ray.position += global.player.applyRot(Vector2(0, 10))
+    while ray.is_colliding() and loopCount < 1000:
       ray.force_raycast_update()
       loopCount += 1
       ray.position -= global.player.applyRot(Vector2(0, 1))
-    ray.position += global.player.applyRot(Vector2(0, loopCount * 1))
-    global.player.position += global.player.applyRot(Vector2(0, loopCount / 10.0 - 3))
-    if global.player.activeZipline != self:
+    log.pp(loopCount)
+    global.player.global_position += global.player.applyRot(Vector2(0, clamp((loopCount - 10), 0, INF) / 7.0))
+    global.player.global_position += global.player.applyRot(Vector2(0, -20))
+    ray.position += global.player.applyRot(Vector2(0, loopCount - 10))
+    if global.player.activeZipline != self and cd <= 0:
       cd = 4
-
     global.player.activeZipline = self
     global.player.targetZipline = targetZipline
     global.player.state = global.player.States.onZipline

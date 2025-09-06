@@ -56,13 +56,14 @@ metadata/_edit_lock_ = true
 [node name="grid" type="Node2D" parent="Node2D/Node2D"]
 top_level = true
 script = ExtResource("3_b2cq8")
+hasNums = true
 grid_size = Vector2(72, 40)
 line_size = Vector2(1, 1)
 border_width = 0.0
 cell_size = Vector2(50, 50)
 border_color = Color(1, 1, 1, 0.117647)
-vline_color = Color(1, 1, 1, 0.117647)
-hline_color = Color(1, 1, 1, 0.117647)
+vline_color = Color(0, 0, 0, 0.09019608)
+hline_color = Color(0, 0, 0, 0.09019608)
 metadata/_custom_type_script = "uid://ruj65gfl2gaw"
 
 [node name="y" type="Control" parent="Node2D/Node2D/grid"]
@@ -626,5 +627,17 @@ theme_override_colors/font_color = Color(0.151276, 0.151276, 0.151276, 1)
 text = "0,0"
 vertical_alignment = 1
 clip_text = true
+
+[node name="grid2" type="Node2D" parent="Node2D/Node2D"]
+top_level = true
+script = ExtResource("3_b2cq8")
+grid_size = Vector2(360, 200)
+line_size = Vector2(1, 1)
+border_width = 0.0
+cell_size = Vector2(10, 10)
+border_color = Color(1, 1, 1, 0)
+vline_color = Color(0, 0, 0, 0.06666667)
+hline_color = Color(0, 0, 0, 0.06666667)
+metadata/_custom_type_script = "uid://ruj65gfl2gaw"
 
 [connection signal="timeout" from="autosaveTimer" to="autosaveTimer" method="_on_timeout"]

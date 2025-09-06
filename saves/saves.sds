@@ -1312,7 +1312,7 @@
     STR(beatLevels)[]
   }
   STR(jasdkljklasdadsjkllkadsklasd){
-    STR(lastSpawnPoint)VEC2(-848.527404785156,-505.080291748047)
+    STR(lastSpawnPoint)VEC2(601.472595214844,-55.0802841186523)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
@@ -1326,7 +1326,16 @@
               STR(texture)STR(3)
             }
             INT(2){
+              STR(texture)STR(3)
+            }
+            INT(3){
               STR(texture)STR(2)
+            }
+            INT(4){
+              STR(texture)STR(3)
+            }
+            INT(5){
+              STR(texture)STR(3)
             }
           }
         }

@@ -517,9 +517,13 @@ func _physics_process(delta: float) -> void:
       vel.user.y = 0
       var direction = (lowerZipline.global_position - higherZipline.global_position).normalized()
       if $anim.frame > 24:
-        $anim.flip_h = higherZipline.global_position.x > lowerZipline.global_position.x
+        if abs(applyRot(velocity).x) < 5:
+          $anim.frame = 25
+        else:
+          $anim.flip_h = higherZipline.global_position.x > lowerZipline.global_position.x
       else:
-        $anim.flip_h = applyRot(velocity).x < 0
+        if !is_zero_approx(velocity.x):
+          $anim.flip_h = applyRot(velocity).x < 0
       vel.zipline = (direction * heightDiff) * (clamp($anim.frame, 1, 34) / 34.0) * 2.5
       if ACTIONjump:
         ACTIONjump = true
@@ -1123,7 +1127,7 @@ func moveAnimations():
       &'idle':
         return [Vector2(0.0, 0.145), Vector2.ZERO]
       &'zipline':
-        return [Vector2(0.0, 0.145), Vector2.ZERO]
+        return [Vector2(0.0, 10.145), Vector2.ZERO]
       &'wall slide':
         return [Vector2(0.0, 0.145), Vector2.ZERO]
       &'run':
