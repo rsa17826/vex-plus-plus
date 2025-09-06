@@ -46,10 +46,10 @@ func on_physics_process(delta: float) -> void:
   # log.pp(targetZipline.position - position)
   if ray.is_colliding() or cd > 0:
     if global.player.ziplineCooldown > 0: return
-    var diff = ray.get_collision_point().y - global.player.global_position.y
+    var diff = global.player.applyRot(ray.get_collision_point() - global.player.global_position).y
     log.pp(diff)
     # global.player.global_position.y = ray.get_collision_point().y
-    global.player.global_position.y += diff + 6
+    global.player.global_position += global.player.applyRot(Vector2(0, diff + 6))
 
     # var loopCount = 0
     # ray.position += global.player.applyRot(Vector2(0, 10))

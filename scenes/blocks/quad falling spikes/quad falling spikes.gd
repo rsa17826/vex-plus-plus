@@ -1,42 +1,42 @@
-@icon("images/1.png")
+@icon("images/editorBar.png")
 extends EditorBlock
 
 var respawnTimer = 0
 const RESPAWN_TIME = 150
-var falling: bool = false
+var onCooldown := false
 
-const speed = 3500.0
+@export var sprite: AnimatedSprite2D
+
 var fallingNodes := []
 
 @onready var spikes = [%up, %down, %left, %right]
 
 func playerDetected():
-  for nodeToFall in spikes:
-    var node = nodeToFall.duplicate()
-    node.visible = true
+  for nodeToClone in spikes:
+    var node = nodeToClone.duplicate()
+    nodeToClone.visible = false
+    nodeToClone.get_node('CollisionShape2D').disabled = true
+    node.get_node('CollisionShape2D').disabled = false
+    node.falling = true
+    add_child(node, true)
     fallingNodes.append(node)
-  falling = true
+  onCooldown = true
+  sprite.play()
 
 func on_respawn():
-  falling = false
+  for node in fallingNodes.filter(global.isAlive):
+    node.queue_free()
+  for node in spikes:
+    node.get_node('CollisionShape2D').disabled = false
+    node.visible = true
+  fallingNodes = []
   position = startPosition
+  onCooldown = false
+  sprite.stop()
 
-func on_physics_process(delta: float) -> void:
-  if respawnTimer > 0:
-    respawning = 2
-    respawnTimer -= delta * 60
-    if respawnTimer < 0:
-      respawning = 0
-      respawnTimer = 0
-    for nodeToFall in spikes:
-      nodeToFall.scale = global.rerange(respawnTimer, RESPAWN_TIME, 0, Vector2(.1, .1), Vector2(1, 1))
-    return
-  if falling:
-    for nodeToFall in fallingNodes:
-      nodeToFall.position += Vector2(0, -speed * delta).rotated(nodeToFall.rotation)
-
-func _on_floor_detection_body_entered(body: Node2D) -> void:
-  if body.root is BlockBomb:
-    body.root.explode()
-  respawnTimer = RESPAWN_TIME
-  on_respawn()
+func _on_animated_sprite_2d_animation_looped() -> void:
+  for node in spikes:
+    node.get_node('CollisionShape2D').disabled = false
+    node.visible = true
+  onCooldown = false
+  sprite.stop()
