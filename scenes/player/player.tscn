@@ -284,7 +284,7 @@
 size = Vector2(8, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xb8ft"]
-size = Vector2(8, 19.6)
+size = Vector2(8, 25.900002)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2t3bg"]
 animations = [{
@@ -1323,7 +1323,7 @@ collision_layer = 131072
 collision_mask = 0
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetector"]
-position = Vector2(0, -10.3)
+position = Vector2(0, -6.275)
 shape = SubResource("RectangleShape2D_xb8ft")
 debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true

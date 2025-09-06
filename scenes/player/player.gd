@@ -1463,6 +1463,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   targetingLasers = []
   activeCannon = null
   activePulley = null
+  activeZipline = null
+  targetZipline = null
   global.stopTicking = true
   deadTimer = max(respawnTime, 0)
   currentRespawnDelay = respawnTime
