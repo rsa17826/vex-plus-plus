@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://c1agjh56ibohg"]
+[gd_scene load_steps=45 format=3 uid="uid://c1agjh56ibohg"]
 
 [ext_resource type="Script" uid="uid://dt10ydob3wpa2" path="res://scenes/blocks/quad falling spikes/quad falling spikes.gd" id="1_cdvup"]
 [ext_resource type="Texture2D" uid="uid://ccxswro7dvg4j" path="res://scenes/blocks/quad falling spikes/images/1.png" id="2_coupi"]
@@ -36,6 +36,17 @@
 [ext_resource type="Texture2D" uid="uid://bkanq5kqaboby" path="res://scenes/blocks/quad falling spikes/images/33.png" id="34_ecba5"]
 [ext_resource type="Texture2D" uid="uid://fqvkjkrdfw2u" path="res://scenes/blocks/quad falling spikes/images/34.png" id="35_p4058"]
 [ext_resource type="Texture2D" uid="uid://d4cpc5nnfgj1a" path="res://scenes/blocks/quad falling spikes/images/35.png" id="36_htc80"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="37_777qq"]
+[ext_resource type="Texture2D" uid="uid://cigd4s8a81h5b" path="res://scenes/blocks/falling spike/images/1.png" id="38_2fxyy"]
+[ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="39_knn8c"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="40_5gd22"]
+[ext_resource type="Script" uid="uid://cwnxewrovpgm4" path="res://scenes/blocks/quad falling spikes/player_detector.gd" id="42_sa1mn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ep6t7"]
+size = Vector2(42, 74)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o3ave"]
+radius = 5.09902
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_dlgt7"]
 animations = [{
@@ -150,24 +161,198 @@ animations = [{
 "speed": 30.0
 }]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode", "collisionShapes", "hidableSprites") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites") groups=["death"]]
 script = ExtResource("1_cdvup")
 ghostIconNode = NodePath("Node2D/Sprite2D")
-editorBarIconNode = NodePath("Node2D/Sprite2D")
 editorBarIcon = ExtResource("2_coupi")
-collisionShapes = [NodePath("CollisionShape2D")]
+collisionShapes = [NodePath("Node2D/up/floor detection/CollisionShape2D"), NodePath("Node2D/down/floor detection/CollisionShape2D"), NodePath("Node2D/right/floor detection/CollisionShape2D"), NodePath("Node2D/left/floor detection/CollisionShape2D"), NodePath("Node2D/left/CollisionShape2D"), NodePath("Node2D/right/CollisionShape2D"), NodePath("Node2D/down/CollisionShape2D"), NodePath("Node2D/up/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/AnimatedSprite2D")]
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
 
 [node name="Node2D" type="Node2D" parent="."]
+scale = Vector2(0.5, 0.5)
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+[node name="up" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
-sprite_frames = SubResource("SpriteFrames_dlgt7")
+visible = false
+position = Vector2(0, -35)
+collision_layer = 3216
+collision_mask = 2
+script = ExtResource("37_777qq")
+root = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/up"]
+use_parent_material = true
+position = Vector2(-0.5, -64)
+texture = ExtResource("38_2fxyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up"]
+position = Vector2(-0.5, -40)
+shape = SubResource("RectangleShape2D_ep6t7")
+debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("39_knn8c")
+
+[node name="floor detection" type="Area2D" parent="Node2D/up" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -64)
+collision_layer = 128
+collision_mask = 8
+script = ExtResource("37_777qq")
+root = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up/floor detection"]
+position = Vector2(0, -25)
+shape = SubResource("CircleShape2D_o3ave")
+script = ExtResource("40_5gd22")
+
+[node name="playerDetector" type="RayCast2D" parent="Node2D/up" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -77)
+scale = Vector2(1.1367941, -2.6515508)
+target_position = Vector2(0, -3000)
+collision_mask = 2
+script = ExtResource("42_sa1mn")
+root = NodePath("../../..")
+
+[node name="down" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+unique_name_in_owner = true
+visible = false
+position = Vector2(0, 35)
+rotation = -3.1415925
+collision_layer = 3216
+collision_mask = 2
+script = ExtResource("37_777qq")
+root = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/down"]
+use_parent_material = true
+position = Vector2(-0.5, -64)
+texture = ExtResource("38_2fxyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down"]
+position = Vector2(-0.5, -40)
+shape = SubResource("RectangleShape2D_ep6t7")
+debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("39_knn8c")
+
+[node name="floor detection" type="Area2D" parent="Node2D/down" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -64)
+collision_layer = 128
+collision_mask = 8
+script = ExtResource("37_777qq")
+root = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down/floor detection"]
+position = Vector2(0, -25)
+shape = SubResource("CircleShape2D_o3ave")
+script = ExtResource("40_5gd22")
+
+[node name="playerDetector" type="RayCast2D" parent="Node2D/down" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -77)
+scale = Vector2(1.1367941, -2.6515508)
+target_position = Vector2(0, -3000)
+collision_mask = 2
+script = ExtResource("42_sa1mn")
+root = NodePath("../../..")
+
+[node name="right" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+unique_name_in_owner = true
+visible = false
+position = Vector2(35, 0)
+rotation = 1.5707964
+collision_layer = 3216
+collision_mask = 2
+script = ExtResource("37_777qq")
+root = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/right"]
+use_parent_material = true
+position = Vector2(-0.5, -64)
+texture = ExtResource("38_2fxyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right"]
+position = Vector2(-0.5, -40)
+shape = SubResource("RectangleShape2D_ep6t7")
+debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("39_knn8c")
+
+[node name="floor detection" type="Area2D" parent="Node2D/right" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -64)
+collision_layer = 128
+collision_mask = 8
+script = ExtResource("37_777qq")
+root = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right/floor detection"]
+position = Vector2(0, -25)
+shape = SubResource("CircleShape2D_o3ave")
+script = ExtResource("40_5gd22")
+
+[node name="playerDetector" type="RayCast2D" parent="Node2D/right" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -77)
+scale = Vector2(1.1367941, -2.6515508)
+target_position = Vector2(0, -3000)
+collision_mask = 2
+script = ExtResource("42_sa1mn")
+root = NodePath("../../..")
+
+[node name="left" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+unique_name_in_owner = true
+visible = false
+position = Vector2(-35, 0)
+rotation = -1.5707964
+collision_layer = 3216
+collision_mask = 2
+script = ExtResource("37_777qq")
+root = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/left"]
+use_parent_material = true
+position = Vector2(-0.5, -64)
+texture = ExtResource("38_2fxyy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left"]
+position = Vector2(-0.5, -40)
+shape = SubResource("RectangleShape2D_ep6t7")
+debug_color = Color(1, 0, 0, 0.419608)
+script = ExtResource("39_knn8c")
+
+[node name="floor detection" type="Area2D" parent="Node2D/left" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -64)
+collision_layer = 128
+collision_mask = 8
+script = ExtResource("37_777qq")
+root = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left/floor detection"]
+position = Vector2(0, -25)
+shape = SubResource("CircleShape2D_o3ave")
+script = ExtResource("40_5gd22")
+
+[node name="playerDetector" type="RayCast2D" parent="Node2D/left" node_paths=PackedStringArray("root")]
+position = Vector2(-0.5, -77)
+scale = Vector2(1.1367941, -2.6515508)
+target_position = Vector2(0, -3000)
+collision_mask = 2
+script = ExtResource("42_sa1mn")
+root = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 visible = false
 texture = ExtResource("2_coupi")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+unique_name_in_owner = true
+sprite_frames = SubResource("SpriteFrames_dlgt7")
+
+[connection signal="body_entered" from="Node2D/up" to="." method="on_body_entered"]
+[connection signal="body_exited" from="Node2D/up" to="." method="on_body_exited"]
+[connection signal="body_entered" from="Node2D/up/floor detection" to="." method="_on_floor_detection_body_entered"]
+[connection signal="body_entered" from="Node2D/down" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Node2D/down" to="." method="on_body_exited"]
+[connection signal="body_entered" from="Node2D/down/floor detection" to="." method="_on_floor_detection_body_entered"]
+[connection signal="body_entered" from="Node2D/right" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Node2D/right" to="." method="on_body_exited"]
+[connection signal="body_entered" from="Node2D/right/floor detection" to="." method="_on_floor_detection_body_entered"]
+[connection signal="body_entered" from="Node2D/left" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Node2D/left" to="." method="on_body_exited"]
+[connection signal="body_entered" from="Node2D/left/floor detection" to="." method="_on_floor_detection_body_entered"]
