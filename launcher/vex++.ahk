@@ -641,6 +641,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
 
 ; Function to fetch releases from the GitHub API
 FetchReleases(apiUrl) {
+  rand := random()
   global doingSomething
   if doingSomething {
     aotMsgBox("already doing something, wait till done")
@@ -656,7 +657,7 @@ FetchReleases(apiUrl) {
     while (1) {
       try {
         tryCount += 1
-        Download(apiUrl "?page=" i, jsonFile)
+        Download(apiUrl "?page=" i "&rand=" rand, jsonFile)
         break
       } catch Error as e {
         print("ERROR", "at FetchReleases", e.Message, e.Line, e.Extra, e.Stack)
