@@ -1771,3 +1771,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make camera move instantyl when entering inner level
 
 # add enum md for settings
+
+# fix path edit node button
+
+# change group dupe min dist
+
+# fix surican spawner on place
