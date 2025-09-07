@@ -1746,3 +1746,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # when reentering inner level load back at last checkpoint
 # add zindex to display options
 # make camera move instantyl when entering inner level
+
+# ziplines retain max speed
+# zipline death bug
+
+# add enum md for settings
