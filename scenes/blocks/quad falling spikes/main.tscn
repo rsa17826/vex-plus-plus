@@ -162,12 +162,13 @@ size = Vector2(42, 74)
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3ave"]
 radius = 5.09902
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "hidableSprites") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "hidableSprites", "cloneEventsHere") groups=["death"]]
 script = ExtResource("1_cdvup")
 sprite = NodePath("Node2D/AnimatedSprite2D")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIcon = ExtResource("2_coupi")
 hidableSprites = [NodePath("Node2D/AnimatedSprite2D")]
+cloneEventsHere = [NodePath("Node2D/up/playerDetector"), NodePath("Node2D/down/playerDetector"), NodePath("Node2D/right/playerDetector"), NodePath("Node2D/left/playerDetector")]
 ignoreMissingNodes = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
