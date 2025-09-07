@@ -844,4 +844,17 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(-769.0)
+    STR(y)FLOAT(-784.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(quad falling spikes)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

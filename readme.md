@@ -135,6 +135,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### editor settings
 
+    - **multiSelectedBlocksRotationScheme**: what happens when rotating a block with selecting more than 1
     - **randomizeLevelModifiersOnLevelCreation**: when creating a new level the level modifiers will be set randomly
     - **minDistBeforeBlockDraggingStarts**: the distance the mouse has to move before the block will be moved or scaled
     - **autoPanWhenClickingEmptySpace**: when dragging on an empty space, with no blocks on it, it will treat it as if editor_pan was pressed.
@@ -866,8 +867,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
     - rotatable
     - canAttachToThings
+    - canAttachToPaths
     - ### settings:
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
   - **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
