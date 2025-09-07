@@ -1149,7 +1149,7 @@ func _unhandled_input(event: InputEvent) -> void:
             0:
               block.rotation_degrees += selectedBlock.rotation_degrees - startRot
             1:
-              block.rotation_degrees = selectedBlock.rotation_degrees + block.mouseRotationOffset
+              block.rotation_degrees = selectedBlock.rotation_degrees
           block.onEditorRotate()
           setBlockStartPos(block)
 
