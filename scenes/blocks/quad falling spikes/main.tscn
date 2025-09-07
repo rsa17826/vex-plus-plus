@@ -348,6 +348,8 @@ collision_mask = 2
 script = ExtResource("42_sa1mn")
 root = NodePath("../../..")
 
+[node name="PopupMenu" type="PopupMenu" parent="."]
+
 [connection signal="animation_looped" from="Node2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_looped"]
 [connection signal="body_entered" from="Node2D/up" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Node2D/up" to="." method="_on_body_exited"]
