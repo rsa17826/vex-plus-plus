@@ -668,6 +668,12 @@ func selectBlock() -> void:
   hoveredBlocks.push_back(block)
   set_deferred("selecting", false)
 
+var lastDeletedBlock: EditorBlock:
+  set(val):
+    if lastDeletedBlock:
+      lastDeletedBlock.queue_free()
+    lastDeletedBlock = val
+
 var lastSelectedBlock: EditorBlock:
   set(val):
     lastSelectedBlock = val
@@ -1190,6 +1196,7 @@ func _unhandled_input(event: InputEvent) -> void:
         hoveredBlocks.erase(block)
       block.onDelete()
       block.queue_free.call_deferred()
+      lastDeletedBlock = null
     boxSelect_selectedBlocks = []
     # log.pp(selectedBlock, lastSelectedBlock)
     if selectedBlock && is_instance_valid(selectedBlock):
@@ -1202,6 +1209,7 @@ func _unhandled_input(event: InputEvent) -> void:
       # temp.rotation_degrees = selectedBlock.rotation_degrees
       # temp.selectedOptions = selectedBlock.selectedOptions.duplicate()
       lastSelectedBlock = selectedBlock.duplicate()
+      lastDeletedBlock = lastSelectedBlock
       lastSelectedBlock.selectedOptions = selectedBlock.selectedOptions.duplicate()
       lastSelectedBlock.id = selectedBlock.id
       selectedBlock.onDelete()
@@ -1222,6 +1230,7 @@ func _unhandled_input(event: InputEvent) -> void:
           lastSelectedBlock.onDelete()
           lastSelectedBlock.queue_free.call_deferred()
           lastSelectedBlock = temp
+          lastDeletedBlock = temp
           ui.blockMenu.clearItems()
 
   if mainLevelName:
@@ -2241,7 +2250,7 @@ func isAlive(e):
   return e \
     and is_instance_valid(e) \
     and !e.is_queued_for_deletion() \
-    and e.get_parent()
+    and !same(e, lastDeletedBlock)
 
 var hoveredBrushes: Array[Node2D] = []
 
