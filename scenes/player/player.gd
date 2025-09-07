@@ -527,7 +527,7 @@ func _physics_process(delta: float) -> void:
       else:
         if !is_zero_approx(velocity.x):
           $anim.flip_h = applyRot(velocity).x < 0
-      var newSpeed = (direction * heightDiff) * (clamp($anim.frame, 1, 34) / 34.0) * 2
+      var newSpeed = (direction * (heightDiff * .7)) * (clamp($anim.frame, 1, 34) / 34.0) * 7.5
       # log.pp(vel.zipline, newSpeed, velocity, newSpeed.length(), vel.zipline.length())
       # var diff = Vector2(
       #   abs(newSpeed.normalized()).x - abs(vel.zipline.normalized()).x,
@@ -538,11 +538,12 @@ func _physics_process(delta: float) -> void:
       #   breakpoint
       # log.pp(newSpeed.length(), vel.zipline.length(), newSpeed, vel.zipline, (newSpeed.normalized()) - (vel.zipline.normalized()))
       # if newSpeed.length() > vel.zipline.length():
-      $ziplineDetector/CollisionShape2D2.shape.size = Vector2(16, 35)
+      $ziplineDetector/CollisionShape2D2.shape.size = Vector2(8, 25 * global.rerange(abs(newSpeed.x), 0, 300, 1.5, 4))
       if (newSpeed.x > 0) != (vel.zipline.x > 0):
         if newSpeed.x:
-          log.pp(newSpeed.x, vel.zipline.x)
-          vel.zipline = lerp(vel.zipline, newSpeed, 0.05)
+          var speed = global.rerange(abs(newSpeed.x), 0, 300, 0.0001, 0.05)
+          log.pp(speed, newSpeed.x, vel.zipline.x)
+          vel.zipline = lerp(vel.zipline, newSpeed, speed)
       else:
         if abs(newSpeed.x) > abs(vel.zipline.x):
           vel.zipline = newSpeed
@@ -582,7 +583,6 @@ func _physics_process(delta: float) -> void:
           justAddedVels[n] -= 1
       move_and_slide()
       tryAndDieHazards()
-
     States.bouncing:
       setRot(defaultAngle)
       mainCollisionShape2D.rotation = 0
@@ -1460,7 +1460,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if state != States.levelLoading:
     state = States.dead
   root.__disable()
-  respawnCooldown = respawnTime
+  respawnCooldown = respawnTime + .01
   # log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   lastDeathWasForced = forced
   # root.__disable()
