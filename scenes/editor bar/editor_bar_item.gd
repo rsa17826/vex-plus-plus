@@ -16,6 +16,7 @@ func _on_mouse_entered() -> void:
   z_index = 2
   selected = 1
 
+var popupSelected := false
 func _input(event: InputEvent) -> void:
   if global.openMsgBoxCount: return
   if selected >= 1 and Input.is_action_just_pressed("editor_select"):
@@ -39,8 +40,9 @@ func _input(event: InputEvent) -> void:
       await global.wait()
       block.queue_free.call_deferred()
       can.queue_free.call_deferred()
-
+    popupSelected = false
     var editOption = func editOption(idx):
+      popupSelected = true
       if idx >= len(block.blockOptions.keys()):
         onOptionEdit.call()
         return
@@ -91,7 +93,11 @@ func _input(event: InputEvent) -> void:
       )
       i += 1
     pm.add_item('cancel', i)
-    pm.connect("index_pressed", editOption)
+    pm.index_pressed.connect(editOption)
+    pm.popup_hide.connect(func():
+      await global.wait()
+      if not popupSelected:
+        block.queue_free())
     global.popupStarted = true
     pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
     await global.wait()
