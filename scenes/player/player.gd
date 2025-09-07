@@ -334,6 +334,8 @@ func _physics_process(delta: float) -> void:
     if root in global.boxSelect_selectedBlocks or root == global.selectedBlock:
       position = Vector2.ZERO
     return
+  if state != States.onZipline:
+    $ziplineDetector/CollisionShape2D2.shape.size = Vector2(8, 25)
   var frameStartPosition := global_position
   waterRay.rotation = - rotation + defaultAngle
   # anim.position = Vector2(0, 0.145)
@@ -525,7 +527,25 @@ func _physics_process(delta: float) -> void:
       else:
         if !is_zero_approx(velocity.x):
           $anim.flip_h = applyRot(velocity).x < 0
-      vel.zipline = (direction * heightDiff) * (clamp($anim.frame, 1, 34) / 34.0) * 2.5
+      var newSpeed = (direction * heightDiff) * (clamp($anim.frame, 1, 34) / 34.0) * 2
+      # log.pp(vel.zipline, newSpeed, velocity, newSpeed.length(), vel.zipline.length())
+      # var diff = Vector2(
+      #   abs(newSpeed.normalized()).x - abs(vel.zipline.normalized()).x,
+      #   abs(newSpeed.normalized()).y - abs(vel.zipline.normalized()).y
+      # )
+      # # log.pp(newSpeed.normalized(), vel.zipline.normalized(), diff, abs(newSpeed.normalized()) - abs(vel.zipline.normalized()))
+      # if diff:
+      #   breakpoint
+      # log.pp(newSpeed.length(), vel.zipline.length(), newSpeed, vel.zipline, (newSpeed.normalized()) - (vel.zipline.normalized()))
+      # if newSpeed.length() > vel.zipline.length():
+      $ziplineDetector/CollisionShape2D2.shape.size = Vector2(16, 35)
+      if (newSpeed.x > 0) != (vel.zipline.x > 0):
+        if newSpeed.x:
+          log.pp(newSpeed.x, vel.zipline.x)
+          vel.zipline = lerp(vel.zipline, newSpeed, 0.05)
+      else:
+        if abs(newSpeed.x) > abs(vel.zipline.x):
+          vel.zipline = newSpeed
       if ACTIONjump:
         ACTIONjump = true
         state = States.jumping
@@ -552,8 +572,9 @@ func _physics_process(delta: float) -> void:
       #     velocity += applyRot(vel[n])
       velocity += applyRot(vel.zipline)
       velocity += applyRot(uservel)
-      for n: String in vel:
-        vel[n] *= (velDecay[n]) # * delta * 60
+      # for n: String in vel:
+      #   if n != 'zipline':
+      #     vel[n] *= (velDecay[n]) # * delta * 60
       # if Input.is_key_pressed(KEY_T):
       #   breakpoint
       for n: String in vel:
@@ -1748,6 +1769,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make camera move instantyl when entering inner level
 
 # ziplines retain max speed
-# zipline death bug
 
 # add enum md for settings

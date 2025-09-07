@@ -51,6 +51,7 @@
     STR(scythe)
     STR(shurikan spawner)
     STR(falling spike)
+    STR(quad falling spikes)
     STR(laser)
     STR(targeting laser)
   ]
