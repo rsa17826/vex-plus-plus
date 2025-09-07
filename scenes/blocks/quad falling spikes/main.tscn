@@ -171,6 +171,7 @@ hidableSprites = [NodePath("Node2D/AnimatedSprite2D")]
 ignoreMissingNodes = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
+canAttachToPaths = true
 
 [node name="Node2D" type="Node2D" parent="."]
 scale = Vector2(0.75, 0.75)

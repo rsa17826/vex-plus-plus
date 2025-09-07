@@ -248,7 +248,7 @@
     STR(y)FLOAT(-750.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
+    STR(r)FLOAT(179.999282836914)
     STR(id)STR(basic)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
@@ -436,7 +436,7 @@
     STR(y)FLOAT(-700.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
+    STR(r)FLOAT(-89.9988403320313)
     STR(id)STR(basic)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
@@ -448,7 +448,7 @@
     STR(y)FLOAT(-650.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
+    STR(r)FLOAT(179.999282836914)
     STR(id)STR(gravity rotator)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
@@ -674,7 +674,7 @@
     STR(y)FLOAT(-640.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(180.0)
+    STR(r)FLOAT(90.0007400512695)
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(false)
@@ -776,6 +776,71 @@
     STR(id)STR(quad falling spikes)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
+    }
+  }
+  {
+    STR(x)FLOAT(-800.0)
+    STR(y)FLOAT(-700.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(gravity rotator)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(595.0)
+    STR(y)FLOAT(-225.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(quad falling spikes)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
+    }
+  }
+  {
+    STR(x)FLOAT(505.0)
+    STR(y)FLOAT(-295.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(quad falling spikes)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(425.0)
+    STR(y)FLOAT(-305.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(quad falling spikes)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(505.0)
+    STR(y)FLOAT(-335.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(quad falling spikes)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
   }

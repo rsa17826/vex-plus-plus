@@ -916,7 +916,7 @@ func snapToGrid(b: EditorBlock, gridSize: Vector2) -> void:
   b.global_position = selectedBlockStartPosition + offset
   b.global_position = round((b.global_position + extraOffset) / gridSize) * gridSize - extraOffset
 
-func setBlockStartPos(block: Node) -> void:
+func setBlockStartPos(block: EditorBlock) -> void:
   block.startPosition = block.position
   # if block != rotresetBlock:
   block.startRotation_degrees = block.rotation_degrees
@@ -1128,14 +1128,25 @@ func _unhandled_input(event: InputEvent) -> void:
       and (selectedBlock.EDITOR_OPTION_rotate \
       or global.useropts.allowRotatingAnything) and lastMousePos:
       lastRotatedBlock = selectedBlock
+      var startRot = selectedBlock.startRotation_degrees
       var mpos: Vector2 = selectedBlock.get_global_mouse_position()
       selectedBlock.look_at(mpos)
       selectedBlock.rotation_degrees += selectedBlock.mouseRotationOffset
       if !Input.is_action_pressed(&"editor_disable_grid_snap"):
         selectedBlock.rotation_degrees = round(selectedBlock.rotation_degrees / 15) * 15
-      selectedBlock.rotation = selectedBlock.rotation
       selectedBlock.onEditorRotate()
       setBlockStartPos(selectedBlock)
+      if boxSelect_selectedBlocks and selectedBlock in boxSelect_selectedBlocks:
+        for block: EditorBlock in boxSelect_selectedBlocks:
+          if block == selectedBlock: continue
+          match useropts.multiSelectedBlocksRotationScheme:
+            0:
+              block.rotation_degrees += selectedBlock.rotation_degrees - startRot
+            1:
+              block.rotation_degrees = selectedBlock.rotation_degrees + block.mouseRotationOffset
+          block.onEditorRotate()
+          setBlockStartPos(block)
+
       if useropts.mouseLockDistanceWhileRotating:
         var direction := (mpos - selectedBlock.global_position).normalized().rotated(-player.get_node("Camera2D").global_rotation)
         var newMousePos: Vector2 = (
