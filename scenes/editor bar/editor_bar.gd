@@ -10,6 +10,7 @@ var nodeScrollOnX: bool
 
 func _ready() -> void:
   global.defaultBlockOpts = sds.loadDataFromFile("user://defaultBlockOpts.sds", {})
+  log.pp(global.defaultBlockOpts)
   position.x = global.useropts.editorBarOffset
   for item in get_children():
     if item not in [$item, $ColorRect]:
