@@ -65,6 +65,7 @@ func _input(event: InputEvent) -> void:
         block.toType(k)
       onOptionEdit.call()
 
+    if global.popupStarted: return
     add_child(can)
     can.add_child(pm)
     pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
