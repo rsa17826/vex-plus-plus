@@ -527,7 +527,7 @@ func _physics_process(delta: float) -> void:
       else:
         if !is_zero_approx(velocity.x):
           $anim.flip_h = applyRot(velocity).x < 0
-      var newSpeed = (direction * (heightDiff * .7)) * (clamp($anim.frame, 1, 34) / 34.0) * 7.5
+      var newSpeed = (direction * (heightDiff * .7)) * (clamp($anim.frame, 1, 34) / 34.0) * 6
       # log.pp(vel.zipline, newSpeed, velocity, newSpeed.length(), vel.zipline.length())
       # var diff = Vector2(
       #   abs(newSpeed.normalized()).x - abs(vel.zipline.normalized()).x,
