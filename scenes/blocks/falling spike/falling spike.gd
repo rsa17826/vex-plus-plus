@@ -22,10 +22,13 @@ func on_physics_process(delta: float) -> void:
   if respawnTimer > 0:
     respawning = 2
     respawnTimer -= delta * 60
-    if respawnTimer < 0:
+    if respawnTimer <= 0:
       respawning = 0
       respawnTimer = 0
-    thingThatMoves.scale = global.rerange(respawnTimer, RESPAWN_TIME, 0, Vector2(.1, .1), Vector2(1, 1))
+      $Node2D/collisionNode/CollisionShape2D.disabled = false
+    else:
+      $Node2D/collisionNode/CollisionShape2D.disabled = true
+    thingThatMoves.scale = global.rerange(clamp(respawnTimer, 0, RESPAWN_TIME), RESPAWN_TIME, 0, Vector2(.1, .1), Vector2(1, 1))
     return
   if falling:
     nodeToFall.position += Vector2(0, -speed * delta)
