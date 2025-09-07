@@ -13,6 +13,8 @@ var lastOn = false
 
 func generateBlockOpts():
   blockOptions.signalInputId = {"type": global.PromptTypes.int, "default": 0}
+  blockOptions.signalOutputId = {"type": global.PromptTypes.int, "default": 0}
+
   blockOptions.chargeTime = {"type": global.PromptTypes.float, "default": 1}
   blockOptions.onSignalDeactivationWhileCharging = {
     "type": global.PromptTypes._enum,
@@ -24,7 +26,6 @@ func generateBlockOpts():
     ]
   }
 
-  blockOptions.signalOutputId = {"type": global.PromptTypes.int, "default": 0}
   blockOptions.dischargeTime = {"type": global.PromptTypes.float, "default": 1}
   blockOptions.onSignalActivationWhileDischarging = {
     "type": global.PromptTypes._enum,
