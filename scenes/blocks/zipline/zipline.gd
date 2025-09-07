@@ -17,6 +17,7 @@ func generateBlockOpts():
   }
 
 func on_process(delta: float) -> void:
+  log.pp(global.ziplines)
   var idx = global.ziplines.find_custom(func(e):
     return \
       e.selectedOptions.id == selectedOptions.id \
@@ -25,10 +26,8 @@ func on_process(delta: float) -> void:
     )
   if idx == -1:
     targetZipline = null
-    return
-  targetZipline = global.ziplines[
-    idx
-  ]
+  else:
+    targetZipline = global.ziplines[idx]
   queue_redraw()
 
 func on_physics_process(delta: float) -> void:

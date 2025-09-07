@@ -2240,7 +2240,8 @@ func boxSelectReleased():
 func isAlive(e):
   return e \
     and is_instance_valid(e) \
-    and !e.is_queued_for_deletion()
+    and !e.is_queued_for_deletion() \
+    and e.get_parent()
 
 var hoveredBrushes: Array[Node2D] = []
 
