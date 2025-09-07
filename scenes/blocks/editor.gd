@@ -392,41 +392,6 @@ func setupOptions() -> void:
   # pm.add_item('cancel', i)
   # pm.connect("index_pressed", editOption)
 
-func editOption(idx: int) -> void:
-  if idx >= len(blockOptionsArray):
-    onOptionEdit.call()
-    return
-  # log.pp("editing", idx, blockOptions)
-  var k: String = blockOptionsArray[idx]
-  var newData: Variant
-  if blockOptions[k].type is global.PromptTypes:
-    newData = await global.prompt(
-      k,
-      blockOptions[k].type,
-      selectedOptions[k],
-      blockOptions[k].default,
-      blockOptions[k].values if "values" in blockOptions[k] else []
-    )
-  elif blockOptions[k].type == 'BUTTON':
-    if blockOptions[k].onChange.call():
-      respawn()
-      _ready()
-    onOptionEdit.call()
-    return
-  else:
-    log.err("unknown type", k, blockOptions[k])
-    breakpoint
-  if \
-  'onChange' not in blockOptions[k] \
-  or blockOptions[k].onChange.call(selectedOptions[k]):
-    selectedOptions[k] = newData
-    toType(k)
-  # log.pp(newData, "newData")
-  # if !newData: return
-  respawn()
-  _ready()
-  onOptionEdit.call()
-
 func on_physics_process(delta: float) -> void: pass
 
 ## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved

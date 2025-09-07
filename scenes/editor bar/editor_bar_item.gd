@@ -32,13 +32,38 @@ func _input(event: InputEvent) -> void:
     var pm: PopupMenu = PopupMenu.new()
     var can := CanvasLayer.new()
 
-    block.onOptionEdit = func() -> void:
+    var onOptionEdit = func onOptionEdit() -> void:
       log.pp(block.selectedOptions)
       global.defaultBlockOpts[blockName] = block.selectedOptions
       sds.saveDataToFile("user://defaultBlockOpts.sds", global.defaultBlockOpts)
       await global.wait()
       block.queue_free.call_deferred()
       can.queue_free.call_deferred()
+
+    var editOption = func editOption(idx):
+      if idx >= len(block.blockOptions.keys()):
+        onOptionEdit.call()
+        return
+      # log.pp("editing", idx, blockOptions)
+      var k: String = block.blockOptions.keys()[idx]
+      var newData: Variant
+      if block.blockOptions[k].type is global.PromptTypes:
+        newData = await global.prompt(
+          k,
+          block.blockOptions[k].type,
+          block.selectedOptions[k],
+          block.blockOptions[k].default,
+          block.blockOptions[k].values if "values" in block.blockOptions[k] else []
+        )
+      elif block.blockOptions[k].type == 'BUTTON':
+        onOptionEdit.call()
+        return
+      if \
+      'onChange' not in block.blockOptions[k] \
+      or block.blockOptions[k].onChange.call(block.selectedOptions[k]):
+        block.selectedOptions[k] = newData
+        block.toType(k)
+      onOptionEdit.call()
 
     add_child(can)
     can.add_child(pm)
@@ -65,7 +90,7 @@ func _input(event: InputEvent) -> void:
       )
       i += 1
     pm.add_item('cancel', i)
-    pm.connect("index_pressed", block.editOption)
+    pm.connect("index_pressed", editOption)
     global.popupStarted = true
     pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
     await global.wait()
