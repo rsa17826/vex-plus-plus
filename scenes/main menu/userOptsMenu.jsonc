@@ -109,6 +109,16 @@
     "value": [
       {
         "thing": "option",
+        "type": "enum",
+        "key": "multiSelectedBlocksRotationScheme",
+        "defaultValue": 0,
+        "values": [
+          "rotateAllSelectedBlocksBySameAmount",
+          "rotateAllSelectedBlocksToSameDirection"
+        ]
+      },
+      {
+        "thing": "option",
         "type": "bool",
         "key": "randomizeLevelModifiersOnLevelCreation",
         "defaultValue": false

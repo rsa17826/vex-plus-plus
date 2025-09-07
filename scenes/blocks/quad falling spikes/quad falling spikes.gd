@@ -9,10 +9,10 @@ var onCooldown := false
 
 var fallingNodes := []
 
-@onready var spikes = [%up, %down, %left, %right]
+@onready var spikesToClone = [%up, %down, %left, %right]
 
 func playerDetected():
-  for nodeToClone in spikes:
+  for nodeToClone in spikesToClone:
     var node = nodeToClone.duplicate()
     nodeToClone.visible = false
     nodeToClone.get_node('CollisionShape2D').disabled = true
@@ -26,7 +26,7 @@ func playerDetected():
 func on_respawn():
   for node in fallingNodes.filter(global.isAlive):
     node.queue_free()
-  for node in spikes:
+  for node in spikesToClone:
     node.get_node('CollisionShape2D').disabled = false
     node.visible = true
   fallingNodes = []
@@ -35,7 +35,7 @@ func on_respawn():
   sprite.stop()
 
 func _on_animated_sprite_2d_animation_looped() -> void:
-  for node in spikes:
+  for node in spikesToClone:
     node.get_node('CollisionShape2D').disabled = false
     node.visible = true
   onCooldown = false

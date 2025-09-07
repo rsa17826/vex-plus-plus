@@ -102,6 +102,7 @@ if [
 
 if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
+  FileDelete("c.bat")
 }
 if FileExist("updating self") {
   if FileExist('temp.zip') {
@@ -112,6 +113,7 @@ if FileExist("updating self") {
     FileDelete("temp.zip")
     logerr("failed while updating the launcher!!!")
     try DirDelete("temp", 1)
+    FileDelete("c.bat")
     ExitApp(-1)
   } else {
     loadReleases()
@@ -119,6 +121,7 @@ if FileExist("updating self") {
     if F.read("updating self") == 'silent' {
       FileDelete("updating self")
       try DirDelete("temp", 1)
+      FileDelete("c.bat")
       ExitApp(0)
     }
     FileDelete("updating self")
@@ -131,7 +134,7 @@ else {
     logerr("failed while installing a game version!!")
   }
 }
-try FileDelete("c.bat")
+
 try FileDelete("vex++ offline.lnk")
 FileCreateShortcut(selfPath, "vex++ offline.lnk", A_ScriptDir, "offline")
 DirCreate("launcherData")
