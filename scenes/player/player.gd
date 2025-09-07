@@ -1677,6 +1677,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
     # vex++:downloadMap/135/rssaromeo/uno mas - invisible spikes - no alpha
   # !version 147-INF! sticky floors don't modify jump count so jump refresher set to +1 can give infinite jumps if collected and the next place landed is a sticky floor
   # ?!version 161-161! attaching more than 2 puleys to each other can sometimes cause a large boost upwards
+  # /!version 163-163! dying while on a pulley causes the player y to be that of the pulley instead of the player's spawn point
+    # vex++:downloadMap/163/rssaromeo/uno mas - zipline death warp
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1767,7 +1769,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # when reentering inner level load back at last checkpoint
 # add zindex to display options
 # make camera move instantyl when entering inner level
-
-# ziplines retain max speed
 
 # add enum md for settings
