@@ -112,7 +112,7 @@
         "type": "single select",
         "key": "multiSelectedBlocksRotationScheme",
         "defaultValue": 0,
-        "values": [
+        "options": [
           "rotateAllSelectedBlocksBySameAmount",
           "rotateAllSelectedBlocksToSameDirection"
         ]
