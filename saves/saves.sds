@@ -1312,18 +1312,18 @@
     STR(beatLevels)[]
   }
   STR(jasdkljklasdadsjkllkadsklasd){
-    STR(lastSpawnPoint)VEC2(-611.472595214844,-554.919738769531)
+    STR(lastSpawnPoint)VEC2(-448.527435302734,-955.080261230469)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
         STR(spawnPoint)VEC2(0.0,0.0)
-        STR(up_direction)VEC2(0.0,1.0)
+        STR(up_direction)VEC2(0.0,-1.0)
         STR(autoRunDirection)INT(1)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(checkpoint){
             INT(1){
-              STR(texture)STR(3)
+              STR(texture)STR(1)
             }
             INT(2){
               STR(texture)STR(1)
@@ -1332,9 +1332,15 @@
               STR(texture)STR(1)
             }
             INT(4){
-              STR(texture)STR(3)
+              STR(texture)STR(1)
             }
             INT(5){
+              STR(texture)STR(1)
+            }
+            INT(6){
+              STR(texture)STR(3)
+            }
+            INT(7){
               STR(texture)STR(2)
             }
           }

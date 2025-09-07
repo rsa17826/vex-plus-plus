@@ -60,6 +60,7 @@ func on_physics_process(delta: float) -> void:
     # global.player.global_position += global.player.applyRot(Vector2(0, -20))
     # ray.position += global.player.applyRot(Vector2(0, loopCount - 10))
     if global.player.activeZipline != self and cd <= 0:
+      # global.player.get_node("anim").frame = 0
       cd = 4
     global.player.activeZipline = self
     global.player.targetZipline = targetZipline
