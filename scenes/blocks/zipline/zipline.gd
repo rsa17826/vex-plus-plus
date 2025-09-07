@@ -17,7 +17,6 @@ func generateBlockOpts():
   }
 
 func on_process(delta: float) -> void:
-  log.pp(global.ziplines)
   var idx = global.ziplines.find_custom(func(e):
     return \
       e.selectedOptions.id == selectedOptions.id \
