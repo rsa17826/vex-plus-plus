@@ -89,13 +89,13 @@ if PROTO.isSelf('vex++') or A_Args.includes("registerProtocols")
     } catch Error as e
       logerr(data, e)
   }, 1)
-
-RunWait('cmd /c ftype > "' A_Temp '/ftypeData"')
+fileAssocs := [
+  'Vex++ map file="' selfPath '" "offline" "%1"'
+]
+RunWait('cmd /c ftype > "' A_Temp '/ftypeData"', , 'hide')
 ftypeData := f.read(A_Temp '/ftypeData').Replace('`r', '').split('`n')
 FileDelete(A_Temp '/ftypeData')
-if [
-  'Vex++ map file="' selfPath '" "offline" "%1"'
-].find(p => !ftypeData.includes(p)) {
+if fileAssocs.find(p => !ftypeData.includes(p)) {
   if !FileExist("CREATE FILE ASSOCIATIONS.lnk")
     FileCreateShortcut(
       selfPath
@@ -130,8 +130,16 @@ assoc .%fileExtension%="vex++ map file"
 ftype "vex++ map file"="%appPath%" "offline" "%%1"
   )"
   f.write("./temp.bat", data)
-  run("*runas temp.bat")
+  RunWait("*runas temp.bat")
+  Sleep(100)
   FileDelete("./temp.bat")
+  RunWait('cmd /c ftype > "' A_Temp '/ftypeData"', , 'hide')
+  ftypeData := f.read(A_Temp '/ftypeData').Replace('`r', '').split('`n')
+  FileDelete(A_Temp '/ftypeData')
+  if !fileAssocs.find(p => !ftypeData.includes(p)) {
+    try FileDelete("CREATE FILE ASSOCIATIONS.lnk")
+  }
+  run(selfPath)
   ExitApp()
 }
 if FileExist("c.bat") and F.read("updating self") != 'silent' {
