@@ -1778,5 +1778,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # fix surican spawner on place
 
-# water ounce only if holding jump
 # move eash level save to separate file
