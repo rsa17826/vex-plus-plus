@@ -12,7 +12,7 @@ func onProgress(prog, max):
   if !is_instance_valid(global.ui.progressBar): return
   global.ui.progressBar.max_value = max
   global.ui.progressBar.value = prog
-  if prog % 50 == 0:
+  if prog % 150 == 0:
     await global.wait()
 
 func loadLevel(level):
@@ -50,7 +50,7 @@ func loadLevel(level):
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
   for node in children:
-    $blocks.remove_child(node)
+    node.queue_free()
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
