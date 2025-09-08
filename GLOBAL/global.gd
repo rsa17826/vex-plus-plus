@@ -1078,9 +1078,9 @@ func _unhandled_input(event: InputEvent) -> void:
       var targetBlock: EditorBlock = lastSelectedBlock if lastSelectedBlock in boxSelect_selectedBlocks else boxSelect_selectedBlocks[0]
       var mpos := targetBlock.get_global_mouse_position()
       var diff = targetBlock.startPosition - mpos
-      if diff.length() < 150:
-        diff -= Vector2(300, 0)
-        player.camLockPos += Vector2(300, 0)
+      if diff.length() < 50:
+        diff -= Vector2(50, 0)
+        # player.camLockPos += Vector2(50, 0)
       var arr: Array[EditorBlock] = []
       for block in boxSelect_selectedBlocks.filter(func(e): return e.id and not e.DONT_SAVE):
         if block == player.root: return
@@ -1311,6 +1311,7 @@ func _unhandled_input(event: InputEvent) -> void:
         selectedBrush = lastSelectedBrush
         selectedBrush.selected = 2
         justPaintedBlock = load("res://scenes/blocks/" + (block.extends if block is Dictionary else block) + "/main.tscn").instantiate()
+        selectedBrush.newBlockCreated(justPaintedBlock)
         if justPaintedBlock.normalScale:
           justPaintedBlock.scale = Vector2(1, 1)
         else:

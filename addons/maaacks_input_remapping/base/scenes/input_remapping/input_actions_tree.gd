@@ -113,8 +113,6 @@ func _build_ui_tree() -> void:
   var action_names: Array[StringName] = _get_all_action_names(show_built_in_actions)
   for action_name in action_names:
     var input_events = InputMap.action_get_events(action_name)
-    if action_name == &"CREATE NEW - star2":
-      log.pp(input_events)
     # if input_events.size() < 1:
     #   continue
     var readable_name: String = _get_action_readable_name(action_name)
