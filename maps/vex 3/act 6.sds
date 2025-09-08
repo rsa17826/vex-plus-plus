@@ -195,7 +195,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -593,7 +593,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(laser)
     STRNAME(options){
-      STR(maxCooldown)INT(1)
+      STR(maxCooldown)FLOAT(1.0)
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)

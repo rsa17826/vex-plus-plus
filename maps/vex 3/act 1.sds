@@ -625,10 +625,10 @@
     }
   }
   {
-    STR(x)FLOAT(-670.0)
-    STR(y)FLOAT(-610.0)
-    STR(w)FLOAT(0.69946120679379)
-    STR(h)FLOAT(0.69969965517521)
+    STR(x)FLOAT(-645.0)
+    STR(y)FLOAT(-585.0)
+    STR(w)FLOAT(1.00179612636566)
+    STR(h)FLOAT(1.0010009855032)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
