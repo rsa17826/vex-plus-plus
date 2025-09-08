@@ -60,11 +60,19 @@
     STR(jump refresher)
     STR(star)
     {
-      STR(name)STR(star2)
-      STR(imagePath)STR(C:\Users\User\Downloads\Media\Images\e09836054b7899f8918034b5ec7d24b32c4c6c91_full.jpg)
+      STR(name)STR(blue star)
+      STR(imagePath)STR(res://scenes/blocks/star/images/2.png)
       STR(extends)STR(star)
       STR(selectedOptions){
-        STR(canAttachToThings)BOOL(true)
+        STR(starType)INT(1)
+      }
+    }
+    {
+      STR(name)STR(pink star)
+      STR(imagePath)STR(res://scenes/blocks/star/images/3.png)
+      STR(extends)STR(star)
+      STR(selectedOptions){
+        STR(starType)INT(2)
       }
     }
     STR(goal)

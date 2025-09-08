@@ -89,7 +89,7 @@ func newItem(name, id) -> void:
     clone.queue_free.call_deferred()
   elif name is Dictionary:
     var im = Image.new()
-    im.load(global.useropts.editorBackgroundPath)
+    im.load(name.imagePath)
     var texture = ImageTexture.create_from_image(im)
     icon.texture = texture
     item.add_child(icon)
