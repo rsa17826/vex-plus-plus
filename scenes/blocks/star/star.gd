@@ -3,6 +3,7 @@ extends EditorBlock
 class_name BlockStar
 
 var collected = false
+@export var sprite: Sprite2D
 
 func on_ready() -> void: pass
 
@@ -17,9 +18,18 @@ func generateBlockOpts():
       collected = false
       __enable()
   }
+  blockOptions.starType = {
+    "type": global.PromptTypes._enum,
+    "values": [
+      "yellow",
+      "blue",
+      "pink"
+    ]
+  }
 
 func on_respawn() -> void:
   $collisionNode.position = Vector2.ZERO
+  setTexture(sprite, str(selectedOptions.starType + 1))
   if collected:
     __disable.call_deferred()
 

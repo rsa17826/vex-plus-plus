@@ -71,7 +71,7 @@
               STR(texture)STR(1)
             }
             INT(5){
-              STR(texture)STR(1)
+              STR(texture)STR(2)
             }
             INT(6){
               STR(texture)STR(1)
@@ -81,12 +81,9 @@
             INT(1){
               STR(collected)BOOL(false)
             }
-            INT(2){
-              STR(collected)BOOL(true)
-            }
           }
         }
-        STRNAME(lastSpawnPoint)VEC2(0.0,0.0)
+        STRNAME(lastSpawnPoint)VEC2(-298.527435302734,-105.080284118652)
       }
     ]
     STR(beatLevels)[
