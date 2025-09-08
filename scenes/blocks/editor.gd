@@ -335,8 +335,8 @@ func _ready() -> void:
     if 'on_ready' in thing:
       thing.on_ready()
   on_ready()
-  if not get_parent():
-    log.err(self , name, id, "no parent")
+  if not is_inside_tree():
+    log.err(self , name, id, "not inside tree!!")
     queue_free()
 
 func on_ready(): pass
@@ -375,7 +375,6 @@ func setupOptions() -> void:
       elif "default" in blockOptions[opt]:
         selectedOptions[opt] = blockOptions[opt].default
         toType(opt)
-  log.pp(id, name, selectedOptions, blockOptions, "asdklasdjkljkasdkjsadjlkadkjlasdk")
   blockOptionsArray = []
   for k: String in blockOptions:
     blockOptionsArray.append(k)

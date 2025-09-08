@@ -1353,28 +1353,15 @@
     STR(beatLevels)[]
   }
   STR(vex 3){
-    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(lastSpawnPoint)VEC2(1438.47253417969,495.919708251953)
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
-        STR(spawnPoint)VEC2(-31.5381164550781,-271.49462890625)
+        STR(spawnPoint)VEC2(1250.25634765625,499.505493164063)
         STR(up_direction)VEC2(0.0,-1.0)
-        STR(autoRunDirection)INT(1)
-        STR(tick)INT(0)
-        STR(blockSaveData){}
-      }
-      {
-        STR(name)STR(stage 1)
-        STR(spawnPoint)VEC2(0.0,0.0)
-        STR(up_direction)VEC2(0.0,-1.0)
-        STR(autoRunDirection)INT(1)
+        STR(autoRunDirection)INT(-1)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
-          STR(star){
-            INT(1){
-              STR(collected)BOOL(false)
-            }
-          }
           STR(checkpoint){
             INT(1){
               STR(texture)STR(1)
@@ -1383,12 +1370,167 @@
               STR(texture)STR(1)
             }
             INT(3){
+              STR(texture)STR(2)
+            }
+            INT(4){
               STR(texture)STR(1)
+            }
+            INT(5){
+              STR(texture)STR(1)
+            }
+            INT(6){
+              STR(texture)STR(1)
+            }
+            INT(7){
+              STR(texture)STR(1)
+            }
+            INT(8){
+              STR(texture)STR(1)
+            }
+            INT(9){
+              STR(texture)STR(1)
+            }
+            INT(10){
+              STR(texture)STR(1)
+            }
+            INT(11){
+              STR(texture)STR(1)
+            }
+            INT(12){
+              STR(texture)STR(3)
             }
           }
         }
       }
     ]
-    STR(beatLevels)[]
+    STR(beatLevels)[
+      {
+        STR(name)STR(act 1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(3)
+            }
+            INT(2){
+              STR(texture)STR(3)
+            }
+            INT(3){
+              STR(texture)STR(3)
+            }
+            INT(4){
+              STR(texture)STR(2)
+            }
+          }
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(true)
+            }
+          }
+        }
+      }
+      {
+        STR(name)STR(act 2)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(-1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(3)
+            }
+            INT(2){
+              STR(texture)STR(3)
+            }
+            INT(3){
+              STR(texture)STR(2)
+            }
+            INT(4){
+              STR(texture)STR(1)
+            }
+            INT(5){
+              STR(texture)STR(1)
+            }
+            INT(6){
+              STR(texture)STR(1)
+            }
+          }
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(true)
+            }
+          }
+        }
+      }
+      {
+        STR(name)STR(act 3)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(-1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(1)
+            }
+            INT(2){
+              STR(texture)STR(3)
+            }
+            INT(3){
+              STR(texture)STR(3)
+            }
+            INT(4){
+              STR(texture)STR(3)
+            }
+            INT(5){
+              STR(texture)STR(2)
+            }
+          }
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(true)
+            }
+          }
+        }
+      }
+      {
+        STR(name)STR(act 4)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(2)
+            }
+            INT(2){
+              STR(texture)STR(1)
+            }
+            INT(3){
+              STR(texture)STR(1)
+            }
+            INT(4){
+              STR(texture)STR(1)
+            }
+            INT(5){
+              STR(texture)STR(1)
+            }
+            INT(6){
+              STR(texture)STR(1)
+            }
+          }
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(false)
+            }
+          }
+        }
+      }
+    ]
   }
 }
