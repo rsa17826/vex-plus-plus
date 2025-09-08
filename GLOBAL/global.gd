@@ -626,6 +626,12 @@ func clearLow(v):
 var player: Player
 var level: Node2D
 
+func getLevelSavePath(levelname):
+  return path.abs("res://saves/" + levelname + ".sds")
+var CURRENT_LEVEL_SAVE_PATH:
+  get():
+    return getLevelSavePath(mainLevelName)
+
 var hoveredBlocks: Array = []:
   get():
     hoveredBlocks = hoveredBlocks.filter(isAlive)
@@ -1348,6 +1354,8 @@ func loadInnerLevel(innerLevel: String) -> void:
   loadingLevel = true
   player.state = player.States.levelLoading
   # breakpoint
+  if useropts.saveLevelOnWin:
+    await level.save()
   currentLevel().exitPosition = player.global_position - player.root.global_position
   currentLevel().up_direction = player.up_direction
   currentLevel().autoRunDirection = player.autoRunDirection
@@ -1382,7 +1390,7 @@ func loadInnerLevel(innerLevel: String) -> void:
 
 func win() -> void:
   if global.useropts.saveLevelOnWin:
-    level.save()
+    await level.save()
   var justBeatLevel = loadedLevels.pop_back()
   for level in beatLevels:
     if level.name == justBeatLevel.name:
@@ -1416,9 +1424,9 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
   if savingPlayerLevelData: return
   savingPlayerLevelData = true
   await wait()
-  var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
+  var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
   # breakpoint
-  saveData[mainLevelName] = {
+  saveData = {
     "loadedLevels": loadedLevels,
     "beatLevels": beatLevels,
   }
@@ -1426,10 +1434,10 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
     currentLevel().up_direction = player.up_direction
     currentLevel().autoRunDirection = player.autoRunDirection
-  currentLevel().lastSpawnPoint = player.lastSpawnPoint
+    currentLevel().lastSpawnPoint = player.lastSpawnPoint
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
-  sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
+  sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
   savingPlayerLevelData = false
 
 func newLevelSaveData(levelname):
@@ -1460,16 +1468,9 @@ func saveBlockData():
   return blockSaveData
 
 func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
-  # log.pp("loadFromSave", loadFromSave)
-  var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
-  if levelPackName in saveData:
-    saveData = saveData[levelPackName]
-  else:
-    saveData = null
-  # save the name globally
   mainLevelName = levelPackName
-  # Engine.time_scale = 1
-  # log.pp("Loading Level Pack:", levelPackName)
+  var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
+
   levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
   var levelPackInfo: Variant = await loadMapInfo(levelPackName)
   if !levelPackInfo: return false
@@ -1477,7 +1478,6 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
     return false
-  # levelPackInfo.version = int(levelPackInfo.version)
   if not same(levelPackInfo.version, VERSION):
     var gameVersionIsNewer: bool = VERSION > levelPackInfo.version
     if gameVersionIsNewer:
@@ -1649,8 +1649,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
   return true
 
 func fixPath(path):
-  var badChars := "[^()[\\]\\w\\d'!@ # $%^& _-]+"
-  return regReplace(path, badChars, "_").strip_edges()
+  return regReplace(path, "[^()[\\]\\w\\d'!@ # $%^& _-]+", "_").strip_edges()
 
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, '')

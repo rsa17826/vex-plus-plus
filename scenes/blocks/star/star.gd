@@ -24,7 +24,8 @@ func generateBlockOpts():
       "yellow",
       "blue",
       "pink"
-    ]
+    ],
+    "default": 0
   }
 
 func on_respawn() -> void:

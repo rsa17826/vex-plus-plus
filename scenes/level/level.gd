@@ -135,5 +135,5 @@ func save():
   opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
   sds.saveDataToFile(global.path.join(global.levelFolderPath, "options.sds"), opts)
   global.ui.levelSaved.modulate.a = 1
-  await global.wait(1000)
+  # await global.wait(1000)
   global.ui.levelSaved.visible = false

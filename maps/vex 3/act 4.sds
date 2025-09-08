@@ -364,6 +364,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(starType)INT(0)
     }
   }
   {

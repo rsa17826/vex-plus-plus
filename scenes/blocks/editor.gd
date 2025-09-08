@@ -270,20 +270,10 @@ func _ready() -> void:
       blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
     return
 
-  # var node_stack: Array[Node] = [ self ]
-  # while not node_stack.is_empty():
-  #   var node: Node = node_stack.pop_back()
-  #   if is_instance_valid(node):
-  #     if node is CollisionShape2D or node is CollisionPolygon2D or node is RayCast2D:
-  #       node.visible = true
-  #     node_stack.append_array(node.get_children())
-
   if !global.player.OnPlayerFullRestart.is_connected(_ready):
     global.player.OnPlayerFullRestart.connect(_ready)
-  # if !is_in_group("dontRespawnOnPlayerDeath"):
   if !global.player.OnPlayerDied.is_connected(respawn):
     global.player.OnPlayerDied.connect(respawn)
-  # log.pp(mainColor)
   blockOptions = {}
 
   if not hidableSprites and not ignoreMissingNodes:
@@ -315,11 +305,6 @@ func _ready() -> void:
   if not EDITOR_IGNORE and not ghost:
     createEditorGhost()
   generateBlockOpts()
-  for k in blockOptions:
-    if global.same(blockOptions[k].type, global.PromptTypes._enum):
-      if !(blockOptions[k].values is Array):
-        blockOptions[k].values = blockOptions[k].values.keys()
-
   if canAttachToThings:
     blockOptions.canAttachToThings = {"type": global.PromptTypes.bool, "default": true}
   if canAttachToPaths:
@@ -327,6 +312,10 @@ func _ready() -> void:
 
   if not NO_CUSTOM_COLOR_IN_MENU:
     blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
+  for k in blockOptions:
+    if global.same(blockOptions[k].type, global.PromptTypes._enum):
+      if !(blockOptions[k].values is Array):
+        blockOptions[k].values = blockOptions[k].values.keys()
   setupOptions()
 
   __enable.call_deferred()
@@ -375,6 +364,10 @@ func setupOptions() -> void:
       elif "default" in blockOptions[opt]:
         selectedOptions[opt] = blockOptions[opt].default
         toType(opt)
+      else:
+        if !global.same(blockOptions[opt].type, 'BUTTON'):
+          log.err("no default value set for " + opt + ' in block ' + id)
+          breakpoint
   blockOptionsArray = []
   for k: String in blockOptions:
     blockOptionsArray.append(k)

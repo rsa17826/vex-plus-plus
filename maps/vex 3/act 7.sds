@@ -520,6 +520,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(starType)INT(0)
     }
   }
   {
@@ -665,7 +666,7 @@
   }
   {
     STR(x)FLOAT(1075.0)
-    STR(y)FLOAT(-876.0)
+    STR(y)FLOAT(-875.0)
     STR(w)FLOAT(0.50000002235174)
     STR(h)FLOAT(0.52000001072884)
     STR(r)FLOAT(0.0)
@@ -917,7 +918,7 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(signalOutputId)INT(2)
-      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -1236,6 +1237,20 @@
     STR(id)STR(death boundary)
     STRNAME(options){
       STR(color)COLOR(1.0,1.0,1.0,0.0)
+    }
+  }
+  {
+    STR(x)FLOAT(1050.0)
+    STR(y)FLOAT(-1150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(star)
+    STRNAME(options){
+      STR(starType)INT(1)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
 ]
