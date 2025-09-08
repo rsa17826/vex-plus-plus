@@ -1308,7 +1308,15 @@ func _unhandled_input(event: InputEvent) -> void:
       if !block: continue
       if event.is_action_pressed("CREATE NEW - " + (block.name if block is Dictionary else block).replace("/", "_"), false, true):
         log.pp(block)
-        selectedBrush = lastSelectedBrush
+        var brushes = global.player.get_node("../CanvasLayer/editor bar").get_children().slice(2)
+        var idx
+        if block is Dictionary:
+          idx = brushes.find_custom(func(e): return e.blockData and e.blockData.name == block.name)
+        else:
+          idx = brushes.find_custom(func(e): return e.blockName == block)
+        selectedBrush = brushes[idx]
+        if idx == -1:
+          log.err("Could not find brush for " + (block.name if block is Dictionary else block), selectedBrush, "selectedBrush", idx, brushes.map(func(e): return e.blockData.name if e.blockData else ''), block.name)
         selectedBrush.selected = 2
         justPaintedBlock = load("res://scenes/blocks/" + (block.extends if block is Dictionary else block) + "/main.tscn").instantiate()
         selectedBrush.newBlockCreated(justPaintedBlock)
@@ -1641,7 +1649,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
   return true
 
 func fixPath(path):
-  var badChars := "[^()[\\]\\w\\d'!@#$%^& _-]+"
+  var badChars := "[^()[\\]\\w\\d'!@ # $%^& _-]+"
   return regReplace(path, badChars, "_").strip_edges()
 
 func createNewMapFolder() -> Variant:

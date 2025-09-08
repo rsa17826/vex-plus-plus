@@ -73,10 +73,16 @@
             INT(5){
               STR(texture)STR(1)
             }
+            INT(6){
+              STR(texture)STR(1)
+            }
           }
           STR(star){
             INT(1){
               STR(collected)BOOL(false)
+            }
+            INT(2){
+              STR(collected)BOOL(true)
             }
           }
         }
