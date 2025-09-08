@@ -39,6 +39,7 @@ validGameArgs := A_Args.filter(e => ![
   "update",
   "silent",
   "registerProtocols",
+  "createFileAssociations",
 ].includes(e)).filter(e => !e.startsWith("vex++:"))
 
 settings := JSON.parse(f.read('launcherData/settings.json', '{}'), , 0)
@@ -89,6 +90,19 @@ if PROTO.isSelf('vex++') or A_Args.includes("registerProtocols")
       logerr(data, e)
   }, 1)
 
+RunWait('cmd /c ftype > "' A_Temp '/ftypeData"')
+ftypeData := f.read(A_Temp '/ftypeData').Replace('`r', '').split('`n')
+FileDelete(A_Temp '/ftypeData')
+if [
+  'Vex++ map file="' selfPath '" "offline" "%1"'
+].find(p => !ftypeData.includes(p)) {
+  if !FileExist("CREATE FILE ASSOCIATIONS.lnk")
+    FileCreateShortcut(
+      selfPath
+      , "CREATE FILE ASSOCIATIONS.lnk", , "createFileAssociations")
+} else {
+  try FileDelete("CREATE FILE ASSOCIATIONS.lnk")
+}
 if [
   'vex++'
 ].find(p => !PROTO.isSelf(p)) {
@@ -99,7 +113,27 @@ if [
 } else {
   try FileDelete("CREATE PROTOCOL HANDLER.lnk")
 }
-
+if A_Args.includes("createFileAssociations") {
+  data := "
+  (
+if exist "%~dp0vex++.exe" (
+  set "appPath=%~dp0vex++.exe"
+`) else if exist "%~dp0vex++.cmd" (
+  set "appPath=%~dp0vex++.cmd"
+`) else (
+  echo Error: Neither vex++.exe nor vex++.cmd found in the script directory.
+  pause
+  exit /b
+`)
+set "fileExtension=vex++"
+assoc .%fileExtension%="vex++ map file"
+ftype "vex++ map file"="%appPath%" "offline" "%%1"
+  )"
+  f.write("./temp.bat", data)
+  run("*runas temp.bat")
+  FileDelete("./temp.bat")
+  ExitApp()
+}
 if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
   FileDelete("c.bat")
