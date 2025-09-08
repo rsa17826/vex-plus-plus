@@ -1786,3 +1786,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # exit inner level button should save
 
 # loading in water first time doesn't detect there being water
+
+# add different surican colors
+
+# !!when creating/duping add mouse pos/clone node pos as start location for singale axis alignment and don't scale on shift
+
+# if inner open keep outer open menu onlyOneOpen
