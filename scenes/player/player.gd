@@ -1774,8 +1774,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # fix path edit node button
 
-# change group dupe min dist
-
 # fix surican spawner on place
 
 # move eash level save to separate file
