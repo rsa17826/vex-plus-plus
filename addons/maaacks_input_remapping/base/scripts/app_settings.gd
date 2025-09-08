@@ -38,11 +38,12 @@ static func remove_action_input_event(action_name: String, input_event: InputEve
 static func set_input_from_config(action_name: String) -> void:
   var action_events: Array[InputEvent] = InputMap.action_get_events(action_name)
   var config_events = get_config_input_events(action_name, action_events)
-  if config_events == action_events:
-    return
+  if config_events == action_events: return
   if config_events.is_empty():
     Config.erase_section_key(INPUT_SECTION, action_name)
     return
+  if not InputMap.has_action(action_name):
+    InputMap.add_action(action_name)
   InputMap.action_erase_events(action_name)
   for config_event in config_events:
     if config_event not in action_events:
@@ -126,8 +127,7 @@ static func set_fullscreen_enabled(value: bool, window: Window) -> void:
   window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (value) else Window.MODE_WINDOWED
 
 static func set_resolution(value: Vector2i, window: Window, update_config: bool = true) -> void:
-  if value.x == 0 or value.y == 0:
-    return
+  if value.x == 0 or value.y == 0: return
   window.size = value
   if update_config:
     Config.set_config(VIDEO_SECTION, SCREEN_RESOLUTION, value)

@@ -59,6 +59,14 @@
     STR(checkpoint)
     STR(jump refresher)
     STR(star)
+    {
+      STR(name)STR(star2)
+      STR(imagePath)STR(C:\Users\User\Downloads\Media\Images\e09836054b7899f8918034b5ec7d24b32c4c6c91_full.jpg)
+      STR(extends)STR(star)
+      STR(selectedOptions){
+        STR(canAttachToThings)BOOL(true)
+      }
+    }
     STR(goal)
     STR(portal)
     STR(death boundary)

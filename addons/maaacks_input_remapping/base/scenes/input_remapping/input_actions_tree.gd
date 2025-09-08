@@ -113,6 +113,8 @@ func _build_ui_tree() -> void:
   var action_names: Array[StringName] = _get_all_action_names(show_built_in_actions)
   for action_name in action_names:
     var input_events = InputMap.action_get_events(action_name)
+    if action_name == &"CREATE NEW - star2":
+      log.pp(input_events)
     # if input_events.size() < 1:
     #   continue
     var readable_name: String = _get_action_readable_name(action_name)
@@ -120,7 +122,7 @@ func _build_ui_tree() -> void:
 
 func _assign_input_event(input_event: InputEvent, action_name: String) -> void:
   assigned_input_events[InputEventHelper.get_text(input_event)] = action_name
-        
+
 func _assign_input_event_to_action(input_event: InputEvent, action_name: String) -> void:
   _assign_input_event(input_event, action_name)
   InputMap.action_add_event(action_name, input_event)
@@ -163,8 +165,7 @@ func add_action_event(last_input_text: String, last_input_event: InputEvent):
   editing_action_name = ""
 
 func remove_action_event(item: TreeItem) -> void:
-  if item not in tree_item_remove_map:
-    return
+  if item not in tree_item_remove_map: return
   var action_name = tree_item_action_map[item]
   var input_event = tree_item_remove_map[item]
   if not _can_remove_input_event(action_name):

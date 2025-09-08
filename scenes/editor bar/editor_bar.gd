@@ -73,20 +73,31 @@ func newItem(name, id) -> void:
   if name == null:
     nodeCount += 1
     return
-  var clone = load("res://scenes/blocks/" + name + "/main.tscn")
-  if !clone: return
-  nodeCount += 1
-  clone = clone.instantiate()
-  var item = $item.duplicate()
-  if 'editorBarIcon' not in clone or not clone.editorBarIcon:
-    log.err("clone.editorBarIcon not found", clone.name, id, name)
-    breakpoint
   var icon = Sprite2D.new()
-  # if clone.editorBarIconUsesLevelColor:
-  icon.texture = clone.editorBarIcon
-  item.add_child(icon)
-  item.id = id
-  item.blockName = name
+  var item = $item.duplicate()
+  if name is String:
+    var clone = load("res://scenes/blocks/" + name + "/main.tscn")
+    if !clone: return
+    clone = clone.instantiate()
+    if 'editorBarIcon' not in clone or not clone.editorBarIcon:
+      log.err("clone.editorBarIcon not found", clone.name, id, name)
+      breakpoint
+    icon.texture = clone.editorBarIcon
+    item.add_child(icon)
+    item.id = id
+    item.blockName = name
+    clone.queue_free.call_deferred()
+  elif name is Dictionary:
+    var im = Image.new()
+    im.load(global.useropts.editorBackgroundPath)
+    var texture = ImageTexture.create_from_image(im)
+    icon.texture = texture
+    item.add_child(icon)
+    item.id = id
+    item.blockName = name.extends
+    item.blockData = name
+
+  nodeCount += 1
   var origSize = icon.texture.get_size() * icon.scale
   var maxSize = max(origSize.x, origSize.y)
   var scaleFactor = max(icon.scale.x, icon.scale.y) * (700 / maxSize)
@@ -95,7 +106,6 @@ func newItem(name, id) -> void:
     scaleFactor
   )
 
-  clone.queue_free()
   add_child(item)
   updateItem(item)
   global.lastSelectedBrush = item

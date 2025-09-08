@@ -3,9 +3,9 @@
     STR(loadedLevels)[
       {
         STR(name)STR(hub)
-        STR(exitPosition)VEC2(2120.51049804688,-592.573303222656)
+        STR(exitPosition)VEC2(-158.92399597168,-750.574645996094)
         STR(up_direction)VEC2(0.0,-1.0)
-        STR(autoRunDirection)INT(-1)
+        STR(autoRunDirection)INT(1)
         STR(tick)FLOAT(0.0)
         STR(blockSaveData){
           STR(checkpoint){
@@ -25,7 +25,7 @@
               STR(texture)STR(1)
             }
             INT(6){
-              STR(texture)STR(2)
+              STR(texture)STR(1)
             }
             INT(7){
               STR(texture)STR(1)
@@ -40,15 +40,47 @@
               STR(texture)STR(1)
             }
             INT(11){
-              STR(texture)STR(1)
+              STR(texture)STR(2)
             }
             INT(12){
               STR(texture)STR(1)
             }
           }
         }
-        STRNAME(lastSpawnPoint)VEC2(338.472564697266,-1154.08032226563)
+        STRNAME(lastSpawnPoint)VEC2(2188.47265625,-454.080291748047)
         STRNAME(spawnPoint)VEC2(-126.961059570313,399.426422119141)
+      }
+      {
+        STR(name)STR(act 6)
+        STR(exitPosition)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(1)
+            }
+            INT(2){
+              STR(texture)STR(1)
+            }
+            INT(3){
+              STR(texture)STR(1)
+            }
+            INT(4){
+              STR(texture)STR(1)
+            }
+            INT(5){
+              STR(texture)STR(1)
+            }
+          }
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(false)
+            }
+          }
+        }
+        STRNAME(lastSpawnPoint)VEC2(0.0,0.0)
       }
     ]
     STR(beatLevels)[
