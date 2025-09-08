@@ -1173,8 +1173,8 @@ func _unhandled_input(event: InputEvent) -> void:
         await wait()
         setEditorUiState(false)
         # player.state = player.States.levelLoading
-        player.deathPosition = currentLevel().spawnPoint
-        player.lastSpawnPoint = currentLevel().spawnPoint
+        player.deathPosition = currentLevel().exitPosition
+        player.lastSpawnPoint = currentLevel().exitPosition
         player.camLockPos = Vector2.ZERO
         player.goto(player.deathPosition)
         player.die(1, false, true)
@@ -1343,8 +1343,13 @@ func loadInnerLevel(innerLevel: String) -> void:
   currentLevel().autoRunDirection = player.autoRunDirection
 
   var prevLevelDataFound = false
+  player.deathPosition = Vector2.ZERO
+  player.lastSpawnPoint = Vector2.ZERO
   for level in beatLevels:
     if level.name == innerLevel:
+      player.deathPosition = level.lastSpawnPoint
+      player.lastSpawnPoint = level.lastSpawnPoint
+      log.pp(level.lastSpawnPoint, level)
       prevLevelDataFound = true
       global.loadedLevels.append(level)
       # beatLevels.erase(level)
@@ -1371,9 +1376,12 @@ func win() -> void:
   var justBeatLevel = loadedLevels.pop_back()
   for level in beatLevels:
     if level.name == justBeatLevel.name:
+      breakpoint
       beatLevels.erase(level)
       break
   beatLevels.append(justBeatLevel)
+  # if global.useropts.saveLevelOnWin:
+  #   level.save()
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     if global.useropts.saveLevelOnWin:
@@ -1381,11 +1389,10 @@ func win() -> void:
       level.save()
     loadMap.call_deferred(mainLevelName, true)
     return
-  # log.pp(currentLevel().spawnPoint, currentLevel())
   await wait()
   await level.loadLevel(currentLevel().name)
   # log.pp(loadedLevels, beatLevels)
-  player.lastSpawnPoint = currentLevel().spawnPoint
+  player.lastSpawnPoint = currentLevel().exitPosition
   player.deathPosition = player.lastSpawnPoint
   player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
@@ -1405,7 +1412,6 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
   var saveData: Variant = sds.loadDataFromFile(path.abs("res://saves/saves.sds"), {})
   # breakpoint
   saveData[mainLevelName] = {
-    "lastSpawnPoint": player.lastSpawnPoint,
     "loadedLevels": loadedLevels,
     "beatLevels": beatLevels,
   }
@@ -1413,6 +1419,7 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
     currentLevel().up_direction = player.up_direction
     currentLevel().autoRunDirection = player.autoRunDirection
+  currentLevel().lastSpawnPoint = player.lastSpawnPoint
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
   sds.saveDataToFile(path.abs("res://saves/saves.sds"), saveData)
@@ -1421,7 +1428,7 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
 func newLevelSaveData(levelname):
   return {
     "name": levelname,
-    "spawnPoint": Vector2.ZERO,
+    "exitPosition": Vector2.ZERO,
     "up_direction": Vector2.UP,
     "autoRunDirection": 1,
     "tick": 0,
@@ -1506,8 +1513,8 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   player.camLockPos = Vector2.ZERO
   # player.state = player.States.levelLoading
   if loadFromSave and saveData:
-    player.deathPosition = saveData.lastSpawnPoint
-    player.lastSpawnPoint = saveData.lastSpawnPoint
+    player.deathPosition = currentLevel().lastSpawnPoint
+    player.lastSpawnPoint = player.deathPosition
   else:
     player.deathPosition = Vector2.ZERO
     player.lastSpawnPoint = Vector2.ZERO

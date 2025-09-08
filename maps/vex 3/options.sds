@@ -94,5 +94,5 @@
     }
   }
   STR(version)INT(166)
-  STRNAME(levelVersion)INT(1018)
+  STRNAME(levelVersion)INT(1020)
 }
