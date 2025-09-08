@@ -850,6 +850,7 @@ func localProcess(delta: float) -> void:
       # if you have clicked on a block in the editor bar
       if not justPaintedBlock and selectedBrush and selectedBrush.selected == 2:
         justPaintedBlock = load("res://scenes/blocks/" + selectedBrush.blockName + "/main.tscn").instantiate()
+        selectedBrush.newBlockCreated(justPaintedBlock)
         # if lastSelectedBlock and (selectedBrush.blockName == lastSelectedBlock.id):
         #   justPaintedBlock.scale = lastSelectedBlock.scale
         #   justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
@@ -862,7 +863,7 @@ func localProcess(delta: float) -> void:
         justPaintedBlock.rotation_degrees = rad_to_deg(player.defaultAngle) \
         if justPaintedBlock.EDITOR_OPTION_rotate \
         else 0.0
-        justPaintedBlock.id = blockNames[selectedBrush.id]
+        justPaintedBlock.id = selectedBrush.blockName
         justPaintedBlock.isBeingPlaced = true
         lastSelectedBrush = selectedBrush
         # create a new block
@@ -1305,11 +1306,11 @@ func _unhandled_input(event: InputEvent) -> void:
   if showEditorUi:
     for block in blockNames:
       if !block: continue
-      if event.is_action_pressed("CREATE NEW - " + block.replace("/", "_"), false, true):
+      if event.is_action_pressed("CREATE NEW - " + (block.name if block is Dictionary else block).replace("/", "_"), false, true):
         log.pp(block)
         selectedBrush = lastSelectedBrush
         selectedBrush.selected = 2
-        justPaintedBlock = load("res://scenes/blocks/" + block + "/main.tscn").instantiate()
+        justPaintedBlock = load("res://scenes/blocks/" + (block.extends if block is Dictionary else block) + "/main.tscn").instantiate()
         if justPaintedBlock.normalScale:
           justPaintedBlock.scale = Vector2(1, 1)
         else:
@@ -1317,7 +1318,7 @@ func _unhandled_input(event: InputEvent) -> void:
         justPaintedBlock.rotation_degrees = rad_to_deg(player.defaultAngle) \
         if justPaintedBlock.EDITOR_OPTION_rotate \
         else 0.0
-        justPaintedBlock.id = block
+        justPaintedBlock.id = block.extends if block is Dictionary else block
         lastSelectedBrush = selectedBrush
         level.get_node("blocks").add_child(justPaintedBlock)
         justPaintedBlock.global_position = level.get_global_mouse_position()
@@ -1887,8 +1888,11 @@ func loadEditorBarData():
   blockNames = tempBlockNames + unusedBlockNames
 
   for block in blockNames:
-    if block and !InputMap.has_action("CREATE NEW - " + block.replace("/", "_")):
+    if block and block is String and !InputMap.has_action("CREATE NEW - " + block.replace("/", "_")):
       InputMap.add_action("CREATE NEW - " + block.replace("/", "_"))
+    elif block and 'name' in block and block.name is String and !InputMap.has_action("CREATE NEW - " + block.name.replace("/", "_")):
+      InputMap.add_action("CREATE NEW - " + block.name.replace("/", "_"))
+  AppSettings.set_from_config()
 
 func _notification(what):
   if what == NOTIFICATION_PREDELETE: pass

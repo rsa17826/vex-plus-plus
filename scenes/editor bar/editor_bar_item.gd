@@ -4,6 +4,7 @@ var id: int = 0
 var normalScale = Vector2.ZERO
 var selected = 0
 var blockName := ''
+var blockData
 
 func _init() -> void:
   if !global.lastSelectedBrush or !is_instance_valid(global.lastSelectedBrush):
@@ -15,6 +16,14 @@ func _on_mouse_entered() -> void:
   scale = normalScale * 1.1
   z_index = 2
   selected = 1
+
+func newBlockCreated(block: EditorBlock):
+  if blockData:
+    block.ready.connect(func():
+      for k in blockData.selectedOptions:
+        block.selectedOptions[k]=blockData.selectedOptions[k]
+    )
+  log.pp(block)
 
 var popupSelected := false
 func _input(event: InputEvent) -> void:
