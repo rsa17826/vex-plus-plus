@@ -1640,7 +1640,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STRNAME(options){
-      STR(multiUse)BOOL(false)
+      STR(multiUse)BOOL(true)
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -1671,7 +1671,7 @@
     }
   }
   {
-    STR(x)FLOAT(950.0)
+    STR(x)FLOAT(959.5)
     STR(y)FLOAT(-775.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)

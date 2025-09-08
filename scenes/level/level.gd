@@ -50,7 +50,10 @@ func loadLevel(level):
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
   for node in children:
-    node.queue_free()
+    if global.isAlive(node):
+      node.queue_free()
+    else:
+      log.err("node already freed", children)
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)

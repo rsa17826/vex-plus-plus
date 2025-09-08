@@ -1843,4 +1843,15 @@
       STR(color)COLOR(1.0,1.0,1.0,0.0)
     }
   }
+  {
+    STR(x)FLOAT(1900.0)
+    STR(y)FLOAT(-450.0)
+    STR(w)FLOAT(2.00000008940697)
+    STR(h)FLOAT(0.0500000002794)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(block death boundary)
+    STRNAME(options){
+      STR(color)COLOR(1.0,1.0,1.0,0.0)
+    }
+  }
 ]

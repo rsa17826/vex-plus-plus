@@ -1338,7 +1338,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   loadingLevel = true
   player.state = player.States.levelLoading
   # breakpoint
-  currentLevel().spawnPoint = player.global_position - player.root.global_position
+  currentLevel().exitPosition = player.global_position - player.root.global_position
   currentLevel().up_direction = player.up_direction
   currentLevel().autoRunDirection = player.autoRunDirection
 
@@ -1349,34 +1349,33 @@ func loadInnerLevel(innerLevel: String) -> void:
     if level.name == innerLevel:
       player.deathPosition = level.lastSpawnPoint
       player.lastSpawnPoint = level.lastSpawnPoint
-      log.pp(level.lastSpawnPoint, level)
+      player.camLockPos = level.lastSpawnPoint
+      log.pp(level, level.lastSpawnPoint, 'level.lastSpawnPoint')
       prevLevelDataFound = true
       global.loadedLevels.append(level)
       # beatLevels.erase(level)
       break
   if !prevLevelDataFound:
     global.loadedLevels.append(newLevelSaveData(innerLevel))
-
   if currentLevel().name not in levelOpts.stages:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
   await wait()
   await level.loadLevel(innerLevel)
-  player.deathPosition = Vector2.ZERO
-  player.camLockPos = Vector2.ZERO
   player.goto(player.deathPosition)
   player.die(1, false, true)
   await wait()
-  player.die(15, true, true)
+  player.die(15, false, true)
   loadBlockData()
   await savePlayerLevelData()
   loadingLevel = false
   # log.pp(loadedLevels, beatLevels)
 
 func win() -> void:
+  if global.useropts.saveLevelOnWin:
+    level.save()
   var justBeatLevel = loadedLevels.pop_back()
   for level in beatLevels:
     if level.name == justBeatLevel.name:
-      breakpoint
       beatLevels.erase(level)
       break
   beatLevels.append(justBeatLevel)
@@ -1384,9 +1383,7 @@ func win() -> void:
   #   level.save()
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
-    if global.useropts.saveLevelOnWin:
-      loadedLevels.append(beatLevels.pop_back())
-      level.save()
+    loadedLevels.append(beatLevels.pop_back())
     loadMap.call_deferred(mainLevelName, true)
     return
   await wait()

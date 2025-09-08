@@ -517,7 +517,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -924,7 +924,7 @@
   }
   {
     STR(x)FLOAT(1025.0)
-    STR(y)FLOAT(-1025.0)
+    STR(y)FLOAT(-1175.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -941,7 +941,7 @@
   }
   {
     STR(x)FLOAT(1075.0)
-    STR(y)FLOAT(-1025.0)
+    STR(y)FLOAT(-1175.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -954,7 +954,7 @@
   }
   {
     STR(x)FLOAT(975.0)
-    STR(y)FLOAT(-1025.0)
+    STR(y)FLOAT(-1175.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -971,7 +971,7 @@
   }
   {
     STR(x)FLOAT(1125.0)
-    STR(y)FLOAT(-1025.0)
+    STR(y)FLOAT(-1175.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -1199,7 +1199,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(water)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)COLOR(1.0,1.0,1.0,0.6118)
     }
