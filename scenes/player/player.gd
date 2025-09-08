@@ -628,7 +628,7 @@ func _physics_process(delta: float) -> void:
         # only bounce out of the water if going up
         for v: String in vel:
           vel[v] = Vector2.ZERO
-        if waterRay.is_colliding():
+        if waterRay.is_colliding() and Input.is_action_pressed(&"jump"):
           vel.waterExit = Vector2(Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation - defaultAngle))
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
@@ -1779,4 +1779,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix surican spawner on place
 
 # water ounce only if holding jump
-# !!fox zioplines
+# move eash level save to separate file
