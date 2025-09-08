@@ -12,7 +12,7 @@ func on_ready() -> void:
   id = 'player'
 
 func onEditorMoveEnded():
-  var saveData: Variant = sds.loadDataFromFile(global.path.abs("res://saves/saves.sds"), {})
+  var saveData: Variant = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, {})
   if global.mainLevelName in saveData:
     saveData[global.mainLevelName].lastSpawnPoint = player.lastSpawnPoint
-    sds.saveDataToFile(global.path.abs("res://saves/saves.sds"), saveData)
+    sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, saveData)

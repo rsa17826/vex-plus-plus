@@ -140,11 +140,12 @@ func showMoreOptions(levelName, levelData):
           newName
         )
       )
-      var saveData: Dictionary = sds.loadDataFromFile(global.path.abs("res://saves/saves.sds"), {})
+      var saveData: Dictionary = sds.loadDataFromFile(global.getLevelSavePath(levelName), {})
       if levelName in saveData:
         saveData[newName] = saveData[levelName]
         saveData.erase(levelName)
-        sds.saveDataToFile(global.path.abs("res://saves/saves.sds"), saveData)
+        sds.saveDataToFile(global.getLevelSavePath(newName), saveData)
+        OS.move_to_trash(global.getLevelSavePath(levelName))
       loadLocalLevelList()
     3:
       OS.shell_open(global.path.join(global.MAP_FOLDER, levelName))

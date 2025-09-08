@@ -198,6 +198,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(starType)INT(0)
     }
   }
   {

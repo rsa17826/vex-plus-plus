@@ -81,7 +81,10 @@ var targetZipline: BlockZipline
 
 var lightsOut: bool = false
 
-var keys: Array[Node2D] = []
+var keys: Array[Node2D] = []:
+  get():
+    keys = keys.filter(global.isAlive)
+    return keys
 
 var collsiionOn_top := []
 var collsiionOn_bottom := []
@@ -100,7 +103,10 @@ var velTotal: Vector2:
       v += vel[k]
     return v
 
-var inWaters: Array[BlockWater] = []
+var inWaters: Array[BlockWater] = []:
+  get():
+    inWaters = inWaters.filter(global.isAlive)
+    return inWaters
 
 var ACTIONjump: bool = false:
   get():
@@ -1679,6 +1685,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # ?!version 161-161! attaching more than 2 puleys to each other can sometimes cause a large boost upwards
   # /!version 163-163! dying while on a pulley causes the player y to be that of the pulley instead of the player's spawn point
     # vex++:downloadMap/163/rssaromeo/uno mas - zipline death warp
+  # !version ?-NOW! ryding falling blocks into water pulls you down same as if not in water
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1776,4 +1783,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # fix surican spawner on place
 
-# move eash level save to separate file
+# exit inner level button should save
+
+# loading in water first time doesn't detect there being water
