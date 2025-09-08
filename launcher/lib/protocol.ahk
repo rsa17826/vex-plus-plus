@@ -19,7 +19,7 @@ class PROTO {
    * listens for the protocol to be called
    * @param proto the protocol to listen for
    * @param cb the function to call when the protocol is triggered
-   * @returns {Integer} returns true if the protocol was registered sucessfully
+   * @returns {Integer} returns true if the protocol was registered successfully
    */
   static add(proto, cb, force := 0) {
     ; print(this.path, "path", A_ScriptFullPath, this.isSelf(proto), proto)
@@ -54,7 +54,7 @@ class PROTO {
         return 1
       } else {
         if this.errorOnAddFailure
-          throw(Error("Protocol allready exists for " proto "`nisAHKScript: " this.isAHKScript(proto) "`ncurrent path: " this.pathFor(proto)))
+          throw(Error("Protocol already exists for " proto "`nisAHKScript: " this.isAHKScript(proto) "`ncurrent path: " this.pathFor(proto)))
         return 0
       }
     }
@@ -77,7 +77,7 @@ class PROTO {
 
   /**
    * @param proto the protocol to remove
-   * @returns {Number} returns true if it was removed sucessfully
+   * @returns {Number} returns true if it was removed successfully
    */
   static remove(proto) {
     try RegDelete("HKCR\" proto)
@@ -99,7 +99,7 @@ class PROTO {
   }
 
   /**
-   * set to 0 to handle errors manualy, set to 1 to show error message on error
+   * set to 0 to handle errors manually, set to 1 to show error message on error
    */
   static errorOnAddFailure := 1
 
@@ -122,8 +122,8 @@ class PROTO {
    */
   static pathFor(proto) {
     start := A_IsCompiled ? "`"" : "`"" A_AhkPath "`" `""
-    text := RegRead("HKCR\" proto "\shell\open\command")
-    if !text.startsWith(start)
+    try text := RegRead("HKCR\" proto "\shell\open\command")
+    if !IsSet(text) || !text.startsWith(start)
       return 0
     return text[start.length + 1, -7]
   }
