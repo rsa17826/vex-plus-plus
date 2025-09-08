@@ -335,6 +335,10 @@ func _ready() -> void:
     if 'on_ready' in thing:
       thing.on_ready()
   on_ready()
+  if not get_parent():
+    log.err(self , name, id, "no parent")
+    queue_free()
+
 func on_ready(): pass
 
 func generateBlockOpts(): pass
@@ -357,34 +361,24 @@ func toType(opt: Variant) -> void:
       selectedOptions[opt] = selectedOptions[opt]
 
 func setupOptions() -> void:
-  # if pm: return
-  if selectedOptions: return
-  if !blockOptions: return
+  if !blockOptions:
+    log.err(id, name, "no blockOptions!!!")
+    return
   for opt: String in blockOptions:
     if opt in selectedOptions:
       toType(opt)
-      continue
-    if id in global.defaultBlockOpts \
-    and opt in global.defaultBlockOpts[id] \
-    :
-      # log.pp("Default for option: ", opt, " is ", global.defaultBlockOpts[id][opt], "\n")
-      selectedOptions[opt] = global.defaultBlockOpts[id][opt]
-    elif "default" in blockOptions[opt]:
-      selectedOptions[opt] = blockOptions[opt].default
-      toType(opt)
-  # var can := CanvasLayer.new()
-  # add_child(can)
-  # # pm = PopupMenu.new()
-  # can.add_child(pm)
-  # pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
-  # var i := 0
+    else:
+      if id in global.defaultBlockOpts \
+      and opt in global.defaultBlockOpts[id] \
+      :
+        selectedOptions[opt] = global.defaultBlockOpts[id][opt]
+      elif "default" in blockOptions[opt]:
+        selectedOptions[opt] = blockOptions[opt].default
+        toType(opt)
+  log.pp(id, name, selectedOptions, blockOptions, "asdklasdjkljkasdkjsadjlkadkjlasdk")
   blockOptionsArray = []
   for k: String in blockOptions:
     blockOptionsArray.append(k)
-  #   pm.add_item('', i)
-  #   i += 1
-  # pm.add_item('cancel', i)
-  # pm.connect("index_pressed", editOption)
 
 func on_physics_process(delta: float) -> void: pass
 

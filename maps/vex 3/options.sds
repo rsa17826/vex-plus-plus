@@ -4,14 +4,15 @@
   STR(description)STR(vex 3)
   STR(stages){
     STR(hub){
-      STR(color)INT(1)
+      STR(color)INT(3)
     }
     STR(stage 1){
-      STR(color)INT(2)
+      STR(color)INT(6)
     }
     STR(stage 2){
       STR(color)INT(3)
     }
   }
-  STR(version)INT(23)
+  STR(version)INT(166)
+  STRNAME(levelVersion)INT(1)
 }
