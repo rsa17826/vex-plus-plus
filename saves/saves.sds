@@ -1352,4 +1352,43 @@
     ]
     STR(beatLevels)[]
   }
+  STR(vex 3){
+    STR(lastSpawnPoint)VEC2(0.0,0.0)
+    STR(loadedLevels)[
+      {
+        STR(name)STR(hub)
+        STR(spawnPoint)VEC2(-31.5381164550781,-271.49462890625)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(1)
+        STR(tick)INT(0)
+        STR(blockSaveData){}
+      }
+      {
+        STR(name)STR(stage 1)
+        STR(spawnPoint)VEC2(0.0,0.0)
+        STR(up_direction)VEC2(0.0,-1.0)
+        STR(autoRunDirection)INT(1)
+        STR(tick)FLOAT(0.0)
+        STR(blockSaveData){
+          STR(star){
+            INT(1){
+              STR(collected)BOOL(false)
+            }
+          }
+          STR(checkpoint){
+            INT(1){
+              STR(texture)STR(1)
+            }
+            INT(2){
+              STR(texture)STR(1)
+            }
+            INT(3){
+              STR(texture)STR(1)
+            }
+          }
+        }
+      }
+    ]
+    STR(beatLevels)[]
+  }
 }
