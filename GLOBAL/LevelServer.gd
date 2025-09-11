@@ -285,7 +285,7 @@ class Level:
     _levelData: PackedByteArray = []
   ):
     self.levelName = _levelName
-    self.description = _description
+    self.description = _description if _description else "NO DESCRIPTION SET"
     self.onlineId = _onlineId
     self.creatorId = _creatorId
     self.creatorName = _creatorName
@@ -297,7 +297,7 @@ class Level:
     self.levelName = val
     return self
   func setDesc(val):
-    self.description = val
+    self.description = val if val else "NO DESCRIPTION SET"
     return self
   func setCreatorName(val):
     self.creatorName = val
@@ -345,6 +345,24 @@ static func loadAllLevels():
       e.levelVersion,
     )
     )
+
+static func downloadMap(level: LevelServer.Level):
+  var id: int = level.onlineId
+  var data = (await Supabase.database.query(SupabaseQuery.new('level test 2').eq("id", str(id)).select(["levelData"])).completed).data
+  if !len(data):
+    ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map doesn't exist.")
+    return
+  data = data[0]
+  # log.pp(data)
+  var f = FileAccess.open(global.path.abs("res://downloaded maps/" + level.levelName + '.vex++'), FileAccess.WRITE)
+  var buff = Marshalls.base64_to_raw(data.levelData)
+  f.store_buffer(buff)
+  f.close()
+  if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level.levelName + '.vex++')]):
+    ToastParty.success("Download complete\nthe map " + level.levelName + " by " + level.creatorName + " has been loaded.")
+  else:
+    ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map was invalid.")
+
   # var allData := {}
   # for level in data:
   #   var gameVersion = int(data.gameVersion)

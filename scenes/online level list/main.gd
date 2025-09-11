@@ -70,7 +70,6 @@ func loadOnlineLevels():
   $AnimatedSprite2D.frame = 0
   loadingText.text = "Loading..."
   loadingText.visible = true
-  return
   var data: Array = await LevelServer.loadAllLevels()
   # var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/branches" + '?rand=' + str(randf()))).response
   # var sha = ""
@@ -104,75 +103,65 @@ func loadOnlineLevels():
   #   if creator not in allData[version]:
   #     allData[version][creator] = []
   #   allData[version][creator].append(levelname)
-  var allData := {}
-  for level in data:
-    var gameVersion = int(level.gameVersion)
-    var creatorName = level.creatorName
-    log.pp(level, level.onlineId)
-    # var levelVersion = level.levelVersion
-    # var levelData = level.levelData
-    if gameVersion not in allData:
-      allData[gameVersion] = {}
-    if creatorName not in allData[gameVersion]:
-      allData[gameVersion][creatorName] = []
-    allData[gameVersion][creatorName].append(level)
+  # var allData := {}
+  # for level in data:
+  #   var gameVersion = int(level.gameVersion)
+  #   var creatorName = level.creatorName
+  #   log.pp(level, level.onlineId)
+  #   # var levelVersion = level.levelVersion
+  #   # var levelData = level.levelData
+  #   if gameVersion not in allData:
+  #     allData[gameVersion] = {}
+  #   if creatorName not in allData[gameVersion]:
+  #     allData[gameVersion][creatorName] = []
+  #   allData[gameVersion][creatorName].append(level)
 
-  log.pp(allData)
+  # log.pp(allData)
   var loadedLevelCount = 0
   var levelsForCurrentVersionCount = 0
   for child in levelListContainerNode.get_children():
     child.queue_free()
-  var arr := allData.keys()
-  arr.sort()
-  arr.reverse()
-  const versionNode := preload("res://scenes/online level list/version.tscn")
-  const creatorNode := preload("res://scenes/online level list/creator.tscn")
-  const levelNode := preload("res://scenes/online level list/level.tscn")
-  for version in arr:
-    if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
-    var v = versionNode.instantiate()
-    v.title = str(version)
-    v.folded = false if global.useropts.autoExpandAllGroupsInOnlineLevelList else version != global.VERSION
-    v.thisText = str(version).to_lower().replace('\n', '')
-    levelListContainerNode.add_child(v)
-    for creator in allData[version]:
-      var c = creatorNode.instantiate()
-      c.title = creator
-      c.thisText = creator.to_lower().replace('\n', '')
-      v.get_node("VBoxContainer").add_child(c)
-      for level in allData[version][creator]:
-        if version == global.VERSION:
-          levelsForCurrentVersionCount += 1
-        loadedLevelCount += 1
-        var l = levelNode.instantiate()
-        onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
-        l.levelname.text = global.regReplace(level.levelName, r"\.vex\+\+$", '')
-        l.thisText = l.levelname.text.to_lower().replace('\n', '')
-        l.downloadBtn.pressed.connect(downloadMap.bind(level))
-        c.get_node("VBoxContainer").add_child(l)
+  # var arr := allData.keys()
+  # arr.sort()
+  # arr.reverse()
+  const levelNode := preload("res://scenes/online level list/level display.tscn")
+  # const versionNode := preload("res://scenes/online level list/version.tscn")
+  # const creatorNode := preload("res://scenes/online level list/creator.tscn")
+  # const levelNode := preload("res://scenes/online level list/level.tscn")
+  # for version in arr:
+  #   if version != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
+  for level in data:
+    if level.gameVersion != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
+    var node = levelNode.instantiate()
+    node.showLevelData(level)
+    log.pp('level', level)
+    levelListContainerNode.add_child(node)
+    # var v = versionNode.instantiate()
+    # v.title = str(version)
+    # v.folded = false if global.useropts.autoExpandAllGroupsInOnlineLevelList else version != global.VERSION
+    # v.thisText = str(version).to_lower().replace('\n', '')
+    # levelListContainerNode.add_child(v)
+    # for creator in allData[version]:
+    #   var c = creatorNode.instantiate()
+    #   c.title = creator
+    #   c.thisText = creator.to_lower().replace('\n', '')
+    #   v.get_node("VBoxContainer").add_child(c)
+    #   for level in allData[version][creator]:
+    #     if version == global.VERSION:
+    #       levelsForCurrentVersionCount += 1
+    #     loadedLevelCount += 1
+    #     var l = levelNode.instantiate()
+    #     onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
+    #     l.levelname.text = global.regReplace(level.levelName, r"\.vex\+\+$", '')
+    #     l.thisText = l.levelname.text.to_lower().replace('\n', '')
+    #     l.downloadBtn.pressed.connect(LevelServer.downloadMap.bind(level))
+    #     c.get_node("VBoxContainer").add_child(l)
 
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
   else:
     loadingText.text = 'Loaded levels: ' + str(levelsForCurrentVersionCount) + " / " + str(loadedLevelCount)
   $AnimatedSprite2D.visible = false
-
-func downloadMap(level: LevelServer.Level):
-  var id: int = level.onlineId
-  var data = (await Supabase.database.query(SupabaseQuery.new('level test 2').eq("id", str(id)).select(["levelData"])).completed).data
-  if !len(data):
-    ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map doesn't exist.")
-    return
-  data = data[0]
-  # log.pp(data)
-  var f = FileAccess.open(global.path.abs("res://downloaded maps/" + level.levelName + '.vex++'), FileAccess.WRITE)
-  var buff = Marshalls.base64_to_raw(data.levelData)
-  f.store_buffer(buff)
-  f.close()
-  if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level.levelName + '.vex++')]):
-    ToastParty.success("Download complete\nthe map " + level.levelName + " by " + level.creatorName + " has been loaded.")
-  else:
-    ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map was invalid.")
 
 func otc(text: String, version: NestedSearchable):
   if not version: return
