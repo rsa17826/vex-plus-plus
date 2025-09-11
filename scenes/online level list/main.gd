@@ -70,38 +70,52 @@ func loadOnlineLevels():
   $AnimatedSprite2D.frame = 0
   loadingText.text = "Loading..."
   loadingText.visible = true
-  var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/branches" + '?rand=' + str(randf()))).response
-  var sha = ""
-  for branch in branches:
-    if branch.name != global.BRANCH: continue
-    sha = branch.commit.sha
-    break
-  if not sha:
-    log.err("Could not find branch")
-    return
-  var url = (
-    "https://api.github.com/repos/rsa17826/" +
-    global.REPO_NAME + "/git/trees/" + sha +
-    "?recursive=1" + '&rand=' + str(randf())
-  )
-  log.pp(url)
-  var levels = (await global.httpGet(
-    url
-  )).response
+  var data: Array = await LevelServer.loadAllLevels()
+  # var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/branches" + '?rand=' + str(randf()))).response
+  # var sha = ""
+  # for branch in branches:
+  #   if branch.name != global.BRANCH: continue
+  #   sha = branch.commit.sha
+  #   break
+  # if not sha:
+  #   log.err("Could not find branch")
+  #   return
+  # var url = (
+  #   "https://api.github.com/repos/rsa17826/" +
+  #   global.REPO_NAME + "/git/trees/" + sha +
+  #   "?recursive=1" + '&rand=' + str(randf())
+  # )
+  # log.pp(url)
+  # var levels = (await global.httpGet(
+  #   url
+  # )).response
+  # var allData := {}
+  # for level in levels.tree:
+  #   var data = global.regMatch(level.path, r"^levels/(\d+)/([^/]+)/([^/]+\.vex\+\+)$")
+  #   if not data:
+  #     # log.err(level.path)
+  #     continue
+  #   var version = int(data[1])
+  #   var creator = data[2]
+  #   var levelname = data[3]
+  #   if version not in allData:
+  #     allData[version] = {}
+  #   if creator not in allData[version]:
+  #     allData[version][creator] = []
+  #   allData[version][creator].append(levelname)
   var allData := {}
-  for level in levels.tree:
-    var data = global.regMatch(level.path, r"^levels/(\d+)/([^/]+)/([^/]+\.vex\+\+)$")
-    if not data:
-      # log.err(level.path)
-      continue
-    var version = int(data[1])
-    var creator = data[2]
-    var levelname = data[3]
-    if version not in allData:
-      allData[version] = {}
-    if creator not in allData[version]:
-      allData[version][creator] = []
-    allData[version][creator].append(levelname)
+  for level in data:
+    var gameVersion = int(level.gameVersion)
+    var creatorName = level.creatorName
+    # var levelVersion = level.levelVersion
+    # var levelData = level.levelData
+    var levelname = level.name
+    if gameVersion not in allData:
+      allData[gameVersion] = {}
+    if creatorName not in allData[gameVersion]:
+      allData[gameVersion][creatorName] = []
+    allData[gameVersion][creatorName].append(levelname)
+
   log.pp(allData)
   var loadedLevelCount = 0
   var levelsForCurrentVersionCount = 0

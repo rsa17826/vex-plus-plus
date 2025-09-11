@@ -8,7 +8,7 @@ var database: SupabaseDatabase
 var realtime: SupabaseRealtime
 var storage: SupabaseStorage
 
-var debug: bool = false
+var debug: bool = true
 
 var config: Dictionary = {
   "supabaseUrl": "https://zipitsixybgrlzmhbxaa.supabase.co",

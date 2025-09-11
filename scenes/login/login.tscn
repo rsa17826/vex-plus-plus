@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdixi4vcsxqd1"]
 
-[ext_resource type="Script" uid="uid://fei8golx0ysc" path="res://scenes/login/login.gd" id="1_d7qrr"]
+[ext_resource type="Script" uid="uid://bs1vkw2d43bx3" path="res://GLOBAL/LevelServer.gd" id="1_d7qrr"]
 
 [node name="login" type="CenterContainer"]
 anchors_preset = 15
