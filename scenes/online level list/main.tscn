@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxqm1u3q1wtqg"]
+[gd_scene load_steps=4 format=3 uid="uid://bxqm1u3q1wtqg"]
 
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_7t3ru"]
 [ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="3_7t3ru"]
-[ext_resource type="PackedScene" uid="uid://b8x0qylun3368" path="res://scenes/online level list/level display.tscn" id="4_j8h1a"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("loadingText", "levelListContainerNode")]
 layout_mode = 3
@@ -105,42 +104,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 2
 metadata/_edit_lock_ = true
-
-[node name="HBoxContainer" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer2" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer3" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer4" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer5" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer6" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer7" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer8" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer9" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer10" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer11" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
-
-[node name="HBoxContainer12" parent="VBoxContainer/MarginContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
-layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="loadMenu"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="loadOnlineLevels"]
