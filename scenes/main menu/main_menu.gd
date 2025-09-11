@@ -186,14 +186,25 @@ func showMoreOptions(levelName, levelData):
 
       var version = str(data.version)
       var author = data.author
-      var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
+      # var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
+      var c = f.get_buffer(f.get_length())
       if not author:
         ToastParty.err("Please enter an author name")
         return
       if not levelName:
         ToastParty.err("Please enter a map name")
         return
-      await upload_file("levels/" + version + '/' + author + '/' + levelName + ".vex++", c, data)
+      $AnimatedSprite2D.visible = true
+      await LevelServer.uploadLevel(
+        LevelServer.Level.new() \
+        .setName(levelName) \
+        .setCreatorName(author) \
+        .setDesc(data.description) \
+        .setGameVersion(version) \
+        .setLevelVersion(data.levelVersion) \
+        .setData(c) \
+      )
+      $AnimatedSprite2D.visible = false
       f.close()
     8:
       if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
@@ -226,91 +237,6 @@ func showMoreOptions(levelName, levelData):
       # log.pp(data.code, data, levelData, levelData.author, url)
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
-
-func upload_file(file_path: String, base64_content: String, offlineLevelData: Dictionary) -> void:
-  var cleanup = func():
-    $AnimatedSprite2D.visible = false
-    DirAccess.remove_absolute("user://tempLevelOptions.sds")
-    DirAccess.remove_absolute("user://tempLevel.zip")
-  $AnimatedSprite2D.visible = true
-  $AnimatedSprite2D.frame = 0
-  var url = "https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/contents/" + global.urlEncode(file_path)
-  log.pp("Request URL: ", url)
-  var headers: PackedStringArray = [
-    "Authorization: token %s" % GITHUB_TOKEN,
-    "Content-Type: application/vnd.github.v3+json"
-  ]
-
-  var body = {
-    "message": "Add new file",
-    "content": base64_content,
-    "branch": global.BRANCH
-  }
-  ToastParty.info("Checking if level exists on server...")
-  var getRes = (await global.httpGet(url + "?rand=" + str(randf()), headers, HTTPClient.METHOD_GET)).response
-  # log.pp('getRes', getRes)
-  if "sha" in getRes:
-    DirAccess.remove_absolute("user://tempLevelOptions.sds")
-    DirAccess.remove_absolute("user://tempLevel.zip")
-    await global.httpGet("https://raw.githubusercontent.com/rsa17826/" +
-      global.REPO_NAME + "/main/" +
-      global.urlEncode(file_path) + "?rand=" + str(randf()),
-      PackedStringArray(),
-      HTTPClient.METHOD_GET,
-      '',
-      "user://tempLevel.zip",
-      false
-    )
-    var versionCheckPassed = false
-    var reader = ZIPReader.new()
-    var err = reader.open("user://tempLevel.zip")
-    var onlineLevelData = {"levelVersion": - 1}
-    if err:
-      log.warn("failed to download level data")
-      await global.wait(1000)
-    else:
-      reader.get_files()
-      var file = FileAccess.open("user://tempLevelOptions.sds", FileAccess.WRITE)
-      var buffer := reader.read_file("options.sds", false)
-      file.store_buffer(buffer)
-      file.close()
-      onlineLevelData = sds.loadDataFromFile("user://tempLevelOptions.sds")
-      log.pp(onlineLevelData, offlineLevelData, onlineLevelData.levelVersion < offlineLevelData.levelVersion, onlineLevelData.levelVersion, offlineLevelData.levelVersion)
-      if "levelVersion" not in onlineLevelData:
-        onlineLevelData.levelVersion = -1
-      if onlineLevelData.levelVersion < offlineLevelData.levelVersion:
-        versionCheckPassed = true
-      if not versionCheckPassed:
-        global.prompt(
-          "this level you are trying to upload is not newer than the version already uploaded" +
-          "\n\n ONLINE LEVEL VERSION: " + str(onlineLevelData.levelVersion) +
-          ' - LOCAL LEVEL VERSION: ' + str(offlineLevelData.levelVersion),
-          global.PromptTypes.info
-        )
-        cleanup.call()
-        return
-    if offlineLevelData.author and await global.prompt(
-      "there is already a level you have previously uploaded with that name. Do you want to overwrite it?\n" +
-      "if so, enter your creator name here: " + offlineLevelData.author +
-      "\n\n ONLINE LEVEL VERSION: " + str(onlineLevelData.levelVersion) +
-      ' - LOCAL LEVEL VERSION: ' + str(offlineLevelData.levelVersion),
-      global.PromptTypes.string
-    ) != offlineLevelData.author:
-      cleanup.call()
-      return
-    body.sha = getRes.sha
-
-  ToastParty.info("File upload started!")
-  var putRes = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, JSON.stringify(body))
-
-  if putRes.code == 200 or putRes.code == 201:
-    ToastParty.success("File upload was successful!")
-  else:
-    log.err(putRes.code)
-    log.err(putRes.response)
-    log.err(headers)
-    ToastParty.error("File upload failed with error code: " + str(putRes.code))
-  cleanup.call()
 
 func loadLevel(level, fromSave) -> bool:
   global.hitboxesShown = global.useropts.showHitboxesByDefault

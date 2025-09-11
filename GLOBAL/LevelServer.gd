@@ -1,5 +1,5 @@
 extends Control
-
+class_name LevelServer
 # var _name := ''
 # var _password := ''
 # var _channel
@@ -243,7 +243,9 @@ extends Control
 
 # # var res := await Talo.leaderboards.get_entries_for_current_player(internal_name, options)
 
-func login(uname: String, password: String) -> SupabaseUser:
+static var user: SupabaseUser = null
+
+static func login(uname: String, password: String) -> SupabaseUser:
   var authTask: AuthTask = await Supabase.auth.sign_in(
     uname,
     password
@@ -252,6 +254,7 @@ func login(uname: String, password: String) -> SupabaseUser:
     log.pp("logged in")
   else:
     log.pp("failed to login")
+  user = authTask.user
   return authTask.user
 
 func _ready():
@@ -259,5 +262,171 @@ func _ready():
   log.pp(user)
   log.pp(await getData())
 
-func getData(data:=["*"]):
-  return await Supabase.database.query(SupabaseQuery.new('level test 2').select(data)).completed
+static func getData(data:=["*"]):
+  return (await Supabase.database.query(SupabaseQuery.new('level test 2').select(data)).completed).data
+
+class Level:
+  var name: String = ""
+  var description: String = ""
+  var creatorName: String = ""
+  var gameVersion: int
+  var levelVersion: int
+  var levelData: PackedByteArray
+  func _init(): pass
+  func setName(val):
+    self.name = val
+    return self
+  func setDesc(val):
+    self.description = val
+    return self
+  func setCreatorName(val):
+    self.creatorName = val
+    return self
+  func setData(val):
+    self.levelData = val
+    return self
+  func setGameVersion(val):
+    self.gameVersion = val
+    return self
+  func setLevelVersion(val):
+    self.levelVersion = val
+    return self
+
+static func uploadLevel(level: Level):
+  if not user:
+    await LevelServer.login(
+      await global.prompt("Please enter your username: ", global.PromptTypes.string),
+      await global.prompt("Please enter your password: ", global.PromptTypes.string)
+    )
+  return await Supabase.database.query(SupabaseQuery.new('level test 2').insert(
+    [
+      {
+        "user_id": user.id,
+        "levelData": level.levelData,
+        "levelName": level.name,
+        # "description": level.description,
+        "creatorName": level.creatorName,
+        "gameVersion": level.gameVersion,
+        "levelVersion": level.levelVersion
+      }
+    ]
+  )).completed
+
+static func loadAllLevels():
+  var hex_to_binary = func hex_to_binary(hex_string: String) -> PackedByteArray:
+    var binary_data = PackedByteArray()
+
+    # Remove the '\x' prefix and split the string into pairs of hex digits
+    var hex_pairs = (hex_string.split("\\x") as Array).filter(func(s): return s != "")
+
+    for hex_pair in hex_pairs:
+      # Convert each hex pair to an integer and append to the binary data
+      binary_data.append(hex_pair.hex_to_int())
+
+    return binary_data
+  var data = await LevelServer.getData()
+  return data.map(func(e):
+    return Level.new() \
+    .setCreatorName(e.creatorName) \
+    .setGameVersion(e.gameVersion) \
+    .setLevelVersion(e.levelVersion) \
+    .setName(e.levelName) \
+    .setData(hex_to_binary.call(e.levelData)) \
+    )
+  # var allData := {}
+  # for level in data:
+  #   var gameVersion = int(data.gameVersion)
+  #   var creatorName = data.creatorName
+  #   var levelVersion = data.levelVersion
+  #   var levelData = data.levelData
+  #   var levelname = data.levelName
+  #   if gameVersion not in allData:
+  #     allData[gameVersion] = {}
+  #   if creatorName not in allData[gameVersion]:
+  #     allData[gameVersion][creatorName] = []
+  #   allData[gameVersion][creatorName].append(levelname)
+
+# func upload_file(file_path: String, base64_content: String, offlineLevelData: Dictionary) -> void:
+#   var cleanup = func():
+#     $AnimatedSprite2D.visible = false
+#     DirAccess.remove_absolute("user://tempLevelOptions.sds")
+#     DirAccess.remove_absolute("user://tempLevel.zip")
+#   $AnimatedSprite2D.visible = true
+#   $AnimatedSprite2D.frame = 0
+#   var url = "https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/contents/" + global.urlEncode(file_path)
+#   log.pp("Request URL: ", url)
+#   var headers: PackedStringArray = [
+#     "Authorization: token %s" % GITHUB_TOKEN,
+#     "Content-Type: application/vnd.github.v3+json"
+#   ]
+
+#   var body = {
+#     "message": "Add new file",
+#     "content": base64_content,
+#     "branch": global.BRANCH
+#   }
+#   ToastParty.info("Checking if level exists on server...")
+#   var getRes = (await global.httpGet(url + "?rand=" + str(randf()), headers, HTTPClient.METHOD_GET)).response
+#   # log.pp('getRes', getRes)
+#   if "sha" in getRes:
+#     DirAccess.remove_absolute("user://tempLevelOptions.sds")
+#     DirAccess.remove_absolute("user://tempLevel.zip")
+#     await global.httpGet("https://raw.githubusercontent.com/rsa17826/" +
+#       global.REPO_NAME + "/main/" +
+#       global.urlEncode(file_path) + "?rand=" + str(randf()),
+#       PackedStringArray(),
+#       HTTPClient.METHOD_GET,
+#       '',
+#       "user://tempLevel.zip",
+#       false
+#     )
+#     var versionCheckPassed = false
+#     var reader = ZIPReader.new()
+#     var err = reader.open("user://tempLevel.zip")
+#     var onlineLevelData = {"levelVersion": - 1}
+#     if err:
+#       log.warn("failed to download level data")
+#       await global.wait(1000)
+#     else:
+#       reader.get_files()
+#       var file = FileAccess.open("user://tempLevelOptions.sds", FileAccess.WRITE)
+#       var buffer := reader.read_file("options.sds", false)
+#       file.store_buffer(buffer)
+#       file.close()
+#       onlineLevelData = sds.loadDataFromFile("user://tempLevelOptions.sds")
+#       log.pp(onlineLevelData, offlineLevelData, onlineLevelData.levelVersion < offlineLevelData.levelVersion, onlineLevelData.levelVersion, offlineLevelData.levelVersion)
+#       if "levelVersion" not in onlineLevelData:
+#         onlineLevelData.levelVersion = -1
+#       if onlineLevelData.levelVersion < offlineLevelData.levelVersion:
+#         versionCheckPassed = true
+#       if not versionCheckPassed:
+#         global.prompt(
+#           "this level you are trying to upload is not newer than the version already uploaded" +
+#           "\n\n ONLINE LEVEL VERSION: " + str(onlineLevelData.levelVersion) +
+#           ' - LOCAL LEVEL VERSION: ' + str(offlineLevelData.levelVersion),
+#           global.PromptTypes.info
+#         )
+#         cleanup.call()
+#         return
+#     if offlineLevelData.author and await global.prompt(
+#       "there is already a level you have previously uploaded with that name. Do you want to overwrite it?\n" +
+#       "if so, enter your creator name here: " + offlineLevelData.author +
+#       "\n\n ONLINE LEVEL VERSION: " + str(onlineLevelData.levelVersion) +
+#       ' - LOCAL LEVEL VERSION: ' + str(offlineLevelData.levelVersion),
+#       global.PromptTypes.string
+#     ) != offlineLevelData.author:
+#       cleanup.call()
+#       return
+#     body.sha = getRes.sha
+
+#   ToastParty.info("File upload started!")
+#   var putRes = await global.httpGet(url, headers, HTTPClient.METHOD_PUT, JSON.stringify(body))
+
+#   if putRes.code == 200 or putRes.code == 201:
+#     ToastParty.success("File upload was successful!")
+#   else:
+#     log.err(putRes.code)
+#     log.err(putRes.response)
+#     log.err(headers)
+#     ToastParty.error("File upload failed with error code: " + str(putRes.code))
+#   cleanup.call()
