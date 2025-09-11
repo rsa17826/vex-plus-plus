@@ -16,3 +16,6 @@ func showLevelData(levelToShow: LevelServer.Level) -> void:
   levelVersion.text = 'v' + str(level.levelVersion)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
+
+func _on_download_pressed() -> void:
+  LevelServer.downloadMap(level)

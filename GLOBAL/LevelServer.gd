@@ -332,8 +332,26 @@ static func uploadLevel(level: Level):
     ]
   )).completed
 
-static func loadAllLevels():
+static func loadAllLevels() -> Array[Level]:
   var data = await LevelServer.getData(['id,user_id,creatorName,gameVersion,levelVersion'])
+  return data.map(func(e):
+    return Level.new(
+      e.levelName,
+      e.id,
+      '',
+      e.user_id,
+      e.creatorName,
+      e.gameVersion,
+      e.levelVersion,
+    )
+    )
+static func loadOldVersions(level: Level) -> Array[Level]:
+  var data = (await Supabase.database.query(
+    SupabaseQuery.new('level test 2')
+    .eq("user_id", str(level.creatorId))
+    .eq("levelName", level.levelName)
+    .select(['id,user_id,creatorName,gameVersion,levelVersion'])
+  ).completed).data
   return data.map(func(e):
     return Level.new(
       e.levelName,
