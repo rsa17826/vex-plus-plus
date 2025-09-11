@@ -1,0 +1,75 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8x0qylun3368"]
+
+[ext_resource type="Texture2D" uid="uid://bercyu1y2csww" path="res://scenes/blocks/water/images/1.png" id="1_0lt44"]
+
+[node name="HBoxContainer" type="HBoxContainer"]
+custom_minimum_size = Vector2(572, 150)
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(0, 8.75)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_right = 339.0
+offset_bottom = 31.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="LineEdit" parent="Panel/HBoxContainer3/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "creator id: asdasddssadadsasd"
+editable = false
+expand_to_text_length = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "level name"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "creator name"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "v1250"
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Panel/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/HBoxContainer3/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "game version: 150"
+
+[node name="TextEdit" type="TextEdit" parent="Panel/HBoxContainer3"]
+custom_minimum_size = Vector2(169.74, 0)
+layout_mode = 2
+text = "asdasdasdjkahkasdjkjasd'
+
+descriptiuon"
+editable = false
+
+[node name="level image" type="TextureRect" parent="Panel/HBoxContainer3"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("1_0lt44")
+expand_mode = 1

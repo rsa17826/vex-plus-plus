@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_7t3ru"]
 [ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="3_7t3ru"]
-[ext_resource type="Texture2D" uid="uid://bercyu1y2csww" path="res://scenes/blocks/water/images/1.png" id="4_j8h1a"]
+[ext_resource type="PackedScene" uid="uid://b8x0qylun3368" path="res://scenes/online level list/level display.tscn" id="4_j8h1a"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("loadingText", "levelListContainerNode")]
 layout_mode = 3
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_706a5")
 loadingText = NodePath("VBoxContainer/HFlowContainer/Label")
-levelListContainerNode = NodePath("VBoxContainer/ScrollContainer/GridContainer")
+levelListContainerNode = NodePath("")
 metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_7t3ru")]
@@ -91,76 +91,48 @@ layout_mode = 2
 size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
-[node name="GridContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer"]
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+columns = 2
 metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer"]
-custom_minimum_size = Vector2(0, 150)
+[node name="HBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
 
-[node name="Panel" type="Panel" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 8.75)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel"]
-layout_mode = 0
-offset_right = 339.0
-offset_bottom = 31.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3"]
+[node name="HBoxContainer2" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer3" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
 
-[node name="Button" type="LineEdit" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "creator id: asdasddssadadsasd"
-editable = false
-expand_to_text_length = true
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer4" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "level name"
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer5" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "creator name"
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer6" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "v1250"
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer7" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3/VBoxContainer/HBoxContainer5"]
+[node name="HBoxContainer8" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "game version: 150"
 
-[node name="level image" type="TextureRect" parent="VBoxContainer/ScrollContainer/GridContainer/HBoxContainer/Panel/HBoxContainer3"]
-clip_contents = true
-custom_minimum_size = Vector2(150, 150)
+[node name="HBoxContainer9" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
-texture = ExtResource("4_j8h1a")
-expand_mode = 1
+
+[node name="HBoxContainer10" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
+layout_mode = 2
+
+[node name="HBoxContainer11" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
+layout_mode = 2
+
+[node name="HBoxContainer12" parent="VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource("4_j8h1a")]
+layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="loadMenu"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="loadOnlineLevels"]
