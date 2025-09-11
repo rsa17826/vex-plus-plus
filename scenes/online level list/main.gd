@@ -9,10 +9,6 @@ func _ready() -> void:
   if global.useropts.loadOnlineLevelListOnSceneLoad:
     loadOnlineLevels()
 
-func loadOldVersions(level: LevelServer.Level) -> void:
-  var oldVersions = await LevelServer.loadOldVersions(level)
-  loadLevelsFromArray(oldVersions)
-
 func loadLevelsFromArray(data: Array) -> void:
   var loadedLevelCount = 0
   var levelsForCurrentVersionCount = 0
@@ -25,6 +21,7 @@ func loadLevelsFromArray(data: Array) -> void:
     if level.gameVersion == global.VERSION:
       levelsForCurrentVersionCount += 1
     var node = levelNode.instantiate()
+    node.levelList = self
     node.showLevelData(level)
     log.pp('level', level)
     levelListContainerNode.add_child(node)
@@ -39,6 +36,7 @@ func loadOnlineLevels():
   loadingText.text = "Loading..."
   loadingText.visible = true
   var data: Array = await LevelServer.loadAllLevels()
+  loadLevelsFromArray(data)
   $AnimatedSprite2D.visible = false
 
 func otc(text: String, version: NestedSearchable):

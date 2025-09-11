@@ -102,4 +102,4 @@ layout_mode = 2
 text = "view old versions"
 
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/Button" to="." method="_on_download_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/view old versions" to="." method="_on_download_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/view old versions" to="." method="_on_view_old_versions_pressed"]
