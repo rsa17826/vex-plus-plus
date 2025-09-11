@@ -70,6 +70,7 @@ func loadOnlineLevels():
   $AnimatedSprite2D.frame = 0
   loadingText.text = "Loading..."
   loadingText.visible = true
+  return
   var data: Array = await LevelServer.loadAllLevels()
   # var branches = (await global.httpGet("https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/branches" + '?rand=' + str(randf()))).response
   # var sha = ""
@@ -107,14 +108,14 @@ func loadOnlineLevels():
   for level in data:
     var gameVersion = int(level.gameVersion)
     var creatorName = level.creatorName
+    log.pp(level, level.onlineId)
     # var levelVersion = level.levelVersion
     # var levelData = level.levelData
-    var levelname = level.name
     if gameVersion not in allData:
       allData[gameVersion] = {}
     if creatorName not in allData[gameVersion]:
       allData[gameVersion][creatorName] = []
-    allData[gameVersion][creatorName].append(levelname)
+    allData[gameVersion][creatorName].append(level)
 
   log.pp(allData)
   var loadedLevelCount = 0
@@ -145,9 +146,9 @@ func loadOnlineLevels():
         loadedLevelCount += 1
         var l = levelNode.instantiate()
         onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
-        l.levelname.text = global.regReplace(level, r"\.vex\+\+$", '')
+        l.levelname.text = global.regReplace(level.levelName, r"\.vex\+\+$", '')
         l.thisText = l.levelname.text.to_lower().replace('\n', '')
-        l.downloadBtn.pressed.connect(global.downloadMap.bind(version, creator, level))
+        l.downloadBtn.pressed.connect(downloadMap.bind(level))
         c.get_node("VBoxContainer").add_child(l)
 
   if global.useropts.onlyShowLevelsForCurrentVersion:
@@ -155,6 +156,23 @@ func loadOnlineLevels():
   else:
     loadingText.text = 'Loaded levels: ' + str(levelsForCurrentVersionCount) + " / " + str(loadedLevelCount)
   $AnimatedSprite2D.visible = false
+
+func downloadMap(level: LevelServer.Level):
+  var id: int = level.onlineId
+  var data = (await Supabase.database.query(SupabaseQuery.new('level test 2').eq("id", str(id)).select(["levelData"])).completed).data
+  if !len(data):
+    ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map doesn't exist.")
+    return
+  data = data[0]
+  # log.pp(data)
+  var f = FileAccess.open(global.path.abs("res://downloaded maps/" + level.levelName + '.vex++'), FileAccess.WRITE)
+  var buff = Marshalls.base64_to_raw(data.levelData)
+  f.store_buffer(buff)
+  f.close()
+  if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level.levelName + '.vex++')]):
+    ToastParty.success("Download complete\nthe map " + level.levelName + " by " + level.creatorName + " has been loaded.")
+  else:
+    ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map was invalid.")
 
 func otc(text: String, version: NestedSearchable):
   if not version: return
@@ -180,5 +198,8 @@ func loadMenu() -> void:
   get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
 
 signal onTextChanged
-func _on_search_text_changed(new_text: String) -> void:
+func _on_search_text_submitted(new_text: String) -> void:
+  log.pp("asdasd", new_text)
+
+func _on_filter_text_changed(new_text: String) -> void:
   onTextChanged.emit(new_text)

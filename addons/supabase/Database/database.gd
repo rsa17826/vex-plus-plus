@@ -26,6 +26,7 @@ func _init(conf: Dictionary, head: PackedStringArray) -> void:
 func query(supabase_query: SupabaseQuery) -> DatabaseTask:
   var endpoint: String = _config.supabaseUrl + _rest_endpoint + supabase_query.build_query()
   var task: DatabaseTask = DatabaseTask.new()
+  # log.pp(supabase_query.body, "query")
   task._setup(
     supabase_query.request,
     endpoint,
