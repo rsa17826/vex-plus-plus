@@ -29,7 +29,7 @@ func _on_pick_cmd(arg0: Variant, arg1_fallvar: Variant = null) -> void:
     iconize_paths.emit(arg0)
   elif arg1_fallvar is PackedStringArray and arg1_fallvar.size() > 0:
     iconize_paths.emit(arg1_fallvar)
-    
+
 func _get_tr(translation: Translation, msg: StringName) -> StringName:
   if translation == null:
     return msg

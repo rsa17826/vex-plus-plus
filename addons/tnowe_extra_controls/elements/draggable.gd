@@ -158,8 +158,7 @@ func _gui_input(event: InputEvent, called_by: Draggable = null):
       if _affected_by_multi_selection != null:
         var own_xform_inv := get_global_transform().affine_inverse()
         for x in _affected_by_multi_selection._selected_nodes:
-          if !(x is Draggable) || x == self:
-            continue
+          if !(x is Draggable) || x == self: continue
 
           if _mouse_dragging_direction == Vector2i.ZERO:
             x._universal_input(_mouse_dragging_direction, (x.get_global_transform() * own_xform_inv).affine_inverse().basis_xform(event.relative))
@@ -211,8 +210,7 @@ func _gui_input(event: InputEvent, called_by: Draggable = null):
       return
 
     for x in _affected_by_multi_selection._selected_nodes:
-      if !(x is Draggable):
-        continue
+      if !(x is Draggable): continue
 
       x._handle_click(event.pressed)
 

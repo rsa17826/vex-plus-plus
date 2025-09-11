@@ -18,9 +18,9 @@ func on_physics_process(delta: float) -> void:
 func on_on_body_entered(body: Node):
   log.pp(body.name)
 func on_ready(first=false):
-  velocity = Vector2(0, 0)
+  velocity = Vector2.ZERO
   global_position = root.startPosition
 
 func on_respawn():
-  velocity = Vector2(0, 0)
+  velocity = Vector2.ZERO
   global_position = root.startPosition

@@ -31,8 +31,7 @@ extends Node
           _item_by_key[item_key] = x
 
         else:
-          if _item_by_key[item_key] == x:
-            continue
+          if _item_by_key[item_key] == x: continue
 
           _item_counts[item_key] += 1
           _changing_children += 1
@@ -84,8 +83,7 @@ func set_count(item: Node, to_count: int):
     _item_by_key.erase(new_key)
 
 func _on_container_child_entered_tree(child: Node):
-  if item_can_group != "" && !_item_can_group_expr.execute([], child):
-    return
+  if item_can_group != "" && !_item_can_group_expr.execute([], child): return
 
   if _changing_children > 0:
     _changing_children -= 1
@@ -104,8 +102,7 @@ func _on_container_child_entered_tree(child: Node):
   _item_by_key[item_key] = child
 
 func _on_container_child_exiting_tree(child: Node):
-  if item_can_group != "" && !_item_can_group_expr.execute([], child):
-    return
+  if item_can_group != "" && !_item_can_group_expr.execute([], child): return
 
   if _changing_children > 0:
     _changing_children -= 1

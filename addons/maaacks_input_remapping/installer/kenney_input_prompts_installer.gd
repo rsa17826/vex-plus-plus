@@ -175,8 +175,7 @@ func _delete_recursive(path: String) -> void:
   if not path.ends_with("/"):
     path += "/"
   var dir_access := DirAccess.open(path)
-  if dir_access == null:
-    return
+  if dir_access == null: return
   var directories := dir_access.get_directories()
   for directory in directories:
     _delete_recursive(path + directory)
@@ -248,8 +247,7 @@ func _configure_icons() -> void:
   match (_configuration_index / 4):
     0:
       input_options_menu = input_options_menu.replace("Default", "Vector").replace(".png", ".svg")
-    1:
-      pass
+    1: pass
     2:
       input_options_menu = input_options_menu.replace("Default", "Double")
   var file_rewrite := FileAccess.open(input_options_menu_path, FileAccess.WRITE)

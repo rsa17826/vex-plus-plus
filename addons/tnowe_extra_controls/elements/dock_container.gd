@@ -58,20 +58,18 @@ static func get_dock_region(rect: Rect2, drop_position: Vector2, border_width: f
 func drop_node(node: Control, on_global_position: Vector2):
   var inverse_xform := get_global_transform().affine_inverse()
   var on_local_position := inverse_xform * on_global_position
-  if !Rect2(Vector2.ZERO, size).has_point(on_local_position):
-    return
+  if !Rect2(Vector2.ZERO, size).has_point(on_local_position): return
 
   if node.get_parent() != self:
     if node.get_parent() != null:
-      node.reparent(self)
+      node.reparent(self )
 
     else:
       add_child(node)
 
   var virtual_node_above := _get_or_create_virtual(node)
   var virtual_node_below := _get_virtual_node_at(on_local_position)
-  if virtual_node_above == virtual_node_below:
-    return
+  if virtual_node_above == virtual_node_below: return
 
   var virtual_node_below_rect := Rect2(inverse_xform * virtual_node_below.global_position, inverse_xform.basis_xform(virtual_node_below.size))
   var dock_region := get_dock_region(virtual_node_below_rect, on_local_position, -1 if !enable_tabs else dock_drop_edge_margin)
@@ -125,8 +123,7 @@ func _get_virtual_node_at(local_position: Vector2, seek_edge: bool = false) -> C
   return null
 
 func _add_container(virtual_node: Control, of_type: ContainerType) -> Container:
-  if !is_instance_valid(virtual_node):
-    return
+  if !is_instance_valid(virtual_node): return
 
   var new_c: Control
   var v_node_parent := virtual_node.get_parent()
@@ -162,8 +159,7 @@ func _dissolve_container(virtual_node: Control) -> Container:
   var v_node_index := virtual_node.get_index()
   var v_node_parent := virtual_node.get_parent()
   var v_node_parent_parent := v_node_parent.get_parent()
-  if v_node_parent_parent == _virtual_tree:
-    return
+  if v_node_parent_parent == _virtual_tree: return
 
   var index_offset := 0
   for x in v_node_parent.get_children(true):
@@ -267,14 +263,12 @@ func _gui_input(event: InputEvent):
           _drop_preview.queue_redraw()
 
 func _on_preview_draw():
-  if _dragging_node == null:
-    return
+  if _dragging_node == null: return
 
   var mouse_local_pos := get_local_mouse_position()
   var inverse_xform := get_global_transform().affine_inverse()
   var virtual_node_below := _get_virtual_node_at(mouse_local_pos)
-  if virtual_node_below == _node_virtual_counterpart[_dragging_node]:
-    return
+  if virtual_node_below == _node_virtual_counterpart[_dragging_node]: return
 
   var virtual_node_below_rect := Rect2(inverse_xform * virtual_node_below.global_position, inverse_xform.basis_xform(virtual_node_below.size))
   var dock_side := get_dock_region(virtual_node_below_rect, mouse_local_pos)
@@ -301,8 +295,7 @@ func _on_child_entered_tree(child: Node):
 
 func _on_child_exited_tree(child: Node):
   var virtual_node := _node_virtual_counterpart.get(child, null)
-  if virtual_node == null:
-    return
+  if virtual_node == null: return
 
   if virtual_node.get_parent().get_child_count(true) <= 2:
     _dissolve_container(virtual_node)

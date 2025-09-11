@@ -11,7 +11,7 @@ static func dirExists(p: String) -> bool:
     "-Command",
     "Get-ItemProperty -Path \"" + p + "\""
   ]
-    
+
   var cmdout = []
   var err = OS.execute("powershell.exe", cmd, cmdout, true)
   # log.pp(cmdout)
@@ -21,12 +21,12 @@ static func listFiles(p: String) -> Variant:
   p = format(p)
   if not validPath(p): return false
   var cmdout = []
-    
+
   var cmd = [
     "-Command",
     "Get-ItemProperty -Path \"" + p + "\""
   ]
-    
+
   var err = OS.execute("powershell.exe", cmd, cmdout, true)
   if err:
     log.err(cmd, cmdout, err)
@@ -35,8 +35,7 @@ static func listFiles(p: String) -> Variant:
     thing = Array(global.regReplace(thing, "\r$|^\r", "").split(" : "))
     var k = thing.pop_front().strip_edges()
     var v = ' : '.join(thing)
-    if not k and not v:
-      continue
+    if not k and not v: continue
     vals[k] = v
     # log.pp(k, v)
   return vals

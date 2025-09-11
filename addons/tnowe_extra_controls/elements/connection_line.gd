@@ -231,7 +231,7 @@ func _draw():
         connection_margin,
         connect_anchor2,
       )
-            
+
   # Correction if resulting path is too short
   if line_start.distance_squared_to(line_end) < line_min_length * line_min_length:
     var line_start_plus_end := line_start + line_end
@@ -273,8 +273,7 @@ func _draw():
     _draw_arrow(_path_curve.get_point_position(_path_curve.point_count - 1), line_end, end_style2)
 
   # Drag Area Hint
-  if !_mouse_over:
-    return
+  if !_mouse_over: return
 
   if allow_drag_pt1 && _is_in_radius(line_start, mouse_point):
     draw_circle(line_start, drag_hint_radius, drag_hint_color)
@@ -288,8 +287,7 @@ func _draw():
       draw_circle(_path_curve.get_point_position(pt_under_mouse), drag_hint_radius, drag_hint_color)
       return
 
-    if !allow_point_creation:
-      return
+    if !allow_point_creation: return
 
     pt_under_mouse = _get_overlapped_path_midpoint(mouse_point)
     if pt_under_mouse != -1:
@@ -316,8 +314,7 @@ func path_add(new_index: int, new_position: Vector2):
 
 ## Set a point's position, in this node's parent's local coordinates. Index 0 is the first point [b]after[/b] the start point.
 func path_set(point_index: int, new_position: Vector2):
-  if _path_curve == null:
-    return
+  if _path_curve == null: return
 
   _path_curve.set_point_position(point_index, new_position)
   queue_redraw()
@@ -566,11 +563,9 @@ func _get_overlapped_control(of_parent: Node, ignore_node: Node, global_point: V
     global_point = of_parent.get_global_transform().affine_inverse() * global_point
 
   for x in of_parent.get_children():
-    if x == ignore_node || !(x is Control) || !x.get_rect().has_point(global_point):
-      continue
+    if x == ignore_node || !(x is Control) || !x.get_rect().has_point(global_point): continue
 
-    if drag_reattach_condition_expr != null && !drag_reattach_condition_expr.execute(expr_params, x):
-      continue
+    if drag_reattach_condition_expr != null && !drag_reattach_condition_expr.execute(expr_params, x): continue
 
     return x
 
@@ -619,8 +614,7 @@ func _gui_input(event: InputEvent):
       elif _path_curve != null:
         if _mouse_dragging >= 0 && _mouse_dragging < _path_curve.point_count:
           path_point_moved.emit(_mouse_dragging, mouse_point)
-          if !allow_point_creation:
-            return
+          if !allow_point_creation: return
 
           for i in _path_curve.point_count:
             if _mouse_dragging != i && _path_curve.get_point_position(i).distance_squared_to(mouse_point) < drag_hint_radius * drag_hint_radius:

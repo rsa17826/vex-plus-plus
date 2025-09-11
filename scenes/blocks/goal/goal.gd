@@ -15,7 +15,7 @@ func on_ready() -> void:
     CollisionShape.disabled = true
 
 func on_body_entered(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     if selectedOptions.requiredLevelCount > len(global.beatLevels): return
     global.win()
 

@@ -22,7 +22,7 @@ signal node_removed(node: Node)
 @export var style_selected: StyleBox
 ## The amount the [member style_selected] box gets expanded, in pixels.
 @export var style_selected_margin: float = 4.0
-## The keyboard key to hold down to add nodes to the selection instead of clearing the selection. Affects [method single_select] and 
+## The keyboard key to hold down to add nodes to the selection instead of clearing the selection. Affects [method single_select] and
 @export var modifier_key: Key = KEY_SHIFT
 
 var _targets_active: Array[Node] = []

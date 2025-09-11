@@ -46,8 +46,7 @@ func catch(on_rejected: Callable) -> Promise:
   return self
 
 func resolve(data=null):
-  if is_resolved():
-    return
+  if is_resolved(): return
   _resolved = true
   _data = data
 

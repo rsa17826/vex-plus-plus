@@ -553,6 +553,7 @@ func _physics_process(delta: float) -> void:
       else:
         if abs(newSpeed.x) > abs(vel.zipline.x):
           vel.zipline = newSpeed
+      updateKeyFollowPosition(delta)
       if ACTIONjump:
         ACTIONjump = true
         state = States.jumping
@@ -1792,3 +1793,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!when creating/duping add mouse pos/clone node pos as start location for singale axis alignment and don't scale on shift
 
 # if inner open keep outer open menu onlyOneOpen
+
+# add cp savestate level opt
+# ?add roll

@@ -61,7 +61,7 @@
     STR(star)
     {
       STR(name)STR(blue star)
-      STR(imagePath)STR(res://scenes/blocks/star/images/2.png)
+      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/2.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(1)
@@ -69,7 +69,7 @@
     }
     {
       STR(name)STR(pink star)
-      STR(imagePath)STR(res://scenes/blocks/star/images/3.png)
+      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/3.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(2)

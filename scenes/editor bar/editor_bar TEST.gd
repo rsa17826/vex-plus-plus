@@ -1,7 +1,7 @@
 extends Node2D
 
 var nodeSize: float
-var scrollOffset: Vector2 = Vector2(0, 0)
+var scrollOffset: Vector2 = Vector2.ZERO
 var nodeCount: int = 0
 
 var rows: int
@@ -20,14 +20,14 @@ func _ready() -> void:
   $ColorRect.size = Vector2((columnsVisible * nodeSize), (rows * nodeSize)) # Adjusted for width and height
   for i in range(0, len(global.blockNames)):
     newItem(global.blockNames[i], i)
-    
+
   # Calculate the maximum scrollable area
   var maxScrollX = max(0, (nodeSize * nodeCount) - (nodeSize * columnsVisible))
   var maxScrollY = max(0, (nodeSize * ceil(nodeCount / float(columns))) - (nodeSize * rows))
-    
+
   scrollOffset.x = clamp(scrollOffset.x, 0, maxScrollX) # Horizontal clamp
   scrollOffset.y = clamp(scrollOffset.y, 0, maxScrollY) # Vertical clamp
-    
+
   for item in get_children():
     updateItem(item)
   $item.visible = false
@@ -49,7 +49,7 @@ func _input(event: InputEvent) -> void:
           scrollOffset.y = clamp(scrollOffset.y - nodeSize * (global.useropts.editorBarScrollSpeed), 0, (nodeSize * ceil(nodeCount / float(columns))) - (nodeSize * rows)) # Scroll down
       var maxScrollX = max(0, (nodeSize * nodeCount) - (nodeSize * columnsVisible))
       var maxScrollY = max(0, (nodeSize * ceil(nodeCount / float(columns))) - (nodeSize * rows))
-        
+
       scrollOffset.x = clamp(scrollOffset.x, 0, maxScrollX) # Horizontal clamp
       scrollOffset.y = clamp(scrollOffset.y, 0, maxScrollY) # Vertical clamp
       for item in get_children():
