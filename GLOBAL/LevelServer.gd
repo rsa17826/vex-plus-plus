@@ -266,15 +266,35 @@ static func getData(data:=["*"]):
   return (await Supabase.database.query(SupabaseQuery.new('level test 2').select(data)).completed).data
 
 class Level:
-  var name: String = ""
+  var levelName: String = ""
   var description: String = ""
+  var creatorId: String = ""
   var creatorName: String = ""
   var gameVersion: int
+  var onlineId: int
   var levelVersion: int
   var levelData: PackedByteArray
-  func _init(): pass
+  func _init(
+    _levelName: String = '',
+    _onlineId: int = -1,
+    _description: String = '',
+    _creatorId: String = '',
+    _creatorName: String = '',
+    _gameVersion: int = -1,
+    _levelVersion: int = -1,
+    _levelData: PackedByteArray = []
+  ):
+    self.levelName = _levelName
+    self.description = _description
+    self.onlineId = _onlineId
+    self.creatorId = _creatorId
+    self.creatorName = _creatorName
+    self.gameVersion = _gameVersion
+    self.levelVersion = _levelVersion
+    self.levelData = _levelData
+
   func setName(val):
-    self.name = val
+    self.levelName = val
     return self
   func setDesc(val):
     self.description = val
@@ -302,8 +322,8 @@ static func uploadLevel(level: Level):
     [
       {
         "user_id": user.id,
-        "levelData": level.levelData,
-        "levelName": level.name,
+        "levelData": Marshalls.raw_to_base64(level.levelData),
+        "levelName": level.levelName,
         # "description": level.description,
         "creatorName": level.creatorName,
         "gameVersion": level.gameVersion,
@@ -313,25 +333,17 @@ static func uploadLevel(level: Level):
   )).completed
 
 static func loadAllLevels():
-  var hex_to_binary = func hex_to_binary(hex_string: String) -> PackedByteArray:
-    var binary_data = PackedByteArray()
-
-    # Remove the '\x' prefix and split the string into pairs of hex digits
-    var hex_pairs = (hex_string.split("\\x") as Array).filter(func(s): return s != "")
-
-    for hex_pair in hex_pairs:
-      # Convert each hex pair to an integer and append to the binary data
-      binary_data.append(hex_pair.hex_to_int())
-
-    return binary_data
-  var data = await LevelServer.getData()
+  var data = await LevelServer.getData(['id,user_id,creatorName,gameVersion,levelVersion'])
   return data.map(func(e):
-    return Level.new() \
-    .setCreatorName(e.creatorName) \
-    .setGameVersion(e.gameVersion) \
-    .setLevelVersion(e.levelVersion) \
-    .setName(e.levelName) \
-    .setData(hex_to_binary.call(e.levelData)) \
+    return Level.new(
+      e.levelName,
+      e.id,
+      '',
+      e.user_id,
+      e.creatorName,
+      e.gameVersion,
+      e.levelVersion,
+    )
     )
   # var allData := {}
   # for level in data:
