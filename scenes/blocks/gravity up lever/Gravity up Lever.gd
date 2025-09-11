@@ -9,10 +9,10 @@ func on_respawn():
   $collisionNode.position = Vector2.ZERO
 
 func on_body_entered(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     colliding = true
 func on_body_exited(body: Node) -> void:
-  if body == global.player:
+  if body is Player:
     colliding = false
 
 func _input(event: InputEvent) -> void:

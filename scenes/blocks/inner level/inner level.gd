@@ -51,7 +51,7 @@ func onAllDataLoaded() -> void:
         setTexture(sprite, "complete not all stars collected")
       else:
         setTexture(sprite, "complete all stars collected")
-  
+
   elif selectedOptions.level == global.currentLevel().name:
     text = "same as current level\n" + selectedOptions.level
     disabled = true

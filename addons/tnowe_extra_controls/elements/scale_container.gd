@@ -45,7 +45,7 @@ func _scale_child(child: Control):
 
     StretchMode.ASPECT_COVERED:
       result_scale = Vector2.ONE * max(result_scale.x, result_scale.y)
-    
+
   match rounding_mode:
     RoundingMode.ROUND_LOWER:
       var try_factor := 1.0

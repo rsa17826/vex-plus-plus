@@ -22,13 +22,13 @@ func on_physics_process(delta: float) -> void:
 
 func on_ready(first=false):
   startTime = 0
-  vel = Vector2(0, 0)
+  vel = Vector2.ZERO
   global_position = root.startPosition
 
 func on_respawn():
   startTime = 0
   process_mode = Node.PROCESS_MODE_DISABLED
-  vel = Vector2(0, 0)
+  vel = Vector2.ZERO
   global_position = root.startPosition
   await global.wait()
   process_mode = Node.PROCESS_MODE_INHERIT

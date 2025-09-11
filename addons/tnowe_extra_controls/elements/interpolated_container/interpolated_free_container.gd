@@ -16,15 +16,13 @@ extends InterpolatedContainer
 @export var drop_color_override_children := false
 
 func _draw():
-  if _dragging_node == null || _dragging_node.get_parent() != self:
-    return
+  if _dragging_node == null || _dragging_node.get_parent() != self: return
 
   if !(_dragging_node is Draggable):
     var result_rect := get_rect_after_drop(_dragging_node)
     draw_rect(result_rect, drop_color)
 
-  if _affected_by_multi_selection == null:
-    return
+  if _affected_by_multi_selection == null: return
 
   for x in _affected_by_multi_selection._selected_nodes:
     if !(x is Draggable):

@@ -3,7 +3,7 @@ extends EditorBlock
 class_name BlockBlockDeathBoundary
 
 func on_body_entered(body: Node2D) -> void:
-  if body == global.player:
+  if body is Player:
     global.player.gravState = global.player.GravStates.normal
     global.player.speedLeverActive = false
     for key in global.player.keys:

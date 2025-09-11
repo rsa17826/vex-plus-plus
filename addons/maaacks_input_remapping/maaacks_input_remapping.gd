@@ -276,8 +276,7 @@ func _remove_update_plugin_tool_option():
 
 func _show_plugin_dialogues():
   if ProjectSettings.has_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues"):
-    if ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues"):
-      return
+    if ProjectSettings.get_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues"): return
   _open_confirmation_dialog()
   ProjectSettings.set_setting(PROJECT_SETTINGS_PATH + "disable_plugin_dialogues", true)
   ProjectSettings.save()

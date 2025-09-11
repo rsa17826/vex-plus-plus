@@ -242,3 +242,22 @@ extends Control
 # # options.page = page
 
 # # var res := await Talo.leaderboards.get_entries_for_current_player(internal_name, options)
+
+func login(uname: String, password: String) -> SupabaseUser:
+  var authTask: AuthTask = await Supabase.auth.sign_in(
+    uname,
+    password
+  ).completed
+  if authTask.user:
+    log.pp("logged in")
+  else:
+    log.pp("failed to login")
+  return authTask.user
+
+func _ready():
+  var user = await login("test", "1234")
+  log.pp(user)
+  log.pp(await getData())
+
+func getData(data:=["*"]):
+  return await Supabase.database.query(SupabaseQuery.new('level test 2').select(data)).completed

@@ -35,16 +35,10 @@ func _refresh_files():
     var dir_access = DirAccess.open(directory)
     if dir_access:
       for file in dir_access.get_files():
-        if (not search.is_empty()) and (not file.contains(search)):
-          continue
-        if (not filter.is_empty()) and (file.contains(filter)):
-          continue
-        if (not begins_with.is_empty()) and (not file.begins_with(begins_with)):
-          continue
-        if (not ends_with.is_empty()) and (not file.ends_with(ends_with)):
-          continue
-        if (not not_begins_with.is_empty()) and (file.begins_with(not_begins_with)):
-          continue
-        if (not not_ends_with.is_empty()) and (file.ends_with(not_ends_with)):
-          continue
+        if (not search.is_empty()) and (not file.contains(search)): continue
+        if (not filter.is_empty()) and (file.contains(filter)): continue
+        if (not begins_with.is_empty()) and (not file.begins_with(begins_with)): continue
+        if (not ends_with.is_empty()) and (not file.ends_with(ends_with)): continue
+        if (not not_begins_with.is_empty()) and (file.begins_with(not_begins_with)): continue
+        if (not not_ends_with.is_empty()) and (file.ends_with(not_ends_with)): continue
         files.append(directory + "/" + file)

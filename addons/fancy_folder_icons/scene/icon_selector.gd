@@ -74,7 +74,7 @@ func _on_visibility_changed() -> void:
     enable_accept_changes_button.emit(false)
     texture_container.enable_by_path("")
 
-    if !timer:return
+    if !timer: return
     if !visible:
         timer.start(120)
     else:

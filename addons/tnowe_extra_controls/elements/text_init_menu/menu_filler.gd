@@ -6,16 +6,14 @@ var _lines := []
 var _item_icons := []
 var _item_shortcuts := []
 
-
-func _init(text : String, item_icons : Array[Texture2D], item_shortcuts : Array[Shortcut]):
+func _init(text: String, item_icons: Array[Texture2D], item_shortcuts: Array[Shortcut]):
   _lines = text.split('\n')
   _item_icons = item_icons
   _item_icons.resize(_lines.size())
   _item_shortcuts = item_shortcuts
   _item_shortcuts.resize(_lines.size())
 
-
-func get_from_popup_items(p : PopupMenu, submenu_level : int = 0):
+func get_from_popup_items(p: PopupMenu, submenu_level: int = 0):
   var items := ""
   for i in p.get_item_count():
     var new_item := MenuItem.new()
@@ -31,8 +29,7 @@ func get_from_popup_items(p : PopupMenu, submenu_level : int = 0):
 
   return items
 
-
-func fill_menu(p : PopupMenu, start_from_line : int = 0, submenu_level : int = 0):
+func fill_menu(p: PopupMenu, start_from_line: int = 0, submenu_level: int = 0):
   var item_index := 0
   var last_text := ""
   p.clear()
@@ -41,7 +38,7 @@ func fill_menu(p : PopupMenu, start_from_line : int = 0, submenu_level : int = 0
 
     var item := MenuItem.new(_lines[i])
     if (item.submenu_level < submenu_level): return item_index
-    if (item.submenu_level > submenu_level):    
+    if (item.submenu_level > submenu_level):
       var new_submenu := PopupMenu.new()
       new_submenu.name = last_text
       p.add_child(new_submenu)

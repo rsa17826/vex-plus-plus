@@ -46,8 +46,7 @@ func _load_plugin_details() -> void:
     if enabled_plugin.contains(plugin_directory):
       var config := ConfigFile.new()
       var error = config.load(enabled_plugin)
-      if error != OK:
-        return
+      if error != OK: return
       _current_plugin_version = config.get_value("plugin", "version", default_version)
       _plugin_name = config.get_value("plugin", "name", "Plugin")
 

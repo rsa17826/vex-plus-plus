@@ -54,8 +54,7 @@ func _get_standard_joy_name(joy_name: String) -> String:
       joy_name = joy_name.insert(position, all_replace_strings[what])
   var combined_joystick_name: Array[String] = []
   for part in joy_name.split(" "):
-    if part.to_lower() in filtered_strings:
-      continue
+    if part.to_lower() in filtered_strings: continue
     if not part.is_empty():
       combined_joystick_name.append(part)
   joy_name = " ".join(combined_joystick_name)
@@ -65,8 +64,7 @@ func _get_standard_joy_name(joy_name: String) -> String:
 func _match_icon_to_file(file: String) -> void:
   var matching_string: String = file.get_file().get_basename()
   var icon: Texture = load(file)
-  if not icon:
-    return
+  if not icon: return
   all_icons[matching_string] = icon
   matching_string = matching_string.capitalize()
   matching_string = _get_standard_joy_name(matching_string)
@@ -77,8 +75,7 @@ func _match_icon_to_file(file: String) -> void:
     matching_icons[matching_string + " Left"] = icon
     matching_icons[matching_string + " Right"] = icon
     return
-  if matching_string in matching_icons:
-    return
+  if matching_string in matching_icons: return
   matching_icons[matching_string] = icon
 
 func _prioritized_files() -> Array[String]:

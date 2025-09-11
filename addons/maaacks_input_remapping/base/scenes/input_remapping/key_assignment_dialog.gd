@@ -19,8 +19,7 @@ var confirming: bool = false
 
 func _record_input_event(event: InputEvent) -> void:
   last_input_text = InputEventHelper.get_text(event)
-  if last_input_text.is_empty():
-    return
+  if last_input_text.is_empty(): return
   last_input_event = event
   %InputLabel.text = last_input_text
   get_ok_button().disabled = false
@@ -81,8 +80,7 @@ func _process_input_event(event: InputEvent) -> void:
     if event.is_pressed(): return
     else:
       event.pressed = true
-  if not _should_process_input_event(event):
-    return
+  if not _should_process_input_event(event): return
   if _input_confirms_choice(event):
     confirming = false
     if input_confirmation == InputConfirmation.DOUBLE:

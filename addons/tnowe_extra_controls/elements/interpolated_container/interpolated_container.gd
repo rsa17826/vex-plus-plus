@@ -48,8 +48,8 @@ enum ItemAlignment {
   set(v):
     allow_drag_insert = v
     if is_inside_tree():
-      if v: _all_boxes.append(self)
-      else: _all_boxes.erase(self)
+      if v: _all_boxes.append(self )
+      else: _all_boxes.erase(self )
 ## If the child count matches this, new children cannot be added through [member allow_drag_insert]. Does not prevent other means of adding children.[br]
 ## Set to [code]-1[/code] to remove the limit. [br]
 ## This is equivalent to [member drag_insert_condition] set to [code]into.get_child_count() < (count)[/code].
@@ -93,14 +93,12 @@ func _get_minimum_size() -> Vector2:
 
 ## Override to define the behaviour for dragging a node via drag-and-drop rearrangement. [br]
 ## Should emit [signal order_changed] if the node's index was successfully changed.
-func _insert_child_at_position(child: Control):
-  pass
+func _insert_child_at_position(child: Control): pass
 
 ## Override to define positions of all child nodes. [br]
 ## Must change [member cached_minimum_size] to update own size for parent containers. [br]
 ## Must call [method fit_interpolated] on each child to set their position.
-func _sort_children():
-  pass
+func _sort_children(): pass
 
 ## Sets the target [Rect2] for a child. It will be smoothly animated to fit into that rect, adhering to [method Control.fit_child_in_rect] constraints.[br]
 ## Must be called on each child during [method _sort_children] to set their target position.
@@ -142,8 +140,7 @@ func _process(delta: float):
   var children := get_children(true)
   var dragged_node_pos := _dragging_node.global_position if _dragging_node != null else Vector2.ZERO
   for i in children.size():
-    if !children[i] is Control:
-      continue
+    if !children[i] is Control: continue
 
     var cur_child: Control = children[i]
     var child_xform := _children_xforms_start[i].interpolate_with(_children_xforms_end[i], progress_eased)
@@ -177,8 +174,7 @@ func _input(event: InputEvent):
     if allow_drag_transfer && !Rect2(Vector2.ZERO, size).has_point(get_global_transform().affine_inverse() * event.global_position):
       _insert_child_in_other(_dragging_node, event.global_position)
 
-    if _affected_by_multi_selection == null:
-      return
+    if _affected_by_multi_selection == null: return
 
     for x in _affected_by_multi_selection._selected_nodes:
       if !is_instance_valid(x) || !(x is CanvasItem) || x == _dragging_node:
@@ -209,10 +205,10 @@ func _ready():
 
 func _enter_tree():
   if allow_drag_insert:
-    _all_boxes.append(self)
+    _all_boxes.append(self )
 
 func _exit_tree():
-  _all_boxes.erase(self)
+  _all_boxes.erase(self )
 
 func _notification(what: int):
   if what == NOTIFICATION_SORT_CHILDREN:
@@ -233,14 +229,11 @@ func _notification(what: int):
 
 func _insert_child_in_other(child: Control, mouse_global_position: Vector2):
   for x in _all_boxes:
-    if !x.allow_drag_insert || !Rect2(Vector2.ZERO, x.size).has_point(x.get_global_transform().affine_inverse() * mouse_global_position):
-      continue
+    if !x.allow_drag_insert || !Rect2(Vector2.ZERO, x.size).has_point(x.get_global_transform().affine_inverse() * mouse_global_position): continue
 
-    if x.drag_max_count > -1 && x.get_child_count(true) >= x.drag_max_count:
-      continue
+    if x.drag_max_count > -1 && x.get_child_count(true) >= x.drag_max_count: continue
 
-    if x._drag_insert_condition_exp != null && x._drag_insert_condition_exp.execute([self, x], child) != true:
-      continue
+    if x._drag_insert_condition_exp != null && x._drag_insert_condition_exp.execute([ self , x], child) != true: continue
 
     child.reparent(x)
     x._dragging_node = child
@@ -250,10 +243,10 @@ func _insert_child_in_other(child: Control, mouse_global_position: Vector2):
       # Can be compiled on the spot - not called as often.
       var success_expr := Expression.new()
       success_expr.parse(drag_insert_call_on_success)
-      success_expr.execute([self, x], child)
+      success_expr.execute([ self , x], child)
 
     drag_transfered_out.emit(child, x)
-    x.drag_transfered_in.emit(child, self)
+    x.drag_transfered_in.emit(child, self )
     break
 
 func _on_child_entered_tree(x: Node):
@@ -265,8 +258,7 @@ func _on_child_exiting_tree(x: Node):
     x.gui_input.disconnect(_on_child_gui_input)
 
 func _on_child_gui_input(event: InputEvent, child: Control):
-  if !allow_drag_reorder && !allow_drag_transfer:
-    return
+  if !allow_drag_reorder && !allow_drag_transfer: return
 
   if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
     _dragging_node = child

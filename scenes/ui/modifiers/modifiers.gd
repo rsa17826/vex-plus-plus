@@ -67,8 +67,7 @@ func updateUi(
               modVis('jumpCount/nope', true)
             else:
               modVis('jumpCount/' + str(v), true)
-          "color":
-            pass
+          "color": pass
           _:
             log.err('updateUi: unknown key:', k, v)
             breakpoint

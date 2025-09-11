@@ -230,23 +230,23 @@ func set_project_setting(p_setting: String, p_value) -> void:
 #     set_text_editor_colors(dict)
 
 #func set_theme_font(p_theme : Theme , p_type_name : String, p_dict : Dictionary) -> void:
-#	if !p_theme:
-#		return
+#    if !p_theme:
+#        return
 #
-#	for key in p_dict:
-#		if !(key is String):
-#			return
+#    for key in p_dict:
+#        if !(key is String):
+#            return
 #
-#		var font_path : String = p_dict[key]
-#		if !(font_path is String):
-#			return
+#        var font_path : String = p_dict[key]
+#        if !(font_path is String):
+#            return
 #
-#		font_path = get_file(font_path)
-#		var font : Font = load(font_path)
-#		if !font:
-#			return
+#        font_path = get_file(font_path)
+#        var font : Font = load(font_path)
+#        if !font:
+#            return
 #
-#		p_theme.set_font(key, p_type_name, font)
+#        p_theme.set_font(key, p_type_name, font)
 
 func file_exists(p_path: String) -> bool:
   return FileAccess.file_exists(p_path)
