@@ -2386,21 +2386,6 @@ func downloadMap(version, creator, level):
   else:
     ToastParty.error("Download failed, the map " + level + " by " + creator + " doesn't exist, or the map was invalid.")
 
-func hex_to_packed_byte_array(hex_string: String) -> PackedByteArray:
-  var byte_array = PackedByteArray()
-
-  # Remove any whitespace or unwanted characters
-  hex_string = hex_string.strip_edges().trim_prefix("\\x")
-
-  # Iterate through the string in steps of 2
-  for i in range(0, hex_string.length(), 2):
-    # Get the substring of 2 characters
-    var hex_pair = hex_string.substr(i, 2)
-    # Convert the hex pair to an integer using hex_to_int
-    var byte_value = hex_pair.hex_to_int()
-    byte_array.append(byte_value)
-
-  return byte_array
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
