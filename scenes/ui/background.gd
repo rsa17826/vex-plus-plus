@@ -12,5 +12,8 @@ func _ready():
     if global.useropts.editorBackgroundScaleToMaxSize \
     else StretchMode.STRETCH_KEEP_CENTERED
 
-# func _process(delta):
-#   global_position = (global.player.get_node("Camera2D") as Camera2D).global_position - Vector2(1152.0, 648.0) / 2
+func _process(delta):
+  if global.hideAllOverlays:
+    visible = false
+    return
+  visible = true
