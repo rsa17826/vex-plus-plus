@@ -152,11 +152,12 @@ static func loadAllLevels() -> Array:
   var data = await LevelServer.query(
     SupabaseQuery.new()
     .from('level test 2')
+    .order('created_at', 1)
     .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
   )
   if not data:
     return []
-  return data.map(func(e):
+  data = data.map(func(e):
     var img := Image.new()
     img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
     return Level.new(
@@ -171,6 +172,8 @@ static func loadAllLevels() -> Array:
       img
     )
     )
+  return data
+
 static func loadOldVersions(level: Level) -> Array:
   var data = (await Supabase.database.query(
     SupabaseQuery.new()

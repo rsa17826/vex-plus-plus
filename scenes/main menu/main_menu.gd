@@ -184,7 +184,7 @@ func showMoreOptions(levelName, levelData):
         if not LevelServer.user:
           ToastParty.err("you must login to upload maps")
           return
-      if FileAccess.file_exists(global.path.join(global.MAP_FOLDER, levelName, "/image.png")):
+      if !FileAccess.file_exists(global.path.join(global.MAP_FOLDER, levelName, "/image.png")):
         ToastParty.err("the map must have an image - an image is created by saving the map!")
         return
       var outpath = global.path.abs("res://exports/" + levelName + ".vex++")
@@ -208,6 +208,8 @@ func showMoreOptions(levelName, levelData):
       $AnimatedSprite2D.visible = true
       var img = Image.new()
       img.load(global.path.join(global.MAP_FOLDER, levelName, "/image.png"))
+      if 'levelVersion' not in data:
+        data.levelVersion = -1
       await LevelServer.uploadLevel(
         LevelServer.Level.new(
           levelName,
