@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8x0qylun3368"]
 
-[ext_resource type="Texture2D" uid="uid://bercyu1y2csww" path="res://scenes/blocks/water/images/1.png" id="1_0lt44"]
 [ext_resource type="Script" uid="uid://drtmdw2w6aqnf" path="res://scenes/online level list/level_display.gd" id="1_wui2r"]
 [ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="2_rx2np"]
+[ext_resource type="Texture2D" uid="uid://bsxcxr0h6kfn2" path="res://maps/vex 3/image.png" id="3_rx2np"]
 
 [node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions")]
 custom_minimum_size = Vector2(1148, 209.965)
@@ -109,7 +109,7 @@ metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
 clip_contents = true
 custom_minimum_size = Vector2(146, 146)
 layout_mode = 2
-texture = ExtResource("1_0lt44")
+texture = ExtResource("3_rx2np")
 expand_mode = 1
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="Panel/VBoxContainer"]

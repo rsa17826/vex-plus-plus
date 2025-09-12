@@ -92,8 +92,12 @@ func loadLevel(level):
   # await global.wait()
   # global.player.die(0, false, true)
   # global.player.deathPosition = global.player.lastSpawnPoint
-
+var saving = false
 func save():
+  if saving:
+    ToastParty.err("already saving")
+    return
+  saving = true
   if !len($blocks.get_children()):
     log.err("nothing to save")
     return
@@ -133,7 +137,38 @@ func save():
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.version = int(global.file.read("res://VERSION", false, "-1"))
   opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
+  var editoruiShown = global.showEditorUi
+  var lastTick = global.tick
+  var laststopTicking = global.stopTicking
+  global.tick = 0
+  global.hideAllOverlays = true
+  await global.wait()
+  global.tick = 0
+  global.stopTicking = true
+  for child in $blocks.get_children():
+    child.respawn()
+  global.showEditorUi = false
+  await global.wait()
+  var image = get_viewport().get_texture().get_image()
+  var minSize = min(image.get_width(), image.get_height())
+  var maxSize = max(image.get_width(), image.get_height())
+  var rect = image.get_used_rect()
+  if image.get_width() > image.get_height():
+    rect.position.x += (maxSize - minSize) / 2
+  else:
+    rect.position.y += (maxSize - minSize) / 2
+  rect.size.x = minSize
+  rect.size.y = minSize
+  log.pp(rect)
+  image = image.get_region(rect)
+  image.resize(146, 146)
+  image.save_png(global.path.join(global.levelFolderPath, "image.png"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, "options.sds"), opts)
+  global.showEditorUi = editoruiShown
+  global.stopTicking = laststopTicking
+  global.tick = lastTick
   global.ui.levelSaved.modulate.a = 1
   # await global.wait(1000)
   global.ui.levelSaved.visible = false
+  global.hideAllOverlays = false
+  saving = false

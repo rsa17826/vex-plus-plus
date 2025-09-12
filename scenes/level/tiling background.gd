@@ -14,5 +14,9 @@ func _ready() -> void:
     log.pp(modSize)
 
 func _process(delta: float) -> void:
+  if global.hideAllOverlays:
+    visible = false
+    return
+  visible = true
   if modSize:
     position = round((global.player.get_node("Camera2D").global_position - size / 2) / modSize) * modSize

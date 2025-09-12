@@ -2386,6 +2386,8 @@ func downloadMap(version, creator, level):
   else:
     ToastParty.error("Download failed, the map " + level + " by " + creator + " doesn't exist, or the map was invalid.")
 
+var hideAllOverlays := false
+
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
