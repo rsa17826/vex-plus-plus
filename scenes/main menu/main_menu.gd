@@ -204,8 +204,8 @@ func showMoreOptions(levelName, levelData):
           data.description,
           '',
           author,
-          data.levelVersion,
           data.version,
+          data.levelVersion,
           c,
           img
         )

@@ -2,7 +2,7 @@
   STR(loadedLevels)[
     {
       STR(name)STR(hub)
-      STR(exitPosition)VEC2(2089.75244140625,-581.574523925781)
+      STR(exitPosition)VEC2(2076.88256835938,-581.49462890625)
       STR(up_direction)VEC2(0.0,-1.0)
       STR(autoRunDirection)INT(-1)
       STR(tick)FLOAT(0.0)
@@ -47,6 +47,44 @@
         }
       }
       STRNAME(lastSpawnPoint)VEC2(2188.47265625,-454.080291748047)
+    }
+    {
+      STR(name)STR(vexation)
+      STR(exitPosition)VEC2(0.0,0.0)
+      STR(up_direction)VEC2(0.0,-1.0)
+      STR(autoRunDirection)INT(1)
+      STR(tick)FLOAT(0.0)
+      STR(blockSaveData){
+        STR(checkpoint){
+          INT(1){
+            STR(texture)STR(3)
+          }
+          INT(2){
+            STR(texture)STR(1)
+          }
+          INT(3){
+            STR(texture)STR(2)
+          }
+          INT(4){
+            STR(texture)STR(1)
+          }
+          INT(5){
+            STR(texture)STR(1)
+          }
+          INT(6){
+            STR(texture)STR(1)
+          }
+          INT(7){
+            STR(texture)STR(1)
+          }
+        }
+        STR(star){
+          INT(1){
+            STR(collected)BOOL(false)
+          }
+        }
+      }
+      STRNAME(lastSpawnPoint)VEC2(841.472595214844,544.919738769531)
     }
   ]
   STR(beatLevels)[
