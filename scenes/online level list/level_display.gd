@@ -22,7 +22,8 @@ func showLevelData(levelToShow: LevelServer.Level) -> void:
   description.text = level.description
   viewOldVersions.visible = !!level.oldVersionCount
   viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
-  levelImage.texture = ImageTexture.create_from_image(level.levelImage)
+  if level.levelImage.get_size() == Vector2i(146, 146):
+    levelImage.texture = ImageTexture.create_from_image(level.levelImage)
 
 func _on_download_pressed() -> void:
   LevelServer.downloadMap(level)

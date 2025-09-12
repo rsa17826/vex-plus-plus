@@ -8,6 +8,9 @@ var listOfLoadedSignals := {}
 const ON = preload("res://scenes/ui/images/on.png")
 const OFF = preload("res://scenes/ui/images/off.png")
 
+func _process(delta: float) -> void:
+  visible = !global.hideAllOverlays
+
 func removeSignal(id):
   if id not in listOfLoadedSignals: return
   listOfLoadedSignals[id].queue_free()
