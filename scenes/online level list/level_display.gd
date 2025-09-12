@@ -1,10 +1,10 @@
 extends HBoxContainer
 var level: LevelServer.Level
 
-@export var levelName: Label
-@export var levelVersion: Label
-@export var gameVersion: Label
-@export var creatorName: Label
+@export var levelName: Control
+@export var levelVersion: Control
+@export var gameVersion: Control
+@export var creatorName: Control
 @export var creatorId: Control
 @export var description: TextEdit
 @export var viewOldVersions: Button

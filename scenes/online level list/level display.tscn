@@ -1,16 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8x0qylun3368"]
+[gd_scene load_steps=4 format=3 uid="uid://b8x0qylun3368"]
 
 [ext_resource type="Texture2D" uid="uid://bercyu1y2csww" path="res://scenes/blocks/water/images/1.png" id="1_0lt44"]
 [ext_resource type="Script" uid="uid://drtmdw2w6aqnf" path="res://scenes/online level list/level_display.gd" id="1_wui2r"]
+[ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="2_rx2np"]
 
 [node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions")]
-custom_minimum_size = Vector2(572, 186)
+custom_minimum_size = Vector2(1148, 209.965)
+offset_right = 1148.0
+offset_bottom = 209.965
 script = ExtResource("1_wui2r")
-levelName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/Label")
-levelVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4/Label")
-gameVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5/Label")
-creatorName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3/Label")
-creatorId = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/Button2")
+levelName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/levelname")
+levelVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4/levelversions")
+gameVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5/gameversiuon")
+creatorName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3/creatorname")
+creatorId = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/creator id")
 description = NodePath("Panel/VBoxContainer/HBoxContainer3/TextEdit")
 viewOldVersions = NodePath("Panel/VBoxContainer/HBoxContainer6/view old versions")
 
@@ -21,29 +24,30 @@ size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 1138.0
+offset_bottom = 206.0
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
+clip_contents = true
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button2" type="LineEdit" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="creator id" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(245.205, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "creator id: asdasddssadadsasd"
-editable = false
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="levelname" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "level name"
@@ -51,7 +55,7 @@ text = "level name"
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+[node name="creatorname" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "creator name"
@@ -59,7 +63,7 @@ text = "creator name"
 [node name="HBoxContainer4" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+[node name="levelversions" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "v1250"
@@ -67,25 +71,41 @@ text = "v1250"
 [node name="HBoxContainer5" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5"]
+[node name="gameversiuon" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "game version: 150"
 
+[node name="MaxSizeContainer" type="Container" parent="Panel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+script = ExtResource("2_rx2np")
+max_size = Vector2(150, 150)
+metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
+
 [node name="TextEdit" type="TextEdit" parent="Panel/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(169.74, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "asdasdasdjkahkasdjkjasd'
 
 descriptiuon"
 editable = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(145, 145)
 layout_mode = 2
 theme_override_constants/margin_top = 4
 
-[node name="level image" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer3/MarginContainer"]
+[node name="MaxSizeContainer" type="Container" parent="Panel/VBoxContainer/HBoxContainer3/MarginContainer"]
+layout_mode = 2
+script = ExtResource("2_rx2np")
+max_size = Vector2(146, 146)
+metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
+
+[node name="level image" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer3/MarginContainer/MaxSizeContainer"]
 clip_contents = true
 custom_minimum_size = Vector2(146, 146)
 layout_mode = 2
