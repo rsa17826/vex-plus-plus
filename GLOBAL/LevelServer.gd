@@ -257,13 +257,13 @@ static func login(uname: String, password: String) -> SupabaseUser:
   user = authTask.user
   return authTask.user
 
-func _ready():
-  var user = await login("test", "1234")
-  log.pp(user)
-  log.pp(await getData())
+# func _ready():
+#   var user = await login("test", "1234")
+#   log.pp(user)
+#   log.pp(await getData())
 
-static func getData(data:=["*"]):
-  return (await Supabase.database.query(SupabaseQuery.new('level test 2').select(data)).completed).data
+static func query(query: SupabaseQuery):
+  return (await Supabase.database.query(query).completed).data
 
 class Level:
   var levelName: String = ""
@@ -312,12 +312,27 @@ class Level:
     self.levelVersion = val
     return self
 
+static func requestLogin() -> SupabaseUser:
+  user = await LevelServer.login(
+    await global.prompt("Please enter your username: ", global.PromptTypes.string),
+    await global.prompt("Please enter your password: ", global.PromptTypes.string)
+  )
+  return user
+
 static func uploadLevel(level: Level):
-  if not user:
-    await LevelServer.login(
-      await global.prompt("Please enter your username: ", global.PromptTypes.string),
-      await global.prompt("Please enter your password: ", global.PromptTypes.string)
-    )
+  if not user: await LevelServer.requestLogin()
+  var levels = await LevelServer.doesLevelExist(level)
+  if levels:
+    for uploadedLevel in levels:
+      if uploadedLevel.levelVersion >= level.levelVersion:
+        global.prompt(
+          "this level you are trying to upload is not newer than the version already uploaded" +
+          "\n\n ONLINE LEVEL VERSION: " + str(uploadedLevel.levelVersion) +
+          ' - LOCAL LEVEL VERSION: ' + str(level.levelVersion),
+          global.PromptTypes.info
+        )
+        return
+  log.pp(levels)
   return await Supabase.database.query(SupabaseQuery.new('level test 2').insert(
     [
       {
@@ -332,8 +347,23 @@ static func uploadLevel(level: Level):
     ]
   )).completed
 
+static func doesLevelExist(level: Level) -> Array:
+  if not user: await LevelServer.requestLogin()
+  var data = await LevelServer.query(SupabaseQuery.new('level test 2').eq("levelName", level.levelName).eq("user_id", str(user.id)).select(['id,levelVersion']))
+  return data.map(func(e):
+    return Level.new(
+      level.levelName,
+      e.id,
+      '',
+      e.user_id,
+      "",
+      - 1,
+      e.levelVersion,
+    )
+    )
+
 static func loadAllLevels() -> Array:
-  var data = await LevelServer.getData(['id,user_id,creatorName,gameVersion,levelVersion'])
+  var data = await LevelServer.query(SupabaseQuery.new('level test 2').select(['id,user_id,creatorName,gameVersion,levelVersion']))
   return data.map(func(e):
     return Level.new(
       e.levelName,

@@ -7,7 +7,9 @@ var level: LevelServer.Level
 @export var creatorName: Label
 @export var creatorId: Control
 @export var description: TextEdit
+@export var viewOldVersions: Button
 var levelList: Control
+var oldVersionCount: int = 0
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
   level = levelToShow
@@ -17,6 +19,8 @@ func showLevelData(levelToShow: LevelServer.Level) -> void:
   levelVersion.text = 'v' + str(level.levelVersion)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
+  viewOldVersions.visible = !!oldVersionCount
+  viewOldVersions.text = "view " + str(oldVersionCount) + " old versions"
 
 func _on_download_pressed() -> void:
   LevelServer.downloadMap(level)
