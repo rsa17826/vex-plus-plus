@@ -5,7 +5,6 @@ var GITHUB_TOKEN = global.getToken()
 @export var optsmenunode: Control
 @export var levelContainer: Control
 @export var scrollContainer: ScrollContainer
-@export var loginMenu: Popup
 @export var loginMenuBg: Control
 
 var __menu: Menu
@@ -178,6 +177,13 @@ func showMoreOptions(levelName, levelData):
       if global.useropts.openExportsDirectoryOnExport:
         OS.shell_open(global.path.abs("res://exports"))
     7:
+      if not LevelServer.user:
+        _on_show_login_pressed()
+        await global.waituntil(func():
+          return !loginMenuBg.visible)
+        if not LevelServer.user:
+          ToastParty.err("you must login to upload maps")
+          return
       var outpath = global.path.abs("res://exports/" + levelName + ".vex++")
       global.zipDir(
         global.path.join(global.MAP_FOLDER, levelName),
@@ -416,8 +422,7 @@ func _on_open_logs_pressed() -> void:
   OS.shell_open(global.path.abs("user://logs/godot.log"))
 
 func _on_show_login_pressed() -> void:
-  loginMenu.popup_centered()
   loginMenuBg.visible = true
 
-func _on_popup_popup_hide() -> void:
+func _on_login_close_button_pressed() -> void:
   loginMenuBg.visible = false

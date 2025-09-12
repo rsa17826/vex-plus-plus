@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="3_pri0a"]
 [ext_resource type="PackedScene" uid="uid://cdixi4vcsxqd1" path="res://scenes/login/login.tscn" id="6_ajd3f"]
 
-[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer", "loginMenu", "loginMenuBg")]
+[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer", "loginMenuBg")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,7 +18,6 @@ script = ExtResource("1_cbjxn")
 optsmenunode = NodePath("HBoxContainer/VBoxContainer/OPTS/ScrollContainer/VBoxContainer")
 levelContainer = NodePath("HBoxContainer/VBoxContainer2/LEVELS/ScrollContainer/HFlowContainer")
 scrollContainer = NodePath("HBoxContainer/VBoxContainer/OPTS/ScrollContainer")
-loginMenu = NodePath("Popup")
 loginMenuBg = NodePath("Panel")
 metadata/_edit_lock_ = true
 
@@ -157,30 +156,23 @@ offset_bottom = -102.4989
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_vifqf")]
 
 [node name="Panel" type="ColorRect" parent="."]
-visible = false
 custom_minimum_size = Vector2(1152, 648.33)
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.33
 script = ExtResource("2_okfgx")
 
-[node name="Popup" type="Popup" parent="."]
-transparent_bg = true
-oversampling_override = 1.0
-title = "login"
-initial_position = 1
-size = Vector2i(150, 171)
-always_on_top = true
-extend_to_title = true
-exclude_from_capture = true
-min_size = Vector2i(150, 171)
-max_size = Vector2i(150, 171)
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.33
 
-[node name="CenterContainer" type="CenterContainer" parent="Popup"]
-offset_right = 150.0
-offset_bottom = 171.0
+[node name="CenterContainer" type="CenterContainer" parent="Panel/Button"]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.33
 
-[node name="login" parent="Popup/CenterContainer" instance=ExtResource("6_ajd3f")]
+[node name="login" parent="Panel/Button/CenterContainer" instance=ExtResource("6_ajd3f")]
 layout_mode = 2
 
 [connection signal="text_changed" from="HBoxContainer/VBoxContainer2/search" to="." method="_on_search_text_changed"]
@@ -191,4 +183,4 @@ layout_mode = 2
 [connection signal="pressed" from="BTNS/change keybinds" to="." method="_on_change_keybinds_pressed"]
 [connection signal="pressed" from="BTNS/open logs" to="." method="_on_open_logs_pressed"]
 [connection signal="pressed" from="BTNS/show login" to="." method="_on_show_login_pressed"]
-[connection signal="popup_hide" from="Popup" to="." method="_on_popup_popup_hide"]
+[connection signal="pressed" from="Panel/Button" to="." method="_on_login_close_button_pressed"]
