@@ -5,7 +5,7 @@ static var user: SupabaseUser = null
 
 static func register(uname: String, password: String) -> SupabaseUser:
   if !('@' in uname):
-    uname += "@null.nosite"
+    uname += "@null.notld"
   var authTask: AuthTask = await Supabase.auth.sign_up(
     uname,
     password
@@ -18,10 +18,9 @@ static func register(uname: String, password: String) -> SupabaseUser:
   user = authTask.user
   return authTask.user
 
-
 static func login(uname: String, password: String) -> SupabaseUser:
   if !('@' in uname):
-    uname += "@null.nosite"
+    uname += "@null.notld"
   var authTask: AuthTask = await Supabase.auth.sign_in(
     uname,
     password
@@ -174,10 +173,8 @@ static func loadAllLevels() -> Array:
     )
 static func loadOldVersions(level: Level) -> Array:
   var data = (await Supabase.database.query(
-
     SupabaseQuery.new()
     .from('level test 2')
-
     .eq("creatorId", str(level.creatorId))
     .eq("levelName", level.levelName)
     .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
@@ -198,7 +195,7 @@ static func loadOldVersions(level: Level) -> Array:
     )
     )
 
-static func downloadMap(level: LevelServer.Level):
+static func downloadMap(level: LevelServer.Level) -> bool:
   var id: int = level.onlineId
   var data = (await Supabase.database.query(
     SupabaseQuery.new()
@@ -206,7 +203,7 @@ static func downloadMap(level: LevelServer.Level):
     .eq("id", str(id)).select(["levelData"])).completed).data
   if !len(data):
     ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map doesn't exist.")
-    return
+    return false
   data = data[0]
   # log.pp(data)
   var f = FileAccess.open(global.path.abs("res://downloaded maps/" + level.levelName + '.vex++'), FileAccess.WRITE)
@@ -215,8 +212,10 @@ static func downloadMap(level: LevelServer.Level):
   f.close()
   if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + level.levelName + '.vex++')]):
     ToastParty.success("Download complete\nthe map " + level.levelName + " by " + level.creatorName + " has been loaded.")
+    return true
   else:
     ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map was invalid.")
+  return false
 
   # var allData := {}
   # for level in data:
