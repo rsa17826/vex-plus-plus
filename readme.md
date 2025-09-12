@@ -41,6 +41,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **contactOption**: what to do when the player enters it
     - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
     - **unCollect**: temporarily uncollects the star
+    - **starType**: the color of the star
     - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
     - **portalId**: the id of this portal as used for finding an exit portal
     - **exitId**: the id this portal uses to find its exit portal
@@ -799,6 +800,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToPaths
     - ### settings:
       - **unCollect**: temporarily uncollects the star
+      - **starType**: the color of the star
+        - **yellow**: yellow
+        - **blue**: blue
+        - **pink**: pink
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
@@ -1019,12 +1024,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - rotatable
     - ### settings:
       - **signalInputId**: the id of the signal it is listening for
+      - **signalOutputId**: the id that will be sent
       - **chargeTime**: the time it takes for a signal to be charged up
       - **onSignalDeactivationWhileCharging**: what happens when its signal is deactivating while charging
         - **keepCharging**: the charge will keep increasing
         - **reset**: the charge progress will reset to 0
         - **startDischarging**: the charge will start going downs
-      - **signalOutputId**: the id that will be sent
       - **dischargeTime**: the time it takes for a signal to be discharged
       - **onSignalActivationWhileDischarging**: what happens when its signal is activating while discharging
         - **keepDischarging**: the charge will keep decreasing
