@@ -5,4 +5,5 @@ func _ready() -> void:
     self.start()
 
 func _on_timeout() -> void:
-  global.level.save()
+  if global.showEditorUi:
+    global.level.save()
