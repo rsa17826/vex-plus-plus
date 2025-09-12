@@ -5,6 +5,8 @@ var GITHUB_TOKEN = global.getToken()
 @export var optsmenunode: Control
 @export var levelContainer: Control
 @export var scrollContainer: ScrollContainer
+@export var loginMenu: Popup
+@export var loginMenuBg: Control
 
 var __menu: Menu
 var newestLevel
@@ -412,3 +414,10 @@ func _on_change_keybinds_pressed() -> void:
 
 func _on_open_logs_pressed() -> void:
   OS.shell_open(global.path.abs("user://logs/godot.log"))
+
+func _on_show_login_pressed() -> void:
+  loginMenu.popup_centered()
+  loginMenuBg.visible = true
+
+func _on_popup_popup_hide() -> void:
+  loginMenuBg.visible = false

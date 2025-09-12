@@ -1792,6 +1792,13 @@ func localReady() -> void:
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
   loadEditorBarData()
+  var data = global.file.read("user://auth", false, '')
+  if data:
+    await wait()
+    var authTask = (await Supabase.auth.restoreFromToken(data).completed)
+    if authTask.user and not LevelServer.user:
+      LevelServer.user = authTask.user
+      ToastParty.info("session restored")
 
 const DEFAULT_BLOCK_LIST = [
   "basic",

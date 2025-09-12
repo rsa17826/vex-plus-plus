@@ -192,6 +192,17 @@ func send_magic_link(email: String) -> AuthTask:
   _process_task(auth_task)
   return auth_task
 
+func restoreFromToken(refresh_token: String) -> AuthTask:
+  var payload: Dictionary = {"grant_type": "refresh_token", "refresh_token": refresh_token}
+  log.pp(_config.supabaseUrl + _auth_endpoint + '/token')
+  var auth_task: AuthTask = AuthTask.new()._setup(
+    AuthTask.Task.SIGNIN,
+    _config.supabaseUrl + _auth_endpoint + '/token?grant_type=refresh_token',
+    _header + __get_session_header(),
+    JSON.stringify(payload))
+  _process_task(auth_task)
+  return auth_task
+
 # Get the JSON object for the logged in user.
 func user(user_access_token: String = _auth) -> AuthTask:
   var auth_task: AuthTask = AuthTask.new()._setup(

@@ -3,22 +3,36 @@ class_name LevelServer
 
 static var user: SupabaseUser = null
 
+static func register(uname: String, password: String) -> SupabaseUser:
+  if !('@' in uname):
+    uname += "@null.nosite"
+  var authTask: AuthTask = await Supabase.auth.sign_up(
+    uname,
+    password
+  ).completed
+  log.pp(authTask.user)
+  if authTask.user:
+    ToastParty.success("logged in")
+  else:
+    ToastParty.err("failed to login")
+  user = authTask.user
+  return authTask.user
+
+
 static func login(uname: String, password: String) -> SupabaseUser:
+  if !('@' in uname):
+    uname += "@null.nosite"
   var authTask: AuthTask = await Supabase.auth.sign_in(
     uname,
     password
   ).completed
+  # log.pp(authTask.user)
   if authTask.user:
-    log.pp("logged in")
+    ToastParty.success("logged in")
   else:
-    log.pp("failed to login")
+    ToastParty.err("failed to login")
   user = authTask.user
   return authTask.user
-
-# func _ready():
-#   var user = await login("test", "1234")
-#   log.pp(user)
-#   log.pp(await getData())
 
 static func query(query: SupabaseQuery):
   return (await Supabase.database.query(query).completed).data
