@@ -8,6 +8,7 @@ var level: LevelServer.Level
 @export var creatorId: Control
 @export var description: TextEdit
 @export var viewOldVersions: Button
+@export var levelImage: TextureRect
 var levelList: Control
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
@@ -21,6 +22,7 @@ func showLevelData(levelToShow: LevelServer.Level) -> void:
   description.text = level.description
   viewOldVersions.visible = !!level.oldVersionCount
   viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
+  levelImage.texture = ImageTexture.create_from_image(level.levelImage)
 
 func _on_download_pressed() -> void:
   LevelServer.downloadMap(level)

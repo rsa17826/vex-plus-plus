@@ -195,14 +195,20 @@ func showMoreOptions(levelName, levelData):
         ToastParty.err("Please enter a map name")
         return
       $AnimatedSprite2D.visible = true
+      var img = Image.new()
+      img.load(global.path.join(global.MAP_FOLDER, levelName, "/image.png"))
       await LevelServer.uploadLevel(
-        LevelServer.Level.new() \
-        .setName(levelName) \
-        .setCreatorName(author) \
-        .setDesc(data.description) \
-        .setGameVersion(version) \
-        .setLevelVersion(data.levelVersion) \
-        .setData(c) \
+        LevelServer.Level.new(
+          levelName,
+          - 1,
+          data.description,
+          '',
+          author,
+          data.levelVersion,
+          data.version,
+          c,
+          img
+        )
       )
       $AnimatedSprite2D.visible = false
       f.close()
