@@ -3,15 +3,16 @@
 [ext_resource type="Texture2D" uid="uid://bercyu1y2csww" path="res://scenes/blocks/water/images/1.png" id="1_0lt44"]
 [ext_resource type="Script" uid="uid://drtmdw2w6aqnf" path="res://scenes/online level list/level_display.gd" id="1_wui2r"]
 
-[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description")]
+[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions")]
 custom_minimum_size = Vector2(572, 186)
 script = ExtResource("1_wui2r")
 levelName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/Label")
 levelVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4/Label")
 gameVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5/Label")
 creatorName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3/Label")
-creatorId = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/Button")
+creatorId = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/Button2")
 description = NodePath("Panel/VBoxContainer/HBoxContainer3/TextEdit")
+viewOldVersions = NodePath("Panel/VBoxContainer/HBoxContainer6/view old versions")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 8.75)
@@ -32,11 +33,12 @@ layout_mode = 2
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2
 
-[node name="Button" type="LineEdit" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="Button2" type="LineEdit" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(245.205, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 text = "creator id: asdasddssadadsasd"
 editable = false
-expand_to_text_length = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
 layout_mode = 2

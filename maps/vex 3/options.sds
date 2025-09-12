@@ -1,7 +1,8 @@
 {
   STR(start)STR(hub)
   STR(author)STR(rssaromeo)
-  STR(description)STR(vex 3 but now fixed and with some new original stars)
+  STR(description)STR(vex 3 but now fixed and with some new original stars
+)
   STR(stages){
     STR(hub){
       STR(color)INT(1)
@@ -94,5 +95,5 @@
     }
   }
   STR(version)INT(169)
-  STRNAME(levelVersion)INT(1188)
+  STRNAME(levelVersion)INT(1189)
 }

@@ -9,7 +9,6 @@ var level: LevelServer.Level
 @export var description: TextEdit
 @export var viewOldVersions: Button
 var levelList: Control
-var oldVersionCount: int = 0
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
   level = levelToShow
@@ -17,14 +16,18 @@ func showLevelData(levelToShow: LevelServer.Level) -> void:
   levelName.text = level.levelName
   creatorName.text = level.creatorName
   levelVersion.text = 'v' + str(level.levelVersion)
+  creatorId.text = str(level.creatorId)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
-  viewOldVersions.visible = !!oldVersionCount
-  viewOldVersions.text = "view " + str(oldVersionCount) + " old versions"
+  viewOldVersions.visible = !!level.oldVersionCount
+  viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
 
 func _on_download_pressed() -> void:
   LevelServer.downloadMap(level)
 
 func _on_view_old_versions_pressed() -> void:
   var oldVersions = await LevelServer.loadOldVersions(level)
+  oldVersions.sort_custom(func(a, s):
+    return a.levelVersion - s.levelVersion
+  )
   levelList.loadLevelsFromArray(oldVersions)

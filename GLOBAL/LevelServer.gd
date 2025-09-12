@@ -274,6 +274,7 @@ class Level:
   var onlineId: int
   var levelVersion: int
   var levelData: PackedByteArray
+  var oldVersionCount: int = 0
   func _init(
     _levelName: String = '',
     _onlineId: int = -1,
@@ -333,13 +334,16 @@ static func uploadLevel(level: Level):
         )
         return
   log.pp(levels)
-  return await Supabase.database.query(SupabaseQuery.new('level test 2').insert(
+  return await Supabase.database.query(
+    SupabaseQuery.new()
+    .from('level test 2')
+    .insert(
     [
       {
-        "user_id": user.id,
+        "creatorId": user.id,
         "levelData": Marshalls.raw_to_base64(level.levelData),
         "levelName": level.levelName,
-        # "description": level.description,
+        "description": level.description,
         "creatorName": level.creatorName,
         "gameVersion": level.gameVersion,
         "levelVersion": level.levelVersion
@@ -349,13 +353,20 @@ static func uploadLevel(level: Level):
 
 static func doesLevelExist(level: Level) -> Array:
   if not user: await LevelServer.requestLogin()
-  var data = await LevelServer.query(SupabaseQuery.new('level test 2').eq("levelName", level.levelName).eq("user_id", str(user.id)).select(['id,levelVersion']))
+  var data = await LevelServer.query(
+    SupabaseQuery.new()
+    .from('level test 2')
+    .eq("levelName", level.levelName)
+    .eq("creatorId", str(user.id))
+    .select(['id,levelVersion'])
+  )
+  # log.err(level.levelName, data)
   return data.map(func(e):
     return Level.new(
       level.levelName,
       e.id,
       '',
-      e.user_id,
+      level.creatorId,
       "",
       - 1,
       e.levelVersion,
@@ -363,13 +374,17 @@ static func doesLevelExist(level: Level) -> Array:
     )
 
 static func loadAllLevels() -> Array:
-  var data = await LevelServer.query(SupabaseQuery.new('level test 2').select(['id,user_id,creatorName,gameVersion,levelVersion']))
+  var data = await LevelServer.query(
+    SupabaseQuery.new()
+    .from('level test 2')
+    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description'])
+  )
   return data.map(func(e):
     return Level.new(
       e.levelName,
       e.id,
-      '',
-      e.user_id,
+      e.description,
+      e.creatorId,
       e.creatorName,
       e.gameVersion,
       e.levelVersion,
@@ -377,17 +392,20 @@ static func loadAllLevels() -> Array:
     )
 static func loadOldVersions(level: Level) -> Array:
   var data = (await Supabase.database.query(
-    SupabaseQuery.new('level test 2')
-    .eq("user_id", str(level.creatorId))
+
+    SupabaseQuery.new()
+    .from('level test 2')
+
+    .eq("creatorId", str(level.creatorId))
     .eq("levelName", level.levelName)
-    .select(['id,user_id,creatorName,gameVersion,levelVersion'])
+    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description'])
   ).completed).data
   return data.map(func(e):
     return Level.new(
       e.levelName,
       e.id,
-      '',
-      e.user_id,
+      e.description,
+      e.creatorId,
       e.creatorName,
       e.gameVersion,
       e.levelVersion,
@@ -396,7 +414,10 @@ static func loadOldVersions(level: Level) -> Array:
 
 static func downloadMap(level: LevelServer.Level):
   var id: int = level.onlineId
-  var data = (await Supabase.database.query(SupabaseQuery.new('level test 2').eq("id", str(id)).select(["levelData"])).completed).data
+  var data = (await Supabase.database.query(
+    SupabaseQuery.new()
+    .from('level test 2')
+    .eq("id", str(id)).select(["levelData"])).completed).data
   if !len(data):
     ToastParty.error("Download failed, the map " + level.levelName + " by " + level.creatorName + " doesn't exist, or the map doesn't exist.")
     return
