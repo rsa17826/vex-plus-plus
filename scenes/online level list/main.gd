@@ -36,7 +36,23 @@ func loadOnlineLevels():
   loadingText.text = "Loading..."
   loadingText.visible = true
   var data: Array = await LevelServer.loadAllLevels()
-  loadLevelsFromArray(data)
+  var loadedLevelData = {}
+  var newData = []
+  for level: LevelServer.Level in data:
+    var oldVersionCount = 0
+    if not (level.creatorId in loadedLevelData):
+      loadedLevelData[level.creatorId] = {}
+    if level.levelName in loadedLevelData[level.creatorId]:
+      if level.levelVersion < loadedLevelData[level.creatorId][level.levelName].levelVersion: continue
+      else:
+        oldVersionCount = loadedLevelData[level.creatorId][level.levelName].oldVersionCount + 1
+        newData.erase(loadedLevelData[level.creatorId][level.levelName])
+    level.oldVersionCount = oldVersionCount
+    loadedLevelData[level.creatorId][level.levelName] = level
+    newData.append(level)
+
+  log.pp(loadedLevelData, newData)
+  loadLevelsFromArray(newData)
   $AnimatedSprite2D.visible = false
 
 func otc(text: String, version: NestedSearchable):

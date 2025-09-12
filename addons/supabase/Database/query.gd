@@ -188,32 +188,32 @@ func match(query_dict: Dictionary) -> SupabaseQuery:
 
 # Finds all rows whose value on the stated column match the specified value.
 func eq(column: String, value: String) -> SupabaseQuery:
-  filter(column, Filters.EQUAL, value)
+  filter(column, Filters.EQUAL, global.urlEncode(value))
   return self
 
 # Finds all rows whose value on the stated column doesn't match the specified value.
 func neq(column: String, value: String) -> SupabaseQuery:
-  filter(column, Filters.NOT_EQUAL, value)
+  filter(column, Filters.NOT_EQUAL, global.urlEncode(value))
   return self
 
 # Finds all rows whose value on the stated column is greater than the specified value
 func gt(column: String, value: String) -> SupabaseQuery:
-  filter(column, Filters.GREATER_THAN, value)
+  filter(column, Filters.GREATER_THAN, global.urlEncode(value))
   return self
 
 # Finds all rows whose value on the stated column is less than the specified value
 func lt(column: String, value: String) -> SupabaseQuery:
-  filter(column, Filters.LESS_THAN, value)
+  filter(column, Filters.LESS_THAN, global.urlEncode(value))
   return self
 
 # Finds all rows whose value on the stated column is greater than or equal to the specified value
 func gte(column: String, value: String) -> SupabaseQuery:
-  filter(column, Filters.GREATER_THAN_OR_EQUAL, value)
+  filter(column, Filters.GREATER_THAN_OR_EQUAL, global.urlEncode(value))
   return self
 
 # Finds all rows whose value on the stated column is less than or equal to the specified value
 func lte(column: String, value: String) -> SupabaseQuery:
-  filter(column, Filters.LESS_THAN_OR_EQUAL, value)
+  filter(column, Filters.LESS_THAN_OR_EQUAL, global.urlEncode(value))
   return self
 
 # Finds all rows whose value in the stated column matches the supplied pattern (case sensitive).
@@ -223,12 +223,12 @@ func like(column: String, value: String) -> SupabaseQuery:
 
 # Finds all rows whose value in the stated column matches the supplied pattern (case insensitive).
 func ilike(column: String, value: String) -> SupabaseQuery:
-  filter(column, Filters.ILIKE, value)
+  filter(column, Filters.ILIKE, global.urlEncode(value))
   return self
 
 # A check for exact equality (null, true, false), finds all rows whose value on the stated column exactly match the specified value.
 func Is(column: String, value, negate: bool = false) -> SupabaseQuery:
-  filter(column, Filters.IS, str(value), {negate=negate})
+  filter(column, Filters.IS, str(global.urlEncode(value)), {negate=negate})
   return self
 
 # Finds all rows whose value on the stated column is found on the specified values.
