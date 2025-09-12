@@ -93,6 +93,7 @@ func loadLevel(level):
   # global.player.die(0, false, true)
   # global.player.deathPosition = global.player.lastSpawnPoint
 var saving = false
+
 func save():
   if saving:
     ToastParty.err("already saving")
@@ -167,8 +168,7 @@ func save():
   global.showEditorUi = editoruiShown
   global.stopTicking = laststopTicking
   global.tick = lastTick
-  global.ui.levelSaved.modulate.a = 1
-  # await global.wait(1000)
-  global.ui.levelSaved.visible = false
   global.hideAllOverlays = false
+  global.ui.levelSaved.modulate.a = 1
+  global.ui.levelSaved.visible = false
   saving = false
