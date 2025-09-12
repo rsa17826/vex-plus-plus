@@ -1796,3 +1796,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add cp savestate level opt
 # ?add roll
+# prevent upload if no imnage found
