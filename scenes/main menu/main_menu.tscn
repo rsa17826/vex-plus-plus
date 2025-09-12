@@ -156,6 +156,7 @@ offset_bottom = -102.4989
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_vifqf")]
 
 [node name="Panel" type="ColorRect" parent="."]
+visible = false
 custom_minimum_size = Vector2(1152, 648.33)
 layout_mode = 0
 offset_right = 1152.0
