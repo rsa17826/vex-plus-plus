@@ -17,5 +17,6 @@ func updateText(textArr: Array) -> void:
         text += "[color=#946712]" + thing[0] + "[/color]"
       _:
         text += "[color=#156472]" + thing[0] + "[/color]"
-    text += ' '
+    text += '/'
+  text=text.trim_suffix('/')
   size = searchBar.size

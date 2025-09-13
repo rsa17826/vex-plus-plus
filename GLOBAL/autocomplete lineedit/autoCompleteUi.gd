@@ -4,11 +4,11 @@ var buttons: Array[Label] = []
 @export var focusAsSearchBar: bool = false
 
 @export var autoComplete = {
-  "creatorId:": 1,
-  "creatorName:": 1,
-  "levelName:": 1,
-  "gameVersion:": 1,
-  "levelVersion:": 1,
+  "creatorId": 1,
+  "creatorName": 1,
+  "levelName": 1,
+  "gameVersion": 1,
+  "levelVersion": 1,
 }
 
 func setWords(words: Array):
@@ -31,3 +31,23 @@ func setSelected(idx: int):
 
 signal text_changed(new_text: String, textArr: Array)
 signal text_submitted(new_text: String, textArr: Array)
+
+var text:
+  get():
+    return $LineEdit.text
+  set(text):
+    $LineEdit.text = text
+    var w = $LineEdit.getAutoComplete(text)
+    setWords(w)
+    setSelected(0)
+    $LineEdit/RichTextLabel.updateText($LineEdit.textArr)
+
+var textArr:
+  get():
+    return $LineEdit.textArr
+
+func _on_line_edit_text_submitted(new_text: String) -> void:
+  text_submitted.emit(new_text, $LineEdit.textArr)
+
+func _on_line_edit_text_changed(new_text: String) -> void:
+  text_changed.emit(new_text, $LineEdit.textArr)

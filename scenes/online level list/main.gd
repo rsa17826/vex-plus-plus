@@ -4,7 +4,7 @@ var GITHUB_TOKEN = global.getToken()
 
 @export var loadingText: Label
 @export var levelListContainerNode: Control
-@export var searchBar: LineEdit
+@export var searchBar: Control
 
 func _ready() -> void:
   if global.useropts.loadOnlineLevelListOnSceneLoad:
@@ -82,7 +82,28 @@ func loadMenu() -> void:
 
 # signal onTextChanged
 func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
+  var q = SupabaseQuery.new() \
+    .from('level test 2')
+  for i in range(0, floor(len(textArr) / 2), 2):
+    log.pp(textArr[i], textArr[i + 1])
+    q.eq(textArr[i][0].replace(":", ""), textArr[i + 1][0])
+
+  q.order('created_at', 1) \
+  .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
+  # for thing in textArr:
+  #   q.In(thing[0].replace(":", ""), thing)
+  var data = (await LevelServer.query(q))
+  if not data:
+    log.err("no levels found")
+    return
+  data = data.map(LevelServer.dictToLevel)
+  log.pp(data, "data")
+  loadLevelsFromArray(data)
   log.pp("asdasd", new_text)
 
 # func _on_filter_text_changed(new_text: String) -> void:
 #   onTextChanged.emit(new_text)
+
+
+func _on_button_pressed() -> void:
+  _on_search_text_submitted(searchBar.text, searchBar.textArr)
