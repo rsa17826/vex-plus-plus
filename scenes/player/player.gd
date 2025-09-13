@@ -1351,6 +1351,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   and not inWaters \
   and playerSide.bottom \
   :
+    $anim.flip_h = getClosestWallSide() == 1
     block.thingThatMoves.vel.default -= Vector2(getClosestWallSide() * 140, 0)
     anim.animation = "kicking box"
     boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME
