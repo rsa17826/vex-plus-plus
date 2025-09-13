@@ -10,13 +10,32 @@ func _ready() -> void:
   if global.useropts.loadOnlineLevelListOnSceneLoad:
     loadOnlineLevels()
 
-func loadLevelsFromArray(data: Array) -> void:
+func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
+  var loadedLevelData = {}
+  var newData = []
+  if showOldVersions:
+    newData = data
+  else:
+    for level: LevelServer.Level in data:
+      var oldVersionCount = 0
+      if not (level.creatorId in loadedLevelData):
+        loadedLevelData[level.creatorId] = {}
+      if level.levelName in loadedLevelData[level.creatorId]:
+        if level.levelVersion < loadedLevelData[level.creatorId][level.levelName].levelVersion:
+          loadedLevelData[level.creatorId][level.levelName].oldVersionCount += 1
+          continue
+        else:
+          oldVersionCount = loadedLevelData[level.creatorId][level.levelName].oldVersionCount + 1
+          newData.erase(loadedLevelData[level.creatorId][level.levelName])
+      level.oldVersionCount = oldVersionCount
+      loadedLevelData[level.creatorId][level.levelName] = level
+      newData.append(level)
   var loadedLevelCount = 0
   var levelsForCurrentVersionCount = 0
   for child in levelListContainerNode.get_children():
     child.queue_free()
   const levelNode := preload("res://scenes/online level list/level display.tscn")
-  for level in data:
+  for level in newData:
     loadedLevelCount += 1
     if level.gameVersion != global.VERSION and global.useropts.onlyShowLevelsForCurrentVersion: continue
     if level.gameVersion == global.VERSION:
@@ -38,25 +57,8 @@ func loadOnlineLevels():
   loadingText.text = "Loading..."
   loadingText.visible = true
   var data: Array = await LevelServer.loadAllLevels()
-  var loadedLevelData = {}
-  var newData = []
-  for level: LevelServer.Level in data:
-    var oldVersionCount = 0
-    if not (level.creatorId in loadedLevelData):
-      loadedLevelData[level.creatorId] = {}
-    if level.levelName in loadedLevelData[level.creatorId]:
-      if level.levelVersion < loadedLevelData[level.creatorId][level.levelName].levelVersion:
-        loadedLevelData[level.creatorId][level.levelName].oldVersionCount += 1
-        continue
-      else:
-        oldVersionCount = loadedLevelData[level.creatorId][level.levelName].oldVersionCount + 1
-        newData.erase(loadedLevelData[level.creatorId][level.levelName])
-    level.oldVersionCount = oldVersionCount
-    loadedLevelData[level.creatorId][level.levelName] = level
-    newData.append(level)
-
-  log.pp(loadedLevelData, newData)
-  loadLevelsFromArray(newData)
+  # log.pp(loadedLevelData, newData)
+  loadLevelsFromArray(data)
   $AnimatedSprite2D.visible = false
 
 func otc(text: String, version: NestedSearchable):
