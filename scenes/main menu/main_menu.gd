@@ -228,6 +228,7 @@ func showMoreOptions(levelName, levelData):
       )
       $AnimatedSprite2D.visible = false
       f.close()
+      ToastParty.success("Level uploaded!")
     8:
       if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
       if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + levelName + '.vex++')]):
