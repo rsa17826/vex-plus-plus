@@ -14,11 +14,14 @@ var autoComplete = {
   "levelVersion:": 1,
 }
 
+var textArr = []
+
 func getAutoComplete(text: String) -> Array:
   var words: Array = text.strip_edges().split(" ")
   var posableWords = autoComplete.keys()
   if text.ends_with(" ") or not text:
     return posableWords
+  textArr = []
   var lastWord = words[-1].to_lower()
   var delay = 0
   var lastValidWord: String = ''
@@ -32,22 +35,32 @@ func getAutoComplete(text: String) -> Array:
       else:
         posableWords.erase(kw)
         break
-
+  var remainingWordsCount = len(words)
   for word in words:
+    remainingWordsCount -= 1
     if delay:
       delay -= 1
+      textArr.append([word, "data"])
       continue
     if word in autoComplete:
       lastValidWord = word
       delay = autoComplete[word]
+      textArr.append([word, "keyword"])
       continue
     if not (lastValidWord in autoComplete):
-      log.err("error, " + word + " is not a valid keyword")
+      if !remainingWordsCount and posableWords:
+        textArr.append([word, "current"])
+        continue
+      textArr.append([word, "error"])
+      continue
+      # log.err("error, " + word + " is not a valid keyword")
     else:
-      if posableWords:
-        return posableWords
-      log.err("error at " + lastValidWord + " expected word count of " + str(autoComplete[lastValidWord]) + " got extra word " + word)
-    return []
+      # if posableWords:
+      #   return posableWords
+      textArr.append([word, "error"])
+      continue
+      # log.err("error at " + lastValidWord + " expected word count of " + str(autoComplete[lastValidWord]) + " got extra word " + word)
+    # return []
 
   return posableWords
 
@@ -77,6 +90,8 @@ func _on_gui_input(event: InputEvent) -> void:
       autoCompleteUi.setSelected(idx)
     if Input.is_action_just_pressed(&"tab", true) and w:
       completeWord(autoCompleteUi.buttons[idx].text)
+      autoCompleteUi.setWords(getAutoComplete(text))
+    $RichTextLabel.updateText(textArr)
 
 func completeWord(newWord: String) -> void:
   var lastPos = get_caret_column()
@@ -90,3 +105,9 @@ func completeWord(newWord: String) -> void:
     words[-1] = newWord
   text = " ".join(words)
   set_caret_column(lastPos - len(oldWord) + len(newWord))
+
+func _on_focus_exited() -> void:
+  autoCompleteUi.setWords([])
+
+func _on_focus_entered() -> void:
+  autoCompleteUi.setWords(autoComplete.keys())
