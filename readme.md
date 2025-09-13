@@ -185,12 +185,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### info
 
+
     - ### hovered block list
 
       - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
       - **selectedBlockFormatString**: string showing how to format the data for the selected block
       - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id)
-
     - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
     - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
     - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
@@ -222,6 +222,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **autoExpandAllGroupsInOnlineLevelList**: when loading the online level list, all groups are expanded, if false only the group for the current game version is expanded
 
   - ### debug
+
 
     - ### hitboxes
 
@@ -1085,3 +1086,4 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     all searches are and so
     `creatorName/=cname/levelName/levelName`
     will only show levels where `levelName` contains `levelName` and the creator is `cname`
+    if search is empty, it will return all levels

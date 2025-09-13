@@ -90,7 +90,6 @@ func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
   var q = SupabaseQuery.new() \
     .from('level test 2')
   for i in range(0, floor(len(textArr) / 2) * 2, 2):
-    # log.pp(textArr[i], textArr[i + 1], "data got", textArr)
     if textArr[i + 1][0][0] == '=':
       q.eq(textArr[i][0], textArr[i + 1][0].trim_prefix("="))
     else:
@@ -98,8 +97,7 @@ func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
 
   q.order('created_at', 1) \
   .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
-  # for thing in textArr:
-  #   q.In(thing[0].replace(":", ""), thing)
+
   var data = (await LevelServer.query(q))
   if not data:
     log.err("no levels found")
