@@ -4,6 +4,7 @@ var GITHUB_TOKEN = global.getToken()
 
 @export var loadingText: Label
 @export var levelListContainerNode: Control
+@export var searchBar: LineEdit
 
 func _ready() -> void:
   if global.useropts.loadOnlineLevelListOnSceneLoad:
@@ -22,6 +23,7 @@ func loadLevelsFromArray(data: Array) -> void:
       levelsForCurrentVersionCount += 1
     var node = levelNode.instantiate()
     node.levelList = self
+    node.search = searchBar
     node.showLevelData(level)
     log.pp('level', level)
     levelListContainerNode.add_child(node)
