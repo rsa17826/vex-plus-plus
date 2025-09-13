@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://eyjuu8l8n8c2"]
+
+[ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="1_5b80a"]
+[ext_resource type="Script" uid="uid://xvwwhtnb280f" path="res://GLOBAL/autocomplete lineedit/autoCompleteUi.gd" id="2_ksiik"]
+
+[sub_resource type="Theme" id="Theme_xo2g2"]
+
+[node name="VBoxContainer" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="search" type="LineEdit" parent="." node_paths=PackedStringArray("autoCompleteUi")]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "search"
+keep_editing_on_text_submit = true
+clear_button_enabled = true
+script = ExtResource("1_5b80a")
+autoCompleteUi = NodePath("../Control")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 2
+script = ExtResource("2_ksiik")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 0
+theme = SubResource("Theme_xo2g2")
+
+[connection signal="gui_input" from="search" to="search" method="_on_gui_input"]
+[connection signal="text_changed" from="search" to="search" method="_on_text_changed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxqm1u3q1wtqg"]
+[gd_scene load_steps=5 format=3 uid="uid://bxqm1u3q1wtqg"]
 
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_7t3ru"]
 [ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="3_7t3ru"]
+[ext_resource type="PackedScene" uid="uid://c1yohkn2i03nk" path="res://GLOBAL/autocomplete lineedit/autocomplete_lineedit.tscn" id="4_j8h1a"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("loadingText", "levelListContainerNode")]
+[node name="Control" type="Control" node_paths=PackedStringArray("loadingText", "levelListContainerNode", "searchBar")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,6 +15,7 @@ grow_vertical = 2
 script = ExtResource("1_706a5")
 loadingText = NodePath("VBoxContainer/HFlowContainer/Label")
 levelListContainerNode = NodePath("VBoxContainer/MarginContainer/ScrollContainer/GridContainer")
+searchBar = NodePath("")
 metadata/_edit_lock_ = true
 
 [node name="AnimatedSprite2D" parent="." instance=ExtResource("2_7t3ru")]
@@ -62,6 +64,7 @@ metadata/_edit_lock_ = true
 layout_mode = 2
 
 [node name="filter" type="LineEdit" parent="VBoxContainer/HBoxContainer2"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "filter"
@@ -73,13 +76,9 @@ script = ExtResource("3_7t3ru")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="search" type="LineEdit" parent="VBoxContainer/HBoxContainer2/HBoxContainer"]
+[node name="autocomplete lineedit" parent="VBoxContainer/HBoxContainer2/HBoxContainer" instance=ExtResource("4_j8h1a")]
 layout_mode = 2
 size_flags_horizontal = 3
-placeholder_text = "search"
-keep_editing_on_text_submit = true
-clear_button_enabled = true
-script = ExtResource("3_7t3ru")
 
 [node name="Button" type="Button" parent="VBoxContainer/HBoxContainer2/HBoxContainer"]
 layout_mode = 2
@@ -110,4 +109,3 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="loadOnlineLevels"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button3" to="." method="loadLevelById"]
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer2/filter" to="." method="_on_filter_text_changed"]
-[connection signal="text_submitted" from="VBoxContainer/HBoxContainer2/HBoxContainer/search" to="." method="_on_search_text_submitted"]
