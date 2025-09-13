@@ -163,6 +163,12 @@ func save():
   log.pp(rect)
   image = image.get_region(rect)
   image.resize(146, 146)
+  image.convert(Image.FORMAT_RGBA8)
+  for x in range(image.get_width()):
+    for y in range(image.get_height()):
+      var current_color = image.get_pixel(x, y)
+      if current_color in [Color("#4B567A"), Color("#4D4D4D")]:
+        image.set_pixel(x, y, Color.TRANSPARENT)
   image.save_png(global.path.join(global.levelFolderPath, "image.png"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, "options.sds"), opts)
   global.showEditorUi = editoruiShown
