@@ -111,3 +111,4 @@ metadata/_edit_lock_ = true
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button3" to="." method="loadLevelById"]
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer2/filter" to="." method="_on_filter_text_changed"]
 [connection signal="text_submitted" from="VBoxContainer/HBoxContainer2/HBoxContainer/autocomplete lineedit" to="." method="_on_search_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/HBoxContainer/Button" to="." method="_on_button_pressed"]

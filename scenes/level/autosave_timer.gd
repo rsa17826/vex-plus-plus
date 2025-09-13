@@ -5,5 +5,9 @@ func _ready() -> void:
     self.start()
 
 func _on_timeout() -> void:
-  if global.showEditorUi:
+  if global.showEditorUi \
+  and get_window().has_focus() \
+  and not global.tabMenu.visible \
+  and not global.ctrlMenuVisible \
+  :
     global.level.save()
