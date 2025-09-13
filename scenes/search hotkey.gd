@@ -17,11 +17,12 @@ var autoComplete = {
 func getAutoComplete(text: String) -> Array:
   var words: Array = text.strip_edges().split(" ")
   var posableWords = autoComplete.keys()
-  if text.ends_with(" "):
+  if text.ends_with(" ") or not text:
     return posableWords
   var lastWord = words[-1].to_lower()
   var delay = 0
   var lastValidWord: String = ''
+
   for kw in autoComplete:
     var idx = 0
     for char in lastWord:
@@ -31,6 +32,7 @@ func getAutoComplete(text: String) -> Array:
       else:
         posableWords.erase(kw)
         break
+
   for word in words:
     if delay:
       delay -= 1
@@ -46,16 +48,36 @@ func getAutoComplete(text: String) -> Array:
         return posableWords
       log.err("error at " + lastValidWord + " expected word count of " + str(autoComplete[lastValidWord]) + " got extra word " + word)
     return []
+
   return posableWords
 
 func _ready() -> void:
   global.fullscreen(-1)
-
+var idx := 0
 func _on_gui_input(event: InputEvent) -> void:
-  var w = getAutoComplete(text)
-  autoCompleteUi.setWords(w)
-  if Input.is_action_just_pressed(&"tab", true) and w:
-    completeWord(autoCompleteUi.buttons[0].text)
+  if event is InputEventKey and not event.is_echo() and event.is_pressed():
+    if Input.is_action_just_pressed(&"tab", true) \
+    or Input.is_action_just_pressed(&"ui_up", true) \
+    or Input.is_action_just_pressed(&"ui_down", true) \
+    :
+      get_viewport().set_input_as_handled()
+    await global.wait()
+    var w = getAutoComplete(text)
+    if not Input.is_action_just_pressed(&"tab", true):
+      if Input.is_action_just_pressed(&"ui_up", true):
+        idx -= 1
+        idx = idx % len(w)
+      elif Input.is_action_just_pressed(&"ui_down", true):
+        idx += 1
+        idx = idx % len(w)
+      else:
+        idx = 0
+    autoCompleteUi.setWords(w)
+    if len(w):
+      autoCompleteUi.setSelected(idx)
+    if Input.is_action_just_pressed(&"tab", true) and w:
+      completeWord(autoCompleteUi.buttons[idx].text)
+
 func completeWord(newWord: String) -> void:
   var lastPos = get_caret_column()
   var words = text.strip_edges().split(" ")
@@ -68,4 +90,3 @@ func completeWord(newWord: String) -> void:
     words[-1] = newWord
   text = " ".join(words)
   set_caret_column(lastPos - len(oldWord) + len(newWord))
-  get_viewport().set_input_as_handled()
