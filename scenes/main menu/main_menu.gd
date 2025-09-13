@@ -208,6 +208,9 @@ func showMoreOptions(levelName, levelData):
       $AnimatedSprite2D.visible = true
       var img = Image.new()
       img.load(global.path.join(global.MAP_FOLDER, levelName, "/image.png"))
+      if img.get_size() != Vector2i(146, 146):
+        ToastParty.err("the map must have an image of a valid size - a valid image is created by saving the map!")
+        return
       if 'levelVersion' not in data:
         data.levelVersion = -1
       await LevelServer.uploadLevel(
