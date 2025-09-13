@@ -84,11 +84,17 @@ func loadMenu() -> void:
 
 # signal onTextChanged
 func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
+  if not new_text:
+    loadOnlineLevels()
+    return
   var q = SupabaseQuery.new() \
     .from('level test 2')
   for i in range(0, floor(len(textArr) / 2) * 2, 2):
     # log.pp(textArr[i], textArr[i + 1], "data got", textArr)
-    q.eq(textArr[i][0], textArr[i + 1][0])
+    if textArr[i + 1][0][0] == '=':
+      q.eq(textArr[i][0], textArr[i + 1][0].trim_prefix("="))
+    else:
+      q.ilike(textArr[i][0], "%" + textArr[i + 1][0] + "%")
 
   q.order('created_at', 1) \
   .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
