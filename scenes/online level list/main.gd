@@ -80,9 +80,9 @@ func loadLevelById() -> void:
 func loadMenu() -> void:
   get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
 
-signal onTextChanged
-func _on_search_text_submitted(new_text: String) -> void:
+# signal onTextChanged
+func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
   log.pp("asdasd", new_text)
 
-func _on_filter_text_changed(new_text: String) -> void:
-  onTextChanged.emit(new_text)
+# func _on_filter_text_changed(new_text: String) -> void:
+#   onTextChanged.emit(new_text)
