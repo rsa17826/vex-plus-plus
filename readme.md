@@ -106,6 +106,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **focus_search**: focuses the search bar
   - **toggle_tab_menu**: toggles the visibility of the tab menu
   - **lock_selected_block**: locks the last selected block preventing it from being selected again until the level is reloaded
+  - **tab**: tab key
   - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 - ## Settings

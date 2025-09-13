@@ -40,7 +40,10 @@ func _ready() -> void:
   position.y += global.useropts.editorBarOffset
 
 func _process(delta: float) -> void:
-  visible = global.showEditorUi
+  if global.hideAllOverlays:
+    visible = false
+  else:
+    visible = global.showEditorUi
 
 func updateScrollPos():
   if nodeScrollOnY:
