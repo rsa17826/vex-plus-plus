@@ -1,15 +1,15 @@
 extends VBoxContainer
 
-func _ready():
-  visible = global.useropts.showSignalList
-
 var listOfLoadedSignals := {}
 
 const ON = preload("res://scenes/ui/images/on.png")
 const OFF = preload("res://scenes/ui/images/off.png")
 
 func _process(delta: float) -> void:
-  visible = !global.hideAllOverlays
+  if global.hideAllOverlays:
+    visible = false
+  else:
+    visible = global.useropts.showSignalList
 
 func removeSignal(id):
   if id not in listOfLoadedSignals: return

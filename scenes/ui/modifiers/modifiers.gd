@@ -3,7 +3,9 @@ extends Control
 var bgPadding = 5
 
 func _process(delta: float) -> void:
-  if global.useropts.showLevelModsWhilePlaying and !global.showEditorUi:
+  if global.hideAllOverlays:
+    visible = false
+  elif global.useropts.showLevelModsWhilePlaying and !global.showEditorUi:
     visible = true
   elif global.useropts.showLevelModsWhileEditing and global.showEditorUi:
     visible = true

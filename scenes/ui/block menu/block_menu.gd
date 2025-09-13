@@ -6,7 +6,10 @@ func _ready() -> void:
   global.onEditorStateChanged.connect(onEditorStateChanged)
 
 func onEditorStateChanged():
-  visible = global.showEditorUi
+  if global.hideAllOverlays:
+    visible = false
+  else:
+    visible = global.showEditorUi
 
 var showBlockMenuACTIVE: bool = false
 
