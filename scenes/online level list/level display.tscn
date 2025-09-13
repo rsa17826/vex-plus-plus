@@ -130,6 +130,11 @@ text = "download level"
 layout_mode = 2
 text = "download and play"
 
+[node name="download and play2" type="Button" parent="Panel/VBoxContainer/HBoxContainer6"]
+visible = false
+layout_mode = 2
+text = "download and play on correct version"
+
 [node name="view old versions" type="Button" parent="Panel/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
 text = "view old versions"
@@ -141,4 +146,5 @@ text = "view old versions"
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5/gameversiuon" to="." method="_on_gameversiuon_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download" to="." method="_on_download_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download and play" to="." method="_on_download_and_play_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download and play2" to="." method="_on_download_and_play_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/view old versions" to="." method="_on_view_old_versions_pressed"]
