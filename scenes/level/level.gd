@@ -163,7 +163,7 @@ func save():
   rect.size.y = minSize
   log.pp(rect)
   image = image.get_region(rect)
-  image.resize(146, 146)
+  image.resize(292, 292)
   image.convert(Image.FORMAT_RGBA8)
   for x in range(image.get_width()):
     for y in range(image.get_height()):
