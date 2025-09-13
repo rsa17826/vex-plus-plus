@@ -6,6 +6,9 @@ extends Control
 var labels := []
 
 func _process(delta: float) -> void:
+  if global.hideAllOverlays:
+    ttm.visible = false
+    return
   ttm.visible = true
   if global.openMsgBoxCount \
     or not global.useropts.showHoveredBlocksList \
