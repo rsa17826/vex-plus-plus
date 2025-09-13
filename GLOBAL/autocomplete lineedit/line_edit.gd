@@ -12,8 +12,8 @@ var textArr = []
 func getAutoComplete(text: String) -> Array:
   var words: Array = text.strip_edges().split("/")
   var posableWords = autoCompleteUi.autoComplete.keys()
-  if text.ends_with("/") or not text:
-    return posableWords
+  # if text.ends_with("/") or not text:
+  #   return posableWords
   textArr = []
   var lastWord = words[-1].to_lower()
   var delay = 0
@@ -93,8 +93,8 @@ func completeWord(newWord: String) -> void:
     words.append(newWord)
   else:
     oldWord = words[-1]
-    words[-1] = newWord + '/'
-  text = "/".join(words).replace("//", "/")
+    words[-1] = newWord
+  text = "/".join(words).replace("//", "/") + '/'
   set_caret_column(lastPos - len(oldWord) + len(newWord) + 1)
 
 func _on_focus_exited() -> void:

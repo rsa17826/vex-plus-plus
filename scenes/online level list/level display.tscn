@@ -91,6 +91,12 @@ text = "asdasdasdjkahkasdjkjasd'
 
 descriptiuon"
 editable = false
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+virtual_keyboard_enabled = false
+virtual_keyboard_show_on_focus = false
+middle_mouse_paste_enabled = false
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
