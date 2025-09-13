@@ -34,7 +34,7 @@ func _on_view_old_versions_pressed() -> void:
   oldVersions.sort_custom(func(a, s):
     return a.levelVersion - s.levelVersion
   )
-  levelList.loadLevelsFromArray(oldVersions)
+  levelList.loadLevelsFromArray(oldVersions, true)
 
 func _on_download_and_play_pressed() -> void:
   if await LevelServer.downloadMap(level):
