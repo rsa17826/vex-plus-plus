@@ -4,8 +4,7 @@ extends RichTextLabel
 
 func updateText(textArr: Array) -> void:
   text = ''
-  log.pp(textArr, get_parent().textArr, get_parent().text)
-  for thing in get_parent().textArr:
+  for thing in textArr:
     match thing[1]:
       "keyword":
         text += "[color=#3498db]" + thing[0] + "[/color]"

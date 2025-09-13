@@ -82,6 +82,7 @@ func _on_gui_input(event: InputEvent) -> void:
     if Input.is_action_just_pressed(&"tab", true) and w:
       completeWord(autoCompleteUi.buttons[idx].text)
       autoCompleteUi.setWords(getAutoComplete(text))
+      idx = 0
     $RichTextLabel.updateText(textArr)
 
 func completeWord(newWord: String) -> void:

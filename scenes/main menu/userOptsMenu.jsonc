@@ -370,7 +370,7 @@
         "thing": "option",
         "type": "single select",
         "key": "theme",
-        "defaultValue": 2,
+        "defaultValue": 0,
         "options": ["default", "blue", "black"]
       }
     ]
