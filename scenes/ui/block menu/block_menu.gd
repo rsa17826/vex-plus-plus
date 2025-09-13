@@ -5,6 +5,12 @@ var lastShownBlock
 func _ready() -> void:
   global.onEditorStateChanged.connect(onEditorStateChanged)
 
+func _process(delta: float) -> void:
+  if global.hideAllOverlays:
+    visible = false
+  else:
+    visible = global.showEditorUi
+
 func onEditorStateChanged():
   if global.hideAllOverlays:
     visible = false
