@@ -157,22 +157,22 @@ static func loadAllLevels() -> Array:
   )
   if not data:
     return []
-  data = data.map(func(e):
-    var img := Image.new()
-    img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
-    return Level.new(
-      e.levelName,
-      e.id,
-      e.description,
-      e.creatorId,
-      e.creatorName,
-      e.gameVersion,
-      e.levelVersion,
-      [],
-      img
-    )
-    )
-  return data
+  return data.map(LevelServer.dictToLevel)
+
+static func dictToLevel(e: Dictionary) -> Level:
+  var img := Image.new()
+  img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
+  return Level.new(
+    e.levelName,
+    e.id,
+    e.description,
+    e.creatorId,
+    e.creatorName,
+    e.gameVersion,
+    e.levelVersion,
+    [],
+    img
+  )
 
 static func loadOldVersions(level: Level) -> Array:
   var data = (await Supabase.database.query(
@@ -182,21 +182,7 @@ static func loadOldVersions(level: Level) -> Array:
     .eq("levelName", level.levelName)
     .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
   ).completed).data
-  return data.map(func(e):
-    var img := Image.new()
-    img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
-    return Level.new(
-      e.levelName,
-      e.id,
-      e.description,
-      e.creatorId,
-      e.creatorName,
-      e.gameVersion,
-      e.levelVersion,
-      [],
-      img
-    )
-    )
+  return data.map(LevelServer.dictToLevel)
 
 static func downloadMap(level: LevelServer.Level) -> bool:
   var id: int = level.onlineId

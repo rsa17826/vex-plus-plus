@@ -10,7 +10,7 @@ var level: LevelServer.Level
 @export var viewOldVersions: Button
 @export var levelImage: TextureRect
 var levelList: Control
-var search: LineEdit
+var search: Control
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
   level = levelToShow
@@ -41,21 +41,21 @@ func _on_download_and_play_pressed() -> void:
     global.loadMap(level.levelName, false)
 
 func _on_creator_id_pressed() -> void:
-  search.text += " creatorId: " + level.creatorId
-  search.text = search.text.strip_edges()
+  search.text += "/creatorId/" + level.creatorId
+  search.text = search.text.trim_prefix("/")
 
 func _on_levelname_pressed() -> void:
-  search.text += " levelName: " + level.levelName
-  search.text = search.text.strip_edges()
+  search.text += "/levelName/" + level.levelName
+  search.text = search.text.trim_prefix("/")
 
 func _on_gameversiuon_pressed() -> void:
-  search.text += " gameVersion: " + str(level.gameVersion)
-  search.text = search.text.strip_edges()
+  search.text += "/gameVersion/" + str(level.gameVersion)
+  search.text = search.text.trim_prefix("/")
 
 func _on_levelversions_pressed() -> void:
-  search.text += " levelVersion: " + str(level.levelVersion)
-  search.text = search.text.strip_edges()
+  search.text += "/levelVersion/" + str(level.levelVersion)
+  search.text = search.text.trim_prefix("/")
 
 func _on_creatorname_pressed() -> void:
-  search.text += " creatorName: " + level.creatorName
-  search.text = search.text.strip_edges()
+  search.text += "/creatorName/" + level.creatorName
+  search.text = search.text.trim_prefix("/")

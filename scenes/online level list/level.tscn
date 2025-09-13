@@ -1,6 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://dko8ao3frr5h5"]
 
-[ext_resource type="Script" uid="uid://ddfavdy8d2s1a" path="res://scenes/online level list/level.gd" id="1_tkgcj"]
+[sub_resource type="GDScript" id="GDScript_4um3u"]
+script/source = "extends NestedSearchable
+@export var levelname: Node
+@export var creator: Node
+@export var downloadBtn: Node
+"
 
 [node name="level" type="VFlowContainer" node_paths=PackedStringArray("levelname", "creator", "downloadBtn")]
 anchors_preset = 15
@@ -8,7 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_tkgcj")
+script = SubResource("GDScript_4um3u")
 levelname = NodePath("VBoxContainer/Label")
 creator = NodePath("VBoxContainer/Label2")
 downloadBtn = NodePath("VBoxContainer/Button")

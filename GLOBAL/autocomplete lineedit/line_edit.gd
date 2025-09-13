@@ -10,9 +10,9 @@ func _unhandled_key_input(event: InputEvent) -> void:
 var textArr = []
 
 func getAutoComplete(text: String) -> Array:
-  var words: Array = text.strip_edges().split(" ")
+  var words: Array = text.strip_edges().split("/")
   var posableWords = autoCompleteUi.autoComplete.keys()
-  if text.ends_with(" ") or not text:
+  if text.ends_with("/") or not text:
     return posableWords
   textArr = []
   var lastWord = words[-1].to_lower()
@@ -88,16 +88,16 @@ func _on_gui_input(event: InputEvent) -> void:
 
 func completeWord(newWord: String) -> void:
   var lastPos = get_caret_column()
-  var words = text.strip_edges().split(" ")
+  var words = text.strip_edges().split("/")
   var oldWord: String
-  if text.ends_with(" "):
+  if text.ends_with("/"):
     oldWord = ''
     words.append(newWord)
   else:
     oldWord = words[-1]
-    words[-1] = newWord
-  text = " ".join(words)
-  set_caret_column(lastPos - len(oldWord) + len(newWord))
+    words[-1] = newWord + '/'
+  text = "/".join(words).replace("//", "/")
+  set_caret_column(lastPos - len(oldWord) + len(newWord) + 1)
 
 func _on_focus_exited() -> void:
   autoCompleteUi.setWords([])
