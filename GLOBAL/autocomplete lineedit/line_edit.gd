@@ -57,8 +57,6 @@ func getAutoComplete(text: String) -> Array:
 
   return posableWords
 
-func _ready() -> void:
-  global.fullscreen(-1)
 var idx := 0
 func _on_gui_input(event: InputEvent) -> void:
   if event is InputEventKey and not event.is_echo() and event.is_pressed():
