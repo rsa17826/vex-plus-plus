@@ -45,7 +45,9 @@ func loadOnlineLevels():
     if not (level.creatorId in loadedLevelData):
       loadedLevelData[level.creatorId] = {}
     if level.levelName in loadedLevelData[level.creatorId]:
-      if level.levelVersion < loadedLevelData[level.creatorId][level.levelName].levelVersion: continue
+      if level.levelVersion < loadedLevelData[level.creatorId][level.levelName].levelVersion:
+        loadedLevelData[level.creatorId][level.levelName].oldVersionCount += 1
+        continue
       else:
         oldVersionCount = loadedLevelData[level.creatorId][level.levelName].oldVersionCount + 1
         newData.erase(loadedLevelData[level.creatorId][level.levelName])
@@ -84,9 +86,9 @@ func loadMenu() -> void:
 func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
   var q = SupabaseQuery.new() \
     .from('level test 2')
-  for i in range(0, floor(len(textArr) / 2), 2):
-    log.pp(textArr[i], textArr[i + 1])
-    q.eq(textArr[i][0].replace(":", ""), textArr[i + 1][0])
+  for i in range(0, floor(len(textArr) / 2) * 2, 2):
+    # log.pp(textArr[i], textArr[i + 1], "data got", textArr)
+    q.eq(textArr[i][0], textArr[i + 1][0])
 
   q.order('created_at', 1) \
   .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
@@ -103,7 +105,6 @@ func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
 
 # func _on_filter_text_changed(new_text: String) -> void:
 #   onTextChanged.emit(new_text)
-
 
 func _on_button_pressed() -> void:
   _on_search_text_submitted(searchBar.text, searchBar.textArr)

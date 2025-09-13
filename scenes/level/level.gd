@@ -95,6 +95,7 @@ func loadLevel(level):
 var saving = false
 
 func save():
+  if global.ctrlMenuVisible: return
   if saving:
     ToastParty.err("already saving")
     return
