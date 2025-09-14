@@ -27,7 +27,7 @@ modifiers = NodePath("modifier display/modifiers")
 signalList = NodePath("HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("HBoxContainer/block menu")
 hoveredBlockList = NodePath("hoveredBlocksList")
-overlayRemovalHidersubViewportContainer = NodePath("")
+overlayRemovalHidersubViewportContainer = NodePath("SubViewportContainer")
 overlayRemovalHider = NodePath("")
 
 [node name="star counter" type="Label" parent="."]
