@@ -139,21 +139,16 @@ func save():
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.version = int(global.file.read("res://VERSION", false, "-1"))
   opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
-  await RenderingServer.frame_post_draw
-  # var lastShownImage = global.ui.overlayRemovalHidersubViewportContainer.get_node("SubViewport").get_texture().get_image()
-  # var lastShownImageTexture = ImageTexture.create_from_image(lastShownImage)
-  var editoruiShown = global.showEditorUi
+  # await RenderingServer.frame_post_draw
   var lastTick = global.tick
   var laststopTicking = global.stopTicking
   global.tick = 0
-  global.hideAllOverlays()
   var arr = []
   for child: EditorBlock in $blocks.get_children():
     child.respawning = 3
     arr.append([child.global_position, child.rotation_degrees])
     child.global_position = child.startPosition
     child.rotation_degrees = child.startRotation_degrees
-  global.setEditorUiState(false)
   await RenderingServer.frame_post_draw
   var image = global.ui.overlayRemovalHidersubViewportContainer.get_node("SubViewport").get_texture().get_image()
   var minSize = min(image.get_width(), image.get_height())
@@ -167,7 +162,6 @@ func save():
     rect.position.x = 0
   rect.size.x = minSize
   rect.size.y = minSize
-  log.pp(rect)
   image = image.get_region(rect)
   image.resize(292, 292)
   image.convert(Image.FORMAT_RGBA8)
@@ -181,11 +175,9 @@ func save():
   var i = 0
   for child: EditorBlock in $blocks.get_children():
     child.respawning = 0
-    # child.visibility_layer = 1
     child.global_position = arr[i][0]
     child.rotation_degrees = arr[i][1]
     i += 1
-  global.setEditorUiState(editoruiShown)
   global.stopTicking = laststopTicking
   global.tick = lastTick
   global.ui.levelSaved.modulate.a = 1
