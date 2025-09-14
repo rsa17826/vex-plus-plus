@@ -76,7 +76,7 @@ func loadLevel(level):
       await onProgress(prog, max)
   for thing in invalidBlockErrors:
     log.err("Invalid block: \n\"" + thing + '"\n used "' + str(invalidBlockErrors[thing]) + "\" times")
-  global.player.get_node("../CanvasLayer/editor bar")._ready()
+  global.player.editorBar._ready()
   await global.wait()
   global.tick = 0
   global.stopTicking = false

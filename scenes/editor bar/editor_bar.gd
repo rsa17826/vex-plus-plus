@@ -8,6 +8,9 @@ var nodeCount: int = 0
 var nodeScrollOnY: bool
 var nodeScrollOnX: bool
 
+func _init() -> void:
+  global.player.editorBar = self
+
 func _ready() -> void:
   global.overlays.append(self)
   global.onEditorStateChanged.connect(func(): visible = global.showEditorUi)

@@ -1,16 +1,15 @@
 [gd_scene load_steps=7 format=3 uid="uid://dugw2ju47mwyi"]
 
-[ext_resource type="Script" uid="uid://c71tvwdcssf5m" path="res://scenes/level/level.gd" id="1_bovvr"]
+[ext_resource type="Script" uid="uid://cerdbe472mntu" path="res://scenes/level/level.gd" id="1_bovvr"]
 [ext_resource type="PackedScene" uid="uid://cecm0tp3hsdnh" path="res://scenes/player/player.tscn" id="2_b2cq8"]
 [ext_resource type="Script" uid="uid://bcd1vbaj8suck" path="res://scenes/level/grid.gd" id="3_b2cq8"]
 [ext_resource type="Script" uid="uid://dc0fl2url3l1m" path="res://scenes/level/tiling background.gd" id="3_wcngd"]
 [ext_resource type="Script" uid="uid://fgu8i5y0iued" path="res://scenes/level/autosave_timer.gd" id="4_xb4v1"]
 [ext_resource type="Script" uid="uid://b7v5fgrc0mgvo" path="res://scenes/level/boxSelectDrawingNode.gd" id="5_urvlt"]
 
-[node name="level" type="Node2D" node_paths=PackedStringArray("boxSelectDrawingNode")]
+[node name="level" type="Node2D"]
 visibility_layer = 3
 script = ExtResource("1_bovvr")
-boxSelectDrawingNode = NodePath("CanvasLayer/boxSelectDrawingNode")
 metadata/_edit_lock_ = true
 
 [node name="tiling background" type="TextureRect" parent="."]
@@ -40,6 +39,7 @@ ignore_time_scale = true
 script = ExtResource("4_xb4v1")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 4
 
 [node name="boxSelectDrawingNode" type="Control" parent="CanvasLayer"]
 layout_mode = 3
