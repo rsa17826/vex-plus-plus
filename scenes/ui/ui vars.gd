@@ -8,6 +8,7 @@ extends CanvasLayer
 @export var blockMenu: Control
 @export var hoveredBlockList: Control
 @export var overlayRemovalHidersubViewportContainer: SubViewportContainer
+@export var othersubViewportContainer: SubViewportContainer
 
 func _init() -> void:
   global.ui = self
