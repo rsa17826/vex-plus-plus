@@ -168,7 +168,6 @@ func save():
   rect.size.x = minSize
   rect.size.y = minSize
   log.pp(rect)
-  image.save_png(global.path.join(global.levelFolderPath, "image2.png"))
   image = image.get_region(rect)
   image.resize(292, 292)
   image.convert(Image.FORMAT_RGBA8)
