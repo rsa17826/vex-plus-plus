@@ -84,12 +84,8 @@ func _input(event: InputEvent) -> void:
       if visible:
         Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
-func _process(delta: float) -> void:
-  if global.hideAllOverlays:
-    visible = false
-    get_parent().visible = visible
-
 func _ready() -> void:
+  global.overlays.append(self)
   get_parent().visible = false
   visible = false
   updateSize()

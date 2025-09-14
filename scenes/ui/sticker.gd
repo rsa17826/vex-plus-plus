@@ -1,6 +1,7 @@
 extends TextureRect
 
 func _ready():
+  global.overlays.append(self)
   if global.useropts.editorStickerPath:
     var im = Image.new()
     im.load(global.useropts.editorStickerPath)
@@ -9,9 +10,3 @@ func _ready():
       log.error("Could not load sticker image from", global.useropts.editorStickerPath)
       return
     position -= (im.get_size() as Vector2) / 2.0
-
-func _process(delta: float) -> void:
-  if global.hideAllOverlays:
-    visible = false
-    return
-  visible = true

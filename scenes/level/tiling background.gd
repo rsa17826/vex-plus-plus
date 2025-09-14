@@ -3,6 +3,7 @@ extends TextureRect
 var modSize: Vector2
 
 func _ready() -> void:
+  global.overlays.append(self)
   if global.useropts.levelTilingBackgroundPath:
     var im = Image.new()
     im.load(global.useropts.levelTilingBackgroundPath)
@@ -13,10 +14,8 @@ func _ready() -> void:
     modSize = texture.get_size()
     log.pp(modSize)
 
+
 func _process(delta: float) -> void:
-  if global.hideAllOverlays:
-    visible = false
-    return
   visible = true
   if modSize:
     position = round((global.player.get_node("Camera2D").global_position - size / 2) / modSize) * modSize

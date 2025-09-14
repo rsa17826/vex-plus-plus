@@ -517,23 +517,23 @@ func _physics_process(delta: float) -> void:
     States.onZipline:
       clearWallData()
       setRot(defaultAngle)
-      # log.pp($anim.animation, $anim.frame)
-      $anim.animation = 'zipline'
+      # log.pp(anim.animation, anim.frame)
+      anim.animation = 'zipline'
       var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
       var lowerZipline = activeZipline if targetZipline.global_position.y < activeZipline.global_position.y else targetZipline
       var higherZipline = targetZipline if lowerZipline == activeZipline else activeZipline
       remainingJumpCount = MAX_JUMP_COUNT
       vel.user.y = 0
       var direction = (lowerZipline.global_position - higherZipline.global_position).normalized()
-      if $anim.frame > 24:
+      if anim.frame > 24:
         if abs(applyRot(velocity).x) < 5:
-          $anim.frame = 25
+          anim.frame = 25
         else:
-          $anim.flip_h = higherZipline.global_position.x > lowerZipline.global_position.x
+          anim.flip_h = higherZipline.global_position.x > lowerZipline.global_position.x
       else:
         if !is_zero_approx(velocity.x):
-          $anim.flip_h = applyRot(velocity).x < 0
-      var newSpeed = (direction * (heightDiff * .7)) * (clamp($anim.frame, 1, 34) / 34.0) * 6
+          anim.flip_h = applyRot(velocity).x < 0
+      var newSpeed = (direction * (heightDiff * .7)) * (clamp(anim.frame, 1, 34) / 34.0) * 6
       # log.pp(vel.zipline, newSpeed, velocity, newSpeed.length(), vel.zipline.length())
       # var diff = Vector2(
       #   abs(newSpeed.normalized()).x - abs(vel.zipline.normalized()).x,
@@ -572,7 +572,7 @@ func _physics_process(delta: float) -> void:
       var uservel = direction.normalized().abs() * vel.user.length() * (-1 if vel.user.x < 0 else 1)
       velocity = Vector2.ZERO
       vel.user *= .95
-      # if $anim.frame >= 34:
+      # if anim.frame >= 34:
       # for n: String in vel:
       #   if n == 'user' and playerKT > 0:
       #     velocity += applyRot(Vector2(vel[n].x, 0))
@@ -1351,7 +1351,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   and not inWaters \
   and playerSide.bottom \
   :
-    $anim.flip_h = getClosestWallSide() == 1
+    anim.flip_h = getClosestWallSide() == 1
     block.thingThatMoves.vel.default -= Vector2(getClosestWallSide() * 140, 0)
     anim.animation = "kicking box"
     boxKickRecovery = MAX_BOX_KICK_RECOVER_TIME

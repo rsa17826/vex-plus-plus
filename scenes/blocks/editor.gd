@@ -317,7 +317,13 @@ func _ready() -> void:
       if !(blockOptions[k].values is Array):
         blockOptions[k].values = blockOptions[k].values.keys()
   setupOptions()
-
+  self.visibility_layer = 2
+  var node_stack: Array[Node] = [self]
+  while not node_stack.is_empty():
+    var node: Node = node_stack.pop_back()
+    if is_instance_valid(node) and 'visibility_layer' in node:
+      node.visibility_layer = 2
+      node_stack.append_array(node.get_children())
   __enable.call_deferred()
   respawn.call_deferred()
   for thing in cloneEventsHere:

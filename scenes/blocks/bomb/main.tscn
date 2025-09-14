@@ -224,6 +224,7 @@ root = NodePath("../../..")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/bottom"]
+position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_nku45")
 script = ExtResource("7_d2lbq")
 
