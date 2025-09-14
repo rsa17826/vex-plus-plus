@@ -1,6 +1,7 @@
 extends TextureRect
 
 func _ready():
+  global.overlays.append(self)
   if global.useropts.editorBackgroundPath:
     var im = Image.new()
     im.load(global.useropts.editorBackgroundPath)
@@ -11,9 +12,3 @@ func _ready():
     stretch_mode = StretchMode.STRETCH_KEEP_ASPECT_CENTERED \
     if global.useropts.editorBackgroundScaleToMaxSize \
     else StretchMode.STRETCH_KEEP_CENTERED
-
-func _process(delta):
-  if global.hideAllOverlays:
-    visible = false
-    return
-  visible = true

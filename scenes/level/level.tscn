@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b7v5fgrc0mgvo" path="res://scenes/level/boxSelectDrawingNode.gd" id="5_urvlt"]
 
 [node name="level" type="Node2D" node_paths=PackedStringArray("boxSelectDrawingNode")]
+visibility_layer = 3
 script = ExtResource("1_bovvr")
 boxSelectDrawingNode = NodePath("CanvasLayer/boxSelectDrawingNode")
 metadata/_edit_lock_ = true
@@ -28,6 +29,7 @@ script = ExtResource("3_wcngd")
 metadata/_edit_lock_ = true
 
 [node name="blocks" type="Node2D" parent="."]
+visibility_layer = 3
 metadata/_edit_lock_ = true
 
 [node name="player" parent="." instance=ExtResource("2_b2cq8")]

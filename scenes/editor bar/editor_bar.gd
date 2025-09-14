@@ -9,6 +9,8 @@ var nodeScrollOnY: bool
 var nodeScrollOnX: bool
 
 func _ready() -> void:
+  global.overlays.append(self)
+  global.onEditorStateChanged.connect(func(): visible = global.showEditorUi)
   global.defaultBlockOpts = sds.loadDataFromFile("user://defaultBlockOpts.sds", {})
   position.x = global.useropts.editorBarOffset
   for item in get_children():
@@ -38,12 +40,6 @@ func _ready() -> void:
     2:
       position = Vector2(global.windowSize.x - $ColorRect.size.x, 0)
   position.y += global.useropts.editorBarOffset
-
-func _process(delta: float) -> void:
-  if global.hideAllOverlays:
-    visible = false
-  else:
-    visible = global.showEditorUi
 
 func updateScrollPos():
   if nodeScrollOnY:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=16 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -13,8 +13,10 @@
 [ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="10_y220t"]
 [ext_resource type="PackedScene" uid="uid://boy84eq1dmt4t" path="res://scenes/tab menu/main.tscn" id="13_hc5d0"]
 [ext_resource type="PackedScene" uid="uid://ckgxdnqr5psft" path="res://scenes/ui/hovered blocks list/hovered_blocks_list.tscn" id="13_swkix"]
+[ext_resource type="Script" uid="uid://8a1yvwcfdhmi" path="res://scenes/level/aaa.gd" id="14_hc5d0"]
+[ext_resource type="Script" uid="uid://bu86o6la4ga8s" path="res://scenes/ui/camera_2d.gd" id="15_n3vwu"]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList")]
+[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer", "overlayRemovalHider")]
 layer = 2
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("saved")
@@ -25,6 +27,8 @@ modifiers = NodePath("modifier display/modifiers")
 signalList = NodePath("HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("HBoxContainer/block menu")
 hoveredBlockList = NodePath("hoveredBlocksList")
+overlayRemovalHidersubViewportContainer = NodePath("")
+overlayRemovalHider = NodePath("")
 
 [node name="star counter" type="Label" parent="."]
 offset_left = 4.0
@@ -161,3 +165,22 @@ layer = 3
 
 [node name="Main" parent="tab menu" instance=ExtResource("13_hc5d0")]
 visible = false
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+visibility_layer = 3
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+script = ExtResource("14_hc5d0")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+gui_disable_input = true
+canvas_cull_mask = 4293918722
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+zoom = Vector2(1.245, 1.245)
+script = ExtResource("15_n3vwu")

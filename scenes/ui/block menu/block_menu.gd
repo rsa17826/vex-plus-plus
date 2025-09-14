@@ -4,18 +4,10 @@ var lastShownBlock
 
 func _ready() -> void:
   global.onEditorStateChanged.connect(onEditorStateChanged)
-
-func _process(delta: float) -> void:
-  if global.hideAllOverlays:
-    visible = false
-  else:
-    visible = global.showEditorUi
+  global.overlays.append(self)
 
 func onEditorStateChanged():
-  if global.hideAllOverlays:
-    visible = false
-  else:
-    visible = global.showEditorUi
+  visible = global.showEditorUi
 
 var showBlockMenuACTIVE: bool = false
 

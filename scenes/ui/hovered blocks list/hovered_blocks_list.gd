@@ -4,11 +4,9 @@ extends Control
 @export var ttm: Control
 
 var labels := []
-
+func _ready() -> void:
+  global.overlays.append(self)
 func _process(delta: float) -> void:
-  if global.hideAllOverlays:
-    ttm.visible = false
-    return
   ttm.visible = true
   if global.openMsgBoxCount \
     or not global.useropts.showHoveredBlocksList \

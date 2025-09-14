@@ -1262,6 +1262,7 @@ size = Vector2(14, 31.8)
 size = Vector2(10, 3)
 
 [node name="player" type="Node2D" node_paths=PackedStringArray("player", "ghostIconNode", "collisionShapes")]
+visibility_layer = 3
 z_index = 10
 script = ExtResource("1_4v6xr")
 player = NodePath("CharacterBody2D")
@@ -1272,6 +1273,7 @@ DONT_ENABLE_ON_RESPAWN = true
 metadata/_edit_lock_ = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root", "stickyFloorDetector", "mainCollisionShape2D", "nowjDetector", "respawnDetectionArea", "leftWallDetection", "rightWallDetection", "leftWallTopDetection", "rightWallTopDetection", "waterRay", "deathDetectors", "wallDetectors", "anim", "waterAnimTop", "waterAnimBottom", "camera")]
+visibility_layer = 3
 position = Vector2(0, -1.9)
 collision_layer = 2050
 collision_mask = 73788
@@ -1329,6 +1331,7 @@ debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true
 
 [node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D"]
+visibility_layer = 3
 material = ExtResource("3_4v6xr")
 use_parent_material = true
 position = Vector2(-3, 0.145)

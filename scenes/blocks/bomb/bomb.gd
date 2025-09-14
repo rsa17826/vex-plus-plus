@@ -66,6 +66,7 @@ func onFrameChanged():
         block.__disable.call_deferred()
 
 func explode():
+  log.err("asdasd")
   if exploded: return
   exploded = true
   $CharacterBody2D/Sprite2D.visible = false

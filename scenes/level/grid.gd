@@ -1,10 +1,11 @@
 extends GridDisplay
 
 @export var hasNums := false
+
+func _ready() -> void:
+  global.overlays.append(self)
+
 func _process(delta: float) -> void:
-  if global.hideAllOverlays:
-    visible = false
-    return
   if global.showEditorUi:
     visible = global.useropts.showGridInEdit
     if !global.useropts.showGridInEdit: return

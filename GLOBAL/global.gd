@@ -2393,7 +2393,29 @@ func downloadMap(version, creator, level):
   else:
     ToastParty.error("Download failed, the map " + level + " by " + creator + " doesn't exist, or the map was invalid.")
 
-var hideAllOverlays := false
+func hideAllOverlays():
+  # ui.overlayRemovalHidersubViewportContainer.visible = true
+  # ui.overlayRemovalHider.texture = lastShownImageTexture
+  var arr = []
+  var oo = overlays.duplicate()
+  for o in oo:
+    arr.append([o.visible, o.process_mode])
+    # o.visible = false
+    # o.process_mode = ProcessMode.PROCESS_MODE_DISABLED
+  await RenderingServer.frame_post_draw
+  var i = 0
+  for o in oo:
+    # o.visible = arr[i][0]
+    # o.process_mode = arr[i][1]
+    i += 1
+  # ui.overlayRemovalHidersubViewportContainer.visible = false
+  global.setEditorUiState(showEditorUi)
+
+var overlays: Array = []:
+  get():
+    overlays = overlays.filter(isAlive)
+    return overlays
+
 var ctrlMenuVisible := false
 
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}

@@ -5,11 +5,11 @@ var listOfLoadedSignals := {}
 const ON = preload("res://scenes/ui/images/on.png")
 const OFF = preload("res://scenes/ui/images/off.png")
 
+func _ready() -> void:
+  global.overlays.append(self)
+
 func _process(delta: float) -> void:
-  if global.hideAllOverlays:
-    visible = false
-  else:
-    visible = global.useropts.showSignalList
+  visible = global.useropts.showSignalList
 
 func removeSignal(id):
   if id not in listOfLoadedSignals: return
