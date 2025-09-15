@@ -7,9 +7,10 @@
 [ext_resource type="Script" uid="uid://fgu8i5y0iued" path="res://scenes/level/autosave_timer.gd" id="4_xb4v1"]
 [ext_resource type="Script" uid="uid://b7v5fgrc0mgvo" path="res://scenes/level/boxSelectDrawingNode.gd" id="5_urvlt"]
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" node_paths=PackedStringArray("boxSelectDrawingNode")]
 visibility_layer = 3
 script = ExtResource("1_bovvr")
+boxSelectDrawingNode = NodePath("4 - boxSelectDrawingNode/boxSelectDrawingNode")
 metadata/_edit_lock_ = true
 
 [node name="tiling background" type="TextureRect" parent="."]
@@ -38,10 +39,10 @@ position = Vector2(61, 383)
 ignore_time_scale = true
 script = ExtResource("4_xb4v1")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="4 - boxSelectDrawingNode" type="CanvasLayer" parent="."]
 layer = 4
 
-[node name="boxSelectDrawingNode" type="Control" parent="CanvasLayer"]
+[node name="boxSelectDrawingNode" type="Control" parent="4 - boxSelectDrawingNode"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1152.0
