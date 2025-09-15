@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bsub1ew4qiin4"]
+[gd_scene load_steps=18 format=3 uid="uid://bsub1ew4qiin4"]
 
 [ext_resource type="Script" uid="uid://dn3r2t10v2hdb" path="res://scenes/main menu/main_menu.gd" id="1_cbjxn"]
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="2_8w606"]
@@ -6,6 +6,28 @@
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_vifqf"]
 [ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="3_pri0a"]
 [ext_resource type="PackedScene" uid="uid://cdixi4vcsxqd1" path="res://scenes/login/login.tscn" id="6_ajd3f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ajd3f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t60cf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vin4k"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kjcs7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yw57d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yxpbc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_staj0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_smifh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_55he4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aho8q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_34s72"]
 
 [node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer", "loginMenuBg")]
 layout_mode = 3
@@ -167,6 +189,17 @@ script = ExtResource("2_okfgx")
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.33
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ajd3f")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_t60cf")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_vin4k")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_kjcs7")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_yw57d")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_yxpbc")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_staj0")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_smifh")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_55he4")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_aho8q")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_34s72")
 
 [node name="CenterContainer" type="CenterContainer" parent="Panel/Button"]
 layout_mode = 0
