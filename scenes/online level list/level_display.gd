@@ -45,7 +45,7 @@ func _on_download_and_play_pressed() -> void:
     global.loadMap(level.levelName, false)
 func _on_download_and_play_2_pressed() -> void:
   if await LevelServer.downloadMap(level):
-    global.openLevelInVersion(level.levelName, level.levelVersion)
+    global.openLevelInVersion(level.levelName, level.gameVersion)
 
 func _on_creator_id_pressed() -> void:
   search.text += "/creatorId/=" + level.creatorId
