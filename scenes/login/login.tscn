@@ -74,6 +74,15 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "log out"
 
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="close" type="Button" parent="VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 1
+text = "close"
+
 [node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
 visible = false
 layout_mode = 2
