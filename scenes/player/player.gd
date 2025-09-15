@@ -1771,14 +1771,10 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # when loading level from file open game versiuon that the level is for
 
-# bouncing persists on pole
-
 # !!!fix player moving when creating basic block
 
 # disable collision on block creation
-# when reentering inner level load back at last checkpoint
 # add zindex to display options
-# make camera move instantyl when entering inner level
 
 # add enum md for settings
 
@@ -1786,7 +1782,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # fix surican spawner on place
 
-# exit inner level button should save
+# exit inner level button should trigger a save
 
 # loading in water first time doesn't detect there being water
 
@@ -1798,9 +1794,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add cp savestate level opt
 # ?add roll
-# prevent upload if no image found
-
-# nothing close btnm
 
 # hide block select outline in screenshot
 

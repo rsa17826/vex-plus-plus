@@ -16,24 +16,23 @@
 [ext_resource type="Script" uid="uid://c1degxs1pbn86" path="res://scenes/ui/sub_viewport.gd" id="14_n3vwu"]
 [ext_resource type="Script" path="res://scenes/ui/SubViewportContainer camera_2d.gd" id="15_n3vwu"]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer", "othersubViewportContainer")]
+[node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer")]
 layer = 2
 script = ExtResource("1_oiwrs")
-levelSaved = NodePath("CanvasLayer2/saved")
-editorBar = NodePath("CanvasLayer2/editor bar")
-progressContainer = NodePath("CanvasLayer2/ProgressContainer")
-progressBar = NodePath("CanvasLayer2/ProgressContainer/CenterContainer/ProgressBar")
-modifiers = NodePath("modifier display/modifiers")
-signalList = NodePath("CanvasLayer/HBoxContainer/MarginContainer/signal list")
-blockMenu = NodePath("CanvasLayer/HBoxContainer/block menu")
+levelSaved = NodePath("5 - ProgressContainer,star counter,editor bar,saved/saved")
+editorBar = NodePath("5 - ProgressContainer,star counter,editor bar,saved/editor bar")
+progressContainer = NodePath("5 - ProgressContainer,star counter,editor bar,saved/ProgressContainer")
+progressBar = NodePath("5 - ProgressContainer,star counter,editor bar,saved/ProgressContainer/CenterContainer/ProgressBar")
+modifiers = NodePath("4 - modifier display/modifiers")
+signalList = NodePath("3 - block menu,signal list/HBoxContainer/MarginContainer/signal list")
+blockMenu = NodePath("3 - block menu,signal list/HBoxContainer/block menu")
 hoveredBlockList = NodePath("hoveredBlocksList")
 overlayRemovalHidersubViewportContainer = NodePath("SubViewportContainer")
-othersubViewportContainer = NodePath("")
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="5 - ProgressContainer,star counter,editor bar,saved" type="CanvasLayer" parent="."]
 layer = 5
 
-[node name="star counter" type="Label" parent="CanvasLayer2"]
+[node name="star counter" type="Label" parent="5 - ProgressContainer,star counter,editor bar,saved"]
 offset_left = 4.0
 offset_top = 17.0
 offset_right = 44.0
@@ -41,18 +40,18 @@ offset_bottom = 40.0
 script = ExtResource("5_0dwhk")
 metadata/_edit_lock_ = true
 
-[node name="editor bar" parent="CanvasLayer2" instance=ExtResource("2_5gxme")]
+[node name="editor bar" parent="5 - ProgressContainer,star counter,editor bar,saved" instance=ExtResource("2_5gxme")]
 visible = false
 metadata/_edit_lock_ = true
 
-[node name="saved" type="Sprite2D" parent="CanvasLayer2"]
+[node name="saved" type="Sprite2D" parent="5 - ProgressContainer,star counter,editor bar,saved"]
 visible = false
 position = Vector2(1095.5499, 559.55)
 scale = Vector2(0.19960955, 0.19960955)
 texture = ExtResource("3_qno0g")
 metadata/_edit_lock_ = true
 
-[node name="ProgressContainer" type="Control" parent="CanvasLayer2"]
+[node name="ProgressContainer" type="Control" parent="5 - ProgressContainer,star counter,editor bar,saved"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -62,7 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="levelHider" type="ColorRect" parent="CanvasLayer2/ProgressContainer"]
+[node name="levelHider" type="ColorRect" parent="5 - ProgressContainer,star counter,editor bar,saved/ProgressContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,8 +70,9 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 script = ExtResource("6_4kltc")
+alpha = false
 
-[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer2/ProgressContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="5 - ProgressContainer,star counter,editor bar,saved/ProgressContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,22 +80,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="CanvasLayer2/ProgressContainer/CenterContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="5 - ProgressContainer,star counter,editor bar,saved/ProgressContainer/CenterContainer"]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
 
-[node name="modifier display" type="CanvasLayer" parent="."]
+[node name="4 - modifier display" type="CanvasLayer" parent="."]
 layer = 4
 
-[node name="modifiers" parent="modifier display" instance=ExtResource("6_jcn1r")]
+[node name="modifiers" parent="4 - modifier display" instance=ExtResource("6_jcn1r")]
 offset_top = 75.0
 offset_bottom = 75.0
 metadata/_edit_lock_ = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="3 - block menu,signal list" type="CanvasLayer" parent="."]
 layer = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="3 - block menu,signal list"]
 clip_contents = true
 anchors_preset = 2
 anchor_top = 1.0
@@ -106,17 +106,17 @@ grow_vertical = 0
 size_flags_vertical = 10
 mouse_filter = 2
 
-[node name="block menu" parent="CanvasLayer/HBoxContainer" instance=ExtResource("8_y220t")]
+[node name="block menu" parent="3 - block menu,signal list/HBoxContainer" instance=ExtResource("8_y220t")]
 layout_mode = 2
 size_flags_horizontal = 1
 size_flags_vertical = 8
 metadata/_edit_lock_ = true
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="3 - block menu,signal list/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 50
 
-[node name="signal list" parent="CanvasLayer/HBoxContainer/MarginContainer" instance=ExtResource("7_uegxj")]
+[node name="signal list" parent="3 - block menu,signal list/HBoxContainer/MarginContainer" instance=ExtResource("7_uegxj")]
 custom_minimum_size = Vector2(0, 648)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -124,10 +124,10 @@ size_flags_vertical = 10
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="sticker" type="CanvasLayer" parent="."]
+[node name="129 - sticker" type="CanvasLayer" parent="."]
 layer = 129
 
-[node name="sticker" type="TextureRect" parent="sticker"]
+[node name="sticker" type="TextureRect" parent="129 - sticker"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -143,10 +143,10 @@ stretch_mode = 3
 script = ExtResource("10_y220t")
 metadata/_edit_lock_ = true
 
-[node name="background" type="CanvasLayer" parent="."]
+[node name="-1 - background" type="CanvasLayer" parent="."]
 layer = -1
 
-[node name="background" type="TextureRect" parent="background"]
+[node name="background" type="TextureRect" parent="-1 - background"]
 custom_minimum_size = Vector2(1152, 648)
 anchors_preset = 15
 anchor_right = 1.0
@@ -166,10 +166,10 @@ visible = false
 mouse_filter = 0
 metadata/_edit_lock_ = true
 
-[node name="tab menu" type="CanvasLayer" parent="."]
+[node name="7 - tab menu" type="CanvasLayer" parent="."]
 layer = 7
 
-[node name="Main" parent="tab menu" instance=ExtResource("13_hc5d0")]
+[node name="Main" parent="7 - tab menu" instance=ExtResource("13_hc5d0")]
 visible = false
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]

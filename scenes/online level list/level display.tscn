@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="2_rx2np"]
 [ext_resource type="Texture2D" uid="uid://c1re2gen1eeca" path="res://scenes/blocks/image.png" id="3_rx2np"]
 
-[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage")]
+[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion")]
 custom_minimum_size = Vector2(1142.08, 209.965)
 offset_right = 1148.0
 offset_bottom = 209.965
@@ -17,6 +17,7 @@ creatorId = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxConta
 description = NodePath("Panel/VBoxContainer/HBoxContainer3/TextEdit")
 viewOldVersions = NodePath("Panel/VBoxContainer/HBoxContainer6/view old versions")
 levelImage = NodePath("Panel/VBoxContainer/HBoxContainer3/MarginContainer/MaxSizeContainer/level image")
+dlInCorrectVersion = NodePath("Panel/VBoxContainer/HBoxContainer6/download and play2")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(0, 8.75)
@@ -131,7 +132,6 @@ layout_mode = 2
 text = "download and play"
 
 [node name="download and play2" type="Button" parent="Panel/VBoxContainer/HBoxContainer6"]
-visible = false
 layout_mode = 2
 text = "download and play on correct version"
 
@@ -146,5 +146,5 @@ text = "view old versions"
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5/gameversiuon" to="." method="_on_gameversiuon_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download" to="." method="_on_download_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download and play" to="." method="_on_download_and_play_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download and play2" to="." method="_on_download_and_play_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download and play2" to="." method="_on_download_and_play_2_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/view old versions" to="." method="_on_view_old_versions_pressed"]

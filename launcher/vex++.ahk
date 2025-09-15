@@ -312,9 +312,9 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
     F.write("launcherData/defaultArgs.txt", elem.text)
   })
   GuiSetPlaceholder(guiCtrl, "extra game arguments go here")
-  ; open laucher log btn
+  ; open launcher log btn
   if FileExist(path.info('./logs/vex++.exe.ans').abspath) {
-    guiCtrl := ui.Add("Button", , "open laucher log")
+    guiCtrl := ui.Add("Button", , "open launcher log")
     guiCtrl.OnEvent("Click", (*) {
       run(path.info('./logs/vex++.exe.ans').abspath)
     })

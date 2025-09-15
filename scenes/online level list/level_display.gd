@@ -9,8 +9,12 @@ var level: LevelServer.Level
 @export var description: TextEdit
 @export var viewOldVersions: Button
 @export var levelImage: TextureRect
+@export var dlInCorrectVersion: Button
 var levelList: Control
 var search: Control
+
+func _ready() -> void:
+  dlInCorrectVersion.visible = global.launcherExists
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
   level = levelToShow
@@ -39,6 +43,9 @@ func _on_view_old_versions_pressed() -> void:
 func _on_download_and_play_pressed() -> void:
   if await LevelServer.downloadMap(level):
     global.loadMap(level.levelName, false)
+func _on_download_and_play_2_pressed() -> void:
+  if await LevelServer.downloadMap(level):
+    global.openLevelInVersion(level.levelName, level.levelVersion)
 
 func _on_creator_id_pressed() -> void:
   search.text += "/creatorId/=" + level.creatorId

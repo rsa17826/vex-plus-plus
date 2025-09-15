@@ -41,7 +41,6 @@ func loadLocalLevelList():
   arr.sort()
   arr.reverse()
   newestLevel = allData[arr[0]][allData[arr[0]].keys()[0]].keys()[0] if dirs else null
-  var launcherExists = FileAccess.file_exists("../../vex++.exe") or FileAccess.file_exists(r"..\..\vex++.cmd")
   # log.pp(newestLevel)
   const versionNode := preload("res://scenes/online level list/version.tscn")
   const creatorNode := preload("res://scenes/online level list/creator.tscn")
@@ -72,10 +71,10 @@ func loadLocalLevelList():
           versiontext += "="
         l.openInCorrectVersion.text = 'open in ' + versiontext
         l.version.text = versiontext
-        l.openInCorrectVersion.visible = data.version != global.VERSION and launcherExists
+        l.openInCorrectVersion.visible = data.version != global.VERSION and global.launcherExists
         l.openInCorrectVersion.version = data.version
         l.openInCorrectVersion.levelName = levelName
-        l.version.visible = data.version == global.VERSION or not launcherExists
+        l.version.visible = data.version == global.VERSION or not global.launcherExists
         l.thisText = l.levelname.text.to_lower().replace('\n', '')
         l.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
         l.tooltip_text = description if description else "NO DESCRIPTION SET"

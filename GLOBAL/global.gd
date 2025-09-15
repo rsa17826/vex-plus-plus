@@ -2415,6 +2415,21 @@ var overlays: Array = []:
 
 var ctrlMenuVisible := false
 
+var launcherExists = FileAccess.file_exists("../../vex++.exe") or FileAccess.file_exists(r"..\..\vex++.cmd")
+
+func openLevelInVersion(levelName, version):
+  if DirAccess.remove_absolute(global.path.abs("res://process")):
+    DirAccess.remove_absolute(global.path.abs("res://process"))
+  if FileAccess.file_exists(r"..\..\vex++.exe"):
+    OS.create_process(r"..\..\vex++.exe", PackedStringArray([
+      "version", str(version), "silent", "--loadMap", levelName
+    ]))
+  else:
+    OS.create_process(r"..\..\vex++.cmd", PackedStringArray([
+      "version", str(version), "silent", "--loadMap", levelName
+    ]))
+  global.quitGame()
+
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
