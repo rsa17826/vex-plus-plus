@@ -1,11 +1,11 @@
 @tool
 extends EditorPlugin
-
+func _get_name():
+  return "autoExportVersion"
 ## Edit "addons/AutoExportVersion" project settings to configure the plugin
 ## and create version config file.
 
 ####################################################################################################
-
 
 ## Locations where the version can be stored See [member STORE_LOCATION].
 enum VersionStoreLocation {
@@ -21,16 +21,15 @@ var STORE_LOCATION: VersionStoreLocation = VersionStoreLocation.PROJECT_SETTING
 ## Path to the version script file where it is going to be saved. See [member SCRIPT_TEMPLATE]
 var SCRIPT_PATH: String = "res://version.gd"
 ## This template String is going to be formatted so that it contains the version.
-const SCRIPT_TEMPLATE: String ="extends RefCounted\nconst VERSION: String = \"{version}\""
+const SCRIPT_TEMPLATE: String = "extends RefCounted\nconst VERSION: String = \"{version}\""
 ## Name of the project setting where the version is going to be stored as a String.
 var PROJECT_SETTING_NAME: String = "application/config/version"
 ## Path to the configuration file for the plugin.
 var CONFIG_PATH = "res://auto_export_version_config_file.gd"
 
-
 ## Stores a [param version] based on [param version_store_location].                            [br]
 ## See [member PROJECT_SETTING_NAME], [member SCRIPT_PATH]
-func store_version(version: String, version_store_location := VersionStoreLocation.PROJECT_SETTING) -> void:
+func store_version(version: String, version_store_location:=VersionStoreLocation.PROJECT_SETTING) -> void:
   match version_store_location:
     VersionStoreLocation.SCRIPT:
       store_version_as_script(version)
@@ -67,7 +66,6 @@ func store_version_as_project_setting(version: String) -> void:
   ProjectSettings.set_setting(PROJECT_SETTING_NAME, version)
   ProjectSettings.save()
 
-
 const _CURRENT_VERSION: String = "Current version: {version}"
 const _EMPTY_VERSION_ERROR: String = "Version string is empty.\nMake sure your 'get_version()' in '{script_path}' is configured properly."
 
@@ -84,13 +82,13 @@ func _enter_tree() -> void:
   var setting_name := "addons/AutoExportVersion/version_store_location"
   if not ProjectSettings.has_setting(setting_name):
     ProjectSettings.set_setting(setting_name, STORE_LOCATION)
-  ProjectSettings.add_property_info({ "name": setting_name, "type": TYPE_INT, "hint": PROPERTY_HINT_ENUM, "hint_string": "Script,Project Setting" })
+  ProjectSettings.add_property_info({"name": setting_name, "type": TYPE_INT, "hint": PROPERTY_HINT_ENUM, "hint_string": "Script,Project Setting"})
   ProjectSettings.set_initial_value(setting_name, STORE_LOCATION)
 
   setting_name = "addons/AutoExportVersion/version_file_path"
   if not ProjectSettings.has_setting(setting_name):
     ProjectSettings.set_setting(setting_name, SCRIPT_PATH)
-  ProjectSettings.add_property_info({ "name": setting_name, "type": TYPE_STRING, "hint": PROPERTY_HINT_SAVE_FILE })
+  ProjectSettings.add_property_info({"name": setting_name, "type": TYPE_STRING, "hint": PROPERTY_HINT_SAVE_FILE})
   ProjectSettings.set_initial_value(setting_name, SCRIPT_PATH)
 
   setting_name = "addons/AutoExportVersion/version_setting_name"
@@ -102,7 +100,7 @@ func _enter_tree() -> void:
   # if not ProjectSettings.has_setting(setting_name):
   #     ProjectSettings.set_setting(setting_name, CONFIG_PATH)
   #     DirAccess.copy_absolute("res://addons/AutoExportVersion/auto_export_version_config_file.gd", CONFIG_PATH)
-  ProjectSettings.add_property_info({ "name": setting_name, "type": TYPE_STRING, "hint": PROPERTY_HINT_SAVE_FILE })
+  ProjectSettings.add_property_info({"name": setting_name, "type": TYPE_STRING, "hint": PROPERTY_HINT_SAVE_FILE})
   ProjectSettings.set_initial_value(setting_name, CONFIG_PATH)
 
   _sync_project_settings()
@@ -133,19 +131,18 @@ func _tool_menu_print_version() -> void:
   var version: String = get_version(PackedStringArray(), true, "", 0)
 
   if version.is_empty():
-    printerr(_EMPTY_VERSION_ERROR.format({ "script_path": get_script().get_path() }))
-    OS.alert(_EMPTY_VERSION_ERROR.format({ "script_path": get_script().get_path() }))
+    printerr(_EMPTY_VERSION_ERROR.format({"script_path": get_script().get_path()}))
+    OS.alert(_EMPTY_VERSION_ERROR.format({"script_path": get_script().get_path()}))
     return
 
-  log.pp(_CURRENT_VERSION.format({ "version": version }))
-  OS.alert(_CURRENT_VERSION.format({ "version": version }))
+  log.pp(_CURRENT_VERSION.format({"version": version}))
+  OS.alert(_CURRENT_VERSION.format({"version": version}))
   store_version(version, STORE_LOCATION)
 
 func get_version(features: PackedStringArray, is_debug: bool, path: String, flags: int) -> String:
   # if not ResourceLoader.exists(CONFIG_PATH, "GDScript"):
   #   push_error("Version config file does not exist!")
   #   return ""
-
   # var provider: RefCounted = load(CONFIG_PATH).new()
   var out = []
   OS.execute("gh", ["release", "list", "--json", "tagName"], out)
