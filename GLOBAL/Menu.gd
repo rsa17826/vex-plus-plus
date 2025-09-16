@@ -178,7 +178,7 @@ func show_menu():
     GROUP = null
   startGroup("menu options")
   add_bool("dontCollapseGroups", false)
-  add_bool("onlyExpandSingleGroup", true)
+  # add_bool("onlyExpandSingleGroup", false)
   add_bool("saveExpandedGroups", true)
   add_bool("loadExpandedGroups", true)
   add_single_select("menuOptionNameFormat", [
@@ -232,10 +232,10 @@ func show_menu():
         var group = FoldableContainer.new()
         group.set_script(preload("res://GLOBAL/scripts/NestedSearchable/nested_searchable.gd"))
         group.folded = !data.dontCollapseGroups
-        if data.onlyExpandSingleGroup and not data.dontCollapseGroups:
-          if !GROUP:
-            GROUP = FoldableGroup.new()
-          group.foldable_group = GROUP
+        # if data.onlyExpandSingleGroup and not data.dontCollapseGroups:
+        #   if !GROUP:
+        #     GROUP = FoldableGroup.new()
+        #   group.foldable_group = GROUP
         if data.loadExpandedGroups:
           group.folded = !thing.user
         group.folding_changed.connect(func(folded):
