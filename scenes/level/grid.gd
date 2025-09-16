@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
   grid_size = Vector2(72.0, 40.0) * cell_size.x
   # if !global.player: return
   var mover = self
-  var intendedPos = (global.player.get_node("Camera2D").get_screen_center_position() - get_viewport_rect().size / 2)
+  var intendedPos = (global.player.camera.get_screen_center_position() - get_viewport_rect().size / 2)
   mover.position = round((intendedPos) / cell_size.x) * cell_size.x
   # mover.position+=Vector2(576.0, 324.0)/2
   mover.position -= Vector2(200, 200)
