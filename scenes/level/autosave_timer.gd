@@ -10,4 +10,4 @@ func _on_timeout() -> void:
   and not global.tabMenu.visible \
   and not global.ctrlMenuVisible \
   :
-    global.level.save()
+    global.level.save(true)
