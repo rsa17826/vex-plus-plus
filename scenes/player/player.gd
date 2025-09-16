@@ -518,7 +518,7 @@ func _physics_process(delta: float) -> void:
       clearWallData()
       setRot(defaultAngle)
       # log.pp(anim.animation, anim.frame)
-      anim.animation = 'zipline'
+      anim.animation = &'zipline'
       var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
       var lowerZipline = activeZipline if targetZipline.global_position.y < activeZipline.global_position.y else targetZipline
       var higherZipline = targetZipline if lowerZipline == activeZipline else activeZipline
@@ -554,9 +554,11 @@ func _physics_process(delta: float) -> void:
         if abs(newSpeed.x) > abs(vel.zipline.x):
           vel.zipline = newSpeed
       updateKeyFollowPosition(delta)
+      remainingJumpCount = MAX_JUMP_COUNT
       if ACTIONjump:
         ACTIONjump = true
         state = States.jumping
+        remainingJumpCount -= 1
         ziplineCooldown = MAX_ZIPLINE_COOLDOWN
         _physics_process(delta)
         return
