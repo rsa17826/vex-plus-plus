@@ -49,20 +49,20 @@ func _on_download_and_play_2_pressed() -> void:
 
 func _on_creator_id_pressed() -> void:
   search.text += "/creatorId/=" + level.creatorId
-  search.text = search.text.trim_prefix("/")
+  search.text = search.text.trim_prefix("/").replace("//", "/")
 
 func _on_levelname_pressed() -> void:
   search.text += "/levelName/=" + level.levelName
-  search.text = search.text.trim_prefix("/")
+  search.text = search.text.trim_prefix("/").replace("//", "/")
 
 func _on_gameversiuon_pressed() -> void:
   search.text += "/gameVersion/=" + str(level.gameVersion)
-  search.text = search.text.trim_prefix("/")
+  search.text = search.text.trim_prefix("/").replace("//", "/")
 
 func _on_levelversions_pressed() -> void:
   search.text += "/levelVersion/=" + str(level.levelVersion)
-  search.text = search.text.trim_prefix("/")
+  search.text = search.text.trim_prefix("/").replace("//", "/")
 
 func _on_creatorname_pressed() -> void:
   search.text += "/creatorName/=" + level.creatorName
-  search.text = search.text.trim_prefix("/")
+  search.text = search.text.trim_prefix("/").replace("//", "/")

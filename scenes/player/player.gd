@@ -18,7 +18,6 @@ class_name Player
 @export var waterAnimTop: AnimatedSprite2D
 @export var waterAnimBottom: AnimatedSprite2D
 @export var camera: Camera2D
-@export var editorBar: Node2D
 
 var MAX_JUMP_COUNT = 0
 var DEATH_TIME = 20

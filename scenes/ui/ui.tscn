@@ -26,7 +26,7 @@ progressBar = NodePath("5 - ProgressContainer,star counter,editor bar,saved/Prog
 modifiers = NodePath("4 - modifier display/modifiers")
 signalList = NodePath("3 - block menu,signal list/HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("3 - block menu,signal list/HBoxContainer/block menu")
-hoveredBlockList = NodePath("hoveredBlocksList")
+hoveredBlockList = NodePath("5 - ProgressContainer,star counter,editor bar,saved/hoveredBlocksList")
 overlayRemovalHidersubViewportContainer = NodePath("SubViewportContainer")
 
 [node name="5 - ProgressContainer,star counter,editor bar,saved" type="CanvasLayer" parent="."]
@@ -83,6 +83,8 @@ grow_vertical = 2
 [node name="ProgressBar" type="ProgressBar" parent="5 - ProgressContainer,star counter,editor bar,saved/ProgressContainer/CenterContainer"]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
+
+[node name="hoveredBlocksList" parent="5 - ProgressContainer,star counter,editor bar,saved" instance=ExtResource("13_swkix")]
 
 [node name="4 - modifier display" type="CanvasLayer" parent="."]
 layer = 4
@@ -159,17 +161,15 @@ stretch_mode = 5
 script = ExtResource("3_hl07w")
 metadata/_edit_lock_ = true
 
-[node name="hoveredBlocksList" parent="." instance=ExtResource("13_swkix")]
+[node name="7 - tab menu,Controls" type="CanvasLayer" parent="."]
+layer = 7
 
-[node name="Controls" parent="." instance=ExtResource("4_g5kmx")]
+[node name="Controls" parent="7 - tab menu,Controls" instance=ExtResource("4_g5kmx")]
 visible = false
 mouse_filter = 0
 metadata/_edit_lock_ = true
 
-[node name="7 - tab menu" type="CanvasLayer" parent="."]
-layer = 7
-
-[node name="Main" parent="7 - tab menu" instance=ExtResource("13_hc5d0")]
+[node name="Main" parent="7 - tab menu,Controls" instance=ExtResource("13_hc5d0")]
 visible = false
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]

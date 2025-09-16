@@ -9,7 +9,7 @@ var nodeScrollOnY: bool
 var nodeScrollOnX: bool
 
 func _init() -> void:
-  global.player.editorBar = self
+  global.editorBar = self
 
 func _ready() -> void:
   global.overlays.append(self)

@@ -637,6 +637,7 @@ var hoveredBlocks: Array = []:
     hoveredBlocks = hoveredBlocks.filter(isAlive)
     return hoveredBlocks
 var selectedBlockOffset: Vector2
+var editorBar: Node2D
 var selectedBlock: EditorBlock = null
 var editorInScaleMode := false
 var editorInRotateMode := false
@@ -1314,7 +1315,7 @@ func _unhandled_input(event: InputEvent) -> void:
       if !block: continue
       if event.is_action_pressed("CREATE NEW - " + (block.name if block is Dictionary else block).replace("/", "_"), false, true):
         log.pp(block)
-        var brushes = global.player.get_node("../CanvasLayer/editor bar").get_children().slice(2)
+        var brushes = editorBar.get_children().slice(2)
         var idx
         if block is Dictionary:
           idx = brushes.find_custom(func(e): return e.blockData and e.blockData.name == block.name)
