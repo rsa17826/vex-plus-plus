@@ -1486,7 +1486,7 @@ shape = SubResource("RectangleShape2D_dovo2")
 debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true
 
-[node name="CanvasLayer" parent="." instance=ExtResource("200_1ymuf")]
+[node name="2 - ui" parent="." instance=ExtResource("200_1ymuf")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false

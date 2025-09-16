@@ -1193,7 +1193,7 @@ func _unhandled_input(event: InputEvent) -> void:
         # savePlayerLevelData()
   if event.is_action_pressed(&"save", false, true):
     if level and is_instance_valid(level):
-      level.save()
+      level.save(true)
   if Input.is_action_pressed(&"editor_delete", true):
     if !isAlive(level): return
     for block in boxSelect_selectedBlocks:
@@ -1278,7 +1278,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"load", false, true):
     if useropts.saveOnExit:
       if level and is_instance_valid(level):
-        level.save()
+        level.save(false)
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
@@ -1356,7 +1356,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   player.state = player.States.levelLoading
   # breakpoint
   if useropts.saveLevelOnWin:
-    await level.save()
+    await level.save(false)
   currentLevel().exitPosition = player.global_position - player.root.global_position
   currentLevel().up_direction = player.up_direction
   currentLevel().autoRunDirection = player.autoRunDirection
@@ -1391,7 +1391,7 @@ func loadInnerLevel(innerLevel: String) -> void:
 
 func win() -> void:
   if global.useropts.saveLevelOnWin:
-    await level.save()
+    await level.save(false)
   var justBeatLevel = loadedLevels.pop_back()
   for level in beatLevels:
     if level.name == justBeatLevel.name:
@@ -1399,7 +1399,7 @@ func win() -> void:
       break
   beatLevels.append(justBeatLevel)
   # if global.useropts.saveLevelOnWin:
-  #   level.save()
+  #   level.save(false)
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     loadedLevels.append(beatLevels.pop_back())
@@ -1731,6 +1731,7 @@ func fullscreen(state: int = 0) -> void:
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
 
 func localReady() -> void:
+  # get_tree().get_root().canvas_cull_mask = 1
 #   log.test([123,
 #   [
 #   "res://scenes/blocks/selectedBorder.tres/images/editorBar.png",
@@ -1921,7 +1922,7 @@ func quitGame():
     return
   if 'saveOnExit' in useropts and useropts.saveOnExit:
     if level and is_instance_valid(level):
-      level.save()
+      await level.save(false)
   if OS.get_process_id() == int(file.read(path.abs("res://process"), false)):
     DirAccess.remove_absolute(path.abs("res://process"))
   get_tree().quit()

@@ -132,7 +132,7 @@ func updateUserOpts() -> void:
     shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   if shouldReload:
-    global.level.save()
+    global.level.save(false)
     global.loadMap.call_deferred(global.mainLevelName, true)
   global.hitboxTypesChanged.emit()
   if waitingForMouseUp: return

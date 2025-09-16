@@ -94,12 +94,13 @@ func loadLevel(level):
   # global.player.deathPosition = global.player.lastSpawnPoint
 var saving = false
 
-func save():
+func save(showImage: bool):
   if global.ctrlMenuVisible: return
   if saving:
     ToastParty.err("already saving")
     return
   saving = true
+  global.ui.levelSaved.texture = preload("res://scenes/ui/images/game saved.webp")
   if !len($blocks.get_children()):
     log.err("nothing to save")
     return
@@ -181,5 +182,8 @@ func save():
   global.stopTicking = laststopTicking
   global.tick = lastTick
   global.ui.levelSaved.modulate.a = 1
+  if showImage:
+    global.ui.levelSaved.texture = ImageTexture.create_from_image(image)
+    await global.wait(1000)
   global.ui.levelSaved.visible = false
   saving = false
