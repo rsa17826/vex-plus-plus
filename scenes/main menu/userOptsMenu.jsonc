@@ -519,7 +519,7 @@
         "thing": "option",
         "type": "bool",
         "key": "onlyShowLevelsForCurrentVersion",
-        "defaultValue": true
+        "defaultValue": false
       },
       {
         "thing": "option",
