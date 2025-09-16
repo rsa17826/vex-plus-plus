@@ -554,7 +554,6 @@ func _physics_process(delta: float) -> void:
         if abs(newSpeed.x) > abs(vel.zipline.x):
           vel.zipline = newSpeed
       updateKeyFollowPosition(delta)
-      remainingJumpCount = MAX_JUMP_COUNT
       if ACTIONjump:
         ACTIONjump = true
         state = States.jumping
