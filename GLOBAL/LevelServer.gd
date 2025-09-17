@@ -3,6 +3,25 @@ class_name LevelServer
 
 static var user: SupabaseUser = null
 
+static func tryRestoreLastSession():
+  global.mainMenu.currentUserInfoNode.text = "not logged in"
+  var data = global.file.read("user://auth", false, '')
+  if data:
+    global.mainMenu.currentUserInfoNode.text = "logging in"
+    await global.wait()
+    var authTask = (await Supabase.auth.restoreFromToken(data).completed)
+    if authTask.user and not LevelServer.user:
+      LevelServer.user = authTask.user
+      ToastParty.info("session restored")
+    LevelServer.updateCurrentUserInfoNode()
+
+static func updateCurrentUserInfoNode():
+  if global.mainMenu:
+    if LevelServer.user:
+      global.mainMenu.currentUserInfoNode.text = "logged in as " + LevelServer.user.email.trim_suffix("@null.notld") + " - " + LevelServer.user.id
+    else:
+      global.mainMenu.currentUserInfoNode.text = "not logged in"
+
 static func register(uname: String, password: String) -> SupabaseUser:
   if !('@' in uname):
     uname += "@null.notld"

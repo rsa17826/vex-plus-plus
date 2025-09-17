@@ -1,3 +1,4 @@
+@tool
 @icon("./images/attachDetector.png")
 extends HitboxTypes
 

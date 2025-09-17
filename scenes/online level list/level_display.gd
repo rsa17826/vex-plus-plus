@@ -25,7 +25,7 @@ func showLevelData(levelToShow: LevelServer.Level) -> void:
   creatorId.text = str(level.creatorId)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
-  viewOldVersions.visible = !!level.oldVersionCount
+  viewOldVersions.visible = !!level.oldVersionCount and global.VERSION != level.gameVersion
   viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
   if level.levelImage.get_size() in [Vector2i(292, 292), Vector2i(146, 146)]:
     levelImage.texture = ImageTexture.create_from_image(level.levelImage)

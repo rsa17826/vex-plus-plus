@@ -1798,3 +1798,10 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # hide block select outline in screenshot
 
 # make autocomplete options clickable
+
+# add way to tell when creator makes new level
+
+# add way to sort and filter online level list
+# make way to load level by id
+# make copy level share code copy the new code
+# make launcher accept the new level share code format

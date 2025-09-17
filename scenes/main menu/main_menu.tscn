@@ -29,7 +29,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_34s72"]
 
-[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer", "loginMenuBg")]
+[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer", "loginMenuBg", "gameVersionNode", "currentUserInfoNode")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,135 +37,152 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_cbjxn")
-optsmenunode = NodePath("HBoxContainer/VBoxContainer/OPTS/ScrollContainer/VBoxContainer")
-levelContainer = NodePath("HBoxContainer/VBoxContainer2/LEVELS/ScrollContainer/HFlowContainer")
-scrollContainer = NodePath("HBoxContainer/VBoxContainer/OPTS/ScrollContainer")
+optsmenunode = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/OPTS/ScrollContainer/VBoxContainer")
+levelContainer = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/LEVELS/ScrollContainer/HFlowContainer")
+scrollContainer = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/OPTS/ScrollContainer")
 loginMenuBg = NodePath("Panel")
+gameVersionNode = NodePath("VBoxContainer/BTNHOLDER/BTNS2/version")
+currentUserInfoNode = NodePath("VBoxContainer/BTNHOLDER/BTNS2/currentUser")
 metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -36.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 text = "OPTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OPTS" type="MarginContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="OPTS" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer/OPTS"]
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/VBoxContainer/OPTS"]
 layout_mode = 2
 color = Color(0.1716782, 0.19685069, 0.28747162, 1)
 script = ExtResource("2_okfgx")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer/OPTS"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/OPTS"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/OPTS/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/OPTS/ScrollContainer"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer2"]
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 text = "LOCAL LEVELS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="search" type="LineEdit" parent="HBoxContainer/VBoxContainer2"]
+[node name="search" type="LineEdit" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 placeholder_text = "search"
 keep_editing_on_text_submit = true
 clear_button_enabled = true
 script = ExtResource("3_pri0a")
 
-[node name="LEVELS" type="MarginContainer" parent="HBoxContainer/VBoxContainer2"]
+[node name="LEVELS" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="HBoxContainer/VBoxContainer2/LEVELS"]
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/VBoxContainer2/LEVELS"]
 layout_mode = 2
 color = Color(0.1764706, 0.1764706, 0.1764706, 1)
 script = ExtResource("2_okfgx")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="HBoxContainer/VBoxContainer2/LEVELS"]
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/LEVELS"]
 layout_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="HFlowContainer" type="HFlowContainer" parent="HBoxContainer/VBoxContainer2/LEVELS/ScrollContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2/LEVELS/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 metadata/_edit_lock_ = true
 
-[node name="BTNS" type="HBoxContainer" parent="."]
-custom_minimum_size = Vector2(150, 30)
-layout_mode = 0
-offset_left = 2.0
-offset_top = 614.075
-offset_right = 675.0
-offset_bottom = 647.075
+[node name="BTNHOLDER" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
 
-[node name="new map btn" type="Button" parent="BTNS"]
+[node name="BTNS1" type="HBoxContainer" parent="VBoxContainer/BTNHOLDER"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+
+[node name="new map btn" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
 text = "create new map"
 
-[node name="open level folder" type="Button" parent="BTNS"]
+[node name="open level folder" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
 text = "open level folder"
 
-[node name="load online levels" type="Button" parent="BTNS"]
+[node name="load online levels" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
 text = "load online levels"
 
-[node name="open readme" type="Button" parent="BTNS"]
+[node name="BTNS2" type="HBoxContainer" parent="VBoxContainer/BTNHOLDER"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+
+[node name="open readme" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
 tooltip_text = "opens external webpage"
 text = "instructions"
 
-[node name="change keybinds" type="Button" parent="BTNS"]
+[node name="change keybinds" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
 text = "change keybinds"
 
-[node name="open logs" type="Button" parent="BTNS"]
+[node name="open logs" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
 text = "open logs"
 
-[node name="show login" type="Button" parent="BTNS"]
+[node name="show login" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
 text = "login/sign up"
 
-[node name="play tut" type="Button" parent="BTNS"]
-visible = false
-layout_mode = 2
-text = "play tut"
-
-[node name="version" type="Label" parent="BTNS"]
-unique_name_in_owner = true
+[node name="currentUser" type="Label" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 custom_minimum_size = Vector2(0, 33.295)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0.17254902, 0.19607843, 0.28627452, 1)
 theme_override_constants/outline_size = 4
 vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="version" type="Label" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+custom_minimum_size = Vector2(0, 33.295)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0.17254902, 0.19607843, 0.28627452, 1)
+theme_override_constants/outline_size = 4
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
 
 [node name="CTRLS" parent="." instance=ExtResource("2_8w606")]
 visible = false
@@ -209,12 +226,12 @@ offset_bottom = 648.33
 [node name="login" parent="Panel/Button/CenterContainer" instance=ExtResource("6_ajd3f")]
 layout_mode = 2
 
-[connection signal="text_changed" from="HBoxContainer/VBoxContainer2/search" to="." method="_on_search_text_changed"]
-[connection signal="pressed" from="BTNS/new map btn" to="." method="_on_new_level_btn_pressed"]
-[connection signal="pressed" from="BTNS/open level folder" to="." method="_on_open_level_folder_pressed"]
-[connection signal="pressed" from="BTNS/load online levels" to="." method="_on_load_online_levels_pressed"]
-[connection signal="pressed" from="BTNS/open readme" to="." method="_on_open_readme_pressed"]
-[connection signal="pressed" from="BTNS/change keybinds" to="." method="_on_change_keybinds_pressed"]
-[connection signal="pressed" from="BTNS/open logs" to="." method="_on_open_logs_pressed"]
-[connection signal="pressed" from="BTNS/show login" to="." method="_on_show_login_pressed"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/VBoxContainer2/search" to="." method="_on_search_text_changed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/new map btn" to="." method="_on_new_level_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/open level folder" to="." method="_on_open_level_folder_pressed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/load online levels" to="." method="_on_load_online_levels_pressed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/open readme" to="." method="_on_open_readme_pressed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/change keybinds" to="." method="_on_change_keybinds_pressed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/open logs" to="." method="_on_open_logs_pressed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/show login" to="." method="_on_show_login_pressed"]
 [connection signal="pressed" from="Panel/Button" to="." method="_on_login_close_button_pressed"]

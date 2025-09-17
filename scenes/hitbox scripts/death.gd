@@ -1,3 +1,4 @@
+@tool
 @icon("./images/death.png")
 extends HitboxTypes
 
