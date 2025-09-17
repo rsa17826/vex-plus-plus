@@ -1809,3 +1809,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # add way to detect update available for previously downloaded levels
 
 # fix scaling of rotating buzsaw
+
+# -make blocks attach to growing blocks and move and scale with them
