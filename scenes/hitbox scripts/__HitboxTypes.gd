@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 class_name HitboxTypes
 
@@ -18,6 +19,8 @@ func _ready() -> void:
   updateColor()
 
 func updateColor() -> void:
+  if Engine.is_editor_hint() and not global.useropts:
+    global.useropts = sds.loadDataFromFile("user://main - EDITOR.sds")
   match hitboxType:
     Types.attachDetector:
       visible = global.useropts.showAttachDetectorHitboxes

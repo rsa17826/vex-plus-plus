@@ -1,3 +1,4 @@
+@tool
 @icon("./images/area.png")
 extends HitboxTypes
 

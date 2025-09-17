@@ -1729,6 +1729,7 @@ func fullscreen(state: int = 0) -> void:
       DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
+@export var mainMenu: Control
 
 func localReady() -> void:
   # get_tree().get_root().canvas_cull_mask = 1
@@ -1794,13 +1795,7 @@ func localReady() -> void:
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(OS.get_cmdline_args())
   loadEditorBarData()
-  var data = global.file.read("user://auth", false, '')
-  if data:
-    await wait()
-    var authTask = (await Supabase.auth.restoreFromToken(data).completed)
-    if authTask.user and not LevelServer.user:
-      LevelServer.user = authTask.user
-      ToastParty.info("session restored")
+  LevelServer.tryRestoreLastSession()
 
 const DEFAULT_BLOCK_LIST = [
   "basic",

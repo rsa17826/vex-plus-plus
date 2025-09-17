@@ -1327,7 +1327,7 @@ collision_mask = 0
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetector"]
 position = Vector2(0, -6.275)
 shape = SubResource("RectangleShape2D_xb8ft")
-debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
+debug_color = Color(0.73333335, 0.44705883, 0, 0.67058825)
 metadata/_edit_lock_ = true
 
 [node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D"]

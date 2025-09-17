@@ -6,9 +6,14 @@ var GITHUB_TOKEN = global.getToken()
 @export var levelContainer: Control
 @export var scrollContainer: ScrollContainer
 @export var loginMenuBg: Control
+@export var gameVersionNode: Label
+@export var currentUserInfoNode: Label
 
 var __menu: Menu
 var newestLevel
+
+func _init() -> void:
+  global.mainMenu = self
 
 @onready var pm: PopupMenu = PopupMenu.new()
 func _on_search_text_changed(new_text: String) -> void:
@@ -18,7 +23,9 @@ func _ready() -> void:
   add_child(pm)
   loadUserOptions()
   loadLocalLevelList()
-  %version.text = "VERSION: " + str(global.VERSION)
+  gameVersionNode.text = "VERSION: " + str(global.VERSION)
+  if !global.isFirstTimeMenuIsLoaded:
+    LevelServer.updateCurrentUserInfoNode()
 
 func loadLocalLevelList():
   const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")

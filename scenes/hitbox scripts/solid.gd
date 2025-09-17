@@ -1,3 +1,4 @@
+@tool
 @icon("./images/solid.png")
 extends HitboxTypes
 
