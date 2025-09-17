@@ -1807,3 +1807,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make launcher accept the new level share code format
 
 # add way to detect update available for previously downloaded levels
+
+# fix scaling of rotating buzsaw
