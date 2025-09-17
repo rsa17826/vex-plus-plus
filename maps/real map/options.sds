@@ -9,4 +9,5 @@
       STR(changeSpeedOnSlopes)BOOL(true)
     }
   }
+  STRNAME(levelVersion)INT(1)
 }

@@ -14,7 +14,7 @@ var levelList: Control
 var search: Control
 
 func _ready() -> void:
-  dlInCorrectVersion.visible = global.launcherExists
+  dlInCorrectVersion.visible = global.launcherExists and global.VERSION != level.gameVersion
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
   level = levelToShow
@@ -25,7 +25,7 @@ func showLevelData(levelToShow: LevelServer.Level) -> void:
   creatorId.text = str(level.creatorId)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
-  viewOldVersions.visible = !!level.oldVersionCount and global.VERSION != level.gameVersion
+  viewOldVersions.visible = !!level.oldVersionCount
   viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
   if level.levelImage.get_size() in [Vector2i(292, 292), Vector2i(146, 146)]:
     levelImage.texture = ImageTexture.create_from_image(level.levelImage)
@@ -66,3 +66,8 @@ func _on_levelversions_pressed() -> void:
 func _on_creatorname_pressed() -> void:
   search.text += "/creatorName/=" + level.creatorName
   search.text = search.text.trim_prefix("/").replace("//", "/")
+
+func _on_copy_share_code_pressed() -> void:
+  var levelCode = 'vex++:downloadMap/' + str(level.gameVersion) + '/' + str(level.onlineId) + '/' + global.urlEncode(level.levelName)
+  DisplayServer.clipboard_set(levelCode)
+  ToastParty.success("level code copied to clipboard")

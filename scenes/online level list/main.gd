@@ -66,20 +66,29 @@ func otc(text: String, version: NestedSearchable):
   version.updateSearch(text)
 
 func loadLevelById() -> void:
-  var data: String = (
+  var data = (
     await global.prompt(
       "Enter the ID of the level you want to load",
       global.PromptTypes.string,
       "",
       "",
     )
-  ).split("/")
-  data = data.trim_prefix("vex++:downloadMap/")
-  if len(data) != 3:
+  )
+  data = data.trim_prefix("vex++:downloadMap/").split("/")
+  var id = 0
+  if len(data) == 1:
+    id = data[0]
+  if len(data) == 2 or len(data) == 3:
+    id = data[1]
+  if id:
+    var map = await LevelServer.loadMapById(id)
+    if map:
+      await LevelServer.downloadMap(map)
+      ToastParty.success("Downloaded successfully")
+    else:
+      ToastParty.error("Invalid map id")
+  else:
     ToastParty.error("Invalid input")
-    return
-  if !data[2].ends_with(".vex++"): data[2] += ".vex++"
-  global.downloadMap(data[0], data[1], data[2])
 
 func loadMenu() -> void:
   get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")

@@ -1729,7 +1729,11 @@ func fullscreen(state: int = 0) -> void:
       DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 
 @onready var VERSION := int(file.read("VERSION", false, "-1"))
-@export var mainMenu: Control
+@export var mainMenu: Control:
+  get():
+    if not isAlive(mainMenu):
+      mainMenu = null
+    return mainMenu
 
 func localReady() -> void:
   # get_tree().get_root().canvas_cull_mask = 1
@@ -2358,7 +2362,11 @@ func onSignalChanged(cb):
   if !signalChanged.is_connected(cb):
     signalChanged.connect(cb)
 
-var tabMenu
+var tabMenu: Control:
+  get():
+    if not isAlive(tabMenu):
+      tabMenu = null
+    return tabMenu
 var hitboxTypes := {
   "attachDetector": true,
   "death": true,

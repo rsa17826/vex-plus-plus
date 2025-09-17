@@ -75,7 +75,12 @@ if PROTO.isSelf('vex++') or A_Args.includes("registerProtocols")
         case "downloadMap":
           data.RemoveAt(1)
           if data.length == 3 {
-            if runVersion(data[1], '--downloadMap "' data.join('/') '" --loadMap "' data[3] '"')
+            if runVersion(data[1], [
+              '--downloadMap',
+              data.join('/'),
+              '--loadMap',
+              data[3]
+            ])
               ExitApp(0)
             else
               ExitApp(-1)
@@ -490,7 +495,7 @@ runSelectedVersion() {
   F.write("launcherData/lastRanVersion.txt", selectedVersion)
   ExitApp()
 }
-runVersion(gameVersion, newArgs := '') {
+runVersion(gameVersion, newArgs := []) {
   global doingSomething
   if doingSomething {
     aotMsgBox("already doing something, wait till done")
@@ -559,8 +564,9 @@ runVersion(gameVersion, newArgs := '') {
       args .= ' "' . StrReplace(arg, '"', '\"') . '"'
     }
     args .= ' ' F.read("launcherData/defaultArgs.txt")
-    if newArgs
-      args .= ' ' newArgs
+    for arg in newArgs {
+      args .= ' "' . StrReplace(arg, '"', '\"') . '"'
+    }
     ; if consoleIsBlocked {
     ;   args .= ' RESTART_LAUNCHER'
     ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))

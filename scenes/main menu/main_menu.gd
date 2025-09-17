@@ -103,17 +103,22 @@ func showMoreOptions(levelName, levelData):
     "duplicate",
     "delete",
     "rename",
+    "-",
     "show in file explorer",
     "open settings file",
     "edit description",
+    "-",
     "export",
     "upload",
-    "restore level from downloaded state",
-    "copy level share code",
+    # "restore level from downloaded state",
   ]:
-    pm.add_item(k, i)
+    if k[0] == '-':
+      pm.add_separator(k.trim_prefix("-"), i)
+    else:
+      pm.add_item(k, i)
     i += 1
-  pm.add_item('< cancel >', i)
+  # pm.add_separator("ASFD")
+  # pm.add_item('< cancel >', i)
   if levelMenuPromise:
     levelMenuPromise.resolve(-1)
   levelMenuPromise = Promise.new()
@@ -154,11 +159,11 @@ func showMoreOptions(levelName, levelData):
         sds.saveDataToFile(global.getLevelSavePath(newName), saveData)
         OS.move_to_trash(global.getLevelSavePath(levelName))
       loadLocalLevelList()
-    3:
-      OS.shell_open(global.path.join(global.MAP_FOLDER, levelName))
     4:
-      OS.shell_open(global.path.join(global.MAP_FOLDER, levelName, "options.sds"))
+      OS.shell_open(global.path.join(global.MAP_FOLDER, levelName))
     5:
+      OS.shell_open(global.path.join(global.MAP_FOLDER, levelName, "options.sds"))
+    6:
       var data = global.loadMapInfo(levelName)
       var desc: String = await global.prompt(
         "enter description",
@@ -170,7 +175,7 @@ func showMoreOptions(levelName, levelData):
         data.levelVersion += 1
         sds.saveDataToFile(global.path.join(global.MAP_FOLDER, levelName, "/options.sds"), data)
         loadLocalLevelList()
-    6:
+    8:
       # log.pp(levelName)
       if FileAccess.file_exists(global.path.abs("res://exports/" + levelName + ".vex++")):
         OS.move_to_trash(global.path.abs("res://exports/" + levelName + ".vex++"))
@@ -182,7 +187,7 @@ func showMoreOptions(levelName, levelData):
       ToastParty.info("map exported successfully")
       if global.useropts.openExportsDirectoryOnExport:
         OS.shell_open(global.path.abs("res://exports"))
-    7:
+    9:
       if not LevelServer.user:
         _on_show_login_pressed()
         await global.waituntil(func():
@@ -235,35 +240,12 @@ func showMoreOptions(levelName, levelData):
       $AnimatedSprite2D.visible = false
       f.close()
       ToastParty.success("Level uploaded!")
-    8:
-      if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
-      if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + levelName + '.vex++')]):
-        ToastParty.success("The map has been successfully restored.")
-      else:
-        ToastParty.error("restoring failed, the map doesn't exist, or the map was invalid.")
-    9:
-      # log.pp(levelData, levelData.author)
-      if not levelData.author:
-        ToastParty.err("authors name must be set")
-        return
-      var levelCode = 'vex++:downloadMap/' + str(levelData.version) + '/' + levelData.author + "/" + levelName
-      if levelCode.find("//") != -1:
-        ToastParty.err("invalid level data " + levelCode)
-        log.err(levelCode)
-        return
-      var url = (
-        "https://raw.githubusercontent.com/rsa17826/" +
-        global.REPO_NAME + "/" + global.BRANCH + "/levels/" +
-        global.urlEncode(str(levelData.version) + '/' + levelData.author + "/" + levelName) + '.vex++?rand=' + str(randf())
-      )
-      var data = await global.httpGet(url, [], HTTPClient.METHOD_GET)
-      if data.code == 200:
-        DisplayServer.clipboard_set(levelCode)
-        ToastParty.success("level code copied to clipboard")
-      else:
-        ToastParty.err("level has not been uploaded. it must be uploaded before the code will work")
-        DisplayServer.clipboard_set(levelCode)
-      # log.pp(data.code, data, levelData, levelData.author, url)
+    # 10:
+    #   if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
+    #   if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + levelName + '.vex++')]):
+    #     ToastParty.success("The map has been successfully restored.")
+    #   else:
+    #     ToastParty.error("restoring failed, the map doesn't exist, or the map was invalid.")
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
 
@@ -325,6 +307,7 @@ func updateUserOpts() -> void:
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   global.loadEditorBarData()
   if global.isFirstTimeMenuIsLoaded:
+    var levelToLoad
     global.isFirstTimeMenuIsLoaded = false
     var arr: Array = OS.get_cmdline_args() as Array
     while arr:
@@ -332,19 +315,29 @@ func updateUserOpts() -> void:
       if thing == '--loadMap':
         var mapName = arr.pop_front()
         shouldReload = false
+        log.err(111, levelToLoad)
         if mapName == 'NEWEST':
-          if await loadLevel(newestLevel, true): return
+          levelToLoad = newestLevel
         else:
-          if await loadLevel(mapName, true): return
+          levelToLoad = mapName
+        log.err(222, levelToLoad)
       if thing == '--downloadMap':
         var data = arr.pop_front()
         shouldReload = true
-        if !data.ends_with('.vex++'): data += '.vex++'
-        await global.downloadMap(data.split("/")[0], data.split("/")[1], data.split("/")[2])
+        var map = await LevelServer.loadMapById(data.trim_prefix("vex++:downloadMap/").split("/")[1])
+        if map:
+          await LevelServer.downloadMap(map)
+          await global.wait(1000)
+          ToastParty.success("Downloaded successfully")
+        else:
+          ToastParty.error("Invalid map id")
       if thing == '--loadOnlineLevels':
         shouldReload = false
         get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
         return
+    log.err(333, levelToLoad)
+    if levelToLoad:
+      await global.loadMap(levelToLoad, true)
 
   if shouldReload:
     get_tree().reload_current_scene.call_deferred()
@@ -441,3 +434,6 @@ func _on_show_login_pressed() -> void:
 
 func _on_login_close_button_pressed() -> void:
   loginMenuBg.visible = false
+
+func _on_quit_pressed() -> void:
+  global.quitGame()

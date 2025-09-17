@@ -68,8 +68,10 @@ func update_text(_text: String) -> void:
   button_size = self.size
   update_x_position()
 
-func move_to(index: int, animate: bool) -> void:
-  var offset_y = (margin_between + self.size.y) * index
+func move_to(index: int, animate: bool, label_top_right) -> void:
+  var offset_y = (margin_between) * index
+  for thing in label_top_right.slice(0, index):
+    offset_y += thing.size.y
   var _y = get_y_pos(offset_y, gravity)
   position.y = _y
   # bottom
