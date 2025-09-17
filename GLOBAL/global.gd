@@ -1558,16 +1558,14 @@ func loadBlockData():
 func currentLevel() -> Dictionary:
   return loadedLevels[len(loadedLevels) - 1]
 
-var totalLevelCount
+var totalLevelCount: int
 
 func loadMapInfo(levelPackName: String) -> Variant:
   var options: Variant = sds.loadDataFromFile(path.join(MAP_FOLDER, levelPackName, "/options.sds"))
-
-  totalLevelCount = len(DirAccess.get_files_at(path.join(MAP_FOLDER, levelPackName))) - 1
-
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
+  totalLevelCount = len(options.stages.keys())
   return options
 
 # gray
