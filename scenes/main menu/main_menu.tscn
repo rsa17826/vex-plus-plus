@@ -145,7 +145,12 @@ text = "load online levels"
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 
-[node name="open readme" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+[node name="quit" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+layout_mode = 2
+tooltip_text = "opens external webpage"
+text = "quit"
+
+[node name="open readme2" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
 tooltip_text = "opens external webpage"
 text = "instructions"
@@ -230,7 +235,8 @@ layout_mode = 2
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/new map btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/open level folder" to="." method="_on_open_level_folder_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/load online levels" to="." method="_on_load_online_levels_pressed"]
-[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/open readme" to="." method="_on_open_readme_pressed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/open readme2" to="." method="_on_open_readme_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/change keybinds" to="." method="_on_change_keybinds_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/open logs" to="." method="_on_open_logs_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/show login" to="." method="_on_show_login_pressed"]

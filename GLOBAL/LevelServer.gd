@@ -13,7 +13,7 @@ static func tryRestoreLastSession():
     if authTask.user and not LevelServer.user:
       LevelServer.user = authTask.user
       ToastParty.info("session restored")
-    LevelServer.updateCurrentUserInfoNode()
+  LevelServer.updateCurrentUserInfoNode()
 
 static func updateCurrentUserInfoNode():
   if global.mainMenu:
@@ -165,6 +165,28 @@ static func doesLevelExist(level: Level) -> Array:
       - 1,
       e.levelVersion,
     )
+    )
+static func loadMapById(id):
+  var data = await LevelServer.query(
+    SupabaseQuery.new()
+    .from('level test 2')
+    .eq("id", str(id))
+    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
+  )
+
+  if data:
+    var img := Image.new()
+    img.load_png_from_buffer(Marshalls.base64_to_raw(data[0].levelImage))
+    return Level.new(
+      data[0].levelName,
+      data[0].id,
+      data[0].description,
+      data[0].creatorId,
+      data[0].creatorName,
+      data[0].gameVersion,
+      data[0].levelVersion,
+      [],
+      img
     )
 
 static func loadAllLevels() -> Array:

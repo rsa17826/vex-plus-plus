@@ -1805,3 +1805,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make way to load level by id
 # make copy level share code copy the new code
 # make launcher accept the new level share code format
+
+# add way to detect update available for previously downloaded levels
