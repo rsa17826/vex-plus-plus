@@ -315,12 +315,10 @@ func updateUserOpts() -> void:
       if thing == '--loadMap':
         var mapName = arr.pop_front()
         shouldReload = false
-        log.err(111, levelToLoad)
         if mapName == 'NEWEST':
           levelToLoad = newestLevel
         else:
           levelToLoad = mapName
-        log.err(222, levelToLoad)
       if thing == '--downloadMap':
         var data = arr.pop_front()
         shouldReload = true
@@ -335,7 +333,6 @@ func updateUserOpts() -> void:
         shouldReload = false
         get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
         return
-    log.err(333, levelToLoad)
     if levelToLoad:
       await global.loadMap(levelToLoad, true)
 
