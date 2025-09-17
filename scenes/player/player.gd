@@ -1774,7 +1774,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!!fix player moving when creating basic block
 
 # disable collision on block creation
-# add zindex to display options
+# add zindex to display options for the hovered block list
 
 # add enum md for settings
 
