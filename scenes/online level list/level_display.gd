@@ -17,7 +17,13 @@ func _ready() -> void:
   dlInCorrectVersion.visible = global.launcherExists and global.VERSION != level.gameVersion
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
+  if level and global.isAlive(level):
+    level.dataChanged.disconnect(levelDataChanged)
+  levelToShow.dataChanged.connect(levelDataChanged)
   level = levelToShow
+  levelDataChanged()
+
+func levelDataChanged():
   if not level: return
   levelName.text = level.levelName
   creatorName.text = level.creatorName

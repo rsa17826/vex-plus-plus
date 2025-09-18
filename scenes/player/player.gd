@@ -1693,8 +1693,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
 
-# !!?add level thumbnails
-
 # add star requirement for inner level
 # ?add star finder
 
@@ -1811,3 +1809,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix scaling of rotating buzsaw
 
 # -make blocks attach to growing blocks and move and scale with them
+
+# load all levels and thumbainls later

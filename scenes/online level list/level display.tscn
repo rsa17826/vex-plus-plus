@@ -1,8 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://b8x0qylun3368"]
+[gd_scene load_steps=9 format=3 uid="uid://b8x0qylun3368"]
 
 [ext_resource type="Script" uid="uid://drtmdw2w6aqnf" path="res://scenes/online level list/level_display.gd" id="1_wui2r"]
 [ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="2_rx2np"]
-[ext_resource type="Texture2D" uid="uid://c1re2gen1eeca" path="res://scenes/blocks/image.png" id="3_rx2np"]
+[ext_resource type="Texture2D" uid="uid://d16r61k6ncays" path="res://scenes/loading animation/images/frame 1.png" id="3_cywwg"]
+[ext_resource type="Texture2D" uid="uid://cbegmnljeh4y7" path="res://scenes/loading animation/images/frame 2.png" id="4_aefhj"]
+[ext_resource type="Texture2D" uid="uid://bn12uqwi1nioa" path="res://scenes/loading animation/images/frame 3.png" id="5_rbumh"]
+[ext_resource type="Texture2D" uid="uid://blbrfvnis0dpg" path="res://scenes/loading animation/images/frame 4.png" id="6_rafyr"]
+[ext_resource type="Texture2D" uid="uid://b1g5fwqio2jiv" path="res://scenes/loading animation/images/frame 5.png" id="7_rc1ww"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_hsofh"]
+frames = 5
+speed_scale = 6.0
+frame_0/texture = ExtResource("3_cywwg")
+frame_1/texture = ExtResource("4_aefhj")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("5_rbumh")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("6_rafyr")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("7_rc1ww")
+frame_4/duration = 1.0
 
 [node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion")]
 custom_minimum_size = Vector2(1142.08, 209.965)
@@ -117,7 +134,7 @@ metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
 clip_contents = true
 custom_minimum_size = Vector2(146, 146)
 layout_mode = 2
-texture = ExtResource("3_rx2np")
+texture = SubResource("AnimatedTexture_hsofh")
 expand_mode = 1
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="Panel/VBoxContainer"]
