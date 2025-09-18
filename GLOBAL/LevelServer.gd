@@ -23,7 +23,7 @@ static func updateCurrentUserInfoNode():
     if LevelServer.user:
       global.mainMenu.currentUserInfoNode.text = "logged in as " + LevelServer.user.email.trim_suffix("@null.notld") + " - " + LevelServer.user.id
     else:
-      if FileAccess.file_exists("user://auth"):
+      if !!global.file.read("user://auth", false, ''):
         global.mainMenu.currentUserInfoNode.text = "failed to log in"
       else:
         global.mainMenu.currentUserInfoNode.text = "not logged in"
@@ -276,9 +276,9 @@ static func dictToLevel(e: Dictionary) -> Level:
     img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
   return Level.new(
     e.levelName,
-    e.id,
+    e.id if 'id' in e else -1,
     e.description,
-    e.creatorId,
+    e.creatorId if 'creatorId' in e else "",
     e.creatorName,
     e.gameVersion,
     e.levelVersion,

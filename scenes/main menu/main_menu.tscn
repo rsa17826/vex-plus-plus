@@ -29,7 +29,7 @@
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_34s72"]
 
-[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer", "loginMenuBg", "gameVersionNode", "currentUserInfoNode")]
+[node name="main menu" type="Control" node_paths=PackedStringArray("optsmenunode", "levelContainer", "scrollContainer", "loginMenuBg", "searchBar", "gameVersionNode", "currentUserInfoNode")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -41,6 +41,7 @@ optsmenunode = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/OPTS/ScrollCo
 levelContainer = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/LEVELS/ScrollContainer/HFlowContainer")
 scrollContainer = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/OPTS/ScrollContainer")
 loginMenuBg = NodePath("Panel")
+searchBar = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/search")
 gameVersionNode = NodePath("VBoxContainer/BTNHOLDER/BTNS2/version")
 currentUserInfoNode = NodePath("VBoxContainer/BTNHOLDER/BTNS2/currentUser")
 metadata/_edit_lock_ = true

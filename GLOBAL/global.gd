@@ -1479,27 +1479,27 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
     return false
-  if not same(levelPackInfo.version, VERSION):
-    var gameVersionIsNewer: bool = VERSION > levelPackInfo.version
+  if not same(levelPackInfo.gameVersion, VERSION):
+    var gameVersionIsNewer: bool = VERSION > levelPackInfo.gameVersion
     if gameVersionIsNewer:
       if useropts.warnWhenOpeningLevelInNewerGameVersion:
         var data = await prompt(
-          "this level was last saved in version " +
-          str(levelPackInfo.version) +
-          " and the current version is " + str(VERSION) +
+          "this level was last saved in gameVersion " +
+          str(levelPackInfo.gameVersion) +
+          " and the current gameVersion is " + str(VERSION) +
           ". Do you want to load this level?\n" +
-          "> the current game version is newer than what the level was made in"
+          "> the current game gameVersion is newer than what the level was made in"
           , PromptTypes.confirm
         )
         if not data: return false
     else:
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
         var data = await prompt(
-          "this level was last saved in version " +
-          str(levelPackInfo.version) +
-          " and the current version is " + str(VERSION) +
+          "this level was last saved in gameVersion " +
+          str(levelPackInfo.gameVersion) +
+          " and the current gameVersion is " + str(VERSION) +
           ". Do you want to load this level?\n" +
-          "< the current game version might not have all the features needed to play this level"
+          "< the current game gameVersion might not have all the features needed to play this level"
           , PromptTypes.confirm
         )
         if not data: return false
@@ -1565,6 +1565,16 @@ func loadMapInfo(levelPackName: String) -> Variant:
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
+  if 'author' in options and 'creatorName' not in options:
+    options.creatorName = options.author
+    options.erase("author")
+  if 'version' in options and 'gameVersion' not in options:
+    options.gameVersion = options.version
+    options.erase("version")
+  if 'gameVersion' not in options:
+    options.gameVersion = -1
+  if 'levelVersion' not in options:
+    options.levelVersion = -1
   totalLevelCount = len(options.stages.keys())
   return options
 
@@ -1664,13 +1674,14 @@ func createNewMapFolder() -> Variant:
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"),
     {
       "start": startLevel,
-      "author": await prompt(
+      "creatorName": await prompt(
         "Enter your name",
         PromptTypes.string,
         "",
       ),
       "description": "",
-      "version": VERSION,
+      "gameVersion": VERSION,
+      "levelVersion": 0,
       "stages": {
       }
     }
@@ -2376,12 +2387,12 @@ signal hitboxTypesChanged
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
 
-func downloadMap(version, creator, level):
+func downloadMap(gameVersion, creator, level):
   ToastParty.info("the map " + level + " by " + creator + " has started downloading.")
   var url = (
     "https://raw.githubusercontent.com/rsa17826/" +
     REPO_NAME + "/main/levels/" +
-    global.urlEncode(str(version) + '/' + creator + "/" + level) + '?rand=' + str(randf())
+    global.urlEncode(str(gameVersion) + '/' + creator + "/" + level) + '?rand=' + str(randf())
   )
   log.pp(url)
   await global.httpGet(url,
@@ -2420,16 +2431,16 @@ var ctrlMenuVisible := false
 
 var launcherExists = FileAccess.file_exists("../../vex++.exe") or FileAccess.file_exists(r"..\..\vex++.cmd")
 
-func openLevelInVersion(levelName, version):
+func openLevelInVersion(levelName, gameVersion):
   if DirAccess.remove_absolute(global.path.abs("res://process")):
     DirAccess.remove_absolute(global.path.abs("res://process"))
   if FileAccess.file_exists(r"..\..\vex++.exe"):
     OS.create_process(r"..\..\vex++.exe", PackedStringArray([
-      "version", str(version), "silent", "--loadMap", levelName
+      "version", str(gameVersion), "silent", "--loadMap", levelName
     ]))
   else:
     OS.create_process(r"..\..\vex++.cmd", PackedStringArray([
-      "version", str(version), "silent", "--loadMap", levelName
+      "version", str(gameVersion), "silent", "--loadMap", levelName
     ]))
   global.quitGame()
 

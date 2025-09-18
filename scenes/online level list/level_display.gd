@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends Control
 var level: LevelServer.Level
 
 @export var levelName: Control
@@ -10,6 +10,16 @@ var level: LevelServer.Level
 @export var viewOldVersions: Button
 @export var levelImage: TextureRect
 @export var dlInCorrectVersion: Button
+@export var onlineButtonsContainer: Control
+@export var offlineButtonsContainer: Control
+
+var isOnline := true:
+  set(val):
+    onlineButtonsContainer.visible = val
+    offlineButtonsContainer.visible = !val
+    creatorId.visible = val
+    isOnline = val
+
 var levelList: Control
 var search: Control
 
@@ -27,7 +37,7 @@ func levelDataChanged():
   if not level: return
   levelName.text = level.levelName
   creatorName.text = level.creatorName
-  levelVersion.text = 'v' + str(level.levelVersion)
+  levelVersion.text = 'level version: ' + str(level.levelVersion)
   creatorId.text = str(level.creatorId)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
@@ -35,6 +45,8 @@ func levelDataChanged():
   viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
   if level.levelImage.get_size() in [Vector2i(292, 292), Vector2i(146, 146)]:
     levelImage.texture = ImageTexture.create_from_image(level.levelImage)
+  elif level.levelImage.get_size():
+    levelImage.texture = preload("res://scenes/blocks/image.png")
 
 func _on_download_pressed() -> void:
   LevelServer.downloadMap(level)
@@ -77,3 +89,9 @@ func _on_copy_share_code_pressed() -> void:
   var levelCode = 'vex++:downloadMap/' + str(level.gameVersion) + '/' + str(level.onlineId) + '/' + global.urlEncode(level.levelName)
   DisplayServer.clipboard_set(levelCode)
   ToastParty.success("level code copied to clipboard")
+
+func _on_new_save_pressed() -> void:
+  global.loadMap(level.levelName, false)
+
+func _on_load_save_pressed() -> void:
+  global.loadMap(level.levelName, true)

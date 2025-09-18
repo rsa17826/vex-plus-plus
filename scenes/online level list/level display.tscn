@@ -21,10 +21,12 @@ frame_3/duration = 1.0
 frame_4/texture = ExtResource("7_rc1ww")
 frame_4/duration = 1.0
 
-[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion")]
-custom_minimum_size = Vector2(1142.08, 209.965)
+[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion", "onlineButtonsContainer", "offlineButtonsContainer")]
+clip_contents = true
 offset_right = 1148.0
 offset_bottom = 209.965
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_wui2r")
 levelName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/levelname")
 levelVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4/levelversions")
@@ -32,19 +34,18 @@ gameVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxCon
 creatorName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3/creatorname")
 creatorId = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/creator id")
 description = NodePath("Panel/VBoxContainer/HBoxContainer3/TextEdit")
-viewOldVersions = NodePath("Panel/VBoxContainer/HBoxContainer6/view old versions")
+viewOldVersions = NodePath("Panel/VBoxContainer/online buttons/view old versions")
 levelImage = NodePath("Panel/VBoxContainer/HBoxContainer3/MarginContainer/MaxSizeContainer/level image")
-dlInCorrectVersion = NodePath("Panel/VBoxContainer/HBoxContainer6/download and play2")
+dlInCorrectVersion = NodePath("Panel/VBoxContainer/online buttons/download and play2")
+onlineButtonsContainer = NodePath("Panel/VBoxContainer/online buttons")
+offlineButtonsContainer = NodePath("Panel/VBoxContainer/offline buttons")
 
-[node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(0, 8.75)
+[node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-layout_mode = 0
-offset_right = 1138.0
-offset_bottom = 206.0
+layout_mode = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer"]
 layout_mode = 2
@@ -95,14 +96,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "game version: 150"
 
-[node name="MaxSizeContainer" type="Container" parent="Panel/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-script = ExtResource("2_rx2np")
-max_size = Vector2(150, 150)
-metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
-
 [node name="TextEdit" type="TextEdit" parent="Panel/VBoxContainer/HBoxContainer3"]
-custom_minimum_size = Vector2(169.74, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "asdasdasdjkahkasdjkjasd'
@@ -137,36 +132,50 @@ layout_mode = 2
 texture = SubResource("AnimatedTexture_hsofh")
 expand_mode = 1
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="online buttons" type="HBoxContainer" parent="Panel/VBoxContainer"]
+visible = false
 layout_mode = 2
 
-[node name="download" type="Button" parent="Panel/VBoxContainer/HBoxContainer6"]
+[node name="download" type="Button" parent="Panel/VBoxContainer/online buttons"]
 layout_mode = 2
 text = "download level"
 
-[node name="download and play" type="Button" parent="Panel/VBoxContainer/HBoxContainer6"]
+[node name="download and play" type="Button" parent="Panel/VBoxContainer/online buttons"]
 layout_mode = 2
 text = "download and play"
 
-[node name="download and play2" type="Button" parent="Panel/VBoxContainer/HBoxContainer6"]
+[node name="download and play2" type="Button" parent="Panel/VBoxContainer/online buttons"]
 layout_mode = 2
 text = "download and play on correct version"
 
-[node name="copy share code" type="Button" parent="Panel/VBoxContainer/HBoxContainer6"]
+[node name="copy share code" type="Button" parent="Panel/VBoxContainer/online buttons"]
 layout_mode = 2
 text = "copy share code"
 
-[node name="view old versions" type="Button" parent="Panel/VBoxContainer/HBoxContainer6"]
+[node name="view old versions" type="Button" parent="Panel/VBoxContainer/online buttons"]
 layout_mode = 2
 text = "view old versions"
+
+[node name="offline buttons" type="HBoxContainer" parent="Panel/VBoxContainer"]
+layout_mode = 2
+
+[node name="new save" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+layout_mode = 2
+text = "new save"
+
+[node name="load save" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+layout_mode = 2
+text = "load save"
 
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/creator id" to="." method="_on_creator_id_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2/levelname" to="." method="_on_levelname_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3/creatorname" to="." method="_on_creatorname_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4/levelversions" to="." method="_on_levelversions_pressed"]
 [connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5/gameversiuon" to="." method="_on_gameversiuon_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download" to="." method="_on_download_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download and play" to="." method="_on_download_and_play_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/download and play2" to="." method="_on_download_and_play_2_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/copy share code" to="." method="_on_copy_share_code_pressed"]
-[connection signal="pressed" from="Panel/VBoxContainer/HBoxContainer6/view old versions" to="." method="_on_view_old_versions_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/online buttons/download" to="." method="_on_download_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/online buttons/download and play" to="." method="_on_download_and_play_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/online buttons/download and play2" to="." method="_on_download_and_play_2_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/online buttons/copy share code" to="." method="_on_copy_share_code_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/online buttons/view old versions" to="." method="_on_view_old_versions_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/offline buttons/new save" to="." method="_on_new_save_pressed"]
+[connection signal="pressed" from="Panel/VBoxContainer/offline buttons/load save" to="." method="_on_load_save_pressed"]
