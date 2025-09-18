@@ -1,12 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://irxf2xv7q3m4"]
+[gd_scene load_steps=3 format=3 uid="uid://dt0bgs2y482om"]
 
-[ext_resource type="Script" uid="uid://botycuh4sqcbo" path="res://scenes/main menu/lvl_sel_item.gd" id="1_4oddt"]
 [ext_resource type="Script" uid="uid://7hjs6nnyt2qk" path="res://scenes/main menu/open in correct version.gd" id="2_lwd02"]
+
+[sub_resource type="GDScript" id="GDScript_4oddt"]
+script/source = "extends NestedSearchable
+@export var levelname: Node
+@export var creator: Node
+@export var description: Node
+@export var version: Node
+@export var openInCorrectVersion: Node
+@export var newSaveBtn: Node
+@export var loadSaveBtn: Node
+@export var moreOptsBtn: Node"
 
 [node name="lvlSelItem" type="VFlowContainer" node_paths=PackedStringArray("levelname", "creator", "description", "version", "openInCorrectVersion", "newSaveBtn", "loadSaveBtn", "moreOptsBtn")]
 offset_right = 107.0
 offset_bottom = 147.0
-script = ExtResource("1_4oddt")
+script = SubResource("GDScript_4oddt")
 levelname = NodePath("VBoxContainer/Label")
 creator = NodePath("VBoxContainer/Label2")
 description = NodePath("VBoxContainer/Label3")

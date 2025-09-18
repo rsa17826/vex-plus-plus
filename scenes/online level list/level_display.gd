@@ -12,18 +12,28 @@ var level: LevelServer.Level
 @export var dlInCorrectVersion: Button
 @export var onlineButtonsContainer: Control
 @export var offlineButtonsContainer: Control
+@export var large: Array[Control]
 
 var isOnline := true:
   set(val):
-    onlineButtonsContainer.visible = val
-    offlineButtonsContainer.visible = !val
-    creatorId.visible = val
     isOnline = val
+    updateOnlineState()
+
+func updateOnlineState():
+  onlineButtonsContainer.visible = isOnline
+  offlineButtonsContainer.visible = !isOnline
+  creatorId.visible = isOnline
+  for thing in large:
+    thing.visible = true
+  if global.useropts.smallLevelDisplays:
+    for thing in large:
+      thing.visible = false
 
 var levelList: Control
 var search: Control
 
 func _ready() -> void:
+  updateOnlineState()
   dlInCorrectVersion.visible = global.launcherExists and global.VERSION != level.gameVersion
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
@@ -95,3 +105,98 @@ func _on_new_save_pressed() -> void:
 
 func _on_load_save_pressed() -> void:
   global.loadMap(level.levelName, true)
+
+func _on_duplicate_pressed() -> void:
+  OS.move_to_trash(global.path.join(global.MAP_FOLDER, level.levelName + " (copy)"))
+  global.copyDir(
+    global.path.join(global.MAP_FOLDER, level.levelName),
+    global.path.join(global.MAP_FOLDER, level.levelName + " (copy)")
+  )
+  global.mainMenu.loadLocalLevelList()
+
+func _on_delete_pressed() -> void:
+  OS.move_to_trash(global.path.join(global.MAP_FOLDER, level.levelName))
+  global.mainMenu.loadLocalLevelList()
+
+func _on_rename_pressed() -> void:
+  var newName = (await global.prompt(
+    "Rename map",
+    global.PromptTypes.string,
+    level.levelName
+  )).replace("/", '').replace("\\", '')
+  DirAccess.rename_absolute(
+    global.path.join(global.MAP_FOLDER, level.levelName),
+    global.path.join(global.MAP_FOLDER,
+      newName
+    )
+  )
+  var saveData: Dictionary = sds.loadDataFromFile(global.getLevelSavePath(level.levelName), {})
+  if level.levelName in saveData:
+    saveData[newName] = saveData[level.levelName]
+    saveData.erase(level.levelName)
+    sds.saveDataToFile(global.getLevelSavePath(newName), saveData)
+    OS.move_to_trash(global.getLevelSavePath(level.levelName))
+  global.mainMenu.loadLocalLevelList()
+
+func _on_export_pressed() -> void:
+  if FileAccess.file_exists(global.path.abs("res://exports/" + level.levelName + ".vex++")):
+    OS.move_to_trash(global.path.abs("res://exports/" + level.levelName + ".vex++"))
+    await global.wait(100)
+  global.zipDir(
+    global.path.join(global.MAP_FOLDER, level.levelName),
+    global.path.abs("res://exports/" + level.levelName + ".vex++")
+  )
+  ToastParty.info("map exported successfully")
+  if global.useropts.openExportsDirectoryOnExport:
+    OS.shell_open(global.path.abs("res://exports"))
+
+func _on_upload_pressed() -> void:
+  if not LevelServer.user:
+    global.mainMenu._on_show_login_pressed()
+    await global.waituntil(func():
+      return !global.mainMenu.loginMenuBg.visible)
+    if not LevelServer.user:
+      ToastParty.err("you must login to upload maps")
+      return
+  if !FileAccess.file_exists(global.path.join(global.MAP_FOLDER, level.levelName, "/image.png")):
+    ToastParty.err("the map must have an image - an image is created by saving the map!")
+    return
+  var outpath = global.path.abs("res://exports/" + level.levelName + ".vex++")
+  global.zipDir(
+    global.path.join(global.MAP_FOLDER, level.levelName),
+    outpath
+  )
+  var f = FileAccess.open(outpath, FileAccess.READ)
+  # var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
+  var c = f.get_buffer(f.get_length())
+  if not level.creatorName:
+    ToastParty.err("Please enter an creatorName name")
+    return
+  if not level.levelName:
+    ToastParty.err("Please enter a map name")
+    return
+  global.mainMenu.get_node("AnimatedSprite2D").visible = true
+  var img = Image.new()
+  img.load(global.path.join(global.MAP_FOLDER, level.levelName, "/image.png"))
+  if img.get_size() != Vector2i(292, 292):
+    ToastParty.err("the map must have an image of a valid size - a valid image is created by saving the map!")
+    return
+  await LevelServer.uploadLevel(
+    LevelServer.Level.new(
+      level.levelName,
+      - 1,
+      level.description,
+      '',
+      level.creatorName,
+      level.gameVersion,
+      level.levelVersion,
+      c,
+      img
+    )
+  )
+  global.mainMenu.get_node("AnimatedSprite2D").visible = false
+  f.close()
+  ToastParty.success("Level uploaded!")
+
+func _on_more_pressed() -> void:
+  global.mainMenu.showMoreOptions(level)
