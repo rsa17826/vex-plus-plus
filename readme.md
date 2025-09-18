@@ -214,6 +214,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - ### localLevelList
 
     - **autoExpandAllGroupsInLocalLevelList**: when loading the local levels list, all groups are expanded, if false only the group for the current game version is expanded
+    - **smallLevelDisplays**: if true the level displays will be smaller
 
   - ### online level list
 
