@@ -58,20 +58,64 @@ static func login(uname: String, password: String) -> SupabaseUser:
   user = authTask.user
   return authTask.user
 
+static func query_cb(query: SupabaseQuery, cb: Callable):
+  cb.call((await Supabase.database.query(query).completed).data)
 static func query(query: SupabaseQuery):
   return (await Supabase.database.query(query).completed).data
 
 class Level:
-  var levelName: String = ""
-  var description: String = ""
-  var creatorId: String = ""
-  var creatorName: String = ""
-  var gameVersion: int
-  var onlineId: int
-  var levelVersion: int
-  var levelData: PackedByteArray
-  var levelImage: Image
-  var oldVersionCount: int = 0
+  signal dataChanged
+  var initing = true
+  var levelName: String = "":
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      levelName = val
+  var description: String = "":
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      description = val
+  var creatorId: String = "":
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      creatorId = val
+  var creatorName: String = "":
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      creatorName = val
+  var gameVersion: int:
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      gameVersion = val
+  var onlineId: int:
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      onlineId = val
+  var levelVersion: int:
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      levelVersion = val
+  var levelData: PackedByteArray:
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      levelData = val
+  var levelImage: Image:
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      levelImage = val
+  var oldVersionCount: int = 0:
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      oldVersionCount = val
   func _init(
     _levelName: String = '',
     _onlineId: int = -1,
@@ -83,6 +127,7 @@ class Level:
     _levelData: PackedByteArray = [],
     _levelImage: Image = null
   ):
+    self.initing = true
     self.levelName = _levelName
     self.description = _description if _description else "NO DESCRIPTION SET"
     self.onlineId = _onlineId
@@ -92,25 +137,26 @@ class Level:
     self.levelVersion = _levelVersion
     self.levelData = _levelData
     self.levelImage = _levelImage
+    self.initing = false
 
-  func setName(val):
-    self.levelName = val
-    return self
-  func setDesc(val):
-    self.description = val if val else "NO DESCRIPTION SET"
-    return self
-  func setCreatorName(val):
-    self.creatorName = val
-    return self
-  func setData(val):
-    self.levelData = val
-    return self
-  func setGameVersion(val):
-    self.gameVersion = val
-    return self
-  func setLevelVersion(val):
-    self.levelVersion = val
-    return self
+  # func setName(val):
+  #   self.levelName = val
+  #   return self
+  # func setDesc(val):
+  #   self.description = val if val else "NO DESCRIPTION SET"
+  #   return self
+  # func setCreatorName(val):
+  #   self.creatorName = val
+  #   return self
+  # func setData(val):
+  #   self.levelData = val
+  #   return self
+  # func setGameVersion(val):
+  #   self.gameVersion = val
+  #   return self
+  # func setLevelVersion(val):
+  #   self.levelVersion = val
+  #   return self
 
 static func requestLogin() -> SupabaseUser:
   user = await LevelServer.login(
@@ -177,12 +223,10 @@ static func loadMapById(id):
     SupabaseQuery.new()
     .from('level test 2')
     .eq("id", str(id))
-    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
+    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description'])
   )
 
   if data:
-    var img := Image.new()
-    img.load_png_from_buffer(Marshalls.base64_to_raw(data[0].levelImage))
     return Level.new(
       data[0].levelName,
       data[0].id,
@@ -192,7 +236,7 @@ static func loadMapById(id):
       data[0].gameVersion,
       data[0].levelVersion,
       [],
-      img
+      Image.new()
     )
 
 static func loadAllLevels() -> Array:
@@ -200,15 +244,36 @@ static func loadAllLevels() -> Array:
     SupabaseQuery.new()
     .from('level test 2')
     .order('created_at', 1)
-    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
+    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description'])
   )
   if not data:
     return []
-  return data.map(LevelServer.dictToLevel)
+  data = data.map(LevelServer.dictToLevel)
+  LevelServer.loadLevelImages(data)
+  return data
+
+static func loadLevelImages(levels: Array) -> void:
+  for ids in [[levels[0].onlineId], levels.slice(1).map(func(e: Level): return e.onlineId)]:
+    if ids:
+      LevelServer.query_cb(
+        SupabaseQuery.new()
+        .from('level test 2')
+        .order('created_at', 1)
+        .In("id", ids)
+        .select(['id,levelImage']),
+      func(data):
+        for level: Level in levels:
+          for image in data:
+            if level.onlineId == image.id:
+              level.levelImage.load_png_from_buffer(Marshalls.base64_to_raw(image.levelImage))
+              level.dataChanged.emit()
+              break
+      )
 
 static func dictToLevel(e: Dictionary) -> Level:
   var img := Image.new()
-  img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
+  if 'levelImage' in e:
+    img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
   return Level.new(
     e.levelName,
     e.id,
@@ -227,9 +292,11 @@ static func loadOldVersions(level: Level) -> Array:
     .from('level test 2')
     .eq("creatorId", str(level.creatorId))
     .eq("levelName", level.levelName)
-    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
+    .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description'])
   ).completed).data
-  return data.map(LevelServer.dictToLevel)
+  data = data.map(LevelServer.dictToLevel)
+  LevelServer.loadLevelImages(data)
+  return data
 
 static func downloadMap(level: LevelServer.Level) -> bool:
   var id: int = level.onlineId
