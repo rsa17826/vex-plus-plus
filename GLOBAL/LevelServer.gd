@@ -15,7 +15,7 @@ static func tryRestoreLastSession():
       LevelServer.user = authTask.user
       if FileAccess.file_exists("user://auth"):
         global.file.write("user://auth", LevelServer.user.refresh_token, false)
-      ToastParty.info("session restored")
+      # ToastParty.info("session restored")
   LevelServer.updateCurrentUserInfoNode()
 
 static func updateCurrentUserInfoNode():

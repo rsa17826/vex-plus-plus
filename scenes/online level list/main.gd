@@ -44,7 +44,7 @@ func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
     node.levelList = self
     node.search = searchBar
     node.showLevelData(level)
-    log.pp('level', level)
+    # log.pp('level', level)
     levelListContainerNode.add_child(node)
   if global.useropts.onlyShowLevelsForCurrentVersion:
     loadingText.text = 'Loaded levels: ' + str(loadedLevelCount)
