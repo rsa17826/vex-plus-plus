@@ -100,7 +100,7 @@ horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 metadata/_edit_lock_ = true
 
-[node name="GridContainer" type="GridContainer" parent="VBoxContainer/MarginContainer/ScrollContainer"]
+[node name="GridContainer" type="HFlowContainer" parent="VBoxContainer/MarginContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

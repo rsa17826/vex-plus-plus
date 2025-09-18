@@ -57,11 +57,9 @@ func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
     node.search = searchBar
     node.isOnline = false
     node.showLevelData(level)
-    # log.pp('level', level)
     levelContainer.add_child(node)
 
 func loadLocalLevelList():
-  # const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.MAP_FOLDER)
   var dirs = (dir.get_directories() as Array)
@@ -69,8 +67,11 @@ func loadLocalLevelList():
   for levelName: String in dirs:
     var data = global.loadMapInfo(levelName)
     data.levelName = levelName
-    if 'author' in data:
-      data.creatorName = data.author
+    var imagePath = global.path.join(global.MAP_FOLDER, levelName, "image.png")
+    if FileAccess.file_exists(imagePath):
+      data.levelImage = Image.load_from_file(imagePath)
+    else:
+      data.levelImage = null
     arr.append(LevelServer.dictToLevel(data))
   arr.sort_custom(func(a: LevelServer.Level, s: LevelServer.Level):
     return \
@@ -81,50 +82,6 @@ func loadLocalLevelList():
   for child in levelContainer.get_children():
     child.queue_free()
   loadLevelsFromArray(arr)
-  # var arr := allData.keys()
-  # arr.sort()
-  # arr.reverse()
-  # newestLevel = allData[arr[0]][allData[arr[0]].keys()[0]].keys()[0] if dirs else null
-  # # log.pp(newestLevel)
-  # const versionNode := preload("res://scenes/online level list/version.tscn")
-  # const creatorNode := preload("res://scenes/online level list/creator.tscn")
-  # # const levelNode := preload("res://scenes/online level list/level.tscn")
-  # for version in arr:
-  #   var v = versionNode.instantiate()
-  #   v.title = str(version)
-  #   v.folded = false if global.useropts.autoExpandAllGroupsInLocalLevelList else version != global.VERSION
-  #   v.thisText = str(version).to_lower().replace('\n', '')
-  #   levelContainer.add_child(v)
-  #   for creator in allData[version]:
-  #     var c = creatorNode.instantiate()
-  #     c.title = creator
-  #     c.thisText = creator.to_lower().replace('\n', '')
-  #     v.get_node("VBoxContainer").add_child(c)
-  #     for levelName in allData[version][creator]:
-  #       var data = allData[version][creator][levelName]
-  #       var description = data.description
-  #       var l = levelNode.instantiate()
-  #       onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
-  #       l.levelname.text = levelName
-  #       var versiontext = "V" + str(data.version) + " "
-  #       if data.version > global.VERSION:
-  #         versiontext += ">"
-  #       elif data.version < global.VERSION:
-  #         versiontext += "<"
-  #       else:
-  #         versiontext += "="
-  #       l.openInCorrectVersion.text = 'open in ' + versiontext
-  #       l.version.text = versiontext
-  #       l.openInCorrectVersion.visible = data.version != global.VERSION and global.launcherExists
-  #       l.openInCorrectVersion.version = data.version
-  #       l.openInCorrectVersion.levelName = levelName
-  #       l.version.visible = data.version == global.VERSION or not global.launcherExists
-  #       l.thisText = l.levelname.text.to_lower().replace('\n', '')
-  #       l.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
-  #       l.tooltip_text = description if description else "NO DESCRIPTION SET"
-  #       l.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
-  #       l.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
-  #       c.get_node("VBoxContainer").add_child(l)
 
 func otc(text: String, version: NestedSearchable):
   if not version: return
@@ -132,7 +89,8 @@ func otc(text: String, version: NestedSearchable):
 signal onTextChanged
 
 var levelMenuPromise
-func showMoreOptions(levelName, levelData):
+func showMoreOptions(level: LevelServer.Level):
+  var levelName = level.levelName
   pm.system_menu_id = NativeMenu.SystemMenus.DOCK_MENU_ID
   var i := 0
   pm.clear()
@@ -169,6 +127,7 @@ func showMoreOptions(levelName, levelData):
   match res:
     -1: return
     0:
+      OS.move_to_trash(global.path.join(global.MAP_FOLDER, levelName + " (copy)"))
       global.copyDir(
         global.path.join(global.MAP_FOLDER, levelName),
         global.path.join(global.MAP_FOLDER, levelName + " (copy)")

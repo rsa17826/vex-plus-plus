@@ -253,7 +253,8 @@ static func loadAllLevels() -> Array:
   return data
 
 static func loadLevelImages(levels: Array) -> void:
-  for ids in [[levels[0].onlineId], levels.slice(1).map(func(e: Level): return e.onlineId)]:
+  var allIds = levels.map(func(e: Level): return e.onlineId)
+  for ids in [[allIds[0]], allIds.slice(1, 6), allIds.slice(6)]:
     if ids:
       LevelServer.query_cb(
         SupabaseQuery.new()
@@ -271,9 +272,17 @@ static func loadLevelImages(levels: Array) -> void:
       )
 
 static func dictToLevel(e: Dictionary) -> Level:
-  var img := Image.new()
+  var img: Image
   if 'levelImage' in e:
-    img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
+    if not e.levelImage:
+      img = ResourceLoader.load("res://scenes/blocks/image.png").get_image()
+    elif e.levelImage is Image:
+      img = e.levelImage
+    else:
+      img = Image.new()
+      img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
+  else:
+    img = Image.new()
   return Level.new(
     e.levelName,
     e.id if 'id' in e else -1,
