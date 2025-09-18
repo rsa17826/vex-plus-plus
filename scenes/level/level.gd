@@ -138,7 +138,7 @@ func save(saveImage: bool):
   log.pp(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
-  opts.version = int(global.file.read("res://VERSION", false, "-1"))
+  opts.gameVersion = int(global.file.read("res://VERSION", false, "-1"))
   opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
   if saveImage:
     # await RenderingServer.frame_post_draw

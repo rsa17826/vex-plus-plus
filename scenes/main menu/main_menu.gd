@@ -6,6 +6,7 @@ var GITHUB_TOKEN = global.getToken()
 @export var levelContainer: Control
 @export var scrollContainer: ScrollContainer
 @export var loginMenuBg: Control
+@export var searchBar: Control
 @export var gameVersionNode: Label
 @export var currentUserInfoNode: Label
 
@@ -27,67 +28,103 @@ func _ready() -> void:
   if !global.isFirstTimeMenuIsLoaded:
     LevelServer.updateCurrentUserInfoNode()
 
+func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
+  var loadedLevelData = {}
+  var newData = []
+  if showOldVersions:
+    newData = data
+  else:
+    for level: LevelServer.Level in data:
+      var oldVersionCount = 0
+      if not (level.creatorId in loadedLevelData):
+        loadedLevelData[level.creatorId] = {}
+      if level.levelName in loadedLevelData[level.creatorId]:
+        if level.levelVersion < loadedLevelData[level.creatorId][level.levelName].levelVersion:
+          loadedLevelData[level.creatorId][level.levelName].oldVersionCount += 1
+          continue
+        else:
+          oldVersionCount = loadedLevelData[level.creatorId][level.levelName].oldVersionCount + 1
+          newData.erase(loadedLevelData[level.creatorId][level.levelName])
+      level.oldVersionCount = oldVersionCount
+      loadedLevelData[level.creatorId][level.levelName] = level
+      newData.append(level)
+  for child in levelContainer.get_children():
+    child.queue_free()
+  const levelNode := preload("res://scenes/online level list/level display.tscn")
+  for level in newData:
+    var node = levelNode.instantiate()
+    node.levelList = self
+    node.search = searchBar
+    node.isOnline = false
+    node.showLevelData(level)
+    # log.pp('level', level)
+    levelContainer.add_child(node)
+
 func loadLocalLevelList():
-  const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
+  # const levelNode = preload("res://scenes/main menu/lvl_sel_item.tscn")
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.MAP_FOLDER)
   var dirs = (dir.get_directories() as Array)
-  var allData = {}
+  var arr = []
   for levelName: String in dirs:
     var data = global.loadMapInfo(levelName)
-    if data.version not in allData:
-      allData[data.version] = {}
-    if data.author not in allData[data.version]:
-      allData[data.version][data.author] = {}
-    allData[data.version][data.author][levelName] = data
-  # log.pp(allData)
+    data.levelName = levelName
+    if 'author' in data:
+      data.creatorName = data.author
+    arr.append(LevelServer.dictToLevel(data))
+  arr.sort_custom(func(a: LevelServer.Level, s: LevelServer.Level):
+    return \
+    FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, a.levelName)) \
+    > FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, s.levelName))
+  )
 
   for child in levelContainer.get_children():
     child.queue_free()
-  var arr := allData.keys()
-  arr.sort()
-  arr.reverse()
-  newestLevel = allData[arr[0]][allData[arr[0]].keys()[0]].keys()[0] if dirs else null
-  # log.pp(newestLevel)
-  const versionNode := preload("res://scenes/online level list/version.tscn")
-  const creatorNode := preload("res://scenes/online level list/creator.tscn")
-  # const levelNode := preload("res://scenes/online level list/level.tscn")
-  for version in arr:
-    var v = versionNode.instantiate()
-    v.title = str(version)
-    v.folded = false if global.useropts.autoExpandAllGroupsInLocalLevelList else version != global.VERSION
-    v.thisText = str(version).to_lower().replace('\n', '')
-    levelContainer.add_child(v)
-    for creator in allData[version]:
-      var c = creatorNode.instantiate()
-      c.title = creator
-      c.thisText = creator.to_lower().replace('\n', '')
-      v.get_node("VBoxContainer").add_child(c)
-      for levelName in allData[version][creator]:
-        var data = allData[version][creator][levelName]
-        var description = data.description
-        var l = levelNode.instantiate()
-        onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
-        l.levelname.text = levelName
-        var versiontext = "V" + str(data.version) + " "
-        if data.version > global.VERSION:
-          versiontext += ">"
-        elif data.version < global.VERSION:
-          versiontext += "<"
-        else:
-          versiontext += "="
-        l.openInCorrectVersion.text = 'open in ' + versiontext
-        l.version.text = versiontext
-        l.openInCorrectVersion.visible = data.version != global.VERSION and global.launcherExists
-        l.openInCorrectVersion.version = data.version
-        l.openInCorrectVersion.levelName = levelName
-        l.version.visible = data.version == global.VERSION or not global.launcherExists
-        l.thisText = l.levelname.text.to_lower().replace('\n', '')
-        l.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
-        l.tooltip_text = description if description else "NO DESCRIPTION SET"
-        l.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
-        l.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
-        c.get_node("VBoxContainer").add_child(l)
+  loadLevelsFromArray(arr)
+  # var arr := allData.keys()
+  # arr.sort()
+  # arr.reverse()
+  # newestLevel = allData[arr[0]][allData[arr[0]].keys()[0]].keys()[0] if dirs else null
+  # # log.pp(newestLevel)
+  # const versionNode := preload("res://scenes/online level list/version.tscn")
+  # const creatorNode := preload("res://scenes/online level list/creator.tscn")
+  # # const levelNode := preload("res://scenes/online level list/level.tscn")
+  # for version in arr:
+  #   var v = versionNode.instantiate()
+  #   v.title = str(version)
+  #   v.folded = false if global.useropts.autoExpandAllGroupsInLocalLevelList else version != global.VERSION
+  #   v.thisText = str(version).to_lower().replace('\n', '')
+  #   levelContainer.add_child(v)
+  #   for creator in allData[version]:
+  #     var c = creatorNode.instantiate()
+  #     c.title = creator
+  #     c.thisText = creator.to_lower().replace('\n', '')
+  #     v.get_node("VBoxContainer").add_child(c)
+  #     for levelName in allData[version][creator]:
+  #       var data = allData[version][creator][levelName]
+  #       var description = data.description
+  #       var l = levelNode.instantiate()
+  #       onTextChanged.connect(func(text): otc.call(text, v), ConnectFlags.CONNECT_DEFERRED)
+  #       l.levelname.text = levelName
+  #       var versiontext = "V" + str(data.version) + " "
+  #       if data.version > global.VERSION:
+  #         versiontext += ">"
+  #       elif data.version < global.VERSION:
+  #         versiontext += "<"
+  #       else:
+  #         versiontext += "="
+  #       l.openInCorrectVersion.text = 'open in ' + versiontext
+  #       l.version.text = versiontext
+  #       l.openInCorrectVersion.visible = data.version != global.VERSION and global.launcherExists
+  #       l.openInCorrectVersion.version = data.version
+  #       l.openInCorrectVersion.levelName = levelName
+  #       l.version.visible = data.version == global.VERSION or not global.launcherExists
+  #       l.thisText = l.levelname.text.to_lower().replace('\n', '')
+  #       l.newSaveBtn.connect("pressed", loadLevel.bind(levelName, false))
+  #       l.tooltip_text = description if description else "NO DESCRIPTION SET"
+  #       l.loadSaveBtn.connect("pressed", loadLevel.bind(levelName, true))
+  #       l.moreOptsBtn.connect("pressed", showMoreOptions.bind(levelName, data))
+  #       c.get_node("VBoxContainer").add_child(l)
 
 func otc(text: String, version: NestedSearchable):
   if not version: return
@@ -206,12 +243,12 @@ func showMoreOptions(levelName, levelData):
       var f = FileAccess.open(outpath, FileAccess.READ)
       var data = sds.loadDataFromFile(global.path.join(global.MAP_FOLDER, levelName, "/options.sds"))
 
-      var version = str(data.version)
-      var author = data.author
+      var gameVersion = str(data.gameVersion)
+      var creatorName = data.creatorName if "creatorName" in data else data.author
       # var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
       var c = f.get_buffer(f.get_length())
-      if not author:
-        ToastParty.err("Please enter an author name")
+      if not creatorName:
+        ToastParty.err("Please enter an creatorName name")
         return
       if not levelName:
         ToastParty.err("Please enter a map name")
@@ -230,8 +267,8 @@ func showMoreOptions(levelName, levelData):
           - 1,
           data.description,
           '',
-          author,
-          data.version,
+          creatorName,
+          data.gameVersion,
           data.levelVersion,
           c,
           img
@@ -248,11 +285,6 @@ func showMoreOptions(levelName, levelData):
     #     ToastParty.error("restoring failed, the map doesn't exist, or the map was invalid.")
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
-
-func loadLevel(level, fromSave) -> bool:
-  global.hitboxesShown = global.useropts.showHitboxesByDefault
-  get_tree().set_debug_collisions_hint(global.hitboxesShown)
-  return await global.loadMap(level, fromSave)
 
 var editorOnlyOptions := []
 
@@ -305,6 +337,8 @@ func updateUserOpts() -> void:
     RenderingServer.set_default_clear_color(["#4d4d4d", "#4b567aff", "#4d4d4d"][global.useropts.theme])
     shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
+  global.hitboxesShown = global.useropts.showHitboxesByDefault
+  get_tree().set_debug_collisions_hint(global.hitboxesShown)
   global.loadEditorBarData()
   if global.isFirstTimeMenuIsLoaded:
     var levelToLoad
@@ -409,7 +443,7 @@ func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()
   if not level: return
   updateUserOpts()
-  loadLevel(level, false)
+  global.loadMap(level, false)
 
 func _on_open_level_folder_pressed() -> void:
   OS.shell_open(global.path.abs(global.MAP_FOLDER))
