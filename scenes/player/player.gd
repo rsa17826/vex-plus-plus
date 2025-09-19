@@ -1809,3 +1809,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # -make blocks attach to growing blocks and move and scale with them
 
 # make game version: button open in version
+
+# make animaction correct place on left puley
+
+# !!!fix jumping off ziplines
