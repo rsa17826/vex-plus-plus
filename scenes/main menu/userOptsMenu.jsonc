@@ -179,7 +179,7 @@
         "thing": "option",
         "type": "bool",
         "key": "noCornerGrabsForScaling",
-        "defaultValue": false
+        "defaultValue": true
       },
       {
         "thing": "option",
