@@ -50,6 +50,7 @@ scale = Vector2(0.566, 0.566)
 texture = ExtResource("4_7eqtn")
 
 [node name="death" type="Area2D" parent="Node2D/ttm" node_paths=PackedStringArray("root")]
+visible = false
 position = Vector2(-729, -37)
 collision_layer = 2064
 collision_mask = 2
@@ -58,7 +59,7 @@ root = NodePath("../../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/ttm/death"]
 shape = SubResource("CircleShape2D_86yqw")
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("6_xbrrh")
 metadata/_edit_lock_ = true
 
@@ -77,7 +78,7 @@ metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
 shape = SubResource("CircleShape2D_8qfqg")
-debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
 script = ExtResource("9_08xir")
 metadata/_edit_lock_ = true
 

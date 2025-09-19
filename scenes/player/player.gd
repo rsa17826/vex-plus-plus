@@ -1778,7 +1778,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # fix path edit node button
 
-# fix surican spawner on place
+# add on create func to blocks
 
 # exit inner level button should trigger a save
 
@@ -1800,12 +1800,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # add way to tell when creator makes new level
 
 # add way to sort and filter online level list
-# make way to load level by id
-# make copy level share code copy the new code
-# make launcher accept the new level share code format
 
 # add way to detect update available for previously downloaded levels
 
 # fix scaling of rotating buzsaw
 
 # -make blocks attach to growing blocks and move and scale with them
+
+# make game version: button open in version

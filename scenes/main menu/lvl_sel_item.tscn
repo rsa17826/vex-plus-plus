@@ -11,7 +11,8 @@ script/source = "extends NestedSearchable
 @export var openInCorrectVersion: Node
 @export var newSaveBtn: Node
 @export var loadSaveBtn: Node
-@export var moreOptsBtn: Node"
+@export var moreOptsBtn: Node
+"
 
 [node name="lvlSelItem" type="VFlowContainer" node_paths=PackedStringArray("levelname", "creator", "description", "version", "openInCorrectVersion", "newSaveBtn", "loadSaveBtn", "moreOptsBtn")]
 offset_right = 107.0
