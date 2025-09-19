@@ -1469,6 +1469,7 @@ func saveBlockData():
   return blockSaveData
 
 func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
+  get_tree().set_debug_collisions_hint(global.hitboxesShown)
   mainLevelName = levelPackName
   var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
 

@@ -298,8 +298,6 @@ func updateUserOpts() -> void:
     shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   global.hitboxesShown = global.useropts.showHitboxesByDefault
-  if get_tree():
-    get_tree().set_debug_collisions_hint(global.hitboxesShown)
   global.loadEditorBarData()
   if global.isFirstTimeMenuIsLoaded:
     var levelToLoad

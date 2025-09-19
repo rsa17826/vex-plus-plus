@@ -6,22 +6,23 @@ func on_respawn():
   __enable()
   thingThatMoves.position = Vector2.ZERO
 
+var unlocked := false
+
 func on_body_entered(body: Node2D):
   if body is Player:
     unlock()
     if not unlocked:
-      body.deathSources.append(self)
+      body.deathSources.append(self )
 
-var unlocked := false
 func unlock() -> void:
   if global.player.keys and not unlocked:
     unlocked = true
-    log.pp(global.player.keys)
     var key: Node2D = global.player.keys.pop_front()
     key.root.__disable()
     __disable()
     for block: EditorBlock in attach_children:
       block.__disable()
+    await global.wait()
     await global.wait()
     unlocked = false
 
