@@ -390,4 +390,30 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(450.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x locked spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(500.0)
+    STR(y)FLOAT(50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x oneway spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

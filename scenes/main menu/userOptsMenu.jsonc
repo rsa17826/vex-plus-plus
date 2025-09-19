@@ -204,7 +204,7 @@
             "thing": "option",
             "type": "range",
             "key": "editorBarBlockSize",
-            "defaultValue": 50,
+            "defaultValue": 30,
             "min": 10,
             "max": 100
           },

@@ -191,6 +191,8 @@ func show_menu():
   ], 0)
   endGroup()
   var mainVBox := VBoxContainer.new()
+  mainVBox.size_flags_horizontal = 3
+  mainVBox.size_flags_vertical = 3
   parent.replace_by(mainVBox)
   var searchBar: LineEdit = preload("res://GLOBAL/menu things/search.tscn").instantiate()
   var updateSearch = func(e):
