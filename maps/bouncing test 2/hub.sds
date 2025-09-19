@@ -342,7 +342,7 @@
     STR(y)FLOAT(0.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(90.0)
+    STR(r)FLOAT(194.999984741211)
     STR(id)STR(10x locked spike)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
@@ -382,7 +382,7 @@
     STR(y)FLOAT(0.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(270.0)
+    STR(r)FLOAT(89.9999465942383)
     STR(id)STR(10x locked spike)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
@@ -391,10 +391,10 @@
     }
   }
   {
-    STR(x)FLOAT(450.0)
-    STR(y)FLOAT(100.0)
+    STR(x)FLOAT(600.0)
+    STR(y)FLOAT(275.0)
     STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(h)FLOAT(8.53658556938171)
     STR(r)FLOAT(0.0)
     STR(id)STR(10x locked spike)
     STRNAME(options){
@@ -550,6 +550,19 @@
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(false)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(10x locked spike)
+    STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
