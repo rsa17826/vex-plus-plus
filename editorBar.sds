@@ -23,6 +23,7 @@
     STR(single spike)
     STR(10x spike)
     STR(10x oneway spike)
+    STR(10x locked spike)
     STR(10x solar spike)
     STR(10x inverse solar spike)
   ]
