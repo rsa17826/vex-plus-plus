@@ -1,16 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://b82372boshthf"]
+[gd_scene load_steps=14 format=3 uid="uid://b82372boshthf"]
 
 [ext_resource type="Script" uid="uid://bb5brc7kvf6v5" path="res://scenes/blocks/10x locked spike/10x locked spike.gd" id="1_cthqj"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_caaoq"]
+[ext_resource type="Texture2D" uid="uid://cg20p556fmr4c" path="res://scenes/blocks/10x locked spike/images/editorBar.png" id="2_koju6"]
 [ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="3_koju6"]
-[ext_resource type="Texture2D" uid="uid://byw6qqgy6t5k4" path="res://scenes/blocks/10x locked spike/images/1.png" id="4_nu3gn"]
+[ext_resource type="Texture2D" uid="uid://bhntnllhb4li1" path="res://scenes/blocks/10x locked spike/images/1.png" id="4_nu3gn"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="5_vs0gn"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_qh14p"]
 [ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="7_aegdu"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="8_caaoq"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_mc5my"]
-load_path = "res://.godot/imported/editorBar.png-d29126ec3c6f3c4ef6b913d290dbb812.ctex"
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_caaoq"]
+load_path = "res://.godot/imported/1.png-27a9b0e1d6f4d7f789430a58ccf43464.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gece"]
 size = Vector2(688, 82.5)
@@ -24,7 +25,7 @@ size = Vector2(688, 1.5)
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode")]
 script = ExtResource("1_cthqj")
 ghostIconNode = NodePath("Node2D/collisionNode/ghost")
-editorBarIcon = SubResource("CompressedTexture2D_mc5my")
+editorBarIcon = ExtResource("2_koju6")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/StaticBody2D/CollisionShape2D2")]
 hidableSprites = [NodePath("Node2D/collisionNode/textureRect")]
 cloneEventsHere = [NodePath("Node2D/collisionNode/attach detector")]
@@ -56,7 +57,7 @@ visible = false
 use_parent_material = true
 position = Vector2(0, -70.63)
 scale = Vector2(0.978, 1)
-texture = ExtResource("4_nu3gn")
+texture = SubResource("CompressedTexture2D_caaoq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
 position = Vector2(0, -62.25)
