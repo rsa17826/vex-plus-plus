@@ -1816,6 +1816,7 @@ const DEFAULT_BLOCK_LIST = [
   "path",
   "10x spike",
   "10x oneway spike",
+  "10x locked spike",
   "10x solar spike",
   "10x inverse solar spike",
   "invisible",
