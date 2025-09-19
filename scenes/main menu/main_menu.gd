@@ -105,7 +105,7 @@ func showMoreOptions(level: LevelServer.Level):
     "-",
     "export",
     "upload",
-    # "restore level from downloaded state",
+    "restore level from downloaded state",
   ]:
     if k[0] == '-':
       pm.add_separator(k.trim_prefix("-"), i)
@@ -236,12 +236,12 @@ func showMoreOptions(level: LevelServer.Level):
       $AnimatedSprite2D.visible = false
       f.close()
       ToastParty.success("Level uploaded!")
-    # 10:
-    #   if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
-    #   if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + levelName + '.vex++')]):
-    #     ToastParty.success("The map has been successfully restored.")
-    #   else:
-    #     ToastParty.error("restoring failed, the map doesn't exist, or the map was invalid.")
+    10:
+      if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
+      if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + levelName + '.vex++')]):
+        ToastParty.success("The map has been successfully restored.")
+      else:
+        ToastParty.error("restoring failed, the map doesn't exist, or the map was invalid.")
 
 # https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
 

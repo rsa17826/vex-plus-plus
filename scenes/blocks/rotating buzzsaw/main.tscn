@@ -15,13 +15,13 @@ radius = 72.0069
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_4olmi")
-nodeToSpin = NodePath("Node2D/collisionNode")
-ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
+nodeToSpin = NodePath("collisionNode")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_3gtnp")
-collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
-cloneEventsHere = [NodePath("Node2D/collisionNode/attach detector")]
-thingThatMoves = NodePath("Node2D")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+cloneEventsHere = [NodePath("collisionNode/attach detector")]
+thingThatMoves = NodePath("collisionNode")
 oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
 "y": -1
@@ -32,41 +32,38 @@ canAttachToThings = true
 canAttachToPaths = true
 metadata/_edit_lock_ = true
 
-[node name="Node2D" type="Node2D" parent="."]
-metadata/_edit_lock_ = true
-
-[node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_782ym")
-root = NodePath("../..")
+root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 use_parent_material = true
 position = Vector2(0, -314)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_3gtnp")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, -596)
 shape = SubResource("CircleShape2D_4olmi")
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_dxbo5")
 metadata/_edit_lock_ = true
 
-[node name="attach detector" type="Area2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+[node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 32768
 script = ExtResource("3_4olmi")
-root = NodePath("../../..")
+root = NodePath("../..")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode/attach detector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
 shape = SubResource("CircleShape2D_782ym")
-debug_color = Color(0.87451, 0.341176, 0, 0.419608)
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
 script = ExtResource("6_108tx")
 metadata/_edit_lock_ = true
 
-[connection signal="body_entered" from="Node2D/collisionNode" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="Node2D/collisionNode" to="." method="_on_body_exited"]
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

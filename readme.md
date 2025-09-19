@@ -213,14 +213,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### localLevelList
 
-    - **autoExpandAllGroupsInLocalLevelList**: when loading the local levels list, all groups are expanded, if false only the group for the current game version is expanded
-    - **smallLevelDisplays**: if true the level displays will be smaller
+    - **smallLevelDisplaysInLocalLevelList**: makes the level displays for local levels smaller
 
   - ### online level list
 
+    - **smallLevelDisplaysInOnlineLevelList**: makes the level displays for online levels smaller
     - **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
     - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
-    - **autoExpandAllGroupsInOnlineLevelList**: when loading the online level list, all groups are expanded, if false only the group for the current game version is expanded
 
   - ### debug
 

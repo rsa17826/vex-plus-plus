@@ -25,7 +25,8 @@ func updateOnlineState():
   creatorId.visible = isOnline
   for thing in large:
     thing.visible = true
-  if global.useropts.smallLevelDisplays:
+  if (global.useropts.smallLevelDisplaysInOnlineLevelList and isOnline) \
+  or (global.useropts.smallLevelDisplaysInLocalLevelList and !isOnline):
     for thing in large:
       thing.visible = false
 
@@ -33,8 +34,8 @@ var levelList: Control
 var search: Control
 
 func _ready() -> void:
-  updateOnlineState()
   dlInCorrectVersion.visible = global.launcherExists and global.VERSION != level.gameVersion
+  updateOnlineState()
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
   if level and global.isAlive(level):

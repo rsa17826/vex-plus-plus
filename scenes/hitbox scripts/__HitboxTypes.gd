@@ -19,6 +19,7 @@ func _ready() -> void:
   updateColor()
 
 func updateColor() -> void:
+  visibility_layer = 1
   if Engine.is_editor_hint() and not global.useropts:
     global.useropts = sds.loadDataFromFile("user://main - EDITOR.sds")
   match hitboxType:

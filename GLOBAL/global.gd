@@ -728,7 +728,7 @@ func localProcess(delta: float) -> void:
     DirAccess.remove_absolute(path.abs("res://filesToOpen"))
   if not player: return
   # if a block is selected
-  if selectedBlock or (selectedBrush and selectedBrush.selected == 2):
+  if isAlive(selectedBlock) or (selectedBrush and selectedBrush.selected == 2):
     var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
     if mouseMoveStartPos == null:
       mouseMoveStartPos = mpos
@@ -1310,7 +1310,7 @@ func _unhandled_input(event: InputEvent) -> void:
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
-  if showEditorUi and not tabMenu.visible and not ctrlMenuVisible:
+  if showEditorUi and not (tabMenu and tabMenu.visible) and not ctrlMenuVisible:
     for block in blockNames:
       if !block: continue
       if event.is_action_pressed("CREATE NEW - " + (block.name if block is Dictionary else block).replace("/", "_"), false, true):
