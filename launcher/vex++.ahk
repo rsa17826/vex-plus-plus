@@ -10,7 +10,6 @@ try TraySetIcon("icon.ico")
 SetWorkingDir(A_ScriptDir)
 
 #Include <Misc>
-
 #Include <protocol>
 
 ; @name terst
@@ -226,6 +225,10 @@ if A_Args.includes("version") {
   try {
     gameVersion := A_Args[A_Args.IndexOf("version") + 1]
     gameVersion := String(gameVersion)
+    if not FileExist(path.join(A_ScriptDir, "versions", gameVersion, "vex.pck")) {
+      loadReleases()
+      DownloadSelected(1, gameVersion)
+    }
     runVersion(gameVersion)
   } catch Error as e {
     logerr("Could not get game version from command line.", e)
@@ -239,7 +242,7 @@ if [
 ].find(e => A_Args.includes(e)) {
   ExitApp()
 }
-; if a vex++ file has been opened direct it to the last ran game version if the game is stil open
+; if a vex++ file has been opened direct it to the last ran game version if the game is still open
 if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   args := ""
   for arg in validGameArgs {
@@ -580,6 +583,8 @@ runVersion(gameVersion, newArgs := []) {
   }
 }
 updateRow(row, version?, status?, runtext?) {
+  if not IsSet(versionListView)
+    return
   if IsSet(version) {
     listedVersions[row].version := version
     versionListView.Modify(row, "Col1", listedVersions[row].version)
@@ -606,10 +611,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
   doingSomething := 1
   ; Find the release corresponding to the selected version
   for release in releases {
-    ; print(release.tag_name, selectedVersion)
     if (release.tag_name = selectedVersion) {
-      ; url := release.assets.find(e => e.browser_download_url.endsWith("pck.zip"))
-      ; if !url
       url := release.assets.find(e => e.browser_download_url.endsWith("windows.zip"))
       if url
         url := release.assets[url].browser_download_url

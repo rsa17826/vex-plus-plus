@@ -506,13 +506,7 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "autoExpandAllGroupsInLocalLevelList",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "smallLevelDisplays",
+        "key": "smallLevelDisplaysInLocalLevelList",
         "defaultValue": false
       }
     ]
@@ -524,6 +518,12 @@
       {
         "thing": "option",
         "type": "bool",
+        "key": "smallLevelDisplaysInOnlineLevelList",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
         "key": "onlyShowLevelsForCurrentVersion",
         "defaultValue": false
       },
@@ -532,12 +532,6 @@
         "type": "bool",
         "key": "loadOnlineLevelListOnSceneLoad",
         "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "autoExpandAllGroupsInOnlineLevelList",
-        "defaultValue": false
       }
     ]
   },
