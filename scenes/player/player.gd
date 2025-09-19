@@ -1344,6 +1344,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   :
     block.enterLevel()
   if block is BlockLockedBox \
+  or block is Block10xLockedSpike \
   :
     block.unlock()
   if (block is BlockPushableBox or block is BlockBomb) \

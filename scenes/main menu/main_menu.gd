@@ -81,6 +81,7 @@ func loadLocalLevelList():
 
   for child in levelContainer.get_children():
     child.queue_free()
+  newestLevel = arr[0].levelName
   loadLevelsFromArray(arr)
 
 func otc(text: String, version: NestedSearchable):
@@ -297,7 +298,8 @@ func updateUserOpts() -> void:
     shouldReload = true
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   global.hitboxesShown = global.useropts.showHitboxesByDefault
-  get_tree().set_debug_collisions_hint(global.hitboxesShown)
+  if get_tree():
+    get_tree().set_debug_collisions_hint(global.hitboxesShown)
   global.loadEditorBarData()
   if global.isFirstTimeMenuIsLoaded:
     var levelToLoad
