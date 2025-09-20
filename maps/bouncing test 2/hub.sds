@@ -701,4 +701,18 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(350.0)
+    STR(y)FLOAT(325.0)
+    STR(w)FLOAT(10.5527640581131)
+    STR(h)FLOAT(12.3115576505661)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(shurikan gun)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+      STR(maxCooldown)FLOAT(100.001320123672)
+    }
+  }
 ]

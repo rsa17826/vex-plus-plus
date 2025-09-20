@@ -46,6 +46,7 @@ extends Node2D
 @export var NO_CUSTOM_COLOR_IN_MENU: bool = false
 ## disables the rclick menu for this block
 @export var NO_RCLICK_MENU: bool = false
+@export var REMOVE_ON_PLAYER_DEATH: bool = false
 ## prevents selecting this block - selection box still appears, need to fix later
 # @export var NO_SELECTING: bool = false
 
@@ -258,6 +259,7 @@ func _on_body_exited(body: Node2D, real=true) -> void:
   if is_in_group("death"):
     _on_body_exitedDEATH(body)
 
+
 ## don't overite - use on_ready instead
 func _ready() -> void:
   if !global.player:
@@ -270,6 +272,11 @@ func _ready() -> void:
       blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
     return
 
+  if REMOVE_ON_PLAYER_DEATH:
+    if global.player.OnPlayerDied.is_connected(queue_free):
+      queue_free()
+      return
+    global.player.OnPlayerDied.connect(queue_free)
   if !global.player.OnPlayerFullRestart.is_connected(_ready):
     global.player.OnPlayerFullRestart.connect(_ready)
   if !global.player.OnPlayerDied.is_connected(respawn):
