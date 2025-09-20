@@ -4,10 +4,12 @@ class_name LevelServer
 static var user: SupabaseUser = null
 
 static func tryRestoreLastSession():
-  global.mainMenu.currentUserInfoNode.text = "not logged in"
+  if global.mainMenu:
+    global.mainMenu.currentUserInfoNode.text = "not logged in"
   var data = global.file.read("user://auth", false, '')
   if data:
-    global.mainMenu.currentUserInfoNode.text = "logging in"
+    if global.mainMenu:
+      global.mainMenu.currentUserInfoNode.text = "logging in"
     await global.wait()
     var authTask = (await Supabase.auth.restoreFromToken(data).completed)
     # log.err(authTask)

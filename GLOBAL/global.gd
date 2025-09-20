@@ -1867,6 +1867,8 @@ const DEFAULT_BLOCK_LIST = [
   "rotating buzzsaw",
   "scythe",
   "shurikan spawner",
+  "bouncing shurikan",
+  "shurikan gun",
   "star",
   "laser",
   "targeting laser",
