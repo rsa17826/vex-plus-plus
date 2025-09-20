@@ -24,7 +24,7 @@ func on_physics_process(delta: float) -> void:
   thingThatMoves.rotation = lerp_angle(thingThatMoves.rotation, targetAngle, 0.5)
 
   if targetingPlayer and cooldown <= 0:
-    var projectile: EditorBlock = load("res://scenes/blocks/laser/projectile.tscn").instantiate()
+    var projectile: EditorBlock = preload("res://scenes/blocks/laser/projectile.tscn").instantiate()
     projectile.global_position = thingThatMoves.global_position
     projectile.rotation = thingThatMoves.rotation
     cooldown = selectedOptions.maxCooldown
