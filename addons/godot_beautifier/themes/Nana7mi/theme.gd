@@ -11,6 +11,11 @@ func _ready() -> void:
   # set_editor_setting("interface/theme/contrast", .15)
   set_editor_setting("interface/theme/contrast", 0)
   # set_text_editor_color("background_color", Color("ffffff00"))
+  EditorInterface.get_editor_viewport_2d().transparent_bg = true
+  EditorInterface.get_editor_viewport_3d(0).transparent_bg = true
+  EditorInterface.get_editor_viewport_3d(1).transparent_bg = true
+  EditorInterface.get_editor_viewport_3d(2).transparent_bg = true
+  EditorInterface.get_editor_viewport_3d(3).transparent_bg = true
   var f = 'output'
   # var a = get_editor_interface()
   # log.pp(EditorInterface.get_editor_viewport_2d())
