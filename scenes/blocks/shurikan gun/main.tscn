@@ -18,7 +18,6 @@ cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("Node2D")
 ghostFollowNode = NodePath("Node2D")
 mouseRotationOffset = 0
-dontDisablePhysicsProcess = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
