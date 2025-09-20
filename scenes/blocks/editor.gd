@@ -47,6 +47,7 @@ extends Node2D
 ## disables the rclick menu for this block
 @export var NO_RCLICK_MENU: bool = false
 @export var REMOVE_ON_PLAYER_DEATH: bool = false
+@export var REMOVE_ON_RESPAWN: bool = false
 ## prevents selecting this block - selection box still appears, need to fix later
 # @export var NO_SELECTING: bool = false
 
@@ -154,9 +155,12 @@ func onEditorMove(moveDist: Vector2) -> void:
 func onDataLoaded() -> void: pass
 ## overite this to receive event when data for all blocks loaded
 func onAllDataLoaded() -> void: pass
-
+var firstRespawn := true
 ## don't overite - use on_respawn instead
 func respawn() -> void:
+  if REMOVE_ON_RESPAWN and not firstRespawn:
+    queue_free()
+  firstRespawn = false
   respawning = 2
   if thingThatMoves:
     thingThatMoves.position = Vector2.ZERO
@@ -259,7 +263,6 @@ func _on_body_exited(body: Node2D, real=true) -> void:
   if is_in_group("death"):
     _on_body_exitedDEATH(body)
 
-
 ## don't overite - use on_ready instead
 func _ready() -> void:
   if !global.player:
@@ -325,7 +328,7 @@ func _ready() -> void:
         blockOptions[k].values = blockOptions[k].values.keys()
   setupOptions()
   self.visibility_layer = 2
-  var node_stack: Array[Node] = [self]
+  var node_stack: Array[Node] = [ self ]
   while not node_stack.is_empty():
     var node: Node = node_stack.pop_back()
     if is_instance_valid(node) and 'visibility_layer' in node:
