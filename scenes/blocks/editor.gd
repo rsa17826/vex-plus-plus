@@ -460,7 +460,7 @@ func onEditorRotateEnd(): pass
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
   if !global.player: return
-  if EDITOR_IGNORE: return
+  # if EDITOR_IGNORE: return
   # if not ghost: return
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
@@ -485,16 +485,18 @@ func _process(delta: float) -> void:
     #   log.pp(ghost.global_position, ghostFollowNode.global_position, global_position, id)
     #   ghost.global_position = ghostFollowNode.global_position
     #   ghost.global_rotation = ghostFollowNode.global_rotation
-  ghost.use_parent_material = true
-  if global.hoveredBlocks && self == global.hoveredBlocks[0] \
-    or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
-    ghost.modulate.a = 1
-  else:
-    ghost.modulate.a = global.useropts.blockGhostAlpha
+  if not EDITOR_IGNORE:
+    ghost.use_parent_material = true
+    if global.hoveredBlocks && self == global.hoveredBlocks[0] \
+      or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
+      ghost.modulate.a = 1
+    else:
+      ghost.modulate.a = global.useropts.blockGhostAlpha
+    ghost.visible = global.showEditorUi
 
-  ghost.visible = global.showEditorUi
   if Input.is_action_pressed(&"editor_box_select"): return
-  if global.showEditorUi and (
+  if not EDITOR_IGNORE \
+  and global.showEditorUi and (
     not Input.is_action_pressed(&"editor_pan")
     or self in global.boxSelect_selectedBlocks
   ):
