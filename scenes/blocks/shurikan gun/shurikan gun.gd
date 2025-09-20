@@ -14,14 +14,28 @@ func on_physics_process(delta: float) -> void:
     s1.thingThatMoves.dir = Vector2(-1, 1)
     s2.position += Vector2(50, 50) * thingThatMoves.global_scale
     s2.startPosition += Vector2(50, 50) * thingThatMoves.global_scale
-    s1.thingThatMoves.dir = Vector2(1, 1)
+    s2.thingThatMoves.dir = Vector2(1, 1)
 
 func on_process(delta):
+  var totalTime = .8
+  if cooldown < totalTime:
+    scale = global.animate(1, [
+      {
+        "from": startScale,
+        "to": startScale * 1.3,
+        "until": .7,
+      },
+      {
+        "from": startScale * 1.3,
+        "to": startScale,
+        "until": .8,
+      }
+    ], totalTime - (cooldown))
   if cooldown > 0:
     cooldown -= delta
 
 func on_respawn():
-  cooldown = 0
+  cooldown = .8
 
 func generateBlockOpts():
   blockOptions.maxCooldown = {"default": 100, "type": global.PromptTypes.float}
@@ -34,7 +48,6 @@ func spawnShurikan() -> EditorBlock:
   shurikan.scale = startScale
   shurikan.DONT_SAVE = true
   shurikan.EDITOR_IGNORE = true
-  shurikan.REMOVE_ON_PLAYER_DEATH = true
   shurikan.REMOVE_ON_RESPAWN = true
   shurikan.DONT_MOVE_ON_RESPAWN = true
   global.level.add_child(shurikan)

@@ -12,7 +12,7 @@ func on_physics_process(delta: float) -> void:
   leftCollisionShape.global_position.x = startPosition.x + %collisionNode.global_position.x - global_position.x
   rightCollisionShape.global_position.x = startPosition.x + %collisionNode.global_position.x - global_position.x
 
-  var newOffset := global.animate(80, [
+  var newOffset: float = global.animate(80, [
     {
       "until": 120,
       "from": - 189.0,

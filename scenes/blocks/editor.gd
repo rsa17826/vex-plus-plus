@@ -46,7 +46,7 @@ extends Node2D
 @export var NO_CUSTOM_COLOR_IN_MENU: bool = false
 ## disables the rclick menu for this block
 @export var NO_RCLICK_MENU: bool = false
-@export var REMOVE_ON_PLAYER_DEATH: bool = false
+# @export var REMOVE_ON_PLAYER_DEATH: bool = false
 @export var REMOVE_ON_RESPAWN: bool = false
 ## prevents selecting this block - selection box still appears, need to fix later
 # @export var NO_SELECTING: bool = false
@@ -182,11 +182,11 @@ func respawn() -> void:
 
   for sprite in hidableSprites:
     sprite.modulate = Color(selectedOptions.color)
-
-  for thing in cloneEventsHere:
-    if 'on_respawn' in thing:
-      thing.on_respawn()
-  on_respawn()
+  if not REMOVE_ON_RESPAWN:
+    for thing in cloneEventsHere:
+      if 'on_respawn' in thing:
+        thing.on_respawn()
+    on_respawn()
 
 func on_respawn(): pass
 
@@ -275,11 +275,11 @@ func _ready() -> void:
       blockOptions.color = {"type": global.PromptTypes.rgba, "default": "#fff"}
     return
 
-  if REMOVE_ON_PLAYER_DEATH:
-    if global.player.OnPlayerDied.is_connected(queue_free):
-      queue_free()
-      return
-    global.player.OnPlayerDied.connect(queue_free)
+  # if REMOVE_ON_PLAYER_DEATH:
+  #   if global.player.OnPlayerDied.is_connected(queue_free):
+  #     queue_free()
+  #     return
+  #   global.player.OnPlayerDied.connect(queue_free)
   if !global.player.OnPlayerFullRestart.is_connected(_ready):
     global.player.OnPlayerFullRestart.connect(_ready)
   if !global.player.OnPlayerDied.is_connected(respawn):

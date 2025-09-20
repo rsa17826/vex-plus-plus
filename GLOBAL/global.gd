@@ -1593,7 +1593,7 @@ func loadMapInfo(levelPackName: String) -> Variant:
 
 var useropts := {}
 
-func animate(speed: int, steps: Array) -> float:
+func animate(speed: int, steps: Array, time:=global.tick) -> Variant:
   # animation time is based on global.tick
   # dict arr is like [
   #   {
@@ -1612,11 +1612,14 @@ func animate(speed: int, steps: Array) -> float:
   #     "to": - 189
   #   }
   # ]
-  var currentTime := fmod(global.tick * speed, steps[len(steps) - 1].until)
-  var newOffset: float
+  if time < 0:
+    var maxTime = steps[-1].until
+    time = maxTime - time
+  var currentTime := fmod(time * speed, steps[len(steps) - 1].until)
+  var newOffset: Variant
   var prevTime: float = 0
   for i in range(0, len(steps)):
-    if currentTime < steps[i].until:
+    if currentTime <= steps[i].until:
       newOffset = global.rerange(currentTime, prevTime, steps[i].until, steps[i].from, steps[i].to)
       break
     else:
