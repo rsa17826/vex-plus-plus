@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bcpdmlqdnorts"]
+
+[ext_resource type="Script" uid="uid://c3rgc7oep4paf" path="res://scenes/blocks/shurikan gun/shurikan gun.gd" id="1_u3kfh"]
+[ext_resource type="Texture2D" uid="uid://de6jortb2by0w" path="res://scenes/blocks/shurikan gun/images/1.png" id="3_f3bwa"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="8_ds8hy"]
+[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="9_g5ujr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rpre3"]
+radius = 100.0
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["death"]]
+script = ExtResource("1_u3kfh")
+ghostIconNode = NodePath("Node2D/Sprite2D")
+editorBarIcon = ExtResource("3_f3bwa")
+collisionShapes = [NodePath("attach detector/CollisionShape2D")]
+hidableSprites = [NodePath("Node2D/Sprite2D")]
+cloneEventsHere = [NodePath("attach detector")]
+thingThatMoves = NodePath("Node2D")
+ghostFollowNode = NodePath("Node2D")
+mouseRotationOffset = 0
+dontDisablePhysicsProcess = true
+EDITOR_OPTION_rotate = true
+canAttachToThings = true
+canAttachToPaths = true
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("3_f3bwa")
+
+[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 2048
+collision_mask = 32768
+script = ExtResource("8_ds8hy")
+root = NodePath("..")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
+shape = SubResource("CircleShape2D_rpre3")
+debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
+script = ExtResource("9_g5ujr")
+metadata/_edit_lock_ = true
