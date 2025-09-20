@@ -40,7 +40,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **multiUse**: if true you can recollect this checkpoint else this checkpoint will only be collectable once
     - **contactOption**: what to do when the player enters it
     - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
-    - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
+    - **maxCooldown**: the time between each shot
     - **unCollect**: temporarily uncollects the star
     - **starType**: the color of the star
     - **portalId**: the id of this portal as used for finding an exit portal
@@ -847,7 +847,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
-      - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
+      - **maxCooldown**: the time between each shot
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
