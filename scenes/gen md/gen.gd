@@ -83,6 +83,7 @@ func _ready() -> void:
     var imageLocations = [
       "editorBar.png",
       "1.png",
+      "1.svg",
       "pressed.png",
       "ghost.png",
       "base/1.png",

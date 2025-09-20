@@ -40,9 +40,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **multiUse**: if true you can recollect this checkpoint else this checkpoint will only be collectable once
     - **contactOption**: what to do when the player enters it
     - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
+    - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
     - **unCollect**: temporarily uncollects the star
     - **starType**: the color of the star
-    - **maxCooldown**: maximum time between shots in seconds (default = 1.0)
     - **portalId**: the id of this portal as used for finding an exit portal
     - **exitId**: the id this portal uses to find its exit portal
     - **action**: the action to detect
@@ -802,6 +802,25 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
+  - **bouncing shurikan**: moves diagionaly and bounces off walls and kills the player on contact
+    <br><br><img src="scenes/blocks/bouncing shurikan/images/1.svg" alt="image of block bouncing shurikan" width="49" height="50">
+
+    - scalable
+    - ### settings:
+      - **color**: sets the modulate property
+
+  - **shurikan gun**: spawns bouncing shurikans
+    <br><br><img src="scenes/blocks/shurikan gun/images/1.png" alt="image of block shurikan gun" width="49" height="49">
+
+    - rotatable
+    - canAttachToThings
+    - canAttachToPaths
+    - ### settings:
+      - **maxCooldown**: the time between each shot
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
