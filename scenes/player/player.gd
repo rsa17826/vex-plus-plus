@@ -1813,3 +1813,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make animaction correct place on left puley
 
 # !!!fix jumping off ziplines
+
+# !!fix dropping off ziplines
+
+# !!fix randomly slipping off wall slides
