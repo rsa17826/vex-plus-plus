@@ -9,17 +9,14 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_81ujk"]
 radius = 101.04455
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_1jmhq")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIcon = ExtResource("2_clj6l")
-collisionShapes = [null]
+collisionShapes = [NodePath("Node2D/CollisionShape2D"), NodePath("Node2D/Area2D/CollisionShape2D2")]
 hidableSprites = [NodePath("Node2D/Sprite2D")]
 cloneEventsHere = [null]
-thingThatMoves = NodePath("")
-ghostFollowNode = NodePath("")
-mouseRotationOffset = 0
-dontDisablePhysicsProcess = true
+thingThatMoves = NodePath("Node2D")
 EDITOR_OPTION_scale = true
 
 [node name="Node2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
