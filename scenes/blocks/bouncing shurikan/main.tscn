@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_clj6l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_81ujk"]
-radius = 101.04455
+radius = 50.0
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_1jmhq")
@@ -21,13 +21,14 @@ thingThatMoves = NodePath("CharacterBody2D")
 EDITOR_OPTION_scale = true
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 0
+collision_layer = 2176
 collision_mask = 8
 motion_mode = 1
 script = ExtResource("3_v85yv")
 root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_clj6l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
@@ -37,7 +38,7 @@ script = ExtResource("3_1jmhq")
 
 [node name="Area2D" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
 collision_layer = 16
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("3_clj6l")
 root = NodePath("../..")
 

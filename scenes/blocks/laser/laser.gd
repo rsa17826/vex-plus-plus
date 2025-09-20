@@ -27,7 +27,7 @@ func on_physics_process(delta: float) -> void:
     var projectile: EditorBlock = preload("res://scenes/blocks/laser/projectile.tscn").instantiate()
     projectile.global_position = thingThatMoves.global_position
     projectile.rotation = thingThatMoves.rotation
-    cooldown = selectedOptions.maxCooldown
+    cooldown += selectedOptions.maxCooldown
     projectile.scale = startScale * 7
     global.level.add_child(projectile)
 

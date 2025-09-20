@@ -579,7 +579,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
-      STR(maxCooldown)FLOAT(100.001320123672)
+      STR(maxCooldown)FLOAT(100.0)
     }
   }
   {
@@ -703,7 +703,7 @@
   }
   {
     STR(x)FLOAT(350.0)
-    STR(y)FLOAT(325.0)
+    STR(y)FLOAT(475.0)
     STR(w)FLOAT(10.5527640581131)
     STR(h)FLOAT(12.3115576505661)
     STR(r)FLOAT(0.0)
@@ -713,6 +713,31 @@
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
       STR(maxCooldown)FLOAT(100.001320123672)
+    }
+  }
+  {
+    STR(x)FLOAT(500.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(block death boundary)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(450.0)
+    STR(y)FLOAT(-150.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(laser)
+    STRNAME(options){
+      STR(maxCooldown)FLOAT(0.0013200044632)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
     }
   }
 ]
