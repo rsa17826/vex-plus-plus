@@ -51,6 +51,8 @@
     STR(rotating buzzsaw)
     STR(scythe)
     STR(shurikan spawner)
+    STR(shurikan gun)
+    STR(bouncing shurikan)
     STR(falling spike)
     STR(quad falling spikes)
     STR(laser)

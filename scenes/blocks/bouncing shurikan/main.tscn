@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvtp2615qehg5"]
+
+[ext_resource type="Script" uid="uid://cud71ihd3gajq" path="res://scenes/blocks/bouncing shurikan/bouncing shurikan.gd" id="1_1jmhq"]
+[ext_resource type="Texture2D" uid="uid://dxp6kv31kt2fc" path="res://scenes/blocks/bouncing shurikan/images/1.svg" id="2_clj6l"]
+[ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="3_1jmhq"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_clj6l"]
+[ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_clj6l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_81ujk"]
+radius = 101.04455
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["death"]]
+script = ExtResource("1_1jmhq")
+ghostIconNode = NodePath("Node2D/Sprite2D")
+editorBarIcon = ExtResource("2_clj6l")
+collisionShapes = [null]
+hidableSprites = [NodePath("Node2D/Sprite2D")]
+cloneEventsHere = [null]
+thingThatMoves = NodePath("")
+ghostFollowNode = NodePath("")
+mouseRotationOffset = 0
+dontDisablePhysicsProcess = true
+EDITOR_OPTION_scale = true
+
+[node name="Node2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
+script = ExtResource("3_clj6l")
+root = NodePath("..")
+
+[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+texture = ExtResource("2_clj6l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
+shape = SubResource("CircleShape2D_81ujk")
+debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
+script = ExtResource("3_1jmhq")
+
+[node name="Area2D" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+script = ExtResource("3_clj6l")
+root = NodePath("../..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/Area2D"]
+shape = SubResource("CircleShape2D_81ujk")
+debug_color = Color(1, 0, 0, 0.41960785)
+script = ExtResource("4_clj6l")
