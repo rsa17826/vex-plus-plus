@@ -15,6 +15,7 @@ dontDisablePhysicsProcess = true
 EDITOR_IGNORE = true
 DONT_SAVE = true
 DONT_MOVE_ON_RESPAWN = true
+REMOVE_ON_PLAYER_DEATH = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-10, 0)
@@ -30,6 +31,7 @@ root = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(-10, 0)
 shape = SubResource("RectangleShape2D_hyxg0")
+debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_dswup")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

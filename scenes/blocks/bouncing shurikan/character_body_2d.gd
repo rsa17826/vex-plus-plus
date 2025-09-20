@@ -12,12 +12,12 @@ func on_physics_process(delta: float) -> void:
   velocity = dir * SPEED
   if move_and_slide():
     var ang = get_last_slide_collision().get_normal()
-    log.pp(ang, dir)
-    if ang.x == -1:
-      dir.x = -1
-    if ang.x == 1:
-      dir.x = 1
-    if ang.y == 1:
-      dir.y = 1
-    if ang.y == -1:
-      dir.y = -1
+    dir = dir.bounce(ang)
+    # if ang.x == -1:
+    #   dir.x = -1
+    # if ang.x == 1:
+    #   dir.x = 1
+    # if ang.y == 1:
+    #   dir.y = 1
+    # if ang.y == -1:
+    #   dir.y = -1
