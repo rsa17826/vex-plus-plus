@@ -569,20 +569,6 @@
     }
   }
   {
-    STR(x)FLOAT(325.0)
-    STR(y)FLOAT(-75.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(shurikan gun)
-    STRNAME(options){
-      STR(canAttachToThings)BOOL(false)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-      STR(maxCooldown)FLOAT(3.0013200044632)
-    }
-  }
-  {
     STR(x)FLOAT(175.0)
     STR(y)FLOAT(-25.0)
     STR(w)FLOAT(1.00000004470348)
@@ -702,10 +688,10 @@
     }
   }
   {
-    STR(x)FLOAT(500.0)
-    STR(y)FLOAT(-50.0)
+    STR(x)FLOAT(550.0)
+    STR(y)FLOAT(0.0)
     STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(h)FLOAT(3.00000002980232)
     STR(r)FLOAT(0.0)
     STR(id)STR(block death boundary)
     STRNAME(options){
@@ -713,8 +699,8 @@
     }
   }
   {
-    STR(x)FLOAT(450.0)
-    STR(y)FLOAT(-150.0)
+    STR(x)FLOAT(400.0)
+    STR(y)FLOAT(-50.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -722,6 +708,20 @@
     STRNAME(options){
       STR(maxCooldown)FLOAT(0.0013200044632)
       STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(325.0)
+    STR(y)FLOAT(-25.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(301.323974609375)
+    STR(id)STR(shurikan gun)
+    STRNAME(options){
+      STR(maxCooldown)FLOAT(2.0013200044632)
+      STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
