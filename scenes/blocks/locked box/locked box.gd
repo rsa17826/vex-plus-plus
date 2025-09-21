@@ -2,13 +2,10 @@
 extends EditorBlock
 class_name BlockLockedBox
 
-# boxes can only be justUnlocked once per frame to prevent excessive key usage
-var justUnlocked := false
 var unlocked := false
 func unlock() -> void:
-  if global.player.keys and not justUnlocked:
+  if global.player.keys and not unlocked:
     unlocked = true
-    justUnlocked = true
     var key: Node2D = global.player.keys.pop_front()
     key.root.__disable()
     key.root.following = false
@@ -17,7 +14,6 @@ func unlock() -> void:
     for block: EditorBlock in attach_children:
       block.__disable()
     await global.wait()
-    justUnlocked = false
 
 func on_respawn() -> void:
   __enable()

@@ -17,12 +17,18 @@
             STR(used)BOOL(false)
           }
           INT(3){
-            STR(following)BOOL(false)
-            STR(used)BOOL(true)
+            STR(following)BOOL(true)
+            STR(ttmpos)VEC2(718.9287109375,185.957916259766)
+            STR(randOffset)FLOAT(-3.0)
+            STR(ttmrot)FLOAT(-0.51316159963608)
+            STR(used)BOOL(false)
           }
           INT(4){
-            STR(following)BOOL(false)
-            STR(used)BOOL(true)
+            STR(following)BOOL(true)
+            STR(ttmpos)VEC2(713.599487304688,160.508239746094)
+            STR(randOffset)FLOAT(-3.0)
+            STR(ttmrot)FLOAT(-0.52359867095947)
+            STR(used)BOOL(false)
           }
           INT(5){
             STR(following)BOOL(false)
@@ -35,7 +41,7 @@
         }
         STR(10x locked spike){
           INT(1){
-            STR(unlocked)BOOL(true)
+            STR(unlocked)BOOL(false)
           }
           INT(2){
             STR(unlocked)BOOL(false)
@@ -52,13 +58,13 @@
         }
         STR(checkpoint){
           INT(1){
-            STR(texture)STR(2)
+            STR(texture)STR(1)
           }
           INT(2){
             STR(texture)STR(1)
           }
           INT(3){
-            STR(texture)STR(1)
+            STR(texture)STR(2)
           }
         }
         STR(locked box){
@@ -70,7 +76,7 @@
           }
         }
       }
-      STRNAME(lastSpawnPoint)VEC2(351.472564697266,94.9197158813477)
+      STRNAME(lastSpawnPoint)VEC2(701.472595214844,194.919708251953)
     }
   ]
   STR(beatLevels)[]
