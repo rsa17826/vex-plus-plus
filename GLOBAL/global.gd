@@ -660,20 +660,21 @@ func selectBlock() -> void:
   selecting = true
   # select the top hovered block
   # log.pp(hoveredBlocks, selectedBlock, 1)
-  var block: EditorBlock = hoveredBlocks.pop_front()
-  selectedBlock = block
-  lastSelectedBlock = block
-  var bpos: Vector2 = block.position
-  var mpos: Vector2 = player.get_global_mouse_position()
-  selectedBlockStartPosition = bpos
-  selectedBlockStartScale = block.scale
-  selectedBlockStartRotation = block.rotation
-  selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
-  var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
-  selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
-  ui.blockMenu.showBlockMenu()
-  hoveredBlocks.push_back(block)
   set_deferred("selecting", false)
+  if not hoveredBlocks:
+    var block: EditorBlock = hoveredBlocks.pop_front()
+    selectedBlock = block
+    lastSelectedBlock = block
+    var bpos: Vector2 = block.position
+    var mpos: Vector2 = player.get_global_mouse_position()
+    selectedBlockStartPosition = bpos
+    selectedBlockStartScale = block.scale
+    selectedBlockStartRotation = block.rotation
+    selectedBlockOffset = Vector2(bpos.x - mpos.x, bpos.y - mpos.y)
+    var sizeInPx: Vector2 = selectedBlock.ghost.texture.get_size() * selectedBlock.scale * selectedBlock.ghost.scale
+    selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
+    ui.blockMenu.showBlockMenu()
+    hoveredBlocks.push_back(block)
 
 var lastDeletedBlock: EditorBlock:
   set(val):
