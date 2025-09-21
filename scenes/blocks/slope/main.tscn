@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjhsd00qyc12v"]
+[gd_scene load_steps=8 format=3 uid="uid://cjhsd00qyc12v"]
 
 [ext_resource type="Script" uid="uid://c62pcqr2vis0s" path="res://scenes/blocks/slope/slope.gd" id="1_2xhgp"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_5n4dx"]
@@ -6,19 +6,17 @@
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_h1kpj"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_2pgmy"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="5_ro81x"]
-[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="7_b3ai1"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_5n4dx"]
 points = PackedVector2Array(-351, 350, 350, 350, 350, -351)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_2xhgp")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_kissk")
 editorBarIconUsesLevelColor = true
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
-cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
 EDITOR_OPTION_rotate = true
@@ -39,15 +37,14 @@ script = ExtResource("3_h1kpj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("ConvexPolygonShape2D_5n4dx")
+debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("5_ro81x")
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 0
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+enabled = false
+shape = SubResource("ConvexPolygonShape2D_5n4dx")
+target_position = Vector2(0, 0)
 collision_mask = 32768
+collide_with_areas = true
 script = ExtResource("5_2pgmy")
 root = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
-shape = SubResource("ConvexPolygonShape2D_5n4dx")
-debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
-script = ExtResource("7_b3ai1")

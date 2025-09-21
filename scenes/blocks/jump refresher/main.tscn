@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://diaf1skj6v3vg"]
+[gd_scene load_steps=9 format=3 uid="uid://diaf1skj6v3vg"]
 
 [ext_resource type="Script" uid="uid://cvb1vm5hrf6gq" path="res://scenes/blocks/jump refresher/jump refresher.gd" id="1_ru51i"]
 [ext_resource type="Texture2D" uid="uid://dabfad520xe5d" path="res://scenes/blocks/jump refresher/images/1.png" id="2_j21a7"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://voau5ennwh4d" path="res://scenes/blocks/jump refresher/images/ghost.png" id="4_rc0bb"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="5_ndm6f"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_jyduy"]
-[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="6_ru51i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8tkfk"]
 radius = 93.00538
@@ -14,14 +13,13 @@ radius = 93.00538
 [sub_resource type="CircleShape2D" id="CircleShape2D_orajn"]
 radius = 197.0406
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_ru51i")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("2_j21a7")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
-cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
 canAttachToThings = true
 canAttachToPaths = true
@@ -48,16 +46,14 @@ shape = SubResource("CircleShape2D_8tkfk")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("5_ndm6f")
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 0
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+enabled = false
+shape = SubResource("CircleShape2D_orajn")
+target_position = Vector2(0, 0)
 collision_mask = 32768
+collide_with_areas = true
 script = ExtResource("6_jyduy")
 root = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
-shape = SubResource("CircleShape2D_orajn")
-debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
-script = ExtResource("6_ru51i")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

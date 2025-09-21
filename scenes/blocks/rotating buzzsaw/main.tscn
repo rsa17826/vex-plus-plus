@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://0xgh6v6sar7q"]
+[gd_scene load_steps=8 format=3 uid="uid://0xgh6v6sar7q"]
 
 [ext_resource type="Script" uid="uid://dn634wpsokoak" path="res://scenes/blocks/rotating buzzsaw/Rotating Buzzsaw.gd" id="1_4olmi"]
 [ext_resource type="Texture2D" uid="uid://kco1nesr1hf7" path="res://scenes/blocks/rotating buzzsaw/images/1.png" id="2_3gtnp"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_782ym"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_4olmi"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_dxbo5"]
-[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="6_108tx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4olmi"]
 radius = 85.3288
@@ -13,14 +12,13 @@ radius = 85.3288
 [sub_resource type="CircleShape2D" id="CircleShape2D_782ym"]
 radius = 72.0069
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_4olmi")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_3gtnp")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
-cloneEventsHere = [NodePath("collisionNode/attach detector")]
 thingThatMoves = NodePath("collisionNode")
 oddScaleOffsetForce = Dictionary[String, int]({
 "x": -1,
@@ -52,18 +50,14 @@ debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_dxbo5")
 metadata/_edit_lock_ = true
 
-[node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
-collision_layer = 0
-collision_mask = 32768
-script = ExtResource("3_4olmi")
-root = NodePath("../..")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+enabled = false
 shape = SubResource("CircleShape2D_782ym")
-debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
-script = ExtResource("6_108tx")
-metadata/_edit_lock_ = true
+target_position = Vector2(0, 0)
+collision_mask = 32768
+collide_with_areas = true
+script = ExtResource("3_4olmi")
+root = NodePath("..")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

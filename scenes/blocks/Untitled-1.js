@@ -25,6 +25,12 @@ fs.readdir(directoryPath, (err, files) => {
 function start(file) {
   var p = file
   var data = fs.readFileSync(p, "utf-8")
+  if (
+    data.includes('node name="attach detector" type="ShapeCast2D"')
+  ) {
+    return
+  }
+  log(file)
 
   // New section to replace
   const newSection = `[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
@@ -37,10 +43,26 @@ STARTSCRIPT
 STARTROOT
 
 `
-  var addata = data.match(/\[node name="attach detector".*?\n\n/s)[0]
-  var ad2data = data.match(
-    /^.*? parent="attach detector"\][\s\S]*?\n\n/m
-  )[0]
+  var addata = (data + "\n\n").match(
+    /\[node name="attach detector".*?\n\n/s
+  )?.[0]
+  var ad2data = (data + "\n\n").match(
+    /^.*? parent="[^"]*attach detector"\][\s\S]*?\n\n/m
+  )?.[0]
+  if (!addata || !ad2data) {
+    error(
+      "no data",
+      p,
+      "\n-----------------------------------",
+      addata,
+      "\n-----------------------------------",
+      ad2data,
+      "\n-----------------------------------",
+      "\n-----------------------------------",
+      "\n-----------------------------------"
+    )
+    return
+  }
   const shapeRegex = /shape = SubResource\("[^"]+"\)$/m
   const shapeMatch = ad2data.match(shapeRegex)
   const extractedShape = shapeMatch ? shapeMatch[0] : "ERROR!!!!!" // Default if not found

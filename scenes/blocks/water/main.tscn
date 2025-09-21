@@ -29,14 +29,13 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(698, 698)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["water"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["water"]]
 script = ExtResource("1_4qql6")
 sprite = NodePath("collisionNode/AnimatedSprite2D")
 ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("2_8lfx0")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/AnimatedSprite2D")]
-cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
 canAttachToThings = true

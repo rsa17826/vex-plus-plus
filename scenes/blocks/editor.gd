@@ -436,6 +436,9 @@ func _physics_process(delta: float) -> void:
     #     collisionQueue = {}
 
   for thing in cloneEventsHere:
+    if not thing:
+      log.err(id, "no thing in cloneEventsHere")
+      breakpoint
     if 'postMovementStep' in thing:
       thing.postMovementStep()
   for block: EditorBlock in attach_children:

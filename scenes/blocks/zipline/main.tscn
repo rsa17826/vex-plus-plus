@@ -5,19 +5,17 @@
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_b7jmp"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="5_4puwd"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_o64km"]
-[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="7_tu3ju"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(21, 224)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ray", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["water"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ray", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["water"]]
 script = ExtResource("1_q31ry")
 ray = NodePath("collisionNode/RayCast2D")
 ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("2_nwgn2")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/ghost")]
-cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
 canAttachToThings = true
@@ -39,6 +37,7 @@ metadata/_edit_lock_ = true
 z_index = 3
 position = Vector2(-6.5, 60)
 shape = SubResource("RectangleShape2D_gwpbw")
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("5_4puwd")
 metadata/_edit_lock_ = true
 
