@@ -11,7 +11,7 @@
       STR(autoRun)BOOL(false)
       STR(jumpCount)INT(1)
       STR(changeSpeedOnSlopes)BOOL(false)
-      STR(checkpointsSaveAll)BOOL(false)
+      STR(checkpointsSaveAll)BOOL(true)
     }
   }
   STRNAME(levelVersion)INT(468)
