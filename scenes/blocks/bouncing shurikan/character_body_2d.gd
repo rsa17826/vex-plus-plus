@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @export var root: EditorBlock
 
-const SPEED = 30.0
+const SPEED = 100.0
 
 var dir := Vector2(1, 1)
 
