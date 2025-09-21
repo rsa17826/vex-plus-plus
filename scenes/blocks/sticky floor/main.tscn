@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bs0xkbdbuqi08"]
+[gd_scene load_steps=8 format=3 uid="uid://bs0xkbdbuqi08"]
 
 [ext_resource type="Script" uid="uid://s7l8mpl3uxu3" path="res://scenes/blocks/sticky floor/sticky floor.gd" id="1_hw1lf"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_ygklv"]
 [ext_resource type="Texture2D" uid="uid://1apwo76xbk7g" path="res://scenes/blocks/sticky floor/images/1.png" id="3_hw1lf"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_ygklv"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_e5hb1"]
-[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="6_js5ms"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 2)
@@ -13,13 +12,12 @@ size = Vector2(700, 2)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtxna"]
 size = Vector2(700, 2)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_hw1lf")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("3_hw1lf")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("attach detector/CollisionShape2D")]
+collisionShapes = [NodePath("collisionNode/CollisionShape2D"), null]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
-cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("collisionNode")
 oddScaleOffsetForce = Dictionary[String, int]({
 "x": 0,
@@ -42,19 +40,17 @@ texture = ExtResource("3_hw1lf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_gwpbw")
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_ygklv")
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 0
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+enabled = false
+shape = SubResource("RectangleShape2D_gtxna")
+target_position = Vector2(0, 0)
 collision_mask = 32768
+collide_with_areas = true
 script = ExtResource("5_e5hb1")
 root = NodePath("..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_gtxna")
-debug_color = Color(0.87451, 0.341176, 0, 0.419608)
-script = ExtResource("6_js5ms")
 
 [connection signal="input_event" from="collisionNode" to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="collisionNode" to="." method="_on_mouse_entered"]

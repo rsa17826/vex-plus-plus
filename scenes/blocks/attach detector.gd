@@ -40,6 +40,12 @@ func tryaddgroups():
   enabled = true
   force_shapecast_update()
   enabled = false
+  if not root:
+    var parent = self
+    while 'id' not in parent:
+      parent = parent.get_parent()
+    log.err("root not set", name, parent.id)
+    breakpoint
   for i in range(get_collision_count()):
     var block := get_collider(i)
     block = block.root

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cndl3qgbg1exr"]
+[gd_scene load_steps=11 format=3 uid="uid://cndl3qgbg1exr"]
 
 [ext_resource type="Script" uid="uid://djkstxmhrl3yq" path="res://scenes/blocks/shurikan spawner/shurikan Spawner.gd" id="1_8qfqg"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_8qfqg"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_lcjsb"]
 [ext_resource type="Texture2D" uid="uid://b2ob17jjbqhgv" path="res://scenes/blocks/shurikan spawner/images/death.png" id="5_ne3b7"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="6_xbrrh"]
-[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="9_08xir"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_86yqw"]
 radius = 30.0
@@ -16,17 +15,16 @@ radius = 30.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qfqg"]
 radius = 127.016
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("shurikenBase", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("shurikenBase", "ghostIconNode", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_8qfqg")
 shurikenBase = NodePath("Node2D/ttm/death")
 ghostIconNode = NodePath("Node2D/ttm/ghost")
 editorBarIcon = ExtResource("3_86yqw")
-collisionShapes = [NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/ttm/Spawner")]
-cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("Node2D/ttm")
 ghostFollowNode = NodePath("Node2D")
 mouseRotationOffset = 0
+ignoreMissingNodes = true
 dontDisablePhysicsProcess = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
@@ -68,19 +66,14 @@ scale = Vector2(0.566, 0.566)
 texture = ExtResource("5_ne3b7")
 metadata/_edit_lock_ = true
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(0, -36)
-collision_layer = 2048
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+enabled = false
+shape = SubResource("CircleShape2D_8qfqg")
+target_position = Vector2(0, 0)
 collision_mask = 32768
+collide_with_areas = true
 script = ExtResource("4_lcjsb")
 root = NodePath("..")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
-shape = SubResource("CircleShape2D_8qfqg")
-debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
-script = ExtResource("9_08xir")
-metadata/_edit_lock_ = true
 
 [connection signal="body_entered" from="Node2D/ttm/death" to="." method="_on_body_enteredDEATH"]
 [connection signal="body_exited" from="Node2D/ttm/death" to="." method="_on_body_exitedDEATH"]

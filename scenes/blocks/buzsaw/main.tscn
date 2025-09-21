@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgjhmtvfpqaek"]
+[gd_scene load_steps=8 format=3 uid="uid://dgjhmtvfpqaek"]
 
 [ext_resource type="Script" uid="uid://cvsp4fefkq61x" path="res://scenes/blocks/buzsaw/buzsaw.gd" id="1_v7uox"]
 [ext_resource type="Texture2D" uid="uid://6piyx4pmutk2" path="res://scenes/blocks/buzsaw/images/1.png" id="2_lsihx"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_v7uox"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_xvl4e"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_cdjuy"]
-[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="6_v10di"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xvl4e"]
 radius = 298.3
@@ -13,19 +12,18 @@ radius = 298.3
 [sub_resource type="CircleShape2D" id="CircleShape2D_v7uox"]
 radius = 306.863
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "BUZSAW_GENERIC_spriteToRotateRight", "BUZSAW_GENERIC_spriteToRotateLeft") groups=["buzsaw - generic", "death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "BUZSAW_GENERIC_spriteToRotateLeft", "BUZSAW_GENERIC_spriteToRotateRight") groups=["buzsaw - generic", "death"]]
 script = ExtResource("1_v7uox")
 ghostIconNode = NodePath("collisionNode/left rot")
 editorBarIcon = ExtResource("2_lsihx")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/left rot"), NodePath("collisionNode/right rot")]
-cloneEventsHere = [NodePath("collisionNode/attach detector")]
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
 canAttachToThings = true
 canAttachToPaths = true
-BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/left rot")
 BUZSAW_GENERIC_spriteToRotateLeft = NodePath("collisionNode/right rot")
+BUZSAW_GENERIC_spriteToRotateRight = NodePath("collisionNode/left rot")
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 collision_layer = 3088
@@ -46,19 +44,16 @@ flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("CircleShape2D_xvl4e")
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_cdjuy")
 
-[node name="attach detector" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
-collision_layer = 0
-collision_mask = 32768
-script = ExtResource("3_xvl4e")
-root = NodePath("../..")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/attach detector"]
+[node name="attach detector" type="ShapeCast2D" parent="."]
+enabled = false
 shape = SubResource("CircleShape2D_v7uox")
-debug_color = Color(0.87451, 0.341176, 0, 0.419608)
-script = ExtResource("6_v10di")
+target_position = Vector2(0, 0)
+collision_mask = 32768
+collide_with_areas = true
+script = ExtResource("3_xvl4e")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

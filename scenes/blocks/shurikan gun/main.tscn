@@ -1,23 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bcpdmlqdnorts"]
+[gd_scene load_steps=5 format=3 uid="uid://bcpdmlqdnorts"]
 
 [ext_resource type="Script" uid="uid://c3rgc7oep4paf" path="res://scenes/blocks/shurikan gun/shurikan gun.gd" id="1_u3kfh"]
 [ext_resource type="Texture2D" uid="uid://de6jortb2by0w" path="res://scenes/blocks/shurikan gun/images/1.png" id="3_f3bwa"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="8_ds8hy"]
-[ext_resource type="Script" uid="uid://c5xgsa48qfobg" path="res://scenes/hitbox scripts/attachDetector.gd" id="9_g5ujr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rpre3"]
 radius = 100.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "ghostFollowNode") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_u3kfh")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIcon = ExtResource("3_f3bwa")
-collisionShapes = [NodePath("attach detector/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/Sprite2D")]
-cloneEventsHere = [NodePath("attach detector")]
 thingThatMoves = NodePath("Node2D")
 ghostFollowNode = NodePath("Node2D")
 mouseRotationOffset = 270
+ignoreMissingNodes = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
@@ -27,15 +25,11 @@ canAttachToPaths = true
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 texture = ExtResource("3_f3bwa")
 
-[node name="attach detector" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 2048
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+enabled = false
+shape = SubResource("CircleShape2D_rpre3")
+target_position = Vector2(0, 0)
 collision_mask = 32768
+collide_with_areas = true
 script = ExtResource("8_ds8hy")
 root = NodePath("..")
-metadata/_edit_lock_ = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attach detector"]
-shape = SubResource("CircleShape2D_rpre3")
-debug_color = Color(0.8745098, 0.34117648, 0, 0.41960785)
-script = ExtResource("9_g5ujr")
-metadata/_edit_lock_ = true
