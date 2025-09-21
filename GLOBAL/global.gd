@@ -661,7 +661,7 @@ func selectBlock() -> void:
   # select the top hovered block
   # log.pp(hoveredBlocks, selectedBlock, 1)
   set_deferred("selecting", false)
-  if not hoveredBlocks:
+  if hoveredBlocks:
     var block: EditorBlock = hoveredBlocks.pop_front()
     selectedBlock = block
     lastSelectedBlock = block
@@ -1589,7 +1589,7 @@ func loadMapInfo(levelPackName: String) -> Variant:
     options.erase("author")
   if 'version' in options and 'gameVersion' not in options:
     options.gameVersion = options.version
-    options.erase("version")
+    # options.erase("version")
   if 'gameVersion' not in options:
     options.gameVersion = -1
   if 'levelVersion' not in options:
@@ -1703,6 +1703,7 @@ func createNewMapFolder() -> Variant:
       ),
       "description": "",
       "gameVersion": VERSION,
+      "version": VERSION,
       "levelVersion": 0,
       "stages": {
       }
