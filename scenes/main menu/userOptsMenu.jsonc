@@ -616,15 +616,15 @@
             "value": [
               {
                 "thing": "option",
-                "type": "bool",
-                "key": "showDeathHitboxes",
-                "defaultValue": true
-              },
-              {
-                "thing": "option",
                 "type": "rgba",
                 "key": "deathHitboxColor",
                 "defaultValue": 4278190187
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showDeathHitboxes",
+                "defaultValue": true
               }
             ]
           }

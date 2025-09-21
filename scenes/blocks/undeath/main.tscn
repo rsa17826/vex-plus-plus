@@ -45,7 +45,7 @@ texture = ExtResource("5_2tv7p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 shape = SubResource("RectangleShape2D_qunpq")
-debug_color = Color(0, 1, 0, 0.41960785)
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("7_jjads")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="collisionNode" node_paths=PackedStringArray("root")]
@@ -60,6 +60,8 @@ debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("8_bbb2t")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(1, 0.7019608, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_4jwsf")
 target_position = Vector2(0, 0)

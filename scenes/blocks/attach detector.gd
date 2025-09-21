@@ -1,3 +1,4 @@
+@tool
 @icon("res://scenes/hitbox scripts/images/attachDetector.png")
 extends ShapeCast2D
 class_name AttachDetector
@@ -7,13 +8,14 @@ class_name AttachDetector
 var following = true
 
 func _ready() -> void:
-  global.player.Alltryaddgroups.connect(tryaddgroups)
-  global.hitboxTypesChanged.connect(updateColor)
+  if not Engine.is_editor_hint():
+    global.player.Alltryaddgroups.connect(tryaddgroups)
+    global.hitboxTypesChanged.connect(updateColor)
   updateColor()
 
 func updateColor() -> void:
   visibility_layer = 1
-  if Engine.is_editor_hint() and not global.useropts:
+  if Engine.is_editor_hint():
     global.useropts = sds.loadDataFromFile("user://main - EDITOR.sds")
   visible = global.useropts.showAttachDetectorHitboxes
   self.modulate = global.useropts.attachDetectorHitboxColor

@@ -42,6 +42,7 @@ func updateUi(
     child.visible = showAllMods
 
   for k in data:
+    if k not in global.defaultLevelSettings: continue
     var v = data[k]
     match typeof(v):
       TYPE_BOOL:
