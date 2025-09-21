@@ -31,6 +31,7 @@ func on_body_entered(body: Node) -> void:
       thing.following = false
 
 func on_respawn() -> void:
+  used = false
   following = false
   thingThatMoves.position += unusedOffset
   thingThatMoves.global_rotation = 0
