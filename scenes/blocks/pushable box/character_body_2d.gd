@@ -28,7 +28,7 @@ func on_physics_process(delta: float) -> void:
     if is_on_ceiling() and vel.default.y < 0:
       vel.default.y = 0
     vel.default.y += global.player.GRAVITY * delta
-  vel.default.x *= .90 if is_on_floor() else .97
+  # vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
   # vel.default += vel.conveyer
   velocity = global.player.applyRot(vel.default + vel.conveyer)
@@ -102,15 +102,11 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     else:
       log.err("invalid collision direction!!!", normal, playerSide, blockSide)
 
-func on_ready(first=false):
-  vel.conveyer = Vector2.ZERO
-  vel.default = Vector2.ZERO
-  global_position = root.startPosition
-
 func on_respawn():
-  vel.conveyer = Vector2.ZERO
-  vel.default = Vector2.ZERO
-  global_position = root.startPosition
+  if not root.loadDefaultData:
+    vel.conveyer = Vector2.ZERO
+    vel.default = Vector2.ZERO
+    global_position = root.startPosition
 
 var currentWatters = []
 
