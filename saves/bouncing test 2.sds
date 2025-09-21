@@ -4,8 +4,8 @@
       STR(name)STR(hub)
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
-      STR(autoRunDirection)INT(1)
-      STR(tick)FLOAT(0.0)
+      STR(autoRunDirection)INT(-1)
+      STR(tick)FLOAT(41.9999999999989)
       STR(blockSaveData){
         STR(key){
           INT(1){
@@ -13,16 +13,19 @@
             STR(used)BOOL(false)
           }
           INT(2){
-            STR(following)BOOL(false)
-            STR(used)BOOL(false)
+            STR(following)BOOL(true)
+            STR(ttmpos)VEC2(343.341094970703,15.6760406494141)
+            STR(randOffset)FLOAT(-7.0)
+            STR(ttmrot)FLOAT(-0.52359867095947)
+            STR(used)BOOL(true)
           }
           INT(3){
             STR(following)BOOL(false)
-            STR(used)BOOL(false)
+            STR(used)BOOL(true)
           }
           INT(4){
             STR(following)BOOL(false)
-            STR(used)BOOL(false)
+            STR(used)BOOL(true)
           }
           INT(5){
             STR(following)BOOL(false)
@@ -35,10 +38,10 @@
         }
         STR(10x locked spike){
           INT(1){
-            STR(unlocked)BOOL(false)
+            STR(unlocked)BOOL(true)
           }
           INT(2){
-            STR(unlocked)BOOL(false)
+            STR(unlocked)BOOL(true)
           }
           INT(3){
             STR(unlocked)BOOL(false)
@@ -47,7 +50,7 @@
             STR(unlocked)BOOL(false)
           }
           INT(5){
-            STR(unlocked)BOOL(false)
+            STR(unlocked)BOOL(true)
           }
         }
         STR(checkpoint){
@@ -58,7 +61,7 @@
             STR(texture)STR(1)
           }
           INT(3){
-            STR(texture)STR(1)
+            STR(texture)STR(3)
           }
         }
         STR(locked box){
@@ -71,8 +74,8 @@
         }
         STR(bouncing shurikan){
           INT(1){
-            STR(ttmpos)VEC2(178.333343505859,-21.6666679382324)
-            STR(ttmdir)VEC2(1.0,1.0)
+            STR(ttmpos)VEC2(2806.60107421875,-2663.083984375)
+            STR(ttmdir)VEC2(0.99485337734222,-1.00512063503265)
           }
         }
       }
