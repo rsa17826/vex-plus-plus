@@ -75,8 +75,8 @@ func loadLocalLevelList():
     arr.append(LevelServer.dictToLevel(data))
   arr.sort_custom(func(a: LevelServer.Level, s: LevelServer.Level):
     return \
-    FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, a.levelName)) \
-    > FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, s.levelName))
+    FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, a.levelName, 'options.sds')) \
+    > FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, s.levelName, 'options.sds'))
   )
 
   for child in levelContainer.get_children():
