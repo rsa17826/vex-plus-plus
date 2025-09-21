@@ -245,8 +245,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
       - ### death hitboxes
 
-        - **showDeathHitboxes**: if true the deadly area hitboxes will be visible when hitboxes are shown
         - **deathHitboxColor**: the color of the hitbox of the deadly areas
+        - **showDeathHitboxes**: if true the deadly area hitboxes will be visible when hitboxes are shown
 
   - ### misc
 
@@ -1099,7 +1099,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### Game
 
-    - **--loadMap**: when opening the game it loads a map by name or NEWEST to load the newest map.
+    - **--loadMap**: when opening the game it loads a map by name, or NEWEST to load the newest map.
+    - **--downloadMap**: downloads a map by the maps id
     - **--loadOnlineLevels**: opens the online levels list when starting the game.
 
 - ## Extra
