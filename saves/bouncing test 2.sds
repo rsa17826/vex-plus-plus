@@ -4,8 +4,8 @@
       STR(name)STR(hub)
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
-      STR(autoRunDirection)INT(-1)
-      STR(tick)FLOAT(41.9999999999989)
+      STR(autoRunDirection)INT(1)
+      STR(tick)FLOAT(105.183333333329)
       STR(blockSaveData){
         STR(key){
           INT(1){
@@ -13,19 +13,16 @@
             STR(used)BOOL(false)
           }
           INT(2){
-            STR(following)BOOL(true)
-            STR(ttmpos)VEC2(343.341094970703,15.6760406494141)
-            STR(randOffset)FLOAT(-7.0)
-            STR(ttmrot)FLOAT(-0.52359867095947)
-            STR(used)BOOL(true)
+            STR(following)BOOL(false)
+            STR(used)BOOL(false)
           }
           INT(3){
             STR(following)BOOL(false)
-            STR(used)BOOL(true)
+            STR(used)BOOL(false)
           }
           INT(4){
             STR(following)BOOL(false)
-            STR(used)BOOL(true)
+            STR(used)BOOL(false)
           }
           INT(5){
             STR(following)BOOL(false)
@@ -38,10 +35,10 @@
         }
         STR(10x locked spike){
           INT(1){
-            STR(unlocked)BOOL(true)
+            STR(unlocked)BOOL(false)
           }
           INT(2){
-            STR(unlocked)BOOL(true)
+            STR(unlocked)BOOL(false)
           }
           INT(3){
             STR(unlocked)BOOL(false)
@@ -50,18 +47,108 @@
             STR(unlocked)BOOL(false)
           }
           INT(5){
-            STR(unlocked)BOOL(true)
+            STR(unlocked)BOOL(false)
           }
         }
         STR(checkpoint){
           INT(1){
-            STR(texture)STR(2)
+            STR(texture)STR(1)
           }
           INT(2){
             STR(texture)STR(1)
           }
           INT(3){
-            STR(texture)STR(3)
+            STR(texture)STR(1)
+          }
+          INT(4){
+            STR(texture)STR(2)
+          }
+          INT(5){
+            STR(texture)STR(1)
+          }
+          INT(6){
+            STR(texture)STR(1)
+          }
+          INT(7){
+            STR(texture)STR(1)
+          }
+          INT(8){
+            STR(texture)STR(1)
+          }
+          INT(9){
+            STR(texture)STR(1)
+          }
+          INT(10){
+            STR(texture)STR(1)
+          }
+          INT(11){
+            STR(texture)STR(1)
+          }
+          INT(12){
+            STR(texture)STR(1)
+          }
+          INT(13){
+            STR(texture)STR(1)
+          }
+          INT(14){
+            STR(texture)STR(1)
+          }
+          INT(15){
+            STR(texture)STR(1)
+          }
+          INT(16){
+            STR(texture)STR(1)
+          }
+          INT(17){
+            STR(texture)STR(1)
+          }
+          INT(18){
+            STR(texture)STR(1)
+          }
+          INT(19){
+            STR(texture)STR(1)
+          }
+          INT(20){
+            STR(texture)STR(1)
+          }
+          INT(21){
+            STR(texture)STR(1)
+          }
+          INT(22){
+            STR(texture)STR(1)
+          }
+          INT(23){
+            STR(texture)STR(1)
+          }
+          INT(24){
+            STR(texture)STR(1)
+          }
+          INT(25){
+            STR(texture)STR(1)
+          }
+          INT(26){
+            STR(texture)STR(1)
+          }
+          INT(27){
+            STR(texture)STR(1)
+          }
+          INT(28){
+            STR(texture)STR(1)
+          }
+          INT(29){
+            STR(texture)STR(1)
+          }
+          INT(30){
+            STR(texture)STR(1)
+          }
+          INT(31){
+            STR(texture)STR(1)
+          }
+          INT(32){
+            STR(texture)STR(1)
+          }
+          INT(33){
+            STR(texture)STR(1)
           }
         }
         STR(locked box){
@@ -74,8 +161,13 @@
         }
         STR(bouncing shurikan){
           INT(1){
-            STR(ttmpos)VEC2(2806.60107421875,-2663.083984375)
-            STR(ttmdir)VEC2(0.99485337734222,-1.00512063503265)
+            STR(ttmpos)VEC2(165.403228759766,-8.87810134887695)
+            STR(ttmdir)VEC2(-0.98257225751877,1.01712894439697)
+          }
+        }
+        STR(shurikan gun){
+          INT(1){
+            STR(cooldown)FLOAT(1.90858347560707)
           }
         }
       }

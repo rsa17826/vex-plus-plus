@@ -33,11 +33,14 @@ func on_process(delta):
         "until": .8,
       }
     ], totalTime - (cooldown)) * 7
+  else:
+    thingThatMoves.scale = Vector2(1,1)
   if cooldown > 0:
     cooldown -= delta
 
 func on_respawn():
-  cooldown = .8
+  if not checkpointsSaveAll:
+    cooldown = .8
 
 func generateBlockOpts():
   blockOptions.maxCooldown = {"default": 100, "type": global.PromptTypes.float}
@@ -52,3 +55,6 @@ func spawnShurikan() -> EditorBlock:
   shurikan.DONT_MOVE_ON_RESPAWN = true
   global.level.add_child(shurikan)
   return shurikan
+
+func onSave() -> Array[String]:
+  return ['cooldown']

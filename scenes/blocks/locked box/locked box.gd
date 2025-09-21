@@ -16,8 +16,9 @@ func unlock() -> void:
     await global.wait()
 
 func on_respawn() -> void:
-  __enable()
-  unlocked = false
+  if not checkpointsSaveAll:
+    __enable()
+    unlocked = false
 
 func onSave() -> Array[String]:
   return ["unlocked"]
