@@ -1436,7 +1436,7 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     "beatLevels": beatLevels,
   }
   if !blocksOnly:
-    currentLevel().tick = global.tick if currentLevelSettings("saveTick") else 0.0
+    currentLevel().tick = global.tick if currentLevelSettings("checkpointsSaveAll") else 0.0
     currentLevel().up_direction = player.up_direction
     currentLevel().autoRunDirection = player.autoRunDirection
     currentLevel().lastSpawnPoint = player.lastSpawnPoint
@@ -1643,7 +1643,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
   opts.stages[levelName] = d
   if useropts.randomizeLevelModifiersOnLevelCreation:
     for k in d:
-      if k in ['saveTick', 'color']: continue
+      if k in ['color']: continue
       if typeof(d[k]) == TYPE_BOOL:
         d[k] = !!randfrom(0, 1)
         continue
@@ -1710,13 +1710,12 @@ func createNewMapFolder() -> Variant:
 const defaultLevelSettings = {
   "color": 1,
   "changeSpeedOnSlopes": false,
-  "saveTick": false,
   "jumpCount": 1,
   "autoRun": false,
   "canDoWallHang": true,
   "canDoWallSlide": true,
   "canDoWallJump": true,
-  "checkpointsSaveAll": true,
+  "checkpointsSaveAll": false,
 }
 
 func currentLevelSettings(key: Variant = null) -> Variant:

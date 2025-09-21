@@ -38,6 +38,7 @@ debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("4_tlfeg")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_f5mb8")
 target_position = Vector2(0, 0)

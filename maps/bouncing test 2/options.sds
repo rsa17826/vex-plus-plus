@@ -5,17 +5,15 @@
   STR(version)INT(176)
   STR(stages){
     STR(hub){
-      STR(color)INT(3)
-      STR(changeSpeedOnSlopes)BOOL(false)
-      STR(saveTick)BOOL(false)
-      STR(jumpCount)INT(1)
-      STR(autoRun)BOOL(false)
-      STR(canDoWallHang)BOOL(true)
       STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallHang)BOOL(true)
       STR(canDoWallJump)BOOL(true)
-      STR(checkpointsSaveAll)BOOL(true)
+      STR(autoRun)BOOL(false)
+      STR(jumpCount)INT(1)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(checkpointsSaveAll)BOOL(false)
     }
   }
-  STRNAME(levelVersion)INT(465)
+  STRNAME(levelVersion)INT(468)
   STRNAME(gameVersion)INT(185)
 }
