@@ -69,9 +69,17 @@ func _ready() -> void:
     var block = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     add_child(block)
     await global.wait()
-    for t in block.collisionShapes:
+    for t in block.collisionShapes + block.hidableSprites + block.cloneEventsHere:
       if not t:
-        log.err(id)
+        log.err(id, "null node")
+    if not block.thingThatMoves and \
+    not id in [
+      "path",
+      "death boundary",
+      "block death boundary",
+      "quad falling spikes"
+    ]:
+      log.err(id, "thingThatMoves")
     # log.pp(id, block)
     var keyVal = '- **' + id + '**: '
     text += "\n\n" + getIndent(indent) + keyVal

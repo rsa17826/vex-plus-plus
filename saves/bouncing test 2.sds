@@ -14,21 +14,15 @@
           }
           INT(2){
             STR(following)BOOL(false)
-            STR(used)BOOL(false)
+            STR(used)BOOL(true)
           }
           INT(3){
-            STR(following)BOOL(true)
-            STR(ttmpos)VEC2(697.914184570313,113.80655670166)
-            STR(randOffset)FLOAT(-9.0)
-            STR(ttmrot)FLOAT(-0.52359867095947)
-            STR(used)BOOL(false)
+            STR(following)BOOL(false)
+            STR(used)BOOL(true)
           }
           INT(4){
-            STR(following)BOOL(true)
-            STR(ttmpos)VEC2(385.673553466797,35.0851135253906)
-            STR(randOffset)FLOAT(7.0)
-            STR(ttmrot)FLOAT(0.51649636030197)
-            STR(used)BOOL(false)
+            STR(following)BOOL(false)
+            STR(used)BOOL(true)
           }
           INT(5){
             STR(following)BOOL(false)

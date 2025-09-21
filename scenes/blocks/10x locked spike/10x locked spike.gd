@@ -20,6 +20,8 @@ func unlock() -> void:
     unlocked = true
     var key: Node2D = global.player.keys.pop_front()
     key.root.__disable.call_deferred()
+    key.root.following = false
+    key.root.used = true
     __disable.call_deferred()
     await global.wait()
     unlocked = false
