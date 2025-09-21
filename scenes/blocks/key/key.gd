@@ -4,6 +4,8 @@ class_name BlockKey
 
 var randOffset: float = 0.5
 var following := false
+var used := false
+
 var ttmpos: Vector2:
   get():
     return thingThatMoves.global_position
@@ -17,8 +19,8 @@ var ttmrot: float:
 
 func onSave() -> Array[String]:
   if following:
-    return ["following", "ttmpos", "randOffset", "ttmrot"]
-  return ["following"]
+    return ["following", "ttmpos", "randOffset", "ttmrot", "used"]
+  return ["following", "used"]
 
 func on_body_entered(body: Node) -> void:
   if body is Player and not following and not thingThatMoves in global.player.keys:
@@ -39,6 +41,9 @@ func on_respawn() -> void:
   __enable()
 
 func onDataLoaded() -> void:
+  if used:
+    __disable.call_deferred()
+    return
   if following:
     global.player.keys.push_front(thingThatMoves)
     for thing in cloneEventsHere:

@@ -710,6 +710,10 @@ func __disable() -> void:
     collider.disabled = true
   for sprite in hidableSprites:
     sprite.visible = false
+func __hideAll() -> void:
+  _DISABLED = true
+  for sprite in hidableSprites:
+    sprite.visible = false
   # get_parent().collisionShapes.map(func(e):return e.disabled)
 ## enables the node collision and shows the sprites
 func __enable() -> void:

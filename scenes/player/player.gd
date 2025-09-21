@@ -1451,6 +1451,7 @@ func setRot(rot):
 
 signal OnPlayerDied
 signal OnPlayerFullRestart
+signal Alltryaddgroups
 
 func stopDying():
   if state == States.dead:
@@ -1532,6 +1533,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if full:
     OnPlayerFullRestart.emit()
   _physics_process(0)
+  Alltryaddgroups.emit()
 
 func tryChangeRespawnLocation():
   var deathRay := RayCast2D.new()
