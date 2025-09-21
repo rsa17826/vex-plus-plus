@@ -38,7 +38,7 @@
             STR(unlocked)BOOL(true)
           }
           INT(2){
-            STR(unlocked)BOOL(true)
+            STR(unlocked)BOOL(false)
           }
           INT(3){
             STR(unlocked)BOOL(false)
@@ -47,7 +47,7 @@
             STR(unlocked)BOOL(false)
           }
           INT(5){
-            STR(unlocked)BOOL(true)
+            STR(unlocked)BOOL(false)
           }
         }
         STR(checkpoint){

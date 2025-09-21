@@ -17,16 +17,14 @@ func on_body_entered(body: Node2D):
         body.deathSources.append(self )
 
 func unlock() -> void:
-  if global.player.keys and not justUnlocked:
+  if global.player.keys and not unlocked:
     unlocked = true
     justUnlocked = true
     var key: Node2D = global.player.keys.pop_front()
     key.root.__disable()
     key.root.following = false
     key.root.used = true
-    __disable()
-    for block: EditorBlock in attach_children:
-      block.__disable()
+    __disable.call_deferred()
     await global.wait()
     justUnlocked = false
 
