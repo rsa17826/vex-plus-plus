@@ -69,6 +69,9 @@ func _ready() -> void:
     var block = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     add_child(block)
     await global.wait()
+    for t in block.collisionShapes:
+      if not t:
+        log.err(id)
     # log.pp(id, block)
     var keyVal = '- **' + id + '**: '
     text += "\n\n" + getIndent(indent) + keyVal

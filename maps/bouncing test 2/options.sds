@@ -16,6 +16,6 @@
       STR(checkpointsSaveAll)BOOL(true)
     }
   }
-  STRNAME(levelVersion)INT(450)
+  STRNAME(levelVersion)INT(453)
   STRNAME(gameVersion)INT(185)
 }
