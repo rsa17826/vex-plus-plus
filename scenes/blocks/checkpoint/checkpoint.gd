@@ -10,7 +10,12 @@ var texture:
   set(val):
     setTexture(sprite, val)
 
+var ignorePlayerEntering := false
+
 func on_body_entered(body: Node) -> void:
+  if ignorePlayerEntering:
+    ignorePlayerEntering = false
+    return
   if body is Player and (getTexture(sprite) == '1' or selectedOptions.multiUse):
     global.savePlayerLevelData()
     global.player.lastSpawnPoint = \
@@ -19,8 +24,6 @@ func on_body_entered(body: Node) -> void:
     # offset by 1/7*sprite position
     global.player.lightsOut = false
     setTexture(sprite, "2")
-    global.checkpoints = global.checkpoints.filter(func(e: Variant) -> bool:
-      return is_instance_valid(e))
     for checkpoint in global.checkpoints:
       if checkpoint == self: continue
       if getTexture(checkpoint.sprite) == '2':
@@ -36,6 +39,12 @@ func on_ready() -> void:
 
 func onSave() -> Array[String]:
   return ["texture"]
+
+func onDataLoaded() -> void:
+  if getTexture(sprite) == '2' and selectedOptions.multiUse:
+    ignorePlayerEntering = true
+  else:
+    ignorePlayerEntering = false
 
 func generateBlockOpts():
   blockOptions.multiUse = {"type": global.PromptTypes.bool, "default": false}
