@@ -1530,10 +1530,12 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     OnPlayerDied.emit()
     if global.currentLevelSettings("checkpointsSaveAll"):
       global.loadBlockData()
+    await global.wait()
+    Alltryaddgroups.emit.call_deferred()
   if full:
     OnPlayerFullRestart.emit()
+    global.savePlayerLevelData()
   _physics_process(0)
-  Alltryaddgroups.emit()
 
 func tryChangeRespawnLocation():
   var deathRay := RayCast2D.new()
