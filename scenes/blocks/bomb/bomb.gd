@@ -56,17 +56,17 @@ func onFrameChanged():
   ):
     if block is Player:
       await global.wait()
-      block.deathSources.append(self)
+      block.deathSources.append(self )
     else:
       block = block.root
       if block == self: continue
       if block is BlockBomb:
         block.explode()
       else:
+        # block.hasBeenExploded = true
         block.__disable.call_deferred()
 
 func explode():
-  log.err("asdasd")
   if exploded: return
   exploded = true
   $CharacterBody2D/Sprite2D.visible = false
@@ -77,3 +77,19 @@ func explode():
   boomSprite.frame_changed.connect(onFrameChanged)
   boomSprite.animation_looped.connect(onAnimationLooped)
   boomSprite.play("explode")
+
+var ttmpos:
+  get():
+    return thingThatMoves.global_position
+  set(val):
+    thingThatMoves.global_position = val
+var ttmvel:
+  get():
+    return thingThatMoves.vel
+  set(val):
+    ttmvel2 = val
+
+var ttmvel2
+
+func onSave() -> Array[String]:
+  return ["ttmpos", "ttmvel"]

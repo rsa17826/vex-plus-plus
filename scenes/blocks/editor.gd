@@ -61,6 +61,12 @@ extends Node2D
 var loadDefaultData: bool = true
 var isBeingPlaced := false
 
+# var hasBeenExploded := false:
+#   set(val):
+#     hasBeenExploded = val
+#     if hasBeenExploded:
+#       __disable.call_deferred()
+
 var intendedPositionOfThingThatMoves := Vector2.ZERO
 
 func moveTo(pos: Vector2):
@@ -266,6 +272,7 @@ func _on_body_exited(body: Node2D, real=true) -> void:
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
+  # hasBeenExploded = false
   if !global.player:
     generateBlockOpts()
     if canAttachToThings:
