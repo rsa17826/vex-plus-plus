@@ -12,6 +12,11 @@ var ttmvel:
     return thingThatMoves.velocity
   set(val):
     thingThatMoves.velocity = val
+var ttmspeed:
+  get():
+    return thingThatMoves.speed
+  set(val):
+    thingThatMoves.speed = val
 
 func onSave() -> Array[String]:
-  return ["ttmpos", "ttmvel"]
+  return ["ttmpos", "ttmvel", "ttmspeed"]

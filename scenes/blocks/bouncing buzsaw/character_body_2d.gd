@@ -17,10 +17,9 @@ func on_physics_process(delta: float) -> void:
     speed = -50
 func on_on_body_entered(body: Node):
   log.pp(body.name)
-func on_ready(first=false):
-  velocity = Vector2.ZERO
-  global_position = root.startPosition
 
 func on_respawn():
-  velocity = Vector2.ZERO
-  global_position = root.startPosition
+  if not root.loadDefaultData:
+    velocity = Vector2.ZERO
+    speed = 50
+    global_position = root.startPosition
