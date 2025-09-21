@@ -5,7 +5,7 @@
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
       STR(autoRunDirection)INT(1)
-      STR(tick)FLOAT(105.183333333329)
+      STR(tick)FLOAT(2.31666666666666)
       STR(blockSaveData){
         STR(key){
           INT(1){
@@ -35,7 +35,7 @@
         }
         STR(10x locked spike){
           INT(1){
-            STR(unlocked)BOOL(false)
+            STR(unlocked)BOOL(true)
           }
           INT(2){
             STR(unlocked)BOOL(false)
@@ -156,18 +156,18 @@
             STR(unlocked)BOOL(false)
           }
           INT(2){
-            STR(unlocked)BOOL(false)
+            STR(unlocked)BOOL(true)
           }
         }
         STR(bouncing shurikan){
           INT(1){
-            STR(ttmpos)VEC2(165.403228759766,-8.87810134887695)
-            STR(ttmdir)VEC2(-0.98257225751877,1.01712894439697)
+            STR(ttmpos)VEC2(235.691482543945,-41.2176513671875)
+            STR(ttmdir)VEC2(1.0,-1.0)
           }
         }
         STR(shurikan gun){
           INT(1){
-            STR(cooldown)FLOAT(1.90858347560707)
+            STR(cooldown)FLOAT(1.63322354255509)
           }
         }
       }
