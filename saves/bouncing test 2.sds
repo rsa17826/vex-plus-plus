@@ -10,24 +10,27 @@
         STR(key){
           INT(1){
             STR(following)BOOL(false)
+            STR(used)BOOL(false)
           }
           INT(2){
-            STR(following)BOOL(true)
-            STR(ttmpos)VEC2(698.154907226563,105.114822387695)
-            STR(randOffset)FLOAT(0.5)
-            STR(ttmrot)FLOAT(-0.52359867095947)
+            STR(following)BOOL(false)
+            STR(used)BOOL(true)
           }
           INT(3){
             STR(following)BOOL(false)
+            STR(used)BOOL(false)
           }
           INT(4){
             STR(following)BOOL(false)
+            STR(used)BOOL(false)
           }
           INT(5){
             STR(following)BOOL(false)
+            STR(used)BOOL(false)
           }
           INT(6){
             STR(following)BOOL(false)
+            STR(used)BOOL(false)
           }
         }
         STR(checkpoint){
@@ -39,6 +42,14 @@
           }
           INT(3){
             STR(texture)STR(2)
+          }
+        }
+        STR(locked box){
+          INT(1){
+            STR(unlocked)BOOL(false)
+          }
+          INT(2){
+            STR(unlocked)BOOL(true)
           }
         }
       }
