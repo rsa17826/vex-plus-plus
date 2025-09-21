@@ -28,9 +28,8 @@ func onSave() -> Array[String]:
 
 func onAllDataLoaded() -> void:
   if unlocked:
-    __hideAll.call_deferred()
     global.player.Alltryaddgroups.connect(func():
-      __disable()
+      __disable.call_deferred()
       for block: EditorBlock in attach_children:
         block.__disable.call_deferred()
     , Object.CONNECT_ONE_SHOT)
