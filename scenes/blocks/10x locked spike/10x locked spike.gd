@@ -3,8 +3,9 @@ extends EditorBlock
 class_name Block10xLockedSpike
 
 func on_respawn() -> void:
-  __enable()
-  unlocked = false
+  if not checkpointsSaveAll:
+    __enable()
+    unlocked = false
 
 var unlocked := false
 
