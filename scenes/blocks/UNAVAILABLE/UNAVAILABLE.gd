@@ -5,7 +5,7 @@ class_name BlockUnavailable
 func generateBlockOpts():
   blockOptions.fakeId = {
     'type': global.PromptTypes.string,
-    'default': "unavailable",
+    'default': "UNAVAILABLE",
     "onChange": onIdChanged
   }
 
@@ -20,7 +20,7 @@ func onIdChanged(id):
   }
   if !ResourceLoader.exists("res://scenes/blocks/" + id + "/main.tscn"):
     log.err("Error: Block " + id + " is not a valid block id!")
-    return false
+    return true
   thing.options = {}
   for k in selectedOptions:
     if k != 'fakeId':
