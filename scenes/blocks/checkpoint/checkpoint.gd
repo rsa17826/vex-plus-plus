@@ -36,6 +36,7 @@ func on_ready() -> void:
   if not self in global.checkpoints:
     global.checkpoints.append(self )
   setTexture(sprite, "1")
+  ignorePlayerEntering = false
 
 func onSave() -> Array[String]:
   return ["texture"]
@@ -43,8 +44,6 @@ func onSave() -> Array[String]:
 func onDataLoaded() -> void:
   if getTexture(sprite) == '2' and selectedOptions.multiUse:
     ignorePlayerEntering = true
-    await global.wait(1000)
-    ignorePlayerEntering = false
   else:
     ignorePlayerEntering = false
 

@@ -1463,7 +1463,7 @@ func saveBlockData():
     if block.id not in blockIds:
       blockIds[block.id] = 0
     blockIds[block.id] += 1
-    var dataToSave: Array[String] = block.onSave()
+    var dataToSave: Array = block.onSave()
     if dataToSave:
       if block.id not in blockSaveData:
         blockSaveData[block.id] = {}

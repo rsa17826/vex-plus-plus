@@ -103,19 +103,15 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     else:
       log.err("invalid collision direction!!!", normal, playerSide, blockSide)
 
-func on_ready(first=false):
-  vel.conveyer = Vector2.ZERO
-  vel.default = Vector2.ZERO
-  global_position = root.startPosition
-
 func on_respawn():
-  vel.conveyer = Vector2.ZERO
-  vel.default = Vector2.ZERO
+  if not root.loadDefaultData:
+    vel.conveyer = Vector2.ZERO
+    vel.default = Vector2.ZERO
+    global_position = root.startPosition
   collsiionOn_top = []
   collsiionOn_bottom = []
   collsiionOn_left = []
   collsiionOn_right = []
-  global_position = root.startPosition
 
 var currentWatters = []
 
