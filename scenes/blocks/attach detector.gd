@@ -17,14 +17,14 @@ func _ready() -> void:
       parent = parent.get_parent()
     log.err("root not set", name, parent.id)
     breakpoint
-  if root.canAttachToPaths:
-    if not ('canAttachToPaths' in root.selectedOptions):
-      log.warn('canAttachToPaths', root.id)
-      return
-  if root.canAttachToThings:
-    if not ('canAttachToThings' in root.selectedOptions):
-      log.warn('canAttachToThings', root.id)
-      return
+  # if root.canAttachToPaths:s
+  #   if not ('canAttachToPaths' in root.selectedOptions):
+  #     log.warn('canAttachToPaths', root.id)
+  #     return
+  # if root.canAttachToThings:
+  #   if not ('canAttachToThings' in root.selectedOptions):
+  #     log.warn('canAttachToThings', root.id)
+  #     return
   updateColor()
 
 func updateColor() -> void:

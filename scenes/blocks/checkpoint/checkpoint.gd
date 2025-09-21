@@ -43,6 +43,8 @@ func onSave() -> Array[String]:
 func onDataLoaded() -> void:
   if getTexture(sprite) == '2' and selectedOptions.multiUse:
     ignorePlayerEntering = true
+    await global.wait(1000)
+    ignorePlayerEntering = false
   else:
     ignorePlayerEntering = false
 

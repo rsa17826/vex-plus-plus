@@ -4,8 +4,8 @@
       STR(name)STR(hub)
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
-      STR(autoRunDirection)INT(-1)
-      STR(tick)FLOAT(86.1333333333298)
+      STR(autoRunDirection)INT(1)
+      STR(tick)FLOAT(1.98333333333333)
       STR(blockSaveData){
         STR(key){
           INT(1){
@@ -170,28 +170,28 @@
         }
         STR(bouncing shurikan){
           INT(1){
-            STR(ttmpos)VEC2(221.86311340332,-39.8591766357422)
-            STR(ttmdir)VEC2(0.99189752340317,-1.00803911685944)
+            STR(ttmpos)VEC2(202.357986450195,-7.88431358337402)
+            STR(ttmdir)VEC2(1.0,-1.0)
           }
         }
         STR(shurikan gun){
           INT(1){
-            STR(cooldown)FLOAT(0.38984101867457)
+            STR(cooldown)FLOAT(1.74853737432391)
           }
         }
         STR(pushable box){
           INT(1){
-            STR(ttmpos)VEC2(400.0,4545846.5)
+            STR(ttmpos)VEC2(400.0,2529.05590820313)
             STR(ttmvel){
               STR(conveyer)VEC2(0.0,0.0)
-              STR(default)VEC2(0.0,107864.8984375)
+              STR(default)VEC2(0.0,2325.33374023438)
             }
           }
           INT(2){
-            STR(ttmpos)VEC2(737.689514160156,1218002.75)
+            STR(ttmpos)VEC2(1050.0,-49.8575706481934)
             STR(ttmvel){
               STR(conveyer)VEC2(0.0,0.0)
-              STR(default)VEC2(-0.0,55828.32421875)
+              STR(default)VEC2(0.0,21.3333339691162)
             }
           }
         }
@@ -209,13 +209,6 @@
             STR(ttmpos)VEC2(1150.0,0.0)
             STR(ttmvel)VEC2(0.0,0.0)
             STR(ttmstartTime)FLOAT(0.0)
-          }
-        }
-        STR(bouncing buzsaw){
-          INT(1){
-            STR(ttmpos)VEC2(1050.0,-94.540283203125)
-            STR(ttmvel)VEC2(0.0,-436.657897949219)
-            STR(ttmspeed)INT(-50)
           }
         }
       }

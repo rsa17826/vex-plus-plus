@@ -200,6 +200,7 @@ position = Vector2(-0.5, -64)
 texture = ExtResource("38_2fxyy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up"]
+visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
 disabled = true
@@ -216,7 +217,7 @@ root = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up/floor detection"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
-debug_color = Color(0, 1, 0, 0.41960785)
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/up" node_paths=PackedStringArray("root")]
@@ -242,6 +243,7 @@ position = Vector2(-0.5, -64)
 texture = ExtResource("38_2fxyy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down"]
+visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
 disabled = true
@@ -258,7 +260,7 @@ root = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down/floor detection"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
-debug_color = Color(0, 1, 0, 0.41960785)
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/down" node_paths=PackedStringArray("root")]
@@ -284,6 +286,7 @@ position = Vector2(-0.5, -64)
 texture = ExtResource("38_2fxyy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right"]
+visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
 disabled = true
@@ -300,7 +303,7 @@ root = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right/floor detection"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
-debug_color = Color(0, 1, 0, 0.41960785)
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/right" node_paths=PackedStringArray("root")]
@@ -326,6 +329,7 @@ position = Vector2(-0.5, -64)
 texture = ExtResource("38_2fxyy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left"]
+visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
 disabled = true
@@ -342,7 +346,7 @@ root = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left/floor detection"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
-debug_color = Color(0, 1, 0, 0.41960785)
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/left" node_paths=PackedStringArray("root")]
