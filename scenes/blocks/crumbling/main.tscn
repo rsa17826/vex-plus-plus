@@ -53,7 +53,7 @@ size = Vector2(700, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jj508"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "collisionShapes", "hidableSprites")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("anim", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_1su8o")
 anim = NodePath("Node2D/AnimatedSprite2D")
 ghostIconNode = NodePath("Node2D/Sprite2D")
@@ -61,6 +61,7 @@ editorBarIcon = ExtResource("3_jj508")
 editorBarIconUsesLevelColor = true
 collisionShapes = [NodePath("Node2D/CollisionShape2D")]
 hidableSprites = [NodePath("Node2D/AnimatedSprite2D"), NodePath("Node2D/Sprite2D")]
+thingThatMoves = NodePath("Node2D")
 EDITOR_OPTION_scale = true
 canAttachToPaths = true
 

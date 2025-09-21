@@ -12,8 +12,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1gece"]
 size = Vector2(688, 92)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fmfi2"]
-radius = 155.013
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmfi2"]
+size = Vector2(688, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yekse"]
 size = Vector2(688, 17.945)
@@ -48,15 +48,17 @@ texture = ExtResource("2_fcna3")
 editorSize = Vector2(701, 123)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+visible = false
 position = Vector2(0, -57.5)
 shape = SubResource("RectangleShape2D_1gece")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("6_fmfi2")
 
 [node name="attach detector" type="ShapeCast2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+modulate = Color(0.54287976, 0.58574337, 1, 1)
 position = Vector2(0, -11)
 enabled = false
-shape = SubResource("CircleShape2D_fmfi2")
+shape = SubResource("RectangleShape2D_fmfi2")
 target_position = Vector2(0, 0)
 collision_mask = 32768
 collide_with_areas = true
@@ -77,6 +79,7 @@ script = ExtResource("2_v4hfa")
 root = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/StaticBody2D"]
+visible = false
 position = Vector2(0, -12.25)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_yekse")

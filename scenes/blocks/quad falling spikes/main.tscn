@@ -162,13 +162,14 @@ size = Vector2(42, 74)
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3ave"]
 radius = 5.09902
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "hidableSprites", "cloneEventsHere") groups=["death"]]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "hidableSprites", "cloneEventsHere", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_cdvup")
 sprite = NodePath("Node2D/AnimatedSprite2D")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIcon = ExtResource("2_coupi")
 hidableSprites = [NodePath("Node2D/AnimatedSprite2D")]
 cloneEventsHere = [NodePath("Node2D/up/playerDetector"), NodePath("Node2D/down/playerDetector"), NodePath("Node2D/right/playerDetector"), NodePath("Node2D/left/playerDetector")]
+thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
@@ -202,7 +203,7 @@ texture = ExtResource("38_2fxyy")
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
 disabled = true
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("39_knn8c")
 
 [node name="floor detection" type="Area2D" parent="Node2D/up" node_paths=PackedStringArray("root")]
@@ -215,6 +216,7 @@ root = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up/floor detection"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/up" node_paths=PackedStringArray("root")]
@@ -243,7 +245,7 @@ texture = ExtResource("38_2fxyy")
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
 disabled = true
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("39_knn8c")
 
 [node name="floor detection" type="Area2D" parent="Node2D/down" node_paths=PackedStringArray("root")]
@@ -256,6 +258,7 @@ root = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down/floor detection"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/down" node_paths=PackedStringArray("root")]
@@ -284,7 +287,7 @@ texture = ExtResource("38_2fxyy")
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
 disabled = true
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("39_knn8c")
 
 [node name="floor detection" type="Area2D" parent="Node2D/right" node_paths=PackedStringArray("root")]
@@ -297,6 +300,7 @@ root = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right/floor detection"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/right" node_paths=PackedStringArray("root")]
@@ -325,7 +329,7 @@ texture = ExtResource("38_2fxyy")
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
 disabled = true
-debug_color = Color(1, 0, 0, 0.419608)
+debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("39_knn8c")
 
 [node name="floor detection" type="Area2D" parent="Node2D/left" node_paths=PackedStringArray("root")]
@@ -338,6 +342,7 @@ root = NodePath("../../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left/floor detection"]
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/left" node_paths=PackedStringArray("root")]
