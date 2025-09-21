@@ -7,16 +7,42 @@
       STR(autoRunDirection)INT(1)
       STR(tick)FLOAT(0.0)
       STR(blockSaveData){
+        STR(key){
+          INT(1){
+            STR(following)BOOL(false)
+          }
+          INT(2){
+            STR(following)BOOL(true)
+            STR(ttmpos)VEC2(698.154907226563,105.114822387695)
+            STR(randOffset)FLOAT(0.5)
+            STR(ttmrot)FLOAT(-0.52359867095947)
+          }
+          INT(3){
+            STR(following)BOOL(false)
+          }
+          INT(4){
+            STR(following)BOOL(false)
+          }
+          INT(5){
+            STR(following)BOOL(false)
+          }
+          INT(6){
+            STR(following)BOOL(false)
+          }
+        }
         STR(checkpoint){
           INT(1){
-            STR(texture)STR(2)
+            STR(texture)STR(1)
           }
           INT(2){
             STR(texture)STR(1)
           }
+          INT(3){
+            STR(texture)STR(2)
+          }
         }
       }
-      STRNAME(lastSpawnPoint)VEC2(351.472564697266,94.9197158813477)
+      STRNAME(lastSpawnPoint)VEC2(701.472595214844,194.919708251953)
     }
   ]
   STR(beatLevels)[]

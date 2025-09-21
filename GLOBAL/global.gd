@@ -1545,9 +1545,9 @@ func loadBlockData():
     if block.id not in blockIds:
       blockIds[block.id] = 0
     blockIds[block.id] += 1
-    var dataToLoad: Array[String] = block.onSave()
     if block.id not in blockSaveData: continue
     if blockIds[block.id] not in blockSaveData[block.id]: continue
+    var dataToLoad: Array = blockSaveData[block.id][blockIds[block.id]].keys()
     if dataToLoad:
       for thing in dataToLoad:
         if thing not in blockSaveData[block.id][blockIds[block.id]]: continue
@@ -1712,6 +1712,7 @@ const defaultLevelSettings = {
   "canDoWallHang": true,
   "canDoWallSlide": true,
   "canDoWallJump": true,
+  "checkpointsSaveAll": true,
 }
 
 func currentLevelSettings(key: Variant = null) -> Variant:
