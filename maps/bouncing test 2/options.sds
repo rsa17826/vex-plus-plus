@@ -13,8 +13,9 @@
       STR(canDoWallHang)BOOL(true)
       STR(canDoWallSlide)BOOL(true)
       STR(canDoWallJump)BOOL(true)
+      STR(checkpointsSaveAll)BOOL(true)
     }
   }
-  STRNAME(levelVersion)INT(428)
+  STRNAME(levelVersion)INT(439)
   STRNAME(gameVersion)INT(185)
 }

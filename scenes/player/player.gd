@@ -1527,6 +1527,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     lightsOut = false
     speedLeverActive = false
     OnPlayerDied.emit()
+    if global.currentLevelSettings("checkpointsSaveAll"):
+      global.loadBlockData()
   if full:
     OnPlayerFullRestart.emit()
   _physics_process(0)

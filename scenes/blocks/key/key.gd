@@ -4,10 +4,25 @@ class_name BlockKey
 
 var randOffset: float = 0.5
 var following := false
+var ttmpos: Vector2:
+  get():
+    return thingThatMoves.global_position
+  set(val):
+    thingThatMoves.global_position = val
+var ttmrot: float:
+  get():
+    return thingThatMoves.global_rotation
+  set(val):
+    thingThatMoves.global_rotation = val
+
+func onSave() -> Array[String]:
+  if following:
+    return ["following", "ttmpos", "randOffset", "ttmrot"]
+  return ["following"]
+
 func on_body_entered(body: Node) -> void:
-  if body is Player and not following and not $collisionNode in global.player.keys:
-    global.player.keys.push_front($collisionNode)
-    # log.pp("key added", $collisionNode)
+  if body is Player and not following and not thingThatMoves in global.player.keys:
+    global.player.keys.push_front(thingThatMoves)
     following = true
     randOffset = global.randfrom(-10, 10)
     for thing in cloneEventsHere:
@@ -16,13 +31,19 @@ func on_body_entered(body: Node) -> void:
 func on_respawn() -> void:
   following = false
   thingThatMoves.position += unusedOffset
-  $collisionNode.global_rotation = 0
+  thingThatMoves.global_rotation = 0
   unusedOffset = Vector2.ZERO
-  $collisionNode.position = Vector2.ZERO
-  if $collisionNode in global.player.keys:
-    global.player.keys.erase($collisionNode)
+  thingThatMoves.position = Vector2.ZERO
+  if thingThatMoves in global.player.keys:
+    global.player.keys.erase(thingThatMoves)
   __enable()
 
+func onDataLoaded() -> void:
+  if following:
+    global.player.keys.push_front(thingThatMoves)
+    for thing in cloneEventsHere:
+      thing.following = false
+
 func onDelete():
-  if $collisionNode in global.player.keys:
-    global.player.keys.erase($collisionNode)
+  if thingThatMoves in global.player.keys:
+    global.player.keys.erase(thingThatMoves)
