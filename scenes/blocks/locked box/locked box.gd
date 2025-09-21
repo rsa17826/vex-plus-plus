@@ -16,7 +16,7 @@ func unlock() -> void:
     await global.wait()
 
 func on_respawn() -> void:
-  if not checkpointsSaveAll:
+  if loadDefaultData:
     __enable()
     unlocked = false
 

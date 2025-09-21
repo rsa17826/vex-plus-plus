@@ -39,7 +39,7 @@ func on_process(delta):
     cooldown -= delta
 
 func on_respawn():
-  if not checkpointsSaveAll:
+  if loadDefaultData:
     cooldown = .8
 
 func generateBlockOpts():

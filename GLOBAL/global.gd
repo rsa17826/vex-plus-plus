@@ -1469,7 +1469,10 @@ func saveBlockData():
       if blockIds[block.id] not in blockSaveData[block.id]:
         blockSaveData[block.id][blockIds[block.id]] = {}
       for thing in dataToSave:
-        blockSaveData[block.id][blockIds[block.id]][thing] = block.get(thing)
+        var val = block.get(thing)
+        if val is Dictionary or val is Array:
+          val = val.duplicate_deep()
+        blockSaveData[block.id][blockIds[block.id]][thing] = val
   return blockSaveData
 
 func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
@@ -1549,13 +1552,23 @@ func loadBlockData():
     if block.id not in blockIds:
       blockIds[block.id] = 0
     blockIds[block.id] += 1
-    if block.id not in blockSaveData: continue
-    if blockIds[block.id] not in blockSaveData[block.id]: continue
+    if block.id not in blockSaveData \
+    or blockIds[block.id] not in blockSaveData[block.id] \
+    :
+      if block.id == "pushable box":
+        log.err(block.id not in blockSaveData)
+        log.err(blockIds[block.id] not in blockSaveData[block.id])
+      block.loadDefaultData = true
+      continue
+    block.loadDefaultData = false
     var dataToLoad: Array = blockSaveData[block.id][blockIds[block.id]].keys()
     if dataToLoad:
       for thing in dataToLoad:
         if thing not in blockSaveData[block.id][blockIds[block.id]]: continue
-        block.set(thing, blockSaveData[block.id][blockIds[block.id]][thing])
+        var val = blockSaveData[block.id][blockIds[block.id]][thing]
+        if val is Dictionary or val is Array:
+          val = val.duplicate_deep()
+        block.set(thing, val)
       block.onDataLoaded()
   for block: EditorBlock in level.get_node("blocks").get_children():
     block.onAllDataLoaded()

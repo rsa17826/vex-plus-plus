@@ -58,7 +58,7 @@ extends Node2D
 @export var canAttachToThings: bool = false
 @export var canAttachToPaths: bool = false
 
-@onready var checkpointsSaveAll: bool = global.currentLevelSettings("checkpointsSaveAll")
+var loadDefaultData: bool = true
 var isBeingPlaced := false
 
 var intendedPositionOfThingThatMoves := Vector2.ZERO
