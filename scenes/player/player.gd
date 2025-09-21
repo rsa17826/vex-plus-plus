@@ -1823,3 +1823,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!fix dropping off ziplines
 
 # !!fix randomly slipping off wall slides
+
+# make local level list filter search bar work
