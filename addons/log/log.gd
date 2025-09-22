@@ -602,6 +602,7 @@ static func error(...msgs) -> void:
   push_error(m)
 
 static func logToFile(m):
-  if not global.logger_ui:
-    await global.waituntil(func(): return global.logger_ui)
-  global.logger_ui.add_log(m, 1)
+  return
+  # if not global.logger_ui:
+  #   await global.waituntil(func(): return global.logger_ui)
+  # global.logger_ui.add_log(m, 1)

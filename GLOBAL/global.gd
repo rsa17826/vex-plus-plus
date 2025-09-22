@@ -1315,7 +1315,10 @@ func _unhandled_input(event: InputEvent) -> void:
     lastSelectedBlock.global_position += moveDist
     setBlockStartPos(lastSelectedBlock)
     lastSelectedBlock.onEditorMove(moveDist)
-  if showEditorUi and not (tabMenu and tabMenu.visible) and not ctrlMenuVisible:
+  if showEditorUi \
+  and not (tabMenu and tabMenu.visible) \
+  and not ctrlMenuVisible \
+  :
     for block in blockNames:
       if !block: continue
       if event.is_action_pressed("CREATE NEW - " + (block.name if block is Dictionary else block).replace("/", "_"), false, true):
@@ -2490,9 +2493,9 @@ func openLevelInVersion(levelName, gameVersion):
     ]))
   global.quitGame()
 
+# var logger_ui: Node
+
 # (?:(?:\b(?:and|or|\|\||&&)\b).*){3,}
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
 # .$2
-
-var logger_ui: Node

@@ -100,7 +100,7 @@ func updateBlockMenuValues() -> void:
     if 'default' in blockOptions[k] and k not in selectedOptions:
       selectedOptions[k] = blockOptions[k].default
     if 'default' in blockOptions[k] and !global.same(selectedOptions[k], blockOptions[k].default):
-      log.pp(selectedOptions, selectedOptions[k], blockOptions[k].default)
+      # log.pp(selectedOptions, selectedOptions[k], blockOptions[k].default)
       $outputContainer.get_child(i + 1).modulate.a = 1
     if blockOptions[k].type is global.PromptTypes:
       val = selectedOptions[k]
@@ -209,7 +209,6 @@ func onThingChanged(...data) -> void:
   'onChange' not in blockOptions[k] \
   or blockOptions[k].onChange.call(val) \
   :
-    log.err(val)
     selectedOptions[k] = val
     block.toType(k)
   block.respawn()
