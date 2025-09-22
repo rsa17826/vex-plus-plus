@@ -1485,14 +1485,18 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     global.currentLevel().tick = 0
     global.currentLevel().up_direction = Vector2.UP
     global.currentLevel().autoRunDirection = 1
+    global.currentLevel().heat = 0
+    global.currentLevel().gravState = GravStates.normal
+    global.currentLevel().speedLeverActive = false
     autoRunDirection = 1
   else:
     global.tick = global.currentLevel().tick
     up_direction = global.currentLevel().up_direction
     autoRunDirection = global.currentLevel().autoRunDirection
+    if global.currentLevelSettings("checkpointsSaveAll"):
+      heat = global.currentLevel().heat
   mainCollisionShape2D.disabled = true
   slowCamRot = false
-  heat = 0
   targetingLasers = []
   activeCannon = null
   activePulley = null
@@ -1520,13 +1524,17 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   deathSources = []
   global.lastPortal = null
   if !dontResetPlayerData:
-    gravState = GravStates.normal
+    if global.currentLevelSettings("checkpointsSaveAll"):
+      gravState = global.currentLevel().gravState
+      speedLeverActive = global.currentLevel().speedLeverActive
+    else:
+      gravState = GravStates.normal
+      speedLeverActive = false
     keys = []
     for v: String in vel:
       vel[v] = Vector2.ZERO
     velocity = Vector2.ZERO
     lightsOut = false
-    speedLeverActive = false
     if full:
       OnPlayerFullRestart.emit()
       global.savePlayerLevelData()

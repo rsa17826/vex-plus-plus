@@ -46,3 +46,6 @@ func on_respawn():
 
 func generateBlockOpts():
   blockOptions.maxCooldown = {"default": 1, "type": global.PromptTypes.float}
+
+func onSave() -> Array[String]:
+  return ['cooldown']
