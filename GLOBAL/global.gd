@@ -1462,22 +1462,23 @@ func getNested(obj: Variant, path: String) -> Variant:
   return obj
 func setNested(obj, path, val) -> void:
   path = path.split('.')
-  for p in path.slice(0,-1):
+  for p in path.slice(0, -1):
     obj = obj[p]
-  obj.set(path[-1], val)
+  obj.set(path[ - 1], val)
 
 func saveBlockData():
   var blockSaveData = {}
   var blockIds = {}
   for block: EditorBlock in level.get_node("blocks").get_children():
     if block.id not in blockIds:
-      blockIds[block.id] = 0
+      blockIds[block.id] = -1
     blockIds[block.id] += 1
     var dataToSave: Array = block.onSave()
     if dataToSave:
       if block.id not in blockSaveData:
-        blockSaveData[block.id] = {}
-      if blockIds[block.id] not in blockSaveData[block.id]:
+        blockSaveData[block.id] = []
+      if blockIds[block.id] >= len(blockSaveData[block.id]):
+        blockSaveData[block.id].append(null)
         blockSaveData[block.id][blockIds[block.id]] = {}
       for thing in dataToSave:
         var val = getNested(block, thing)
@@ -1561,14 +1562,11 @@ func loadBlockData():
   var blockIds = {}
   for block: EditorBlock in level.get_node("blocks").get_children():
     if block.id not in blockIds:
-      blockIds[block.id] = 0
+      blockIds[block.id] = -1
     blockIds[block.id] += 1
     if block.id not in blockSaveData \
-    or blockIds[block.id] not in blockSaveData[block.id] \
+    or blockIds[block.id] >= len(blockSaveData[block.id]) \
     :
-      if block.id == "pushable box":
-        log.err(block.id not in blockSaveData)
-        log.err(blockIds[block.id] not in blockSaveData[block.id])
       block.loadDefaultData = true
       continue
     block.loadDefaultData = false

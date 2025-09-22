@@ -20,11 +20,10 @@ func unlock() -> void:
   if global.player.keys and not unlocked:
     unlocked = true
     var key: Node2D = global.player.keys.pop_front()
-    key.root.__disable()
     key.root.following = false
     key.root.used = true
+    key.root.__disable.call_deferred()
     __disable.call_deferred()
-    await global.wait()
 
 func on_body_exited(body: Node2D):
   if body is Player:
