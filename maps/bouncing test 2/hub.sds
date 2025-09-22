@@ -292,7 +292,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
@@ -557,17 +557,6 @@
     }
   }
   {
-    STR(x)FLOAT(175.0)
-    STR(y)FLOAT(-25.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing shurikan)
-    STRNAME(options){
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(200.0)
     STR(y)FLOAT(56.0)
     STR(w)FLOAT(1.00000004470348)
@@ -684,20 +673,6 @@
     STRNAME(options){
       STR(maxCooldown)FLOAT(0.0013200044632)
       STR(canAttachToThings)BOOL(false)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(525.0)
-    STR(y)FLOAT(-100.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(301.323974609375)
-    STR(id)STR(shurikan gun)
-    STRNAME(options){
-      STR(maxCooldown)FLOAT(2.0013200044632)
-      STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -1531,6 +1506,33 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(525.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(301.323974609375)
+    STR(id)STR(shuriken gun)
+    STRNAME(options){
+      STR(maxCooldown)FLOAT(2.0013200044632)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(175.0)
+    STR(y)FLOAT(-25.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bouncing shuriken)
+    STRNAME(options){
+      STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
 ]

@@ -795,8 +795,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **shurikan spawner**: spawns a set of 3 shuricans which
-    <br><br><img src="scenes/blocks/shurikan spawner/images/editorBar.png" alt="image of block shurikan spawner" width="50" height="38">
+  - **shuriken spawner**: spawns a set of 3 shuricans which
+    <br><br><img src="scenes/blocks/shuriken spawner/images/editorBar.png" alt="image of block shuriken spawner" width="50" height="38">
 
     - rotatable
     - canAttachToThings
@@ -806,15 +806,15 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **bouncing shurikan**: moves diagionaly and bounces off walls and kills the player on contact
-    <br><br><img src="scenes/blocks/bouncing shurikan/images/1.svg" alt="image of block bouncing shurikan" width="49" height="50">
+  - **bouncing shuriken**: moves diagionaly and bounces off walls and kills the player on contact
+    <br><br><img src="scenes/blocks/bouncing shuriken/images/1.svg" alt="image of block bouncing shuriken" width="49" height="50">
 
     - scalable
     - ### settings:
       - **color**: sets the modulate property
 
-  - **shurikan gun**: spawns bouncing shurikans
-    <br><br><img src="scenes/blocks/shurikan gun/images/1.png" alt="image of block shurikan gun" width="49" height="49">
+  - **shuriken gun**: spawns bouncing shurikens
+    <br><br><img src="scenes/blocks/shuriken gun/images/1.png" alt="image of block shuriken gun" width="49" height="49">
 
     - rotatable
     - canAttachToThings

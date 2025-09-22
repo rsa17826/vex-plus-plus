@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2ob17jjbqhgv"
-path="res://.godot/imported/death.png-2aeada39d0f9b3082d28b89f171ef0d6.ctex"
+uid="uid://6dhmydejni3m"
+path="res://.godot/imported/2.svg-be56c64746b35c754008a4356aa60c27.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/shurikan spawner/images/death.png"
-dest_files=["res://.godot/imported/death.png-2aeada39d0f9b3082d28b89f171ef0d6.ctex"]
+source_file="res://scenes/blocks/bouncing shuriken/images/2.svg"
+dest_files=["res://.godot/imported/2.svg-be56c64746b35c754008a4356aa60c27.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

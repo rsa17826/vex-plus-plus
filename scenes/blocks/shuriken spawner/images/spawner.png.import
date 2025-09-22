@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbaoo2pjcf8as"
-path="res://.godot/imported/3.svg-a330d12c5c5049072aabc39ca6e36512.ctex"
+uid="uid://rwlgdyp0aoll"
+path="res://.godot/imported/spawner.png-66bd87c9ac8b069ef3b15430ba8ddbd1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/bouncing shurikan/images/3.svg"
-dest_files=["res://.godot/imported/3.svg-a330d12c5c5049072aabc39ca6e36512.ctex"]
+source_file="res://scenes/blocks/shuriken spawner/images/spawner.png"
+dest_files=["res://.godot/imported/spawner.png-66bd87c9ac8b069ef3b15430ba8ddbd1.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

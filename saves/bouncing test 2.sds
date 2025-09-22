@@ -5,7 +5,7 @@
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
       STR(autoRunDirection)INT(1)
-      STR(tick)FLOAT(0.56666666666667)
+      STR(tick)FLOAT(15.5000000000004)
       STR(blockSaveData){
         STR(bomb)[
           {
@@ -52,13 +52,6 @@
             STR(following)BOOL(false)
             STR(used)BOOL(false)
           }
-          {
-            STR(following)BOOL(true)
-            STR(thingThatMoves.global_position)VEC2(399.19287109375,152.295288085938)
-            STR(randOffset)FLOAT(1.0)
-            STR(thingThatMoves.global_rotation)FLOAT(0.15707965195179)
-            STR(used)BOOL(false)
-          }
         ]
         STR(10x locked spike)[
           {
@@ -94,112 +87,109 @@
             STR(texture)STR(1)
           }
           {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
             STR(texture)STR(2)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
           }
         ]
         STR(locked box)[
@@ -218,27 +208,13 @@
           {
             STR(unlocked)BOOL(false)
           }
-          {
-            STR(unlocked)BOOL(false)
-          }
-        ]
-        STR(bouncing shurikan)[
-          {
-            STR(thingThatMoves.global_position)VEC2(232.141479492188,-32.8842926025391)
-            STR(thingThatMoves.dir)VEC2(1.0,-1.0)
-          }
-        ]
-        STR(shurikan gun)[
-          {
-            STR(cooldown)FLOAT(0.23333333333333)
-          }
         ]
         STR(pushable box)[
           {
-            STR(thingThatMoves.global_position)VEC2(400.0,585.233276367188)
+            STR(thingThatMoves.global_position)VEC2(400.0,1697.5068359375)
             STR(thingThatMoves.vel){
               STR(conveyer)VEC2(0.0,0.0)
-              STR(default)VEC2(0.0,682.666564941406)
+              STR(default)VEC2(0.0,21.3333339691162)
             }
           }
           {
@@ -272,8 +248,19 @@
             STR(thingThatMoves.startTime)INT(0)
           }
         ]
+        STR(shuriken gun)[
+          {
+            STR(cooldown)FLOAT(1.31056003570561)
+          }
+        ]
+        STR(bouncing shuriken)[
+          {
+            STR(thingThatMoves.global_position)VEC2(193.835601806641,-26.3525848388672)
+            STR(thingThatMoves.dir)VEC2(0.99457228183746,-1.00539886951447)
+          }
+        ]
       }
-      STRNAME(lastSpawnPoint)VEC2(401.472564697266,194.919708251953)
+      STRNAME(lastSpawnPoint)VEC2(701.472595214844,194.919708251953)
     }
   ]
   STR(beatLevels)[]
