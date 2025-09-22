@@ -270,6 +270,15 @@ func _on_body_exited(body: Node2D, real=true) -> void:
   if is_in_group("death"):
     _on_body_exitedDEATH(body)
 
+func clearSaveData():
+  loadDefaultData = true
+  respawn()
+  for thing in cloneEventsHere:
+    if 'on_ready' in thing:
+      thing.on_ready()
+  on_ready()
+
+
 ## don't overite - use on_ready instead
 func _ready() -> void:
   # hasBeenExploded = false
@@ -288,8 +297,8 @@ func _ready() -> void:
   #     queue_free()
   #     return
   #   global.player.OnPlayerDied.connect(queue_free)
-  if !global.player.OnPlayerFullRestart.is_connected(_ready):
-    global.player.OnPlayerFullRestart.connect(_ready)
+  if !global.player.OnPlayerFullRestart.is_connected(clearSaveData):
+    global.player.OnPlayerFullRestart.connect(clearSaveData)
   if !global.player.OnPlayerDied.is_connected(respawn):
     global.player.OnPlayerDied.connect(respawn)
   blockOptions = {}

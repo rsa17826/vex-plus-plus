@@ -1456,6 +1456,16 @@ func newLevelSaveData(levelname):
     "blockSaveData": {},
   }.duplicate()
 
+func getNested(obj: Variant, path: String) -> Variant:
+  for p in path.split('.'):
+    obj = obj[p]
+  return obj
+func setNested(obj, path, val) -> void:
+  path = path.split('.')
+  for p in path.slice(0,-1):
+    obj = obj[p]
+  obj.set(path[-1], val)
+
 func saveBlockData():
   var blockSaveData = {}
   var blockIds = {}
@@ -1470,7 +1480,7 @@ func saveBlockData():
       if blockIds[block.id] not in blockSaveData[block.id]:
         blockSaveData[block.id][blockIds[block.id]] = {}
       for thing in dataToSave:
-        var val = block.get(thing)
+        var val = getNested(block, thing)
         if val is Dictionary or val is Array:
           val = val.duplicate_deep()
         blockSaveData[block.id][blockIds[block.id]][thing] = val
@@ -1569,7 +1579,7 @@ func loadBlockData():
         var val = blockSaveData[block.id][blockIds[block.id]][thing]
         if val is Dictionary or val is Array:
           val = val.duplicate_deep()
-        block.set(thing, val)
+        setNested(block, thing, val)
       block.onDataLoaded()
   for block: EditorBlock in level.get_node("blocks").get_children():
     block.onAllDataLoaded()
