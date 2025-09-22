@@ -1527,14 +1527,15 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     velocity = Vector2.ZERO
     lightsOut = false
     speedLeverActive = false
-    OnPlayerDied.emit()
-    if global.currentLevelSettings("checkpointsSaveAll"):
-      global.loadBlockData()
-    await global.wait()
-    Alltryaddgroups.emit.call_deferred()
-  if full:
-    OnPlayerFullRestart.emit()
-    global.savePlayerLevelData()
+    if full:
+      OnPlayerFullRestart.emit()
+      global.savePlayerLevelData()
+    else:
+      OnPlayerDied.emit()
+      if global.currentLevelSettings("checkpointsSaveAll"):
+        global.loadBlockData()
+  await global.wait()
+  Alltryaddgroups.emit.call_deferred()
   _physics_process(0)
 
 func tryChangeRespawnLocation():

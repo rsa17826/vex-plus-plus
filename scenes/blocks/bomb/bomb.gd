@@ -78,18 +78,5 @@ func explode():
   boomSprite.animation_looped.connect(onAnimationLooped)
   boomSprite.play("explode")
 
-var ttmpos:
-  get():
-    return thingThatMoves.global_position
-  set(val):
-    thingThatMoves.global_position = val
-var ttmvel:
-  get():
-    return thingThatMoves.vel
-  set(val):
-    ttmvel2 = val
-
-var ttmvel2
-
 func onSave() -> Array[String]:
-  return ["ttmpos", "ttmvel"]
+  return ["thingThatMoves.global_position", "thingThatMoves.vel"]

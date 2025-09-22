@@ -6,20 +6,15 @@ var randOffset: float = 0.5
 var following := false
 var used := false
 
-var ttmpos: Vector2:
-  get():
-    return thingThatMoves.global_position
-  set(val):
-    thingThatMoves.global_position = val
-var ttmrot: float:
-  get():
-    return thingThatMoves.global_rotation
-  set(val):
-    thingThatMoves.global_rotation = val
-
 func onSave() -> Array[String]:
   if following:
-    return ["following", "ttmpos", "randOffset", "ttmrot", "used"]
+    return [
+      "following",
+      "thingThatMoves.global_position",
+      "randOffset",
+      "thingThatMoves.global_rotation",
+      "used"
+    ]
   return ["following", "used"]
 
 func on_body_entered(body: Node) -> void:
