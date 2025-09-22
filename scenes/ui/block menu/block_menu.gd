@@ -4,7 +4,7 @@ var lastShownBlock
 
 func _ready() -> void:
   global.onEditorStateChanged.connect(onEditorStateChanged)
-  global.overlays.append(self)
+  global.overlays.append(self )
 
 func onEditorStateChanged():
   visible = global.showEditorUi
@@ -100,6 +100,7 @@ func updateBlockMenuValues() -> void:
     if 'default' in blockOptions[k] and k not in selectedOptions:
       selectedOptions[k] = blockOptions[k].default
     if 'default' in blockOptions[k] and !global.same(selectedOptions[k], blockOptions[k].default):
+      log.pp(selectedOptions, selectedOptions[k], blockOptions[k].default)
       $outputContainer.get_child(i + 1).modulate.a = 1
     if blockOptions[k].type is global.PromptTypes:
       val = selectedOptions[k]
@@ -131,9 +132,7 @@ func updateBlockMenuValues() -> void:
           ob.clear()
           for thing: String in blockOptions[k].values:
             ob.add_item(thing)
-          ob.select(
-            val
-          )
+          ob.select(val)
         _:
           log.pp(k, "Unknown type: ", blockOptions[k].type)
       $outputContainer.get_child(i + 1).disabled = disabled
@@ -159,7 +158,6 @@ func onThingReset(...data) -> void:
     block.toType(k)
   block.respawn()
   block._ready()
-  block.onOptionEdit.call()
   updateBlockMenuValues()
 
 func onThingChanged(...data) -> void:
@@ -201,7 +199,6 @@ func onThingChanged(...data) -> void:
     if blockOptions[k].onChange.call():
       block.respawn()
       block._ready()
-    block.onOptionEdit.call()
     return
   else:
     log.err("unknown type", k, blockOptions[k])
@@ -210,12 +207,13 @@ func onThingChanged(...data) -> void:
     global.sendSignal(selectedOptions.signalOutputId, block, false)
   if \
   'onChange' not in blockOptions[k] \
-  or blockOptions[k].onChange.call(val):
+  or blockOptions[k].onChange.call(val) \
+  :
+    log.err(val)
     selectedOptions[k] = val
     block.toType(k)
   block.respawn()
   block._ready()
-  block.onOptionEdit.call()
   updateBlockMenuValues()
 
 func _input(event):

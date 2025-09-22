@@ -2494,3 +2494,5 @@ func openLevelInVersion(levelName, gameVersion):
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
 # .$2
+
+var logger_ui: Node

@@ -572,20 +572,23 @@ static func test(...msgs) -> void:
   global.get_tree().quit()
 
 static func pp(...msgs) -> void:
-  print_rich(
-    log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)),
-  )
+  var m = log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem))
+  print_rich(m)
+  logToFile(m)
 static func info(...msgs) -> void:
   var m = log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem))
   print_rich(m)
+  logToFile(m)
 
 static func warn(...msgs) -> void:
   print_rich("[color=yellow][WARN][/color]: " + log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
+  logToFile("[color=yellow][WARN][/color]: " + log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   push_warning(m)
 
 static func err(...msgs) -> void:
   print_rich("[color=red][ERR][/color]: " + log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
+  logToFile("[color=red][ERR][/color]: " + log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem)))
   var m = log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
   if not Engine.is_editor_hint():
     ToastParty.error(m)
@@ -597,3 +600,8 @@ static func error(...msgs) -> void:
   if not Engine.is_editor_hint():
     ToastParty.error(m)
   push_error(m)
+
+static func logToFile(m):
+  if not global.logger_ui:
+    await global.waituntil(func(): return global.logger_ui)
+  global.logger_ui.add_log(m, 1)

@@ -1516,7 +1516,7 @@
     STR(r)FLOAT(301.323974609375)
     STR(id)STR(shuriken gun)
     STRNAME(options){
-      STR(maxCooldown)FLOAT(2.0013200044632)
+      STR(maxCooldown)FLOAT(7.0013200044632)
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -1635,6 +1635,59 @@
     STR(id)STR(speed up lever)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(675.0)
+    STR(y)FLOAT(-100.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(301.323974609375)
+    STR(id)STR(shuriken gun)
+    STRNAME(options){
+      STR(maxCooldown)FLOAT(7.0013200044632)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(700.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(3.00000002980232)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(block death boundary)
+    STRNAME(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1250.0)
+    STR(y)FLOAT(300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STRNAME(options){
+      STR(multiUse)BOOL(false)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(1250.0)
+    STR(y)FLOAT(300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(checkpoint)
+    STRNAME(options){
+      STR(multiUse)BOOL(false)
+      STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
