@@ -1365,6 +1365,9 @@ func loadInnerLevel(innerLevel: String) -> void:
   currentLevel().exitPosition = player.global_position - player.root.global_position
   currentLevel().up_direction = player.up_direction
   currentLevel().autoRunDirection = player.autoRunDirection
+  currentLevel().heat = player.heat
+  currentLevel().gravState = player.gravState
+  currentLevel().speedLeverActive = player.speedLeverActive
 
   var prevLevelDataFound = false
   player.deathPosition = Vector2.ZERO
@@ -1441,6 +1444,10 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     currentLevel().up_direction = player.up_direction
     currentLevel().autoRunDirection = player.autoRunDirection
     currentLevel().lastSpawnPoint = player.lastSpawnPoint
+    currentLevel().up_direction = player.up_direction
+    currentLevel().heat = player.heat
+    currentLevel().gravState = player.gravState
+    currentLevel().speedLeverActive = player.speedLeverActive
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
   sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
@@ -1454,6 +1461,9 @@ func newLevelSaveData(levelname):
     "autoRunDirection": 1,
     "tick": 0,
     "blockSaveData": {},
+    "heat": 0,
+    "gravState": Player.GravStates.normal,
+    "speedLeverActive": false,
   }.duplicate()
 
 func getNested(obj: Variant, path: String) -> Variant:
@@ -1583,7 +1593,9 @@ func loadBlockData():
     block.onAllDataLoaded()
 
 func currentLevel() -> Dictionary:
-  return loadedLevels[len(loadedLevels) - 1]
+  var d = loadedLevels[len(loadedLevels) - 1]
+  d.merge(newLevelSaveData(''))
+  return d
 
 var totalLevelCount: int
 

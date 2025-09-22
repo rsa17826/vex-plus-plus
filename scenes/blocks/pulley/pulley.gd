@@ -10,18 +10,18 @@ var direction = 0
 var moving = false
 
 func on_respawn():
-  thingThatMoves.position = Vector2(0, 1)
-  if moving:
-    moving = false
+  if loadDefaultData:
+    thingThatMoves.position = Vector2(0, 1)
+    if moving:
+      moving = false
+      thingThatMoves.position = Vector2.ZERO
+      if global.player.activePulley == self:
+        global.player.state = global.player.States.falling
+        global.player.remainingJumpCount -= 1
+        global.player.activePulley = null
+    setTexture(sprite, ["left", 'right', "user"][selectedOptions.direction])
+    await global.wait()
     thingThatMoves.position = Vector2.ZERO
-    if global.player.activePulley == self:
-      global.player.state = global.player.States.falling
-      global.player.remainingJumpCount -= 1
-      global.player.activePulley = null
-  setTexture(sprite, ["left", 'right', "user"][selectedOptions.direction])
-  await global.wait()
-  thingThatMoves.position = Vector2.ZERO
-  # get_node("../attach detector").on_respawn()
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
   if respawning: return
@@ -44,9 +44,7 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
   global.player.state = global.player.States.onPulley
 
 func on_physics_process(delta: float) -> void:
-  if respawning:
-    moving = false
-    return
+  if respawning: return
   if not moving: return
   thingThatMoves.position.x += SPEED * delta * direction
   if global.player.state == global.player.States.onPulley \
@@ -68,3 +66,6 @@ func generateBlockOpts():
 func _on_has_ceil_body_exited(body: Node2D) -> void:
   if not %"has ceil".get_overlapping_bodies():
     respawn()
+
+func onSave() -> Array[String]:
+  return ["direction", "moving", "thingThatMoves.global_position"]

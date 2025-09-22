@@ -4,8 +4,8 @@
       STR(name)STR(hub)
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
-      STR(autoRunDirection)INT(1)
-      STR(tick)FLOAT(15.5000000000004)
+      STR(autoRunDirection)INT(-1)
+      STR(tick)FLOAT(242.466666666752)
       STR(blockSaveData){
         STR(bomb)[
           {
@@ -50,7 +50,18 @@
           }
           {
             STR(following)BOOL(false)
-            STR(used)BOOL(false)
+            STR(used)BOOL(true)
+          }
+        ]
+        STR(laser)[
+          {
+            STR(cooldown)FLOAT(0.0)
+          }
+          {
+            STR(cooldown)FLOAT(0.0)
+          }
+          {
+            STR(cooldown)FLOAT(-0.00165322621653)
           }
         ]
         STR(10x locked spike)[
@@ -84,10 +95,19 @@
             STR(texture)STR(1)
           }
           {
+            STR(texture)STR(2)
+          }
+          {
             STR(texture)STR(1)
           }
           {
-            STR(texture)STR(2)
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
           }
           {
             STR(texture)STR(1)
@@ -200,7 +220,7 @@
             STR(unlocked)BOOL(false)
           }
           {
-            STR(unlocked)BOOL(false)
+            STR(unlocked)BOOL(true)
           }
           {
             STR(unlocked)BOOL(false)
@@ -234,10 +254,10 @@
         ]
         STR(falling)[
           {
-            STR(falling)BOOL(false)
-            STR(thingThatMoves.global_position)VEC2(1300.0,0.0)
-            STR(thingThatMoves.vel)VEC2(0.0,0.0)
-            STR(thingThatMoves.startTime)INT(0)
+            STR(falling)BOOL(true)
+            STR(thingThatMoves.global_position)VEC2(1300.0,718.429931640625)
+            STR(thingThatMoves.vel)VEC2(0.0,772.944519042969)
+            STR(thingThatMoves.startTime)FLOAT(241.266666666751)
           }
         ]
         STR(donup)[
@@ -250,17 +270,35 @@
         ]
         STR(shuriken gun)[
           {
-            STR(cooldown)FLOAT(1.31056003570561)
+            STR(cooldown)FLOAT(0.93644902249087)
           }
         ]
         STR(bouncing shuriken)[
           {
-            STR(thingThatMoves.global_position)VEC2(193.835601806641,-26.3525848388672)
-            STR(thingThatMoves.dir)VEC2(0.99457228183746,-1.00539886951447)
+            STR(thingThatMoves.global_position)VEC2(210.356872558594,-32.5481185913086)
+            STR(thingThatMoves.dir)VEC2(0.97601634263992,1.02342462539673)
+          }
+        ]
+        STR(crumbling)[
+          {
+            STR(anim.frame)INT(0)
+            STR(anim.frame_progress)FLOAT(0.0)
+            STR(started)BOOL(false)
+            STR(ended)BOOL(false)
+          }
+        ]
+        STR(pulley)[
+          {
+            STR(direction)INT(0)
+            STR(moving)BOOL(false)
+            STR(thingThatMoves.global_position)VEC2(1250.0,250.0)
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(701.472595214844,194.919708251953)
+      STR(heat)FLOAT(0.0)
+      STR(gravState)INT(1)
+      STR(speedLeverActive)BOOL(true)
+      STRNAME(lastSpawnPoint)VEC2(1503.97253417969,-187.580291748047)
     }
   ]
   STR(beatLevels)[]

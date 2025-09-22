@@ -547,6 +547,13 @@
         "defaultValue": false
       },
       {
+        "thing": "option",
+        "type": "bool",
+        "key": "checkpointIgnorePlayerEntering",
+        "editorOnly": true,
+        "defaultValue": false
+      },
+      {
         "thing": "group",
         "name": "hitboxes",
         "value": [
