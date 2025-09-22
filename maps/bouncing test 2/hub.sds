@@ -1593,7 +1593,7 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(pulley)
     STRNAME(options){
-      STR(direction)INT(1)
+      STR(direction)INT(2)
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
     }

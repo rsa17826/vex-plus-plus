@@ -1460,10 +1460,10 @@ func newLevelSaveData(levelname):
     "up_direction": Vector2.UP,
     "autoRunDirection": 1,
     "tick": 0,
-    "blockSaveData": {},
     "heat": 0,
     "gravState": Player.GravStates.normal,
     "speedLeverActive": false,
+    "blockSaveData": {},
   }.duplicate()
 
 func getNested(obj: Variant, path: String) -> Variant:
