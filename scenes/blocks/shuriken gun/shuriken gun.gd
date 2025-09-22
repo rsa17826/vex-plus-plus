@@ -1,14 +1,14 @@
 @icon("images/1.png")
 extends EditorBlock
-class_name BlockShurikanGun
+class_name BlockShurikenGun
 
 var cooldown := 0.0
 
 func on_physics_process(delta: float) -> void:
   if cooldown <= 0:
     cooldown += selectedOptions.maxCooldown
-    var s1 := spawnShurikan()
-    var s2 := spawnShurikan()
+    var s1 := spawnShuriken()
+    var s2 := spawnShuriken()
     var offset = Vector2(-50, 50) * thingThatMoves.global_scale
     var dir = Vector2(-1, 1)
     s1.position += offset.rotated(thingThatMoves.global_rotation)
@@ -45,16 +45,16 @@ func on_respawn():
 func generateBlockOpts():
   blockOptions.maxCooldown = {"default": 100, "type": global.PromptTypes.float}
 
-func spawnShurikan() -> EditorBlock:
-  var shurikan: EditorBlock = preload("res://scenes/blocks/bouncing shurikan/main.tscn").instantiate()
-  shurikan.global_position = thingThatMoves.global_position
-  shurikan.scale = startScale
-  shurikan.DONT_SAVE = true
-  shurikan.EDITOR_IGNORE = true
-  shurikan.REMOVE_ON_RESPAWN = true
-  shurikan.DONT_MOVE_ON_RESPAWN = true
-  global.level.add_child(shurikan)
-  return shurikan
+func spawnShuriken() -> EditorBlock:
+  var shuriken: EditorBlock = preload("res://scenes/blocks/bouncing shuriken/main.tscn").instantiate()
+  shuriken.global_position = thingThatMoves.global_position
+  shuriken.scale = startScale
+  shuriken.DONT_SAVE = true
+  shuriken.EDITOR_IGNORE = true
+  shuriken.REMOVE_ON_RESPAWN = true
+  shuriken.DONT_MOVE_ON_RESPAWN = true
+  global.level.add_child(shuriken)
+  return shuriken
 
 func onSave() -> Array[String]:
   return ['cooldown']

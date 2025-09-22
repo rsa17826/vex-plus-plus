@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8obyd2ujfj3y"
-path="res://.godot/imported/1.png-7bd1b408d6ad429191f74164b15e9219.ctex"
+uid="uid://b2ob17jjbqhgv"
+path="res://.godot/imported/death.png-3e56184f7213129054dd8e938dded557.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/shurikan spawner/images/1.png"
-dest_files=["res://.godot/imported/1.png-7bd1b408d6ad429191f74164b15e9219.ctex"]
+source_file="res://scenes/blocks/shuriken spawner/images/death.png"
+dest_files=["res://.godot/imported/death.png-3e56184f7213129054dd8e938dded557.ctex"]
 
 [params]
 

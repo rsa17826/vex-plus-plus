@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://de6jortb2by0w"
-path="res://.godot/imported/1.png-85990a073a8db9ff00dbf6604def00e7.ctex"
+uid="uid://dxp6kv31kt2fc"
+path="res://.godot/imported/1.svg-bfee942cef040ac8290ded9b73f4bd56.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/shurikan gun/images/1.png"
-dest_files=["res://.godot/imported/1.png-85990a073a8db9ff00dbf6604def00e7.ctex"]
+source_file="res://scenes/blocks/bouncing shuriken/images/1.svg"
+dest_files=["res://.godot/imported/1.svg-bfee942cef040ac8290ded9b73f4bd56.ctex"]
 
 [params]
 
@@ -38,3 +38,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false
