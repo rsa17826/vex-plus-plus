@@ -43,17 +43,19 @@ texture = ExtResource("2_lsihx")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
 shape = SubResource("CircleShape2D_xvl4e")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_cdjuy")
 
-[node name="attach detector" type="ShapeCast2D" parent="."]
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
 enabled = false
 shape = SubResource("CircleShape2D_v7uox")
 target_position = Vector2(0, 0)
 collision_mask = 32768
 collide_with_areas = true
 script = ExtResource("3_xvl4e")
+root = NodePath("..")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
