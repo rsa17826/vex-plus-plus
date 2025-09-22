@@ -79,8 +79,8 @@ make it so that when i tab in a function it is replaced with the correct one
 
 @name extra end spaces
 @file \.gd$
-@regex .instance\(\)
-@replace .instantiate()
+@regex  .instance\(\)
+@replace  .instantiate()
 @flags gm
 @endregex
 

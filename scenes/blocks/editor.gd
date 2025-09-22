@@ -86,8 +86,6 @@ func updateSelectedOptionsUi() -> void:
   if self == global.ui.blockMenu.lastShownBlock:
     global.ui.blockMenu.updateBlockMenuValues()
 
-var onOptionEdit := func() -> void: pass
-
 var defaultSizeInPx: Vector2
 var sizeInPx: Vector2:
   get():
@@ -118,12 +116,12 @@ var blockOptionsArray := []
 ## used for following blocks
 var attach_children: Array[EditorBlock] = []:
   get():
-    attach_children = attach_children.filter(global.isAlive)
+    attach_children.assign(attach_children.filter(global.isAlive))
     return attach_children
 ## used for following blocks
 var attach_parents: Array[EditorBlock] = []:
   get():
-    attach_parents = attach_parents.filter(global.isAlive)
+    attach_parents.assign(attach_parents.filter(global.isAlive))
     return attach_parents
 ## when being moved in the editor
 var isBeingMoved := false
@@ -277,7 +275,6 @@ func clearSaveData():
     if 'on_ready' in thing:
       thing.on_ready()
   on_ready()
-
 
 ## don't overite - use on_ready instead
 func _ready() -> void:

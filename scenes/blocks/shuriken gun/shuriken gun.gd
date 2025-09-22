@@ -43,7 +43,7 @@ func on_respawn():
     cooldown = .8
 
 func generateBlockOpts():
-  blockOptions.maxCooldown = {"default": 100, "type": global.PromptTypes.float}
+  blockOptions.maxCooldown = {"default": 7.0, "type": global.PromptTypes.float}
 
 func spawnShuriken() -> EditorBlock:
   var shuriken: EditorBlock = preload("res://scenes/blocks/bouncing shuriken/main.tscn").instantiate()
