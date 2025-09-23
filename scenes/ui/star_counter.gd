@@ -6,10 +6,10 @@ func _process(delta):
   var starCount: int = 0
   var level = global.currentLevel()
   if "star" in level.blockSaveData:
-    var stars: Dictionary = level.blockSaveData.star
+    var stars: Array = level.blockSaveData.star
     starCount = len(stars)
-    for i in stars:
-      if stars[i].collected:
+    for data in stars:
+      if data.collected:
         collected += 1
       # else:
       #   uncollected += 1

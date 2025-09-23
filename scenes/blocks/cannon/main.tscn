@@ -58,22 +58,23 @@ texture = ExtResource("4_168jg")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, -91.418)
 shape = SubResource("RectangleShape2D_wy60s")
-debug_color = Color(0, 1, 0, 0.41960785)
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("6_2aq8q")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
 position = Vector2(0, -47.918)
 shape = SubResource("RectangleShape2D_1jh5p")
-debug_color = Color(0, 1, 0, 0.41960785)
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("6_2aq8q")
 
-[node name="attach detector" type="ShapeCast2D" parent="."]
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
 enabled = false
 shape = SubResource("RectangleShape2D_0e32w")
 target_position = Vector2(0, 0)
 collision_mask = 32768
 collide_with_areas = true
 script = ExtResource("3_1jh5p")
+root = NodePath("..")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

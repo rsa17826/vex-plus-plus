@@ -28,10 +28,11 @@ scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_07hpw")
 script = ExtResource("3_7ht56")
 
-[node name="attach detector" type="ShapeCast2D" parent="."]
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
 enabled = false
 shape = SubResource("CircleShape2D_urqaa")
 target_position = Vector2(0, 0)
 collision_mask = 32768
 collide_with_areas = true
 script = ExtResource("4_l7mwn")
+root = NodePath("..")
