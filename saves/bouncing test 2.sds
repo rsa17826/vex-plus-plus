@@ -5,7 +5,7 @@
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
       STR(autoRunDirection)INT(1)
-      STR(tick)FLOAT(1.8)
+      STR(tick)FLOAT(2.58333333333333)
       STR(blockSaveData){
         STR(bomb)[
           {
@@ -16,10 +16,17 @@
             }
           }
           {
-            STR(thingThatMoves.global_position)VEC2(900.0,-49.8588180541992)
+            STR(thingThatMoves.global_position)VEC2(900.0,-49.858814239502)
             STR(thingThatMoves.vel){
               STR(conveyer)VEC2(0.0,0.0)
               STR(default)VEC2(0.0,21.3333339691162)
+            }
+          }
+          {
+            STR(thingThatMoves.global_position)VEC2(1000.0,1750.0)
+            STR(thingThatMoves.vel){
+              STR(conveyer)VEC2(0.0,0.0)
+              STR(default)VEC2(0.0,-6200.0)
             }
           }
         ]
@@ -50,6 +57,14 @@
           }
           {
             STR(following)BOOL(false)
+            STR(used)BOOL(true)
+          }
+          {
+            STR(following)BOOL(false)
+            STR(used)BOOL(false)
+          }
+          {
+            STR(following)BOOL(false)
             STR(used)BOOL(false)
           }
         ]
@@ -63,8 +78,14 @@
           {
             STR(cooldown)FLOAT(0.0)
           }
+          {
+            STR(cooldown)FLOAT(0.0)
+          }
         ]
         STR(10x locked spike)[
+          {
+            STR(unlocked)BOOL(false)
+          }
           {
             STR(unlocked)BOOL(false)
           }
@@ -185,19 +206,22 @@
             STR(texture)STR(1)
           }
           {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
+            STR(texture)STR(1)
+          }
+          {
             STR(texture)STR(2)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
           }
           {
             STR(texture)STR(1)
@@ -226,7 +250,7 @@
             STR(unlocked)BOOL(false)
           }
           {
-            STR(unlocked)BOOL(false)
+            STR(unlocked)BOOL(true)
           }
           {
             STR(unlocked)BOOL(false)
@@ -254,7 +278,21 @@
             STR(thingThatMoves.global_position)VEC2(700.0,1800.14123535156)
             STR(thingThatMoves.vel){
               STR(conveyer)VEC2(0.0,0.0)
-              STR(default)VEC2(0.00000000113122,21.3333339691162)
+              STR(default)VEC2(0.00000000000987,21.3333339691162)
+            }
+          }
+          {
+            STR(thingThatMoves.global_position)VEC2(750.0,1800.0)
+            STR(thingThatMoves.vel){
+              STR(conveyer)VEC2(0.0,0.0)
+              STR(default)VEC2(0.0,21.3333339691162)
+            }
+          }
+          {
+            STR(thingThatMoves.global_position)VEC2(850.0,1800.0)
+            STR(thingThatMoves.vel){
+              STR(conveyer)VEC2(0.0,0.0)
+              STR(default)VEC2(0.0,21.3333339691162)
             }
           }
         ]
@@ -262,6 +300,12 @@
           {
             STR(falling)BOOL(false)
             STR(thingThatMoves.global_position)VEC2(1300.0,0.0)
+            STR(thingThatMoves.vel)VEC2(0.0,0.0)
+            STR(thingThatMoves.startTime)INT(0)
+          }
+          {
+            STR(falling)BOOL(false)
+            STR(thingThatMoves.global_position)VEC2(1000.0,1750.0)
             STR(thingThatMoves.vel)VEC2(0.0,0.0)
             STR(thingThatMoves.startTime)INT(0)
           }
@@ -273,18 +317,31 @@
             STR(thingThatMoves.vel)VEC2(0.0,0.0)
             STR(thingThatMoves.startTime)INT(0)
           }
+          {
+            STR(falling)BOOL(false)
+            STR(thingThatMoves.global_position)VEC2(850.0,1750.0)
+            STR(thingThatMoves.vel)VEC2(0.0,0.0)
+            STR(thingThatMoves.startTime)INT(0)
+          }
         ]
         STR(shuriken gun)[
           {
-            STR(cooldown)FLOAT(6.0021420044632)
+            STR(cooldown)FLOAT(5.22473444890765)
           }
           {
-            STR(cooldown)FLOAT(6.0021420044632)
+            STR(cooldown)FLOAT(5.22473444890765)
+          }
+          {
+            STR(cooldown)FLOAT(0.8)
           }
         ]
         STR(bouncing shuriken)[
           {
-            STR(thingThatMoves.global_position)VEC2(183.884368896484,-12.4749212265015)
+            STR(thingThatMoves.global_position)VEC2(221.679138183594,-17.5261707305908)
+            STR(thingThatMoves.dir)VEC2(-1.0,1.0)
+          }
+          {
+            STR(thingThatMoves.global_position)VEC2(850.0,1900.0)
             STR(thingThatMoves.dir)VEC2(1.0,1.0)
           }
         ]
@@ -295,12 +352,41 @@
             STR(started)BOOL(false)
             STR(ended)BOOL(true)
           }
+          {
+            STR(anim.frame)INT(0)
+            STR(anim.frame_progress)FLOAT(0.0)
+            STR(started)BOOL(false)
+            STR(ended)BOOL(false)
+          }
         ]
         STR(pulley)[
           {
             STR(direction)INT(1)
             STR(moving)BOOL(false)
             STR(thingThatMoves.global_position)VEC2(1250.0,250.0)
+          }
+        ]
+        STR(glass)[
+          {
+            STR(broken)BOOL(false)
+          }
+        ]
+        STR(bouncing buzsaw)[
+          {
+            STR(thingThatMoves.global_position)VEC2(850.0,1900.0)
+            STR(thingThatMoves.velocity)VEC2(0.0,2.375)
+            STR(thingThatMoves.speed)INT(50)
+          }
+        ]
+        STR(star)[
+          {
+            STR(collected)BOOL(false)
+          }
+          {
+            STR(collected)BOOL(false)
+          }
+          {
+            STR(collected)BOOL(false)
           }
         ]
       }
