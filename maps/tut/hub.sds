@@ -98,14 +98,15 @@
   {
     STR(x)FLOAT(200.0)
     STR(y)FLOAT(-200.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(3.00000002980232)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(3.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(signalInputId)INT(1)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -136,14 +137,15 @@
   {
     STR(x)FLOAT(-150.0)
     STR(y)FLOAT(-250.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000014901161)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.00000011920929)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(signalInputId)INT(1)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -172,14 +174,15 @@
   {
     STR(x)FLOAT(200.0)
     STR(y)FLOAT(0.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(signalInputId)INT(2)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -206,19 +209,21 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(starType)INT(0)
     }
   }
   {
     STR(x)FLOAT(325.0)
     STR(y)FLOAT(-200.0)
-    STR(w)FLOAT(0.50000007450581)
-    STR(h)FLOAT(3.00000002980232)
+    STR(w)FLOAT(0.50000005960464)
+    STR(h)FLOAT(3.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(signalInputId)INT(1)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -480,6 +485,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)COLOR(1.0,1.0,1.0,0.1451)
+      STR(startWhenSignalRecived)BOOL(false)
+      STR(startWhileSignalRecived)BOOL(false)
     }
   }
   {
@@ -718,6 +725,8 @@
       STR(forwardSpeed)INT(1500)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalRecived)BOOL(false)
+      STR(startWhileSignalRecived)BOOL(false)
     }
   }
   {
@@ -754,6 +763,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(starType)INT(0)
     }
   }
   {
@@ -999,8 +1009,8 @@
   {
     STR(x)FLOAT(1000.0)
     STR(y)FLOAT(-2400.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(-90.0)
     STR(id)STR(shurikan Spawner)
     STRNAME(options){
@@ -1025,8 +1035,8 @@
   {
     STR(x)FLOAT(1000.0)
     STR(y)FLOAT(-2500.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(90.0)
     STR(id)STR(shurikan Spawner)
     STRNAME(options){
@@ -1060,6 +1070,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(starType)INT(0)
     }
   }
   {
