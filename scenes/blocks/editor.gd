@@ -178,6 +178,8 @@ func onEditorMove(moveDist: Vector2) -> void:
 var firstRespawn := true
 ## don't overite - use on_respawn instead
 func respawn() -> void:
+  if not global.currentLevelSettings("checkpointsSaveAll"):
+    loadDefaultData = true
   if REMOVE_ON_RESPAWN and not firstRespawn:
     queue_free()
   firstRespawn = false

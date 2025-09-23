@@ -1575,24 +1575,25 @@ func loadBlockData():
   player.up_direction = currentLevel().up_direction
   var blockIds = {}
   for block: EditorBlock in level.get_node("blocks").get_children():
-    if block.id not in blockIds:
-      blockIds[block.id] = -1
-    blockIds[block.id] += 1
-    if block.id not in blockSaveData \
-    or blockIds[block.id] >= len(blockSaveData[block.id]) \
-    :
-      block.loadDefaultData = true
-      continue
-    block.loadDefaultData = false
-    var dataToLoad: Array = blockSaveData[block.id][blockIds[block.id]].keys()
-    if dataToLoad:
-      for thing in dataToLoad:
-        if thing not in blockSaveData[block.id][blockIds[block.id]]: continue
-        var val = blockSaveData[block.id][blockIds[block.id]][thing]
-        if val is Dictionary or val is Array:
-          val = val.duplicate_deep()
-        setNested(block, thing, val)
-      block.onDataLoaded()
+    if block.id in ['checkpoint', "star"] or global.currentLevelSettings("checkpointsSaveAll"):
+      if block.id not in blockIds:
+        blockIds[block.id] = -1
+      blockIds[block.id] += 1
+      if block.id not in blockSaveData \
+      or blockIds[block.id] >= len(blockSaveData[block.id]) \
+      :
+        block.loadDefaultData = true
+        continue
+      block.loadDefaultData = false
+      var dataToLoad: Array = blockSaveData[block.id][blockIds[block.id]].keys()
+      if dataToLoad:
+        for thing in dataToLoad:
+          if thing not in blockSaveData[block.id][blockIds[block.id]]: continue
+          var val = blockSaveData[block.id][blockIds[block.id]][thing]
+          if val is Dictionary or val is Array:
+            val = val.duplicate_deep()
+          setNested(block, thing, val)
+        block.onDataLoaded()
   for block: EditorBlock in level.get_node("blocks").get_children():
     block.onAllDataLoaded()
 
