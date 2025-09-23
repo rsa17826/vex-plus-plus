@@ -54,7 +54,10 @@ saveSettings() {
 SILENT := A_Args.includes("silent")
 OFFLINE := A_Args.includes("offline")
 
-if A_Args.includes("registerProtocols") and not A_IsAdmin {
+if ((
+  A_Args.includes("registerProtocols")
+  || A_Args.includes("createFileAssociations")
+) and not A_IsAdmin) {
   args := ""
   for arg in A_Args {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
@@ -143,9 +146,11 @@ ftype "vex++ map file"="%appPath%" "offline" "%%1"
   if !fileAssocs.find(p => !ftypeData.includes(p)) {
     try FileDelete("CREATE FILE ASSOCIATIONS.lnk")
   }
-  run(selfPath)
-  ExitApp()
 }
+if (A_Args.includes("registerProtocols")
+|| A_Args.includes("createFileAssociations"))
+  ExitApp()
+
 if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
   FileDelete("c.bat")

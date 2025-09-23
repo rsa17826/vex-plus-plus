@@ -1453,7 +1453,6 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     currentLevel().speedLeverActive = player.speedLeverActive
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
-  log.err(saveData, blocksOnly)
   sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
   savingPlayerLevelData = false
 
