@@ -29,6 +29,8 @@ texture = ExtResource("2_07hpw")
 script = ExtResource("3_7ht56")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(1, 0.7019608, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_urqaa")
 target_position = Vector2(0, 0)

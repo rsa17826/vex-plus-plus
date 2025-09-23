@@ -1453,6 +1453,7 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     currentLevel().speedLeverActive = player.speedLeverActive
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
+  log.err(saveData, blocksOnly)
   sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
   savingPlayerLevelData = false
 
@@ -1546,6 +1547,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
       newLevelSaveData(levelPackInfo.start)
     ]
     beatLevels = []
+  loadedLevels = loadedLevels.map(func(e): return e.merged(newLevelSaveData('')))
   get_tree().change_scene_to_file("res://scenes/level/level.tscn")
   await level.loadLevel(currentLevel().name)
   loadBlockData()
@@ -1596,9 +1598,7 @@ func loadBlockData():
     block.onAllDataLoaded()
 
 func currentLevel() -> Dictionary:
-  var d = loadedLevels[len(loadedLevels) - 1]
-  d.merge(newLevelSaveData(''))
-  return d
+  return loadedLevels[len(loadedLevels) - 1]
 
 var totalLevelCount: int
 
@@ -1703,7 +1703,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
   return true
 
 func fixPath(path):
-  return regReplace(path, "[^()[\\]\\w\\d'!@ # $%^& _-]+", "_").strip_edges()
+  return regReplace(path, "[^()[\\]\\w\\d'!@ # $%^& _-:;\\{\\}]+", "_").strip_edges()
 
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, '')
@@ -1763,8 +1763,7 @@ func currentLevelSettings(key: Variant = null) -> Variant:
     defaultLevelSettings[key]
     return data
   var data: Dictionary = defaultLevelSettings.duplicate()
-  for k in levelOpts.stages[currentLevel().name]:
-    data[k] = levelOpts.stages[currentLevel().name][k]
+  data.merge(levelOpts.stages[currentLevel().name])
   return data
 
 func fullscreen(state: int = 0) -> void:
