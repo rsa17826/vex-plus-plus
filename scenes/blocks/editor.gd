@@ -130,11 +130,30 @@ var unusedOffset = Vector2.ZERO
 
 # var currentPath: PathFollow2D
 
+# -------------------------------------------
+func generateBlockOpts(): pass
 ## overite this to return properties to save
 func onSave() -> Array[String]:
   return []
+# -------------------------------------------
 func onPathMove(dist): pass
 func onEditorRotate(): pass
+func onEditorMoveEnded(): pass
+func onEditorRotateEnd(): pass
+func onEditorDelete(): pass
+# -------------------------------------------
+## overite this to receive event when data for this block is loaded
+func onDataLoaded() -> void: pass
+## overite this to receive event when data for all blocks loaded
+func onAllDataLoaded() -> void: pass
+# -------------------------------------------
+func on_respawn(): pass
+func on_ready(): pass
+func on_body_entered(body: Node2D): pass
+func on_body_exited(body: Node2D): pass
+func on_physics_process(delta: float) -> void: pass
+func on_process(delta: float): pass
+# -------------------------------------------
 
 func _on_mouse_entered() -> void:
   isHovered = true
@@ -156,10 +175,6 @@ func onEditorMove(moveDist: Vector2) -> void:
       block.onEditorMove(Vector2.ZERO)
   respawn()
 
-## overite this to receive event when data for this block is loaded
-func onDataLoaded() -> void: pass
-## overite this to receive event when data for all blocks loaded
-func onAllDataLoaded() -> void: pass
 var firstRespawn := true
 ## don't overite - use on_respawn instead
 func respawn() -> void:
@@ -192,8 +207,6 @@ func respawn() -> void:
       if 'on_respawn' in thing:
         thing.on_respawn()
     on_respawn()
-
-func on_respawn(): pass
 
 var onBottomSide := false
 var onTopSide := false
@@ -248,9 +261,6 @@ func _on_body_entered(body: Node2D, real=true) -> void:
   on_body_entered(body)
   if is_in_group("death"):
     _on_body_enteredDEATH(body)
-
-func on_body_entered(body: Node2D): pass
-func on_body_exited(body: Node2D): pass
 
 ## don't overite - use on_body_exited instead
 func _on_body_exited(body: Node2D, real=true) -> void:
@@ -358,10 +368,6 @@ func _ready() -> void:
     log.err(self , name, id, "not inside tree!!")
     queue_free()
 
-func on_ready(): pass
-
-func generateBlockOpts(): pass
-
 func toType(opt: Variant) -> void:
   match blockOptions[opt].type:
     global.PromptTypes.string:
@@ -401,8 +407,6 @@ func setupOptions() -> void:
   blockOptionsArray = []
   for k: String in blockOptions:
     blockOptionsArray.append(k)
-
-func on_physics_process(delta: float) -> void: pass
 
 ## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved
 func _physics_process(delta: float) -> void:
@@ -470,9 +474,6 @@ var left_edge: float
 var right_edge: float
 var top_edge: float
 var bottom_edge: float
-
-func onEditorMoveEnded(): pass
-func onEditorRotateEnd(): pass
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
@@ -671,9 +672,6 @@ func _process(delta: float) -> void:
         ghost.use_parent_material = true
   if global.player.state == global.player.States.dead: return
   on_process(delta)
-
-func on_process(delta: float): pass
-func onDelete(): pass
 
 func createEditorGhost() -> void:
   if not ghostIconNode:

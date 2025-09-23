@@ -1203,7 +1203,7 @@ func _unhandled_input(event: InputEvent) -> void:
       if block.is_queued_for_deletion(): return
       if block in hoveredBlocks:
         hoveredBlocks.erase(block)
-      block.onDelete()
+      block.onEditorDelete()
       block.queue_free.call_deferred()
       lastDeletedBlock = null
     boxSelect_selectedBlocks = []
@@ -1221,7 +1221,7 @@ func _unhandled_input(event: InputEvent) -> void:
       lastDeletedBlock = lastSelectedBlock
       lastSelectedBlock.selectedOptions = selectedBlock.selectedOptions.duplicate()
       lastSelectedBlock.id = selectedBlock.id
-      selectedBlock.onDelete()
+      selectedBlock.onEditorDelete()
       selectedBlock.queue_free.call_deferred()
       selectedBlock = null
     else:
@@ -1236,7 +1236,7 @@ func _unhandled_input(event: InputEvent) -> void:
           temp.scale = lastSelectedBlock.scale
           temp.rotation_degrees = lastSelectedBlock.rotation_degrees
           temp.selectedOptions = lastSelectedBlock.selectedOptions.duplicate()
-          lastSelectedBlock.onDelete()
+          lastSelectedBlock.onEditorDelete()
           lastSelectedBlock.queue_free.call_deferred()
           lastSelectedBlock = temp
           lastDeletedBlock = temp
