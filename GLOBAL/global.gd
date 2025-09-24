@@ -1899,6 +1899,7 @@ const DEFAULT_BLOCK_LIST = [
   "basic",
   "slope",
   "path",
+  "single spike",
   "10x spike",
   "10x oneway spike",
   "10x locked spike",
