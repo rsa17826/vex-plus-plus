@@ -424,9 +424,9 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       var arr = []
       for k in item:
         var v = item[k]
-        arr.append(getcolor("purple") + (
-          '"' + k + '"' if k is String else coloritem(k, tab)
-        ) + getcolor("END") + " " + getcolor("orange") + ": " + getcolor("END") + coloritem(v, tab, true))
+        arr.append((
+          getcolor("purple") + '"' + k + '"' + getcolor("END") if k is String else coloritem(k, tab)
+        ) + " " + getcolor("orange") + ": " + getcolor("END") + coloritem(v, tab, true))
 
       text += (getcolor("orange") + "," + getcolor("END") + " ").join(
         arr
@@ -445,9 +445,9 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
       var arr = []
       for k in item:
         var v = item[k]
-        arr.append(getcolor("purple") + (
+        arr.append((
           coloritem(k, tab)
-        ) + getcolor("END") + getcolor("orange") + ": " + getcolor("END") + coloritem(v, tab, true))
+        ) + getcolor("orange") + ": " + getcolor("END") + coloritem(v, tab, true))
       text += spaces(tab + 2) + (
         (getcolor("orange") + "," + getcolor("END") + "\n  " + spaces(tab)).join(
           arr
@@ -556,7 +556,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     #   'white' if item is Node else 'black'
     # )
     return getcolor("red") + "<" + getcolor("end") + color + str(item) \
-    .replace(":", getcolor("red") + ":" + color) \
+    .replace(":", getcolor("end") + getcolor("red") + ":" + getcolor("end") + color) \
     .replace("<", '') \
     .replace("#", getcolor("end") + getcolor("darkred") + "#") \
     .replace(">", getcolor("end") + getcolor("red") + ">") \

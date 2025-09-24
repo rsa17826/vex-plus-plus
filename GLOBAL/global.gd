@@ -518,6 +518,13 @@ func sinFrom(start: float, end: float, time: float, speed: float = 1) -> float:
   var sine_value = (sin(time * speed - PI / 2) + 1) / 2 # Shifted to start at 0
   return lerp(start, end, sine_value)
 
+func filterDict(data: Dictionary, cb: Callable) -> Dictionary:
+  var filtered_data := {}
+  for k in data:
+    if cb.call(k, data[k]):
+      filtered_data[k] = data[k]
+  return filtered_data
+
 # class InputManager:
 #   func _init(_init_key_names):
 #     self.key_names = _init_key_names
@@ -1082,6 +1089,85 @@ func _unhandled_input(event: InputEvent) -> void:
         hoveredBlocks.erase(lastSelectedBlock)
       lastSelectedBlock = null
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
+    const type_names = {
+      TYPE_NIL: "null",
+      TYPE_BOOL: "bool",
+      TYPE_INT: "int",
+      TYPE_FLOAT: "float",
+      TYPE_STRING: "String",
+      TYPE_VECTOR2: "Vector2",
+      TYPE_VECTOR2I: "Vector2i",
+      TYPE_RECT2: "Rect2",
+      TYPE_RECT2I: "Rect2i",
+      TYPE_VECTOR3: "Vector3",
+      TYPE_VECTOR3I: "Vector3i",
+      TYPE_TRANSFORM2D: "Transform2D",
+      TYPE_VECTOR4: "Vector4",
+      TYPE_VECTOR4I: "Vector4i",
+      TYPE_PLANE: "Plane",
+      TYPE_QUATERNION: "Quaternion",
+      TYPE_AABB: "AABB",
+      TYPE_BASIS: "Basis",
+      TYPE_TRANSFORM3D: "Transform3D",
+      TYPE_PROJECTION: "Projection",
+      TYPE_COLOR: "Color",
+      TYPE_STRING_NAME: "StringName",
+      TYPE_NODE_PATH: "NodePath",
+      TYPE_RID: "RID",
+      TYPE_OBJECT: "Object",
+      TYPE_CALLABLE: "Callable",
+      TYPE_SIGNAL: "Signal",
+      TYPE_DICTIONARY: "Dictionary",
+      TYPE_ARRAY: "Array",
+      TYPE_PACKED_BYTE_ARRAY: "PackedByteArray",
+      TYPE_PACKED_INT32_ARRAY: "PackedInt32Array",
+      TYPE_PACKED_INT64_ARRAY: "PackedInt64Array",
+      TYPE_PACKED_FLOAT32_ARRAY: "PackedFloat32Array",
+      TYPE_PACKED_FLOAT64_ARRAY: "PackedFloat64Array",
+      TYPE_PACKED_STRING_ARRAY: "PackedStringArray",
+      TYPE_PACKED_VECTOR2_ARRAY: "PackedVector2Array",
+      TYPE_PACKED_VECTOR3_ARRAY: "PackedVector3Array",
+      TYPE_PACKED_COLOR_ARRAY: "PackedColorArray",
+    }
+    var extract_info_from_script = func extract_info_from_script(script: Script):
+      var result = {}
+
+      var methods = []
+      var properties = []
+      var constants = []
+      var constants_bbcode_postfix = {}
+
+      for m in script.get_script_method_list():
+        if m.name != "" and m.name.is_valid_identifier() and !m.name.begins_with("_"):
+          var args = []
+          for a in m.args:
+            args.push_back("[color=cyan]%s[/color][color=gray]:[/color][color=orange]%s[/color]" % [a.name, type_names[a.type]])
+          result[m.name] = {
+            "type": "method",
+            "bbcode_postfix": "(%s)" % ("[color=gray], [/color]".join(PackedStringArray(args)))
+          }
+      for p in script.get_script_property_list():
+        if p.name != "" and !p.name.begins_with("_") and p.name.is_valid_identifier():
+          result[p.name] = {
+            "type": "property",
+            "bbcode_postfix": "[color=gray]:[/color][color=orange]%s[/color]"%type_names[p.type]
+          }
+      return result
+    var data = extract_info_from_script.call(global.get_script())
+    data = filterDict(data, func(__, e): return e.type != "method")
+    for k in data:
+      data[k] = global[k]
+    DisplayServer.clipboard_set(log.coloritem(data))
+    # var expression = Expression.new()
+    # var error = expression.parse('global.selectedBlock', env.keys())
+    # if error != OK:
+    #   failed = true
+    #   result = expression.get_error_text()
+    # else:
+    #   result = expression.execute(env.values(), base_instance, true)
+    #   if expression.has_execute_failed():
+    #     failed = true
+    #     result = expression.get_error_text()
     # ToastParty.error('a')
     # ToastParty.info('a')
     # ToastParty.success('a')
