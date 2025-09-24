@@ -1743,7 +1743,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
   return true
 
 func fixPath(path):
-  return regReplace(path, "[^()[\\]\\w\\d'!@ # $%^& _-:;\\{\\}]+", "_").strip_edges()
+  return regReplace(path, "[^()[\\]\\w\\d'!@ # $%^& _-;\\{\\}]+", "_").strip_edges()
 
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, '')
