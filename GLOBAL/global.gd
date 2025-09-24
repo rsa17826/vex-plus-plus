@@ -1034,6 +1034,13 @@ var copiedBlockData := {
 }
 
 var lastRotatedBlock: EditorBlock
+@onready var defaultData := getAllGlobalData()
+func getAllGlobalData() -> Dictionary:
+  var data := {}
+  for p in get_script().get_script_property_list():
+    if p.name != "" and !p.name.begins_with("_") and p.name.is_valid_identifier():
+      data[p.name] = global[p.name]
+  return data
 
 func _unhandled_input(event: InputEvent) -> void:
   if !InputMap.has_action("quit"): return
@@ -1089,12 +1096,20 @@ func _unhandled_input(event: InputEvent) -> void:
         hoveredBlocks.erase(lastSelectedBlock)
       lastSelectedBlock = null
   if event.is_action_pressed(&"copy_debug_info", false, true):
-    var data = {}
-    for p in get_script().get_script_property_list():
-      if p.name != "" and !p.name.begins_with("_") and p.name.is_valid_identifier():
-        data[p.name] = global[p.name]
+    var data := getAllGlobalData()
+    var sames := {}
+    var diffs := {}
+    for k in data:
+      if same(data[k], defaultData[k]):
+        sames[k] = data[k]
+      else:
+        diffs[k] = data[k]
+    data = {
+      "unchanged": sames,
+      "CHANGED": diffs
+    }
     log.warn(data)
-    DisplayServer.clipboard_set(log.coloritem(data))
+    DisplayServer.clipboard_set("https://bbcode.ilma.dev/\n\n" + log.coloritem(data))
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     # var expression = Expression.new()
     # var error = expression.parse('global.selectedBlock', env.keys())
