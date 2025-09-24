@@ -768,41 +768,81 @@ func localProcess(delta: float) -> void:
       var b = selectedBlock
       var startPos = selectedBlock.global_position
       # gridSize = gridSize.rotated(r)
-      var testrot = 0
-      # mpos = mpos.rotated(testrot)
       # mpos = round(mpos / gridSize) * gridSize
       # startPos = round(startPos / gridSize) * gridSize
 
       # sizeInPx = sizeInPx.rotated(-deg_to_rad(-b.startRotation_degrees))
-      var scale = b.scale.rotated(testrot)
+      var scale = b.scale
       # log.pp(b.rotation_degrees, b.rect.right)
-      var top_edge: float = (startPos - (b.sizeInPx.rotated(testrot) / 2.0)).y
-      var bottom_edge: float = (startPos + (b.sizeInPx.rotated(testrot) / 2.0)).y
-      var right_edge: float = (startPos + (b.sizeInPx.rotated(testrot) / 2.0)).x
-      var left_edge: float = (startPos - (b.sizeInPx.rotated(testrot) / 2.0)).x
+      var top_edge: float = (startPos - (b.sizeInPx / 2.0)).y
+      var bottom_edge: float = (startPos + (b.sizeInPx / 2.0)).y
+      var right_edge: float = (startPos + (b.sizeInPx / 2.0)).x
+      var left_edge: float = (startPos - (b.sizeInPx / 2.0)).x
       var offset = Vector2.ZERO
       # scale on the selected sides
       var mouseDistInPx: float
       if scaleOnTopSide:
         mouseDistInPx = (top_edge - mpos.y)
         mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
-        scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.rotated(testrot).y * scale.y))
+        scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.y * scale.y))
         offset -= Vector2(0, mouseDistInPx / 2)
       elif scaleOnBottomSide:
         mouseDistInPx = (mpos.y - bottom_edge)
         mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
-        scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.rotated(testrot).y * scale.y))
+        scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.y * scale.y))
         offset += Vector2(0, mouseDistInPx / 2)
       if scaleOnLeftSide:
         mouseDistInPx = (left_edge - mpos.x)
         mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
-        scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.rotated(testrot).x * scale.x))
+        scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.x * scale.x))
         offset -= Vector2(mouseDistInPx / 2, 0)
       elif scaleOnRightSide:
         mouseDistInPx = (mpos.x - right_edge)
         mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
-        scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.rotated(testrot).x * scale.x))
+        scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.x * scale.x))
         offset += Vector2(mouseDistInPx / 2, 0)
+      # var r = selectedBlock.rotation
+      # var b = selectedBlock
+      # var startPos = selectedBlock.global_position
+      # # gridSize = gridSize.rotated(r)
+      # # mpos = round(mpos / gridSize) * gridSize
+      # # startPos = round(startPos / gridSize) * gridSize
+
+      # # sizeInPx = sizeInPx.rotated(-deg_to_rad(-b.startRotation_degrees))
+      # var scale = b.scale
+      # # log.pp(b.rotation_degrees, b.rect.right)
+      # var top_edge: float = (startPos - (b.sizeInPx / 2.0)).y
+      # var bottom_edge: float = (startPos + (b.sizeInPx / 2.0)).y
+      # var right_edge: float = (startPos + (b.sizeInPx / 2.0)).x
+      # var left_edge: float = (startPos - (b.sizeInPx / 2.0)).x
+      # var offset = Vector2.ZERO
+      # var scaleOn = clearLow(Vector2(
+      #   - 1 if scaleOnLeftSide else 1 if scaleOnRightSide else 0,
+      #   - 1 if scaleOnTopSide else 1 if scaleOnBottomSide else 0
+      # ).rotated(r).normalized())
+      # # scale on the selected sides
+      # log.pp(scaleOn)
+      # var mouseDistInPx: float
+      # if scaleOn.y < 0:
+      #   mouseDistInPx = (top_edge - mpos.y) * abs(scaleOn.y)
+      #   mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
+      #   scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.y * scale.y))
+      #   offset -= Vector2(0, mouseDistInPx / 2)
+      # elif scaleOn.y > 0:
+      #   mouseDistInPx = (mpos.y - bottom_edge) * abs(scaleOn.y)
+      #   mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
+      #   scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.y * scale.y))
+      #   offset += Vector2(0, mouseDistInPx / 2)
+      # if scaleOn.x < 0:
+      #   mouseDistInPx = (left_edge - mpos.x) * abs(scaleOn.x)
+      #   mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
+      #   scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.x * scale.x))
+      #   offset -= Vector2(mouseDistInPx / 2, 0)
+      # elif scaleOn.x > 0:
+      #   mouseDistInPx = (mpos.x - right_edge) * abs(scaleOn.x)
+      #   mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
+      #   scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.x * scale.x))
+      #   offset += Vector2(mouseDistInPx / 2, 0)
       # log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
       b.global_position = startPos + offset
       # b.global_position = round((b.global_position) / gridSize) * gridSize
@@ -835,7 +875,7 @@ func localProcess(delta: float) -> void:
           scaleOnBottomSide = false
           moveMouse.call(mousePos - Vector2(0, minSize.y * 700))
       # log.pp(minSize, scale)
-      b.scale = scale.rotated(-testrot)
+      b.scale = scale
       if scaleOnLeftSide or scaleOnRightSide:
         b.scale.x = (round((b.scale.x * b.defaultSizeInPx.x) / gridSize.x) * gridSize.x) / b.defaultSizeInPx.x
         b.scale.x = clamp(b.scale.x, minSize.x, 2500.0 / 7.0)
