@@ -26,8 +26,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
     - **endReachedAction**: what will happen when the block reaches the end of the path.
     - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
-    - **startWhenSignalRecived**: starts to move when its signal is activated.
-    - **startWhileSignalRecived**: starts to move when its signal is activated and pauses when the signal is deactivated.
+    - **startWhenSignalReceived**: starts to move when its signal is activated.
+    - **startWhileSignalReceived**: starts to move when its signal is activated and pauses when the signal is deactivated.
     - **signalInputId**: the id of the signal it is listening for
     - **restart**: only available when using a button start mode.
     - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
@@ -107,6 +107,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **toggle_tab_menu**: toggles the visibility of the tab menu
   - **lock_selected_block**: locks the last selected block preventing it from being selected again until the level is reloaded
   - **tab**: tab key
+  - **copy_debug_info**: copies some info
   - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 - ## Settings
@@ -286,8 +287,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **loop**: when the block reaches the end of the path the block will go back to the start of the path and continue moving
         - **reverse**: when the block reaches the end of the path it will go backwards
       - **startOnLoad**: when the level is loaded or the player dies the track will start immediately.
-      - **startWhenSignalRecived**: starts to move when its signal is activated.
-      - **startWhileSignalRecived**: starts to move when its signal is activated and pauses when the signal is deactivated.
+      - **startWhenSignalReceived**: starts to move when its signal is activated.
+      - **startWhileSignalReceived**: starts to move when its signal is activated and pauses when the signal is deactivated.
       - **signalInputId**: the id of the signal it is listening for
       - **restart**: only available when using a button start mode.
         - **never**: the path starts once and never again
@@ -296,6 +297,18 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **forwardSpeed**: the speed that blocks are moved at while going forward along the path.
       - **backwardSpeed**: the speed that blocks are moved at while going backwards along the path.
       - **addNewPoint**: creates a new point right after this in the path
+      - **color**: sets the modulate property
+
+  - **single spike**: like 10x spike but a single one instead and scaling scales instead of tiling
+    <br><br><img src="scenes/blocks/single spike/images/1.png" alt="image of block single spike" width="30" height="50">
+
+    - scalable
+    - rotatable
+    - canAttachToThings
+    - canAttachToPaths
+    - ### settings:
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
   - **10x spike**: kills the player on contact
