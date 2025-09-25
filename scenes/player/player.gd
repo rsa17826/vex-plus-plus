@@ -1495,6 +1495,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     autoRunDirection = global.currentLevel().autoRunDirection
     if global.currentLevelSettings("checkpointsSaveAll"):
       heat = global.currentLevel().heat
+    else:
+      heat = 0
   mainCollisionShape2D.disabled = true
   slowCamRot = false
   targetingLasers = []
@@ -1834,3 +1836,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!fix randomly slipping off wall slides
 
 # make local level list filter search bar work
+
+# !!!!!!!fix falling off walls early
+# !!!!!!!fix things not attaching to moving blocks
