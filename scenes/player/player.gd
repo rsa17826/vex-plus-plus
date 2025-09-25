@@ -293,6 +293,7 @@ func clearWallData():
   wallBreakDownFrames = 0
 
 func _physics_process(delta: float) -> void:
+  log.pp(wallSlidingFrames)
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
@@ -747,6 +748,7 @@ func _physics_process(delta: float) -> void:
             # log.pp("entering wall grab", CenterIsOnWall(), TopIsOnWall())
             if levelFlags.canDoWallHang && (CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj()):
               currentHungWall = rightWallDetection.get_collider() if getCurrentWallSide() == 1 else leftWallDetection.get_collider()
+              wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
               hungWallSide = getCurrentWallSide()
               state = States.wallHang
               var loopIdx: int = 0
@@ -761,7 +763,9 @@ func _physics_process(delta: float) -> void:
                 # remainingJumpCount -= 1
                 state = States.falling
               position -= Vector2(0, 5).rotated(defaultAngle)
+              # clearWallData()
               breakFromWall = true
+              wallSlidingFrames = 0
               lastWallSide = 0
               lastWallCollisionPoint = null
               lastWall = null
@@ -914,6 +918,7 @@ func _physics_process(delta: float) -> void:
           deathDetectors.position.y = 0
         if state == States.wallHang && (CenterIsOnWall() && TopIsOnWall() and not collidingWithNowj()):
           # currentHungWall = getCurrentWall()
+          wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
           hungWallSide = getCurrentWallSide()
           var loopIdx: int = 0
           while TopIsOnWall() and loopIdx < 20:
@@ -1837,5 +1842,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # make local level list filter search bar work
 
-# !!!!!!!fix falling off walls early
 # !!!!!!!fix things not attaching to moving blocks
+                                     

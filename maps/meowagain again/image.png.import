@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ca6btx2q3g7q8"
-path="res://.godot/imported/question.svg-b2322d216b84b418e5a3bac06c50c9e3.ctex"
+uid="uid://bfem6yvr7g3ou"
+path="res://.godot/imported/image.png-e20b79bed62d7a37ae37e7a8c64149a7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/panku_console/res/icons2/question.svg"
-dest_files=["res://.godot/imported/question.svg-b2322d216b84b418e5a3bac06c50c9e3.ctex"]
+source_file="res://maps/meowagain again/image.png"
+dest_files=["res://.godot/imported/image.png-e20b79bed62d7a37ae37e7a8c64149a7.ctex"]
 
 [params]
 
@@ -38,6 +38,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
