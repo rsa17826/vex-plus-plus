@@ -606,3 +606,10 @@ static func logToFile(m):
   # if not global.logger_ui:
   #   await global.waituntil(func(): return global.logger_ui)
   # global.logger_ui.add_log(m, 1)
+
+static var add_log: Callable
+static func debug(...msgs) -> void:
+  var m: String = log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem))
+  if len(m) > 3000:
+    m = "TO LONG: " + m.substr(0, 3000) + "..."
+  add_log.call(m)

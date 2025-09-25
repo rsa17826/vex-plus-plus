@@ -1108,6 +1108,7 @@ func _unhandled_input(event: InputEvent) -> void:
       "unchanged": sames,
       "CHANGED": diffs
     }
+    log.debug(data)
     log.warn(data)
     DisplayServer.clipboard_set("https://bbcode.ilma.dev/\n\n" + log.coloritem(data))
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
