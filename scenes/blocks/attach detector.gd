@@ -33,7 +33,6 @@ func tryaddgroups():
   for i in range(get_collision_count()):
     var block := get_collider(i)
     block = block.root
-    log.pp(block.id)
     if block == root: continue
     if (
       root.canAttachToThings
