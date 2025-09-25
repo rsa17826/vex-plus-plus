@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=17 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ckgxdnqr5psft" path="res://scenes/ui/hovered blocks list/hovered_blocks_list.tscn" id="13_swkix"]
 [ext_resource type="Script" uid="uid://c1degxs1pbn86" path="res://scenes/ui/sub_viewport.gd" id="14_n3vwu"]
 [ext_resource type="Script" uid="uid://bu86o6la4ga8s" path="res://scenes/ui/SubViewportContainer camera_2d.gd" id="15_n3vwu"]
+[ext_resource type="PackedScene" uid="uid://ccr06ddwa73ca" path="res://GLOBAL/screen_notifier/resident_logs.tscn" id="16_0i47d"]
 
 [node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer")]
 layer = 2
@@ -192,3 +193,5 @@ script = ExtResource("14_n3vwu")
 [node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
 zoom = Vector2(1.245, 1.245)
 script = ExtResource("15_n3vwu")
+
+[node name="ScreenNotifier" parent="." instance=ExtResource("16_0i47d")]
