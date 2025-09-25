@@ -25,7 +25,7 @@
         ]
         STR(pushable box)[
           {
-            STR(thingThatMoves.global_position)VEC2(1121.97570800781,450.066864013672)
+            STR(thingThatMoves.global_position)VEC2(1137.71154785156,450.066864013672)
             STR(thingThatMoves.vel){
               STR(conveyer)VEC2(0.0,0.0)
               STR(default)VEC2(0.0,21.3333339691162)
@@ -34,8 +34,8 @@
         ]
         STR(bouncing buzsaw)[
           {
-            STR(thingThatMoves.global_position)VEC2(1246.5078125,5697.3408203125)
-            STR(thingThatMoves.velocity)VEC2(0.0,949.999389648438)
+            STR(thingThatMoves.global_position)VEC2(1261.62622070313,537.631530761719)
+            STR(thingThatMoves.velocity)VEC2(0.0,2.375)
             STR(thingThatMoves.speed)INT(50)
           }
         ]
@@ -50,7 +50,7 @@
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(651.472595214844,292.919708251953)
+      STRNAME(lastSpawnPoint)VEC2(1301.47253417969,392.919708251953)
     }
   ]
   STR(beatLevels)[]

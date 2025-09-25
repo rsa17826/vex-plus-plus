@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://kco1nesr1hf7"
-path="res://.godot/imported/1.png-8fbb01b6abd8bc4244ea717d220e36d9.ctex"
+path="res://.godot/imported/1.png-3a281748ce11344fbf4c7c54a31bd30e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/rotating buzzsaw/images/1.png"
-dest_files=["res://.godot/imported/1.png-8fbb01b6abd8bc4244ea717d220e36d9.ctex"]
+source_file="res://scenes/blocks/rotating buzsaw/images/1.png"
+dest_files=["res://.godot/imported/1.png-3a281748ce11344fbf4c7c54a31bd30e.ctex"]
 
 [params]
 
