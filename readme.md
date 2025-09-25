@@ -771,8 +771,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **rotating buzzsaw**: kills the player on contact and will spin clockwise
-    <br><br><img src="scenes/blocks/rotating buzzsaw/images/1.png" alt="image of block rotating buzzsaw" width="13" height="49">
+  - **rotating buzsaw**: kills the player on contact and will spin clockwise
+    <br><br><img src="scenes/blocks/rotating buzsaw/images/1.png" alt="image of block rotating buzsaw" width="13" height="49">
 
     - scalable
     - rotatable
