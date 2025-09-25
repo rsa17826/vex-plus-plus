@@ -422,28 +422,22 @@ func _physics_process(delta: float) -> void:
   if global.openMsgBoxCount: return
   if (global.selectedBlock == self || self in global.boxSelect_selectedBlocks) && Input.is_action_pressed(&"editor_select"): return
   if _DISABLED and not dontDisablePhysicsProcess: return
-  var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else global_position
-  #
-  # if currentPath:
-    # if not pathFollowNode:
-    #   log.err("no path follow node", id)
-    #   breakpoint
-    # pathFollowNode.position += currentPath.lastMovementStep * currentPath.scale
-  #
-  for thing in cloneEventsHere:
-    if 'on_physics_process' in thing:
-      thing.on_physics_process(delta)
-  on_physics_process(delta)
-  # if respawning:
-  #   lastMovementStep = Vector2.ZERO
-  # else:
-  lastMovementStep = (
-    thingThatMoves.global_position
-    if thingThatMoves else
-    global_position
-  ) - lastpos
-  if respawning:
-    respawning -= 1
+  if not (self is EditorPlayer):
+    var lastpos: Vector2 = thingThatMoves.global_position
+    for thing in cloneEventsHere:
+      if 'on_physics_process' in thing:
+        thing.on_physics_process(delta)
+    on_physics_process(delta)
+    # if respawning:
+    #   lastMovementStep = Vector2.ZERO
+    # else:
+    lastMovementStep = (
+      thingThatMoves.global_position
+      if thingThatMoves else
+      global_position
+    ) - lastpos
+    if respawning:
+      respawning -= 1
 
     # if not respawning:
     #   if collisionQueue:
@@ -465,12 +459,12 @@ func _physics_process(delta: float) -> void:
     if !block.thingThatMoves:
       log.err("no thingThatMoves", block.id)
       breakpoint
-    for thing in block.cloneEventsHere:
-      if thing is AttachDetector:
-        if thing.following:
-          block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
-        else:
-          block.unusedOffset += lastMovementStep.rotated(-block.rotation) / block.global_scale
+    block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
+    # for thing in block.cloneEventsHere:
+    #   if thing is AttachDetector:
+    #     if thing.following:
+    #     else:
+    #       block.unusedOffset += lastMovementStep.rotated(-block.rotation) / block.global_scale
 
 var left_edge: float
 var right_edge: float

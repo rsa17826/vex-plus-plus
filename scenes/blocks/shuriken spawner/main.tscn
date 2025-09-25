@@ -1,19 +1,19 @@
 [gd_scene load_steps=11 format=3 uid="uid://cndl3qgbg1exr"]
 
-[ext_resource type="Script" uid="uid://djkstxmhrl3yq" path="res://scenes/blocks/shurikan spawner/shurikan Spawner.gd" id="1_8qfqg"]
+[ext_resource type="Script" uid="uid://djkstxmhrl3yq" path="res://scenes/blocks/shuriken spawner/shuriken Spawner.gd" id="1_8qfqg"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_8qfqg"]
-[ext_resource type="Texture2D" uid="uid://c8obyd2ujfj3y" path="res://scenes/blocks/shurikan spawner/images/1.png" id="2_y1blk"]
-[ext_resource type="Texture2D" uid="uid://b80mby7ousxe7" path="res://scenes/blocks/shurikan spawner/images/editorBar.png" id="3_86yqw"]
-[ext_resource type="Texture2D" uid="uid://rwlgdyp0aoll" path="res://scenes/blocks/shurikan spawner/images/spawner.png" id="4_7eqtn"]
+[ext_resource type="Texture2D" uid="uid://c8obyd2ujfj3y" path="res://scenes/blocks/shuriken spawner/images/1.png" id="2_y1blk"]
+[ext_resource type="Texture2D" uid="uid://b80mby7ousxe7" path="res://scenes/blocks/shuriken spawner/images/editorBar.png" id="3_86yqw"]
+[ext_resource type="Texture2D" uid="uid://rwlgdyp0aoll" path="res://scenes/blocks/shuriken spawner/images/spawner.png" id="4_7eqtn"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_lcjsb"]
-[ext_resource type="Texture2D" uid="uid://b2ob17jjbqhgv" path="res://scenes/blocks/shurikan spawner/images/death.png" id="5_ne3b7"]
+[ext_resource type="Texture2D" uid="uid://b2ob17jjbqhgv" path="res://scenes/blocks/shuriken spawner/images/death.png" id="5_ne3b7"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="6_xbrrh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_86yqw"]
 radius = 30.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8qfqg"]
-radius = 127.016
+radius = 60.0
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("shurikenBase", "ghostIconNode", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_8qfqg")
@@ -67,6 +67,8 @@ texture = ExtResource("5_ne3b7")
 metadata/_edit_lock_ = true
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+modulate = Color(1, 0.7019608, 0, 0.41960785)
+position = Vector2(0, -49.09)
 enabled = false
 shape = SubResource("CircleShape2D_8qfqg")
 target_position = Vector2(0, 0)

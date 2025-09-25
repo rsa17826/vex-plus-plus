@@ -17,14 +17,6 @@ func _ready() -> void:
       parent = parent.get_parent()
     log.err("root not set", name, parent.id)
     breakpoint
-  # if root.canAttachToPaths:s
-  #   if not ('canAttachToPaths' in root.selectedOptions):
-  #     log.warn('canAttachToPaths', root.id)
-  #     return
-  # if root.canAttachToThings:
-  #   if not ('canAttachToThings' in root.selectedOptions):
-  #     log.warn('canAttachToThings', root.id)
-  #     return
   updateColor()
 
 func updateColor() -> void:
@@ -41,6 +33,7 @@ func tryaddgroups():
   for i in range(get_collision_count()):
     var block := get_collider(i)
     block = block.root
+    log.pp(block.id)
     if block == root: continue
     if (
       root.canAttachToThings

@@ -39,6 +39,7 @@ debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("4_4xgvp")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+modulate = Color(1, 0.7019608, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_unfjh")
 target_position = Vector2(0, 0)

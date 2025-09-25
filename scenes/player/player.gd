@@ -293,7 +293,6 @@ func clearWallData():
   wallBreakDownFrames = 0
 
 func _physics_process(delta: float) -> void:
-  log.pp(wallSlidingFrames)
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
@@ -1843,4 +1842,3 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make local level list filter search bar work
 
 # !!!!!!!fix things not attaching to moving blocks
-                                     

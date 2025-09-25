@@ -1,6 +1,7 @@
 @icon("res://scenes/player/images/anim/idle/1.png")
 
 extends EditorBlock
+class_name EditorPlayer
 
 @export var player: Player
 
