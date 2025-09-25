@@ -19,6 +19,7 @@ ignoreMissingNodes = true
 EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
+metadata/_edit_vertical_guides_ = [-608.0]
 
 [node name="Node2D" type="Node2D" parent="."]
 
