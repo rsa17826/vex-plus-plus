@@ -431,35 +431,26 @@ func _physics_process(delta: float) -> void:
     # if respawning:
     #   lastMovementStep = Vector2.ZERO
     # else:
-    lastMovementStep = (
-      thingThatMoves.global_position
-      if thingThatMoves else
-      global_position
-    ) - lastpos
-    if respawning:
-      respawning -= 1
+    if thingThatMoves:
+      lastMovementStep = (
+        thingThatMoves.global_position
+        if thingThatMoves else
+        global_position
+      ) - lastpos
+      if respawning:
+        respawning -= 1
 
-    # if not respawning:
-    #   if collisionQueue:
-    #     log.pp(collisionQueue, id)
-    #     for block in collisionQueue:
-    #       if collisionQueue[block] == "exited":
-    #         _on_body_exited(block)
-    #       else:
-    #         _on_body_entered(block)
-    #     collisionQueue = {}
-
-  for thing in cloneEventsHere:
-    if not thing:
-      log.err(id, "no thing in cloneEventsHere")
-      breakpoint
-    if 'postMovementStep' in thing:
-      thing.postMovementStep()
-  for block: EditorBlock in attach_children:
-    if !block.thingThatMoves:
-      log.err("no thingThatMoves", block.id)
-      breakpoint
-    block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
+    for thing in cloneEventsHere:
+      if not thing:
+        log.err(id, "no thing in cloneEventsHere")
+        breakpoint
+      if 'postMovementStep' in thing:
+        thing.postMovementStep()
+    for block: EditorBlock in attach_children:
+      if !block.thingThatMoves:
+        log.err("no thingThatMoves", block.id)
+        breakpoint
+      block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
     # for thing in block.cloneEventsHere:
     #   if thing is AttachDetector:
     #     if thing.following:
