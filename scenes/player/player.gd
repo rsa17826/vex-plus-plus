@@ -655,6 +655,7 @@ func _physics_process(delta: float) -> void:
         wasJustInWater = true
         move_and_slide()
         tryAndDieHazards()
+        tryAndDieSquish()
       else:
         if vel.pole:
           vel.pole.x -= 2 * sign(vel.pole.x) * delta * 60
