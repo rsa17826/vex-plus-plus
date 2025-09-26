@@ -48,6 +48,7 @@ extends Node2D
 @export var NO_RCLICK_MENU: bool = false
 # @export var REMOVE_ON_PLAYER_DEATH: bool = false
 @export var REMOVE_ON_RESPAWN: bool = false
+@export var KILL_AFTER_TIME: int = 0
 ## prevents selecting this block - selection box still appears, need to fix later
 # @export var NO_SELECTING: bool = false
 
@@ -112,7 +113,7 @@ var blockOptions: Dictionary[String, Variant]
 ## options in the rclick menu along with their selected state
 var selectedOptions := {}
 ## options in the rclick menu
-var blockOptionsArray := []
+# var blockOptionsArray := []
 ## used for following blocks
 var attach_children: Array[EditorBlock] = []:
   get():
@@ -290,6 +291,8 @@ func clearSaveData():
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
+  if KILL_AFTER_TIME:
+    get_tree().create_timer(KILL_AFTER_TIME).timeout.connect(queue_free)
   # hasBeenExploded = false
   if !global.player:
     generateBlockOpts()
@@ -406,9 +409,9 @@ func setupOptions() -> void:
         if !global.same(blockOptions[opt].type, 'BUTTON'):
           log.err("no default value set for " + opt + ' in block ' + id)
           breakpoint
-  blockOptionsArray = []
-  for k: String in blockOptions:
-    blockOptionsArray.append(k)
+  # blockOptionsArray = []
+  # for k: String in blockOptions:
+  #   blockOptionsArray.append(k)
 
 ## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved
 func _physics_process(delta: float) -> void:

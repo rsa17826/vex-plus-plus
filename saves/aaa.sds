@@ -14,8 +14,8 @@
           {
             STR(falling)BOOL(false)
             STR(thingThatMoves.global_position)VEC2(686.0,205.0)
-            STR(thingThatMoves.vel)VEC2(0.0,791.66650390625)
-            STR(thingThatMoves.startTime)FLOAT(5.81666666666665)
+            STR(thingThatMoves.vel)VEC2(0.0,0.0)
+            STR(thingThatMoves.startTime)INT(0)
           }
           {
             STR(falling)BOOL(false)
@@ -35,46 +35,49 @@
             STR(texture)STR(3)
           }
           {
-            STR(texture)STR(2)
+            STR(texture)STR(3)
           }
           {
             STR(texture)STR(1)
           }
+          {
+            STR(texture)STR(2)
+          }
         ]
         STR(bouncing buzsaw)[
           {
-            STR(thingThatMoves.global_position)VEC2(290.796813964844,-570.136352539063)
-            STR(thingThatMoves.velocity)VEC2(0.0,-381.199890136719)
-            STR(thingThatMoves.speed)INT(-50)
-          }
-          {
-            STR(thingThatMoves.global_position)VEC2(479.895935058594,-925.540466308594)
-            STR(thingThatMoves.velocity)VEC2(0.0,725.089538574219)
+            STR(thingThatMoves.global_position)VEC2(291.799987792969,-662.346984863281)
+            STR(thingThatMoves.velocity)VEC2(0.0,893.438354492188)
             STR(thingThatMoves.speed)INT(50)
           }
           {
-            STR(thingThatMoves.global_position)VEC2(665.799987792969,-1075.8623046875)
-            STR(thingThatMoves.velocity)VEC2(0.0,-626.466430664063)
-            STR(thingThatMoves.speed)INT(-50)
-          }
-          {
-            STR(thingThatMoves.global_position)VEC2(881.635681152344,-1217.49841308594)
-            STR(thingThatMoves.velocity)VEC2(0.0,-509.873291015625)
-            STR(thingThatMoves.speed)INT(-50)
-          }
-          {
-            STR(thingThatMoves.global_position)VEC2(1349.80004882813,-1462.71850585938)
-            STR(thingThatMoves.velocity)VEC2(0.0,232.516357421875)
+            STR(thingThatMoves.global_position)VEC2(483.799987792969,-868.347351074219)
+            STR(thingThatMoves.velocity)VEC2(0.0,893.438354492188)
             STR(thingThatMoves.speed)INT(50)
           }
           {
-            STR(thingThatMoves.global_position)VEC2(1546.80004882813,-1068.328125)
-            STR(thingThatMoves.velocity)VEC2(0.0,-609.438354492188)
-            STR(thingThatMoves.speed)INT(-50)
+            STR(thingThatMoves.global_position)VEC2(665.799987792969,-1059.34716796875)
+            STR(thingThatMoves.velocity)VEC2(0.0,893.438354492188)
+            STR(thingThatMoves.speed)INT(50)
           }
           {
-            STR(thingThatMoves.global_position)VEC2(-519.200012207031,-656.869567871094)
-            STR(thingThatMoves.velocity)VEC2(0.0,700.791748046875)
+            STR(thingThatMoves.global_position)VEC2(883.799987792969,-1215.34716796875)
+            STR(thingThatMoves.velocity)VEC2(0.0,893.438354492188)
+            STR(thingThatMoves.speed)INT(50)
+          }
+          {
+            STR(thingThatMoves.global_position)VEC2(1349.80004882813,-1209.34716796875)
+            STR(thingThatMoves.velocity)VEC2(0.0,893.438354492188)
+            STR(thingThatMoves.speed)INT(50)
+          }
+          {
+            STR(thingThatMoves.global_position)VEC2(1546.80004882813,-1061.34716796875)
+            STR(thingThatMoves.velocity)VEC2(0.0,893.438354492188)
+            STR(thingThatMoves.speed)INT(50)
+          }
+          {
+            STR(thingThatMoves.global_position)VEC2(-519.200012207031,-573.347106933594)
+            STR(thingThatMoves.velocity)VEC2(0.0,893.438354492188)
             STR(thingThatMoves.speed)INT(50)
           }
         ]
@@ -95,36 +98,41 @@
         ]
         STR(pushable box)[
           {
-            STR(thingThatMoves.global_position)VEC2(-97.0,-454.857574462891)
+            STR(thingThatMoves.global_position)VEC2(-97.0,-480.956909179688)
+            STR(thingThatMoves.vel){
+              STR(conveyer)VEC2(0.0,0.0)
+              STR(default)VEC2(0.0,149.33332824707)
+            }
+          }
+          {
+            STR(thingThatMoves.global_position)VEC2(-309.777008056641,-909.231567382813)
             STR(thingThatMoves.vel){
               STR(conveyer)VEC2(0.0,0.0)
               STR(default)VEC2(0.0,21.3333339691162)
             }
           }
           {
-            STR(thingThatMoves.global_position)VEC2(-309.0,-454.857574462891)
+            STR(thingThatMoves.global_position)VEC2(-209.223007202148,-909.231567382813)
             STR(thingThatMoves.vel){
               STR(conveyer)VEC2(0.0,0.0)
               STR(default)VEC2(0.0,21.3333339691162)
             }
           }
           {
-            STR(thingThatMoves.global_position)VEC2(-210.0,-555.857604980469)
-            STR(thingThatMoves.vel){
-              STR(conveyer)VEC2(0.0,0.0)
-              STR(default)VEC2(0.0,21.3333339691162)
-            }
-          }
-          {
-            STR(thingThatMoves.global_position)VEC2(-101.0,-668.857604980469)
+            STR(thingThatMoves.global_position)VEC2(-101.0,-909.231506347656)
             STR(thingThatMoves.vel){
               STR(conveyer)VEC2(0.0,0.0)
               STR(default)VEC2(0.0,21.3333339691162)
             }
           }
         ]
+        STR(shuriken gun)[
+          {
+            STR(cooldown)FLOAT(0.55)
+          }
+        ]
       }
-      STRNAME(lastSpawnPoint)VEC2(-76.5274276733398,-706.080261230469)
+      STRNAME(lastSpawnPoint)VEC2(-564.527404785156,-774.080261230469)
     }
   ]
   STR(beatLevels)[]
