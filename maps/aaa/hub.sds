@@ -552,7 +552,7 @@
     STR(id)STR(microwave)
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
-      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -716,6 +716,23 @@
     STR(id)STR(key)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(225.0)
+    STR(y)FLOAT(-525.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(shuriken gun)
+    STRNAME(options){
+      STR(maxCooldown)FLOAT(7.00000000651924)
+      STR(maxCount)INT(0)
+      STR(killAfterDistance)FLOAT(0.0)
+      STR(killAfterTime)FLOAT(5.0000000046566)
+      STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }

@@ -111,18 +111,16 @@ func updateBlockMenuValues() -> void:
           node.button_pressed = val
           node.disabled = disabled
           node.text = k
-        global.PromptTypes.int:
-          node.value = val
-          node.editable = !disabled
+        global.PromptTypes.int, \
         global.PromptTypes.float:
           node.value = val
           node.editable = !disabled
+          node.suffix = blockOptions[k].suffix if 'suffix' in blockOptions[k] else ''
+          node.prefix = blockOptions[k].prefix if 'prefix' in blockOptions[k] else ''
         global.PromptTypes.string:
           node.text = val
           node.editable = !disabled
-        global.PromptTypes.rgb:
-          node.color = val
-          node.disabled = disabled
+        global.PromptTypes.rgb, \
         global.PromptTypes.rgba:
           node.color = val
           node.disabled = disabled
@@ -148,6 +146,7 @@ func onThingReset(...data) -> void:
   var blockOptions = block.blockOptions
   var selectedOptions = block.selectedOptions
 
+  # log.err(blockOptions[k], blockOptions, blockOptions[k].default)
   var val = blockOptions[k].default
   if k == 'signalOutputId':
     global.sendSignal(selectedOptions.signalOutputId, block, false)
@@ -178,14 +177,12 @@ func onThingChanged(...data) -> void:
     match blockOptions[k].type:
       global.PromptTypes.bool:
         return node.button_pressed
-      global.PromptTypes.int:
-        return node.value
+      global.PromptTypes.int, \
       global.PromptTypes.float:
         return node.value
       global.PromptTypes.string:
         return node.text
-      global.PromptTypes.rgb:
-        return node.color
+      global.PromptTypes.rgb, \
       global.PromptTypes.rgba:
         return node.color
       global.PromptTypes._enum:
@@ -194,6 +191,7 @@ func onThingChanged(...data) -> void:
       _:
         log.pp(k, "Unknown type: ", blockOptions[k].type)
     ).call()
+  # log.err(blockOptions[k], blockOptions, blockOptions[k].default, val)
   if blockOptions[k].type is global.PromptTypes: pass
   elif blockOptions[k].type == 'BUTTON':
     if blockOptions[k].onChange.call():
