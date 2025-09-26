@@ -422,26 +422,26 @@ func _physics_process(delta: float) -> void:
   if global.openMsgBoxCount: return
   if (global.selectedBlock == self || self in global.boxSelect_selectedBlocks) && Input.is_action_pressed(&"editor_select"): return
   if _DISABLED and not dontDisablePhysicsProcess: return
-  if thingThatMoves:
-    var lastpos: Vector2 = thingThatMoves.global_position
-    for thing in cloneEventsHere:
-      if 'on_physics_process' in thing:
-        thing.on_physics_process(delta)
-    on_physics_process(delta)
-    lastMovementStep = (
-      thingThatMoves.global_position
-      if thingThatMoves else
-      global_position
-    ) - lastpos
-    if respawning:
-      respawning -= 1
+  var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else Vector2.ZERO
+  for thing in cloneEventsHere:
+    if 'on_physics_process' in thing:
+      thing.on_physics_process(delta)
+  on_physics_process(delta)
+  lastMovementStep = (
+    thingThatMoves.global_position
+    if thingThatMoves else
+    global_position
+  ) - lastpos
+  if respawning:
+    respawning -= 1
 
-    for thing in cloneEventsHere:
-      if not thing:
-        log.err(id, "no thing in cloneEventsHere")
-        breakpoint
-      if 'postMovementStep' in thing:
-        thing.postMovementStep()
+  for thing in cloneEventsHere:
+    if not thing:
+      log.err(id, "no thing in cloneEventsHere")
+      breakpoint
+    if 'postMovementStep' in thing:
+      thing.postMovementStep()
+  if thingThatMoves:
     for block: EditorBlock in attach_children:
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
