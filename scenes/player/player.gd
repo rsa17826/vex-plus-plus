@@ -1733,11 +1733,11 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # in rev grav
   # pulleys set animation in wrong direction
   # dying in water causes bad rotation until respawn ends
-# -make bouncing buzsaws follow gravity
+# -make bouncing buzzsaws follow gravity
 
 # -!!!fix scaling of rotated blocks
 # ?make ice and have it melt by targeting lasers/lazers
-# -make pushable box and bomb and bouncing buzsaw rotation affect their gravity
+# -make pushable box and bomb and bouncing buzzsaw rotation affect their gravity
 # +-??add block id viewer to see what ids are used, where the ids are used at and how many times they're used and be able to warp to blocks by selected id. would work for things like portals and buttons and button deactvated walls
 # -??!!?make gravity rotators only affect the things that enter them
 # ??add powerups
@@ -1826,7 +1826,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add way to detect update available for previously downloaded levels
 
-# fix scaling of rotating buzsaw
+# fix scaling of rotating buzzsaw
 
 # -make blocks attach to growing blocks and move and scale with them
 
