@@ -1711,7 +1711,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # ?!version 161-161! attaching more than 2 puleys to each other can sometimes cause a large boost upwards
   # /!version 163-163! dying while on a pulley causes the player y to be that of the pulley instead of the player's spawn point
     # vex++:downloadMap/163/rssaromeo/uno mas - zipline death warp
-  # !version ?-NOW! ryding falling blocks into water pulls you down same as if not in water
+  # !version ?-NOW! riding falling blocks into water pulls you down same as if not in water
+  # !version 186-191! boxes momentum persist after death
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1727,7 +1728,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # add more ghost/editorBar costumes for the oneway
 # ?add way to change the block picker from the editor
 # add extra animation frame to oneway
-# -make balanced random
 # add reset to default button to settings
 # ?add texture to reset buttons
 # in rev grav
@@ -1839,5 +1839,3 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!fix dropping off ziplines
 
 # make local level list filter search bar work
-
-# ??boxes falling on head have momentum persist after death
