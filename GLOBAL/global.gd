@@ -1158,7 +1158,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
   if event.is_action_pressed(&"new_map_folder", false, true):
-    await createNewMapFolder()
+    await loadMap(await createNewMapFolder(), false)
     if get_tree().current_scene.name == &"main menu":
       get_tree().current_scene.loadLocalLevelList()
   if event.is_action_pressed(&"duplicate_block", false, true):
