@@ -476,8 +476,8 @@ func _process(delta: float) -> void:
   # if global.player.state == global.player.States.dead:
   #   respawn()
   #   return
-  if is_in_group("buzsaw - generic"):
-    _processBUZSAW_GENERIC(delta)
+  if is_in_group("buzzsaw - generic"):
+    _processBUZZSAW_GENERIC(delta)
     # if ghostFollowNode == self:
     #   ghost.rotation_degrees = 0
     # else:
@@ -735,11 +735,11 @@ func _on_body_exitedDEATH(body: Node) -> void:
     if self in global.player.deathSources:
       global.player.deathSources.erase(self )
 
-# res://scenes/blocks/buzsaw/images/1.png
-@export_group("BUZSAW - GENERIC")
-@export var BUZSAW_GENERIC_spriteToRotateLeft: Sprite2D
-@export var BUZSAW_GENERIC_spriteToRotateRight: Sprite2D
-func _processBUZSAW_GENERIC(delta: float) -> void:
+# res://scenes/blocks/buzzsaw/images/1.png
+@export_group("BUZZSAW - GENERIC")
+@export var BUZZSAW_GENERIC_spriteToRotateLeft: Sprite2D
+@export var BUZZSAW_GENERIC_spriteToRotateRight: Sprite2D
+func _processBUZZSAW_GENERIC(delta: float) -> void:
   var speed = 80.0
-  spin(-speed, BUZSAW_GENERIC_spriteToRotateLeft)
-  spin(speed, BUZSAW_GENERIC_spriteToRotateRight)
+  spin(-speed, BUZZSAW_GENERIC_spriteToRotateLeft)
+  spin(speed, BUZZSAW_GENERIC_spriteToRotateRight)

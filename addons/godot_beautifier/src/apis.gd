@@ -121,7 +121,7 @@ func add_background_image(p_control: Control, p_path: String, p_stretch_mode:=0)
   p_control.add_child(texture_rect)
   p_control.move_child(texture_rect, 0)
 
-func add_background_video(p_control, p_path: String, p_loop:=true, p_volumn:=0) -> void:
+func add_background_video(p_control, p_path, p_loop:=true, p_volumn:=0) -> VideoStreamPlayer:
   var video_player := VideoStreamPlayer.new()
   nodes.append(video_player)
 
@@ -129,7 +129,8 @@ func add_background_video(p_control, p_path: String, p_loop:=true, p_volumn:=0) 
   video_player.anchor_bottom = 1
   video_player.anchor_right = 1
   video_player.expand = true
-  video_player.stream = load(p_path)
+  # video_player.stream = load(p_path)
+  video_player.stream = p_path
   video_player.volume = p_volumn
 
   if p_loop:
@@ -139,6 +140,7 @@ func add_background_video(p_control, p_path: String, p_loop:=true, p_volumn:=0) 
   p_control.move_child(video_player, 0)
 
   video_player.play()
+  return video_player
 
 func _on_video_player_finished(p_video_player: VideoStreamPlayer) -> void:
   p_video_player.play()

@@ -140,15 +140,15 @@ while (arr.length) {
       case 8:
         return ["bouncy", 3, xys]
       case 24:
-        return ["bouncing buzsaw", 3, xys]
+        return ["bouncing buzzsaw", 3, xys]
       case 43:
-        return ["growing buzsaw", 3, xys]
+        return ["growing buzzsaw", 3, xys]
       case 6:
         return ["single spike", 3, xyr]
       case 25:
         return ["closing spikes", 3, xyr]
       case 27:
-        return ["rotating buzsaw", 3, xyr]
+        return ["rotating buzzsaw", 3, xyr]
       case 33:
         return ["big fan", 3, xyr]
       case 32:
@@ -158,7 +158,7 @@ while (arr.length) {
       case 19:
         return ["surprise spike", 3, xyr]
       case 20:
-        return ["buzsaw", 3, xys]
+        return ["buzzsaw", 3, xys]
       case 16:
         return ["growing block", 3, xys]
       case 21:
@@ -218,9 +218,9 @@ for (var b of blocks) {
     case "closing spikes":
       b.y += 16
       break
-    case "buzsaw":
-    case "bouncing buzsaw":
-    case "growing buzsaw":
+    case "buzzsaw":
+    case "bouncing buzzsaw":
+    case "growing buzzsaw":
       b.x -= b.w * 7 * 7
       b.y -= b.h * 7 * 7
       b.w *= 0.8
@@ -230,7 +230,7 @@ for (var b of blocks) {
       b.w *= 1.75
       b.h *= 1.75
       break
-    case "rotating buzsaw":
+    case "rotating buzzsaw":
     case "pole quadrant":
     case "laser":
     case "targeting laser":

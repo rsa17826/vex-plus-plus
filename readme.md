@@ -592,8 +592,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **buzsaw**: kills the player on contact
-    <br><br><img src="scenes/blocks/buzsaw/images/1.png" alt="image of block buzsaw" width="49" height="50">
+  - **buzzsaw**: kills the player on contact
+    <br><br><img src="scenes/blocks/buzzsaw/images/1.png" alt="image of block buzzsaw" width="49" height="50">
 
     - scalable
     - canAttachToThings
@@ -603,8 +603,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **bouncing buzsaw**: kills the player on contact and falls until hitting a solid block where it will start bouncing up until reaching the start height where it will start falling back down again
-    <br><br><img src="scenes/blocks/bouncing buzsaw/images/editorBar.png" alt="image of block bouncing buzsaw" width="50" height="50">
+  - **bouncing buzzsaw**: kills the player on contact and falls until hitting a solid block where it will start bouncing up until reaching the start height where it will start falling back down again
+    <br><br><img src="scenes/blocks/bouncing buzzsaw/images/editorBar.png" alt="image of block bouncing buzzsaw" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -675,8 +675,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **growing buzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
-    <br><br><img src="scenes/blocks/growing buzsaw/images/editorBar.png" alt="image of block growing buzsaw" width="50" height="50">
+  - **growing buzzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
+    <br><br><img src="scenes/blocks/growing buzzsaw/images/editorBar.png" alt="image of block growing buzzsaw" width="50" height="50">
 
     - scalable
     - canAttachToThings
@@ -784,8 +784,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **rotating buzsaw**: kills the player on contact and will spin clockwise
-    <br><br><img src="scenes/blocks/rotating buzsaw/images/1.png" alt="image of block rotating buzsaw" width="13" height="49">
+  - **rotating buzzsaw**: kills the player on contact and will spin clockwise
+    <br><br><img src="scenes/blocks/rotating buzzsaw/images/1.png" alt="image of block rotating buzzsaw" width="13" height="49">
 
     - scalable
     - rotatable

@@ -44,11 +44,11 @@
     STR(locked box)
   ]
   STR(death)[
-    STR(buzsaw)
-    STR(bouncing buzsaw)
-    STR(growing buzsaw)
+    STR(buzzsaw)
+    STR(bouncing buzzsaw)
+    STR(growing buzzsaw)
     STR(quadrant)
-    STR(rotating buzsaw)
+    STR(rotating buzzsaw)
     STR(scythe)
     STR(shuriken spawner)
     STR(shuriken gun)
