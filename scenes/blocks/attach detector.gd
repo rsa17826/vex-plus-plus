@@ -23,7 +23,9 @@ func updateColor() -> void:
   visibility_layer = 1
   if Engine.is_editor_hint():
     global.useropts = sds.loadDataFromFile("user://main - EDITOR.sds")
-  visible = global.useropts.showAttachDetectorHitboxes
+    visible = false
+  else:
+    visible = global.useropts.showAttachDetectorHitboxes
   self.modulate = global.useropts.attachDetectorHitboxColor
 
 func tryaddgroups():

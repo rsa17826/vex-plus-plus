@@ -3,7 +3,7 @@ extends Node2D
 class_name HitboxTypes
 
 enum Types {
-  attachDetector,
+  # attachDetector,
   solid,
   area,
   death
@@ -23,9 +23,9 @@ func updateColor() -> void:
   if Engine.is_editor_hint() and not global.useropts:
     global.useropts = sds.loadDataFromFile("user://main - EDITOR.sds")
   match hitboxType:
-    Types.attachDetector:
-      visible = global.useropts.showAttachDetectorHitboxes
-      self.debug_color = global.useropts.attachDetectorHitboxColor
+    # Types.attachDetector:
+    #   visible = global.useropts.showAttachDetectorHitboxes
+    #   self.debug_color = global.useropts.attachDetectorHitboxColor
     Types.solid:
       visible = global.useropts.showSolidHitboxes
       self.debug_color = global.useropts.solidHitboxColor
@@ -35,4 +35,6 @@ func updateColor() -> void:
     Types.death:
       visible = global.useropts.showDeathHitboxes
       self.debug_color = global.useropts.deathHitboxColor
+  if Engine.is_editor_hint():
+    visible = false
     # 0.4196078431
