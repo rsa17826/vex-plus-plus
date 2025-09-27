@@ -1,4 +1,4 @@
-{
+﻿{
   STR(basic blocks)[
     STR(basic)
     STR(slope)
@@ -48,15 +48,15 @@
     STR(bouncing buzzsaw)
     STR(growing buzzsaw)
     STR(quadrant)
-    STR(scythe)
     STR(rotating buzzsaw)
-    STR(targeting laser)
-    STR(laser)
-    STR(falling spike)
-    STR(quad falling spikes)
+    STR(scythe)
     STR(shuriken spawner)
     STR(shuriken gun)
     STR(bouncing shuriken)
+    STR(falling spike)
+    STR(quad falling spikes)
+    STR(laser)
+    STR(targeting laser)
   ]
   STR(misc)[
     STR(checkpoint)
@@ -64,7 +64,7 @@
     STR(star)
     {
       STR(name)STR(blue star)
-      STR(imagePath)STR(D:\\godotgames\\vex/scenes/blocks/star/images/2.png)
+      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/2.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(1)
@@ -72,7 +72,7 @@
     }
     {
       STR(name)STR(pink star)
-      STR(imagePath)STR(D:\\godotgames\\vex/scenes/blocks/star/images/3.png)
+      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/3.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(2)

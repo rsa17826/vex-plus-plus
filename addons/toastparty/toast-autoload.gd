@@ -27,6 +27,7 @@ func _ready():
 func _add_new_label(config):
   # Create a new label
   var label = label_resource.instantiate()
+  if canvas_layer.get_child_count() > 30: return
   canvas_layer.add_child(label)
   label.connect("remove_label", remove_label_from_array)
   label.remove_label.connect(func(...a):

@@ -1839,3 +1839,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!fix dropping off ziplines
 
 # make local level list filter search bar work
+
+# area trigger on enter/on exit
