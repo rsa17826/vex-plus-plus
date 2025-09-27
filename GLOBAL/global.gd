@@ -2011,6 +2011,7 @@ const DEFAULT_BLOCK_LIST = [
   "conveyer",
   "oneway",
   "undeath",
+  "area trigger",
   "input detector",
   "player state detector",
   "not gate",

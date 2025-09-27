@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://ye0fc2j2ffck"]
 
-[ext_resource type="Script" uid="uid://cic7ig8ln3y6b" path="res://scenes/blocks/area triggger/area trigger.gd" id="1_smbie"]
-[ext_resource type="Texture2D" uid="uid://reuwhg58xwog" path="res://scenes/blocks/area triggger/images/1.png" id="2_rmol1"]
+[ext_resource type="Script" uid="uid://cic7ig8ln3y6b" path="res://scenes/blocks/area trigger/area trigger.gd" id="1_smbie"]
+[ext_resource type="Texture2D" uid="uid://reuwhg58xwog" path="res://scenes/blocks/area trigger/images/1.png" id="2_rmol1"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_j8sm5"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_8gimd"]
 
@@ -17,10 +17,11 @@ hidableSprites = [NodePath("collisionNode/Sprite2D")]
 EDITOR_OPTION_scale = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 1040
-collision_mask = 2
+collision_layer = 1024
+collision_mask = 674
 script = ExtResource("3_j8sm5")
 root = NodePath("..")
+metadata/_edit_lock_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 texture = ExtResource("2_rmol1")

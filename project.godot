@@ -44,6 +44,8 @@ gdscript/warnings/incompatible_ternary=0
 [display]
 
 window/size/mode=1
+window/size/initial_position_type=0
+window/size/initial_position=Vector2i(759, 29)
 window/stretch/mode="canvas_items"
 
 [editor]
