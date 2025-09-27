@@ -1309,11 +1309,11 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   var single = len([hitTop, hitBottom, hitLeft, hitRight].filter(func(e): return e)) == 1
   var playerSide = {"top": hitBottom, "bottom": hitTop, "left": hitRight, "right": hitLeft, "single": single}
   if block.respawning: return
-  if (
-    block is BlockDonup
-    or block is BlockFalling
-  ):
-    log.pp(applyRot(velocity), velocity)
+  # if (
+  #   block is BlockDonup
+  #   or block is BlockFalling
+  # ):
+  #   log.pp(applyRot(velocity), velocity)
   if (
     block is BlockDonup
     or block is BlockFalling

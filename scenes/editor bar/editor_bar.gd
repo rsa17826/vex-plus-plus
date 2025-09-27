@@ -12,7 +12,7 @@ func _init() -> void:
   global.editorBar = self
 
 func _ready() -> void:
-  global.overlays.append(self)
+  global.overlays.append(self )
   global.onEditorStateChanged.connect(func(): visible = global.showEditorUi)
   global.defaultBlockOpts = sds.loadDataFromFile("user://defaultBlockOpts.sds", {})
   position.x = global.useropts.editorBarOffset
@@ -79,7 +79,10 @@ func newItem(name, id) -> void:
   var item = $item.duplicate()
   if name is String:
     var clone = load("res://scenes/blocks/" + name + "/main.tscn")
-    if !clone: return
+    if !clone:
+      log.err(name, "not found")
+      breakpoint
+      return
     clone = clone.instantiate()
     if 'editorBarIcon' not in clone or not clone.editorBarIcon:
       log.err("clone.editorBarIcon not found", clone.name, id, name)
