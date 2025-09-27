@@ -10,6 +10,8 @@ func _init() -> void:
   if !global.lastSelectedBrush or !is_instance_valid(global.lastSelectedBrush):
     global.lastSelectedBrush = self
 
+var moving := false
+
 func _on_mouse_entered() -> void:
   if self not in global.hoveredBrushes:
     global.hoveredBrushes.append(self )
@@ -32,9 +34,51 @@ func _input(event: InputEvent) -> void:
     global.selectedBrush = self
     selected = 2
     global.localProcess(0)
+  if !Input.is_action_pressed("editor_select") or global.selectedBrush != self:
+    if moving:
+      moving = false
+      global.selectedBrush = null
+      for item in get_parent().get_children():
+        if item == get_node("../ColorRect"): continue
+        if item == self: continue
+        if item.selected == 1:
+          # log.err(item.scale, item.get_local_mouse_position())
+          var before = item.get_local_mouse_position().x < 0
+          var data = sds.loadDataFromFile(global.path.abs("res://editorBar.sds"), {})
+          for k in data:
+            if k == "remove": continue
+            data[k].assign(data[k].filter(func(e):
+              if blockData and e is String: return true
+              if !blockData and e is Dictionary: return true
+              if blockData:
+                if blockData.name == e.name:
+                  return false
+                return true
+              if e == blockName:
+                return false
+              return true
+              ))
+            for v in data[k]:
+              if global.same(v, item.blockData if item.blockData else item.blockName):
+                (data[k] as Array).insert(data[k].find(v) + (0 if before else 1), blockData if blockData else blockName)
+                break
+          sds.saveDataToFile(global.path.abs("res://editorBar.sds"), data)
+          global.loadEditorBarData()
+          global.editorBar._ready()
+          return
+      log.err("not hovering over anything!")
+      global.loadEditorBarData()
+      global.editorBar._ready()
   if !Input.is_action_pressed("editor_select"):
     global.justPaintedBlock = null
     global.selectedBrush = null
+  if global.useropts.reorganizingEditorBar \
+  and event.is_action_pressed(&"editor_select") \
+  and global.selectedBrush == self \
+  :
+    get_viewport().set_input_as_handled()
+    moving = true
+
   if selected == 1 and Input.is_action_just_pressed("editor_edit_special"):
     var block = load("res://scenes/blocks/" + blockName + "/main.tscn").instantiate()
     block.id = blockName
@@ -111,6 +155,15 @@ func _input(event: InputEvent) -> void:
     pm.popup(Rect2i(get_screen_transform() * get_local_mouse_position(), Vector2i.ZERO))
     await global.wait()
     global.popupStarted = false
+
+func _process(delta: float) -> void:
+  if moving:
+    for item in get_parent().get_children():
+      if item == get_node("../ColorRect"): continue
+      if item == self: continue
+      # if item.selected == 1:
+      #   log.err(item.blockName)
+    global_position = get_global_mouse_position()
 
 func _on_mouse_exited() -> void:
   if self in global.hoveredBrushes:

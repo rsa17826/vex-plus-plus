@@ -1,6 +1,18 @@
 [
   {
     "thing": "group",
+    "name": "?",
+    "value": [
+      {
+        "thing": "option",
+        "key": "reorganizingEditorBar",
+        "type": "bool",
+        "defaultValue": false
+      }
+    ]
+  },
+  {
+    "thing": "group",
     "name": "grid",
     "value": [
       {

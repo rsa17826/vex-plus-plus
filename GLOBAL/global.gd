@@ -904,6 +904,7 @@ func localProcess(delta: float) -> void:
         selectedBlockOffset = round((selectedBlockOffset) / gridSize) * gridSize + (sizeInPx / 2)
       # if you have clicked on a block in the editor bar
       if not justPaintedBlock and selectedBrush and selectedBrush.selected == 2:
+        if useropts.reorganizingEditorBar: return
         justPaintedBlock = load("res://scenes/blocks/" + selectedBrush.blockName + "/main.tscn").instantiate()
         selectedBrush.newBlockCreated(justPaintedBlock)
         # if lastSelectedBlock and (selectedBrush.blockName == lastSelectedBlock.id):
