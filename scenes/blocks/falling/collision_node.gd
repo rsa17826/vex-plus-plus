@@ -5,7 +5,7 @@ extends CharacterBody2D
 var vel := Vector2.ZERO
 
 var speed = 2500
-var startTime = 0
+var startTime: float = 0
 
 func on_physics_process(delta: float) -> void:
   if root.respawning: return

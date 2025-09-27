@@ -1714,7 +1714,7 @@ func loadMapInfo(levelPackName: String) -> Variant:
 
 var useropts := {}
 
-func animate(speed: int, steps: Array, time:=global.tick) -> Variant:
+func animate(speed: int, steps: Array, time:=tick) -> Variant:
   # animation time is based on global.tick
   # dict arr is like [
   #   {
@@ -1783,7 +1783,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
   return true
 
 func fixPath(path):
-  return regReplace(path, "[^()[\\]\\w\\d'!@ # $%^& _\\-;\\{\\}]+", "_").strip_edges()
+  return regReplace(path, "[^()[\\]\\w\\d'!@ # $%^& _\\-;\\{\\}]+", "_").strip_edges().rstrip(".")
 
 func createNewMapFolder() -> Variant:
   var foldername: String = await prompt("Enter the name of the map", PromptTypes.string, '')
@@ -1870,6 +1870,9 @@ func fullscreen(state: int = 0) -> void:
     return mainMenu
 
 func localReady() -> void:
+  # var r = Random.new(0, 1, .1)
+  # for i in range(10):
+  #   log.pp(r.next(), r.luck)
   # get_tree().get_root().canvas_cull_mask = 1
 #   log.test([123,
 #   [
