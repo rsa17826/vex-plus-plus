@@ -103,6 +103,7 @@
   STR(signal)[
     STR(floor button)
     STR(input detector)
+    STR(area trigger)
     STR(player state detector)
     STR(not gate)
     STR(and gate)
