@@ -9,7 +9,10 @@ extends Node2D
 @export var editorBarIcon: Texture2D:
   get():
     if global.player and editorBarIconUsesLevelColor:
-      return load(editorBarIcon.resource_path.replace("/1.png", '/' + str(global.currentLevelSettings("color")) + '.png'))
+      return load(editorBarIcon.resource_path \
+      .replace("/1.png", '/' + str(global.currentLevelSettings("color")) + '.png')
+      .replace("/editorBar1.png", '/editorBar' + str(global.currentLevelSettings("color")) + '.png')
+      )
     return editorBarIcon
 ## sprite to show in the editor bar
 @export var editorBarIconUsesLevelColor: bool = false

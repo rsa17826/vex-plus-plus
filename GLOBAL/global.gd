@@ -1257,6 +1257,8 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"exit_inner_level", false, true):
     if level and is_instance_valid(level):
       if len(loadedLevels) > 1:
+        if useropts.saveOnExit:
+          level.save(false)
         loadedLevels.pop_back()
         await level.loadLevel(currentLevel().name)
         loadBlockData()
@@ -2597,6 +2599,8 @@ func openLevelInVersion(levelName, gameVersion):
       "version", str(gameVersion), "silent", "--loadMap", levelName
     ]))
   global.quitGame()
+
+var editorBarIconCache := cache.new()
 
 # var logger_ui: Node
 

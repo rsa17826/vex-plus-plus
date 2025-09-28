@@ -3,17 +3,13 @@
     STR(basic)
     STR(slope)
     STR(crumbling)
+    STR(oneway)
     STR(microwave)
-    STR(invisible)
     STR(glass)
-    STR(bouncy)
-    STR(falling)
-    STR(donup)
     STR(spark block/counterClockwise)
     STR(spark block/clockwise)
     STR(conveyer)
     STR(water)
-    STR(oneway)
     STR(gravity rotator)
     STR(bomb)
     STR(pushable box)
@@ -32,7 +28,11 @@
     STR(downup)
     STR(leftRight)
     STR(rightLeft)
+    STR(invisible)
     STR(growing block)
+    STR(falling)
+    STR(donup)
+    STR(bouncy)
   ]
   STR(solars)[
     STR(light switch)
@@ -46,6 +46,7 @@
   STR(death)[
     STR(buzsaw)
     STR(bouncing buzzsaw)
+    STR(buzzsaw)
     STR(growing buzzsaw)
     STR(quadrant)
     STR(scythe)
@@ -109,7 +110,6 @@
     STR(path)
     STR(signal deactivated wall)
     STR(area trigger)
-    STR(time2)
     STR(timer)
   ]
   STR(remove)[
