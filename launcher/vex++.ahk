@@ -208,7 +208,7 @@ icon("launcherData", 'exes')
 icon("launcherData/exes", 'exes')
 icon("icons", 'exes')
 icon("ahk")
-icon("game data", "pole")
+icon("game data", "editorIcon")
 loop files A_ScriptDir "\icons\*.ico" {
   p := path.join(A_ScriptDir, 'game data', path.name(A_LoopFileFullPath))
   if DirExist(p) {
@@ -352,6 +352,33 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   guiCtrl := ui.Add("Button", '', "open game data folder")
   guiCtrl.OnEvent("Click", (*) {
     run(A_ScriptDir)
+  })
+  guiCtrl := ui.Add("Button", '', "try fix new maps for old versions")
+  guiCtrl.OnEvent("Click", (*) {
+    global doingSomething
+    if doingSomething {
+      aotMsgBox("already doing something, wait till done")
+      return
+    }
+    doingSomething := 1
+    loop files "./game data/maps/*", 'd' {
+      settingsPath := path.join(A_LoopFileFullPath, "options.sds")
+      if !FileExist(settingsPath)
+        continue
+      data := f.read(settingsPath)
+      if !data.includes("{") {
+        logerr(data, settingsPath, "not a valid settings file")
+        continue
+      }
+      if !data.includes("STR(author)STR(") {
+        data := data.Replace("{", "{STR(author)STR()", , , 1)
+      }
+      if !data.includes("STR(version)STR(") {
+        data := data.Replace("{", "{STR(version)STR()", , , 1)
+      }
+      f.write(settingsPath, data)
+    }
+    doingSomething := 0
   })
 
   ; check for updates on startup checkbox
@@ -868,11 +895,11 @@ tryInput(text?, ifUnset?, title?, options?, default?) {
   }
   return input(text?, ifUnset?, title?, options?, default?)
 }
-logerr(msg, e?) {
-  ; ee := IsSet(e) ? e : OptObj({})
-  print("ERROR", msg, IsSet(e) ? (e.Message, e.Line, e.Extra, e.Stack) : unset, "A_LastError: ", A_LastError)
+logerr(msgs*) {
+  msgs := msgs.map((e) => e is Error ? (e.Message, e.Line, e.Extra, e.Stack) : e)
+  print("ERROR", msgs, "A_LastError: ", A_LastError)
   if !SILENT {
-    aotMsgBox(msg, "ERROR")
+    aotMsgBox(msgs.join(" - "), "ERROR")
   }
 }
 
