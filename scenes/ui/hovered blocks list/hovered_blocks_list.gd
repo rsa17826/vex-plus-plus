@@ -5,25 +5,36 @@ extends Control
 
 var labels := []
 func _ready() -> void:
-  global.overlays.append(self)
+  global.overlays.append(self )
 func _process(delta: float) -> void:
   ttm.visible = true
+  var hoveredItem
+  for item in global.editorBar.get_children():
+    if item == global.editorBar.get_node("ColorRect"): continue
+    if item == self: continue
+    if item.selected == 1:
+      hoveredItem = item
+      break
   if global.openMsgBoxCount \
     or not global.useropts.showHoveredBlocksList \
     or not global.showEditorUi \
     or not (
       global.hoveredBlocks \
-      or global.selectedBlock
+      or global.selectedBlock \
+      or hoveredItem
     ) \
   :
     ttm.visible = false
     return
   var blocks = global.hoveredBlocks.filter(func(e): return e != global.selectedBlock)
+  if hoveredItem:
+    blocks = [hoveredItem]
+
   while len(blocks) > len(labels):
     var l = Label.new()
     labels.append(l)
     listElem.add_child(l)
-  if global.selectedBlock:
+  if global.selectedBlock and not hoveredItem:
     %selectedBlock.text = getBlockData(global.selectedBlock, true)
     %selectedBlock.visible = !!%selectedBlock.text
   else:
@@ -35,7 +46,7 @@ func _process(delta: float) -> void:
       label.visible = false
     else:
       label.visible = true
-      labels[i].text = getBlockData(blocks[i], false)
+      labels[i].text = hoveredItem.blockName if hoveredItem else getBlockData(blocks[i], false)
       if not label.text:
         label.visible = false
     i += 1

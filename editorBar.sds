@@ -64,7 +64,7 @@
     STR(star)
     {
       STR(name)STR(blue star)
-      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/2.png)
+      STR(imagePath)STR(D:\\godotgames\\vex/scenes/blocks/star/images/2.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(1)
@@ -72,7 +72,7 @@
     }
     {
       STR(name)STR(pink star)
-      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/3.png)
+      STR(imagePath)STR(D:\\godotgames\\vex/scenes/blocks/star/images/3.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(2)
@@ -103,12 +103,13 @@
   STR(signal)[
     STR(floor button)
     STR(input detector)
-    STR(area trigger)
+    STR(time2)
     STR(player state detector)
     STR(not gate)
     STR(and gate)
     STR(path)
     STR(signal deactivated wall)
+    STR(area trigger)
     STR(timer)
   ]
   STR(remove)[

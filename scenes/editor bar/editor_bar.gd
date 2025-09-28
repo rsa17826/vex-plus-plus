@@ -8,6 +8,8 @@ var nodeCount: int = 0
 var nodeScrollOnY: bool
 var nodeScrollOnX: bool
 
+const defaultEditorBarIcon := preload("res://scenes/blocks/image.png")
+
 func _init() -> void:
   global.editorBar = self
 
@@ -22,8 +24,10 @@ func _ready() -> void:
   nodeCount = 0
   nodeSize = global.useropts.editorBarBlockSize
   $item.visible = true
+  var invalidCount = 0
   for i in range(0, len(global.blockNames)):
-    newItem(global.blockNames[i], i)
+    if not newItem(global.blockNames[i], i - invalidCount) and not global.useropts.reorganizingEditorBar:
+      invalidCount += 1
   for item in get_children():
     updateItem(item)
   $item.visible = false
@@ -71,32 +75,40 @@ func _input(event: InputEvent) -> void:
       for item in get_children():
         updateItem(item)
 
-func newItem(name, id) -> void:
+func newItem(name, id) -> bool:
+  var nodeFound = true
   if name == null:
     nodeCount += 1
-    return
+    return nodeFound
   var icon = Sprite2D.new()
   var item = $item.duplicate()
   if name is String:
-    var clone = load("res://scenes/blocks/" + name + "/main.tscn")
-    if !clone:
-      log.err(name, "not found")
-      breakpoint
-      return
-    clone = clone.instantiate()
-    if 'editorBarIcon' not in clone or not clone.editorBarIcon:
-      log.err("clone.editorBarIcon not found", clone.name, id, name)
-      breakpoint
-    icon.texture = clone.editorBarIcon
+    var clone
+    if FileAccess.file_exists("res://scenes/blocks/" + name + "/main.tscn"):
+      clone = load("res://scenes/blocks/" + name + "/main.tscn")
+      clone = clone.instantiate()
+      if 'editorBarIcon' not in clone or not clone.editorBarIcon:
+        log.err("clone.editorBarIcon not found", clone.name, id, name)
+        breakpoint
+    else:
+      nodeCount -= 1
+      nodeFound = false
+      if global.useropts.showEditorBarBlockMissingErrors:
+        log.err(name, "block not found", id, name)
+    icon.texture = clone.editorBarIcon if clone else defaultEditorBarIcon
     item.add_child(icon)
     item.id = id
     item.blockName = name
-    clone.queue_free.call_deferred()
+    if clone:
+      clone.queue_free.call_deferred()
   elif name is Dictionary:
-    var im = Image.new()
+    var im := Image.new()
     im.load(name.imagePath)
-    var texture = ImageTexture.create_from_image(im)
-    icon.texture = texture
+    if im.is_empty():
+      icon.texture = defaultEditorBarIcon
+      nodeFound = false
+    else:
+      icon.texture = ImageTexture.create_from_image(im)
     item.add_child(icon)
     item.id = id
     item.blockName = name.extends
@@ -110,10 +122,14 @@ func newItem(name, id) -> void:
     scaleFactor,
     scaleFactor
   )
-
+  if not nodeFound \
+  and not global.useropts.showEditorBarBlockMissingErrors\
+  and not global.useropts.reorganizingEditorBar:
+    return false
   add_child(item)
   updateItem(item)
   global.lastSelectedBrush = item
+  return nodeFound
 
 func updateItem(item):
   if item == $ColorRect: return

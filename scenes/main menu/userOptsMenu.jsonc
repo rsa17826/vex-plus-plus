@@ -254,6 +254,12 @@
             "key": "editorBarPosition",
             "defaultValue": 2,
             "options": ["top/left", "bottom", "right"]
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showEditorBarBlockMissingErrors",
+            "defaultValue": false
           }
         ]
       }
