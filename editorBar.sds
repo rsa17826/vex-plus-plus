@@ -44,7 +44,7 @@
     STR(locked box)
   ]
   STR(death)[
-    STR(buzzsaw)
+    STR(buzsaw)
     STR(bouncing buzzsaw)
     STR(growing buzzsaw)
     STR(quadrant)
@@ -103,13 +103,13 @@
   STR(signal)[
     STR(floor button)
     STR(input detector)
-    STR(time2)
     STR(player state detector)
     STR(not gate)
     STR(and gate)
     STR(path)
     STR(signal deactivated wall)
     STR(area trigger)
+    STR(time2)
     STR(timer)
   ]
   STR(remove)[

@@ -2024,14 +2024,29 @@ const DEFAULT_BLOCK_LIST = [
 ]
 
 func loadEditorBarData():
+  var oldNames = {
+    "buzsaw": "buzzsaw"
+  }
   var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
   var tempBlockNames = []
   var unusedBlockNames = DEFAULT_BLOCK_LIST.duplicate()
+  var tempNames := []
+  if useropts and editorBarData:
+    for k in editorBarData:
+      for thing in editorBarData[k]:
+        tempNames.append(thing)
+  for name in tempNames:
+    if name in oldNames and oldNames[name] not in tempNames:
+      for k in editorBarData:
+        if name in editorBarData[k]:
+          editorBarData[k].insert(editorBarData[k].find(name) + 1, oldNames[name])
+          break
   if useropts and editorBarData:
     var i = 0
     for k in editorBarData:
       for thing in editorBarData[k]:
         i += 1
+        tempNames.append(thing)
         if thing in unusedBlockNames:
           unusedBlockNames.erase(thing)
         if k == 'remove':
@@ -2044,6 +2059,7 @@ func loadEditorBarData():
           i += 1
           tempBlockNames.append(null)
           # tempBlockNames.append('basic')
+
   blockNames = tempBlockNames + unusedBlockNames
 
   for block in blockNames:

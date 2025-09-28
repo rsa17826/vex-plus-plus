@@ -85,7 +85,7 @@ func _input(event: InputEvent) -> void:
         Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 func _ready() -> void:
-  global.overlays.append(self)
+  global.overlays.append(self )
   get_parent().visible = false
   visible = false
   updateSize()
@@ -106,6 +106,7 @@ func updateUserOpts() -> void:
     lastWinMode = global.useropts.windowMode
   var lastTheme = global.useropts.theme
   var lastReorganizingEditorBar = global.useropts.reorganizingEditorBar
+  var lastshowEditorBarBlockMissingErrors = global.useropts.showEditorBarBlockMissingErrors
   global.useropts = __menu.get_all_data()
   # log.pp('editorOnlyOptions', editorOnlyOptions)
   for option in editorOnlyOptions:
@@ -124,7 +125,9 @@ func updateUserOpts() -> void:
       1:
         global.fullscreen(-1)
 
-  if global.useropts.reorganizingEditorBar != lastReorganizingEditorBar:
+  if global.useropts.reorganizingEditorBar != lastReorganizingEditorBar \
+  or global.useropts.showEditorBarBlockMissingErrors != lastshowEditorBarBlockMissingErrors\
+  :
     global.editorBar._ready()
   if global.useropts.theme != lastTheme:
     if global.useropts.theme == 0:
