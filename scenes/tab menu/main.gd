@@ -126,8 +126,9 @@ func updateUserOpts() -> void:
         global.fullscreen(-1)
 
   if global.useropts.reorganizingEditorBar != lastReorganizingEditorBar \
-  or global.useropts.showEditorBarBlockMissingErrors != lastshowEditorBarBlockMissingErrors\
+  or global.useropts.showEditorBarBlockMissingErrors != lastshowEditorBarBlockMissingErrors \
   :
+    global.loadEditorBarData()
     global.editorBar._ready()
   if global.useropts.theme != lastTheme:
     if global.useropts.theme == 0:
