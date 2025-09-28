@@ -2063,7 +2063,6 @@ func loadEditorBarData():
         while i % int(useropts.editorBarColumns) != 0:
           i += 1
           tempBlockNames.append(null)
-          # tempBlockNames.append('basic')
 
   blockNames = tempBlockNames + unusedBlockNames
 

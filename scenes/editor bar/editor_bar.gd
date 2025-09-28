@@ -41,7 +41,7 @@ func _ready() -> void:
   nodeScrollOnY = (nodeSize * ceil(nodeCount / float(columns))) > global.windowSize.y
   if columns > nodeCount:
     columns = nodeCount
-  scrollOffset = 0
+  # scrollOffset = 0
   updateScrollPos()
   log.pp(global.useropts.editorBarPosition, "global.useropts.editorBarPosition")
   match global.useropts.editorBarPosition:
@@ -77,6 +77,12 @@ func _input(event: InputEvent) -> void:
       for item in get_children():
         updateItem(item)
 
+var tryloadCache := global.cache.new()
+func tryload(name):
+  if tryloadCache.__has(name):
+    return tryloadCache.__get()
+  return tryloadCache.__set(load("res://scenes/blocks/" + name + "/main.tscn"))
+
 func newItem(name, id) -> bool:
   var nodeFound = true
   if name == null:
@@ -87,7 +93,7 @@ func newItem(name, id) -> bool:
   if name is String:
     var clone
     if FileAccess.file_exists("res://scenes/blocks/" + name + "/main.tscn"):
-      clone = load("res://scenes/blocks/" + name + "/main.tscn")
+      clone = tryload(name)
       clone = clone.instantiate()
       if 'editorBarIcon' not in clone or not clone.editorBarIcon:
         log.err("clone.editorBarIcon not found", clone.name, id, name)

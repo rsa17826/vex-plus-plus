@@ -29,7 +29,7 @@ class_name sds
 #   log.pp(loadData(data1))
 static var prettyPrint: bool = true
 static func saveDataToFile(p: String, data: Variant) -> void:
-  FileAccess.open(p, FileAccess.WRITE_READ).store_string(saveData(data))
+  FileAccess.open(p, FileAccess.WRITE_READ).store_string(saveData(data).strip_edges())
 static func loadDataFromFile(p: String, ifUnset: Variant = null, progress=null) -> Variant:
   var f := FileAccess.open(p, FileAccess.READ)
   if not f: return ifUnset
