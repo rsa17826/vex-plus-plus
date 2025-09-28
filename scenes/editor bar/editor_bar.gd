@@ -26,7 +26,12 @@ func _ready() -> void:
   $item.visible = true
   var invalidCount = 0
   for i in range(0, len(global.blockNames)):
-    if not newItem(global.blockNames[i], i - invalidCount) and not global.useropts.reorganizingEditorBar:
+    if global.blockNames[i] == null:
+      while invalidCount:
+        invalidCount -= 1
+        nodeCount -= 1
+        newItem(null, i - invalidCount)
+    if not newItem(global.blockNames[i], i - invalidCount) and not (global.useropts.reorganizingEditorBar || global.useropts.showEditorBarBlockMissingErrors):
       invalidCount += 1
   for item in get_children():
     updateItem(item)
@@ -91,7 +96,6 @@ func newItem(name, id) -> bool:
         log.err("clone.editorBarIcon not found", clone.name, id, name)
         breakpoint
     else:
-      nodeCount -= 1
       nodeFound = false
       if global.useropts.showEditorBarBlockMissingErrors:
         log.err(name, "block not found", id, name)
@@ -123,7 +127,7 @@ func newItem(name, id) -> bool:
     scaleFactor
   )
   if not nodeFound \
-  and not global.useropts.showEditorBarBlockMissingErrors\
+  and not global.useropts.showEditorBarBlockMissingErrors \
   and not global.useropts.reorganizingEditorBar:
     return false
   add_child(item)
