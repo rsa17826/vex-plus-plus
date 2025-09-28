@@ -5,7 +5,8 @@ class_name BlockDonup
 var falling := false
 
 func on_respawn():
-  falling = false
+  if loadDefaultData:
+    falling = false
 
 func onSave() -> Array[String]:
   return [
