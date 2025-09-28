@@ -16,7 +16,8 @@ func _ready() -> void:
   EditorInterface.get_editor_viewport_3d(1).transparent_bg = true
   EditorInterface.get_editor_viewport_3d(2).transparent_bg = true
   EditorInterface.get_editor_viewport_3d(3).transparent_bg = true
-  var f = 'output2'
+  var f = 'output' + str(range(1, 11).pick_random())
+  log.pp("loading video", f)
   # var a = get_editor_interface()
   # log.pp(EditorInterface.get_editor_viewport_2d())
   # add_background_video(get_editor_panel(), get_file("assets/nana7mi.ogv"))
@@ -26,11 +27,10 @@ func _ready() -> void:
   # target.add_child(can)
   # add_background_video(can, get_file("assets/" + f + ".ogv"))
   # add_background_image(get_editor_panel(), get_file("assets/nana7mi.png"))
-  add_background_video(get_editor_panel(), load(get_file("assets/" + f + ".ogv")))
+  add_background_video(get_editor_panel(), load(get_file("assets/" + f + ".ogv")), true, .3).volume = .1
   # set_project_setting("rendering/environment/defaults/default_clear_color", Color("1a1b26ff"))
 
   set_project_setting("rendering/environment/defaults/default_clear_color", Color(.1, .3, .33, .5))
-
 
 # extends BeautifierAPI
 

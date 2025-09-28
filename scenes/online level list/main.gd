@@ -11,6 +11,7 @@ func _ready() -> void:
     loadOnlineLevels()
 
 func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
+  (levelListContainerNode.get_parent() as ScrollContainer).scroll_vertical = 0
   var loadedLevelData = {}
   var newData = []
   if showOldVersions:

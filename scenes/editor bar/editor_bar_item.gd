@@ -158,11 +158,6 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
   if moving:
-    for item in get_parent().get_children():
-      if item == get_node("../ColorRect"): continue
-      if item == self: continue
-      # if item.selected == 1:
-      #   log.err(item.blockName)
     global_position = get_global_mouse_position()
 
 func _on_mouse_exited() -> void:

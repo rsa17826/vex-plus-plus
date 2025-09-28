@@ -349,6 +349,11 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
       guiCtrl := ui.Add("Button", '', "launcher is up to date")
     guiCtrl.OnEvent("Click", UpdateSelf)
   }
+  guiCtrl := ui.Add("Button", '', "open game data folder")
+  guiCtrl.OnEvent("Click", (*) {
+    run(A_ScriptDir)
+  })
+
   ; check for updates on startup checkbox
   updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
   guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on startup")
