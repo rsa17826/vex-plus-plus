@@ -555,17 +555,16 @@ func _physics_process(delta: float) -> void:
           vel.zipline = newSpeed
       updateKeyFollowPosition(delta)
       if ACTIONjump:
-        ACTIONjump = true
+        ACTIONjump = false
         state = States.jumping
-        remainingJumpCount -= 1
+        playerKT = 0
+        vel.user.y = JUMP_POWER
         ziplineCooldown = MAX_ZIPLINE_COOLDOWN
-        _physics_process(delta)
         return
       if Input.is_action_pressed(&"down"):
         remainingJumpCount -= 1
         state = States.falling
         ziplineCooldown = MAX_ZIPLINE_COOLDOWN
-        _physics_process(delta)
         return
       # playerXIntent = MOVESPEED * getCurrentLrState() * \
       #   (2 if speedLeverActive else 1)
