@@ -41,6 +41,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **contactOption**: what to do when the player enters it
     - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
     - **maxCooldown**: the time between each shot
+    - **maxCount**: the maximum amount of bouncing shurikens that can be spanwd from this block at a time
+    - **killAfterDistance**: kills bouncing shurikens it's spawned if they pass this value
+    - **killAfterTime**: bouncing shurikens that this has spawned will be killed after the set time
     - **unCollect**: temporarily uncollects the star
     - **starType**: the color of the star
     - **portalId**: the id of this portal as used for finding an exit portal
@@ -112,6 +115,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - ## Settings
 
+  - ### ?
+
+    - **reorganizingEditorBar**: enable to setart reorginizing the editor bar by dragging the blocks around
+
   - ### grid
 
     - **showGridInEdit**: shows the grid in when in edit mode.
@@ -158,6 +165,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **editorBarOffset**: can be used to place the editor bar a the bottom of the screen instead of the top, or just shift it down a bit to prevent it from being covered by other programs while in fullscreen or when the window is otherwise at the top of the screen
       - **editorBarColumns**: the amount of columns in the editor bar. if you want a horizontal layout just make this number large and if using a vertical layout make this number small.
       - **editorBarPosition**: moves the editor bar to either top, bottom, left, or right of the screen
+      - **showEditorBarBlockMissingErrors**: shows an error if a block in the editor bar doesn't exist in the game
 
   - ### limits
 
@@ -834,6 +842,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToPaths
     - ### settings:
       - **maxCooldown**: the time between each shot
+      - **maxCount**: the maximum amount of bouncing shurikens that can be spanwd from this block at a time
+      - **killAfterDistance**: kills bouncing shurikens it's spawned if they pass this value
+      - **killAfterTime**: bouncing shurikens that this has spawned will be killed after the set time
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
@@ -995,6 +1006,14 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToPaths
     - ### settings:
       - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
+  - **area trigger**: sends a signal while any movable thing is in the area
+    <br><br><img src="scenes/blocks/area trigger/images/1.png" alt="image of block area trigger" width="50" height="50">
+
+    - scalable
+    - ### settings:
+      - **signalOutputId**: the id that will be sent
       - **color**: sets the modulate property
 
   - **input detector**: when the player is pressing the set direction a signal will be emitted.
