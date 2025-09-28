@@ -100,7 +100,7 @@ fileAssocs := [
   'Vex++ map file="' selfPath '" "offline" "%1"'
 ]
 RunWait('cmd /c ftype > "' A_Temp '/ftypeData"', , 'hide')
-ftypeData := f.read(A_Temp '/ftypeData').Replace('`r', '').split('`n')
+ftypeData := f.read(A_Temp '/ftypeData').Replace('`r', '`n').split('`n')
 FileDelete(A_Temp '/ftypeData')
 if fileAssocs.find(p => !ftypeData.includes(p)) {
   if !FileExist("CREATE FILE ASSOCIATIONS.lnk")
