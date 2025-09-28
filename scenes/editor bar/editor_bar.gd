@@ -77,11 +77,17 @@ func _input(event: InputEvent) -> void:
       for item in get_children():
         updateItem(item)
 
-var tryloadCache := global.cache.new()
 func tryload(name):
-  if tryloadCache.__has(name):
-    return tryloadCache.__get()
-  return tryloadCache.__set(load("res://scenes/blocks/" + name + "/main.tscn"))
+  if global.editorBarIconCache.__has(name):
+    return global.editorBarIconCache.__get()
+  var clone = load("res://scenes/blocks/" + name + "/main.tscn")
+  clone = clone.instantiate()
+  if 'editorBarIcon' not in clone or not clone.editorBarIcon:
+    log.err("clone.editorBarIcon not found", clone.name, name)
+    breakpoint
+  if clone:
+    clone.queue_free.call_deferred()
+  return global.editorBarIconCache.__set(clone.editorBarIcon)
 
 func newItem(name, id) -> bool:
   var nodeFound = true
@@ -91,23 +97,17 @@ func newItem(name, id) -> bool:
   var icon = Sprite2D.new()
   var item = $item.duplicate()
   if name is String:
-    var clone
-    if FileAccess.file_exists("res://scenes/blocks/" + name + "/main.tscn"):
-      clone = tryload(name)
-      clone = clone.instantiate()
-      if 'editorBarIcon' not in clone or not clone.editorBarIcon:
-        log.err("clone.editorBarIcon not found", clone.name, id, name)
-        breakpoint
+    var blockIcon
+    if ResourceLoader.exists("res://scenes/blocks/" + name + "/main.tscn"):
+      blockIcon = tryload(name)
     else:
       nodeFound = false
       if global.useropts.showEditorBarBlockMissingErrors:
         log.err(name, "block not found", id, name)
-    icon.texture = clone.editorBarIcon if clone else defaultEditorBarIcon
+    icon.texture = blockIcon if blockIcon else defaultEditorBarIcon
     item.add_child(icon)
     item.id = id
     item.blockName = name
-    if clone:
-      clone.queue_free.call_deferred()
   elif name is Dictionary:
     var im := Image.new()
     im.load(name.imagePath)

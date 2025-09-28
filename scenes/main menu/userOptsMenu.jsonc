@@ -1,18 +1,6 @@
 [
   {
     "thing": "group",
-    "name": "?",
-    "value": [
-      {
-        "thing": "option",
-        "key": "reorganizingEditorBar",
-        "type": "bool",
-        "defaultValue": false
-      }
-    ]
-  },
-  {
-    "thing": "group",
     "name": "grid",
     "value": [
       {
@@ -257,6 +245,12 @@
           },
           {
             "thing": "option",
+            "key": "reorganizingEditorBar",
+            "type": "bool",
+            "defaultValue": false
+          },
+          {
+            "thing": "option",
             "type": "bool",
             "key": "showEditorBarBlockMissingErrors",
             "defaultValue": false
@@ -412,14 +406,14 @@
             "type": "lineedit",
             "key": "selectedBlockFormatString",
             "defaultValue": "{id} X:{posx}, Y:{posy} {pxx}px X {pxy}px {rot}°",
-            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy}"
+            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy} - {layer}Z"
           },
           {
             "thing": "option",
             "type": "lineedit",
             "key": "hoveredBlockFormatString",
             "defaultValue": "{id}",
-            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy}"
+            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy} - {layer}Z"
           }
         ]
       },

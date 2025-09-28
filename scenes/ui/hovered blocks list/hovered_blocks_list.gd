@@ -61,6 +61,7 @@ func getBlockData(block: EditorBlock, isSelected: bool) -> String:
     'posx': str(int(block.startPosition.x)),
     'posy': str(int(block.startPosition.y)),
     'rot': str(int(block.startRotation_degrees)),
-    'id': block.id
+    'id': block.id,
+    "layer": str(block.get_index())
   }
   return (global.useropts.selectedBlockFormatString if isSelected else global.useropts.hoveredBlockFormatString).format(table)

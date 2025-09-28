@@ -1469,9 +1469,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if respawnCooldown >= 0 and not forced:
     deathSources = []
     return
-
   updateCollidingBlocksExited()
-
   if state != States.levelLoading:
     state = States.dead
   root.__disable()
@@ -1674,44 +1672,45 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-24! when respawning inside water you don't enter the water as collision is disabled while respawning
   # !version ?-INF! kt doesnt reset while entering water
     # vex++:downloadMap/136/rssaromeo/uno mas - water jump
-  # ?!version ?-<136! holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
+  # \?!version ?-<136! holding down while being bounced by a bouncey then landing right on the ledge will cause you to jump up off the ledge
   # !version ?-NOW! sliding into water causes shrunken hitbox
     # vex++:downloadMap/136/rssaromeo/uno mas - water crouch
-  # !version ?-NOW! when leaving water directly onto a wall you can grab the wall lower than intended
+  # //!version ?-NOW! when leaving water directly onto a wall you can grab the wall lower than intended
   # !version ?-<136! when standing on a box and running into another box, kicking wikk kick both of them leading you to be crushed by the box that gets pushed into you
-  # !version ?-28! levers can be pulled even when not on ground
+  # //!version ?-28! levers can be pulled even when not on ground
   # ?!version 26-NOW! portal wrongwarp when falling through portals building speed then a moving block moves in your path where you slide on the wall then fall back into the same portal that you were previously using to build speed
-  # !version 29-29! dying while pulling levers causes global.tick to stay at 0
-  # !version ?-28! pulling levers allows clipping through moving blocks
+  # //!version 29-29! dying while pulling levers causes global.tick to stay at 0
+  # //!version ?-28! pulling levers allows clipping through moving blocks
   # ?!version ?-?! grabbing a ledge backwards then landing on a block causes player to build up speed as if falling without moving
   # !version ?-NOW! can push boxes while sliding
     # vex++:downloadMap/136/rssaromeo/uno mas - slide push
   # ?!version ?-<104! spawnpoint being inside water and doing full restart while in spawn water causes player to not be in water
-  # !version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
-  # !version ?-<104! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
+  # \!version ?-63! poles and ziplines would not clear wall state preventing jumping to same wall again
+  # //!version ?-<104! when jumping off wall nowjs don't prevent wall jumping they only remove the speed reduction
   # !version ?-NOW! exploded bombs reexplode after respawning
-  # !version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
-  # !version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
-  # !version ?-INF! collision is not checked while in cannons
-  # !version ?-91! ice blocks don't require falling to break
-  # !version ?-94! traveling through a goal while dying counts as winning
-  # !version ?-105! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
-  # !version ?-113! pulleys and cannons give an extra jump
-  # !version ?-113! stars saved block and player data, now they only save block data
-  # !version ?-115! getting pushed off a ledge doesn't remove a jump
-  # !version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
+  # //!version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
+  # \!version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
+  # //!version ?-INF! collision is not checked while in cannons
+  # //!version ?-91! ice blocks don't require falling to break
+  # //!version ?-94! traveling through a goal while dying counts as winning
+  # //!version ?-105! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
+  # //!version ?-113! pulleys and cannons give an extra jump
+  # //!version ?-113! stars saved block and player data, now they only save block data
+  # //!version ?-115! getting pushed off a ledge doesn't remove a jump
+  # //!version ?-<121! riding a pulley as it no longer had a ceiling, or getting dropped off by hitting a block would cause the player to gave an extra jump
   # !version ?-126! respawning with a solar block disabled would cause blocks to not attach to it
     # vex++:downloadMap/125/rssaromeo/uno mas - solar attach bug
-  # !version ?-NOW! cpops
-  # !version OLD-1-NOW! player direction not reset on death
+  # //!version ?-NOW! cpops
+  # //!version OLD-1-NOW! player direction not reset on death - only when auto run is disabled
   # /!version ?-135! negative size spikes don't have a texture
     # vex++:downloadMap/135/rssaromeo/uno mas - invisible spikes - no alpha
-  # !version 147-INF! sticky floors don't modify jump count so jump refresher set to +1 can give infinite jumps if collected and the next place landed is a sticky floor
-  # ?!version 161-161! attaching more than 2 puleys to each other can sometimes cause a large boost upwards
+  # //!version 147-INF! sticky floors don't modify jump count so jump refresher set to +1 can give infinite jumps if collected and the next place landed is a sticky floor
+  # //?!version 161-161! attaching more than 2 puleys to each other can sometimes cause a large boost upwards
   # /!version 163-163! dying while on a pulley causes the player y to be that of the pulley instead of the player's spawn point
     # vex++:downloadMap/163/rssaromeo/uno mas - zipline death warp
-  # !version ?-NOW! riding falling blocks into water pulls you down same as if not in water
-  # !version 186-191! boxes momentum persist after death
+  # //!version ?-NOW! riding falling blocks into water pulls you down same as if not in water
+  # /!version 186-191! boxes momentum persist after death
+    # vex++:downloadMap/191/127/uno%20mas%20%2D%20post%20death%20momentum
 
 # ?add level option to change canPressDownToShortHop and make sh work
 # make slope grabbox sloped
@@ -1802,8 +1801,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add on create func to blocks
 
-# exit inner level button should trigger a save
-
 # loading in water first time doesn't detect there being water
 
 # add different surican colors
@@ -1812,10 +1809,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # if inner open keep outer open menu onlyOneOpen
 
-# add cp savestate level opt
+# make cp savestate level opt save more things
 # ?add roll
-
-# hide block select outline in screenshot
 
 # make autocomplete options clickable
 
@@ -1829,13 +1824,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # -make blocks attach to growing blocks and move and scale with them
 
-# make game version: button open in version
-
 # make animaction correct place on left puley
-
-# !!!fix jumping off ziplines
-
-# !!fix dropping off ziplines
 
 # make local level list filter search bar work
 
