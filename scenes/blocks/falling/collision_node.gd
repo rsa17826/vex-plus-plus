@@ -27,7 +27,7 @@ func on_physics_process(delta: float) -> void:
     root.__enable()
 
 func on_respawn():
-  if not root.loadDefaultData:
+  if root.loadDefaultData:
     startTime = 0
     process_mode = Node.PROCESS_MODE_DISABLED
     vel = Vector2.ZERO
