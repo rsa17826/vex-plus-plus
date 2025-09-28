@@ -2,9 +2,9 @@
   STR(start)STR(hub)
   STR(creatorName)STR()
   STR(description)STR()
-  STR(gameVersion)INT(195)
+  STR(gameVersion)INT(196)
   STR(version)INT(192)
-  STR(levelVersion)INT(25)
+  STR(levelVersion)INT(26)
   STR(stages){
     STR(hub){
       STR(color)INT(9)
