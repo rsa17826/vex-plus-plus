@@ -20,6 +20,9 @@ func _ready() -> void:
 
 func updateColor() -> void:
   visibility_layer = 1
+  if Engine.is_editor_hint() and is_inside_tree():
+    if not get_parent().visible and (get_parent() is Area2D or get_parent() is StaticBody2D or get_parent() is CharacterBody2D):
+      get_parent().visible = true
   if Engine.is_editor_hint() and not global.useropts:
     global.useropts = sds.loadDataFromFile("user://main - EDITOR.sds")
   match hitboxType:

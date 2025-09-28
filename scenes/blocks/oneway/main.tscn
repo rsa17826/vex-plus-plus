@@ -185,7 +185,6 @@ debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("6_x0x28")
 
 [node name="2nd collision" type="StaticBody2D" parent="collisionNode" node_paths=PackedStringArray("root")]
-visible = false
 collision_layer = 10240
 collision_mask = 0
 input_pickable = true
@@ -259,7 +258,6 @@ autoplay = "default"
 frame_progress = 0.20303714
 
 [node name="wall grab collision" type="Area2D" parent="collisionNode" node_paths=PackedStringArray("root")]
-visible = false
 collision_layer = 16384
 collision_mask = 0
 script = ExtResource("2_0wow3")
