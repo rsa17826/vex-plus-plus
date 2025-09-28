@@ -13,6 +13,7 @@
     STR(gravity rotator)
     STR(bomb)
     STR(pushable box)
+    STR(undeath)
   ]
   STR(spikes)[
     STR(closing spikes)
@@ -45,8 +46,8 @@
   ]
   STR(death)[
     STR(buzsaw)
-    STR(bouncing buzzsaw)
     STR(buzzsaw)
+    STR(bouncing buzzsaw)
     STR(growing buzzsaw)
     STR(quadrant)
     STR(scythe)
@@ -92,13 +93,12 @@
     STR(pole quadrant)
     STR(pulley)
     STR(zipline)
+    STR(cannon)
   ]
   STR(decorations/misc2)[
     STR(arrow)
     STR(noWJ)
     STR(sticky floor)
-    STR(cannon)
-    STR(undeath)
     STR(inner level)
   ]
   STR(signal)[
