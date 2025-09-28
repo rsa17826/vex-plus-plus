@@ -845,6 +845,9 @@ getExeVersion(version, default?) {
 }
 
 LV_DoubleClick(LV, RowNumber) {
+  if GetKeyState("shift", "p") {
+    return
+  }
   Column := LV_SubItemHitTest(versionListView.hwnd)
   RowText := LV.GetText(RowNumber) ; Get the text from the row's first field.
   if Column == 2 {

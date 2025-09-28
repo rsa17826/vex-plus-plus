@@ -150,7 +150,6 @@ size = Vector2(700, 6)
 size = Vector2(700, 700)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
-position = Vector2(600, 1200)
 script = ExtResource("1_rch08")
 ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("4_lm28m")

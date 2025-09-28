@@ -81,7 +81,7 @@ func loadLocalLevelList():
 
   for child in levelContainer.get_children():
     child.queue_free()
-  newestLevel = arr[0].levelName
+  newestLevel = arr[0].levelName if arr else null
   loadLevelsFromArray(arr)
 
 func otc(text: String, version: NestedSearchable):
