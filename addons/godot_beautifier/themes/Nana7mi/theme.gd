@@ -17,7 +17,10 @@ func _ready() -> void:
   EditorInterface.get_editor_viewport_3d(2).transparent_bg = true
   EditorInterface.get_editor_viewport_3d(3).transparent_bg = true
   # var f = 'output' + str(randi_range(1, 11))
-  var f = 'output' + '8'
+  var f = 'output8'
+  # var f = 'output6'
+  # var f = 'output2'
+  # var f = 'output - Copy'
   log.pp("loading video", f)
   # var a = get_editor_interface()
   # log.pp(EditorInterface.get_editor_viewport_2d())
