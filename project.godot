@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="vex"
-config/version="194"
+config/version="195"
 run/main_scene="uid://bsub1ew4qiin4"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 boot_splash/minimum_display_time=500
@@ -82,7 +82,6 @@ water=""
 death=""
 spark=""
 "attaches to things"=""
-"buzsaw - generic"=""
 dontRespawnOnPlayerDeath=""
 canBeAttachedTo=""
 

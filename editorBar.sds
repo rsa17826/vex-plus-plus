@@ -36,8 +36,8 @@
   ]
   STR(solars)[
     STR(light switch)
-    STR(red only light switch)
     STR(blue only light switch)
+    STR(red only light switch)
     STR(solar)
     STR(inverse solar)
     STR(key)
@@ -64,7 +64,7 @@
     STR(star)
     {
       STR(name)STR(blue star)
-      STR(imagePath)STR(D:\\godotgames\\vex/scenes/blocks/star/images/2.png)
+      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/2.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(1)
@@ -72,7 +72,7 @@
     }
     {
       STR(name)STR(pink star)
-      STR(imagePath)STR(D:\\godotgames\\vex/scenes/blocks/star/images/3.png)
+      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/3.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(2)

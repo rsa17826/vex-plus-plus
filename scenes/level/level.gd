@@ -92,7 +92,8 @@ func loadLevel(level):
   # await global.wait()
   # global.player.die(0, false, true)
   # global.player.deathPosition = global.player.lastSpawnPoint
-var saving = false
+var saving := false
+var grabbingImage := false
 
 func save(saveImage: bool):
   if global.ctrlMenuVisible: return
@@ -141,7 +142,7 @@ func save(saveImage: bool):
   opts.gameVersion = int(global.file.read("res://VERSION", false, "-1"))
   opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
   if saveImage:
-    # await RenderingServer.frame_post_draw
+    grabbingImage = true
     var lastTick = global.tick
     var laststopTicking = global.stopTicking
     global.tick = 0
@@ -153,6 +154,7 @@ func save(saveImage: bool):
       child.rotation_degrees = child.startRotation_degrees
     await RenderingServer.frame_post_draw
     var image = global.ui.overlayRemovalHidersubViewportContainer.get_node("SubViewport").get_texture().get_image()
+    grabbingImage = false
     var minSize = min(image.get_width(), image.get_height())
     var maxSize = max(image.get_width(), image.get_height())
     var rect = image.get_used_rect()

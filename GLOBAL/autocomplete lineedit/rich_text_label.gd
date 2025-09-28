@@ -4,7 +4,9 @@ extends RichTextLabel
 
 func updateText(textArr: Array) -> void:
   text = ''
+  # var tlen = 0
   for thing in textArr:
+    # tlen += len(thing[0])
     match thing[1]:
       "keyword":
         text += "[color=#3498db]" + thing[0] + "[/color]"
@@ -17,5 +19,7 @@ func updateText(textArr: Array) -> void:
       _:
         text += "[color=#156472]" + thing[0] + "[/color]"
     text += '/'
-  text=text.trim_suffix('/')
+  text = text.trim_suffix('/')
   size = searchBar.size
+  scale.x = .975
+  # log.pp(scale.x, text, tlen)

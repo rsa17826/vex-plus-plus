@@ -473,17 +473,8 @@ func _process(delta: float) -> void:
   if not EDITOR_IGNORE:
     if self in global.hoveredBlocks and !isHovered:
       global.hoveredBlocks.erase(self )
-  # if global.player.state == global.player.States.dead:
-  #   respawn()
-  #   return
-  if is_in_group("buzzsaw - generic"):
+  if BUZZSAW_GENERIC_spriteToRotateLeft and BUZZSAW_GENERIC_spriteToRotateRight:
     _processBUZZSAW_GENERIC(delta)
-    # if ghostFollowNode == self:
-    #   ghost.rotation_degrees = 0
-    # else:
-    #   log.pp(ghost.global_position, ghostFollowNode.global_position, global_position, id)
-    #   ghost.global_position = ghostFollowNode.global_position
-    #   ghost.global_rotation = ghostFollowNode.global_rotation
   if not EDITOR_IGNORE:
     ghost.use_parent_material = true
     if global.hoveredBlocks && self == global.hoveredBlocks[0] \
@@ -511,7 +502,10 @@ func _process(delta: float) -> void:
               log.pp(collider, collisionShapes, id)
               breakpoint
             collider.disabled = true
-      ghost.use_parent_material = false
+      if global.level.grabbingImage:
+        ghost.use_parent_material = true
+      else:
+        ghost.use_parent_material = false
       ghost.material.set_shader_parameter("color", Color.hex(global.useropts.selectedBlockOutlineColor))
     else:
       # if not mouse down
@@ -647,7 +641,10 @@ func _process(delta: float) -> void:
             )
           )
         )
-        ghost.use_parent_material = false
+        if global.level.grabbingImage:
+          ghost.use_parent_material = true
+        else:
+          ghost.use_parent_material = false
       else:
         # disable outline
         ghost.use_parent_material = true

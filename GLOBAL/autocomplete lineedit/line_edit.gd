@@ -1,6 +1,7 @@
 extends LineEdit
 
 @onready var autoCompleteUi: Control = get_parent()
+@export var rtl: RichTextLabel
 
 func _unhandled_key_input(event: InputEvent) -> void:
   if autoCompleteUi.focusAsSearchBar and Input.is_action_just_pressed(&"focus_search", true):
@@ -59,7 +60,7 @@ func getAutoComplete(text: String) -> Array:
 
 var idx := 0
 func _on_gui_input(event: InputEvent) -> void:
-  if event is InputEventKey and not event.is_echo() and event.is_pressed():
+  if event is InputEventKey and event.is_pressed():
     if Input.is_action_just_pressed(&"tab", true) \
     or Input.is_action_just_pressed(&"ui_up", true) \
     or Input.is_action_just_pressed(&"ui_down", true) \
@@ -83,7 +84,7 @@ func _on_gui_input(event: InputEvent) -> void:
       completeWord(autoCompleteUi.buttons[idx].text)
       autoCompleteUi.setWords(getAutoComplete(text))
       idx = 0
-    $RichTextLabel.updateText(textArr)
+    rtl.updateText(textArr)
 
 func completeWord(newWord: String) -> void:
   var lastPos = get_caret_column()
