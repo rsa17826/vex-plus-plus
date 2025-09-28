@@ -2025,7 +2025,12 @@ const DEFAULT_BLOCK_LIST = [
 
 func loadEditorBarData():
   var oldNames = {
-    "buzsaw": "buzzsaw"
+    "buzsaw": "buzzsaw",
+    "bouncing buzsaw": "bouncing buzzsaw",
+    "growing buzsaw": "growing buzzsaw",
+    "rotating buzsaw": "rotating buzzsaw",
+    "shurikan spawner": 'shuriken spawner',
+    "bouncing shurikan": 'bouncing shuriken',
   }
   var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
   var tempBlockNames = []
