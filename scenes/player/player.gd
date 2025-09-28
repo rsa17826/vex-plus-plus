@@ -1841,3 +1841,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make local level list filter search bar work
 
 # area trigger on enter/on exit
+
+# hitbox is disabled when grabbing block and hitting escape makes the block no longer grabbed but doesn't reenable hitboxes until letting go of lmb

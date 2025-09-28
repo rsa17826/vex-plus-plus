@@ -42,7 +42,6 @@ func _input(event: InputEvent) -> void:
         if item == get_node("../ColorRect"): continue
         if item == self: continue
         if item.selected == 1:
-          # log.err(item.scale, item.get_local_mouse_position())
           var before = item.get_local_mouse_position().x < 0
           var data = sds.loadDataFromFile(global.path.abs("res://editorBar.sds"), {})
           for k in data:
@@ -66,7 +65,7 @@ func _input(event: InputEvent) -> void:
           global.loadEditorBarData()
           global.editorBar._ready()
           return
-      log.err("not hovering over anything!")
+      # log.err("not hovering over anything!")
       global.loadEditorBarData()
       global.editorBar._ready()
   if !Input.is_action_pressed("editor_select"):

@@ -104,7 +104,8 @@ func updateUserOpts() -> void:
     shouldChangeFsState = true
   else:
     lastWinMode = global.useropts.windowMode
-  var lastTheme = global.useropts.theme if 'theme' in global.useropts else null
+  var lastTheme = global.useropts.theme
+  var lastReorganizingEditorBar = global.useropts.reorganizingEditorBar
   global.useropts = __menu.get_all_data()
   # log.pp('editorOnlyOptions', editorOnlyOptions)
   for option in editorOnlyOptions:
@@ -123,6 +124,8 @@ func updateUserOpts() -> void:
       1:
         global.fullscreen(-1)
 
+  if global.useropts.reorganizingEditorBar != lastReorganizingEditorBar:
+    global.editorBar._ready()
   if global.useropts.theme != lastTheme:
     if global.useropts.theme == 0:
       get_window().theme = null

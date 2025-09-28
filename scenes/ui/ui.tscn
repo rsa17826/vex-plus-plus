@@ -80,6 +80,11 @@ layout_mode = 2
 
 [node name="hoveredBlocksList" parent="5 - ProgressContainer,star counter,editor bar,saved" instance=ExtResource("13_swkix")]
 
+[node name="6 - hovered block list" type="CanvasLayer" parent="."]
+layer = 6
+
+[node name="hoveredBlocksList" parent="6 - hovered block list" instance=ExtResource("13_swkix")]
+
 [node name="4 - modifier display" type="CanvasLayer" parent="."]
 layer = 4
 
