@@ -60,8 +60,8 @@ func updateScrollPos():
     scrollOffset = clamp(scrollOffset, 0, maxScroll)
   if nodeScrollOnX:
     var visibleNodesX = floor(global.windowSize.x / nodeSize) * nodeSize
-    log.pp(visibleNodesX)
-    log.pp(min(columns, nodeCount))
+    # log.pp(visibleNodesX)
+    # log.pp(min(columns, nodeCount))
     var maxScroll = max(0, (nodeSize * ceil(columns)) - visibleNodesX)
     scrollOffset = clamp(scrollOffset, 0, maxScroll)
 
@@ -74,9 +74,6 @@ func _input(event: InputEvent) -> void:
       if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
         scrollOffset += nodeSize * (global.useropts.editorBarScrollSpeed)
       updateScrollPos()
-      # else:
-      #   scrollOffset = clamp(scrollOffset, 0, nodeSize * ceil(nodeCount / float(columns)))
-
       for item in get_children():
         updateItem(item)
 
