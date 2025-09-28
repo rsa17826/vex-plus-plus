@@ -373,8 +373,8 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
       if !data.includes("STR(author)STR(") {
         data := data.Replace("{", "{STR(author)STR()", , , 1)
       }
-      if !data.includes("STR(version)STR(") {
-        data := data.Replace("{", "{STR(version)STR()", , , 1)
+      if !data.includes("STR(version)INT(") {
+        data := data.Replace("{", "{STR(version)INT(-1)", , , 1)
       }
       f.write(settingsPath, data)
     }
