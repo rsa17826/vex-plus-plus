@@ -111,6 +111,7 @@ shortcut_keys_enabled = false
 virtual_keyboard_enabled = false
 virtual_keyboard_show_on_focus = false
 middle_mouse_paste_enabled = false
+wrap_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
 layout_mode = 2

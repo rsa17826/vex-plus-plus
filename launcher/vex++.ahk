@@ -154,6 +154,9 @@ if (A_Args.includes("registerProtocols")
 if FileExist("c.bat") and F.read("updating self") != 'silent' {
   aotMsgBox("launcher update was successful")
   FileDelete("c.bat")
+  if FileExist("sfi.bat") and FileExist("launcherData/sfi.bat") {
+    FileDelete("sfi.bat")
+  }
 }
 if FileExist("updating self") {
   if FileExist('temp.zip') {
@@ -820,7 +823,7 @@ hasProcessRunning() {
 sfi(p, i) {
   DirCreate(p)
   try FileDelete(path.join(p, "foldericon.ico"))
-  run('sfi.bat -p "' p '" -i "' i '"', , 'hide')
+  run('launcherData/sfi.bat -p "' p '" -i "' i '"', , 'hide')
 }
 
 getExeVersion(version, default?) {

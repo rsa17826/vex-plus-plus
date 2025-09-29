@@ -1,10 +1,20 @@
 {
   STR(start)STR(hub)
-  STR(creatorName)STR()
-  STR(description)STR()
+  STR(creatorName)STR(a)
+  STR(description)STR(aaa
+
+
+
+
+
+dassda
+
+
+
+adsasd      adsasd)
   STR(gameVersion)INT(196)
   STR(version)INT(192)
-  STR(levelVersion)INT(26)
+  STR(levelVersion)INT(27)
   STR(stages){
     STR(hub){
       STR(color)INT(9)
