@@ -226,31 +226,6 @@ func _input(event: InputEvent) -> void:
 #         return true
 #   return false
 
-class cache:
-  var cache := {}
-  var _data := {}
-  func _init() -> void: pass
-  func __has(thing: Variant) -> bool:
-    if "lastinp" in self._data:
-      log.err("lastinp should not exist", self )
-      return false
-    self._data.lastinp = thing
-    return thing in self.cache
-  func __get() -> Variant:
-    if "lastinp" not in self._data:
-      log.err("No lastinp", self )
-      return
-    var val: Variant = self.cache[ self._data.lastinp]
-    self._data.erase("lastinp")
-    return val
-  func __set(value: Variant) -> Variant:
-    if "lastinp" not in self._data:
-      log.err("No lastinp", self )
-      return
-    self.cache[ self._data.lastinp] = value
-    self._data.erase("lastinp")
-    return value
-
 func remove_recursive(directory: String) -> void:
   for dir_name in DirAccess.get_directories_at(directory):
     remove_recursive(directory.path_join(dir_name))
@@ -259,8 +234,8 @@ func remove_recursive(directory: String) -> void:
 
   DirAccess.remove_absolute(directory)
 
-var regexCache: cache = cache.new()
-var regMatchCache: cache = cache.new()
+var regexCache: Cache = Cache.new()
+var regMatchCache: Cache = Cache.new()
 func regMatch(str: String, reg: String) -> Variant:
   if regMatchCache.__has([reg, str]):
     return regMatchCache.__get()
@@ -276,7 +251,7 @@ func regMatch(str: String, reg: String) -> Variant:
     out.push_back(res.get_string(i))
   return regMatchCache.__set(out)
 
-var regMatchAllCache: cache = cache.new()
+var regMatchAllCache: Cache = Cache.new()
 func regMatchAll(str: String, reg: String) -> Variant:
   if regMatchAllCache.__has([reg, str]):
     return regMatchAllCache.__get()
@@ -293,7 +268,7 @@ func regMatchAll(str: String, reg: String) -> Variant:
       out[len(out) - 1].push_back(res[j].get_string(i))
   return regMatchAllCache.__set(out)
 
-var regReplaceCache: cache = cache.new()
+var regReplaceCache: Cache = Cache.new()
 func regReplace(str: String, reg: String, with: String, all:=true) -> String:
   if regReplaceCache.__has([reg, str, with, all]):
     return regReplaceCache.__get()
@@ -373,17 +348,6 @@ class timer:
     timer.started = false
   static func start() -> void:
     timer.started = true
-
-func debuguistart() -> void:
-  event.trigger("debugui start")
-
-func debuguiclear() -> void:
-  if event.triggers.has("debugui clear"):
-    event.trigger("debugui clear")
-
-func debuguiadd(name: String, val: String) -> void:
-  if event.triggers.has("debugui add"):
-    event.trigger("debugui add", name, val)
 
 class path:
   static func abs(p: String) -> String:
@@ -2600,7 +2564,7 @@ func openLevelInVersion(levelName, gameVersion):
     ]))
   global.quitGame()
 
-var editorBarIconCache := cache.new()
+var editorBarIconCache := Cache.new()
 
 # var logger_ui: Node
 

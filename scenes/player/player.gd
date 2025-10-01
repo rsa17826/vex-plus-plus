@@ -1691,9 +1691,13 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # //!version ?-NOW! can pull levers while falling if lever is slightly too high no pull normally
   # \!version ?-NOW! when flipping gravity on a wall hang the wall hang state can persist after player rotates to incorrect direction
   # //!version ?-INF! collision is not checked while in cannons
-  # //!version ?-91! ice blocks don't require falling to break
+  # //!version ?-90! ice blocks don't require falling to break
+    # vex++:downloadMap/198/136/uno%20mas%20%2D%20breaking%20ice
+    # 189=90
   # //!version ?-94! traveling through a goal while dying counts as winning
-  # //!version ?-105! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
+    # vex++:downloadMap/198/137/uno%20mas%20%2D%20post%20death%20win
+  # //!version ?-104! crouching and dying while on a floor button causes the button to be pressed down until the player represses and releases the button
+    # vex++:downloadMap/198/138/uno%20mas%20%2D%20sticky%20button
   # //!version ?-113! pulleys and cannons give an extra jump
   # //!version ?-113! stars saved block and player data, now they only save block data
   # //!version ?-115! getting pushed off a ledge doesn't remove a jump
