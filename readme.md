@@ -976,8 +976,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **conveyer**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
-    <br><br><img src="scenes/blocks/conveyer/images/editorBar.png" alt="image of block conveyer" width="50" height="50">
+  - **conveyor**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
+    <br><br><img src="scenes/blocks/conveyor/images/editorBar.png" alt="image of block conveyor" width="50" height="50">
 
     - scalable
     - rotatable

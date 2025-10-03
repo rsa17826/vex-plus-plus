@@ -120,7 +120,7 @@ var vel: Dictionary[String, Vector2] = {
   "user": Vector2.ZERO,
   "waterExit": Vector2.ZERO,
   "bounce": Vector2.ZERO,
-  "conveyer": Vector2.ZERO,
+  "conveyor": Vector2.ZERO,
   "cannon": Vector2.ZERO,
   "zipline": Vector2.ZERO,
 }
@@ -130,7 +130,7 @@ var velDecay := {
   "waterExit": .9,
   "cannon": .9,
   "bounce": 0.95,
-  "conveyer": .9,
+  "conveyor": .9,
   "zipline": .95,
 }
 var justAddedVels := {
@@ -138,12 +138,12 @@ var justAddedVels := {
   "user": 0,
   "waterExit": 0,
   "bounce": 0,
-  "conveyer": 0,
+  "conveyor": 0,
   "cannon": 0,
   "zipline": 0,
 }
 var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole", "zipline"]
-var stopVelOnWall := ["bounce", "waterExit", "cannon", "pole", "conveyer", "zipline"]
+var stopVelOnWall := ["bounce", "waterExit", "cannon", "pole", "conveyor", "zipline"]
 var stopVelOnCeil := ["bounce", "waterExit", "cannon", "pole"]
 
 @onready var unduckSize: Vector2 = Vector2(8, 33) # mainCollisionShape2D.shape.size
@@ -1043,9 +1043,9 @@ func _physics_process(delta: float) -> void:
           for n: String in stopVelOnCeil:
             if !justAddedVels[n]:
               vel[n] = Vector2.ZERO
-        vel.conveyer = global.clearLow(vel.conveyer)
-        # if vel.conveyer:
-        #   log.pp(vel.conveyer)
+        vel.conveyor = global.clearLow(vel.conveyor)
+        # if vel.conveyor:
+        #   log.pp(vel.conveyor)
         # move using all velocities
         velocity = Vector2.ZERO
         if state != States.wallHang:
@@ -1373,23 +1373,23 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     block.thingThatMoves.vel.default -= (normal.rotated(-defaultAngle) * depth * 200)
     state = States.pushing
     anim.animation = "pushing box"
-  # if block is BlockConveyer:
+  # if block is BlockConveyor:
   #   if rotatedNormal != UP:
     # log.err([rotatedNormal, UP], defaultAngle, up_direction, [normal, Vector2.UP])
 
-  if (block is BlockConveyer) \
+  if (block is BlockConveyor) \
   # and playerSide.bottom \
   and not inWaters \
   and vel.user.y >= -SMALL \
   :
     var speed = 400
     # log.pp(normal == Vector2(-1, 0), blockSide)
-    # log.pp(vel.conveyer)
+    # log.pp(vel.conveyor)
     if not blockSide.single: return
     if playerSide.bottom and blockSide.top:
-      vel.conveyer.x = - speed
+      vel.conveyor.x = - speed
     elif playerSide.bottom and blockSide.bottom:
-      vel.conveyer.x = speed
+      vel.conveyor.x = speed
     elif playerSide.bottom and blockSide.left: return
     elif playerSide.bottom and blockSide.right: return
     elif playerSide.left and blockSide.left: return
@@ -1397,20 +1397,20 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     elif playerSide.right and blockSide.left: return
     elif playerSide.left and blockSide.right: return
     elif playerSide.left and blockSide.top:
-      vel.conveyer.y = - speed
+      vel.conveyor.y = - speed
       wallSlidingFrames = 0
     elif playerSide.left and blockSide.bottom:
-      vel.conveyer.y = speed
+      vel.conveyor.y = speed
     elif playerSide.right and blockSide.top:
-      vel.conveyer.y = speed
+      vel.conveyor.y = speed
     elif playerSide.right and blockSide.bottom:
-      vel.conveyer.y = - speed
+      vel.conveyor.y = - speed
       wallSlidingFrames = 0
     elif playerSide.top and blockSide.top: return
     elif playerSide.top and blockSide.bottom: return
     else:
       log.err("invalid collision direction!!!", normal, playerSide, blockSide)
-    justAddedVels.conveyer = 3
+    justAddedVels.conveyor = 3
 
 func updateCamLockPos():
   if global.showEditorUi:
