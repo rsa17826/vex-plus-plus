@@ -19,7 +19,7 @@ func on_on_body_entered(body: Node):
   log.pp(body.name)
 
 func on_respawn():
-  if not root.loadDefaultData:
+  if root.loadDefaultData:
     velocity = Vector2.ZERO
     speed = 50
     global_position = root.startPosition
