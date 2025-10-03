@@ -1975,7 +1975,7 @@ const DEFAULT_BLOCK_LIST = [
   "bomb",
   "sticky floor",
   "arrow",
-  "conveyer",
+  "conveyor",
   "oneway",
   "undeath",
   "area trigger",
@@ -1997,6 +1997,7 @@ func loadEditorBarData():
     "rotating buzsaw": "rotating buzzsaw",
     "shurikan spawner": 'shuriken spawner',
     "bouncing shurikan": 'bouncing shuriken',
+    "conveyer": 'conveyor',
   }
   var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
   var tempBlockNames = []

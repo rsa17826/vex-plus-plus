@@ -9,11 +9,11 @@ var collsiionOn_left = []
 var collsiionOn_right = []
 
 var vel := {
-  "conveyer": Vector2.ZERO,
+  "conveyor": Vector2.ZERO,
   "default": Vector2.ZERO,
 }
 var velDecay := {
-  "conveyer": .9
+  "conveyor": .9
 }
 
 func _ready() -> void:
@@ -34,9 +34,9 @@ func on_physics_process(delta: float) -> void:
     vel.default.y += global.player.GRAVITY * delta
   vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
-  velocity = global.player.applyRot(vel.default + vel.conveyer)
+  velocity = global.player.applyRot(vel.default + vel.conveyor)
   move_and_slide()
-  vel.conveyer *= velDecay.conveyer
+  vel.conveyor *= velDecay.conveyor
   if is_on_floor() and lastvel.y > 700:
     root.explode()
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
@@ -68,11 +68,11 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   and (playerSide.left or playerSide.right) \
   :
     block.thingThatMoves.vel.default -= (normal.rotated(-global.player.defaultAngle) * depth * 200)
-  # if block is BlockConveyer:
+  # if block is BlockConveyor:
   #   if rotatedNormal != UP:
     # log.err([rotatedNormal, UP], global.player.defaultAngle, up_direction, [normal, Vector2.UP])
 
-  if (block is BlockConveyer) \
+  if (block is BlockConveyor) \
   # and playerSide.bottom \
   and vel.default.y >= -SMALL \
   :
@@ -81,9 +81,9 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     # log.pp(playerSide, blockSide)
     if not blockSide.single: return
     if playerSide.bottom and blockSide.top:
-      vel.conveyer.x = - speed
+      vel.conveyor.x = - speed
     elif playerSide.bottom and blockSide.bottom:
-      vel.conveyer.x = speed
+      vel.conveyor.x = speed
     elif playerSide.bottom and blockSide.left: pass
     elif playerSide.bottom and blockSide.right: pass
     elif playerSide.left and blockSide.left: pass
@@ -91,13 +91,13 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     elif playerSide.right and blockSide.left: pass
     elif playerSide.left and blockSide.right: pass
     elif playerSide.left and blockSide.top:
-      vel.conveyer.y = - speed
+      vel.conveyor.y = - speed
     elif playerSide.left and blockSide.bottom:
-      vel.conveyer.y = speed
+      vel.conveyor.y = speed
     elif playerSide.right and blockSide.top:
-      vel.conveyer.y = speed
+      vel.conveyor.y = speed
     elif playerSide.right and blockSide.bottom:
-      vel.conveyer.y = - speed
+      vel.conveyor.y = - speed
     elif playerSide.top and blockSide.top: pass
     elif playerSide.top and blockSide.bottom: pass
     else:
@@ -105,7 +105,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
 
 func on_respawn():
   if not root.loadDefaultData:
-    vel.conveyer = Vector2.ZERO
+    vel.conveyor = Vector2.ZERO
     vel.default = Vector2.ZERO
     global_position = root.startPosition
   collsiionOn_top = []
