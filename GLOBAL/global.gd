@@ -700,7 +700,7 @@ func localProcess(delta: float) -> void:
     DirAccess.remove_absolute(path.abs("res://filesToOpen"))
   if not player: return
   # if a block is selected
-  if isAlive(selectedBlock) or (selectedBrush and selectedBrush.selected == 2):
+  if shouldDragBlock and isAlive(selectedBlock) or (selectedBrush and selectedBrush.selected == 2):
     var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
     if mouseMoveStartPos == null:
       mouseMoveStartPos = mpos
@@ -997,7 +997,7 @@ var copiedBlockData := {
   'scale': Vector2(1, 1),
   'rotation': 0,
 }
-
+var shouldDragBlock := false
 var lastRotatedBlock: EditorBlock
 @onready var defaultData := getAllGlobalData()
 func getAllGlobalData() -> Dictionary:
@@ -1112,6 +1112,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"block_z_down"):
     moveBlockZ(selectedBlock, "down")
   if Input.is_action_just_released(&"editor_select"):
+    shouldDragBlock = false
     if selectedBlock:
       selectedBlock.onEditorMove(Vector2.ZERO)
       selectedBlock = null
@@ -1147,8 +1148,9 @@ func _unhandled_input(event: InputEvent) -> void:
     else:
       # log.pp(lastSelectedBrush, lastSelectedBlock)
       if lastSelectedBlock:
-        selectedBrush = lastSelectedBrush
-        selectedBrush.selected = 2
+        # selectedBrush = lastSelectedBrush
+        # selectedBrush.selected = 2
+        shouldDragBlock = true
         justPaintedBlock = load("res://scenes/blocks/" + lastSelectedBlock.id + "/main.tscn").instantiate()
         justPaintedBlock.scale = lastSelectedBlock.scale
         justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
@@ -1157,18 +1159,20 @@ func _unhandled_input(event: InputEvent) -> void:
         # lastSelectedBrush = selectedBrush
         level.get_node("blocks").add_child(justPaintedBlock)
         justPaintedBlock.global_position = justPaintedBlock.get_global_mouse_position()
+        selectedBlock = justPaintedBlock
         setBlockStartPos(justPaintedBlock)
         localProcess(0)
-        lastSelectedBrush.selected = 0
-        selectedBrush.selected = 0
+        # lastSelectedBrush.selected = 0
+        # selectedBrush.selected = 0
         # log.pp(justPaintedBlock.selectedOptions)
   if event.is_action_pressed(&"toggle_fullscreen", false, true):
     fullscreen()
   if event.is_action_pressed(&"editor_select"):
+    shouldDragBlock = true
     if selectedBlock:
       selectedBlock.onEditorMove(Vector2.ZERO)
 
-  if !Input.is_action_pressed(&"editor_select"):
+  if !shouldDragBlock:
     editorInScaleMode = Input.is_action_pressed(&"editor_scale")
 
   if not editorInScaleMode:
@@ -1177,10 +1181,14 @@ func _unhandled_input(event: InputEvent) -> void:
     if !lastMousePos and selectedBlock:
       lastMousePos = selectedBlock.get_viewport_transform() * selectedBlock.global_position
     if editorInRotateMode \
-      and !Input.is_action_pressed(&"editor_select") \
+      and !Input.is_action_pressed(&"editor_rotate") \
       and lastRotatedBlock \
       and lastRotatedBlock == lastSelectedBlock \
     :
+      shouldDragBlock = false
+      if selectedBlock:
+        lastSelectedBlock = selectedBlock
+      selectedBlock = null
       lastSelectedBlock.onEditorRotateEnd()
     editorInRotateMode = Input.is_action_pressed(&"editor_rotate")
   if editorInRotateMode and event is InputEventMouseMotion and event.screen_relative:
@@ -1288,7 +1296,7 @@ func _unhandled_input(event: InputEvent) -> void:
           lastSelectedBlock = temp
           lastDeletedBlock = temp
           ui.blockMenu.clearItems()
-
+    shouldDragBlock = false
   if mainLevelName:
     if event.is_action_pressed(&"reload_map_from_last_save", true):
       loadMap.call_deferred(mainLevelName, true)
@@ -1379,7 +1387,6 @@ func _unhandled_input(event: InputEvent) -> void:
         selectedBrush = brushes[idx]
         if idx == -1:
           log.err("Could not find brush for " + (block.name if block is Dictionary else block), selectedBrush, "selectedBrush", idx, brushes.map(func(e): return e.blockData.name if e.blockData else ''), block.name)
-        selectedBrush.selected = 2
         justPaintedBlock = load("res://scenes/blocks/" + (block.extends if block is Dictionary else block) + "/main.tscn").instantiate()
         selectedBrush.newBlockCreated(justPaintedBlock)
         if justPaintedBlock.normalScale:
@@ -1393,10 +1400,10 @@ func _unhandled_input(event: InputEvent) -> void:
         lastSelectedBrush = selectedBrush
         level.get_node("blocks").add_child(justPaintedBlock)
         justPaintedBlock.global_position = level.get_global_mouse_position()
+        selectedBlock = justPaintedBlock
+        shouldDragBlock = true
         setBlockStartPos(justPaintedBlock)
         localProcess(0)
-        lastSelectedBrush.selected = 0
-        selectedBrush.selected = 0
 
 var levelFolderPath: String
 var loadedLevels: Array
@@ -1656,10 +1663,8 @@ func loadMapInfo(levelPackName: String) -> Variant:
     return
   if 'author' in options and 'creatorName' not in options:
     options.creatorName = options.author
-    options.erase("author")
   if 'version' in options and 'gameVersion' not in options:
     options.gameVersion = options.version
-    # options.erase("version")
   if 'gameVersion' not in options:
     options.gameVersion = -1
   if 'levelVersion' not in options:

@@ -340,6 +340,7 @@ func _physics_process(delta: float) -> void:
     if root in global.boxSelect_selectedBlocks or root == global.selectedBlock:
       position = Vector2.ZERO
     return
+  if global.shouldDragBlock: return
   if state != States.onZipline:
     $ziplineDetector/CollisionShape2D2.shape.size = Vector2(8, 25)
   var frameStartPosition := global_position
@@ -555,7 +556,6 @@ func _physics_process(delta: float) -> void:
           vel.zipline = newSpeed
       updateKeyFollowPosition(delta)
       if ACTIONjump:
-        ACTIONjump = false
         state = States.jumping
         playerKT = 0
         vel.user.y = JUMP_POWER
