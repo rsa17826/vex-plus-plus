@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ph5lxkwfc644"]
+[gd_scene load_steps=14 format=3 uid="uid://ph5lxkwfc644"]
 
 [ext_resource type="Script" uid="uid://ftou0joy3qto" path="res://scenes/blocks/falling spike/falling spike.gd" id="1_4c23b"]
 [ext_resource type="Texture2D" uid="uid://cigd4s8a81h5b" path="res://scenes/blocks/falling spike/images/1.png" id="2_dnmi0"]
@@ -8,12 +8,16 @@
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="5_0lsrf"]
 [ext_resource type="Script" uid="uid://dlnbosqoolh23" path="res://scenes/blocks/falling spike/player_detector.gd" id="5_4c23b"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="6_ihbm6"]
+[ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="8_0lsrf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrsct"]
 size = Vector2(42, 74)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4c23b"]
 radius = 5.09902
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ihbm6"]
+size = Vector2(67.27, 1.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o2sap"]
 size = Vector2(73, 18)
@@ -59,9 +63,10 @@ script = ExtResource("2_xrsct")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode/floor detection"]
+visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_4c23b")
-debug_color = Color(0, 1, 0, 0.41960785)
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("6_ihbm6")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
@@ -72,8 +77,24 @@ collision_mask = 2
 script = ExtResource("5_4c23b")
 root = NodePath("../../..")
 
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_xrsct")
+root = NodePath("../../..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/CharacterBody2D"]
+position = Vector2(0, -2.39)
+rotation = -3.1415925
+shape = SubResource("RectangleShape2D_ihbm6")
+one_way_collision = true
+debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
+script = ExtResource("8_0lsrf")
+
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
+visible = false
+modulate = Color(1, 0.7019608, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_o2sap")
 target_position = Vector2(0, 0)
