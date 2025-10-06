@@ -237,7 +237,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   #     if isHovered and self not in global.hoveredBlocks:
   #       global.hoveredBlocks.append(self )
   # if selecting this block
-  if global.hoveredBlocks && self == global.hoveredBlocks[0]:
+  if not global.shouldDragBlock and global.hoveredBlocks && self == global.hoveredBlocks[0]:
     if !Input.is_action_pressed(&"editor_pan"):
       # edit block menu on rbutton
       # if event.is_action_pressed(&"editor_edit_special") \
