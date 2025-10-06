@@ -4,8 +4,8 @@ class_name BlockClosingSpikes
 
 @export var leftCollisionShape: CollisionShape2D
 @export var rightCollisionShape: CollisionShape2D
-@export var leftSprite: Sprite2D
-@export var rightSprite: Sprite2D
+@export var leftSprite: Node2D
+@export var rightSprite: Node2D
 
 func on_physics_process(delta: float) -> void:
   rotation_degrees = 0

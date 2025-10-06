@@ -1090,9 +1090,9 @@ func _unhandled_input(event: InputEvent) -> void:
         failed = true
         result = expression.get_error_text()
     if failed:
-      log.err("EVAL: " + result)
+      log.err("EVAL: ", result)
     log.debug(result)
-    log.warn("EVAL: " + result)
+    log.warn("EVAL: ", result)
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     hideNonGhosts = !hideNonGhosts
   if event.is_action_pressed(&"edit_level_mods", false, true):
