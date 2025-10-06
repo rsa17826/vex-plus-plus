@@ -219,7 +219,7 @@ loop files A_ScriptDir "\icons\*.ico" {
   }
 }
 
-if A_Args.includes("tryupdate") {
+if A_Args.includes("tryupdate") or gettings.tryUpdateOnOpen {
   loadReleases()
   if F.read("launcherData/launcherVersion") != releases.Length {
     UpdateSelf()
