@@ -63,11 +63,11 @@ func _input(event: InputEvent) -> void:
                 break
           sds.saveDataToFile(global.path.abs("res://editorBar.sds"), data)
           global.loadEditorBarData()
-          global.editorBar._ready()
+          global.editorBar.reload()
           return
       # log.err("not hovering over anything!")
       global.loadEditorBarData()
-      global.editorBar._ready()
+      global.editorBar.reload()
   if !Input.is_action_pressed("editor_select"):
     global.justPaintedBlock = null
     global.selectedBrush = null

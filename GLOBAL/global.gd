@@ -1077,16 +1077,19 @@ func _unhandled_input(event: InputEvent) -> void:
     log.warn(data)
     DisplayServer.clipboard_set("https://bbcode.ilma.dev/\n\n" + log.coloritem(data))
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
-    # var expression = Expression.new()
-    # var error = expression.parse('global.selectedBlock', env.keys())
-    # if error != OK:
-    #   failed = true
-    #   result = expression.get_error_text()
-    # else:
-    #   result = expression.execute(env.values(), base_instance, true)
-    #   if expression.has_execute_failed():
-    #     failed = true
-    #     result = expression.get_error_text()
+    var expression = Expression.new()
+    var error = expression.parse('levelOpts.stages')
+    var failed := false
+    var result = ''
+    if error != OK:
+      failed = true
+      result = expression.get_error_text()
+    else:
+      result = expression.execute([], self )
+      if expression.has_execute_failed():
+        failed = true
+        result = expression.get_error_text()
+    log.pp(failed, result)
     # ToastParty.error('a')
     # ToastParty.info('a')
     # ToastParty.success('a')
@@ -1768,14 +1771,17 @@ func createNewMapFolder() -> Variant:
   var startLevel: String = await prompt("Enter the name of the first level:", PromptTypes.string, "hub")
   startLevel = fixPath(startLevel)
   DirAccess.make_dir_absolute(fullDirPath)
+  var cname = useropts.defaultCreatorName
+  if useropts.defaultCreatorNameIsLoggedInUsersName and LevelServer.user:
+    cname = await prompt(
+      "Enter your name",
+      PromptTypes.string,
+      (LevelServer.user.email as String).trim_suffix("@null.notld"),
+    )
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"),
     {
       "start": startLevel,
-      "creatorName": await prompt(
-        "Enter your name",
-        PromptTypes.string,
-        "",
-      ),
+      "creatorName": cname,
       "description": "",
       "gameVersion": VERSION,
       "version": VERSION,
@@ -1814,9 +1820,8 @@ func currentLevelSettings(key: Variant = null) -> Variant:
     if key in levelOpts.stages[currentLevel().name] else \
     defaultLevelSettings[key]
     return data
-  var data: Dictionary = defaultLevelSettings.duplicate()
-  data.merge(levelOpts.stages[currentLevel().name])
-  return data
+  var data: Dictionary = defaultLevelSettings.duplicate_deep()
+  return data.merged(levelOpts.stages[currentLevel().name], true)
 
 func fullscreen(state: int = 0) -> void:
   var mode := DisplayServer.window_get_mode()

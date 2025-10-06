@@ -513,13 +513,25 @@
   },
   {
     "thing": "group",
-    "name": "localLevelList",
+    "name": "localLevels",
     "value": [
       {
         "thing": "option",
         "type": "bool",
         "key": "smallLevelDisplaysInLocalLevelList",
         "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "lineedit",
+        "key": "defaultCreatorName",
+        "defaultValue": ""
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "defaultCreatorNameIsLoggedInUsersName",
+        "defaultValue": true
       }
     ]
   },

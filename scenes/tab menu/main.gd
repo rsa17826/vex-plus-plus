@@ -129,7 +129,7 @@ func updateUserOpts() -> void:
   or global.useropts.showEditorBarBlockMissingErrors != lastshowEditorBarBlockMissingErrors \
   :
     global.loadEditorBarData()
-    global.editorBar._ready()
+    global.editorBar.reload()
   if global.useropts.theme != lastTheme:
     if global.useropts.theme == 0:
       get_window().theme = null
