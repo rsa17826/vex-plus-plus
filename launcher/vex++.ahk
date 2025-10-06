@@ -381,12 +381,13 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
       }
       f.write(settingsPath, data)
     }
+    aotMsgBox("done")
     doingSomething := 0
   })
 
   ; check for updates on startup checkbox
   updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
-  guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on startup")
+  guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on boot")
   guiCtrl.OnEvent("Click", (elem, info) {
     print(elem, info)
     global updateOnBoot
@@ -395,6 +396,12 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
     if updateOnBoot {
       FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
     }
+  })
+  guiCtrl := ui.AddCheckbox((gettings.tryUpdateOnOpen ? "+Checked" : '') '', "check for updates when opening")
+  guiCtrl.OnEvent("Click", (elem, info) {
+    print(elem, info)
+    settings.tryUpdateOnOpen := elem.Value
+    saveSettings()
   })
   guiCtrl := ui.AddCheckbox((gettings.openGameConsole ? "+Checked" : '') '', "open console with game`nbreaks opening different version from inside game")
   guiCtrl.OnEvent("Click", (elem, info) {
@@ -534,9 +541,10 @@ DownloadAll(*) {
   }
 }
 runSelectedVersion() {
-  runVersion(selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0])
-  F.write("launcherData/lastRanVersion.txt", selectedVersion)
-  ExitApp()
+  if runVersion(selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]) {
+    F.write("launcherData/lastRanVersion.txt", selectedVersion)
+    ExitApp()
+  }
 }
 runVersion(gameVersion, newArgs := []) {
   global doingSomething
