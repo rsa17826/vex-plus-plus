@@ -1076,9 +1076,9 @@ func _unhandled_input(event: InputEvent) -> void:
     log.debug(data.CHANGED)
     log.warn(data)
     DisplayServer.clipboard_set("https://bbcode.ilma.dev/\n\n" + log.coloritem(data))
-  if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
+  if event.is_action_pressed(&"eval_expr", false, true):
     var expression = Expression.new()
-    var error = expression.parse('levelOpts.stages')
+    var error = expression.parse(await prompt("expression", PromptTypes.string, ""))
     var failed := false
     var result = ''
     if error != OK:
@@ -1089,10 +1089,11 @@ func _unhandled_input(event: InputEvent) -> void:
       if expression.has_execute_failed():
         failed = true
         result = expression.get_error_text()
-    log.pp(failed, result)
-    # ToastParty.error('a')
-    # ToastParty.info('a')
-    # ToastParty.success('a')
+    if failed:
+      log.err("EVAL: " + result)
+    log.debug(result)
+    log.warn("EVAL: " + result)
+  if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     hideNonGhosts = !hideNonGhosts
   if event.is_action_pressed(&"edit_level_mods", false, true):
     ui.modifiers.toggleEditor()
@@ -1171,7 +1172,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"toggle_fullscreen", false, true):
     fullscreen()
   if event.is_action_pressed(&"editor_select"):
-    shouldDragBlock = true
+    set_deferred('shouldDragBlock', true)
     if selectedBlock:
       selectedBlock.onEditorMove(Vector2.ZERO)
 
