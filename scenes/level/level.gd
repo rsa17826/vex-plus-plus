@@ -25,7 +25,8 @@ func loadLevel(level):
   global.player.state = global.player.States.levelLoading
 
   global.ui.modifiers.updateUi(global.currentLevelSettings())
-  global.ui.modifiers.loadModsToPlayer()
+  global.player.floor_constant_speed = !global.currentLevelSettings().changeSpeedOnSlopes
+  global.player.MAX_JUMP_COUNT = global.currentLevelSettings().jumpCount
   global.activeSignals = {}
   global.ui.progressContainer.visible = true
   var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
@@ -76,7 +77,7 @@ func loadLevel(level):
       await onProgress(prog, max)
   for thing in invalidBlockErrors:
     log.err("Invalid block: \n\"" + thing + '"\n used "' + str(invalidBlockErrors[thing]) + "\" times")
-  global.editorBar._ready()
+  global.editorBar.reload(true)
   await global.wait()
   global.tick = 0
   global.stopTicking = false

@@ -16,6 +16,9 @@ func _init() -> void:
 func _ready() -> void:
   global.overlays.append(self )
   global.onEditorStateChanged.connect(func(): visible = global.showEditorUi)
+  reload()
+
+func reload(noCache:=false) -> void:
   global.defaultBlockOpts = sds.loadDataFromFile("user://defaultBlockOpts.sds", {})
   position.x = global.useropts.editorBarOffset
   for item in get_children():
@@ -31,7 +34,7 @@ func _ready() -> void:
         invalidCount -= 1
         nodeCount -= 1
         newItem(null, i - invalidCount)
-    if not newItem(global.blockNames[i], i - invalidCount) and not (global.useropts.reorganizingEditorBar || global.useropts.showEditorBarBlockMissingErrors):
+    if not newItem(global.blockNames[i], i - invalidCount, noCache) and not (global.useropts.reorganizingEditorBar || global.useropts.showEditorBarBlockMissingErrors):
       invalidCount += 1
   for item in get_children():
     updateItem(item)
@@ -77,8 +80,8 @@ func _input(event: InputEvent) -> void:
       for item in get_children():
         updateItem(item)
 
-func tryload(name):
-  if global.editorBarIconCache.__has(name):
+func tryload(name, noCache:=false):
+  if global.editorBarIconCache.__has(name) and not noCache:
     return global.editorBarIconCache.__get()
   var clone = load("res://scenes/blocks/" + name + "/main.tscn")
   clone = clone.instantiate()
@@ -89,7 +92,7 @@ func tryload(name):
     clone.queue_free.call_deferred()
   return global.editorBarIconCache.__set(clone.editorBarIcon)
 
-func newItem(name, id) -> bool:
+func newItem(name, id, noCache:=false) -> bool:
   var nodeFound = true
   if name == null:
     nodeCount += 1
@@ -99,7 +102,7 @@ func newItem(name, id) -> bool:
   if name is String:
     var blockIcon
     if ResourceLoader.exists("res://scenes/blocks/" + name + "/main.tscn"):
-      blockIcon = tryload(name)
+      blockIcon = tryload(name, noCache)
     else:
       nodeFound = false
       if global.useropts.showEditorBarBlockMissingErrors:

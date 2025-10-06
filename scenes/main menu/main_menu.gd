@@ -66,6 +66,9 @@ func loadLocalLevelList():
   var arr = []
   for levelName: String in dirs:
     var data = global.loadMapInfo(levelName)
+    if not data:
+      log.err(levelName, "no data found")
+      continue
     data.levelName = levelName
     var imagePath = global.path.join(global.MAP_FOLDER, levelName, "image.png")
     if FileAccess.file_exists(imagePath):

@@ -37,11 +37,11 @@ func onAllDataLoaded() -> void:
     if "star" not in level.blockSaveData:
       setTexture(sprite, "complete all stars collected")
     else:
-      var stars: Dictionary = level.blockSaveData.star
+      var stars: Array = level.blockSaveData.star
       var collected: int = 0
       var uncollected: int = 0
-      for i in stars:
-        if stars[i].collected:
+      for star in stars:
+        if star.collected:
           collected += 1
         else:
           uncollected += 1

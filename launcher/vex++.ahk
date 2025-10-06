@@ -823,7 +823,7 @@ hasProcessRunning() {
 sfi(p, i) {
   DirCreate(p)
   try FileDelete(path.join(p, "foldericon.ico"))
-  run('launcherData/sfi.bat -p "' p '" -i "' i '"', , 'hide')
+  run('"launcherData/sfi.bat" -p "' p '" -i "' i '"', , 'hide')
 }
 
 getExeVersion(version, default?) {

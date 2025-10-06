@@ -42,7 +42,6 @@ const SMALL = .00001
 var ziplineCooldown := 0.0
 var lastDeathWasForced := false
 var respawnCooldown: float = 0
-var levelFlags: Dictionary[String, Variant] = {}
 var autoRunDirection: int = 1
 var cannonRotationDelayFrames: float = 0
 var remainingJumpCount: int = 0
@@ -627,7 +626,7 @@ func _physics_process(delta: float) -> void:
         # set state to falling for when player exits the water
         state = States.falling
         # move forward or backward based on input
-        if levelFlags.autoRun:
+        if global.currentLevelSettings().autoRun:
           velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * 1
         else:
           velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * Input.get_axis("down", "jump")
@@ -729,7 +728,7 @@ func _physics_process(delta: float) -> void:
         else:
           # if not on floor and switching wall sides allow both walls again
           if (
-            levelFlags.canDoWallSlide &&
+            global.currentLevelSettings().canDoWallSlide &&
             (lastWallSide && (getCurrentWallSide() && lastWallSide != getCurrentWallSide()))
             or onDifferentWall()
           ) and not collidingWithNowj():
@@ -745,7 +744,7 @@ func _physics_process(delta: float) -> void:
           # log.pp(velocity.y)
           if vel.user.y > -20 && state != States.wallHang:
             # log.pp("entering wall grab", CenterIsOnWall(), TopIsOnWall())
-            if levelFlags.canDoWallHang && (CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj()):
+            if global.currentLevelSettings().canDoWallHang && (CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj()):
               currentHungWall = rightWallDetection.get_collider() if getCurrentWallSide() == 1 else leftWallDetection.get_collider()
               wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
               hungWallSide = getCurrentWallSide()
@@ -768,7 +767,7 @@ func _physics_process(delta: float) -> void:
               lastWallSide = 0
               lastWallCollisionPoint = null
               lastWall = null
-            # if levelFlags.canDoWallHang && ((
+            # if global.currentLevelSettings().canDoWallHang && ((
             #   is_on_wall() and (
             #     (
             #       leftWallDetection.is_colliding() and not leftWallTopDetection.is_colliding()
@@ -808,7 +807,7 @@ func _physics_process(delta: float) -> void:
           if state == States.wallSliding and collidingWithNowj():
             state = States.falling
           if (
-            levelFlags.canDoWallSlide and (
+            global.currentLevelSettings().canDoWallSlide and (
               CenterIsOnWall() && not is_on_floor() && !breakFromWall \
               && vel.user.y > 0 && wallBreakDownFrames <= 0 \
               and not collidingWithNowj()
@@ -836,7 +835,7 @@ func _physics_process(delta: float) -> void:
           wallSlidingFrames = 0
         # jump from walljump
         if (
-          levelFlags.canDoWallJump
+          global.currentLevelSettings().canDoWallJump
           and state == States.wallSliding
           and !breakFromWall
           and not onStickyFloor
@@ -1230,7 +1229,7 @@ func getClosestWallRay() -> RayCast2D:
   return null
 
 func getCurrentLrState():
-  if levelFlags.autoRun:
+  if global.currentLevelSettings().autoRun:
     return autoRunDirection
   return Input.get_axis("left", "right")
 
