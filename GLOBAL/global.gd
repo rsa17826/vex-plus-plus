@@ -1665,6 +1665,12 @@ func loadMapInfo(levelPackName: String) -> Variant:
   if !options:
     log.err("CREATE OPTIONS FILE!!!", levelPackName)
     return
+  # old option names
+  if 'creatorName' in options:
+    options.author = options.creatorName
+  if 'gameVersion' in options:
+    options.version = options.gameVersion
+  # end old option names
   if 'author' in options and 'creatorName' not in options:
     options.creatorName = options.author
   if 'version' in options and 'gameVersion' not in options:
