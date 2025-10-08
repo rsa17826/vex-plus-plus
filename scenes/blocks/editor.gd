@@ -664,6 +664,8 @@ func createEditorGhost() -> void:
   ghost.name = "ghost"
   # ghost.modulate.a = .2
   var collider := Area2D.new()
+  collider.set_script(preload("res://scenes/blocks/root.gd"))
+  collider.root = self
   collider.connect("mouse_entered", _on_mouse_entered)
   collider.connect("mouse_exited", _on_mouse_exited)
   collider.connect("input_event", _on_input_event)

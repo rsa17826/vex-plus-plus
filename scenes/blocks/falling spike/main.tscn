@@ -50,6 +50,7 @@ position = Vector2(-0.5, -64)
 texture = ExtResource("2_dnmi0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_xrsct")
 debug_color = Color(1, 0, 0, 0.41960785)
@@ -84,6 +85,7 @@ script = ExtResource("2_xrsct")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/CharacterBody2D"]
+visible = false
 position = Vector2(0, -2.39)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_ihbm6")

@@ -553,8 +553,11 @@ runVersion(gameVersion, newArgs := []) {
     return
   }
   doingSomething := 1
-  if !path.info(A_ScriptDir, "versions", gameVersion, "vex.pck").isfile
-    return logerr("The selected version is not valid! " path.info(A_ScriptDir, "versions", gameVersion, "vex.pck").abspath)
+  if !path.info(A_ScriptDir, "versions", gameVersion, "vex.pck").isfile {
+    doingSomething := 0
+    logerr("The selected version is not valid! " path.info(A_ScriptDir, "versions", gameVersion, "vex.pck").abspath)
+    return 0
+  }
 
   try {
     ; if hasProcessRunning() {
@@ -623,12 +626,15 @@ runVersion(gameVersion, newArgs := []) {
     ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     ; } else {
     run('"' . path.join(A_ScriptDir, "game data/vex" (gettings.openGameConsole ? ".console" : '') ".exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    doingSomething := 0
     return 1
     ; }
   }
   catch Error as e {
     logerr("error while running runVersion gameVersion " gameVersion, e)
   }
+  doingSomething := 0
+  return 0
 }
 updateRow(row, version?, status?, runtext?) {
   if not IsSet(versionListView)
