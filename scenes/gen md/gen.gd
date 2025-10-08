@@ -77,7 +77,8 @@ func _ready() -> void:
       "path",
       "death boundary",
       "block death boundary",
-      "quad falling spikes"
+      "quad falling spikes",
+      "area trigger",
     ]:
       log.err(id, "thingThatMoves")
     # log.pp(id, block)
