@@ -111,6 +111,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **lock_selected_block**: locks the last selected block preventing it from being selected again until the level is reloaded
   - **tab**: tab key
   - **copy_debug_info**: copies some info
+  - **eval_expr**: evauates an expression - only useful for debugging
   - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 - ## Settings
@@ -217,9 +218,11 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
     - **playerRespawnTime**: the time that the player takes to respawn after dying
 
-  - ### localLevelList
+  - ### localLevels
 
     - **smallLevelDisplaysInLocalLevelList**: makes the level displays for local levels smaller
+    - **defaultCreatorName**: the default name for the prompt when creating a new level
+    - **defaultCreatorNameIsLoggedInUsersName**: if true overites defaultCreatorName to be the username of the currently logged in user
 
   - ### online level list
 
