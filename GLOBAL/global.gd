@@ -1078,14 +1078,14 @@ func _unhandled_input(event: InputEvent) -> void:
     DisplayServer.clipboard_set("https://bbcode.ilma.dev/\n\n" + log.coloritem(data))
   if event.is_action_pressed(&"eval_expr", false, true):
     var expression = Expression.new()
-    var error = expression.parse(await prompt("expression", PromptTypes.string, ""))
+    var error = expression.parse(await prompt("expression", PromptTypes.string, ""), ['global'])
     var failed := false
     var result = ''
     if error != OK:
       failed = true
       result = expression.get_error_text()
     else:
-      result = expression.execute([], self )
+      result = expression.execute([global], self )
       if expression.has_execute_failed():
         failed = true
         result = expression.get_error_text()
@@ -2338,43 +2338,6 @@ var boxSelect_selectedBlocks: Array[EditorBlock] = []:
 
 @onready var MAP_FOLDER = path.abs('res://maps')
 
-class Polygon:
-  var points: Array
-
-  func _init(points: Array):
-    self.points = points
-
-func IsPolygonsIntersecting(a: Polygon, b: Polygon) -> bool:
-  for polygon in [a, b]:
-    for i in range(polygon.points.size()):
-      var i2 = (i + 1) % polygon.points.size()
-      var p1 = polygon.points[i]
-      var p2 = polygon.points[i2]
-
-      var normal = Vector2(p2.y - p1.y, p1.x - p2.x)
-
-      var minA = null
-      var maxA = null
-      for p in a.points:
-        var projected = normal.dot(p)
-        if minA == null or projected < minA:
-          minA = projected
-        if maxA == null or projected > maxA:
-          maxA = projected
-
-      var minB = null
-      var maxB = null
-      for p in b.points:
-        var projected = normal.dot(p)
-        if minB == null or projected < minB:
-          minB = projected
-        if maxB == null or projected > maxB:
-          maxB = projected
-
-      if maxA < minB or maxB < minA:
-        return false
-  return true
-
 func boxSelectReleased():
   var rect = [
     Vector2(
@@ -2386,36 +2349,33 @@ func boxSelectReleased():
       max(boxSelectRealStartPos.y, boxSelectRealEndPos.y)
     ),
   ]
-
-  var selection_polygon = Polygon.new([
-    rect[0],
-    Vector2(rect[1].x, rect[0].y),
-    rect[1],
-    Vector2(rect[0].x, rect[1].y)
-  ])
-
-  for block: EditorBlock in level.get_node("blocks").get_children():
+  var boxSelectRay := ShapeCast2D.new()
+  boxSelectRay.shape = RectangleShape2D.new()
+  boxSelectRay.global_position = rect[0]
+  boxSelectRay.shape.size.x = abs(rect[1].x - rect[0].x)
+  boxSelectRay.shape.size.y = abs(rect[1].y - rect[0].y)
+  boxSelectRay.global_position += Vector2(
+    boxSelectRay.shape.size.x,
+    boxSelectRay.shape.size.y
+  ) / 2.0
+  boxSelectRay.collision_mask = 9
+  boxSelectRay.target_position = Vector2.ZERO
+  boxSelectRay.collide_with_areas = true
+  add_child(boxSelectRay)
+  boxSelectRay.force_shapecast_update()
+  for i: int in boxSelectRay.get_collision_count():
+    var block: EditorBlock = boxSelectRay.get_collider(i).root
     if block.isChildOfCustomBlock or block.EDITOR_IGNORE: continue
-    var pos = block.global_position
-    var size = block.sizeInPx
-    var rot = deg_to_rad(block.startRotation_degrees)
 
-    var block_polygon = Polygon.new([
-      pos + Vector2(-size.x / 2, -size.y / 2).rotated(rot),
-      pos + Vector2(size.x / 2, -size.y / 2).rotated(rot),
-      pos + Vector2(size.x / 2, size.y / 2).rotated(rot),
-      pos + Vector2(-size.x / 2, size.y / 2).rotated(rot)
-    ])
-
-    if IsPolygonsIntersecting(selection_polygon, block_polygon):
-      if block not in boxSelect_selectedBlocks:
-        boxSelect_selectedBlocks.append(block)
+    if block not in boxSelect_selectedBlocks:
+      boxSelect_selectedBlocks.append(block)
 
   boxSelectDrawStartPos = Vector2.ZERO
   boxSelectDrawEndPos = Vector2.ZERO
   level.boxSelectDrawingNode.updateRect()
   if boxSelect_selectedBlocks:
     lastSelectedBlock = boxSelect_selectedBlocks[0]
+  boxSelectRay.queue_free()
 
 func isAlive(e):
   return e \
