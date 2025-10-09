@@ -98,7 +98,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **block_z_down**: same as block_z_up but moves it down instead of up.
   - **invert_single_axis_align**: hold while moving a block to invert the value of singleAxisAlignByDefault.
   - **edit_level_mods**: press to toggle the level mod editor on and off.
-  - **save_current_location_as_last_checkpoint**: when pressed will save the players current location as a temporary checkpoint
+  - **activate_temporary_checkpoint**: when pressed will save the players current location as a temporary checkpoint
   - **copy_block_position**: copies the last selected blocks position
   - **copy_block_scale**: copies the last selected blocks scale
   - **copy_block_rotation**: copies the last selected blocks rotation

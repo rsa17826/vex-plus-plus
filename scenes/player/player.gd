@@ -197,8 +197,15 @@ func _unhandled_input(event: InputEvent) -> void:
   if get_viewport().gui_get_focus_owner(): return
   if global.tabMenu.visible: return
   if global.openMsgBoxCount: return
-  if Input.is_action_just_pressed(&"save_current_location_as_last_checkpoint", true):
+  if Input.is_action_just_pressed(&"activate_temporary_checkpoint", true):
     lastSpawnPoint = (global_position - root.global_position)
+    global.currentLevel().up_direction = up_direction
+    global.currentLevel().autoRunDirection = autoRunDirection
+    if global.currentLevelSettings("checkpointsSaveAll"):
+      global.currentLevel().heat = heat
+      global.currentLevel().gravState = gravState
+      global.currentLevel().speedLeverActive = speedLeverActive
+
   if Input.is_action_just_pressed(&"restart", true):
     die(DEATH_TIME, false, true)
   if Input.is_action_just_pressed(&"full_restart", true):
@@ -341,7 +348,7 @@ func _physics_process(delta: float) -> void:
     return
   if global.shouldDragBlock: return
   if state != States.onZipline:
-    $ziplineDetector/CollisionShape2D2.shape.size = Vector2(8, 25)
+    $ziplineDetectorForActiveZipline/CollisionShape2D2.shape.size = Vector2(8, 25)
   var frameStartPosition := global_position
   waterRay.rotation = - rotation + defaultAngle
   # anim.position = Vector2(0, 0.145)
@@ -544,7 +551,7 @@ func _physics_process(delta: float) -> void:
       #   breakpoint
       # log.pp(newSpeed.length(), vel.zipline.length(), newSpeed, vel.zipline, (newSpeed.normalized()) - (vel.zipline.normalized()))
       # if newSpeed.length() > vel.zipline.length():
-      $ziplineDetector/CollisionShape2D2.shape.size = Vector2(8, 25 * global.rerange(abs(newSpeed.x), 0, 300, 1.5, 4))
+      $ziplineDetectorForActiveZipline/CollisionShape2D2.shape.size = Vector2(8, 25 * global.rerange(abs(newSpeed.x), 0, 300, 1.5, 4))
       if (newSpeed.x > 0) != (vel.zipline.x > 0):
         if newSpeed.x:
           var speed = global.rerange(abs(newSpeed.x), 0, 300, 0.0001, 0.05)
