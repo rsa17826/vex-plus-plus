@@ -16,6 +16,6 @@ but i cant be bothered and river didnt add it yet.....
       STR(saveTick)BOOL(false)
     }
   }
-  STRNAME(levelVersion)INT(34)
-  STRNAME(gameVersion)INT(200)
+  STRNAME(levelVersion)INT(38)
+  STRNAME(gameVersion)INT(202)
 }

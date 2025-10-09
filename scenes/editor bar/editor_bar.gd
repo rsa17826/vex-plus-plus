@@ -29,11 +29,11 @@ func reload(noCache:=false) -> void:
   $item.visible = true
   var invalidCount = 0
   for i in range(0, len(global.blockNames)):
-    if global.blockNames[i] == null:
+    if global.same(global.blockNames[i], &"END_OF_LINE"):
       while invalidCount:
         invalidCount -= 1
         nodeCount -= 1
-        newItem(null, i - invalidCount)
+        newItem("buzsaw", i - invalidCount)
     if not newItem(global.blockNames[i], i - invalidCount, noCache) and not (global.useropts.reorganizingEditorBar || global.useropts.showEditorBarBlockMissingErrors):
       invalidCount += 1
   for item in get_children():
@@ -44,6 +44,7 @@ func reload(noCache:=false) -> void:
   nodeScrollOnY = (nodeSize * ceil(nodeCount / float(columns))) > global.windowSize.y
   if columns > nodeCount:
     columns = nodeCount
+  columns = max(columns, 1)
   # scrollOffset = 0
   updateScrollPos()
   log.pp(global.useropts.editorBarPosition, "global.useropts.editorBarPosition")
@@ -94,7 +95,7 @@ func tryload(name, noCache:=false):
 
 func newItem(name, id, noCache:=false) -> bool:
   var nodeFound = true
-  if name == null:
+  if name == null or global.same(name, &"END_OF_LINE"):
     nodeCount += 1
     return nodeFound
   var icon = Sprite2D.new()

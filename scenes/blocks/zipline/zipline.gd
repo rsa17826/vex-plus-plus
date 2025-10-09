@@ -37,6 +37,10 @@ func on_physics_process(delta: float) -> void:
   ray.enabled = true
   cd -= 1
   # log.pp(colliding())
+  if global.player.activeZipline == self:
+    ray.collision_mask = 131072 + 262144
+  else:
+    ray.collision_mask = 131072
   ray.target_position = targetZipline.position - position
   ray.global_position = global_position + Vector2(0, -sizeInPx.y / 2 + 10)
   ray.scale = Vector2(1, 1) / scale

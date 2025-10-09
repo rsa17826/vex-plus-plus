@@ -1,4 +1,4 @@
-[gd_scene load_steps=289 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene load_steps=290 format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://b1v0la88o0qxe" path="res://scenes/player/playerEditor.gd" id="1_4v6xr"]
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
@@ -284,6 +284,9 @@
 size = Vector2(8, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xb8ft"]
+size = Vector2(8, 34.43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mro88"]
 size = Vector2(8, 34.43)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2t3bg"]
@@ -1327,6 +1330,16 @@ collision_mask = 0
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetector"]
 position = Vector2(0, -6.275)
 shape = SubResource("RectangleShape2D_xb8ft")
+debug_color = Color(0.73333335, 0.44705883, 0, 0.67058825)
+metadata/_edit_lock_ = true
+
+[node name="ziplineDetectorForActiveZipline" type="Area2D" parent="CharacterBody2D"]
+collision_layer = 262144
+collision_mask = 0
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetectorForActiveZipline"]
+position = Vector2(0, -6.275)
+shape = SubResource("RectangleShape2D_mro88")
 debug_color = Color(0.73333335, 0.44705883, 0, 0.67058825)
 metadata/_edit_lock_ = true
 

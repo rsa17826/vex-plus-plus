@@ -1345,41 +1345,41 @@ func _unhandled_input(event: InputEvent) -> void:
         level.save(false)
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
-
-  if event.is_action_pressed(&"move_selected_left"):
-    if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    updateGridSize()
-    var moveDist = Vector2(-1, 0) * gridSize
-    lastSelectedBlock.global_position += moveDist
-    setBlockStartPos(lastSelectedBlock)
-    lastSelectedBlock.onEditorMove(moveDist)
-  if event.is_action_pressed(&"move_selected_right"):
-    if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    updateGridSize()
-    var moveDist = Vector2(1, 0) * gridSize
-    lastSelectedBlock.global_position += moveDist
-    setBlockStartPos(lastSelectedBlock)
-    lastSelectedBlock.onEditorMove(moveDist)
-  if event.is_action_pressed(&"move_selected_up"):
-    if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    updateGridSize()
-    var moveDist = Vector2(0, -1) * gridSize
-    lastSelectedBlock.global_position += moveDist
-    setBlockStartPos(lastSelectedBlock)
-    lastSelectedBlock.onEditorMove(moveDist)
-  if event.is_action_pressed(&"move_selected_down"):
-    if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
-    updateGridSize()
-    var moveDist = Vector2(0, 1) * gridSize
-    lastSelectedBlock.global_position += moveDist
-    setBlockStartPos(lastSelectedBlock)
-    lastSelectedBlock.onEditorMove(moveDist)
   if showEditorUi \
   and not (tabMenu and tabMenu.visible) \
   and not ctrlMenuVisible \
   :
+    if event.is_action_pressed(&"move_selected_left"):
+      if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
+      updateGridSize()
+      var moveDist = Vector2(-1, 0) * gridSize
+      lastSelectedBlock.global_position += moveDist
+      setBlockStartPos(lastSelectedBlock)
+      lastSelectedBlock.onEditorMove(moveDist)
+    if event.is_action_pressed(&"move_selected_right"):
+      if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
+      updateGridSize()
+      var moveDist = Vector2(1, 0) * gridSize
+      lastSelectedBlock.global_position += moveDist
+      setBlockStartPos(lastSelectedBlock)
+      lastSelectedBlock.onEditorMove(moveDist)
+    if event.is_action_pressed(&"move_selected_up"):
+      if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
+      updateGridSize()
+      var moveDist = Vector2(0, -1) * gridSize
+      lastSelectedBlock.global_position += moveDist
+      setBlockStartPos(lastSelectedBlock)
+      lastSelectedBlock.onEditorMove(moveDist)
+    if event.is_action_pressed(&"move_selected_down"):
+      if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
+      updateGridSize()
+      var moveDist = Vector2(0, 1) * gridSize
+      lastSelectedBlock.global_position += moveDist
+      setBlockStartPos(lastSelectedBlock)
+      lastSelectedBlock.onEditorMove(moveDist)
     for block in blockNames:
       if !block: continue
+      if same(block, &"END_OF_LINE"): continue
       if event.is_action_pressed("CREATE NEW - " + (block.name if block is Dictionary else block).replace("/", "_"), false, true):
         log.pp(block)
         var brushes = editorBar.get_children().slice(2)
@@ -1894,6 +1894,8 @@ func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.abs("res://saves/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://exports/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://custom blocks/"))
+  if not FileAccess.file_exists(path.abs("res://editorBar.sds")):
+    sds.saveDataToFile(path.abs("res://editorBar.sds"), [])
   get_tree().set_debug_collisions_hint(hitboxesShown)
   # const SHIFT_VALUE = 353
   # var encode_string = func encode_string(input_string: String) -> String:
@@ -2046,7 +2048,7 @@ func loadEditorBarData():
       if k != 'remove':
         while i % int(useropts.editorBarColumns) != 0:
           i += 1
-          tempBlockNames.append(null)
+          tempBlockNames.append(&"END_OF_LINE")
 
   blockNames = tempBlockNames + unusedBlockNames
 
