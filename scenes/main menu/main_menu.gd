@@ -360,7 +360,7 @@ func __loadOptions(thing) -> void:
             thing.step if "step" in thing else 1,
             thing.defaultValue,
             thing['allow lesser'] if "allow lesser" in thing else false,
-            thing['allow greater'] if "allow greater" in thing else false
+            thing['allow greater'] if "allow greater" in thing else false,
           )
         "multi select":
           __menu.add_multi_select(
@@ -382,7 +382,8 @@ func __loadOptions(thing) -> void:
             thing.step if "step" in thing else 1,
             thing.defaultValue,
             thing['allow lesser'] if "allow lesser" in thing else false,
-            thing['allow greater'] if "allow greater" in thing else false
+            thing['allow greater'] if "allow greater" in thing else false,
+            thing.rounded if "rounded" in thing else false
           )
         "rgba":
           __menu.add_rgba(

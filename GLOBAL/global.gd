@@ -2046,7 +2046,7 @@ func loadEditorBarData():
         else:
           tempBlockNames.append(thing)
       if k != 'remove':
-        while i % int(useropts.editorBarColumns) != 0:
+        while i % useropts.editorBarColumns != 0:
           i += 1
           tempBlockNames.append(&"END_OF_LINE")
 

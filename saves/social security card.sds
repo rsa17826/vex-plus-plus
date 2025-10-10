@@ -30,7 +30,7 @@
             STR(texture)STR(1)
           }
           {
-            STR(texture)STR(2)
+            STR(texture)STR(1)
           }
         ]
         STR(locked box)[
@@ -44,7 +44,7 @@
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(1063.97253417969,-210.080291748047)
+      STRNAME(lastSpawnPoint)VEC2(0.0,0.0)
     }
   ]
   STR(beatLevels)[]

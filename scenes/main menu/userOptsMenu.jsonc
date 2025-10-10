@@ -17,7 +17,8 @@
         "min": 1,
         "max": 200,
         "allow greater": true,
-        "allow lesser": true
+        "allow lesser": true,
+        "rounded": true
       },
       {
         "thing": "option",
@@ -162,7 +163,8 @@
         "defaultValue": 35,
         "min": 0,
         "max": 100,
-        "step": 1
+        "step": 1,
+        "rounded": true
       },
       {
         "thing": "option",
@@ -234,7 +236,8 @@
             "max": 400,
             "min": 1,
             "allow lesser": false,
-            "allow greater": true
+            "allow greater": true,
+            "rounded": true
           },
           {
             "thing": "option",
