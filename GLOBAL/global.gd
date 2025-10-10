@@ -2432,6 +2432,7 @@ func resendActiveSignals():
     # text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
     # log.pp(id, !!activeSignals[id], activeSignals[id])
     signalChanged.emit(id, !!activeSignals[id], activeSignals[id])
+    signalSenderChanged.emit(id, !!activeSignals[id], activeSignals[id])
 
 func sendSignals():
   var sc = signalChanges.duplicate()
@@ -2440,6 +2441,7 @@ func sendSignals():
   if not isAlive(ui): return
   for id in sc:
     ui.signalList.onSignalChanged(id, !!activeSignals[id], sc[id])
+    signalSenderChanged.emit(id, !!activeSignals[id], sc[id])
     if id in lastSignals and (lastSignals[id] == !!activeSignals[id]): continue
     lastSignals[id] = !!activeSignals[id]
     # log.pp("update signal changes", sc, activeSignals)
@@ -2484,6 +2486,7 @@ var hitboxTypes := {
   "solid": true
 }
 signal hitboxTypesChanged
+signal signalSenderChanged
 
 const BRANCH = "main"
 const REPO_NAME = "vex-plus-plus-level-codes"
