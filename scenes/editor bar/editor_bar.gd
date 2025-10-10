@@ -145,6 +145,7 @@ func newItem(name, id, noCache:=false) -> bool:
 
 func updateItem(item):
   if item == $ColorRect: return
+  columns = max(columns, 1)
   item.scale = (Vector2(1, 1) / 7)
 
   item.scale *= (float(nodeSize) / 100)

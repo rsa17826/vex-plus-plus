@@ -254,24 +254,36 @@ static func loadAllLevels() -> Array:
   LevelServer.loadLevelImages(data)
   return data
 
+static func cachePath(id: int) -> String:
+  return global.path.abs("user://cache/levelImages/" + str(int(id)) + '.png')
+
 static func loadLevelImages(levels: Array) -> void:
-  var allIds = levels.map(func(e: Level): return e.onlineId)
-  for ids in [[allIds[0]], allIds.slice(1, 6), allIds.slice(6)]:
-    if ids:
-      LevelServer.query_cb(
-        SupabaseQuery.new()
-        .from('level test 2')
-        .order('created_at', 1)
-        .In("id", ids)
-        .select(['id,levelImage']),
-      func(data):
-        for level: Level in levels:
-          for image in data:
-            if level.onlineId == image.id:
-              level.levelImage.load_png_from_buffer(Marshalls.base64_to_raw(image.levelImage))
-              level.dataChanged.emit()
-              break
-      )
+  # var tempIds = levels.map(func(e: Level): return e.onlineId)
+  var allIds = []
+  for level: Level in levels:
+    if FileAccess.file_exists(cachePath(level.onlineId)):
+      level.levelImage = Image.load_from_file(cachePath(level.onlineId))
+      level.dataChanged.emit.call_deferred()
+    else:
+      allIds.append(level.onlineId)
+  if allIds:
+    for ids in [[allIds[0]], allIds.slice(1, 6), allIds.slice(6)]:
+      if ids:
+        LevelServer.query_cb(
+          SupabaseQuery.new()
+          .from('level test 2')
+          .order('created_at', 1)
+          .In("id", ids)
+          .select(['id,levelImage']),
+        func(data):
+          for level: Level in levels:
+            for image in data:
+              if level.onlineId == image.id:
+                level.levelImage.load_png_from_buffer(Marshalls.base64_to_raw(image.levelImage))
+                level.levelImage.save_png(cachePath(image.id))
+                level.dataChanged.emit()
+                break
+        )
 
 static func dictToLevel(e: Dictionary) -> Level:
   var img: Image
