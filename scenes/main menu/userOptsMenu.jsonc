@@ -463,29 +463,40 @@
           {
             "thing": "option",
             "type": "bool",
-            "key": "alwaysShowSignalConnectionLines",
+            "key": "showSignalConnectionLinesInEditor",
+            "defaultValue": false
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showSignalConnectionLinesInPlay",
             "defaultValue": false
           }
         ]
       },
-
       {
-        "thing": "option",
-        "type": "bool",
-        "key": "showLevelModsWhileEditing",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showLevelModsWhilePlaying",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showUnchangedLevelMods",
-        "defaultValue": true
+        "thing": "group",
+        "name": "level mods",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showLevelModsWhileEditing",
+            "defaultValue": true
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showLevelModsWhilePlaying",
+            "defaultValue": true
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showUnchangedLevelMods",
+            "defaultValue": false
+          }
+        ]
       },
       {
         "thing": "option",
@@ -500,22 +511,28 @@
         "defaultValue": true
       },
       {
-        "thing": "option",
-        "type": "bool",
-        "key": "showPathBlockInPlay",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showPathLineInPlay",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showPathEditNodesInPlay",
-        "defaultValue": true
+        "thing": "group",
+        "name": "path",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showPathBlockInPlay",
+            "defaultValue": true
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showPathLineInPlay",
+            "defaultValue": true
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showPathEditNodesInPlay",
+            "defaultValue": true
+          }
+        ]
       }
     ]
   },

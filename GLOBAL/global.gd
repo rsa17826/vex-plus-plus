@@ -1189,10 +1189,11 @@ func _unhandled_input(event: InputEvent) -> void:
       and lastRotatedBlock \
       and lastRotatedBlock == lastSelectedBlock \
     :
-      shouldDragBlock = false
-      if selectedBlock:
-        lastSelectedBlock = selectedBlock
-      selectedBlock = null
+      if !Input.is_action_pressed(&"editor_select"):
+        shouldDragBlock = false
+        if selectedBlock:
+          lastSelectedBlock = selectedBlock
+        selectedBlock = null
       lastSelectedBlock.onEditorRotateEnd()
     editorInRotateMode = Input.is_action_pressed(&"editor_rotate")
   if editorInRotateMode and event is InputEventMouseMotion and event.screen_relative:

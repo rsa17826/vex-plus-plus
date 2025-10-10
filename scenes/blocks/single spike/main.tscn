@@ -1,16 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmcqvvitqaa28"]
+[gd_scene load_steps=10 format=3 uid="uid://bmcqvvitqaa28"]
 
 [ext_resource type="Script" uid="uid://bs48vgemdehey" path="res://scenes/blocks/single spike/single spike.gd" id="1_sjua3"]
 [ext_resource type="Texture2D" uid="uid://b6f3mr66ft13k" path="res://scenes/blocks/single spike/images/1.png" id="2_8vy5t"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_jt7ue"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_sjua3"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_d0b0c"]
+[ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="6_d0b0c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t2pxc"]
-size = Vector2(61, 109.5)
+size = Vector2(61, 107.55264)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jt7ue"]
 size = Vector2(34, 14.710539)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41y0u"]
+size = Vector2(67.21, 6.905)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["attaches to things", "death"]]
 script = ExtResource("1_sjua3")
@@ -38,8 +42,7 @@ position = Vector2(0, -61.6579)
 texture = ExtResource("2_8vy5t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-visible = false
-position = Vector2(0, -54.9079)
+position = Vector2(0, -55.881588)
 shape = SubResource("RectangleShape2D_t2pxc")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_d0b0c")
@@ -54,6 +57,20 @@ collision_mask = 32768
 collide_with_areas = true
 script = ExtResource("3_sjua3")
 root = NodePath("..")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("2_jt7ue")
+root = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -3.59)
+rotation = 3.1415927
+shape = SubResource("RectangleShape2D_41y0u")
+one_way_collision = true
+debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
+script = ExtResource("6_d0b0c")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
