@@ -330,6 +330,7 @@ func updateUserOpts() -> void:
         get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
         return
     if levelToLoad:
+      await global.wait()
       await global.loadMap(levelToLoad, true)
 
   if shouldReload:

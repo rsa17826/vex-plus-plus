@@ -30,6 +30,7 @@ canAttachToPaths = true
 
 [node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
+position = Vector2(1, 0)
 scale = Vector2(0.95, 0.95)
 collision_layer = 3088
 collision_mask = 2
@@ -42,6 +43,7 @@ position = Vector2(0, -61.6579)
 texture = ExtResource("2_8vy5t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
 position = Vector2(0, -55.881588)
 shape = SubResource("RectangleShape2D_t2pxc")
 debug_color = Color(1, 0, 0, 0.41960785)
@@ -65,6 +67,7 @@ script = ExtResource("2_jt7ue")
 root = NodePath("..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
 position = Vector2(0, -3.59)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_41y0u")
