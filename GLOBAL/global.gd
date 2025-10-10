@@ -1268,7 +1268,7 @@ func _unhandled_input(event: InputEvent) -> void:
       lastDeletedBlock = null
     boxSelect_selectedBlocks = []
     # log.pp(selectedBlock, lastSelectedBlock)
-    if selectedBlock && is_instance_valid(selectedBlock):
+    if selectedBlock && is_instance_valid(selectedBlock) and selectedBlock.is_inside_tree():
       if selectedBlock == global.player.root: return
       if selectedBlock in hoveredBlocks:
         hoveredBlocks.erase(selectedBlock)
@@ -1287,7 +1287,7 @@ func _unhandled_input(event: InputEvent) -> void:
     else:
       if useropts.deleteLastSelectedBlockIfNoBlockIsCurrentlySelected:
         log.pp(selectedBlock, lastSelectedBlock)
-        if lastSelectedBlock && is_instance_valid(lastSelectedBlock):
+        if lastSelectedBlock && is_instance_valid(lastSelectedBlock) and lastSelectedBlock.is_inside_tree():
           if lastSelectedBlock == global.player.root: return
           if lastSelectedBlock in hoveredBlocks:
             hoveredBlocks.erase(lastSelectedBlock)

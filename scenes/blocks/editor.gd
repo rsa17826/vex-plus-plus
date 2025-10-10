@@ -542,6 +542,14 @@ func _draw():
   or global.useropts.showSignalConnectionLinesInEditor and global.showEditorUi \
   or global.useropts.showSignalConnectionLinesInPlay and !global.showEditorUi \
   :
+    if global.useropts.onlyShowSignalConnectionsIfHoveringOverAny:
+      if global.selectedBlock:
+        if global.selectedBlock != self:
+          if global.selectedBlock.getConnectedBlocks(): return
+      else:
+        if global.hoveredBlocks and global.hoveredBlocks[0] != self:
+          if global.hoveredBlocks[0].getConnectedBlocks(): return
+
     for thing: Array in getConnectedBlocks():
       var block: EditorBlock = thing[0]
       var signalActive = thing[1]
@@ -622,6 +630,10 @@ func _process(delta: float) -> void:
         if not _DISABLED:
           if isBeingMoved:
             onEditorMoveEnded()
+            for thing in cloneEventsHere:
+              if 'on_ready' in thing:
+                thing.on_ready()
+            on_ready()
             isBeingMoved = false
           for collider in collisionShapes:
             if not collider and not ignoreMissingNodes:
