@@ -16,7 +16,7 @@ load_path = "res://.godot/imported/1.png-27a9b0e1d6f4d7f789430a58ccf43464.ctex"
 size = Vector2(688, 82.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_koju6"]
-size = Vector2(688, 17.945)
+size = Vector2(688, 6.905)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
 size = Vector2(688, 18)
@@ -71,7 +71,6 @@ script = ExtResource("2_caaoq")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D"]
-visible = false
 position = Vector2(0, -12.25)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_koju6")

@@ -16,7 +16,7 @@ size = Vector2(688, 92)
 size = Vector2(688, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yekse"]
-size = Vector2(688, 17.945)
+size = Vector2(688, 6.995)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_c5k05")
@@ -48,7 +48,6 @@ texture = ExtResource("2_fcna3")
 editorSize = Vector2(701, 123)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
-visible = false
 position = Vector2(0, -57.5)
 shape = SubResource("RectangleShape2D_1gece")
 debug_color = Color(1, 0, 0, 0.41960785)
@@ -80,7 +79,6 @@ script = ExtResource("2_v4hfa")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D"]
-visible = false
 position = Vector2(0, -12.25)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_yekse")

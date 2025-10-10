@@ -295,7 +295,8 @@ func clearSaveData():
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
-  global.signalSenderChanged.connect(onSignalChanged)
+  global.signalSenderChanged.connect(func(...__): queue_redraw())
+  global.onEditorStateChanged.connect(queue_redraw)
 
   if KILL_AFTER_TIME:
     get_tree().create_timer(KILL_AFTER_TIME).timeout.connect(queue_free)
@@ -511,24 +512,36 @@ func getLinesTo(block: EditorBlock) -> Array:
   if dx == 0 and dy == 0:
     return lines
 
-  var intermediate_point = Vector2(start_point.x, end_point.y)
-  if abs(dx) > abs(dy):
-    intermediate_point.x += (sign(dx) * abs(dy))
-  else:
-    intermediate_point.y -= (sign(dy) * abs(dx))
-  lines.append([start_point, intermediate_point])
-  # log.pp(dx)
-  if dy != 0:
+  var intermediate_point = Vector2()
+
+  if dx > 0: # When moving right
+    intermediate_point.x = end_point.x
+    intermediate_point.y = start_point.y
+    if abs(dx) > abs(dy):
+      intermediate_point.x -= (sign(dx) * abs(dy))
+    else:
+      intermediate_point.y += (sign(dy) * abs(dx))
+
     lines.append([intermediate_point, end_point])
+    lines.append([start_point, intermediate_point])
+    # if dy != 0:
+  else: # When moving left or in the vertical direction
+    intermediate_point = Vector2(start_point.x, end_point.y)
+    if abs(dx) > abs(dy):
+      intermediate_point.x += (sign(dx) * abs(dy))
+    else:
+      intermediate_point.y -= (sign(dy) * abs(dx))
+    lines.append([start_point, intermediate_point])
+    if dy != 0:
+      lines.append([intermediate_point, end_point])
+
   return lines
 
-func onSignalChanged(id, on, callers):
-  # log.err(id, on, callers)
-  queue_redraw.call_deferred()
-
 func _draw():
-  # if (lineDrawEnabled and global.useropts.showSignalConnectionLinesOnHover) \
-  # or global.useropts.alwaysShowSignalConnectionLines:
+  if (lineDrawEnabled and global.useropts.showSignalConnectionLinesOnHover) \
+  or global.useropts.showSignalConnectionLinesInEditor and global.showEditorUi \
+  or global.useropts.showSignalConnectionLinesInPlay and !global.showEditorUi \
+  :
     for thing: Array in getConnectedBlocks():
       var block: EditorBlock = thing[0]
       var signalActive = thing[1]

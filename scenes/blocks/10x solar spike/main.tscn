@@ -14,7 +14,7 @@
 size = Vector2(688, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6flnq"]
-size = Vector2(688, 17.945)
+size = Vector2(688, 6.95)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
 size = Vector2(688, 18)
@@ -78,7 +78,6 @@ script = ExtResource("2_i230j")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D"]
-visible = false
 position = Vector2(0, -12.25)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_6flnq")
