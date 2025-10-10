@@ -177,6 +177,7 @@ func onEditorMove(moveDist: Vector2) -> void:
       block.startPosition += moveDist
       block.global_position += moveDist
       block.onEditorMove(Vector2.ZERO)
+  queue_redraw()
   respawn()
 
 var firstRespawn := true
@@ -459,7 +460,31 @@ var right_edge: float
 var top_edge: float
 var bottom_edge: float
 
-func getConnectedBlocks() -> Array: return [] # global.level.get_node("blocks").get_children().slice(1, 24)
+# func getConnectedBlocks() -> Array: return [] # global.level.get_node("blocks").get_children().slice(1, 24)
+func getConnectedBlocks() -> Array:
+  if 'signalOutputId' in selectedOptions:
+    if not selectedOptions.signalOutputId:
+      return []
+    return global.level.get_node("blocks").get_children() \
+    .map(
+      func(e):
+        var found=0
+        for thing in ['signalAInputId', 'signalBInputId', 'signalInputId']:
+          if thing in e.selectedOptions \
+          and e.selectedOptions[thing] == selectedOptions.signalOutputId:
+            if found < 1:
+              found=1
+            if e.selectedOptions[thing] in global.activeSignals \
+            and global.activeSignals[e.selectedOptions[thing]]:
+              if found < 2:
+                found=2
+              if self in global.activeSignals[e.selectedOptions[thing]]:
+                found=3
+              break
+        return [e, found]
+    ).filter(func(e): return e[1])
+  return []
+
 func getLinesTo(block: EditorBlock) -> Array:
   var lines: Array = []
   var start_point = position
@@ -493,9 +518,11 @@ func getLinesTo(block: EditorBlock) -> Array:
 
 func _draw():
   if lineDrawEnabled:
-    for block: EditorBlock in getConnectedBlocks():
+    for thing: Array in getConnectedBlocks():
+      var block: EditorBlock = thing[0]
+      var signalActive = thing[1]
       for line in getLinesTo(block):
-        draw_line(to_local(line[0]), to_local(line[1]), Color("#606"), -1)
+        draw_line(to_local(line[0]), to_local(line[1]), [Color("#606"), Color("#a00"), Color("#0a0")][signalActive-1], -1)
 
 var lineDrawEnabled := false
 
