@@ -1890,6 +1890,7 @@ func localReady() -> void:
 # ])
   # log.test(Color('#ff00006b').to_rgba32())
   DirAccess.make_dir_recursive_absolute(MAP_FOLDER)
+  DirAccess.make_dir_recursive_absolute(path.abs("user://cache/levelImages"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://saves/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://exports/"))

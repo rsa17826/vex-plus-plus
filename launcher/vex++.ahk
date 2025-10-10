@@ -278,6 +278,9 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   listedVersions := []
   loop files A_ScriptDir "/versions/*", 'D' {
     dirname := path.info(A_LoopFileFullPath).nameandext
+    if !FileExist(path.join(A_LoopFileFullPath, "vex.pck")) {
+      continue
+    }
     versionName := dirname
     versionPath := "versions/" versionName
     status := OFFLINE ? "" : "LocalOnly"

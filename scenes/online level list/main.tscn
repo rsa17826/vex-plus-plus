@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bxqm1u3q1wtqg"]
+[gd_scene load_steps=6 format=3 uid="uid://bxqm1u3q1wtqg"]
 
 [ext_resource type="Script" uid="uid://cas6oanc84ppn" path="res://scenes/online level list/main.gd" id="1_706a5"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_7t3ru"]
 [ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="3_7t3ru"]
 [ext_resource type="PackedScene" uid="uid://c1yohkn2i03nk" path="res://GLOBAL/autocomplete lineedit/autocomplete_lineedit.tscn" id="4_j8h1a"]
+[ext_resource type="Script" uid="uid://d20bj3b1qvls5" path="res://scenes/main menu/scroll_container.gd" id="5_181b7"]
 
 [node name="Control" type="Control" node_paths=PackedStringArray("loadingText", "levelListContainerNode", "searchBar")]
 layout_mode = 3
@@ -98,6 +99,7 @@ layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
+script = ExtResource("5_181b7")
 metadata/_edit_lock_ = true
 
 [node name="GridContainer" type="HFlowContainer" parent="VBoxContainer/MarginContainer/ScrollContainer"]
