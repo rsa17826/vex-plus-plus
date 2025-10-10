@@ -14,7 +14,7 @@ func generateBlockOpts():
 
 func on_respawn():
   lastInput = null
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self , Input.is_action_pressed(actions.keys()[selectedOptions.action]))
   match selectedOptions.action:
     0: startRotation_degrees = 0
     1: startRotation_degrees = 180
