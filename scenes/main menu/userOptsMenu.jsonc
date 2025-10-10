@@ -421,6 +421,55 @@
         ]
       },
       {
+        "thing": "group",
+        "name": "signals",
+        "value": [
+          {
+            "thing": "group",
+            "name": "signal display",
+            "value": [
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSignalList",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showTotalActiveSignalCounts",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showWhatBlocksAreSendingSignals",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "onlyShowActiveSignals",
+                "defaultValue": false
+              }
+            ]
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showSignalConnectionLinesOnHover",
+            "defaultValue": true
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "alwaysShowSignalConnectionLines",
+            "defaultValue": false
+          }
+        ]
+      },
+
+      {
         "thing": "option",
         "type": "bool",
         "key": "showLevelModsWhileEditing",
@@ -470,36 +519,7 @@
       }
     ]
   },
-  {
-    "thing": "group",
-    "name": "signal display",
-    "value": [
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showSignalList",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showTotalActiveSignalCounts",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showWhatBlocksAreSendingSignals",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "onlyShowActiveSignals",
-        "defaultValue": false
-      }
-    ]
-  },
+
   {
     "thing": "group",
     "name": "player",

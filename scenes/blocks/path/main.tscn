@@ -30,5 +30,7 @@ script = ExtResource("2_5skgb")
 root = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
 shape = SubResource("RectangleShape2D_qvsey")
+debug_color = Color(0.05490196, 1, 0, 0.41960785)
 script = ExtResource("4_5skgb")

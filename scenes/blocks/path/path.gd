@@ -185,6 +185,7 @@ func updateVisible() -> void:
   queue_redraw()
 
 func _draw() -> void:
+  super()
   var lastPoint = global_position
   if global.useropts.showPathLineInPlay or global.showEditorUi:
     for idx in range(len(path)):

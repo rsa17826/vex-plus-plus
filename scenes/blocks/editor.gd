@@ -295,6 +295,8 @@ func clearSaveData():
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
+  global.signalSenderChanged.connect(onSignalChanged)
+
   if KILL_AFTER_TIME:
     get_tree().create_timer(KILL_AFTER_TIME).timeout.connect(queue_free)
   # hasBeenExploded = false
@@ -462,28 +464,40 @@ var bottom_edge: float
 
 # func getConnectedBlocks() -> Array: return [] # global.level.get_node("blocks").get_children().slice(1, 24)
 func getConnectedBlocks() -> Array:
-  if 'signalOutputId' in selectedOptions:
-    if not selectedOptions.signalOutputId:
-      return []
-    return global.level.get_node("blocks").get_children() \
-    .map(
-      func(e):
-        var found=0
-        for thing in ['signalAInputId', 'signalBInputId', 'signalInputId']:
-          if thing in e.selectedOptions \
-          and e.selectedOptions[thing] == selectedOptions.signalOutputId:
-            if found < 1:
-              found=1
-            if e.selectedOptions[thing] in global.activeSignals \
-            and global.activeSignals[e.selectedOptions[thing]]:
-              if found < 2:
-                found=2
-              if self in global.activeSignals[e.selectedOptions[thing]]:
-                found=3
-              break
-        return [e, found]
-    ).filter(func(e): return e[1])
-  return []
+  var checksForOtherBlocks = []
+  var checksForThisBlock = []
+  var inputs := ['signalAInputId', 'signalBInputId', 'signalInputId']
+  var outputs := ['signalOutputId']
+  for thing in inputs:
+    if thing in selectedOptions and selectedOptions[thing]:
+      checksForOtherBlocks += outputs
+      checksForThisBlock.append(thing)
+  for thing in outputs:
+    if thing in selectedOptions and selectedOptions[thing]:
+      checksForOtherBlocks += inputs
+      checksForThisBlock.append(thing)
+  # log.pp(checksForThisBlock, checksForOtherBlocks)
+  if not checksForThisBlock:
+    return []
+  return global.level.get_node("blocks").get_children() \
+  .map(
+    func(e):
+      var found=0
+      for thing in checksForOtherBlocks:
+        if thing in e.selectedOptions \
+        and e.selectedOptions[thing] in checksForThisBlock.map(func(e): return selectedOptions[e]):
+          if found < 1:
+            found=1
+          if e.selectedOptions[thing] in global.activeSignals \
+          and global.activeSignals[e.selectedOptions[thing]]:
+            if self in global.activeSignals[e.selectedOptions[thing]] \
+            if thing in inputs else \
+            e in global.activeSignals[e.selectedOptions[thing]] \
+            :
+              found=2
+            break
+      return [e, found]
+  ).filter(func(e): return e[1])
 
 func getLinesTo(block: EditorBlock) -> Array:
   var lines: Array = []
@@ -497,37 +511,35 @@ func getLinesTo(block: EditorBlock) -> Array:
   if dx == 0 and dy == 0:
     return lines
 
+  var intermediate_point = Vector2(start_point.x, end_point.y)
   if abs(dx) > abs(dy):
-    log.pp(dx, dy)
-    var intermediate_point = Vector2(end_point.x, start_point.y)
-    intermediate_point.x -= (sign(dx) * abs(dy))
-    lines.append([start_point, intermediate_point])
-
-    if dy != 0:
-      lines.append([intermediate_point, end_point])
-
+    intermediate_point.x += (sign(dx) * abs(dy))
   else:
-    var intermediate_point = Vector2(start_point.x, end_point.y)
     intermediate_point.y -= (sign(dy) * abs(dx))
-    lines.append([start_point, intermediate_point])
-
-    if dx != 0:
-      lines.append([intermediate_point, end_point])
-
+  lines.append([start_point, intermediate_point])
+  # log.pp(dx)
+  if dy != 0:
+    lines.append([intermediate_point, end_point])
   return lines
 
+func onSignalChanged(id, on, callers):
+  # log.err(id, on, callers)
+  queue_redraw.call_deferred()
+
 func _draw():
-  if lineDrawEnabled:
+  # if (lineDrawEnabled and global.useropts.showSignalConnectionLinesOnHover) \
+  # or global.useropts.alwaysShowSignalConnectionLines:
     for thing: Array in getConnectedBlocks():
       var block: EditorBlock = thing[0]
       var signalActive = thing[1]
       for line in getLinesTo(block):
-        draw_line(to_local(line[0]), to_local(line[1]), [Color("#606"), Color("#a00"), Color("#0a0")][signalActive-1], -1)
+        draw_line(to_local(line[0]), to_local(line[1]), [Color("#a00"), Color("#0a0")][signalActive - 1], -1)
 
 var lineDrawEnabled := false
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
+  queue_redraw.call_deferred()
   if !global.player: return
   # if EDITOR_IGNORE: return
   # if not ghost: return
