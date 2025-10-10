@@ -32,3 +32,19 @@ func onSignalChanged(id, on, callers):
 
 func onDelete():
   global.sendSignal(selectedOptions.signalOutputId, self , false)
+
+# func getConnectedBlocks():
+#   global.level.get_node("blocks").get_children() \
+#   .filter(
+#     func(e):
+#       var found=0
+#       for thing in ['signalAInputId', 'signalBInputId', 'signalInputId']:
+#         if thing in e.selectedOptions \
+#         and e.selectedOptions[thing] == selectedOptions.signalOutputId:
+#           found=1
+#           if e.selectedOptions[thing] in global.activeSignals \
+#           and global.activeSignals[e.selectedOptions[thing]]:
+#             found=2
+#             break
+#       return found
+#   )
