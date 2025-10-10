@@ -459,6 +459,46 @@ var right_edge: float
 var top_edge: float
 var bottom_edge: float
 
+func getConnectedBlocks() -> Array: return [] # global.level.get_node("blocks").get_children().slice(1, 24)
+func getLinesTo(block: EditorBlock) -> Array:
+  var lines: Array = []
+  var start_point = position
+  var end_point = block.position
+
+  # Calculate differences
+  var dx = end_point.x - start_point.x
+  var dy = end_point.y - start_point.y
+
+  if dx == 0 and dy == 0:
+    return lines
+
+  if abs(dx) > abs(dy):
+    log.pp(dx, dy)
+    var intermediate_point = Vector2(end_point.x, start_point.y)
+    intermediate_point.x -= (sign(dx) * abs(dy))
+    lines.append([start_point, intermediate_point])
+
+    if dy != 0:
+      lines.append([intermediate_point, end_point])
+
+  else:
+    var intermediate_point = Vector2(start_point.x, end_point.y)
+    intermediate_point.y -= (sign(dy) * abs(dx))
+    lines.append([start_point, intermediate_point])
+
+    if dx != 0:
+      lines.append([intermediate_point, end_point])
+
+  return lines
+
+func _draw():
+  if lineDrawEnabled:
+    for block: EditorBlock in getConnectedBlocks():
+      for line in getLinesTo(block):
+        draw_line(to_local(line[0]), to_local(line[1]), Color("#606"), -1)
+
+var lineDrawEnabled := false
+
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
   if !global.player: return
@@ -486,6 +526,20 @@ func _process(delta: float) -> void:
     else:
       ghost.modulate.a = global.useropts.blockGhostAlpha
     ghost.visible = global.showEditorUi
+  var lastLineDraw := lineDrawEnabled
+  if global.showEditorUi:
+    if global.selectedBlock:
+      if global.selectedBlock == self:
+        lineDrawEnabled = true
+      else:
+        lineDrawEnabled = false
+    else:
+      if global.hoveredBlocks and global.hoveredBlocks[0] == self:
+        lineDrawEnabled = true
+      else:
+        lineDrawEnabled = false
+  if lineDrawEnabled != lastLineDraw:
+    queue_redraw()
 
   if Input.is_action_pressed(&"editor_box_select"): return
   if not EDITOR_IGNORE \

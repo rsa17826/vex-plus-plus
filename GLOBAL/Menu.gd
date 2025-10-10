@@ -84,7 +84,7 @@ func add_named_spinbox(key, options, default) -> void:
     "options": options,
     "default": default
   })
-func add_spinbox(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false) -> void:
+func add_spinbox(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false, rounded:=false) -> void:
   # return float|int
   _add_any(key, {
     "type": "spinbox",
@@ -93,6 +93,7 @@ func add_spinbox(key, from, to, step: float = 1, default: float = 1, allow_lesse
     "step": step,
     "allow_lesser": allow_lesser,
     "allow_greater": allow_greater,
+    "rounded": rounded,
     "default": default
   })
 func add_bool(key, default=false) -> void:
@@ -320,6 +321,7 @@ func show_menu():
         node.thisText = formatName.call(thing.name)
         node.get_node("Label").text = formatName.call(thing.name)
         var range_node = node.get_node("HSlider")
+        range_node.rounded = thing.rounded
         range_node.allow_greater = thing.allow_greater
         range_node.allow_lesser = thing.allow_lesser
         range_node.min_value = thing.from
@@ -449,7 +451,10 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
         val=int(val)
       node.get_node("slider value").text=str(val)
     "spinbox":
-      menu_data[name].user=node.get_node("HSlider").value
+      if node.get_node("HSlider").rounded:
+        menu_data[name].user=int(node.get_node("HSlider").value)
+      else:
+        menu_data[name].user=node.get_node("HSlider").value
     "named range":
       var arr=sort_dict_to_arr(menu_data[name].options)
       var selected_option=arr.filter(func(x):
