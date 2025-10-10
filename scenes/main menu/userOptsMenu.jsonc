@@ -455,22 +455,28 @@
             ]
           },
           {
-            "thing": "option",
-            "type": "bool",
-            "key": "showSignalConnectionLinesOnHover",
-            "defaultValue": true
-          },
-          {
-            "thing": "option",
-            "type": "bool",
-            "key": "showSignalConnectionLinesInEditor",
-            "defaultValue": false
-          },
-          {
-            "thing": "option",
-            "type": "bool",
-            "key": "showSignalConnectionLinesInPlay",
-            "defaultValue": false
+            "thing": "group",
+            "name": "signal connection lines",
+            "value": [
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSignalConnectionLinesOnHover",
+                "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSignalConnectionLinesInEditor",
+                "defaultValue": false
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSignalConnectionLinesInPlay",
+                "defaultValue": false
+              }
+            ]
           }
         ]
       },
@@ -512,7 +518,7 @@
       },
       {
         "thing": "group",
-        "name": "path",
+        "name": "paths",
         "value": [
           {
             "thing": "option",

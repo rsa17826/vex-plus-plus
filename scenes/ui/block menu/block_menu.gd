@@ -196,7 +196,6 @@ func onThingChanged(...data) -> void:
   elif blockOptions[k].type == 'BUTTON':
     if blockOptions[k].onChange.call():
       block.respawn()
-      block._ready()
     return
   else:
     log.err("unknown type", k, blockOptions[k])
@@ -210,7 +209,6 @@ func onThingChanged(...data) -> void:
     selectedOptions[k] = val
     block.toType(k)
   block.respawn()
-  block._ready()
   updateBlockMenuValues()
 
 func _input(event):
