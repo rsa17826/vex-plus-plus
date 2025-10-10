@@ -198,21 +198,33 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
       - **selectedBlockFormatString**: string showing how to format the data for the selected block
       - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id)
-    - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
-    - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
-    - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
+
+    - ### signals
+
+
+      - ### signal display
+
+        - **showSignalList**: if true a list of all signals, the blocks that are sending the signals and weather or not the signal is active
+        - **showTotalActiveSignalCounts**: adds a number showing the total amount of signals that are currently sending on each signal id
+        - **showWhatBlocksAreSendingSignals**: adds an image of the block that is sending on each signal id and a number showing the amount of blocks of the same type that are sending the signal
+        - **onlyShowActiveSignals**: only shows signals if the signal is active and being sent
+      - **showSignalConnectionLinesOnHover**: shows lines between all blocks connected by signals to the block being hovered or selected
+      - **showSignalConnectionLinesInEditor**: shows lines between all blocks connected by signals when in the editor
+      - **showSignalConnectionLinesInPlay**: shows lines between all blocks connected by signals when not in the editor
+
+    - ### level mods
+
+      - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
+      - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
+      - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
     - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
-    - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
-    - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
-    - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
 
-  - ### signal display
+    - ### path
 
-    - **showSignalList**: if true a list of all signals, the blocks that are sending the signals and weather or not the signal is active
-    - **showTotalActiveSignalCounts**: adds a number showing the total amount of signals that are currently sending on each signal id
-    - **showWhatBlocksAreSendingSignals**: adds an image of the block that is sending on each signal id and a number showing the amount of blocks of the same type that are sending the signal
-    - **onlyShowActiveSignals**: only shows signals if the signal is active and being sent
+      - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
+      - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
+      - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
 
   - ### player
 
