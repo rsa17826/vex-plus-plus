@@ -12,10 +12,10 @@
       STR(blockSaveData){
         STR(checkpoint)[
           {
-            STR(texture)STR(2)
+            STR(texture)STR(3)
           }
           {
-            STR(texture)STR(3)
+            STR(texture)STR(2)
           }
         ]
         STR(locked box)[
@@ -23,24 +23,21 @@
             STR(unlocked)BOOL(false)
           }
           {
-            STR(unlocked)BOOL(true)
+            STR(unlocked)BOOL(false)
           }
         ]
         STR(key)[
           {
-            STR(following)BOOL(true)
-            STR(thingThatMoves.global_position)VEC2(62.5188598632813,-116.937950134277)
-            STR(randOffset)FLOAT(2.0)
-            STR(thingThatMoves.global_rotation)FLOAT(-0.50246971845627)
+            STR(following)BOOL(false)
             STR(used)BOOL(false)
           }
           {
             STR(following)BOOL(false)
-            STR(used)BOOL(true)
+            STR(used)BOOL(false)
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(51.4725723266602,-5.08028602600098)
+      STRNAME(lastSpawnPoint)VEC2(251.472564697266,-5.08028602600098)
     }
   ]
   STR(beatLevels)[]

@@ -208,9 +208,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **showTotalActiveSignalCounts**: adds a number showing the total amount of signals that are currently sending on each signal id
         - **showWhatBlocksAreSendingSignals**: adds an image of the block that is sending on each signal id and a number showing the amount of blocks of the same type that are sending the signal
         - **onlyShowActiveSignals**: only shows signals if the signal is active and being sent
-      - **showSignalConnectionLinesOnHover**: shows lines between all blocks connected by signals to the block being hovered or selected
-      - **showSignalConnectionLinesInEditor**: shows lines between all blocks connected by signals when in the editor
-      - **showSignalConnectionLinesInPlay**: shows lines between all blocks connected by signals when not in the editor
+
+      - ### signal connection lines
+
+        - **showSignalConnectionLinesOnHover**: shows lines between all blocks connected by signals to the block being hovered or selected
+        - **showSignalConnectionLinesInEditor**: shows lines between all blocks connected by signals when in the editor
+        - **showSignalConnectionLinesInPlay**: shows lines between all blocks connected by signals when not in the editor
+        - **onlyShowSignalConnectionsIfHoveringOverAny**: if true and hovering over or selecting a block that is connected, only connections for that block will be shown even if showSignalConnectionLinesInEditorshow or SignalConnectionLinesInPlay are true
 
     - ### level mods
 
@@ -220,7 +224,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
 
-    - ### path
+    - ### paths
 
       - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
       - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.

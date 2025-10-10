@@ -475,6 +475,12 @@
                 "type": "bool",
                 "key": "showSignalConnectionLinesInPlay",
                 "defaultValue": false
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "onlyShowSignalConnectionsIfHoveringOverAny",
+                "defaultValue": true
               }
             ]
           }

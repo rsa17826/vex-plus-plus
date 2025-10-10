@@ -1849,6 +1849,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # editor bar move to last null in line not next null
 
 # add option to only show hovered even if always show is on
-# add to group
 
 # ?signal line not working going directly left

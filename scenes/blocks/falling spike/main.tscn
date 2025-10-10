@@ -86,7 +86,7 @@ root = NodePath("../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/CharacterBody2D"]
 visible = false
-position = Vector2(0, -2.39)
+position = Vector2(0, -3.295)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_ihbm6")
 one_way_collision = true
