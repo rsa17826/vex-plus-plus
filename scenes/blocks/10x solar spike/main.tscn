@@ -14,7 +14,7 @@
 size = Vector2(688, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6flnq"]
-size = Vector2(688, 6.95)
+size = Vector2(688, 6.87)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
 size = Vector2(688, 18)
@@ -72,7 +72,7 @@ debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("7_nk033")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
-collision_layer = 8
+collision_layer = 24576
 collision_mask = 0
 script = ExtResource("2_i230j")
 root = NodePath("../../..")

@@ -1236,6 +1236,8 @@ func getClosestWallRay() -> RayCast2D:
   return null
 
 func getCurrentLrState():
+  if respawnCooldown > 0:
+    return 0
   if global.currentLevelSettings().autoRun:
     return autoRunDirection
   return Input.get_axis("left", "right")
@@ -1467,9 +1469,18 @@ func stopDying():
   if state == States.dead:
     tempLastSpawnPoint = Vector2.ZERO
     state = States.falling
-    await global.wait()
     root.__enable.call_deferred()
     global.stopTicking = false
+    for thing: RayCast2D in [
+      $wallDetectors/leftWallTop,
+      $wallDetectors/rightWallTop,
+      $wallDetectors/leftWall,
+      $wallDetectors/rightWall,
+      $waterRay,
+    ]:
+      thing.force_update_transform()
+      thing.force_raycast_update()
+      thing.force_raycast_update.call_deferred()
 
 func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if respawnCooldown >= 0 and not forced:
@@ -1479,7 +1490,7 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   if state != States.levelLoading:
     state = States.dead
   root.__disable()
-  respawnCooldown = respawnTime + .01
+  respawnCooldown = respawnTime + 1.01
   # log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   lastDeathWasForced = forced
   # root.__disable()
@@ -1819,8 +1830,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add different surican colors
 
-# !!when creating/duping add mouse pos/clone node pos as start location for singale axis alignment and don't scale on shift
-
 # if inner open keep outer open menu onlyOneOpen
 
 # make cp savestate level opt save more things
@@ -1845,9 +1854,3 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # area trigger on enter/on exit
 
 # hitbox is disabled when grabbing block and hitting escape makes the block no longer grabbed but doesn't reenable hitboxes until letting go of lmb
-
-# editor bar move to last null in line not next null
-
-# add option to only show hovered even if always show is on
-
-# ?signal line not working going directly left

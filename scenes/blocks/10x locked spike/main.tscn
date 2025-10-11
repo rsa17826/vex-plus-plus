@@ -65,7 +65,7 @@ debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("5_vs0gn")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
-collision_layer = 8
+collision_layer = 24576
 collision_mask = 0
 script = ExtResource("2_caaoq")
 root = NodePath("../../..")

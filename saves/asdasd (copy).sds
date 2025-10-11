@@ -1,0 +1,26 @@
+{
+  STR(loadedLevels)[
+    {
+      STR(name)STR(hub)
+      STR(exitPosition)VEC2(0.0,0.0)
+      STR(up_direction)VEC2(0.0,-1.0)
+      STR(autoRunDirection)INT(1)
+      STR(tick)FLOAT(0.0)
+      STR(heat)FLOAT(0.0)
+      STR(gravState)INT(2)
+      STR(speedLeverActive)BOOL(false)
+      STR(blockSaveData){
+        STR(checkpoint)[
+          {
+            STR(texture)STR(3)
+          }
+          {
+            STR(texture)STR(2)
+          }
+        ]
+      }
+      STRNAME(lastSpawnPoint)VEC2(141.472564697266,-120.080284118652)
+    }
+  ]
+  STR(beatLevels)[]
+}

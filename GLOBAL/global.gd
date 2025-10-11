@@ -1551,9 +1551,9 @@ func saveBlockData():
     if dataToSave:
       if block.id not in blockSaveData:
         blockSaveData[block.id] = []
-      if blockIds[block.id] >= len(blockSaveData[block.id]):
+      while blockIds[block.id] >= len(blockSaveData[block.id]):
         blockSaveData[block.id].append(null)
-        blockSaveData[block.id][blockIds[block.id]] = {}
+      blockSaveData[block.id][blockIds[block.id]] = {}
       for thing in dataToSave:
         var val = getNested(block, thing)
         if val is Dictionary or val is Array:
@@ -2006,6 +2006,7 @@ const DEFAULT_BLOCK_LIST = [
   "player state detector",
   "not gate",
   "and gate",
+  "SRNor",
   "crumbling",
   "timer",
   "zipline",
@@ -2364,7 +2365,7 @@ func boxSelectReleased():
     boxSelectRay.shape.size.x,
     boxSelectRay.shape.size.y
   ) / 2.0
-  boxSelectRay.collision_mask = 9
+  boxSelectRay.collision_mask = 524288
   boxSelectRay.target_position = Vector2.ZERO
   boxSelectRay.collide_with_areas = true
   add_child(boxSelectRay)
@@ -2429,7 +2430,6 @@ func resendActiveSignals():
   # log.pp(activeSignals)
   if not isAlive(ui): return
   for id in activeSignals:
-    ui.signalList.onSignalChanged(id, !!activeSignals[id], activeSignals[id])
     lastSignals[id] = !!activeSignals[id]
     # log.pp("update signal changes", activeSignals, activeSignals)
     # text += '\n' + str(id) + ': ' + str(!!activeSignals[id])
@@ -2443,7 +2443,6 @@ func sendSignals():
   # var text = ''
   if not isAlive(ui): return
   for id in sc:
-    ui.signalList.onSignalChanged(id, !!activeSignals[id], sc[id])
     signalSenderChanged.emit(id, !!activeSignals[id], sc[id])
     if id in lastSignals and (lastSignals[id] == !!activeSignals[id]): continue
     lastSignals[id] = !!activeSignals[id]

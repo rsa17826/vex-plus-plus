@@ -50,7 +50,6 @@ position = Vector2(-0.5, -64)
 texture = ExtResource("2_dnmi0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
-visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_xrsct")
 debug_color = Color(1, 0, 0, 0.41960785)
@@ -64,7 +63,6 @@ script = ExtResource("2_xrsct")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode/floor detection"]
-visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_4c23b")
 debug_color = Color(0.05490196, 1, 0, 0.41960785)
@@ -79,13 +77,12 @@ script = ExtResource("5_4c23b")
 root = NodePath("../../..")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
-collision_layer = 8
+collision_layer = 24576
 collision_mask = 0
 script = ExtResource("2_xrsct")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/CharacterBody2D"]
-visible = false
 position = Vector2(0, -3.295)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_ihbm6")
@@ -95,7 +92,6 @@ script = ExtResource("8_0lsrf")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
-visible = false
 modulate = Color(1, 0.7019608, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_o2sap")

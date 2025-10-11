@@ -8,4 +8,4 @@ func onSave() -> Array[String]:
   return ["thingThatMoves.global_position", "thingThatMoves.dir"]
 
 func on_process(delta: float) -> void:
-  spin(150, sprite)
+  spin(300, sprite)

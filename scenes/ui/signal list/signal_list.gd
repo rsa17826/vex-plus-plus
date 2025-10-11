@@ -6,10 +6,14 @@ const ON = preload("res://scenes/ui/images/on.png")
 const OFF = preload("res://scenes/ui/images/off.png")
 
 func _ready() -> void:
-  global.overlays.append(self)
+  global.overlays.append(self )
+  global.signalSenderChanged.connect(onSignalChanged)
 
 func _process(delta: float) -> void:
-  visible = global.useropts.showSignalList
+  if global.showEditorUi:
+    visible = global.useropts.showSignalListInEditor
+  else:
+    visible = global.useropts.showSignalListInPlay
 
 func removeSignal(id):
   if id not in listOfLoadedSignals: return
@@ -18,7 +22,7 @@ func removeSignal(id):
 
 func onSignalChanged(id, on, callers):
   if self in callers: return
-  if !global.useropts.showSignalList: return
+  if !global.useropts.showSignalListInEditor and !global.useropts.showSignalListInPlay: return
   if id not in listOfLoadedSignals:
     if len(listOfLoadedSignals) > 50: return
     listOfLoadedSignals[id] = $signalDisplay.duplicate()

@@ -137,7 +137,7 @@ var unusedOffset = Vector2.ZERO
 # -------------------------------------------
 func generateBlockOpts(): pass
 ## overite this to return properties to save
-func onSave() -> Array[String]:
+func onSave() -> Array:
   return []
 # -------------------------------------------
 func onPathMove(dist): pass
@@ -463,24 +463,18 @@ var right_edge: float
 var top_edge: float
 var bottom_edge: float
 
-# func getConnectedBlocks() -> Array: return [] # global.level.get_node("blocks").get_children().slice(1, 24)
 func getConnectedBlocks() -> Array:
+  var allBlocks = global.level.get_node("blocks").get_children()
   var checksForOtherBlocks = []
   var checksForThisBlock = []
-  var inputs := ['signalAInputId', 'signalBInputId', 'signalInputId']
+  var data := []
+  var inputs := ['signalAInputId', 'signalBInputId', 'signalInputId', "enableSignalInputId", "disableSignalInputId"]
   var outputs := ['signalOutputId']
   for thing in inputs:
     if thing in selectedOptions and selectedOptions[thing]:
       checksForOtherBlocks += outputs
       checksForThisBlock.append(thing)
-  for thing in outputs:
-    if thing in selectedOptions and selectedOptions[thing]:
-      checksForOtherBlocks += inputs
-      checksForThisBlock.append(thing)
-  # log.pp(checksForThisBlock, checksForOtherBlocks)
-  if not checksForThisBlock:
-    return []
-  return global.level.get_node("blocks").get_children() \
+  data += allBlocks \
   .map(
     func(e):
       var found=0
@@ -499,6 +493,35 @@ func getConnectedBlocks() -> Array:
             break
       return [e, found]
   ).filter(func(e): return e[1])
+  checksForOtherBlocks = []
+  checksForThisBlock = []
+  for thing in outputs:
+    if thing in selectedOptions and selectedOptions[thing]:
+      checksForOtherBlocks += inputs
+      checksForThisBlock.append(thing)
+  data += allBlocks \
+  .map(
+    func(e):
+      var found=0
+      for thing in checksForOtherBlocks:
+        if thing in e.selectedOptions \
+        and e.selectedOptions[thing] in checksForThisBlock.map(func(e): return selectedOptions[e]):
+          if found < 1:
+            found=1
+          if e.selectedOptions[thing] in global.activeSignals \
+          and global.activeSignals[e.selectedOptions[thing]]:
+            if self in global.activeSignals[e.selectedOptions[thing]] \
+            if thing in inputs else \
+            e in global.activeSignals[e.selectedOptions[thing]] \
+            :
+              found=2
+            break
+      return [e, found]
+  ).filter(func(e): return e[1])
+  # log.pp(checksForThisBlock, checksForOtherBlocks)
+  if not checksForThisBlock:
+    return []
+  return data
 
 func getLinesTo(block: EditorBlock) -> Array:
   var lines: Array = []
@@ -524,16 +547,14 @@ func getLinesTo(block: EditorBlock) -> Array:
 
     lines.append([intermediate_point, end_point])
     lines.append([start_point, intermediate_point])
-    # if dy != 0:
-  else: # When moving left or in the vertical direction
+  else:
     intermediate_point = Vector2(start_point.x, end_point.y)
     if abs(dx) > abs(dy):
       intermediate_point.x += (sign(dx) * abs(dy))
     else:
       intermediate_point.y -= (sign(dy) * abs(dx))
     lines.append([start_point, intermediate_point])
-    if dy != 0:
-      lines.append([intermediate_point, end_point])
+    lines.append([intermediate_point, end_point])
 
   return lines
 
@@ -784,6 +805,8 @@ func createEditorGhost() -> void:
   var collider := Area2D.new()
   collider.set_script(preload("res://scenes/blocks/root.gd"))
   collider.root = self
+  collider.collision_layer = 524288
+  collider.collision_mask = 0
   collider.connect("mouse_entered", _on_mouse_entered)
   collider.connect("mouse_exited", _on_mouse_exited)
   collider.connect("input_event", _on_input_event)
