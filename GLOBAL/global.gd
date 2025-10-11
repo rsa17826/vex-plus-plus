@@ -2211,7 +2211,7 @@ func zipDir(fromPath: String, toPath: String):
   var paths = getAllPathsInDirectory(fromPath)
   # log.pp(fromPath, toPath, paths)
   paths = paths.map(func(e):
-    return e.replace(fromPath + "/", ''))
+    return e.replace(fromPath + "/", '')).filter(func(e): return !e.ends_with(".import"))
   # log.pp(paths)
   var writer = ZIPPacker.new()
   var err = writer.open(toPath)
@@ -2247,6 +2247,7 @@ func copyDir(source: String, destination: String):
   var source_dir = DirAccess.open(source)
 
   for filename in source_dir.get_files():
+    if filename.ends_with(".import"): continue
     source_dir.copy(
       path.join(source, filename),
       path.join(destination, filename)
