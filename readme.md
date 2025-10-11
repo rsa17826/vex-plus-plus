@@ -52,6 +52,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **state**: the state to detect
     - **signalAInputId**: a signal to detect
     - **signalBInputId**: other signal to detect
+    - **enableSignalInputId**: the signal id that when received will cause this to start sending it's signal
+    - **disableSignalInputId**: the signal id that when received will cause this to stop sending it's signal
+    - **persistAfterDeath**: if true the state will be saved when collecting chekpoints
+    - **startOn**: if true will start enabled else will start disabled
     - **chargeTime**: the time it takes for a signal to be charged up
     - **onSignalDeactivationWhileCharging**: what happens when its signal is deactivating while charging
     - **dischargeTime**: the time it takes for a signal to be discharged
@@ -192,6 +196,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### info
 
+
     - ### hovered block list
 
       - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
@@ -199,6 +204,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id)
 
     - ### signals
+
 
       - ### signal display
 
@@ -220,7 +226,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
       - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
       - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
-
     - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
 
@@ -247,6 +252,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
 
   - ### debug
+
 
     - ### hitboxes
 
@@ -1086,6 +1092,17 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **signalAInputId**: a signal to detect
       - **signalBInputId**: other signal to detect
       - **signalOutputId**: the id that will be sent
+      - **color**: sets the modulate property
+
+  - **SRNor**: has 2 inputs, when reciving one starts sending a signal, when reciving the other stops sending the signal
+    <br><br><img src="scenes/blocks/SRNor/images/editorBar.png" alt="image of block SRNor" width="50" height="50">
+
+    - ### settings:
+      - **enableSignalInputId**: the signal id that when received will cause this to start sending it's signal
+      - **disableSignalInputId**: the signal id that when received will cause this to stop sending it's signal
+      - **signalOutputId**: the id that will be sent
+      - **persistAfterDeath**: if true the state will be saved when collecting chekpoints
+      - **startOn**: if true will start enabled else will start disabled
       - **color**: sets the modulate property
 
   - **crumbling**: if the player collides with this block the block will start to crumble and be destroyed after a certain amount of time. only respawns on death.
