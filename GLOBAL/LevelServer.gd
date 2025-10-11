@@ -168,6 +168,11 @@ static func requestLogin() -> SupabaseUser:
   return user
 
 static func uploadLevel(level: Level):
+  if global.useropts.confirmLevelUploads \
+  and not await global.prompt(
+    "Are you sure you want to upload \"" + level.levelName + "\" by \"" + level.creatorName + "\"?",
+    global.PromptTypes.confirm
+  ): return
   if not user: await LevelServer.requestLogin()
   var levels = await LevelServer.doesLevelExist(level)
   if levels:
