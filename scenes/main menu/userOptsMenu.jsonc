@@ -101,6 +101,12 @@
         "type": "bool",
         "key": "confirmKeyAssignmentDeletion",
         "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "confirmLevelUploads",
+        "defaultValue": true
       }
     ]
   },

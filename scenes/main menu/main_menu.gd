@@ -226,7 +226,8 @@ func showMoreOptions(level: LevelServer.Level):
         return
       if 'levelVersion' not in data:
         data.levelVersion = -1
-      await LevelServer.uploadLevel(
+      f.close()
+      if await LevelServer.uploadLevel(
         LevelServer.Level.new(
           levelName,
           - 1,
@@ -238,10 +239,9 @@ func showMoreOptions(level: LevelServer.Level):
           c,
           img
         )
-      )
+      ):
+        ToastParty.success("Level uploaded!")
       $AnimatedSprite2D.visible = false
-      f.close()
-      ToastParty.success("Level uploaded!")
     10:
       if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
       if await global.tryAndGetMapZipsFromArr([global.path.abs("res://downloaded maps/" + levelName + '.vex++')]):
