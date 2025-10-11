@@ -137,6 +137,8 @@ func showMoreOptions(level: LevelServer.Level):
         global.path.join(global.MAP_FOLDER, levelName + " (copy)")
       )
       loadLocalLevelList()
+      if FileAccess.file_exists(global.getLevelSavePath(levelName)):
+        sds.saveDataToFile(global.getLevelSavePath(levelName + " (copy)"), sds.loadDataFromFile(global.getLevelSavePath(levelName)))
     1:
       OS.move_to_trash(global.path.join(global.MAP_FOLDER, levelName))
       loadLocalLevelList()
