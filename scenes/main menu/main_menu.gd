@@ -222,7 +222,7 @@ func showMoreOptions(level: LevelServer.Level):
       var img = Image.new()
       img.load(global.path.join(global.MAP_FOLDER, levelName, "/image.png"))
       if img.get_size() != Vector2i(292, 292):
-        ToastParty.err("the map must have an image of a valid size - a valid image is created by saving the map!")
+        ToastParty.err("the map must have a valid image - a valid image is created by saving the map!")
         return
       if 'levelVersion' not in data:
         data.levelVersion = -1
@@ -248,8 +248,6 @@ func showMoreOptions(level: LevelServer.Level):
         ToastParty.success("The map has been successfully restored.")
       else:
         ToastParty.error("restoring failed, the map doesn't exist, or the map was invalid.")
-
-# https://api.github.com/repos/rsa17826/vex-plus-plus-level-codes/contents/
 
 var editorOnlyOptions := []
 
