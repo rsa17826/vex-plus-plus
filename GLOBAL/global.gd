@@ -1155,6 +1155,7 @@ func _unhandled_input(event: InputEvent) -> void:
         # selectedBrush = lastSelectedBrush
         # selectedBrush.selected = 2
         shouldDragBlock = true
+        mouseMovedFarEnoughToStartDrag = true
         justPaintedBlock = load("res://scenes/blocks/" + lastSelectedBlock.id + "/main.tscn").instantiate()
         justPaintedBlock.scale = lastSelectedBlock.scale
         justPaintedBlock.rotation_degrees = lastSelectedBlock.rotation_degrees
@@ -1407,6 +1408,7 @@ func _unhandled_input(event: InputEvent) -> void:
         justPaintedBlock.global_position = level.get_global_mouse_position()
         selectedBlock = justPaintedBlock
         shouldDragBlock = true
+        mouseMovedFarEnoughToStartDrag = true
         setBlockStartPos(justPaintedBlock)
         localProcess(0)
 
