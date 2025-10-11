@@ -1,0 +1,10 @@
+in inputMoveDown input.down
+in upCollision area
+in downCollision area
+in leftCollision area
+in rightCollision area
+
+out blockMoveDown
+
+not downCollision
+if inputMoveDown and !downCollision : send blockMoveDown

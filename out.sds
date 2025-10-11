@@ -1,0 +1,135 @@
+[
+  {
+    STR(x)FLOAT(250.0)
+    STR(y)FLOAT(-265.0)
+  }{
+  STR(x)FLOAT(50)
+  STR(y)FLOAT(-175.0)
+  STR(w)FLOAT(1.0)
+  STR(h)FLOAT(1.0)
+  STR(r)FLOAT(270.0)
+  STR(id)STR(input detector)
+  STRNAME(options){
+    STR(action)INT(2)
+    STR(signalOutputId)INT(3)
+  }
+}
+
+{
+  STR(x)FLOAT(100)
+  STR(y)FLOAT(-455.0)
+  STR(w)FLOAT(0.1)
+  STR(h)FLOAT(0.1)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(area trigger)
+  STRNAME(options){
+    STR(signalOutputId)INT(2)
+    STR(color)STR(#fff)
+  }
+}
+
+{
+  STR(x)FLOAT(150)
+  STR(y)FLOAT(-455.0)
+  STR(w)FLOAT(0.1)
+  STR(h)FLOAT(0.1)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(area trigger)
+  STRNAME(options){
+    STR(signalOutputId)INT(3)
+    STR(color)STR(#fff)
+  }
+}
+
+{
+  STR(x)FLOAT(200)
+  STR(y)FLOAT(-455.0)
+  STR(w)FLOAT(0.1)
+  STR(h)FLOAT(0.1)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(area trigger)
+  STRNAME(options){
+    STR(signalOutputId)INT(4)
+    STR(color)STR(#fff)
+  }
+}
+
+{
+  STR(x)FLOAT(250)
+  STR(y)FLOAT(-455.0)
+  STR(w)FLOAT(0.1)
+  STR(h)FLOAT(0.1)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(area trigger)
+  STRNAME(options){
+    STR(signalOutputId)INT(5)
+    STR(color)STR(#fff)
+  }
+}
+
+{
+  STR(x)FLOAT(300)
+  STR(y)FLOAT(-500.0)
+  STR(w)FLOAT(1)
+  STR(h)FLOAT(1)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(path)
+  STRNAME(options){
+    STR(path)STR(0,100)
+    STR(endReachedAction)INT(0)
+    STR(startOnLoad)BOOL(false)
+    STR(startWhenSignalReceived)BOOL(false)
+    STR(startWhileSignalReceived)BOOL(true)
+    STR(signalInputId)INT(101)
+    STR(restart)INT(0)
+    STR(forwardSpeed)INT(150)
+    STR(backwardSpeed)INT(150)
+    STR(color)STR(#fff)
+  }
+}
+
+{
+  STR(x)FLOAT(350)
+  STR(y)FLOAT(-175.0)
+  STR(w)FLOAT(1.0)
+  STR(h)FLOAT(1.0)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(not gate)
+  STRNAME(options){
+    STR(signalInputId)INT(3)
+    STR(signalOutputId)INT(201)
+    STR(color)STR(#fff)
+  }
+}
+
+
+{
+  STR(x)FLOAT(400)
+  STR(y)FLOAT(-175.0)
+  STR(w)FLOAT(1.0)
+  STR(h)FLOAT(1.0)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(not gate)
+  STRNAME(options){
+    STR(signalInputId)INT(3)
+    STR(signalOutputId)INT(201)
+    STR(color)STR(#fff)
+  }
+}
+
+{
+  STR(x)FLOAT(450)
+  STR(y)FLOAT(25.0)
+  STR(w)FLOAT(1.0)
+  STR(h)FLOAT(1.0)
+  STR(r)FLOAT(0.0)
+  STR(id)STR(and gate)
+  STRNAME(options){
+    STR(signalAInputId)INT(1)
+    STR(signalBInputId)INT(201)
+    STR(signalOutputId)INT(101)
+    STR(color)STR(#fff)
+  }
+}
+
+]
