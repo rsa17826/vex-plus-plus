@@ -23,17 +23,26 @@
             STR(unlocked)BOOL(false)
           }
           {
-            STR(unlocked)BOOL(false)
+            STR(unlocked)BOOL(true)
           }
         ]
         STR(key)[
           {
-            STR(following)BOOL(false)
+            STR(following)BOOL(true)
+            STR(thingThatMoves.global_position)VEC2(234.392196655273,-104.393516540527)
+            STR(randOffset)FLOAT(10.0)
+            STR(thingThatMoves.global_rotation)FLOAT(0.52359867095947)
             STR(used)BOOL(false)
           }
           {
             STR(following)BOOL(false)
-            STR(used)BOOL(false)
+            STR(used)BOOL(true)
+          }
+        ]
+        STR(SRNor)[
+          NULL()
+          {
+            STR(isOn)BOOL(true)
           }
         ]
       }

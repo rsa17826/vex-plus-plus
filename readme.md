@@ -192,7 +192,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### info
 
-
     - ### hovered block list
 
       - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
@@ -201,10 +200,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
     - ### signals
 
-
       - ### signal display
 
-        - **showSignalList**: if true a list of all signals, the blocks that are sending the signals and weather or not the signal is active
+        - **showSignalListInEditor**: if true, while in the editor, a list of all signals, the blocks that are sending the signals and weather or not the signal is active
+        - **showSignalListInPlay**: if true, while not in the editor, a list of all signals, the blocks that are sending the signals and weather or not the signal is active
         - **showTotalActiveSignalCounts**: adds a number showing the total amount of signals that are currently sending on each signal id
         - **showWhatBlocksAreSendingSignals**: adds an image of the block that is sending on each signal id and a number showing the amount of blocks of the same type that are sending the signal
         - **onlyShowActiveSignals**: only shows signals if the signal is active and being sent
@@ -221,6 +220,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
       - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
       - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
+
     - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
 
@@ -247,7 +247,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
 
   - ### debug
-
 
     - ### hitboxes
 
@@ -1156,9 +1155,11 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - ### Custom Editor Bar Block Placements
 
     to reorder the blocks in the editor bar, create a file called `editorBar.sds` and if using the launcher, place it in the `game data` folder otherwise just place it in the game's directory.
-    [example file](./editorBar.sds)
+
+    [example editor bar file](./editorBar.sds)
 
   - ### online levels search
+
     `creatorName/=exactName`
     will search for `creatorName` exactly equal to `exactName`
     `creatorName/containsName`
@@ -1166,4 +1167,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     all searches are and so
     `creatorName/=cname/levelName/levelName`
     will only show levels where `levelName` contains `levelName` and the creator is `cname`
+
+    = is exact match
+
+    ~ is contains
+
+    \> is greater than
+
+    \< is less than
+
     if search is empty, it will return all levels

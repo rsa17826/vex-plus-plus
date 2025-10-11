@@ -32,7 +32,8 @@ func _ready() -> void:
   # target.add_child(can)
   # add_background_video(can, get_file("assets/" + f + ".ogv"))
   # add_background_image(get_editor_panel(), get_file("assets/nana7mi.png"))
-  add_background_video(get_editor_panel(), load(get_file("assets/" + f + ".ogv")), true, .3).volume = .1
+  add_background_image(get_editor_panel(), get_file("assets/purple dragon.png"))
+  # add_background_video(get_editor_panel(), load(get_file("assets/" + f + ".ogv")), true, .3).volume = .1
   # set_project_setting("rendering/environment/defaults/default_clear_color", Color("1a1b26ff"))
 
   set_project_setting("rendering/environment/defaults/default_clear_color", Color(.1, .3, .33, .5))

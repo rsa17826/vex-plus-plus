@@ -431,8 +431,14 @@
               {
                 "thing": "option",
                 "type": "bool",
-                "key": "showSignalList",
+                "key": "showSignalListInEditor",
                 "defaultValue": true
+              },
+              {
+                "thing": "option",
+                "type": "bool",
+                "key": "showSignalListInPlay",
+                "defaultValue": false
               },
               {
                 "thing": "option",

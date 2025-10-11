@@ -178,7 +178,6 @@ texture = ExtResource("4_lm28m")
 script = ExtResource("4_bpaeu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 one_way_collision = true
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
@@ -192,7 +191,6 @@ script = ExtResource("2_0wow3")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/2nd collision"]
-visible = false
 position = Vector2(0, -340)
 shape = SubResource("RectangleShape2D_xp0y3")
 one_way_collision = true
@@ -264,7 +262,6 @@ script = ExtResource("2_0wow3")
 root = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode/wall grab collision"]
-visible = false
 position = Vector2(0, -347)
 shape = SubResource("RectangleShape2D_ep0pb")
 debug_color = Color(0.05490196, 1, 0, 0.41960785)
