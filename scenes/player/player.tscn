@@ -280,15 +280,6 @@
 [ext_resource type="Texture2D" uid="uid://bg1xyggv1udyc" path="res://scenes/player/images/anim/zipline/34.png" id="233_hsum7"]
 [ext_resource type="Texture2D" uid="uid://b0nvp7owgx5ix" path="res://scenes/player/images/anim/zipline/35.png" id="234_0ax6y"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
-size = Vector2(8, 33)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xb8ft"]
-size = Vector2(8, 34.43)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mro88"]
-size = Vector2(8, 34.43)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_2t3bg"]
 animations = [{
 "frames": [{
@@ -1252,6 +1243,15 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
+size = Vector2(8, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xb8ft"]
+size = Vector2(8, 34.43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mro88"]
+size = Vector2(8, 34.43)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0anf"]
 size = Vector2(1.01, 6.845)
 
@@ -1305,6 +1305,36 @@ waterAnimBottom = NodePath("waterAnimBottom")
 camera = NodePath("Camera2D")
 metadata/_edit_lock_ = true
 
+[node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D"]
+visibility_layer = 3
+material = ExtResource("3_4v6xr")
+use_parent_material = true
+position = Vector2(-3, 0.14499998)
+scale = Vector2(0.143, 0.143)
+sprite_frames = SubResource("SpriteFrames_2t3bg")
+animation = &"zipline"
+autoplay = "idle"
+frame_progress = 3.76231e-05
+metadata/_edit_lock_ = true
+
+[node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D"]
+visible = false
+material = ExtResource("3_4v6xr")
+position = Vector2(1.495, -4.865)
+scale = Vector2(0.143, 0.143)
+sprite_frames = SubResource("SpriteFrames_3gk6k")
+autoplay = "default"
+
+[node name="waterAnimBottom" type="AnimatedSprite2D" parent="CharacterBody2D"]
+visible = false
+material = ExtResource("3_4v6xr")
+position = Vector2(0, 9.36)
+scale = Vector2(0.143, 0.143)
+sprite_frames = SubResource("SpriteFrames_1ymuf")
+autoplay = "default"
+frame_progress = 0.429972
+metadata/_edit_lock_ = true
+
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 visible = false
 position = Vector2(0, 16.425)
@@ -1330,7 +1360,7 @@ collision_mask = 0
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetector"]
 position = Vector2(0, -6.275)
 shape = SubResource("RectangleShape2D_xb8ft")
-debug_color = Color(0.73333335, 0.44705883, 0, 0.67058825)
+debug_color = Color(0.73333335, 0.44705883, 0, 0.105882354)
 metadata/_edit_lock_ = true
 
 [node name="ziplineDetectorForActiveZipline" type="Area2D" parent="CharacterBody2D"]
@@ -1340,37 +1370,7 @@ collision_mask = 0
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetectorForActiveZipline"]
 position = Vector2(0, -6.275)
 shape = SubResource("RectangleShape2D_mro88")
-debug_color = Color(0.73333335, 0.44705883, 0, 0.67058825)
-metadata/_edit_lock_ = true
-
-[node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D"]
-visibility_layer = 3
-material = ExtResource("3_4v6xr")
-use_parent_material = true
-position = Vector2(-3, 0.145)
-scale = Vector2(0.143, 0.143)
-sprite_frames = SubResource("SpriteFrames_2t3bg")
-animation = &"zipline"
-autoplay = "idle"
-frame_progress = 3.76231e-05
-metadata/_edit_lock_ = true
-
-[node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D"]
-visible = false
-material = ExtResource("3_4v6xr")
-position = Vector2(1.495, -4.865)
-scale = Vector2(0.143, 0.143)
-sprite_frames = SubResource("SpriteFrames_3gk6k")
-autoplay = "default"
-
-[node name="waterAnimBottom" type="AnimatedSprite2D" parent="CharacterBody2D"]
-visible = false
-material = ExtResource("3_4v6xr")
-position = Vector2(0, 9.36)
-scale = Vector2(0.143, 0.143)
-sprite_frames = SubResource("SpriteFrames_1ymuf")
-autoplay = "default"
-frame_progress = 0.429972
+debug_color = Color(0.73333335, 0.44705883, 0, 0)
 metadata/_edit_lock_ = true
 
 [node name="wallDetectors" type="Node2D" parent="CharacterBody2D"]
