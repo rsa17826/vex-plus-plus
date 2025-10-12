@@ -1868,3 +1868,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix oneway ghost image
 
 # open file buttons in menu
+
+# locked spike texture scaling
+
+# fix showing attach detector hitbnoxes

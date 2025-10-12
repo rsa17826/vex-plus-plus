@@ -182,7 +182,8 @@ func _on_upload_pressed() -> void:
   if img.get_size() != Vector2i(292, 292):
     ToastParty.err("the map must have an image of a valid size - a valid image is created by saving the map!")
     return
-  await LevelServer.uploadLevel(
+  f.close()
+  if await LevelServer.uploadLevel(
     LevelServer.Level.new(
       level.levelName,
       - 1,
@@ -194,10 +195,9 @@ func _on_upload_pressed() -> void:
       c,
       img
     )
-  )
+  ):
+    ToastParty.success("Level uploaded!")
   global.mainMenu.get_node("AnimatedSprite2D").visible = false
-  f.close()
-  ToastParty.success("Level uploaded!")
 
 func _on_more_pressed() -> void:
   global.mainMenu.showMoreOptions(level)
