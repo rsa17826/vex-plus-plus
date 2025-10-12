@@ -143,6 +143,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **warnWhenOpeningLevelInOlderGameVersion**: when you open a level in an older version of the game, you will be warned that it may not work properly.
     - **warnWhenOpeningLevelInNewerGameVersion**: when you open a level in an newer version of the game, you will be warned that it may not work properly.
     - **confirmKeyAssignmentDeletion**: adds a confirmation dialog before removing keys from the keybinds list.
+    - **confirmLevelUploads**: if true level uploads must be confirmed, otherwise there will be no confirmation
 
   - ### editor settings
 
