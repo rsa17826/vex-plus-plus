@@ -257,4 +257,20 @@
       STR(groupId)INT(2)
     }
   }
+  {
+    STR(x)FLOAT(475.0)
+    STR(y)FLOAT(-175.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(SRNor)
+    STRNAME(options){
+      STR(enableSignalInputId)INT(100)
+      STR(disableSignalInputId)INT(100)
+      STR(signalOutputId)INT(100)
+      STR(persistAfterDeath)BOOL(false)
+      STR(startOn)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
 ]
