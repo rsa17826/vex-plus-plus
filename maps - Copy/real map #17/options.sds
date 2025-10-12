@@ -1,0 +1,19 @@
+{
+  STR(start)STR(hub)
+  STR(author)STR(rssaromeo)
+  STR(description)STR(trying to make a map using every block in every way i can think of)
+  STR(version)INT(118)
+  STR(stages){
+    STR(hub){
+      STR(color)INT(5)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+    STR(unnamed level){
+      STR(color)INT(5)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+  }
+  STRNAME(levelVersion)INT(411)
+}

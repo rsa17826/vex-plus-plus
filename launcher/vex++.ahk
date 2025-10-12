@@ -1,4 +1,4 @@
-﻿;@Ahk2Exe-SetMainIcon ../pole.ico
+﻿;@Ahk2Exe-SetMainIcon ../vex++.ico
 #Requires AutoHotkey v2.0
 #SingleInstance Force
 ; A_DebuggerName

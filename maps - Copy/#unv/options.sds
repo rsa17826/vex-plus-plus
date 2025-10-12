@@ -1,0 +1,13 @@
+{
+  STR(start)STR(hub)
+  STR(author)STR()
+  STR(description)STR()
+  STR(version)INT(135)
+  STR(stages){
+    STR(hub){
+      STR(color)INT(4)
+      STR(changeSpeedOnSlopes)BOOL(false)
+    }
+  }
+  STRNAME(levelVersion)INT(81)
+}
