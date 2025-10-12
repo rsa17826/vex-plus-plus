@@ -21,5 +21,3 @@ func updateText(textArr: Array) -> void:
     text += '/'
   text = text.trim_suffix('/')
   size = searchBar.size
-  scale.x = .975
-  # log.pp(scale.x, text, tlen)

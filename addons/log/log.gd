@@ -400,7 +400,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     return getcolor("red") + "<Freed Object>" + getcolor("end")
   if item == null:
     return getcolor("blue") + "null" + getcolor("end")
-    
+
   if item is Callable:
     return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + getcolor("BLUE") + str(item) + getcolor("END") + getcolor("RED") + ">" + getcolor("END")
 

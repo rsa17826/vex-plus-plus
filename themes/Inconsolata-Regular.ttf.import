@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c1l1dd3cykmy8"
-path="res://.godot/imported/Monospace.ttf-4022c42a1f17a164e5c32dbd0932f980.fontdata"
+uid="uid://ch8mp167bmq1u"
+path="res://.godot/imported/Inconsolata-Regular.ttf-8bd353cbd8989814c221d42836417022.fontdata"
 
 [deps]
 
-source_file="res://themes/Monospace.ttf"
-dest_files=["res://.godot/imported/Monospace.ttf-4022c42a1f17a164e5c32dbd0932f980.fontdata"]
+source_file="res://themes/Inconsolata-Regular.ttf"
+dest_files=["res://.godot/imported/Inconsolata-Regular.ttf-8bd353cbd8989814c221d42836417022.fontdata"]
 
 [params]
 
