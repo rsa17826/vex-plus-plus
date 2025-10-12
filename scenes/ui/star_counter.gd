@@ -13,5 +13,10 @@ func _process(delta):
   else:
     collected = 0
     starCount = len(global.level.get_node("blocks").get_children().filter(func(e): return e.id == "star"))
-  text = "STARS COLLECTED: " + str(collected) + "/" + str(starCount) + "\n"
+  text = ''
+  text += "VERSION: " + str(global.VERSION) + " " + str(global.mainLevelName)
+  if global.currentLevel().name != global.mainLevelName:
+    text += '/' + global.currentLevel().name
+  text += "\n"
+  text += "STARS COLLECTED: " + str(collected) + "/" + str(starCount) + "\n"
   text += "LEVELS BEAT: " + str(len(global.beatLevels)) + "/" + str(global.totalLevelCount)

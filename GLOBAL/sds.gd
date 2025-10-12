@@ -134,28 +134,12 @@ static func loadData(d: String, progress=null) -> Variant:
     var part = remainingData.substr(1, end - 1)
     remainingData = remainingData.substr(end + 1)
     return part
-  # while UNSET in remainingData:
-  #   UNSET = ":::" + global.randstr(10, "qwertyuiopasdfghjklzxcvbnm1234567890") + ":::"
   var _stack: Array
 
   while 1:
     if not remainingData:
       # log.warn(_stack, stack, 4)
       return _stack[len(_stack) - 1]
-    # var getDataReg := func(reg: String, group:=0) -> String:
-    #   var res = global.regMatch(remainingData, reg)
-    #   if not res:
-    #     breakpoint
-    #     log.err(remainingData, 123123123, reg, stack)
-    #     return UNSET
-    #   remainingData = remainingData.substr(len(res[0]))
-    #   # if len(remainingData) < 100:
-    #   #   breakpoint
-    #   #   log.err(remainingData)
-    #   return res[group]
-    # if not remainingData:
-    #   log.err(remainingData, "current")
-    #   breakpoint
 
     if global.starts_with(remainingData, ']') or global.starts_with(remainingData, '}'):
       remainingData = remainingData.substr(1)
