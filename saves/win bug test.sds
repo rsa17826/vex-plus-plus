@@ -1,0 +1,35 @@
+{
+  STR(loadedLevels)[
+    {
+      STR(name)STR(hub)
+      STR(exitPosition)VEC2(0.0,0.0)
+      STR(up_direction)VEC2(0.0,-1.0)
+      STR(autoRunDirection)INT(1)
+      STR(tick)FLOAT(0.0)
+      STR(heat)FLOAT(0.0)
+      STR(gravState)INT(2)
+      STR(speedLeverActive)BOOL(false)
+      STR(blockSaveData){
+        STR(checkpoint)[
+          {
+            STR(texture)STR(2)
+          }
+          {
+            STR(texture)STR(1)
+          }
+        ]
+        STR(bomb)[
+          {
+            STR(thingThatMoves.global_position)VEC2(-150.0,-100.0)
+            STR(thingThatMoves.vel){
+              STR(conveyor)VEC2(0.0,0.0)
+              STR(default)VEC2(0.0,0.0)
+            }
+          }
+        ]
+      }
+      STRNAME(lastSpawnPoint)VEC2(1.47257053852081,-5.08028602600098)
+    }
+  ]
+  STR(beatLevels)[]
+}

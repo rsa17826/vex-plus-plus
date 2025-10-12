@@ -44,6 +44,6 @@ searchBar = NodePath("..")
 [connection signal="focus_entered" from="LineEdit2" to="LineEdit2" method="_on_focus_entered"]
 [connection signal="focus_exited" from="LineEdit2" to="LineEdit2" method="_on_focus_exited"]
 [connection signal="gui_input" from="LineEdit2" to="LineEdit2" method="_on_gui_input"]
-[connection signal="text_changed" from="LineEdit2" to="." method="_on_line_edit_2_text_changed"]
 [connection signal="text_changed" from="LineEdit2" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="LineEdit2" to="." method="_on_line_edit_2_text_changed"]
 [connection signal="text_submitted" from="LineEdit2" to="." method="_on_line_edit_text_submitted"]
