@@ -46,8 +46,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **killAfterTime**: bouncing shurikens that this has spawned will be killed after the set time
     - **unCollect**: temporarily uncollects the star
     - **starType**: the color of the star
-    - **portalId**: the id of this portal as used for finding an exit portal
+    - **groupId**: if not 0 when one is triggered all other falling spikes with the same groupId will also start falling
     - **exitId**: the id this portal uses to find its exit portal
+    - **portalId**: the id of this portal as used for finding an exit portal
     - **action**: the action to detect
     - **state**: the state to detect
     - **signalAInputId**: a signal to detect
@@ -941,6 +942,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
+      - **groupId**: if not 0 when one is triggered all other falling spikes with the same groupId will also start falling
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
@@ -963,8 +965,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
-      - **portalId**: the id of this portal as used for finding an exit portal
       - **exitId**: the id this portal uses to find its exit portal
+      - **portalId**: the id of this portal as used for finding an exit portal
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
