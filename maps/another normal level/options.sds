@@ -9,4 +9,6 @@
       STR(changeSpeedOnSlopes)BOOL(false)
     }
   }
+  STRNAME(gameVersion)INT(210)
+  STRNAME(levelVersion)INT(1)
 }

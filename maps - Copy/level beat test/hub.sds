@@ -1,0 +1,43 @@
+[
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(-65.0)
+  }
+  {
+    STR(x)FLOAT(0.0)
+    STR(y)FLOAT(0.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STR(options){
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(100.0)
+    STR(y)FLOAT(-5.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(inner level)
+    STR(options){
+      STR(level)STR(1)
+      STR(requiredLevelCount)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-75.0)
+    STR(y)FLOAT(-85.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(goal)
+    STR(options){
+      STR(requiredLevelCount)INT(0)
+      STR(canAttachToThings)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+]

@@ -1,0 +1,13 @@
+{
+  STR(start)STR(Cheeseland1)
+  STR(author)STR(Phendet)
+  STR(description)STR(cheeseland)
+  STR(version)INT(62)
+  STR(stages){
+    STR(Cheeseland1){
+      STR(color)INT(11)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+  }
+}

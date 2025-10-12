@@ -11,9 +11,11 @@ config_version=5
 [application]
 
 config/name="vex"
-config/version="210"
+config/version="211"
 run/main_scene="uid://bsub1ew4qiin4"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+config/icon="uid://csr6lp7yx00ix"
+config/windows_native_icon="res://vex++.ico"
 boot_splash/minimum_display_time=500
 
 [autoload]
