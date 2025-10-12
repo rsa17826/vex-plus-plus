@@ -475,7 +475,7 @@ UpdateSelf(*) {
     ; print(release.tag_name, selectedVersion)
     try if release.tag_name > maxVersion {
       maxVersion := release.tag_name
-      url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("launcher.zip"))].browser_download_url
+      url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("launcher.zip"))].browser_download_url + "?rand=" Random()
     }
   }
   if (url) {
