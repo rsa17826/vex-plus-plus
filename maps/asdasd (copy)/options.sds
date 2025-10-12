@@ -4,7 +4,7 @@
   STR(description)STR()
   STR(gameVersion)INT(212)
   STR(version)INT(187)
-  STR(levelVersion)INT(60)
+  STR(levelVersion)INT(62)
   STR(stages){
     STR(hub){
       STR(color)INT(4)

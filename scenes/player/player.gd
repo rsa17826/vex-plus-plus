@@ -1864,3 +1864,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # player nodie key
 # try fix mobing blocks and buzsaws killing player on path
+
+# fix oneway ghost image
+
+# open file buttons in menu
