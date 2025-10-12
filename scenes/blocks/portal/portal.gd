@@ -26,5 +26,5 @@ func on_body_entered(body: Node) -> void:
         global.player.state = global.player.States.falling
 
 func generateBlockOpts():
-  blockOptions.portalId = {"type": global.PromptTypes.int, "default": 0}
   blockOptions.exitId = {"type": global.PromptTypes.int, "default": 0}
+  blockOptions.portalId = {"type": global.PromptTypes.int, "default": 0}

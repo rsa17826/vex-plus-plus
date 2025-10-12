@@ -10,3 +10,13 @@ func _physics_process(delta: float) -> void:
   :
     root.falling = true
     %"attach detector".following = false
+    if root.selectedOptions.groupId:
+      global.fallingSpikeGroupStartedFalling.emit(root.selectedOptions.groupId)
+
+func _ready() -> void:
+  global.fallingSpikeGroupStartedFalling.connect(fallingSpikeGroupStartedFalling)
+
+func fallingSpikeGroupStartedFalling(id: int) -> void:
+  if root.selectedOptions.groupId and root.selectedOptions.groupId == id:
+    root.falling = true
+    %"attach detector".following = false

@@ -2559,3 +2559,5 @@ var editorBarIconCache := Cache.new()
 
 # (?<=[\w_\]])\[(['"])([\w_]+)\1\]
 # .$2
+
+signal fallingSpikeGroupStartedFalling(id: int)
