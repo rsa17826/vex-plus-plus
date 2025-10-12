@@ -1,6 +1,6 @@
 extends LineEdit
 
-@onready var autoCompleteUi: Control = get_parent()
+@export var autoCompleteUi: Control
 @export var rtl: RichTextLabel
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -69,10 +69,10 @@ func _on_gui_input(event: InputEvent) -> void:
     await global.wait()
     var w = getAutoComplete(text)
     if not Input.is_action_just_pressed(&"tab", true):
-      if Input.is_action_just_pressed(&"ui_up", true):
+      if Input.is_action_just_pressed(&"ui_up", true) and w:
         idx -= 1
         idx = idx % len(w)
-      elif Input.is_action_just_pressed(&"ui_down", true):
+      elif Input.is_action_just_pressed(&"ui_down", true) and w:
         idx += 1
         idx = idx % len(w)
       else:

@@ -2,6 +2,8 @@ extends Control
 
 var buttons: Array[Label] = []
 @export var focusAsSearchBar: bool = false
+@export var edit: Control
+@export var rtl: Control
 
 @export var autoComplete = {
   "creatorId": 1,
@@ -34,20 +36,23 @@ signal text_submitted(new_text: String, textArr: Array)
 
 var text:
   get():
-    return $LineEdit.text
+    return edit.text
   set(text):
-    $LineEdit.text = text
-    var w = $LineEdit.getAutoComplete(text)
+    edit.text = text
+    var w = edit.getAutoComplete(text)
     setWords(w)
     setSelected(0)
-    $LineEdit/RichTextLabel.updateText($LineEdit.textArr)
+    rtl.updateText(edit.textArr)
 
 var textArr:
   get():
-    return $LineEdit.textArr
+    return edit.textArr
 
 func _on_line_edit_text_submitted(new_text: String) -> void:
-  text_submitted.emit(new_text, $LineEdit.textArr)
+  text_submitted.emit(new_text, edit.textArr)
 
 func _on_line_edit_text_changed(new_text: String) -> void:
-  text_changed.emit(new_text, $LineEdit.textArr)
+  text_changed.emit(new_text, edit.textArr)
+
+func _on_line_edit_2_text_changed(new_text: String) -> void:
+  text = new_text.strip_edges()

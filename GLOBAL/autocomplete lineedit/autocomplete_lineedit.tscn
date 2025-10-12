@@ -1,17 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1yohkn2i03nk"]
+[gd_scene load_steps=6 format=3 uid="uid://c1yohkn2i03nk"]
 
-[ext_resource type="FontFile" uid="uid://c1l1dd3cykmy8" path="res://themes/Monospace.ttf" id="1_6se4p"]
+[ext_resource type="FontFile" uid="uid://ch8mp167bmq1u" path="res://themes/Inconsolata-Regular.ttf" id="2_2sg3i"]
 [ext_resource type="Script" uid="uid://cky7k3xay67pc" path="res://GLOBAL/autocomplete lineedit/line_edit.gd" id="2_6se4p"]
 [ext_resource type="Script" uid="uid://xvwwhtnb280f" path="res://GLOBAL/autocomplete lineedit/autoCompleteUi.gd" id="2_50r5t"]
 [ext_resource type="Script" uid="uid://st0qaj5a08vv" path="res://GLOBAL/autocomplete lineedit/rich_text_label.gd" id="3_50r5t"]
 
-[node name="autocomplete lineedit" type="VBoxContainer"]
-script = ExtResource("2_50r5t")
+[sub_resource type="Theme" id="Theme_2uc6y"]
+default_font = ExtResource("2_2sg3i")
 
-[node name="LineEdit" type="LineEdit" parent="." node_paths=PackedStringArray("rtl")]
+[node name="autocomplete lineedit" type="VBoxContainer" node_paths=PackedStringArray("edit", "rtl")]
+script = ExtResource("2_50r5t")
+edit = NodePath("LineEdit2")
+rtl = NodePath("LineEdit2/RichTextLabel")
+
+[node name="LineEdit2" type="LineEdit" parent="." node_paths=PackedStringArray("autoCompleteUi", "rtl")]
+light_mask = 0
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("1_6se4p")
+theme = SubResource("Theme_2uc6y")
 theme_override_font_sizes/font_size = 24
 placeholder_text = "search"
 keep_editing_on_text_submit = true
@@ -19,21 +25,25 @@ clear_button_enabled = true
 secret = true
 secret_character = " "
 script = ExtResource("2_6se4p")
+autoCompleteUi = NodePath("..")
 rtl = NodePath("RichTextLabel")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="LineEdit" node_paths=PackedStringArray("searchBar")]
+[node name="RichTextLabel" type="RichTextLabel" parent="LineEdit2" node_paths=PackedStringArray("searchBar")]
 layout_mode = 0
-offset_right = 80.0
-offset_bottom = 33.0
+offset_left = 4.4
+offset_top = 1.0
+offset_right = 84.4
+offset_bottom = 34.0
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("1_6se4p")
+theme = SubResource("Theme_2uc6y")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 script = ExtResource("3_50r5t")
 searchBar = NodePath("..")
 
-[connection signal="focus_entered" from="LineEdit" to="LineEdit" method="_on_focus_entered"]
-[connection signal="focus_exited" from="LineEdit" to="LineEdit" method="_on_focus_exited"]
-[connection signal="gui_input" from="LineEdit" to="LineEdit" method="_on_gui_input"]
-[connection signal="text_changed" from="LineEdit" to="." method="_on_line_edit_text_changed"]
-[connection signal="text_submitted" from="LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="focus_entered" from="LineEdit2" to="LineEdit2" method="_on_focus_entered"]
+[connection signal="focus_exited" from="LineEdit2" to="LineEdit2" method="_on_focus_exited"]
+[connection signal="gui_input" from="LineEdit2" to="LineEdit2" method="_on_gui_input"]
+[connection signal="text_changed" from="LineEdit2" to="." method="_on_line_edit_text_changed"]
+[connection signal="text_changed" from="LineEdit2" to="." method="_on_line_edit_2_text_changed"]
+[connection signal="text_submitted" from="LineEdit2" to="." method="_on_line_edit_text_submitted"]
