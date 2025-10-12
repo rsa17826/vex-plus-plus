@@ -16,7 +16,6 @@ func generateBlockOpts():
   blockOptions.startOn = {"type": global.PromptTypes.bool, "default": false}
 
 func on_ready() -> void:
-  log.err("Asdasd")
   isOn = selectedOptions.startOn
 
 func on_respawn():
