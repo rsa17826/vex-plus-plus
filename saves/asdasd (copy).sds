@@ -12,14 +12,11 @@
       STR(blockSaveData){
         STR(checkpoint)[
           {
-            STR(texture)STR(3)
-          }
-          {
             STR(texture)STR(2)
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(141.472564697266,-120.080284118652)
+      STRNAME(lastSpawnPoint)VEC2(1.47257137298584,4.91971397399902)
     }
   ]
   STR(beatLevels)[]

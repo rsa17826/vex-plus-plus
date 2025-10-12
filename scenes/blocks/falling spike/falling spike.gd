@@ -39,3 +39,6 @@ func _on_floor_detection_body_entered(body: Node2D) -> void:
   %"attach detector".following = true
   respawnTimer = RESPAWN_TIME
   on_respawn()
+
+func generateBlockOpts():
+  blockOptions.groupId = {"type": global.PromptTypes.int, "default": 0}

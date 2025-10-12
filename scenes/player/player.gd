@@ -1854,3 +1854,13 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # area trigger on enter/on exit
 
 # hitbox is disabled when grabbing block and hitting escape makes the block no longer grabbed but doesn't reenable hitboxes until letting go of lmb
+
+# check falling blocxks
+# jump from water to wall!!
+
+# !!clear signal list when enteriugn exiting inner level
+
+# falling spikes stick in floor option
+
+# player nodie key
+# try fix mobing blocks and buzsaws killing player on path
