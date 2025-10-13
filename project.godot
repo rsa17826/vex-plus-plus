@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="vex"
-config/version="215"
+config/version="216"
 run/main_scene="uid://bsub1ew4qiin4"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="uid://csr6lp7yx00ix"
@@ -50,7 +50,7 @@ window/stretch/mode="canvas_items"
 
 [editor]
 
-run/main_run_args="--loadMap \"NEWEST \" --loadOnlineLevel"
+run/main_run_args="--loadMap \"NEWEST\" --loadOnlineLevel"
 
 [editor_plugins]
 

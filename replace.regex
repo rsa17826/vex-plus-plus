@@ -77,7 +77,7 @@ make it so that when i tab in a function it is replaced with the correct one
 @flags gm
 @endregex
 
-@name extra end spaces
+@name instance to instantiate
 @file \.gd$
 @regex  .instance\(\)
 @replace  .instantiate()

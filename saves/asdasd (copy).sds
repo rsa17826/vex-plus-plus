@@ -15,8 +15,14 @@
             STR(texture)STR(2)
           }
         ]
+        STR(key)[
+          {
+            STR(following)BOOL(false)
+            STR(used)BOOL(false)
+          }
+        ]
       }
-      STRNAME(lastSpawnPoint)VEC2(1.47257137298584,4.91971397399902)
+      STRNAME(lastSpawnPoint)VEC2(27.4725723266602,4.91971397399902)
     }
   ]
   STR(beatLevels)[]
