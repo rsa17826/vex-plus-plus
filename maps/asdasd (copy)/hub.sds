@@ -95,7 +95,7 @@
     }
   }
   {
-    STR(x)FLOAT(700.0)
+    STR(x)FLOAT(950.0)
     STR(y)FLOAT(-50.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
@@ -134,7 +134,7 @@
     }
   }
   {
-    STR(x)FLOAT(400.0)
+    STR(x)FLOAT(426.0)
     STR(y)FLOAT(-50.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
@@ -270,6 +270,19 @@
       STR(signalOutputId)INT(100)
       STR(persistAfterDeath)BOOL(false)
       STR(startOn)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(300.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(key)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
   }
