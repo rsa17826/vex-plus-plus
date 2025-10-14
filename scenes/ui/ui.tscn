@@ -21,31 +21,23 @@
 layer = 2
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("129 - sticker/saved")
-editorBar = NodePath("5 - ProgressContainer,info display,editor bar,saved/editor bar")
-progressContainer = NodePath("5 - ProgressContainer,info display,editor bar,saved/ProgressContainer")
-progressBar = NodePath("5 - ProgressContainer,info display,editor bar,saved/ProgressContainer/CenterContainer/ProgressBar")
-modifiers = NodePath("4 - modifier display/modifiers")
+editorBar = NodePath("5 - ProgressContainer,editor bar,saved/editor bar")
+progressContainer = NodePath("5 - ProgressContainer,editor bar,saved/ProgressContainer")
+progressBar = NodePath("5 - ProgressContainer,editor bar,saved/ProgressContainer/CenterContainer/ProgressBar")
+modifiers = NodePath("4 - modifier display,info display/VBoxContainer/modifiers")
 signalList = NodePath("3 - block menu,signal list/HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("3 - block menu,signal list/HBoxContainer/block menu")
-hoveredBlockList = NodePath("5 - ProgressContainer,info display,editor bar,saved/hoveredBlocksList")
+hoveredBlockList = NodePath("")
 overlayRemovalHidersubViewportContainer = NodePath("SubViewportContainer")
 
-[node name="5 - ProgressContainer,info display,editor bar,saved" type="CanvasLayer" parent="."]
+[node name="5 - ProgressContainer,editor bar,saved" type="CanvasLayer" parent="."]
 layer = 5
 
-[node name="info display" type="Label" parent="5 - ProgressContainer,info display,editor bar,saved"]
-offset_left = 4.0
-offset_top = 17.0
-offset_right = 44.0
-offset_bottom = 40.0
-script = ExtResource("5_0dwhk")
-metadata/_edit_lock_ = true
-
-[node name="editor bar" parent="5 - ProgressContainer,info display,editor bar,saved" instance=ExtResource("2_5gxme")]
+[node name="editor bar" parent="5 - ProgressContainer,editor bar,saved" instance=ExtResource("2_5gxme")]
 visible = false
 metadata/_edit_lock_ = true
 
-[node name="ProgressContainer" type="Control" parent="5 - ProgressContainer,info display,editor bar,saved"]
+[node name="ProgressContainer" type="Control" parent="5 - ProgressContainer,editor bar,saved"]
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -55,7 +47,7 @@ grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_lock_ = true
 
-[node name="levelHider" type="ColorRect" parent="5 - ProgressContainer,info display,editor bar,saved/ProgressContainer"]
+[node name="levelHider" type="ColorRect" parent="5 - ProgressContainer,editor bar,saved/ProgressContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -66,7 +58,7 @@ color = Color(1, 1, 1, 0)
 script = ExtResource("6_4kltc")
 alpha = false
 
-[node name="CenterContainer" type="CenterContainer" parent="5 - ProgressContainer,info display,editor bar,saved/ProgressContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="5 - ProgressContainer,editor bar,saved/ProgressContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -74,23 +66,30 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ProgressBar" type="ProgressBar" parent="5 - ProgressContainer,info display,editor bar,saved/ProgressContainer/CenterContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="5 - ProgressContainer,editor bar,saved/ProgressContainer/CenterContainer"]
 custom_minimum_size = Vector2(900, 0)
 layout_mode = 2
-
-[node name="hoveredBlocksList" parent="5 - ProgressContainer,info display,editor bar,saved" instance=ExtResource("13_swkix")]
 
 [node name="6 - hovered block list" type="CanvasLayer" parent="."]
 layer = 6
 
 [node name="hoveredBlocksList" parent="6 - hovered block list" instance=ExtResource("13_swkix")]
 
-[node name="4 - modifier display" type="CanvasLayer" parent="."]
+[node name="4 - modifier display,info display" type="CanvasLayer" parent="."]
 layer = 4
 
-[node name="modifiers" parent="4 - modifier display" instance=ExtResource("6_jcn1r")]
-offset_top = 75.0
-offset_bottom = 75.0
+[node name="VBoxContainer" type="VBoxContainer" parent="4 - modifier display,info display"]
+offset_top = 17.0
+offset_right = 40.0
+offset_bottom = 57.0
+
+[node name="info display" type="Label" parent="4 - modifier display,info display/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("5_0dwhk")
+metadata/_edit_lock_ = true
+
+[node name="modifiers" parent="4 - modifier display,info display/VBoxContainer" instance=ExtResource("6_jcn1r")]
+layout_mode = 2
 metadata/_edit_lock_ = true
 
 [node name="3 - block menu,signal list" type="CanvasLayer" parent="."]

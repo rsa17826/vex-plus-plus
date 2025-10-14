@@ -19,28 +19,15 @@ func loadLevel(level):
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
   # await global.wait()
-  global.stopTicking = true
-  global.tick = 0
-  global.hoveredBlocks = []
   global.player.state = global.player.States.levelLoading
-
+  var leveldata = global.levelDataForCurrentMap.__get() \
+  if global.levelDataForCurrentMap.__has(level) \
+  else global.levelDataForCurrentMap.__set(await sds.loadDataFromFileSlow(global.path.join(global.levelFolderPath, level + '.sds')))
+  global.ui.progressContainer.visible = true
   global.ui.modifiers.updateUi(global.currentLevelSettings())
   global.player.floor_constant_speed = !global.currentLevelSettings().changeSpeedOnSlopes
   global.player.MAX_JUMP_COUNT = global.currentLevelSettings().jumpCount
   global.activeSignals = {}
-  global.ui.progressContainer.visible = true
-  var leveldata = await (sds.loadDataFromFileSlow if global.useropts.showLevelLoadingProgressBar else sds.loadDataFromFile) \
-  .call(global.path.join(global.levelFolderPath, level + '.sds'),
-    [
-      {"x": 0, "y": - 65},
-      {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
-    ],
-    func(prog, max):
-      if !is_instance_valid(global.ui): return
-      if !is_instance_valid(global.ui.progressBar): return
-      global.ui.progressBar.max_value=max
-      global.ui.progressBar.value=prog
-  )
   var prog = 0
   var children = $blocks.get_children()
   var max = len(children) + len(leveldata) - 1

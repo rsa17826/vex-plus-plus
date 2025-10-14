@@ -10,10 +10,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(basic)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -23,10 +24,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(single spike)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -36,10 +38,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(10x spike)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -49,10 +52,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(updown)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -62,10 +66,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(downup)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -75,10 +80,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(water)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -88,10 +94,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(solar)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -101,10 +108,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(slope)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -114,10 +122,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(pushable box)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -127,10 +136,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(microwave)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -140,10 +150,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(locked box)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -153,10 +164,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(glass)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -166,10 +178,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(leftright)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -179,10 +192,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(falling)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -192,10 +206,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(bouncy)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -205,10 +220,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(spark counterClockwise)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -218,10 +234,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(spark clockwise)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -231,10 +248,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(inner level)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -244,10 +262,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(goal)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -257,10 +276,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(buzsaw)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -270,10 +290,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(bouncing buzsaw)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -283,10 +304,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(cannon)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -296,10 +318,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(checkpoint)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -309,10 +332,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(closing spikes)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -322,10 +346,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(Gravity Down Lever)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -335,10 +360,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(Gravity up Lever)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -348,10 +374,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(speed Up Lever)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -361,10 +388,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(growing buzsaw)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -374,10 +402,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(key)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -387,10 +416,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(light switch)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -400,10 +430,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(pole)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -413,10 +444,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(Pole Quadrant)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -426,10 +458,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(Pulley)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -439,10 +472,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(Quadrant)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -452,10 +486,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(Rotating Buzzsaw)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -465,10 +500,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(Scythe)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -478,10 +514,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(star)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -491,10 +528,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(death boundary)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -504,10 +542,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(block death boundary)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -517,10 +556,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(nowj)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -530,10 +570,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(falling spike)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -543,10 +584,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(inner level)
-    STR(options){
+    STRNAME(options){
       STR(color)STR(#fff)
       STR(level)STR(portal)
       STR(requiredLevelCount)INT(0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -556,10 +598,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
-    STR(options){
+    STRNAME(options){
       STR(multiUse)BOOL(true)
       STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -569,10 +612,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
-    STR(options){
+    STRNAME(options){
       STR(multiUse)BOOL(true)
       STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -582,10 +626,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
-    STR(options){
+    STRNAME(options){
       STR(multiUse)BOOL(true)
       STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -595,10 +640,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
-    STR(options){
+    STRNAME(options){
       STR(multiUse)BOOL(true)
       STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -608,10 +654,11 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
-    STR(options){
+    STRNAME(options){
       STR(multiUse)BOOL(true)
       STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
 ]

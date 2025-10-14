@@ -1561,25 +1561,66 @@ func saveBlockData():
         blockSaveData[block.id][blockIds[block.id]][thing] = val
   return blockSaveData
 
+var levelDataForCurrentMap := Cache.new()
 func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
+  levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   mainLevelName = levelPackName
   var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
 
   levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
-  var levelPackInfo: Variant = await loadMapInfo(levelPackName)
-  if !levelPackInfo: return false
-  var startFile := path.join(levelFolderPath, levelPackInfo.start + '.sds')
+  var mapInfo: Variant = await loadMapInfo(levelPackName)
+  if !mapInfo: return false
+
+  levelOpts = mapInfo
+  if loadFromSave and saveData:
+    loadedLevels = saveData.loadedLevels
+    beatLevels = saveData.beatLevels
+  else:
+    loadedLevels = [
+      newLevelSaveData(mapInfo.start)
+    ]
+    beatLevels = []
+  loadedLevels = loadedLevels.map(func(e): return e.merged(newLevelSaveData('')))
+  var startFile := path.join(levelFolderPath, mapInfo.start + '.sds')
+  var levelNames = mapInfo.stages.keys()
+  stopTicking = true
+  tick = 0
+  hoveredBlocks = []
+
+  get_tree().change_scene_to_file("res://scenes/level/level.tscn")
+  ui.progressContainer.visible = true
+  var lastProg = 0
+  var lastMax = {"val": 0}
+  var __loadedLevelCount = 0
+  for k in levelNames:
+    if levelDataForCurrentMap.__has(k):
+      log.err("should not have data", levelDataForCurrentMap.__get(), levelFolderPath, k)
+      breakpoint
+    lastProg += lastMax.val
+    levelDataForCurrentMap.__set(await sds.loadDataFromFileSlow(path.join(levelFolderPath, k + '.sds'), [
+      {"x": 0, "y": - 65},
+      {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
+    ],
+    func(prog, max):
+      lastMax.val=max
+      if !is_instance_valid(ui): return
+      if !is_instance_valid(ui.progressBar): return
+      ui.progressBar.max_value=len(levelNames)
+      ui.progressBar.value=__loadedLevelCount + rerange(prog, 0, max, 0, 1)
+    ))
+    __loadedLevelCount += 1
+
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
     return false
-  if not same(levelPackInfo.gameVersion, VERSION):
-    var gameVersionIsNewer: bool = VERSION > levelPackInfo.gameVersion
+  if not same(mapInfo.gameVersion, VERSION):
+    var gameVersionIsNewer: bool = VERSION > mapInfo.gameVersion
     if gameVersionIsNewer:
       if useropts.warnWhenOpeningLevelInNewerGameVersion:
         var data = await prompt(
           "this level was last saved in gameVersion " +
-          str(levelPackInfo.gameVersion) +
+          str(mapInfo.gameVersion) +
           " and the current gameVersion is " + str(VERSION) +
           ". Do you want to load this level?\n" +
           "> the current game gameVersion is newer than what the level was made in"
@@ -1590,25 +1631,15 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
         var data = await prompt(
           "this level was last saved in gameVersion " +
-          str(levelPackInfo.gameVersion) +
+          str(mapInfo.gameVersion) +
           " and the current gameVersion is " + str(VERSION) +
           ". Do you want to load this level?\n" +
           "< the current game gameVersion might not have all the features needed to play this level"
           , PromptTypes.confirm
         )
         if not data: return false
-  levelOpts = levelPackInfo
-
-  if loadFromSave and saveData:
-    loadedLevels = saveData.loadedLevels
-    beatLevels = saveData.beatLevels
-  else:
-    loadedLevels = [
-      newLevelSaveData(levelPackInfo.start)
-    ]
-    beatLevels = []
-  loadedLevels = loadedLevels.map(func(e): return e.merged(newLevelSaveData('')))
-  get_tree().change_scene_to_file("res://scenes/level/level.tscn")
+  if !isAlive(level):
+    return false
   await level.loadLevel(currentLevel().name)
   loadBlockData()
   await wait()

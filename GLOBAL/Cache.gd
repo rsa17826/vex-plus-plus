@@ -2,6 +2,8 @@ class_name Cache
 var cache := {}
 var _data := {}
 func _init() -> void: pass
+func clear() -> void:
+  cache = {}
 func __has(thing: Variant) -> bool:
   if "lastinp" in self._data:
     log.err("lastinp should not exist", self )

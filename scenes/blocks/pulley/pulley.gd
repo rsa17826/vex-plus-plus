@@ -3,6 +3,9 @@ extends EditorBlock
 class_name BlockPulley
 
 @export var sprite: Sprite2D
+@export var hasCeil: Area2D
+@export var wallToSideWithPlayerOn: Area2D
+@export var wallToSideWithPlayerOff: Area2D
 
 const SPEED = 1000
 var direction = 0
@@ -25,13 +28,13 @@ func on_respawn():
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
   if respawning: return
-  if not %"has ceil".get_overlapping_bodies():
+  if not hasCeil.get_overlapping_bodies():
     # fix for if the ceil is placed after the pulley is
     thingThatMoves.position = Vector2(0, 1)
     await global.wait()
     thingThatMoves.position = Vector2.ZERO
     await global.wait()
-    if not %"has ceil".get_overlapping_bodies(): return
+    if not hasCeil.get_overlapping_bodies(): return
   match selectedOptions.direction:
     0:
       direction = -1
@@ -49,11 +52,11 @@ func on_physics_process(delta: float) -> void:
   thingThatMoves.position.x += SPEED * delta * direction
   if global.player.state == global.player.States.onPulley \
   and global.player.activePulley == self \
-  and %"wall to side with player on".get_overlapping_bodies():
+  and wallToSideWithPlayerOn.get_overlapping_bodies():
     global.player.state = global.player.States.falling
     global.player.activePulley = null
     global.player.remainingJumpCount -= 1
-  if %"wall to side with player off".get_overlapping_bodies():
+  if wallToSideWithPlayerOff.get_overlapping_bodies():
     respawn()
 
 func generateBlockOpts():
@@ -64,7 +67,7 @@ func generateBlockOpts():
   ]}
 
 func _on_has_ceil_body_exited(body: Node2D) -> void:
-  if not %"has ceil".get_overlapping_bodies():
+  if not hasCeil.get_overlapping_bodies():
     respawn()
 
 func onSave() -> Array[String]:
