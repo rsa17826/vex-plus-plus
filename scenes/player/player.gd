@@ -1874,3 +1874,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix showing attach detector hitbnoxes
 # falling blocks respawning detach things from it
 # fix selecting text box selecting entire text block edit menu
+
+# replace puley collision with shapecast

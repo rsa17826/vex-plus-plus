@@ -55,4 +55,5 @@ func _on_line_edit_text_changed(new_text: String) -> void:
   text_changed.emit(new_text, edit.textArr)
 
 func _on_line_edit_2_text_changed(new_text: String) -> void:
-  text = new_text.lstrip(" ")
+  if new_text.begins_with(" "):
+    text = new_text.lstrip(" ")

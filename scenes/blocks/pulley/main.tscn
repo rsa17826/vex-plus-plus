@@ -25,9 +25,12 @@ size = Vector2(10, 50)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
 size = Vector2(20, 5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "hasCeil", "wallToSideWithPlayerOn", "wallToSideWithPlayerOff", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("2_u2153")
 sprite = NodePath("movable/Sprite2D")
+hasCeil = NodePath("movable/has ceil")
+wallToSideWithPlayerOn = NodePath("movable/wall to side with player on")
+wallToSideWithPlayerOff = NodePath("movable/wall to side with player off")
 ghostIconNode = NodePath("movable/Sprite2D")
 editorBarIcon = ExtResource("2_omc7y")
 collisionShapes = [NodePath("movable/player detector/CollisionShape2D"), NodePath("movable/has ceil/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D"), NodePath("movable/wall to side with player on/CollisionShape2D2"), NodePath("movable/wall to side with player off/CollisionShape2D"), NodePath("movable/wall to side with player off/CollisionShape2D2")]
@@ -52,6 +55,7 @@ script = ExtResource("3_svsk0")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/player detector"]
+visible = false
 position = Vector2(1, 11)
 shape = SubResource("CircleShape2D_u2153")
 debug_color = Color(0, 1, 0, 0.41960785)
@@ -65,6 +69,7 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/has ceil"]
+visible = false
 position = Vector2(-1, -43)
 shape = SubResource("RectangleShape2D_omc7y")
 debug_color = Color(0, 1, 0, 0.41960785)
@@ -79,12 +84,14 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player on"]
+visible = false
 position = Vector2(28, 90)
 shape = SubResource("RectangleShape2D_vkeng")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player on"]
+visible = false
 position = Vector2(-30, 90)
 shape = SubResource("RectangleShape2D_vkeng")
 debug_color = Color(0, 1, 0, 0.41960785)
@@ -99,18 +106,22 @@ collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player off"]
+visible = false
 position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_6wthr")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player off"]
+visible = false
 position = Vector2(-30, 0)
 shape = SubResource("RectangleShape2D_6wthr")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_svsk0")
 target_position = Vector2(0, 0)
