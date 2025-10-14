@@ -26,6 +26,7 @@ size = Vector2(10, 50)
 size = Vector2(20, 5)
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "hasCeil", "wallToSideWithPlayerOn", "wallToSideWithPlayerOff", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+position = Vector2(-1, 1)
 script = ExtResource("2_u2153")
 sprite = NodePath("movable/Sprite2D")
 hasCeil = NodePath("movable/has ceil")
