@@ -22,11 +22,46 @@ func _on_autocomplete_lineedit_text_changed(new_text: String, textArr: Array) ->
 
 func _ready() -> void:
   add_child(pm)
-  loadUserOptions()
+  # loadUserOptions()
   loadLocalLevelList()
   gameVersionNode.text = "VERSION: " + str(global.VERSION)
   if !global.isFirstTimeMenuIsLoaded:
     LevelServer.updateCurrentUserInfoNode()
+    global.loadEditorBarData()
+  var shouldReload = false
+  if global.isFirstTimeMenuIsLoaded:
+    var levelToLoad
+    global.isFirstTimeMenuIsLoaded = false
+    var arr: Array = OS.get_cmdline_args() as Array
+    while arr:
+      var thing = arr.pop_front()
+      if thing == '--loadMap':
+        var mapName = arr.pop_front()
+        shouldReload = false
+        if mapName == 'NEWEST':
+          levelToLoad = global.mainMenu.newestLevel
+        else:
+          levelToLoad = mapName
+      if thing == '--downloadMap':
+        var data = arr.pop_front()
+        shouldReload = true
+        var map = await LevelServer.loadMapById(data.trim_prefix("vex++:downloadMap/").split("/")[1])
+        if map:
+          await LevelServer.downloadMap(map)
+          await global.wait(1000)
+          ToastParty.success("Downloaded successfully")
+        else:
+          ToastParty.error("Invalid map id")
+      if thing == '--loadOnlineLevels':
+        shouldReload = false
+        get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
+        return
+    if levelToLoad:
+      await global.wait()
+      await global.loadMap(levelToLoad, true)
+
+  if shouldReload:
+    get_tree().reload_current_scene.call_deferred()
 
 func loadLevelsFromArray(data: Array, showOldVersions:=false) -> Array:
   var loadedLevelData = {}
@@ -254,91 +289,6 @@ func showMoreOptions(level: LevelServer.Level):
 
 var editorOnlyOptions := []
 
-func loadUserOptions() -> void:
-  var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
-  __menu = Menu.new(optsmenunode)
-  __menu.onchanged.connect(updateUserOpts)
-  for thing in data:
-    __loadOptions(thing)
-  __menu.show_menu()
-  scrollContainer.set_deferred('scroll_vertical', int(global.file.read("user://scrollContainerscroll_vertical", false, "0")))
-  scrollContainer.gui_input.connect(func(event):
-    # scroll up or down then save scroll position
-    if event.button_mask == 8 || event.button_mask == 16:
-      global.file.write("user://scrollContainerscroll_vertical", str(scrollContainer.scroll_vertical), false))
-  updateUserOpts()
-
-func updateUserOpts() -> void:
-  var shouldReload = false
-  var shouldChangeFsState = false
-  var lastWinMode
-  if 'windowMode' not in global.useropts:
-    shouldChangeFsState = true
-  else:
-    lastWinMode = global.useropts.windowMode
-  var lastTheme = global.useropts.theme if 'theme' in global.useropts else null
-  global.useropts = __menu.get_all_data()
-  # log.pp('editorOnlyOptions', editorOnlyOptions)
-  for option in editorOnlyOptions:
-    global.useropts[option.key] = option.defaultValue
-
-  if lastWinMode == null or lastWinMode != global.useropts.windowMode:
-    shouldChangeFsState = true
-  # log.pp(lastTheme, global.useropts.theme, "asd")
-  if shouldChangeFsState or global.isFirstTimeMenuIsLoaded:
-    if global.isFirstTimeMenuIsLoaded:
-      get_window().size = Vector2(1152, 648)
-      await global.wait()
-    match int(global.useropts.windowMode):
-      0:
-        global.fullscreen(1)
-      1:
-        global.fullscreen(-1)
-
-  if global.useropts.theme != lastTheme:
-    if global.useropts.theme == 0:
-      get_window().theme = null
-    else:
-      get_window().theme = load("res://themes/" + ["default", "blue", "black"][global.useropts.theme] + "/THEME.tres")
-    RenderingServer.set_default_clear_color(["#4d4d4d", "#4b567aff", "#4d4d4d"][global.useropts.theme])
-    shouldReload = true
-  sds.prettyPrint = !global.useropts.smallerSaveFiles
-  global.hitboxesShown = global.useropts.showHitboxesByDefault
-  global.loadEditorBarData()
-  if global.isFirstTimeMenuIsLoaded:
-    var levelToLoad
-    global.isFirstTimeMenuIsLoaded = false
-    var arr: Array = OS.get_cmdline_args() as Array
-    while arr:
-      var thing = arr.pop_front()
-      if thing == '--loadMap':
-        var mapName = arr.pop_front()
-        shouldReload = false
-        if mapName == 'NEWEST':
-          levelToLoad = newestLevel
-        else:
-          levelToLoad = mapName
-      if thing == '--downloadMap':
-        var data = arr.pop_front()
-        shouldReload = true
-        var map = await LevelServer.loadMapById(data.trim_prefix("vex++:downloadMap/").split("/")[1])
-        if map:
-          await LevelServer.downloadMap(map)
-          await global.wait(1000)
-          ToastParty.success("Downloaded successfully")
-        else:
-          ToastParty.error("Invalid map id")
-      if thing == '--loadOnlineLevels':
-        shouldReload = false
-        get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
-        return
-    if levelToLoad:
-      await global.wait()
-      await global.loadMap(levelToLoad, true)
-
-  if shouldReload:
-    get_tree().reload_current_scene.call_deferred()
-
 func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):
     editorOnlyOptions.append(thing)
@@ -409,7 +359,7 @@ func __loadOptions(thing) -> void:
 func _on_new_level_btn_pressed() -> void:
   var level = await global.createNewMapFolder()
   if not level: return
-  updateUserOpts()
+  # updateUserOpts()
   global.loadMap(level, false)
 
 func _on_open_level_folder_pressed() -> void:

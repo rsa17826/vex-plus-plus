@@ -1376,6 +1376,22 @@ metadata/_edit_lock_ = true
 [node name="wallDetectors" type="Node2D" parent="CharacterBody2D"]
 metadata/_edit_lock_ = true
 
+[node name="leftWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
+self_modulate = Color(0.87451, 0, 0.831373, 1)
+position = Vector2(-4, -15.575001)
+target_position = Vector2(-3, 0)
+collision_mask = 16392
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="rightWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
+self_modulate = Color(0.87451, 0, 0.831373, 1)
+position = Vector2(3, -15.575001)
+target_position = Vector2(3, 0)
+collision_mask = 16392
+hit_from_inside = true
+collide_with_areas = true
+
 [node name="leftWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -22.575)
@@ -1388,22 +1404,6 @@ collide_with_areas = true
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -22.575)
 target_position = Vector2(4, 0)
-collision_mask = 16392
-hit_from_inside = true
-collide_with_areas = true
-
-[node name="leftWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
-self_modulate = Color(0.87451, 0, 0.831373, 1)
-position = Vector2(-4, -15.575)
-target_position = Vector2(-3, 0)
-collision_mask = 16392
-hit_from_inside = true
-collide_with_areas = true
-
-[node name="rightWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
-self_modulate = Color(0.87451, 0, 0.831373, 1)
-position = Vector2(3, -15.575)
-target_position = Vector2(3, 0)
 collision_mask = 16392
 hit_from_inside = true
 collide_with_areas = true

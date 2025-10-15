@@ -612,4 +612,5 @@ static func debug(...msgs) -> void:
   var m: String = log_prefix(get_stack(), true) + " - ".join(msgs.map(coloritem))
   if len(m) > 3000:
     m = "TO LONG: " + m.substr(0, 3000) + "..."
-  add_log.call(m)
+  if add_log:
+    add_log.call(m)

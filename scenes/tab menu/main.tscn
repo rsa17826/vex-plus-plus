@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="1_h3bri"]
 [ext_resource type="Script" uid="uid://caq4sfrulnhcy" path="res://scenes/tab menu/main.gd" id="1_jf5yk"]
 
-[node name="ColorRect" type="ColorRect"]
+[node name="tab menu" type="ColorRect"]
 offset_right = 1152.0
 offset_bottom = 648.0
 size_flags_horizontal = 3

@@ -1,23 +1,21 @@
-[gd_scene load_steps=17 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=15 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
 [ext_resource type="Script" uid="uid://d0s8e8eppjwrw" path="res://scenes/ui/background.gd" id="3_hl07w"]
 [ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
-[ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="4_g5kmx"]
 [ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="6_4kltc"]
 [ext_resource type="PackedScene" uid="uid://be824ve2c7lm3" path="res://scenes/ui/modifiers/modifiers.tscn" id="6_jcn1r"]
 [ext_resource type="PackedScene" uid="uid://bcgvwxwk7bf6b" path="res://scenes/ui/signal list/signal_list.tscn" id="7_uegxj"]
 [ext_resource type="PackedScene" uid="uid://cs4s80p62mgl5" path="res://scenes/ui/block menu/block_menu.tscn" id="8_y220t"]
 [ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="10_y220t"]
-[ext_resource type="PackedScene" uid="uid://boy84eq1dmt4t" path="res://scenes/tab menu/main.tscn" id="13_hc5d0"]
 [ext_resource type="PackedScene" uid="uid://ckgxdnqr5psft" path="res://scenes/ui/hovered blocks list/hovered_blocks_list.tscn" id="13_swkix"]
 [ext_resource type="Script" uid="uid://c1degxs1pbn86" path="res://scenes/ui/sub_viewport.gd" id="14_n3vwu"]
 [ext_resource type="Script" uid="uid://bu86o6la4ga8s" path="res://scenes/ui/SubViewportContainer camera_2d.gd" id="15_n3vwu"]
 [ext_resource type="PackedScene" uid="uid://ccr06ddwa73ca" path="res://GLOBAL/screen_notifier/resident_logs.tscn" id="16_0i47d"]
 
-[node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer")]
+[node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "overlayRemovalHidersubViewportContainer")]
 layer = 2
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("129 - sticker/saved")
@@ -27,7 +25,6 @@ progressBar = NodePath("5 - ProgressContainer,editor bar,saved/ProgressContainer
 modifiers = NodePath("4 - modifier display,info display/VBoxContainer/modifiers")
 signalList = NodePath("3 - block menu,signal list/HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("3 - block menu,signal list/HBoxContainer/block menu")
-hoveredBlockList = NodePath("")
 overlayRemovalHidersubViewportContainer = NodePath("SubViewportContainer")
 
 [node name="5 - ProgressContainer,editor bar,saved" type="CanvasLayer" parent="."]
@@ -165,17 +162,6 @@ expand_mode = 1
 stretch_mode = 5
 script = ExtResource("3_hl07w")
 metadata/_edit_lock_ = true
-
-[node name="7 - tab menu,Controls" type="CanvasLayer" parent="."]
-layer = 7
-
-[node name="Controls" parent="7 - tab menu,Controls" instance=ExtResource("4_g5kmx")]
-visible = false
-mouse_filter = 0
-metadata/_edit_lock_ = true
-
-[node name="Main" parent="7 - tab menu,Controls" instance=ExtResource("13_hc5d0")]
-visible = false
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 visibility_layer = 3

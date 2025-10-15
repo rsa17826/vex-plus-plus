@@ -2,6 +2,7 @@ extends Control
 
 var containers: Array[FoldableContainer] = []
 @export var optsmenunode: Control
+@export var alwaysShowMenu: bool = false
 
 var __menu: Menu
 var editorOnlyOptions := []
@@ -78,6 +79,7 @@ func __loadOptions(thing) -> void:
           )
 
 func _input(event: InputEvent) -> void:
+  if alwaysShowMenu: return
   if event is InputEventKey:
     if Input.is_action_just_pressed(&"toggle_tab_menu", true):
       visible = !visible
@@ -86,28 +88,54 @@ func _input(event: InputEvent) -> void:
         Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 func _ready() -> void:
-  global.overlays.append(self )
-  get_parent().visible = false
-  visible = false
-  updateSize()
+  if alwaysShowMenu:
+    visible = true
+    get_parent().visible = true
+  else:
+    global.overlays.append(self )
+    get_parent().visible = false
+    visible = false
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
   __menu.onchanged.connect(updateUserOpts)
   for thing in data:
     __loadOptions(thing)
   __menu.show_menu()
+  updateUserOpts()
+  updateSize()
+  # var node_stack: Array[Node] = [ self ]
+  # while not node_stack.is_empty():
+  #   var node: Node = node_stack.pop_back()
+  #   if is_instance_valid(node):
+  #     if "transparent_bg" in node:
+  #       node.transparent_bg = true
+  #     if node is Control and node.get_parent() is CanvasLayer:
+  #       node.theme = get_window().theme
+  #     node_stack.append_array(node.get_children())
 
-func updateUserOpts() -> void:
-  var shouldReload = false
+# func loadaUserOptions() -> void:
+#   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
+#   __menu = Menu.new(optsmenunode)
+#   __menu.onchanged.connect(updateUserOpts)
+#   for thing in data:
+#     __loadOptions(thing)
+#   __menu.show_menu()
+#   scrollContainer.set_deferred('scroll_vertical', int(global.file.read("user://scrollContainerscroll_vertical", false, "0")))
+#   scrollContainer.gui_input.connect(func(event):
+#     # scroll up or down then save scroll position
+#     if event.button_mask == 8 || event.button_mask == 16:
+#       global.file.write("user://scrollContainerscroll_vertical", str(scrollContainer.scroll_vertical), false))
+#   updateUserOpts()
+
+func updateUserOpts(thingChanged: String = '') -> void:
+  var ftml = global.isFirstTimeMenuIsLoaded
+  # log.err(thingChanged, ftml)
   var shouldChangeFsState = false
   var lastWinMode
   if 'windowMode' not in global.useropts:
     shouldChangeFsState = true
   else:
     lastWinMode = global.useropts.windowMode
-  var lastTheme = global.useropts.theme
-  var lastReorganizingEditorBar = global.useropts.reorganizingEditorBar
-  var lastshowEditorBarBlockMissingErrors = global.useropts.showEditorBarBlockMissingErrors
   global.useropts = __menu.get_all_data()
   # log.pp('editorOnlyOptions', editorOnlyOptions)
   for option in editorOnlyOptions:
@@ -116,8 +144,8 @@ func updateUserOpts() -> void:
   if lastWinMode == null or lastWinMode != global.useropts.windowMode:
     shouldChangeFsState = true
   # log.pp(lastTheme, global.useropts.theme, "asd")
-  if shouldChangeFsState or global.isFirstTimeMenuIsLoaded:
-    if global.isFirstTimeMenuIsLoaded:
+  if shouldChangeFsState or ftml:
+    if ftml:
       get_window().size = Vector2(1152, 648)
       await global.wait()
     match int(global.useropts.windowMode):
@@ -126,31 +154,56 @@ func updateUserOpts() -> void:
       1:
         global.fullscreen(-1)
 
-  if global.useropts.reorganizingEditorBar != lastReorganizingEditorBar \
-  or global.useropts.showEditorBarBlockMissingErrors != lastshowEditorBarBlockMissingErrors \
+  if thingChanged in \
+  ["dontCollapseGroups", "saveExpandedGroups", "loadExpandedGroups", "menuOptionNameFormat"]:
+    __menu.reload()
+  if thingChanged in ["reorganizingEditorBar", "showEditorBarBlockMissingErrors"] \
+  and global.editorBar \
   :
     global.loadEditorBarData()
     global.editorBar.reload()
-  if global.useropts.theme != lastTheme:
+  sds.prettyPrint = !global.useropts.smallerSaveFiles
+  global.hitboxesShown = global.useropts.showHitboxesByDefault
+  global.hitboxTypesChanged.emit()
+  if thingChanged in ['theme'] or ftml:
     if global.useropts.theme == 0:
       get_window().theme = null
     else:
       get_window().theme = load("res://themes/" + ["default", "blue", "black"][global.useropts.theme] + "/THEME.tres")
+    get_parent().theme = get_window().theme
     RenderingServer.set_default_clear_color(["#4d4d4d", "#4b567aff", "#4d4d4d"][global.useropts.theme])
-    shouldReload = true
-  sds.prettyPrint = !global.useropts.smallerSaveFiles
-  if shouldReload:
-    global.level.save(false)
-    global.loadMap.call_deferred(global.mainLevelName, true)
-  global.hitboxTypesChanged.emit()
+    if global.isAlive(global.level):
+      global.level.save(false)
+      global.loadMap.call_deferred(global.mainLevelName, true)
+  if thingChanged in [
+    "levelTilingBackgroundPath",
+    "editorBackgroundPath",
+    "editorStickerPath",
+    # "autosaveInterval",
+  ]:
+    if global.isAlive(global.level):
+      global.level.save(false)
+      global.loadMap.call_deferred(global.mainLevelName, true)
   if waitingForMouseUp: return
-  if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-    waitingForMouseUp = true
-    while Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
-      await global.wait(100)
-    waitingForMouseUp = false
-  updateSize.call_deferred()
+  if thingChanged in ['tabMenuScale']:
+    if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+      waitingForMouseUp = true
+      while Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
+        await global.wait(100)
+      waitingForMouseUp = false
+    updateSize.call_deferred()
+  if thingChanged in [
+    'showAutocompleteOptions',
+    "autocompleteSearchBarHookLeftAndRight",
+    "searchBarHorizontalAutocomplete",
+  ] and \
+  not global.isAlive(global.level) \
+  :
+    get_tree().reload_current_scene()
+  if thingChanged in ['showMenuOnHomePage'] and global.isAlive(global.mainMenu):
+    get_tree().reload_current_scene()
 
 func updateSize():
-  size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
-  scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
+  if !alwaysShowMenu:
+    size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
+    scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)
