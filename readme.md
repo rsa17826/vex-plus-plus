@@ -198,7 +198,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### info
 
-
     - ### hovered block list
 
       - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
@@ -206,7 +205,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id)
 
     - ### signals
-
 
       - ### signal display
 
@@ -228,6 +226,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
       - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
       - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
+
     - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
 
@@ -255,7 +254,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### debug
 
-
     - ### hitboxes
 
       - **showHitboxesByDefault**: sets the default hitbox state for whenever entering a level
@@ -280,8 +278,15 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **deathHitboxColor**: the color of the hitbox of the deadly areas
         - **showDeathHitboxes**: if true the deadly area hitboxes will be visible when hitboxes are shown
 
+  - ### autocomplete
+
+    - **searchBarHorizontalAutocomplete**: makes the autocomplete options appear horizontal instead of vertical
+    - **autocompleteSearchBarHookLeftAndRight**: hook the left and right arrow keys to move left and right in the autocomplete list instead of the search bar
+    - **showAutocompleteOptions**: when to show the autocomplete options
+
   - ### misc
 
+    - **showMenuOnHomePage**: shows the menu on the home page
     - **openExportsDirectoryOnExport**: if true, after exporting a level, it will open the exports directory.
     - **tabMenuScale**: the scale of the in level tab menu
 
