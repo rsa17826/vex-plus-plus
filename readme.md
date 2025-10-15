@@ -114,9 +114,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **focus_search**: focuses the search bar
   - **toggle_tab_menu**: toggles the visibility of the tab menu
   - **lock_selected_block**: locks the last selected block preventing it from being selected again until the level is reloaded
-  - **tab**: tab key
+  - **accept_autocomplete**: accepts the autocomplete option that is currently selected
   - **copy_debug_info**: copies some info
   - **eval_expr**: evauates an expression - only useful for debugging
+  - **toggle_noclip**: toggles noclip for the player
   - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 - ## Settings
@@ -575,7 +576,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **spark block/counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
+  - **spark block/counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become electric and kill the player if the player is inside the water
     <br><br><img src="scenes/blocks/spark block/counterClockwise/images/1.png" alt="image of block spark block/counterClockwise" width="50" height="50">
 
     - scalable
@@ -584,7 +585,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **spark block/clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become eletric and kill the player if the player is inside the water
+  - **spark block/clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become electric and kill the player if the player is inside the water
     <br><br><img src="scenes/blocks/spark block/clockwise/images/1.png" alt="image of block spark block/clockwise" width="50" height="50">
 
     - scalable
@@ -1066,7 +1067,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **swingingOnPole**: detects when the player is on a pole
         - **onPulley**: detects when the player is on a pulley
         - **pushing**: detects when the player is pushing a bomb/box
-        - **facingLeft**: detects whe the player is facing left
+        - **facingLeft**: detects when the player is facing left
         - **facingRight**: detects when the player is facing right
         - **swimming**: detects when the player is in water
         - **onZipline**: detects when the player is on a zipline
@@ -1090,14 +1091,14 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **signalOutputId**: the id that will be sent
       - **color**: sets the modulate property
 
-  - **SRNor**: has 2 inputs, when reciving one starts sending a signal, when reciving the other stops sending the signal
+  - **SRNor**: has 2 inputs, when receiving one starts sending a signal, when receiving the other stops sending the signal
     <br><br><img src="scenes/blocks/SRNor/images/editorBar.png" alt="image of block SRNor" width="50" height="50">
 
     - ### settings:
       - **enableSignalInputId**: the signal id that when received will cause this to start sending it's signal
       - **disableSignalInputId**: the signal id that when received will cause this to stop sending it's signal
       - **signalOutputId**: the id that will be sent
-      - **persistAfterDeath**: if true the state will be saved when collecting chekpoints
+      - **persistAfterDeath**: if true the state will be saved when collecting checkpoints
       - **startOn**: if true will start enabled else will start disabled
       - **color**: sets the modulate property
 
@@ -1110,7 +1111,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **timer**: when it recives a signal or stops reciving a signal will charge up or discharge, then when full or empty will start or stop sending a signal
+  - **timer**: when it receives a signal or stops receiving a signal will charge up or discharge, then when full or empty will start or stop sending a signal
     <br><br><img src="scenes/blocks/timer/images/1.png" alt="image of block timer" width="50" height="50">
 
     - rotatable
