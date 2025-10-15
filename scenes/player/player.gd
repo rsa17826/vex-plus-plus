@@ -39,6 +39,7 @@ const MAX_POLE_COOLDOWN = 4
 const MAX_ZIPLINE_COOLDOWN = 17
 const SMALL = .00001
 
+var noclipEnabled := false
 var ziplineCooldown := 0.0
 var lastDeathWasForced := false
 var respawnCooldown: float = 0
@@ -183,6 +184,10 @@ func _init() -> void:
 
 func _ready() -> void:
   anim.use_parent_material = false
+  if global.isAlive(global.tabMenu) and global.tabMenu.visible:
+    mouseMode = Input.MOUSE_MODE_VISIBLE
+  if global.ctrlMenuVisible:
+    mouseMode = Input.MOUSE_MODE_VISIBLE
   DEATH_TIME = max(5, global.useropts.playerRespawnTime)
   Input.mouse_mode = mouseMode
   global.gravChanged.connect(func(lastUpDir, newUpDir):
@@ -206,6 +211,8 @@ func _unhandled_input(event: InputEvent) -> void:
       global.currentLevel().gravState = gravState
       global.currentLevel().speedLeverActive = speedLeverActive
 
+  if Input.is_action_just_pressed(&"toggle_noclip", true):
+    noclipEnabled = !noclipEnabled
   if Input.is_action_just_pressed(&"restart", true):
     die(DEATH_TIME, false, true)
   if Input.is_action_just_pressed(&"full_restart", true):
@@ -299,6 +306,9 @@ func clearWallData():
   wallBreakDownFrames = 0
 
 func _physics_process(delta: float) -> void:
+  # if deathSources:
+  #   log.err(deathSources, deathSources.filter(func(e):
+  #     return global.isAlive(e) and !e.respawning))
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
@@ -1219,11 +1229,9 @@ func moveAnimations():
     deathDetectors.position.y = (unduckSize.y / 4)
 
 func onDifferentWall() -> bool:
-  if not lastWall:
-    return false
+  if not lastWall: return false
   if getCurrentWall() && lastWall != getCurrentWall():
-    if not lastWallCollisionPoint:
-      return true
+    if not lastWallCollisionPoint: return true
     return !is_equal_approx(getClosestWallRay().get_collision_point().x, lastWallCollisionPoint.x)
   return false
 
@@ -1236,8 +1244,7 @@ func getClosestWallRay() -> RayCast2D:
   return null
 
 func getCurrentLrState():
-  if respawnCooldown > 0:
-    return 0
+  if respawnCooldown > 0: return 0
   if global.currentLevelSettings().autoRun:
     return autoRunDirection
   return Input.get_axis("left", "right")
@@ -1285,10 +1292,12 @@ func angle_distance(angle1: float, angle2: float) -> float:
   return abs(difference)
 
 func tryAndDieHazards():
+  if noclipEnabled: return false
   if len(deathSources.filter(func(e):
     return global.isAlive(e) and !e.respawning)):
     die()
 func tryAndDieSquish():
+  if noclipEnabled: return false
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
   or (len(collsiionOn_left) and len(collsiionOn_right)):
     # log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
@@ -1447,8 +1456,7 @@ func getCurrentWallSide() -> int:
   return getClosestWallSide()
 func getClosestWallSide() -> int:
   var temp = getClosestWallRay()
-  if temp == rightWallDetection:
-    return 1
+  if temp == rightWallDetection: return 1
   if temp == leftWallDetection:
     return -1
   return 0

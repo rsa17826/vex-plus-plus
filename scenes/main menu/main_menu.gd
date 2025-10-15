@@ -17,8 +17,6 @@ func _init() -> void:
   global.mainMenu = self
 
 @onready var pm: PopupMenu = PopupMenu.new()
-func _on_autocomplete_lineedit_text_changed(new_text: String, textArr: Array) -> void:
-  loadedLevelsList.map(func(e): return e.filter(new_text))
 
 func _ready() -> void:
   add_child(pm)

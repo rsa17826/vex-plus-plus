@@ -61,7 +61,15 @@ func getAutocomplete(text: String) -> Array:
 var idx := 0
 func _on_gui_input(event: InputEvent) -> void:
   if event is InputEventKey and event.is_pressed():
-    if Input.is_action_just_pressed(&"tab", true) \
+    if Input.is_action_just_pressed(&"ui_copy", true) and has_selection():
+      DisplayServer.clipboard_set(get_selected_text())
+    if Input.is_action_just_pressed(&"ui_cut", true) and has_selection():
+      DisplayServer.clipboard_set(get_selected_text())
+      var start = get_selection_from_column()
+      delete_text(start, get_selection_to_column())
+      deselect()
+      caret_column = start
+    if Input.is_action_just_pressed(&"accept_autocomplete", true) \
     or Input.is_action_just_pressed(&"ui_up", true) \
     or Input.is_action_just_pressed(&"ui_down", true) \
     or (
@@ -75,7 +83,7 @@ func _on_gui_input(event: InputEvent) -> void:
       get_viewport().set_input_as_handled()
     await global.wait()
     var w = getAutocomplete(text)
-    if not Input.is_action_just_pressed(&"tab", true):
+    if not Input.is_action_just_pressed(&"accept_autocomplete", true):
       if (
         Input.is_action_just_pressed(&"ui_up", true) or (
           global.useropts.autocompleteSearchBarHookLeftAndRight
@@ -95,7 +103,7 @@ func _on_gui_input(event: InputEvent) -> void:
     autoCompleteUi.setWords(w)
     if len(w):
       autoCompleteUi.setSelected(idx)
-    if Input.is_action_just_pressed(&"tab", true) and w:
+    if Input.is_action_just_pressed(&"accept_autocomplete", true) and w:
       completeWord(autoCompleteUi.buttons[idx].text)
       autoCompleteUi.setWords(getAutocomplete(text))
       idx = 0
