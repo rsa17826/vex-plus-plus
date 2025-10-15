@@ -1886,3 +1886,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # replace puley collision with shapecast
 
 # fix oneway ghost image
+
+# add option to have tab toggle menu from the left side instead of entire screen while on the menu
