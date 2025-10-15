@@ -61,6 +61,8 @@
       STR(forwardSpeed)INT(15010)
       STR(backwardSpeed)INT(150)
       STR(color)COLOR(0.0,0.0,0.0,0.1255)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -210,6 +212,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -292,7 +296,7 @@
     STR(y)FLOAT(50.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(-0.0)
+    STR(r)FLOAT(0.0)
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(false)

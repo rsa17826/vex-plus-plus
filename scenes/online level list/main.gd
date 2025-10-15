@@ -101,7 +101,7 @@ func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
     return
   var q = SupabaseQuery.new() \
     .from('level test 2')
-  for i in range(0, floor(len(textArr) / 2) * 2, 2):
+  for i in range(0, floor(len(textArr) / 2.0) * 2, 2):
     var key = textArr[i][0]
     var type = textArr[i + 1][0][0]
     var val = textArr[i + 1][0].trim_prefix(type)

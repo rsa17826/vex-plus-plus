@@ -10,7 +10,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 
 var textArr = []
 
-func getAutoComplete(text: String) -> Array:
+func getAutocomplete(text: String) -> Array:
   var words: Array = text.strip_edges().split("/")
   var posableWords = autoCompleteUi.autoComplete.keys()
   # if text.ends_with("/") or not text:
@@ -64,15 +64,30 @@ func _on_gui_input(event: InputEvent) -> void:
     if Input.is_action_just_pressed(&"tab", true) \
     or Input.is_action_just_pressed(&"ui_up", true) \
     or Input.is_action_just_pressed(&"ui_down", true) \
+    or (
+      global.useropts.autocompleteSearchBarHookLeftAndRight
+      and (
+        Input.is_action_just_pressed(&"ui_left", true)
+        or Input.is_action_just_pressed(&"ui_right", true)
+      )
+    ) \
     :
       get_viewport().set_input_as_handled()
     await global.wait()
-    var w = getAutoComplete(text)
+    var w = getAutocomplete(text)
     if not Input.is_action_just_pressed(&"tab", true):
-      if Input.is_action_just_pressed(&"ui_up", true) and w:
+      if (
+        Input.is_action_just_pressed(&"ui_up", true) or (
+          global.useropts.autocompleteSearchBarHookLeftAndRight
+          and Input.is_action_just_pressed(&"ui_left", true)
+        )
+      ) and w:
         idx -= 1
         idx = idx % len(w)
-      elif Input.is_action_just_pressed(&"ui_down", true) and w:
+      elif Input.is_action_just_pressed(&"ui_down", true) or (
+        global.useropts.autocompleteSearchBarHookLeftAndRight
+        and Input.is_action_just_pressed(&"ui_right", true)
+      ) and w:
         idx += 1
         idx = idx % len(w)
       else:
@@ -82,7 +97,7 @@ func _on_gui_input(event: InputEvent) -> void:
       autoCompleteUi.setSelected(idx)
     if Input.is_action_just_pressed(&"tab", true) and w:
       completeWord(autoCompleteUi.buttons[idx].text)
-      autoCompleteUi.setWords(getAutoComplete(text))
+      autoCompleteUi.setWords(getAutocomplete(text))
       idx = 0
     rtl.updateText(textArr)
 
@@ -100,7 +115,8 @@ func completeWord(newWord: String) -> void:
   set_caret_column(lastPos - len(oldWord) + len(newWord) + 1)
 
 func _on_focus_exited() -> void:
-  autoCompleteUi.setWords([])
+  if autoCompleteUi.clearOnFocusLoss:
+    autoCompleteUi.setWords([])
 
 func _on_focus_entered() -> void:
   autoCompleteUi.setWords(autoCompleteUi.autoComplete.keys())
