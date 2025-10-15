@@ -1571,6 +1571,34 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
   var mapInfo: Variant = await loadMapInfo(levelPackName)
   if !mapInfo: return false
+  if not same(mapInfo.gameVersion, VERSION):
+    var gameVersionIsNewer: bool = VERSION > mapInfo.gameVersion
+    if gameVersionIsNewer:
+      if useropts.warnWhenOpeningLevelInNewerGameVersion:
+        var data = await prompt(
+          "this level was last saved in gameVersion " +
+          str(mapInfo.gameVersion) +
+          " and the current gameVersion is " + str(VERSION) +
+          ". Do you want to load this level?\n" +
+          "> the current game gameVersion is newer than what the level was made in"
+          , PromptTypes.confirm
+        )
+        if not data:
+          if isAlive(ui): ui.progressContainer.visible = false
+          return false
+    else:
+      if useropts.warnWhenOpeningLevelInOlderGameVersion:
+        var data = await prompt(
+          "this level was last saved in gameVersion " +
+          str(mapInfo.gameVersion) +
+          " and the current gameVersion is " + str(VERSION) +
+          ". Do you want to load this level?\n" +
+          "< the current game gameVersion might not have all the features needed to play this level"
+          , PromptTypes.confirm
+        )
+        if not data:
+          if isAlive(ui): ui.progressContainer.visible = false
+          return false
 
   levelOpts = mapInfo
   if loadFromSave and saveData:
@@ -1612,36 +1640,6 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
     if isAlive(ui): ui.progressContainer.visible = false
     get_tree().change_scene_to_file(lastScenePath)
     return false
-  if not same(mapInfo.gameVersion, VERSION):
-    var gameVersionIsNewer: bool = VERSION > mapInfo.gameVersion
-    if gameVersionIsNewer:
-      if useropts.warnWhenOpeningLevelInNewerGameVersion:
-        var data = await prompt(
-          "this level was last saved in gameVersion " +
-          str(mapInfo.gameVersion) +
-          " and the current gameVersion is " + str(VERSION) +
-          ". Do you want to load this level?\n" +
-          "> the current game gameVersion is newer than what the level was made in"
-          , PromptTypes.confirm
-        )
-        if not data:
-          if isAlive(ui): ui.progressContainer.visible = false
-          get_tree().change_scene_to_file(lastScenePath)
-          return false
-    else:
-      if useropts.warnWhenOpeningLevelInOlderGameVersion:
-        var data = await prompt(
-          "this level was last saved in gameVersion " +
-          str(mapInfo.gameVersion) +
-          " and the current gameVersion is " + str(VERSION) +
-          ". Do you want to load this level?\n" +
-          "< the current game gameVersion might not have all the features needed to play this level"
-          , PromptTypes.confirm
-        )
-        if not data:
-          if isAlive(ui): ui.progressContainer.visible = false
-          get_tree().change_scene_to_file(lastScenePath)
-          return false
   if !isAlive(level):
     if isAlive(ui): ui.progressContainer.visible = false
     get_tree().change_scene_to_file(lastScenePath)
