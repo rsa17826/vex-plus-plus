@@ -53,6 +53,7 @@ var text:
     setWords(w)
     setSelected(0)
     rtl.updateText(edit.textArr)
+    text_changed.emit(text, edit.textArr)
 
 var textArr:
   get():

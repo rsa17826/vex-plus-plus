@@ -16,19 +16,6 @@
     }
   }
   {
-    STR(x)FLOAT(95.0)
-    STR(y)FLOAT(-50.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(10x spike)
-    STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(96.0)
     STR(y)FLOAT(-40.0)
     STR(w)FLOAT(1.00000004470348)
@@ -702,17 +689,6 @@
     }
   }
   {
-    STR(x)FLOAT(45.0)
-    STR(y)FLOAT(-42.0)
-    STR(w)FLOAT(0.70000006258488)
-    STR(h)FLOAT(0.1600000243634)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(death boundary)
-    STRNAME(options){
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(101.5)
     STR(y)FLOAT(119.5)
     STR(w)FLOAT(1.00000004470348)
@@ -877,6 +853,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(groupId)INT(0)
     }
   }
   {

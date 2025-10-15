@@ -153,7 +153,7 @@ func get_all_data():
       newobj[key] = menu_data[key].default
   return newobj
 
-signal onchanged
+signal onchanged(changedOption: String)
 
 var menuOpts = sds.loadDataFromFile(path + "menuOpts.sds")
 
@@ -172,26 +172,38 @@ func camel_case_to_spaces(camel_case_string: String):
     else:
       result += char
   return result
-
+var mainVBox: VBoxContainer
+var emitChanges := false
+func reload():
+  mainVBox.remove_child(parent)
+  mainVBox.replace_by(parent)
+  mainVBox.queue_free()
+  for c in parent.get_children():
+    c.queue_free()
+  show_menu()
+var firstTime = true
 func show_menu():
+  emitChanges = false
   if GROUP:
     GROUP.free()
     GROUP = null
-  startGroup("menu options")
-  add_bool("dontCollapseGroups", false)
-  # add_bool("onlyExpandSingleGroup", false)
-  add_bool("saveExpandedGroups", true)
-  add_bool("loadExpandedGroups", true)
-  add_single_select("menuOptionNameFormat", [
-    'unchanged',
-    "spaces",
-    "SHOUTY SPACES CASE",
-    "snake_case",
-    "SHOUTY_SNAKE_CASE",
-    "camelCase"
-  ], 0)
-  endGroup()
-  var mainVBox := VBoxContainer.new()
+  if firstTime:
+    startGroup("menu options")
+    add_bool("dontCollapseGroups", false)
+    # add_bool("onlyExpandSingleGroup", false)
+    add_bool("saveExpandedGroups", true)
+    add_bool("loadExpandedGroups", true)
+    add_single_select("menuOptionNameFormat", [
+      'unchanged',
+      "spaces",
+      "SHOUTY SPACES CASE",
+      "snake_case",
+      "SHOUTY_SNAKE_CASE",
+      "camelCase"
+    ], 0)
+    endGroup()
+    firstTime = false
+  mainVBox = VBoxContainer.new()
   mainVBox.size_flags_horizontal = 3
   mainVBox.size_flags_vertical = 3
   parent.replace_by(mainVBox)
@@ -239,7 +251,7 @@ func show_menu():
         #   if !GROUP:
         #     GROUP = FoldableGroup.new()
         #   group.foldable_group = GROUP
-        if data.loadExpandedGroups:
+        if data.loadExpandedGroups and not data.dontCollapseGroups:
           group.folded = !thing.user
         group.folding_changed.connect(func(folded):
           if folded and data.dontCollapseGroups:
@@ -248,7 +260,7 @@ func show_menu():
           if 'user' in menu_data.saveExpandedGroups \
           else menu_data.saveExpandedGroups.default:
             menu_data[thing.name].user=!group.folded
-          onchanged.emit()
+          onchanged.emit(thing.name)
           save()
           )
         group.title = formatName.call(thing.name.substr(len("startGroup - ")))
@@ -285,7 +297,6 @@ func show_menu():
         range_node.value = thing.user
         range_node.value_changed.connect(__changed.bind(thing.name, node))
         __changed.call(thing.name, node)
-        # log.pp(currentParent)
         currentParent[len(currentParent) - 1].add_child(node)
       "textarea":
         var node = preload(path + "textarea.tscn").instantiate()
@@ -337,6 +348,7 @@ func show_menu():
         node.get_node("Label").text = formatName.call(thing.name)
         node.get_node("CheckButton").button_pressed = thing.user
         node.get_node("CheckButton").toggled.connect(__changed.bind(thing.name, node))
+        __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
       "multi select":
         var node = preload(path + "multi select.tscn").instantiate()
@@ -354,6 +366,7 @@ func show_menu():
         #   select.set_item_icon(thing.options.find(sel), t)
         # select.value = thing.user if "user" in thing else thing.user
         # select.value_changed.connect(s.__changed.bind(thing.name, select))
+        __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
       "rgba":
         var node: Control = preload(path + "color.tscn").instantiate()
@@ -366,6 +379,7 @@ func show_menu():
         node.get_node("Label").text = formatName.call(thing.name)
         colorSelect.color = Color.hex(int(thing.user))
         colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
+        __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
       "rgb":
         var node: Control = preload(path + "color.tscn").instantiate()
@@ -379,6 +393,7 @@ func show_menu():
         colorSelect.color = Color.hex(int(thing.user))
         # colorSelect.color = Color.from_string(thing.user, thing.default)
         colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
+        __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
       "single select":
         var node = preload(path + "single select.tscn").instantiate()
@@ -391,11 +406,10 @@ func show_menu():
           select.add_item(opt)
         select.select(int(thing.user) if "user" in thing else 0)
         select.item_selected.connect(__changed.bind(thing.name, node))
-
+        __changed.call(thing.name, node)
         currentParent[len(currentParent) - 1].add_child(node)
       "named_spinbox":
         log.err("named spinbox is not working yet, use single_select or named range")
-        return
         # var newarr = sort_dict_to_arr(thing.options)
         # #log.pp(newarr)
 
@@ -426,6 +440,9 @@ func show_menu():
       _:
         log.warn("no method is set to add", thing.type)
   # #log.pp(arr)
+  # await global.wait(1000)
+  emitChanges = true
+  # set_deferred("emitChanges", true)
 
 func sort_dict_to_arr(dict):
   var temp_keys = dict.keys()
@@ -443,6 +460,7 @@ func sort_dict_to_arr(dict):
 # the signal fails to call this when not inside a class and classes cant use external vars so i had to make a temp class then bind it outside
 var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
   #log.pp("changed ", node, name)
+  var ec = emitChanges
   match menu_data[name].type:
     "range":
       menu_data[name].user=node.get_node("HSlider").value
@@ -484,15 +502,17 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
       menu_data[name].user=node.get_node("TextEdit").text
     _:
       log.err("cant save type: " + menu_data[name].type)
-  onchanged.emit()
-  save())
+  if ec:
+    onchanged.emit(name)
+    save()
+  )
 
 class __changed_proxy:
   static func __changed_proxy(msg="ZZZDEF", msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
     var arr = [msg, msg2, msg3, msg4, msg5, msg6, msg7].filter(func(x):
       return !global.same(x, "ZZZDEF")
     )
-    # #log.pp(arr)
+    # log.pp(arr)
     arr[-1].call(arr[ - 3], arr[ - 2])
 # end __changed_proxy
 
