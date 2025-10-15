@@ -44,14 +44,27 @@ func _ready() -> void:
           lastText = oldmd.split(keyVal)[1].split("\n")[0]
         if lastText:
           text += lastText
-          return text
         else:
           # DisplayServer.clipboard_set(keyVal)
           text += await getinfo("setting: " + thing.key)
+        if thing.type == "single select":
+          indent += 1
+          var iii = 0
+          for opt in thing.options:
+            iii += 1
+            var innerlastText = ''
+            if ("- **" + opt + "**: ") in oldmd.split(keyVal)[1].split("\n")[iii]:
+              innerlastText = oldmd.split(keyVal)[1].split("\n")[iii]
+            if innerlastText:
+              text += '\n' + innerlastText
+            else:
+              text += '\n' + getIndent(indent + 1) + "- **" + opt + "**: "
+              text += await getinfo("setting: " + thing.key + " - " + opt)
+          indent -= 1
         return text
       "group":
         indent += 1
-        text += '\n\n' + getIndent(indent) + '- ### ' + (thing.name) + '\n'
+        text += '\n' + getIndent(indent) + '- ### ' + (thing.name) + '\n'
         # log.pp(thing.name, thing.value)
         for a in thing.value:
           await addOption.call(addOption, a)
@@ -148,9 +161,9 @@ func _ready() -> void:
             var enumKeyVal = "        - **" + enumKey + "**: "
             innerLastText = ''
             if enumKeyVal in oldmd:
-              innerLastText = oldmd.split(enumKeyVal)[1].split("\n")[0]
+              innerLastText = oldmd.split(innerKeyVal)[1].split(enumKeyVal)[1].split("\n")[0]
             if not innerLastText:
-              innerLastText = await getinfo("block setting: " + id + '\n"' + innerKeyVal + enumKey + '"')
+              innerLastText = await getinfo("block setting: " + id + '\n"' + enumKeyVal + '"')
             text += "\n" + enumKeyVal + innerLastText
     block.queue_free()
   # log.pp(text)

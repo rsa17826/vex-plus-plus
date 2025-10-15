@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://bu86o6la4ga8s" path="res://scenes/ui/SubViewportContainer camera_2d.gd" id="15_n3vwu"]
 [ext_resource type="PackedScene" uid="uid://ccr06ddwa73ca" path="res://GLOBAL/screen_notifier/resident_logs.tscn" id="16_0i47d"]
 
-[node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "overlayRemovalHidersubViewportContainer")]
+[node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer")]
 layer = 2
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("129 - sticker/saved")
@@ -25,6 +25,7 @@ progressBar = NodePath("5 - ProgressContainer,editor bar,saved/ProgressContainer
 modifiers = NodePath("4 - modifier display,info display/VBoxContainer/modifiers")
 signalList = NodePath("3 - block menu,signal list/HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("3 - block menu,signal list/HBoxContainer/block menu")
+hoveredBlockList = NodePath("6 - hovered block list/hoveredBlocksList")
 overlayRemovalHidersubViewportContainer = NodePath("SubViewportContainer")
 
 [node name="5 - ProgressContainer,editor bar,saved" type="CanvasLayer" parent="."]

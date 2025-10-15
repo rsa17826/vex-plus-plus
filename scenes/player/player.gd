@@ -1876,3 +1876,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix selecting text box selecting entire text block edit menu
 
 # replace puley collision with shapecast
+
+# fix oneway ghost image
