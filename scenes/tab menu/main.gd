@@ -130,7 +130,6 @@ func _ready() -> void:
 
 func updateUserOpts(thingChanged: String = '') -> void:
   var ftml = global.isFirstTimeMenuIsLoaded
-  # log.err(thingChanged, ftml)
   var shouldChangeFsState = false
   var lastWinMode
   if 'windowMode' not in global.useropts:
@@ -154,34 +153,134 @@ func updateUserOpts(thingChanged: String = '') -> void:
         global.fullscreen(1)
       1:
         global.fullscreen(-1)
-
-  if thingChanged in \
-  ["dontCollapseGroups", "saveExpandedGroups", "loadExpandedGroups", "menuOptionNameFormat"]:
-    __menu.reload()
-  if thingChanged in ["reorganizingEditorBar", "showEditorBarBlockMissingErrors"] \
-  and global.editorBar \
-  :
-    global.loadEditorBarData()
-    global.editorBar.reload()
   sds.prettyPrint = !global.useropts.smallerSaveFiles
   global.hitboxesShown = global.useropts.showHitboxesByDefault
   global.hitboxTypesChanged.emit()
-  if thingChanged in ['theme'] or ftml:
+  if thingChanged.begins_with("startGroup - "): return
+  match thingChanged:
+    "", \
+    "smallerSaveFiles", \
+    "showHitboxesByDefault", \
+    "saveOnExit", \
+    "saveLevelOnWin", \
+    "showIconOnSave", \
+    "blockGridSnapSize", \
+    "showGridInEdit", \
+    "showGridInPlay", \
+    "windowMode", \
+    "warnWhenOpeningLevelInOlderGameVersion", \
+    "warnWhenOpeningLevelInNewerGameVersion", \
+    "confirmKeyAssignmentDeletion", \
+    "confirmLevelUploads", \
+    "multiSelectedBlocksRotationScheme", \
+    "randomizeLevelModifiersOnLevelCreation", \
+    "minDistBeforeBlockDraggingStarts", \
+    "autoPanWhenClickingEmptySpace", \
+    "movingPathNodeMovesEntirePath", \
+    "newlyCreatedBlocksRotationTakesPlayerRotation", \
+    "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected", \
+    "mouseLockDistanceWhileRotating", \
+    "editorScrollSpeed", \
+    "noCornerGrabsForScaling", \
+    "blockGhostAlpha", \
+    "singleAxisAlignByDefault", \
+    "editorBarScrollSpeed", \
+    "allowRotatingAnything", \
+    "allowScalingAnything", \
+    "cameraUsesDefaultRotationInEditor", \
+    "dontChangeCameraRotationOnGravityChange", \
+    "cameraRotationOnGravityChangeHappensInstantly", \
+    "selectedBlockOutlineColor", \
+    "hoveredBlockOutlineColor", \
+    "toastStayTime", \
+    "showHoveredBlocksList", \
+    "selectedBlockFormatString", \
+    "hoveredBlockFormatString", \
+    "showSignalListInEditor", \
+    "showSignalListInPlay", \
+    "showSignalConnectionLinesOnHover", \
+    "showSignalConnectionLinesInEditor", \
+    "showSignalConnectionLinesInPlay", \
+    "onlyShowSignalConnectionsIfHoveringOverAny", \
+    "showLevelModsWhileEditing", \
+    "showLevelModsWhilePlaying", \
+    "showLevelLoadingProgressBar", \
+    "showLevelLoadingBehindProgressBar", \
+    "showPathBlockInPlay", \
+    "showPathLineInPlay", \
+    "showPathEditNodesInPlay", \
+    "playerRespawnTime", \
+    "defaultCreatorName", \
+    "defaultCreatorNameIsLoggedInUsersName", \
+    "loadOnlineLevelListOnSceneLoad", \
+    "slowTime", \
+    "__allowCheckpointReentryOnDeath", \
+    "showSolidHitboxes", \
+    "showAttachDetectorHitboxes", \
+    "showAreaHitboxes", \
+    "showDeathHitboxes", \
+    "deathHitboxColor", \
+    "areaHitboxColor", \
+    "attachDetectorHitboxColor", \
+    "solidHitboxColor", \
+    "openExportsDirectoryOnExport", \
+    "tabMenuScale", \
+    # ?
+    "autosaveInterval", \
+    # /?
+    "theme": pass
+    "dontCollapseGroups", \
+    "saveExpandedGroups", \
+    "loadExpandedGroups", \
+    "menuOptionNameFormat":
+      __menu.reload()
+    "levelTilingBackgroundPath", \
+    "editorBackgroundPath", \
+    "editorStickerPath", \
+    "editorBackgroundScaleToMaxSize", \
+    "showTotalActiveSignalCounts", \
+    "showWhatBlocksAreSendingSignals", \
+    "onlyShowActiveSignals", \
+    "showUnchangedLevelMods", \
+    "allowCustomColors":
+      if global.isAlive(global.level):
+        global.level.save(false)
+        global.loadMap.call_deferred(global.mainLevelName, true)
+    "editorBarBlockSize", \
+    "editorBarOffset", \
+    "editorBarPosition", \
+    "showEditorBarBlockMissingErrors", \
+    "reorganizingEditorBar" \
+    :
+      if global.isAlive(global.editorBar):
+        global.loadEditorBarData()
+        global.editorBar.reload()
+    'showAutocompleteOptions', \
+    "autocompleteSearchBarHookLeftAndRight", \
+    "searchBarHorizontalAutocomplete":
+      if not global.isAlive(global.level):
+        get_tree().reload_current_scene()
+    "smallLevelDisplaysInLocalLevelList", \
+    "showMenuOnHomePage":
+      if global.isAlive(global.mainMenu):
+        get_tree().reload_current_scene()
+    "smallLevelDisplaysInOnlineLevelList", \
+    "onlyShowLevelsForCurrentVersion":
+      # online level list reload
+      if not global.isAlive(global.level) and not not global.isAlive(global.mainMenu):
+        get_tree().reload_current_scene()
+    _:
+      if OS.has_feature("editor"):
+        DisplayServer.clipboard_set(thingChanged)
+        log.err(thingChanged)
+
+  if thingChanged == "theme" or ftml:
     if global.useropts.theme == 0:
       get_window().theme = null
     else:
       get_window().theme = load("res://themes/" + ["default", "blue", "black"][global.useropts.theme] + "/THEME.tres")
     get_parent().theme = get_window().theme
     RenderingServer.set_default_clear_color(["#4d4d4d", "#4b567aff", "#4d4d4d"][global.useropts.theme])
-    if global.isAlive(global.level):
-      global.level.save(false)
-      global.loadMap.call_deferred(global.mainLevelName, true)
-  if thingChanged in [
-    "levelTilingBackgroundPath",
-    "editorBackgroundPath",
-    "editorStickerPath",
-    # "autosaveInterval",
-  ]:
     if global.isAlive(global.level):
       global.level.save(false)
       global.loadMap.call_deferred(global.mainLevelName, true)
@@ -193,16 +292,6 @@ func updateUserOpts(thingChanged: String = '') -> void:
         await global.wait(100)
       waitingForMouseUp = false
     updateSize.call_deferred()
-  if thingChanged in [
-    'showAutocompleteOptions',
-    "autocompleteSearchBarHookLeftAndRight",
-    "searchBarHorizontalAutocomplete",
-  ] and \
-  not global.isAlive(global.level) \
-  :
-    get_tree().reload_current_scene()
-  if thingChanged in ['showMenuOnHomePage'] and global.isAlive(global.mainMenu):
-    get_tree().reload_current_scene()
 
 func updateSize():
   if !alwaysShowMenu:
