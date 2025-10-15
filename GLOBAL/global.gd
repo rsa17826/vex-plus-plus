@@ -1563,6 +1563,7 @@ func saveBlockData():
 
 var levelDataForCurrentMap := Cache.new()
 func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
+  loadEditorBarData()
   levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   mainLevelName = levelPackName
