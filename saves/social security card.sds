@@ -40,7 +40,7 @@
         ]
         STR(star)[
           {
-            STR(collected)BOOL(false)
+            STR(collected)BOOL(true)
           }
         ]
       }

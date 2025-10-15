@@ -1587,23 +1587,19 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   stopTicking = true
   tick = 0
   hoveredBlocks = []
-
+  var lastScenePath = get_tree().current_scene.scene_file_path
   get_tree().change_scene_to_file("res://scenes/level/level.tscn")
   ui.progressContainer.visible = true
-  var lastProg = 0
-  var lastMax = {"val": 0}
   var __loadedLevelCount = 0
   for k in levelNames:
     if levelDataForCurrentMap.__has(k):
       log.err("should not have data", levelDataForCurrentMap.__get(), levelFolderPath, k)
       breakpoint
-    lastProg += lastMax.val
     levelDataForCurrentMap.__set(await sds.loadDataFromFileSlow(path.join(levelFolderPath, k + '.sds'), [
       {"x": 0, "y": - 65},
       {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
     ],
     func(prog, max):
-      lastMax.val=max
       if !is_instance_valid(ui): return
       if !is_instance_valid(ui.progressBar): return
       ui.progressBar.max_value=len(levelNames)
@@ -1613,6 +1609,8 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
 
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
+    ui.progressContainer.visible = false
+    get_tree().change_scene_to_file(lastScenePath)
     return false
   if not same(mapInfo.gameVersion, VERSION):
     var gameVersionIsNewer: bool = VERSION > mapInfo.gameVersion
@@ -1626,7 +1624,10 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
           "> the current game gameVersion is newer than what the level was made in"
           , PromptTypes.confirm
         )
-        if not data: return false
+        if not data:
+          ui.progressContainer.visible = false
+          get_tree().change_scene_to_file(lastScenePath)
+          return false
     else:
       if useropts.warnWhenOpeningLevelInOlderGameVersion:
         var data = await prompt(
@@ -1637,8 +1638,13 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
           "< the current game gameVersion might not have all the features needed to play this level"
           , PromptTypes.confirm
         )
-        if not data: return false
+        if not data:
+          ui.progressContainer.visible = false
+          get_tree().change_scene_to_file(lastScenePath)
+          return false
   if !isAlive(level):
+    ui.progressContainer.visible = false
+    get_tree().change_scene_to_file(lastScenePath)
     return false
   await level.loadLevel(currentLevel().name)
   loadBlockData()
