@@ -12,13 +12,13 @@ var GITHUB_TOKEN = global.getToken()
 
 var __menu: Menu
 var newestLevel
-
+var loadedLevelsList := []
 func _init() -> void:
   global.mainMenu = self
 
 @onready var pm: PopupMenu = PopupMenu.new()
-func _on_search_text_changed(new_text: String) -> void:
-  onTextChanged.emit(new_text)
+func _on_autocomplete_lineedit_text_changed(new_text: String, textArr: Array) -> void:
+  loadedLevelsList.map(func(e): return e.filter(new_text))
 
 func _ready() -> void:
   add_child(pm)
@@ -28,7 +28,7 @@ func _ready() -> void:
   if !global.isFirstTimeMenuIsLoaded:
     LevelServer.updateCurrentUserInfoNode()
 
-func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
+func loadLevelsFromArray(data: Array, showOldVersions:=false) -> Array:
   var loadedLevelData = {}
   var newData = []
   if showOldVersions:
@@ -51,13 +51,16 @@ func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
   for child in levelContainer.get_children():
     child.queue_free()
   const levelNode := preload("res://scenes/online level list/level display.tscn")
+  var nodes = []
   for level in newData:
     var node = levelNode.instantiate()
     node.levelList = self
     node.search = searchBar
     node.isOnline = false
     node.showLevelData(level)
+    nodes.append(node)
     levelContainer.add_child(node)
+  return nodes
 
 func loadLocalLevelList():
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -85,7 +88,7 @@ func loadLocalLevelList():
   for child in levelContainer.get_children():
     child.queue_free()
   newestLevel = arr[0].levelName if arr else null
-  loadLevelsFromArray(arr)
+  loadedLevelsList = loadLevelsFromArray(arr)
 
 func otc(text: String, version: NestedSearchable):
   if not version: return

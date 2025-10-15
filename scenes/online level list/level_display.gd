@@ -14,6 +14,36 @@ var level: LevelServer.Level
 @export var offlineButtonsContainer: Control
 @export var large: Array[Control]
 
+func matches(new_text):
+  if not new_text:
+    return true
+  var textArr = new_text.split("/")
+  for i in range(0, floor(len(textArr) / 2.0) * 2, 2):
+    var key = textArr[i]
+    if not textArr[i + 1]: continue
+    var type = textArr[i + 1][0]
+    var val = textArr[i + 1].trim_prefix(type)
+    match type:
+      '=':
+        if !(level[key] == val):
+          return false
+      '~':
+        if !(level[key] in (val)):
+          return false
+      '>':
+        if !(level[key] > float(val)):
+          return false
+      '<':
+        if !(level[key] < float(val)):
+          return false
+      _:
+        if !(((type + val).to_lower()) in str(level[key]).to_lower()):
+          return false
+  return true
+
+func filter(new_text):
+  visible = matches(new_text)
+
 var isOnline := true:
   set(val):
     isOnline = val
@@ -201,4 +231,3 @@ func _on_upload_pressed() -> void:
 
 func _on_more_pressed() -> void:
   global.mainMenu.showMoreOptions(level)
-

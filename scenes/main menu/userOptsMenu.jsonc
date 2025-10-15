@@ -729,6 +729,31 @@
   },
   {
     "thing": "group",
+    "name": "autocomplete",
+    "value": [
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "searchBarHorizontalAutocomplete",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "autocompleteSearchBarHookLeftAndRight",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "single select",
+        "key": "showAutocompleteOptions",
+        "defaultValue": 1,
+        "options": ["never", "while focused", "always"]
+      }
+    ]
+  },
+  {
+    "thing": "group",
     "name": "misc",
     "value": [
       {

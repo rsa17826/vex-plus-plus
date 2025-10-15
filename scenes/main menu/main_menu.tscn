@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="2_8w606"]
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="2_okfgx"]
 [ext_resource type="PackedScene" uid="uid://dwbjpa5wmumbw" path="res://scenes/loading animation/loading animation.tscn" id="2_vifqf"]
-[ext_resource type="Script" uid="uid://5gkxgd62qjv8" path="res://scenes/search hotkey.gd" id="3_pri0a"]
+[ext_resource type="PackedScene" uid="uid://c1yohkn2i03nk" path="res://GLOBAL/autocomplete lineedit/autocomplete_lineedit.tscn" id="3_vin4k"]
 [ext_resource type="Script" uid="uid://d20bj3b1qvls5" path="res://scenes/main menu/scroll_container.gd" id="4_t60cf"]
 [ext_resource type="PackedScene" uid="uid://cdixi4vcsxqd1" path="res://scenes/login/login.tscn" id="6_ajd3f"]
 
@@ -97,12 +97,16 @@ text = "LOCAL LEVELS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="search" type="LineEdit" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="search" parent="VBoxContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("3_vin4k")]
 layout_mode = 2
-placeholder_text = "search"
-keep_editing_on_text_submit = true
-clear_button_enabled = true
-script = ExtResource("3_pri0a")
+focusAsSearchBar = true
+clearOnFocusLoss = false
+autoComplete = {
+"creatorName": 1,
+"gameVersion": 1,
+"levelName": 1,
+"levelVersion": 1
+}
 
 [node name="LEVELS" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
@@ -234,7 +238,7 @@ offset_bottom = 648.33
 [node name="login" parent="Panel/Button/CenterContainer" instance=ExtResource("6_ajd3f")]
 layout_mode = 2
 
-[connection signal="text_changed" from="VBoxContainer/HBoxContainer/VBoxContainer2/search" to="." method="_on_search_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/VBoxContainer2/search" to="." method="_on_autocomplete_lineedit_text_changed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/new map btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/open level folder" to="." method="_on_open_level_folder_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/load online levels" to="." method="_on_load_online_levels_pressed"]

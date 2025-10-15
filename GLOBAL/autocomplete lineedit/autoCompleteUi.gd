@@ -4,6 +4,7 @@ var buttons: Array[Label] = []
 @export var focusAsSearchBar: bool = false
 @export var edit: Control
 @export var rtl: Control
+@export var clearOnFocusLoss := true
 
 @export var autoComplete = {
   "creatorId": 1,
@@ -14,10 +15,19 @@ var buttons: Array[Label] = []
 }
 
 func setWords(words: Array):
+  (
+    $HBoxContainer if
+    global.useropts.searchBarHorizontalAutocomplete
+    else $VBoxContainer
+  ).visible = global.useropts.showAutocompleteOptions != 0
   while len(buttons) < len(words):
     var button = Label.new()
     buttons.append(button)
-    add_child(button)
+    (
+      $HBoxContainer if
+      global.useropts.searchBarHorizontalAutocomplete
+      else $VBoxContainer
+    ).add_child(button)
   for button in buttons:
     button.visible = false
   for i in range(len(words)):
@@ -39,7 +49,7 @@ var text:
     return edit.text
   set(text):
     edit.text = text
-    var w = edit.getAutoComplete(text)
+    var w = edit.getAutocomplete(text)
     setWords(w)
     setSelected(0)
     rtl.updateText(edit.textArr)
@@ -57,3 +67,11 @@ func _on_line_edit_text_changed(new_text: String) -> void:
 func _on_line_edit_2_text_changed(new_text: String) -> void:
   if new_text.begins_with(" "):
     text = new_text.lstrip(" ")
+
+func _ready() -> void:
+  if not global.useropts:
+    await global.wait()
+  clearOnFocusLoss = global.useropts.showAutocompleteOptions != 2
+  if !clearOnFocusLoss:
+    var w = edit.getAutocomplete(text)
+    setWords(w)

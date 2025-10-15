@@ -14,22 +14,22 @@
           {
             STR(direction)INT(0)
             STR(moving)BOOL(false)
-            STR(thingThatMoves.global_position)VEC2(100.0,100.142860412598)
+            STR(thingThatMoves.global_position)VEC2(100.0,100.0)
           }
         ]
         STR(checkpoint)[
           {
-            STR(texture)STR(1)
-          }
-          {
-            STR(texture)STR(1)
-          }
-          {
             STR(texture)STR(2)
+          }
+          {
+            STR(texture)STR(3)
+          }
+          {
+            STR(texture)STR(3)
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(1.47257137298584,104.919715881348)
+      STRNAME(lastSpawnPoint)VEC2(-198.527435302734,4.91971397399902)
     }
   ]
   STR(beatLevels)[]
