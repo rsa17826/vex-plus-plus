@@ -101,6 +101,18 @@ func _ready() -> void:
   __menu.onchanged.connect(updateUserOpts)
   for thing in data:
     __loadOptions(thing)
+
+  __menu.startGroup("open in explorer")
+  __menu.add_button("open editorBar.sds", func():
+    OS.shell_open(global.path.abs("res://editorBar.sds"))
+  )
+  __menu.add_button("open current level folder", func():
+    if global.mainLevelName and global.isAlive(global.level):
+      OS.shell_open(global.path.abs("res://maps/" + global.mainLevelName))
+    else:
+      OS.shell_open(global.path.abs("res://maps"))
+  )
+  __menu.endGroup()
   __menu.show_menu()
   updateUserOpts()
   updateSize()

@@ -45,6 +45,13 @@ func endGroup():
   })
   # currentParent.pop_back()
 # ADDS
+func add_button(key, onclick: Callable) -> void:
+  # return float|int
+  _add_any(key, {
+    "type": "button",
+    "onclick": onclick,
+    "default": null
+  })
 func add_textarea(key, default='', placeholder:='') -> void:
   # return float|int
   _add_any(key, {
@@ -164,6 +171,8 @@ func spaces_to_camel_case(space_string: String):
     camel_case_string += word
   return camel_case_string
 func camel_case_to_spaces(camel_case_string: String):
+  if not camel_case_string:
+    return camel_case_string
   var result := camel_case_string[0].to_lower()
   for i in range(1, camel_case_string.length()):
     var char := camel_case_string[i]
@@ -271,6 +280,13 @@ func show_menu():
         currentParent.append(vbox)
       "endGroup":
         currentParent.pop_back()
+      "button":
+        var node = preload(path + "button.tscn").instantiate()
+        node.thisText = formatName.call(thing.name)
+        node.get_node("Button").text = formatName.call(thing.name)
+        node.get_node("Button").pressed.connect(thing.onclick)
+        __changed.call(thing.name, node)
+        currentParent[len(currentParent) - 1].add_child(node)
       "file":
         var node = preload(path + "file.tscn").instantiate()
         node.thisText = formatName.call(thing.name)
@@ -460,8 +476,9 @@ func sort_dict_to_arr(dict):
 # the signal fails to call this when not inside a class and classes cant use external vars so i had to make a temp class then bind it outside
 var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
   #log.pp("changed ", node, name)
-  var ec = emitChanges
+  var ec=emitChanges
   match menu_data[name].type:
+    "button": pass
     "range":
       menu_data[name].user=node.get_node("HSlider").value
       var val=node.get_node("HSlider").value
