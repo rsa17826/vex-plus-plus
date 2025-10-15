@@ -1,13 +1,12 @@
 
 @name same line return
 @file \.gd$
-@regex :\s*(return|continue|break|pass)(\s)*$
+@regex :\s*(return|continue|break|pass)(\s*(true|false|null|\d+)?)$
 @replace : $1$2
 @flags gm
 @endregex
 
-make it so that when i tab in a function it is replaced with the correct one
-
+@name make it so that when i tab in a function it is replaced with the correct one
 @file \.gd$
 @regex \bTrue\b
 @replace true

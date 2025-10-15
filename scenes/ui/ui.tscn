@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=17 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="6_4kltc"]
 [ext_resource type="PackedScene" uid="uid://be824ve2c7lm3" path="res://scenes/ui/modifiers/modifiers.tscn" id="6_jcn1r"]
+[ext_resource type="Texture2D" uid="uid://cehcr3jkilc60" path="res://scenes/ui/images/noclip indicator.png" id="6_n3vwu"]
+[ext_resource type="Script" uid="uid://b1atlgwp42t71" path="res://scenes/ui/noclip_indicator.gd" id="7_0i47d"]
 [ext_resource type="PackedScene" uid="uid://bcgvwxwk7bf6b" path="res://scenes/ui/signal list/signal_list.tscn" id="7_uegxj"]
 [ext_resource type="PackedScene" uid="uid://cs4s80p62mgl5" path="res://scenes/ui/block menu/block_menu.tscn" id="8_y220t"]
 [ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="10_y220t"]
@@ -22,7 +24,7 @@ levelSaved = NodePath("129 - sticker/saved")
 editorBar = NodePath("5 - ProgressContainer,editor bar,saved/editor bar")
 progressContainer = NodePath("5 - ProgressContainer,editor bar,saved/ProgressContainer")
 progressBar = NodePath("5 - ProgressContainer,editor bar,saved/ProgressContainer/CenterContainer/ProgressBar")
-modifiers = NodePath("4 - modifier display,info display/VBoxContainer/modifiers")
+modifiers = NodePath("4 - modifier display,info display,noclip indicator/VBoxContainer/modifiers")
 signalList = NodePath("3 - block menu,signal list/HBoxContainer/MarginContainer/signal list")
 blockMenu = NodePath("3 - block menu,signal list/HBoxContainer/block menu")
 hoveredBlockList = NodePath("6 - hovered block list/hoveredBlocksList")
@@ -73,20 +75,49 @@ layer = 6
 
 [node name="hoveredBlocksList" parent="6 - hovered block list" instance=ExtResource("13_swkix")]
 
-[node name="4 - modifier display,info display" type="CanvasLayer" parent="."]
+[node name="4 - modifier display,info display,noclip indicator" type="CanvasLayer" parent="."]
 layer = 4
 
-[node name="VBoxContainer" type="VBoxContainer" parent="4 - modifier display,info display"]
+[node name="VBoxContainer" type="VBoxContainer" parent="4 - modifier display,info display,noclip indicator"]
 offset_top = 17.0
 offset_right = 40.0
 offset_bottom = 57.0
 
-[node name="info display" type="Label" parent="4 - modifier display,info display/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="4 - modifier display,info display,noclip indicator/VBoxContainer"]
 layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="info display" type="Label" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "asdasdsd
+asd
+ads
+asd"
 script = ExtResource("5_0dwhk")
 metadata/_edit_lock_ = true
 
-[node name="modifiers" parent="4 - modifier display,info display/VBoxContainer" instance=ExtResource("6_jcn1r")]
+[node name="MarginContainer" type="MarginContainer" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+
+[node name="Control" type="Control" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="noclip indicator" type="TextureRect" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Control"]
+layout_mode = 0
+offset_right = 5.0
+offset_bottom = 5.0
+texture = ExtResource("6_n3vwu")
+expand_mode = 1
+script = ExtResource("7_0i47d")
+
+[node name="modifiers" parent="4 - modifier display,info display,noclip indicator/VBoxContainer" instance=ExtResource("6_jcn1r")]
 layout_mode = 2
 metadata/_edit_lock_ = true
 

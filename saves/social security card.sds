@@ -4,7 +4,7 @@
       STR(name)STR(npvic)
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
-      STR(autoRunDirection)INT(1)
+      STR(autoRunDirection)INT(-1)
       STR(tick)FLOAT(0.0)
       STR(heat)FLOAT(0.0)
       STR(gravState)INT(2)
@@ -24,7 +24,7 @@
             STR(texture)STR(1)
           }
           {
-            STR(texture)STR(1)
+            STR(texture)STR(2)
           }
           {
             STR(texture)STR(1)
@@ -44,7 +44,7 @@
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(0.0,0.0)
+      STRNAME(lastSpawnPoint)VEC2(313.972564697266,-280.080291748047)
     }
   ]
   STR(beatLevels)[]

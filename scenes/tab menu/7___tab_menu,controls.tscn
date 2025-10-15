@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfutstwuqdraw"]
+[gd_scene load_steps=4 format=3 uid="uid://cfutstwuqdraw"]
 
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="1_xsgby"]
 [ext_resource type="PackedScene" uid="uid://boy84eq1dmt4t" path="res://scenes/tab menu/main.tscn" id="2_pgk03"]
+[ext_resource type="Script" uid="uid://dtbghi6tomlcf" path="res://scenes/input_remapping/themeControls.gd" id="2_t0igy"]
 
 [node name="7 - tab menu,Controls" type="CanvasLayer"]
 layer = 7
@@ -9,6 +10,7 @@ layer = 7
 [node name="Controls" parent="." instance=ExtResource("1_xsgby")]
 visible = false
 mouse_filter = 0
+script = ExtResource("2_t0igy")
 metadata/_edit_lock_ = true
 
 [node name="Main" parent="." instance=ExtResource("2_pgk03")]

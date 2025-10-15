@@ -8,7 +8,6 @@ var __menu: Menu
 var editorOnlyOptions := []
 var waitingForMouseUp := false
 
-
 func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):
     editorOnlyOptions.append(thing)
@@ -78,8 +77,11 @@ func __loadOptions(thing) -> void:
 
 func _input(event: InputEvent) -> void:
   if alwaysShowMenu: return
+  # var focus = get_viewport().gui_get_focus_owner()
+  # if focus is LineEdit or focus is TextEdit: return
   if event is InputEventKey:
     if Input.is_action_just_pressed(&"toggle_tab_menu", true):
+      get_viewport().set_input_as_handled()
       visible = !visible
       get_parent().visible = visible
       if visible:

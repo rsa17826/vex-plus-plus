@@ -15,8 +15,7 @@ var level: LevelServer.Level
 @export var large: Array[Control]
 
 func matches(new_text: String):
-  if not new_text:
-    return true
+  if not new_text: return true
   var textArr = new_text.trim_prefix("/").split("/")
   for i in range(0, floor(len(textArr) / 2.0) * 2, 2):
     var key = textArr[i]
@@ -25,20 +24,15 @@ func matches(new_text: String):
     var val = textArr[i + 1].trim_prefix(type)
     match type:
       '=':
-        if !(str(level[key]) == val):
-          return false
+        if !(str(level[key]) == val): return false
       '~':
-        if !(str(level[key]) in (val)):
-          return false
+        if !(str(level[key]).to_lower() in val.to_lower()): return false
       '>':
-        if !(float(level[key]) > float(val)):
-          return false
+        if !(float(level[key]) > float(val)): return false
       '<':
-        if !(float(level[key]) < float(val)):
-          return false
+        if !(float(level[key]) < float(val)): return false
       _:
-        if !(((type + val).to_lower()) in str(level[key]).to_lower()):
-          return false
+        if !(((type + val).to_lower()) in str(level[key]).to_lower()): return false
   return true
 
 func filter(new_text):
@@ -66,6 +60,11 @@ var search: Control
 func _ready() -> void:
   dlInCorrectVersion.visible = global.launcherExists and global.VERSION != level.gameVersion
   updateOnlineState()
+  if search:
+    search.text_changed.connect(onSearchTextChange)
+
+func onSearchTextChange(new_text: String, textArr: Array) -> void:
+  filter(new_text)
 
 func showLevelData(levelToShow: LevelServer.Level) -> void:
   if level and global.isAlive(level):

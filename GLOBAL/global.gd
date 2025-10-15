@@ -1609,7 +1609,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
 
   if !file.isFile(startFile):
     log.err("LEVEL NOT FOUND!", startFile)
-    ui.progressContainer.visible = false
+    if isAlive(ui): ui.progressContainer.visible = false
     get_tree().change_scene_to_file(lastScenePath)
     return false
   if not same(mapInfo.gameVersion, VERSION):
@@ -1625,7 +1625,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
           , PromptTypes.confirm
         )
         if not data:
-          ui.progressContainer.visible = false
+          if isAlive(ui): ui.progressContainer.visible = false
           get_tree().change_scene_to_file(lastScenePath)
           return false
     else:
@@ -1639,11 +1639,11 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
           , PromptTypes.confirm
         )
         if not data:
-          ui.progressContainer.visible = false
+          if isAlive(ui): ui.progressContainer.visible = false
           get_tree().change_scene_to_file(lastScenePath)
           return false
   if !isAlive(level):
-    ui.progressContainer.visible = false
+    if isAlive(ui): ui.progressContainer.visible = false
     get_tree().change_scene_to_file(lastScenePath)
     return false
   await level.loadLevel(currentLevel().name)
@@ -1774,8 +1774,7 @@ func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> boo
     levelName = await prompt("enter the level name", PromptTypes.string, "")
   levelPackName = fixPath(levelPackName)
   levelName = fixPath(levelName)
-  if !levelPackName or !levelName:
-    return false
+  if !levelPackName or !levelName: return false
   var fullDirPath := path.join(MAP_FOLDER, levelPackName)
   var opts: Dictionary = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
   var d = defaultLevelSettings.duplicate()
@@ -1837,8 +1836,7 @@ func createNewMapFolder() -> Variant:
       }
     }
   )
-  if ! await createNewLevelFile(foldername, startLevel):
-    return false
+  if ! await createNewLevelFile(foldername, startLevel): return false
   # var o = []
   # log.pp(OS.execute("cmd", [
   #   "/c",
@@ -2122,8 +2120,7 @@ var stretchScale: Vector2:
     return Vector2(get_viewport().get_stretch_transform().x.x, get_viewport().get_stretch_transform().y.y)
 
 func getProcess(pid: int):
-  if not pid:
-    return false
+  if not pid: return false
   var ret = []
   OS.execute("cmd", [
     '/c',

@@ -30,8 +30,8 @@
     }
   }
   {
-    STR(x)FLOAT(585.0)
-    STR(y)FLOAT(220.0)
+    STR(x)FLOAT(575.0)
+    STR(y)FLOAT(200.0)
     STR(w)FLOAT(28.9765176773071)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -1027,6 +1027,18 @@
     STRNAME(options){
       STR(signalInputId)INT(1)
       STR(signalOutputId)INT(1)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(250.0)
+    STR(y)FLOAT(350.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
   }
