@@ -8,8 +8,6 @@ var __menu: Menu
 var editorOnlyOptions := []
 var waitingForMouseUp := false
 
-func _init() -> void:
-  global.tabMenu = self
 
 func __loadOptions(thing) -> void:
   if 'editorOnly' in thing and thing.editorOnly and not OS.has_feature("editor"):
@@ -95,6 +93,7 @@ func _ready() -> void:
     global.overlays.append(self )
     get_parent().visible = false
     visible = false
+    global.tabMenu = self
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
   __menu.onchanged.connect(updateUserOpts)

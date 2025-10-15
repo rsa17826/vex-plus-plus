@@ -488,7 +488,7 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     "rgba":
       var c=node.get_node("HSlider").color
       menu_data[name].user=c.to_rgba32() # global.join(',', c.r, c.g, c.b, c.a)
-      log.pp(node.get_node("HSlider").color)
+      # log.pp(node.get_node("HSlider").color)
     "rgb":
       var c=node.get_node("HSlider").color
       menu_data[name].user=c.to_rgba32() # global.join(',', c.r, c.g, c.b)

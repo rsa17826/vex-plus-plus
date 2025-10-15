@@ -13,7 +13,7 @@ var texture:
 var ignorePlayerEntering := false
 
 func on_body_entered(body: Node) -> void:
-  if ignorePlayerEntering and not global.useropts.checkpointIgnorePlayerEntering:
+  if ignorePlayerEntering and not global.useropts.__allowCheckpointReentryOnDeath:
     ignorePlayerEntering = false
     return
   if body is Player and (getTexture(sprite) == '1' or selectedOptions.multiUse):

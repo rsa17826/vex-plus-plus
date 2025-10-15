@@ -637,7 +637,7 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "checkpointIgnorePlayerEntering",
+        "key": "__allowCheckpointReentryOnDeath",
         "editorOnly": true,
         "defaultValue": false
       },
