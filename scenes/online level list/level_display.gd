@@ -26,7 +26,7 @@ func matches(new_text: String):
       '=':
         if !(str(level[key]) == val): return false
       '~':
-        if !(str(level[key]).to_lower() in val.to_lower()): return false
+        if !(val.to_lower() in str(level[key]).to_lower()): return false
       '>':
         if !(float(level[key]) > float(val)): return false
       '<':
