@@ -23,24 +23,27 @@ func _ready() -> void:
   get_tree().node_removed.connect(on_node_removed)
   allBlocks.assign(get_node("blocks").get_children().filter(func(e): return e is EditorBlock))
   for block: EditorBlock in allBlocks:
-    block.updateConnectedBlocks()
+    block.updateConnectedBlocks(true)
 
 func on_node_removed(node: Node):
   if node is EditorBlock:
+    if node.EDITOR_IGNORE: return
+    if node.DONT_SAVE: return
+    log.err(node, node.id, len(allBlocks))
     allBlocks.erase(node)
     for block in allBlocks:
-      block.updateConnectedBlocks()
+      block.updateConnectedBlocks(false)
 func on_node_added(node: Node) -> void:
   if node is EditorBlock:
     await node.ready
     if node.id == "path edit node": return
-    # log.err(node.id, node.is_node_ready(), "add")
+    log.err(node.id, "add")
     var b: EditorBlock = node
     if b.EDITOR_IGNORE: return
     if b.DONT_SAVE: return
     allBlocks.append(b)
     for block: EditorBlock in allBlocks:
-      block.updateConnectedBlocks()
+      block.updateConnectedBlocks(true)
 
 func loadLevel(level):
   if !is_instance_valid(global.ui): return

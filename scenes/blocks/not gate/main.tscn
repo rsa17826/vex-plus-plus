@@ -5,12 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://budpmybh5q5q8" path="res://scenes/blocks/not gate/images/symbols.png" id="3_ketuk"]
 [ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="4_ketuk"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInp", "labelOut", "ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInp", "labelOut", "ghostIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_cdiki")
 labelInp = NodePath("Node2D/Label")
 labelOut = NodePath("Node2D/Label2")
 ghostIconNode = NodePath("Node2D/ghost")
-editorBarIconNode = NodePath("")
 editorBarIcon = ExtResource("2_3yt6x")
 hidableSprites = [NodePath("Node2D/Label"), NodePath("Node2D/Label2"), NodePath("Node2D/ghost")]
 thingThatMoves = NodePath("Node2D")
@@ -20,23 +19,23 @@ ignoreMissingNodes = true
 
 [node name="ghost" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
+scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_ketuk")
 
 [node name="Label" type="Label" parent="Node2D"]
-offset_left = -88.0
-offset_top = -81.0
-offset_right = 15.0
-offset_bottom = 2.0
+offset_left = -115.0
+offset_top = -97.0
+offset_right = -12.0
+offset_bottom = -14.0
 text = "12"
 label_settings = ExtResource("4_ketuk")
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Node2D"]
-offset_left = 12.0
-offset_top = -9.0
-offset_right = 115.0
-offset_bottom = 74.0
+offset_left = 65.0
+offset_top = 28.0
+offset_right = 168.0
+offset_bottom = 111.0
 text = "12"
 label_settings = ExtResource("4_ketuk")
 horizontal_alignment = 1

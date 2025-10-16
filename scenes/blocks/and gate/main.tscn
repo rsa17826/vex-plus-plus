@@ -5,13 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://c7gjocrhs1wbd" path="res://scenes/blocks/and gate/images/editorBar.png" id="2_ug4bm"]
 [ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="4_ug4bm"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInpa", "labelInpb", "labelOut", "ghostIconNode", "editorBarIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelInpa", "labelInpb", "labelOut", "ghostIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_li100")
 labelInpa = NodePath("Node2D/Label")
 labelInpb = NodePath("Node2D/Label2")
 labelOut = NodePath("Node2D/Label3")
 ghostIconNode = NodePath("Node2D/symbols")
-editorBarIconNode = NodePath("")
 editorBarIcon = ExtResource("2_ug4bm")
 hidableSprites = [NodePath("Node2D/symbols")]
 thingThatMoves = NodePath("Node2D")
@@ -21,32 +20,32 @@ ignoreMissingNodes = true
 
 [node name="symbols" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
+scale = Vector2(0.9, 0.9)
 texture = ExtResource("2_kuw5x")
 
 [node name="Label" type="Label" parent="Node2D"]
-offset_left = -113.0
-offset_top = -105.0
-offset_right = -10.0
-offset_bottom = -22.0
+offset_left = -157.0
+offset_top = -144.0
+offset_right = -54.0
+offset_bottom = -61.0
 text = "12"
 label_settings = ExtResource("4_ug4bm")
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Node2D"]
-offset_left = 27.0
-offset_top = -66.0
-offset_right = 130.0
-offset_bottom = 17.0
+offset_left = 70.0
+offset_top = -77.0
+offset_right = 173.0
+offset_bottom = 6.0
 text = "12"
 label_settings = ExtResource("4_ug4bm")
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="Node2D"]
-offset_left = -31.0
-offset_top = 13.0
-offset_right = 72.0
-offset_bottom = 96.0
+offset_left = 6.0
+offset_top = 56.0
+offset_right = 109.0
+offset_bottom = 139.0
 text = "12"
 label_settings = ExtResource("4_ug4bm")
 horizontal_alignment = 1

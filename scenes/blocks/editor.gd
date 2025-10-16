@@ -292,12 +292,16 @@ func clearSaveData():
     if 'on_ready' in thing:
       thing.on_ready()
   on_ready()
+  updateConnectedBlocks(false)
+  queue_redraw()
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
-  global.signalSenderChanged.connect(func(...__):
-    updateConnectedBlocks()
-    queue_redraw())
+  global.signalSenderChanged.connect(func(id, on, callers):
+    if canHaveSignalLines and self in callers:
+      if global.player.respawnCooldown > 0: return
+      updateConnectedBlocks(false)
+      queue_redraw())
   global.onEditorStateChanged.connect(queue_redraw)
 
   if KILL_AFTER_TIME:
@@ -445,6 +449,9 @@ func _physics_process(delta: float) -> void:
   ) - lastpos
   if respawning:
     respawning -= 1
+    if not respawning:
+      updateConnectedBlocks(false)
+      queue_redraw()
 
   for thing in cloneEventsHere:
     if not thing:
@@ -465,19 +472,25 @@ var top_edge: float
 var bottom_edge: float
 var canHaveSignalLines := 0
 var connectedBlocks := []
-func updateConnectedBlocks() -> void:
+func updateConnectedBlocks(full: bool) -> void:
   if canHaveSignalLines == -1: return
+  if respawning: return
   var checksForOtherBlocks = []
   var checksForThisBlock = []
   var canHaveSignalLinesChecks = 2
   var inputs := ["signalAInputId", "signalBInputId", "signalInputId", "enableSignalInputId", "disableSignalInputId"]
   var outputs := ["signalOutputId"]
+  # if !full:
+  #   breakpoint
+  var blocksToCheck = global.level.allBlocks if full else connectedBlocks.duplicate().map(func(e): return e[0])
+  # log.err("connected blocks: ")
+  connectedBlocks = []
   for thing in inputs:
     if thing in selectedOptions and selectedOptions[thing]:
       checksForOtherBlocks += outputs
       checksForThisBlock.append(thing)
   if checksForThisBlock:
-    connectedBlocks += global.level.allBlocks \
+    connectedBlocks += (blocksToCheck) \
     .map(
       func(e):
         var found=0
@@ -495,7 +508,7 @@ func updateConnectedBlocks() -> void:
                 found=2
               break
         return [e, found]
-    ).filter(func(e): return e[1])
+    ).filter(func(e): return e[1] and not (e[0] in connectedBlocks) and e[0] != self )
   else:
     canHaveSignalLinesChecks -= 1
   checksForOtherBlocks = []
@@ -505,7 +518,7 @@ func updateConnectedBlocks() -> void:
       checksForOtherBlocks += inputs
       checksForThisBlock.append(thing)
   if checksForThisBlock:
-    connectedBlocks += global.level.allBlocks \
+    connectedBlocks += (blocksToCheck) \
     .map(
       func(e):
         var found=0
@@ -523,7 +536,7 @@ func updateConnectedBlocks() -> void:
                 found=2
               break
         return [e, found]
-    ).filter(func(e): return e[1])
+    ).filter(func(e): return e[1] and not (e[0] in connectedBlocks) and e[0] != self )
   else:
     canHaveSignalLinesChecks -= 1
   if canHaveSignalLinesChecks:
@@ -571,10 +584,11 @@ func getLinesTo(block: EditorBlock) -> Array:
   return lines
 
 func _draw():
-  if (lineDrawEnabled and global.useropts.showSignalConnectionLinesOnHover) \
-  or global.useropts.showSignalConnectionLinesInEditor and global.showEditorUi \
-  or global.useropts.showSignalConnectionLinesInPlay and !global.showEditorUi \
-  :
+  if canHaveSignalLines == 1 and (
+    (lineDrawEnabled and global.useropts.showSignalConnectionLinesOnHover) \
+    or global.useropts.showSignalConnectionLinesInEditor and global.showEditorUi \
+    or global.useropts.showSignalConnectionLinesInPlay and !global.showEditorUi \
+  ):
     if global.useropts.onlyShowSignalConnectionsIfHoveringOverAny:
       if global.selectedBlock:
         if global.selectedBlock != self:
@@ -593,7 +607,7 @@ var lineDrawEnabled := false
 
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
-  queue_redraw.call_deferred()
+  # queue_redraw.call_deferred()
   if !global.player: return
   # if EDITOR_IGNORE: return
   # if not ghost: return

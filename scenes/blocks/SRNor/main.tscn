@@ -20,7 +20,7 @@ ignoreMissingNodes = true
 
 [node name="symbols" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
-scale = Vector2(0.961, 0.961)
+scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_4uct5")
 
 [node name="Label" type="Label" parent="Node2D"]
