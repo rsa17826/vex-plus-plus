@@ -76,7 +76,8 @@ func move_positions(direction, gravity, animate):
   elif direction == "right" and gravity == "top":
     for index in label_top_right.size():
       var _label = label_top_right[index]
-      _label.move_to(label_top_right.size() - 1 - index, animate && index == 0, label_top_right)
+      if _label:
+        _label.move_to(label_top_right.size() - 1 - index, animate && index == 0, label_top_right)
 
   elif direction == "center" and gravity == "bottom":
     for index in label_bottom_center.size():

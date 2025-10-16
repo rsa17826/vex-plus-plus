@@ -295,7 +295,9 @@ func clearSaveData():
 
 ## don't overite - use on_ready instead
 func _ready() -> void:
-  global.signalSenderChanged.connect(func(...__): queue_redraw())
+  global.signalSenderChanged.connect(func(...__):
+    updateConnectedBlocks()
+    queue_redraw())
   global.onEditorStateChanged.connect(queue_redraw)
 
   if KILL_AFTER_TIME:
@@ -434,8 +436,7 @@ func _physics_process(delta: float) -> void:
   if _DISABLED and not dontDisablePhysicsProcess: return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else Vector2.ZERO
   for thing in cloneEventsHere:
-    if 'on_physics_process' in thing:
-      thing.on_physics_process(delta)
+    thing.on_physics_process(delta)
   on_physics_process(delta)
   lastMovementStep = (
     thingThatMoves.global_position
@@ -462,66 +463,77 @@ var left_edge: float
 var right_edge: float
 var top_edge: float
 var bottom_edge: float
-
-func getConnectedBlocks() -> Array:
-  var allBlocks = global.level.get_node("blocks").get_children()
+var canHaveSignalLines := 0
+var connectedBlocks := []
+func updateConnectedBlocks() -> void:
+  if canHaveSignalLines == -1: return
   var checksForOtherBlocks = []
   var checksForThisBlock = []
-  var data := []
-  var inputs := ['signalAInputId', 'signalBInputId', 'signalInputId', "enableSignalInputId", "disableSignalInputId"]
-  var outputs := ['signalOutputId']
+  var canHaveSignalLinesChecks = 2
+  var inputs := ["signalAInputId", "signalBInputId", "signalInputId", "enableSignalInputId", "disableSignalInputId"]
+  var outputs := ["signalOutputId"]
   for thing in inputs:
     if thing in selectedOptions and selectedOptions[thing]:
       checksForOtherBlocks += outputs
       checksForThisBlock.append(thing)
-  data += allBlocks \
-  .map(
-    func(e):
-      var found=0
-      for thing in checksForOtherBlocks:
-        if thing in e.selectedOptions \
-        and e.selectedOptions[thing] in checksForThisBlock.map(func(e): return selectedOptions[e]):
-          if found < 1:
-            found=1
-          if e.selectedOptions[thing] in global.activeSignals \
-          and global.activeSignals[e.selectedOptions[thing]]:
-            if self in global.activeSignals[e.selectedOptions[thing]] \
-            if thing in inputs else \
-            e in global.activeSignals[e.selectedOptions[thing]] \
-            :
-              found=2
-            break
-      return [e, found]
-  ).filter(func(e): return e[1])
+  if checksForThisBlock:
+    connectedBlocks += global.level.allBlocks \
+    .map(
+      func(e):
+        var found=0
+        for thing in checksForOtherBlocks:
+          if thing in e.selectedOptions \
+          and e.selectedOptions[thing] in checksForThisBlock.map(func(e): return selectedOptions[e]):
+            if found < 1:
+              found=1
+            if e.selectedOptions[thing] in global.activeSignals \
+            and global.activeSignals[e.selectedOptions[thing]]:
+              if self in global.activeSignals[e.selectedOptions[thing]] \
+              if thing in inputs else \
+              e in global.activeSignals[e.selectedOptions[thing]] \
+              :
+                found=2
+              break
+        return [e, found]
+    ).filter(func(e): return e[1])
+  else:
+    canHaveSignalLinesChecks -= 1
   checksForOtherBlocks = []
   checksForThisBlock = []
   for thing in outputs:
     if thing in selectedOptions and selectedOptions[thing]:
       checksForOtherBlocks += inputs
       checksForThisBlock.append(thing)
-  data += allBlocks \
-  .map(
-    func(e):
-      var found=0
-      for thing in checksForOtherBlocks:
-        if thing in e.selectedOptions \
-        and e.selectedOptions[thing] in checksForThisBlock.map(func(e): return selectedOptions[e]):
-          if found < 1:
-            found=1
-          if e.selectedOptions[thing] in global.activeSignals \
-          and global.activeSignals[e.selectedOptions[thing]]:
-            if self in global.activeSignals[e.selectedOptions[thing]] \
-            if thing in inputs else \
-            e in global.activeSignals[e.selectedOptions[thing]] \
-            :
-              found=2
-            break
-      return [e, found]
-  ).filter(func(e): return e[1])
+  if checksForThisBlock:
+    connectedBlocks += global.level.allBlocks \
+    .map(
+      func(e):
+        var found=0
+        for thing in checksForOtherBlocks:
+          if thing in e.selectedOptions \
+          and e.selectedOptions[thing] in checksForThisBlock.map(func(e): return selectedOptions[e]):
+            if found < 1:
+              found=1
+            if e.selectedOptions[thing] in global.activeSignals \
+            and global.activeSignals[e.selectedOptions[thing]]:
+              if self in global.activeSignals[e.selectedOptions[thing]] \
+              if thing in inputs else \
+              e in global.activeSignals[e.selectedOptions[thing]] \
+              :
+                found=2
+              break
+        return [e, found]
+    ).filter(func(e): return e[1])
+  else:
+    canHaveSignalLinesChecks -= 1
+  if canHaveSignalLinesChecks:
+    canHaveSignalLines = 1
+  else:
+    canHaveSignalLines = -1
+    global.level.allBlocks.erase(self )
   # log.pp(checksForThisBlock, checksForOtherBlocks)
-  if not checksForThisBlock:
-    return []
-  return data
+  # if not checksForThisBlock:
+  #   connectedBlocks = []
 
 func getLinesTo(block: EditorBlock) -> Array:
   var lines: Array = []
@@ -566,12 +578,12 @@ func _draw():
     if global.useropts.onlyShowSignalConnectionsIfHoveringOverAny:
       if global.selectedBlock:
         if global.selectedBlock != self:
-          if global.selectedBlock.getConnectedBlocks(): return
+          if global.selectedBlock.connectedBlocks: return
       else:
         if global.hoveredBlocks and global.hoveredBlocks[0] != self:
-          if global.hoveredBlocks[0].getConnectedBlocks(): return
+          if global.hoveredBlocks[0].connectedBlocks: return
 
-    for thing: Array in getConnectedBlocks():
+    for thing: Array in connectedBlocks:
       var block: EditorBlock = thing[0]
       var signalActive = thing[1]
       for line in getLinesTo(block):

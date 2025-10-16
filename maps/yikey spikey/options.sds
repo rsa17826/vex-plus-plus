@@ -2,9 +2,9 @@
   STR(start)STR(1)
   STR(creatorName)STR(yippieskippy)
   STR(description)STR()
-  STR(gameVersion)INT(219)
+  STR(gameVersion)INT(220)
   STR(version)INT(212)
-  STR(levelVersion)INT(24)
+  STR(levelVersion)INT(30)
   STR(stages){
     STR(1){
       STR(color)INT(9)

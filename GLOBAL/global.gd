@@ -1341,10 +1341,11 @@ func _unhandled_input(event: InputEvent) -> void:
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking
       # global.tick = 0
-  if event.is_action_pressed(&"load", false, true):
+  if event.is_action_pressed(&"open_main_menu", false, true):
     if useropts.saveOnExit:
       if level and is_instance_valid(level):
         level.save(false)
+    level.sceneChanging()
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
   if showEditorUi \
@@ -1651,7 +1652,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   setEditorUiState(false)
   player.camLockPos = Vector2.ZERO
   # player.state = player.States.levelLoading
-  if loadFromSave and saveData:
+  if loadFromSave and saveData and "lastSpawnPoint" in currentLevel():
     player.deathPosition = currentLevel().lastSpawnPoint
     player.lastSpawnPoint = player.deathPosition
   else:

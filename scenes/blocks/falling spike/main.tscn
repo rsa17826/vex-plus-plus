@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="8_0lsrf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xrsct"]
-size = Vector2(42, 74)
+size = Vector2(42, 73)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4c23b"]
 radius = 5.09902
@@ -50,7 +50,8 @@ position = Vector2(-0.5, -64)
 texture = ExtResource("2_dnmi0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
-position = Vector2(-0.5, -40)
+visible = false
+position = Vector2(-0.5, -40.5)
 shape = SubResource("RectangleShape2D_xrsct")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("5_0lsrf")
@@ -63,9 +64,10 @@ script = ExtResource("2_xrsct")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode/floor detection"]
+visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_4c23b")
-debug_color = Color(0.05490196, 1, 0, 0.41960785)
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("6_ihbm6")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
@@ -83,6 +85,7 @@ script = ExtResource("2_xrsct")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/CharacterBody2D"]
+visible = false
 position = Vector2(0, -3.295)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_ihbm6")
@@ -92,7 +95,8 @@ script = ExtResource("8_0lsrf")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_o2sap")
 target_position = Vector2(0, 0)
