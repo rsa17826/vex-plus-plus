@@ -82,7 +82,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **restart**: only available when using a button start mode.
   - **full_restart**: resets the player to the level start
   - **save**: saves the current level
-  - **load**: opens the menu to allow you to choose a new level to load
+  - **open_main_menu**: opens the main menu
   - **reload_map_from_last_save**: reloads the map from the level file and restores the player position to the last checkpoint or the level start if no checkpoint was reached
   - **fully_reload_map**: reloads the map from the level file and resets the player to the level start
   - **quit**: quits the game
@@ -146,20 +146,28 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **confirmLevelUploads**: if true level uploads must be confirmed, otherwise there will be no confirmation
   - ### editor settings
 
-    - **multiSelectedBlocksRotationScheme**: what happens when rotating a block with selecting more than 1
-      - **rotateAllSelectedBlocksBySameAmount**: 
-      - **rotateAllSelectedBlocksToSameDirection**: 
-    - **randomizeLevelModifiersOnLevelCreation**: when creating a new level the level modifiers will be set randomly
-    - **minDistBeforeBlockDraggingStarts**: the distance the mouse has to move before the block will be moved or scaled
-    - **autoPanWhenClickingEmptySpace**: when dragging on an empty space, with no blocks on it, it will treat it as if editor_pan was pressed.
-    - **movingPathNodeMovesEntirePath**: if true moving this will move the entire path, if false it will only move the first point
-    - **newlyCreatedBlocksRotationTakesPlayerRotation**: if true when the player is rotated all new blocks that can be rotated will be rotated to the players current direction instead of the default direction, eg if the player has gravity upside down creating a checkpoint will create it upside down.
-    - **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will always remove the block that was selected most recently.
-    - **mouseLockDistanceWhileRotating**: this is how far away the mouse will be from the center of the selected object while holding the editor_rotate key. higher numbers move the mouse farther away. set to 0 to disable.
-    - **editorScrollSpeed**: changes the speed the camera moves at when using editor_pan
-    - **noCornerGrabsForScaling**: when grabbing a block at a corner it will only resize the bnlock on the side that had less grab area.
-    - **blockGhostAlpha**: changes the alpha of the ghost blocks - used to show where a block is actually placed suchas keys that have been collected, moving blocks that are moving, etc.
-    - **singleAxisAlignByDefault**: if true blocks will only be movable along a single axis at a time by default. if false blocks can be moved freely.
+    - ### rotation
+
+      - **newlyCreatedBlocksRotationTakesPlayerRotation**: if true when the player is rotated all new blocks that can be rotated will be rotated to the players current direction instead of the default direction, eg if the player has gravity upside down creating a checkpoint will create it upside down.
+      - **mouseLockDistanceWhileRotating**: this is how far away the mouse will be from the center of the selected object while holding the editor_rotate key. higher numbers move the mouse farther away. set to 0 to disable.
+      - **multiSelectedBlocksRotationScheme**: what happens when rotating a block with selecting more than 1
+      - **rotateAllSelectedBlocksBySameAmount**: ?
+      - **rotateAllSelectedBlocksToSameDirection**: ?
+    - ### displacement
+
+      - **movingPathNodeMovesEntirePath**: if true moving this will move the entire path, if false it will only move the first point
+      - **minDistBeforeBlockDraggingStarts**: the distance the mouse has to move before the block will be moved or scaled
+      - **singleAxisAlignByDefault**: if true blocks will only be movable along a single axis at a time by default. if false blocks can be moved freely.
+    - ### scaling
+
+      - **noCornerGrabsForScaling**: when grabbing a block at a corner it will only resize the bnlock on the side that had less grab area.
+    - ### deletion
+
+      - **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will always remove the block that was selected most recently.
+    - ### panning
+
+      - **autoPanWhenClickingEmptySpace**: when dragging on an empty space, with no blocks on it, it will treat it as if editor_pan was pressed.
+      - **editorScrollSpeed**: changes the speed the camera moves at when using editor_pan
     - ### editor bar
 
       - **editorBarBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equally larger or smaller
@@ -183,16 +191,20 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **cameraRotationOnGravityChangeHappensInstantly**: makes is so that when the gravity changes the camera rotates instantly instead of rotating smoothly.
   - ### theme
 
-    - **selectedBlockOutlineColor**: the outline color of the currently selected block
-    - **hoveredBlockOutlineColor**: the outline color of the current hovered block
-    - **blockOutlineSize**: the size of the block outline both for hover and select
-    - **boxSelectColor**: the color that the box select will be
-    - **pathColor**: the color of the path created in the level editor by the path block.
-    - **levelTilingBackgroundPath**: this image will be tiled across the level.
-    - **editorBackgroundPath**: path to the background image for the editor.
-    - **editorBackgroundScaleToMaxSize**: if true the background image will scale to fit the screen.
-    - **editorStickerPath**: path to the sticker image for the editor.
-    - **toastStayTime**: how long the toast stays on screen in seconds.
+    - ### editor theme
+
+      - ### editor block theme
+
+        - **blockGhostAlpha**: changes the alpha of the ghost blocks - used to show where a block is actually placed suchas keys that have been collected, moving blocks that are moving, etc.
+        - **selectedBlockOutlineColor**: the outline color of the currently selected block
+        - **hoveredBlockOutlineColor**: the outline color of the current hovered block
+        - **blockOutlineSize**: the size of the block outline both for hover and select
+        - **pathColor**: the color of the path created in the level editor by the path block.
+      - **boxSelectColor**: the color that the box select will be
+      - **levelTilingBackgroundPath**: this image will be tiled across the level.
+      - **editorBackgroundPath**: path to the background image for the editor.
+      - **editorBackgroundScaleToMaxSize**: if true the background image will scale to fit the screen.
+      - **editorStickerPath**: path to the sticker image for the editor.
     - **theme**: the theme used for the entire application.
       - **default**: default godot theme
       - **blue**: blue
@@ -234,11 +246,14 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - ### player
 
     - **playerRespawnTime**: the time that the player takes to respawn after dying
-  - ### localLevels
+  - ### local levels
 
     - **smallLevelDisplaysInLocalLevelList**: makes the level displays for local levels smaller
+  - ### level creation
+
     - **defaultCreatorName**: the default name for the prompt when creating a new level
     - **defaultCreatorNameIsLoggedInUsersName**: if true overites defaultCreatorName to be the username of the currently logged in user
+    - **randomizeLevelModifiersOnLevelCreation**: when creating a new level the level modifiers will be set randomly
   - ### online level list
 
     - **smallLevelDisplaysInOnlineLevelList**: makes the level displays for online levels smaller
@@ -246,6 +261,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
   - ### debug
 
+    - **toastStayTime**: how long the toast stays on screen in seconds.
     - ### hitboxes
 
       - **showHitboxesByDefault**: sets the default hitbox state for whenever entering a level
