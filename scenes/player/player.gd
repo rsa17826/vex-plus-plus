@@ -186,7 +186,7 @@ func _ready() -> void:
   anim.use_parent_material = false
   if global.isAlive(global.tabMenu) and global.tabMenu.visible:
     mouseMode = Input.MOUSE_MODE_VISIBLE
-  if global.ctrlMenuVisible:
+  if global.ctrlMenu.visible:
     mouseMode = Input.MOUSE_MODE_VISIBLE
   DEATH_TIME = max(5, global.useropts.playerRespawnTime)
   Input.mouse_mode = mouseMode

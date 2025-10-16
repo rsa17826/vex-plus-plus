@@ -23,7 +23,7 @@ size = Vector2(700, 700)
 script = ExtResource("1_qunpq")
 ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("4_2tv7p")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/StaticBody2D/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/ghost")]
 thingThatMoves = NodePath("collisionNode")
 SEND_COLLISIONS_DOURING_PLAYER_RESPAWN = true
@@ -44,8 +44,9 @@ root = NodePath("../..")
 texture = ExtResource("5_2tv7p")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
 shape = SubResource("RectangleShape2D_qunpq")
-debug_color = Color(0.05490196, 1, 0, 0.41960785)
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("7_jjads")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="collisionNode" node_paths=PackedStringArray("root")]
@@ -55,13 +56,14 @@ script = ExtResource("2_07iil")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/StaticBody2D"]
+visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("8_bbb2t")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
 visible = false
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_4jwsf")
 target_position = Vector2(0, 0)

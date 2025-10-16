@@ -21,6 +21,13 @@ func _init(_parent, save_path: String = "main") -> void:
       "name": k,
       "user": temp[k],
     }
+
+func reloadDataFromFile():
+  var temp = sds.loadDataFromFile(full_save_path, {})
+  for k in temp:
+    menu_data[k].user = temp[k]
+  reload()
+
   # #log.pp("loading", _parent.name, save_path)
 
 # add a add that is multiselect/singleselect/range but with images instead of text either from a list of images or a dir full of images
@@ -512,6 +519,9 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
       menu_data[name].user=c.to_rgba32() # global.join(',', c.r, c.g, c.b)
     "file":
       await global.wait()
+      if not node:
+        log.err(node, name)
+        return
       menu_data[name].user=node.get_node("FileDialog").files
       node.get_node("Button").tooltip_text='selected file: ' + menu_data[name].user
     "lineedit":

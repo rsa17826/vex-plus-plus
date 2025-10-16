@@ -125,7 +125,7 @@ boomSprite = NodePath("CharacterBody2D/AnimatedSprite2D")
 boomShape = NodePath("CharacterBody2D/block die area/CollisionShape2D")
 ghostIconNode = NodePath("CharacterBody2D/Sprite2D")
 editorBarIcon = ExtResource("3_o857y")
-collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/water detection area/CollisionShape2D2"), NodePath("CharacterBody2D/block die area/CollisionShape2D")]
+collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/water detection area/CollisionShape2D2"), NodePath("CharacterBody2D/block die area/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/top/CollisionShape2D2"), NodePath("CharacterBody2D/deathDetectors/left/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/right/CollisionShape2D2"), NodePath("CharacterBody2D/deathDetectors/bottom/CollisionShape2D")]
 hidableSprites = [NodePath("CharacterBody2D/Sprite2D")]
 cloneEventsHere = [NodePath("CharacterBody2D")]
 thingThatMoves = NodePath("CharacterBody2D")
@@ -150,6 +150,7 @@ animation = &"explode"
 frame = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+visible = false
 shape = SubResource("RectangleShape2D_e08ji")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("5_042h2")
@@ -161,6 +162,7 @@ script = ExtResource("2_82r38")
 root = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/water detection area"]
+visible = false
 shape = SubResource("RectangleShape2D_e08ji")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("7_d2lbq")
@@ -173,6 +175,7 @@ script = ExtResource("2_82r38")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/block die area"]
+visible = false
 position = Vector2(0.999998, -0.999998)
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("7_d2lbq")
@@ -190,6 +193,7 @@ root = NodePath("../../..")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/top"]
+visible = false
 shape = SubResource("RectangleShape2D_nku45")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("7_d2lbq")
@@ -202,6 +206,7 @@ script = ExtResource("2_82r38")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/left"]
+visible = false
 shape = SubResource("RectangleShape2D_vvu3y")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("7_d2lbq")
@@ -215,6 +220,7 @@ script = ExtResource("2_82r38")
 root = NodePath("../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/right"]
+visible = false
 shape = SubResource("RectangleShape2D_vvu3y")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("7_d2lbq")
@@ -229,12 +235,15 @@ root = NodePath("../../..")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/bottom"]
+visible = false
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_nku45")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("7_d2lbq")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_58cn1")
 target_position = Vector2(0, 0)

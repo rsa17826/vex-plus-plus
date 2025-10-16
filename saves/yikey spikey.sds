@@ -5,7 +5,7 @@
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
       STR(autoRunDirection)INT(1)
-      STR(tick)FLOAT(188.750000000042)
+      STR(tick)FLOAT(191.250000000044)
       STR(heat)FLOAT(0.0)
       STR(gravState)INT(2)
       STR(speedLeverActive)BOOL(false)
@@ -42,7 +42,7 @@
             STR(texture)STR(1)
           }
           {
-            STR(texture)STR(1)
+            STR(texture)STR(2)
           }
           {
             STR(texture)STR(1)
@@ -51,7 +51,7 @@
             STR(texture)STR(3)
           }
           {
-            STR(texture)STR(2)
+            STR(texture)STR(3)
           }
         ]
         STR(10x locked spike)[
@@ -64,15 +64,15 @@
         ]
         STR(bomb)[
           {
-            STR(thingThatMoves.global_position)VEC2(269.977569580078,-90.1078491210938)
+            STR(thingThatMoves.global_position)VEC2(269.977569580078,-90.069091796875)
             STR(thingThatMoves.vel){
               STR(conveyor)VEC2(0.0,0.0)
-              STR(default)VEC2(0.0,7274.6845703125)
+              STR(default)VEC2(0.0,21.3333339691162)
             }
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(551.472595214844,-955.080261230469)
+      STRNAME(lastSpawnPoint)VEC2(376.472564697266,-280.080291748047)
     }
   ]
   STR(beatLevels)[]

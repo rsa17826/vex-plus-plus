@@ -20,7 +20,7 @@ size = Vector2(34, 14.710539)
 script = ExtResource("1_sjua3")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_8vy5t")
-collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+collisionShapes = [NodePath("collisionNode/CollisionShape2D"), NodePath("collisionNode/StaticBody2D/CollisionShape2D2")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
@@ -58,7 +58,6 @@ script = ExtResource("2_jt7ue")
 root = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode/StaticBody2D"]
-visible = false
 position = Vector2(0, -3.59)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_41y0u")
@@ -67,7 +66,6 @@ debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("6_d0b0c")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
-visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_jt7ue")

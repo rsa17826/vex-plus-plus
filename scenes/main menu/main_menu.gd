@@ -57,7 +57,6 @@ func _ready() -> void:
     if levelToLoad:
       await global.wait()
       await global.loadMap(levelToLoad, true)
-
   if shouldReload:
     get_tree().reload_current_scene.call_deferred()
 
@@ -370,7 +369,7 @@ func _on_open_readme_pressed() -> void:
   OS.shell_open("https://github.com/rsa17826/vex-plus-plus#vex")
 
 func _on_change_keybinds_pressed() -> void:
-  $CTRLS.visible = !$CTRLS.visible
+  global.ctrlMenu.visible = !global.ctrlMenu.visible
 
 func _on_open_logs_pressed() -> void:
   OS.shell_open(global.path.abs("user://logs/godot.log"))
