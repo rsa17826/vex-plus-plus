@@ -273,7 +273,6 @@ func show_menu():
           onchanged.emit(thing.name)
           save()
           )
-        log.pp(thing.name, thing.shortName)
         group.title = formatName.call(thing.shortName)
         group.thisText = group.title
         var vbox = VBoxContainer.new()
