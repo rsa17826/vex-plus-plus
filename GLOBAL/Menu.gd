@@ -30,9 +30,9 @@ func _notification(what):
 # add optional icon to add_bool
 func startGroup(name):
   groups.append(name)
-  _add_any("startGroup - " + name, {
+  _add_any("startGroup - " + '/'.join(groups), {
     "type": "startGroup",
-    "name": name,
+    "shortName": name,
     'default': false
   })
   # var group = FoldableContainer.new()
@@ -260,6 +260,7 @@ func show_menu():
         #   if !GROUP:
         #     GROUP = FoldableGroup.new()
         #   group.foldable_group = GROUP
+        # var name = "/".join(currentParent.slice(1).map(func(e): return e.get_parent().title) + [thing.name.substr(len("startGroup - "))])
         if data.loadExpandedGroups and not data.dontCollapseGroups:
           group.folded = !thing.user
         group.folding_changed.connect(func(folded):
@@ -272,7 +273,8 @@ func show_menu():
           onchanged.emit(thing.name)
           save()
           )
-        group.title = formatName.call(thing.name.substr(len("startGroup - ")))
+        log.pp(thing.name, thing.shortName)
+        group.title = formatName.call(thing.shortName)
         group.thisText = group.title
         var vbox = VBoxContainer.new()
         group.add_child(vbox)
@@ -567,4 +569,4 @@ func _add_any(key, obj):
   menu_data[key].user = userdata
   if "user" not in menu_data[key]:
     menu_data[key].user = obj.default
-  save()
+  # save()
