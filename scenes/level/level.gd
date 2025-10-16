@@ -14,6 +14,33 @@ func onProgress(prog, max):
   global.ui.progressBar.value = prog
   if prog % 150 == 0:
     await global.wait()
+var allBlocks: Array[EditorBlock]
+func sceneChanging():
+  get_tree().node_added.disconnect(on_node_added)
+  get_tree().node_removed.disconnect(on_node_removed)
+func _ready() -> void:
+  get_tree().node_added.connect(on_node_added)
+  get_tree().node_removed.connect(on_node_removed)
+  allBlocks.assign(get_node("blocks").get_children().filter(func(e): return e is EditorBlock))
+  for block: EditorBlock in allBlocks:
+    block.updateConnectedBlocks()
+
+func on_node_removed(node: Node):
+  if node is EditorBlock:
+    allBlocks.erase(node)
+    for block in allBlocks:
+      block.updateConnectedBlocks()
+func on_node_added(node: Node) -> void:
+  if node is EditorBlock:
+    await node.ready
+    if node.id == "path edit node": return
+    # log.err(node.id, node.is_node_ready(), "add")
+    var b: EditorBlock = node
+    if b.EDITOR_IGNORE: return
+    if b.DONT_SAVE: return
+    allBlocks.append(b)
+    for block: EditorBlock in allBlocks:
+      block.updateConnectedBlocks()
 
 func loadLevel(level):
   if !is_instance_valid(global.ui): return

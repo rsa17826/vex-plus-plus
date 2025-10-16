@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cic7ig8ln3y6b" path="res://scenes/blocks/area trigger/area trigger.gd" id="1_smbie"]
 [ext_resource type="Texture2D" uid="uid://reuwhg58xwog" path="res://scenes/blocks/area trigger/images/1.png" id="2_rmol1"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_j8sm5"]
-[ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_8gimd"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_s0h5g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -29,8 +29,8 @@ texture = ExtResource("2_rmol1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
-debug_color = Color(1, 0, 0, 0.41960785)
-script = ExtResource("4_8gimd")
+debug_color = Color(0, 1, 0, 0.41960785)
+script = ExtResource("4_s0h5g")
 
 [connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]

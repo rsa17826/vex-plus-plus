@@ -77,6 +77,10 @@ func move_to(index: int, animate: bool, label_top_right) -> void:
   # bottom
   if animate:
     update_x_position()
+    if !get_tree():
+      label_top_right.erase(self )
+      queue_free()
+      return
     _tween_in = get_tree().create_tween()
     _tween_in.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS) # pause mode
     _tween_in.stop()
@@ -187,5 +191,5 @@ func _set_bg_color(color: Color) -> void:
   theme_override.set("bg_color", color)
 
 func _set_resolution():
-  resolution.x = get_viewport().get_visible_rect().size.x
-  resolution.y = get_viewport().get_visible_rect().size.y
+  if get_viewport():
+    resolution = get_viewport().get_visible_rect().size

@@ -102,15 +102,16 @@
     STR(inner level)
   ]
   STR(signal)[
-    STR(floor button)
+    STR(area trigger)
     STR(input detector)
+    STR(floor button)
     STR(player state detector)
     STR(not gate)
     STR(and gate)
+    STR(SRNor)
+    STR(timer)
     STR(path)
     STR(signal deactivated wall)
-    STR(area trigger)
-    STR(timer)
   ]
   STR(remove)[
     STR(UNAVAILABLE)

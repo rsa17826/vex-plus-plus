@@ -730,19 +730,6 @@
     }
   }
   {
-    STR(x)FLOAT(920.0)
-    STR(y)FLOAT(-100.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(90.0)
-    STR(id)STR(single spike)
-    STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(970.0)
     STR(y)FLOAT(-105.0)
     STR(w)FLOAT(1.00000004470348)
@@ -2232,8 +2219,8 @@
     }
   }
   {
-    STR(x)FLOAT(-105.0)
-    STR(y)FLOAT(-642.5)
+    STR(x)FLOAT(-450.0)
+    STR(y)FLOAT(-850.0)
     STR(w)FLOAT(1.20000003278255)
     STR(h)FLOAT(0.95000004768372)
     STR(r)FLOAT(0.0)
@@ -2323,8 +2310,8 @@
     }
   }
   {
-    STR(x)FLOAT(-155.0)
-    STR(y)FLOAT(-1115.0)
+    STR(x)FLOAT(-50.0)
+    STR(y)FLOAT(-1150.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -2468,14 +2455,14 @@
     }
   }
   {
-    STR(x)FLOAT(-157.5)
-    STR(y)FLOAT(-1117.5)
+    STR(x)FLOAT(-275.0)
+    STR(y)FLOAT(-1175.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(0,1510)
+      STR(path)STR(117,1567)
       STR(endReachedAction)INT(0)
       STR(startOnLoad)BOOL(false)
       STR(startWhenSignalReceived)BOOL(false)
@@ -2508,14 +2495,14 @@
     }
   }
   {
-    STR(x)FLOAT(-162.5)
-    STR(y)FLOAT(-787.5)
+    STR(x)FLOAT(50.0)
+    STR(y)FLOAT(-900.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(0,1510)
+      STR(path)STR(-212,1622)
       STR(endReachedAction)INT(0)
       STR(startOnLoad)BOOL(false)
       STR(startWhenSignalReceived)BOOL(false)
@@ -2684,14 +2671,14 @@
     }
   }
   {
-    STR(x)FLOAT(-90.0)
-    STR(y)FLOAT(-1570.0)
+    STR(x)FLOAT(-150.0)
+    STR(y)FLOAT(-1325.0)
     STR(w)FLOAT(5.55555564165115)
     STR(h)FLOAT(25.6944448947906)
     STR(r)FLOAT(0.0)
     STR(id)STR(path)
     STRNAME(options){
-      STR(path)STR(-3,895)
+      STR(path)STR(57,650)
       STR(endReachedAction)INT(0)
       STR(startOnLoad)BOOL(false)
       STR(startWhenSignalReceived)BOOL(false)
@@ -2700,6 +2687,114 @@
       STR(restart)INT(0)
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(920.0)
+    STR(y)FLOAT(-93.5)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(82.5695343017578)
+    STR(id)STR(single spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(649.0)
+    STR(y)FLOAT(-311.5)
+    STR(w)FLOAT(0.60000001639128)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(224.999786376953)
+    STR(id)STR(noWJ)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(110.0)
+    STR(y)FLOAT(-297.5)
+    STR(w)FLOAT(1.67859368026257)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(89.9999465942383)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(375.0)
+    STR(y)FLOAT(-875.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(not gate)
+    STRNAME(options){
+      STR(signalInputId)INT(0)
+      STR(signalOutputId)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(425.0)
+    STR(y)FLOAT(-875.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(and gate)
+    STRNAME(options){
+      STR(signalAInputId)INT(0)
+      STR(signalBInputId)INT(0)
+      STR(signalOutputId)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(475.0)
+    STR(y)FLOAT(-875.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(SRNor)
+    STRNAME(options){
+      STR(enableSignalInputId)INT(0)
+      STR(disableSignalInputId)INT(0)
+      STR(signalOutputId)INT(0)
+      STR(persistAfterDeath)BOOL(false)
+      STR(startOn)BOOL(false)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(325.0)
+    STR(y)FLOAT(-875.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(player state detector)
+    STRNAME(options){
+      STR(state)INT(0)
+      STR(signalOutputId)INT(0)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(275.0)
+    STR(y)FLOAT(-875.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(input detector)
+    STRNAME(options){
+      STR(action)INT(0)
+      STR(signalOutputId)INT(0)
       STR(color)STR(#fff)
     }
   }

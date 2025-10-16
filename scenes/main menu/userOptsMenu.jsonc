@@ -115,94 +115,109 @@
     "name": "editor settings",
     "value": [
       {
-        "thing": "option",
-        "type": "single select",
-        "key": "multiSelectedBlocksRotationScheme",
-        "defaultValue": 0,
-        "options": [
-          "rotateAllSelectedBlocksBySameAmount",
-          "rotateAllSelectedBlocksToSameDirection"
+        "thing": "group",
+        "name": "rotation",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "newlyCreatedBlocksRotationTakesPlayerRotation",
+            "defaultValue": true
+          },
+          {
+            "thing": "option",
+            "type": "spinbox",
+            "key": "mouseLockDistanceWhileRotating",
+            "defaultValue": 35,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "rounded": true
+          },
+          {
+            "thing": "option",
+            "type": "single select",
+            "key": "multiSelectedBlocksRotationScheme",
+            "defaultValue": 0,
+            "options": [
+              "rotateAllSelectedBlocksBySameAmount",
+              "rotateAllSelectedBlocksToSameDirection"
+            ]
+          }
         ]
       },
       {
-        "thing": "option",
-        "type": "bool",
-        "key": "randomizeLevelModifiersOnLevelCreation",
-        "defaultValue": false
+        "thing": "group",
+        "name": "displacement",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "movingPathNodeMovesEntirePath",
+            "defaultValue": false
+          },
+          {
+            "thing": "option",
+            "type": "range",
+            "key": "minDistBeforeBlockDraggingStarts",
+            "defaultValue": 5,
+            "min": 0,
+            "max": 100
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "singleAxisAlignByDefault",
+            "defaultValue": false
+          }
+        ]
       },
       {
-        "thing": "option",
-        "type": "range",
-        "key": "minDistBeforeBlockDraggingStarts",
-        "defaultValue": 5,
-        "min": 0,
-        "max": 100
+        "thing": "group",
+        "name": "scaling",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "noCornerGrabsForScaling",
+            "defaultValue": true
+          }
+        ]
       },
       {
-        "thing": "option",
-        "type": "bool",
-        "key": "autoPanWhenClickingEmptySpace",
-        "defaultValue": false
+        "thing": "group",
+        "name": "deletion",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected",
+            "defaultValue": true
+          }
+        ]
       },
       {
-        "thing": "option",
-        "type": "bool",
-        "key": "movingPathNodeMovesEntirePath",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "newlyCreatedBlocksRotationTakesPlayerRotation",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "mouseLockDistanceWhileRotating",
-        "defaultValue": 35,
-        "min": 0,
-        "max": 100,
-        "step": 1,
-        "rounded": true
-      },
-      {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "editorScrollSpeed",
-        "defaultValue": 1,
-        "min": 0.25,
-        "max": 10,
-        "step": 0.05,
-        "allow lesser": true,
-        "allow greater": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "noCornerGrabsForScaling",
-        "defaultValue": true
-      },
-      {
-        "thing": "option",
-        "type": "range",
-        "key": "blockGhostAlpha",
-        "defaultValue": 0.3,
-        "min": 0,
-        "max": 1,
-        "step": 0.01
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "singleAxisAlignByDefault",
-        "defaultValue": false
+        "thing": "group",
+        "name": "panning",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "autoPanWhenClickingEmptySpace",
+            "defaultValue": false
+          },
+          {
+            "thing": "option",
+            "type": "spinbox",
+            "key": "editorScrollSpeed",
+            "defaultValue": 1,
+            "min": 0.25,
+            "max": 10,
+            "step": 0.05,
+            "allow lesser": true,
+            "allow greater": true
+          }
+        ]
       },
       {
         "thing": "group",
@@ -322,61 +337,82 @@
     "name": "theme",
     "value": [
       {
-        "thing": "option",
-        "type": "rgba",
-        "key": "selectedBlockOutlineColor",
-        "defaultValue": 1611923455
-      },
-      {
-        "thing": "option",
-        "type": "rgba",
-        "key": "hoveredBlockOutlineColor",
-        "defaultValue": 1852702975
-      },
-      {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "blockOutlineSize",
-        "defaultValue": 0.0215,
-        "step": 0.0001,
-        "max": 0.5,
-        "min": 0.0
-      },
-      {
-        "thing": "option",
-        "type": "rgba",
-        "key": "boxSelectColor",
-        "defaultValue": 1483315998
-      },
-      {
-        "thing": "option",
-        "type": "rgba",
-        "key": "pathColor",
-        "defaultValue": 10338815
-      },
-      {
-        "thing": "option",
-        "type": "file",
-        "key": "levelTilingBackgroundPath",
-        "defaultValue": ""
-      },
-      {
-        "thing": "option",
-        "type": "file",
-        "key": "editorBackgroundPath",
-        "defaultValue": ""
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "editorBackgroundScaleToMaxSize",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "file",
-        "key": "editorStickerPath",
-        "defaultValue": ""
+        "thing": "group",
+        "name": "editor theme",
+        "value": [
+          {
+            "thing": "group",
+            "name": "editor block theme",
+            "value": [
+              {
+                "thing": "option",
+                "type": "range",
+                "key": "blockGhostAlpha",
+                "defaultValue": 0.3,
+                "min": 0,
+                "max": 1,
+                "step": 0.01
+              },
+              {
+                "thing": "option",
+                "type": "rgba",
+                "key": "selectedBlockOutlineColor",
+                "defaultValue": 1611923455
+              },
+              {
+                "thing": "option",
+                "type": "rgba",
+                "key": "hoveredBlockOutlineColor",
+                "defaultValue": 1852702975
+              },
+              {
+                "thing": "option",
+                "type": "spinbox",
+                "key": "blockOutlineSize",
+                "defaultValue": 0.0215,
+                "step": 0.0001,
+                "max": 0.5,
+                "min": 0.0
+              },
+              {
+                "thing": "option",
+                "type": "rgba",
+                "key": "pathColor",
+                "defaultValue": 10338815
+              }
+            ]
+          },
+          {
+            "thing": "option",
+            "type": "rgba",
+            "key": "boxSelectColor",
+            "defaultValue": 1483315998
+          },
+          {
+            "thing": "option",
+            "type": "file",
+            "key": "levelTilingBackgroundPath",
+            "defaultValue": ""
+          },
+          {
+            "thing": "option",
+            "type": "file",
+            "key": "editorBackgroundPath",
+            "defaultValue": ""
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "editorBackgroundScaleToMaxSize",
+            "defaultValue": false
+          },
+          {
+            "thing": "option",
+            "type": "file",
+            "key": "editorStickerPath",
+            "defaultValue": ""
+          }
+        ]
       },
       {
         "thing": "option",
@@ -577,14 +613,20 @@
   },
   {
     "thing": "group",
-    "name": "localLevels",
+    "name": "local levels",
     "value": [
       {
         "thing": "option",
         "type": "bool",
         "key": "smallLevelDisplaysInLocalLevelList",
         "defaultValue": false
-      },
+      }
+    ]
+  },
+  {
+    "thing": "group",
+    "name": "level creation",
+    "value": [
       {
         "thing": "option",
         "type": "lineedit",
@@ -596,6 +638,12 @@
         "type": "bool",
         "key": "defaultCreatorNameIsLoggedInUsersName",
         "defaultValue": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "randomizeLevelModifiersOnLevelCreation",
+        "defaultValue": false
       }
     ]
   },

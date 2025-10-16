@@ -1888,3 +1888,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix oneway ghost image
 
 # add option to have tab toggle menu from the left side instead of entire screen while on the menu
+
+# make changing theme change the color of the colorrects
