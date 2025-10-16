@@ -29,7 +29,7 @@ leftSprite = NodePath("Node2D/collisionNode/left side")
 rightSprite = NodePath("Node2D/collisionNode/right side")
 ghostIconNode = NodePath("Node2D/collisionNode/ghost")
 editorBarIcon = ExtResource("3_fyg8o")
-collisionShapes = [NodePath("Node2D/collisionNode/left death"), NodePath("Node2D/collisionNode/right death")]
+collisionShapes = [NodePath("Node2D/collisionNode/left death"), NodePath("Node2D/collisionNode/right death"), NodePath("Node2D/collisionNode/left side/CharacterBody2D/CollisionShape2D2"), NodePath("Node2D/collisionNode/right side/CharacterBody2D/CollisionShape2D2")]
 hidableSprites = [NodePath("Node2D/collisionNode/left side/leftHalf"), NodePath("Node2D/collisionNode/right side/rightHalf")]
 thingThatMoves = NodePath("Node2D/collisionNode")
 EDITOR_OPTION_rotate = true
@@ -48,6 +48,7 @@ root = NodePath("../..")
 
 [node name="left death" type="CollisionShape2D" parent="Node2D/collisionNode"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(-190.14001, -52.829994)
 shape = SubResource("RectangleShape2D_sg2we")
 debug_color = Color(1, 0, 0, 0.41960785)
@@ -55,6 +56,7 @@ script = ExtResource("4_v4dd7")
 
 [node name="right death" type="CollisionShape2D" parent="Node2D/collisionNode"]
 unique_name_in_owner = true
+visible = false
 position = Vector2(189.85999, -52.829994)
 shape = SubResource("RectangleShape2D_sg2we")
 debug_color = Color(1, 0, 0, 0.41960785)
@@ -82,6 +84,7 @@ script = ExtResource("2_mvqdb")
 root = NodePath("../../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/left side/CharacterBody2D"]
+visible = false
 position = Vector2(0, -10)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_qb767")
@@ -104,6 +107,7 @@ script = ExtResource("2_mvqdb")
 root = NodePath("../../../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/right side/CharacterBody2D"]
+visible = false
 position = Vector2(0, -10)
 rotation = -3.1415925
 shape = SubResource("RectangleShape2D_sf674")
@@ -113,7 +117,7 @@ script = ExtResource("7_v4dd7")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
 visible = false
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_51j7p")
 target_position = Vector2(0, 0)

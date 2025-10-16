@@ -435,6 +435,12 @@ class file:
     else:
       return f.get_as_text()
 class arr:
+  static func unuque(array: Array) -> Variant:
+    var i = {"i": - 1}
+    return array.filter(func(e):
+      i.i += 1
+      return array.find(e) == i.i
+      )
   static func getcount(array: Array, count: int) -> Variant:
     var newarr := []
     for i in range(count):
@@ -965,7 +971,7 @@ func moveBlockZ(block, ud):
     var overlapings = selectedBlock.ghost \
       .get_node("collider").get_overlapping_areas() \
       .filter(func(e): return e.name == "collider") \
-      .map(func(e): return e.get_parent().get_parent().get_index())
+      .map(func(e): return e.root.get_index())
     overlapings.sort()
     if ud == "down":
       overlapings.reverse()
@@ -1345,12 +1351,16 @@ func _unhandled_input(event: InputEvent) -> void:
     if useropts.saveOnExit:
       if level and is_instance_valid(level):
         level.save(false)
-    level.sceneChanging()
+    if isAlive(level):
+      level.sceneChanging()
+    if useropts.showMenuOnHomePage || useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+      tabMenu.visible = false
+      tabMenu.get_parent().visible = false
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
   if showEditorUi \
   and not (tabMenu and tabMenu.visible) \
-  and not ctrlMenuVisible \
+  and not ctrlMenu.visible \
   :
     if event.is_action_pressed(&"move_selected_left"):
       if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return
@@ -2568,7 +2578,7 @@ var overlays: Array = []:
     overlays = overlays.filter(isAlive)
     return overlays
 
-var ctrlMenuVisible := false
+var ctrlMenu: Control
 
 var launcherExists = FileAccess.file_exists("../../vex++.exe") or FileAccess.file_exists(r"..\..\vex++.cmd")
 

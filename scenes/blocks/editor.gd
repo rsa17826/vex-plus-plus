@@ -10,8 +10,8 @@ extends Node2D
   get():
     if global.player and editorBarIconUsesLevelColor:
       return load(editorBarIcon.resource_path \
+      .replace("/editorBar1.png", '/editorBar' + str(global.currentLevelSettings("color")) + '.png') \
       .replace("/1.png", '/' + str(global.currentLevelSettings("color")) + '.png')
-      .replace("/editorBar1.png", '/editorBar' + str(global.currentLevelSettings("color")) + '.png')
       )
     return editorBarIcon
 ## sprite to show in the editor bar
@@ -482,8 +482,12 @@ func updateConnectedBlocks(full: bool) -> void:
   var outputs := ["signalOutputId"]
   # if !full:
   #   breakpoint
-  var blocksToCheck = global.level.allBlocks if full else connectedBlocks.duplicate().map(func(e): return e[0])
-  # log.err("connected blocks: ")
+  if global.level.allBlocks != global.arr.unuque(global.level.allBlocks):
+    breakpoint
+  if connectedBlocks != global.arr.unuque(connectedBlocks):
+    breakpoint
+  var blocksToCheck = global.arr.unuque(global.level.allBlocks if full else connectedBlocks.duplicate().map(func(e): return e[0]))
+  # log.err("connected blocks: ", blocksToCheck)
   connectedBlocks = []
   for thing in inputs:
     if thing in selectedOptions and selectedOptions[thing]:
@@ -508,7 +512,7 @@ func updateConnectedBlocks(full: bool) -> void:
                 found=2
               break
         return [e, found]
-    ).filter(func(e): return e[1] and not (e[0] in connectedBlocks) and e[0] != self )
+    ).filter(func(e): return e[1])
   else:
     canHaveSignalLinesChecks -= 1
   checksForOtherBlocks = []
@@ -536,7 +540,7 @@ func updateConnectedBlocks(full: bool) -> void:
                 found=2
               break
         return [e, found]
-    ).filter(func(e): return e[1] and not (e[0] in connectedBlocks) and e[0] != self )
+    ).filter(func(e): return e[1] and e not in connectedBlocks)
   else:
     canHaveSignalLinesChecks -= 1
   if canHaveSignalLinesChecks:
@@ -544,6 +548,9 @@ func updateConnectedBlocks(full: bool) -> void:
   else:
     canHaveSignalLines = -1
     global.level.allBlocks.erase(self )
+  # var temp = connectedBlocks.duplicate().map(func(e): return e[0])
+  # connectedBlocks = connectedBlocks.filter(func(e): not (e in temp))
+  # log.pp(connectedBlocks
   # log.pp(checksForThisBlock, checksForOtherBlocks)
   # if not checksForThisBlock:
   #   connectedBlocks = []
@@ -824,6 +831,12 @@ func createEditorGhost() -> void:
     log.err("ghost icon node is null", name)
     breakpoint
   ghost = ghostIconNode.duplicate()
+  # ghostIconNode.texture = load(
+  #   ghostIconNode.texture.resource_path \
+  #   .replace("/editorBar1.png", '/editorBar' + str(global.currentLevelSettings("color")) + '.png') \
+  #   .replace("/1.png", '/' + str(global.currentLevelSettings("color")) + '.png')
+  # )
+  # log.err(global.currentLevelSettings("color"), ghostIconNode.texture.resource_path, ghostIconNode.texture)
   ghost.material = preload("res://scenes/blocks/selectedBorder.tres").duplicate()
   ghost.scale = ghostIconNode.scale
   ghost.name = "ghost"
@@ -832,7 +845,7 @@ func createEditorGhost() -> void:
   collider.set_script(preload("res://scenes/blocks/root.gd"))
   collider.root = self
   collider.collision_layer = 524288
-  collider.collision_mask = 0
+  collider.collision_mask = 524288
   collider.connect("mouse_entered", _on_mouse_entered)
   collider.connect("mouse_exited", _on_mouse_exited)
   collider.connect("input_event", _on_input_event)

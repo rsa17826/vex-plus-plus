@@ -2,7 +2,7 @@ extends Control
 
 var containers: Array[FoldableContainer] = []
 @export var optsmenunode: Control
-@export var alwaysShowMenu: bool = false
+@export var isOptionsMenuOnMainMenu: bool = false
 
 var __menu: Menu
 var editorOnlyOptions := []
@@ -76,21 +76,27 @@ func __loadOptions(thing) -> void:
           )
 
 func _input(event: InputEvent) -> void:
-  if alwaysShowMenu: return
   # var focus = get_viewport().gui_get_focus_owner()
   # if focus is LineEdit or focus is TextEdit: return
   if event is InputEventKey:
     if Input.is_action_just_pressed(&"toggle_tab_menu", true):
+      if global.isAlive(global.mainMenu) and global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+        if !isOptionsMenuOnMainMenu: return
+      else:
+        if isOptionsMenuOnMainMenu: return
       get_viewport().set_input_as_handled()
       visible = !visible
-      get_parent().visible = visible
+      if isOptionsMenuOnMainMenu:
+        get_parent().get_parent().visible = visible
+      else:
+        get_parent().visible = visible
       if visible:
         Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 func _ready() -> void:
-  if alwaysShowMenu:
-    visible = true
-    get_parent().visible = true
+  if isOptionsMenuOnMainMenu:
+    visible = global.useropts.showMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay
+    get_parent().get_parent().visible = visible
   else:
     global.overlays.append(self )
     get_parent().visible = false
@@ -281,6 +287,22 @@ func updateUserOpts(thingChanged: String = '') -> void:
       # online level list reload
       if not global.isAlive(global.level) and not not global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()
+    "optionMenuToSideOnMainMenuInsteadOfOverlay":
+      if global.isAlive(global.mainMenu):
+        if global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+          visible = false
+          get_parent().visible = visible
+          var menu = global.mainMenu.optsmenunode.get_node("../../../")
+          menu.visible = true
+          menu.__menu.reloadDataFromFile.call_deferred()
+          menu.get_parent().visible = true
+          menu.get_parent().get_parent().visible = true
+        else:
+          global.tabMenu.visible = true
+          global.tabMenu.get_parent().visible = true
+          global.tabMenu.__menu.reloadDataFromFile.call_deferred()
+          visible = false
+          get_parent().get_parent().visible = false
     _:
       if OS.has_feature("editor"):
         DisplayServer.clipboard_set(thingChanged)
@@ -306,6 +328,6 @@ func updateUserOpts(thingChanged: String = '') -> void:
     updateSize.call_deferred()
 
 func updateSize():
-  if !alwaysShowMenu:
+  if !isOptionsMenuOnMainMenu:
     size = Vector2(1152.0, 648.0) / global.useropts.tabMenuScale
     scale = Vector2(global.useropts.tabMenuScale, global.useropts.tabMenuScale)

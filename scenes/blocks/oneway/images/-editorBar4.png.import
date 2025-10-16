@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8i5lnrsgqcsq"
-path="res://.godot/imported/editorBar10.png-0c22acb5a66c664714f150820dc247b0.ctex"
+uid="uid://b8jtsu3tbgeyj"
+path="res://.godot/imported/-editorBar4.png-855a89f93e6f3d4a37922bc6803d9a90.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/blocks/oneway/images/editorBar10.png"
-dest_files=["res://.godot/imported/editorBar10.png-0c22acb5a66c664714f150820dc247b0.ctex"]
+source_file="res://scenes/blocks/oneway/images/-editorBar4.png"
+dest_files=["res://.godot/imported/-editorBar4.png-855a89f93e6f3d4a37922bc6803d9a90.ctex"]
 
 [params]
 

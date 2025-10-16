@@ -818,6 +818,12 @@
       },
       {
         "thing": "option",
+        "type": "bool",
+        "key": "optionMenuToSideOnMainMenuInsteadOfOverlay",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
         "type": "range",
         "key": "tabMenuScale",
         "defaultValue": 1.0,

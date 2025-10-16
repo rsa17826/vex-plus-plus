@@ -215,7 +215,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
       - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
       - **selectedBlockFormatString**: string showing how to format the data for the selected block
-      - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id)
+      - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id, layer is the layer that the block is on)
     - ### signals
 
       - ### signal display
@@ -293,6 +293,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
     - **showMenuOnHomePage**: shows the menu on the home page
     - **openExportsDirectoryOnExport**: if true, after exporting a level, it will open the exports directory.
+    - **optionMenuToSideOnMainMenuInsteadOfOverlay**: makes the toggle menu keybind toggle the a menu on the left side instead of the usual overlay while on the main menu
     - **tabMenuScale**: the scale of the in level tab menu
 
 - ## Blocks

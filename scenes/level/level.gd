@@ -29,7 +29,7 @@ func on_node_removed(node: Node):
   if node is EditorBlock:
     if node.EDITOR_IGNORE: return
     if node.DONT_SAVE: return
-    log.err(node, node.id, len(allBlocks))
+    # log.err(node, node.id, len(allBlocks))
     allBlocks.erase(node)
     for block in allBlocks:
       block.updateConnectedBlocks(false)
@@ -37,7 +37,7 @@ func on_node_added(node: Node) -> void:
   if node is EditorBlock:
     await node.ready
     if node.id == "path edit node": return
-    log.err(node.id, "add")
+    # log.err(node.id, "add")
     var b: EditorBlock = node
     if b.EDITOR_IGNORE: return
     if b.DONT_SAVE: return
@@ -114,7 +114,7 @@ var saving := false
 var grabbingImage := false
 
 func save(saveImage: bool):
-  if global.ctrlMenuVisible: return
+  if global.ctrlMenu.visible: return
   if saving:
     ToastParty.err("already saving")
     return
