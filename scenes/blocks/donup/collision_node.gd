@@ -22,9 +22,11 @@ func on_physics_process(delta: float) -> void:
     await global.wait()
     var temp = root.attach_children.duplicate()
     root.respawn()
+    root.__disable.call_deferred()
     root.attach_children = temp
     process_mode = Node.PROCESS_MODE_INHERIT
-    root.__enable()
+    await global.wait()
+    root.__enable.call_deferred()
 
 func on_respawn():
   if root.loadDefaultData:
