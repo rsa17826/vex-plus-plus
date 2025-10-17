@@ -18,12 +18,13 @@ func on_physics_process(delta: float) -> void:
   velocity = global.player.applyRot(vel)
   move_and_slide()
   if (global.tick - startTime) > 2:
-    await global.wait()
-    root.__disable()
     root.isBeingMoved = true
+    process_mode = Node.PROCESS_MODE_DISABLED
     await global.wait()
+    var temp = root.attach_children.duplicate()
     root.respawn()
-    await global.wait(100)
+    root.attach_children = temp
+    process_mode = Node.PROCESS_MODE_INHERIT
     root.__enable()
 
 func on_respawn():
