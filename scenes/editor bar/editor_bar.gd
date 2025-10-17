@@ -14,7 +14,7 @@ func _init() -> void:
   global.editorBar = self
 
 func _ready() -> void:
-  global.overlays.append(self )
+  global.overlays.append(self)
   global.onEditorStateChanged.connect(func(): visible = global.showEditorUi)
   reload()
 

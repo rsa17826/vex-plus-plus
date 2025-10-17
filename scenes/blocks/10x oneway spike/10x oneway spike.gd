@@ -20,10 +20,10 @@ func on_body_entered(body: Node2D):
       wantAngle.distance_to(curAngle)
     )
     if wantAngle.distance_to(curAngle) > 1.65:
-      body.deathSources.append(self )
+      body.deathSources.append(self)
     # log.pp(Vector2.UP.rotated(body.velocity.angle()), Vector2.UP.rotated(rotation))
 
 func on_body_exited(body: Node2D):
   if body is Player:
     if self in body.deathSources:
-      body.deathSources.erase(self )
+      body.deathSources.erase(self)

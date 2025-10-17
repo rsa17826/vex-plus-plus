@@ -48,8 +48,8 @@ enum ItemAlignment {
   set(v):
     allow_drag_insert = v
     if is_inside_tree():
-      if v: _all_boxes.append(self )
-      else: _all_boxes.erase(self )
+      if v: _all_boxes.append(self)
+      else: _all_boxes.erase(self)
 ## If the child count matches this, new children cannot be added through [member allow_drag_insert]. Does not prevent other means of adding children.[br]
 ## Set to [code]-1[/code] to remove the limit. [br]
 ## This is equivalent to [member drag_insert_condition] set to [code]into.get_child_count() < (count)[/code].
@@ -205,10 +205,10 @@ func _ready():
 
 func _enter_tree():
   if allow_drag_insert:
-    _all_boxes.append(self )
+    _all_boxes.append(self)
 
 func _exit_tree():
-  _all_boxes.erase(self )
+  _all_boxes.erase(self)
 
 func _notification(what: int):
   if what == NOTIFICATION_SORT_CHILDREN:
@@ -233,7 +233,7 @@ func _insert_child_in_other(child: Control, mouse_global_position: Vector2):
 
     if x.drag_max_count > -1 && x.get_child_count(true) >= x.drag_max_count: continue
 
-    if x._drag_insert_condition_exp != null && x._drag_insert_condition_exp.execute([ self , x], child) != true: continue
+    if x._drag_insert_condition_exp != null && x._drag_insert_condition_exp.execute([ self, x], child) != true: continue
 
     child.reparent(x)
     x._dragging_node = child
@@ -243,10 +243,10 @@ func _insert_child_in_other(child: Control, mouse_global_position: Vector2):
       # Can be compiled on the spot - not called as often.
       var success_expr := Expression.new()
       success_expr.parse(drag_insert_call_on_success)
-      success_expr.execute([ self , x], child)
+      success_expr.execute([ self, x], child)
 
     drag_transfered_out.emit(child, x)
-    x.drag_transfered_in.emit(child, self )
+    x.drag_transfered_in.emit(child, self)
     break
 
 func _on_child_entered_tree(x: Node):

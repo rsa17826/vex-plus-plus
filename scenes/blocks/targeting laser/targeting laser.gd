@@ -11,12 +11,12 @@ var hitPlayer: bool:
 func on_body_entered(body: Node2D) -> void:
   if body is Player:
     if self not in global.player.targetingLasers:
-      global.player.targetingLasers.append(self )
+      global.player.targetingLasers.append(self)
 
 func on_body_exited(body: Node2D) -> void:
   if body is Player:
     if self in global.player.targetingLasers:
-      global.player.targetingLasers.erase(self )
+      global.player.targetingLasers.erase(self)
       queue_redraw()
 
 func on_physics_process(delta: float) -> void:

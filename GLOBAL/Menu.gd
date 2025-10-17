@@ -217,6 +217,9 @@ func show_menu():
       "SHOUTY_SNAKE_CASE",
       "camelCase"
     ], 0)
+    add_button("reload menu from file", func():
+      reloadDataFromFile()
+    )
     endGroup()
     firstTime = false
   mainVBox = VBoxContainer.new()

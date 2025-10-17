@@ -3,7 +3,7 @@ extends Control
 var bgPadding = 5
 
 func _ready() -> void:
-  global.overlays.append(self )
+  global.overlays.append(self)
 
 func _process(delta: float) -> void:
   if global.useropts.showLevelModsWhilePlaying and !global.showEditorUi:

@@ -5,7 +5,7 @@ extends Control
 
 var labels := []
 func _ready() -> void:
-  global.overlays.append(self )
+  global.overlays.append(self)
 func _process(delta: float) -> void:
   ttm.visible = true
   var hoveredItem

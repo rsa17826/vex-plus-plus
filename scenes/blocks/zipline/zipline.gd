@@ -8,7 +8,7 @@ var cd = 0
 
 func _init() -> void:
   if self not in global.ziplines:
-    global.ziplines.append(self )
+    global.ziplines.append(self)
 
 func generateBlockOpts():
   blockOptions.id = {

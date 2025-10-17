@@ -148,7 +148,7 @@ func update() -> void:
     var dock: ItemList = get_docky()
     if dock:
       if !is_instance_valid(_docky):
-        _docky = Docky.new(self )
+        _docky = Docky.new(self)
       _docky.update(dock)
     elif is_instance_valid(_docky):
       _docky = null

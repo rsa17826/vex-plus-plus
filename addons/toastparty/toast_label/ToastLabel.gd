@@ -78,7 +78,7 @@ func move_to(index: int, animate: bool, label_top_right) -> void:
   if animate:
     update_x_position()
     if !get_tree():
-      label_top_right.erase(self )
+      label_top_right.erase(self)
       queue_free()
       return
     _tween_in = get_tree().create_tween()
@@ -88,7 +88,7 @@ func move_to(index: int, animate: bool, label_top_right) -> void:
     var delayed = 0.03
     (
       _tween_in
-      .tween_property(self , "position", Vector2(position.x - margins.left - margins.left - size.x - offset_position.x, _y), .3)
+      .tween_property(self, "position", Vector2(position.x - margins.left - margins.left - size.x - offset_position.x, _y), .3)
       .set_trans(Tween.TRANS_QUAD)
       .set_ease(Tween.EASE_OUT)
       .set_delay(delayed)
@@ -101,7 +101,7 @@ func move_to(index: int, animate: bool, label_top_right) -> void:
     # _tween_in.stop()
     # (
     #   _tween_in
-    #   .tween_property(self , "position", Vector2(position.x - margins.left - margins.left - size.x - offset_position.x, _y), 0)
+    #   .tween_property(self, "position", Vector2(position.x - margins.left - margins.left - size.x - offset_position.x, _y), 0)
     #   # .set_trans(Tween.TRANS_ELASTIC)
     #   # .set_ease(Tween.EASE_IN_OUT)
     # )
@@ -109,7 +109,7 @@ func move_to(index: int, animate: bool, label_top_right) -> void:
 
 func _tween_destroy_label_complete() -> void:
   # Send event complete
-  emit_signal("remove_label", self )
+  emit_signal("remove_label", self)
   queue_free()
 
 func _tween_destroy_label_timer():
@@ -117,11 +117,11 @@ func _tween_destroy_label_timer():
   var tween_alpha = get_tree().create_tween()
   tween_alpha.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS) # pause mode
   tween_alpha \
-  .tween_property(self , "position:x", resolution.x + margins.left, .3) \
+  .tween_property(self, "position:x", resolution.x + margins.left, .3) \
   .set_trans(Tween.TRANS_QUAD) \
   .set_ease(Tween.EASE_OUT) \
   .set_delay(timer_to_destroy)
-  # tween_alpha.tween_property(self , "modulate:a", .2, 0.8).set_delay(timer_to_destroy)
+  # tween_alpha.tween_property(self, "modulate:a", .2, 0.8).set_delay(timer_to_destroy)
   tween_alpha.tween_callback(_tween_destroy_label_complete)
 
 func get_y_pos(offset=0, _gravity="top") -> float:

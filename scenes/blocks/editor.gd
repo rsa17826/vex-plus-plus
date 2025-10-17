@@ -167,7 +167,7 @@ func _on_mouse_exited() -> void:
 
 func onEditorMove(moveDist: Vector2) -> void:
   for block: EditorBlock in attach_parents:
-    block.attach_children.erase(self )
+    block.attach_children.erase(self)
   attach_parents = []
   if self in global.boxSelect_selectedBlocks and moveDist != Vector2.ZERO:
     isBeingMoved = true
@@ -197,7 +197,7 @@ func respawn() -> void:
     if !block.thingThatMoves:
       log.err("no thingThatMoves", block.id)
       breakpoint
-    # log.pp(block == self , block.name, block.id, self.name, self.id)
+    # log.pp(block == self, block.name, block.id, self.name, self.id)
     block.respawn()
   attach_children = []
   if not DONT_MOVE_ON_RESPAWN:
@@ -231,12 +231,12 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 
   if not EDITOR_IGNORE:
     if isHovered and self not in global.hoveredBlocks:
-      global.hoveredBlocks.append(self )
+      global.hoveredBlocks.append(self)
   # if event is InputEventMouseMotion and !event.is_echo() and (event as InputEventMouseMotion).relative:
   #   # log.pp(event.relative)
   #   if not EDITOR_IGNORE:
   #     if isHovered and self not in global.hoveredBlocks:
-  #       global.hoveredBlocks.append(self )
+  #       global.hoveredBlocks.append(self)
   # if selecting this block
   if not global.shouldDragBlock and global.hoveredBlocks && self == global.hoveredBlocks[0]:
     if !Input.is_action_pressed(&"editor_pan"):
@@ -329,10 +329,10 @@ func _ready() -> void:
   blockOptions = {}
 
   if not hidableSprites and not ignoreMissingNodes:
-    log.err("hidableSprites is null", self , name, id)
+    log.err("hidableSprites is null", self, name, id)
     breakpoint
   if null in hidableSprites:
-    log.err("a hidableSprites is null", self , name, id)
+    log.err("a hidableSprites is null", self, name, id)
     breakpoint
 
   # if not ('color' in selectedOptions):
@@ -348,10 +348,10 @@ func _ready() -> void:
     if get_node_or_null("CollisionShape2D"):
       collisionShapes = [$CollisionShape2D]
     elif not ignoreMissingNodes:
-      log.err("collisionShapes is null", self , name, id)
+      log.err("collisionShapes is null", self, name, id)
       breakpoint
   if null in collisionShapes:
-    log.err("a collisionShapes is null", self , name, id)
+    log.err("a collisionShapes is null", self, name, id)
     breakpoint
 
   if not EDITOR_IGNORE and not ghost:
@@ -383,7 +383,7 @@ func _ready() -> void:
       thing.on_ready()
   on_ready()
   if not is_inside_tree():
-    log.err(self , name, id, "not inside tree!!")
+    log.err(self, name, id, "not inside tree!!")
     queue_free()
 
 func toType(opt: Variant) -> void:
@@ -430,7 +430,7 @@ func setupOptions() -> void:
 func _physics_process(delta: float) -> void:
   if !global.player: return
   if isBeingPlaced:
-    if !(global.selectedBlock == self ):
+    if !(global.selectedBlock == self):
       isBeingPlaced = false
   if global.player.state == global.player.States.dead: return
   if global.stopTicking: return
@@ -547,7 +547,7 @@ func updateConnectedBlocks(full: bool) -> void:
     canHaveSignalLines = 1
   else:
     canHaveSignalLines = -1
-    global.level.allBlocks.erase(self )
+    global.level.allBlocks.erase(self)
   # var temp = connectedBlocks.duplicate().map(func(e): return e[0])
   # connectedBlocks = connectedBlocks.filter(func(e): not (e in temp))
   # log.pp(connectedBlocks
@@ -629,7 +629,7 @@ func _process(delta: float) -> void:
 
   if not EDITOR_IGNORE:
     if self in global.hoveredBlocks and !isHovered:
-      global.hoveredBlocks.erase(self )
+      global.hoveredBlocks.erase(self)
   if BUZZSAW_GENERIC_spriteToRotateLeft and BUZZSAW_GENERIC_spriteToRotateRight:
     _processBUZZSAW_GENERIC(delta)
   if not EDITOR_IGNORE:
@@ -867,7 +867,7 @@ func createEditorGhost() -> void:
   ghostFollowNode.add_child(ghost)
 
 ## spins the node at speed using global tick
-func spin(speed: float, node: Node2D = self ) -> void:
+func spin(speed: float, node: Node2D = self) -> void:
   node.rotation_degrees = fmod(global.tick * speed, 360.0)
 
 ## returns the name of the texture of a node
@@ -911,12 +911,12 @@ func __enable() -> void:
 func _on_body_enteredDEATH(body: Node) -> void:
   if body is Player:
     if self not in global.player.deathSources:
-      global.player.deathSources.append(self )
+      global.player.deathSources.append(self)
 
 func _on_body_exitedDEATH(body: Node) -> void:
   if body is Player:
     if self in global.player.deathSources:
-      global.player.deathSources.erase(self )
+      global.player.deathSources.erase(self)
 
 # res://scenes/blocks/buzzsaw/images/1.png
 @export_group("BUZZSAW - GENERIC")

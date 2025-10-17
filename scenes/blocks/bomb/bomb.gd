@@ -56,7 +56,7 @@ func onFrameChanged():
   ):
     if block is Player:
       await global.wait()
-      block.deathSources.append(self )
+      block.deathSources.append(self)
     else:
       block = block.root
       if block == self: continue

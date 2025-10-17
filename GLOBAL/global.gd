@@ -21,7 +21,7 @@ func _process(delta: float) -> void:
     timer.time += delta
   for i: Array in wait_until_wait_list:
     if has_user_signal(i[0]) and i[1] && i[1].is_valid() && i[1].call():
-      Signal(self , i[0]).emit()
+      Signal(self, i[0]).emit()
       remove_user_signal(i[0])
   if !InputMap.has_action("quit"): return
   localProcess(delta)
@@ -297,7 +297,7 @@ func waituntil(cb: Callable) -> Signal:
   var sig := "wait until signal - " + randstr(30)
   add_user_signal(sig)
   wait_until_wait_list.append([sig, cb])
-  return Signal(self , sig)
+  return Signal(self, sig)
 
 # class link:
 #   static var links = []
@@ -1091,7 +1091,7 @@ func _unhandled_input(event: InputEvent) -> void:
       failed = true
       result = expression.get_error_text()
     else:
-      result = expression.execute([global], self )
+      result = expression.execute([global], self)
       if expression.has_execute_failed():
         failed = true
         result = expression.get_error_text()
@@ -2333,7 +2333,7 @@ func httpGet(
 func urlEncode(input: String) -> String:
   var encoded = ""
   for c in input:
-    if c in 'qwertyuiopasdfghjklZxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM123789456/':
+    if c in 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM/':
       encoded += c
     else:
       encoded += "%" + String("%02X" % (c).unicode_at(0))

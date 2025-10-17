@@ -6,7 +6,7 @@ const ON = preload("res://scenes/ui/images/on.png")
 const OFF = preload("res://scenes/ui/images/off.png")
 
 func _ready() -> void:
-  global.overlays.append(self )
+  global.overlays.append(self)
   global.signalSenderChanged.connect(onSignalChanged)
 
 func _process(delta: float) -> void:

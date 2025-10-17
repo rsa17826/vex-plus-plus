@@ -16,14 +16,14 @@ var _self = self
         or _self is CheckButton
       ):
         return self.text
-      log.err(self , "Unknown type of node")
+      log.err(self, "Unknown type of node")
     return thisText
 
 signal searchMatchedThis
 signal searchMatchedChildren
 signal searchCleared
 
-func getChildNestedSearchables(startNode: Node = self ) -> Array[NestedSearchable]:
+func getChildNestedSearchables(startNode: Node = self) -> Array[NestedSearchable]:
   var nested_searchables: Array[NestedSearchable] = []
   for child in startNode.get_children():
     if child is NestedSearchable:

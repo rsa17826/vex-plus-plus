@@ -14,7 +14,7 @@ var moving := false
 
 func _on_mouse_entered() -> void:
   if self not in global.hoveredBrushes:
-    global.hoveredBrushes.append(self )
+    global.hoveredBrushes.append(self)
   scale = normalScale * 1.1
   z_index = 2
   selected = 1
@@ -159,7 +159,7 @@ func _process(delta: float) -> void:
 
 func _on_mouse_exited() -> void:
   if self in global.hoveredBrushes:
-    global.hoveredBrushes.erase(self )
+    global.hoveredBrushes.erase(self)
   scale = normalScale
   z_index = 1
   selected = 0

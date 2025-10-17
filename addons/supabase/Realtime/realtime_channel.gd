@@ -19,12 +19,12 @@ func _publish(message: Dictionary) -> void:
   if not subscribed: return
   match message.event:
     _client.SupabaseEvents.DELETE:
-      emit_signal("delete", message.payload.old_record, self )
+      emit_signal("delete", message.payload.old_record, self)
     _client.SupabaseEvents.UPDATE:
-      emit_signal("update", message.payload.old_record, message.payload.record, self )
+      emit_signal("update", message.payload.old_record, message.payload.record, self)
     _client.SupabaseEvents.INSERT:
-      emit_signal("insert", message.payload.record, self )
-  emit_signal("all", message.payload.get("old_record", {}), message.payload.get("record", {}), self )
+      emit_signal("insert", message.payload.record, self)
+  emit_signal("all", message.payload.get("old_record", {}), message.payload.get("record", {}), self)
 
 func on(event: String, callable: Callable) -> RealtimeChannel:
   connect(event, callable)
@@ -57,4 +57,4 @@ func unsubscribe() -> RealtimeChannel:
   return self
 
 func close() -> void:
-  _client._remove_channel(self )
+  _client._remove_channel(self)

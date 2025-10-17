@@ -40,7 +40,7 @@ func _on_task_completed(result: int, response_code: int, headers: PackedStringAr
 func _complete(_data=null, _error: BaseError = null) -> void:
   data = _data
   error = _error
-  completed.emit(self )
+  completed.emit(self)
   unreference()
 
 func _to_string() -> String:
