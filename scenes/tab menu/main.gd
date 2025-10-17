@@ -102,7 +102,7 @@ func _input(event: InputEvent) -> void:
 
 func _ready() -> void:
   if isOptionsMenuOnMainMenu:
-    _visible = global.useropts.showMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay
+    _visible = global.useropts.alwaysShowMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay
   else:
     global.overlays.append(self )
     _visible = false
@@ -263,7 +263,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "smallLevelDisplaysInLocalLevelList":
       if global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()
-    "showMenuOnHomePage":
+    "alwaysShowMenuOnHomePage":
       if global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()
         global.tabMenu.__menu.reloadDataFromFile.call_deferred()
@@ -281,7 +281,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
           menu._visible = true
           menu.__menu.reloadDataFromFile.call_deferred()
         else:
-          if not global.useropts.showMenuOnHomePage:
+          if not global.useropts.alwaysShowMenuOnHomePage:
             global.tabMenu._visible = true
             _visible = false
           global.tabMenu.__menu.reloadDataFromFile.call_deferred()
@@ -303,7 +303,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
 
   if waitingForMouseUp: return
   if (thingChanged in ['tabMenuScale']) \
-  or global.useropts.showMenuOnHomePage \
+  or global.useropts.alwaysShowMenuOnHomePage \
   or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay \
   :
     if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
@@ -311,7 +311,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
       while Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
         await global.wait(100)
       waitingForMouseUp = false
-    if global.useropts.showMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+    if global.useropts.alwaysShowMenuOnHomePage and not global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
       var menu = global.mainMenu.optsmenunode.get_node("../../../")
       if menu.visible:
         global.tabMenu.__menu.reloadDataFromFile.call_deferred()
