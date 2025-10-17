@@ -90,4 +90,42 @@
       STR(color)STR(#fff)
     }
   }
+  {
+    STR(x)FLOAT(75.0)
+    STR(y)FLOAT(-75.0)
+    STR(w)FLOAT(0.50000002235174)
+    STR(h)FLOAT(0.50000002235174)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(bouncy)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(100.0)
+    STR(y)FLOAT(-300.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(pole)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(150.0)
+    STR(y)FLOAT(-400.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(180.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
 ]

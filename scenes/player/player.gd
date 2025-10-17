@@ -1052,6 +1052,10 @@ func _physics_process(delta: float) -> void:
               velocity += applyRot(vel[n])
           for n: String in vel:
             vel[n] *= (velDecay[n]) # * delta * 60
+        # if bounceing up but falling down velocity is moved from bounce to user so falling down onto a pole doesn't give extra jump height from the bounce
+        if velocity.y > 0 and vel.bounce.y < 0:
+          vel.user.y += vel.bounce.y
+          vel.bounce.y = 0
         # if Input.is_key_pressed(KEY_T):
         #   breakpoint
         if state == States.wallHang and not getClosestWallSide():
@@ -1714,8 +1718,9 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version 186-191! boxes momentum persist after death
     # vex++:downloadMap/191/127/uno%20mas%20%2D%20post%20death%20momentum
   # //!version 186-196! donups only trigger once
-  # //!version (whatever i added the locked spikes in)-201! spikes back wall doesn't move with the spikes
-  # //!version 207-220! the player can stand on the back of falling spikes only if they jump off it immediately
+  # !version (whatever i added the locked spikes in)-201! spikes back wall doesn't move with the spikes
+  # \!version 207-220! the player can stand on the back of falling spikes only if they jump off it immediately
+  # //!version ?-223! if bounceing up but falling down velocity is moved from bounce to user so falling down onto a pole gives extra jump height from the bounce even when it looks like it shouldn't
 
 # ?add level option to change canPressDownToShortHop and make sh work
 
