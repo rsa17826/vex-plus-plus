@@ -1823,3 +1823,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # replace puley collision with shapecast
 
 # make changing theme change the color of the colorrects
+
+# make showSignalConnectionLinesOnHover work again
