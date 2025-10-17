@@ -143,7 +143,8 @@ var justAddedVels := {
   "zipline": 0,
 }
 var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole", "zipline"]
-var stopVelOnWall := ["bounce", "waterExit", "cannon", "pole", "conveyor", "zipline"]
+var stopVelOnWall := ["bounce", "cannon", "pole", "conveyor", "zipline"]
+var stopVelOnWallHang := ["waterExit"]
 var stopVelOnCeil := ["bounce", "waterExit", "cannon", "pole"]
 
 @onready var unduckSize: Vector2 = Vector2(8, 33) # mainCollisionShape2D.shape.size
@@ -748,7 +749,9 @@ func _physics_process(delta: float) -> void:
             global.currentLevelSettings().canDoWallSlide &&
             (lastWallSide && (getCurrentWallSide() && lastWallSide != getCurrentWallSide()))
             or onDifferentWall()
-          ) and not collidingWithNowj():
+          ) and not collidingWithNowj() and velocity.y > -20:
+            vel.waterExit = Vector2.ZERO
+            log.pp(vel.waterExit)
             lastWallSide = 0
             lastWallCollisionPoint = null
             lastWall = null
@@ -829,7 +832,8 @@ func _physics_process(delta: float) -> void:
               && vel.user.y > 0 && wallBreakDownFrames <= 0 \
               and not collidingWithNowj()
             )
-          ):
+          ) and velocity.y > -20:
+            vel.waterExit = Vector2.ZERO
             vel.user.y = WALL_SLIDE_SPEED
 
             # remainingJumpCount = MAX_JUMP_COUNT
@@ -950,35 +954,6 @@ func _physics_process(delta: float) -> void:
           else:
             position -= Vector2(0, 1).rotated(defaultAngle)
 
-        # if state == States.wallHang && ((
-        #   is_on_wall() and (
-        #     (
-        #       getCurrentWallSide() == -1 and leftWallDetection.is_colliding() and leftWallTopDetection.is_colliding()
-        #     ) or (
-        #       getCurrentWallSide() == 1 and rightWallDetection.is_colliding() and rightWallTopDetection.is_colliding()
-        #     )
-        #   )
-        # ) and not collidingWithNowj()):
-        #   # currentHungWall = getCurrentWall()
-        #   hungWallSide = getCurrentWallSide()
-        #   var loopIdx: int = 0
-        #   currentHungWall = rightWallDetection.get_collider() if getCurrentWallSide() == 1 else leftWallDetection.get_collider()
-        #   var ray = rightWallTopDetection if 1 == 1 else leftWallTopDetection
-        #   log.pp(ray, getCurrentWallSide(), 222)
-
-        #   while ray.is_colliding() and loopIdx < 20:
-        #     loopIdx += 1
-        #     # log.pp(loopIdx)
-        #     position -= Vector2(0, 1).rotated(defaultAngle)
-        #     ray.force_raycast_update()
-        #   if loopIdx >= 20:
-        #     position += Vector2(0, loopIdx).rotated(defaultAngle)
-        #     log.pp("fell off wall hang to wallSliding")
-        #     remainingJumpCount -= 1
-        #     state = States.wallSliding
-        #   else:
-        #     position -= Vector2(0, 1).rotated(defaultAngle)
-
         # animations
         if anim.animation == "jumping off pole" and vel.user.y != 0: pass
         else:
@@ -1050,6 +1025,11 @@ func _physics_process(delta: float) -> void:
         # stopVelOnWall
         if state == States.wallHang or state == States.wallSliding:
           for n: String in stopVelOnWall:
+            if !justAddedVels[n]:
+              vel[n] = Vector2.ZERO
+        # stopVelOnWallHang
+        if state == States.wallHang:
+          for n: String in stopVelOnWallHang:
             if !justAddedVels[n]:
               vel[n] = Vector2.ZERO
         # stopVelOnCeil
