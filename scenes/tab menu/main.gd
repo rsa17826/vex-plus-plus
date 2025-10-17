@@ -5,6 +5,15 @@ var containers: Array[FoldableContainer] = []
 @export var isOptionsMenuOnMainMenu: bool = false
 
 var __menu: Menu
+# sets visible for self and required parents
+var _visible:
+  set(val):
+    visible = val
+    if isOptionsMenuOnMainMenu:
+      get_parent().get_parent().visible = visible
+    else:
+      get_parent().visible = visible
+
 var editorOnlyOptions := []
 var waitingForMouseUp := false
 
@@ -85,22 +94,16 @@ func _input(event: InputEvent) -> void:
       else:
         if isOptionsMenuOnMainMenu: return
       get_viewport().set_input_as_handled()
-      visible = !visible
-      if isOptionsMenuOnMainMenu:
-        get_parent().get_parent().visible = visible
-      else:
-        get_parent().visible = visible
+      _visible = !visible
       if visible:
         Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 func _ready() -> void:
   if isOptionsMenuOnMainMenu:
-    visible = global.useropts.showMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay
-    get_parent().get_parent().visible = visible
+    _visible = global.useropts.showMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay
   else:
     global.overlays.append(self )
-    get_parent().visible = false
-    visible = false
+    _visible = false
     global.tabMenu = self
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
@@ -122,29 +125,6 @@ func _ready() -> void:
   __menu.show_menu()
   updateUserOpts()
   updateSize()
-  # var node_stack: Array[Node] = [ self ]
-  # while not node_stack.is_empty():
-  #   var node: Node = node_stack.pop_back()
-  #   if is_instance_valid(node):
-  #     if "transparent_bg" in node:
-  #       node.transparent_bg = true
-  #     if node is Control and node.get_parent() is CanvasLayer:
-  #       node.theme = get_window().theme
-  #     node_stack.append_array(node.get_children())
-
-# func loadaUserOptions() -> void:
-#   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
-#   __menu = Menu.new(optsmenunode)
-#   __menu.onchanged.connect(updateUserOpts)
-#   for thing in data:
-#     __loadOptions(thing)
-#   __menu.show_menu()
-#   scrollContainer.set_deferred('scroll_vertical', int(global.file.read("user://scrollContainerscroll_vertical", false, "0")))
-#   scrollContainer.gui_input.connect(func(event):
-#     # scroll up or down then save scroll position
-#     if event.button_mask == 8 || event.button_mask == 16:
-#       global.file.write("user://scrollContainerscroll_vertical", str(scrollContainer.scroll_vertical), false))
-#   updateUserOpts()
 
 func updateUserOpts(thingChanged: String = '') -> void:
   var ftml = global.isFirstTimeMenuIsLoaded
@@ -290,19 +270,15 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "optionMenuToSideOnMainMenuInsteadOfOverlay":
       if global.isAlive(global.mainMenu):
         if global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
-          visible = false
-          get_parent().visible = visible
+          _visible = false
           var menu = global.mainMenu.optsmenunode.get_node("../../../")
-          menu.visible = true
+          menu._visible = true
           menu.__menu.reloadDataFromFile.call_deferred()
-          menu.get_parent().visible = true
-          menu.get_parent().get_parent().visible = true
         else:
-          global.tabMenu.visible = true
-          global.tabMenu.get_parent().visible = true
-          global.tabMenu.__menu.reloadDataFromFile.call_deferred()
-          visible = false
-          get_parent().get_parent().visible = false
+          if not global.useropts.showMenuOnHomePage:
+            global.tabMenu._visible = true
+            global.tabMenu.__menu.reloadDataFromFile.call_deferred()
+            _visible = false
     _:
       if OS.has_feature("editor"):
         DisplayServer.clipboard_set(thingChanged)
