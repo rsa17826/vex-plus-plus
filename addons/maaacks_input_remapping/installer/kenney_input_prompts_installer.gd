@@ -198,13 +198,11 @@ func _has_extras() -> bool:
   var directories := DirAccess.get_directories_at(full_path)
   for directory in directories:
     for key in PACKAGE_EXTRA_DIRECTORIES:
-      if directory.contains(key):
-        return true
+      if directory.contains(key): return true
   var files := DirAccess.get_files_at(full_path)
   for file in files:
     for key in PACKAGE_EXTRA_FILES:
-      if file.contains(key):
-        return true
+      if file.contains(key): return true
   return false
 
 func _delete_extras() -> void:

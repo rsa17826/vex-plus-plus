@@ -136,8 +136,7 @@ func newItem(name, id, noCache:=false) -> bool:
   )
   if not nodeFound \
   and not global.useropts.showEditorBarBlockMissingErrors \
-  and not global.useropts.reorganizingEditorBar:
-    return false
+  and not global.useropts.reorganizingEditorBar: return false
   add_child(item)
   updateItem(item)
   global.lastSelectedBrush = item

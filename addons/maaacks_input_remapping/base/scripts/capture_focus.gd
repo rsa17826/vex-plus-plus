@@ -24,23 +24,20 @@ extends Control
       update_focus()
 
 func _focus_first_search(control_node: Control, levels: int = 1) -> bool:
-  if control_node == null or !control_node.is_visible_in_tree():
-    return false
+  if control_node == null or !control_node.is_visible_in_tree(): return false
   if control_node.focus_mode == FOCUS_ALL:
     control_node.grab_focus()
     if control_node is ItemList:
       control_node.select(0)
     return true
-  if levels < 1:
-    return false
+  if levels < 1: return false
   var children = control_node.get_children()
   for child in children:
-    if _focus_first_search(child, levels - 1):
-      return true
+    if _focus_first_search(child, levels - 1): return true
   return false
 
 func focus_first() -> void:
-  _focus_first_search(self, search_depth)
+  _focus_first_search(self , search_depth)
 
 func update_focus() -> void:
   if lock: return

@@ -130,39 +130,31 @@ func _process(delta: float):
     return
 
 func _has_point(point: Vector2) -> bool:
-  if !Rect2(Vector2.ZERO, size).has_point(point):
-    return false
+  if !Rect2(Vector2.ZERO, size).has_point(point): return false
 
   point += position
-  if allow_drag_pt1 && _is_in_radius(connect_point1, point):
-    return true
+  if allow_drag_pt1 && _is_in_radius(connect_point1, point): return true
 
-  if allow_drag_pt2 && _is_in_radius(connect_point2, point):
-    return true
+  if allow_drag_pt2 && _is_in_radius(connect_point2, point): return true
 
   if _path_curve != null:
-    if _get_overlapped_path_point(point + position) != -1:
-      return true
+    if _get_overlapped_path_point(point + position) != -1: return true
 
     if line_blocks_input:
       var half_width := line_width * 0.5
-      if get_distance_to_segment(connect_point2, _path_curve.get_point_position(_path_curve.point_count - 1), point) <= half_width:
-        return true
+      if get_distance_to_segment(connect_point2, _path_curve.get_point_position(_path_curve.point_count - 1), point) <= half_width: return true
 
       var last_pt_position := connect_point1
       var current_pt_position := Vector2()
       for i in _path_curve.point_count:
         current_pt_position = _path_curve.get_point_position(i)
-        if get_distance_to_segment(last_pt_position, current_pt_position, point) <= half_width:
-          return true
+        if get_distance_to_segment(last_pt_position, current_pt_position, point) <= half_width: return true
 
         last_pt_position = current_pt_position
 
-  elif line_blocks_input && get_distance_to_segment(connect_point1, connect_point2, point) <= line_width * 0.5:
-    return true
+  elif line_blocks_input && get_distance_to_segment(connect_point1, connect_point2, point) <= line_width * 0.5: return true
 
-  if allow_point_creation && _get_overlapped_path_midpoint(point + position) != -1:
-    return true
+  if allow_point_creation && _get_overlapped_path_midpoint(point + position) != -1: return true
 
   return false
 
@@ -556,8 +548,7 @@ func _get_overlapped_path_midpoint(point_in_parent: Vector2) -> int:
   return -1
 
 func _get_overlapped_control(of_parent: Node, ignore_node: Node, global_point: Vector2, drag_reattach_condition_expr: Expression, expr_params: Array) -> Control:
-  if of_parent == null:
-    return null
+  if of_parent == null: return null
 
   if of_parent is CanvasItem:
     global_point = of_parent.get_global_transform().affine_inverse() * global_point
