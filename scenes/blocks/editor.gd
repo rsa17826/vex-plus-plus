@@ -668,6 +668,7 @@ func _process(delta: float) -> void:
         global_position = startPosition
         if not _DISABLED:
           isBeingMoved = true
+          queue_redraw()
           for collider in collisionShapes:
             if not collider:
               log.pp(collider, collisionShapes, id)
