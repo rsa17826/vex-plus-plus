@@ -4,7 +4,7 @@ var lastShownBlock
 
 func _ready() -> void:
   global.onEditorStateChanged.connect(onEditorStateChanged)
-  global.overlays.append(self )
+  global.overlays.append(self)
 
 func onEditorStateChanged():
   visible = global.showEditorUi

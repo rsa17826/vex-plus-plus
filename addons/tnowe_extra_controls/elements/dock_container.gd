@@ -62,7 +62,7 @@ func drop_node(node: Control, on_global_position: Vector2):
 
   if node.get_parent() != self:
     if node.get_parent() != null:
-      node.reparent(self )
+      node.reparent(self)
 
     else:
       add_child(node)

@@ -19,7 +19,7 @@ func on_respawn():
   labelInpa.text = str(selectedOptions.signalAInputId)
   labelInpb.text = str(selectedOptions.signalBInputId)
   labelOut.text = str(selectedOptions.signalOutputId)
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self, false)
 
 func onSignalChanged(id, on, callers):
   if self in callers: return
@@ -28,7 +28,7 @@ func onSignalChanged(id, on, callers):
     aon = on
   elif id == selectedOptions.signalBInputId:
     bon = on
-  global.sendSignal(selectedOptions.signalOutputId, self , aon and bon)
+  global.sendSignal(selectedOptions.signalOutputId, self, aon and bon)
 
 func onDelete():
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self, false)

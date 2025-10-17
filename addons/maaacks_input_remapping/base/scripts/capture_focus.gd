@@ -37,7 +37,7 @@ func _focus_first_search(control_node: Control, levels: int = 1) -> bool:
   return false
 
 func focus_first() -> void:
-  _focus_first_search(self , search_depth)
+  _focus_first_search(self, search_depth)
 
 func update_focus() -> void:
   if lock: return

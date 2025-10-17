@@ -71,7 +71,7 @@ func channel(schema: String, table: String = "", col_value: String = "") -> Real
   var topic: String = _build_topic(schema, table, col_value)
   var channel: RealtimeChannel = get_channel(topic)
   if channel == null:
-    channel = RealtimeChannel.new(topic, self )
+    channel = RealtimeChannel.new(topic, self)
     _add_channel(channel)
   return channel
 

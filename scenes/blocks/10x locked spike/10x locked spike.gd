@@ -14,7 +14,7 @@ func on_body_entered(body: Node2D):
     unlock()
     if not unlocked:
       if not self in body.deathSources:
-        body.deathSources.append(self )
+        body.deathSources.append(self)
 
 func unlock() -> void:
   if global.player.keys and not unlocked:
@@ -28,7 +28,7 @@ func unlock() -> void:
 func on_body_exited(body: Node2D):
   if body is Player:
     if self in body.deathSources:
-      body.deathSources.erase(self )
+      body.deathSources.erase(self)
 
 func onSave() -> Array[String]:
   return ["unlocked"]

@@ -34,7 +34,7 @@ func on_respawn() -> void:
 
 func on_ready() -> void:
   if not self in global.checkpoints:
-    global.checkpoints.append(self )
+    global.checkpoints.append(self)
   setTexture(sprite, "1")
   ignorePlayerEntering = false
 

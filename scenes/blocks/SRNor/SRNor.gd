@@ -25,7 +25,7 @@ func on_respawn():
   labelEnable.text = str(selectedOptions.enableSignalInputId)
   labelDisable.text = str(selectedOptions.disableSignalInputId)
   labelOut.text = str(selectedOptions.signalOutputId)
-  global.sendSignal(selectedOptions.signalOutputId, self , isOn)
+  global.sendSignal(selectedOptions.signalOutputId, self, isOn)
 
 func onSignalChanged(id, on, callers):
   if self in callers: return
@@ -34,10 +34,10 @@ func onSignalChanged(id, on, callers):
   elif id == selectedOptions.disableSignalInputId and on:
     isOn = false
   else: return
-  global.sendSignal(selectedOptions.signalOutputId, self , isOn)
+  global.sendSignal(selectedOptions.signalOutputId, self, isOn)
 
 func onSave() -> Array:
   return ['isOn'] if selectedOptions.persistAfterDeath else []
 
 func onDelete():
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self, false)

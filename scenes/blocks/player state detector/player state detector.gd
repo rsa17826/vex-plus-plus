@@ -35,7 +35,7 @@ enum States {
 
 func on_respawn():
   lastInput = null
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self, false)
   labelOut.text = str(selectedOptions.signalOutputId)
   labelOut.rotation = - rotation
   setTexture(playerSprite, States.keys()[selectedOptions.state])
@@ -84,8 +84,8 @@ func on_physics_process(delta: float) -> void:
     lastInput = temp
   else: return
   if temp:
-    global.sendSignal(selectedOptions.signalOutputId, self , true)
+    global.sendSignal(selectedOptions.signalOutputId, self, true)
     setTexture(bgSprite, "1")
   else:
-    global.sendSignal(selectedOptions.signalOutputId, self , false)
+    global.sendSignal(selectedOptions.signalOutputId, self, false)
     setTexture(bgSprite, "2")

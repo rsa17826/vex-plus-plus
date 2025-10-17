@@ -13,12 +13,12 @@ func on_respawn():
   global.onSignalChanged(onSignalChanged)
   labelInp.text = str(selectedOptions.signalInputId)
   labelOut.text = str(selectedOptions.signalOutputId)
-  global.sendSignal(selectedOptions.signalOutputId, self , true)
+  global.sendSignal(selectedOptions.signalOutputId, self, true)
 
 func onSignalChanged(id, on, callers):
   if self in callers: return
   if id == selectedOptions.signalInputId:
-    global.sendSignal(selectedOptions.signalOutputId, self , !on)
+    global.sendSignal(selectedOptions.signalOutputId, self, !on)
 
 func onDelete():
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self, false)

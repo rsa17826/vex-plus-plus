@@ -185,7 +185,7 @@ func _on_request_completed(result, response_code, headers, body) -> void:
       _save_zip_file(body)
       _save_progress = 0.0
       var tween = create_tween()
-      tween.tween_property(self , "_save_progress", 1.0, extraction_delay)
+      tween.tween_property(self, "_save_progress", 1.0, extraction_delay)
       await tween.finished
       _extract_files.call_deferred()
   else:

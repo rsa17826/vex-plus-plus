@@ -1616,7 +1616,7 @@ func _on_left_body_exited(body: Node2D) -> void:
 #       log.pp(block, block.id if 'id' in block else 'no id')
 #       breakpoint
 #     else:
-#       block.root._on_body_entered(self , false)
+#       block.root._on_body_entered(self, false)
 func updateCollidingBlocksExited():
   # log.pp("respawn", (
   #   respawnDetectionArea.get_overlapping_bodies()
@@ -1630,7 +1630,7 @@ func updateCollidingBlocksExited():
       log.pp(block, block.id if 'id' in block else 'no id')
       breakpoint
     else:
-      block.root._on_body_exited(self , false)
+      block.root._on_body_exited(self, false)
 
 func updateKeyFollowPosition(delta):
   for i in range(0, keys.size()):
@@ -1830,3 +1830,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make changing theme change the color of the colorrects
 
 # make showSignalConnectionLinesOnHover work again
+
+# make sure that menu gets synced when leaving main menu

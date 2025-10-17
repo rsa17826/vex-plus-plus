@@ -64,7 +64,7 @@ func _ready() -> void:
     _popup_menu.set_item_tooltip(index, popup_tooltip)
 
 func _enter_tree() -> void:
-  if Util.is_in_edited_scene(self ): return
+  if Util.is_in_edited_scene(self): return
   _control_highlighter = ColorRect.new()
   _control_highlighter.color = Color(1, 1, 0, 0.2)
   _control_highlighter.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -76,7 +76,7 @@ func _exit_tree() -> void:
     _control_highlighter.queue_free()
 
 func _process(delta: float) -> void:
-  if Util.is_in_edited_scene(self ):
+  if Util.is_in_edited_scene(self):
     set_process(false)
     return
 

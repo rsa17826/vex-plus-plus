@@ -43,7 +43,7 @@ func on_respawn():
   global.onSignalChanged(onSignalChanged)
   labelInp.text = str(selectedOptions.signalInputId)
   labelOut.text = str(selectedOptions.signalOutputId)
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self, false)
 
 func onSignalChanged(id, on, callers):
   # if self in callers: return
@@ -92,11 +92,11 @@ func on_physics_process(delta: float) -> void:
         if !lastOn:
           chargeTimer = global.rerange(chargeTimer, 0, selectedOptions.chargeTime, 0, selectedOptions.dischargeTime)
           chargeState = States.discharging
-        global.sendSignal(selectedOptions.signalOutputId, self , true)
+        global.sendSignal(selectedOptions.signalOutputId, self, true)
     States.discharging:
       chargeTimer -= delta
       if chargeTimer <= 0:
         chargeState = States.discharged
         if lastOn:
           chargeState = States.charging
-        global.sendSignal(selectedOptions.signalOutputId, self , false)
+        global.sendSignal(selectedOptions.signalOutputId, self, false)

@@ -16,10 +16,10 @@ func on_body_entered(body: Node) -> void:
     blocksCurrentlyPressingThisButton.append(body)
   if blocksCurrentlyPressingThisButton:
     setTexture(sprite, "pressed")
-    global.sendSignal(selectedOptions.signalOutputId, self , true)
+    global.sendSignal(selectedOptions.signalOutputId, self, true)
 
 func on_ready():
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self, false)
 
 func on_respawn() -> void:
   thingThatMoves.position = Vector2.ZERO
@@ -41,10 +41,10 @@ func on_body_exited(body: Node) -> void:
     blocksCurrentlyPressingThisButton.erase(body)
   if not blocksCurrentlyPressingThisButton:
     setTexture(sprite, "unpressed")
-    global.sendSignal(selectedOptions.signalOutputId, self , false)
+    global.sendSignal(selectedOptions.signalOutputId, self, false)
 
 func generateBlockOpts():
   blockOptions.signalOutputId = {"type": global.PromptTypes.int, "default": 0}
 
 func onDelete():
-  global.sendSignal(selectedOptions.signalOutputId, self , false)
+  global.sendSignal(selectedOptions.signalOutputId, self, false)

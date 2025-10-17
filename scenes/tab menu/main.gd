@@ -12,6 +12,10 @@ var _visible:
     if isOptionsMenuOnMainMenu:
       get_parent().get_parent().visible = visible
     else:
+      if val:
+        if global.useropts.alwaysShowMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+          __menu.reloadDataFromFile()
+      updateSize()
       get_parent().visible = visible
   get():
     return visible
@@ -101,18 +105,11 @@ func _input(event: InputEvent) -> void:
         Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 
 func _ready() -> void:
-  if isOptionsMenuOnMainMenu:
-    _visible = global.useropts.alwaysShowMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay
-  else:
-    global.overlays.append(self )
-    _visible = false
-    global.tabMenu = self
   var data = global.file.read("res://scenes/main menu/userOptsMenu.jsonc")
   __menu = Menu.new(optsmenunode)
   __menu.onchanged.connect(updateUserOpts)
   for thing in data:
     __loadOptions(thing)
-
   __menu.startGroup("open in explorer")
   __menu.add_button("open editorBar.sds", func():
     OS.shell_open(global.path.abs("res://editorBar.sds"))
@@ -123,10 +120,20 @@ func _ready() -> void:
     else:
       OS.shell_open(global.path.abs("res://maps"))
   )
+  __menu.add_button("open menu settings file", func():
+    OS.shell_open(global.path.abs("user://main" + \
+    (" - EDITOR" if OS.has_feature("editor") else '') \
+    + ".sds"))
+  )
   __menu.endGroup()
   __menu.show_menu()
   updateUserOpts()
-  updateSize()
+  if isOptionsMenuOnMainMenu:
+    _visible = global.useropts.alwaysShowMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay
+  else:
+    global.overlays.append(self)
+    _visible = false
+    global.tabMenu = self
 
 func updateUserOpts(thingChanged: String = '') -> void:
   var ftml = global.isFirstTimeMenuIsLoaded
@@ -315,12 +322,6 @@ func updateUserOpts(thingChanged: String = '') -> void:
       while Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
         await global.wait(100)
       waitingForMouseUp = false
-    if global.useropts.alwaysShowMenuOnHomePage and not global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
-      var menu = global.mainMenu.optsmenunode.get_node("../../../")
-      if menu.visible:
-        global.tabMenu.__menu.reloadDataFromFile.call_deferred()
-      else:
-        menu.__menu.reloadDataFromFile.call_deferred()
     updateSize.call_deferred()
 
 func updateSize():
