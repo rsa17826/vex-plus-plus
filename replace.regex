@@ -25,6 +25,13 @@
 @flags gm
 @endregex
 
+@file \.gd$
+@regex (?<=\s)get_node\("([\w/]+)"\)
+@replace $$$1
+@flags gm
+@endregex
+
+
 @name fix bad self spacings
 @file \.gd$
 @regex self ([,)])

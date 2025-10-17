@@ -1,13 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://5pqb7xf70p7k"]
 
-[ext_resource type="Script" uid="uid://bf8wipfg1jl6a" path="res://GLOBAL/menu things/file_dialog.gd" id="1_0xwkg"]
-[ext_resource type="Script" uid="uid://bs4m3plcr416k" path="res://GLOBAL/scripts/NestedSearchable/nested_searchable.gd" id="1_6to4f"]
+[ext_resource type="Script" uid="uid://bf8wipfg1jl6a" path="res://GLOBAL/menu things/file/file_dialog.gd" id="1_0xwkg"]
+[ext_resource type="Script" uid="uid://bmgddhbmn46x1" path="res://GLOBAL/menu things/file/main.gd" id="1_yvn8g"]
 
 [node name="HBoxContainer" type="HBoxContainer"]
 offset_top = 8.0
 offset_right = 49.0
 offset_bottom = 32.0
-script = ExtResource("1_6to4f")
+script = ExtResource("1_yvn8g")
+pullFromNode = null
+thisText = null
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2

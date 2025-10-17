@@ -5,6 +5,16 @@ var selected = []
 
 signal option_changed
 @onready var main_cloner = $cloneContainer/CenterContainer
+signal onchanged()
+func init(thing, menu_data, formatName, _self):
+  thisText = formatName.call(thing.name)
+  var select = $optbtn/OptionButton
+  select.text = formatName.call(thing.name)
+  options = thing.options
+  selected = thing.user
+  option_changed.connect(func(...__):
+    onchanged.emit()
+  )
 
 func _ready() -> void:
   for option in options:
@@ -12,7 +22,7 @@ func _ready() -> void:
     clone.visible = true
     clone.get_node("cloner/CheckBox").button_pressed = option in selected
     clone.get_node("cloner/Label").text = option
-    # clone.get_node("CheckBox").idx = options.find(option)
+    # clone.$CheckBox.idx = options.find(option)
     clone.get_node("cloner/CheckBox").toggled.connect(_on_check_box_toggled.bind(option))
     $cloneContainer.add_child(clone)
   main_cloner.queue_free()

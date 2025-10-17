@@ -261,219 +261,32 @@ func show_menu():
   for thing in arr:
     if "user" not in thing:
       thing.user = thing.default
-    match thing.type:
-      "startGroup":
-        var group = FoldableContainer.new()
-        group.set_script(preload("res://GLOBAL/scripts/NestedSearchable/nested_searchable.gd"))
-        group.folded = !data.dontCollapseGroups
-        # if data.onlyExpandSingleGroup and not data.dontCollapseGroups:
-        #   if !GROUP:
-        #     GROUP = FoldableGroup.new()
-        #   group.foldable_group = GROUP
-        # var name = "/".join(currentParent.slice(1).map(func(e): return e.get_parent().title) + [thing.name.substr(len("startGroup - "))])
-        if data.loadExpandedGroups and not data.dontCollapseGroups:
-          group.folded = !thing.user
-        group.folding_changed.connect(func(folded):
-          if folded and data.dontCollapseGroups:
-            group.folded=false
-          if menu_data.saveExpandedGroups.user \
-          if 'user' in menu_data.saveExpandedGroups \
-          else menu_data.saveExpandedGroups.default:
-            menu_data[thing.name].user=!group.folded
-          onchanged.emit(thing.name)
-          save()
-          )
-        group.title = formatName.call(thing.shortName)
-        group.thisText = group.title
-        var vbox = VBoxContainer.new()
-        group.add_child(vbox)
-        currentParent[len(currentParent) - 1].add_child(group)
-        currentParent.append(vbox)
-      "endGroup":
-        currentParent.pop_back()
-      "button":
-        var node = preload(path + "button.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Button").text = formatName.call(thing.name)
-        node.get_node("Button").pressed.connect(thing.onclick)
+    if thing.type == "endGroup":
+      currentParent.pop_back()
+    else:
+      var node = load(path + thing.type + "/main.tscn").instantiate()
+      node.thisText = formatName.call(thing.name)
+      node.onchanged.connect((func(node):
         __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "file":
-        var node = preload(path + "file.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Label").text = formatName.call(thing.name)
-        node.get_node("Button").text = 'pick a file' if thing.single else 'pick files'
-        var fileNode = node.get_node("FileDialog")
-        fileNode.files = thing.user
-        fileNode.single = thing.single
-        fileNode['file_selected' if thing.single else 'files_selected'].connect(__changed.bind(thing.name, node))
-        node.get_node("ButtonClear").pressed.connect(__changed.bind(thing.name, node))
+        onchanged.emit(thing.name)
+        save()
+      ).bind(node)
+      )
+      node.init(thing, menu_data, formatName, node)
+      if thing.type != "startGroup":
         __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "range":
-        var node = preload(path + "range.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Label").text = formatName.call(thing.name)
-        var range_node = node.get_node("HSlider")
-        range_node.allow_greater = thing.allow_greater
-        range_node.allow_lesser = thing.allow_lesser
-        range_node.min_value = thing.from
-        range_node.max_value = thing.to
-        range_node.tick_count = (abs(thing.to - thing.to) / thing.step) + 1 if (abs(thing.to - thing.to) / thing.step) + 1 < 20 else 0
-        range_node.step = thing.step
-        range_node.value = thing.user
-        range_node.value_changed.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "textarea":
-        var node = preload(path + "textarea.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Label").text = formatName.call(thing.name)
-        var textAreaNode = node.get_node("TextEdit")
-        textAreaNode.text = thing.user
-        textAreaNode.placeholder_text = thing.placeholder
-        textAreaNode.text_changed.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "lineedit":
-        var node = preload(path + "lineedit.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Label").text = formatName.call(thing.name)
-        var lineEditNode = node.get_node("LineEdit")
-        lineEditNode.text = thing.user
-        lineEditNode.placeholder_text = thing.placeholder
-        lineEditNode.text_changed.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "spinbox":
-        #       dd_any(key, {
-        #   "type": "spinbox",
-        #   "from": from,
-        #   "to": to,
-        #   "step": step,
-        #   "allow_lesser": allow_lesser,
-        #   "allow_greater": allow_greater,
-        #   "default": default
-        # })
-        var node = preload(path + "spinbox.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Label").text = formatName.call(thing.name)
-        var range_node = node.get_node("HSlider")
-        range_node.rounded = thing.rounded
-        range_node.allow_greater = thing.allow_greater
-        range_node.allow_lesser = thing.allow_lesser
-        range_node.min_value = thing.from
-        range_node.max_value = thing.to
-        range_node.step = thing.step
-        range_node.value = thing.user
-        range_node.value_changed.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "bool":
-        var node = preload(path + "bool.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Label").text = formatName.call(thing.name)
-        node.get_node("CheckButton").button_pressed = thing.user
-        node.get_node("CheckButton").toggled.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "multi select":
-        var node = preload(path + "multi select.tscn").instantiate()
-        # node.get_node("optbtn/Label").text = thing.name
-        node.thisText = formatName.call(thing.name)
-        var select = node.get_node("optbtn/OptionButton")
-        select.text = formatName.call(thing.name)
-        node.options = thing.options
-        node.selected = thing.user
-        node.option_changed.connect(__changed.bind(thing.name, node))
-        # for sel in thing.user:
-        #   var t = Texture2D.new()
-        #   t.create_placeholder()
-        #   # path + "images/check.png"
-        #   select.set_item_icon(thing.options.find(sel), t)
-        # select.value = thing.user if "user" in thing else thing.user
-        # select.value_changed.connect(s.__changed.bind(thing.name, select))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "rgba":
-        var node: Control = preload(path + "color.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        var colorSelect := node.get_node("HSlider")
-        # var c = thing.user.split(",")
-        # if len(c) != 4:
-        #   c = thing.default.split(",")
-        # colorSelect.color = Color(c[0], c[1], c[2], c[3])
-        node.get_node("Label").text = formatName.call(thing.name)
-        colorSelect.color = Color.hex(int(thing.user))
-        colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "rgb":
-        var node: Control = preload(path + "color.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        var colorSelect := node.get_node("HSlider")
-        colorSelect.edit_alpha = false
-        node.get_node("Label").text = formatName.call(thing.name)
-        # var c = thing.user.split(",")
-        # if len(c) != 4:
-        #   c = thing.default.split(",")
-        colorSelect.color = Color.hex(int(thing.user))
-        # colorSelect.color = Color.from_string(thing.user, thing.default)
-        colorSelect.popup_closed.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "single select":
-        var node = preload(path + "single select.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Label").text = formatName.call(thing.name)
-        # node.get_node("OptionButton").value = str(thing.user)
-        var select = node.get_node("OptionButton")
-        select.clear()
-        for opt in thing.options:
-          select.add_item(opt)
-        select.select(int(thing.user) if "user" in thing else 0)
-        select.item_selected.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      "named_spinbox":
-        log.err("named spinbox is not working yet, use single_select or named range")
-        # var newarr = sort_dict_to_arr(thing.options)
-        # #log.pp(newarr)
+      currentParent[len(currentParent) - 1].add_child(node)
+      if 'postInit' in node:
+        node.postInit.call(currentParent)
 
-        # var node = preload(path + "named spinbox.tscn").instantiate()
-        # node.get_node("Label").text = thing.name
-        # # node.get_node("OptionButton").value = str(thing.user)
-        # var select = node.get_node("OptionButton")
-        # select.clear()
-        # for opt in newarr:
-        #   select.add_item(opt[1])
-        # select.value_changed.connect(__changed.bind(thing.name, node))
-
-        # currentParent[len(currentParent)-1].add_child(node)
-      "named range":
-        var newarr = sort_dict_to_arr(thing.options)
-        var node = preload(path + "named range.tscn").instantiate()
-        node.thisText = formatName.call(thing.name)
-        node.get_node("Label").text = formatName.call(thing.name)
-        var range_node = node.get_node("HSlider")
-        range_node.min_value = newarr[0][0]
-        range_node.max_value = newarr[-1][0]
-        range_node.tick_count = (range_node.max_value - range_node.min_value) + 1
-        range_node.step = 1
-        range_node.value = float(thing.user)
-        range_node.value_changed.connect(__changed.bind(thing.name, node))
-        __changed.call(thing.name, node)
-        currentParent[len(currentParent) - 1].add_child(node)
-      _:
-        log.warn("no method is set to add", thing.type)
   # #log.pp(arr)
   # await global.wait(1000)
   emitChanges = true
   # set_deferred("emitChanges", true)
 
 func sort_dict_to_arr(dict):
-  var temp_keys = dict.keys()
-  var sorted_keys = JSON.parse_string(JSON.stringify(temp_keys)).map(func(x): return int(x))
+  var temp_keys: Array = dict.keys()
+  var sorted_keys = temp_keys.duplicate_deep().map(func(x): return int(x))
   sorted_keys.sort()
   var temp_vals = dict.values()
   # #log.pp(temp_keys)
@@ -578,7 +391,8 @@ func _add_any(key, obj):
     menu_data[key] = {}
   var userdata = menu_data[key].user if "user" in menu_data[key] else obj.default
   menu_data[key] = obj
-  menu_data[key].user = userdata
+  menu_data[key].newOption = false
   if "user" not in menu_data[key]:
-    menu_data[key].user = obj.default
+    menu_data[key].newOption = true
+  menu_data[key].user = userdata
   # save()

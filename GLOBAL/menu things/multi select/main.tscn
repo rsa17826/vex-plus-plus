@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cmt6j4xgg74kv"]
 
-[ext_resource type="Script" uid="uid://emgcjpq1ovl1" path="res://GLOBAL/menu things/multi_select.gd" id="1_fa7vb"]
+[ext_resource type="Script" uid="uid://emgcjpq1ovl1" path="res://GLOBAL/menu things/multi select/multi_select.gd" id="1_fa7vb"]
 
 [node name="VBoxContainer" type="VBoxContainer"]
 offset_left = 13.0
