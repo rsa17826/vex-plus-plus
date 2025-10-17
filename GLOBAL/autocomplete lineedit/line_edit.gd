@@ -84,6 +84,7 @@ func _on_gui_input(event: InputEvent) -> void:
     await global.wait()
     var w = getAutocomplete(text)
     if not Input.is_action_just_pressed(&"accept_autocomplete", true):
+      idx = autoCompleteUi.lastSelected
       if (
         Input.is_action_just_pressed(&"ui_up", true) or (
           global.useropts.autocompleteSearchBarHookLeftAndRight
@@ -92,20 +93,25 @@ func _on_gui_input(event: InputEvent) -> void:
       ) and w:
         idx -= 1
         idx = idx % len(w)
+        while idx < 0:
+          idx += len(w)
       elif Input.is_action_just_pressed(&"ui_down", true) or (
         global.useropts.autocompleteSearchBarHookLeftAndRight
         and Input.is_action_just_pressed(&"ui_right", true)
       ) and w:
         idx += 1
         idx = idx % len(w)
+        while idx < 0:
+          idx += len(w)
       else:
-        idx = 0
+        idx = -1
     autoCompleteUi.setWords(w)
-    if len(w):
+    if len(w) and idx > -1:
       autoCompleteUi.setSelected(idx)
     if Input.is_action_just_pressed(&"accept_autocomplete", true) and w:
-      completeWord(autoCompleteUi.buttons[idx].text)
+      completeWord(autoCompleteUi.buttons[autoCompleteUi.lastSelected].text)
       autoCompleteUi.setWords(getAutocomplete(text))
+      autoCompleteUi.setSelected(0)
       idx = 0
     rtl.updateText(textArr)
 

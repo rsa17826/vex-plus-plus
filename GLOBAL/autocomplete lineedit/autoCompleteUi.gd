@@ -13,6 +13,7 @@ var buttons: Array[Label] = []
   "gameVersion": 1,
   "levelVersion": 1,
 }
+var lastWords = []
 
 func setWords(words: Array):
   (
@@ -20,6 +21,8 @@ func setWords(words: Array):
     global.useropts.searchBarHorizontalAutocomplete
     else $VBoxContainer
   ).visible = global.useropts.showAutocompleteOptions != 0
+  if '/'.join(words) == '/'.join(lastWords): return
+  lastWords = words
   while len(buttons) < len(words):
     var button = Label.new()
     buttons.append(button)
@@ -34,8 +37,9 @@ func setWords(words: Array):
     buttons[i].visible = true
     buttons[i].text = words[i]
   setSelected(0)
-
+var lastSelected: int = -1
 func setSelected(idx: int):
+  lastSelected = idx
   for btn in buttons:
     btn.modulate = Color(1, 1, 1)
   if idx >= len(buttons): return
@@ -51,7 +55,6 @@ var text:
     edit.text = text
     var w = edit.getAutocomplete(text)
     setWords(w)
-    setSelected(0)
     rtl.updateText(edit.textArr)
     text_changed.emit(text, edit.textArr)
 
