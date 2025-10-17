@@ -807,8 +807,8 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "showMenuOnHomePage",
-        "defaultValue": true
+        "key": "alwaysShowMenuOnHomePage",
+        "defaultValue": false
       },
       {
         "thing": "option",
