@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://0r3rag8iqvnp"]
+[gd_scene load_steps=9 format=3 uid="uid://0r3rag8iqvnp"]
 
 [ext_resource type="Texture2D" uid="uid://eb72hpv54q0m" path="res://scenes/blocks/basic/images/1.png" id="1_gwpbw"]
 [ext_resource type="Script" uid="uid://0q8dsmg4bsp7" path="res://scenes/blocks/basic/basic.gd" id="1_m4jfg"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_m4jfg"]
 [ext_resource type="Script" uid="uid://bcs7ef5lrwxsu" path="res://scenes/blocks/color changer.gd" id="3_yqvbt"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_l2ss2"]
-[ext_resource type="Texture2D" uid="uid://3hb4210mdfdo" path="res://scenes/blocks/basic/images/6.png" id="5_ogjw2"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="6_1tg0j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
@@ -33,15 +32,18 @@ script = ExtResource("2_m4jfg")
 root = NodePath("..")
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
-texture = ExtResource("5_ogjw2")
+texture = ExtResource("1_gwpbw")
 script = ExtResource("3_yqvbt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("6_1tg0j")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_2xhvq")
 target_position = Vector2(0, 0)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dwsy55cl1mdos"
-path="res://.godot/imported/image.png-7bdaf2356c354bb139fd9c255a57401e.ctex"
+uid="uid://wjtnfr664fy7"
+path="res://.godot/imported/image.png-43c46fca0a30a4ab3b9048afa7c06ba3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://maps/Meow#84/image.png"
-dest_files=["res://.godot/imported/image.png-7bdaf2356c354bb139fd9c255a57401e.ctex"]
+source_file="res://maps/cling death air-jump/image.png"
+dest_files=["res://.godot/imported/image.png-43c46fca0a30a4ab3b9048afa7c06ba3.ctex"]
 
 [params]
 

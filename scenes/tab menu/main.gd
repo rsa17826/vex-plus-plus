@@ -198,9 +198,6 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "hoveredBlockFormatString", \
     "showSignalListInEditor", \
     "showSignalListInPlay", \
-    "showSignalConnectionLinesOnHover", \
-    "showSignalConnectionLinesInEditor", \
-    "showSignalConnectionLinesInPlay", \
     "onlyShowSignalConnectionsIfHoveringOverAny", \
     "showLevelModsWhileEditing", \
     "showLevelModsWhilePlaying", \
@@ -246,6 +243,13 @@ func updateUserOpts(thingChanged: String = '') -> void:
       if global.isAlive(global.level):
         global.level.save(false)
         global.loadMap.call_deferred(global.mainLevelName, true)
+    "showSignalConnectionLinesOnHover", \
+    "showSignalConnectionLinesInEditor", \
+    "showSignalConnectionLinesInPlay":
+      if global.isAlive(global.level):
+        for block in global.level.get_node("blocks").get_children():
+          if block is EditorBlock:
+            block.queue_redraw()
     "editorBarBlockSize", \
     "editorBarOffset", \
     "editorBarPosition", \

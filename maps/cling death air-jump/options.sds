@@ -1,20 +1,20 @@
 {
   STR(start)STR(1)
-  STR(creatorName)STR(yippieskippy)
+  STR(creatorName)STR(YippieBug)
   STR(description)STR()
-  STR(gameVersion)INT(221)
-  STR(version)INT(212)
-  STR(levelVersion)INT(50)
+  STR(gameVersion)INT(214)
+  STR(version)INT(214)
+  STR(levelVersion)INT(16)
   STR(stages){
     STR(1){
-      STR(color)INT(9)
+      STR(color)INT(5)
       STR(changeSpeedOnSlopes)BOOL(false)
       STR(jumpCount)INT(1)
       STR(autoRun)BOOL(false)
       STR(canDoWallHang)BOOL(true)
       STR(canDoWallSlide)BOOL(true)
       STR(canDoWallJump)BOOL(true)
-      STR(checkpointsSaveAll)BOOL(true)
+      STR(checkpointsSaveAll)BOOL(false)
     }
   }
 }
