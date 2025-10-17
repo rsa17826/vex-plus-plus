@@ -110,14 +110,12 @@ func _parse_end(object: Object) -> void:
 func is_base_class(c_name: String) -> bool:
   if c_name.contains("."): return false
   for list in ProjectSettings.get_global_class_list():
-    if list.class == c_name:
-      return false
+    if list.class == c_name: return false
   return true
 
 func get_script_icon(script_path: String) -> Texture2D:
   var file := FileAccess.open(script_path, FileAccess.READ)
-  if not file:
-    return null
+  if not file: return null
   while not file.eof_reached():
     var line := file.get_line().strip_edges()
     if line.begins_with("@icon("):
@@ -235,8 +233,7 @@ func tab_clicked(tab: int) -> void:
 func is_new_tab(category: String) -> bool:
   if merge_abstract_class_tabs:
     if ClassDB.class_exists(category) and not ClassDB.can_instantiate(category):
-      if categories[0] == category:
-        return true
+      if categories[0] == category: return true
       return false
   return true
 

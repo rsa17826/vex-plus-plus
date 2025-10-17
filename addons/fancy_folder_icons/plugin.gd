@@ -167,8 +167,7 @@ func matches(key, item, retval):
     return retval
   var splitKey: Array = (key.split("/") as Array).filter(func(e): return e)
   var splitItem: Array = (item.split("/") as Array).filter(func(e): return e)
-  if len(splitItem) < len(splitKey):
-    return false
+  if len(splitItem) < len(splitKey): return false
 
   var itemrep: Array[String] = []
   var splitKeyIdx = -1

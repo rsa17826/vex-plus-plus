@@ -83,7 +83,6 @@ static func format(thing: String):
 static func validPath(p: String) -> bool:
   if global.starts_with(p, "HKCU:") \
   or global.starts_with(p, "HKLM:") \
-  :
-    return true
+  : return true
   log.err("Invalid path: ", p)
   return false

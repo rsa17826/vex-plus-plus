@@ -50,11 +50,9 @@ func _input(event: InputEvent) -> void:
               if blockData and e is String: return true
               if !blockData and e is Dictionary: return true
               if blockData:
-                if blockData.name == e.name:
-                  return false
+                if blockData.name == e.name: return false
                 return true
-              if e == blockName:
-                return false
+              if e == blockName: return false
               return true
               ))
             for v in data[k]:

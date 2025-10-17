@@ -45,11 +45,9 @@ func _export_begin(features: PackedStringArray, _is_debug: bool, path: String, _
 
 func _export_end() -> void:
   # global.file.write("res://VERSION", str(int(global.file.read("res://VERSION", false)) - 1), false)
-
   # if not len(source_data):
   #   _push_err("Error reading or file empty - \"%s\"! Skipping." % source_path)
   #   return
-
   DirAccess.remove_absolute(r"D:\godotgames\exports\vex\windows\exeVersion.txt")
   if not len(zip_path): return
   # handle MacOS ZIP export
@@ -81,8 +79,7 @@ func _log(info: String) -> void:
 
 func _feature_match(requested_features: PackedStringArray, limited_features: PackedStringArray) -> bool:
   for feature: String in limited_features:
-    if feature in requested_features:
-      return true
+    if feature in requested_features: return true
   return false
 
 func _copy(source_path: String, dest_path: String) -> void:

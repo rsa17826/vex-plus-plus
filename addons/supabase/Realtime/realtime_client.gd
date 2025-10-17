@@ -156,8 +156,7 @@ func _process(_delta: float) -> void:
     message_received.emit(JSON.parse_string(get_message()))
 
 func get_message() -> Variant:
-  if _ws_client.get_available_packet_count() < 1:
-    return null
+  if _ws_client.get_available_packet_count() < 1: return null
   var pkt := _ws_client.get_packet()
   if _ws_client.was_string_packet():
     return pkt.get_string_from_utf8()

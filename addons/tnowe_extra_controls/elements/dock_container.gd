@@ -153,8 +153,7 @@ func _add_container(virtual_node: Control, of_type: ContainerType) -> Container:
   return new_c
 
 func _dissolve_container(virtual_node: Control) -> Container:
-  if !is_instance_valid(virtual_node):
-    return null
+  if !is_instance_valid(virtual_node): return null
 
   var v_node_index := virtual_node.get_index()
   var v_node_parent := virtual_node.get_parent()

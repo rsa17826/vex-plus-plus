@@ -18,8 +18,7 @@ var finish = false
 func get_icon(_class: String) -> ImageTexture:
   if icon_list.has(_class):
     return icon_list[_class]
-  else:
-    return null
+  else: return null
 
 # Store icons
 func update_icon_list():
@@ -67,8 +66,7 @@ func update_icon_list():
 func is_tree_fully_loaded(tree: Tree) -> bool:
   for item in tree.get_root().get_children():
     for i in tree.columns:
-      if item.get_text(i) == "Vector4i":
-        return true
+      if item.get_text(i) == "Vector4i": return true
 
   return false
 
