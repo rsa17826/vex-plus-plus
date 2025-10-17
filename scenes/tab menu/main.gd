@@ -13,6 +13,8 @@ var _visible:
       get_parent().get_parent().visible = visible
     else:
       get_parent().visible = visible
+  get():
+    return visible
 
 var editorOnlyOptions := []
 var waitingForMouseUp := false
@@ -258,10 +260,13 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "searchBarHorizontalAutocomplete":
       if not global.isAlive(global.level):
         get_tree().reload_current_scene()
-    "smallLevelDisplaysInLocalLevelList", \
+    "smallLevelDisplaysInLocalLevelList":
+      if global.isAlive(global.mainMenu):
+        get_tree().reload_current_scene()
     "showMenuOnHomePage":
       if global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()
+        global.tabMenu.__menu.reloadDataFromFile.call_deferred()
     "smallLevelDisplaysInOnlineLevelList", \
     "onlyShowLevelsForCurrentVersion":
       # online level list reload
@@ -269,16 +274,17 @@ func updateUserOpts(thingChanged: String = '') -> void:
         get_tree().reload_current_scene()
     "optionMenuToSideOnMainMenuInsteadOfOverlay":
       if global.isAlive(global.mainMenu):
+        global.tabMenu.__menu.reloadDataFromFile.call_deferred()
         if global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
-          _visible = false
           var menu = global.mainMenu.optsmenunode.get_node("../../../")
+          _visible = false
           menu._visible = true
           menu.__menu.reloadDataFromFile.call_deferred()
         else:
           if not global.useropts.showMenuOnHomePage:
             global.tabMenu._visible = true
-            global.tabMenu.__menu.reloadDataFromFile.call_deferred()
             _visible = false
+          global.tabMenu.__menu.reloadDataFromFile.call_deferred()
     _:
       if OS.has_feature("editor"):
         DisplayServer.clipboard_set(thingChanged)
@@ -294,13 +300,23 @@ func updateUserOpts(thingChanged: String = '') -> void:
     if global.isAlive(global.level):
       global.level.save(false)
       global.loadMap.call_deferred(global.mainLevelName, true)
+
   if waitingForMouseUp: return
-  if thingChanged in ['tabMenuScale']:
+  if (thingChanged in ['tabMenuScale']) \
+  or global.useropts.showMenuOnHomePage \
+  or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay \
+  :
     if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
       waitingForMouseUp = true
       while Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
         await global.wait(100)
       waitingForMouseUp = false
+    if global.useropts.showMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+      var menu = global.mainMenu.optsmenunode.get_node("../../../")
+      if menu.visible:
+        global.tabMenu.__menu.reloadDataFromFile.call_deferred()
+      else:
+        menu.__menu.reloadDataFromFile.call_deferred()
     updateSize.call_deferred()
 
 func updateSize():
