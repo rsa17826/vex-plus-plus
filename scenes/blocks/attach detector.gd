@@ -32,6 +32,7 @@ func updateColor() -> void:
 
 func tryaddgroups():
   enabled = true
+  await global.wait()
   force_shapecast_update()
   enabled = false
   for i in range(get_collision_count()):
