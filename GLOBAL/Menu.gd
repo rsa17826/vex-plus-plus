@@ -520,7 +520,7 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     "file":
       await global.wait()
       if not node:
-        log.err(node, name)
+        # log.err(node, name)
         return
       menu_data[name].user=node.get_node("FileDialog").files
       node.get_node("Button").tooltip_text='selected file: ' + menu_data[name].user
