@@ -1668,29 +1668,20 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
     v = Vector2(x, y).rotated(global.player.defaultAngle)
   return global.clearLow(v)
 
-# ?zipline
-# ??add tooltips to blocks in block picker
-
 # add animations for
 #   lights out
 #   levers being active
 
-# add level tags
+# ?add level tags
 
 # fix moving blocks not moving the player correctly
-
-# ????fix spike sizes not being the same
 
 # !!add undo/redo history
 
 # ?allow user to reorder the levels in the editor
-# ??allow user to reorder the block picker from editor ui
 # ?add required events to win level - eg break x glass - separate ones for each level in a map, not mapwide goals
 
-# option to change ghost opacity/ghost hover opacity? .5
-
 # allow walking up small ledges
-# allow grouping editor blocks in the editor bar
 # make blocks not move while resizing past min
 
 # known:
@@ -1744,20 +1735,16 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
     # vex++:downloadMap/191/127/uno%20mas%20%2D%20post%20death%20momentum
   # //!version 186-196! donups only trigger once
   # //!version (whatever i added the locked spikes in)-201! spikes back wall doesn't move with the spikes
+  # //!version 207-220! the player can stand on the back of falling spikes only if they jump off it immediately
 
 # ?add level option to change canPressDownToShortHop and make sh work
-# make slope grabbox sloped
 
 # add star requirement for inner level
 # ?add star finder
 
-# make clicking to release copy not select blocks
-
 # ?stop player from lever when nolonger standing on block
 # make it so that if the player dies instantly after respawning stop player process
 # allow esc while in text box .prompt
-# add more ghost/editorBar costumes for the oneway
-# ?add way to change the block picker from the editor
 # add extra animation frame to oneway
 # add reset to default button to settings
 # ?add texture to reset buttons
@@ -1777,7 +1764,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # ?grab
 
 # !!fix blocks sometimes ending up near 00
-# !!make multi select not trigger on move end
+# !!make multi select not trigger onMoveEnd
 
 # -add presets to menu options
 
@@ -1786,30 +1773,17 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # -fix spike vscaling to not be from center
 # -set black theme tooltips bg color
 # -nodie star
-# -?!!!add block name as tooltip to editor bar
 # -make multiselected block rotatable/scalable
 # -surprise spike
-# -!!update numbers when searching online levels
-# -search multiple terms at once
 # !!fix bouncy inconsistent bounce height
-# !!fix bouncy inconsistent bounce end scale/position
-# -add button to add custom key to unavailables
-# !!add serarch to level list
-
-# player area detector
+# -add button to add custom key to UNAVAILABLEs
 
 # ?make boxes go through portals
-# !!add more ways to toggle lights
-
-# signal list only in edit / play opts
-
-# add way to say creators should be higher than versions
+# !!make more things be able to interact with lightswitches
 
 # see self signal sending?
 
 # fix path not effected by color
-
-# ??add jump count display on player
 
 # !!add modifiers to readme
 
@@ -1819,22 +1793,13 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # fix being unable to wallhang in small spaces
 
-# !!!fix box select not worjing on rotated blocks
-
 # when loading level from file open game versiuon that the level is for
 
-# !!!fix player moving when creating basic block
-
 # disable collision on block creation
-# add zindex to display options for the hovered block list
-
-# add enum md for settings
 
 # fix path edit node button
 
 # add on create func to blocks
-
-# loading in water first time doesn't detect there being water
 
 # add different surican colors
 
@@ -1847,7 +1812,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # add way to tell when creator makes new level
 
-# add way to sort and filter online level list
+# add way to sort online level list
 
 # add way to detect update available for previously downloaded levels
 
@@ -1857,25 +1822,17 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # make animaction correct place on left puley
 
-# make local level list filter search bar work
-
 # area trigger on enter/on exit
 
 # hitbox is disabled when grabbing block and hitting escape makes the block no longer grabbed but doesn't reenable hitboxes until letting go of lmb
 
-# check falling blocxks
 # jump from water to wall!!
 
 # !!clear signal list when enteriugn exiting inner level
 
 # falling spikes stick in floor option
 
-# player nodie key
-# try fix mobing blocks and buzsaws killing player on path
-
-# fix oneway ghost image
-
-# open file buttons in menu
+# try fix moving blocks and buzsaws killing player on path
 
 # locked spike texture scaling
 
@@ -1884,9 +1841,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix selecting text box selecting entire text block edit menu
 
 # replace puley collision with shapecast
-
-# fix oneway ghost image
-
-# add option to have tab toggle menu from the left side instead of entire screen while on the menu
 
 # make changing theme change the color of the colorrects
