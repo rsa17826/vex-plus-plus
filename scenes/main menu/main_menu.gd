@@ -59,6 +59,11 @@ func _ready() -> void:
       await global.loadMap(levelToLoad, true)
   if shouldReload:
     get_tree().reload_current_scene.call_deferred()
+  scrollContainer.set_deferred('scroll_vertical', int(global.file.read("user://scrollContainerscroll_vertical", false, "0")))
+  scrollContainer.gui_input.connect(func(event):
+    # scroll up or down then save scroll position
+    if event.button_mask == 8 || event.button_mask == 16:
+      global.file.write("user://scrollContainerscroll_vertical", str(scrollContainer.scroll_vertical), false))
 
 func loadLevelsFromArray(data: Array, showOldVersions:=false) -> Array:
   var loadedLevelData = {}
