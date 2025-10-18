@@ -1835,3 +1835,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make showSignalConnectionLinesOnHover work again
 
 # make sure that menu gets synced when leaving main menu
+
+# make it so the settings doesn't fullscreen window in genmd task
