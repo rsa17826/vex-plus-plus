@@ -15,20 +15,31 @@ func _init(_parent, save_path: String = "main") -> void:
   full_save_path = "user://" + save_path + \
   (" - EDITOR" if OS.has_feature("editor") else '') \
   +".sds"
-  var temp = sds.loadDataFromFile(full_save_path, {})
-  for k in temp:
-    menu_data[k] = {
-      "name": k,
-      "user": temp[k],
-    }
+  # var temp = sds.loadDataFromFile(full_save_path, {})
+  # for k in temp:
+  #   menu_data[k] = {
+  #     "name": k,
+  #     "user": temp[k],
+  #   }
+  # log.err(menu_data)
 
 func reloadDataFromFile():
   var temp = sds.loadDataFromFile(full_save_path, {})
-  for k in temp:
-    menu_data[k].user = temp[k]
-  reload()
-
-  # #log.pp("loading", _parent.name, save_path)
+  # log.pp(temp)
+  for k in menu_data:
+    # log.err(k, k in temp)
+    menu_data[k].newOption = k not in temp
+    if k in temp:
+      menu_data[k].user = temp[k]
+    else:
+      menu_data[k].user = menu_data[k].default
+  if 'removeUnusedItemsFromMenuSaveFile' not in menu_data or !menu_data.removeUnusedItemsFromMenuSaveFile.user:
+    for k in temp:
+      if k not in menu_data:
+        menu_data[k] = {
+          "name": k,
+          "user": temp[k],
+        }
 
 # add a add that is multiselect/singleselect/range but with images instead of text either from a list of images or a dir full of images
 func _notification(what):
@@ -169,8 +180,6 @@ func get_all_data():
 
 signal onchanged(changedOption: String)
 
-var menuOpts = sds.loadDataFromFile(path + "menuOpts.sds")
-
 func spaces_to_camel_case(space_string: String):
   var words = space_string.split(" ")
   var camel_case_string = words[0].to_lower()
@@ -190,7 +199,7 @@ func camel_case_to_spaces(camel_case_string: String):
   return result
 var mainVBox: VBoxContainer
 var emitChanges := false
-func reload():
+func reloadUi():
   mainVBox.remove_child(parent)
   mainVBox.replace_by(parent)
   mainVBox.queue_free()
@@ -217,11 +226,14 @@ func show_menu():
       "SHOUTY_SNAKE_CASE",
       "camelCase"
     ], 0)
+    add_bool("removeUnusedItemsFromMenuSaveFile", false)
     add_button("reload menu from file", func():
       reloadDataFromFile()
+      reloadUi()
     )
     endGroup()
     firstTime = false
+  reloadDataFromFile()
   mainVBox = VBoxContainer.new()
   mainVBox.size_flags_horizontal = 3
   mainVBox.size_flags_vertical = 3
@@ -259,8 +271,6 @@ func show_menu():
     arr[menu_data[key].menu_index - 1].name = key
     # #log.pp(arr)
   for thing in arr:
-    if "user" not in thing:
-      thing.user = thing.default
     if thing.type == "endGroup":
       currentParent.pop_back()
     else:
@@ -269,11 +279,20 @@ func show_menu():
       node.onchanged.connect((func(node):
         __changed.call(thing.name, node)
         onchanged.emit(thing.name)
-        save()
       ).bind(node)
       )
       node.init(thing, menu_data, formatName, node)
       if thing.type != "startGroup":
+        var newItem := preload(path + "newItem.tscn").instantiate()
+        newItem.visible = thing.newOption
+        newItem.get_node("Button").pressed.connect((func(node, name):
+          __changed.call(thing.name, node)
+        ).bind(node, thing.name))
+        if thing.newOption:
+          for parentNode in currentParent.slice(1):
+            parentNode.get_parent().folded = false
+        thing.newItem = newItem
+        node.add_child(newItem)
         __changed.call(thing.name, node)
       currentParent[len(currentParent) - 1].add_child(node)
       if 'postInit' in node:
@@ -303,6 +322,7 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
   var ec=emitChanges
   match menu_data[name].type:
     "button": pass
+    "startGroup": pass
     "range":
       menu_data[name].user=node.get_node("HSlider").value
       var val=node.get_node("HSlider").value
@@ -347,8 +367,10 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
     _:
       log.err("cant save type: " + menu_data[name].type)
   if ec:
+    if 'newItem' in menu_data[name]:
+      menu_data[name].newItem.visible=false
     onchanged.emit(name)
-    save()
+    save(name)
   )
 
 class __changed_proxy:
@@ -360,8 +382,13 @@ class __changed_proxy:
     arr[-1].call(arr[ - 3], arr[ - 2])
 # end __changed_proxy
 
-func save():
-  sds.saveDataToFile(full_save_path, get_all_data())
+func save(name: String = ''):
+  if name:
+    var data = sds.loadDataFromFile(full_save_path, {})
+    data[name] = menu_data[name].user if 'user' in menu_data[name] else menu_data[name].default
+    sds.saveDataToFile(full_save_path, data)
+  else:
+    sds.saveDataToFile(full_save_path, get_all_data())
 
 func debug(): pass
   #log.pp("menu_data", menu_data)
@@ -389,10 +416,12 @@ func _add_any(key, obj):
   obj.menu_index = menu_index
   if !key in menu_data or !menu_data[key]:
     menu_data[key] = {}
-  var userdata = menu_data[key].user if "user" in menu_data[key] else obj.default
-  menu_data[key] = obj
+  # var userdata = menu_data[key].user if "user" in menu_data[key] else obj.default
+  var user = menu_data[key].user if 'user' in menu_data[key] else obj.default
+  menu_data[key] = obj.merged(menu_data[key], true)
+  menu_data[key].user = user
   menu_data[key].newOption = false
-  if "user" not in menu_data[key]:
+  if !("user" in menu_data[key]):
     menu_data[key].newOption = true
-  menu_data[key].user = userdata
+  # menu_data[key].user = userdata
   # save()

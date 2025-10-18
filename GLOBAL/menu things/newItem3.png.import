@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b4hioalhmxv74"
-path="res://.godot/imported/image.png-c312b2fc6b7e013e070d4037fb58316a.ctex"
+uid="uid://4ctt4k7jwy7l"
+path="res://.godot/imported/newItem3.png-461f5a1edd1979e23366aef68f08ed11.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://maps/yikey spikey/image.png"
-dest_files=["res://.godot/imported/image.png-c312b2fc6b7e013e070d4037fb58316a.ctex"]
+source_file="res://GLOBAL/menu things/newItem3.png"
+dest_files=["res://.godot/imported/newItem3.png-461f5a1edd1979e23366aef68f08ed11.ctex"]
 
 [params]
 

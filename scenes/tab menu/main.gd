@@ -15,6 +15,7 @@ var _visible:
       if val:
         if global.useropts.alwaysShowMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
           __menu.reloadDataFromFile()
+          __menu.reloadUi()
       updateSize()
       get_parent().visible = visible
   get():
@@ -213,11 +214,11 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "showPathBlockInPlay", \
     "showPathLineInPlay", \
     "showPathEditNodesInPlay", \
-    "playerRespawnTime", \
     "defaultCreatorName", \
     "defaultCreatorNameIsLoggedInUsersName", \
     "loadOnlineLevelListOnSceneLoad", \
-    "slowTime", \
+    "removeUnusedItemsFromMenuSaveFile", \
+    "__slowTime", \
     "__allowCheckpointReentryOnDeath", \
     "showSolidHitboxes", \
     "showAttachDetectorHitboxes", \
@@ -237,7 +238,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "saveExpandedGroups", \
     "loadExpandedGroups", \
     "menuOptionNameFormat":
-      __menu.reload()
+      __menu.reloadUi()
     "levelTilingBackgroundPath", \
     "editorBackgroundPath", \
     "editorStickerPath", \
@@ -278,6 +279,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
       if global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()
         global.tabMenu.__menu.reloadDataFromFile.call_deferred()
+        global.tabMenu.__menu.reloadUi.call_deferred()
     "smallLevelDisplaysInOnlineLevelList", \
     "onlyShowLevelsForCurrentVersion":
       # online level list reload
@@ -286,16 +288,22 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "optionMenuToSideOnMainMenuInsteadOfOverlay":
       if global.isAlive(global.mainMenu):
         global.tabMenu.__menu.reloadDataFromFile.call_deferred()
+        global.tabMenu.__menu.reloadUi.call_deferred()
         if global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
           var menu = global.mainMenu.optsmenunode.get_node("../../../")
           _visible = false
           menu._visible = true
           menu.__menu.reloadDataFromFile.call_deferred()
+          menu.__menu.reloadUi.call_deferred()
         else:
           if not global.useropts.alwaysShowMenuOnHomePage:
             global.tabMenu._visible = true
             _visible = false
           global.tabMenu.__menu.reloadDataFromFile.call_deferred()
+          global.tabMenu.__menu.reloadUi.call_deferred()
+    "playerRespawnTime":
+      if global.isAlive(global.player):
+        global.player.DEATH_TIME = max(5, global.useropts.playerRespawnTime)
     _:
       if OS.has_feature("editor"):
         DisplayServer.clipboard_set(thingChanged)

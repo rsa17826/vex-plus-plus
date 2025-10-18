@@ -678,7 +678,7 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "slowTime",
+        "key": "__slowTime",
         "editorOnly": true,
         "defaultValue": false
       },
