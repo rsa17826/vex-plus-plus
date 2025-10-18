@@ -1974,7 +1974,6 @@ func localReady() -> void:
 
 const DEFAULT_BLOCK_LIST = [
   "basic",
-  "text",
   "slope",
   "path",
   "single spike",
@@ -2043,6 +2042,7 @@ const DEFAULT_BLOCK_LIST = [
   "bomb",
   "sticky floor",
   "arrow",
+  "text",
   "conveyor",
   "oneway",
   "undeath",

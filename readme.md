@@ -49,6 +49,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **groupId**: if not 0 when one is triggered all other falling spikes with the same groupId will also start falling
     - **exitId**: the id this portal uses to find its exit portal
     - **portalId**: the id of this portal as used for finding an exit portal
+    - **text**: text to show
     - **action**: the action to detect
     - **state**: the state to detect
     - **signalAInputId**: a signal to detect
@@ -1012,6 +1013,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - ### settings:
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
+  - **text**: text to show
+    <br><br><img src="scenes/blocks/text/images/1.png" alt="image of block text" width="50" height="50">
+
+    - ### settings:
+      - **text**: text to show
       - **color**: sets the modulate property
 
   - **conveyor**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
