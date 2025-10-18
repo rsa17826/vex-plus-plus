@@ -29,6 +29,8 @@ func reloadDataFromFile():
   for k in menu_data:
     # log.err(k, k in temp)
     menu_data[k].newOption = k not in temp
+    if 'newItem' in menu_data[k]:
+      menu_data[k].newItem.visible = menu_data[k].newOption
     if k in temp:
       menu_data[k].user = temp[k]
     else:
@@ -230,6 +232,10 @@ func show_menu():
     add_button("reload menu from file", func():
       reloadDataFromFile()
       reloadUi()
+    )
+    add_button("mark all as viewed", func():
+      save()
+      reloadDataFromFile()
     )
     endGroup()
     firstTime = false
