@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://ldlb1kot6kk2"]
+
+[ext_resource type="Script" uid="uid://c6tx3iu0e5x74" path="res://scenes/blocks/text/text.gd" id="1_q4t4j"]
+[ext_resource type="Texture2D" uid="uid://bk34jg5pa1mg4" path="res://scenes/blocks/text/images/1.png" id="2_qji1u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qji1u"]
+font_size = 150
+font_color = Color(0, 0.21335143, 0.21147278, 1)
+outline_size = 9
+outline_color = Color(0, 0.18067613, 0.3962795, 1)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("label", "sprite", "ghostIconNode", "thingThatMoves")]
+script = ExtResource("1_q4t4j")
+label = NodePath("Node2D/Label")
+sprite = NodePath("Node2D/editorBar")
+ghostIconNode = NodePath("Node2D/editorBar")
+editorBarIcon = ExtResource("2_qji1u")
+editorBarIconUsesLevelColor = true
+thingThatMoves = NodePath("Node2D")
+ignoreMissingNodes = true
+oddScaleOffsetForce = Dictionary[String, int]({
+"x": 1,
+"y": 1
+})
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="editorBar" type="Sprite2D" parent="Node2D"]
+use_parent_material = true
+scale = Vector2(0.21428572, 0.21428573)
+texture = ExtResource("2_qji1u")
+
+[node name="Label" type="Label" parent="Node2D"]
+offset_left = -2322.02
+offset_top = -1438.0
+offset_right = 2323.98
+offset_bottom = 1423.0
+text = "12"
+label_settings = SubResource("LabelSettings_qji1u")
+horizontal_alignment = 1
+vertical_alignment = 1

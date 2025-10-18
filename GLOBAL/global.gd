@@ -1974,6 +1974,7 @@ func localReady() -> void:
 
 const DEFAULT_BLOCK_LIST = [
   "basic",
+  "text",
   "slope",
   "path",
   "single spike",
