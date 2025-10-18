@@ -409,6 +409,7 @@ func _physics_process(delta: float) -> void:
           position = respawnPosition
         else:
           position = Vector2(0, -1.9)
+        await global.wait()
         stopDying()
         global.resendActiveSignals()
       return
@@ -1461,6 +1462,7 @@ func stopDying():
   if state == States.dead:
     tempLastSpawnPoint = Vector2.ZERO
     state = States.falling
+    # await global.wait()
     root.__enable.call_deferred()
     global.stopTicking = false
     for thing: RayCast2D in [
@@ -1721,6 +1723,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version (whatever i added the locked spikes in)-201! spikes back wall doesn't move with the spikes
   # \!version 207-220! the player can stand on the back of falling spikes only if they jump off it immediately
   # //!version ?-223! if bounceing up but falling down velocity is moved from bounce to user so falling down onto a pole gives extra jump height from the bounce even when it looks like it shouldn't
+  # //!version ?-224! if the player is respawning and one frame before respawning ends is in water will be concitered to still be in that water after respawning
 
 # ?add level option to change canPressDownToShortHop and make sh work
 

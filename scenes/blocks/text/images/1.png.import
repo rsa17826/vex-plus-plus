@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cx2bcj2v17gjr"
-path="res://.godot/imported/image.png-ab47b0efb2a27b91fe719703a50bfe87.ctex"
+uid="uid://bk34jg5pa1mg4"
+path="res://.godot/imported/1.png-068f4ea1d16924b4a5fddb6acdcc6f21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://maps/water bug v2 electric boogaloo/image.png"
-dest_files=["res://.godot/imported/image.png-ab47b0efb2a27b91fe719703a50bfe87.ctex"]
+source_file="res://scenes/blocks/text/images/1.png"
+dest_files=["res://.godot/imported/1.png-068f4ea1d16924b4a5fddb6acdcc6f21.ctex"]
 
 [params]
 

@@ -450,6 +450,7 @@ func _physics_process(delta: float) -> void:
   if respawning:
     respawning -= 1
     if not respawning:
+      __enable()
       updateConnectedBlocks(false)
       queue_redraw()
 
