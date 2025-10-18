@@ -32,7 +32,9 @@ func on_node_removed(node: Node):
     # log.err(node, node.id, len(allBlocks))
     allBlocks.erase(node)
     for block in allBlocks:
-      block.updateConnectedBlocks(false)
+      if node in block.connectedBlocks:
+        block.connectedBlocks.erase(node)
+        block.updateConnectedBlocks(false)
 func on_node_added(node: Node) -> void:
   if node is EditorBlock:
     await node.ready
