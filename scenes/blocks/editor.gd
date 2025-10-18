@@ -499,6 +499,7 @@ func updateConnectedBlocks(full: bool) -> void:
       func(e):
         var found=0
         for thing in checksForOtherBlocks:
+          if !global.isAlive(e): return [e, found]
           if thing in e.selectedOptions \
           and e.selectedOptions[thing] in checksForThisBlock.map(func(e): return selectedOptions[e]):
             if found < 1:
@@ -527,6 +528,7 @@ func updateConnectedBlocks(full: bool) -> void:
       func(e):
         var found=0
         for thing in checksForOtherBlocks:
+          if !global.isAlive(e): return [e, found]
           if thing in e.selectedOptions \
           and e.selectedOptions[thing] in checksForThisBlock.map(func(e): return selectedOptions[e]):
             if found < 1:

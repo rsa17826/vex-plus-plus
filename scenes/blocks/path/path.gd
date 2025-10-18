@@ -185,7 +185,7 @@ func updateVisible() -> void:
   queue_redraw()
 
 func _draw() -> void:
-  super()
+  super ()
   var lastPoint = global_position
   if global.useropts.showPathLineInPlay or global.showEditorUi:
     for idx in range(len(path)):
@@ -245,7 +245,8 @@ func on_respawn():
     # start at the paths location
     path = [Vector2.ZERO]
     for node in pathEditNodes:
-      node.queue_free()
+      if global.isAlive(node):
+        node.queue_free()
     pathEditNodes = []
     while len(p) >= 2:
       var newPoint = Vector2(float(p.pop_front()), float(\

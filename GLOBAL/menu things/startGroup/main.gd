@@ -3,16 +3,18 @@ extends NestedSearchable
 signal onchanged()
 var vbox = VBoxContainer.new()
 func init(thing, menu_data, formatName, _self):
-  _self.folded = !menu_data.dontCollapseGroups.user
-  # if menu_data.onlyExpandSingleGroup.user and not menu_data.dontCollapseGroups.user:
+  var dcg = menu_data.dontCollapseGroups.user if 'user' in menu_data.dontCollapseGroups else menu_data.dontCollapseGroups.default
+  _self.folded = !dcg
+  # if menu_data.onlyExpandSingleGroup.user and not dcg:
   #   if !GROUP:
   #     GROUP = FoldableGroup.new()
   #   _self.foldable_group = GROUP
   # var name = "/".join(currentParent.slice(1).map(func(e): return e.get_parent().title) + [thing.name.substr(len("startGroup - "))])
-  if menu_data.loadExpandedGroups.user and not menu_data.dontCollapseGroups.user:
+  var leg = menu_data.loadExpandedGroups.user if 'user' in menu_data.loadExpandedGroups else menu_data.loadExpandedGroups.default
+  if leg and not dcg:
     _self.folded = !thing.user
   _self.folding_changed.connect(func(folded):
-    if folded and menu_data.dontCollapseGroups.user:
+    if folded and dcg:
       _self.folded=false
     if menu_data.saveExpandedGroups.user \
     if 'user' in menu_data.saveExpandedGroups \

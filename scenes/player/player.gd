@@ -350,7 +350,7 @@ func _physics_process(delta: float) -> void:
   if !Input.is_action_pressed(&"jump"):
     ACTIONjump = false
   var onStickyFloor = stickyFloorDetector.get_overlapping_areas()
-  Engine.time_scale = .3 if global.useropts.slowTime else 1.0
+  Engine.time_scale = .3 if global.useropts.__slowTime else 1.0
   if global.openMsgBoxCount: return
   if get_viewport().gui_get_focus_owner(): return
   if Input.is_action_pressed(&"editor_select"):
