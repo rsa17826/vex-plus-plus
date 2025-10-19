@@ -396,7 +396,7 @@ for (var arr of allLevels) {
       r: 0,
     }
   )
-  log(playerPos, endPos, arr)
+  // log(playerPos, endPos, arr)
   while (arr.length) {
     function xywh([x, y, w, h]) {
       return { x: x + w / 2, y: y + h / 2, w, h }
@@ -460,7 +460,7 @@ for (var arr of allLevels) {
         case 28:
           return ["gravity up lever", 2, xy]
         case 12:
-          return ["/penjulum", 2, xy]
+          return ["penjulum", 2, xy]
         case 36:
           return ["key", 2, xy]
         case 38:
@@ -532,6 +532,7 @@ for (var arr of allLevels) {
         case 22:
           return ["quadrant", 4, xysr]
         default:
+          log("unknown item type", "error")
           return [
             "?",
             Infinity,
@@ -559,10 +560,42 @@ for (var arr of allLevels) {
     blocks[blocks.length - 1].x *= 1
     blocks[blocks.length - 1].y *= 1
   }
+  class v2 {
+    constructor(x, y) {
+      this.x = x
+      this.y = y
+    }
+
+    // Rotate the vector by angle in degrees
+    rotated(angle) {
+      // return this
+      const radians = (angle * Math.PI) / 180
+      const cos = Math.cos(radians)
+      const sin = Math.sin(radians)
+      return new v2(
+        this.x * cos - this.y * sin,
+        this.x * sin + this.y * cos
+      )
+    }
+  }
+
+  // Function to adjust coordinates
+  function add(b, axis, value) {
+    if (b.r == undefined) {
+      b.r = 0
+    }
+    const adjustment = (
+      axis == "x" ? new v2(value, 0) : new v2(0, value)
+    ).rotated(b.r)
+    b.x += adjustment.x
+    b.y += adjustment.y
+  }
+
   for (var b of blocks) {
     if (b.w === undefined) {
-      // b.x -= 50
-      b.y -= 13
+      // add(b,'x',-( 50))
+      add(b, "y", -13)
+      // add(b,'y'-( 13))
     }
     switch (b.id) {
       case "microwave":
@@ -570,23 +603,23 @@ for (var arr of allLevels) {
         break
       case "surprise spike":
       case "single spike":
-        b.x += 5
-        b.y += 16
+        add(b, "x", 5)
+        add(b, "y", 16)
         break
       case "shuriken spawner":
-        b.y += 16
+        add(b, "y", 16)
         b.w *= 1.75
-        b.x += 7
+        add(b, "x", 7)
         break
       case "10x spike":
       case "closing spikes":
-        b.y += 16
+        add(b, "y", 16)
         break
       case "buzzsaw":
       case "bouncing buzzsaw":
       case "growing buzzsaw":
-        b.x -= b.w * 7 * 7
-        b.y -= b.h * 7 * 7
+        add(b, "x", -(b.w * 7 * 7))
+        add(b, "y", -b.h * 7 * 7)
         b.w *= 0.8
         b.h *= 0.8
         break
@@ -606,24 +639,29 @@ for (var arr of allLevels) {
         b.h *= 1.75
         break
       case "cannon":
-        b.y += 15
+        add(b, "y", 15)
         break
       case "gravity down lever":
       case "gravity up lever":
       case "speed up lever":
-        b.y += 12
-        b.x += 6
+        add(b, "y", 12)
+        add(b, "x", 6)
         break
-      default:
-        log(b.id)
+      // default:
+      //   log(b.id)
     }
   }
   const hash = crypto
     .createHash("sha1")
     .update(levelName)
     .digest("hex")
-
-  log(blocks)
+  var blockStringData = sds.saveData(blocks)
+  if (blockStringData.includes("undefined")) {
+    log(hash, "has undefined - aborting!!!")
+    // log(blockStringData)
+    continue
+  }
+  // log(blocks)
   if (!fs.existsSync("D:/godotgames/vex/maps/" + hash)) {
     fs.mkdirSync("D:/godotgames/vex/maps/" + hash)
   }
@@ -653,6 +691,6 @@ for (var arr of allLevels) {
   )
   fs.writeFileSync(
     "D:/godotgames/vex/maps/" + hash + "/" + hash + ".sds",
-    sds.saveData(blocks)
+    blockStringData
   )
 }

@@ -12,6 +12,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -24,6 +25,7 @@
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -35,6 +37,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -46,6 +49,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -57,6 +61,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -68,6 +73,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -79,6 +85,7 @@
     STR(id)STR(gravity rotator)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -90,6 +97,7 @@
     STR(id)STR(gravity rotator)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -102,6 +110,7 @@
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -113,6 +122,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -125,6 +135,7 @@
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
 ]

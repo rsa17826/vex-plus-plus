@@ -12,6 +12,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -23,6 +24,7 @@
     STR(id)STR(glass)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -34,6 +36,7 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -45,6 +48,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -57,6 +61,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -70,6 +76,8 @@
       STR(multiUse)BOOL(false)
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -82,6 +90,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -93,6 +103,7 @@
     STR(id)STR(slope)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -104,6 +115,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -117,6 +129,8 @@
       STR(maxCooldown)FLOAT(1.0)
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -128,6 +142,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -162,6 +177,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -173,6 +190,7 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -184,6 +202,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -195,6 +214,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -208,28 +228,34 @@
       STR(multiUse)BOOL(false)
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(425.0)
     STR(y)FLOAT(-550.0)
-    STR(w)FLOAT(0.50000007450581)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(0.50000005960464)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(conveyer)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(200.0)
     STR(y)FLOAT(-650.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(179.999877929688)
     STR(id)STR(conveyer)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -253,6 +279,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -266,6 +294,8 @@
       STR(multiUse)BOOL(false)
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -278,6 +308,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -289,18 +321,21 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(-350.0)
     STR(y)FLOAT(-850.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(90.0)
     STR(id)STR(shurikan Spawner)
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -312,6 +347,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -325,6 +361,8 @@
       STR(multiUse)BOOL(false)
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -337,6 +375,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -348,6 +388,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -359,6 +400,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -371,6 +413,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -382,6 +426,7 @@
     STR(id)STR(gravity rotator)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -393,18 +438,21 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(-625.0)
     STR(y)FLOAT(-625.0)
-    STR(w)FLOAT(0.50842681527138)
-    STR(h)FLOAT(0.50881692767143)
+    STR(w)FLOAT(0.5084268450737)
+    STR(h)FLOAT(0.50881689786911)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -428,6 +476,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -441,6 +491,8 @@
       STR(multiUse)BOOL(true)
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -453,6 +505,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -465,6 +519,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -477,6 +533,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -489,6 +547,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -501,6 +561,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -524,6 +586,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -536,6 +600,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -547,6 +613,7 @@
     STR(id)STR(solar)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(false)
     }
   }
   {
@@ -558,6 +625,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -571,6 +639,8 @@
       STR(requiredLevelCount)INT(0)
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -582,6 +652,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -594,6 +665,8 @@
     STRNAME(options){
       STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
 ]

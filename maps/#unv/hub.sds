@@ -35,6 +35,8 @@
       STR(color)STR(#fff)
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -143,6 +145,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -156,6 +160,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(starType)INT(0)
     }
   }
   {
@@ -237,6 +242,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -257,6 +264,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -277,6 +286,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -297,6 +308,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -453,13 +466,14 @@
   {
     STR(x)FLOAT(100.0)
     STR(y)FLOAT(-450.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(conveyer)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {

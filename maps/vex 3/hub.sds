@@ -694,6 +694,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(groupId)INT(0)
     }
   }
   {
@@ -707,6 +708,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(groupId)INT(0)
     }
   }
   {
@@ -720,6 +722,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(groupId)INT(0)
     }
   }
   {
@@ -733,6 +736,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(groupId)INT(0)
     }
   }
   {

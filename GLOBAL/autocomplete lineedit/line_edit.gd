@@ -91,6 +91,7 @@ func _on_gui_input(event: InputEvent) -> void:
           and Input.is_action_just_pressed(&"ui_left", true)
         )
       ) and w:
+        if not len(w): return
         idx -= 1
         idx = idx % len(w)
         while idx < 0:
@@ -99,6 +100,7 @@ func _on_gui_input(event: InputEvent) -> void:
         global.useropts.autocompleteSearchBarHookLeftAndRight
         and Input.is_action_just_pressed(&"ui_right", true)
       ) and w:
+        if not len(w): return
         idx += 1
         idx = idx % len(w)
         while idx < 0:

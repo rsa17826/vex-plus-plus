@@ -96,6 +96,8 @@ func _input(event: InputEvent) -> void:
   # if focus is LineEdit or focus is TextEdit: return
   if event is InputEventKey:
     if Input.is_action_just_pressed(&"toggle_tab_menu", true):
+      if global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay and isOptionsMenuOnMainMenu:
+        global.file.write("user://mainMenuOptionsMenuVisible", str(visible), false)
       if global.isAlive(global.mainMenu) and global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
         if !isOptionsMenuOnMainMenu: return
       else:
@@ -140,7 +142,10 @@ func _ready() -> void:
   __menu.show_menu()
   updateUserOpts()
   if isOptionsMenuOnMainMenu:
-    _visible = global.useropts.alwaysShowMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay
+    if global.useropts.alwaysShowMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+      _visible = global.file.read("user://mainMenuOptionsMenuVisible", false, "false")=="true"
+    else:
+      _visible=false
   else:
     global.overlays.append(self)
     _visible = false
@@ -275,6 +280,9 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "loadExpandedGroups", \
     "menuOptionNameFormat":
       __menu.reloadUi()
+    "cameraZoomInPlay",\
+    "cameraZoomInEditor":
+      global.onEditorStateChanged.emit()
     "levelTilingBackgroundPath", \
     "editorBackgroundPath", \
     "editorStickerPath", \
