@@ -42,13 +42,14 @@
   {
     STR(x)FLOAT(165.0)
     STR(y)FLOAT(-220.0)
-    STR(w)FLOAT(0.41011204943061)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(0.4101120531559)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STRNAME(color)STR(#fff)
       STR(canAttachToPaths)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -80,8 +81,8 @@
   {
     STR(x)FLOAT(230.0)
     STR(y)FLOAT(-180.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
     STRNAME(options){
@@ -199,8 +200,8 @@
   {
     STR(x)FLOAT(-225.0)
     STR(y)FLOAT(5.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
     STRNAME(options){
@@ -292,8 +293,8 @@
   {
     STR(x)FLOAT(-40.0)
     STR(y)FLOAT(-695.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(Pulley)
     STRNAME(options){
@@ -319,8 +320,8 @@
   {
     STR(x)FLOAT(100.0)
     STR(y)FLOAT(-700.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -400,8 +401,8 @@
   {
     STR(x)FLOAT(490.0)
     STR(y)FLOAT(-705.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -621,13 +622,14 @@
   {
     STR(x)FLOAT(1230.0)
     STR(y)FLOAT(-760.0)
-    STR(w)FLOAT(3.99859702587128)
-    STR(h)FLOAT(1.04911842942238)
+    STR(w)FLOAT(3.99859714508057)
+    STR(h)FLOAT(1.04911839962006)
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STRNAME(color)STR(#fff)
       STR(canAttachToPaths)BOOL(true)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -763,8 +765,8 @@
   {
     STR(x)FLOAT(2015.0)
     STR(y)FLOAT(-560.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
     STRNAME(options){

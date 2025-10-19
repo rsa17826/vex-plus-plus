@@ -551,8 +551,8 @@
   {
     STR(x)FLOAT(1250.0)
     STR(y)FLOAT(100.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -564,8 +564,8 @@
   {
     STR(x)FLOAT(1250.0)
     STR(y)FLOAT(0.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -577,8 +577,8 @@
   {
     STR(x)FLOAT(1250.0)
     STR(y)FLOAT(-100.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -590,8 +590,8 @@
   {
     STR(x)FLOAT(1050.0)
     STR(y)FLOAT(200.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -617,7 +617,7 @@
     STR(x)FLOAT(975.0)
     STR(y)FLOAT(125.0)
     STR(w)FLOAT(0.50089806318283)
-    STR(h)FLOAT(0.5005004927516)
+    STR(h)FLOAT(0.50050050020218)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -796,8 +796,8 @@
   {
     STR(x)FLOAT(-200.0)
     STR(y)FLOAT(0.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(shurikan spawner)
     STRNAME(options){

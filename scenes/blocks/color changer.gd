@@ -5,4 +5,4 @@ func _ready() -> void:
   # if not ("1.png" in texture.resource_path):
   #   log.err(texture.resource_path, "1.png missing")
   #   breakpoint
-  texture = load(texture.resource_path.replace("1.png", str(global.currentLevelSettings("color")) + '.png'))
+  texture = load(texture.resource_path.replace("/1.png", "/"+str(global.currentLevelSettings("color")) + ".png"))

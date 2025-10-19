@@ -5,8 +5,8 @@
       STR(exitPosition)VEC2(0.0,0.0)
       STR(up_direction)VEC2(0.0,-1.0)
       STR(autoRunDirection)INT(1)
-      STR(tick)FLOAT(0.0)
-      STR(heat)FLOAT(0.0)
+      STR(tick)INT(0)
+      STR(heat)INT(0)
       STR(gravState)INT(2)
       STR(speedLeverActive)BOOL(false)
       STR(blockSaveData){
@@ -18,12 +18,12 @@
             STR(texture)STR(1)
           }
           {
-            STR(texture)STR(2)
+            STR(texture)STR(1)
           }
         ]
       }
-      STRNAME(lastSpawnPoint)VEC2(1.47257137298584,-5.08028602600098)
     }
   ]
   STR(beatLevels)[]
+  STRNAME(beatMainLevel)BOOL(false)
 }

@@ -57,6 +57,8 @@
       STR(forwardSpeed)INT(150000)
       STR(backwardSpeed)INT(150)
       STR(color)COLOR(1.0,1.0,1.0,0.0)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -189,6 +191,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)COLOR(1.0,1.0,1.0,0.0)
+      STR(groupId)INT(0)
     }
   }
   {

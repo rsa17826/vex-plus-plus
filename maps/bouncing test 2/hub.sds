@@ -98,6 +98,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(groupId)INT(0)
     }
   }
   {
@@ -1355,6 +1356,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(groupId)INT(0)
     }
   }
   {
@@ -1508,6 +1510,9 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(maxCount)INT(0)
+      STR(killAfterDistance)FLOAT(0.0)
+      STR(killAfterTime)FLOAT(0.0)
     }
   }
   {
@@ -1639,6 +1644,9 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(maxCount)INT(0)
+      STR(killAfterDistance)FLOAT(0.0)
+      STR(killAfterTime)FLOAT(0.0)
     }
   }
   {
@@ -1852,13 +1860,14 @@
   {
     STR(x)FLOAT(900.0)
     STR(y)FLOAT(1750.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(conveyer)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
@@ -2063,8 +2072,8 @@
   {
     STR(x)FLOAT(850.0)
     STR(y)FLOAT(1900.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -2088,8 +2097,8 @@
   {
     STR(x)FLOAT(900.0)
     STR(y)FLOAT(1900.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(growing buzsaw)
     STRNAME(options){
@@ -2101,20 +2110,21 @@
   {
     STR(x)FLOAT(850.0)
     STR(y)FLOAT(1900.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(850.0)
     STR(y)FLOAT(1900.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){
@@ -2238,6 +2248,9 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(maxCount)INT(0)
+      STR(killAfterDistance)FLOAT(0.0)
+      STR(killAfterTime)FLOAT(0.0)
     }
   }
   {
@@ -2262,6 +2275,7 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(groupId)INT(0)
     }
   }
   {
@@ -2746,6 +2760,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {

@@ -320,6 +320,25 @@
       },
       {
         "thing": "option",
+        "type": "spinbox",
+        "key": "cameraZoomInEditor",
+        "defaultValue": 1,
+        "min": 0.1,
+        "max": 10,
+        "step": 0.05
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "cameraZoomInPlay",
+        "defaultValue": 1,
+        "min": 0.1,
+        "max": 10,
+        "step": 0.05,
+        "editorOnly": true
+      },
+      {
+        "thing": "option",
         "type": "bool",
         "key": "cameraUsesDefaultRotationInEditor",
         "defaultValue": false

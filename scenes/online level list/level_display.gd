@@ -18,11 +18,8 @@ var level: LevelServer.Level
 func matches(new_text: String):
   if not new_text: return true
   var textArr = new_text.trim_prefix("/").split("/")
-  for i in range(0, floor(len(textArr) / 2.0) * 2, 2):
-    var key = textArr[i]
-    if not textArr[i + 1]: continue
-    var type = textArr[i + 1][0]
-    var val = textArr[i + 1].trim_prefix(type)
+  var matches = (func(type, key, val):
+    if key not in level: return false
     match type:
       '=':
         if !(str(level[key]) == val): return false
@@ -34,6 +31,20 @@ func matches(new_text: String):
         if !(float(level[key]) < float(val)): return false
       _:
         if !(((type + val).to_lower()) in str(level[key]).to_lower()): return false
+    return true)
+  for i in range(0, floor(len(textArr) / 2.0) * 2, 2):
+    var key = textArr[i]
+    if not textArr[i + 1]: continue
+    var type = textArr[i + 1][0]
+    var val = textArr[i + 1].trim_prefix(type)
+    if type=="!":
+      if len(val):
+        type=val[0]
+        val=val.trim_prefix(type)
+        if matches.call(type, key, val): return false
+      else: return false
+    else:
+      if not matches.call(type, key, val): return false
   return true
 
 func filter(new_text):
@@ -67,6 +78,7 @@ func _ready() -> void:
   updateOnlineState()
   if search:
     search.text_changed.connect(onSearchTextChange)
+    filter(search.text)
 
 func onSearchTextChange(new_text: String, textArr: Array) -> void:
   filter(new_text)

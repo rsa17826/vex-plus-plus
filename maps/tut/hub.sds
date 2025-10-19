@@ -487,6 +487,8 @@
       STR(color)COLOR(1.0,1.0,1.0,0.1451)
       STR(startWhenSignalRecived)BOOL(false)
       STR(startWhileSignalRecived)BOOL(false)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -727,6 +729,8 @@
       STR(color)STR(#fff)
       STR(startWhenSignalRecived)BOOL(false)
       STR(startWhileSignalRecived)BOOL(false)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -1076,8 +1080,8 @@
   {
     STR(x)FLOAT(650.0)
     STR(y)FLOAT(-2667.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(buzsaw)
     STRNAME(options){

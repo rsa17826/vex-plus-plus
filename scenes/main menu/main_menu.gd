@@ -59,6 +59,7 @@ func _ready() -> void:
   if shouldReload:
     get_tree().reload_current_scene.call_deferred()
   scrollContainer.set_deferred('scroll_vertical', int(global.file.read("user://scrollContainerscroll_vertical", false, "0")))
+  searchBar.set_deferred("text", global.file.read("user://localLevelListSearchBarFilterText", false, ""))
   scrollContainer.gui_input.connect(func(event):
     # scroll up or down then save scroll position
     if event.button_mask == 8 || event.button_mask == 16:
@@ -110,36 +111,36 @@ func loadLocalLevelList():
           var totalLevelCount:float = 0
           var collectedStarCount:float = 0
           var totalApproxStarCount:float = 0
-          var beatLevelNames = saveData.beatLevels.map(func(e):return e.name if 'name' in e else "NO NAME SET!!/")
-          var loadedLevelNames = saveData.loadedLevels.map(func(e):return e.name if 'name' in e else "NO NAME SET!!/")
-          for levelName in data.stages:
-            if levelName in loadedLevelNames:
-              var temp = saveData.loadedLevels[saveData.loadedLevels.find_custom(func(e):return e.name == levelName)]
-              if 'blockSaveData' in temp:
-                if "star" in temp.blockSaveData:
-                  for star in temp.blockSaveData.star:
-                    totalApproxStarCount+=1
-            elif levelName in beatLevelNames:
-              var temp = saveData.beatLevels[saveData.beatLevels.find_custom(func(e):return e.name == levelName)]
-              if 'blockSaveData' in temp:
-                if "star" in temp.blockSaveData:
-                  for star in temp.blockSaveData.star:
-                    if star.collected:
-                      collectedStarCount+=1
-                    totalApproxStarCount+=1
-
+          if 'beatLevels' in saveData and 'loadedLevels' in saveData:
+            var beatLevelNames = saveData.beatLevels.map(func(e):return e.name if 'name' in e else "NO NAME SET!!/")
+            var loadedLevelNames = saveData.loadedLevels.map(func(e):return e.name if 'name' in e else "NO NAME SET!!/")
+            for levelName in data.stages:
+              if levelName in loadedLevelNames:
+                var temp = saveData.loadedLevels[saveData.loadedLevels.find_custom(func(e):return e.name == levelName)]
+                if 'blockSaveData' in temp:
+                  if "star" in temp.blockSaveData:
+                    for star in temp.blockSaveData.star:
+                      totalApproxStarCount+=1
+              elif levelName in beatLevelNames:
+                var temp = saveData.beatLevels[saveData.beatLevels.find_custom(func(e):return e.name == levelName)]
+                if 'blockSaveData' in temp:
+                  if "star" in temp.blockSaveData:
+                    for star in temp.blockSaveData.star:
+                      if star.collected:
+                        collectedStarCount+=1
+                      totalApproxStarCount+=1
+                beatLevelCount+=1
+              totalLevelCount+=1
+            if "beatMainLevel" in saveData and saveData.beatMainLevel:
               beatLevelCount+=1
-            totalLevelCount+=1
-          if "beatMainLevel" in saveData and saveData.beatMainLevel:
-            beatLevelCount+=1
-          if beatLevelCount+1>=totalLevelCount:
-            starText=str(int(collectedStarCount))+"/"+str(int(totalApproxStarCount))
-          else:
-            starText=str(int(collectedStarCount))+"/?"+str(int(totalApproxStarCount))+"?"
-          starText += " "+str(int(floor(collectedStarCount/totalApproxStarCount*100) if totalApproxStarCount else 100))+"%"
-          levelText = str(int(floor(beatLevelCount/totalLevelCount*100) if totalLevelCount else 0))+"%"
-          log.pp(mapName, levelText, starText)
-          data.completionInfo="LEVELS: "+levelText+" STARS: "+starText+" = "+str(int(floor((beatLevelCount/totalLevelCount*100)*(collectedStarCount/totalApproxStarCount if totalApproxStarCount else 1)) if totalLevelCount else 0))+"%"
+            if beatLevelCount+1>=totalLevelCount:
+              starText=str(int(collectedStarCount))+"/"+str(int(totalApproxStarCount))
+            else:
+              starText=str(int(collectedStarCount))+"/?"+str(int(totalApproxStarCount))+"?"
+            starText += " "+str(int(floor(collectedStarCount/totalApproxStarCount*100) if totalApproxStarCount else 100))+"%"
+            levelText = str(int(floor(beatLevelCount/totalLevelCount*100) if totalLevelCount else 0))+"%"
+            # log.pp(mapName, levelText, starText)
+            data.completionInfo="LEVELS: "+levelText+" STARS: "+starText+" = "+str(int(floor((beatLevelCount/totalLevelCount*100)*(collectedStarCount/totalApproxStarCount if totalApproxStarCount else 1)) if totalLevelCount else 0))+"%"
     data.levelName = mapName
     var imagePath = global.path.join(global.MAP_FOLDER, mapName, "image.png")
     if FileAccess.file_exists(imagePath):
@@ -217,19 +218,20 @@ func showMoreOptions(level: LevelServer.Level):
         global.PromptTypes.string,
         levelName
       )).replace("/", '').replace("\\", '')
-      DirAccess.rename_absolute(
-        global.path.join(global.MAP_FOLDER, levelName),
-        global.path.join(global.MAP_FOLDER,
-          newName
+      if newName!=levelName:
+        DirAccess.rename_absolute(
+          global.path.join(global.MAP_FOLDER, levelName),
+          global.path.join(global.MAP_FOLDER,
+            newName
+          )
         )
-      )
-      var saveData: Dictionary = sds.loadDataFromFile(global.getLevelSavePath(levelName), {})
-      if levelName in saveData:
-        saveData[newName] = saveData[levelName]
-        saveData.erase(levelName)
-        sds.saveDataToFile(global.getLevelSavePath(newName), saveData)
-        OS.move_to_trash(global.getLevelSavePath(levelName))
-      loadLocalLevelList()
+        var saveData: Dictionary = sds.loadDataFromFile(global.getLevelSavePath(levelName), {})
+        if levelName in saveData:
+          saveData[newName] = saveData[levelName]
+          saveData.erase(levelName)
+          sds.saveDataToFile(global.getLevelSavePath(newName), saveData)
+          OS.move_to_trash(global.getLevelSavePath(levelName))
+        loadLocalLevelList()
     4:
       OS.shell_open(global.path.join(global.MAP_FOLDER, levelName))
     5:
@@ -416,3 +418,6 @@ func _on_login_close_button_pressed() -> void:
 
 func _on_quit_pressed() -> void:
   global.quitGame()
+
+func _on_search_text_changed(new_text: String, textArr: Array) -> void:
+  global.file.write("user://localLevelListSearchBarFilterText", new_text, false)

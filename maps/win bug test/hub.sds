@@ -211,6 +211,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -346,6 +348,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -484,6 +488,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -505,6 +511,8 @@
       STR(forwardSpeed)INT(150)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
+      STR(startWhenSignalReceived)BOOL(false)
+      STR(startWhileSignalReceived)BOOL(false)
     }
   }
 ]

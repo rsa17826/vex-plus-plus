@@ -114,6 +114,7 @@ layout_mode = 2
 focusAsSearchBar = true
 clearOnFocusLoss = false
 autoComplete = {
+"completionInfo": 1,
 "creatorName": 1,
 "gameVersion": 1,
 "levelName": 1,
@@ -241,6 +242,7 @@ offset_bottom = 648.33
 [node name="login" parent="Panel/Button/CenterContainer" instance=ExtResource("6_ajd3f")]
 layout_mode = 2
 
+[connection signal="text_changed" from="VBoxContainer/HBoxContainer/VBoxContainer2/search" to="." method="_on_search_text_changed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/new map btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/open level folder" to="." method="_on_open_level_folder_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/load online levels" to="." method="_on_load_online_levels_pressed"]

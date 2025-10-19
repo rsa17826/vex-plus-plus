@@ -1,22 +1,19 @@
-﻿{
+{
   STR(basic blocks)[
     STR(basic)
     STR(slope)
     STR(crumbling)
+    STR(oneway)
     STR(microwave)
-    STR(invisible)
     STR(glass)
-    STR(bouncy)
-    STR(falling)
-    STR(donup)
     STR(spark block/counterClockwise)
     STR(spark block/clockwise)
     STR(conveyer)
     STR(water)
-    STR(oneway)
     STR(gravity rotator)
     STR(bomb)
     STR(pushable box)
+    STR(undeath)
   ]
   STR(spikes)[
     STR(closing spikes)
@@ -32,31 +29,36 @@
     STR(downup)
     STR(leftRight)
     STR(rightLeft)
+    STR(invisible)
     STR(growing block)
+    STR(falling)
+    STR(donup)
+    STR(bouncy)
   ]
   STR(solars)[
     STR(light switch)
-    STR(red only light switch)
     STR(blue only light switch)
+    STR(red only light switch)
     STR(solar)
     STR(inverse solar)
     STR(key)
     STR(locked box)
   ]
   STR(death)[
+    STR(buzsaw)
     STR(buzzsaw)
     STR(bouncing buzzsaw)
     STR(growing buzzsaw)
     STR(quadrant)
-    STR(rotating buzzsaw)
     STR(scythe)
+    STR(rotating buzzsaw)
+    STR(targeting laser)
+    STR(laser)
+    STR(falling spike)
+    STR(quad falling spikes)
     STR(shuriken spawner)
     STR(shuriken gun)
     STR(bouncing shuriken)
-    STR(falling spike)
-    STR(quad falling spikes)
-    STR(laser)
-    STR(targeting laser)
   ]
   STR(misc)[
     STR(checkpoint)
@@ -64,7 +66,7 @@
     STR(star)
     {
       STR(name)STR(blue star)
-      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/2.png)
+      STR(imagePath)STR(D:\\godotgames\\vex/scenes/blocks/star/images/2.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(1)
@@ -72,7 +74,7 @@
     }
     {
       STR(name)STR(pink star)
-      STR(imagePath)STR(D:\godotgames\vex/scenes/blocks/star/images/3.png)
+      STR(imagePath)STR(D:\\godotgames\\vex/scenes/blocks/star/images/3.png)
       STR(extends)STR(star)
       STR(selectedOptions){
         STR(starType)INT(2)
@@ -91,25 +93,25 @@
     STR(pole quadrant)
     STR(pulley)
     STR(zipline)
+    STR(cannon)
   ]
   STR(decorations/misc2)[
     STR(arrow)
     STR(noWJ)
     STR(sticky floor)
-    STR(cannon)
-    STR(undeath)
     STR(inner level)
   ]
   STR(signal)[
-    STR(floor button)
-    STR(input detector)
     STR(area trigger)
+    STR(input detector)
+    STR(floor button)
     STR(player state detector)
     STR(not gate)
     STR(and gate)
+    STR(SRNor)
+    STR(timer)
     STR(path)
     STR(signal deactivated wall)
-    STR(timer)
   ]
   STR(remove)[
     STR(UNAVAILABLE)

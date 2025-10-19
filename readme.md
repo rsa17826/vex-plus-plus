@@ -122,11 +122,13 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **"CREATE NEW - _block name_"**: creates a new instance of _block name_ the same is if it was picked from the editor bar.
 
 - ## Settings
+
   - ### grid
 
     - **showGridInEdit**: shows the grid in when in edit mode.
     - **blockGridSnapSize**: the size of the grid that blocks will snap to when being moved or resized.
     - **showGridInPlay**: shows the grid in when in play mode.
+
   - ### save
 
     - **autosaveInterval**: how long in seconds between autosaves. 0 is disabled
@@ -134,17 +136,20 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **smallerSaveFiles**: makes all save files smaller by removing unnecessary padding, which also makes it harder to read
     - **saveLevelOnWin**: save the level when you win it.
     - **showIconOnSave**: shows a save icon when the level is saved. low opacity when save stared and fully visible when saving finished.
+
   - ### window
 
     - **windowMode**: changes the default window mode (fullscreen/windowed)
       - **fullscreen**: fullscreen
       - **windowed**: windowed
+
   - ### warnings
 
     - **warnWhenOpeningLevelInOlderGameVersion**: when you open a level in an older version of the game, you will be warned that it may not work properly.
     - **warnWhenOpeningLevelInNewerGameVersion**: when you open a level in an newer version of the game, you will be warned that it may not work properly.
     - **confirmKeyAssignmentDeletion**: adds a confirmation dialog before removing keys from the keybinds list.
     - **confirmLevelUploads**: if true level uploads must be confirmed, otherwise there will be no confirmation
+
   - ### editor settings
 
     - ### rotation
@@ -154,21 +159,26 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **multiSelectedBlocksRotationScheme**: what happens when rotating a block with selecting more than 1
       - **rotateAllSelectedBlocksBySameAmount**: ?
       - **rotateAllSelectedBlocksToSameDirection**: ?
+
     - ### displacement
 
       - **movingPathNodeMovesEntirePath**: if true moving this will move the entire path, if false it will only move the first point
       - **minDistBeforeBlockDraggingStarts**: the distance the mouse has to move before the block will be moved or scaled
       - **singleAxisAlignByDefault**: if true blocks will only be movable along a single axis at a time by default. if false blocks can be moved freely.
+
     - ### scaling
 
       - **noCornerGrabsForScaling**: when grabbing a block at a corner it will only resize the bnlock on the side that had less grab area.
+
     - ### deletion
 
       - **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will always remove the block that was selected most recently.
+
     - ### panning
 
       - **autoPanWhenClickingEmptySpace**: when dragging on an empty space, with no blocks on it, it will treat it as if editor_pan was pressed.
       - **editorScrollSpeed**: changes the speed the camera moves at when using editor_pan
+
     - ### editor bar
 
       - **editorBarBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equally larger or smaller
@@ -181,16 +191,19 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **right**: the editor bar will be at the right of the screen
       - **reorganizingEditorBar**: enable to setart reorginizing the editor bar by dragging the blocks around
       - **showEditorBarBlockMissingErrors**: shows an error if a block in the editor bar doesn't exist in the game
+
   - ### limits
 
     - **allowRotatingAnything**: allows rotating any blocks regardless of if it is meant to be rotated or not.
     - **allowScalingAnything**: allows scaling any blocks regardless of if it is meant to be rotated or not.
+
   - ### camera
 
     - **snapCameraToPixels**: makes some blocks render better, like the disabled solar blocks, by rounding the camera position, but could cause some less smooth looking movement
     - **cameraUsesDefaultRotationInEditor**: makes is so that when the editor ui is shown the camera is reset to default rotation instead of keeping the last rotation.
     - **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
     - **cameraRotationOnGravityChangeHappensInstantly**: makes is so that when the gravity changes the camera rotates instantly instead of rotating smoothly.
+
   - ### theme
 
     - ### editor theme
@@ -202,15 +215,18 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **hoveredBlockOutlineColor**: the outline color of the current hovered block
         - **blockOutlineSize**: the size of the block outline both for hover and select
         - **pathColor**: the color of the path created in the level editor by the path block.
+
       - **boxSelectColor**: the color that the box select will be
       - **levelTilingBackgroundPath**: this image will be tiled across the level.
       - **editorBackgroundPath**: path to the background image for the editor.
       - **editorBackgroundScaleToMaxSize**: if true the background image will scale to fit the screen.
       - **editorStickerPath**: path to the sticker image for the editor.
+
     - **theme**: the theme used for the entire application.
       - **default**: default godot theme
       - **blue**: blue
       - **black**: black
+
   - ### info
 
     - ### hovered block list
@@ -218,6 +234,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
       - **selectedBlockFormatString**: string showing how to format the data for the selected block
       - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id, layer is the layer that the block is on)
+
     - ### signals
 
       - ### signal display
@@ -227,17 +244,20 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **showTotalActiveSignalCounts**: adds a number showing the total amount of signals that are currently sending on each signal id
         - **showWhatBlocksAreSendingSignals**: adds an image of the block that is sending on each signal id and a number showing the amount of blocks of the same type that are sending the signal
         - **onlyShowActiveSignals**: only shows signals if the signal is active and being sent
+
       - ### signal connection lines
 
         - **showSignalConnectionLinesOnHover**: shows lines between all blocks connected by signals to the block being hovered or selected
         - **showSignalConnectionLinesInEditor**: shows lines between all blocks connected by signals when in the editor
         - **showSignalConnectionLinesInPlay**: shows lines between all blocks connected by signals when not in the editor
         - **onlyShowSignalConnectionsIfHoveringOverAny**: if true and hovering over or selecting a block that is connected, only connections for that block will be shown even if showSignalConnectionLinesInEditorshow or SignalConnectionLinesInPlay are true
+
     - ### level mods
 
       - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
       - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
       - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
+
     - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
     - ### paths
@@ -245,24 +265,29 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
       - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
       - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
+
   - ### player
 
     - **playerRespawnTime**: the time that the player takes to respawn after dying
+
   - ### local levels
 
     - **smallLevelDisplaysInLocalLevelList**: makes the level displays for local levels smaller
     - **amountOfLevelsToLoadAtTheSameTimeOnMainMenu**: the amound of levels to load data for each frame when on the menu
     - **showLevelCompletionInfoOnMainMenu**: shows some info about if the levels are completed and how completed they are on the menu
+
   - ### level creation
 
     - **defaultCreatorName**: the default name for the prompt when creating a new level
     - **defaultCreatorNameIsLoggedInUsersName**: if true overites defaultCreatorName to be the username of the currently logged in user
     - **randomizeLevelModifiersOnLevelCreation**: when creating a new level the level modifiers will be set randomly
+
   - ### online level list
 
     - **smallLevelDisplaysInOnlineLevelList**: makes the level displays for online levels smaller
     - **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
     - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
+
   - ### debug
 
     - **toastStayTime**: how long the toast stays on screen in seconds.
@@ -273,18 +298,22 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
         - **solidHitboxColor**: the color of the hitbox of the solids
         - **showSolidHitboxes**: if true the solid hitboxes will be visible when hitboxes are shown
+
       - ### attach detector hitboxes
 
         - **attachDetectorHitboxColor**: the color of the hitbox of the attach detecors
         - **showAttachDetectorHitboxes**: if true the attach detector hitboxes will be visible when hitboxes are shown
+
       - ### area hitboxes
 
         - **areaHitboxColor**: the color of the hitbox of the areas
         - **showAreaHitboxes**: if true the non deadly area hitboxes will be visible when hitboxes are shown
+
       - ### death hitboxes
 
         - **deathHitboxColor**: the color of the hitbox of the deadly areas
         - **showDeathHitboxes**: if true the deadly area hitboxes will be visible when hitboxes are shown
+
   - ### autocomplete
 
     - **searchBarHorizontalAutocomplete**: makes the autocomplete options appear horizontal instead of vertical
@@ -293,6 +322,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **never**: don't ever show autocomplete options
       - **while focused**: only show autocomplete options when the bar is focused
       - **always**: always show the autocomplete options
+
   - ### misc
 
     - **alwaysShowMenuOnHomePage**: shows the menu on the home page
@@ -1214,6 +1244,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     `creatorName/=cname/levelName/levelName`
     will only show levels where `levelName` contains `levelName` and the creator is `cname`
 
+    #### filter modes
+
     = is exact match
 
     ~ is contains
@@ -1223,3 +1255,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     \< is less than
 
     if search is empty, it will return all levels
+
+    #### only works for filtering not for searching for levels!
+
+    ! is invert next filter mode so `creatorName/!=exactName`
+    will hide all where `creatorName` exactly equal to `exactName`

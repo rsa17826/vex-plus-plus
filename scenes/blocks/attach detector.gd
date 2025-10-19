@@ -33,28 +33,29 @@ func updateColor() -> void:
 func tryaddgroups():
   enabled = true
   await global.wait()
-  force_shapecast_update()
-  enabled = false
-  for i in range(get_collision_count()):
-    var block := get_collider(i)
-    block = block.root
-    if block == root: continue
-    if (
-      root.canAttachToThings
-      and root.selectedOptions.canAttachToThings
-      and not (block is BlockPath)
-    ) \
-    or (
-      root.canAttachToPaths
-      and root.selectedOptions.canAttachToPaths
-      and block is BlockPath
-    ):
-      # if not block in self parents
-      if block not in root.attach_parents:
-        root.attach_parents.append(block)
-      # if self not in block children
-      if root not in block.attach_children:
-        block.attach_children.append(root)
+  if is_inside_tree() and is_instance_valid(self):
+    force_shapecast_update()
+    enabled = false
+    for i in range(get_collision_count()):
+      var block := get_collider(i)
+      block = block.root
+      if block == root: continue
+      if (
+        root.canAttachToThings
+        and root.selectedOptions.canAttachToThings
+        and not (block is BlockPath)
+      ) \
+      or (
+        root.canAttachToPaths
+        and root.selectedOptions.canAttachToPaths
+        and block is BlockPath
+      ):
+        # if not block in self parents
+        if block not in root.attach_parents:
+          root.attach_parents.append(block)
+        # if self not in block children
+        if root not in block.attach_children:
+          block.attach_children.append(root)
 
 # func tryadd(group):
 #   # log.pp("trying to add", group, root.id)

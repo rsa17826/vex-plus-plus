@@ -107,9 +107,9 @@ it was supposed to be precision and then i got bored and distrated and just kind
 
 
 ha deserved)
-  STR(gameVersion)INT(199)
+  STR(gameVersion)INT(227)
   STR(version)INT(195)
-  STR(levelVersion)INT(22)
+  STR(levelVersion)INT(23)
   STR(stages){
     STR(1){
       STR(color)INT(9)

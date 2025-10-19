@@ -1485,9 +1485,19 @@ func win() -> void:
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     loadedLevels.append(beatLevels.pop_back())
-    var opts = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH)
-    opts.beatMainLevel = true
-    sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, opts)
+    var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
+    if "loadedLevels" not in saveData:
+      saveData.loadedLevels = loadedLevels
+    if "beatLevels" not in saveData:
+      saveData.beatLevels = []
+    if not currentLevel()\
+    or currentLevel().name not in saveData \
+    or "blockSaveData" not in saveData[currentLevel().name]\
+    :
+      currentLevel().blockSaveData = {}
+    # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
+    saveData.beatMainLevel = true
+    sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
     loadMap.call_deferred(mainLevelName, true)
     return
   await wait()

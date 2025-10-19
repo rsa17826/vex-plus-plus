@@ -145,8 +145,8 @@
   {
     STR(x)FLOAT(-200.0)
     STR(y)FLOAT(-450.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(0.0)
     STR(id)STR(shurikan spawner)
     STRNAME(options){
@@ -158,8 +158,8 @@
   {
     STR(x)FLOAT(-50.0)
     STR(y)FLOAT(-400.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
+    STR(w)FLOAT(1.0)
+    STR(h)FLOAT(1.0)
     STR(r)FLOAT(90.0)
     STR(id)STR(shurikan spawner)
     STRNAME(options){

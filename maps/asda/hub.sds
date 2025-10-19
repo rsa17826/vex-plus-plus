@@ -12,6 +12,7 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -24,6 +25,8 @@
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(color)STR(#fff)
+      STR(maxCooldown)FLOAT(1.0)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
 ]

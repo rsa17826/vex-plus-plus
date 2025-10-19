@@ -156,7 +156,7 @@ func save(saveImage: bool):
       if 'options' in obj:
         obj.options.erase("fakeId")
     data.append(obj)
-  log.pp(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
+  log.pp('saving to', global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   var savedData=sds.saveData(data).strip_edges()
   var levelHasChanged = savedData!=FileAccess.get_file_as_string(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   FileAccess.open(
@@ -167,8 +167,17 @@ func save(saveImage: bool):
   opts.gameVersion = int(global.file.read("res://VERSION", false, "-1"))
   log.pp('levelHasChanged', levelHasChanged)
   if levelHasChanged:
-    var saveData = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH)
-    saveData.beatMainLevel=false
+    var saveData: Variant = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, {})
+    if "loadedLevels" not in saveData:
+      saveData.loadedLevels = global.loadedLevels
+    if "beatLevels" not in saveData:
+      saveData.beatLevels = []
+    if not global.currentLevel()\
+    or global.currentLevel().name not in saveData \
+    or "blockSaveData" not in saveData[global.currentLevel().name]\
+    :
+      global.currentLevel().blockSaveData = {}
+    saveData.beatMainLevel = false
     sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, saveData)
   opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
   if saveImage:
