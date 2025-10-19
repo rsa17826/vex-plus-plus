@@ -187,6 +187,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **allowScalingAnything**: allows scaling any blocks regardless of if it is meant to be rotated or not.
   - ### camera
 
+    - **snapCameraToPixels**: makes some blocks render better, like the disabled solar blocks, by rounding the camera position, but could cause some less smooth looking movement
     - **cameraUsesDefaultRotationInEditor**: makes is so that when the editor ui is shown the camera is reset to default rotation instead of keeping the last rotation.
     - **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
     - **cameraRotationOnGravityChangeHappensInstantly**: makes is so that when the gravity changes the camera rotates instantly instead of rotating smoothly.
@@ -250,6 +251,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - ### local levels
 
     - **smallLevelDisplaysInLocalLevelList**: makes the level displays for local levels smaller
+    - **amountOfLevelsToLoadAtTheSameTimeOnMainMenu**: the amound of levels to load data for each frame when on the menu
+    - **showLevelCompletionInfoOnMainMenu**: shows some info about if the levels are completed and how completed they are on the menu
   - ### level creation
 
     - **defaultCreatorName**: the default name for the prompt when creating a new level
@@ -1018,8 +1021,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
   - **text**: text to show
     <br><br><img src="scenes/blocks/text/images/1.png" alt="image of block text" width="50" height="50">
 
+    - canAttachToThings
+    - canAttachToPaths
     - ### settings:
       - **text**: text to show
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
   - **conveyor**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
