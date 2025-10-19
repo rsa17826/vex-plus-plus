@@ -135,7 +135,7 @@ func _ready() -> void:
   __menu.endGroup()
   __menu.startGroup("extra buttons")
   __menu.add_button("create images for all levels that don't have images", createImagesForAllLevelsHaveImages.bind(true))
-  __menu.add_button("create images for all levels have images", createImagesForAllLevelsHaveImages.bind(false))
+  __menu.add_button("create images for all levels", createImagesForAllLevelsHaveImages.bind(false))
   __menu.endGroup()
   __menu.show_menu()
   updateUserOpts()

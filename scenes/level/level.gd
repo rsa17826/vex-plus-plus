@@ -157,11 +157,15 @@ func save(saveImage: bool):
         obj.options.erase("fakeId")
     data.append(obj)
   log.pp(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
-  sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
+  var savedData=sds.saveData(data).strip_edges()
+  var levelHasChanged = savedData!=FileAccess.get_file_as_string(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
+  FileAccess.open(
+    global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds")
+    , FileAccess.WRITE_READ).store_string(savedData)
+
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.gameVersion = int(global.file.read("res://VERSION", false, "-1"))
-  var levelHasChanged = true
-  # make detect changing
+  log.pp('levelHasChanged', levelHasChanged)
   if levelHasChanged:
     var saveData = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH)
     saveData.beatMainLevel=false
