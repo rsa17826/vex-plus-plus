@@ -73,6 +73,11 @@ class Level:
       if not self.initing:
         dataChanged.emit()
       levelName = val
+  var completionInfo: String = "":
+    set(val):
+      if not self.initing:
+        dataChanged.emit()
+      completionInfo = val
   var description: String = "":
     set(val):
       if not self.initing:
@@ -127,7 +132,8 @@ class Level:
     _gameVersion: int = -1,
     _levelVersion: int = -1,
     _levelData: PackedByteArray = [],
-    _levelImage: Image = null
+    _levelImage: Image = null,
+    _completionInfo: String = ''
   ):
     self.initing = true
     self.levelName = _levelName
@@ -139,6 +145,7 @@ class Level:
     self.levelVersion = _levelVersion
     self.levelData = _levelData
     self.levelImage = _levelImage
+    self.completionInfo = _completionInfo
     self.initing = false
 
   # func setName(val):
@@ -311,7 +318,8 @@ static func dictToLevel(e: Dictionary) -> Level:
     e.gameVersion,
     e.levelVersion,
     [],
-    img
+    img,
+    e.completionInfo if 'completionInfo' in e else "",
   )
 
 static func loadOldVersions(level: Level) -> Array:

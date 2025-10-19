@@ -25,12 +25,13 @@ metadata/_edit_vertical_guides_ = [-608.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
 use_parent_material = true
-scale = Vector2(0.565528, 0.565528)
+scale = Vector2(0.506, 0.506)
 texture = ExtResource("2_07hpw")
 script = ExtResource("3_7ht56")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_urqaa")
 target_position = Vector2(0, 0)

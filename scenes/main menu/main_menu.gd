@@ -12,7 +12,6 @@ var GITHUB_TOKEN = global.getToken()
 
 var __menu: Menu
 var newestLevel
-var loadedLevelsList := []
 func _init() -> void:
   global.mainMenu = self
 
@@ -65,26 +64,7 @@ func _ready() -> void:
     if event.button_mask == 8 || event.button_mask == 16:
       global.file.write("user://scrollContainerscroll_vertical", str(scrollContainer.scroll_vertical), false))
 
-func loadLevelsFromArray(data: Array, showOldVersions:=false) -> Array:
-  var loadedLevelData = {}
-  var newData = []
-  if showOldVersions:
-    newData = data
-  else:
-    for level: LevelServer.Level in data:
-      var oldVersionCount = 0
-      if not (level.creatorId in loadedLevelData):
-        loadedLevelData[level.creatorId] = {}
-      if level.levelName in loadedLevelData[level.creatorId]:
-        if level.levelVersion < loadedLevelData[level.creatorId][level.levelName].levelVersion:
-          loadedLevelData[level.creatorId][level.levelName].oldVersionCount += 1
-          continue
-        else:
-          oldVersionCount = loadedLevelData[level.creatorId][level.levelName].oldVersionCount + 1
-          newData.erase(loadedLevelData[level.creatorId][level.levelName])
-      level.oldVersionCount = oldVersionCount
-      loadedLevelData[level.creatorId][level.levelName] = level
-      newData.append(level)
+func loadLevelsFromArray(newData: Array, showOldVersions:=false) -> Array:
   for child in levelContainer.get_children():
     child.queue_free()
   const levelNode := preload("res://scenes/online level list/level display.tscn")
@@ -102,30 +82,79 @@ func loadLevelsFromArray(data: Array, showOldVersions:=false) -> Array:
 func loadLocalLevelList():
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.MAP_FOLDER)
-  var dirs = (dir.get_directories() as Array)
-  var arr = []
-  for levelName: String in dirs:
-    var data = global.loadMapInfo(levelName)
+  var dirs = (dir.get_directories() as Array).filter(func(e):return FileAccess.file_exists(global.path.join(global.MAP_FOLDER, e, 'options.sds')))
+  dirs.sort_custom(func(a: String, s: String):
+    return \
+    FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, a, 'options.sds')) \
+    > FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, s, 'options.sds'))
+  )
+  newestLevel = dirs[0] if dirs else null
+  for child in levelContainer.get_children():
+    child.queue_free()
+  const levelNode := preload("res://scenes/online level list/level display.tscn")
+  var i = 0
+  for mapName: String in dirs:
+    i+=1
+    var data = global.loadMapInfo(mapName)
+    var saveData: Variant = sds.loadDataFromFile(global.getLevelSavePath(mapName), null)
     if not data:
-      log.err(levelName, "no data found")
+      log.err(mapName, "no data found")
       continue
-    data.levelName = levelName
-    var imagePath = global.path.join(global.MAP_FOLDER, levelName, "image.png")
+    if global.useropts.showLevelCompletionInfoOnMainMenu:
+      var starText = "???"
+      var levelText = "???"
+      data.completionInfo="LEVELS: "+levelText+" STARS: "+starText+" = "+"??%"
+      if saveData:
+        if 'stages' in data:
+          var beatLevelCount :float= 0
+          var totalLevelCount:float = 0
+          var collectedStarCount:float = 0
+          var totalApproxStarCount:float = 0
+          var beatLevelNames = saveData.beatLevels.map(func(e):return e.name if 'name' in e else "NO NAME SET!!/")
+          var loadedLevelNames = saveData.loadedLevels.map(func(e):return e.name if 'name' in e else "NO NAME SET!!/")
+          for levelName in data.stages:
+            if levelName in loadedLevelNames:
+              var temp = saveData.loadedLevels[saveData.loadedLevels.find_custom(func(e):return e.name == levelName)]
+              if 'blockSaveData' in temp:
+                if "star" in temp.blockSaveData:
+                  for star in temp.blockSaveData.star:
+                    totalApproxStarCount+=1
+            elif levelName in beatLevelNames:
+              var temp = saveData.beatLevels[saveData.beatLevels.find_custom(func(e):return e.name == levelName)]
+              if 'blockSaveData' in temp:
+                if "star" in temp.blockSaveData:
+                  for star in temp.blockSaveData.star:
+                    if star.collected:
+                      collectedStarCount+=1
+                    totalApproxStarCount+=1
+
+              beatLevelCount+=1
+            totalLevelCount+=1
+          if "beatMainLevel" in saveData and saveData.beatMainLevel:
+            beatLevelCount+=1
+          if beatLevelCount+1>=totalLevelCount:
+            starText=str(int(collectedStarCount))+"/"+str(int(totalApproxStarCount))
+          else:
+            starText=str(int(collectedStarCount))+"/?"+str(int(totalApproxStarCount))+"?"
+          starText += " "+str(int(floor(collectedStarCount/totalApproxStarCount*100) if totalApproxStarCount else 100))+"%"
+          levelText = str(int(floor(beatLevelCount/totalLevelCount*100) if totalLevelCount else 0))+"%"
+          log.pp(mapName, levelText, starText)
+          data.completionInfo="LEVELS: "+levelText+" STARS: "+starText+" = "+str(int(floor((beatLevelCount/totalLevelCount*100)*(collectedStarCount/totalApproxStarCount if totalApproxStarCount else 1)) if totalLevelCount else 0))+"%"
+    data.levelName = mapName
+    var imagePath = global.path.join(global.MAP_FOLDER, mapName, "image.png")
     if FileAccess.file_exists(imagePath):
       data.levelImage = Image.load_from_file(imagePath)
     else:
       data.levelImage = null
-    arr.append(LevelServer.dictToLevel(data))
-  arr.sort_custom(func(a: LevelServer.Level, s: LevelServer.Level):
-    return \
-    FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, a.levelName, 'options.sds')) \
-    > FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, s.levelName, 'options.sds'))
-  )
+    var node = levelNode.instantiate()
+    node.levelList = self
+    node.search = searchBar
+    node.isOnline = false
+    node.showLevelData(LevelServer.dictToLevel(data))
+    levelContainer.add_child(node)
+    if i% global.useropts.amountOfLevelsToLoadAtTheSameTimeOnMainMenu==0:
+      await global.wait()
 
-  for child in levelContainer.get_children():
-    child.queue_free()
-  newestLevel = arr[0].levelName if arr else null
-  loadedLevelsList = loadLevelsFromArray(arr)
 
 func otc(text: String, version: NestedSearchable):
   if not version: return

@@ -36,6 +36,8 @@
     STRNAME(options){
       STR(text)STR(--------------------------------------------------)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -136,6 +138,8 @@
     STRNAME(options){
       STR(text)STR(A)
       STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -147,6 +151,20 @@
     STR(id)STR(text)
     STRNAME(options){
       STR(text)STR()
+      STR(color)STR(#fff)
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+    }
+  }
+  {
+    STR(x)FLOAT(1000.0)
+    STR(y)FLOAT(-950.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(inverse solar)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
   }

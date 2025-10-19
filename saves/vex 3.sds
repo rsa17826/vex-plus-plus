@@ -271,4 +271,5 @@
       STRNAME(lastSpawnPoint)VEC2(0.0,0.0)
     }
   ]
+  STRNAME(beatMainLevel)BOOL(false)
 }

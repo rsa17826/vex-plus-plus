@@ -580,6 +580,7 @@ static func loadDataSlow(d: String, progress=null) -> Variant:
   return _stack[len(_stack) - 1]
 
 static func loadDataFromFileSlow(p: String, ifUnset: Variant = null, progress=null) -> Variant:
+  # log.err(p)
   var f := FileAccess.open(p, FileAccess.READ)
   if not f: return ifUnset
   var d: Variant = await loadDataSlow(f.get_as_text(), progress)

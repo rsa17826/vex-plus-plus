@@ -21,7 +21,7 @@ frame_3/duration = 1.0
 frame_4/texture = ExtResource("7_rc1ww")
 frame_4/duration = 1.0
 
-[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion", "onlineButtonsContainer", "offlineButtonsContainer", "large")]
+[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion", "onlineButtonsContainer", "offlineButtonsContainer", "completionInfoNode", "large")]
 clip_contents = true
 offset_right = 869.0
 offset_bottom = 241.0
@@ -33,13 +33,14 @@ levelVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxCo
 gameVersion = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5/gameversiuon")
 creatorName = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3/creatorname")
 creatorId = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer/creator id")
-description = NodePath("Panel/VBoxContainer/HBoxContainer3/TextEdit")
+description = NodePath("Panel/VBoxContainer/HBoxContainer3/HBoxContainer/desc")
 viewOldVersions = NodePath("Panel/VBoxContainer/online buttons/view old versions")
 levelImage = NodePath("Panel/VBoxContainer/HBoxContainer3/MarginContainer/MaxSizeContainer/level image")
 dlInCorrectVersion = NodePath("Panel/VBoxContainer/online buttons/download and play2")
 onlineButtonsContainer = NodePath("Panel/VBoxContainer/online buttons")
 offlineButtonsContainer = NodePath("Panel/VBoxContainer/offline buttons")
-large = [NodePath("Panel/VBoxContainer/offline buttons/load save2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator"), NodePath("Panel/VBoxContainer/offline buttons/duplicate"), NodePath("Panel/VBoxContainer/offline buttons/rename"), NodePath("Panel/VBoxContainer/offline buttons/delete"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator3"), NodePath("Panel/VBoxContainer/HBoxContainer3/TextEdit")]
+completionInfoNode = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer6/completionInfo")
+large = [NodePath("Panel/VBoxContainer/offline buttons/load save2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator"), NodePath("Panel/VBoxContainer/offline buttons/duplicate"), NodePath("Panel/VBoxContainer/offline buttons/rename"), NodePath("Panel/VBoxContainer/offline buttons/delete"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator3"), NodePath("Panel/VBoxContainer/HBoxContainer3/HBoxContainer/desc")]
 
 [node name="Panel" type="PanelContainer" parent="."]
 layout_mode = 2
@@ -97,7 +98,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "game version: 150"
 
-[node name="TextEdit" type="TextEdit" parent="Panel/VBoxContainer/HBoxContainer3"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="completionInfo" type="Label" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="desc" type="TextEdit" parent="Panel/VBoxContainer/HBoxContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3

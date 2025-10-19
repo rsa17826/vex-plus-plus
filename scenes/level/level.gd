@@ -160,6 +160,12 @@ func save(saveImage: bool):
   sds.saveDataToFile(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"), data)
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.gameVersion = int(global.file.read("res://VERSION", false, "-1"))
+  var levelHasChanged = true
+  # make detect changing
+  if levelHasChanged:
+    var saveData = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH)
+    saveData.beatMainLevel=false
+    sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, saveData)
   opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
   if saveImage:
     grabbingImage = true

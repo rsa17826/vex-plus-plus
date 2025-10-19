@@ -1,4 +1,4 @@
-[gd_scene load_steps=290 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene load_steps=291 format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://b1v0la88o0qxe" path="res://scenes/player/playerEditor.gd" id="1_4v6xr"]
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
@@ -279,6 +279,7 @@
 [ext_resource type="Texture2D" uid="uid://ds6dunw7pxo0c" path="res://scenes/player/images/anim/zipline/33.png" id="232_cgixr"]
 [ext_resource type="Texture2D" uid="uid://bg1xyggv1udyc" path="res://scenes/player/images/anim/zipline/34.png" id="233_hsum7"]
 [ext_resource type="Texture2D" uid="uid://b0nvp7owgx5ix" path="res://scenes/player/images/anim/zipline/35.png" id="234_0ax6y"]
+[ext_resource type="Script" uid="uid://da4h70fadt1h3" path="res://scenes/player/camera_2d.gd" id="279_mro88"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2t3bg"]
 animations = [{
@@ -1336,16 +1337,18 @@ frame_progress = 0.429972
 metadata/_edit_lock_ = true
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+physics_interpolation_mode = 1
 visible = false
-position = Vector2(0, 16.425)
+position = Vector2(0, -0.100000024)
 ignore_rotation = false
 zoom = Vector2(1.245, 1.245)
-position_smoothing_enabled = true
+process_callback = 0
 rotation_smoothing_speed = 0.0
 drag_left_margin = 0.1
 drag_top_margin = 0.1
 drag_right_margin = 0.1
 drag_bottom_margin = 0.1
+script = ExtResource("279_mro88")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]

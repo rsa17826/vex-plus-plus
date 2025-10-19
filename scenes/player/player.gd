@@ -1093,11 +1093,11 @@ func _physics_process(delta: float) -> void:
   if !global.showEditorUi:
     var changeInPosition: Vector2 = global_position - frameStartPosition
     var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
-    if maxVel > 50:
-      camera.position_smoothing_enabled = false
-    else:
-      camera.position_smoothing_enabled = true
-      camera.position_smoothing_speed = clamp(maxVel, 5, 10)
+    # if maxVel > 50:
+    #   camera.position_smoothing_enabled = false
+    # else:
+    #   camera.position_smoothing_enabled = true
+    #   camera.position_smoothing_speed = clamp(maxVel, 5, 10)
     # var smoothingFactor: float = global.rerange(maxVel, 0, 400, 5, 19)
 
     # smoothingFactor = clamp(smoothingFactor, 5, 19)
@@ -1720,7 +1720,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version 186-191! boxes momentum persist after death
     # vex++:downloadMap/191/127/uno%20mas%20%2D%20post%20death%20momentum
   # //!version 186-196! donups only trigger once
-  # !version (whatever i added the locked spikes in)-201! spikes back wall doesn't move with the spikes
+  # !version (whatever i added the locked spikes in)-200! spikes back wall doesn't move with the spikes
   # \!version 207-220! the player can stand on the back of falling spikes only if they jump off it immediately
   # //!version ?-223! if bounceing up but falling down velocity is moved from bounce to user so falling down onto a pole gives extra jump height from the bounce even when it looks like it shouldn't
   # //!version ?-224! if the player is respawning and one frame before respawning ends is in water will be concitered to still be in that water after respawning
@@ -1837,3 +1837,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make sure that menu gets synced when leaving main menu
 
 # make it so the settings doesn't fullscreen window in genmd task
+# make save copy when copying level
+# moveblockz prevent rapping at -1
+
+# show stars in level before entering
+# option to persist tab menu state and search text
