@@ -194,11 +194,11 @@ func camel_case_to_spaces(camel_case_string: String):
   var result := camel_case_string[0].to_lower()
   for i in range(1, camel_case_string.length()):
     var char := camel_case_string[i]
-    if char.to_upper() == char:
+    if char in 'QWERTYUIOPASDFGHJKLZXCVBNM':
       result += " " + char.to_lower()
     else:
       result += char
-  return result
+  return result.lstrip(' ')
 var mainVBox: VBoxContainer
 var emitChanges := false
 func reloadUi():
@@ -284,7 +284,6 @@ func show_menu():
       node.thisText = formatName.call(thing.name)
       node.onchanged.connect((func(node):
         __changed.call(thing.name, node)
-        onchanged.emit(thing.name)
       ).bind(node)
       )
       node.init(thing, menu_data, formatName, node)
@@ -327,8 +326,18 @@ var __changed = __changed_proxy.__changed_proxy.bind(func __changed(name, node):
   #log.pp("changed ", node, name)
   var ec=emitChanges
   match menu_data[name].type:
-    "button": pass
-    "startGroup": pass
+    "button":
+      if ec:
+        if 'newItem' in menu_data[name]:
+          menu_data[name].newItem.visible=false
+        save(name)
+        return
+    "startGroup":
+      if ec:
+        if 'newItem' in menu_data[name]:
+          menu_data[name].newItem.visible=false
+        save(name)
+        return
     "range":
       menu_data[name].user=node.get_node("HSlider").value
       var val=node.get_node("HSlider").value

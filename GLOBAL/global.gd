@@ -435,7 +435,7 @@ class file:
     else:
       return f.get_as_text()
 class arr:
-  static func unuque(array: Array) -> Variant:
+  static func unique(array: Array) -> Variant:
     var i = {"i": - 1}
     return array.filter(func(e):
       i.i += 1
@@ -1485,6 +1485,9 @@ func win() -> void:
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     loadedLevels.append(beatLevels.pop_back())
+    var opts = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH)
+    opts.beatMainLevel = true
+    sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, opts)
     loadMap.call_deferred(mainLevelName, true)
     return
   await wait()

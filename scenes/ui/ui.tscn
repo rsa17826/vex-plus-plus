@@ -74,6 +74,7 @@ layout_mode = 2
 layer = 6
 
 [node name="hoveredBlocksList" parent="6 - hovered block list" instance=ExtResource("13_swkix")]
+metadata/_edit_lock_ = true
 
 [node name="4 - modifier display,info display,noclip indicator" type="CanvasLayer" parent="."]
 layer = 4
@@ -82,16 +83,20 @@ layer = 4
 offset_top = 17.0
 offset_right = 40.0
 offset_bottom = 57.0
+metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="4 - modifier display,info display,noclip indicator/VBoxContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
+metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="info display" type="Label" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
@@ -105,9 +110,11 @@ metadata/_edit_lock_ = true
 [node name="MarginContainer" type="MarginContainer" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_top = 10
+metadata/_edit_lock_ = true
 
 [node name="Control" type="Control" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
+metadata/_edit_lock_ = true
 
 [node name="noclip indicator" type="TextureRect" parent="4 - modifier display,info display,noclip indicator/VBoxContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/Control"]
 layout_mode = 0
@@ -116,6 +123,7 @@ offset_bottom = 5.0
 texture = ExtResource("6_n3vwu")
 expand_mode = 1
 script = ExtResource("7_0i47d")
+metadata/_edit_lock_ = true
 
 [node name="modifiers" parent="4 - modifier display,info display,noclip indicator/VBoxContainer" instance=ExtResource("6_jcn1r")]
 layout_mode = 2

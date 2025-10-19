@@ -12,6 +12,7 @@ var level: LevelServer.Level
 @export var dlInCorrectVersion: Button
 @export var onlineButtonsContainer: Control
 @export var offlineButtonsContainer: Control
+@export var completionInfoNode: Control
 @export var large: Array[Control]
 
 func matches(new_text: String):
@@ -49,6 +50,10 @@ func updateOnlineState():
   creatorId.visible = isOnline
   for thing in large:
     thing.visible = true
+  if isOnline:
+    completionInfoNode.visible = false
+  else:
+    completionInfoNode.visible = global.useropts.showLevelCompletionInfoOnMainMenu
   if (global.useropts.smallLevelDisplaysInOnlineLevelList and isOnline) \
   or (global.useropts.smallLevelDisplaysInLocalLevelList and !isOnline):
     for thing in large:
@@ -75,6 +80,7 @@ func showLevelData(levelToShow: LevelServer.Level) -> void:
 
 func levelDataChanged():
   if not level: return
+  completionInfoNode.text = level.completionInfo
   levelName.text = level.levelName
   creatorName.text = level.creatorName
   levelVersion.text = 'level version: ' + str(level.levelVersion)

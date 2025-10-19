@@ -7,6 +7,10 @@
 script = ExtResource("1_ktyr5")
 ghostIconNode = NodePath("Sprite2D")
 ignoreMissingNodes = true
+oddScaleOffsetForce = Dictionary[String, int]({
+"x": 1,
+"y": 1
+})
 normalScale = true
 DONT_SAVE = true
 DONT_MOVE_ON_RESPAWN = true

@@ -315,6 +315,12 @@
       {
         "thing": "option",
         "type": "bool",
+        "key": "snapCameraToPixels",
+        "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "bool",
         "key": "cameraUsesDefaultRotationInEditor",
         "defaultValue": false
       },
@@ -611,6 +617,22 @@
         "type": "bool",
         "key": "smallLevelDisplaysInLocalLevelList",
         "defaultValue": false
+      },
+      {
+        "thing": "option",
+        "type": "spinbox",
+        "key": "amountOfLevelsToLoadAtTheSameTimeOnMainMenu",
+        "defaultValue": 50,
+        "min": 1,
+        "max": 100000,
+        "step": 1,
+        "rounded": true
+      },
+      {
+        "thing": "option",
+        "type": "bool",
+        "key": "showLevelCompletionInfoOnMainMenu",
+        "defaultValue": true
       }
     ]
   },

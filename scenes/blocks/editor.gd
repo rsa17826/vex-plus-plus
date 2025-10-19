@@ -483,11 +483,11 @@ func updateConnectedBlocks(full: bool) -> void:
   var outputs := ["signalOutputId"]
   # if !full:
   #   breakpoint
-  if global.level.allBlocks != global.arr.unuque(global.level.allBlocks):
+  if global.level.allBlocks != global.arr.unique(global.level.allBlocks):
     breakpoint
-  if connectedBlocks != global.arr.unuque(connectedBlocks):
+  if connectedBlocks != global.arr.unique(connectedBlocks):
     breakpoint
-  var blocksToCheck = global.arr.unuque(global.level.allBlocks if full else connectedBlocks.duplicate().map(func(e): return e[0]))
+  var blocksToCheck = global.arr.unique(global.level.allBlocks if full else connectedBlocks.duplicate().map(func(e): return e[0]))
   # log.err("connected blocks: ", blocksToCheck)
   connectedBlocks = []
   for thing in inputs:

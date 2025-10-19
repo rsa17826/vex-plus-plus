@@ -36,4 +36,5 @@ func _process(delta: float) -> void:
       get_node("x/" + str(i)).text = str(int(round(((mover.position.x + 95 + 200) / cell_size.x)) + (i - 1)))
     for i in range(1, 14):
       get_node("y/" + str(i)).text = str(int(round(((mover.position.y + 480 + 200) / cell_size.x)) - (i - 3)))
+  reset_physics_interpolation()
     # log.pp(mover.position, intendedPos)
