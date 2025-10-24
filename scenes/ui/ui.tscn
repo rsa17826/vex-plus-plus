@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cwssfufu0ym50"]
+[gd_scene load_steps=19 format=3 uid="uid://cwssfufu0ym50"]
 
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
@@ -16,8 +16,10 @@
 [ext_resource type="Script" uid="uid://c1degxs1pbn86" path="res://scenes/ui/sub_viewport.gd" id="14_n3vwu"]
 [ext_resource type="Script" uid="uid://bu86o6la4ga8s" path="res://scenes/ui/SubViewportContainer camera_2d.gd" id="15_n3vwu"]
 [ext_resource type="PackedScene" uid="uid://ccr06ddwa73ca" path="res://GLOBAL/screen_notifier/resident_logs.tscn" id="16_0i47d"]
+[ext_resource type="Texture2D" uid="uid://tjldoi64i7h5" path="res://scenes/ui/images/gravityChange1.png" id="17_4w2x3"]
+[ext_resource type="Script" uid="uid://b4jl2tqj786vi" path="res://scenes/ui/gravity_change.gd" id="18_svq4k"]
 
-[node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer")]
+[node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer", "gravityChange")]
 layer = 2
 script = ExtResource("1_oiwrs")
 levelSaved = NodePath("129 - sticker/saved")
@@ -29,6 +31,7 @@ signalList = NodePath("3 - block menu,signal list/HBoxContainer/MarginContainer/
 blockMenu = NodePath("3 - block menu,signal list/HBoxContainer/block menu")
 hoveredBlockList = NodePath("6 - hovered block list/hoveredBlocksList")
 overlayRemovalHidersubViewportContainer = NodePath("SubViewportContainer")
+gravityChange = NodePath("GravityChange")
 
 [node name="5 - ProgressContainer,editor bar,saved" type="CanvasLayer" parent="."]
 layer = 5
@@ -225,3 +228,9 @@ zoom = Vector2(1.245, 1.245)
 script = ExtResource("15_n3vwu")
 
 [node name="ScreenNotifier" parent="." instance=ExtResource("16_0i47d")]
+
+[node name="GravityChange" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.27058825)
+position = Vector2(634, 643)
+texture = ExtResource("17_4w2x3")
+script = ExtResource("18_svq4k")

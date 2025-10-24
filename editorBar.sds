@@ -96,6 +96,7 @@
     STR(cannon)
   ]
   STR(decorations/misc2)[
+    STR(text)
     STR(arrow)
     STR(noWJ)
     STR(sticky floor)

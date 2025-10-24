@@ -189,6 +189,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
     - **snapCameraToPixels**: makes some blocks render better, like the disabled solar blocks, by rounding the camera position, but could cause some less smooth looking movement
     - **cameraZoomInEditor**: the zoom of the camera while in the editor - making is smaller than 1 breaks the grid
+    - **cameraZoomInPlay**: the zoom of the camera while playing - making is smaller than 1 breaks the grid
     - **cameraUsesDefaultRotationInEditor**: makes is so that when the editor ui is shown the camera is reset to default rotation instead of keeping the last rotation.
     - **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
     - **cameraRotationOnGravityChangeHappensInstantly**: makes is so that when the gravity changes the camera rotates instantly instead of rotating smoothly.

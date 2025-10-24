@@ -19,6 +19,7 @@ func _ready() -> void:
   reload()
 
 func reload(noCache:=false) -> void:
+  columns = global.useropts.editorBarColumns
   global.defaultBlockOpts = sds.loadDataFromFile("user://defaultBlockOpts.sds", {})
   position.x = global.useropts.editorBarOffset
   for item in get_children():
