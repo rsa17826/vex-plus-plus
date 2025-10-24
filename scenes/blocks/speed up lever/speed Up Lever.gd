@@ -22,3 +22,7 @@ func _input(event: InputEvent) -> void:
     and not global.player.inWaters:
       global.player.state = global.player.States.pullingLever
       global.player.speedLeverActive = !global.player.speedLeverActive
+      if global.player.speedLeverActive:
+        global.ui.gravityChange.activate(global.ui.gravityChange.color.green)
+      else:
+        global.ui.gravityChange.deactivate(global.ui.gravityChange.color.green)

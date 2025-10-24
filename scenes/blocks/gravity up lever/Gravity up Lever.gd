@@ -23,6 +23,8 @@ func _input(event: InputEvent) -> void:
     and not global.player.inWaters:
       global.player.state = global.player.States.pullingLever
       if global.player.gravState == global.player.GravStates.up:
+        global.ui.gravityChange.deactivate(global.ui.gravityChange.color.red)
         global.player.gravState = global.player.GravStates.normal
       else:
+        global.ui.gravityChange.activate(global.ui.gravityChange.color.red)
         global.player.gravState = global.player.GravStates.up

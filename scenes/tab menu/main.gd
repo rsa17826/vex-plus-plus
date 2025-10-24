@@ -242,6 +242,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "selectedBlockOutlineColor", \
     "hoveredBlockOutlineColor", \
     "toastStayTime", \
+    "snapCameraToPixels", \
     "showHoveredBlocksList", \
     "selectedBlockFormatString", \
     "hoveredBlockFormatString", \
@@ -306,6 +307,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "editorBarOffset", \
     "editorBarPosition", \
     "showEditorBarBlockMissingErrors", \
+    "editorBarColumns", \
     "reorganizingEditorBar" \
     :
       if global.isAlive(global.editorBar):
