@@ -614,6 +614,8 @@ for (var arr of allLevels) {
       case "10x spike":
       case "closing spikes":
         add(b, "y", 16)
+        b.w *= 1.07
+        b.h *= 1.07
         break
       case "buzzsaw":
       case "bouncing buzzsaw":
