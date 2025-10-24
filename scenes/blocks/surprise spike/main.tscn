@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://ises381jq6gi"]
+[gd_scene load_steps=11 format=3 uid="uid://ises381jq6gi"]
 
 [ext_resource type="Script" uid="uid://dacrlx4ubaayj" path="res://scenes/blocks/surprise spike/surprise spike.gd" id="1_tm7xx"]
+[ext_resource type="Texture2D" uid="uid://40jvnbtvfxne" path="res://scenes/blocks/surprise spike/images/editorBar.png" id="2_18js4"]
 [ext_resource type="Texture2D" uid="uid://bqqk0g8fe72hk" path="res://scenes/blocks/surprise spike/images/1.png" id="2_g6g0v"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_18js4"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_kdcy0"]
@@ -20,7 +21,7 @@ size = Vector2(34, 14.710539)
 script = ExtResource("1_tm7xx")
 nodeToJump = NodePath("Node2D/collisionNode")
 ghostIconNode = NodePath("Node2D/collisionNode/Sprite2D")
-editorBarIcon = ExtResource("2_g6g0v")
+editorBarIcon = ExtResource("2_18js4")
 collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D"), NodePath("Node2D/collisionNode/StaticBody2D/CollisionShape2D2")]
 hidableSprites = [NodePath("Node2D/collisionNode/Sprite2D")]
 thingThatMoves = NodePath("Node2D")

@@ -359,6 +359,18 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
+  - **surprise spike**: goes down slowly then springs back up quickly
+    <br><br><img src="scenes/blocks/surprise spike/images/editorBar.png" alt="image of block surprise spike" width="30" height="50">
+
+    - scalable
+    - rotatable
+    - canAttachToThings
+    - canAttachToPaths
+    - ### settings:
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
   - **10x spike**: kills the player on contact
     <br><br><img src="scenes/blocks/10x spike/images/editorBar.png" alt="image of block 10x spike" width="50" height="42">
 
