@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3wvh0fddf3yq"
-path="res://.godot/imported/blocks,sprites,Surprise Spike,1.png-d58b1aa22320ae843743d385c9a9dee3.ctex"
+uid="uid://bqqk0g8fe72hk"
+path="res://.godot/imported/1.png-f6774bbad27c553fedf50907acbf8b51.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/blocks,sprites,Surprise Spike,1.png"
-dest_files=["res://.godot/imported/blocks,sprites,Surprise Spike,1.png-d58b1aa22320ae843743d385c9a9dee3.ctex"]
+source_file="res://scenes/blocks/surprise spike/images/1.png"
+dest_files=["res://.godot/imported/1.png-f6774bbad27c553fedf50907acbf8b51.ctex"]
 
 [params]
 
