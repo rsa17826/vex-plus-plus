@@ -472,10 +472,9 @@ UpdateSelf(*) {
   maxVersion := 0
   url := ''
   for release in releases {
-    ; print(release.tag_name, selectedVersion)
     try if release.tag_name > maxVersion {
       maxVersion := release.tag_name
-      url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("launcher.zip"))].browser_download_url + "?rand=" Random()
+      url := release.assets[release.assets.find(e => e.browser_download_url.endsWith("/launcher.zip"))].browser_download_url "?rand=" Random()
     }
   }
   if (url) {
@@ -526,6 +525,9 @@ xcopy /y /i /s /e ".\temp\*" ".\"
     )" (A_IsCompiled ? "start `"`" `"" selfPath '"' : '"' selfPath '"'))
     run("cmd /c c.bat", , "hide")
     ExitApp(0)
+  } else {
+    logerr("failed to find download url for newest launcher version")
+    doingSomething := 0
   }
 }
 DownloadAll(*) {
@@ -758,10 +760,44 @@ FetchReleases(apiUrl) {
     return
   }
   doingSomething := 1
+  remainingRequests := "?"
+  __UpdateProgressBar := (CurrentSize) {
+    try {
+      ; FinalSize := CurrentSize + 1
+      if FinalSize == -1 {
+        PercentDone := 1
+      } else {
+        PercentDone := Floor(CurrentSize / FinalSize * 100)
+      }
+      ProgressGuiText.text := "loading release info...  (" CurrentSize "/" (FinalSize == -1 ? "?" : FinalSize) ")`nremaining requests: " remainingRequests
+      gocProgress.Value := PercentDone
+      ProgressGuiText2.text := PercentDone "`% Done"
+      ProgressGui.Show("AutoSize NoActivate")
+    } catch Error as e {
+      print("Error while updating progress bar. ", e, "PercentDone", PercentDone)
+    }
+    return
+  }
+  ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption")
+  ProgressGui.Title := "loading releases"
+  ProgressGui.SetFont("Bold")
+  ProgressGuiText := ProgressGui.AddText("x0 w200 h27 Center", "loading...")
+  ProgressGuiText2 := ProgressGui.AddText("x0 w200 Center", 0 "`% Done")
+  gocProgress := ProgressGui.AddProgress("x10 w180 h20")
+  ProgressGui.Show("AutoSize NoActivate")
   ret := []
   i := 0
+  FinalSize := -1
+  __UpdateProgressBar(1)
+  WebRequest := ComObject("WinHttp.WinHttpRequest.5.1")
+  WebRequest.Open("HEAD", apiUrl "?page=" i "&rand=" rand)
+  WebRequest.Send()
+  try FinalSize := WebRequest.GetResponseHeader("Link").RegExMatch('\?page=(\d+)&rand=[\d.]+>; rel="last"')[1] + 2
+  try remainingRequests := WebRequest.GetResponseHeader("x-ratelimit-remaining")
+  print('remainingRequests', remainingRequests)
   while 1 {
     i += 1
+    __UpdateProgressBar(i + 1)
     jsonFile := A_Temp "\releases.json"
     tryCount := 0
     while (1) {
@@ -797,6 +833,7 @@ FetchReleases(apiUrl) {
       break
   }
   ; Clean up the temporary JSON file
+  ProgressGui.Destroy()
   try FileDelete(jsonFile)
   doingSomething := 0
   return ret
