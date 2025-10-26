@@ -440,7 +440,8 @@ func _physics_process(delta: float) -> void:
   if _DISABLED and not dontDisablePhysicsProcess: return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else Vector2.ZERO
   for thing in cloneEventsHere:
-    thing.on_physics_process(delta)
+    if 'on_physics_process' in thing:
+      thing.on_physics_process(delta)
   on_physics_process(delta)
   lastMovementStep = (
     thingThatMoves.global_position

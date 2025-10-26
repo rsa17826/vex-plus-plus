@@ -1996,6 +1996,7 @@ const DEFAULT_BLOCK_LIST = [
   "10x locked spike",
   "10x solar spike",
   "10x inverse solar spike",
+  "pendulum",
   "invisible",
   "updown",
   "downup",
