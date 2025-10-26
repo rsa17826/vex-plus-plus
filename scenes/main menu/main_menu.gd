@@ -9,6 +9,7 @@ var GITHUB_TOKEN = global.getToken()
 @export var searchBar: Control
 @export var gameVersionNode: Label
 @export var currentUserInfoNode: Label
+@export var levelListLoadingProgressBar: ProgressBar
 
 var __menu: Menu
 var newestLevel
@@ -83,7 +84,7 @@ func loadLevelsFromArray(newData: Array, showOldVersions:=false) -> Array:
 func loadLocalLevelList():
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.MAP_FOLDER)
-  var dirs = (dir.get_directories() as Array).filter(func(e):return FileAccess.file_exists(global.path.join(global.MAP_FOLDER, e, 'options.sds')))
+  var dirs = (dir.get_directories() as Array).filter(func(e): return FileAccess.file_exists(global.path.join(global.MAP_FOLDER, e, 'options.sds')))
   dirs.sort_custom(func(a: String, s: String):
     return \
     FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, a, 'options.sds')) \
@@ -94,8 +95,11 @@ func loadLocalLevelList():
     child.queue_free()
   const levelNode := preload("res://scenes/online level list/level display.tscn")
   var i = 0
+  levelListLoadingProgressBar.max_value = len(dirs)
+  levelListLoadingProgressBar.visible = true
   for mapName: String in dirs:
-    i+=1
+    i += 1
+    levelListLoadingProgressBar.value = i
     var data = global.loadMapInfo(mapName)
     var saveData: Variant = sds.loadDataFromFile(global.getLevelSavePath(mapName), null)
     if not data:
@@ -104,43 +108,43 @@ func loadLocalLevelList():
     if global.useropts.showLevelCompletionInfoOnMainMenu:
       var starText = "???"
       var levelText = "???"
-      data.completionInfo="LEVELS: "+levelText+" STARS: "+starText+" = "+"??%"
+      data.completionInfo = "LEVELS: " + levelText + " STARS: " + starText + " = " + "??%"
       if saveData:
         if 'stages' in data:
-          var beatLevelCount :float= 0
-          var totalLevelCount:float = 0
-          var collectedStarCount:float = 0
-          var totalApproxStarCount:float = 0
+          var beatLevelCount: float = 0
+          var totalLevelCount: float = 0
+          var collectedStarCount: float = 0
+          var totalApproxStarCount: float = 0
           if 'beatLevels' in saveData and 'loadedLevels' in saveData:
-            var beatLevelNames = saveData.beatLevels.map(func(e):return e.name if 'name' in e else "NO NAME SET!!/")
-            var loadedLevelNames = saveData.loadedLevels.map(func(e):return e.name if 'name' in e else "NO NAME SET!!/")
+            var beatLevelNames = saveData.beatLevels.map(func(e): return e.name if 'name' in e else "NO NAME SET!!/")
+            var loadedLevelNames = saveData.loadedLevels.map(func(e): return e.name if 'name' in e else "NO NAME SET!!/")
             for levelName in data.stages:
               if levelName in loadedLevelNames:
-                var temp = saveData.loadedLevels[saveData.loadedLevels.find_custom(func(e):return e.name == levelName)]
+                var temp = saveData.loadedLevels[saveData.loadedLevels.find_custom(func(e): return e.name == levelName)]
                 if 'blockSaveData' in temp:
                   if "star" in temp.blockSaveData:
                     for star in temp.blockSaveData.star:
-                      totalApproxStarCount+=1
+                      totalApproxStarCount += 1
               elif levelName in beatLevelNames:
-                var temp = saveData.beatLevels[saveData.beatLevels.find_custom(func(e):return e.name == levelName)]
+                var temp = saveData.beatLevels[saveData.beatLevels.find_custom(func(e): return e.name == levelName)]
                 if 'blockSaveData' in temp:
                   if "star" in temp.blockSaveData:
                     for star in temp.blockSaveData.star:
                       if star.collected:
-                        collectedStarCount+=1
-                      totalApproxStarCount+=1
-                beatLevelCount+=1
-              totalLevelCount+=1
+                        collectedStarCount += 1
+                      totalApproxStarCount += 1
+                beatLevelCount += 1
+              totalLevelCount += 1
             if "beatMainLevel" in saveData and saveData.beatMainLevel:
-              beatLevelCount+=1
-            if beatLevelCount+1>=totalLevelCount:
-              starText=str(int(collectedStarCount))+"/"+str(int(totalApproxStarCount))
+              beatLevelCount += 1
+            if beatLevelCount + 1 >= totalLevelCount:
+              starText = str(int(collectedStarCount)) + "/" + str(int(totalApproxStarCount))
             else:
-              starText=str(int(collectedStarCount))+"/?"+str(int(totalApproxStarCount))+"?"
-            starText += " "+str(int(floor(collectedStarCount/totalApproxStarCount*100) if totalApproxStarCount else 100))+"%"
-            levelText = str(int(floor(beatLevelCount/totalLevelCount*100) if totalLevelCount else 0))+"%"
+              starText = str(int(collectedStarCount)) + "/?" + str(int(totalApproxStarCount)) + "?"
+            starText += " " + str(int(floor(collectedStarCount / totalApproxStarCount * 100) if totalApproxStarCount else 100)) + "%"
+            levelText = str(int(floor(beatLevelCount / totalLevelCount * 100) if totalLevelCount else 0)) + "%"
             # log.pp(mapName, levelText, starText)
-            data.completionInfo="LEVELS: "+levelText+" STARS: "+starText+" = "+str(int(floor((beatLevelCount/totalLevelCount*100)*(collectedStarCount/totalApproxStarCount if totalApproxStarCount else 1)) if totalLevelCount else 0))+"%"
+            data.completionInfo = "LEVELS: " + levelText + " STARS: " + starText + " = " + ("?" if "?" in starText else "") + str(int(floor((beatLevelCount / totalLevelCount * 50) + ((collectedStarCount / totalApproxStarCount if totalApproxStarCount else 1) * 50)) if totalLevelCount else 0)) + "%"
     data.levelName = mapName
     var imagePath = global.path.join(global.MAP_FOLDER, mapName, "image.png")
     if FileAccess.file_exists(imagePath):
@@ -153,9 +157,9 @@ func loadLocalLevelList():
     node.isOnline = false
     node.showLevelData(LevelServer.dictToLevel(data))
     levelContainer.add_child(node)
-    if i% global.useropts.amountOfLevelsToLoadAtTheSameTimeOnMainMenu==0:
+    if i % global.useropts.amountOfLevelsToLoadAtTheSameTimeOnMainMenu == 0:
       await global.wait()
-
+  levelListLoadingProgressBar.visible = false
 
 func otc(text: String, version: NestedSearchable):
   if not version: return
@@ -218,7 +222,7 @@ func showMoreOptions(level: LevelServer.Level):
         global.PromptTypes.string,
         levelName
       )).replace("/", '').replace("\\", '')
-      if newName!=levelName:
+      if newName != levelName:
         DirAccess.rename_absolute(
           global.path.join(global.MAP_FOLDER, levelName),
           global.path.join(global.MAP_FOLDER,
