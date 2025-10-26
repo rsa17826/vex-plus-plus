@@ -431,6 +431,15 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
+  - **pendulum**: swings around in a circle while always keeping a flat surface
+    <br><br><img src="scenes/blocks/pendulum/images/editorBar.png" alt="image of block pendulum" width="25" height="50">
+
+    - scalable
+    - canAttachToPaths
+    - ### settings:
+      - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
   - **invisible**: gets less visible the closer the player is to it
     <br><br><img src="scenes/blocks/invisible/images/1.png" alt="image of block invisible" width="50" height="50">
 
