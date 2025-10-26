@@ -127,7 +127,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -140,7 +140,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -505,7 +505,7 @@
     STR(w)FLOAT(8.50000011920929)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(180.0)
-    STR(id)STR(conveyer)
+    STR(id)STR(conveyor)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -644,7 +644,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -657,7 +657,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(180.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)

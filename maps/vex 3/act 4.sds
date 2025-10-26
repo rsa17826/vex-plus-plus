@@ -21,7 +21,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -46,7 +46,7 @@
     STR(w)FLOAT(3.00000002980232)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(179.999877929688)
-    STR(id)STR(conveyer)
+    STR(id)STR(conveyor)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -70,7 +70,7 @@
     STR(w)FLOAT(3.00000002980232)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyer)
+    STR(id)STR(conveyor)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -234,7 +234,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -285,7 +285,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -298,7 +298,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -522,7 +522,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -535,7 +535,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)

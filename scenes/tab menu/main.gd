@@ -125,7 +125,7 @@ func _ready() -> void:
   )
   __menu.add_button("open current level save file", func():
     if global.mainLevelName and global.isAlive(global.level):
-      OS.shell_open(global.path.abs("res://saves/" + global.mainLevelName+'.sds'))
+      OS.shell_open(global.path.abs("res://saves/" + global.mainLevelName + '.sds'))
     else:
       OS.shell_open(global.path.abs("res://saves"))
   )
@@ -143,9 +143,9 @@ func _ready() -> void:
   updateUserOpts()
   if isOptionsMenuOnMainMenu:
     if global.useropts.alwaysShowMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
-      _visible = global.file.read("user://mainMenuOptionsMenuVisible", false, "false")=="true"
+      _visible = global.file.read("user://mainMenuOptionsMenuVisible", false, "true") == "true"
     else:
-      _visible=false
+      _visible = false
   else:
     global.overlays.append(self)
     _visible = false
@@ -157,25 +157,25 @@ func createImagesForAllLevelsHaveImages(ignoreOnesWithImages) -> void:
   var arr = []
   for levelName: String in dirs:
     var imagePath = global.path.join(global.MAP_FOLDER, levelName, "image.png")
-    if ignoreOnesWithImages and  FileAccess.file_exists(imagePath): continue
+    if ignoreOnesWithImages and FileAccess.file_exists(imagePath): continue
     arr.append(levelName)
   arr.sort_custom(func(a: String, s: String):
     return \
     FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, a, 'options.sds')) \
     > FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, s, 'options.sds'))
   )
-  global.tabMenu.get_node("../../progress").visible=true
+  global.tabMenu.get_node("../../progress").visible = true
   var pbar = global.tabMenu.get_node("../../progress/CenterContainer/progressBar")
-  global.tabMenu._visible=true
+  global.tabMenu._visible = true
   pbar.max_value = len(arr)
   var prog = 0
   for levelName in arr:
     if await global.loadMap(levelName, false):
       global.level.save(true)
       await global.wait()
-    prog+=1
+    prog += 1
     pbar.value = prog
-  global.tabMenu.get_node("../../progress").visible=false
+  global.tabMenu.get_node("../../progress").visible = false
 func updateUserOpts(thingChanged: String = '') -> void:
   var ftml = global.isFirstTimeMenuIsLoaded
   var shouldChangeFsState = false
@@ -281,7 +281,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "loadExpandedGroups", \
     "menuOptionNameFormat":
       __menu.reloadUi()
-    "cameraZoomInPlay",\
+    "cameraZoomInPlay", \
     "cameraZoomInEditor":
       global.onEditorStateChanged.emit()
     "levelTilingBackgroundPath", \
@@ -321,7 +321,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "smallLevelDisplaysInLocalLevelList":
       if global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()
-    "alwaysShowMenuOnHomePage",\
+    "alwaysShowMenuOnHomePage", \
     "showLevelCompletionInfoOnMainMenu":
       if global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()

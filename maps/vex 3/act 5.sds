@@ -195,7 +195,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzsaw)
+    STR(id)STR(bouncing buzzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -207,7 +207,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzsaw)
+    STR(id)STR(bouncing buzzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -368,7 +368,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -444,7 +444,7 @@
     STR(w)FLOAT(0.50089806318283)
     STR(h)FLOAT(0.5005004927516)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -807,7 +807,7 @@
     STR(w)FLOAT(0.50089806318283)
     STR(h)FLOAT(0.5005004927516)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -938,7 +938,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -963,7 +963,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)

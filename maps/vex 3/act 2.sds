@@ -195,10 +195,10 @@
   {
     STR(x)FLOAT(411.5)
     STR(y)FLOAT(502.5)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-90.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(color)STR(#fff)
       STR(canAttachToThings)BOOL(true)
@@ -513,9 +513,9 @@
     }
   }
   {
-    STR(x)FLOAT(650.0)
+    STR(x)FLOAT(675.0)
     STR(y)FLOAT(-450.0)
-    STR(w)FLOAT(4.00000017881393)
+    STR(w)FLOAT(4.49999994039536)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
@@ -539,7 +539,7 @@
     }
   }
   {
-    STR(x)FLOAT(875.0)
+    STR(x)FLOAT(825.0)
     STR(y)FLOAT(-525.0)
     STR(w)FLOAT(0.50000007450581)
     STR(h)FLOAT(0.50000007450581)
@@ -552,9 +552,9 @@
   }
   {
     STR(x)FLOAT(475.0)
-    STR(y)FLOAT(-625.0)
+    STR(y)FLOAT(-614.5)
     STR(w)FLOAT(0.50000007450581)
-    STR(h)FLOAT(2.50000005960464)
+    STR(h)FLOAT(2.29000005125999)
     STR(r)FLOAT(0.0)
     STR(id)STR(basic)
     STRNAME(options){
@@ -564,7 +564,7 @@
   }
   {
     STR(x)FLOAT(475.0)
-    STR(y)FLOAT(-784.0)
+    STR(y)FLOAT(-765.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
@@ -643,10 +643,10 @@
   {
     STR(x)FLOAT(347.5)
     STR(y)FLOAT(-88.5)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-180.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(color)STR(#fff)
       STR(canAttachToThings)BOOL(true)
@@ -669,10 +669,10 @@
   {
     STR(x)FLOAT(557.5)
     STR(y)FLOAT(-617.5)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-270.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(color)STR(#fff)
       STR(canAttachToThings)BOOL(false)
@@ -682,10 +682,10 @@
   {
     STR(x)FLOAT(672.5)
     STR(y)FLOAT(-494.5)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-89.9999465942383)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(color)STR(#fff)
       STR(canAttachToThings)BOOL(false)
@@ -695,10 +695,10 @@
   {
     STR(x)FLOAT(752.5)
     STR(y)FLOAT(-617.5)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-270.0)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(color)STR(#fff)
       STR(canAttachToThings)BOOL(false)
@@ -708,10 +708,10 @@
   {
     STR(x)FLOAT(782.5)
     STR(y)FLOAT(312.5)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-89.9999465942383)
-    STR(id)STR(shurikan spawner)
+    STR(id)STR(shuriken spawner)
     STRNAME(options){
       STR(color)STR(#fff)
       STR(canAttachToThings)BOOL(true)
