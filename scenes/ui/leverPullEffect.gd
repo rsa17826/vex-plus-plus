@@ -6,13 +6,13 @@ enum color {
 }
 const sprites = [
   preload(
-    "res://scenes/ui/images/gravityChange1.png"
+    "res://scenes/ui/images/leverPullEffect1.png"
   ),
   preload(
-    "res://scenes/ui/images/gravityChange2.png"
+    "res://scenes/ui/images/leverPullEffect2.png"
   ),
   preload(
-    "res://scenes/ui/images/gravityChange3.png"
+    "res://scenes/ui/images/leverPullEffect3.png"
   )
 ]
 var activating = 0

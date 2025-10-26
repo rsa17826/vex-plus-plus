@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c62qo6yvjrye5"
-path="res://.godot/imported/gravityChange2.png-6000f1c0fcab64b8b8a7b000cf7418a1.ctex"
+uid="uid://deui1kv2ku0dx"
+path="res://.godot/imported/top.png-7213092e8a1ff9d853f6fd5f35d13c41.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/images/gravityChange2.png"
-dest_files=["res://.godot/imported/gravityChange2.png-6000f1c0fcab64b8b8a7b000cf7418a1.ctex"]
+source_file="res://scenes/blocks/pendulum/images/top.png"
+dest_files=["res://.godot/imported/top.png-7213092e8a1ff9d853f6fd5f35d13c41.ctex"]
 
 [params]
 

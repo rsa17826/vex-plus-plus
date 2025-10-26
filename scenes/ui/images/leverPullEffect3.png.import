@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djddutqtv4gb3"
-path="res://.godot/imported/gravityChange3.png-1a3971944912ba877b77438c7513147b.ctex"
+path="res://.godot/imported/leverPullEffect3.png-a8cf370ff30bb50763f39cb543ebbea7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/ui/images/gravityChange3.png"
-dest_files=["res://.godot/imported/gravityChange3.png-1a3971944912ba877b77438c7513147b.ctex"]
+source_file="res://scenes/ui/images/leverPullEffect3.png"
+dest_files=["res://.godot/imported/leverPullEffect3.png-a8cf370ff30bb50763f39cb543ebbea7.ctex"]
 
 [params]
 

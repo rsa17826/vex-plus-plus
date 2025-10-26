@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://b0ov0w5e6cl2o"]
+
+[ext_resource type="Script" uid="uid://j6wi4oumche2" path="res://scenes/blocks/pendulum/pendulum.gd" id="1_e06q1"]
+[ext_resource type="Texture2D" uid="uid://clulrdworv55m" path="res://scenes/blocks/pendulum/images/editorBar.png" id="2_odl1r"]
+[ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="4_4u6q7"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="4_8fsea"]
+[ext_resource type="Texture2D" uid="uid://deui1kv2ku0dx" path="res://scenes/blocks/pendulum/images/top.png" id="4_k8sn6"]
+[ext_resource type="Texture2D" uid="uid://dww6jpf24cr2x" path="res://scenes/blocks/pendulum/images/bottom.png" id="5_4u6q7"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_8fsea"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e06q1"]
+size = Vector2(558, 280)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_odl1r"]
+radius = 60.0
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("col", "bot", "ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves")]
+script = ExtResource("1_e06q1")
+col = NodePath("Node2D/collisionNode/CollisionShape2D")
+bot = NodePath("Node2D/collisionNode/bottom")
+ghostIconNode = NodePath("ghost")
+editorBarIcon = ExtResource("2_odl1r")
+collisionShapes = [NodePath("Node2D/collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("Node2D/top")]
+cloneEventsHere = [NodePath("Node2D/collisionNode")]
+thingThatMoves = NodePath("Node2D")
+EDITOR_OPTION_scale = true
+canAttachToPaths = true
+
+[node name="ghost" type="Sprite2D" parent="."]
+visible = false
+use_parent_material = true
+position = Vector2(0, 518.678)
+texture = ExtResource("2_odl1r")
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="top" type="Sprite2D" parent="Node2D"]
+use_parent_material = true
+position = Vector2(0, 518.678)
+texture = ExtResource("4_k8sn6")
+
+[node name="collisionNode" type="CharacterBody2D" parent="Node2D" node_paths=PackedStringArray("root")]
+collision_layer = 34952
+collision_mask = 0
+script = ExtResource("4_8fsea")
+root = NodePath("../..")
+
+[node name="bottom" type="Sprite2D" parent="Node2D/collisionNode"]
+use_parent_material = true
+position = Vector2(0, 939.733)
+texture = ExtResource("5_4u6q7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+position = Vector2(0, 939)
+shape = SubResource("RectangleShape2D_e06q1")
+debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
+script = ExtResource("4_4u6q7")
+
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
+enabled = false
+shape = SubResource("CircleShape2D_odl1r")
+target_position = Vector2(0, 0)
+collision_mask = 32768
+collide_with_areas = true
+script = ExtResource("5_8fsea")
+root = NodePath("..")
