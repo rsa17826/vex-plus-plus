@@ -761,34 +761,36 @@ FetchReleases(apiUrl) {
   }
   doingSomething := 1
   remainingRequests := "?"
-  __UpdateProgressBar := (CurrentSize) {
-    try {
-      ; FinalSize := CurrentSize + 1
-      if FinalSize == -1 {
-        PercentDone := 1
-      } else {
-        PercentDone := Floor(CurrentSize / FinalSize * 100)
+  if not SILENT {
+    __UpdateProgressBar := (CurrentSize) {
+      try {
+        ; FinalSize := CurrentSize + 1
+        if FinalSize == -1 {
+          PercentDone := 1
+        } else {
+          PercentDone := Floor(CurrentSize / FinalSize * 100)
+        }
+        ProgressGuiText.text := "loading release info...  (" CurrentSize "/" (FinalSize == -1 ? "?" : FinalSize) ")`nremaining requests: " remainingRequests
+        gocProgress.Value := PercentDone
+        ProgressGuiText2.text := PercentDone "`% Done"
+        ProgressGui.Show("AutoSize NoActivate")
+      } catch Error as e {
+        print("Error while updating progress bar. ", e, "PercentDone", PercentDone)
       }
-      ProgressGuiText.text := "loading release info...  (" CurrentSize "/" (FinalSize == -1 ? "?" : FinalSize) ")`nremaining requests: " remainingRequests
-      gocProgress.Value := PercentDone
-      ProgressGuiText2.text := PercentDone "`% Done"
-      ProgressGui.Show("AutoSize NoActivate")
-    } catch Error as e {
-      print("Error while updating progress bar. ", e, "PercentDone", PercentDone)
+      return
     }
-    return
+    ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption")
+    ProgressGui.Title := "loading releases"
+    ProgressGui.SetFont("Bold")
+    ProgressGuiText := ProgressGui.AddText("x0 w200 h27 Center", "loading...")
+    ProgressGuiText2 := ProgressGui.AddText("x0 w200 Center", 0 "`% Done")
+    gocProgress := ProgressGui.AddProgress("x10 w180 h20")
+    ProgressGui.Show("AutoSize NoActivate")
+    FinalSize := -1
+    __UpdateProgressBar(1)
   }
-  ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption")
-  ProgressGui.Title := "loading releases"
-  ProgressGui.SetFont("Bold")
-  ProgressGuiText := ProgressGui.AddText("x0 w200 h27 Center", "loading...")
-  ProgressGuiText2 := ProgressGui.AddText("x0 w200 Center", 0 "`% Done")
-  gocProgress := ProgressGui.AddProgress("x10 w180 h20")
-  ProgressGui.Show("AutoSize NoActivate")
   ret := []
   i := 0
-  FinalSize := -1
-  __UpdateProgressBar(1)
   WebRequest := ComObject("WinHttp.WinHttpRequest.5.1")
   WebRequest.Open("HEAD", apiUrl "?page=" i "&rand=" rand)
   WebRequest.Send()
@@ -797,7 +799,9 @@ FetchReleases(apiUrl) {
   print('remainingRequests', remainingRequests)
   while 1 {
     i += 1
-    __UpdateProgressBar(i + 1)
+    if not SILENT {
+      __UpdateProgressBar(i + 1)
+    }
     jsonFile := A_Temp "\releases.json"
     tryCount := 0
     while (1) {
@@ -833,13 +837,12 @@ FetchReleases(apiUrl) {
       break
   }
   ; Clean up the temporary JSON file
-  ProgressGui.Destroy()
+  if not SILENT
+    try ProgressGui.Destroy()
   try FileDelete(jsonFile)
   doingSomething := 0
   return ret
 }
-
-;
 
 bufferEqual(Buf1, Buf2) {
   return Buf1.Size == Buf2.Size && DllCall("msvcrt\memcmp", "Ptr", Buf1, "Ptr", Buf2, "Ptr", Buf1.Size)
