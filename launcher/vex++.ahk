@@ -195,7 +195,7 @@ DirCreate("launcherData")
 DirCreate("game data")
 DirCreate("versions")
 if not FileExist("launcherData/launcherVersion") {
-  try FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
+  try FileCreateShortcut(selfPath, A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
 }
 icon(s, e := unset) {
   if !IsSet(e)
@@ -389,7 +389,8 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   })
 
   ; check for updates on startup checkbox
-  updateOnBoot := FileExist(A_startup '/vex++ updater.lnk')
+  try FileGetShortcut(A_startup '/vex++ updater.lnk', &of)
+  updateOnBoot := FileExist(A_startup '/vex++ updater.lnk') and of == selfPath
   guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on boot")
   guiCtrl.OnEvent("Click", (elem, info) {
     print(elem, info)
@@ -397,7 +398,7 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
     updateOnBoot := elem.Value
     try FileDelete(A_startup "/vex++ updater.lnk")
     if updateOnBoot {
-      FileCreateShortcut(A_ScriptDir "\vex++.exe", A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
+      FileCreateShortcut(selfPath, A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
     }
   })
   guiCtrl := ui.AddCheckbox((gettings.tryUpdateOnOpen ? "+Checked" : '') '', "check for updates when opening")
@@ -406,7 +407,7 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
     settings.tryUpdateOnOpen := elem.Value
     saveSettings()
   })
-  guiCtrl := ui.AddCheckbox((gettings.openGameConsole ? "+Checked" : '') '', "open console with game`nbreaks opening different version from inside game")
+  guiCtrl := ui.AddCheckbox((gettings.openGameConsole ? "+Checked" : '') '', "open console with game`nbreaks opening different exe version from inside game")
   guiCtrl.OnEvent("Click", (elem, info) {
     print(elem, info)
     settings.openGameConsole := elem.Value
