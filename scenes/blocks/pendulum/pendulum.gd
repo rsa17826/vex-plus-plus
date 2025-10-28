@@ -2,10 +2,11 @@
 extends EditorBlock
 class_name BlockPendulum
 
-@export var col: CollisionShape2D
-@export var bot: Sprite2D
+@export var bottomSprite: Sprite2D
+@export var rotNode: Node2D
+@export var cbody: Node2D
 
-func on_process(delta: float) -> void:
-  spin(75, thingThatMoves)
-  spin(-75, col)
-  spin(-75, bot)
+func on_physics_process(delta: float) -> void:
+  spin(75, rotNode)
+  bottomSprite.global_rotation = 0
+  cbody.position = Vector2(0, 939).rotated(rotNode.global_rotation)
