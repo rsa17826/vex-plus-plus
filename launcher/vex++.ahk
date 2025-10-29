@@ -159,10 +159,10 @@ if FileExist("c.bat") and F.read("updating self") != 'silent' {
   }
 }
 if FileExist("updating self") {
+  if F.read("updating self") == 'silent' {
+    silent := 1
+  }
   if FileExist('temp.zip') {
-    if F.read("updating self") == 'silent' {
-      silent := 1
-    }
     FileDelete("updating self")
     FileDelete("temp.zip")
     logerr("failed while updating the launcher!!!")
