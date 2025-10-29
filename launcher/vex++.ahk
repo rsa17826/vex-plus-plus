@@ -834,8 +834,10 @@ FetchReleases(apiUrl) {
       }
       try FileDelete(jsonFile)
     }
-    catch
+    catch {
+      logerr("error fetching releases", f.read(jsonFile))
       break
+    }
   }
   ; Clean up the temporary JSON file
   if not SILENT
