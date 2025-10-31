@@ -432,8 +432,8 @@ func _physics_process(delta: float) -> void:
   if isBeingPlaced:
     if !(global.selectedBlock == self):
       isBeingPlaced = false
-  if global.player.state == global.player.States.dead: return
-  if global.stopTicking: return
+  # if global.player.state == global.player.States.dead: return
+  # if global.stopTicking: return
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
   if (global.selectedBlock == self || self in global.boxSelect_selectedBlocks) && Input.is_action_pressed(&"editor_select"): return
@@ -441,8 +441,8 @@ func _physics_process(delta: float) -> void:
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else Vector2.ZERO
   for thing in cloneEventsHere:
     if 'on_physics_process' in thing:
-      thing.on_physics_process(delta)
-  on_physics_process(delta)
+      thing.on_physics_process(0 if global.stopTicking else delta)
+  on_physics_process(0 if global.stopTicking else delta)
   lastMovementStep = (
     thingThatMoves.global_position
     if thingThatMoves else
@@ -455,19 +455,21 @@ func _physics_process(delta: float) -> void:
       updateConnectedBlocks(false)
       queue_redraw()
 
+  if global.stopTicking: return
   for thing in cloneEventsHere:
     if not thing:
       log.err(id, "no thing in cloneEventsHere")
       breakpoint
     if 'postMovementStep' in thing:
       thing.postMovementStep()
+  postMovementStep()
   if thingThatMoves:
     for block: EditorBlock in attach_children:
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
       block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
-
+func postMovementStep(): pass
 var left_edge: float
 var right_edge: float
 var top_edge: float

@@ -247,7 +247,6 @@ func _unhandled_input(event: InputEvent) -> void:
   if event is InputEventMouseMotion and isFakeMouseMovement:
     isFakeMouseMovement = false
     return
-  # log.pp(event.to_string(), global.showEditorUi)
   if global.openMsgBoxCount: return
   if event is InputEventMouseMotion and not global.showEditorUi:
     camRotLock = defaultAngle
@@ -287,7 +286,6 @@ func _unhandled_input(event: InputEvent) -> void:
       if startPos != mousePos:
         isFakeMouseMovement = true
         Input.warp_mouse(mousePos * global.stretchScale)
-    # log.pp(camLockPos, "camLockPos")
     updateCamLockPos()
 
   if mouseMode == Input.mouse_mode: return
@@ -312,13 +310,11 @@ func _physics_process(delta: float) -> void:
   #     return global.isAlive(e) and !e.respawning))
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
-  # log.pp(vel.user.y, sss.y, sss.y - vel.user.y)
   # return
   up_direction = global.clearLow(up_direction)
   defaultAngle = up_direction.angle() + deg_to_rad(90)
   if abs(defaultAngle) < .0001:
     defaultAngle = 0
-  # log.pp(defaultAngle, up_direction, up_direction.rotated(defaultAngle))
   if state == States.levelLoading:
     respawnCooldown = 0
     return
@@ -373,9 +369,7 @@ func _physics_process(delta: float) -> void:
       REAL_GRAV = GRAVITY * delta
   match state:
     States.dead:
-      # log.pp(up_direction)
       var respawnPosition = tempLastSpawnPoint if tempLastSpawnPoint else lastSpawnPoint
-      # log.pp(tempLastSpawnPoint, "tempLastSpawnPoint")
       if not global.showEditorUi:
         camera.global_rotation = defaultAngle
       slowCamRot = false
@@ -387,7 +381,6 @@ func _physics_process(delta: float) -> void:
       else:
         position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, respawnPosition)
       camera.position = Vector2.ZERO
-      # log.pp(camera.global_position)
       if global.showEditorUi:
         if not camLockPos:
           camLockPos = camera.global_position
@@ -536,7 +529,6 @@ func _physics_process(delta: float) -> void:
     States.onZipline:
       clearWallData()
       setRot(defaultAngle)
-      # log.pp(anim.animation, anim.frame)
       anim.animation = &'zipline'
       var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
       var lowerZipline = activeZipline if targetZipline.global_position.y < activeZipline.global_position.y else targetZipline
@@ -553,7 +545,6 @@ func _physics_process(delta: float) -> void:
         if !is_zero_approx(velocity.x):
           anim.flip_h = applyRot(velocity).x < 0
       var newSpeed = (direction * (heightDiff * .7)) * (clamp(anim.frame, 1, 34) / 34.0) * 6
-      # log.pp(vel.zipline, newSpeed, velocity, newSpeed.length(), vel.zipline.length())
       # var diff = Vector2(
       #   abs(newSpeed.normalized()).x - abs(vel.zipline.normalized()).x,
       #   abs(newSpeed.normalized()).y - abs(vel.zipline.normalized()).y
@@ -561,7 +552,6 @@ func _physics_process(delta: float) -> void:
       # # log.pp(newSpeed.normalized(), vel.zipline.normalized(), diff, abs(newSpeed.normalized()) - abs(vel.zipline.normalized()))
       # if diff:
       #   breakpoint
-      # log.pp(newSpeed.length(), vel.zipline.length(), newSpeed, vel.zipline, (newSpeed.normalized()) - (vel.zipline.normalized()))
       # if newSpeed.length() > vel.zipline.length():
       $ziplineDetectorForActiveZipline/CollisionShape2D2.shape.size = Vector2(8, 25 * global.rerange(abs(newSpeed.x), 0, 300, 1.5, 4))
       if (newSpeed.x > 0) != (vel.zipline.x > 0):
@@ -682,7 +672,6 @@ func _physics_process(delta: float) -> void:
           floor_snap_length = 6
           if speedLeverActive:
             floor_snap_length = 9
-        # log.pp(remainingJumpCount, "remainingJumpCount", States.keys()[state])
         # reset angle when exiting water
         # setRot(defaultAngle)
         setRot(lerp_angle(rotation, defaultAngle, .2))
@@ -723,7 +712,6 @@ func _physics_process(delta: float) -> void:
             var origin: Vector2 = ray.global_transform.origin
             var collision_point := ray.get_collision_point()
             var distance := origin.distance_to(collision_point)
-            # log.pp(distance * getClosestWallSide())
             position += Vector2((distance) * getClosestWallSide(), 0).rotated(defaultAngle)
             # position += Vector2((distance) * getClosestWallSide(), 0).rotated(defaultAngle) * 2
         # if on floor reset kt, user y velocity, and allow both wall sides again
@@ -743,7 +731,6 @@ func _physics_process(delta: float) -> void:
               else:
                 slideRecovery = MAX_SLIDE_RECOVER_TIME
             state = States.idle
-          # log.pp(vel.user, playerXIntent, playerXIntent != vel.user.x, state, States.idle, floor_max_angle)
         else:
           # if not on floor and switching wall sides allow both walls again
           if (
@@ -762,9 +749,7 @@ func _physics_process(delta: float) -> void:
           if state != States.wallHang:
             currentHungWall = 0
           # should enter wall grab state if not already in wall hang state and moving down
-          # log.pp(velocity.y)
           if vel.user.y > -20 && state != States.wallHang:
-            # log.pp("entering wall grab", CenterIsOnWall(), TopIsOnWall())
             if global.currentLevelSettings().canDoWallHang && (CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj()):
               currentHungWall = rightWallDetection.get_collider() if getCurrentWallSide() == 1 else leftWallDetection.get_collider()
               wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
@@ -821,7 +806,10 @@ func _physics_process(delta: float) -> void:
 
           # if not in wall hang state and near a wall
           if state != States.wallHang && getCurrentWallSide() and not collidingWithNowj():
-            lastWallSide = getCurrentWallSide()
+            var ws = getCurrentWallSide()
+            if lastWallSide != ws:
+              breakFromWall = false
+              lastWallSide = ws
             lastWallCollisionPoint = getClosestWallRay().get_collision_point()
             lastWall = getCurrentWall()
 
@@ -848,10 +836,7 @@ func _physics_process(delta: float) -> void:
               wallSlidingFrames -= 1
               breakFromWall = true
           else:
-            # log.pp(vel.user, REAL_GRAV)
             vel.user.y += REAL_GRAV
-
-            # log.pp(vel.user, REAL_GRAV)
 
         if breakFromWall:
           wallSlidingFrames = 0
@@ -943,7 +928,6 @@ func _physics_process(delta: float) -> void:
           var loopIdx: int = 0
           while TopIsOnWall() and loopIdx < 20:
             loopIdx += 1
-            # log.pp(loopIdx)
             position -= Vector2(0, 1).rotated(defaultAngle)
             leftWallTopDetection.force_raycast_update()
             rightWallTopDetection.force_raycast_update()
@@ -1073,7 +1057,6 @@ func _physics_process(delta: float) -> void:
 
           var normal := collision.get_normal()
           var depth := collision.get_depth()
-          # log.pp(block.id if 'id' in block else block.root.id, normal, depth, block == floorRayCollision)
           # collision.get_position()
 
           # if block == floorRayCollision:
@@ -1087,7 +1070,6 @@ func _physics_process(delta: float) -> void:
           position += applyRot(Vector2(0, safe_margin))
         tryAndDieHazards()
         tryAndDieSquish()
-      # log.pp(heat, "Heat")
       applyHeat(delta)
       updateKeyFollowPosition(delta)
   if !global.showEditorUi:
@@ -1120,10 +1102,7 @@ func _physics_process(delta: float) -> void:
   var camrot = camera.global_rotation
   if camrot < 0:
     camrot += deg_to_rad(360)
-    # log.pp(camera.global_rotation, " ---- ", defaultAngle, rad_to_deg(defaultAngle), rad_to_deg(camera.global_rotation), camrot)
-    # log.pp(abs(camera.rotation),abs(camera.rotation) < .3)
   var targetAngle = camRotLock if global.showEditorUi else defaultAngle
-  # log.pp(camRotLock, "camRotLock", targetAngle, camrot, camera.global_rotation)
   if global.useropts.dontChangeCameraRotationOnGravityChange:
     camera.global_rotation = 0
   else:
@@ -1141,13 +1120,9 @@ func _physics_process(delta: float) -> void:
         camera.global_rotation = targetAngle
       else:
         camera.global_rotation = lerp_angle(camrot, targetAngle, .15)
-  # log.pp(slowCamRot, angle_distance(rotation, targetAngle), rotation, targetAngle)
     # camera.global_rotation = deg_to_rad(0)
   # else:
   #   camera.global_rotation = deg_to_rad(0)
-    # log.pp(camera.position, changeInPosition)
-
-    # log.pp(camera.position_smoothing_speed, maxVel)
 
 func moveAnimations():
   var flip_h = -1 if anim.flip_h else 1
@@ -1245,7 +1220,6 @@ func applyHeat(delta):
       # a lot more based on distance when very close less than 20 px
       + max(0, ((20 - laser.thingThatMoves.global_position.distance_to(global_position)) / 3.0))
       heatToAdd += num
-      # log.pp('heatToAdd num', num)
   heat += heatToAdd * delta
   if heat > 0:
     heat -= (.75 if inWaters else .5) * delta
@@ -1259,13 +1233,10 @@ func collidingWithNowj():
   var wallSIde = getCurrentWallSide()
   var bodies = nowjDetector.get_overlapping_bodies()
   var collision = false
-  # log.pp(wallSIde)
-  # log.pp(bodies)
   for body in bodies:
     var block: EditorBlock = body.root
     var angdiff = angle_difference(deg_to_rad(block.startRotation_degrees), defaultAngle)
     var v = Vector2(1, 0).rotated(angdiff)
-    # log.pp(v.x, wallSIde, block.startRotation_degrees, defaultAngle, angdiff)
     if abs(v.x - wallSIde) < .01:
       collision = true
       break
@@ -1285,7 +1256,6 @@ func tryAndDieSquish():
   if noclipEnabled: return false
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
   or (len(collsiionOn_left) and len(collsiionOn_right)):
-    # log.pp(collsiionOn_top, collsiionOn_bottom, collsiionOn_left, collsiionOn_right)
     die(DEATH_TIME, false, false)
 
 func calcHitDir(normal):
@@ -1385,8 +1355,6 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   and vel.user.y >= -SMALL \
   :
     var speed = 400
-    # log.pp(normal == Vector2(-1, 0), blockSide)
-    # log.pp(vel.conveyor)
     if not blockSide.single: return
     if playerSide.bottom and blockSide.top:
       vel.conveyor.x = - speed
@@ -1485,7 +1453,6 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     state = States.dead
   root.__disable()
   respawnCooldown = respawnTime + 1.01
-  # log.pp("Player died", respawnTime, full, "lastSpawnPoint", lastSpawnPoint)
   lastDeathWasForced = forced
   # root.__disable()
   # process_mode = Node.PROCESS_MODE_DISABLED
@@ -1558,8 +1525,9 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
       if global.currentLevelSettings("checkpointsSaveAll"):
         global.loadBlockData()
   await global.wait()
-  Alltryaddgroups.emit.call_deferred()
   _physics_process(0)
+  await global.wait()
+  Alltryaddgroups.emit()
 
 func tryChangeRespawnLocation():
   var deathRay := RayCast2D.new()
@@ -1620,7 +1588,6 @@ func _on_left_body_exited(body: Node2D) -> void:
 #     else:
 #       block.root._on_body_entered(self, false)
 func updateCollidingBlocksExited():
-  # log.pp("respawn", (
   #   respawnDetectionArea.get_overlapping_bodies()
   #   + respawnDetectionArea.get_overlapping_areas()
   # ))
