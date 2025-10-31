@@ -1991,6 +1991,7 @@ const DEFAULT_BLOCK_LIST = [
   "path",
   "single spike",
   "surprise spike",
+  "moving spike",
   "10x spike",
   "10x oneway spike",
   "10x locked spike",
