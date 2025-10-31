@@ -372,7 +372,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **color**: sets the modulate property
 
   - **moving spike**: moves left and right turning around when hitting a wall
-    <br><br><img src="scenes/blocks/moving spike/images/editorBar.png" alt="image of block moving spike" width="30" height="50">
+    <br><br><img src="scenes/blocks/moving spike/images/1.png" alt="image of block moving spike" width="30" height="50">
 
     - scalable
     - rotatable
