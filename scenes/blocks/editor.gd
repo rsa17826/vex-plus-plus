@@ -263,8 +263,8 @@ var collisionQueue := {}
 ## don't overite - use on_body_entered instead
 func _on_body_entered(body: Node2D, real=true) -> void:
   if !global.player: return
-  if global.player.state == global.player.States.levelLoading: return
-  if global.player.state == global.player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
+  if global.player.state == Player.States.levelLoading: return
+  if global.player.state == Player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
   on_body_entered(body)
   if is_in_group("death"):
     _on_body_enteredDEATH(body)
@@ -272,9 +272,9 @@ func _on_body_entered(body: Node2D, real=true) -> void:
 ## don't overite - use on_body_exited instead
 func _on_body_exited(body: Node2D, real=true) -> void:
   if !global.player: return
-  if global.player.state == global.player.States.levelLoading: return
-  if global.player.state == global.player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
-  # if global.player.state == global.player.States.dead and body is Player: return
+  if global.player.state == Player.States.levelLoading: return
+  if global.player.state == Player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
+  # if global.player.state == Player.States.dead and body is Player: return
   if respawning:
     if body in collisionQueue and collisionQueue[body] == "entered":
       collisionQueue.erase(body)
@@ -432,7 +432,7 @@ func _physics_process(delta: float) -> void:
   if isBeingPlaced:
     if !(global.selectedBlock == self):
       isBeingPlaced = false
-  # if global.player.state == global.player.States.dead: return
+  # if global.player.state == Player.States.dead: return
   # if global.stopTicking: return
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
@@ -707,6 +707,8 @@ func _process(delta: float) -> void:
       if global.hoveredBlocks && self == global.hoveredBlocks[0] \
         or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
         if !Input.is_action_pressed(&"editor_select"):
+          # prevents the mouse position from being offset by the players offset from the last frame
+          global.player.updateCamLockPos()
           var mouse_pos := get_global_mouse_position().rotated(-deg_to_rad(startRotation_degrees))
 
           var node_pos := ghost.global_position.rotated(-deg_to_rad(startRotation_degrees))
@@ -830,7 +832,7 @@ func _process(delta: float) -> void:
       else:
         # disable outline
         ghost.use_parent_material = true
-  if global.player.state == global.player.States.dead: return
+  if global.player.state == Player.States.dead: return
   on_process(delta)
 
 func createEditorGhost() -> void:
