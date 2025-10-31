@@ -6,11 +6,11 @@
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_xvl4e"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_cdjuy"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xvl4e"]
-radius = 298.3
+[sub_resource type="CircleShape2D" id="CircleShape2D_toc2x"]
+radius = 328.2
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_v7uox"]
-radius = 306.863
+[sub_resource type="CircleShape2D" id="CircleShape2D_2evtr"]
+radius = 329.28
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "BUZZSAW_GENERIC_spriteToRotateLeft", "BUZZSAW_GENERIC_spriteToRotateRight") groups=["death"]]
 script = ExtResource("1_v7uox")
@@ -43,16 +43,14 @@ texture = ExtResource("2_lsihx")
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
-visible = false
-shape = SubResource("CircleShape2D_xvl4e")
+shape = SubResource("CircleShape2D_toc2x")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_cdjuy")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
-visible = false
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
-shape = SubResource("CircleShape2D_v7uox")
+shape = SubResource("CircleShape2D_2evtr")
 target_position = Vector2(0, 0)
 collision_mask = 32768
 collide_with_areas = true

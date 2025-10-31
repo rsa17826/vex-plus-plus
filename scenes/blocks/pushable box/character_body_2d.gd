@@ -27,12 +27,14 @@ func on_physics_process(delta: float) -> void:
       vel.default.y = 0
     if is_on_ceiling() and vel.default.y < 0:
       vel.default.y = 0
-    vel.default.y += global.player.GRAVITY * delta
+    vel.default.y += Player.GRAVITY * delta
   vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
   # vel.default += vel.conveyor
   velocity = global.player.applyRot(vel.default + vel.conveyor)
   move_and_slide()
+  if global.player.state == Player.States.dead:
+    log.pp('box', delta, velocity, vel.default + vel.conveyor)
   # vel.default -= vel.conveyor
   vel.conveyor *= (velDecay.conveyor)
   for i in get_slide_collision_count():

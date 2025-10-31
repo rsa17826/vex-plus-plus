@@ -32,7 +32,7 @@ func updateColor() -> void:
 
 func tryaddgroups():
   enabled = true
-  await global.wait()
+  # await global.wait()
   if is_inside_tree() and is_instance_valid(self):
     force_shapecast_update()
     enabled = false

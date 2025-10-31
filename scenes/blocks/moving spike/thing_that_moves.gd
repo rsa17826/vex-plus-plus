@@ -5,14 +5,22 @@ extends CharacterBody2D
 
 var dir = 1
 func on_respawn():
-  dir = 1
+  if root.loadDefaultData:
+    dir = 1
+    velocity = Vector2.ZERO
 
-const speed = 100
+const speed = 120
 
 func on_physics_process(delta: float) -> void:
+  if root.respawning: return
+  if root._DISABLED: return
   sprite.flip_h = dir == -1
-  velocity = Vector2(dir * speed, Player.GRAVITY / 10.0)
+  if not delta: return
+  velocity.x = dir * speed
+  velocity.y += Player.GRAVITY * delta / 2.5
   move_and_slide()
+  if global.player.state == Player.States.dead:
+    log.pp('spike', delta, velocity)
   for i in get_slide_collision_count():
     var collision := get_slide_collision(i)
     var block := collision.get_collider()

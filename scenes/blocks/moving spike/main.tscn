@@ -49,6 +49,7 @@ scale = Vector2(0.585, 0.585)
 texture = ExtResource("4_vyq0d")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="thingThatMoves"]
+visible = false
 position = Vector2(19.255665, -57.927208)
 rotation = 2.8448865
 scale = Vector2(1.0526317, 1.0526317)
@@ -57,6 +58,7 @@ debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("5_amsek")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="thingThatMoves"]
+visible = false
 position = Vector2(-18.954508, -57.165962)
 rotation = -2.8448865
 scale = Vector2(1.0526316, 1.0526316)
@@ -65,6 +67,7 @@ debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("5_amsek")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="thingThatMoves"]
+visible = false
 position = Vector2(-1.0526316, -3.7789474)
 rotation = -3.1415925
 scale = Vector2(1.0526316, 1.0526316)
@@ -79,6 +82,7 @@ script = ExtResource("3_uibo8")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="thingThatMoves/Area2D"]
+visible = false
 position = Vector2(0, -51.578957)
 shape = SubResource("RectangleShape2D_amsek")
 debug_color = Color(1, 0, 0, 0.41960785)
@@ -93,6 +97,7 @@ script = ExtResource("3_uibo8")
 root = NodePath("../..")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="thingThatMoves/oneway"]
+visible = false
 position = Vector2(0, -3.59)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_41y0u")
@@ -101,6 +106,7 @@ debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("6_vtow5")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_jt7ue")
