@@ -561,7 +561,7 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     .replace("#", getcolor("end") + getcolor("darkred") + "#") \
     .replace(">", getcolor("end") + getcolor("red") + ">") \
     + getcolor('end')
-  print("UNSET ITEM TYPE: " + type_string(typeof(item)) + ' - ' + str(item))
+  log.pp("UNSET ITEM TYPE: " + type_string(typeof(item)) + ' - ' + str(item))
   return spaces(tab) + '"' + str(item) + '"'
 
 ## public print fns ###########################################################################
@@ -601,8 +601,7 @@ static func error(...msgs) -> void:
     ToastParty.error(m)
   push_error(m)
 
-static func logToFile(m):
-  return
+static func logToFile(m): return
   # if not global.logger_ui:
   #   await global.waituntil(func(): return global.logger_ui)
   # global.logger_ui.add_log(m, 1)
