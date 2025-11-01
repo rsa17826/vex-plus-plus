@@ -2738,11 +2738,12 @@ DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, h
       if PercentDone > 100 {
         print('PercentDone > 100', PercentDone)
         PercentDone := "???"
+      } else {
+        gocProgress.Value := PercentDone
       }
       ;Update the ProgressBar
       ; ProgressGui.Title := "Downloading " SaveFileAs " 〰" PercentDone "`%ㄱ"
       ProgressGuiText.text := "Downloading...  (" Speed ")"
-      gocProgress.Value := PercentDone
       ProgressGuiText2.text := PercentDone "`% Done"
       ProgressGui.Show("AutoSize NoActivate")
     } catch Error as e {
