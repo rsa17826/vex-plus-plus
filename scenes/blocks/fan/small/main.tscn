@@ -1,9 +1,9 @@
 [gd_scene load_steps=27 format=3 uid="uid://c7c0wyi8bely6"]
 
-[ext_resource type="Script" uid="uid://blahplrwj3rjs" path="res://scenes/blocks/fan/small/small.gd" id="1_wy0px"]
+[ext_resource type="Script" path="res://scenes/blocks/fan/small/small.gd" id="1_wy0px"]
 [ext_resource type="Texture2D" uid="uid://bfh7lwygfkmcm" path="res://scenes/blocks/fan/small/images/1.png" id="2_nmib4"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_ub1tn"]
-[ext_resource type="Texture2D" uid="uid://b3wgx5hri1diq" path="res://images/shapes,1412.svg" id="4_34xhg"]
+[ext_resource type="Texture2D" uid="uid://bdm54gj6n5gnk" path="res://scenes/blocks/fan/squareMask.svg" id="4_c6nyr"]
 [ext_resource type="Texture2D" uid="uid://clo2i3ns12bpo" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/1.png" id="5_nmib4"]
 [ext_resource type="Texture2D" uid="uid://dlulaw62g4jh4" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/2.png" id="6_ub1tn"]
 [ext_resource type="Texture2D" uid="uid://dqbldp22317qn" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/3.png" id="7_34xhg"]
@@ -110,7 +110,7 @@ metadata/_edit_lock_ = true
 clip_children = 1
 position = Vector2(516.5, -10)
 scale = Vector2(1.4728571, 1)
-texture = ExtResource("4_34xhg")
+texture = ExtResource("4_c6nyr")
 
 [node name="0" type="AnimatedSprite2D" parent="collisionNode/windMask"]
 position = Vector2(-590.34924, 10.999999)
