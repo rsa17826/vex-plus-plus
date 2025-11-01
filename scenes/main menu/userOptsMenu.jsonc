@@ -86,6 +86,12 @@
     "value": [
       {
         "thing": "option",
+        "key": "dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar",
+        "type": "bool",
+        "defaultValue": true
+      },
+      {
+        "thing": "option",
         "type": "bool",
         "key": "warnWhenOpeningLevelInOlderGameVersion",
         "defaultValue": true
@@ -608,6 +614,18 @@
             "defaultValue": true
           }
         ]
+      },
+      {
+        "thing": "group",
+        "name": "UNAVAILABLEs",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showUNAVAILABLEBlockInPlay",
+            "defaultValue": true
+          }
+        ]
       }
     ]
   },
@@ -628,29 +646,59 @@
   },
   {
     "thing": "group",
-    "name": "local levels",
+    "name": "level lists",
     "value": [
       {
-        "thing": "option",
-        "type": "bool",
-        "key": "smallLevelDisplaysInLocalLevelList",
-        "defaultValue": false
+        "thing": "group",
+        "name": "local level list",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "smallLevelDisplaysInLocalLevelList",
+            "defaultValue": false
+          },
+          {
+            "thing": "option",
+            "type": "spinbox",
+            "key": "amountOfLevelsToLoadAtTheSameTimeOnMainMenu",
+            "defaultValue": 50,
+            "min": 1,
+            "max": 100000,
+            "step": 1,
+            "rounded": true
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "showLevelCompletionInfoOnMainMenu",
+            "defaultValue": true
+          }
+        ]
       },
       {
-        "thing": "option",
-        "type": "spinbox",
-        "key": "amountOfLevelsToLoadAtTheSameTimeOnMainMenu",
-        "defaultValue": 50,
-        "min": 1,
-        "max": 100000,
-        "step": 1,
-        "rounded": true
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "showLevelCompletionInfoOnMainMenu",
-        "defaultValue": true
+        "thing": "group",
+        "name": "online level list",
+        "value": [
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "smallLevelDisplaysInOnlineLevelList",
+            "defaultValue": false
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "onlyShowLevelsForCurrentVersion",
+            "defaultValue": false
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "loadOnlineLevelListOnSceneLoad",
+            "defaultValue": true
+          }
+        ]
       }
     ]
   },
@@ -675,30 +723,6 @@
         "type": "bool",
         "key": "randomizeLevelModifiersOnLevelCreation",
         "defaultValue": false
-      }
-    ]
-  },
-  {
-    "thing": "group",
-    "name": "online level list",
-    "value": [
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "smallLevelDisplaysInOnlineLevelList",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "onlyShowLevelsForCurrentVersion",
-        "defaultValue": false
-      },
-      {
-        "thing": "option",
-        "type": "bool",
-        "key": "loadOnlineLevelListOnSceneLoad",
-        "defaultValue": true
       }
     ]
   },

@@ -35,7 +35,14 @@ func reload(noCache:=false) -> void:
         invalidCount -= 1
         nodeCount -= 1
         newItem("buzsaw", i - invalidCount)
-    if not newItem(global.blockNames[i], i - invalidCount, noCache) and not (global.useropts.reorganizingEditorBar || global.useropts.showEditorBarBlockMissingErrors):
+    if not newItem(global.blockNames[i], i - invalidCount, noCache) \
+    and not (
+      (
+        global.useropts.reorganizingEditorBar
+        and not global.useropts.dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar
+      )
+      or global.useropts.showEditorBarBlockMissingErrors
+    ):
       invalidCount += 1
   for item in get_children():
     updateItem(item)

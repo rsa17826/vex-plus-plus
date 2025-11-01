@@ -1490,9 +1490,9 @@ func win() -> void:
       saveData.loadedLevels = loadedLevels
     if "beatLevels" not in saveData:
       saveData.beatLevels = []
-    if not currentLevel()\
+    if not currentLevel() \
     or currentLevel().name not in saveData \
-    or "blockSaveData" not in saveData[currentLevel().name]\
+    or "blockSaveData" not in saveData[currentLevel().name] \
     :
       currentLevel().blockSaveData = {}
     # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
@@ -2006,6 +2006,8 @@ const DEFAULT_BLOCK_LIST = [
   "growing block",
   "gravity rotator",
   "water",
+  "big fan",
+  "small fan",
   "solar",
   "inverse solar",
   "pushable box",

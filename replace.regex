@@ -109,3 +109,18 @@
 @flags gm
 @endregex
 
+
+@name ||
+@file \.gd$
+@regex  \|\| 
+@replace  or 
+@flags gm
+@endregex
+
+@name &&
+@file \.gd$
+@regex  && 
+@replace  and 
+@flags gm
+@endregex
+
