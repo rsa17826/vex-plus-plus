@@ -726,9 +726,7 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
     target := targetFile.RawRead(targetBuff, targetFile.Length)
 
     updateRow(row, , "finding correct exe version", "")
-    ; _f := FileOpen("D:\Games\vex++\tempEXECMP", "w", "UTF-16-RAW")
-    ; _f.write(target)
-    ; _f.close()
+
     loop files A_ScriptDir "/launcherData/exes/*", 'D' {
       updateRow(row, , "checking - " A_LoopFileName, "")
       print("reading file: " A_LoopFileName)
