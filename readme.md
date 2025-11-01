@@ -141,6 +141,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **windowed**: windowed
   - ### warnings
 
+    - **dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar**: when this is enabled invalid blocks don't get shown whenever reorginizing editor bar is enabled
     - **warnWhenOpeningLevelInOlderGameVersion**: when you open a level in an older version of the game, you will be warned that it may not work properly.
     - **warnWhenOpeningLevelInNewerGameVersion**: when you open a level in an newer version of the game, you will be warned that it may not work properly.
     - **confirmKeyAssignmentDeletion**: adds a confirmation dialog before removing keys from the keybinds list.
@@ -247,24 +248,29 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
       - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
       - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
+    - ### UNAVAILABLEs
+
+      - **showUNAVAILABLEBlockInPlay**: shows unavailable blocks when playing
   - ### player
 
     - **playerRespawnTime**: the time that the player takes to respawn after dying
-  - ### local levels
+  - ### level lists
 
-    - **smallLevelDisplaysInLocalLevelList**: makes the level displays for local levels smaller
-    - **amountOfLevelsToLoadAtTheSameTimeOnMainMenu**: the amound of levels to load data for each frame when on the menu
-    - **showLevelCompletionInfoOnMainMenu**: shows some info about if the levels are completed and how completed they are on the menu
+    - ### local level list
+
+      - **smallLevelDisplaysInLocalLevelList**: makes the level displays for local levels smaller
+      - **amountOfLevelsToLoadAtTheSameTimeOnMainMenu**: the amound of levels to load data for each frame when on the menu
+      - **showLevelCompletionInfoOnMainMenu**: shows some info about if the levels are completed and how completed they are on the menu
+    - ### online level list
+
+      - **smallLevelDisplaysInOnlineLevelList**: makes the level displays for online levels smaller
+      - **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
+      - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
   - ### level creation
 
     - **defaultCreatorName**: the default name for the prompt when creating a new level
     - **defaultCreatorNameIsLoggedInUsersName**: if true overites defaultCreatorName to be the username of the currently logged in user
     - **randomizeLevelModifiersOnLevelCreation**: when creating a new level the level modifiers will be set randomly
-  - ### online level list
-
-    - **smallLevelDisplaysInOnlineLevelList**: makes the level displays for online levels smaller
-    - **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
-    - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
   - ### debug
 
     - **toastStayTime**: how long the toast stays on screen in seconds.
@@ -447,8 +453,10 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     <br><br><img src="scenes/blocks/pendulum/images/editorBar.png" alt="image of block pendulum" width="25" height="50">
 
     - scalable
+    - canAttachToThings
     - canAttachToPaths
     - ### settings:
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
@@ -520,6 +528,30 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     <br><br><img src="scenes/blocks/water/images/1.png" alt="image of block water" width="50" height="50">
 
     - scalable
+    - canAttachToThings
+    - canAttachToPaths
+    - ### settings:
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
+  - **fan/big**: blows the player and boxes away in the direction it is facing
+    <br><br><img src="scenes/blocks/fan/big/images/1.png" alt="image of block fan/big" width="10" height="50">
+
+    - scalable
+    - rotatable
+    - canAttachToThings
+    - canAttachToPaths
+    - ### settings:
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
+  - **fan/small**: blows the player and boxes away in the direction it is facing but less
+    <br><br><img src="scenes/blocks/fan/small/images/1.png" alt="image of block fan/small" width="16" height="50">
+
+    - scalable
+    - rotatable
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
