@@ -2678,13 +2678,15 @@ DownloadAsync(URL, Filename?, OnFinished := 0, OnProgress := 0, headers := {}) {
     req2 := WinHttpRequest()
     req2.OnResponseFinished := (whr) => totalsize := Integer(whr.GetResponseHeader('Content-Length'))
     req2.OnError := finished
+    req2.Open('HEAD', URL, true)
     for k in headers.OwnProps()
       req2.SetRequestHeader(k, headers.%k%)
-    req2.Open('HEAD', URL, true), req2.Send()
+    req2.Send()
   }
+  req.OnError := req.OnResponseFinished := finished
   for k in headers.OwnProps()
     req.SetRequestHeader(k, headers.%k%)
-  req.OnError := req.OnResponseFinished := finished, req.Send()
+  req.Send()
   return req
 
   finished(self, msg := 0, data := 0) {

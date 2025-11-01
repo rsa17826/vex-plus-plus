@@ -167,16 +167,20 @@ if FileExist("updating self") {
     FileDelete("temp.zip")
     logerr("failed while updating the launcher!!!")
     try DirDelete("temp", 1)
-    FileDelete("c.bat")
-    ExitApp(-1)
+    if FileExist("c.bat")
+      FileDelete("c.bat")
+    if SILENT
+      ExitApp(-1)
   } else {
     loadReleases()
     F.write("launcherData/launcherVersion", releases.Length)
     if F.read("updating self") == 'silent' {
       FileDelete("updating self")
       try DirDelete("temp", 1)
-      FileDelete("c.bat")
-      ExitApp(0)
+      if FileExist("c.bat")
+        FileDelete("c.bat")
+      if SILENT
+        ExitApp(-1)
     }
     FileDelete("updating self")
     try DirDelete("temp", 1)
