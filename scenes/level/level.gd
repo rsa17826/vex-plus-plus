@@ -51,7 +51,7 @@ func loadLevel(level):
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
   # await global.wait()
-  global.player.state = global.player.States.levelLoading
+  global.player.state = Player.States.levelLoading
   var leveldata = global.levelDataForCurrentMap.__get() \
   if global.levelDataForCurrentMap.__has(level) \
   else global.levelDataForCurrentMap.__set(await sds.loadDataFromFileSlow(global.path.join(global.levelFolderPath, level + '.sds')))
@@ -101,7 +101,7 @@ func loadLevel(level):
   global.tick = 0
   global.stopTicking = false
   global.ui.progressContainer.visible = false
-  global.player.state = global.player.States.falling
+  global.player.state = Player.States.falling
   # global.player.updateCollidingBlocksEntered()
   await global.wait()
   global.tick = global.currentLevel().tick

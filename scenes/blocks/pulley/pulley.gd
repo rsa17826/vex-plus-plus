@@ -19,7 +19,7 @@ func on_respawn():
       moving = false
       thingThatMoves.position = Vector2.ZERO
       if global.player.activePulley == self:
-        global.player.state = global.player.States.falling
+        global.player.state = Player.States.falling
         global.player.remainingJumpCount -= 1
         global.player.activePulley = null
     setTexture(sprite, ["left", 'right', "user"][selectedOptions.direction])
@@ -44,16 +44,16 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
       direction = -1 if global.player.get_node("anim").flip_h else 1
   moving = true
   global.player.activePulley = self
-  global.player.state = global.player.States.onPulley
+  global.player.state = Player.States.onPulley
 
 func on_physics_process(delta: float) -> void:
   if respawning: return
   if not moving: return
   thingThatMoves.position.x += SPEED * delta * direction
-  if global.player.state == global.player.States.onPulley \
+  if global.player.state == Player.States.onPulley \
   and global.player.activePulley == self \
   and wallToSideWithPlayerOn.get_overlapping_bodies():
-    global.player.state = global.player.States.falling
+    global.player.state = Player.States.falling
     global.player.activePulley = null
     global.player.remainingJumpCount -= 1
   if wallToSideWithPlayerOff.get_overlapping_bodies():

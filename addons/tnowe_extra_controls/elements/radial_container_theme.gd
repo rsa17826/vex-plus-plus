@@ -76,7 +76,7 @@ func merge(base: RadialContainerTheme, sub: RadialContainerTheme) -> RadialConta
     if sub.color.a != 0.0: n_color = sub.color
     if sub.texture != null: n_texture = sub.texture
 
-  if base == null && sub == null:
+  if base == null and sub == null:
     radius_factor_inner = 0.0
 
   radius_factor_outer = n_radius_factor_outer

@@ -17,10 +17,10 @@ func on_body_exited(body: Node) -> void:
 func _input(event: InputEvent) -> void:
   if Input.is_action_just_pressed("down"):
     if colliding \
-    and global.player.state != global.player.States.pullingLever \
+    and global.player.state != Player.States.pullingLever \
     and global.player.is_on_floor() \
     and not global.player.inWaters:
-      global.player.state = global.player.States.pullingLever
+      global.player.state = Player.States.pullingLever
       global.player.speedLeverActive = !global.player.speedLeverActive
       if global.player.speedLeverActive:
         global.ui.gravityChange.activate(global.ui.gravityChange.color.green)

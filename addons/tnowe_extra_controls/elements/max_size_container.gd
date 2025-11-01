@@ -24,7 +24,7 @@ func _notification(what: int):
         _resize_child(x)
 
 func _resize_child(child: Control):
-  if max_size.x < 0.0 && max_size.y < 0.0:
+  if max_size.x < 0.0 and max_size.y < 0.0:
     # Don't affect either side.
     fit_child_in_rect(child, Rect2(Vector2.ZERO, size))
     return
@@ -34,10 +34,10 @@ func _resize_child(child: Control):
 
   if proportional_size:
     result_size = size
-    if max_size.x < 0.0 && size.y / size.x > max_size.y:
+    if max_size.x < 0.0 and size.y / size.x > max_size.y:
       result_size.y = size.x * max_size.y
 
-    if max_size.y < 0.0 && size.x / size.y > max_size.x:
+    if max_size.y < 0.0 and size.x / size.y > max_size.x:
       result_size.x = size.y * max_size.x
 
   else:

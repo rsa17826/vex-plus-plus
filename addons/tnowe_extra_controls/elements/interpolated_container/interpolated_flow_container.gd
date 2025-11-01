@@ -30,7 +30,7 @@ func _sort_children():
   var cur_child_minsize := Vector2.ZERO
   var largest_child := 0.0
   for x in get_children(true):
-    if !(x is Control && x.visible): continue
+    if !(x is Control and x.visible): continue
 
     var cur_child: Control = x
     cur_child_minsize = cur_child.get_combined_minimum_size()
@@ -88,7 +88,7 @@ func _fit_children_row(start_child: int, end_child: int, row_top_offset: float, 
   for i in end_child - start_child:
     var child_index := start_child + i
     var child_testing := get_child(child_index, true)
-    if !(child_testing is Control && child_testing.visible): continue
+    if !(child_testing is Control and child_testing.visible): continue
 
     var cur_child: Control = child_testing
     var cur_child_width := cur_child.get_combined_minimum_size().x
@@ -123,7 +123,7 @@ func _insert_child_at_position(child: Control):
     i += _row_start_child_index[result_row]
     if children.size() <= i: break
 
-    if !(children[i] is Control && children[i].visible): continue
+    if !(children[i] is Control and children[i].visible): continue
 
     var cur_node: Control = children[i]
     var result_index := (i if i <= child_former_index else i - 1) - row_change_offset

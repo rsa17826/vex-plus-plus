@@ -185,7 +185,7 @@ func updateVisible() -> void:
   queue_redraw()
 
 func _draw() -> void:
-  super ()
+  super()
   var lastPoint = global_position
   if global.useropts.showPathLineInPlay or global.showEditorUi:
     for idx in range(len(path)):
@@ -260,7 +260,7 @@ func on_respawn():
       global.level.get_node('blocks').add_child(editNode)
 
 func onEditorMove(moveDist: Vector2) -> void:
-  super (moveDist)
+  super(moveDist)
   log.pp(isBeingPlaced, "isBeingPlaced")
   if isBeingPlaced or global.useropts.movingPathNodeMovesEntirePath: return
   for i in range(len(path)):

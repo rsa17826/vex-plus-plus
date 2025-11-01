@@ -63,7 +63,7 @@ func _ready() -> void:
   searchBar.set_deferred("text", global.file.read("user://localLevelListSearchBarFilterText", false, ""))
   scrollContainer.gui_input.connect(func(event):
     # scroll up or down then save scroll position
-    if event.button_mask == 8 || event.button_mask == 16:
+    if event.button_mask == 8 or event.button_mask == 16:
       global.file.write("user://scrollContainerscroll_vertical", str(scrollContainer.scroll_vertical), false))
 
 func loadLevelsFromArray(newData: Array, showOldVersions:=false) -> Array:

@@ -51,7 +51,7 @@ func get_random_file(p_path: String) -> String:
 
     var file_name := dir.get_next()
     while file_name != "":
-      if !dir.current_is_dir() && file_name.get_extension() != "import":
+      if !dir.current_is_dir() and file_name.get_extension() != "import":
         file_list.append(file_name)
       file_name = dir.get_next()
 
@@ -152,7 +152,7 @@ func add_background_music(p_path: String, p_loop:=true, p_volumn_db:=0.0) -> voi
   music_player.stream = music_stream
   music_player.volume_db = p_volumn_db
 
-  if music_stream is AudioStreamMP3 || music_stream is AudioStreamOggVorbis:
+  if music_stream is AudioStreamMP3 or music_stream is AudioStreamOggVorbis:
     music_stream.loop = p_loop
   elif music_stream is AudioStreamWAV:
     if p_loop:
@@ -171,10 +171,10 @@ func _on_music_player_finished(p_music_player: AudioStreamPlayer) -> void:
   p_music_player.queue_free()
 
 func set_editor_setting(p_setting: String, p_value) -> void:
-  if !custom_preset && p_setting.begins_with("interface/theme/"):
+  if !custom_preset and p_setting.begins_with("interface/theme/"):
     _set_editor_setting("interface/theme/preset", "Custom")
     custom_preset = true
-  elif !custom_colors && p_setting.begins_with("text_editor/theme/highlighting/"):
+  elif !custom_colors and p_setting.begins_with("text_editor/theme/highlighting/"):
     _set_editor_setting("text_editor/theme/color_theme", "Custom")
     custom_colors = true
   _set_editor_setting(p_setting, p_value)
@@ -216,7 +216,7 @@ func set_project_setting(p_setting: String, p_value) -> void:
 
 # func set_text_editor_colors(p_dict: Dictionary) -> void:
 #   for key in p_dict:
-#     if key is String && p_dict[key] is String:
+#     if key is String and p_dict[key] is String:
 #       set_editor_setting("text_editor/theme/highlighting/" + key, Color(p_dict[key]))
 
 # func set_text_editor_colors_by_cfg(p_path: String, p_section:="color_theme") -> void:
@@ -301,7 +301,7 @@ func get_local_data(p_key: String):
 
 func clear_cache() -> void:
   for c in nodes:
-    if c is Node && is_instance_valid(c):
+    if c is Node and is_instance_valid(c):
       c.queue_free()
   nodes.clear()
 

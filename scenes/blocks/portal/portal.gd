@@ -23,7 +23,7 @@ func on_body_entered(body: Node) -> void:
         global.player.global_position = portal.global_position
         global.player.activePulley = null
         global.player.activePole = null
-        global.player.state = global.player.States.falling
+        global.player.state = Player.States.falling
 
 func generateBlockOpts():
   blockOptions.exitId = {"type": global.PromptTypes.int, "default": 0}

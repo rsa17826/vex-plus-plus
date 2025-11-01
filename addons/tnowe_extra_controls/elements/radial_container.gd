@@ -46,12 +46,12 @@ enum OutOfBoundsBehaviour {
 @export var radial_theme_per: Array[RadialContainerTheme]:
   set(v):
     for x in radial_theme_per:
-      if x != null && x.changed.is_connected(_on_radial_theme_changed):
+      if x != null and x.changed.is_connected(_on_radial_theme_changed):
         x.changed.disconnect(_on_radial_theme_changed)
 
     radial_theme_per = v
     for x in v:
-      if x != null && !x.changed.is_connected(_on_radial_theme_changed):
+      if x != null and !x.changed.is_connected(_on_radial_theme_changed):
         x.changed.connect(_on_radial_theme_changed)
 
     _on_radial_theme_changed()
@@ -105,18 +105,18 @@ func is_inside_circle(global_pos: Vector2, inner_bound: bool = true, outer_bound
   var selected_theme: RadialContainerTheme
   if use_specific_sector:
     selected_theme = get_index_with_oob(get_index_from_direction(from_center_pos), radial_theme_per, radial_theme_per_behaviour, null)
-    if selected_theme == null && radial_theme == null:
-      return !outer_bound || dist_factor <= 1.0
+    if selected_theme == null and radial_theme == null:
+      return !outer_bound or dist_factor <= 1.0
 
   if radial_theme == null:
     return (
-      (!outer_bound || dist_factor <= selected_theme.radius_factor_outer)
-      && (!inner_bound || dist_factor >= selected_theme.radius_factor_inner)
+      (!outer_bound or dist_factor <= selected_theme.radius_factor_outer)
+      and (!inner_bound or dist_factor >= selected_theme.radius_factor_inner)
     )
 
   return (
-    (!outer_bound || dist_factor <= selected_theme.radius_factor_outer * radial_theme.radius_factor_outer)
-    && (!inner_bound || dist_factor >= selected_theme.radius_factor_inner * radial_theme.radius_factor_inner)
+    (!outer_bound or dist_factor <= selected_theme.radius_factor_outer * radial_theme.radius_factor_outer)
+    and (!inner_bound or dist_factor >= selected_theme.radius_factor_inner * radial_theme.radius_factor_inner)
   )
 
 ## Set the [RadialContainerTheme] for a specific sector, updating all visuals and expanding the array of needed.
@@ -188,7 +188,7 @@ func _notification(what: int):
     var children := get_children(true)
     var children_visible := 0
     for x in children:
-      if x is Control && x.visible:
+      if x is Control and x.visible:
         _child_stretch_ratio_sum += x.size_flags_stretch_ratio
         children_visible += 1
 
@@ -198,7 +198,7 @@ func _notification(what: int):
     _child_stretch_sum_until.resize(children.size() + 1)
     _child_stretch_sum_until.fill(1.0)
     for x in children:
-      if x is Control && x.visible:
+      if x is Control and x.visible:
         _child_stretch_sum_until[child_index] = child_stretch_ratio_sum_current
         child_stretch_ratio_sum_next = child_stretch_ratio_sum_current + x.size_flags_stretch_ratio / _child_stretch_ratio_sum
         _sort_child(x, child_index, child_stretch_ratio_sum_current, child_stretch_ratio_sum_next)

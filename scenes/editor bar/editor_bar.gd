@@ -142,9 +142,10 @@ func newItem(name, id, noCache:=false) -> bool:
     scaleFactor,
     scaleFactor
   )
-  if not nodeFound \
-  and not global.useropts.showEditorBarBlockMissingErrors \
-  and not global.useropts.reorganizingEditorBar: return false
+  if not nodeFound:
+    if global.useropts.showEditorBarBlockMissingErrors: pass
+    elif global.useropts.reorganizingEditorBar and not global.useropts.dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar: pass
+    else: return false
   add_child(item)
   updateItem(item)
   global.lastSelectedBrush = item

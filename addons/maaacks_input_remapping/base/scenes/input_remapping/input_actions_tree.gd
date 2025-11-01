@@ -129,7 +129,7 @@ func _assign_input_event_to_action(input_event: InputEvent, action_name: String)
   _add_input_event_as_tree_item(action_name, input_event, editing_item)
 
 func _can_remove_input_event(action_name: String) -> bool:
-  return 1 || InputMap.action_get_events(action_name).size() > 1
+  return 1 or InputMap.action_get_events(action_name).size() > 1
 
 func _remove_input_event(input_event: InputEvent) -> void:
   assigned_input_events.erase(InputEventHelper.get_text(input_event))

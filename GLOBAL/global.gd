@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
   if timer.started:
     timer.time += delta
   for i: Array in wait_until_wait_list:
-    if has_user_signal(i[0]) and i[1] && i[1].is_valid() && i[1].call():
+    if has_user_signal(i[0]) and i[1] and i[1].is_valid() and i[1].call():
       Signal(self, i[0]).emit()
       remove_user_signal(i[0])
   if !InputMap.has_action("quit"): return
@@ -284,7 +284,7 @@ func regReplace(str: String, reg: String, with: String, all:=true) -> String:
 # }
 
 func same(x: Variant, y: Variant) -> bool:
-  return typeof(x) == typeof(y) && x == y
+  return typeof(x) == typeof(y) and x == y
 
 func randstr(length:=10, fromchars:="qwertyuiopasdfghjklzxcvbnm1234567890~!@#$%^&*()_+-={ }[']\\|;:\",.<>/?`") -> String:
   var s := ''
@@ -726,13 +726,13 @@ func localProcess(delta: float) -> void:
       return
     player.moving = 2
     # when trying to rotate blocks
-    if editorInRotateMode && selectedBlock \
+    if editorInRotateMode and selectedBlock \
     and (selectedBlock.EDITOR_OPTION_rotate \
     or global.useropts.allowRotatingAnything):
       # handled in localinput now
       pass
     # when trying to scale blocks
-    elif editorInScaleMode && selectedBlock \
+    elif editorInScaleMode and selectedBlock \
     and (selectedBlock.EDITOR_OPTION_scale \
     or global.useropts.allowScalingAnything):
       if !scaleOnTopSide \
@@ -1275,7 +1275,7 @@ func _unhandled_input(event: InputEvent) -> void:
       lastDeletedBlock = null
     boxSelect_selectedBlocks = []
     # log.pp(selectedBlock, lastSelectedBlock)
-    if selectedBlock && is_instance_valid(selectedBlock) and selectedBlock.is_inside_tree():
+    if selectedBlock and is_instance_valid(selectedBlock) and selectedBlock.is_inside_tree():
       if selectedBlock == global.player.root: return
       if selectedBlock in hoveredBlocks:
         hoveredBlocks.erase(selectedBlock)
@@ -1294,7 +1294,7 @@ func _unhandled_input(event: InputEvent) -> void:
     else:
       if useropts.deleteLastSelectedBlockIfNoBlockIsCurrentlySelected:
         log.pp(selectedBlock, lastSelectedBlock)
-        if lastSelectedBlock && is_instance_valid(lastSelectedBlock) and lastSelectedBlock.is_inside_tree():
+        if lastSelectedBlock and is_instance_valid(lastSelectedBlock) and lastSelectedBlock.is_inside_tree():
           if lastSelectedBlock == global.player.root: return
           if lastSelectedBlock in hoveredBlocks:
             hoveredBlocks.erase(lastSelectedBlock)
@@ -1353,7 +1353,7 @@ func _unhandled_input(event: InputEvent) -> void:
         level.save(false)
     if isAlive(level):
       level.sceneChanging()
-    if useropts.alwaysShowMenuOnHomePage || useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+    if useropts.alwaysShowMenuOnHomePage or useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
       tabMenu._visible = false
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED

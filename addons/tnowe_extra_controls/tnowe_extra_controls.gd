@@ -35,7 +35,7 @@ func _enter_tree():
     if x_icon == null:
       x_icon = x[1].get_instance_base_type()
 
-    if x_icon is StringName || x_icon is String:
+    if x_icon is StringName or x_icon is String:
       x_icon = editor_base_node.get_theme_icon(x_icon, "EditorIcons")
 
     add_custom_type(x[0], x[1].get_instance_base_type(), x[1], x_icon)

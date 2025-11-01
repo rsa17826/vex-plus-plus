@@ -22,12 +22,12 @@ func _init(text : String = ""):
 
   var last_token := text.substr(text.rfind(" "))
   if (last_token.length() == 3):
-    if (last_token[0] == "[" && last_token[2] == "]"):
+    if (last_token[0] == "[" and last_token[2] == "]"):
       checkable_type = 1
       checked = last_token[1] != " "
       text = text.left(text.length() - 4)
 
-    if (last_token[0] == "(" && last_token[2] == ")"):
+    if (last_token[0] == "(" and last_token[2] == ")"):
       checkable_type = 1
       checked = last_token[1] != " "
       text = text.left(text.length() - 4)
@@ -35,7 +35,7 @@ func _init(text : String = ""):
   var id_length := text.find(" ")
   id = int(text.left(id_length))
   var prefix_end := text.find(" ", id_length + 1)
-  if (prefix_end == -1 || prefix_end == id_length):
+  if (prefix_end == -1 or prefix_end == id_length):
     separator = true
     return
 

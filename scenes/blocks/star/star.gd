@@ -43,7 +43,7 @@ func on_body_entered(body: Node) -> void:
 func __enable() -> void:
   # for when attached to things like locked box and solar
   if not collected:
-    super ()
+    super()
 
 func onSave() -> Array[String]:
   return ["collected"]

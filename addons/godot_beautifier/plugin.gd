@@ -37,7 +37,7 @@ func _enter_tree() -> void:
 
   ## Load theme. ##
   var script_path: String
-  if ProjectSettings.has_setting(_SettingsPanel.P_EnableRandomTheme) && ProjectSettings.get_setting(_SettingsPanel.P_EnableRandomTheme):
+  if ProjectSettings.has_setting(_SettingsPanel.P_EnableRandomTheme) and ProjectSettings.get_setting(_SettingsPanel.P_EnableRandomTheme):
     script_path = _SettingsPanel.get_random_theme_dir().path_join("theme.gd")
   elif ProjectSettings.has_setting(_SettingsPanel.P_ThemeScript):
     script_path = ProjectSettings.get_setting(_SettingsPanel.P_ThemeScript)

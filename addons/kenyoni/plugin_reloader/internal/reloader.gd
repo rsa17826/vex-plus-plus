@@ -33,7 +33,7 @@ func _reload_plugin_list() -> void:
     for sub_dir: String in DirAccess.get_directories_at("res://addons/" + dir):
       self._add_plugin_to_list(dir + "/" + sub_dir)
 
-  if self._last_selection == "" && self._option_button.get_item_count() > 0:
+  if self._last_selection == "" and self._option_button.get_item_count() > 0:
     self._last_selection = self._option_button.get_item_metadata(0)
   self._update_button_bar()
 
