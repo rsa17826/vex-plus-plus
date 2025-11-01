@@ -52,7 +52,7 @@ saveSettings() {
 }
 
 SILENT := A_Args.includes("silent")
-OFFLINE := A_Args.includes("offline")
+OFFLINE := (0 && A_ScriptFullPath == "D:\Games\vex++\aaa  vex++.ahk") || A_Args.includes("offline")
 
 if ((
   A_Args.includes("registerProtocols")
@@ -359,6 +359,13 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   guiCtrl.OnEvent("Click", (*) {
     run(A_ScriptDir)
   })
+  guiCtrl := ui.AddEdit("+Password w250", '...')
+  GuiSetPlaceholder(guiCtrl, "github pat (optional)")
+  guiCtrl.text := gettings.pat or ''
+  guiCtrl.OnEvent("change", (elem, *) {
+    settings.pat := elem.text
+    saveSettings()
+  })
   guiCtrl := ui.Add("Button", '', "try fix new maps for old versions")
   guiCtrl.OnEvent("Click", (*) {
     global doingSomething
@@ -485,7 +492,12 @@ UpdateSelf(*) {
     while (1) {
       try {
         tryCount += 1
-        DownloadFile(url, "temp.zip", , !SILENT)
+        head := {}
+        if gettings.pat
+          head := {
+            Authorization: "token " gettings.pat
+          }
+        DownloadFile(url, "temp.zip", , !SILENT, head)
         break
       } catch Error as e {
         print("ERROR", "at updating self", e.Message, e.Line, e.Extra, e.Stack)
@@ -683,7 +695,12 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
   if (url) {
     updateRow(row, , "Downloading...")
     DirCreate("versions/" selectedVersion)
-    DownloadFile(url, "temp.zip")
+    head := {}
+    if gettings.pat
+      head := {
+        Authorization: "token " gettings.pat
+      }
+    DownloadFile(url, "temp.zip", , !SILENT, head)
     updateRow(row, , "Unzipping...")
     unzip("temp.zip", "temp")
     updateRow(row, , "moving files")
@@ -735,8 +752,8 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
         i += 1
       }
       DirCreate("launcherData/exes/" selectedVersion)
-      FileCopy("temp/vex.exe", "launcherData/exes/" selectedVersion '/vex.exe')
-      FileCopy("temp/vex.console.exe", "launcherData/exes/" selectedVersion '/vex.console.exe')
+      FileCopy("temp/vex.exe", "launcherData/exes/" selectedVersion '/vex.exe', 1)
+      FileCopy("temp/vex.console.exe", "launcherData/exes/" selectedVersion '/vex.console.exe', 1)
       F.write("versions/" selectedVersion "/exeVersion.txt", version)
     }
     ; version := getExeVersion(selectedVersion)
@@ -762,15 +779,11 @@ FetchReleases(apiUrl) {
   }
   doingSomething := 1
   remainingRequests := "?"
+
   if not SILENT {
     __UpdateProgressBar := (CurrentSize) {
       try {
-        ; FinalSize := CurrentSize + 1
-        if FinalSize == -1 {
-          PercentDone := 1
-        } else {
-          PercentDone := Floor(CurrentSize / FinalSize * 100)
-        }
+        PercentDone := (FinalSize == -1) ? 1 : Floor(CurrentSize / FinalSize * 100)
         ProgressGuiText.text := "loading release info...  (" CurrentSize "/" (FinalSize == -1 ? "?" : FinalSize) ")`nremaining requests: " remainingRequests
         gocProgress.Value := PercentDone
         ProgressGuiText2.text := PercentDone "`% Done"
@@ -780,6 +793,7 @@ FetchReleases(apiUrl) {
       }
       return
     }
+
     ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption")
     ProgressGui.Title := "loading releases"
     ProgressGui.SetFont("Bold")
@@ -790,25 +804,42 @@ FetchReleases(apiUrl) {
     FinalSize := -1
     __UpdateProgressBar(1)
   }
+
   ret := []
   i := 0
   WebRequest := ComObject("WinHttp.WinHttpRequest.5.1")
   WebRequest.Open("HEAD", apiUrl "?page=" i "&rand=" rand)
+  if gettings.pat
+    WebRequest.SetRequestHeader("Authorization", "token " gettings.pat)
   WebRequest.Send()
+
   try FinalSize := WebRequest.GetResponseHeader("Link").RegExMatch('\?page=(\d+)&rand=[\d.]+>; rel="last"')[1] + 2
   try remainingRequests := WebRequest.GetResponseHeader("x-ratelimit-remaining")
   print('remainingRequests', remainingRequests)
+
   while 1 {
     i += 1
     if not SILENT {
       __UpdateProgressBar(i + 1)
     }
+
     jsonFile := A_Temp "\releases.json"
     tryCount := 0
     while (1) {
       try {
         tryCount += 1
-        Download(apiUrl "?page=" i "&rand=" rand, jsonFile)
+        WebRequest := ComObject("WinHttp.WinHttpRequest.5.1")
+        WebRequest.Open("GET", apiUrl "?page=" i "&rand=" rand)
+        if gettings.pat
+          WebRequest.SetRequestHeader("Authorization", "token " gettings.pat)
+        WebRequest.Send()
+
+        if WebRequest.Status == 200 {
+          ; FileDelete(jsonFile) ; Delete the existing file if it exists
+          ; FileAppend(WebRequest.ResponseBody, jsonFile)
+        } else {
+          throw Error("Download failed: " WebRequest.Status " - " WebRequest.StatusText)
+        }
         break
       } catch Error as e {
         print("ERROR", "at FetchReleases", e.Message, e.Line, e.Extra, e.Stack)
@@ -821,8 +852,7 @@ FetchReleases(apiUrl) {
     }
 
     ; Read the JSON file
-    data := FileRead(jsonFile)
-
+    data := WebRequest.ResponseText
     ; Parse the JSON to extract release information
     releases := JSON.parse(data, 0, 0)
     try {
@@ -839,12 +869,23 @@ FetchReleases(apiUrl) {
       break
     }
   }
+
   ; Clean up the temporary JSON file
   if not SILENT
     try ProgressGui.Destroy()
   try FileDelete(jsonFile)
   doingSomething := 0
   return ret
+}
+ConvertComObjArrayToString(comObjArray) {
+  result := ""
+
+  ; Loop through each item in the ComObjArray
+  for index, value in comObjArray {
+    ; Append the string representation of each item
+    result .= Chr(value)
+  }
+  return result
 }
 
 bufferEqual(Buf1, Buf2) {
