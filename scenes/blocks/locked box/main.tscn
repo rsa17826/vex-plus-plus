@@ -1,10 +1,78 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6akl5c6ei5rm"]
+[gd_scene load_steps=24 format=3 uid="uid://b6akl5c6ei5rm"]
 
 [ext_resource type="Script" uid="uid://fbe4j4u7vbs4" path="res://scenes/blocks/locked box/locked box.gd" id="1_86w3e"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_f5mb8"]
 [ext_resource type="Texture2D" uid="uid://mn65hn4gu42" path="res://scenes/blocks/locked box/images/1.png" id="2_n1jcy"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_afy7y"]
+[ext_resource type="Texture2D" uid="uid://bo6hefk11jo3x" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,1.png" id="4_qsika"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="4_tlfeg"]
+[ext_resource type="Texture2D" uid="uid://d0inxjfftsraw" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,2.png" id="5_2nnlq"]
+[ext_resource type="Texture2D" uid="uid://bb6b274d5k48b" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,3.png" id="6_dkaol"]
+[ext_resource type="Texture2D" uid="uid://csytxbanm7yt5" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,4.png" id="7_df1n1"]
+[ext_resource type="Texture2D" uid="uid://c5fxg2kqi7tfg" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,5.png" id="8_jxm54"]
+[ext_resource type="Texture2D" uid="uid://ba3v2ngmks1c3" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,6.png" id="9_ng4qr"]
+[ext_resource type="Texture2D" uid="uid://do211ru8q72t5" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,7.png" id="10_f87qp"]
+[ext_resource type="Texture2D" uid="uid://0a0ycohdx876" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,8.png" id="11_2csc2"]
+[ext_resource type="Texture2D" uid="uid://nh4rg51inkd0" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,9.png" id="12_t6gim"]
+[ext_resource type="Texture2D" uid="uid://cseooukwiqda" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,10.png" id="13_vy0dm"]
+[ext_resource type="Texture2D" uid="uid://325cnidw517e" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,11.png" id="14_f218s"]
+[ext_resource type="Texture2D" uid="uid://b8aygvr6kve4y" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,12.png" id="15_7d6tb"]
+[ext_resource type="Texture2D" uid="uid://7jcx640ld8x4" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,13.png" id="16_sf1wn"]
+[ext_resource type="Texture2D" uid="uid://ccbjvm0gp0ub" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,14.png" id="17_jw3s4"]
+[ext_resource type="Texture2D" uid="uid://o66molo5geof" path="res://scenes/blocks/locked box/images/sprites,lockBlockMask,15.png" id="18_dgxnu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_724jy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_qsika")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2nnlq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_dkaol")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_df1n1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_jxm54")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ng4qr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_f87qp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_2csc2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_t6gim")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_vy0dm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_f218s")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7d6tb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_sf1wn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_jw3s4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_dgxnu")
+}],
+"loop": false,
+"name": &"unlock",
+"speed": 30.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
@@ -12,13 +80,14 @@ size = Vector2(700, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f5mb8"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("mask", "ghostIconNode", "collisionShapes", "thingThatMoves")]
 script = ExtResource("1_86w3e")
-ghostIconNode = NodePath("collisionNode/Sprite2D")
+mask = NodePath("collisionNode/mask")
+ghostIconNode = NodePath("collisionNode/mask/Sprite2D")
 editorBarIcon = ExtResource("2_n1jcy")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/Sprite2D")]
 thingThatMoves = NodePath("collisionNode")
+ignoreMissingNodes = true
 EDITOR_OPTION_scale = true
 canAttachToPaths = true
 
@@ -28,16 +97,25 @@ collision_mask = 0
 script = ExtResource("2_f5mb8")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="mask" type="AnimatedSprite2D" parent="collisionNode"]
+clip_children = 2
+sprite_frames = SubResource("SpriteFrames_724jy")
+animation = &"unlock"
+frame = 14
+frame_progress = 0.65546143
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode/mask"]
 use_parent_material = true
 texture = ExtResource("2_n1jcy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("4_tlfeg")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_f5mb8")

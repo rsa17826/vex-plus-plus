@@ -33,8 +33,14 @@
 
 @name fix bad self spacings
 @file \.gd$
-@regex self ([,)])
+@regex \bself ([,)])
 @replace self$1
+@flags gm
+@endregex
+@name fix bad super spacings
+@file \.gd$
+@regex \bsuper \(
+@replace super(
 @flags gm
 @endregex
 
