@@ -1810,3 +1810,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # moveblockz prevent wrapping at -1
 
 # show stars in level before entering
+
+# make cps option to only collect while player grav is same dir
+# make stars collected in main level be counted in main menu
