@@ -1697,6 +1697,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version 230-230! standing on a pendulum causes the player to slide to the right
   # !version ?-<229! jumping out of water while next to a wall the player would immediately grab onto the wall then quickly slide back down into the water making it hard to jump out of the water
   # !version 231-233! rotated pendulums have incorrect hitbos positions
+  # !version ?-NOW! sliding against a wall prevents the slide from ending when leaving the ground
+    # vex++:downloadMap/233/161/uno%20mas%20%2D%20sliding%20down
 
 # ?add level option to change canPressDownToShortHop and make sh work
 
