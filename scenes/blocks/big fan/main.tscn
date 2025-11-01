@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbvg8iy3y764i"]
+
+[ext_resource type="Script" uid="uid://drptkrcscavvs" path="res://scenes/blocks/big fan/big fan.gd" id="1_yxhmy"]
+[ext_resource type="Texture2D" uid="uid://23l1xtjcvk5e" path="res://scenes/blocks/big fan/images/1.png" id="2_dtbfl"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_eaf16"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_bmx20"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
+size = Vector2(700, 700)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites")]
+script = ExtResource("1_yxhmy")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_dtbfl")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D")]
+EDITOR_OPTION_scale = true
+
+[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 1024
+collision_mask = 674
+script = ExtResource("3_eaf16")
+root = NodePath("..")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+texture = ExtResource("2_dtbfl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
+shape = SubResource("RectangleShape2D_gwpbw")
+debug_color = Color(0, 1, 0, 0.41960785)
+script = ExtResource("4_bmx20")
+
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
