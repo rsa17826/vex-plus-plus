@@ -10,6 +10,7 @@
     STR(spark block/clockwise)
     STR(conveyer)
     STR(water)
+    STR(big fan)
     STR(gravity rotator)
     STR(bomb)
     STR(pushable box)

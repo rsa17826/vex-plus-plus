@@ -9,6 +9,12 @@ func generateBlockOpts():
     "onChange": onIdChanged
   }
 
+func on_ready():
+  global.onEditorStateChanged.connect(onEditorStateChanged)
+
+func onEditorStateChanged():
+  visible = global.useropts.showUNAVAILABLEBlockInPlay or global.showEditorUi
+
 func onIdChanged(id):
   var thing = {
     'x': startPosition.x,

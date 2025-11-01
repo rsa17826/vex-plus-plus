@@ -280,8 +280,9 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "saveExpandedGroups", \
     "loadExpandedGroups", \
     "menuOptionNameFormat":
-      __menu.reloadUi()
+      __menu.reloadUi.call_deferred()
     "cameraZoomInPlay", \
+    "showUNAVAILABLEBlockInPlay", \
     "cameraZoomInEditor":
       global.onEditorStateChanged.emit()
     "levelTilingBackgroundPath", \
@@ -308,6 +309,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "editorBarPosition", \
     "showEditorBarBlockMissingErrors", \
     "editorBarColumns", \
+    "dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar", \
     "reorganizingEditorBar" \
     :
       if global.isAlive(global.editorBar):
