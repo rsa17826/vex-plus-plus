@@ -1121,7 +1121,7 @@ class path {
 
 input(text?, ifUnset?, title?, options?, default?) {
   SetTimer(() {
-    WinSetAlwaysOnTop(1, 'a')
+    try WinSetAlwaysOnTop(1, 'a')
   }, -50)
   temp := InputBox(text?, title?, options?, default?)
   if temp.Result = "OK"
@@ -1168,6 +1168,18 @@ class F {
     } catch Error as e {
       throw(Error(e.Message ' --- ' (p or "path is not set")))
     }
+  }
+
+  /**
+   * 
+   * @param path name of the file to write to
+   * @param text text to write to the file
+   */
+  static writeLineToTop(path, text) {
+    temp := this.read(path)
+    if temp
+      text := text '`n' temp
+    this.write(path, text)
   }
 
   /**
@@ -2227,7 +2239,15 @@ class Time {
   static nanosecond := 1000 / Time.microsecond
   static picosecond := 1000 / Time.nanosecond
   static femtosecond := 1000 / Time.picosecond
+  static format(time) {
+    ms := floor(mod(time, 1000))
+    s := floor(mod(time / 1000, 60))
+    m := floor(mod(time / 60000, 60))
 
+    ; formattedTime := Format("{:02X}:{:02X}:{:03X}", m, s, ms)
+    return m ':' s '.' ms
+
+  }
   static sec := 1000 * Time.ms
   static second := Time.sec
   static min := 60 * Time.sec
@@ -2235,12 +2255,12 @@ class Time {
   static hr := 60 * Time.min
   static hour := Time.hr
   static day := 24 * Time.hr
-  static year := 365.25 * Time.day
   static week := 7 * Time.day
-  static century := 100 * Time.year
-  static month := 30.4375 * Time.day
-  static decade := 10 * Time.year
   static fortnight := 14 * Time.day
+  static month := 30.4375 * Time.day
+  static year := 365.25 * Time.day
+  static decade := 10 * Time.year
+  static century := 100 * Time.year
   static millennium := 1000 * Time.year
 }
 
@@ -2265,6 +2285,22 @@ class timer {
   }
   expire() {
     this.startTime -= this.timerLength
+  }
+}
+class Stopwatch {
+  startTime := 0
+  __New(name := '') {
+    this.startTime := A_TickCount
+    this.name := name
+  }
+  restart() {
+    this.startTime := A_TickCount
+  }
+  getTime() {
+    return A_TickCount - this.startTime
+  }
+  printTimePassed() {
+    print(this.name "TIME PASSED: " A_TickCount - this.startTime)
   }
 }
 
@@ -2320,6 +2356,43 @@ listCursors() {
   }
   return arr
 }
+addCursorScheme(Scheme, SchemeFolder) {
+  KeyNames := [
+    "Arrow",
+    "Help",
+    "AppStarting",
+    "Wait",
+    "Crosshair",
+    "IBeam",
+    "NWPen",
+    "No",
+    "SizeNS",
+    "SizeWE",
+    "SizeNWSE",
+    "SizeNESW",
+    "SizeAll",
+    "UpArrow",
+    "Hand",
+    "Pin",
+    "Person"
+  ]
+  KEYpath := "HKEY_CURRENT_USER\Control Panel\Cursors"
+  SPI_SETCURSORS := 0x0057
+
+  RegCreateKey("HKEY_CURRENT_USER\Control Panel\Cursors\Schemes")
+
+  RegWrite(Scheme, "REG_SZ", KEYpath)
+  for val in KeyNames {
+    cursorFile := SchemeFolder . "\" . val . ".cur"
+    if not FileExist(cursorFile)
+      cursorFile := SchemeFolder . "\" . val . ".ani"
+    if (FileExist(cursorFile)) {
+      RegWrite(cursorFile, "REG_EXPAND_SZ", KEYpath, val)
+    }
+  }
+
+  DllCall("SystemParametersInfo", "UInt", SPI_SETCURSORS, "UInt", 0, "UInt", 0, "UInt", 0)
+}
 setCursors(Scheme) {
   KeyNames := [
     "Arrow",
@@ -2370,22 +2443,283 @@ unzip(zipFile, outputDir) {
 by Bruttosozialprodukt
 https://autohotkey.com/board/topic/101007-super-simple-download-with-progress-bar/
 */
+/************************************************************************
+ * @file: WinHttpRequest.ahk
+ * @description: 网络请求库
+ * @author thqby
+ * @date 2021/08/01
+ * @version 0.0.18
+ ***********************************************************************/
 
-DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True) {
+class WinHttpRequest {
+  static AutoLogonPolicy := {
+    Always: 0,
+    OnlyIfBypassProxy: 1,
+    Never: 2
+  }
+  static Option := {
+    UserAgentString: 0,
+    URL: 1,
+    URLCodePage: 2,
+    EscapePercentInURL: 3,
+    SslErrorIgnoreFlags: 4,
+    SelectCertificate: 5,
+    EnableRedirects: 6,
+    UrlEscapeDisable: 7,
+    UrlEscapeDisableQuery: 8,
+    SecureProtocols: 9,
+    EnableTracing: 10,
+    RevertImpersonationOverSsl: 11,
+    EnableHttpsToHttpRedirects: 12,
+    EnablePassportAuthentication: 13,
+    MaxAutomaticRedirects: 14,
+    MaxResponseHeaderSize: 15,
+    MaxResponseDrainSize: 16,
+    EnableHttp1_1: 17,
+    EnableCertificateRevocationCheck: 18,
+    RejectUserpwd: 19
+  }
+  static PROXYSETTING := {
+    PRECONFIG: 0,
+    DIRECT: 1,
+    PROXY: 2
+  }
+  static SETCREDENTIALSFLAG := {
+    SERVER: 0,
+    PROXY: 1
+  }
+  static SecureProtocol := {
+    SSL2: 0x08,
+    SSL3: 0x20,
+    TLS1: 0x80,
+    TLS1_1: 0x200,
+    TLS1_2: 0x800,
+    All: 0xA8
+  }
+  static SslErrorFlag := {
+    UnknownCA: 0x0100,
+    CertWrongUsage: 0x0200,
+    CertCNInvalid: 0x1000,
+    CertDateInvalid: 0x2000,
+    Ignore_All: 0x3300
+  }
+
+  __New(UserAgent := unset) {
+    (this.whr := ComObject('WinHttp.WinHttpRequest.5.1')).Option[0] := IsSet(UserAgent) ? UserAgent : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36 Edg/89.0.774.68'
+  }
+
+  request(url, method := 'GET', post_data?, headers := {}) {
+    this.Open(method, url)
+    for k, v in headers.OwnProps()
+      this.SetRequestHeader(k, v)
+    this.Send(post_data?)
+    return this.ResponseText
+  }
+  enableRequestEvents(Enable := true) {
+    static vtable := init_vtable()
+    if !Enable
+      return this._ievents := this._ref := 0
+    if this._ievents
+      return
+    IConnectionPointContainer := ComObjQuery(pwhr := ComObjValue(this.whr), '{B196B284-BAB4-101A-B69C-00AA00341D07}')
+    DllCall('ole32\CLSIDFromString', 'str', '{F97F4E15-B787-4212-80D1-D380CBBF982E}', 'ptr', IID_IWinHttpRequestEvents := Buffer(16))
+    ComCall(4, IConnectionPointContainer, 'ptr', IID_IWinHttpRequestEvents, 'ptr*', IConnectionPoint := ComValue(0xd, 0)) ; IConnectionPointContainer->FindConnectionPoint
+    IWinHttpRequestEvents := Buffer(3 * A_PtrSize)
+    NumPut('ptr', vtable.Ptr, 'ptr', ObjPtr(this), 'ptr', ObjPtr(IWinHttpRequestEvents), IWinHttpRequestEvents)
+    ComCall(5, IConnectionPoint, 'ptr', IWinHttpRequestEvents, 'uint*', &dwCookie := 0) ; IConnectionPoint->Advise
+    this._ievents := {
+      __Delete: (*) => ComCall(6, IConnectionPoint, 'uint', dwCookie)
+    }
+    static init_vtable() {
+      vtable := Buffer(A_PtrSize * 7), offset := vtable.Ptr
+      for nParam in StrSplit('3113213')
+        offset := NumPut('ptr', CallbackCreate(EventHandler.Bind(A_Index), , Integer(nParam)), offset)
+      vtable.DefineProp('__Delete', {
+        call: __Delete
+      })
+      return vtable
+      static EventHandler(index, this, arg1 := 0, arg2 := 0) {
+        if (index < 4) {
+          IEvents := NumGet(this, A_PtrSize * 2, 'ptr')
+          if index == 1
+            NumPut('ptr', this, arg2)
+          if index == 3
+            ObjRelease(IEvents)
+          else ObjAddRef(IEvents)
+          return 0
+        }
+        req := ObjFromPtrAddRef(NumGet(this, A_PtrSize, 'ptr'))
+        req.readyState := index - 2
+        switch index {
+          case 4: ; OnResponseStart
+            try req.OnResponseStart(arg1, StrGet(arg2, 'utf-16'))
+          case 5: ; OnResponseDataAvailable
+            try req.OnResponseDataAvailable(
+              NumGet((pSafeArray := NumGet(arg1, 'ptr')) + 8 + A_PtrSize, 'ptr'),
+              NumGet(pSafeArray + 8 + A_PtrSize * 2, 'uint'))
+          case 6: ; OnResponseFinished
+            try req._ref := 0, req.OnResponseFinished()
+          case 7: ; OnError
+            try req.readyState := req._ref := 0, req.OnError(arg1, StrGet(arg2, 'utf-16'))
+        }
+      }
+      static __Delete(this) {
+        loop 7
+          CallbackFree(NumGet(this, (A_Index - 1) * A_PtrSize, 'ptr'))
+      }
+    }
+  }
+
+  ;#region IWinHttpRequest https://learn.microsoft.com/en-us/windows/win32/winhttp/iwinhttprequest-interface
+  SetProxy(ProxySetting, ProxyServer, BypassList) => this.whr.SetProxy(ProxySetting, ProxyServer, BypassList)
+  SetCredentials(UserName, Password, Flags) => this.whr.SetCredentials(UserName, Password, Flags)
+  SetRequestHeader(Header, Value) => this.whr.SetRequestHeader(Header, Value)
+  GetResponseHeader(Header) => this.whr.GetResponseHeader(Header)
+  GetAllResponseHeaders() => this.whr.GetAllResponseHeaders()
+  Send(Body?) => (this._ievents && this._ref := this, this.whr.Send(Body?))
+  Open(verb, url, async := false) {
+    this.readyState := 0
+    this.whr.Open(verb, url, async)
+    this.readyState := 1
+  }
+  WaitForResponse(Timeout := -1) => this.whr.WaitForResponse(Timeout)
+  Abort() => (this._ref := this.readyState := 0, this.whr.Abort())
+  SetTimeouts(ResolveTimeout := 0, ConnectTimeout := 60000, SendTimeout := 30000, ReceiveTimeout := 30000) => this.whr.SetTimeouts(ResolveTimeout, ConnectTimeout, SendTimeout, ReceiveTimeout)
+  SetClientCertificate(ClientCertificate) => this.whr.SetClientCertificate(ClientCertificate)
+  SetAutoLogonPolicy(AutoLogonPolicy) => this.whr.SetAutoLogonPolicy(AutoLogonPolicy)
+
+  Status => this.whr.Status
+  StatusText => this.whr.StatusText
+  ResponseText => this.whr.ResponseText
+  ResponseBody {
+    get {
+      pSafeArray := ComObjValue(t := this.whr.ResponseBody)
+      pvData := NumGet(pSafeArray + 8 + A_PtrSize, 'ptr')
+      cbElements := NumGet(pSafeArray + 8 + A_PtrSize * 2, 'uint')
+      return ClipboardAll(pvData, cbElements)
+    }
+  }
+  ResponseStream => this.whr.responseStream
+  Option[Opt] {
+    get => this.whr.Option[Opt]
+    set => (this.whr.Option[Opt] := Value)
+  }
+  Headers {
+    get {
+      m := Map(), m.Default := ''
+      loop parse this.GetAllResponseHeaders(), '`r`n'
+        if (p := InStr(A_LoopField, ':'))
+          m[SubStr(A_LoopField, 1, p - 1)] .= LTrim(SubStr(A_LoopField, p + 1))
+      return m
+    }
+  }
+  /**
+   * The OnError event occurs when there is a run-time error in the application.
+   * @prop {(this,errCode,errDesc)=>void} OnError
+   */
+  OnError := 0
+  /**
+   * The OnResponseDataAvailable event occurs when data is available from the response.
+   * @prop {(this,safeArray)=>void} OnResponseDataAvailable
+   */
+  OnResponseDataAvailable := 0
+  /**
+   * The OnResponseStart event occurs when the response data starts to be received.
+   * @prop {(this,status,contentType)=>void} OnResponseDataAvailable
+   */
+  OnResponseStart := 0
+  /**
+   * The OnResponseFinished event occurs when the response data is complete.
+   * @prop {(this)=>void} OnResponseDataAvailable
+   */
+  OnResponseFinished := 0
+  ;#endregion
+
+  readyState := 0, whr := 0, _ievents := 0
+  static __New() {
+    if this != WinHttpRequest
+      return
+    this.DeleteProp('__New')
+    for prop in [
+      'OnError',
+      'OnResponseDataAvailable',
+      'OnResponseStart',
+      'OnResponseFinished'
+    ]
+      this.Prototype.DefineProp(prop, {
+        set: make_setter(prop)
+      })
+    make_setter(prop) => (this, value := 0) => value && (this.DefineProp(prop, {
+      call: value
+    }), this.enableRequestEvents())
+  }
+}
+/**
+ * Asynchronous download, you can get the download progress, and call the specified function after the download is complete
+ * @param {String} URL The URL address to be downloaded, including the http(s) header
+ * @param {String} Filename File path to save. If omit, download to memory
+ * @param {(whrOrErr)=>void} OnFinished Download finished callback function
+ * @param {(downloaded_size, total_size)=>void} OnProgress Download progress callback function
+ * @return {WinHttpRequest} A WinHttpRequest instance, can be used to terminate the download
+ * @example
+ * url := "https://www.autohotkey.com/download/ahk-v2.exe"
+ * Persistent()
+ * DownloadAsync(url,,
+ *   (req) => (Persistent(0), ToolTip(), (req is OSError) ? MsgBox('Error:' req.Message) : MsgBox('size: ' req.ResponseBody.Size)),
+ *   (s, t) => ToolTip('downloading: ' s '/' t))
+ */
+DownloadAsync(URL, Filename?, OnFinished := 0, OnProgress := 0, headers := {}) {
+  totalsize := -1, file := size := 0, err := OSError(0, -1)
+  if IsSet(Filename) && !(file := FileOpen(Filename, 'w-wd'))
+    throw OSError()
+  req := WinHttpRequest(), req.Open('GET', URL, true)
+  if (OnProgress) {
+    req.OnResponseDataAvailable := (self, pvData, cbElements) => OnProgress(size += cbElements, totalsize)
+    req2 := WinHttpRequest()
+    req2.OnResponseFinished := (whr) => totalsize := Integer(whr.GetResponseHeader('Content-Length'))
+    req2.OnError := finished
+    for k in headers.OwnProps()
+      req2.SetRequestHeader(k, headers.%k%)
+    req2.Open('HEAD', URL, true), req2.Send()
+  }
+  for k in headers.OwnProps()
+    req.SetRequestHeader(k, headers.%k%)
+  req.OnError := req.OnResponseFinished := finished, req.Send()
+  return req
+
+  finished(self, msg := 0, data := 0) {
+    if (msg) {
+      if file
+        file.Close(), FileDelete(Filename)
+      err.Message := data, err.Number := msg, err.Extra := URL
+      try OnFinished(err)
+    } else {
+      if file {
+        pSafeArray := ComObjValue(body := self.whr.ResponseBody)
+        pvData := NumGet(pSafeArray + 8 + A_PtrSize, 'ptr')
+        cbElements := NumGet(pSafeArray + 8 + A_PtrSize * 2, 'uint')
+        file.RawWrite(pvData, cbElements), file.Close()
+      }
+      try OnFinished(self)
+    }
+    OnFinished := file := 0
+  }
+}
+DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, headers := {}) {
   ;Check if the file already exists and if we must not overwrite it
   ;The label that updates the progressbar
   LastSize := 0
   LastSizeTick := 0
   ; ProgressGuiText2 := ''
   ; ProgressGuiText := ''
-  __UpdateProgressBar := () { ; V1toV2: Added bracket
+  __UpdateProgressBar := (CurrentSize, FinalSize) { ; V1toV2: Added bracket
     ;Get the current filesize and tick
     try {
 
-      CurrentSize := FileGetSize(SaveFileAs) ;FileGetSize wouldn't return reliable results
+      ; CurrentSize := FileGetSize(SaveFileAs) ;FileGetSize wouldn't return reliable results
       CurrentSizeTick := A_TickCount
       ;Calculate the downloadspeed
-      Speed := Round((CurrentSize / 1024 - LastSize / 1024) / ((CurrentSizeTick - LastSizeTick) / 1000)) . " Kb/s"
+      Speed := Round((CurrentSize / 1024 - LastSize / 1024) / ((CurrentSizeTick - LastSizeTick) / 1000) / 100) . " Kb/s"
       ;Save the current filesize and tick for the next time
       LastSizeTick := CurrentSizeTick
       LastSize := FileGetSize(SaveFileAs)
@@ -2409,31 +2743,123 @@ DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True) {
   } ; V1toV2: Added bracket in the end
   if (!Overwrite && FileExist(SaveFileAs))
     return
+  dd := 0
+  done := (*) {
+    dd := 1
+  }
   ;Check if the user wants a progressbar
   if (UseProgressBar) {
-    ;Initialize the WinHttpRequest Object
-    WebRequest := ComObject("WinHttp.WinHttpRequest.5.1")
-    ;Download the headers
-    WebRequest.Open("HEAD", UrlToFile)
-    WebRequest.Send()
-    ;Store the header which holds the file size in a variable:
-    FinalSize := WebRequest.GetResponseHeader("Content-Length")
-    ;Create the progressbar and the timer
-    ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption"), ProgressGui.Title := UrlToFile, ProgressGui.SetFont("Bold"), ProgressGuiText := ProgressGui.AddText("x0 w200 Center", "Downloading...")
+    ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption")
+    ProgressGui.Title := UrlToFile
+    ProgressGui.SetFont("Bold")
+    ProgressGuiText := ProgressGui.AddText("x0 w200 Center", "Downloading...")
     ProgressGuiText2 := ProgressGui.AddText("x0 w200 Center", 0 "`% Done")
     gocProgress := ProgressGui.AddProgress("x10 w180 h20")
     ProgressGui.Show("AutoSize NoActivate")
-    SetTimer(__UpdateProgressBar, 100)
+    DownloadAsync(UrlToFile, SaveFileAs, done, __UpdateProgressBar, headers)
   }
-  ;Download the file
-  Download(UrlToFile, SaveFileAs)
-  ;Remove the timer and the progressbar because the download has finished
+  while !dd {
+    Sleep(100)
+  }
   if (UseProgressBar) {
     ProgressGui.Destroy()
-    SetTimer(__UpdateProgressBar, 0)
   }
   return
 }
+; DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, headers := {}) {
+;   ;Check if the file already exists and if we must not overwrite it
+;   ;The label that updates the progressbar
+;   LastSize := 0
+;   LastSizeTick := 0
+;   ; ProgressGuiText2 := ''
+;   ; ProgressGuiText := ''
+;   __UpdateProgressBar := () { ; V1toV2: Added bracket
+;     ;Get the current filesize and tick
+;     try {
+
+;       CurrentSize := 0 ;FileGetSize(SaveFileAs) ;FileGetSize wouldn't return reliable results
+;       CurrentSizeTick := A_TickCount
+;       ;Calculate the downloadspeed
+;       Speed := Round((CurrentSize / 1024 - LastSize / 1024) / ((CurrentSizeTick - LastSizeTick) / 1000)) . " Kb/s"
+;       ;Save the current filesize and tick for the next time
+;       LastSizeTick := CurrentSizeTick
+;       LastSize := 0
+;       try LastSize := FileGetSize(SaveFileAs)
+;       ;Calculate percent done
+;       PercentDone := Floor(CurrentSize / FinalSize * 100)
+;       ;Update the ProgressBar
+;       ; ProgressGui.Title := "Downloading " SaveFileAs " 〰" PercentDone "`%ㄱ"
+;       ProgressGuiText.text := "Downloading...  (" Speed ")"
+;       gocProgress.Value := PercentDone
+;       ProgressGuiText2.text := PercentDone "`% Done"
+;       ProgressGui.Show("AutoSize NoActivate")
+;     } catch Error as e {
+;       logerr("Error while updating progress bar. ", e)
+;       try print("Error while updating progress bar. ", e, "PercentDone", PercentDone)
+;       ; if PercentDone >= 100 {
+;       ;   try {
+;       ;     SetTimer(__UpdateProgressBar, 0)
+;       ;   }
+;       ; }
+;     }
+;     return
+;   } ; V1toV2: Added bracket in the end
+;   if (!Overwrite && FileExist(SaveFileAs))
+;     return
+;   ;Check if the user wants a progressbar
+;   if (UseProgressBar) {
+;     ;Initialize the WinHttpRequest Object
+;     WebRequest := ComObject("WinHttp.WinHttpRequest.5.1")
+;     ;Download the headers
+;     WebRequest.Open("HEAD", UrlToFile)
+;     WebRequest.Send()
+;     ;Store the header which holds the file size in a variable:
+;     FinalSize := WebRequest.GetResponseHeader("Content-Length")
+;     ;Create the progressbar and the timer
+;     ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption")
+;     ProgressGui.Title := UrlToFile
+;     ProgressGui.SetFont("Bold")
+;     ProgressGuiText := ProgressGui.AddText("x0 w200 Center", "Downloading...")
+;     ProgressGuiText2 := ProgressGui.AddText("x0 w200 Center", 0 "`% Done")
+;     gocProgress := ProgressGui.AddProgress("x10 w180 h20")
+;     ProgressGui.Show("AutoSize NoActivate")
+;     SetTimer(__UpdateProgressBar, 100)
+;   }
+;   ;Download the file
+;   WebRequest := ComObject("WinHttp.WinHttpRequest.5.1")
+;   WebRequest.Open("GET", UrlToFile, 1)
+;   for h in headers.OwnProps() {
+;     WebRequest.SetRequestHeader(h, headers.%h%)
+;   }
+;   WebRequest.Send()
+;   while 1 {
+;     print(WebRequest.ResponseBody.maxIndex())
+;     Sleep(100)
+;   }
+;   a := WebRequest.ResponseBody
+;   if FileExist(SaveFileAs)
+;     FileDelete(SaveFileAs)
+;   uBytes := WebRequest.ResponseBody
+;   cLen := uBytes.maxIndex()
+;   fileHandle := fileOpen(SaveFileAs, "w")
+;   f := Buffer(cLen, 0) ; V1toV2: if 'f' is a UTF-16 string, use 'VarSetStrCapacity(&f, cLen)'
+;   loop cLen
+;     NumPut("UChar", uBytes[a_index - 1], f, a_index - 1)
+;   err := fileHandle.rawWrite(f)
+;   ; FileAppend(WebRequest.ResponseBody, SaveFileAs, "RAW")
+;   if WebRequest.Status == 200 {
+;   } else {
+;     throw Error("Download failed: " WebRequest.Status " - " WebRequest.StatusText)
+;   }
+
+;   ; Download(UrlToFile, SaveFileAs)
+;   ;Remove the timer and the progressbar because the download has finished
+;   if (UseProgressBar) {
+;     ProgressGui.Destroy()
+;     SetTimer(__UpdateProgressBar, 0)
+;   }
+;   return
+; }
 
 GuiSetPlaceholder(guiCtrlOrHwnd, Cue) {
   if !(guiCtrlOrHwnd is Integer) {
