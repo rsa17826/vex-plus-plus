@@ -2682,6 +2682,12 @@ DownloadAsync(URL, Filename?, OnFinished := 0, OnProgress := 0, headers := {}) {
     for k in headers.OwnProps()
       req2.SetRequestHeader(k, headers.%k%)
     req2.Send()
+    ; while 1 {
+    ;   if totalsize != -1
+    ;     break
+    ;   Sleep(100)
+    ; }
+    ; print(req2.whr.GetResponseHeader('Content-Length'))
   }
   req.OnError := req.OnResponseFinished := finished
   for k in headers.OwnProps()
@@ -2721,12 +2727,13 @@ DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, h
       ; CurrentSize := FileGetSize(SaveFileAs) ;FileGetSize wouldn't return reliable results
       CurrentSizeTick := A_TickCount
       ;Calculate the downloadspeed
-      Speed := Round((CurrentSize / 1024 - LastSize / 1024) / ((CurrentSizeTick - LastSizeTick) / 1000) / 100) . " Kb/s"
+      Speed := "?"
+      try Speed := Round((max(CurrentSize, 1) / 1024 - max(LastSize, 1) / 1024) / ((max(CurrentSizeTick, 1) - max(LastSizeTick, 1)) / 1000) / 100) . " Kb/s"
       ;Save the current filesize and tick for the next time
       LastSizeTick := CurrentSizeTick
-      LastSize := FileGetSize(SaveFileAs)
+      LastSize := CurrentSize
       ;Calculate percent done
-      PercentDone := Floor(CurrentSize / FinalSize * 100)
+      PercentDone := Floor(CurrentSize / max(FinalSize, 1) * 100)
       ;Update the ProgressBar
       ; ProgressGui.Title := "Downloading " SaveFileAs " 〰" PercentDone "`%ㄱ"
       ProgressGuiText.text := "Downloading...  (" Speed ")"
@@ -2734,7 +2741,10 @@ DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, h
       ProgressGuiText2.text := PercentDone "`% Done"
       ProgressGui.Show("AutoSize NoActivate")
     } catch Error as e {
-      print("Error while updating progress bar. ", e, "PercentDone", PercentDone)
+      if IsSet(PercentDone)
+        logerr("Error while updating progress bar. ", e, "PercentDone", PercentDone, e)
+      else
+        logerr("Error while updating progress bar. ", e, "PercentDone", "unset", e)
       ; if PercentDone >= 100 {
       ;   try {
       ;     SetTimer(__UpdateProgressBar, 0)
