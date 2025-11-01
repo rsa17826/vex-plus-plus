@@ -6,10 +6,10 @@ class_name BlockCannon
 
 func on_body_entered(body: Node) -> void:
   if body is Player:
-    if global.player.activeCannon && global.player.activeCannon == self: return
+    if global.player.activeCannon and global.player.activeCannon == self: return
     # if global.player.activeCannon:
     #   global.player.activeCannon.top_level = false
-    global.player.state = global.player.States.inCannon
+    global.player.state = Player.States.inCannon
     global.player.activeCannon = self
     global.player.cannonRotationDelayFrames = 0.07
 

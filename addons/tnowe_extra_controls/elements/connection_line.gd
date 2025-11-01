@@ -104,27 +104,27 @@ func _init():
   mouse_exited.connect(_on_mouse_exited)
 
 func _process(delta: float):
-  if !is_instance_valid(connect_node1) || !is_instance_valid(connect_node2):
+  if !is_instance_valid(connect_node1) or !is_instance_valid(connect_node2):
     set_process(false)
     return
 
   # Redraw, but only if positions changed.
-  if connect_node1 is Control && _last_rect1 != connect_node1.get_global_rect():
+  if connect_node1 is Control and _last_rect1 != connect_node1.get_global_rect():
     _last_rect1 = connect_node1.get_global_rect()
     queue_redraw()
     return
 
-  if connect_node1 is Node2D && connect_node1.position != _last_rect1.position:
+  if connect_node1 is Node2D and connect_node1.position != _last_rect1.position:
     _last_rect1.position = connect_node1.position
     queue_redraw()
     return
 
-  if connect_node2 is Control && _last_rect2 != connect_node2.get_global_rect():
+  if connect_node2 is Control and _last_rect2 != connect_node2.get_global_rect():
     _last_rect2 = connect_node2.get_global_rect()
     queue_redraw()
     return
 
-  if connect_node2 is Node2D && connect_node2.position != _last_rect2.position:
+  if connect_node2 is Node2D and connect_node2.position != _last_rect2.position:
     _last_rect2.position = connect_node2.position
     queue_redraw()
     return
@@ -133,9 +133,9 @@ func _has_point(point: Vector2) -> bool:
   if !Rect2(Vector2.ZERO, size).has_point(point): return false
 
   point += position
-  if allow_drag_pt1 && _is_in_radius(connect_point1, point): return true
+  if allow_drag_pt1 and _is_in_radius(connect_point1, point): return true
 
-  if allow_drag_pt2 && _is_in_radius(connect_point2, point): return true
+  if allow_drag_pt2 and _is_in_radius(connect_point2, point): return true
 
   if _path_curve != null:
     if _get_overlapped_path_point(point + position) != -1: return true
@@ -152,9 +152,9 @@ func _has_point(point: Vector2) -> bool:
 
         last_pt_position = current_pt_position
 
-  elif line_blocks_input && get_distance_to_segment(connect_point1, connect_point2, point) <= line_width * 0.5: return true
+  elif line_blocks_input and get_distance_to_segment(connect_point1, connect_point2, point) <= line_width * 0.5: return true
 
-  if allow_point_creation && _get_overlapped_path_midpoint(point + position) != -1: return true
+  if allow_point_creation and _get_overlapped_path_midpoint(point + position) != -1: return true
 
   return false
 
@@ -192,7 +192,7 @@ func _draw():
     line_direction_backward = (line_start - _path_curve.get_point_position(0)).normalized()
 
   # Turn center positions into edge positions (if applicable)
-  if connect_node1 is Control && !(connect_node1 is ConnectionLine):
+  if connect_node1 is Control and !(connect_node1 is ConnectionLine):
     if connect_anchor1 == Vector2(0.5, 0.5):
       line_start = xform_start * get_rect_edge_position(
         Rect2(Vector2.ZERO, connect_node1.size),
@@ -208,7 +208,7 @@ func _draw():
         connect_anchor1,
       )
 
-  if connect_node2 is Control && !(connect_node2 is ConnectionLine):
+  if connect_node2 is Control and !(connect_node2 is ConnectionLine):
     if connect_anchor2 == Vector2(0.5, 0.5):
       line_end = xform_end * get_rect_edge_position(
         Rect2(Vector2.ZERO, connect_node2.size),
@@ -267,10 +267,10 @@ func _draw():
   # Drag Area Hint
   if !_mouse_over: return
 
-  if allow_drag_pt1 && _is_in_radius(line_start, mouse_point):
+  if allow_drag_pt1 and _is_in_radius(line_start, mouse_point):
     draw_circle(line_start, drag_hint_radius, drag_hint_color)
 
-  if allow_drag_pt2 && _is_in_radius(line_end, mouse_point):
+  if allow_drag_pt2 and _is_in_radius(line_end, mouse_point):
     draw_circle(line_end, drag_hint_radius, drag_hint_color)
 
   if _path_curve != null:
@@ -293,7 +293,7 @@ func _draw():
 
       draw_circle((prev_point_pos + next_point_pos) * 0.5, drag_hint_radius, drag_hint_color)
 
-  elif _is_in_radius((line_start + line_end) * 0.5, mouse_point) && allow_point_creation:
+  elif _is_in_radius((line_start + line_end) * 0.5, mouse_point) and allow_point_creation:
     draw_circle((line_start + line_end) * 0.5, drag_hint_radius, drag_hint_color)
 
 ## Add a point to the path, in this node's parent's local coordinates. Index 0 is the first point [b]after[/b] the start point.
@@ -554,9 +554,9 @@ func _get_overlapped_control(of_parent: Node, ignore_node: Node, global_point: V
     global_point = of_parent.get_global_transform().affine_inverse() * global_point
 
   for x in of_parent.get_children():
-    if x == ignore_node || !(x is Control) || !x.get_rect().has_point(global_point): continue
+    if x == ignore_node or !(x is Control) or !x.get_rect().has_point(global_point): continue
 
-    if drag_reattach_condition_expr != null && !drag_reattach_condition_expr.execute(expr_params, x): continue
+    if drag_reattach_condition_expr != null and !drag_reattach_condition_expr.execute(expr_params, x): continue
 
     return x
 
@@ -569,9 +569,9 @@ func _gui_input(event: InputEvent):
       path_set(_mouse_dragging, event.position + position)
       path_point_moved.emit(_mouse_dragging, event.position + position)
 
-  if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
+  if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
     var mouse_point: Vector2 = event.position
-    if !event.pressed && _mouse_dragging != -1:
+    if !event.pressed and _mouse_dragging != -1:
       mouse_point += position
       var succeeded_on: Control
       var drag_reattach_condition_expr := Expression.new()
@@ -586,7 +586,7 @@ func _gui_input(event: InputEvent):
 
       if _mouse_dragging == -2:
         succeeded_on = _get_overlapped_control(_connect_node1_parent, connect_node2, event.global_position, drag_reattach_condition_expr, expr_params)
-        if succeeded_on == null && allow_loose_placement:
+        if succeeded_on == null and allow_loose_placement:
           connect_node1 = null
           connect_point1 = event.position + position
 
@@ -595,7 +595,7 @@ func _gui_input(event: InputEvent):
 
       elif _mouse_dragging == -3:
         succeeded_on = _get_overlapped_control(_connect_node2_parent, connect_node1, event.global_position, drag_reattach_condition_expr, expr_params)
-        if succeeded_on == null && allow_loose_placement:
+        if succeeded_on == null and allow_loose_placement:
           connect_node2 = null
           connect_point2 = event.position + position
 
@@ -603,12 +603,12 @@ func _gui_input(event: InputEvent):
           connect_node2 = succeeded_on
 
       elif _path_curve != null:
-        if _mouse_dragging >= 0 && _mouse_dragging < _path_curve.point_count:
+        if _mouse_dragging >= 0 and _mouse_dragging < _path_curve.point_count:
           path_point_moved.emit(_mouse_dragging, mouse_point)
           if !allow_point_creation: return
 
           for i in _path_curve.point_count:
-            if _mouse_dragging != i && _path_curve.get_point_position(i).distance_squared_to(mouse_point) < drag_hint_radius * drag_hint_radius:
+            if _mouse_dragging != i and _path_curve.get_point_position(i).distance_squared_to(mouse_point) < drag_hint_radius * drag_hint_radius:
               var remove_start := i
               if _mouse_dragging < i:
                 remove_start = _mouse_dragging + 1
@@ -635,20 +635,20 @@ func _gui_input(event: InputEvent):
           else:
             # Snap to grid and constrain to endpoint parents. Only if the point wasn't deleted when placed.
             var result_point := mouse_point
-            if _connect_node1_parent != null && _connect_node1_parent is InterpolatedFreeContainer:
+            if _connect_node1_parent != null and _connect_node1_parent is InterpolatedFreeContainer:
               result_point = result_point.snapped(_connect_node1_parent.grid_snap)
               result_point = result_point.clamp(Vector2.ZERO, _connect_node1_parent.size)
 
-            elif connect_node1 != null && connect_node1 is Draggable:
+            elif connect_node1 != null and connect_node1 is Draggable:
               result_point = result_point.snapped(connect_node1.grid_snap)
               if connect_node1.constrain_rect_to_parent:
                 result_point = result_point.clamp(Vector2.ZERO, _connect_node1_parent.size)
 
-            if _connect_node2_parent != null && _connect_node2_parent is InterpolatedFreeContainer:
+            if _connect_node2_parent != null and _connect_node2_parent is InterpolatedFreeContainer:
               result_point = result_point.snapped(_connect_node2_parent.grid_snap)
               result_point = result_point.clamp(Vector2.ZERO, _connect_node2_parent.size)
 
-            elif connect_node2 != null && connect_node2 is Draggable:
+            elif connect_node2 != null and connect_node2 is Draggable:
               result_point = result_point.snapped(connect_node2.grid_snap)
               if connect_node2.constrain_rect_to_parent:
                 result_point = result_point.clamp(Vector2.ZERO, _connect_node2_parent.size)
@@ -664,10 +664,10 @@ func _gui_input(event: InputEvent):
       return
 
     _mouse_dragging = -1
-    if allow_drag_pt1 && _is_in_radius(connect_point1 - position, mouse_point):
+    if allow_drag_pt1 and _is_in_radius(connect_point1 - position, mouse_point):
       _mouse_dragging = -2
 
-    elif allow_drag_pt2 && _is_in_radius(connect_point2 - position, mouse_point):
+    elif allow_drag_pt2 and _is_in_radius(connect_point2 - position, mouse_point):
       _mouse_dragging = -3
 
     else:

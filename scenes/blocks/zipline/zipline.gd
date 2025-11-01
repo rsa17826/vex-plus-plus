@@ -30,7 +30,7 @@ func on_process(delta: float) -> void:
   queue_redraw()
 
 func on_physics_process(delta: float) -> void:
-  if !targetZipline or targetZipline == self or global.player.state == global.player.States.sliding:
+  if !targetZipline or targetZipline == self or global.player.state == Player.States.sliding:
     ray.target_position = Vector2.ZERO
     ray.enabled = false
     return
@@ -70,13 +70,13 @@ func on_physics_process(delta: float) -> void:
       cd = 4
     global.player.activeZipline = self
     global.player.targetZipline = targetZipline
-    global.player.state = global.player.States.onZipline
+    global.player.state = Player.States.onZipline
   else:
     if global.player.activeZipline == self:
       global.player.remainingJumpCount -= 1
       global.player.activeZipline = null
       global.player.targetZipline = null
-      global.player.state = global.player.States.falling
+      global.player.state = Player.States.falling
 
 func _draw() -> void:
   # log.pp(targetZipline, global.ziplines)

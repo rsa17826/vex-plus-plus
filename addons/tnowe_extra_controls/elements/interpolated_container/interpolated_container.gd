@@ -163,7 +163,7 @@ func _input(event: InputEvent):
     set_process_input(false)
     return
 
-  if event is InputEventMouseMotion && _dragging_node != null:
+  if event is InputEventMouseMotion and _dragging_node != null:
     if !(_dragging_node is Draggable):
       _dragging_node.global_position += event.relative
 
@@ -171,13 +171,13 @@ func _input(event: InputEvent):
     if allow_drag_reorder:
       _insert_child_at_position(_dragging_node)
 
-    if allow_drag_transfer && !Rect2(Vector2.ZERO, size).has_point(get_global_transform().affine_inverse() * event.global_position):
+    if allow_drag_transfer and !Rect2(Vector2.ZERO, size).has_point(get_global_transform().affine_inverse() * event.global_position):
       _insert_child_in_other(_dragging_node, event.global_position)
 
     if _affected_by_multi_selection == null: return
 
     for x in _affected_by_multi_selection._selected_nodes:
-      if !is_instance_valid(x) || !(x is CanvasItem) || x == _dragging_node:
+      if !is_instance_valid(x) or !(x is CanvasItem) or x == _dragging_node:
         # CanvasItem doesn't actually have a global position, but both subclasses do.
         continue
 
@@ -185,12 +185,12 @@ func _input(event: InputEvent):
         x.global_position += event.relative
 
       drag_moved.emit(x)
-      if allow_drag_transfer && !Rect2(Vector2.ZERO, size).has_point(get_global_transform().affine_inverse() * event.global_position):
+      if allow_drag_transfer and !Rect2(Vector2.ZERO, size).has_point(get_global_transform().affine_inverse() * event.global_position):
         _insert_child_in_other(x, event.global_position)
 
       _affected_by_multi_selection.queue_redraw()
 
-  if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && !event.pressed:
+  if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and !event.pressed:
     drag_ended.emit(_dragging_node)
     _dragging_node = null
     queue_sort()
@@ -229,11 +229,11 @@ func _notification(what: int):
 
 func _insert_child_in_other(child: Control, mouse_global_position: Vector2):
   for x in _all_boxes:
-    if !x.allow_drag_insert || !Rect2(Vector2.ZERO, x.size).has_point(x.get_global_transform().affine_inverse() * mouse_global_position): continue
+    if !x.allow_drag_insert or !Rect2(Vector2.ZERO, x.size).has_point(x.get_global_transform().affine_inverse() * mouse_global_position): continue
 
-    if x.drag_max_count > -1 && x.get_child_count(true) >= x.drag_max_count: continue
+    if x.drag_max_count > -1 and x.get_child_count(true) >= x.drag_max_count: continue
 
-    if x._drag_insert_condition_exp != null && x._drag_insert_condition_exp.execute([ self, x], child) != true: continue
+    if x._drag_insert_condition_exp != null and x._drag_insert_condition_exp.execute([ self, x], child) != true: continue
 
     child.reparent(x)
     x._dragging_node = child
@@ -258,9 +258,9 @@ func _on_child_exiting_tree(x: Node):
     x.gui_input.disconnect(_on_child_gui_input)
 
 func _on_child_gui_input(event: InputEvent, child: Control):
-  if !allow_drag_reorder && !allow_drag_transfer: return
+  if !allow_drag_reorder and !allow_drag_transfer: return
 
-  if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+  if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
     _dragging_node = child
     drag_started.emit(child)
     set_process_input(true)

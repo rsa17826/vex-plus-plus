@@ -238,11 +238,11 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
   #     if isHovered and self not in global.hoveredBlocks:
   #       global.hoveredBlocks.append(self)
   # if selecting this block
-  if not global.shouldDragBlock and global.hoveredBlocks && self == global.hoveredBlocks[0]:
+  if not global.shouldDragBlock and global.hoveredBlocks and self == global.hoveredBlocks[0]:
     if !Input.is_action_pressed(&"editor_pan"):
       # edit block menu on rbutton
       # if event.is_action_pressed(&"editor_edit_special") \
-      #   && Input.is_action_just_pressed(&"editor_edit_special") \
+      #   and Input.is_action_just_pressed(&"editor_edit_special") \
       #   and not global.openMsgBoxCount \
       #   and not global.hoveredBrushes \
       #   :
@@ -252,7 +252,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
       #   # log.pp(blockOptions, event.as_text(), self, self.name)
       #   showPopupMenu()
       # select blocks when clicking them
-      if event.is_action_pressed(&"editor_select") && Input.is_action_just_pressed(&"editor_select"):
+      if event.is_action_pressed(&"editor_select") and Input.is_action_just_pressed(&"editor_select"):
         # if NO_SELECTING:
         #   global.hoveredBlocks.pop_front()
         #   if not global.hoveredBlocks: return
@@ -436,7 +436,7 @@ func _physics_process(delta: float) -> void:
   # if global.stopTicking: return
   if global.ui.modifiers.editorOpen: return
   if global.openMsgBoxCount: return
-  if (global.selectedBlock == self || self in global.boxSelect_selectedBlocks) && Input.is_action_pressed(&"editor_select"): return
+  if (global.selectedBlock == self or self in global.boxSelect_selectedBlocks) and Input.is_action_pressed(&"editor_select"): return
   if _DISABLED and not dontDisablePhysicsProcess: return
   var lastpos: Vector2 = thingThatMoves.global_position if thingThatMoves else Vector2.ZERO
   for thing in cloneEventsHere:
@@ -640,7 +640,7 @@ func _process(delta: float) -> void:
     _processBUZZSAW_GENERIC(delta)
   if not EDITOR_IGNORE:
     ghost.use_parent_material = true
-    if global.hoveredBlocks && self == global.hoveredBlocks[0] \
+    if global.hoveredBlocks and self == global.hoveredBlocks[0] \
       or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
       ghost.modulate.a = 1
     else:
@@ -704,7 +704,7 @@ func _process(delta: float) -> void:
         # set border to hovered color
       ghost.material.set_shader_parameter("color", Color.hex(global.useropts.hoveredBlockOutlineColor))
       # and if first hovered block, show border
-      if global.hoveredBlocks && self == global.hoveredBlocks[0] \
+      if global.hoveredBlocks and self == global.hoveredBlocks[0] \
         or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
         if !Input.is_action_pressed(&"editor_select"):
           # prevents the mouse position from being offset by the players offset from the last frame

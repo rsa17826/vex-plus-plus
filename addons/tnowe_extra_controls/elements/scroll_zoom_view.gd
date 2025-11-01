@@ -79,7 +79,7 @@ func _gui_input(event: InputEvent):
     scroll_offset += event.relative
 
   if event is InputEventMouseButton:
-    if !event.pressed || event.button_mask & pan_button != 0:
+    if !event.pressed or event.button_mask & pan_button != 0:
       _input_dragging = event.pressed
       _input_drag_start = event.position
       _input_drag_can_move = false

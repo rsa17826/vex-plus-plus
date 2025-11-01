@@ -33,7 +33,7 @@ func _sort_children():
   var widest_child := 0.0
   var cur_row_expand_count := 0
   for x in get_children(true):
-    if !(x is Control && x.visible): continue
+    if !(x is Control and x.visible): continue
 
     var cur_child: Control = x
     cur_child_minsize = cur_child.get_combined_minimum_size()
@@ -92,18 +92,18 @@ func _fit_children_row(row_size: Vector2, expand_node_count: int):
       expand_node_count = 0
 
   for child in get_children(true):
-    if !(child is Control && child.visible): continue
+    if !(child is Control and child.visible): continue
 
     var cur_child: Control = child
     var cur_child_width := 0.0
     if vertical:
       cur_child_width = cur_child.get_combined_minimum_size().y
-      if expand_node_count != 0 && cur_child.size_flags_vertical & SIZE_EXPAND != 0:
+      if expand_node_count != 0 and cur_child.size_flags_vertical & SIZE_EXPAND != 0:
         cur_child_width += (size.y - row_size.y) / expand_node_count
 
     else:
       cur_child_width = cur_child.get_combined_minimum_size().x
-      if expand_node_count != 0 && cur_child.size_flags_horizontal & SIZE_EXPAND != 0:
+      if expand_node_count != 0 and cur_child.size_flags_horizontal & SIZE_EXPAND != 0:
         cur_child_width += (size.x - row_size.x) / expand_node_count
 
     if _dragging_node == child:
@@ -123,12 +123,12 @@ func _insert_child_at_position(child: Control):
   var children := get_children(true)
   var child_former_index := child.get_index()
   for i in children.size():
-    if !(children[i] is Control && children[i].visible): continue
+    if !(children[i] is Control and children[i].visible): continue
 
     var cur_node: Control = children[i]
     if (
-      (vertical && cur_node.position.y > child.position.y)
-      || (!vertical && cur_node.position.x > child.position.x)
+      (vertical and cur_node.position.y > child.position.y)
+      or (!vertical and cur_node.position.x > child.position.x)
       ):
       var result_index := i if i < child_former_index else i - 1
       if result_index != child_former_index:

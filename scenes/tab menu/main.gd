@@ -142,7 +142,7 @@ func _ready() -> void:
   __menu.show_menu()
   updateUserOpts()
   if isOptionsMenuOnMainMenu:
-    if global.useropts.alwaysShowMenuOnHomePage || global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+    if global.useropts.alwaysShowMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
       _visible = global.file.read("user://mainMenuOptionsMenuVisible", false, "true") == "true"
     else:
       _visible = false

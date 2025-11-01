@@ -83,7 +83,7 @@ func set_count(item: Node, to_count: int):
     _item_by_key.erase(new_key)
 
 func _on_container_child_entered_tree(child: Node):
-  if item_can_group != "" && !_item_can_group_expr.execute([], child): return
+  if item_can_group != "" and !_item_can_group_expr.execute([], child): return
 
   if _changing_children > 0:
     _changing_children -= 1
@@ -102,14 +102,14 @@ func _on_container_child_entered_tree(child: Node):
   _item_by_key[item_key] = child
 
 func _on_container_child_exiting_tree(child: Node):
-  if item_can_group != "" && !_item_can_group_expr.execute([], child): return
+  if item_can_group != "" and !_item_can_group_expr.execute([], child): return
 
   if _changing_children > 0:
     _changing_children -= 1
     return
 
   var item_key := _item_key_getter_expr.execute([], child)
-  if infinite_count || _item_counts.get(item_key, 0) > 1:
+  if infinite_count or _item_counts.get(item_key, 0) > 1:
     var new_node := child.duplicate()
     var old_child_index := child.get_index()
 

@@ -705,7 +705,7 @@ func _physics_process(delta: float) -> void:
             position += Vector2(0, 2).rotated(defaultAngle)
           return
 
-        if state == States.wallHang || state == States.wallSliding:
+        if state == States.wallHang or state == States.wallSliding:
           # remainingJumpCount = MAX_JUMP_COUNT
           if not is_on_wall() and getClosestWallSide():
             var ray: RayCast2D = getClosestWallRay()
@@ -724,8 +724,8 @@ func _physics_process(delta: float) -> void:
           lastWallCollisionPoint = null
           breakFromWall = false
           # if not moving or trying to not move, go idle
-          if !vel.user || !playerXIntent || playerXIntent != vel.user.x:
-            if state == States.sliding && !Input.is_action_pressed(&"down"):
+          if !vel.user or !playerXIntent or playerXIntent != vel.user.x:
+            if state == States.sliding and !Input.is_action_pressed(&"down"):
               if abs(vel.user.x) < 10:
                 duckRecovery = MAX_SLIDE_RECOVER_TIME
               else:
@@ -735,7 +735,7 @@ func _physics_process(delta: float) -> void:
           # if not on floor and switching wall sides allow both walls again
           if (
             global.currentLevelSettings().canDoWallSlide &&
-            (lastWallSide && (getCurrentWallSide() && lastWallSide != getCurrentWallSide()))
+            (lastWallSide and (getCurrentWallSide() and lastWallSide != getCurrentWallSide()))
             or onDifferentWall()
           ) and not collidingWithNowj() and velocity.y > -20:
             vel.waterExit = Vector2.ZERO
@@ -749,8 +749,8 @@ func _physics_process(delta: float) -> void:
           if state != States.wallHang:
             currentHungWall = 0
           # should enter wall grab state if not already in wall hang state and moving down
-          if vel.user.y > -20 && state != States.wallHang:
-            if global.currentLevelSettings().canDoWallHang && (CenterIsOnWall() && !TopIsOnWall() and not collidingWithNowj()):
+          if vel.user.y > -20 and state != States.wallHang:
+            if global.currentLevelSettings().canDoWallHang and (CenterIsOnWall() and !TopIsOnWall() and not collidingWithNowj()):
               currentHungWall = rightWallDetection.get_collider() if getCurrentWallSide() == 1 else leftWallDetection.get_collider()
               wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
               hungWallSide = getCurrentWallSide()
@@ -773,7 +773,7 @@ func _physics_process(delta: float) -> void:
               lastWallSide = 0
               lastWallCollisionPoint = null
               lastWall = null
-            # if global.currentLevelSettings().canDoWallHang && ((
+            # if global.currentLevelSettings().canDoWallHang and ((
             #   is_on_wall() and (
             #     (
             #       leftWallDetection.is_colliding() and not leftWallTopDetection.is_colliding()
@@ -805,7 +805,7 @@ func _physics_process(delta: float) -> void:
             #   lastWall = null
 
           # if not in wall hang state and near a wall
-          if state != States.wallHang && getCurrentWallSide() and not collidingWithNowj():
+          if state != States.wallHang and getCurrentWallSide() and not collidingWithNowj():
             var ws = getCurrentWallSide()
             if lastWallSide != ws:
               breakFromWall = false
@@ -817,8 +817,8 @@ func _physics_process(delta: float) -> void:
             state = States.falling
           if (
             global.currentLevelSettings().canDoWallSlide and (
-              CenterIsOnWall() && not is_on_floor() && !breakFromWall \
-              && vel.user.y > 0 && wallBreakDownFrames <= 0 \
+              CenterIsOnWall() and not is_on_floor() and !breakFromWall \
+              and vel.user.y > 0 and wallBreakDownFrames <= 0 \
               and not collidingWithNowj()
             )
           ) and velocity.y > -20:
@@ -828,9 +828,9 @@ func _physics_process(delta: float) -> void:
             # remainingJumpCount = MAX_JUMP_COUNT
             state = States.wallSliding
             # press down to detach from wallslide
-            if Input.is_action_pressed(&"down") && wallBreakDownFrames <= 0:
+            if Input.is_action_pressed(&"down") and wallBreakDownFrames <= 0:
               breakFromWall = true
-            if !breakFromWall && wallSlidingFrames <= 0:
+            if !breakFromWall and wallSlidingFrames <= 0:
               wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
             if wallSlidingFrames <= 1:
               wallSlidingFrames -= 1
@@ -855,7 +855,7 @@ func _physics_process(delta: float) -> void:
 
           vel.user.y = JUMP_POWER
 
-        if (state == States.wallHang) && is_on_wall_only() && CenterIsOnWall():
+        if (state == States.wallHang) and is_on_wall_only() and CenterIsOnWall():
           remainingJumpCount = MAX_JUMP_COUNT
           vel.user.y = 0
 
@@ -870,7 +870,7 @@ func _physics_process(delta: float) -> void:
 
         # jump from wall grab or from the ground
         if !Input.is_action_pressed(&"down"):
-          if (remainingJumpCount > 0) || state == States.wallHang:
+          if (remainingJumpCount > 0) or state == States.wallHang:
             if not onStickyFloor:
               if duckRecovery <= 0 and ACTIONjump:
                 remainingJumpCount -= 1
@@ -879,7 +879,7 @@ func _physics_process(delta: float) -> void:
                 vel.user.y = JUMP_POWER
 
         # if not in duckRecovery or wall hang or wallSliding, allow movement
-        if (!breakFromWall and (state == States.wallSliding || state == States.wallHang)) \
+        if (!breakFromWall and (state == States.wallSliding or state == States.wallHang)) \
           or duckRecovery > 0:
           playerXIntent = 0
         else:
@@ -887,13 +887,13 @@ func _physics_process(delta: float) -> void:
           (2 if speedLeverActive else 1)
 
         # enter slide mode when pressing down key and on the ground
-        if is_on_floor() && Input.is_action_pressed(&"down"):
+        if is_on_floor() and Input.is_action_pressed(&"down"):
           state = States.sliding
 
         # check for falling
         if !is_on_floor() \
-        && !is_on_wall() \
-        && !getClosestWallRay():
+        and !is_on_wall() \
+        and !getClosestWallRay():
           if vel.user.y < 0:
             state = States.jumping
           else:
@@ -921,7 +921,7 @@ func _physics_process(delta: float) -> void:
           mainCollisionShape2D.position.y = unduckPos.y
           deathDetectors.scale = Vector2(1, 1)
           deathDetectors.position.y = 0
-        if state == States.wallHang && (CenterIsOnWall() && TopIsOnWall() and not collidingWithNowj()):
+        if state == States.wallHang and (CenterIsOnWall() and TopIsOnWall() and not collidingWithNowj()):
           # currentHungWall = getCurrentWall()
           wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
           hungWallSide = getCurrentWallSide()
@@ -1190,7 +1190,7 @@ func moveAnimations():
 
 func onDifferentWall() -> bool:
   if not lastWall: return false
-  if getCurrentWall() && lastWall != getCurrentWall():
+  if getCurrentWall() and lastWall != getCurrentWall():
     if not lastWallCollisionPoint: return true
     return !is_equal_approx(getClosestWallRay().get_collision_point().x, lastWallCollisionPoint.x)
   return false
@@ -1394,9 +1394,9 @@ func goto(pos: Vector2) -> void:
   camera.reset_smoothing()
 
 func TopIsOnWall() -> bool:
-  return is_on_wall() && (leftWallTopDetection.is_colliding() || rightWallTopDetection.is_colliding())
+  return is_on_wall() and (leftWallTopDetection.is_colliding() or rightWallTopDetection.is_colliding())
 func CenterIsOnWall() -> bool:
-  return is_on_wall() && (leftWallDetection.is_colliding() || rightWallDetection.is_colliding())
+  return is_on_wall() and (leftWallDetection.is_colliding() or rightWallDetection.is_colliding())
 
 func getClosestWall() -> EditorBlock:
   return getClosestWallRay().get_collider().root if getClosestWallRay() else null

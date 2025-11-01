@@ -40,7 +40,7 @@ func _draw() -> void:
     draw_style_box(style_selection_box, Rect2(_box_corner_start, _box_corner_end - _box_corner_start).abs())
 
   for x in _selected_nodes:
-    if is_instance_valid(x) && x is Control:
+    if is_instance_valid(x) and x is Control:
       draw_set_transform_matrix(xform * x.get_global_transform())
       draw_style_box(style_selected, Rect2(Vector2.ZERO, x.size).grow(style_selected_margin))
 
@@ -70,14 +70,14 @@ func box_end(global_pos: Vector2):
     _selected_nodes.clear()
 
   for x in _targets_active:
-    if x is InterpolatedContainer || x is Draggable:
+    if x is InterpolatedContainer or x is Draggable:
       x._affected_by_multi_selection = self
 
     for y in x.get_children():
       if y is Area2D:
         for z in y.get_children():
           if z is CollisionShape2D:
-            if z.shape != null && z.shape.collide(z.get_global_transform(), selection_shape, selection_xform):
+            if z.shape != null and z.shape.collide(z.get_global_transform(), selection_shape, selection_xform):
               _selected_nodes.append(y)
               node_added.emit(y)
               break
@@ -97,7 +97,7 @@ func box_end(global_pos: Vector2):
 ## - If held and node is unselected, adds node to selection.[br]
 ## - If held and node is selected, removes node from selection.[br]
 func single_select(node: Node):
-  if node is InterpolatedContainer || node is Draggable:
+  if node is InterpolatedContainer or node is Draggable:
     node._affected_by_multi_selection = self
 
   if !_modifier_pressed:
@@ -142,7 +142,7 @@ func update_targets():
       _on_target_child_entered_tree(y)
 
 func _gui_input(event: InputEvent):
-  if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT:
+  if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
     if event.is_pressed():
       box_start(event.global_position)
       _box_dragging = true
@@ -152,18 +152,18 @@ func _gui_input(event: InputEvent):
       _box_dragging = false
 
 func _input(event: InputEvent):
-  if event is InputEventKey && !event.is_echo() && event.keycode == modifier_key:
+  if event is InputEventKey and !event.is_echo() and event.keycode == modifier_key:
     _modifier_pressed = event.is_pressed()
 
-  if event is InputEventMouseMotion && _box_dragging:
+  if event is InputEventMouseMotion and _box_dragging:
     box_drag(event.global_position)
 
 func _target_gui_input(event: InputEvent, node: Node):
-  if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.is_pressed():
+  if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
     single_select(node)
 
 func _target_collision_gui_input(_viewport: Node, event: InputEvent, _shape_idx: int, node: Node):
-  if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.is_pressed():
+  if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
     single_select(node)
 
 func _on_target_child_entered_tree(child: Node):

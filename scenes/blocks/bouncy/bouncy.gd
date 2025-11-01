@@ -13,7 +13,7 @@ func start() -> void:
   if respawnTimer > 0: return
   bouncing = true
   bounceState = 0
-  global.player.state = global.player.States.bouncing
+  global.player.state = Player.States.bouncing
   original_contact_position = global.player.global_position
 
   var radrot := deg_to_rad(startRotation_degrees)
@@ -69,7 +69,7 @@ func on_process(delta: float) -> void:
       # When the bouncing animation is done, start bouncing the player
       global.player.vel.bounce = Vector2(0, bounceForce).rotated(radrot).rotated(-global.player.defaultAngle)
       global.player.justAddedVels.bounce = 3
-      global.player.state = global.player.States.jumping
+      global.player.state = Player.States.jumping
       respawnTimer = 10
 
     var size: Vector2 = ghost.texture.get_size() * startScale

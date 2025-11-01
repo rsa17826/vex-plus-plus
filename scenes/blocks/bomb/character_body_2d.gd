@@ -31,7 +31,7 @@ func on_physics_process(delta: float) -> void:
   else:
     if is_on_floor():
       vel.default.y = 0
-    vel.default.y += global.player.GRAVITY * delta
+    vel.default.y += Player.GRAVITY * delta
   vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
   velocity = global.player.applyRot(vel.default + vel.conveyor)

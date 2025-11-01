@@ -5,7 +5,7 @@ var moving = false
 var path: BlockPath
 
 func onEditorMove(moveDist) -> void:
-  super (moveDist)
+  super(moveDist)
   moving = true
 
 func on_ready() -> void:

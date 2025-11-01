@@ -35,17 +35,17 @@ func _init():
 
 ## Gets the side of a [Rect2], represented by one of the [Vector2i] direction constants if within [code]border_width[/code] of an edge, or [code](0, 0)[/code] if not.
 static func get_dock_region(rect: Rect2, drop_position: Vector2, border_width: float = -1) -> Vector2i:
-  if border_width >= 0 && rect.grow(-border_width).has_point(drop_position):
+  if border_width >= 0 and rect.grow(-border_width).has_point(drop_position):
     return Vector2i.ZERO
 
   var startpos := drop_position - rect.position
   var endpos := rect.end - drop_position
   var relpos := startpos / rect.size
   if relpos.x < 0.5:
-    if startpos.x < startpos.y && startpos.x < endpos.y:
+    if startpos.x < startpos.y and startpos.x < endpos.y:
       return Vector2i.LEFT
 
-  if endpos.x < startpos.y && endpos.x < endpos.y:
+  if endpos.x < startpos.y and endpos.x < endpos.y:
     return Vector2i.RIGHT
 
   elif relpos.y < 0.5:
@@ -89,7 +89,7 @@ func drop_node(node: Control, on_global_position: Vector2):
       new_c = _add_container(virtual_node_below, ContainerType.VBOX)
       virtual_node_above.reparent(new_c)
 
-    var index_offset := 1 if (dock_region.x > 0 || dock_region.y > 0) else 0
+    var index_offset := 1 if (dock_region.x > 0 or dock_region.y > 0) else 0
     new_c.move_child.call_deferred(virtual_node_above, virtual_node_below.get_index() + index_offset)
     new_c.queue_sort()
 
@@ -289,7 +289,7 @@ func _on_preview_draw():
   _drop_preview.draw_rect(drawn_rect, dock_region_preview_color)
 
 func _on_child_entered_tree(child: Node):
-  if child == _virtual_tree || child == _drop_preview: return
+  if child == _virtual_tree or child == _drop_preview: return
   _get_or_create_virtual(child)
 
 func _on_child_exited_tree(child: Node):

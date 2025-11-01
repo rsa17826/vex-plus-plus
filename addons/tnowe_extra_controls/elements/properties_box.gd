@@ -40,7 +40,7 @@ func add_int(key: StringName, value: int = 0, minvalue: int = -2147483648, maxva
 ## If both [code]minvalue[/code] and [code]maxvalue[/code] are specified, also creates an [HSlider].
 func add_float(key: StringName, value: float = 0.0, minvalue: float = -99999900000.0, maxvalue: float = 99999900000.0, step: float = 0.0001):
   var Editor = SpinBox.new()
-  var is_slider = minvalue > -2147483648 && maxvalue < 2147483648
+  var is_slider = minvalue > -2147483648 and maxvalue < 2147483648
   Editor.value = value
   Editor.step = step
   Editor.min_value = minvalue

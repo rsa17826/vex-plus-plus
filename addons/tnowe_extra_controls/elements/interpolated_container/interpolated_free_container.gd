@@ -16,7 +16,7 @@ extends InterpolatedContainer
 @export var drop_color_override_children := false
 
 func _draw():
-  if _dragging_node == null || _dragging_node.get_parent() != self: return
+  if _dragging_node == null or _dragging_node.get_parent() != self: return
 
   if !(_dragging_node is Draggable):
     var result_rect := get_rect_after_drop(_dragging_node)
@@ -32,7 +32,7 @@ func _draw():
 
 func _sort_children():
   for child in get_children(true):
-    if child is Control && child != _dragging_node:
+    if child is Control and child != _dragging_node:
       fit_interpolated(child, get_rect_after_drop(child))
 
   queue_redraw()
@@ -69,4 +69,4 @@ func _input(event: InputEvent):
   if event is InputEventMouse:
     queue_redraw()
 
-  super (event)
+  super(event)

@@ -49,7 +49,7 @@ func _scale_child(child: Control):
   match rounding_mode:
     RoundingMode.ROUND_LOWER:
       var try_factor := 1.0
-      while floorf(result_scale.x * try_factor) / try_factor <= 0.0 && floorf(result_scale.y * try_factor) / try_factor <= 0.0:
+      while floorf(result_scale.x * try_factor) / try_factor <= 0.0 and floorf(result_scale.y * try_factor) / try_factor <= 0.0:
         try_factor += 1
 
       result_scale = (result_scale * Vector2(try_factor, try_factor)).floor() / Vector2(try_factor, try_factor)
