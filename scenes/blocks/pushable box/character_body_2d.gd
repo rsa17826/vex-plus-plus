@@ -6,9 +6,11 @@ const SMALL = .00001
 var vel := {
   "conveyor": Vector2.ZERO,
   "default": Vector2.ZERO,
+  "wind": Vector2.ZERO,
 }
 var velDecay := {
-  "conveyor": .9
+  "conveyor": .9,
+  "wind": .7,
 }
 func _ready() -> void:
   global.gravChanged.connect(func(lastUpDir, newUpDir):
@@ -19,6 +21,7 @@ func _ready() -> void:
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
   if root._DISABLED: return
+  if !delta: return
   up_direction = global.player.up_direction
   if currentWatters:
     vel.default.y -= max(95 * delta * (vel.default.y / 8), 10)
@@ -31,12 +34,11 @@ func on_physics_process(delta: float) -> void:
   vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
   # vel.default += vel.conveyor
-  velocity = global.player.applyRot(vel.default + vel.conveyor)
+  velocity = global.player.applyRot(vel.default + vel.conveyor + vel.wind)
   move_and_slide()
-  if global.player.state == Player.States.dead:
-    log.pp('box', delta, velocity, vel.default + vel.conveyor)
   # vel.default -= vel.conveyor
   vel.conveyor *= (velDecay.conveyor)
+  vel.wind *= velDecay.wind
   for i in get_slide_collision_count():
     var collision := get_slide_collision(i)
     var block := collision.get_collider()

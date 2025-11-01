@@ -123,6 +123,7 @@ var vel: Dictionary[String, Vector2] = {
   "conveyor": Vector2.ZERO,
   "cannon": Vector2.ZERO,
   "zipline": Vector2.ZERO,
+  "wind": Vector2.ZERO,
 }
 var velDecay := {
   "pole": 1,
@@ -132,6 +133,7 @@ var velDecay := {
   "bounce": 0.95,
   "conveyor": .9,
   "zipline": .95,
+  "wind": .7,
 }
 var justAddedVels := {
   "pole": 0,
@@ -141,6 +143,7 @@ var justAddedVels := {
   "conveyor": 0,
   "cannon": 0,
   "zipline": 0,
+  "wind": 0,
 }
 var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole", "zipline"]
 var stopVelOnWall := ["bounce", "cannon", "pole", "conveyor", "zipline"]
@@ -471,7 +474,7 @@ func _physics_process(delta: float) -> void:
           vel.user.y = JUMP_POWER
 
           # but this should be pole as that way it does something as user.x is set to xintent
-          vel.pole.x = 50 * (-1 if anim.flip_h else 1)
+          vel.pole.x = 150 * (-1 if anim.flip_h else 1)
           anim.animation = "jumping off pole"
           anim.animation_looped.connect(func():
             if anim.animation == "jumping off pole":

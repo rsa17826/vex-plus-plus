@@ -14,8 +14,8 @@ func on_respawn():
 
 func on_physics_process(delta: float) -> void:
   spin(100, rotNode)
-  bottomSprite.global_rotation = 0
-  cbody.position = Vector2(0, 939).rotated(rotNode.global_rotation)
+  bottomSprite.global_rotation_degrees = startRotation_degrees
+  cbody.position = Vector2(0, 939).rotated(rotNode.global_rotation - deg_to_rad(startRotation_degrees))
 
 func postMovementStep():
   lastMovementStep = (cbody.global_position - lastPos)

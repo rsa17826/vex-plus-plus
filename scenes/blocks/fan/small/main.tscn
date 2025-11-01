@@ -1,0 +1,174 @@
+[gd_scene load_steps=27 format=3 uid="uid://c7c0wyi8bely6"]
+
+[ext_resource type="Script" uid="uid://blahplrwj3rjs" path="res://scenes/blocks/fan/small/small.gd" id="1_wy0px"]
+[ext_resource type="Texture2D" uid="uid://bfh7lwygfkmcm" path="res://scenes/blocks/fan/small/images/1.png" id="2_nmib4"]
+[ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_ub1tn"]
+[ext_resource type="Texture2D" uid="uid://b3wgx5hri1diq" path="res://images/shapes,1412.svg" id="4_34xhg"]
+[ext_resource type="Texture2D" uid="uid://clo2i3ns12bpo" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/1.png" id="5_nmib4"]
+[ext_resource type="Texture2D" uid="uid://dlulaw62g4jh4" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/2.png" id="6_ub1tn"]
+[ext_resource type="Texture2D" uid="uid://dqbldp22317qn" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/3.png" id="7_34xhg"]
+[ext_resource type="Texture2D" uid="uid://bg1riby8hqikc" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/4.png" id="8_cglhg"]
+[ext_resource type="Texture2D" uid="uid://bh06tbut17psu" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/5.png" id="9_2d11l"]
+[ext_resource type="Texture2D" uid="uid://t54vdf2ilgic" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/6.png" id="10_3olfx"]
+[ext_resource type="Texture2D" uid="uid://dm5qlvulr0moc" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/7.png" id="11_kbssn"]
+[ext_resource type="Texture2D" uid="uid://dqeh7l7r8ts85" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/8.png" id="12_8bn0v"]
+[ext_resource type="Texture2D" uid="uid://dgwea00cnbjiw" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/9.png" id="13_3plu1"]
+[ext_resource type="Texture2D" uid="uid://qcppljtrw6n" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/10.png" id="14_een7h"]
+[ext_resource type="Texture2D" uid="uid://b5jm5mnffp24l" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/11.png" id="15_t4025"]
+[ext_resource type="Texture2D" uid="uid://171f5f8ikh5m" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/12.png" id="16_6cuxr"]
+[ext_resource type="Texture2D" uid="uid://tbcj38t33fdg" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/13.png" id="17_2a7xd"]
+[ext_resource type="Texture2D" uid="uid://bxrtghhsqfrw0" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/14.png" id="18_gryih"]
+[ext_resource type="Texture2D" uid="uid://cjdop7jyckg8u" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/15.png" id="19_g74rr"]
+[ext_resource type="Texture2D" uid="uid://p6saj6g15pbk" path="res://scenes/blocks/fan/small/images/wind/DefineSprite_1588/16.png" id="20_a6fwx"]
+[ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="20_cx12u"]
+[ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="21_gjjxr"]
+[ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="22_ugj8g"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wy0px"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_nmib4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ub1tn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_34xhg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_cglhg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2d11l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3olfx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_kbssn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_8bn0v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_3plu1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_een7h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_t4025")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_6cuxr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_2a7xd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_gryih")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_g74rr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_a6fwx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
+size = Vector2(1028, 372)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eaf16"]
+size = Vector2(6.42, 474.32)
+
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+script = ExtResource("1_wy0px")
+ghostIconNode = NodePath("collisionNode/Sprite2D")
+editorBarIcon = ExtResource("2_nmib4")
+collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/windMask")]
+thingThatMoves = NodePath("collisionNode")
+mouseRotationOffset = 0
+EDITOR_OPTION_scale = true
+EDITOR_OPTION_rotate = true
+canAttachToThings = true
+canAttachToPaths = true
+
+[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+collision_layer = 0
+collision_mask = 162
+script = ExtResource("3_ub1tn")
+root = NodePath("..")
+metadata/_edit_lock_ = true
+
+[node name="windMask" type="Sprite2D" parent="collisionNode"]
+clip_children = 1
+position = Vector2(516.5, -10)
+scale = Vector2(1.4728571, 1)
+texture = ExtResource("4_34xhg")
+
+[node name="0" type="AnimatedSprite2D" parent="collisionNode/windMask"]
+position = Vector2(-590.34924, 10.999999)
+scale = Vector2(0.67895246, 1.7961164)
+sprite_frames = SubResource("SpriteFrames_wy0px")
+autoplay = "default"
+frame_progress = 0.7010531
+script = ExtResource("20_cx12u")
+
+[node name="2" type="AnimatedSprite2D" parent="collisionNode/windMask"]
+position = Vector2(-649.418, 6.9999995)
+scale = Vector2(1, 1.7961165)
+sprite_frames = SubResource("SpriteFrames_wy0px")
+autoplay = "default"
+frame_progress = 0.7010531
+script = ExtResource("20_cx12u")
+syncOffset = 4
+
+[node name="5" type="AnimatedSprite2D" parent="collisionNode/windMask"]
+position = Vector2(-11.202698, 6.9999995)
+scale = Vector2(1, 1.7961165)
+sprite_frames = SubResource("SpriteFrames_wy0px")
+autoplay = "default"
+frame_progress = 0.7010531
+script = ExtResource("20_cx12u")
+syncOffset = 8
+
+[node name="7" type="AnimatedSprite2D" parent="collisionNode/windMask"]
+position = Vector2(448.44812, 6.9999995)
+scale = Vector2(1, 1.7961165)
+sprite_frames = SubResource("SpriteFrames_wy0px")
+autoplay = "default"
+frame_progress = 0.7010531
+script = ExtResource("20_cx12u")
+syncOffset = 12
+
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+position = Vector2(76.5, 0)
+texture = ExtResource("2_nmib4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
+position = Vector2(515, 0)
+shape = SubResource("RectangleShape2D_gwpbw")
+debug_color = Color(0, 1, 0, 0.41960785)
+script = ExtResource("21_gjjxr")
+
+[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
+position = Vector2(1.455, 0)
+enabled = false
+shape = SubResource("RectangleShape2D_eaf16")
+target_position = Vector2(0, 0)
+collision_mask = 32768
+collide_with_areas = true
+script = ExtResource("22_ugj8g")
+root = NodePath("..")
+
+[connection signal="body_entered" from="collisionNode" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="collisionNode" to="." method="_on_body_exited"]
