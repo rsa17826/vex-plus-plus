@@ -2085,6 +2085,8 @@ func loadEditorBarData():
     "shurikan spawner": 'shuriken spawner',
     "bouncing shurikan": 'bouncing shuriken',
     "conveyer": 'conveyor',
+    "updown": 'upDown',
+    "downup": 'downUp',
   }
   var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
   var tempBlockNames = []
