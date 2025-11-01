@@ -169,8 +169,7 @@ if FileExist("updating self") {
     try DirDelete("temp", 1)
     if FileExist("c.bat")
       FileDelete("c.bat")
-    if SILENT
-      ExitApp(-1)
+    ExitApp(-1)
   } else {
     loadReleases()
     F.write("launcherData/launcherVersion", releases.Length)
@@ -179,8 +178,7 @@ if FileExist("updating self") {
       try DirDelete("temp", 1)
       if FileExist("c.bat")
         FileDelete("c.bat")
-      if SILENT
-        ExitApp(-1)
+      ExitApp(-1)
     }
     FileDelete("updating self")
     try DirDelete("temp", 1)
