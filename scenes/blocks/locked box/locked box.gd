@@ -14,7 +14,7 @@ func unlock() -> void:
     mask.play("unlock")
     key.root.__disable.call_deferred()
     mask.animation_finished.connect(d)
-    __disable.call_deferred()
+    __disable.call_deferred(true)
     for block: EditorBlock in attach_children:
       block.__disable.call_deferred()
 
@@ -33,6 +33,12 @@ func on_respawn() -> void:
 func __enable():
   mask.visible = true
   mask.frame = 0
+  super()
+func __disable(fromSelf:=false) -> void:
+  if fromSelf:
+    mask.visible = true
+  else:
+    mask.frame = 0
   super()
 
 func onSave() -> Array[String]:

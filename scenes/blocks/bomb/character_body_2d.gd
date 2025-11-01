@@ -11,9 +11,11 @@ var collsiionOn_right = []
 var vel := {
   "conveyor": Vector2.ZERO,
   "default": Vector2.ZERO,
+  "wind": Vector2.ZERO,
 }
 var velDecay := {
-  "conveyor": .9
+  "conveyor": .9,
+  "wind": .7,
 }
 
 func _ready() -> void:
@@ -25,6 +27,7 @@ func _ready() -> void:
 func on_physics_process(delta: float) -> void:
   if root.respawning: return
   if root.exploded: return
+  if !delta: return
   up_direction = global.player.up_direction
   if currentWatters:
     vel.default.y -= max(95 * delta * (vel.default.y / 8), 10)
@@ -34,9 +37,10 @@ func on_physics_process(delta: float) -> void:
     vel.default.y += Player.GRAVITY * delta
   vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
-  velocity = global.player.applyRot(vel.default + vel.conveyor)
+  velocity = global.player.applyRot(vel.default + vel.conveyor + vel.wind)
   move_and_slide()
   vel.conveyor *= velDecay.conveyor
+  vel.wind *= velDecay.wind
   if is_on_floor() and lastvel.y > 700:
     root.explode()
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \

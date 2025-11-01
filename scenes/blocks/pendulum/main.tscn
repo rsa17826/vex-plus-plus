@@ -22,8 +22,13 @@ cbody = NodePath("thingThatMoves/collisionNode2")
 ghostIconNode = NodePath("ghost")
 editorBarIcon = ExtResource("2_odl1r")
 collisionShapes = [NodePath("thingThatMoves/collisionNode2/CollisionShape2D")]
-hidableSprites = [NodePath("thingThatMoves/rotNode/top")]
+hidableSprites = [NodePath("thingThatMoves/rotNode/top"), NodePath("thingThatMoves/rotNode/bottom")]
 thingThatMoves = NodePath("thingThatMoves")
+mouseRotationOffset = 270
+oddScaleOffsetForce = Dictionary[String, int]({
+"x": -1,
+"y": -1
+})
 EDITOR_OPTION_scale = true
 canAttachToThings = true
 canAttachToPaths = true
@@ -56,11 +61,13 @@ script = ExtResource("4_8fsea")
 root = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="thingThatMoves/collisionNode2"]
+visible = false
 shape = SubResource("RectangleShape2D_e06q1")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("4_4u6q7")
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_odl1r")
