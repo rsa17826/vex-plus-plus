@@ -469,8 +469,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **updown**: has solid collision and moves up than down
-    <br><br><img src="scenes/blocks/updown/images/1.png" alt="image of block updown" width="50" height="50">
+  - **upDown**: has solid collision and moves up then down
+    <br><br><img src="scenes/blocks/upDown/images/1.png" alt="image of block upDown" width="50" height="50">
 
     - scalable
     - canAttachToPaths
@@ -478,8 +478,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
-  - **downup**: has solid collision and moves down than up
-    <br><br><img src="scenes/blocks/downup/images/1.png" alt="image of block downup" width="50" height="50">
+  - **downUp**: has solid collision and moves down then up
+    <br><br><img src="scenes/blocks/downUp/images/1.png" alt="image of block downUp" width="50" height="50">
 
     - scalable
     - canAttachToPaths
