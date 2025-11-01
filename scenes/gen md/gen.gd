@@ -79,6 +79,9 @@ func _ready() -> void:
   text += '\n\n- ## Blocks'
   indent = 1
   for id in global.DEFAULT_BLOCK_LIST:
+    if not load("res://scenes/blocks/" + id + "/main.tscn"):
+      log.err(id, "not valid block!!!")
+      continue
     var block = load("res://scenes/blocks/" + id + "/main.tscn").instantiate()
     add_child(block)
     await global.wait()
