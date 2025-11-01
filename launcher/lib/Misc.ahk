@@ -2736,7 +2736,7 @@ DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, h
       ;Calculate percent done
       PercentDone := Floor(CurrentSize / max(FinalSize, 1) * 100)
       if PercentDone > 100 {
-        logerr('PercentDone > 100', PercentDone)
+        print('PercentDone > 100', PercentDone)
         PercentDone := "???"
       }
       ;Update the ProgressBar
@@ -2747,9 +2747,9 @@ DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, h
       ProgressGui.Show("AutoSize NoActivate")
     } catch Error as e {
       if IsSet(PercentDone)
-        logerr("Error while updating progress bar. ", e, "PercentDone", PercentDone, e)
+        print("Error while updating progress bar. ", e.Message, e.Line, e.Extra, e.Stack, "PercentDone", PercentDone)
       else
-        logerr("Error while updating progress bar. ", e, "PercentDone", "unset", e)
+        print("Error while updating progress bar. ", e.Message, e.Line, e.Extra, e.Stack, "PercentDone", "unset")
       ; if PercentDone >= 100 {
       ;   try {
       ;     SetTimer(__UpdateProgressBar, 0)
