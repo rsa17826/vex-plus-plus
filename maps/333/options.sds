@@ -1,1 +1,20 @@
-{STR(start)STR(hub)STR(author)STR(yippie)STR(description)STR()STR(version)INT(138)STR(stages){STR(hub){STR(color)INT(10)STR(changeSpeedOnSlopes)BOOL(false)STR(saveTick)BOOL(false)STR(jumpCount)INT(1)STR(autoRun)BOOL(false)STR(canDoWallHang)BOOL(true)STR(canDoWallSlide)BOOL(true)STR(canDoWallJump)BOOL(true)}}STRNAME(levelVersion)INT(100)}
+{
+  STR(start)STR(hub)
+  STR(author)STR(yippie)
+  STR(description)STR()
+  STR(version)INT(138)
+  STR(stages){
+    STR(hub){
+      STR(color)INT(10)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+      STR(jumpCount)INT(1)
+      STR(autoRun)BOOL(false)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallJump)BOOL(true)
+    }
+  }
+  STRNAME(levelVersion)INT(101)
+  STRNAME(gameVersion)INT(235)
+}

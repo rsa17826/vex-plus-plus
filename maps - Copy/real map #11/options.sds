@@ -1,0 +1,13 @@
+{
+  STR(start)STR(hub)
+  STR(author)STR(rssaromeo)
+  STR(description)STR()
+  STR(version)INT(88)
+  STR(stages){
+    STR(hub){
+      STR(color)INT(9)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+  }
+}

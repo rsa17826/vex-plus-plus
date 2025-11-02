@@ -1,0 +1,12 @@
+{
+  STR(start)STR(meowagain)
+  STR(author)STR(yippieskippy)
+  STR(description)STR(idk i havent made the map yet)
+  STR(version)INT(14)
+  STR(stages){
+    STR(meowagain){
+      STR(color)INT(2)
+      STR(changeSpeedOnSlopes)BOOL(false)
+    }
+  }
+}

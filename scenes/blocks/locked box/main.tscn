@@ -98,11 +98,9 @@ script = ExtResource("2_f5mb8")
 root = NodePath("..")
 
 [node name="mask" type="AnimatedSprite2D" parent="collisionNode"]
-clip_children = 2
+clip_children = 1
 sprite_frames = SubResource("SpriteFrames_724jy")
 animation = &"unlock"
-frame = 14
-frame_progress = 0.65546143
 
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode/mask"]
 use_parent_material = true

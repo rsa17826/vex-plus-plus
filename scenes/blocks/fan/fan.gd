@@ -2,6 +2,7 @@
 extends EditorBlock
 class_name BlockBigFan
 var FORCE: int
+@export var particles: GPUParticles2D
 
 var thingsInside: Array = []
 
@@ -24,3 +25,10 @@ func on_physics_process(delta: float) -> void:
 
 func on_respawn():
   thingsInside.assign([])
+  particles.process_material.scale_min = global_scale.x * .3
+  particles.process_material.scale_max = global_scale.x
+  
+# @noregex
+func _ready() -> void:
+  particles.process_material = particles.process_material.duplicate()
+  super ()

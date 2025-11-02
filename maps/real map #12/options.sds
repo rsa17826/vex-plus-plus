@@ -11,4 +11,6 @@
       STR(jumpCount)INT(2)
     }
   }
+  STRNAME(gameVersion)INT(235)
+  STRNAME(levelVersion)INT(1)
 }

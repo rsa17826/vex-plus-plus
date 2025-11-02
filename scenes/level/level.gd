@@ -47,7 +47,7 @@ func on_node_added(node: Node) -> void:
     for block: EditorBlock in allBlocks:
       block.updateConnectedBlocks(true)
 
-func loadLevel(level):
+func loadLevel(level: String):
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
   # await global.wait()
@@ -157,8 +157,8 @@ func save(saveImage: bool):
         obj.options.erase("fakeId")
     data.append(obj)
   log.pp('saving to', global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
-  var savedData=sds.saveData(data).strip_edges()
-  var levelHasChanged = savedData!=FileAccess.get_file_as_string(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
+  var savedData = sds.saveData(data).strip_edges()
+  var levelHasChanged = savedData != FileAccess.get_file_as_string(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   FileAccess.open(
     global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds")
     , FileAccess.WRITE_READ).store_string(savedData)
@@ -172,9 +172,9 @@ func save(saveImage: bool):
       saveData.loadedLevels = global.loadedLevels
     if "beatLevels" not in saveData:
       saveData.beatLevels = []
-    if not global.currentLevel()\
+    if not global.currentLevel() \
     or global.currentLevel().name not in saveData \
-    or "blockSaveData" not in saveData[global.currentLevel().name]\
+    or "blockSaveData" not in saveData[global.currentLevel().name] \
     :
       global.currentLevel().blockSaveData = {}
     saveData.beatMainLevel = false

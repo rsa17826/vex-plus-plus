@@ -1,0 +1,20 @@
+{
+  STR(start)STR(5128207ffe0b387977b6e82a95b39b7de8d67104)
+  STR(creatorName)STR(unknown in vex 2)
+  STR(description)STR(converted from vex 2)
+  STR(gameVersion)INT(-1)
+  STR(version)INT(-1)
+  STR(levelVersion)INT(1)
+  STR(stages){
+    STR(5128207ffe0b387977b6e82a95b39b7de8d67104){
+      STR(color)INT(5)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(jumpCount)INT(1)
+      STR(autoRun)BOOL(false)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallJump)BOOL(true)
+      STR(checkpointsSaveAll)BOOL(false)
+    }
+  }
+}

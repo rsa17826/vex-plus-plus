@@ -1,80 +1,34 @@
-[gd_scene load_steps=26 format=3 uid="uid://bbvg8iy3y764i"]
+[gd_scene load_steps=10 format=3 uid="uid://bbvg8iy3y764i"]
 
 [ext_resource type="Script" uid="uid://bpvv8sxh1nkve" path="res://scenes/blocks/fan/big/big.gd" id="1_4rth3"]
 [ext_resource type="Texture2D" uid="uid://r37vf3jy3bce" path="res://scenes/blocks/fan/big/images/1.png" id="2_dtbfl"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_eaf16"]
-[ext_resource type="Texture2D" uid="uid://bdm54gj6n5gnk" path="res://scenes/blocks/fan/squareMask.svg" id="4_4rth3"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_bmx20"]
+[ext_resource type="Texture2D" uid="uid://d0i3rlvex1ak4" path="res://scenes/blocks/fan/4.png" id="4_f6fl3"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_dtbfl"]
-[ext_resource type="Texture2D" uid="uid://c6pkm87rh5eqi" path="res://scenes/blocks/fan/big/images/wind/1.png" id="5_qnmxd"]
-[ext_resource type="Texture2D" uid="uid://c3nrguh40ph7r" path="res://scenes/blocks/fan/big/images/wind/2.png" id="6_8gid7"]
-[ext_resource type="Texture2D" uid="uid://c7sqpfl81k6kk" path="res://scenes/blocks/fan/big/images/wind/3.png" id="7_7i4wf"]
-[ext_resource type="Texture2D" uid="uid://d0i3rlvex1ak4" path="res://scenes/blocks/fan/big/images/wind/4.png" id="8_5e6bd"]
-[ext_resource type="Texture2D" uid="uid://clwrq0a2sc3ia" path="res://scenes/blocks/fan/big/images/wind/5.png" id="9_ristj"]
-[ext_resource type="Texture2D" uid="uid://cxx51gc6jc6tw" path="res://scenes/blocks/fan/big/images/wind/6.png" id="10_3r321"]
-[ext_resource type="Texture2D" uid="uid://cdjl1qe037ue1" path="res://scenes/blocks/fan/big/images/wind/7.png" id="11_8eoro"]
-[ext_resource type="Texture2D" uid="uid://dxwx5l5xupuw1" path="res://scenes/blocks/fan/big/images/wind/8.png" id="12_uugdc"]
-[ext_resource type="Texture2D" uid="uid://0rvrjaqw3cx8" path="res://scenes/blocks/fan/big/images/wind/9.png" id="13_xkmki"]
-[ext_resource type="Texture2D" uid="uid://s7hy5hgqtou7" path="res://scenes/blocks/fan/big/images/wind/10.png" id="14_jb8ww"]
-[ext_resource type="Texture2D" uid="uid://cvi8ymj1edgtd" path="res://scenes/blocks/fan/big/images/wind/11.png" id="15_unmvv"]
-[ext_resource type="Texture2D" uid="uid://dgtbcwn1sx1wk" path="res://scenes/blocks/fan/big/images/wind/12.png" id="16_d4b10"]
-[ext_resource type="Texture2D" uid="uid://2gv4xqbeauu5" path="res://scenes/blocks/fan/big/images/wind/13.png" id="17_bke2y"]
-[ext_resource type="Texture2D" uid="uid://cq25hjm8nihme" path="res://scenes/blocks/fan/big/images/wind/14.png" id="18_ycqac"]
-[ext_resource type="Texture2D" uid="uid://dir1005fu0rlm" path="res://scenes/blocks/fan/big/images/wind/15.png" id="19_pcsch"]
-[ext_resource type="Script" uid="uid://da8hbx4n6gubp" path="res://scenes/blocks/animSync.gd" id="20_8gid7"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_yeoox"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_qnmxd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_8gid7")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_7i4wf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_5e6bd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_ristj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_3r321")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_8eoro")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_uugdc")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_xkmki")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_jb8ww")
-}, {
-"duration": 1.0,
-"texture": ExtResource("15_unmvv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("16_d4b10")
-}, {
-"duration": 1.0,
-"texture": ExtResource("17_bke2y")
-}, {
-"duration": 1.0,
-"texture": ExtResource("18_ycqac")
-}, {
-"duration": 1.0,
-"texture": ExtResource("19_pcsch")
-}],
-"loop": true,
-"name": &"default",
-"speed": 30.0
-}]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f6fl3"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1, 190, 1)
+inherit_velocity_ratio = 0.339
+direction = Vector3(0, 0, 0)
+spread = 11.972
+initial_velocity_min = 297.74
+initial_velocity_max = 297.74
+orbit_velocity_min = 9.49949e-08
+orbit_velocity_max = 9.49949e-08
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = -2.2351742e-05
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+tangential_accel_min = -2.2351742e-06
+tangential_accel_max = -2.2351742e-06
+scale_min = 0.29999998
+hue_variation_min = -2.2351742e-08
+hue_variation_max = -2.2351742e-08
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(1028, 372)
@@ -82,12 +36,13 @@ size = Vector2(1028, 372)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eaf16"]
 size = Vector2(4, 696)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" node_paths=PackedStringArray("particles", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_4rth3")
+particles = NodePath("collisionNode/GPUParticles2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_dtbfl")
 collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
-hidableSprites = [NodePath("collisionNode/windMask"), NodePath("collisionNode/Sprite2D")]
+hidableSprites = [NodePath("collisionNode/Sprite2D"), NodePath("collisionNode/GPUParticles2D")]
 thingThatMoves = NodePath("collisionNode")
 mouseRotationOffset = 0
 EDITOR_OPTION_scale = true
@@ -102,50 +57,18 @@ script = ExtResource("3_eaf16")
 root = NodePath("..")
 metadata/_edit_lock_ = true
 
-[node name="windMask" type="Sprite2D" parent="collisionNode"]
-clip_children = 1
-position = Vector2(516.5, -10)
-scale = Vector2(1.4728571, 1)
-texture = ExtResource("4_4rth3")
-
-[node name="0" type="AnimatedSprite2D" parent="collisionNode/windMask"]
-position = Vector2(-590.34924, 10.999999)
-scale = Vector2(0.67895246, 1.7961164)
-sprite_frames = SubResource("SpriteFrames_yeoox")
-autoplay = "default"
-frame_progress = 0.095919855
-script = ExtResource("20_8gid7")
-
-[node name="2" type="AnimatedSprite2D" parent="collisionNode/windMask"]
-position = Vector2(-649.418, 6.9999995)
-scale = Vector2(1, 1.7961165)
-sprite_frames = SubResource("SpriteFrames_yeoox")
-autoplay = "default"
-frame_progress = 0.095919855
-script = ExtResource("20_8gid7")
-syncOffset = 4
-
-[node name="5" type="AnimatedSprite2D" parent="collisionNode/windMask"]
-position = Vector2(-11.202698, 6.9999995)
-scale = Vector2(1, 1.7961165)
-sprite_frames = SubResource("SpriteFrames_yeoox")
-autoplay = "default"
-frame_progress = 0.8181497
-script = ExtResource("20_8gid7")
-syncOffset = 8
-
-[node name="7" type="AnimatedSprite2D" parent="collisionNode/windMask"]
-position = Vector2(448.44812, 6.9999995)
-scale = Vector2(1, 1.7961165)
-sprite_frames = SubResource("SpriteFrames_yeoox")
-autoplay = "default"
-frame_progress = 0.8181497
-script = ExtResource("20_8gid7")
-syncOffset = 12
-
 [node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
 position = Vector2(76.5, 0)
 texture = ExtResource("2_dtbfl")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="collisionNode"]
+position = Vector2(147.205, 0)
+scale = Vector2(1.4728571, 1)
+amount = 13
+texture = ExtResource("4_f6fl3")
+lifetime = 2.03
+speed_scale = 5.1
+process_material = SubResource("ParticleProcessMaterial_f6fl3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
 visible = false

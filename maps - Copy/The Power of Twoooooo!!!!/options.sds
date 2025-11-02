@@ -1,0 +1,20 @@
+{
+  STR(start)STR(1)
+  STR(author)STR(Yippie)
+  STR(description)STR()
+  STR(version)INT(142)
+  STR(stages){
+    STR(1){
+      STR(color)INT(9)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+      STR(jumpCount)INT(1)
+      STR(autoRun)BOOL(false)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallJump)BOOL(true)
+    }
+  }
+  STRNAME(levelVersion)INT(25)
+  STRNAME(gameVersion)INT(227)
+}

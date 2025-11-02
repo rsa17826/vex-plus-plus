@@ -1,0 +1,20 @@
+[
+  {
+    STR(x)FLOAT(353.0)
+    STR(y)FLOAT(206.850006103516)
+  }
+  {
+    STR(x)FLOAT(575.5)
+    STR(y)FLOAT(33.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(goal)
+    STRNAME(options){
+      STR(requiredLevelCount)INT(0)
+      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+]

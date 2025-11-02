@@ -14,6 +14,6 @@
       STR(saveTick)BOOL(false)
     }
   }
-  STRNAME(levelVersion)INT(253)
-  STRNAME(gameVersion)INT(227)
+  STRNAME(levelVersion)INT(254)
+  STRNAME(gameVersion)INT(235)
 }

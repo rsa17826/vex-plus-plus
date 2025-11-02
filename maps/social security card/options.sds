@@ -18,6 +18,6 @@ but i cant be bothered and river didnt add it yet.....
       STR(checkpointsSaveAll)BOOL(false)
     }
   }
-  STRNAME(levelVersion)INT(58)
-  STRNAME(gameVersion)INT(227)
+  STRNAME(levelVersion)INT(59)
+  STRNAME(gameVersion)INT(235)
 }
