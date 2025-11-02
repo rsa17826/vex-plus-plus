@@ -1625,7 +1625,7 @@ func loadMap(levelPackName: String, loadFromSave: bool, forceLoad: bool = false)
           return false
 
   levelOpts = mapInfo
-  if loadFromSave and saveData:
+  if loadFromSave and saveData and saveData.loadedLevels[len(saveData.loadedLevels) - 1].name in levelOpts.stages:
     loadedLevels = saveData.loadedLevels
     beatLevels = saveData.beatLevels
   else:
