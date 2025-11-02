@@ -2714,43 +2714,104 @@ DownloadAsync(URL, Filename?, OnFinished := 0, OnProgress := 0, headers := {}) {
     OnFinished := file := 0
   }
 }
-DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, headers := {}) {
+; DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, headers := {}) {
+;   ;Check if the file already exists and if we must not overwrite it
+;   ;The label that updates the progressbar
+;   LastSize := 0
+;   LastSizeTick := 0
+;   ; ProgressGuiText2 := ''
+;   ; ProgressGuiText := ''
+;   __UpdateProgressBar := (CurrentSize, FinalSize) { ; V1toV2: Added bracket
+;     ;Get the current filesize and tick
+;     try {
+
+;       ; CurrentSize := FileGetSize(SaveFileAs) ;FileGetSize wouldn't return reliable results
+;       CurrentSizeTick := A_TickCount
+;       ;Calculate the downloadspeed
+;       Speed := "?"
+;       try Speed := Round((max(CurrentSize, 1) / 1024 - max(LastSize, 1) / 1024) / ((max(CurrentSizeTick, 1) - max(LastSizeTick, 1)) / 1000) / 100) . " Kb/s"
+;       ;Save the current filesize and tick for the next time
+;       LastSizeTick := CurrentSizeTick
+;       LastSize := CurrentSize
+;       ;Calculate percent done
+;       PercentDone := Floor(CurrentSize / max(FinalSize, 1) * 100)
+;       if PercentDone > 100 {
+;         print('PercentDone > 100', PercentDone)
+;         PercentDone := "???"
+;       } else {
+;         gocProgress.Value := PercentDone
+;       }
+;       ;Update the ProgressBar
+;       ; ProgressGui.Title := "Downloading " SaveFileAs " 〰" PercentDone "`%ㄱ"
+;       ProgressGuiText.text := "Downloading...  (" Speed ")"
+;       ProgressGuiText2.text := PercentDone "`% Done"
+;       ProgressGui.Show("AutoSize NoActivate")
+;     } catch Error as e {
+;       if IsSet(PercentDone)
+;         print("Error while updating progress bar. ", e.Message, e.Line, e.Extra, e.Stack, "PercentDone", PercentDone)
+;       else
+;         print("Error while updating progress bar. ", e.Message, e.Line, e.Extra, e.Stack, "PercentDone", "unset")
+;       ; if PercentDone >= 100 {
+;       ;   try {
+;       ;     SetTimer(__UpdateProgressBar, 0)
+;       ;   }
+;       ; }
+;     }
+;     return
+;   } ; V1toV2: Added bracket in the end
+;   if (!Overwrite && FileExist(SaveFileAs))
+;     return
+;   dd := 0
+;   done := (*) {
+;     dd := 1
+;   }
+;   ;Check if the user wants a progressbar
+;   if (UseProgressBar) {
+;     ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption")
+;     ProgressGui.Title := UrlToFile
+;     ProgressGui.SetFont("Bold")
+;     ProgressGuiText := ProgressGui.AddText("x0 w200 Center", "Downloading...")
+;     ProgressGuiText2 := ProgressGui.AddText("x0 w200 Center", 0 "`% Done")
+;     gocProgress := ProgressGui.AddProgress("x10 w180 h20")
+;     ProgressGui.Show("AutoSize NoActivate")
+;     DownloadAsync(UrlToFile, SaveFileAs, done, __UpdateProgressBar, headers)
+;   }
+;   while !dd {
+;     Sleep(100)
+;   }
+;   if (UseProgressBar) {
+;     ProgressGui.Destroy()
+;   }
+;   return
+; }
+
+DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, *) {
   ;Check if the file already exists and if we must not overwrite it
   ;The label that updates the progressbar
   LastSize := 0
   LastSizeTick := 0
   ; ProgressGuiText2 := ''
   ; ProgressGuiText := ''
-  __UpdateProgressBar := (CurrentSize, FinalSize) { ; V1toV2: Added bracket
+  __UpdateProgressBar := () { ; V1toV2: Added bracket
     ;Get the current filesize and tick
     try {
-
-      ; CurrentSize := FileGetSize(SaveFileAs) ;FileGetSize wouldn't return reliable results
+      CurrentSize := FileGetSize(SaveFileAs) ;FileGetSize wouldn't return reliable results
       CurrentSizeTick := A_TickCount
       ;Calculate the downloadspeed
-      Speed := "?"
-      try Speed := Round((max(CurrentSize, 1) / 1024 - max(LastSize, 1) / 1024) / ((max(CurrentSizeTick, 1) - max(LastSizeTick, 1)) / 1000) / 100) . " Kb/s"
+      Speed := Round((CurrentSize / 1024 - LastSize / 1024) / ((CurrentSizeTick - LastSizeTick) / 1000)) . " Kb/s"
       ;Save the current filesize and tick for the next time
       LastSizeTick := CurrentSizeTick
-      LastSize := CurrentSize
+      LastSize := FileGetSize(SaveFileAs)
       ;Calculate percent done
-      PercentDone := Floor(CurrentSize / max(FinalSize, 1) * 100)
-      if PercentDone > 100 {
-        print('PercentDone > 100', PercentDone)
-        PercentDone := "???"
-      } else {
-        gocProgress.Value := PercentDone
-      }
+      PercentDone := Floor(CurrentSize / FinalSize * 100)
       ;Update the ProgressBar
       ; ProgressGui.Title := "Downloading " SaveFileAs " 〰" PercentDone "`%ㄱ"
       ProgressGuiText.text := "Downloading...  (" Speed ")"
+      gocProgress.Value := PercentDone
       ProgressGuiText2.text := PercentDone "`% Done"
       ProgressGui.Show("AutoSize NoActivate")
     } catch Error as e {
-      if IsSet(PercentDone)
-        print("Error while updating progress bar. ", e.Message, e.Line, e.Extra, e.Stack, "PercentDone", PercentDone)
-      else
-        print("Error while updating progress bar. ", e.Message, e.Line, e.Extra, e.Stack, "PercentDone", "unset")
+      print("Error while updating progress bar. ", e, "PercentDone", PercentDone)
       ; if PercentDone >= 100 {
       ;   try {
       ;     SetTimer(__UpdateProgressBar, 0)
@@ -2761,12 +2822,16 @@ DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, h
   } ; V1toV2: Added bracket in the end
   if (!Overwrite && FileExist(SaveFileAs))
     return
-  dd := 0
-  done := (*) {
-    dd := 1
-  }
   ;Check if the user wants a progressbar
   if (UseProgressBar) {
+    ;Initialize the WinHttpRequest Object
+    WebRequest := ComObject("WinHttp.WinHttpRequest.5.1")
+    ;Download the headers
+    WebRequest.Open("HEAD", UrlToFile)
+    WebRequest.Send()
+    ;Store the header which holds the file size in a variable:
+    FinalSize := WebRequest.GetResponseHeader("Content-Length")
+    ;Create the progressbar and the timer
     ProgressGui := Gui("ToolWindow -Sysmenu Disabled AlwaysOnTop +E0x20 -Border -Caption")
     ProgressGui.Title := UrlToFile
     ProgressGui.SetFont("Bold")
@@ -2774,13 +2839,14 @@ DownloadFile(UrlToFile, SaveFileAs, Overwrite := True, UseProgressBar := True, h
     ProgressGuiText2 := ProgressGui.AddText("x0 w200 Center", 0 "`% Done")
     gocProgress := ProgressGui.AddProgress("x10 w180 h20")
     ProgressGui.Show("AutoSize NoActivate")
-    DownloadAsync(UrlToFile, SaveFileAs, done, __UpdateProgressBar, headers)
+    SetTimer(__UpdateProgressBar, 100)
   }
-  while !dd {
-    Sleep(100)
-  }
+  ;Download the file
+  Download(UrlToFile, SaveFileAs)
+  ;Remove the timer and the progressbar because the download has finished
   if (UseProgressBar) {
     ProgressGui.Destroy()
+    SetTimer(__UpdateProgressBar, 0)
   }
   return
 }
