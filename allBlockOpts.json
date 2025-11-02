@@ -1,0 +1,1266 @@
+{
+  "10x inverse solar spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "10x locked spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "10x oneway spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "10x solar spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "10x spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "SRNor": {
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "disableSignalInputId": {
+      "default": 0,
+      "type": 0
+    },
+    "enableSignalInputId": {
+      "default": 0,
+      "type": 0
+    },
+    "persistAfterDeath": {
+      "default": false,
+      "type": 6
+    },
+    "signalOutputId": {
+      "default": 0,
+      "type": 0
+    },
+    "startOn": {
+      "default": false,
+      "type": 6
+    }
+  },
+  "and gate": {
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "signalAInputId": {
+      "default": 0,
+      "type": 0
+    },
+    "signalBInputId": {
+      "default": 0,
+      "type": 0
+    },
+    "signalOutputId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "area trigger": {
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "signalOutputId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "arrow": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "basic": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "block death boundary": {
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "blue only light switch": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "bomb": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "bouncing buzzsaw": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "bouncing shuriken": {
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "bouncy": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "buzzsaw": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "cannon": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "checkpoint": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "multiUse": {
+      "default": false,
+      "type": 6
+    }
+  },
+  "closing spikes": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "conveyor": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "crumbling": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "death boundary": {
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "donup": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "downUp": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "falling": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "falling spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "groupId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "fan/big": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "fan/small": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "floor button": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "signalOutputId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "glass": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "goal": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "requiredLevelCount": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "gravity down lever": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "gravity rotator": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "gravity up lever": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "growing block": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "growing buzzsaw": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "inner level": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "level": {
+      "default": "",
+      "type": 2
+    },
+    "requiredLevelCount": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "input detector": {
+    "action": {
+      "default": 0,
+      "type": 5,
+      "values": {
+        "down": 1,
+        "jump": 0,
+        "left": 2,
+        "right": 3
+      }
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "signalOutputId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "inverse solar": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "invisible": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "jump refresher": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "contactOption": {
+      "default": 0,
+      "type": 5,
+      "values": [
+        "reset to max",
+        "add one",
+        "remove one"
+      ]
+    }
+  },
+  "key": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "laser": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "maxCooldown": {
+      "default": 1.0,
+      "suffix": "ms",
+      "type": 3
+    }
+  },
+  "leftRight": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "light switch": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "locked box": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "microwave": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "moving spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "noWJ": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "not gate": {
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "signalInputId": {
+      "default": 0,
+      "type": 0
+    },
+    "signalOutputId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "oneway": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "path": {
+    "addNewPoint": {
+      "onChange": "<anonymous lambda>(self lambda)",
+      "type": "BUTTON"
+    },
+    "backwardSpeed": {
+      "default": 150,
+      "showIf": "<anonymous lambda>(self lambda)",
+      "type": 0
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "endReachedAction": {
+      "default": 0,
+      "type": 5,
+      "values": {
+        "loop": 1,
+        "reverse": 2,
+        "stop": 0
+      }
+    },
+    "forwardSpeed": {
+      "default": 150,
+      "type": 0
+    },
+    "path": {
+      "default": "50.0,-100.0,150.0,-100.0,50.0,100.0,-50.0,100.0,0,0",
+      "type": 2
+    },
+    "restart": {
+      "default": 0,
+      "showIf": "<anonymous lambda>(self lambda)",
+      "type": 5,
+      "values": {
+        "always": 1,
+        "ifStopped": 2,
+        "never": 0
+      }
+    },
+    "signalInputId": {
+      "default": 0,
+      "showIf": "<anonymous lambda>(self lambda)",
+      "type": 0
+    },
+    "startOnLoad": {
+      "default": true,
+      "type": 6
+    },
+    "startWhenSignalReceived": {
+      "default": false,
+      "onChange": "<anonymous lambda>(self lambda)",
+      "type": 6
+    },
+    "startWhileSignalReceived": {
+      "default": false,
+      "onChange": "<anonymous lambda>(self lambda)",
+      "type": 6
+    }
+  },
+  "pendulum": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "player state detector": {
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "signalOutputId": {
+      "default": 0,
+      "type": 0
+    },
+    "state": {
+      "default": 0,
+      "type": 5,
+      "values": {
+        "bouncing": 8,
+        "ducking": 7,
+        "facingLeft": 14,
+        "facingRight": 15,
+        "falling": 4,
+        "idle": 0,
+        "inCannon": 9,
+        "jumping": 2,
+        "moving": 1,
+        "onPulley": 12,
+        "onZipline": 17,
+        "pullingLever": 10,
+        "pushing": 13,
+        "sliding": 6,
+        "swimming": 16,
+        "swingingOnPole": 11,
+        "wallHang": 3,
+        "wallSliding": 5
+      }
+    }
+  },
+  "pole": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "pole quadrant": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "portal": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "exitId": {
+      "default": 0,
+      "type": 0
+    },
+    "portalId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "pulley": {
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "direction": {
+      "default": 1,
+      "type": 5,
+      "values": [
+        "left",
+        "right",
+        "user"
+      ]
+    }
+  },
+  "pushable box": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "quad falling spikes": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "quadrant": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "red only light switch": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "rightLeft": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "rotating buzzsaw": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "scythe": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "shuriken gun": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "killAfterDistance": {
+      "default": 0.0,
+      "type": 3
+    },
+    "killAfterTime": {
+      "default": 0.0,
+      "suffix": "s",
+      "type": 3
+    },
+    "maxCooldown": {
+      "default": 7.0,
+      "suffix": "ms",
+      "type": 3
+    },
+    "maxCount": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "shuriken spawner": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "signal deactivated wall": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "signalInputId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "single spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "slope": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "solar": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "spark block/clockwise": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "spark block/counterClockwise": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "speed up lever": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "star": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "starType": {
+      "default": 0,
+      "type": 5,
+      "values": [
+        "yellow",
+        "blue",
+        "pink"
+      ]
+    },
+    "unCollect": {
+      "onChange": "<anonymous lambda>(self lambda)",
+      "type": "BUTTON"
+    }
+  },
+  "sticky floor": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "surprise spike": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "targeting laser": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "text": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "text": {
+      "default": "",
+      "onChange": "<anonymous lambda>(self lambda)",
+      "type": 2
+    }
+  },
+  "timer": {
+    "chargeTime": {
+      "default": 1,
+      "type": 3
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "dischargeTime": {
+      "default": 1,
+      "type": 3
+    },
+    "onSignalActivationWhileDischarging": {
+      "default": 0,
+      "type": 5,
+      "values": [
+        "keepDischarging",
+        "reset",
+        "startCharging"
+      ]
+    },
+    "onSignalDeactivationWhileCharging": {
+      "default": 0,
+      "type": 5,
+      "values": [
+        "keepCharging",
+        "reset",
+        "startDischarging"
+      ]
+    },
+    "signalInputId": {
+      "default": 0,
+      "type": 0
+    },
+    "signalOutputId": {
+      "default": 0,
+      "type": 0
+    }
+  },
+  "undeath": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "upDown": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "water": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
+  "zipline": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "id": {
+      "default": 1,
+      "type": 0
+    }
+  }
+}
