@@ -1699,6 +1699,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version 231-233! rotated pendulums have incorrect hitbos positions
   # !version ?-NOW! sliding against a wall prevents the slide from ending when leaving the ground
     # vex++:downloadMap/233/161/uno%20mas%20%2D%20sliding%20down
+  # !version ?-237! being blown by a fan then grabbing onto a ledge will cause the camera to slowly go up desyncing from the player until either reentering play mode or dying
+  # !version ?-237! being blown by a fan then landing on a falling block will cause the player to jitter on top of it without causing it to start falling
 
 # ?add level option to change canPressDownToShortHop and make sh work
 
@@ -1820,3 +1822,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make cps option to only collect while player grav is same dir
 # make stars collected in main level be counted in main menu
 # make it so that pressing the generate image button doesn't cause levels to ask if they should be loaded because of different version warning
+
