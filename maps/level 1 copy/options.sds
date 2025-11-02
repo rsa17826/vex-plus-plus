@@ -8,4 +8,6 @@
     }
   }
   STR(version)INT(15)
+  STRNAME(gameVersion)INT(235)
+  STRNAME(levelVersion)INT(1)
 }

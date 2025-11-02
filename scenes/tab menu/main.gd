@@ -170,7 +170,7 @@ func createImagesForAllLevelsHaveImages(ignoreOnesWithImages) -> void:
   pbar.max_value = len(arr)
   var prog = 0
   for levelName in arr:
-    if await global.loadMap(levelName, false):
+    if await global.loadMap(levelName, false, true):
       global.level.save(true)
       await global.wait()
     prog += 1

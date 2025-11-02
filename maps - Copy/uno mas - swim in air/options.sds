@@ -1,0 +1,20 @@
+{
+  STR(start)STR(hub)
+  STR(creatorName)STR(rssaromeo)
+  STR(description)STR()
+  STR(gameVersion)INT(227)
+  STR(version)INT(186)
+  STR(levelVersion)INT(66)
+  STR(stages){
+    STR(hub){
+      STR(color)INT(5)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(jumpCount)INT(1)
+      STR(autoRun)BOOL(false)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallJump)BOOL(true)
+      STR(checkpointsSaveAll)BOOL(false)
+    }
+  }
+}

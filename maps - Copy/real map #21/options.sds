@@ -1,0 +1,19 @@
+{
+  STR(start)STR(hub)
+  STR(author)STR(rssaromeo)
+  STR(description)STR()
+  STR(version)INT(178)
+  STR(stages){
+    STR(hub){
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallJump)BOOL(false)
+      STR(autoRun)BOOL(false)
+      STR(jumpCount)INT(2)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
+    }
+  }
+  STRNAME(levelVersion)INT(57)
+  STRNAME(gameVersion)INT(181)
+}

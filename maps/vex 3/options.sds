@@ -95,6 +95,6 @@
     }
   }
   STR(version)INT(173)
-  STRNAME(levelVersion)INT(1343)
-  STRNAME(gameVersion)INT(201)
+  STRNAME(levelVersion)INT(1344)
+  STRNAME(gameVersion)INT(235)
 }

@@ -1221,7 +1221,7 @@ func applyHeat(delta):
       # a little bit more based on distance when less than 100 px
       + max(0, ((100 - laser.thingThatMoves.global_position.distance_to(global_position)) / 50.0)) \
       # a lot more based on distance when very close less than 20 px
-      + max(0, ((20 - laser.thingThatMoves.global_posrition.distance_to(global_position)) / 3.0))
+      + max(0, ((20 - laser.thingThatMoves.global_position.distance_to(global_position)) / 3.0))
       heatToAdd += num
   heat += heatToAdd * delta
   if heat > 0:
@@ -1819,3 +1819,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # make cps option to only collect while player grav is same dir
 # make stars collected in main level be counted in main menu
+# make it so that pressing the generate image button doesn't cause levels to ask if they should be loaded because of different version warning

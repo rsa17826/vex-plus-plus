@@ -14,4 +14,6 @@
       STR(canDoWallHang)BOOL(true)
     }
   }
+  STRNAME(gameVersion)INT(235)
+  STRNAME(levelVersion)INT(1)
 }

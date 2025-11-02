@@ -1585,7 +1585,7 @@ func saveBlockData():
   return blockSaveData
 
 var levelDataForCurrentMap := Cache.new()
-func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
+func loadMap(levelPackName: String, loadFromSave: bool, forceLoad: bool = false) -> bool:
   loadEditorBarData()
   levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
@@ -1595,7 +1595,7 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
   var mapInfo: Variant = await loadMapInfo(levelPackName)
   if !mapInfo: return false
-  if not same(mapInfo.gameVersion, VERSION):
+  if not forceLoad and not same(mapInfo.gameVersion, VERSION):
     var gameVersionIsNewer: bool = VERSION > mapInfo.gameVersion
     if gameVersionIsNewer:
       if useropts.warnWhenOpeningLevelInNewerGameVersion:
@@ -1643,6 +1643,8 @@ func loadMap(levelPackName: String, loadFromSave: bool) -> bool:
   get_tree().change_scene_to_file("res://scenes/level/level.tscn")
   ui.progressContainer.visible = true
   var __loadedLevelCount = 0
+  if forceLoad:
+    levelNames = [currentLevel().name]
   for k in levelNames:
     if levelDataForCurrentMap.__has(k):
       log.err("should not have data", levelDataForCurrentMap.__get(), levelFolderPath, k)
@@ -2082,11 +2084,13 @@ func loadEditorBarData():
     "bouncing buzsaw": "bouncing buzzsaw",
     "growing buzsaw": "growing buzzsaw",
     "rotating buzsaw": "rotating buzzsaw",
+    "Rotating Buzzsaw": "rotating buzzsaw",
     "shurikan spawner": 'shuriken spawner',
     "bouncing shurikan": 'bouncing shuriken',
     "conveyer": 'conveyor',
     "updown": 'upDown',
     "downup": 'downUp',
+    "Pulley": 'pulley',
   }
   var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
   var tempBlockNames = []
