@@ -145,10 +145,10 @@ var justAddedVels := {
   "zipline": 0,
   "wind": 0,
 }
-var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole", "zipline"]
-var stopVelOnWall := ["bounce", "cannon", "pole", "conveyor", "zipline"]
-var stopVelOnWallHang := ["waterExit"]
-var stopVelOnCeil := ["bounce", "waterExit", "cannon", "pole"]
+var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole", "zipline", "wind"]
+var stopVelOnWall := ["bounce", "cannon", "pole", "conveyor", "zipline", "wind"]
+var stopVelOnWallHang := ["waterExit", "wind"]
+var stopVelOnCeil := ["bounce", "waterExit", "cannon", "pole", "wind"]
 
 @onready var unduckSize: Vector2 = Vector2(8, 33) # mainCollisionShape2D.shape.size
 @onready var unduckPos: Vector2 = Vector2.ZERO # mainCollisionShape2D.position

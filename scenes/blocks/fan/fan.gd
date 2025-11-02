@@ -18,6 +18,7 @@ func on_physics_process(delta: float) -> void:
   for thing in thingsInside:
     if thing is EditorPlayer:
       thing = thing.player
+      thing.justAddedVels.wind = 1
     elif thing is BlockBomb or thing is BlockPushableBox or thing is Player:
       thing = thing.thingThatMoves
     else: return
