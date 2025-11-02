@@ -8,7 +8,7 @@ func getIndent(count):
   for i in range(count):
     h += '  '
   return h
-
+var allBlockOpts = {}
 func _ready() -> void:
   global.useropts.theme = 1
   await global.wait()
@@ -130,6 +130,8 @@ func _ready() -> void:
     #   scaleFactor,
     #   scaleFactor
     # )
+    block.generateBlockOpts()
+    allBlockOpts[id] = block.blockOptions
     text += '\n    <br><br><img src="' + "scenes/blocks/" + id + "/images/" + imageLocation + '" alt="image of block ' + id + '" width="' + str(int(origSize.x * scaleFactor)) + '" height="' + str(int(origSize.y * scaleFactor)) + '">'
     text += '\n'
     for k in ['EDITOR_OPTION_scale', 'EDITOR_OPTION_rotate', 'canAttachToThings', 'canAttachToPaths']:
@@ -185,6 +187,7 @@ func _ready() -> void:
     ),
     false
   )
+  global.file.write("res://allBlockOpts.json", allBlockOpts)
   get_tree().quit()
 
 func getinfo(text):

@@ -786,6 +786,7 @@ function saveData(val, _level = 0) {
           : "[" + data + "]"
       default:
         error(val, gettype(val))
+        throw new Error(val)
       // debugger
     }
   }
