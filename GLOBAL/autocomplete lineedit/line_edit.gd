@@ -69,7 +69,9 @@ func _on_gui_input(event: InputEvent) -> void:
       delete_text(start, get_selection_to_column())
       deselect()
       caret_column = start
-    if Input.is_action_just_pressed(&"accept_autocomplete", true) \
+    if Input.is_action_just_pressed(&"ui_escape", true):
+      release_focus()
+    elif Input.is_action_just_pressed(&"accept_autocomplete", true) \
     or Input.is_action_just_pressed(&"ui_up", true) \
     or Input.is_action_just_pressed(&"ui_down", true) \
     or (

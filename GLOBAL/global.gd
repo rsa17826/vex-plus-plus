@@ -2611,11 +2611,11 @@ func openLevelInVersion(levelName, gameVersion):
     DirAccess.remove_absolute(global.path.abs("res://process"))
   if FileAccess.file_exists(r"..\..\vex++.exe"):
     OS.create_process(r"..\..\vex++.exe", PackedStringArray([
-      "version", str(gameVersion), "silent", "--loadMap", levelName
+      "version", str(gameVersion), "--loadMap", levelName
     ]))
   else:
     OS.create_process(r"..\..\vex++.cmd", PackedStringArray([
-      "version", str(gameVersion), "silent", "--loadMap", levelName
+      "version", str(gameVersion), "--loadMap", levelName
     ]))
   global.quitGame()
 

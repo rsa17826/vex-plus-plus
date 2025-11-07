@@ -1823,3 +1823,8 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # make stars collected in main level be counted in main menu
 # make it so that pressing the generate image button doesn't cause levels to ask if they should be loaded because of different version warning
 
+# fix animation for wallsliding to not play if can't waqllslide
+# tas?
+# esc defocus search bar
+# esc to cear option
+# clear button update text

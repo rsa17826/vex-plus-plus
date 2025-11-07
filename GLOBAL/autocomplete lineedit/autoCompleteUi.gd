@@ -66,11 +66,12 @@ func _on_line_edit_text_submitted(new_text: String) -> void:
   text_submitted.emit(new_text, edit.textArr)
 
 func _on_line_edit_text_changed(new_text: String) -> void:
-  text_changed.emit(new_text, edit.textArr)
-
-func _on_line_edit_2_text_changed(new_text: String) -> void:
   if new_text.begins_with(" "):
     text = new_text.lstrip(" ")
+  text_changed.emit(new_text, edit.textArr)
+  if not text:
+    setWords([])
+    setSelected(0)
 
 func _ready() -> void:
   if not global.useropts:
