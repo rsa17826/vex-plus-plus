@@ -737,9 +737,11 @@ func _physics_process(delta: float) -> void:
         else:
           # if not on floor and switching wall sides allow both walls again
           if (
-            global.currentLevelSettings().canDoWallSlide &&
-            (lastWallSide and (getCurrentWallSide() and lastWallSide != getCurrentWallSide()))
-            or onDifferentWall()
+            global.currentLevelSettings().canDoWallSlide
+            and (
+              (lastWallSide and (getCurrentWallSide() and lastWallSide != getCurrentWallSide()))
+              or onDifferentWall()
+            )
           ) and not collidingWithNowj() and velocity.y > -20:
             vel.waterExit = Vector2.ZERO
             log.pp(vel.waterExit)
@@ -748,6 +750,7 @@ func _physics_process(delta: float) -> void:
             lastWall = null
             breakFromWall = false
             # remainingJumpCount = MAX_JUMP_COUNT
+            log.err(2)
             state = States.wallSliding
           if state != States.wallHang:
             currentHungWall = 0
@@ -829,6 +832,7 @@ func _physics_process(delta: float) -> void:
             vel.user.y = WALL_SLIDE_SPEED
 
             # remainingJumpCount = MAX_JUMP_COUNT
+            log.err(3)
             state = States.wallSliding
             # press down to detach from wallslide
             if Input.is_action_pressed(&"down") and wallBreakDownFrames <= 0:
@@ -938,7 +942,11 @@ func _physics_process(delta: float) -> void:
             position += Vector2(0, loopIdx).rotated(defaultAngle)
             log.pp("fell off wall hang to wallSliding")
             remainingJumpCount -= 1
-            state = States.wallSliding
+            if global.currentLevelSettings().canDoWallSlide:
+              log.err(1)
+              state = States.wallSliding
+            else:
+              state = States.falling
           else:
             position -= Vector2(0, 1).rotated(defaultAngle)
 
@@ -1591,9 +1599,6 @@ func _on_left_body_exited(body: Node2D) -> void:
 #     else:
 #       block.root._on_body_entered(self, false)
 func updateCollidingBlocksExited():
-  #   respawnDetectionArea.get_overlapping_bodies()
-  #   + respawnDetectionArea.get_overlapping_areas()
-  # ))
   for block in (
     respawnDetectionArea.get_overlapping_bodies()
     + respawnDetectionArea.get_overlapping_areas()
