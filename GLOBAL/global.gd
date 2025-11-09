@@ -1848,6 +1848,12 @@ func createNewMapFolder() -> Variant:
       PromptTypes.string,
       (LevelServer.user.email as String).trim_suffix("@null.notld"),
     )
+  elif not useropts.defaultCreatorName:
+    cname = await prompt(
+      "Enter your name",
+      PromptTypes.string,
+      "",
+    )
   sds.saveDataToFile(path.join(fullDirPath, "options.sds"),
     {
       "start": startLevel,
