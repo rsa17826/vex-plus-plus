@@ -69,8 +69,10 @@ func _on_gui_input(event: InputEvent) -> void:
       delete_text(start, get_selection_to_column())
       deselect()
       caret_column = start
-    if Input.is_action_just_pressed(&"ui_escape", true):
+    if Input.is_action_just_pressed(&"ui_cancel", true):
       release_focus()
+      get_viewport().set_input_as_handled()
+      return
     elif Input.is_action_just_pressed(&"accept_autocomplete", true) \
     or Input.is_action_just_pressed(&"ui_up", true) \
     or Input.is_action_just_pressed(&"ui_down", true) \
@@ -133,8 +135,13 @@ func completeWord(newWord: String) -> void:
   set_caret_column(lastPos - len(oldWord) + len(newWord) + 1)
 
 func _on_focus_exited() -> void:
+  log.pp(autoCompleteUi.clearOnFocusLoss, "asasas")
   if autoCompleteUi.clearOnFocusLoss:
     autoCompleteUi.setWords([])
 
 func _on_focus_entered() -> void:
-  autoCompleteUi.setWords(autoCompleteUi.autoComplete.keys())
+  if text:
+    var w = getAutocomplete(text)
+    autoCompleteUi.setWords(w)
+  else:
+    autoCompleteUi.setWords(autoCompleteUi.autoComplete.keys())
