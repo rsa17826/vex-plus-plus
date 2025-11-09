@@ -124,6 +124,8 @@ func loadLocalLevelList():
                 if 'blockSaveData' in temp:
                   if "star" in temp.blockSaveData:
                     for star in temp.blockSaveData.star:
+                      if star.collected:
+                        collectedStarCount += 1
                       totalApproxStarCount += 1
               elif levelName in beatLevelNames:
                 var temp = saveData.beatLevels[saveData.beatLevels.find_custom(func(e): return e.name == levelName)]
