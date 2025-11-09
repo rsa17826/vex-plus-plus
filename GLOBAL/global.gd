@@ -2110,7 +2110,11 @@ func loadEditorBarData():
     if name in oldNames and oldNames[name] not in tempNames:
       for k in editorBarData:
         if name in editorBarData[k]:
-          editorBarData[k].insert(editorBarData[k].find(name) + 1, oldNames[name])
+          if name.to_lower() == oldNames[name].to_lower():
+            # i don't know why changing the case of the name doesn't prevent the resourceloader from finding it so doing this until i can find a better way to tell the case when loading it
+            editorBarData[k][editorBarData[k].find(name)] = oldNames[name]
+          else:
+            editorBarData[k].insert(editorBarData[k].find(name) + 1, oldNames[name])
           break
   if useropts and editorBarData:
     var i = 0
