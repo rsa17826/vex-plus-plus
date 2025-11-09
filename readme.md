@@ -34,6 +34,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **backwardSpeed**: the speed that blocks are moved at while going backwards along the path.
     - **addNewPoint**: creates a new point right after this in the path
     - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+    - **rotationSpeed**: the speed at which the block will rotate
     - **signalOutputId**: the id that will be sent
     - **level**: the level that you will be sent to
     - **requiredLevelCount**: the amount of levels that you must beat before being able to enter this level
@@ -456,6 +457,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
+      - **rotationSpeed**: the speed at which the block will rotate
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
