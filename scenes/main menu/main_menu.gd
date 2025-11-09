@@ -158,7 +158,7 @@ func loadLocalLevelList():
     node.showLevelData(LevelServer.dictToLevel(data))
     levelContainer.add_child(node)
     if i % global.useropts.amountOfLevelsToLoadAtTheSameTimeOnMainMenu == 0:
-      await global.wait()
+      await global.wait(1)
   levelListLoadingProgressBar.visible = false
 
 func otc(text: String, version: NestedSearchable):

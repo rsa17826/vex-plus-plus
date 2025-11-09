@@ -72,11 +72,12 @@ func _on_line_edit_text_changed(new_text: String) -> void:
   if not text:
     setWords([])
     setSelected(0)
+    rtl.updateText([])
 
 func _ready() -> void:
   if not global.useropts:
     await global.wait()
   clearOnFocusLoss = global.useropts.showAutocompleteOptions != 2
-  if !clearOnFocusLoss:
+  if global.useropts.showAutocompleteOptions == 2:
     var w = edit.getAutocomplete(text)
     setWords(w)
