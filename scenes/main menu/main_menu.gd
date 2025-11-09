@@ -102,51 +102,86 @@ func loadLocalLevelList():
     levelListLoadingProgressBar.value = i
     var data = global.loadMapInfo(mapName)
     var saveData: Variant = sds.loadDataFromFile(global.getLevelSavePath(mapName), null)
-    if not data:
+    #region san
+    if data is not Dictionary:
       log.err(mapName, "no data found")
       continue
+    #endregion
     if global.useropts.showLevelCompletionInfoOnMainMenu:
       var starText = "???"
       var levelText = "???"
       data.completionInfo = "LEVELS: " + levelText + " STARS: " + starText + " = " + "??%"
       if saveData:
-        if 'stages' in data:
-          var beatLevelCount: float = 0
-          var totalLevelCount: float = 0
-          var collectedStarCount: float = 0
-          var totalApproxStarCount: float = 0
-          if 'beatLevels' in saveData and 'loadedLevels' in saveData:
-            var beatLevelNames = saveData.beatLevels.map(func(e): return e.name if 'name' in e else "NO NAME SET!!/")
-            var loadedLevelNames = saveData.loadedLevels.map(func(e): return e.name if 'name' in e else "NO NAME SET!!/")
-            for levelName in data.stages:
-              if levelName in loadedLevelNames:
-                var temp = saveData.loadedLevels[saveData.loadedLevels.find_custom(func(e): return e.name == levelName)]
-                if 'blockSaveData' in temp:
-                  if "star" in temp.blockSaveData:
-                    for star in temp.blockSaveData.star:
-                      if star.collected:
-                        collectedStarCount += 1
-                      totalApproxStarCount += 1
-              elif levelName in beatLevelNames:
-                var temp = saveData.beatLevels[saveData.beatLevels.find_custom(func(e): return e.name == levelName)]
-                if 'blockSaveData' in temp:
-                  if "star" in temp.blockSaveData:
-                    for star in temp.blockSaveData.star:
-                      if star.collected:
-                        collectedStarCount += 1
-                      totalApproxStarCount += 1
-                beatLevelCount += 1
-              totalLevelCount += 1
-            if "beatMainLevel" in saveData and saveData.beatMainLevel:
+        #region san
+        if 'stages' not in data:
+          log.err(mapName)
+          continue
+        #endregion
+        var beatLevelCount: float = 0
+        var totalLevelCount: float = 0
+        var collectedStarCount: float = 0
+        var totalApproxStarCount: float = 0
+        #region san
+        if saveData is not Dictionary:
+          log.err(mapName, saveData)
+          continue
+        if 'beatLevels' not in saveData:
+          log.err(mapName)
+          continue
+        if 'loadedLevels' not in saveData:
+          log.err(mapName)
+          continue
+        #endregion
+        var beatLevelNames = saveData.beatLevels.map(func(e): return e.name if 'name' in e else "NO NAME SET!!/")
+        var loadedLevelNames = saveData.loadedLevels.map(func(e): return e.name if 'name' in e else "NO NAME SET!!/")
+        for levelName in data.stages:
+          if levelName in loadedLevelNames or levelName in beatLevelNames:
+            if levelName in beatLevelNames:
               beatLevelCount += 1
-            if beatLevelCount + 1 >= totalLevelCount:
-              starText = str(int(collectedStarCount)) + "/" + str(int(totalApproxStarCount))
-            else:
-              starText = str(int(collectedStarCount)) + "/?" + str(int(totalApproxStarCount)) + "?"
-            starText += " " + str(int(floor(collectedStarCount / totalApproxStarCount * 100) if totalApproxStarCount else 100)) + "%"
-            levelText = str(int(floor(beatLevelCount / totalLevelCount * 100) if totalLevelCount else 0)) + "%"
-            # log.pp(mapName, levelText, starText)
-            data.completionInfo = "LEVELS: " + levelText + " STARS: " + starText + " = " + ("?" if "?" in starText else "") + str(int(floor((beatLevelCount / totalLevelCount * 50) + ((collectedStarCount / totalApproxStarCount if totalApproxStarCount else 1) * 50)) if totalLevelCount else 0)) + "%"
+            var temp = saveData[
+              "loadedLevels"
+              if levelName in loadedLevelNames
+              else "beatLevels"
+            ][
+              saveData.loadedLevels.find_custom(
+                func(e): return e.name == levelName
+              )
+            ]
+            #region san
+            if temp is not Dictionary:
+              log.err(mapName, temp.blockSaveData)
+              continue
+            #endregion
+            if 'blockSaveData' in temp:
+              if "star" in temp.blockSaveData:
+                #region san
+                if temp.blockSaveData is not Dictionary:
+                  log.err(mapName, temp.blockSaveData)
+                  continue
+                #endregion
+                for star in temp.blockSaveData.star:
+                  #region san
+                  if star is not Dictionary:
+                    log.err(mapName, temp.blockSaveData)
+                    continue
+                  if "collected" not in star:
+                    log.err(mapName, temp.blockSaveData)
+                    continue
+                  #endregion
+                  if star.collected:
+                    collectedStarCount += 1
+                  totalApproxStarCount += 1
+          totalLevelCount += 1
+        if "beatMainLevel" in saveData and saveData.beatMainLevel:
+          beatLevelCount += 1
+        if beatLevelCount + 1 >= totalLevelCount:
+          starText = str(int(collectedStarCount)) + "/" + str(int(totalApproxStarCount))
+        else:
+          starText = str(int(collectedStarCount)) + "/?" + str(int(totalApproxStarCount)) + "?"
+        starText += " " + str(int(floor(collectedStarCount / totalApproxStarCount * 100) if totalApproxStarCount else 100)) + "%"
+        levelText = str(int(floor(beatLevelCount / totalLevelCount * 100) if totalLevelCount else 0)) + "%"
+        # log.pp(mapName, levelText, starText)
+        data.completionInfo = "LEVELS: " + levelText + " STARS: " + starText + " = " + ("?" if "?" in starText else "") + str(int(floor((beatLevelCount / totalLevelCount * 50) + ((collectedStarCount / totalApproxStarCount if totalApproxStarCount else 1) * 50)) if totalLevelCount else 0)) + "%"
     data.levelName = mapName
     var imagePath = global.path.join(global.MAP_FOLDER, mapName, "image.png")
     if FileAccess.file_exists(imagePath):

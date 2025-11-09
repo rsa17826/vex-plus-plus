@@ -1585,15 +1585,15 @@ func saveBlockData():
   return blockSaveData
 
 var levelDataForCurrentMap := Cache.new()
-func loadMap(levelPackName: String, loadFromSave: bool, forceLoad: bool = false) -> bool:
+func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bool:
   loadEditorBarData()
   levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
-  mainLevelName = levelPackName
+  mainLevelName = mapName
   var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
 
-  levelFolderPath = path.abs(path.join(MAP_FOLDER, levelPackName))
-  var mapInfo: Variant = await loadMapInfo(levelPackName)
+  levelFolderPath = path.abs(path.join(MAP_FOLDER, mapName))
+  var mapInfo: Variant = await loadMapInfo(mapName)
   if !mapInfo: return false
   if not forceLoad and not same(mapInfo.gameVersion, VERSION):
     var gameVersionIsNewer: bool = VERSION > mapInfo.gameVersion
@@ -1724,11 +1724,22 @@ func currentLevel() -> Dictionary:
 
 var totalLevelCount: int
 
-func loadMapInfo(levelPackName: String) -> Variant:
-  var options: Variant = sds.loadDataFromFile(path.join(MAP_FOLDER, levelPackName, "/options.sds"))
+func loadMapInfo(mapName: String) -> Variant:
+  var options: Variant = sds.loadDataFromFile(path.join(MAP_FOLDER, mapName, "/options.sds"))
   if !options:
-    log.err("CREATE OPTIONS FILE!!!", levelPackName)
+    log.err("CREATE OPTIONS FILE!!!", mapName)
     return
+  #region san
+  if options is not Dictionary:
+    log.err(mapName)
+    return
+  if "stages" not in options:
+    log.err(mapName)
+    return
+  if options.stages is not Dictionary:
+    log.err(mapName)
+    return
+  #endregion
   # old option names
   if 'creatorName' in options:
     options.author = options.creatorName
@@ -1793,13 +1804,13 @@ func animate(speed: int, steps: Array, time:=tick) -> Variant:
       prevTime = steps[i].until
   return newOffset
 
-func createNewLevelFile(levelPackName: String, levelName: Variant = null) -> bool:
+func createNewLevelFile(mapName: String, levelName: Variant = null) -> bool:
   if not levelName:
     levelName = await prompt("enter the level name", PromptTypes.string, "")
-  levelPackName = fixPath(levelPackName)
+  mapName = fixPath(mapName)
   levelName = fixPath(levelName)
-  if !levelPackName or !levelName: return false
-  var fullDirPath := path.join(MAP_FOLDER, levelPackName)
+  if !mapName or !levelName: return false
+  var fullDirPath := path.join(MAP_FOLDER, mapName)
   var opts: Dictionary = sds.loadDataFromFile(path.join(fullDirPath, "options.sds"))
   var d = defaultLevelSettings.duplicate()
   opts.stages[levelName] = d
