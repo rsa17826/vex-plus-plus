@@ -760,6 +760,10 @@
     "color": {
       "default": "#fff",
       "type": 8
+    },
+    "rotationSpeed": {
+      "default": 100,
+      "type": 3
     }
   },
   "player state detector": {
