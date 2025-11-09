@@ -104,7 +104,7 @@ func loadLocalLevelList():
     var saveData: Variant = sds.loadDataFromFile(global.getLevelSavePath(mapName), null)
     #region san
     if data is not Dictionary:
-      log.err(mapName, "no data found")
+      log.warn(mapName, "no data found")
       continue
     #endregion
     if global.useropts.showLevelCompletionInfoOnMainMenu:
@@ -114,7 +114,7 @@ func loadLocalLevelList():
       if saveData:
         #region san
         if 'stages' not in data:
-          log.err(mapName)
+          log.warn(mapName)
           continue
         #endregion
         var beatLevelCount: float = 0
@@ -123,13 +123,13 @@ func loadLocalLevelList():
         var totalApproxStarCount: float = 0
         #region san
         if saveData is not Dictionary:
-          log.err(mapName, saveData)
+          log.warn(mapName, saveData)
           continue
         if 'beatLevels' not in saveData:
-          log.err(mapName)
+          log.warn(mapName)
           continue
         if 'loadedLevels' not in saveData:
-          log.err(mapName)
+          log.warn(mapName)
           continue
         #endregion
         var beatLevelNames = saveData.beatLevels.map(func(e): return e.name if 'name' in e else "NO NAME SET!!/")
@@ -149,23 +149,23 @@ func loadLocalLevelList():
             ]
             #region san
             if temp is not Dictionary:
-              log.err(mapName, temp.blockSaveData)
+              log.warn(mapName, temp.blockSaveData)
               continue
             #endregion
             if 'blockSaveData' in temp:
               if "star" in temp.blockSaveData:
                 #region san
                 if temp.blockSaveData is not Dictionary:
-                  log.err(mapName, temp.blockSaveData)
+                  log.warn(mapName, temp.blockSaveData)
                   continue
                 #endregion
                 for star in temp.blockSaveData.star:
                   #region san
                   if star is not Dictionary:
-                    log.err(mapName, temp.blockSaveData)
+                    log.warn(mapName, temp.blockSaveData)
                     continue
                   if "collected" not in star:
-                    log.err(mapName, temp.blockSaveData)
+                    log.warn(mapName, temp.blockSaveData)
                     continue
                   #endregion
                   if star.collected:

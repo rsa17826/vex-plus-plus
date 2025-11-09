@@ -1731,13 +1731,13 @@ func loadMapInfo(mapName: String) -> Variant:
     return
   #region san
   if options is not Dictionary:
-    log.err(mapName)
+    log.warn(mapName)
     return
   if "stages" not in options:
-    log.err(mapName)
+    log.warn(mapName)
     return
   if options.stages is not Dictionary:
-    log.err(mapName)
+    log.warn(mapName)
     return
   #endregion
   # old option names
