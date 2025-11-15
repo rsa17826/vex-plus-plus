@@ -14,7 +14,7 @@ func on_respawn():
 
     node.startPosition = Vector2(data.x, data.y) + startPosition
     node.startRotation_degrees = data.r + startRotation_degrees
-    node.startScale = Vector2(data.w, data.h) * startScale/7.0
+    node.startScale = Vector2(data.w, data.h) * startScale / 7.0
     node.respawn()
 
 func on_ready() -> void:
