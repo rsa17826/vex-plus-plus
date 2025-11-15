@@ -10,8 +10,7 @@ var disabled := false
 var separator := false
 var submenu_level = 0
 
-
-func _init(text : String = ""):
+func _init(text: String = ""):
   if text == "": return
 
   text = text.strip_edges(true, false)
@@ -43,7 +42,6 @@ func _init(text : String = ""):
   if (prefix[1] == "X"): disabled = true
   elif (prefix[1] != ":"): separator = true
   name = text.substr(prefix_end + 1)
-
 
 func _to_string():
   var indent = INDENT_CHAR.repeat(submenu_level)

@@ -14,7 +14,6 @@ func _ready() -> void:
     modSize = texture.get_size()
     log.pp(modSize)
 
-
 func _process(delta: float) -> void:
   visible = true
   if modSize:

@@ -7,15 +7,15 @@ var amount := 1:
     amount = v
     play_amount_pop_animation()
 
-@export var content_label:RichTextLabel
-@export var amount_label:Label
-@export var amount_panel:PanelContainer
+@export var content_label: RichTextLabel
+@export var amount_label: Label
+@export var amount_panel: PanelContainer
 
-@export var progress_a:Panel
-@export var progress_b:Control
+@export var progress_a: Panel
+@export var progress_b: Control
 
-var amount_pop_tween:Tween
-var life_tween:Tween
+var amount_pop_tween: Tween
+var life_tween: Tween
 
 func play_amount_pop_animation():
   if amount_pop_tween: amount_pop_tween.kill()
@@ -29,7 +29,7 @@ func fade_out():
   tween.tween_property(self, "modulate:a", 0.0, 0.2)
   tween.tween_callback(queue_free).set_delay(0.2)
 
-func set_progress(v:float):
+func set_progress(v: float):
   progress_a.size_flags_stretch_ratio = v
   progress_b.size_flags_stretch_ratio = 1.0 - v
 
@@ -44,7 +44,6 @@ func play_lifespan_animation():
   life_tween.set_parallel(false)
   life_tween.tween_property(self, "modulate:a", 0.0, 0.2)
   life_tween.tween_callback(queue_free).set_delay(0.2)
-
 
 func _ready():
   content_label.meta_clicked.connect(

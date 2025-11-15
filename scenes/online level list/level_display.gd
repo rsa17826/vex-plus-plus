@@ -37,10 +37,10 @@ func matches(new_text: String):
     if not textArr[i + 1]: continue
     var type = textArr[i + 1][0]
     var val = textArr[i + 1].trim_prefix(type)
-    if type=="!":
+    if type == "!":
       if len(val):
-        type=val[0]
-        val=val.trim_prefix(type)
+        type = val[0]
+        val = val.trim_prefix(type)
         if matches.call(type, key, val): return false
       else: return false
     else:

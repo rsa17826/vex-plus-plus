@@ -39,9 +39,8 @@ func writefile(path, text, asjson=true):
   log.pp(1)
   FileAccess.open(path, FileAccess.WRITE_READ).store_string(JSON.stringify(text) if asjson else text)
 
-
 func checkislevelvalid(maincode):
-  var code:Array = maincode.split(',')
+  var code: Array = maincode.split(',')
   code = code.map(func(a):
     return int(a))
   if !arrget(code, 2):
@@ -81,7 +80,7 @@ func checkalllevelsforvalidity(loadedcodes):
   var arr = readfile(levelswitherrorspath)
   if !arr:
     arr = []
-  var arr2=[]
+  var arr2 = []
   if !arr2:
     arr2 = []
   for code in loadedcodes:
@@ -90,7 +89,7 @@ func checkalllevelsforvalidity(loadedcodes):
     else:
       arr.append(code)
   writefile(levelswitherrorspath, global.arr.unique(arr))
-  writefile(levelswitherrorspath+'1', global.arr.unique(arr2))
+  writefile(levelswitherrorspath + '1', global.arr.unique(arr2))
 
 func arrget(arr, count):
   var newarr = []

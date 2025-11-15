@@ -5,7 +5,7 @@ extends Control
 ## Pushes its rect size and position to another Control node, similar to [RemoteTransform2D]. Useful for attaching nodes to another node that is inside a container.
 
 ## The [Control] whose size will be changed.
-@export var target : Control:
+@export var target: Control:
   set(v):
     target = v
     queue_redraw()
