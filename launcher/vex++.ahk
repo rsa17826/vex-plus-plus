@@ -262,7 +262,32 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", F.read("launcherData/lastRanVersion.txt")))
   ExitApp()
 }
+if gettings.useXdm {
+  if checkXdm() {
+    getXdmDownloadPath()
+  } else {
+    if confirm("xdm not installed. open url?") {
+      run("https://github.com/subhra74/xdm/releases/")
+    }
+  }
+}
 
+checkXdm() {
+  data := f.read("c:\users\" A_UserName "\.xdman\config.txt", "")
+  if not data or not data.includes("forceSingleFolder:") or not data.includes("categoryCompressed:") or not data.includes("downloadFolder:") {
+    return 0
+  }
+  return 1
+}
+
+getXdmDownloadPath() {
+  data := f.read("c:\users\" A_UserName "\.xdman\config.txt", "")
+  forceSingleFolder := data.RegExMatch("forceSingleFolder:(.*)")[1] == "true"
+  categoryCompressed := data.RegExMatch("categoryCompressed:(.*)")[1]
+  downloadFolder := data.RegExMatch("downloadFolder:(.*)")[1]
+  dlPath := forceSingleFolder ? downloadFolder : categoryCompressed
+  return dlPath
+}
 ; setup gui
 {
   ui := Gui("+AlwaysOnTop")
@@ -408,6 +433,20 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
     try FileDelete(A_startup "/vex++ updater.lnk")
     if updateOnBoot {
       FileCreateShortcut(selfPath, A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
+    }
+  })
+  guiCtrl := ui.AddCheckbox((gettings.useXdm ? "+Checked" : '') '', "use xdm")
+  guiCtrl.OnEvent("Click", (elem, *) {
+    settings.useXdm := elem.value
+    saveSettings()
+    if elem.value {
+      if checkXdm() {
+        xdmDlPath := getXdmDownloadPath()
+      } else {
+        if confirm("xdm not installed. open url?") {
+          run("https://github.com/subhra74/xdm/releases/")
+        }
+      }
     }
   })
   guiCtrl := ui.AddCheckbox((gettings.tryUpdateOnOpen ? "+Checked" : '') '', "check for updates when opening")
@@ -675,6 +714,29 @@ updateRow(row, version?, status?, runtext?) {
   versionListView.ModifyCol(3)
 }
 
+DownloadFileWithXdm(downloadUrl, filename, dest := 0, async := 0) {
+  url := 'http://127.0.0.1:9614/download'
+  web := ComObject('WinHttp.WinHttpRequest.5.1')
+  web.Open('POST', url)
+  web.Send('url=' downloadUrl)
+  if dest {
+    if async {
+      cb := (cb, filename, dest) {
+        if FileExist(path.join(getXdmDownloadPath(), filename)) {
+          FileMove(path.join(getXdmDownloadPath(), filename), dest)
+          SetTimer(cb, 0)
+        }
+      }.bind(cb, filename, dest)
+      SetTimer(cb, 100)
+    } else {
+      while not FileExist(path.join(getXdmDownloadPath(), filename)) {
+        Sleep(10)
+      }
+      FileMove(path.join(getXdmDownloadPath(), filename), dest)
+    }
+  }
+}
+
 ; Handle the download button click
 DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionListView, ui).RegExMatch("\S+(?=\s)")[0]) {
   global doingSomething
@@ -702,7 +764,10 @@ DownloadSelected(Row, selectedVersion := ListViewGetContent("Selected", versionL
       head := {
         Authorization: "token " gettings.pat
       }
-    DownloadFile(url, "temp.zip", , !SILENT, head)
+    if gettings.useXdm
+      DownloadFileWithXdm(url, "windows.zip", "./temp.zip")
+    else
+      DownloadFile(url, "temp.zip", , !SILENT, head)
     updateRow(row, , "Unzipping...")
     unzip("temp.zip", "temp")
     updateRow(row, , "moving files")
