@@ -19,7 +19,7 @@ func on_node_added(node: Node) -> void:
     node.theme = get_window().theme
 
   if !OS.has_feature("editor"): return
-
+  return
   if not is_instance_valid(node): return
   if "autoComplete" in node: return
   var id := node.get_instance_id()

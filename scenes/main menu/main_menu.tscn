@@ -155,19 +155,19 @@ layout_mode = 2
 
 [node name="open logs" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
-text = "open wogs"
+text = "open logs"
 
 [node name="new map btn" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
-text = "cweate new myap"
+text = "create new map"
 
 [node name="open level folder" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
-text = "open wevew foldew"
+text = "open level folder"
 
 [node name="load online levels" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
-text = "load onwine wevews"
+text = "load online levels"
 
 [node name="BTNS2" type="HBoxContainer" parent="VBoxContainer/BTNHOLDER"]
 custom_minimum_size = Vector2(150, 30)
@@ -180,7 +180,7 @@ text = "quit"
 [node name="open readme" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
 tooltip_text = "opens external webpage"
-text = "instwuctions"
+text = "instructions"
 
 [node name="change keybinds" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
@@ -188,7 +188,7 @@ text = "change keybinds"
 
 [node name="show login" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
-text = "wogin/sign up"
+text = "login/sign up"
 
 [node name="BTNS3" type="HBoxContainer" parent="VBoxContainer/BTNHOLDER"]
 custom_minimum_size = Vector2(150, 30)
