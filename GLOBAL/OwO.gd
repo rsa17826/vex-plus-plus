@@ -17,7 +17,7 @@ static var REGEX_LOVE: RegEx = _create_regex("(?i)(love\\s+(?:you|him|her|them))
 static var REGEX_CARE: RegEx = _create_regex("(?i)(i\\s+don(?:'|)t\\s+care|i\\s*d\\s*c)$%s" % END_SENTENCE_PATTERN)
 
 # --- Word Substitution ---
-static var REGEX_SUB_LUV: RegEx = _create_regex("(?i)l[ou]ve?" % VOWEL)
+static var REGEX_SUB_LUV: RegEx = _create_regex("(?i)l[ou]ve?")
 
 # --- Translation ---
 static var REGEX_SUB_R: RegEx = _create_regex("(?i)r")
