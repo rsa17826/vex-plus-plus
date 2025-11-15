@@ -736,6 +736,7 @@ func _physics_process(delta: float) -> void:
             state = States.idle
         else:
           # if not on floor and switching wall sides allow both walls again
+          log.pp(vel, velocity.y, velocity.y > -20)
           if (
             global.currentLevelSettings().canDoWallSlide
             and (
@@ -811,12 +812,13 @@ func _physics_process(delta: float) -> void:
 
           # if not in wall hang state and near a wall
           if state != States.wallHang and getCurrentWallSide() and not collidingWithNowj():
-            var ws = getCurrentWallSide()
-            if lastWallSide != ws:
-              breakFromWall = false
-              lastWallSide = ws
-            lastWallCollisionPoint = getClosestWallRay().get_collision_point()
-            lastWall = getCurrentWall()
+            if velocity.y > -20:
+              var ws = getCurrentWallSide()
+              if lastWallSide != ws:
+                breakFromWall = false
+                lastWallSide = ws
+              lastWallCollisionPoint = getClosestWallRay().get_collision_point()
+              lastWall = getCurrentWall()
 
           if state == States.wallSliding and collidingWithNowj():
             state = States.falling
@@ -1703,6 +1705,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
     # vex++:downloadMap/233/161/uno%20mas%20%2D%20sliding%20down
   # !version ?-237! being blown by a fan then grabbing onto a ledge will cause the camera to slowly go up desyncing from the player until either reentering play mode or dying
   # !version ?-237! being blown by a fan then landing on a falling block will cause the player to jitter on top of it without causing it to start falling
+  # !version ?-239! having upwards velocity while trying to jump from one wall to the same side of another wall will cause the player to not be able to grab onto the wall
 
 # ?add level option to change canPressDownToShortHop and make sh work
 
