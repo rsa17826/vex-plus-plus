@@ -52,6 +52,7 @@ var text:
   get():
     return edit.text
   set(text):
+    if not global.useropts: return
     edit.text = text
     var w = edit.getAutocomplete(text)
     setWords(w)

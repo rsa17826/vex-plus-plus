@@ -43,8 +43,8 @@ levelContainer = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/LEVELS/Scr
 scrollContainer = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/OPTS/OPTIONS MENU/ScrollContainer")
 loginMenuBg = NodePath("Panel")
 searchBar = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/search")
-gameVersionNode = NodePath("VBoxContainer/BTNHOLDER/BTNS2/version")
-currentUserInfoNode = NodePath("VBoxContainer/BTNHOLDER/BTNS2/currentUser")
+gameVersionNode = NodePath("VBoxContainer/BTNHOLDER/BTNS3/version")
+currentUserInfoNode = NodePath("VBoxContainer/BTNHOLDER/BTNS3/currentUser")
 levelListLoadingProgressBar = NodePath("VBoxContainer/HBoxContainer/VBoxContainer2/ProgressBar")
 metadata/_edit_lock_ = true
 
@@ -106,7 +106,7 @@ size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-text = "LOCAL LEVELS"
+text = "WOCAW WEVEWS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -153,17 +153,21 @@ layout_mode = 2
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
 
+[node name="open logs" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
+layout_mode = 2
+text = "open wogs"
+
 [node name="new map btn" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
-text = "create new map"
+text = "cweate new myap"
 
 [node name="open level folder" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
-text = "open level folder"
+text = "open wevew foldew"
 
 [node name="load online levels" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS1"]
 layout_mode = 2
-text = "load online levels"
+text = "load onwine wevews"
 
 [node name="BTNS2" type="HBoxContainer" parent="VBoxContainer/BTNHOLDER"]
 custom_minimum_size = Vector2(150, 30)
@@ -176,39 +180,39 @@ text = "quit"
 [node name="open readme" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
 tooltip_text = "opens external webpage"
-text = "instructions"
+text = "instwuctions"
 
 [node name="change keybinds" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
 text = "change keybinds"
 
-[node name="open logs" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
-layout_mode = 2
-text = "open logs"
-
 [node name="show login" type="Button" parent="VBoxContainer/BTNHOLDER/BTNS2"]
 layout_mode = 2
-text = "login/sign up"
+text = "wogin/sign up"
 
-[node name="currentUser" type="Label" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+[node name="BTNS3" type="HBoxContainer" parent="VBoxContainer/BTNHOLDER"]
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+
+[node name="currentUser" type="Label" parent="VBoxContainer/BTNHOLDER/BTNS3"]
 custom_minimum_size = Vector2(0, 33.295)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0.17254902, 0.19607843, 0.28627452, 1)
 theme_override_constants/outline_size = 4
 vertical_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/BTNHOLDER/BTNS3"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="version" type="Label" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+[node name="version" type="Label" parent="VBoxContainer/BTNHOLDER/BTNS3"]
 custom_minimum_size = Vector2(0, 33.295)
 layout_mode = 2
 theme_override_colors/font_outline_color = Color(0.17254902, 0.19607843, 0.28627452, 1)
 theme_override_constants/outline_size = 4
 vertical_alignment = 1
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/BTNHOLDER/BTNS2"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/BTNHOLDER/BTNS3"]
 custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
@@ -247,12 +251,12 @@ offset_bottom = 648.33
 layout_mode = 2
 
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/VBoxContainer2/search" to="." method="_on_search_text_changed"]
+[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/open logs" to="." method="_on_open_logs_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/new map btn" to="." method="_on_new_level_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/open level folder" to="." method="_on_open_level_folder_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/load online levels" to="." method="_on_load_online_levels_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/quit" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/open readme" to="." method="_on_open_readme_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/change keybinds" to="." method="_on_change_keybinds_pressed"]
-[connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/open logs" to="." method="_on_open_logs_pressed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS2/show login" to="." method="_on_show_login_pressed"]
 [connection signal="pressed" from="Panel/Button" to="." method="_on_login_close_button_pressed"]
