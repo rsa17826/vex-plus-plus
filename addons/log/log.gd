@@ -405,10 +405,10 @@ static func coloritem(item: Variant, tab: int = -2, isarrafterdict: bool = false
     return getcolor("RED") + "<" + "function" + " " + getcolor("BOLD") + getcolor("BLUE") + str(item) + getcolor("END") + getcolor("RED") + ">" + getcolor("END")
 
   if item is StringName:
-    return getcolor("darkorange") + "&\"" + getcolor("END") + getcolor("purple") + str(item) + getcolor("END") + getcolor("darkorange") + '"' + getcolor("END")
+    return getcolor("darkorange") + "&\"" + getcolor("END") + getcolor("purple") + str(item).replace("[", "[lb]") + getcolor("END") + getcolor("darkorange") + '"' + getcolor("END")
     # return getcolor("darkorange") + "&" + getcolor("END") + getcolor("purple") + '"' + str(item) + '"' + getcolor("END")
   if item is String:
-    return getcolor("purple") + '"' + str(item) + '"' + getcolor("END")
+    return getcolor("purple") + '"' + str(item).replace("[", "[lb]") + '"' + getcolor("END")
   if item is int or item is float:
     return getcolor("GREEN") + format_number_with_commas(item) + getcolor("END")
 

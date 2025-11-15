@@ -750,7 +750,6 @@ func _physics_process(delta: float) -> void:
             lastWall = null
             breakFromWall = false
             # remainingJumpCount = MAX_JUMP_COUNT
-            log.err(2)
             state = States.wallSliding
           if state != States.wallHang:
             currentHungWall = 0
@@ -832,7 +831,6 @@ func _physics_process(delta: float) -> void:
             vel.user.y = WALL_SLIDE_SPEED
 
             # remainingJumpCount = MAX_JUMP_COUNT
-            log.err(3)
             state = States.wallSliding
             # press down to detach from wallslide
             if Input.is_action_pressed(&"down") and wallBreakDownFrames <= 0:
@@ -943,7 +941,6 @@ func _physics_process(delta: float) -> void:
             log.pp("fell off wall hang to wallSliding")
             remainingJumpCount -= 1
             if global.currentLevelSettings().canDoWallSlide:
-              log.err(1)
               state = States.wallSliding
             else:
               state = States.falling
