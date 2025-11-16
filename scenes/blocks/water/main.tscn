@@ -22,7 +22,7 @@ animations = [{
 "texture": ExtResource("3_i3wmo")
 }],
 "loop": true,
-"name": &"eletric",
+"name": &"electric",
 "speed": 5.0
 }]
 
@@ -55,8 +55,10 @@ texture = ExtResource("2_8lfx0")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="collisionNode"]
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_ivc8r")
+animation = &"electric"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+visible = false
 z_index = 3
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 1, 0, 0.41960785)
@@ -64,6 +66,8 @@ script = ExtResource("5_pbw1t")
 metadata/_edit_lock_ = true
 
 [node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_gwpbw")
 target_position = Vector2(0, 0)

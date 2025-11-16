@@ -39,3 +39,15 @@ func on_physics_process(delta: float) -> void:
       target = Vector2(1, lerp(1, -1, (currentTick - reqdist) / px.y))
 
   spark.position = textureSize * target / 2
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  match dir:
+    Vector2.UP:
+      message += "jumped into an electric spark"
+    Vector2.DOWN:
+      message += "fell onto an electric spark"
+    Vector2.LEFT, Vector2.RIGHT:
+      message += "walked into an electric spark"
+    Vector2.ZERO:
+      message += "got electrocuted"
+  return message

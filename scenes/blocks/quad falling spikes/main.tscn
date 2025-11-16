@@ -163,6 +163,7 @@ size = Vector2(42, 74)
 radius = 5.09902
 
 [node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "hidableSprites", "cloneEventsHere") groups=["death"]]
+position = Vector2(0, -1)
 script = ExtResource("1_cdvup")
 sprite = NodePath("Node2D/AnimatedSprite2D")
 ghostIconNode = NodePath("Node2D/Sprite2D")
@@ -217,7 +218,7 @@ root = NodePath("../../..")
 visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
-debug_color = Color(0.05490196, 1, 0, 0.41960785)
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/up" node_paths=PackedStringArray("root")]
@@ -261,7 +262,7 @@ root = NodePath("../../..")
 visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
-debug_color = Color(0.05490196, 1, 0, 0.41960785)
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/down" node_paths=PackedStringArray("root")]
@@ -305,7 +306,7 @@ root = NodePath("../../..")
 visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
-debug_color = Color(0.05490196, 1, 0, 0.41960785)
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/right" node_paths=PackedStringArray("root")]
@@ -349,7 +350,7 @@ root = NodePath("../../..")
 visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
-debug_color = Color(0.05490196, 1, 0, 0.41960785)
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
 [node name="playerDetector" type="RayCast2D" parent="Node2D/left" node_paths=PackedStringArray("root")]
