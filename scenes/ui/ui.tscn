@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://bu86o6la4ga8s" path="res://scenes/ui/SubViewportContainer camera_2d.gd" id="15_n3vwu"]
 [ext_resource type="PackedScene" uid="uid://ccr06ddwa73ca" path="res://GLOBAL/screen_notifier/resident_logs.tscn" id="16_0i47d"]
 [ext_resource type="Texture2D" uid="uid://tjldoi64i7h5" path="res://scenes/ui/images/leverPullEffect1.png" id="17_4w2x3"]
-[ext_resource type="Script" path="res://scenes/ui/leverPullEffect.gd" id="18_svq4k"]
+[ext_resource type="Script" uid="uid://b4jl2tqj786vi" path="res://scenes/ui/leverPullEffect.gd" id="18_svq4k"]
 
 [node name="2 - ui" type="CanvasLayer" node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer", "gravityChange")]
 layer = 2

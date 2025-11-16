@@ -14,3 +14,15 @@ func on_body_entered(body: Node2D) -> void:
   if body.root is BlockBomb:
     body.root.explode()
   queue_free.call_deferred()
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  match dir:
+    Vector2.UP:
+      message += "jumped into a laser beam"
+    Vector2.DOWN:
+      message += "fell onto a laser beam"
+    Vector2.LEFT, Vector2.RIGHT:
+      message += "walked into a laser beam"
+    Vector2.ZERO:
+      message += "got vaporized by a laser beam"
+  return message

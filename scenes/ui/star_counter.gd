@@ -20,3 +20,4 @@ func _process(delta):
   text += "\n"
   text += "STARS COLLECTED: " + str(collected) + "/" + str(starCount) + "\n"
   text += "LEVELS BEAT: " + str(len(global.beatLevels)) + "/" + str(global.totalLevelCount)
+  text += "\n" + global.player.lastDeathMessage

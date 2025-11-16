@@ -39,6 +39,7 @@ const MAX_POLE_COOLDOWN = 4
 const MAX_ZIPLINE_COOLDOWN = 17
 const SMALL = .00001
 
+var lastDeathMessage := ''
 var noclipEnabled := false
 var ziplineCooldown := 0.0
 var lastDeathWasForced := false
@@ -218,8 +219,10 @@ func _unhandled_input(event: InputEvent) -> void:
   if Input.is_action_just_pressed(&"toggle_noclip", true):
     noclipEnabled = !noclipEnabled
   if Input.is_action_just_pressed(&"restart", true):
+    lastDeathMessage = "player decided to try again"
     die(DEATH_TIME, false, true)
   if Input.is_action_just_pressed(&"full_restart", true):
+    lastDeathMessage = "player realized they were softlocked"
     die(DEATH_TIME, true, true)
 
   if state != States.dead and global.showEditorUi:
@@ -1234,6 +1237,7 @@ func applyHeat(delta):
     heat -= (.75 if inWaters else .5) * delta
   heat = clamp(heat, 0, 1)
   if heat == 1:
+    lastDeathMessage = "player died of heat stroke"
     die()
   # modulate.r = heat
   for thing in [anim, waterAnimTop, waterAnimBottom]:
@@ -1269,33 +1273,35 @@ func tryAndDieHazards():
       s.y = sign(ds.playerVelOnDeath.y)
     # log.pp(s)
     var message = "player "
-
-    message = ds.getDeathMessage(message, Vector2i(s.x, s.y))
-    log.err(message)
+    log.err(ds.id, lastDeathMessage)
+    lastDeathMessage = ds.getDeathMessage(message, Vector2i(s.x, s.y))
+    log.err(ds.id, lastDeathMessage)
     die()
 func tryAndDieSquish():
   if noclipEnabled: return false
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
   or (len(collsiionOn_left) and len(collsiionOn_right)):
     var message = "player got squished between "
-    if len(collsiionOn_top) and len(collsiionOn_bottom):
-      if collsiionOn_top[0].root.id == collsiionOn_bottom[0].root.id:
-        message += "two " + collsiionOn_top[0].root.id + "s"
-      else:
-        message += "a " + collsiionOn_top[0].root.id + " and a " + collsiionOn_bottom[0].root.id
-    if len(collsiionOn_left) and len(collsiionOn_right):
-      if collsiionOn_left[0].root.id == collsiionOn_right[0].root.id:
-        message += "two " + collsiionOn_left[0].root.id + "s"
-      else:
-        message += "a " + collsiionOn_left[0].root.id + " and a " + collsiionOn_right[0].root.id
-    message = message \
+    if activePole:
+      message = "player got shoved into a wall by a pole"
+    else:
+      if len(collsiionOn_top) and len(collsiionOn_bottom):
+        if collsiionOn_top[0].root.id == collsiionOn_bottom[0].root.id:
+          message += "two " + collsiionOn_top[0].root.id + "s"
+        else:
+          message += "a " + collsiionOn_top[0].root.id + " and a " + collsiionOn_bottom[0].root.id
+      elif len(collsiionOn_left) and len(collsiionOn_right):
+        if collsiionOn_left[0].root.id == collsiionOn_right[0].root.id:
+          message += "two " + collsiionOn_left[0].root.id + "s"
+        else:
+          message += "a " + collsiionOn_left[0].root.id + " and a " + collsiionOn_right[0].root.id
+    lastDeathMessage = message \
     .replace(" a a", " an a") \
     .replace(" a e", " an e") \
     .replace(" a i", " an i") \
     .replace(" a o", " an o") \
     .replace(" a u", " an u")
-    log.err(message)
-    log.pp()
+    # TODO if a wall has just turned on add new message for that
     die(DEATH_TIME, false, false)
 
 func calcHitDir(normal):
@@ -1863,3 +1869,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # esc defocus search bar
 # esc to cear option
 # clear button update text
+# if a wall has just turned on add new message for that

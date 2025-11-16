@@ -9,10 +9,10 @@ var waterReenterTimer: float = 0
 
 var playerInsideWater := false
 
-var eletric := []
+var electric := []
 
 func on_respawn():
-  eletric = []
+  electric = []
   sprite.animation = "default"
   playerInsideWater = false
   waterReenterTimer = 0
@@ -24,7 +24,7 @@ func on_physics_process(delta: float) -> void:
   if waterReenterTimer > 0:
     waterReenterTimer -= delta * 60
 
-  if eletric and self in global.player.inWaters:
+  if electric and self in global.player.inWaters:
     global.player.deathSources.append(self)
 
   if playerInsideWater:
@@ -44,10 +44,14 @@ func on_body_entered(body: Node) -> void:
 
 func on_area_exited(body: Node) -> void:
   if body.is_in_group("spark"):
-    eletric.erase(body)
-    sprite.animation = "eletric" if eletric else "default"
+    electric.erase(body)
+    sprite.animation = "electric" if electric else "default"
 
 func on_area_entered(body: Node) -> void:
   if body.is_in_group("spark"):
-    eletric.append(body)
-    sprite.animation = "eletric" if eletric else "default"
+    electric.append(body)
+    sprite.animation = "electric" if electric else "default"
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  message += "decided to swin in electric water"
+  return message

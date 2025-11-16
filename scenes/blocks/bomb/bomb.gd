@@ -56,7 +56,7 @@ func onFrameChanged():
   ):
     if block is Player:
       await global.wait()
-      block.deathSources.append(self)
+      deathEnter(block)
     else:
       block = block.root
       if block == self: continue
@@ -80,3 +80,19 @@ func explode():
 
 func onSave() -> Array[String]:
   return ["thingThatMoves.global_position", "thingThatMoves.vel"]
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  log.err(boomSprite.frame)
+  if boomSprite.frame <= 2:
+    message += "got exploded"
+  else:
+    match dir:
+      Vector2.UP:
+        message += "jumped into an active explosion"
+      Vector2.DOWN:
+        message += "fell into an active explosion"
+      Vector2.LEFT, Vector2.RIGHT:
+        message += "walked into an explosion"
+      Vector2.ZERO:
+        message += "got exploded"
+  return message
