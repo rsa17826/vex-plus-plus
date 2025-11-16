@@ -1273,9 +1273,7 @@ func tryAndDieHazards():
       s.y = sign(ds.playerVelOnDeath.y)
     # log.pp(s)
     var message = "player "
-    log.err(ds.id, lastDeathMessage)
     lastDeathMessage = ds.getDeathMessage(message, Vector2i(s.x, s.y))
-    log.err(ds.id, lastDeathMessage)
     die()
 func tryAndDieSquish():
   if noclipEnabled: return false
