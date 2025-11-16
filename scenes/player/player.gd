@@ -1868,3 +1868,5 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # esc to cear option
 # clear button update text
 # if a wall has just turned on add new message for that
+
+# !!get normals for death messages
