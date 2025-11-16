@@ -20,10 +20,21 @@ func on_body_entered(body: Node2D):
       wantAngle.distance_to(curAngle)
     )
     if wantAngle.distance_to(curAngle) > 1.65:
-      body.deathSources.append(self)
+      deathEnter(body)
     # log.pp(Vector2.UP.rotated(body.velocity.angle()), Vector2.UP.rotated(rotation))
 
 func on_body_exited(body: Node2D):
-  if body is Player:
-    if self in body.deathSources:
-      body.deathSources.erase(self)
+  deathExit(body)
+
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  match dir:
+    Vector2.UP:
+      message += "jumped into a spike"
+    Vector2.DOWN:
+      message += "got popped on a spike"
+    Vector2.LEFT, Vector2.RIGHT:
+      message += "walked right into a spike"
+    Vector2.ZERO:
+      message += "got teleported into a spike"
+  return message

@@ -42,3 +42,16 @@ func _on_floor_detection_body_entered(body: Node2D) -> void:
 
 func generateBlockOpts():
   blockOptions.groupId = {"type": global.PromptTypes.int, "default": 0}
+
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  match dir:
+    Vector2.UP:
+      message += "got a spike in their but"
+    Vector2.DOWN:
+      message += "had a spike fall on their head"
+    Vector2.LEFT, Vector2.RIGHT:
+      message += "got cached by a spike"
+    Vector2.ZERO:
+      message += "got teleported into a spike"
+  return message

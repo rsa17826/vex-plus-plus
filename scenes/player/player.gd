@@ -736,7 +736,6 @@ func _physics_process(delta: float) -> void:
             state = States.idle
         else:
           # if not on floor and switching wall sides allow both walls again
-          log.pp(vel, velocity.y, velocity.y > -20)
           if (
             global.currentLevelSettings().canDoWallSlide
             and (
@@ -1259,13 +1258,44 @@ func angle_distance(angle1: float, angle2: float) -> float:
 
 func tryAndDieHazards():
   if noclipEnabled: return false
-  if len(deathSources.filter(func(e):
-    return global.isAlive(e) and !e.respawning)):
+  var ds = deathSources.filter(func(e):
+    return global.isAlive(e) and !e.respawning)
+  if len(ds):
+    ds = (ds[0] as EditorBlock)
+    var s = Vector2.ZERO
+    if abs(ds.playerVelOnDeath.x) > abs(ds.playerVelOnDeath.y):
+      s.x = sign(ds.playerVelOnDeath.x)
+    else:
+      s.y = sign(ds.playerVelOnDeath.y)
+    # log.pp(s)
+    var message = "player "
+
+    message = ds.getDeathMessage(message, Vector2i(s.x, s.y))
+    log.err(message)
     die()
 func tryAndDieSquish():
   if noclipEnabled: return false
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
   or (len(collsiionOn_left) and len(collsiionOn_right)):
+    var message = "player got squished between "
+    if len(collsiionOn_top) and len(collsiionOn_bottom):
+      if collsiionOn_top[0].root.id == collsiionOn_bottom[0].root.id:
+        message += "two " + collsiionOn_top[0].root.id + "s"
+      else:
+        message += "a " + collsiionOn_top[0].root.id + " and a " + collsiionOn_bottom[0].root.id
+    if len(collsiionOn_left) and len(collsiionOn_right):
+      if collsiionOn_left[0].root.id == collsiionOn_right[0].root.id:
+        message += "two " + collsiionOn_left[0].root.id + "s"
+      else:
+        message += "a " + collsiionOn_left[0].root.id + " and a " + collsiionOn_right[0].root.id
+    message = message \
+    .replace(" a a", " an a") \
+    .replace(" a e", " an e") \
+    .replace(" a i", " an i") \
+    .replace(" a o", " an o") \
+    .replace(" a u", " an u")
+    log.err(message)
+    log.pp()
     die(DEATH_TIME, false, false)
 
 func calcHitDir(normal):

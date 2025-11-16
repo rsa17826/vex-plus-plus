@@ -64,7 +64,7 @@ extends Node2D
 
 var loadDefaultData: bool = true
 var isBeingPlaced := false
-
+var playerVelOnDeath := Vector2.ZERO
 # var hasBeenExploded := false:
 #   set(val):
 #     hasBeenExploded = val
@@ -85,6 +85,21 @@ enum boolOrNull {
   yes = 1,
   unset = 0,
 }
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  match dir:
+    Vector2.UP:
+      message += "fell on"
+    Vector2.DOWN:
+      message += "jumped into"
+    Vector2.LEFT, Vector2.RIGHT:
+      message += "walked into"
+    Vector2.ZERO:
+      message += "got teleported into"
+  message += " a " + id
+  DisplayServer.clipboard_set(id)
+  log.err(id, "no death message set")
+  return message
 
 func updateSelectedOptionsUi() -> void:
   if self == global.ui.blockMenu.lastShownBlock:
@@ -917,11 +932,17 @@ func __enable() -> void:
 # blocks
 @export_group("DEATH")
 func _on_body_enteredDEATH(body: Node) -> void:
+  deathEnter(body)
+
+func deathEnter(body: Node):
   if body is Player:
     if self not in global.player.deathSources:
       global.player.deathSources.append(self)
+      playerVelOnDeath = Vector2(1, 1) * body.velTotal
 
 func _on_body_exitedDEATH(body: Node) -> void:
+  deathExit(body)
+func deathExit(body: Node):
   if body is Player:
     if self in global.player.deathSources:
       global.player.deathSources.erase(self)
