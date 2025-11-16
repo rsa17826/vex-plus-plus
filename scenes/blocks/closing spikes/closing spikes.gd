@@ -39,3 +39,15 @@ func on_physics_process(delta: float) -> void:
 func on_respawn() -> void:
   $Node2D.position = Vector2(0, 13)
   $Node2D/collisionNode.position = Vector2.ZERO
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  match dir:
+    Vector2.UP:
+      message += "jumped into a spike"
+    Vector2.DOWN:
+      message += "got popped on a spike"
+    Vector2.LEFT, Vector2.RIGHT:
+      message += "got bit by a spike"
+    Vector2.ZERO:
+      message += "got teleported into the jaws of a hungry spike"
+  return message

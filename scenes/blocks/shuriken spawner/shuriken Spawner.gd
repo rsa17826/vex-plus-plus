@@ -38,3 +38,15 @@ func on_physics_process(delta: float) -> void:
         shuriken.get_node("CollisionShape2D").set_deferred("disabled", false)
     shuriken.scale = Vector2(s, s)
     shuriken.rotation_degrees = global.rerange(time, 0, 4.5, 0, 360 * 3)
+
+func getDeathMessage(message: String, dir: Vector2) -> String:
+  match dir:
+    Vector2.UP:
+      message += "jumped into a shuriken"
+    Vector2.DOWN:
+      message += "fell onto a shuriken"
+    Vector2.LEFT, Vector2.RIGHT:
+      message += "walked into a shuriken"
+    Vector2.ZERO:
+      message += "got teleported into a shuriken"
+  return message

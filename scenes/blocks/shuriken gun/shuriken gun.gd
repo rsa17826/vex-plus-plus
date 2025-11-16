@@ -70,6 +70,7 @@ func spawnShuriken() -> EditorBlock:
   var shuriken: EditorBlock = preload("res://scenes/blocks/bouncing shuriken/main.tscn").instantiate()
   shuriken.global_position = thingThatMoves.global_position
   shuriken.scale = startScale
+  shuriken.id = "bouncing shuriken"
   shuriken.DONT_SAVE = true
   shuriken.EDITOR_IGNORE = true
   shuriken.REMOVE_ON_RESPAWN = true
