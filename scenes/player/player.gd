@@ -1266,14 +1266,23 @@ func tryAndDieHazards():
     return global.isAlive(e) and !e.respawning)
   if len(ds):
     ds = (ds[0] as EditorBlock)
-    var s = Vector2.ZERO
-    if abs(ds.playerVelOnDeath.x) > abs(ds.playerVelOnDeath.y):
-      s.x = sign(ds.playerVelOnDeath.x)
-    else:
-      s.y = sign(ds.playerVelOnDeath.y)
+    # var s = Vector2.ZERO
+    # if abs(ds.playerVelOnDeath.x) > abs(ds.playerVelOnDeath.y):
+    #   s.x = sign(ds.playerVelOnDeath.x)
+    # else:
+    #   s.y = sign(ds.playerVelOnDeath.y)
     # log.pp(s)
     var message = "player "
-    lastDeathMessage = ds.getDeathMessage(message, Vector2i(s.x, s.y))
+    var deathDirection := Vector2i.ZERO
+    if ($deathDirectionDetection/left as ShapeCast2D).is_colliding():
+      deathDirection.x -= 1
+    if ($deathDirectionDetection/right as ShapeCast2D).is_colliding():
+      deathDirection.x += 1
+    if ($deathDirectionDetection/down as ShapeCast2D).is_colliding():
+      deathDirection.y -= 1
+    if ($deathDirectionDetection/up as ShapeCast2D).is_colliding():
+      deathDirection.y += 1
+    lastDeathMessage = ds.getDeathMessage(message, deathDirection)
     die()
 func tryAndDieSquish():
   if noclipEnabled: return false
