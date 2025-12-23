@@ -1273,17 +1273,34 @@ func tryAndDieHazards():
     #   s.y = sign(ds.playerVelOnDeath.y)
     # log.pp(s)
     var message = "player "
-    var deathDirection := Vector2i.ZERO
-    if ($deathDirectionDetection/left as ShapeCast2D).is_colliding():
-      deathDirection.x -= 1
-    if ($deathDirectionDetection/right as ShapeCast2D).is_colliding():
-      deathDirection.x += 1
-    if ($deathDirectionDetection/down as ShapeCast2D).is_colliding():
-      deathDirection.y -= 1
-    if ($deathDirectionDetection/up as ShapeCast2D).is_colliding():
-      deathDirection.y += 1
+    var deathDirection = ds.deathDirection
+    log.debug(deathDirection)
     lastDeathMessage = ds.getDeathMessage(message, deathDirection)
     die()
+
+func getDeathDir() -> Vector2i:
+  var deathDirection := Vector2i.ZERO
+  ($deathDirectionDetection/left as ShapeCast2D).force_shapecast_update()
+  ($deathDirectionDetection/right as ShapeCast2D).force_shapecast_update()
+  ($deathDirectionDetection/up as ShapeCast2D).force_shapecast_update()
+  ($deathDirectionDetection/down as ShapeCast2D).force_shapecast_update()
+
+  if ($deathDirectionDetection/up as ShapeCast2D).is_colliding():
+    log.debug("u")
+    deathDirection.y -= 1
+  if ($deathDirectionDetection/down as ShapeCast2D).is_colliding():
+    log.debug("d")
+    deathDirection.y += 1
+  if !deathDirection.y:
+    if ($deathDirectionDetection/left as ShapeCast2D).is_colliding():
+      log.debug("l")
+      deathDirection.x -= 1
+    if ($deathDirectionDetection/right as ShapeCast2D).is_colliding():
+      log.debug("r")
+      deathDirection.x += 1
+
+  return deathDirection
+
 func tryAndDieSquish():
   if noclipEnabled: return false
   if (len(collsiionOn_top) and len(collsiionOn_bottom)) \
@@ -1590,9 +1607,9 @@ func tryChangeRespawnLocation():
   deathRay.collision_mask = 65536
   add_child(deathRay)
   deathRay.force_raycast_update()
-  log.pp(lastSpawnPoint - deathPosition, 'lastSpawnPoint - deathPosition')
+  # log.pp(lastSpawnPoint - deathPosition, 'lastSpawnPoint - deathPosition')
   if deathRay.is_colliding():
-    log.pp(deathRay.get_collision_point(), 'deathRay.get_collision_point()', deathRay.get_collision_normal())
+    # log.pp(deathRay.get_collision_point(), 'deathRay.get_collision_point()', deathRay.get_collision_normal())
     tempLastSpawnPoint = (deathRay.get_collision_point() - root.position) \
     + (deathRay.get_collision_normal() * Vector2(4, 33 / 2.0))
   deathRay.queue_free()

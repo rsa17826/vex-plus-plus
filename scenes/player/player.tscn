@@ -1429,8 +1429,6 @@ collide_with_bodies = false
 metadata/_edit_lock_ = true
 
 [node name="squishDeathDetectors" type="Node2D" parent="CharacterBody2D"]
-unique_name_in_owner = true
-visible = false
 metadata/_edit_lock_ = true
 
 [node name="top" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
@@ -1476,11 +1474,9 @@ shape = SubResource("RectangleShape2D_p0anf")
 metadata/_edit_lock_ = true
 
 [node name="deathDirectionDetection" type="Node2D" parent="CharacterBody2D"]
-unique_name_in_owner = true
-metadata/_edit_lock_ = true
 
 [node name="up" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
-position = Vector2(0, -16.255)
+position = Vector2(0, -16.78)
 shape = SubResource("RectangleShape2D_ya4ln")
 target_position = Vector2(0, 0)
 collision_mask = 16
@@ -1488,7 +1484,7 @@ collide_with_areas = true
 metadata/_edit_lock_ = true
 
 [node name="down" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
-position = Vector2(0, 16.255)
+position = Vector2(0, 16.75)
 shape = SubResource("RectangleShape2D_ya4ln")
 target_position = Vector2(0, 0)
 collision_mask = 16
@@ -1496,7 +1492,7 @@ collide_with_areas = true
 metadata/_edit_lock_ = true
 
 [node name="left" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
-position = Vector2(-3.5, 0)
+position = Vector2(-4.495, 0)
 shape = SubResource("RectangleShape2D_yopjo")
 target_position = Vector2(0, 0)
 collision_mask = 16
@@ -1504,7 +1500,7 @@ collide_with_areas = true
 metadata/_edit_lock_ = true
 
 [node name="right" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
-position = Vector2(3.5, 0)
+position = Vector2(4.51, 0)
 shape = SubResource("RectangleShape2D_yopjo")
 target_position = Vector2(0, 0)
 collision_mask = 16

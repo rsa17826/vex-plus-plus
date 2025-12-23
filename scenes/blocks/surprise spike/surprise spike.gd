@@ -35,11 +35,11 @@ func on_physics_process(delta: float) -> void:
 func getDeathMessage(message: String, dir: Vector2) -> String:
   match dir:
     Vector2.UP:
-      message += "got an unexpected spike to the head"
+      message += "got surprised by a spike to the head"
     Vector2.DOWN:
-      message += "got an unexpected spike in the but"
+      message += "got surprised by a spike in the but"
     Vector2.LEFT, Vector2.RIGHT:
-      message += "got unexpectedly penetrated by a spike"
+      message += "got unexpectedly walked into a spike"
     Vector2.ZERO:
       message += "got teleported into a spike"
   return message
