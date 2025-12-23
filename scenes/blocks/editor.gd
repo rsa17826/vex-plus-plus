@@ -65,7 +65,7 @@ extends Node2D
 var loadDefaultData: bool = true
 var isBeingPlaced := false
 var playerVelOnDeath := Vector2.ZERO
-var deathDirection := Vector2i.ZERO
+# var deathDirection := Vector2i.ZERO
 # var hasBeenExploded := false:
 #   set(val):
 #     hasBeenExploded = val
@@ -940,8 +940,8 @@ func deathEnter(body: Node):
     if self not in global.player.deathSources:
       global.player.deathSources.append(self)
       playerVelOnDeath = Vector2(1, 1) * body.velTotal
-      deathDirection = global.player.getDeathDir()
-      log.debug("aaa", deathDirection)
+      # deathDirection = global.player.getDeathDir()
+      # log.debug("aaa", deathDirection)
 
 func _on_body_exitedDEATH(body: Node) -> void:
   deathExit(body)
