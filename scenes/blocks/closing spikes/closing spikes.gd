@@ -45,7 +45,7 @@ func getDeathMessage(message: String, dir: Vector2) -> String:
     Vector2.UP:
       message += "jumped into a spike"
     Vector2.DOWN:
-      message += "jumped on a spike"
+      message += "fell on a spike"
     Vector2.LEFT, Vector2.RIGHT:
       message += "got bit by a spike"
     Vector2.ZERO:

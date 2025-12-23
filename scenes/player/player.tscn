@@ -1476,7 +1476,7 @@ metadata/_edit_lock_ = true
 [node name="deathDirectionDetection" type="Node2D" parent="CharacterBody2D"]
 
 [node name="up" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
-position = Vector2(0, -16.78)
+position = Vector2(0, -16.255)
 shape = SubResource("RectangleShape2D_ya4ln")
 target_position = Vector2(0, 0)
 collision_mask = 16
@@ -1484,7 +1484,7 @@ collide_with_areas = true
 metadata/_edit_lock_ = true
 
 [node name="down" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
-position = Vector2(0, 16.75)
+position = Vector2(0, 16.255)
 shape = SubResource("RectangleShape2D_ya4ln")
 target_position = Vector2(0, 0)
 collision_mask = 16
@@ -1492,7 +1492,7 @@ collide_with_areas = true
 metadata/_edit_lock_ = true
 
 [node name="left" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
-position = Vector2(-4.495, 0)
+position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_yopjo")
 target_position = Vector2(0, 0)
 collision_mask = 16
@@ -1500,7 +1500,7 @@ collide_with_areas = true
 metadata/_edit_lock_ = true
 
 [node name="right" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
-position = Vector2(4.51, 0)
+position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_yopjo")
 target_position = Vector2(0, 0)
 collision_mask = 16
