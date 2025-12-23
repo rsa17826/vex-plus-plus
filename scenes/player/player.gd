@@ -1274,7 +1274,7 @@ func tryAndDieHazards():
     # log.pp(s)
     var message = "player "
     var deathDirection = ds.deathDirection
-    log.debug(deathDirection)
+    # log.debug(deathDirection)
     lastDeathMessage = ds.getDeathMessage(message, deathDirection)
     die()
 
@@ -1286,17 +1286,17 @@ func getDeathDir() -> Vector2i:
   ($deathDirectionDetection/down as ShapeCast2D).force_shapecast_update()
 
   if ($deathDirectionDetection/up as ShapeCast2D).is_colliding():
-    log.debug("u")
+    # log.debug("u")
     deathDirection.y -= 1
   if ($deathDirectionDetection/down as ShapeCast2D).is_colliding():
-    log.debug("d")
+    # log.debug("d")
     deathDirection.y += 1
   if !deathDirection.y:
     if ($deathDirectionDetection/left as ShapeCast2D).is_colliding():
-      log.debug("l")
+      # log.debug("l")
       deathDirection.x -= 1
     if ($deathDirectionDetection/right as ShapeCast2D).is_colliding():
-      log.debug("r")
+      # log.debug("r")
       deathDirection.x += 1
 
   return deathDirection

@@ -82,7 +82,6 @@ func onSave() -> Array[String]:
   return ["thingThatMoves.global_position", "thingThatMoves.vel"]
 
 func getDeathMessage(message: String, dir: Vector2) -> String:
-  log.err(boomSprite.frame)
   if boomSprite.frame <= 2:
     message += "got exploded"
   else:
