@@ -1,4 +1,4 @@
-[gd_scene load_steps=291 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene load_steps=293 format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://b1v0la88o0qxe" path="res://scenes/player/playerEditor.gd" id="1_4v6xr"]
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
@@ -1259,6 +1259,12 @@ size = Vector2(1.01, 6.845)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lhgc7"]
 size = Vector2(1, 18)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ya4ln"]
+size = Vector2(8, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yopjo"]
+size = Vector2(1, 33)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ymuf"]
 size = Vector2(14, 31.8)
 
@@ -1271,7 +1277,7 @@ z_index = 10
 script = ExtResource("1_4v6xr")
 player = NodePath("CharacterBody2D")
 ghostIconNode = NodePath("Sprite2D")
-collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/top/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/left/CollisionShape2D"), NodePath("CharacterBody2D/deathDetectors/right/CollisionShape2D2"), NodePath("CharacterBody2D/deathDetectors/bottom/CollisionShape2D"), NodePath("CharacterBody2D/nowjDetector/CollisionShape2D"), NodePath("CharacterBody2D/stickyFloorDetector/CollisionShape2D"), NodePath("CharacterBody2D/respawn detection area/CollisionShape2D2")]
+collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/squishDeathDetectors/top/CollisionShape2D"), NodePath("CharacterBody2D/squishDeathDetectors/left/CollisionShape2D"), NodePath("CharacterBody2D/squishDeathDetectors/right/CollisionShape2D2"), NodePath("CharacterBody2D/squishDeathDetectors/bottom/CollisionShape2D"), NodePath("CharacterBody2D/nowjDetector/CollisionShape2D"), NodePath("CharacterBody2D/stickyFloorDetector/CollisionShape2D"), NodePath("CharacterBody2D/respawn detection area/CollisionShape2D2")]
 ignoreMissingNodes = true
 DONT_ENABLE_ON_RESPAWN = true
 metadata/_edit_lock_ = true
@@ -1298,7 +1304,7 @@ rightWallDetection = NodePath("wallDetectors/rightWall")
 leftWallTopDetection = NodePath("wallDetectors/leftWallTop")
 rightWallTopDetection = NodePath("wallDetectors/rightWallTop")
 waterRay = NodePath("waterRay")
-deathDetectors = NodePath("deathDetectors")
+deathDetectors = NodePath("squishDeathDetectors")
 wallDetectors = NodePath("wallDetectors")
 anim = NodePath("anim")
 waterAnimTop = NodePath("waterAnimTop")
@@ -1422,50 +1428,87 @@ collide_with_areas = true
 collide_with_bodies = false
 metadata/_edit_lock_ = true
 
-[node name="deathDetectors" type="Node2D" parent="CharacterBody2D"]
+[node name="squishDeathDetectors" type="Node2D" parent="CharacterBody2D"]
 unique_name_in_owner = true
+visible = false
 metadata/_edit_lock_ = true
 
-[node name="top" type="Area2D" parent="CharacterBody2D/deathDetectors"]
+[node name="top" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
 position = Vector2(0, -16.15)
 collision_layer = 0
 collision_mask = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/top"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/top"]
 position = Vector2(0, 3.025)
 shape = SubResource("RectangleShape2D_p0anf")
 metadata/_edit_lock_ = true
 
-[node name="left" type="Area2D" parent="CharacterBody2D/deathDetectors"]
+[node name="left" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
 position = Vector2(-3.505, 0)
 collision_layer = 0
 collision_mask = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/left"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/left"]
 shape = SubResource("RectangleShape2D_lhgc7")
 metadata/_edit_lock_ = true
 
-[node name="right" type="Area2D" parent="CharacterBody2D/deathDetectors"]
+[node name="right" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
 position = Vector2(3.5, 0)
 collision_layer = 0
 collision_mask = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/right"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/right"]
 shape = SubResource("RectangleShape2D_lhgc7")
 metadata/_edit_lock_ = true
 
-[node name="bottom" type="Area2D" parent="CharacterBody2D/deathDetectors"]
+[node name="bottom" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
 position = Vector2(0, 15.99)
 collision_layer = 0
 collision_mask = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/deathDetectors/bottom"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/bottom"]
 position = Vector2(0, -3.01)
 shape = SubResource("RectangleShape2D_p0anf")
+metadata/_edit_lock_ = true
+
+[node name="deathDirectionDetection" type="Node2D" parent="CharacterBody2D"]
+unique_name_in_owner = true
+metadata/_edit_lock_ = true
+
+[node name="up" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
+position = Vector2(0, -16.255)
+shape = SubResource("RectangleShape2D_ya4ln")
+target_position = Vector2(0, 0)
+collision_mask = 16
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="down" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
+position = Vector2(0, 16.255)
+shape = SubResource("RectangleShape2D_ya4ln")
+target_position = Vector2(0, 0)
+collision_mask = 16
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="left" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
+position = Vector2(-3.5, 0)
+shape = SubResource("RectangleShape2D_yopjo")
+target_position = Vector2(0, 0)
+collision_mask = 16
+collide_with_areas = true
+metadata/_edit_lock_ = true
+
+[node name="right" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
+position = Vector2(3.5, 0)
+shape = SubResource("RectangleShape2D_yopjo")
+target_position = Vector2(0, 0)
+collision_mask = 16
+collide_with_areas = true
 metadata/_edit_lock_ = true
 
 [node name="nowjDetector" type="Area2D" parent="CharacterBody2D"]
@@ -1489,6 +1532,7 @@ metadata/_edit_lock_ = true
 position = Vector2(0, 15.4)
 shape = SubResource("RectangleShape2D_q53ni")
 debug_color = Color(0.27058825, 0, 0.41960785, 0.47843137)
+metadata/_edit_lock_ = true
 
 [node name="respawn detection area" type="Area2D" parent="CharacterBody2D"]
 unique_name_in_owner = true
@@ -1512,11 +1556,11 @@ scale = Vector2(0.14, 0.14)
 texture = ExtResource("3_lclul")
 metadata/_edit_lock_ = true
 
-[connection signal="body_entered" from="CharacterBody2D/deathDetectors/top" to="CharacterBody2D" method="_on_top_body_entered"]
-[connection signal="body_exited" from="CharacterBody2D/deathDetectors/top" to="CharacterBody2D" method="_on_top_body_exited"]
-[connection signal="body_entered" from="CharacterBody2D/deathDetectors/left" to="CharacterBody2D" method="_on_left_body_entered"]
-[connection signal="body_exited" from="CharacterBody2D/deathDetectors/left" to="CharacterBody2D" method="_on_left_body_exited"]
-[connection signal="body_entered" from="CharacterBody2D/deathDetectors/right" to="CharacterBody2D" method="_on_right_body_entered"]
-[connection signal="body_exited" from="CharacterBody2D/deathDetectors/right" to="CharacterBody2D" method="_on_right_body_exited"]
-[connection signal="body_entered" from="CharacterBody2D/deathDetectors/bottom" to="CharacterBody2D" method="_on_bottom_body_entered"]
-[connection signal="body_exited" from="CharacterBody2D/deathDetectors/bottom" to="CharacterBody2D" method="_on_bottom_body_exited"]
+[connection signal="body_entered" from="CharacterBody2D/squishDeathDetectors/top" to="CharacterBody2D" method="_on_top_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/squishDeathDetectors/top" to="CharacterBody2D" method="_on_top_body_exited"]
+[connection signal="body_entered" from="CharacterBody2D/squishDeathDetectors/left" to="CharacterBody2D" method="_on_left_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/squishDeathDetectors/left" to="CharacterBody2D" method="_on_left_body_exited"]
+[connection signal="body_entered" from="CharacterBody2D/squishDeathDetectors/right" to="CharacterBody2D" method="_on_right_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/squishDeathDetectors/right" to="CharacterBody2D" method="_on_right_body_exited"]
+[connection signal="body_entered" from="CharacterBody2D/squishDeathDetectors/bottom" to="CharacterBody2D" method="_on_bottom_body_entered"]
+[connection signal="body_exited" from="CharacterBody2D/squishDeathDetectors/bottom" to="CharacterBody2D" method="_on_bottom_body_exited"]

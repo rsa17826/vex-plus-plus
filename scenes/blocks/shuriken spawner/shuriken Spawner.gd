@@ -48,5 +48,5 @@ func getDeathMessage(message: String, dir: Vector2) -> String:
     Vector2.LEFT, Vector2.RIGHT:
       message += "walked into a shuriken"
     Vector2.ZERO:
-      message += "got teleported into a shuriken"
+      message += "stood in the way of a moving shuriken"
   return message
