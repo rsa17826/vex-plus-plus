@@ -1266,40 +1266,41 @@ func tryAndDieHazards():
     return global.isAlive(e) and !e.respawning)
   if len(ds):
     ds = (ds[0] as EditorBlock)
-    # var s = Vector2.ZERO
-    # if abs(ds.playerVelOnDeath.x) > abs(ds.playerVelOnDeath.y):
-    #   s.x = sign(ds.playerVelOnDeath.x)
-    # else:
-    #   s.y = sign(ds.playerVelOnDeath.y)
+    var s = Vector2.ZERO
+    if abs(ds.playerVelOnDeath.x) > abs(ds.playerVelOnDeath.y):
+      s.x = sign(ds.playerVelOnDeath.x)
+    else:
+      s.y = sign(ds.playerVelOnDeath.y)
     # log.pp(s)
     var message = "player "
-    var deathDirection = ds.deathDirection
+    # var deathDirection = ds.deathDirection
     # log.debug(deathDirection)
-    lastDeathMessage = ds.getDeathMessage(message, deathDirection)
+    lastDeathMessage = ds.getDeathMessage(message, Vector2i(s.x, s.y))
+    # lastDeathMessage = ds.getDeathMessage(message, deathDirection)
     die()
 
-func getDeathDir() -> Vector2i:
-  var deathDirection := Vector2i.ZERO
-  ($deathDirectionDetection/left as ShapeCast2D).force_shapecast_update()
-  ($deathDirectionDetection/right as ShapeCast2D).force_shapecast_update()
-  ($deathDirectionDetection/up as ShapeCast2D).force_shapecast_update()
-  ($deathDirectionDetection/down as ShapeCast2D).force_shapecast_update()
+# func getDeathDir() -> Vector2i:
+#   var deathDirection := Vector2i.ZERO
+#   ($deathDirectionDetection/left as ShapeCast2D).force_shapecast_update()
+#   ($deathDirectionDetection/right as ShapeCast2D).force_shapecast_update()
+#   ($deathDirectionDetection/up as ShapeCast2D).force_shapecast_update()
+#   ($deathDirectionDetection/down as ShapeCast2D).force_shapecast_update()
 
-  if ($deathDirectionDetection/up as ShapeCast2D).is_colliding():
-    # log.debug("u")
-    deathDirection.y -= 1
-  if ($deathDirectionDetection/down as ShapeCast2D).is_colliding():
-    # log.debug("d")
-    deathDirection.y += 1
-  if !deathDirection.y:
-    if ($deathDirectionDetection/left as ShapeCast2D).is_colliding():
-      # log.debug("l")
-      deathDirection.x -= 1
-    if ($deathDirectionDetection/right as ShapeCast2D).is_colliding():
-      # log.debug("r")
-      deathDirection.x += 1
+#   if ($deathDirectionDetection/up as ShapeCast2D).is_colliding():
+#     # log.debug("u")
+#     deathDirection.y -= 1
+#   if ($deathDirectionDetection/down as ShapeCast2D).is_colliding():
+#     # log.debug("d")
+#     deathDirection.y += 1
+#   if !deathDirection.y:
+#     if ($deathDirectionDetection/left as ShapeCast2D).is_colliding():
+#       # log.debug("l")
+#       deathDirection.x -= 1
+#     if ($deathDirectionDetection/right as ShapeCast2D).is_colliding():
+#       # log.debug("r")
+#       deathDirection.x += 1
 
-  return deathDirection
+#   return deathDirection
 
 func tryAndDieSquish():
   if noclipEnabled: return false
