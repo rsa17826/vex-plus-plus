@@ -53,10 +53,11 @@ func tryaddgroups():
         # if not block in self parents
         if block not in root.attach_parents:
           root.attach_parents.append(block)
+          global.attachParentAdded.emit(root, block)
         # if self not in block children
         if root not in block.attach_children:
           block.attach_children.append(root)
-
+          global.attachChildAdded.emit(block, root)
 # func tryadd(group):
 #   # log.pp("trying to add", group, root.id)
 #   if global.starts_with(group, "_vp_") \

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://0uwmoocgxd8i"]
+[gd_scene format=3 uid="uid://0uwmoocgxd8i"]
 
 [ext_resource type="Script" uid="uid://cvf5megiwj84r" path="res://scenes/blocks/water/water.gd" id="1_4qql6"]
 [ext_resource type="Texture2D" uid="uid://bercyu1y2csww" path="res://scenes/blocks/water/images/1.png" id="2_8lfx0"]
@@ -29,7 +29,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(698, 698)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["water"]]
+[node name="Node2D" type="Node2D" unique_id=557148835 node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["water"]]
 script = ExtResource("1_4qql6")
 sprite = NodePath("collisionNode/AnimatedSprite2D")
 ghostIconNode = NodePath("collisionNode/ghost")
@@ -41,23 +41,23 @@ EDITOR_OPTION_scale = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
-collision_layer = 1028
+[node name="collisionNode" type="Area2D" parent="." unique_id=2114139844 node_paths=PackedStringArray("root")]
+collision_layer = 33796
 collision_mask = 514
 script = ExtResource("2_ivc8r")
 root = NodePath("..")
 
-[node name="ghost" type="Sprite2D" parent="collisionNode"]
+[node name="ghost" type="Sprite2D" parent="collisionNode" unique_id=696967740]
 visible = false
 scale = Vector2(0.4, 0.4)
 texture = ExtResource("2_8lfx0")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="collisionNode"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="collisionNode" unique_id=1376817778]
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_ivc8r")
 animation = &"electric"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=1445534018]
 visible = false
 z_index = 3
 shape = SubResource("RectangleShape2D_gwpbw")
@@ -65,7 +65,7 @@ debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("5_pbw1t")
 metadata/_edit_lock_ = true
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1127490295 node_paths=PackedStringArray("root")]
 visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
