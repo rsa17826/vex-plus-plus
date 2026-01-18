@@ -59,7 +59,10 @@ func _ready() -> void:
               text += '\n' + innerlastText
             else:
               text += '\n' + getIndent(indent + 1) + "- **" + opt + "**: "
-              text += await getinfo("setting: " + thing.key + " - " + opt)
+              if 'tooltip' in thing and thing.tooltip:
+                text += thing.tooltip
+              else:
+                text += await getinfo("setting: " + thing.key + " - " + opt)
           indent -= 1
         return text
       "group":
