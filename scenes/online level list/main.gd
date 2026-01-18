@@ -7,8 +7,8 @@ var GITHUB_TOKEN = global.getToken()
 @export var searchBar: Control
 
 func _ready() -> void:
-  if global.useropts.loadOnlineLevelListOnSceneLoad:
-    loadOnlineLevels()
+  # if global.useropts.loadOnlineLevelListOnSceneLoad:
+  loadOnlineLevels()
 
 func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
   (levelListContainerNode.get_parent() as ScrollContainer).scroll_vertical = 0

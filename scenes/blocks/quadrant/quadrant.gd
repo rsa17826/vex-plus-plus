@@ -18,7 +18,7 @@ func getDeathMessage(message: String, dir: Vector2) -> String:
     Vector2.DOWN:
       message += "fell onto a quadrant"
     Vector2.LEFT, Vector2.RIGHT:
-      message += "walkedinto a quadrant"
+      message += "walked into a quadrant"
     Vector2.ZERO:
       message += "let a quadrant rotate into them"
   return message

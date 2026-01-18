@@ -21,7 +21,7 @@ func getDeathMessage(message: String, dir: Vector2) -> String:
     Vector2.DOWN:
       message += "fell onto a growing buzzsaw"
     Vector2.LEFT, Vector2.RIGHT:
-      message += "walkedinto a growing buzzsaw"
+      message += "walked into a growing buzzsaw"
     Vector2.ZERO:
       message += "let a buzzsaw grow into them"
   return message
