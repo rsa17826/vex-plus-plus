@@ -8,7 +8,7 @@ var settings = EditorInterface.get_editor_settings()
 const EditorSettingsDescription = preload("editor_settings_description.gd")
 
 func _enter_tree():
-  ad_settings()
+  _load_settings()
   add_inspector_plugin(plugin)
   plugin.start()
 
@@ -54,25 +54,25 @@ func _load_settings() -> void:
 
   _load_setting(INSPECTOR_TAB.KEY_TAB_PROPERTY_MODE,
     "The behavior of the tabs/how the properties is displayed. \n
-[b]Tabbed[/b] will only display the category that is selected. \n
-[b]Jump Scroll[/b] will display all of the categories, and clicking on the tabs will scroll to that category.",
-  TYPE_INT,
-  PROPERTY_HINT_ENUM,
-  "Tabbed,Jump Scroll",
-  "tab property mode",
-  0,
-  config,
+  [b]Tabbed[/b] will only display the category that is selected. \n
+  [b]Jump Scroll[/b] will display all of the categories, and clicking on the tabs will scroll to that category.",
+    TYPE_INT,
+    PROPERTY_HINT_ENUM,
+    "Tabbed,Jump Scroll",
+    "tab property mode",
+    0,
+    config,
   )
 
-_load_setting(INSPECTOR_TAB.KEY_MERGE_ABSTRACT_CLASS_TABS,
-  "Put abstract class categories in its child class tab. so that it's easier to find.\n
-For example, [b]PhysicsBody3D[/b] category will be in the [b]RigidBody3D[/b] tab.",
-  TYPE_BOOL,
-  PROPERTY_HINT_ENUM,
-  "",
-  "merge abstract class tabs",
-  true,
-  config,
+  _load_setting(INSPECTOR_TAB.KEY_MERGE_ABSTRACT_CLASS_TABS,
+    "Put abstract class categories in its child class tab. so that it's easier to find.\n
+  For example, [b]PhysicsBody3D[/b] category will be in the [b]RigidBody3D[/b] tab.",
+    TYPE_BOOL,
+    PROPERTY_HINT_ENUM,
+    "",
+    "merge abstract class tabs",
+    true,
+    config,
   )
 
 func _load_setting(setting_path: String, description: String, type: int, hint, hint_string: String, config_path: String, default_value, config: ConfigFile) -> void:

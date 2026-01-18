@@ -36,7 +36,6 @@ func onAllDataLoaded() -> void:
       __disable.call_deferred()
     , Object.CONNECT_ONE_SHOT)
 
-
 func getDeathMessage(message: String, dir: Vector2) -> String:
   log.pp(dir)
   match dir:

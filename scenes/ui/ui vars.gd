@@ -7,7 +7,7 @@ extends CanvasLayer
 @export var signalList: Control
 @export var blockMenu: Control
 @export var hoveredBlockList: Control
-@export var deathMessage : Control
+@export var deathMessage: Control
 @export var overlayRemovalHidersubViewportContainer: SubViewportContainer
 @export var gravityChange: Sprite2D
 
