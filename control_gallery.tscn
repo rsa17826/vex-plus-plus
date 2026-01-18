@@ -1,0 +1,523 @@
+[gd_scene format=3 uid="uid://daq1q6gbqsxdp"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_t0nh8"]
+
+[sub_resource type="FoldableGroup" id="FoldableGroup_wdd8d"]
+allow_folding_all = true
+
+[node name="ControlGallery" type="Control" unique_id=639795835]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainPanel" type="ColorRect" parent="." unique_id=1995150930]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.21176471, 0.21176471, 0.21176471, 0)
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MainPanel" unique_id=516714506]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+theme_override_constants/minimum_grab_thickness = 24
+
+[node name="BasicControls" type="PanelContainer" parent="MainPanel/HSplitContainer" unique_id=1396528826]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/HSplitContainer/BasicControls" unique_id=929146121]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Title" type="Label" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=234113158]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Basic controls"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=1000879979]
+layout_mode = 2
+text = "Button"
+
+[node name="LinkButton" type="LinkButton" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=554645069]
+layout_mode = 2
+tooltip_text = "This is a tooltip.
+
+Its background is styled using the TooltipPanel class within a Theme resource.
+Its text is styled using the TooltipLabel class within a Theme resource."
+text = "LinkButton (hover me for tooltip)"
+
+[node name="ColorPickerContainer" type="HBoxContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=401503504]
+layout_mode = 2
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/ColorPickerContainer" unique_id=685536470]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+color = Color(0.278431, 0.54902, 0.74902, 1)
+
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/ColorPickerContainer" unique_id=255616654]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ColorPickerButton"
+
+[node name="CheckBox" type="CheckBox" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=183362366]
+layout_mode = 2
+text = "CheckBox"
+
+[node name="CheckButton" type="CheckButton" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=1307694221]
+layout_mode = 2
+text = "CheckButton"
+
+[node name="LineEdit" type="LineEdit" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=987270451]
+layout_mode = 2
+text = "LineEdit"
+
+[node name="TextEdit" type="TextEdit" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=709479218]
+custom_minimum_size = Vector2(0, 110)
+layout_mode = 2
+text = "TextEdit
+
+Unlike LineEdit, I accept multiple lines."
+
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=464736714]
+layout_mode = 2
+text = "Label"
+
+[node name="TabContainer" type="TabContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer" unique_id=346603124]
+custom_minimum_size = Vector2(0, 236)
+layout_mode = 2
+current_tab = 0
+
+[node name="Tab 1" type="Control" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer" unique_id=1238121618]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 1" unique_id=2065706184]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 1/MarginContainer" unique_id=997515197]
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "[center]RichTextLabel: [color=#8ff]Tab 1[/color] is selected.[/center]"
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="Tab 2" type="Control" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer" unique_id=305705745]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 2" unique_id=910949043]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 2/MarginContainer" unique_id=1910887614]
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "[center]RichTextLabel: [color=#ff8]Tab 2[/color] is selected.[/center]"
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="Tab 3" type="Control" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer" unique_id=2003885325]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 3" unique_id=537860438]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 3/MarginContainer" unique_id=853487244]
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "[center]RichTextLabel: [color=#8f8]Tab 3[/color] is selected.[/center]"
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="Tab 4" type="Control" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer" unique_id=1976753692]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 4" unique_id=437236256]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 4/MarginContainer" unique_id=2091520093]
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "[center]RichTextLabel: [color=#f88]Tab 4[/color] is selected.[/center]"
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="Tab 5" type="Control" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer" unique_id=177975460]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 5" unique_id=595046202]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 5/MarginContainer" unique_id=949541283]
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "[center]RichTextLabel: [color=#f8f]Tab 5[/color] is selected.[/center]"
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="Tab 6" type="Control" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer" unique_id=2049507719]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 6" unique_id=1542702578]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 6/MarginContainer" unique_id=845740091]
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "[center]RichTextLabel: [color=#b8f]Tab 6[/color] is selected.[/center]"
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="Tab 7" type="Control" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer" unique_id=1023039968]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 6
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 7" unique_id=1738455078]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 30
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainPanel/HSplitContainer/BasicControls/VBoxContainer/TabContainer/Tab 7/MarginContainer" unique_id=828378174]
+layout_mode = 2
+focus_mode = 2
+bbcode_enabled = true
+text = "[center]RichTextLabel: [color=#fb6]Tab 7[/color] is selected.[/center]"
+context_menu_enabled = true
+selection_enabled = true
+
+[node name="VSplitContainer" type="VSplitContainer" parent="MainPanel/HSplitContainer" unique_id=1122197819]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/separation = 0
+theme_override_constants/minimum_grab_thickness = 24
+
+[node name="Numbers" type="PanelContainer" parent="MainPanel/HSplitContainer/VSplitContainer" unique_id=121689216]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers" unique_id=1823030927]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer" unique_id=156441622]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Numbers"
+horizontal_alignment = 1
+
+[node name="SpinBox" type="SpinBox" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer" unique_id=1745103556]
+custom_minimum_size = Vector2(255, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+prefix = "SpinBox"
+
+[node name="HSliderContainer" type="HBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer" unique_id=1235135804]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="HSlider" type="HSlider" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/HSliderContainer" unique_id=647895400]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+value = 50.0
+
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/HSliderContainer" unique_id=1316442487]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "HSlider"
+
+[node name="ProgressBarContainer" type="HBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer" unique_id=2059477979]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ProgressBar" type="ProgressBar" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/ProgressBarContainer" unique_id=470920804]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+value = 50.0
+
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/ProgressBarContainer" unique_id=1129031498]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ProgressBar"
+
+[node name="HSeparatorContainer" type="HBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer" unique_id=1586848998]
+layout_mode = 2
+
+[node name="HSeparatorLeft" type="HSeparator" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/HSeparatorContainer" unique_id=1133482488]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/HSeparatorContainer" unique_id=498498485]
+layout_mode = 2
+text = "HSeparator"
+
+[node name="HSeparatorRight" type="HSeparator" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/HSeparatorContainer" unique_id=993779752]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureProgressContainer" type="HBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer" unique_id=2000564861]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/TextureProgressContainer" unique_id=378324577]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/TextureProgressContainer/Control" unique_id=665030791]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+scale = Vector2(0.5, 0.5)
+value = 67.0
+fill_mode = 4
+
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/VSplitContainer/Numbers/VBoxContainer/TextureProgressContainer" unique_id=1803152177]
+layout_mode = 2
+text = "TextureProgressBar"
+
+[node name="Lists" type="PanelContainer" parent="MainPanel/HSplitContainer/VSplitContainer" unique_id=1097401096]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 2.5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists" unique_id=911926277]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer" unique_id=1697720179]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Lists"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer" unique_id=408502990]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer" unique_id=427985874]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="OptionButton" type="OptionButton" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=613079719]
+layout_mode = 2
+size_flags_horizontal = 0
+selected = 0
+item_count = 5
+popup/item_0/text = "OptionButton"
+popup/item_0/id = 4
+popup/item_1/text = "Item 1"
+popup/item_1/id = 0
+popup/item_2/text = "Item 2"
+popup/item_2/id = 1
+popup/item_3/text = "Separator"
+popup/item_3/id = 3
+popup/item_3/separator = true
+popup/item_4/text = "Disabled Item"
+popup/item_4/id = 2
+popup/item_4/disabled = true
+
+[node name="MenuButton" type="MenuButton" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1863494819]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "MenuButton"
+flat = false
+item_count = 8
+popup/item_0/text = "Action Item"
+popup/item_0/id = 0
+popup/item_1/text = "Separator"
+popup/item_1/id = 1
+popup/item_1/separator = true
+popup/item_2/text = "Checkbox Item 1"
+popup/item_2/checkable = 1
+popup/item_2/id = 2
+popup/item_3/text = "Checkbox Item 2"
+popup/item_3/checkable = 1
+popup/item_3/id = 3
+popup/item_4/text = "Disabled Checkbox Item"
+popup/item_4/checkable = 1
+popup/item_4/id = 4
+popup/item_4/disabled = true
+popup/item_5/text = "Separator"
+popup/item_5/id = 5
+popup/item_5/separator = true
+popup/item_6/text = "Radio Item 1"
+popup/item_6/checkable = 2
+popup/item_6/checked = true
+popup/item_6/id = 6
+popup/item_7/text = "Radio Item 2"
+popup/item_7/checkable = 2
+popup/item_7/id = 7
+
+[node name="RadioButtons" type="VBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1872111777]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="CheckBox" type="CheckBox" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer/RadioButtons" unique_id=1355640864]
+layout_mode = 2
+button_pressed = true
+button_group = SubResource("ButtonGroup_t0nh8")
+text = "CheckBox with ButtonGroup assigned 1"
+
+[node name="CheckBox2" type="CheckBox" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer/RadioButtons" unique_id=1623879958]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_t0nh8")
+text = "CheckBox with ButtonGroup assigned 2"
+
+[node name="CheckBox3" type="CheckBox" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer/RadioButtons" unique_id=1945824010]
+layout_mode = 2
+button_group = SubResource("ButtonGroup_t0nh8")
+text = "CheckBox with ButtonGroup assigned 3"
+
+[node name="ItemList" type="ItemList" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=204349522]
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 1
+item_count = 4
+fixed_icon_size = Vector2i(16, 16)
+item_0/text = "ItemList - Item 1"
+item_1/text = "ItemList - Item 2"
+item_2/text = "ItemList - Disabled item with icon assigned"
+item_2/disabled = true
+item_3/text = "ItemList - Item 3 with icon assigned"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer" unique_id=809324242]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Tree" type="Tree" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1804829063]
+layout_mode = 2
+size_flags_vertical = 3
+select_mode = 2
+
+[node name="FoldableContainer" type="FoldableContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1754769813]
+layout_mode = 2
+title = "FoldableContainer with FoldableGroup"
+foldable_group = SubResource("FoldableGroup_wdd8d")
+
+[node name="MarginContainer" type="MarginContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer2/FoldableContainer" unique_id=418759916]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer2/FoldableContainer/MarginContainer" unique_id=1679686962]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7529412, 0.7529412, 0.7529412, 1)
+text = "FoldableGroup only allows one of the
+FoldableContainers to be open at a time"
+
+[node name="FoldableContainer2" type="FoldableContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=563529385]
+layout_mode = 2
+folded = true
+title = "FoldableContainer with FoldableGroup"
+title_position = 1
+foldable_group = SubResource("FoldableGroup_wdd8d")
+
+[node name="MarginContainer2" type="MarginContainer" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer2/FoldableContainer2" unique_id=403763513]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="MainPanel/HSplitContainer/VSplitContainer/Lists/VBoxContainer/HBoxContainer/VBoxContainer2/FoldableContainer2/MarginContainer2" unique_id=541585027]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7529412, 0.7529412, 0.7529412, 1)
+text = "Second foldable container
+expanding from the bottom"
