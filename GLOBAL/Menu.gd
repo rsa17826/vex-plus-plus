@@ -48,12 +48,13 @@ func _notification(what):
   if GROUP:
     GROUP.free()
 # add optional icon to add_bool
-func startGroup(name):
+func startGroup(name, tooltip=''):
   groups.append(name)
   _add_any("startGroup - " + '/'.join(groups), {
     "type": "startGroup",
     "shortName": name,
-    'default': false
+    "default": false,
+    "tooltip": tooltip
   })
   # var group = FoldableContainer.new()
   # parent.add_child(group)

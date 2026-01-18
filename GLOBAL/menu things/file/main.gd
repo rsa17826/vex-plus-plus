@@ -1,7 +1,6 @@
 extends NestedSearchable
 signal onchanged()
 func init(thing, menu_data, formatName, _self):
-  thisText = formatName.call(thing.name)
   $Label.text = formatName.call(thing.name)
   $Button.text = 'pick a file' if thing.single else 'pick files'
   var fileNode = $FileDialog
@@ -13,3 +12,4 @@ func init(thing, menu_data, formatName, _self):
   $ButtonClear.pressed.connect(func(...__):
     onchanged.emit()
   )
+  tooltip_text = thing.tooltip

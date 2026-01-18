@@ -26,6 +26,7 @@ func init(thing, menu_data, formatName, _self):
   _self.thisText = _self.title
 
   _self.add_child(vbox)
+  tooltip_text = thing.tooltip
 
 func postInit(currentParent):
   currentParent.append(vbox)

@@ -6,3 +6,4 @@ func init(thing, menu_data, formatName, _self):
   $HSlider.popup_closed.connect(func(...__):
     onchanged.emit()
   )
+  tooltip_text = thing.tooltip
