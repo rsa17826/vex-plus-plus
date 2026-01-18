@@ -1449,8 +1449,10 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
       wallSlidingFrames = 0
     elif playerSide.top and blockSide.top: return
     elif playerSide.top and blockSide.bottom: return
+    elif playerSide.top and blockSide.left: return
+    elif playerSide.top and blockSide.right: return
     else:
-      log.err("invalid collision direction!!!", normal, playerSide, blockSide)
+      log.warn("invalid collision direction", normal, playerSide, blockSide)
     justAddedVels.conveyor = 3
 
 func updateCamLockPos():
