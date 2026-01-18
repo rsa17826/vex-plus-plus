@@ -264,7 +264,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "showPathEditNodesInPlay", \
     "defaultCreatorName", \
     "defaultCreatorNameIsLoggedInUsersName", \
-    "loadOnlineLevelListOnSceneLoad", \
+    # "loadOnlineLevelListOnSceneLoad", \
     "removeUnusedItemsFromMenuSaveFile", \
     "__slowTime", \
     "__allowCheckpointReentryOnDeath", \
