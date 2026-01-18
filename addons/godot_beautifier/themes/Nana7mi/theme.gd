@@ -2,7 +2,8 @@ extends BeautifierAPI
 
 func _ready() -> void:
   set_editor_setting("interface/theme/custom_theme", get_system_file("assets/theme.tres"))
-  set_editor_setting("interface/theme/base_color", Color("0000"))
+  set_editor_setting("interface/theme/base_color", Color("00000054"))
+  # set_editor_setting("interface/theme/base_color", Color("0000"))
   set_editor_setting("interface/theme/accent_color", Color("8f8fc6"))
   set_editor_setting("interface/editor/dim_editor_on_dialog_popup", false)
   set_editor_setting("text_editor/script_list/current_script_background_color", Color.TRANSPARENT)
