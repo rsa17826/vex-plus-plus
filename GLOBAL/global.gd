@@ -1470,7 +1470,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   await savePlayerLevelData()
   loadingLevel = false
   # log.pp(loadedLevels, beatLevels)
-
+var saveData: Variant
 func win() -> void:
   if global.useropts.saveLevelOnWin:
     await level.save(false)
@@ -1485,7 +1485,7 @@ func win() -> void:
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     loadedLevels.append(beatLevels.pop_back())
-    var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
+    saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
     if "loadedLevels" not in saveData:
       saveData.loadedLevels = loadedLevels
     if "beatLevels" not in saveData:
@@ -1520,7 +1520,7 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
   if savingPlayerLevelData: return
   savingPlayerLevelData = true
   await wait()
-  var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
+  saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
   # breakpoint
   saveData = {
     "loadedLevels": loadedLevels,
@@ -1590,7 +1590,7 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   mainLevelName = mapName
-  var saveData: Variant = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
+  saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
 
   levelFolderPath = path.abs(path.join(MAP_FOLDER, mapName))
   var mapInfo: Variant = await loadMapInfo(mapName)

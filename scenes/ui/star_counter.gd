@@ -13,11 +13,12 @@ func _process(delta):
   else:
     collected = 0
     starCount = len(global.level.get_node("blocks").get_children().filter(func(e): return e.id == "star"))
+  var beatThisLevel = "beatMainLevel" in global.saveData and global.saveData.beatMainLevel
   text = ''
   text += "VERSION: " + str(global.VERSION) + " " + str(global.mainLevelName)
   if global.currentLevel().name != global.mainLevelName:
     text += '/' + global.currentLevel().name
   text += "\n"
   text += "STARS COLLECTED: " + str(collected) + "/" + str(starCount) + "\n"
-  text += "LEVELS BEAT: " + str(len(global.beatLevels)) + "/" + str(global.totalLevelCount)
+  text += "LEVELS BEAT: " + str(len(global.beatLevels) + (1 if beatThisLevel else 0)) + "/" + str(global.totalLevelCount)
   text += "\n" + global.player.lastDeathMessage
