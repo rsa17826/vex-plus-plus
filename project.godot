@@ -57,7 +57,7 @@ window/per_pixel_transparency/allowed=true
 
 [editor]
 
-run/main_run_args="--loadMap \"NEWEST \" --loadOnlineLev el"
+run/main_run_args="--loadMap \"NEWEST\" --loadOnlineLev el"
 
 [editor_plugins]
 

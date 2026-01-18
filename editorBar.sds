@@ -10,12 +10,14 @@
     STR(spark block/clockwise)
     STR(conveyer)
     STR(water)
+    STR(waterss)
     STR(fan/small)
     STR(fan/big)
     STR(gravity rotator)
     STR(bomb)
     STR(pushable box)
     STR(undeath)
+    STR(chain)
   ]
   STR(spikes)[
     STR(closing spikes)

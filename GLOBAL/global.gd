@@ -1391,7 +1391,8 @@ func _unhandled_input(event: InputEvent) -> void:
       lastSelectedBlock.onEditorMove(moveDist)
     for block in blockNames:
       if !block: continue
-      if same(block, &"END_OF_LINE"): continue
+      if same(block, &"SEPARATOR"): continue
+      if same(block, &"END_OF_LINE2"): continue
       if event.is_action_pressed("CREATE NEW - " + (block.name if block is Dictionary else block).replace("/", "_"), false, true):
         log.pp(block)
         var brushes = editorBar.get_children().slice(2)
@@ -2142,9 +2143,11 @@ func loadEditorBarData():
           tempBlockNames.append(thing)
       if k != 'remove':
         while i % useropts.editorBarColumns != 0:
+          if (i - 1) % (useropts.editorBarColumns) == (useropts.editorBarColumns - 1):
+            tempBlockNames.append(&"END_OF_LINE2")
           i += 1
-          tempBlockNames.append(&"END_OF_LINE")
-
+          tempBlockNames.append(&"SEPARATOR")
+      tempBlockNames.append(&"END_OF_LINE2")
   blockNames = tempBlockNames + unusedBlockNames
 
   for block in blockNames:
@@ -2650,3 +2653,5 @@ var editorBarIconCache := Cache.new()
 # .$2
 
 signal fallingSpikeGroupStartedFalling(id: int)
+signal attachChildAdded(block: EditorBlock, child: EditorBlock)
+signal attachParentAdded(block: EditorBlock, parent: EditorBlock)

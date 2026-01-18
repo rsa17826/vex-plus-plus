@@ -29,13 +29,37 @@ func reload(noCache:=false) -> void:
   nodeSize = global.useropts.editorBarBlockSize
   $item.visible = true
   var invalidCount = 0
+  var extraCount = 0
+  var separatorCount = 0
   for i in range(0, len(global.blockNames)):
-    if global.same(global.blockNames[i], &"END_OF_LINE"):
+    # i -= extraCount
+    if global.same(global.blockNames[i], &"SEPARATOR"):
+      separatorCount += 1
+    if global.same(global.blockNames[i], &"END_OF_LINE2"):
+      extraCount += 1
+    if global.same(global.blockNames[i], &"END_OF_LINE2"):
+      # remove empty rows caused only by blocks that don't exist
+      while separatorCount + invalidCount >= columns:
+        # take as much as possible from separatorCount
+        var take_from_separator = min(separatorCount, columns)
+        separatorCount -= take_from_separator
+
+        # remaining needed to reach a full column block
+        var remaining = columns - take_from_separator
+
+        if remaining > 0:
+          invalidCount -= remaining
+
+        nodeCount -= columns
+        extraCount += columns
+
+      log.pp(invalidCount, "invalidCount", separatorCount)
+      separatorCount = 0
       while invalidCount:
         invalidCount -= 1
         nodeCount -= 1
         newItem("buzsaw", i - invalidCount)
-    if not newItem(global.blockNames[i], i - invalidCount, noCache) \
+    if not newItem(global.blockNames[i], (i - invalidCount) - extraCount, noCache) \
     and not (
       (
         global.useropts.reorganizingEditorBar
@@ -104,7 +128,10 @@ func tryload(name, noCache:=false):
 
 func newItem(name, id, noCache:=false) -> bool:
   var nodeFound = true
-  if name == null or global.same(name, &"END_OF_LINE"):
+  if global.same(name, &"END_OF_LINE2"):
+    nodeCount += 1
+    return true
+  if name == null or global.same(name, &"SEPARATOR") or global.same(name, &"END_OF_LINE2"):
     nodeCount += 1
     return nodeFound
   var icon = Sprite2D.new()
