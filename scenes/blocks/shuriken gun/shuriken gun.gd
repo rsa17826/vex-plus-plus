@@ -61,7 +61,7 @@ func on_respawn():
     cooldown = .8
 
 func generateBlockOpts():
-  blockOptions.maxCooldown = {"default": 7.0, "type": global.PromptTypes.float, "suffix": "ms"}
+  blockOptions.maxCooldown = {"default": 7.0, "type": global.PromptTypes.float, "suffix": "s"}
   blockOptions.maxCount = {"default": 0, "type": global.PromptTypes.int}
   blockOptions.killAfterDistance = {"default": 0.0, "type": global.PromptTypes.float}
   blockOptions.killAfterTime = {"default": 0.0, "type": global.PromptTypes.float, "suffix": "s"}
