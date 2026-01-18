@@ -58,6 +58,8 @@ var text:
     setWords(w)
     rtl.updateText(edit.textArr)
     text_changed.emit(text, edit.textArr)
+    if clearOnFocusLoss and !edit.focused:
+      setWords([])
 
 var textArr:
   get():

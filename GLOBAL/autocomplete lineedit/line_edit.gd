@@ -133,13 +133,15 @@ func completeWord(newWord: String) -> void:
     words[-1] = newWord
   text = "/".join(words).replace("//", "/") + '/'
   set_caret_column(lastPos - len(oldWord) + len(newWord) + 1)
-
+var focused = false
 func _on_focus_exited() -> void:
+  focused = false
   log.pp(autoCompleteUi.clearOnFocusLoss, "asasas")
   if autoCompleteUi.clearOnFocusLoss:
     autoCompleteUi.setWords([])
 
 func _on_focus_entered() -> void:
+  focused = true
   if text:
     var w = getAutocomplete(text)
     autoCompleteUi.setWords(w)
