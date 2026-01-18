@@ -7,7 +7,8 @@
         "thing": "option",
         "type": "bool",
         "key": "showGridInEdit",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Enable or disable grid display in edit mode",
       },
       {
         "thing": "option",
@@ -18,15 +19,17 @@
         "max": 200,
         "allow greater": true,
         "allow lesser": true,
-        "rounded": true
+        "rounded": true,
+        "tooltip": "Set the snap size for grid blocks in the editor",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "showGridInPlay",
-        "defaultValue": false
-      }
-    ]
+        "defaultValue": false,
+        "tooltip": "Enable or disable grid display in play mode",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -39,33 +42,38 @@
         "defaultValue": 0,
         "min": 0,
         "max": 600,
-        "step": 10
+        "step": 10,
+        "tooltip": "Set the interval (in seconds) for autosaving the game",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "saveOnExit",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Enable or disable saving when exiting the game",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "smallerSaveFiles",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Enable to reduce the size of save files",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "saveLevelOnWin",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Automatically save the level when the player wins",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "showIconOnSave",
-        "defaultValue": true
-      }
-    ]
+        "defaultValue": true,
+        "tooltip": "Show an icon when a level is saved",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -76,9 +84,10 @@
         "type": "single select",
         "key": "windowMode",
         "options": ["fullscreen", "windowed"],
-        "defaultValue": 1
-      }
-    ]
+        "defaultValue": 1,
+        "tooltip": "Choose between fullscreen or windowed mode for the game window",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -88,33 +97,38 @@
         "thing": "option",
         "key": "dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar",
         "type": "bool",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Prevent displaying invalid blocks in the editor bar while reorganizing",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "warnWhenOpeningLevelInOlderGameVersion",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Warn when opening a level created in an older version of the game",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "warnWhenOpeningLevelInNewerGameVersion",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Warn when opening a level in a newer version of the game",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "confirmKeyAssignmentDeletion",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Require confirmation before deleting key assignments",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "confirmLevelUploads",
-        "defaultValue": true
-      }
-    ]
+        "defaultValue": true,
+        "tooltip": "Require confirmation before uploading a level",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -128,7 +142,8 @@
             "thing": "option",
             "type": "bool",
             "key": "newlyCreatedBlocksRotationTakesPlayerRotation",
-            "defaultValue": true
+            "defaultValue": true,
+            "tooltip": "Rotate newly created blocks to match the player's rotation",
           },
           {
             "thing": "option",
@@ -138,7 +153,8 @@
             "min": 0,
             "max": 100,
             "step": 1,
-            "rounded": true
+            "rounded": true,
+            "tooltip": "Set the mouse lock distance while rotating blocks",
           },
           {
             "thing": "option",
@@ -147,10 +163,11 @@
             "defaultValue": 0,
             "options": [
               "rotateAllSelectedBlocksBySameAmount",
-              "rotateAllSelectedBlocksToSameDirection"
-            ]
-          }
-        ]
+              "rotateAllSelectedBlocksToSameDirection",
+            ],
+            "tooltip": "Choose how multi-selected blocks will rotate",
+          },
+        ],
       },
       {
         "thing": "group",
@@ -160,7 +177,8 @@
             "thing": "option",
             "type": "bool",
             "key": "movingPathNodeMovesEntirePath",
-            "defaultValue": false
+            "defaultValue": false,
+            "tooltip": "Move the entire path when moving a path node",
           },
           {
             "thing": "option",
@@ -168,15 +186,17 @@
             "key": "minDistBeforeBlockDraggingStarts",
             "defaultValue": 5,
             "min": 0,
-            "max": 100
+            "max": 100,
+            "tooltip": "Set the minimum distance before starting block dragging",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "singleAxisAlignByDefault",
-            "defaultValue": false
-          }
-        ]
+            "defaultValue": false,
+            "tooltip": "Align blocks along a single axis by default",
+          },
+        ],
       },
       {
         "thing": "group",
@@ -186,9 +206,10 @@
             "thing": "option",
             "type": "bool",
             "key": "noCornerGrabsForScaling",
-            "defaultValue": true
-          }
-        ]
+            "defaultValue": true,
+            "tooltip": "Disable corner grabs for scaling blocks",
+          },
+        ],
       },
       {
         "thing": "group",
@@ -198,9 +219,10 @@
             "thing": "option",
             "type": "bool",
             "key": "deleteLastSelectedBlockIfNoBlockIsCurrentlySelected",
-            "defaultValue": true
-          }
-        ]
+            "defaultValue": true,
+            "tooltip": "Delete the last selected block if no block is currently selected",
+          },
+        ],
       },
       {
         "thing": "group",
@@ -210,7 +232,8 @@
             "thing": "option",
             "type": "bool",
             "key": "autoPanWhenClickingEmptySpace",
-            "defaultValue": false
+            "defaultValue": false,
+            "tooltip": "Enable auto panning when clicking on empty space",
           },
           {
             "thing": "option",
@@ -221,9 +244,10 @@
             "max": 10,
             "step": 0.05,
             "allow lesser": true,
-            "allow greater": true
-          }
-        ]
+            "allow greater": true,
+            "tooltip": "Set the editor scroll speed",
+          },
+        ],
       },
       {
         "thing": "group",
@@ -235,7 +259,8 @@
             "key": "editorBarBlockSize",
             "defaultValue": 30,
             "min": 10,
-            "max": 100
+            "max": 100,
+            "tooltip": "Set the size of blocks in the editor bar",
           },
           {
             "thing": "option",
@@ -244,7 +269,8 @@
             "defaultValue": 1,
             "min": -40,
             "max": 40,
-            "step": 1
+            "step": 1,
+            "tooltip": "Set the scroll speed of the editor bar",
           },
           {
             "thing": "option",
@@ -253,7 +279,8 @@
             "defaultValue": 0,
             "min": 0,
             "max": 638,
-            "step": 1
+            "step": 1,
+            "tooltip": "Set the offset for the editor bar",
           },
           {
             "thing": "option",
@@ -264,30 +291,34 @@
             "min": 1,
             "allow lesser": false,
             "allow greater": true,
-            "rounded": true
+            "rounded": true,
+            "tooltip": "Set the number of columns in the editor bar",
           },
           {
             "thing": "option",
             "type": "single select",
             "key": "editorBarPosition",
             "defaultValue": 2,
-            "options": ["top/left", "bottom", "right"]
+            "options": ["top/left", "bottom", "right"],
+            "tooltip": "Choose the position of the editor bar on the screen.",
           },
           {
             "thing": "option",
             "key": "reorganizingEditorBar",
             "type": "bool",
-            "defaultValue": false
+            "defaultValue": false,
+            "tooltip": "Enable or disable the ability to reorganize the blocks in the editor bar.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "showEditorBarBlockMissingErrors",
-            "defaultValue": false
-          }
-        ]
-      }
-    ]
+            "defaultValue": false,
+            "tooltip": "Show errors when blocks in the editor bar are missing or invalid.",
+          },
+        ],
+      },
+    ],
   },
   {
     "thing": "group",
@@ -297,22 +328,25 @@
         "thing": "option",
         "type": "bool",
         "key": "allowRotatingAnything",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Allow rotating any object in the editor, including objects that would normally be fixed.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "allowScalingAnything",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Allow scaling any object in the editor, even those that are typically unscalable.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "allowCustomColors",
         "defaultValue": true,
-        "editorOnly": true
-      }
-    ]
+        "editorOnly": true,
+        "tooltip": "Allow the use of custom colors in the editor for various elements.",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -322,7 +356,8 @@
         "thing": "option",
         "type": "bool",
         "key": "snapCameraToPixels",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Snap the camera's position to pixel coordinates for more precise movement.",
       },
       {
         "thing": "option",
@@ -331,7 +366,8 @@
         "defaultValue": 1,
         "min": 0.1,
         "max": 10,
-        "step": 0.05
+        "step": 0.05,
+        "tooltip": "Set the zoom level for the camera while editing levels.",
       },
       {
         "thing": "option",
@@ -340,27 +376,29 @@
         "defaultValue": 1,
         "min": 0.1,
         "max": 10,
-        "step": 0.05
+        "step": 0.05,
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "cameraUsesDefaultRotationInEditor",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Use default camera rotation in the editor instead of custom rotation angles.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "dontChangeCameraRotationOnGravityChange",
-        "defaultValue": false
+        "defaultValue": false,
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "cameraRotationOnGravityChangeHappensInstantly",
-        "defaultValue": false
-      }
-    ]
+        "defaultValue": false,
+        "tooltip": "Enable instant camera rotation when gravity direction changes.",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -381,19 +419,22 @@
                 "defaultValue": 0.3,
                 "min": 0,
                 "max": 1,
-                "step": 0.01
+                "step": 0.01,
+                "tooltip": "Set the transparency level of ghost blocks in the editor.",
               },
               {
                 "thing": "option",
                 "type": "rgba",
                 "key": "selectedBlockOutlineColor",
-                "defaultValue": 1611923455
+                "defaultValue": 1611923455,
+                "tooltip": "Set the outline color for selected blocks in the editor.",
               },
               {
                 "thing": "option",
                 "type": "rgba",
                 "key": "hoveredBlockOutlineColor",
-                "defaultValue": 1852702975
+                "defaultValue": 1852702975,
+                "tooltip": "Set the outline color for blocks that are hovered over in the editor.",
               },
               {
                 "thing": "option",
@@ -402,56 +443,64 @@
                 "defaultValue": 0.0215,
                 "step": 0.0001,
                 "max": 0.5,
-                "min": 0.0
+                "min": 0.0,
+                "tooltip": "Set the size of the outline around blocks in the editor.",
               },
               {
                 "thing": "option",
                 "type": "rgba",
                 "key": "pathColor",
-                "defaultValue": 10338815
-              }
-            ]
+                "defaultValue": 10338815,
+                "tooltip": "Set the color of paths that are drawn in the editor.",
+              },
+            ],
           },
           {
             "thing": "option",
             "type": "rgba",
             "key": "boxSelectColor",
-            "defaultValue": 1483315998
+            "defaultValue": 1483315998,
+            "tooltip": "Set the color of the selection box when selecting objects in the editor.",
           },
           {
             "thing": "option",
             "type": "file",
             "key": "levelTilingBackgroundPath",
-            "defaultValue": ""
+            "defaultValue": "",
+            "tooltip": "Set the file path for the background image used for tiling the level.",
           },
           {
             "thing": "option",
             "type": "file",
             "key": "editorBackgroundPath",
-            "defaultValue": ""
+            "defaultValue": "",
+            "tooltip": "Set the file path for the background image used in the editor.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "editorBackgroundScaleToMaxSize",
-            "defaultValue": false
+            "defaultValue": false,
+            "tooltip": "Enable to scale the editor background image to fit the screen size.",
           },
           {
             "thing": "option",
             "type": "file",
             "key": "editorStickerPath",
-            "defaultValue": ""
-          }
-        ]
+            "defaultValue": "",
+            "tooltip": "Set the file path for a sticker image that can be added to the editor.",
+          },
+        ],
       },
       {
         "thing": "option",
         "type": "single select",
         "key": "theme",
         "defaultValue": 0,
-        "options": ["default", "blue", "black"]
-      }
-    ]
+        "options": ["default", "blue", "black"],
+        "tooltip": "Choose the theme, selecting between default godot theme, blue, or black.",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -465,23 +514,26 @@
             "thing": "option",
             "type": "bool",
             "key": "showHoveredBlocksList",
-            "defaultValue": true
+            "defaultValue": true,
+            "tooltip": "Enable or disable the display of a list of hovered blocks in the editor.",
           },
           {
             "thing": "option",
             "type": "lineedit",
             "key": "selectedBlockFormatString",
             "defaultValue": "{id} X:{posx}, Y:{posy} {pxx}px X {pxy}px {rot}°",
-            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy} - {layer}Z"
+            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy} - {layer}Z",
+            "tooltip": "Set the format for displaying the information of the selected block.",
           },
           {
             "thing": "option",
             "type": "lineedit",
             "key": "hoveredBlockFormatString",
             "defaultValue": "{id}",
-            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy} - {layer}Z"
-          }
-        ]
+            "placeholder": "{id} ({posx}, {posy}) {pxx}pxX{pxy}px R{rot}°, {sx}X{sy} - {layer}Z",
+            "tooltip": "Set the format for displaying the information of the hovered block.",
+          },
+        ],
       },
       {
         "thing": "group",
@@ -495,33 +547,38 @@
                 "thing": "option",
                 "type": "bool",
                 "key": "showSignalListInEditor",
-                "defaultValue": true
+                "defaultValue": true,
+                "tooltip": "Show a list of signals in the editor.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showSignalListInPlay",
-                "defaultValue": false
+                "defaultValue": false,
+                "tooltip": "Show a list of signals during gameplay.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showTotalActiveSignalCounts",
-                "defaultValue": true
+                "defaultValue": true,
+                "tooltip": "Display the total number of active signals in the editor or play mode.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showWhatBlocksAreSendingSignals",
-                "defaultValue": true
+                "defaultValue": true,
+                "tooltip": "Display which blocks are actively sending signals in the editor or during play.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "onlyShowActiveSignals",
-                "defaultValue": false
-              }
-            ]
+                "defaultValue": false,
+                "tooltip": "Show only active signals in the list, hiding inactive ones.",
+              },
+            ],
           },
           {
             "thing": "group",
@@ -531,29 +588,33 @@
                 "thing": "option",
                 "type": "bool",
                 "key": "showSignalConnectionLinesOnHover",
-                "defaultValue": true
+                "defaultValue": true,
+                "tooltip": "Display signal connection lines when hovering over objects.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showSignalConnectionLinesInEditor",
-                "defaultValue": false
+                "defaultValue": false,
+                "tooltip": "Show signal connection lines in the editor for easier debugging.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showSignalConnectionLinesInPlay",
-                "defaultValue": false
+                "defaultValue": false,
+                "tooltip": "Show signal connection lines during gameplay.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "onlyShowSignalConnectionsIfHoveringOverAny",
-                "defaultValue": true
-              }
-            ]
-          }
-        ]
+                "defaultValue": true,
+                "tooltip": "Only show signal connection lines if the user is hovering over any object that has signal connections.",
+              },
+            ],
+          },
+        ],
       },
       {
         "thing": "group",
@@ -563,33 +624,38 @@
             "thing": "option",
             "type": "bool",
             "key": "showLevelModsWhileEditing",
-            "defaultValue": true
+            "defaultValue": true,
+            "tooltip": "Enable to display level modifications while editing the level.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "showLevelModsWhilePlaying",
-            "defaultValue": true
+            "defaultValue": true,
+            "tooltip": "Enable to display level modifications while playing the game.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "showUnchangedLevelMods",
-            "defaultValue": false
-          }
-        ]
+            "defaultValue": false,
+            "tooltip": "Show level modifications even if they haven't changed since the last session.",
+          },
+        ],
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "showLevelLoadingProgressBar",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Enable to show a progress bar while loading the level.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "showLevelLoadingBehindProgressBar",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Enable to show the level content behind the progress bar as it's loading.",
       },
       {
         "thing": "group",
@@ -599,21 +665,24 @@
             "thing": "option",
             "type": "bool",
             "key": "showPathBlockInPlay",
-            "defaultValue": true
+            "defaultValue": true,
+            "tooltip": "Enable to show path blocks during gameplay.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "showPathLineInPlay",
-            "defaultValue": true
+            "defaultValue": true,
+            "tooltip": "Enable to show path lines during gameplay.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "showPathEditNodesInPlay",
-            "defaultValue": true
-          }
-        ]
+            "defaultValue": true,
+            "tooltip": "Enable to show path edit nodes during gameplay for editing path behaviors.",
+          },
+        ],
       },
       {
         "thing": "group",
@@ -623,13 +692,13 @@
             "thing": "option",
             "type": "bool",
             "key": "showUNAVAILABLEBlockInPlay",
-            "defaultValue": true
-          }
-        ]
-      }
-    ]
+            "defaultValue": true,
+            "tooltip": "Enable to display 'UNAVAILABLE' blocks during gameplay, showing missing or broken assets.",
+          },
+        ],
+      },
+    ],
   },
-
   {
     "thing": "group",
     "name": "player",
@@ -640,9 +709,10 @@
         "key": "playerRespawnTime",
         "defaultValue": 20,
         "min": 5,
-        "max": 50
-      }
-    ]
+        "max": 50,
+      },
+    ],
+    "tooltip": "Set the respawn time (in seconds) for the player after they die in the game.",
   },
   {
     "thing": "group",
@@ -656,7 +726,8 @@
             "thing": "option",
             "type": "bool",
             "key": "smallLevelDisplaysInLocalLevelList",
-            "defaultValue": false
+            "defaultValue": false,
+            "tooltip": "Enable to show smaller versions of the levels in the local level list.",
           },
           {
             "thing": "option",
@@ -666,15 +737,17 @@
             "min": 1,
             "max": 100000,
             "step": 1,
-            "rounded": true
+            "rounded": true,
+            "tooltip": "Set the number of levels to load at once in the main menu.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "showLevelCompletionInfoOnMainMenu",
-            "defaultValue": true
-          }
-        ]
+            "defaultValue": true,
+            "tooltip": "Show information about the completion status of each level in the main menu.",
+          },
+        ],
       },
       {
         "thing": "group",
@@ -684,23 +757,26 @@
             "thing": "option",
             "type": "bool",
             "key": "smallLevelDisplaysInOnlineLevelList",
-            "defaultValue": false
+            "defaultValue": false,
+            "tooltip": "Enable to show smaller versions of the levels in the online level list.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "onlyShowLevelsForCurrentVersion",
-            "defaultValue": false
+            "defaultValue": false,
+            "tooltip": "Only show levels that are compatible with the current game version in the online level list.",
           },
           {
             "thing": "option",
             "type": "bool",
             "key": "loadOnlineLevelListOnSceneLoad",
-            "defaultValue": true
-          }
-        ]
-      }
-    ]
+            "defaultValue": true,
+            "tooltip": "Enable to load the online level list as soon as the scene loads.",
+          },
+        ],
+      },
+    ],
   },
   {
     "thing": "group",
@@ -710,21 +786,24 @@
         "thing": "option",
         "type": "lineedit",
         "key": "defaultCreatorName",
-        "defaultValue": ""
+        "defaultValue": "",
+        "tooltip": "Set the default creator name for levels when they are created.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "defaultCreatorNameIsLoggedInUsersName",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Use the logged-in user's name as the default creator name for levels.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "randomizeLevelModifiersOnLevelCreation",
-        "defaultValue": false
-      }
-    ]
+        "defaultValue": false,
+        "tooltip": "Enable to randomize level modifiers when a new level is created.",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -737,21 +816,24 @@
         "max": 10,
         "step": 0.1,
         "key": "toastStayTime",
-        "defaultValue": 2
+        "defaultValue": 2,
+        "tooltip": "Set how long (in seconds) toast notifications will stay visible on screen.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "__slowTime",
         "editorOnly": true,
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Enable to slow down the in-game time for debugging purposes.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "__allowCheckpointReentryOnDeath",
         "editorOnly": true,
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Allow re-entry to checkpoints when the player dies during debugging or editing.",
       },
       {
         "thing": "group",
@@ -761,7 +843,8 @@
             "thing": "option",
             "type": "bool",
             "key": "showHitboxesByDefault",
-            "defaultValue": false
+            "defaultValue": false,
+            "tooltip": "Enable to show hitboxes for objects by default during gameplay.",
           },
           {
             "thing": "group",
@@ -771,15 +854,17 @@
                 "thing": "option",
                 "type": "rgba",
                 "key": "solidHitboxColor",
-                "defaultValue": 10072939
+                "defaultValue": 10072939,
+                "tooltip": "Set the color for solid hitboxes in the game world.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showSolidHitboxes",
-                "defaultValue": true
-              }
-            ]
+                "defaultValue": true,
+                "tooltip": "Show or hide solid hitboxes in the game world.",
+              },
+            ],
           },
           {
             "thing": "group",
@@ -789,15 +874,17 @@
                 "thing": "option",
                 "type": "rgba",
                 "key": "attachDetectorHitboxColor",
-                "defaultValue": 3747020907
+                "defaultValue": 3747020907,
+                "tooltip": "Set the color for attach detector hitboxes, which are used for detecting attach points.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showAttachDetectorHitboxes",
-                "defaultValue": true
-              }
-            ]
+                "defaultValue": true,
+                "tooltip": "Enable or disable the display of attach detector hitboxes in the game.",
+              },
+            ],
           },
           {
             "thing": "group",
@@ -807,15 +894,17 @@
                 "thing": "option",
                 "type": "rgba",
                 "key": "areaHitboxColor",
-                "defaultValue": 16711787
+                "defaultValue": 16711787,
+                "tooltip": "Set the color for area hitboxes, which define special areas in the game.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showAreaHitboxes",
-                "defaultValue": true
-              }
-            ]
+                "defaultValue": true,
+                "tooltip": "Enable or disable the display of area hitboxes in the game.",
+              },
+            ],
           },
           {
             "thing": "group",
@@ -825,19 +914,21 @@
                 "thing": "option",
                 "type": "rgba",
                 "key": "deathHitboxColor",
-                "defaultValue": 4278190187
+                "defaultValue": 4278190187,
+                "tooltip": "Set the color for death hitboxes that define areas where the player can die.",
               },
               {
                 "thing": "option",
                 "type": "bool",
                 "key": "showDeathHitboxes",
-                "defaultValue": true
-              }
-            ]
-          }
-        ]
-      }
-    ]
+                "defaultValue": true,
+                "tooltip": "Enable or disable the display of death hitboxes in the game.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
   },
   {
     "thing": "group",
@@ -847,22 +938,25 @@
         "thing": "option",
         "type": "bool",
         "key": "searchBarHorizontalAutocomplete",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Enable horizontal autocomplete suggestions in the search bar.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "autocompleteSearchBarHookLeftAndRight",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Enable the autocomplete search bar to hook left and right with suggestions.",
       },
       {
         "thing": "option",
         "type": "single select",
         "key": "showAutocompleteOptions",
         "defaultValue": 1,
-        "options": ["never", "while focused", "always"]
-      }
-    ]
+        "options": ["never", "while focused", "always"],
+        "tooltip": "Control when autocomplete suggestions appear: never, only when focused, or always.",
+      },
+    ],
   },
   {
     "thing": "group",
@@ -872,19 +966,22 @@
         "thing": "option",
         "type": "bool",
         "key": "alwaysShowMenuOnHomePage",
-        "defaultValue": false
+        "defaultValue": false,
+        "tooltip": "Always display the menu on the home page, instead of hiding it.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "openExportsDirectoryOnExport",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Automatically open the exports directory after exporting a file.",
       },
       {
         "thing": "option",
         "type": "bool",
         "key": "optionMenuToSideOnMainMenuInsteadOfOverlay",
-        "defaultValue": true
+        "defaultValue": true,
+        "tooltip": "Display the options menu to the side of the main menu instead of as an overlay.",
       },
       {
         "thing": "option",
@@ -893,8 +990,9 @@
         "defaultValue": 1.0,
         "min": 0.2,
         "max": 3.0,
-        "step": 0.01
-      }
-    ]
-  }
+        "step": 0.01,
+        "tooltip": "Set the scale of the tab menu, adjusting the size of the menu items.",
+      },
+    ],
+  },
 ]

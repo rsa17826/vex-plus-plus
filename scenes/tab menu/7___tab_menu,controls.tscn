@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cfutstwuqdraw"]
+[gd_scene load_steps=4 format=3 uid="uid://cfutstwuqdraw"]
 
 [ext_resource type="PackedScene" uid="uid://8r2xha87oi80" path="res://scenes/input_remapping/input_options_menu.tscn" id="1_xsgby"]
 [ext_resource type="PackedScene" uid="uid://boy84eq1dmt4t" path="res://scenes/tab menu/main.tscn" id="2_pgk03"]
 [ext_resource type="Script" uid="uid://dtbghi6tomlcf" path="res://scenes/input_remapping/themeControls.gd" id="2_t0igy"]
-[ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="4_t0igy"]
 
 [node name="7 - tab menu,Controls" type="CanvasLayer"]
 layer = 7
@@ -24,14 +23,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("4_t0igy")
-alpha = false
+color = Color(1, 1, 1, 0)
 
 [node name="CenterContainer" type="CenterContainer" parent="progress"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = -324.0
 grow_horizontal = 2
 grow_vertical = 2
 

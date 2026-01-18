@@ -150,7 +150,12 @@ func _ready() -> void:
     global.overlays.append(self)
     _visible = false
     global.tabMenu = self
+
 func createImagesForAllLevelsHaveImages(ignoreOnesWithImages) -> void:
+  if global.tabMenu != self:
+    global.tabMenu.createImagesForAllLevelsHaveImages(ignoreOnesWithImages)
+    return
+  log.pp(global.tabMenu, self)
   Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
   var dir := DirAccess.open(global.MAP_FOLDER)
   var dirs = (dir.get_directories() as Array)
@@ -164,18 +169,19 @@ func createImagesForAllLevelsHaveImages(ignoreOnesWithImages) -> void:
     FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, a, 'options.sds')) \
     > FileAccess.get_modified_time(global.path.join(global.MAP_FOLDER, s, 'options.sds'))
   )
+  visible = false
   global.tabMenu.get_node("../../progress").visible = true
   var pbar = global.tabMenu.get_node("../../progress/CenterContainer/progressBar")
   global.tabMenu._visible = true
   pbar.max_value = len(arr)
-  var prog = 0
   for levelName in arr:
+    global.tabMenu.visible = false
     if await global.loadMap(levelName, false, true):
       global.level.save(true)
       await global.wait()
-    prog += 1
-    pbar.value = prog
+    pbar.value += 1
   global.tabMenu.get_node("../../progress").visible = false
+
 func updateUserOpts(thingChanged: String = '') -> void:
   var ftml = global.isFirstTimeMenuIsLoaded
   var shouldChangeFsState = false

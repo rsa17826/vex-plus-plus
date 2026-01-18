@@ -290,7 +290,7 @@ getXdmDownloadPath() {
 }
 ; setup gui
 {
-  ui := Gui("+AlwaysOnTop")
+  ui := Gui(gettings.aot ? "+AlwaysOnTop" : '')
   ui.OnEvent("Close", GuiClose)
   ui.Add("Text", , "Vex++ Version Manager")
   versionListView := ui.Add("ListView", "vVersionList w290 h300", [
@@ -448,6 +448,12 @@ getXdmDownloadPath() {
         }
       }
     }
+  })
+  guiCtrl := ui.AddCheckbox((gettings.aot ? "+Checked" : '') '', "launcher always on top")
+  guiCtrl.OnEvent("Click", (elem, *) {
+    settings.aot := elem.value
+    saveSettings()
+    WinSetAlwaysOnTop(elem.value, ui)
   })
   guiCtrl := ui.AddCheckbox((gettings.tryUpdateOnOpen ? "+Checked" : '') '', "check for updates when opening")
   guiCtrl.OnEvent("Click", (elem, info) {
