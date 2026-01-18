@@ -11,3 +11,4 @@ func init(thing, menu_data, formatName, _self):
   select.item_selected.connect(func(...__):
     onchanged.emit()
   )
+  tooltip_text = thing.tooltip

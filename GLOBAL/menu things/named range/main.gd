@@ -14,7 +14,6 @@ func sort_dict_to_arr(dict):
   return newarr
 func init(thing, menu_data, formatName, _self):
   var newarr = sort_dict_to_arr(thing.options)
-  thisText = formatName.call(thing.name)
   $Label.text = formatName.call(thing.name)
   $HSlider.range_min_value = newarr[0][0]
   $HSlider.range_max_value = newarr[-1][0]
@@ -24,3 +23,4 @@ func init(thing, menu_data, formatName, _self):
   $HSlider.range_value_changed.connect(func(...__):
     onchanged.emit()
   )
+  tooltip_text = thing.tooltip

@@ -1,7 +1,6 @@
 extends NestedSearchable
 signal onchanged()
 func init(thing, menu_data, formatName, _self):
-  thisText = formatName.call(thing.name)
   $Label.text = formatName.call(thing.name)
   var range_node = $HSlider
   range_node.rounded = thing.rounded
@@ -14,3 +13,4 @@ func init(thing, menu_data, formatName, _self):
   range_node.value_changed.connect(func(...__):
     onchanged.emit()
   )
+  tooltip_text = thing.tooltip

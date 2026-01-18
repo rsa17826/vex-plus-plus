@@ -7,7 +7,6 @@ signal option_changed
 @onready var main_cloner = $cloneContainer/CenterContainer
 signal onchanged()
 func init(thing, menu_data, formatName, _self):
-  thisText = formatName.call(thing.name)
   var select = $optbtn/OptionButton
   select.text = formatName.call(thing.name)
   options = thing.options
@@ -15,6 +14,7 @@ func init(thing, menu_data, formatName, _self):
   option_changed.connect(func(...__):
     onchanged.emit()
   )
+  tooltip_text = thing.tooltip
 
 func _ready() -> void:
   for option in options:

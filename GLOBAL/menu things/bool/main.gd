@@ -6,3 +6,4 @@ func init(thing, menu_data, formatName, _self):
   $CheckButton.toggled.connect(func(...__):
     onchanged.emit()
   )
+  tooltip_text = thing.tooltip

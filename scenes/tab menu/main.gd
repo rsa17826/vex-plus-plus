@@ -38,9 +38,9 @@ func __loadOptions(thing) -> void:
     'option':
       match thing.type:
         "lineedit":
-          __menu.add_lineedit(thing.key, thing.defaultValue, thing.placeholder if 'placeholder' in thing else '')
+          __menu.add_lineedit(thing.key, thing.defaultValue, thing.placeholder if 'placeholder' in thing else '', thing.tooltip if 'tooltip' in thing else '')
         "bool":
-          __menu.add_bool(thing.key, thing.defaultValue)
+          __menu.add_bool(thing.key, thing.defaultValue, thing.tooltip if 'tooltip' in thing else '')
         "range":
           __menu.add_range(
             thing.key,
@@ -49,19 +49,19 @@ func __loadOptions(thing) -> void:
             thing.step if "step" in thing else 1,
             thing.defaultValue,
             thing['allow lesser'] if "allow lesser" in thing else false,
-            thing['allow greater'] if "allow greater" in thing else false
+            thing['allow greater'] if "allow greater" in thing else false, thing.tooltip if 'tooltip' in thing else ''
           )
         "multi select":
           __menu.add_multi_select(
             thing.key,
             thing.options,
-            thing.defaultValue
+            thing.defaultValue, thing.tooltip if 'tooltip' in thing else ''
           )
         "single select":
           __menu.add_single_select(
             thing.key,
             thing.options,
-            thing.defaultValue
+            thing.defaultValue, thing.tooltip if 'tooltip' in thing else ''
           )
         "spinbox":
           __menu.add_spinbox(
@@ -72,23 +72,23 @@ func __loadOptions(thing) -> void:
             thing.defaultValue,
             thing['allow lesser'] if "allow lesser" in thing else false,
             thing['allow greater'] if "allow greater" in thing else false,
-            thing.rounded if "rounded" in thing else false
+            thing.rounded if "rounded" in thing else false, thing.tooltip if 'tooltip' in thing else ''
           )
         "rgba":
           __menu.add_rgba(
             thing.key,
-            thing.defaultValue,
+            thing.defaultValue, thing.tooltip if 'tooltip' in thing else ''
           )
         "rgb":
           __menu.add_rgb(
             thing.key,
-            thing.defaultValue,
+            thing.defaultValue, thing.tooltip if 'tooltip' in thing else ''
           )
         "file":
           __menu.add_file(
             thing.key,
             thing.single if "single" in thing else true,
-            thing.defaultValue,
+            thing.defaultValue, thing.tooltip if 'tooltip' in thing else ''
           )
 
 func _input(event: InputEvent) -> void:
