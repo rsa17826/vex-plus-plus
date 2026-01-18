@@ -178,6 +178,7 @@ func save(saveImage: bool):
     :
       global.currentLevel().blockSaveData = {}
     saveData.beatMainLevel = false
+    global.saveData = saveData
     sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, saveData)
   opts.levelVersion = opts.levelVersion + 1 if 'levelVersion' in opts else 1
   if saveImage:
