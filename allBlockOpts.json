@@ -983,7 +983,7 @@
     },
     "maxCooldown": {
       "default": 7.0,
-      "suffix": "ms",
+      "suffix": "s",
       "type": 3
     },
     "maxCount": {

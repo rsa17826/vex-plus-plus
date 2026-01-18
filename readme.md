@@ -125,16 +125,16 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - ## Settings
   - ### grid
 
-    - **showGridInEdit**: shows the grid in when in edit mode.
+    - **showGridInEdit**: Enable or disable grid display in edit mode.
     - **blockGridSnapSize**: the size of the grid that blocks will snap to when being moved or resized.
-    - **showGridInPlay**: shows the grid in when in play mode.
+    - **showGridInPlay**: Enable or disable grid display while playing.
   - ### save
 
-    - **autosaveInterval**: how long in seconds between autosaves. 0 is disabled
-    - **saveOnExit**: saves the level when opening the menu - make work on game close and on enter inner level
-    - **smallerSaveFiles**: makes all save files smaller by removing unnecessary padding, which also makes it harder to read
-    - **saveLevelOnWin**: save the level when you win it.
-    - **showIconOnSave**: shows a save icon when the level is saved. low opacity when save stared and fully visible when saving finished.
+    - **autosaveInterval**: Set the interval (in seconds) for autosaving the game. 0 is disabled
+    - **saveOnExit**: Enable or disable saving when exiting the game or returning to the main menu
+    - **smallerSaveFiles**: Enable to reduce the size of save files and level data files
+    - **saveLevelOnWin**: Automatically save the level when the player wins.
+    - **showIconOnSave**: Show an icon when a level is saved.
   - ### window
 
     - **windowMode**: changes the default window mode (fullscreen/windowed)
@@ -142,75 +142,75 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **windowed**: windowed
   - ### warnings
 
-    - **dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar**: when this is enabled invalid blocks don't get shown whenever reorginizing editor bar is enabled
-    - **warnWhenOpeningLevelInOlderGameVersion**: when you open a level in an older version of the game, you will be warned that it may not work properly.
-    - **warnWhenOpeningLevelInNewerGameVersion**: when you open a level in an newer version of the game, you will be warned that it may not work properly.
-    - **confirmKeyAssignmentDeletion**: adds a confirmation dialog before removing keys from the keybinds list.
-    - **confirmLevelUploads**: if true level uploads must be confirmed, otherwise there will be no confirmation
+    - **dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar**: Prevent displaying invalid blocks while editing bar while editor bar reorganizing mode is enabled
+    - **warnWhenOpeningLevelInOlderGameVersion**: Warn when opening a level created in an older version of the game
+    - **warnWhenOpeningLevelInNewerGameVersion**: Warn when opening a level in a newer version of the game
+    - **confirmKeyAssignmentDeletion**: Require confirmation before deleting key assignments from the keybinds menu
+    - **confirmLevelUploads**: Require confirmation before uploading a level
   - ### editor settings
 
     - ### rotation
 
-      - **newlyCreatedBlocksRotationTakesPlayerRotation**: if true when the player is rotated all new blocks that can be rotated will be rotated to the players current direction instead of the default direction, eg if the player has gravity upside down creating a checkpoint will create it upside down.
-      - **mouseLockDistanceWhileRotating**: this is how far away the mouse will be from the center of the selected object while holding the editor_rotate key. higher numbers move the mouse farther away. set to 0 to disable.
+      - **newlyCreatedBlocksRotationTakesPlayerRotation**: Rotate newly created blocks to match the player's rotation.
+      - **mouseLockDistanceWhileRotating**: Set the distance from the center of the block that the mouse should be locked to while rotating a block. set to 0 to disable mouse lock.
       - **multiSelectedBlocksRotationScheme**: what happens when rotating a block with selecting more than 1
       - **rotateAllSelectedBlocksBySameAmount**: ?
       - **rotateAllSelectedBlocksToSameDirection**: ?
     - ### displacement
 
-      - **movingPathNodeMovesEntirePath**: if true moving this will move the entire path, if false it will only move the first point
-      - **minDistBeforeBlockDraggingStarts**: the distance the mouse has to move before the block will be moved or scaled
-      - **singleAxisAlignByDefault**: if true blocks will only be movable along a single axis at a time by default. if false blocks can be moved freely.
+      - **movingPathNodeMovesEntirePath**: Move the entire path when moving a path's main node. else just moves the first node instead of the entire path
+      - **minDistBeforeBlockDraggingStarts**: Set the minimum distance the mouse must be moved by before the block is moved or scaled
+      - **singleAxisAlignByDefault**: Align blocks along a single axis by default.\nif false the set key must be pressed to enable.\nif true the set key must be pressed to disable
     - ### scaling
 
-      - **noCornerGrabsForScaling**: when grabbing a block at a corner it will only resize the bnlock on the side that had less grab area.
+      - **noCornerGrabsForScaling**: Prevents blocks being scaled on both axies at the same time by grabbing the corner
     - ### deletion
 
-      - **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: if false then to delete a block you must be currently selecting it, if true then pressing delete will always remove the block that was selected most recently.
+      - **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: Delete the last selected block if no block is currently selected when pressing the delete keybind.
     - ### panning
 
-      - **autoPanWhenClickingEmptySpace**: when dragging on an empty space, with no blocks on it, it will treat it as if editor_pan was pressed.
-      - **editorScrollSpeed**: changes the speed the camera moves at when using editor_pan
+      - **autoPanWhenClickingEmptySpace**: Enable to allow dragging an empty space to pan the editor without having to press the pan keybind
+      - **editorScrollSpeed**: Set the speed multiplier for panning the editor
     - ### editor bar
 
-      - **editorBarBlockSize**: the size of the block picker in pixels. changing this makes the blocks in the block picker and the block picker height equally larger or smaller
-      - **editorBarScrollSpeed**: changes the speed of scrolling through the editor bar. set negative to invert scroll direction
+      - **editorBarBlockSize**: Set the size of blocks while editing bar
+      - **editorBarScrollSpeed**: Set the scroll speed of the editor bar. set negative to invert scroll direction
       - **editorBarOffset**: can be used to place the editor bar a the bottom of the screen instead of the top, or just shift it down a bit to prevent it from being covered by other programs while in fullscreen or when the window is otherwise at the top of the screen
-      - **editorBarColumns**: the amount of columns in the editor bar. if you want a horizontal layout just make this number large and if using a vertical layout make this number small.
-      - **editorBarPosition**: moves the editor bar to either top, bottom, left, or right of the screen
+      - **editorBarColumns**: Set the number of columns while editing bar.
+      - **editorBarPosition**: Choose the anchor position of the editor bar on the screen
         - **top/left**: the editor bar will be at the topleft of the screen
         - **bottom**: the editor bar will be at the bottom of the screen
         - **right**: the editor bar will be at the right of the screen
       - **reorganizingEditorBar**: enable to setart reorginizing the editor bar by dragging the blocks around
-      - **showEditorBarBlockMissingErrors**: shows an error if a block in the editor bar doesn't exist in the game
+      - **showEditorBarBlockMissingErrors**: shows an error if a block while editing bar doesn't exist in the game
   - ### limits
 
-    - **allowRotatingAnything**: allows rotating any blocks regardless of if it is meant to be rotated or not.
-    - **allowScalingAnything**: allows scaling any blocks regardless of if it is meant to be rotated or not.
+    - **allowRotatingAnything**: Allow rotating any object while editing, including objects that would normally be unable to be rotated.
+    - **allowScalingAnything**: Allow scaling any object while editing, even those that are typically unscalable.
   - ### camera
 
-    - **snapCameraToPixels**: makes some blocks render better, like the disabled solar blocks, by rounding the camera position, but could cause some less smooth looking movement
-    - **cameraZoomInEditor**: the zoom of the camera while in the editor - making is smaller than 1 breaks the grid
-    - **cameraZoomInPlay**: the zoom of the camera while playing - making is smaller than 1 breaks the grid
-    - **cameraUsesDefaultRotationInEditor**: makes is so that when the editor ui is shown the camera is reset to default rotation instead of keeping the last rotation.
-    - **dontChangeCameraRotationOnGravityChange**: makes is so that when when the gravity changes the camera will not be rotated.
-    - **cameraRotationOnGravityChangeHappensInstantly**: makes is so that when the gravity changes the camera rotates instantly instead of rotating smoothly.
+    - **snapCameraToPixels**: Snap the camera's position to pixel coordinates
+    - **cameraZoomInEditor**: Set the zoom level for the camera while editing levels
+    - **cameraZoomInPlay**: Set the zoom level for the camera while playing levels
+    - **cameraUsesDefaultRotationInEditor**: Use default camera rotation while editing instead of keeping the rotation biased on the players gravity.
+    - **dontChangeCameraRotationOnGravityChange**: Use default camera rotation instead of rotating to keep the player always upright on any gravity.
+    - **cameraRotationOnGravityChangeHappensInstantly**: Enable instant camera rotation when gravity direction changes instead of smoothly transitioning the cameras rotation.
   - ### theme
 
     - ### editor theme
 
       - ### editor block theme
 
-        - **blockGhostAlpha**: changes the alpha of the ghost blocks - used to show where a block is actually placed suchas keys that have been collected, moving blocks that are moving, etc.
-        - **selectedBlockOutlineColor**: the outline color of the currently selected block
-        - **hoveredBlockOutlineColor**: the outline color of the current hovered block
-        - **blockOutlineSize**: the size of the block outline both for hover and select
-        - **pathColor**: the color of the path created in the level editor by the path block.
-      - **boxSelectColor**: the color that the box select will be
-      - **levelTilingBackgroundPath**: this image will be tiled across the level.
-      - **editorBackgroundPath**: path to the background image for the editor.
-      - **editorBackgroundScaleToMaxSize**: if true the background image will scale to fit the screen.
-      - **editorStickerPath**: path to the sticker image for the editor.
+        - **blockGhostAlpha**: Set the transparency level of ghost blocks while editing.
+        - **selectedBlockOutlineColor**: Set the outline color for selected blocks
+        - **hoveredBlockOutlineColor**: Set the outline color for blocks that are hovered over
+        - **blockOutlineSize**: Set the size of the outline around blocks for when hovered or selected
+        - **pathColor**: Set the color of paths that are drawn while editing
+      - **boxSelectColor**: Set the color of the selection box when selecting objects while editing
+      - **levelTilingBackgroundPath**: Set the file path for the background image used for tiling the level
+      - **editorBackgroundPath**: Set the file path for the background image used while editing
+      - **editorBackgroundScaleToMaxSize**: Enable to scale the editor background image to fit the screen size
+      - **editorStickerPath**: Set the file path for a sticker image that can be added to the editor.
     - **theme**: the theme used for the entire application.
       - **default**: default godot theme
       - **blue**: blue
@@ -219,95 +219,94 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
     - ### hovered block list
 
-      - **showHoveredBlocksList**: if true will show a list of the blocks under the mouse
-      - **selectedBlockFormatString**: string showing how to format the data for the selected block
-      - **hoveredBlockFormatString**: string showing how to format the data for the hovered blocks (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id, layer is the layer that the block is on)
+      - **showHoveredBlocksList**: Enable or disable the display of a list of hovered blocks while editing
+      - **selectedBlockFormatString**: Set the format for displaying the information of the selected block
+      - **hoveredBlockFormatString**: Set the format for displaying the information of the hovered block (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id, layer is the layer that the block is on)
     - ### signals
 
       - ### signal display
 
-        - **showSignalListInEditor**: if true, while in the editor, a list of all signals, the blocks that are sending the signals and weather or not the signal is active
-        - **showSignalListInPlay**: if true, while not in the editor, a list of all signals, the blocks that are sending the signals and weather or not the signal is active
+        - **showSignalListInEditor**: Show a list of signals while editing
+        - **showSignalListInPlay**: Show a list of signals while playing
         - **showTotalActiveSignalCounts**: adds a number showing the total amount of signals that are currently sending on each signal id
         - **showWhatBlocksAreSendingSignals**: adds an image of the block that is sending on each signal id and a number showing the amount of blocks of the same type that are sending the signal
-        - **onlyShowActiveSignals**: only shows signals if the signal is active and being sent
+        - **onlyShowActiveSignals**: Show only active signals in the list, hiding inactive ones
       - ### signal connection lines
 
         - **showSignalConnectionLinesOnHover**: shows lines between all blocks connected by signals to the block being hovered or selected
-        - **showSignalConnectionLinesInEditor**: shows lines between all blocks connected by signals when in the editor
-        - **showSignalConnectionLinesInPlay**: shows lines between all blocks connected by signals when not in the editor
-        - **onlyShowSignalConnectionsIfHoveringOverAny**: if true and hovering over or selecting a block that is connected, only connections for that block will be shown even if showSignalConnectionLinesInEditorshow or SignalConnectionLinesInPlay are true
+        - **showSignalConnectionLinesInEditor**: shows lines between all blocks connected by signals when while editing
+        - **showSignalConnectionLinesInPlay**: shows lines between all blocks connected by signals when while playing
+        - **onlyShowSignalConnectionsIfHoveringOverAny**: Only show signal connection lines if the user is hovering over any object that has signal connections
     - ### level mods
 
-      - **showLevelModsWhileEditing**: if true the level modifiers will be shown in the editor
+      - **showLevelModsWhileEditing**: if true the level modifiers will be shown while editing
       - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
       - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
-    - **showLevelLoadingProgressBar**: shows a progress bar for loading levels.
+    - **showLevelLoadingProgressBar**: Enable to show a progress bar while loading the level.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
     - ### paths
 
-      - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible in play mode.
-      - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible in play mode.
-      - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible in play mode.
+      - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible while playing.
+      - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible while playing.
+      - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible while playing.
     - ### UNAVAILABLEs
 
-      - **showUNAVAILABLEBlockInPlay**: shows unavailable blocks when playing
+      - **showUNAVAILABLEBlockInPlay**: Enable to display 'UNAVAILABLE' blocks while playing
   - ### player
 
-    - **playerRespawnTime**: the time that the player takes to respawn after dying
+    - **playerRespawnTime**: Set the respawn time for the player after they die
   - ### level lists
 
     - ### local level list
 
-      - **smallLevelDisplaysInLocalLevelList**: makes the level displays for local levels smaller
-      - **amountOfLevelsToLoadAtTheSameTimeOnMainMenu**: the amound of levels to load data for each frame when on the menu
-      - **showLevelCompletionInfoOnMainMenu**: shows some info about if the levels are completed and how completed they are on the menu
+      - **smallLevelDisplaysInLocalLevelList**: Enable to render the levels in the local level list with less info making them smaller
+      - **amountOfLevelsToLoadAtTheSameTimeOnMainMenu**: the amount of levels to load data for each frame when on the menu
+      - **showLevelCompletionInfoOnMainMenu**: Show information about the completion status of each level in the main menu
     - ### online level list
 
-      - **smallLevelDisplaysInOnlineLevelList**: makes the level displays for online levels smaller
-      - **onlyShowLevelsForCurrentVersion**: the load online levels button only shows levels for the current version instead of for all versions.
-      - **loadOnlineLevelListOnSceneLoad**: when the online level list is loaded the level data will immediately be downloaded
+      - **smallLevelDisplaysInOnlineLevelList**: Enable to render the levels in the online level list with less info making them smaller
+      - **onlyShowLevelsForCurrentVersion**: Only show levels that are made in the current game version in the online level list
   - ### level creation
 
-    - **defaultCreatorName**: the default name for the prompt when creating a new level
-    - **defaultCreatorNameIsLoggedInUsersName**: if true overites defaultCreatorName to be the username of the currently logged in user
-    - **randomizeLevelModifiersOnLevelCreation**: when creating a new level the level modifiers will be set randomly
+    - **defaultCreatorName**: the default name for the creator name prompt when creating a new level
+    - **defaultCreatorNameIsLoggedInUsersName**: Use the logged-in user's name as the default creator name for levels. if true and logged in defaultCreatorName setting is ignored.
+    - **randomizeLevelModifiersOnLevelCreation**: Enable to randomize level modifiers when a new level is created
   - ### debug
 
-    - **toastStayTime**: how long the toast stays on screen in seconds.
+    - **toastStayTime**: Set how long (in seconds) toast notifications will stay visible on screen
     - ### hitboxes
 
       - **showHitboxesByDefault**: sets the default hitbox state for whenever entering a level
       - ### solid hitboxes
 
-        - **solidHitboxColor**: the color of the hitbox of the solids
-        - **showSolidHitboxes**: if true the solid hitboxes will be visible when hitboxes are shown
+        - **solidHitboxColor**: Set the color for solid hitboxes
+        - **showSolidHitboxes**: Show or hide solid hitboxes
       - ### attach detector hitboxes
 
         - **attachDetectorHitboxColor**: the color of the hitbox of the attach detecors
-        - **showAttachDetectorHitboxes**: if true the attach detector hitboxes will be visible when hitboxes are shown
+        - **showAttachDetectorHitboxes**: Enable or disable the display of attach detector hitboxes.\nWARNING: doesn't work on exported version and only while editing - i don't know why this is
       - ### area hitboxes
 
-        - **areaHitboxColor**: the color of the hitbox of the areas
-        - **showAreaHitboxes**: if true the non deadly area hitboxes will be visible when hitboxes are shown
+        - **areaHitboxColor**: Set the color for area hitboxes.
+        - **showAreaHitboxes**: Enable or disable the display of area hitboxes
       - ### death hitboxes
 
         - **deathHitboxColor**: the color of the hitbox of the deadly areas
-        - **showDeathHitboxes**: if true the deadly area hitboxes will be visible when hitboxes are shown
+        - **showDeathHitboxes**: Enable or disable the display of deadly hitboxes
   - ### autocomplete
 
-    - **searchBarHorizontalAutocomplete**: makes the autocomplete options appear horizontal instead of vertical
-    - **autocompleteSearchBarHookLeftAndRight**: hook the left and right arrow keys to move left and right in the autocomplete list instead of the search bar
+    - **searchBarHorizontalAutocomplete**: Enable horizontal autocomplete suggestions instead of vertical ones in the search bar
+    - **autocompleteSearchBarHookLeftAndRight**: Enable the autocomplete search bar to hook left and right for selecting suggestions instead of just up and down
     - **showAutocompleteOptions**: when to show the autocomplete options
       - **never**: don't ever show autocomplete options
       - **while focused**: only show autocomplete options when the bar is focused
       - **always**: always show the autocomplete options
   - ### misc
 
-    - **alwaysShowMenuOnHomePage**: shows the menu on the home page
-    - **openExportsDirectoryOnExport**: if true, after exporting a level, it will open the exports directory.
+    - **alwaysShowMenuOnHomePage**: Always display the menu on the home page, else can be toggled with the keybind
+    - **openExportsDirectoryOnExport**: Automatically open the exports directory after exporting a level
     - **optionMenuToSideOnMainMenuInsteadOfOverlay**: makes the toggle menu keybind toggle the a menu on the left side instead of the usual overlay while on the main menu
-    - **tabMenuScale**: the scale of the in level tab menu
+    - **tabMenuScale**: Set the scale of the options menu when in overlay format
 
 - ## Blocks
 
@@ -1269,7 +1268,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - ### Custom Editor Bar Block Placements
 
-    to reorder the blocks in the editor bar, create a file called `editorBar.sds` and if using the launcher, place it in the `game data` folder otherwise just place it in the game's directory.
+    to reorder the blocks while editing bar, create a file called `editorBar.sds` and if using the launcher, place it in the `game data` folder otherwise just place it in the game's directory.
 
     [example editor bar file](./editorBar.sds)
 
