@@ -44,10 +44,10 @@ STARTROOT
 
 `
   var addata = (data + "\n\n").match(
-    /\[node name="attach detector".*?\n\n/s
+    /\[node name="attach detector".*?\n\n/s,
   )?.[0]
   var ad2data = (data + "\n\n").match(
-    /^.*? parent="[^"]*attach detector"\][\s\S]*?\n\n/m
+    /^.*? parent="[^"]*attach detector"\][\s\S]*?\n\n/m,
   )?.[0]
   if (!addata || !ad2data) {
     error(
@@ -59,7 +59,7 @@ STARTROOT
       ad2data,
       "\n-----------------------------------",
       "\n-----------------------------------",
-      "\n-----------------------------------"
+      "\n-----------------------------------",
     )
     return
   }
@@ -80,11 +80,11 @@ STARTROOT
       newSection
         .replace("STARTSHAPE", extractedShape)
         .replace("STARTROOT", extractedroot)
-        .replace("STARTSCRIPT", extractedscript)
+        .replace("STARTSCRIPT", extractedscript),
     )
     .replace(
       /\[gd_scene load_steps=(\d+)/,
-      (_, num) => "[gd_scene load_steps=" + String(Number(num) - 1)
+      (_, num) => "[gd_scene load_steps=" + String(Number(num) - 1),
     )
     .replace(/^.*? parent="attach detector"\][\s\S]*?\n\n/m, "")
 
