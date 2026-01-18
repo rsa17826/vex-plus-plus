@@ -8,12 +8,16 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="vex"
 config/version="242"
 run/main_scene="uid://bsub1ew4qiin4"
-config/features=PackedStringArray("4.5")
+config/features=PackedStringArray("4.6")
 config/icon="uid://csr6lp7yx00ix"
 config/windows_native_icon="res://vex++.ico"
 boot_splash/minimum_display_time=500
@@ -22,9 +26,9 @@ boot_splash/minimum_display_time=500
 
 PopupMenuTransperiancyEnabler="*res://themes/popup menu transperiancy enabler.gd"
 global="*res://GLOBAL/global.gd"
-AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_config.tscn"
-ToastParty="*res://addons/toastparty/toast-autoload.gd"
-Supabase="*res://addons/supabase/Supabase/supabase.gd"
+AppConfig="*uid://cjke6crjg14a0"
+ToastParty="*uid://c3o3pswn4rkt1"
+Supabase="*uid://b3tpsxjq22rdw"
 tabMenu="*res://scenes/tab menu/7___tab_menu,controls.tscn"
 
 [beautifier]

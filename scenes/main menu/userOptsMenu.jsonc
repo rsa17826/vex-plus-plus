@@ -712,9 +712,9 @@
         "defaultValue": 20,
         "min": 5,
         "max": 50,
+        "tooltip": "Set the respawn time for the player after they die.",
       },
     ],
-    "tooltip": "Set the respawn time for the player after they die.",
   },
   {
     "thing": "group",
