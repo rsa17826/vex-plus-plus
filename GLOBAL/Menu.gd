@@ -65,35 +65,39 @@ func endGroup():
   })
   # currentParent.pop_back()
 # ADDS
-func add_button(key, onclick: Callable) -> void:
+func add_button(key, onclick: Callable, tooltip='') -> void:
   # return float|int
   _add_any(key, {
     "type": "button",
     "onclick": onclick,
-    "default": null
+    "default": null,
+    "tooltip": tooltip
   })
-func add_textarea(key, default='', placeholder:='') -> void:
+func add_textarea(key, default='', placeholder:='', tooltip='') -> void:
   # return float|int
   _add_any(key, {
     "type": "textarea",
     "placeholder": placeholder,
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_lineedit(key, default='', placeholder:='') -> void:
+func add_lineedit(key, default='', placeholder:='', tooltip='') -> void:
   # return float|int
   _add_any(key, {
     "type": "lineedit",
     "placeholder": placeholder,
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_file(key, single: bool = false, default='') -> void:
+func add_file(key, single: bool = false, default='', tooltip='') -> void:
   # return float|int
   _add_any(key, {
     "type": "file",
     "single": single,
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_range(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false) -> void:
+func add_range(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false, tooltip='') -> void:
   # return float|int
   _add_any(key, {
     "type": "range",
@@ -102,16 +106,18 @@ func add_range(key, from, to, step: float = 1, default: float = 1, allow_lesser=
     "step": step,
     "allow_lesser": allow_lesser,
     "allow_greater": allow_greater,
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_named_spinbox(key, options, default) -> void:
+func add_named_spinbox(key, options, default, tooltip='') -> void:
   # return int
   _add_any(key, {
     "type": "named_spinbox",
     "options": options,
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_spinbox(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false, rounded:=false) -> void:
+func add_spinbox(key, from, to, step: float = 1, default: float = 1, allow_lesser=false, allow_greater=false, rounded:=false, tooltip='') -> void:
   # return float|int
   _add_any(key, {
     "type": "spinbox",
@@ -121,46 +127,53 @@ func add_spinbox(key, from, to, step: float = 1, default: float = 1, allow_lesse
     "allow_lesser": allow_lesser,
     "allow_greater": allow_greater,
     "rounded": rounded,
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_bool(key, default=false) -> void:
+func add_bool(key, default=false, tooltip='') -> void:
   # return bool
   _add_any(key, {
     "type": "bool",
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_multi_select(key, options, default=[]) -> void:
+func add_multi_select(key, options, default=[], tooltip='') -> void:
   # return list[str]
   _add_any(key, {
     "type": "multi select",
     "options": options.map(func(x): return str(x)),
-    "default": default.map(func(x): return str(x))
+    "default": default.map(func(x): return str(x)),
+    "tooltip": tooltip
   })
-func add_rgba(key, default: int) -> void:
+func add_rgba(key, default: int, tooltip='') -> void:
   # return list[str]
   _add_any(key, {
     "type": "rgba",
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_rgb(key, default: int) -> void:
+func add_rgb(key, default: int, tooltip='') -> void:
   # return list[str]
   _add_any(key, {
     "type": "rgb",
-    "default": default
+    "default": default,
+    "tooltip": tooltip
   })
-func add_single_select(key, options, default) -> void:
+func add_single_select(key, options, default, tooltip='') -> void:
   # return str
   _add_any(key, {
     "type": "single select",
     "options": options.map(func(x): return str(x)),
-    "default": int(default)
+    "default": int(default),
+    "tooltip": tooltip
   })
-func add_named_range(key, options, default) -> void:
+func add_named_range(key, options, default, tooltip='') -> void:
   # return int|float
   _add_any(key, {
     "type": "named range",
     "options": options,
-    "default": str(default)
+    "default": str(default),
+    "tooltip": tooltip
   })
 
 func clear():
