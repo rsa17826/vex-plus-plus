@@ -310,7 +310,44 @@ func clearWallData():
   wallSlidingFrames = 0
   wallBreakDownFrames = 0
 
+# var inps = []
+# var i = -1
+# var rec = 0
 func _physics_process(delta: float) -> void:
+  # if rec == 1:
+  #   var temp = []
+  #   for k in ["jump", "down", "left", "right"]:
+  #     if Input.is_action_just_pressed(k):
+  #       temp.append([k, true])
+  #     if Input.is_action_just_released(k):
+  #       temp.append([k, false])
+  #   inps.append(temp)
+  # elif rec == 2:
+  #   i += 1
+  #   var a = InputEventAction.new()
+  #   if i >= len(inps):
+  #     rec = 0
+  #     return
+  #   for event in inps[i]:
+  #     a.pressed = event[1]
+  #     a.action = event[0]
+  #     Input.parse_input_event(a)
+  # if Input.is_action_just_pressed("recordStart"):
+  #   inps = []
+  #   rec = 1
+  #   die(20, true, true)
+  # if Input.is_action_just_pressed("recordStop"):
+  #   for event in ['jump', "down", "left", "right"]:
+  #     var a = InputEventAction.new()
+  #     a.pressed = false
+  #     a.action = event
+  #     Input.parse_input_event(a)
+  #   rec = 0
+  #   die(20, true, true)
+  # if Input.is_action_just_pressed("replay"):
+  #   i = -1
+  #   rec = 2
+  #   die(20, true, true)
   # if deathSources:
   #   log.err(deathSources, deathSources.filter(func(e):
   #     return global.isAlive(e) and !e.respawning))

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b6akl5c6ei5rm"]
+[gd_scene format=3 uid="uid://b6akl5c6ei5rm"]
 
 [ext_resource type="Script" uid="uid://fbe4j4u7vbs4" path="res://scenes/blocks/locked box/locked box.gd" id="1_86w3e"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_f5mb8"]
@@ -80,7 +80,7 @@ size = Vector2(700, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f5mb8"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("mask", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=594913005 node_paths=PackedStringArray("mask", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_86w3e")
 mask = NodePath("collisionNode/mask")
 ghostIconNode = NodePath("collisionNode/mask/Sprite2D")
@@ -91,28 +91,28 @@ thingThatMoves = NodePath("collisionNode")
 EDITOR_OPTION_scale = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="StaticBody2D" parent="." unique_id=1876069277 node_paths=PackedStringArray("root")]
 collision_layer = 34824
 collision_mask = 0
 script = ExtResource("2_f5mb8")
 root = NodePath("..")
 
-[node name="mask" type="AnimatedSprite2D" parent="collisionNode"]
+[node name="mask" type="AnimatedSprite2D" parent="collisionNode" unique_id=1827640722]
 clip_children = 1
 sprite_frames = SubResource("SpriteFrames_724jy")
 animation = &"unlock"
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode/mask"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode/mask" unique_id=2014115571]
 use_parent_material = true
 texture = ExtResource("2_n1jcy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=988965991]
 visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("4_tlfeg")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=650142487 node_paths=PackedStringArray("root")]
 visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
