@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://c8mgwucaxddj8" path="res://scenes/ui/modifiers/images/3 jumps.png" id="9_16mno"]
 [ext_resource type="Texture2D" uid="uid://nsc828vkp3sq" path="res://scenes/ui/modifiers/images/4+ jumps.png" id="10_fmbj4"]
 [ext_resource type="Texture2D" uid="uid://db55mv41mlepw" path="res://scenes/ui/modifiers/images/changeSpeedOnSlopes.png" id="11_a68qm"]
+[ext_resource type="Texture2D" uid="uid://dqlraso3fslo8" path="res://scenes/ui/modifiers/images/playerMovesWithMovingWater.png" id="14_8ra60"]
+[ext_resource type="Texture2D" uid="uid://1bduwpecjv7v" path="res://scenes/ui/modifiers/images/NOPE - playerMovesWithMovingWater.png" id="15_31ouh"]
 
 [node name="modifiers" type="Control" unique_id=1104311651]
 layout_mode = 3
@@ -250,6 +252,27 @@ tooltip_text = "when the player collects a checkpoint only the players position,
 texture = ExtResource("3_1qclt")
 expand_mode = 1
 
+[node name="playerMovesWithMovingWater" type="Control" parent="GridContainer" unique_id=1257784773]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="main" type="TextureRect" parent="GridContainer/playerMovesWithMovingWater" unique_id=1900898179]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "when the player is in moving water the player will be pulled along with the water"
+texture = ExtResource("14_8ra60")
+expand_mode = 1
+
+[node name="nope" type="TextureRect" parent="GridContainer/playerMovesWithMovingWater" unique_id=398746777]
+layout_mode = 0
+offset_right = 50.0
+offset_bottom = 50.0
+tooltip_text = "when the player is in moving water the watyer"
+texture = ExtResource("15_31ouh")
+expand_mode = 1
+
 [connection signal="gui_input" from="GridContainer/canDoWallSlide" to="." method="_on_gui_input" flags=18]
 [connection signal="gui_input" from="GridContainer/canDoWallHang" to="." method="_on_gui_input" flags=18]
 [connection signal="gui_input" from="GridContainer/canDoWallJump" to="." method="_on_gui_input" flags=18]
@@ -257,3 +280,4 @@ expand_mode = 1
 [connection signal="gui_input" from="GridContainer/jumpCount" to="." method="_on_gui_input" flags=18]
 [connection signal="gui_input" from="GridContainer/changeSpeedOnSlopes" to="." method="_on_gui_input" flags=18]
 [connection signal="gui_input" from="GridContainer/checkpointsSaveAll" to="." method="_on_gui_input" flags=18]
+[connection signal="gui_input" from="GridContainer/playerMovesWithMovingWater" to="." method="_on_gui_input" flags=18]

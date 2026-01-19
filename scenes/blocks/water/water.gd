@@ -27,6 +27,8 @@ func on_physics_process(delta: float) -> void:
   if electric and self in global.player.inWaters:
     global.player.deathSources.append(self)
 
+  # if playerInsideWater and self in global.player.inWaters:
+  #   log.pp(lastMovementStep)
   if playerInsideWater:
     if self not in global.player.inWaters and waterReenterTimer <= 0:
       global.player.inWaters.append(self)

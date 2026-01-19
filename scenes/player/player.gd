@@ -79,6 +79,7 @@ var camRotLock: float = 0
 var activeCannon: BlockCannon
 var activeZipline: BlockZipline
 var targetZipline: BlockZipline
+var waterOffset = []
 
 var lightsOut: bool = false
 
@@ -125,6 +126,7 @@ var vel: Dictionary[String, Vector2] = {
   "cannon": Vector2.ZERO,
   "zipline": Vector2.ZERO,
   "wind": Vector2.ZERO,
+  "waterMove": Vector2.ZERO,
 }
 var velDecay := {
   "pole": 1,
@@ -135,6 +137,7 @@ var velDecay := {
   "conveyor": .9,
   "zipline": .95,
   "wind": .7,
+  "waterMove": 1,
 }
 var justAddedVels := {
   "pole": 0,
@@ -145,6 +148,7 @@ var justAddedVels := {
   "cannon": 0,
   "zipline": 0,
   "wind": 0,
+  "waterMove": 0,
 }
 var stopVelOnGround := ["bounce", "waterExit", "cannon", "pole", "zipline", "wind"]
 var stopVelOnWall := ["bounce", "cannon", "pole", "conveyor", "zipline", "wind"]
@@ -639,7 +643,15 @@ func _physics_process(delta: float) -> void:
       for n: String in vel:
         if justAddedVels[n]:
           justAddedVels[n] -= 1
+
       move_and_slide()
+      # if waterOffset:
+      #   for thing in waterOffset:
+      #     var block: EditorBlock = thing[1]
+      #     log.pp((block.thingThatMoves.global_position - global_position) - thing[0])
+      #     position += (block.thingThatMoves.global_position - global_position) - thing[0]
+      #   waterOffset.clear()
+      #   move_and_slide()
       tryAndDieHazards()
     States.bouncing:
       setRot(defaultAngle)
@@ -684,6 +696,11 @@ func _physics_process(delta: float) -> void:
           velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * Input.get_axis("down", "jump")
         velocity *= .8
         # only bounce out of the water if going up
+        # log.err(velocity)
+
+        var lastWaterMove = vel.waterMove / delta if global.currentLevelSettings().playerMovesWithMovingWater else Vector2.ZERO
+        velocity += lastWaterMove
+        vel.waterMove = Vector2.ZERO
         for v: String in vel:
           vel[v] = Vector2.ZERO
         if waterRay.is_colliding() and Input.is_action_pressed(&"jump"):
@@ -704,6 +721,7 @@ func _physics_process(delta: float) -> void:
           handleCollision(block, normal, depth, collision.get_position())
         wasJustInWater = true
         move_and_slide()
+        velocity -= lastWaterMove
         tryAndDieHazards()
         tryAndDieSquish()
       else:
@@ -1080,6 +1098,7 @@ func _physics_process(delta: float) -> void:
         velocity = Vector2.ZERO
         if state != States.wallHang:
           for n: String in vel:
+            if n == 'waterMove': continue
             if n == 'user' and playerKT > 0:
               velocity += applyRot(Vector2(vel[n].x, 0))
             else:
@@ -1938,3 +1957,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # !!get normals for death messages
 # option to scale pan speed with editor zoom level
 # make player follow moving water
+# make grab states detectable by state detector block

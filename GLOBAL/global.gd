@@ -1899,6 +1899,7 @@ const defaultLevelSettings = {
   "canDoWallSlide": true,
   "canDoWallJump": true,
   "checkpointsSaveAll": false,
+  "playerMovesWithMovingWater": true,
 }
 
 func currentLevelSettings(key: Variant = null) -> Variant:

@@ -41,34 +41,38 @@ func updateUi(
   for k in data:
     if k not in global.defaultLevelSettings: continue
     var v = data[k]
-    match typeof(v):
-      TYPE_BOOL:
-        if showAllMods:
-          modVis(k, true)
-          modVis(k + '/nope', !v)
+    match k:
+      'playerMovesWithMovingWater':
+        modVis('playerMovesWithMovingWater', showAllMods or !v)
+        modVis('playerMovesWithMovingWater/main', showAllMods and v)
+        modVis('playerMovesWithMovingWater/nope', !v)
+      'jumpCount':
+        for child in $GridContainer.get_node('jumpCount').get_children():
+          child.visible = false
+        modVis('jumpCount', true)
+        if v >= 4:
+          modVis('jumpCount/4+', true)
+        elif v == 1:
+          modVis('jumpCount/1', true)
+          modVis('jumpCount', showAllMods)
+        elif v <= 0:
+          modVis('jumpCount/1', true)
+          modVis('jumpCount/nope', true)
         else:
-          if v == global.defaultLevelSettings[k]:
-            modVis(k, false)
-          else:
-            modVis(k, true)
-            modVis(k + '/nope', !v)
+          modVis('jumpCount/' + str(v), true)
+      "color": pass
       _:
-        match k:
-          'jumpCount':
-            for child in $GridContainer.get_node('jumpCount').get_children():
-              child.visible = false
-            modVis('jumpCount', true)
-            if v >= 4:
-              modVis('jumpCount/4+', true)
-            elif v == 1:
-              modVis('jumpCount/1', true)
-              modVis('jumpCount', showAllMods)
-            elif v <= 0:
-              modVis('jumpCount/1', true)
-              modVis('jumpCount/nope', true)
+        match typeof(v):
+          TYPE_BOOL:
+            if showAllMods:
+              modVis(k, true)
+              modVis(k + '/nope', !v)
             else:
-              modVis('jumpCount/' + str(v), true)
-          "color": pass
+              if v == global.defaultLevelSettings[k]:
+                modVis(k, false)
+              else:
+                modVis(k, true)
+                modVis(k + '/nope', !v)
           _:
             log.err('updateUi: unknown key:', k, v)
             breakpoint
