@@ -53,7 +53,7 @@ func reload(noCache:=false) -> void:
         nodeCount -= columns
         extraCount += columns
 
-      log.pp(invalidCount, "invalidCount", separatorCount)
+      # log.pp(invalidCount, "invalidCount", separatorCount)
       separatorCount = 0
       while invalidCount:
         invalidCount -= 1

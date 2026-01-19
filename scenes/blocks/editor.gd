@@ -214,7 +214,7 @@ func respawn() -> void:
       log.err("no thingThatMoves", block.id)
       breakpoint
     # log.pp(block == self, block.name, block.id, self.name, self.id)
-    block.respawn()
+    # block.respawn()
   attach_children = []
   if not DONT_MOVE_ON_RESPAWN:
     global_position = startPosition

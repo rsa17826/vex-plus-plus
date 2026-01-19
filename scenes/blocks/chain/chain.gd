@@ -4,30 +4,37 @@ class_name BlockChain
 
 var thingsInside: Array[EditorBlock] = []
 
-# func on_respawn() -> void:
-#   await global.wait(1000)
-#   log.pp("sdkjldsjkfkldsfjklsdflk")
-#   var newChildren:Array=[]
-#   for child in attach_children:
-#     newChildren+=child.attach_parents.filter(func(e): return e != self)
-#   for child in attach_children:
-#     child.attach_parents.append_array(newChildren)
-#     log.pp(child.attach_parents)
-#   # log.pp(attach_children, attach_parents)
 func _init() -> void:
-  global.attachChildAdded.connect(attachChildAdded)
-  global.attachParentAdded.connect(attachParentAdded)
-var watchedBlocks = []
-var childrenToAppend = []
-var childrenToAppendTo = []
-func attachChildAdded(block: EditorBlock, child: EditorBlock):
-  if block == self:
-    watchedBlocks.append(child)
-    for node in child.attach_parents:
-      if node not in childrenToAppend:
-        childrenToAppend.append(node)
-    log.pp(childrenToAppend)
-    # log.pp(child.attach_children, child.attach_parents)
-  # log.pp(block, child, "child", block == self, child == self)
-func attachParentAdded(block: EditorBlock, parent: EditorBlock):
-  log.pp(block, parent, "parent", block in watchedBlocks, parent == self)
+  # global.attachChildAdded.connect(attachChildAdded)
+  global.player.Alltryaddgroups.connect(a)
+
+func a():
+  await global.wait()
+# func attachChildAdded(block: EditorBlock, _child: EditorBlock):
+  var merged := collect_attachment_group(attach_children)
+
+  for child in attach_children:
+    child.attach_parents.erase(self)
+    for other in merged:
+      if other != child:
+        if other not in self.attach_parents:
+          self.attach_parents.append(other)
+        if self not in other.attach_children:
+          other.attach_children.append(self)
+        if child not in other.attach_children:
+          other.attach_children.append(child)
+        log.pp(child, other, child in other.attach_children)
+        if other not in child.attach_parents:
+          child.attach_parents.append(other)
+    # log.pp(child.id, child.attach_parents.map(func(e): return e.id))
+
+func collect_attachment_group(start_nodes: Array) -> Array:
+  var out = []
+  for node in start_nodes:
+    if node == self: continue
+
+    for parent in node.attach_parents:
+      if parent != self and parent not in out:
+        out.append(parent)
+
+  return out
