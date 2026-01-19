@@ -2,7 +2,7 @@ extends BeautifierAPI
 
 func _ready() -> void:
   set_editor_setting("interface/theme/custom_theme", get_system_file("assets/theme.tres"))
-  set_editor_setting("interface/theme/base_color", Color("00000054"))
+  set_editor_setting("interface/theme/base_color", Color("44004754"))
   # set_editor_setting("interface/theme/base_color", Color("0000"))
   set_editor_setting("interface/theme/accent_color", Color("8f8fc6"))
   set_editor_setting("interface/editor/dim_editor_on_dialog_popup", false)
