@@ -484,6 +484,14 @@ func _physics_process(delta: float) -> void:
       if !block.thingThatMoves:
         log.err("no thingThatMoves", block.id)
         breakpoint
+      if block is BlockWater:
+        # log.pp(11111, block.playerInsideWater, block in global.player.inWaters, block, global.player.inWaters,  (lastMovementStep.rotated(-block.rotation) / block.global_scale) / 7)
+        if block.playerInsideWater and block in global.player.inWaters:
+          # var offset = global.player.position - block.thingThatMoves.global_position
+          # global.player.waterOffset.append([offset, block])
+          # log.pp(global.player.position - block.thingThatMoves.global_position)
+          global.player.vel.waterMove += lastMovementStep.rotated(-block.rotation)
+          # log.pp(global.player.vel.waterMove)
       block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
 func postMovementStep(): pass
 var left_edge: float
