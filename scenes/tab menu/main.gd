@@ -255,8 +255,8 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "showSignalListInEditor", \
     "showSignalListInPlay", \
     "onlyShowSignalConnectionsIfHoveringOverAny", \
-    "showLevelModsWhileEditing", \
-    "showLevelModsWhilePlaying", \
+    "showLevelModifiersWhileEditing", \
+    "showLevelModifiersWhilePlaying", \
     "showLevelLoadingProgressBar", \
     "showLevelLoadingBehindProgressBar", \
     "showPathBlockInPlay", \
@@ -298,7 +298,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "showTotalActiveSignalCounts", \
     "showWhatBlocksAreSendingSignals", \
     "onlyShowActiveSignals", \
-    "showUnchangedLevelMods", \
+    "showUnchangedLevelModifiers", \
     "allowCustomColors":
       if global.isAlive(global.level):
         global.level.save(false)

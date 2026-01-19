@@ -239,9 +239,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **onlyShowSignalConnectionsIfHoveringOverAny**: Only show signal connection lines if the user is hovering over any object that has signal connections
     - ### level mods
 
-      - **showLevelModsWhileEditing**: if true the level modifiers will be shown while editing
-      - **showLevelModsWhilePlaying**: if true the level modifiers will be shown while playing
-      - **showUnchangedLevelMods**: if true the level modifiers will be shown even if the value is the same as the default
+      - **showLevelModifiersWhileEditing**: if true the level modifiers will be shown while editing
+      - **showLevelModifiersWhilePlaying**: if true the level modifiers will be shown while playing
+      - **showUnchangedLevelModifiers**: if true the level modifiers will be shown even if the value is the same as the default
     - **showLevelLoadingProgressBar**: Enable to show a progress bar while loading the level.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
     - ### paths

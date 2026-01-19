@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://be824ve2c7lm3"]
+[gd_scene format=3 uid="uid://be824ve2c7lm3"]
 
 [ext_resource type="Script" uid="uid://b6h0y67wm6mxg" path="res://scenes/ui/modifiers/modifiers.gd" id="1_dt3tg"]
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="2_1qclt"]
@@ -14,13 +14,13 @@
 [ext_resource type="Texture2D" uid="uid://nsc828vkp3sq" path="res://scenes/ui/modifiers/images/4+ jumps.png" id="10_fmbj4"]
 [ext_resource type="Texture2D" uid="uid://db55mv41mlepw" path="res://scenes/ui/modifiers/images/changeSpeedOnSlopes.png" id="11_a68qm"]
 
-[node name="modifiers" type="Control"]
+[node name="modifiers" type="Control" unique_id=1104311651]
 layout_mode = 3
 anchors_preset = 0
 mouse_filter = 2
 script = ExtResource("1_dt3tg")
 
-[node name="modifiers editor bg" type="ColorRect" parent="."]
+[node name="modifiers editor bg" type="ColorRect" parent="." unique_id=2051497006]
 visible = false
 layout_mode = 0
 offset_right = 158.0
@@ -29,26 +29,26 @@ mouse_filter = 2
 color = Color(0, 0.049301185, 0.12897289, 1)
 script = ExtResource("2_1qclt")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1961918465]
 layout_mode = 0
 offset_right = 158.0
 offset_bottom = 158.0
 columns = 3
 
-[node name="_base" type="Control" parent="GridContainer"]
+[node name="_base" type="Control" parent="GridContainer" unique_id=918862238]
 visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="main" type="TextureRect" parent="GridContainer/_base"]
+[node name="main" type="TextureRect" parent="GridContainer/_base" unique_id=1003531477]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
 texture = ExtResource("2_y06cl")
 expand_mode = 1
 
-[node name="nope" type="TextureRect" parent="GridContainer/_base"]
+[node name="nope" type="TextureRect" parent="GridContainer/_base" unique_id=1872337576]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 25.0
@@ -58,12 +58,12 @@ rotation = -0.7853982
 texture = ExtResource("3_1qclt")
 expand_mode = 1
 
-[node name="canDoWallSlide" type="Control" parent="GridContainer"]
+[node name="canDoWallSlide" type="Control" parent="GridContainer" unique_id=1040968719]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="main" type="TextureRect" parent="GridContainer/canDoWallSlide"]
+[node name="main" type="TextureRect" parent="GridContainer/canDoWallSlide" unique_id=1600789632]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -71,7 +71,7 @@ tooltip_text = "the player can slide down walls"
 texture = ExtResource("4_8ra60")
 expand_mode = 1
 
-[node name="nope" type="TextureRect" parent="GridContainer/canDoWallSlide"]
+[node name="nope" type="TextureRect" parent="GridContainer/canDoWallSlide" unique_id=422837196]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 25.0
@@ -82,12 +82,12 @@ tooltip_text = "the player can not slide down walls"
 texture = ExtResource("3_1qclt")
 expand_mode = 1
 
-[node name="canDoWallHang" type="Control" parent="GridContainer"]
+[node name="canDoWallHang" type="Control" parent="GridContainer" unique_id=1299907060]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="main" type="TextureRect" parent="GridContainer/canDoWallHang"]
+[node name="main" type="TextureRect" parent="GridContainer/canDoWallHang" unique_id=1263285451]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -95,7 +95,7 @@ tooltip_text = "the player will grab onto ledges when jumping up a wall"
 texture = ExtResource("5_31ouh")
 expand_mode = 1
 
-[node name="nope" type="TextureRect" parent="GridContainer/canDoWallHang"]
+[node name="nope" type="TextureRect" parent="GridContainer/canDoWallHang" unique_id=556730041]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 25.0
@@ -106,12 +106,12 @@ tooltip_text = "the player will not grab onto ledges"
 texture = ExtResource("3_1qclt")
 expand_mode = 1
 
-[node name="canDoWallJump" type="Control" parent="GridContainer"]
+[node name="canDoWallJump" type="Control" parent="GridContainer" unique_id=1110346897]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="main" type="TextureRect" parent="GridContainer/canDoWallJump"]
+[node name="main" type="TextureRect" parent="GridContainer/canDoWallJump" unique_id=1462184848]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -119,7 +119,7 @@ tooltip_text = "the player can walljump"
 texture = ExtResource("6_0oxwt")
 expand_mode = 1
 
-[node name="nope" type="TextureRect" parent="GridContainer/canDoWallJump"]
+[node name="nope" type="TextureRect" parent="GridContainer/canDoWallJump" unique_id=844832703]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 25.0
@@ -130,12 +130,12 @@ tooltip_text = "walljumping is disabled"
 texture = ExtResource("3_1qclt")
 expand_mode = 1
 
-[node name="autoRun" type="Control" parent="GridContainer"]
+[node name="autoRun" type="Control" parent="GridContainer" unique_id=1929050795]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="main" type="TextureRect" parent="GridContainer/autoRun"]
+[node name="main" type="TextureRect" parent="GridContainer/autoRun" unique_id=412146452]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -143,7 +143,7 @@ tooltip_text = "the player will keep running"
 texture = ExtResource("7_ob0qt")
 expand_mode = 1
 
-[node name="nope" type="TextureRect" parent="GridContainer/autoRun"]
+[node name="nope" type="TextureRect" parent="GridContainer/autoRun" unique_id=1700841119]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 25.0
@@ -154,12 +154,12 @@ tooltip_text = "the player can move left and right normally"
 texture = ExtResource("3_1qclt")
 expand_mode = 1
 
-[node name="jumpCount" type="Control" parent="GridContainer"]
+[node name="jumpCount" type="Control" parent="GridContainer" unique_id=333996530]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="1" type="TextureRect" parent="GridContainer/jumpCount"]
+[node name="1" type="TextureRect" parent="GridContainer/jumpCount" unique_id=1059468110]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -167,7 +167,7 @@ tooltip_text = "the player has 1 jump"
 texture = ExtResource("8_y06cl")
 expand_mode = 1
 
-[node name="2" type="TextureRect" parent="GridContainer/jumpCount"]
+[node name="2" type="TextureRect" parent="GridContainer/jumpCount" unique_id=1968386812]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -175,7 +175,7 @@ tooltip_text = "the player has a double jump"
 texture = ExtResource("8_coan7")
 expand_mode = 1
 
-[node name="3" type="TextureRect" parent="GridContainer/jumpCount"]
+[node name="3" type="TextureRect" parent="GridContainer/jumpCount" unique_id=1031112329]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -183,7 +183,7 @@ tooltip_text = "the player has a tripple jump"
 texture = ExtResource("9_16mno")
 expand_mode = 1
 
-[node name="4+" type="TextureRect" parent="GridContainer/jumpCount"]
+[node name="4+" type="TextureRect" parent="GridContainer/jumpCount" unique_id=177169375]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -191,7 +191,7 @@ tooltip_text = "the player has a 4 or more jumps"
 texture = ExtResource("10_fmbj4")
 expand_mode = 1
 
-[node name="nope" type="TextureRect" parent="GridContainer/jumpCount"]
+[node name="nope" type="TextureRect" parent="GridContainer/jumpCount" unique_id=647814857]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 25.0
@@ -202,12 +202,12 @@ tooltip_text = "the player is not able to jump"
 texture = ExtResource("3_1qclt")
 expand_mode = 1
 
-[node name="changeSpeedOnSlopes" type="Control" parent="GridContainer"]
+[node name="changeSpeedOnSlopes" type="Control" parent="GridContainer" unique_id=1301467452]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="main" type="TextureRect" parent="GridContainer/changeSpeedOnSlopes"]
+[node name="main" type="TextureRect" parent="GridContainer/changeSpeedOnSlopes" unique_id=247708510]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -215,23 +215,23 @@ tooltip_text = "when moving up a slope the player will be slower and when moving
 texture = ExtResource("11_a68qm")
 expand_mode = 1
 
-[node name="nope" type="TextureRect" parent="GridContainer/changeSpeedOnSlopes"]
+[node name="nope" type="TextureRect" parent="GridContainer/changeSpeedOnSlopes" unique_id=480165363]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 25.0
 offset_right = 40.0
 offset_bottom = 75.0
 rotation = -0.7853982
-tooltip_text = "the player speed will be the same going up or down slopes"
+tooltip_text = "the player's speed will be the same going up or down slopes"
 texture = ExtResource("3_1qclt")
 expand_mode = 1
 
-[node name="checkpointsSaveAll" type="Control" parent="GridContainer"]
+[node name="checkpointsSaveAll" type="Control" parent="GridContainer" unique_id=677837567]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 mouse_filter = 1
 
-[node name="main" type="TextureRect" parent="GridContainer/checkpointsSaveAll"]
+[node name="main" type="TextureRect" parent="GridContainer/checkpointsSaveAll" unique_id=1326772679]
 layout_mode = 0
 offset_right = 50.0
 offset_bottom = 50.0
@@ -239,7 +239,7 @@ tooltip_text = "when the player collects a checkpoint all data will be saved"
 texture = ExtResource("2_y06cl")
 expand_mode = 1
 
-[node name="nope" type="TextureRect" parent="GridContainer/checkpointsSaveAll"]
+[node name="nope" type="TextureRect" parent="GridContainer/checkpointsSaveAll" unique_id=1157890705]
 layout_mode = 0
 offset_left = -10.0
 offset_top = 25.0
