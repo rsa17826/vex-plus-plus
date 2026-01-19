@@ -62,8 +62,9 @@ func getBlockData(block: EditorBlock, isSelected: bool) -> String:
     'posy': str(int(block.startPosition.y)),
     'rot': str(int(block.startRotation_degrees)),
     'id': block.id,
-    "layer": str(block.get_index())
+    "layer": str(block.get_index()),
+    "attach_children": ' - '.join(block.attach_children.map(func(e): return e.id + ',' + e.name)),
+    "attach_parents": ' - '.join(block.attach_parents.map(func(e): return e.id + ',' + e.name)),
   }
 
-  return "block.attach_children: " + ' - '.join(block.attach_children.map(func(e): return e.id + ',' + e.name)) + "\nblock.attach_parents: " + ' - '.join(block.attach_parents.map(func(e): return e.id + ',' + e.name))
   return (global.useropts.selectedBlockFormatString if isSelected else global.useropts.hoveredBlockFormatString).format(table)

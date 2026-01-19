@@ -1900,3 +1900,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # !!get normals for death messages
 # option to scale pan speed with editor zoom level
+# make player follow moving water

@@ -6,9 +6,9 @@ func _ready() -> void:
   global.overlays.append(self)
 
 func _process(delta: float) -> void:
-  if global.useropts.showLevelModsWhilePlaying and !global.showEditorUi:
+  if global.useropts.showLevelModifiersWhilePlaying and !global.showEditorUi:
     visible = true
-  elif global.useropts.showLevelModsWhileEditing and global.showEditorUi:
+  elif global.useropts.showLevelModifiersWhileEditing and global.showEditorUi:
     visible = true
   else:
     visible = false
@@ -31,7 +31,7 @@ func toggleEditor():
 
 func updateUi(
   data: Dictionary,
-  showAllMods: bool = global.useropts.showUnchangedLevelMods
+  showAllMods: bool = global.useropts.showUnchangedLevelModifiers
 ):
   # hide all mods
   for child in $GridContainer.get_children():
