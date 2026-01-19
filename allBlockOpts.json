@@ -231,6 +231,20 @@
       "type": 8
     }
   },
+  "chain": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    }
+  },
   "checkpoint": {
     "canAttachToPaths": {
       "default": true,
@@ -943,6 +957,28 @@
     "color": {
       "default": "#fff",
       "type": 8
+    }
+  },
+  "rotator": {
+    "canAttachToPaths": {
+      "default": true,
+      "type": 6
+    },
+    "canAttachToThings": {
+      "default": true,
+      "type": 6
+    },
+    "color": {
+      "default": "#fff",
+      "type": 8
+    },
+    "signalInputId": {
+      "default": 0,
+      "type": 0
+    },
+    "speed": {
+      "default": 50,
+      "type": 3
     }
   },
   "scythe": {

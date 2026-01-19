@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://oert7r00mgen" path="res://scenes/blocks/chain/chain.gd" id="1_cxlk4"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_dlq5l"]
-[ext_resource type="Texture2D" uid="uid://bvdkdks7c4764" path="res://scenes/blocks/chain/images/chainl.png" id="4_6mk40"]
+[ext_resource type="Texture2D" uid="uid://bvdkdks7c4764" path="res://scenes/blocks/chain/images/1.png" id="4_6mk40"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_pvl7m"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_puv5n"]
 
@@ -39,11 +39,13 @@ position = Vector2(0, -1.6051364)
 texture = ExtResource("4_6mk40")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=1571379581]
+visible = false
 shape = SubResource("CapsuleShape2D_fn6fc")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_pvl7m")
 
 [node name="attach detector" type="ShapeCast2D" parent="." unique_id=1989296439 node_paths=PackedStringArray("root")]
+visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CapsuleShape2D_fn6fc")
