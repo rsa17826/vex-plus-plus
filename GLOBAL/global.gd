@@ -2093,7 +2093,8 @@ const DEFAULT_BLOCK_LIST = [
   "crumbling",
   "timer",
   "zipline",
-  # "rotator",
+  "chain",
+  "rotator",
 ]
 
 func loadEditorBarData():
