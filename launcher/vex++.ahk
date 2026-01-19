@@ -259,7 +259,7 @@ if hasProcessRunning() and F.read("launcherData/lastRanVersion.txt") {
     args .= ' "' . StrReplace(arg, '"', '\"') . '"'
   }
   ; args .= ' ' F.read("launcherData/defaultArgs.txt")
-  run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", F.read("launcherData/lastRanVersion.txt")))
+  run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args)
   ExitApp()
 }
 if gettings.useXdm {
@@ -654,6 +654,11 @@ runVersion(gameVersion, newArgs := []) {
           path.join(A_ScriptDir, "game data/vex.console.exe"),
           1
         )
+      FileCopy(
+        path.join(A_ScriptDir, "versions/", gameVersion, "vex.pck"),
+        path.join(A_ScriptDir, "game data/vex.pck"),
+        1
+      )
       ; } catch {
       ;   consoleIsBlocked := 1
       ; }
@@ -690,7 +695,7 @@ runVersion(gameVersion, newArgs := []) {
     ;   args .= ' RESTART_LAUNCHER'
     ;   run('"' . path.join(A_ScriptDir, "game data/vex.exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
     ; } else {
-    run('"' . path.join(A_ScriptDir, "game data/vex" (gettings.openGameConsole ? ".console" : '') ".exe") . '"' . args, path.join(A_ScriptDir, "versions", gameVersion))
+    run('"' . path.join(A_ScriptDir, "game data/vex" (gettings.openGameConsole ? ".console" : '') ".exe") . '"' . args)
     doingSomething := 0
     return 1
     ; }
