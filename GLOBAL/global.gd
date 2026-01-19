@@ -2097,20 +2097,21 @@ const DEFAULT_BLOCK_LIST = [
   "rotator",
 ]
 
+const oldNameMap = {
+  "buzsaw": "buzzsaw",
+  "bouncing buzsaw": "bouncing buzzsaw",
+  "growing buzsaw": "growing buzzsaw",
+  "rotating buzsaw": "rotating buzzsaw",
+  "Rotating Buzzsaw": "rotating buzzsaw",
+  "shurikan spawner": 'shuriken spawner',
+  "bouncing shurikan": 'bouncing shuriken',
+  "conveyer": 'conveyor',
+  "updown": 'upDown',
+  "downup": 'downUp',
+  "Pulley": 'pulley',
+}
+
 func loadEditorBarData():
-  var oldNames = {
-    "buzsaw": "buzzsaw",
-    "bouncing buzsaw": "bouncing buzzsaw",
-    "growing buzsaw": "growing buzzsaw",
-    "rotating buzsaw": "rotating buzzsaw",
-    "Rotating Buzzsaw": "rotating buzzsaw",
-    "shurikan spawner": 'shuriken spawner',
-    "bouncing shurikan": 'bouncing shuriken',
-    "conveyer": 'conveyor',
-    "updown": 'upDown',
-    "downup": 'downUp',
-    "Pulley": 'pulley',
-  }
   var editorBarData = sds.loadDataFromFile(path.abs("res://editorBar.sds"), [])
   var tempBlockNames = []
   var unusedBlockNames = DEFAULT_BLOCK_LIST.duplicate()
@@ -2120,14 +2121,14 @@ func loadEditorBarData():
       for thing in editorBarData[k]:
         tempNames.append(thing)
   for name in tempNames:
-    if name in oldNames and oldNames[name] not in tempNames:
+    if name in oldNameMap and oldNameMap[name] not in tempNames:
       for k in editorBarData:
         if name in editorBarData[k]:
-          if name.to_lower() == oldNames[name].to_lower():
+          if name.to_lower() == oldNameMap[name].to_lower():
             # i don't know why changing the case of the name doesn't prevent the resourceloader from finding it so doing this until i can find a better way to tell the case when loading it
-            editorBarData[k][editorBarData[k].find(name)] = oldNames[name]
+            editorBarData[k][editorBarData[k].find(name)] = oldNameMap[name]
           else:
-            editorBarData[k].insert(editorBarData[k].find(name) + 1, oldNames[name])
+            editorBarData[k].insert(editorBarData[k].find(name) + 1, oldNameMap[name])
           break
   if useropts and editorBarData:
     var i = 0
