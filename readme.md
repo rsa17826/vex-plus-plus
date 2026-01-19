@@ -64,6 +64,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **dischargeTime**: the time it takes for a signal to be discharged
     - **onSignalActivationWhileDischarging**: what happens when its signal is activating while discharging
     - **id**: the ziplines with the same id will be connected
+    - **speed**: the speed at which the rotator rotates blocks
 -->
 
 - ## Controls
@@ -1238,6 +1239,29 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - canAttachToPaths
     - ### settings:
       - **id**: the ziplines with the same id will be connected
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
+  - **chain**: links 2 or more blocks together so when one is moved the other is moved with it
+    <br><br><img src="scenes/blocks/chain/images/1.png" alt="image of block chain" width="25" height="50">
+
+    - scalable
+    - canAttachToThings
+    - canAttachToPaths
+    - ### settings:
+      - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
+      - **canAttachToPaths**: allows this block to attach to paths
+      - **color**: sets the modulate property
+
+  - **rotator**: rotates blocks attached to it
+    <br><br><img src="scenes/blocks/rotator/images/editorBar.png" alt="image of block rotator" width="50" height="50">
+
+    - canAttachToThings
+    - canAttachToPaths
+    - ### settings:
+      - **signalInputId**: the id of the signal it is listening for
+      - **speed**: the speed at which the rotator rotates blocks
       - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
