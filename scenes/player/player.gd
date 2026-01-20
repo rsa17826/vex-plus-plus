@@ -1825,6 +1825,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-237! being blown by a fan then grabbing onto a ledge will cause the camera to slowly go up desyncing from the player until either reentering play mode or dying
   # !version ?-237! being blown by a fan then landing on a falling block will cause the player to jitter on top of it without causing it to start falling
   # !version ?-239! having upwards velocity while trying to jump from one wall to the same side of another wall will cause the player to not be able to grab onto the wall
+  # !version 246-NOW! stacking waters with playerMovesWithMovingWater enabled will launch the player at waterCount X speed
 
 # ?add level option to change canPressDownToShortHop and make sh work
 
