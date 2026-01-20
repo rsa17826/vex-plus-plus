@@ -157,11 +157,17 @@ func save(saveImage: bool):
         obj.options.erase("fakeId")
     data.append(obj)
   log.pp('saving to', global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
+  var levelSize = var_to_bytes(data).size()
+  # if level is large shrink save file to make loading faster
+  # tested with size ~300_000 and from 30s to 22s load time
+  if levelSize > 100_000:
+    sds.prettyPrint = false
   var savedData = sds.saveData(data).strip_edges()
+  sds.prettyPrint = !global.useropts.smallerSaveFiles
   var levelHasChanged = savedData != FileAccess.get_file_as_string(global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds"))
   FileAccess.open(
     global.path.join(global.levelFolderPath, global.currentLevel().name + ".sds")
-    , FileAccess.WRITE_READ).store_string(savedData)
+    , FileAccess.WRITE).store_string(savedData)
 
   var opts = sds.loadDataFromFile(global.path.join(global.levelFolderPath, "options.sds"))
   opts.gameVersion = int(global.file.read("res://VERSION", false, "-1"))

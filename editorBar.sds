@@ -16,7 +16,6 @@
     STR(bomb)
     STR(pushable box)
     STR(undeath)
-    STR(chain)
   ]
   STR(spikes)[
     STR(closing spikes)
@@ -40,6 +39,8 @@
     STR(donup)
     STR(bouncy)
     STR(pendulum)
+    STR(chain)
+    STR(rotator)
   ]
   STR(solars)[
     STR(light switch)
@@ -120,7 +121,7 @@
     STR(path)
     STR(signal deactivated wall)
   ]
-  STR(remove)[
+  STR(aremove)[
     STR(UNAVAILABLE)
   ]
 }
