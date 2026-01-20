@@ -1196,7 +1196,7 @@ func _physics_process(delta: float) -> void:
   #   camera.global_rotation = deg_to_rad(0)
 
 func try_step_up(dir: float) -> void:
-  for i in range(1, floor_snap_length + 1):
+  for i in range(0, floor_snap_length + 1):
     var up := Vector2(0, -i)
     var forward := Vector2(dir * 1, 0)
 
@@ -1205,7 +1205,7 @@ func try_step_up(dir: float) -> void:
 
     # Must be able to go forward after stepping up
     if test_move(global_transform.translated(up), forward): continue
-
+    # log.pp("moving up", i)
     position.y -= i
     return
 
@@ -1843,6 +1843,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-237! being blown by a fan then landing on a falling block will cause the player to jitter on top of it without causing it to start falling
   # !version ?-239! having upwards velocity while trying to jump from one wall to the same side of another wall will cause the player to not be able to grab onto the wall
   # !version 246-NOW! stacking waters with playerMovesWithMovingWater enabled will launch the player at waterCount X speed
+  # !version 247-247! walking off a ledge moves player up 1 px
 
 # ?add level option to change canPressDownToShortHop and make sh work
 
