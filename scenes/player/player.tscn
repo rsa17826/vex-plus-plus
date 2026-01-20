@@ -1,4 +1,4 @@
-[gd_scene load_steps=293 format=3 uid="uid://cecm0tp3hsdnh"]
+[gd_scene format=3 uid="uid://cecm0tp3hsdnh"]
 
 [ext_resource type="Script" uid="uid://b1v0la88o0qxe" path="res://scenes/player/playerEditor.gd" id="1_4v6xr"]
 [ext_resource type="Script" uid="uid://tihrou0yuiql" path="res://scenes/player/player.gd" id="1_dovo2"]
@@ -1271,7 +1271,7 @@ size = Vector2(14, 31.8)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q53ni"]
 size = Vector2(10, 3)
 
-[node name="player" type="Node2D" node_paths=PackedStringArray("player", "ghostIconNode", "collisionShapes")]
+[node name="player" type="Node2D" unique_id=1401082404 node_paths=PackedStringArray("player", "ghostIconNode", "collisionShapes")]
 visibility_layer = 3
 z_index = 10
 script = ExtResource("1_4v6xr")
@@ -1282,7 +1282,7 @@ ignoreMissingNodes = true
 DONT_ENABLE_ON_RESPAWN = true
 metadata/_edit_lock_ = true
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root", "stickyFloorDetector", "mainCollisionShape2D", "nowjDetector", "respawnDetectionArea", "leftWallDetection", "rightWallDetection", "leftWallTopDetection", "rightWallTopDetection", "waterRay", "deathDetectors", "wallDetectors", "anim", "waterAnimTop", "waterAnimBottom", "camera")]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=825824638 node_paths=PackedStringArray("root", "stickyFloorDetector", "mainCollisionShape2D", "nowjDetector", "respawnDetectionArea", "leftWallDetection", "rightWallDetection", "leftWallTopDetection", "rightWallTopDetection", "waterRay", "deathDetectors", "wallDetectors", "anim", "waterAnimTop", "waterAnimBottom", "camera")]
 visibility_layer = 3
 position = Vector2(0, -1.9)
 collision_layer = 2050
@@ -1312,7 +1312,7 @@ waterAnimBottom = NodePath("waterAnimBottom")
 camera = NodePath("Camera2D")
 metadata/_edit_lock_ = true
 
-[node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="anim" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1648969648]
 visibility_layer = 3
 material = ExtResource("3_4v6xr")
 use_parent_material = true
@@ -1324,7 +1324,7 @@ autoplay = "idle"
 frame_progress = 3.76231e-05
 metadata/_edit_lock_ = true
 
-[node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="waterAnimTop" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=1026405063]
 visible = false
 material = ExtResource("3_4v6xr")
 position = Vector2(1.495, -4.865)
@@ -1332,7 +1332,7 @@ scale = Vector2(0.143, 0.143)
 sprite_frames = SubResource("SpriteFrames_3gk6k")
 autoplay = "default"
 
-[node name="waterAnimBottom" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="waterAnimBottom" type="AnimatedSprite2D" parent="CharacterBody2D" unique_id=587324080]
 visible = false
 material = ExtResource("3_4v6xr")
 position = Vector2(0, 9.36)
@@ -1342,7 +1342,7 @@ autoplay = "default"
 frame_progress = 0.429972
 metadata/_edit_lock_ = true
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=2075928876]
 physics_interpolation_mode = 1
 visible = false
 position = Vector2(0, -0.100000024)
@@ -1357,35 +1357,35 @@ drag_bottom_margin = 0.1
 script = ExtResource("279_mro88")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=281418815]
 shape = SubResource("RectangleShape2D_dovo2")
 debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true
 
-[node name="ziplineDetector" type="Area2D" parent="CharacterBody2D"]
+[node name="ziplineDetector" type="Area2D" parent="CharacterBody2D" unique_id=1608141136]
 collision_layer = 131072
 collision_mask = 0
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetector"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetector" unique_id=1711466916]
 position = Vector2(0, -6.275)
 shape = SubResource("RectangleShape2D_xb8ft")
 debug_color = Color(0.73333335, 0.44705883, 0, 0.105882354)
 metadata/_edit_lock_ = true
 
-[node name="ziplineDetectorForActiveZipline" type="Area2D" parent="CharacterBody2D"]
+[node name="ziplineDetectorForActiveZipline" type="Area2D" parent="CharacterBody2D" unique_id=1621591396]
 collision_layer = 262144
 collision_mask = 0
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetectorForActiveZipline"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/ziplineDetectorForActiveZipline" unique_id=1121247045]
 position = Vector2(0, -6.275)
 shape = SubResource("RectangleShape2D_mro88")
 debug_color = Color(0.73333335, 0.44705883, 0, 0)
 metadata/_edit_lock_ = true
 
-[node name="wallDetectors" type="Node2D" parent="CharacterBody2D"]
+[node name="wallDetectors" type="Node2D" parent="CharacterBody2D" unique_id=1644865567]
 metadata/_edit_lock_ = true
 
-[node name="leftWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
+[node name="leftWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors" unique_id=1909566426]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -15.575001)
 target_position = Vector2(-3, 0)
@@ -1393,7 +1393,7 @@ collision_mask = 16392
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="rightWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
+[node name="rightWall" type="RayCast2D" parent="CharacterBody2D/wallDetectors" unique_id=782523007]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -15.575001)
 target_position = Vector2(3, 0)
@@ -1401,7 +1401,7 @@ collision_mask = 16392
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="leftWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
+[node name="leftWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetectors" unique_id=1072356012]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(-4, -22.575)
 target_position = Vector2(-4, 0)
@@ -1409,7 +1409,7 @@ collision_mask = 16392
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="rightWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetectors"]
+[node name="rightWallTop" type="RayCast2D" parent="CharacterBody2D/wallDetectors" unique_id=1038758563]
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(3, -22.575)
 target_position = Vector2(4, 0)
@@ -1417,7 +1417,7 @@ collision_mask = 16392
 hit_from_inside = true
 collide_with_areas = true
 
-[node name="waterRay" type="RayCast2D" parent="CharacterBody2D"]
+[node name="waterRay" type="RayCast2D" parent="CharacterBody2D" unique_id=1079700209]
 visible = false
 self_modulate = Color(0.87451, 0, 0.831373, 1)
 position = Vector2(1, 10.795)
@@ -1428,54 +1428,54 @@ collide_with_areas = true
 collide_with_bodies = false
 metadata/_edit_lock_ = true
 
-[node name="squishDeathDetectors" type="Node2D" parent="CharacterBody2D"]
+[node name="squishDeathDetectors" type="Node2D" parent="CharacterBody2D" unique_id=1444413057]
 metadata/_edit_lock_ = true
 
-[node name="top" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
+[node name="top" type="Area2D" parent="CharacterBody2D/squishDeathDetectors" unique_id=866401214]
 position = Vector2(0, -16.15)
 collision_layer = 0
 collision_mask = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/top"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/top" unique_id=1236912633]
 position = Vector2(0, 3.025)
 shape = SubResource("RectangleShape2D_p0anf")
 metadata/_edit_lock_ = true
 
-[node name="left" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
+[node name="left" type="Area2D" parent="CharacterBody2D/squishDeathDetectors" unique_id=2132432963]
 position = Vector2(-3.505, 0)
 collision_layer = 0
 collision_mask = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/left"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/left" unique_id=1887203284]
 shape = SubResource("RectangleShape2D_lhgc7")
 metadata/_edit_lock_ = true
 
-[node name="right" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
+[node name="right" type="Area2D" parent="CharacterBody2D/squishDeathDetectors" unique_id=225507573]
 position = Vector2(3.5, 0)
 collision_layer = 0
 collision_mask = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/right"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/right" unique_id=1506169519]
 shape = SubResource("RectangleShape2D_lhgc7")
 metadata/_edit_lock_ = true
 
-[node name="bottom" type="Area2D" parent="CharacterBody2D/squishDeathDetectors"]
+[node name="bottom" type="Area2D" parent="CharacterBody2D/squishDeathDetectors" unique_id=153630063]
 position = Vector2(0, 15.99)
 collision_layer = 0
 collision_mask = 8
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/bottom"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/bottom" unique_id=198556996]
 position = Vector2(0, -3.01)
 shape = SubResource("RectangleShape2D_p0anf")
 metadata/_edit_lock_ = true
 
-[node name="deathDirectionDetection" type="Node2D" parent="CharacterBody2D"]
+[node name="deathDirectionDetection" type="Node2D" parent="CharacterBody2D" unique_id=835966037]
 
-[node name="up" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
+[node name="up" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection" unique_id=1731427195]
 position = Vector2(0, -16.255)
 shape = SubResource("RectangleShape2D_ya4ln")
 target_position = Vector2(0, 0)
@@ -1483,7 +1483,7 @@ collision_mask = 16
 collide_with_areas = true
 metadata/_edit_lock_ = true
 
-[node name="down" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
+[node name="down" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection" unique_id=1470667114]
 position = Vector2(0, 16.255)
 shape = SubResource("RectangleShape2D_ya4ln")
 target_position = Vector2(0, 0)
@@ -1491,7 +1491,7 @@ collision_mask = 16
 collide_with_areas = true
 metadata/_edit_lock_ = true
 
-[node name="left" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
+[node name="left" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection" unique_id=1588599741]
 position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_yopjo")
 target_position = Vector2(0, 0)
@@ -1499,7 +1499,7 @@ collision_mask = 16
 collide_with_areas = true
 metadata/_edit_lock_ = true
 
-[node name="right" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection"]
+[node name="right" type="ShapeCast2D" parent="CharacterBody2D/deathDirectionDetection" unique_id=1012374066]
 position = Vector2(3.5, 0)
 shape = SubResource("RectangleShape2D_yopjo")
 target_position = Vector2(0, 0)
@@ -1507,44 +1507,44 @@ collision_mask = 16
 collide_with_areas = true
 metadata/_edit_lock_ = true
 
-[node name="nowjDetector" type="Area2D" parent="CharacterBody2D"]
+[node name="nowjDetector" type="Area2D" parent="CharacterBody2D" unique_id=1576570844]
 unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 256
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/nowjDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/nowjDetector" unique_id=1959298304]
 shape = SubResource("RectangleShape2D_1ymuf")
 debug_color = Color(0.87451, 0, 0.352941, 0)
 metadata/_edit_lock_ = true
 
-[node name="stickyFloorDetector" type="Area2D" parent="CharacterBody2D"]
+[node name="stickyFloorDetector" type="Area2D" parent="CharacterBody2D" unique_id=1201485679]
 unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 4096
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/stickyFloorDetector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/stickyFloorDetector" unique_id=2016142376]
 position = Vector2(0, 15.4)
 shape = SubResource("RectangleShape2D_q53ni")
 debug_color = Color(0.27058825, 0, 0.41960785, 0.47843137)
 metadata/_edit_lock_ = true
 
-[node name="respawn detection area" type="Area2D" parent="CharacterBody2D"]
+[node name="respawn detection area" type="Area2D" parent="CharacterBody2D" unique_id=302069596]
 unique_name_in_owner = true
 visible = false
 collision_layer = 0
 collision_mask = 1532
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/respawn detection area"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/respawn detection area" unique_id=1636093676]
 shape = SubResource("RectangleShape2D_dovo2")
 debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true
 
-[node name="2 - ui" parent="." instance=ExtResource("200_1ymuf")]
+[node name="2 - ui" parent="." unique_id=161346498 instance=ExtResource("200_1ymuf")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=538133479]
 visible = false
 use_parent_material = true
 position = Vector2(0, -1.9)
