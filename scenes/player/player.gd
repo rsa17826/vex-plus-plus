@@ -1194,6 +1194,7 @@ func _physics_process(delta: float) -> void:
     # camera.global_rotation = deg_to_rad(0)
   # else:
   #   camera.global_rotation = deg_to_rad(0)
+
 func try_step_up(dir: float) -> void:
   for i in range(1, floor_snap_length + 1):
     var up := Vector2(0, -i)
@@ -1205,7 +1206,6 @@ func try_step_up(dir: float) -> void:
     # Must be able to go forward after stepping up
     if test_move(global_transform.translated(up), forward): continue
 
-    log.pp("sdsdhfkjj", i)
     position.y -= i
     return
 
