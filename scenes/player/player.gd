@@ -1117,6 +1117,9 @@ func _physics_process(delta: float) -> void:
         for n: String in vel:
           if justAddedVels[n]:
             justAddedVels[n] -= 1
+        if velocity.x != 0 and is_on_floor():
+          try_step_up(sign(velocity.x))
+
         move_and_slide()
         # var floorRayCollision: Node2D = null
         for i in get_slide_collision_count():
@@ -1183,14 +1186,28 @@ func _physics_process(delta: float) -> void:
       if angle_distance(rotation, targetAngle) < SMALL:
         slowCamRot = false
       if not slowCamRot \
-       or inWaters \
-       or global.useropts.cameraRotationOnGravityChangeHappensInstantly:
+      or inWaters \
+      or global.useropts.cameraRotationOnGravityChangeHappensInstantly:
         camera.global_rotation = targetAngle
       else:
         camera.global_rotation = lerp_angle(camrot, targetAngle, .15)
     # camera.global_rotation = deg_to_rad(0)
   # else:
   #   camera.global_rotation = deg_to_rad(0)
+func try_step_up(dir: float) -> void:
+  for i in range(1, floor_snap_length + 1):
+    var up := Vector2(0, -i)
+    var forward := Vector2(dir * 1, 0)
+
+    # Must be able to go up
+    if test_move(global_transform, up): continue
+
+    # Must be able to go forward after stepping up
+    if test_move(global_transform.translated(up), forward): continue
+
+    log.pp("sdsdhfkjj", i)
+    position.y -= i
+    return
 
 func moveAnimations():
   var flip_h = -1 if anim.flip_h else 1
