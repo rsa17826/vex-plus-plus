@@ -1,6 +1,9 @@
 # @regex settings \(launcher\.SettingsData\): _description_
 # @replace settings (launcher.SettingsData): The current settings object containing user-defined flags
 # @endregex
+# @regex selectedOs \(supportedOs\): _description_
+# @replace selectedOs (supportedOs): The users currently selected os
+# @endregex
 
 import launcher  # https://github.com/rsa17826/extendable-game-launcher
 import os
@@ -14,7 +17,19 @@ class supportedOs(Enum):
   # linux = 1
 
 
-def getGameLogLocation(selectedOs: supportedOs, gameId: str):
+def getGameLogLocation(
+  settings: launcher.SettingsData, selectedOs: supportedOs, gameId: str
+):
+  """returns the location of the game logs or false if no game logs exist
+
+  Args:
+    settings (launcher.SettingsData): The current settings object containing user-defined flags
+    selectedOs (supportedOs): The users currently selected os
+    gameId (str): _description_
+
+  Returns:
+    _type_: _description_
+  """
   match selectedOs:
     case supportedOs.windows:
       appdata = os.getenv("APPDATA")
@@ -24,8 +39,26 @@ def getGameLogLocation(selectedOs: supportedOs, gameId: str):
     #   return "~/.local/share/godot/app_userdata/<GAME NAME>/logs"
 
 
+def linkAll(_from, to, names):
+  """updates a set of hardlinks
+
+  Args:
+    _from (str): dir
+    to (str): dir
+    names (list[str]): list of filenames
+  """
+  for name in names:
+    if os.path.exists(os.path.join(to, name)):
+      os.remove(os.path.join(to, name))
+    os.link(os.path.join(_from, name), os.path.join(to, name))
+
+
 def gameLaunchRequested(
-  path, args, settings: launcher.SettingsData, selectedOs: supportedOs
+  path,
+  args,
+  settings: launcher.SettingsData,
+  selectedOs: supportedOs,
+  requestedGameDataLocation: str,
 ) -> None:
   if settings.loadSpecificMapOnStart:
     args += ["--loadMap", settings.nameOfMapToLoad]
@@ -37,19 +70,21 @@ def gameLaunchRequested(
   match selectedOs:
     case supportedOs.windows:
       exe = os.path.join(path, "vex.exe")
+      print("requestedGameDataLocation", requestedGameDataLocation)
       if os.path.isfile(exe):
-        subprocess.Popen([exe] + args, cwd=path)
+        linkAll(path, requestedGameDataLocation, ["vex.exe", "vex.pck"])
+        subprocess.Popen(
+          [os.path.join(requestedGameDataLocation, "vex.exe")] + args,
+          cwd=requestedGameDataLocation,
+        )
 
-      exe = os.path.join(path, "windows/vex.exe")
-      if os.path.isfile(exe):
-        subprocess.Popen([exe] + args, cwd=path)
     # case supportedOs.linux:
     #   exe = os.path.join(path, "vex.sh")
     #   if os.path.isfile(exe):
     #     subprocess.Popen([exe] + args, cwd=path)
 
 
-def getAssetName(settings: launcher.SettingsData) -> str:
+def getAssetName(settings: launcher.SettingsData, selectedOs: supportedOs) -> str:
   return "windows.zip"
 
 
@@ -95,26 +130,61 @@ def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
 
   layout.addWidget(
     _self.newCheckbox(
-      "Load Online Levels",
+      "Start in Online Levels Scene",
       False,
-      "loadOnlineLevels",
+      "startInOnlineLevelsScene",
       onChange=mapNameInput.setEnabled,
     )
   )
 
 
-launcher.run(
+from PySide6.QtWidgets import QMenu
+from typing import Callable, Dict, List, Any
+
+
+def addContextMenuOptions(
+  _self: launcher.Launcher,
+  data: launcher.ItemListData,
+  menu: QMenu,
+  newAction: Callable,
+) -> None:
+  pass
+
+
+def getImage(version: str):
+  return os.path.abspath("images/vex++.jpg")
+
+
+def onGameVersionDownloadComplete(path: str, version: str):
+  if os.path.isfile(os.path.join(path, "windows/vex.exe")):
+    # if game in wrong folder move it to the correct one
+    import shutil
+
+    os.rename(os.path.join(path, "windows/vex.exe"), os.path.join(path, "vex.exe"))
+    os.rename(
+      os.path.join(path, "windows/vex.console.exe"),
+      os.path.join(path, "vex.console.exe"),
+    )
+    os.rename(os.path.join(path, "windows/vex.pck"), os.path.join(path, "vex.pck"))
+    shutil.rmtree(os.path.join(path, "windows"))
+
+
+launcher.loadConfig(
   launcher.Config(
+    getImage=getImage,
     WINDOW_TITLE="Vex++ Launcher",
     USE_HARD_LINKS=True,
     CAN_USE_CENTRAL_GAME_DATA_FOLDER=True,
     GH_USERNAME="rsa17826",
     GH_REPO="vex-plus-plus",
+    LAUNCHER_ASSET_NAME="launcher.zip",
     getGameLogLocation=getGameLogLocation,
     gameLaunchRequested=gameLaunchRequested,
     getAssetName=getAssetName,
     gameVersionExists=gameVersionExists,
     addCustomNodes=addCustomNodes,
+    addContextMenuOptions=addContextMenuOptions,
+    onGameVersionDownloadComplete=onGameVersionDownloadComplete,
     supportedOs=supportedOs,
   )
 )
