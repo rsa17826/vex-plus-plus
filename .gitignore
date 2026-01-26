@@ -46,3 +46,5 @@ addons/talo/settings.cfg
 
 maps
 saves
+
+*.import
