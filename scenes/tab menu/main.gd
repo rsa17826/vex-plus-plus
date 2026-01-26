@@ -96,6 +96,8 @@ func _input(event: InputEvent) -> void:
   # if focus is LineEdit or focus is TextEdit: return
   if event is InputEventKey:
     if Input.is_action_just_pressed(&"toggle_tab_menu", true):
+      if global.mainMenu and global.mainMenu.loginMenuBg.visible: return
+      if not visible and get_viewport().gui_get_focus_owner() is LineEdit: return
       if global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay and isOptionsMenuOnMainMenu:
         global.file.write("user://mainMenuOptionsMenuVisible", str(visible), false)
       if global.isAlive(global.mainMenu) and global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:

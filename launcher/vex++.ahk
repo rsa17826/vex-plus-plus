@@ -290,6 +290,11 @@ getXdmDownloadPath() {
 }
 ; setup gui
 {
+  if not path.exists("launcherData/hasSeenNewLauncherMessage") {
+    f.write("launcherData/hasSeenNewLauncherMessage")
+    if aotMsgBox("there is a new launcher (this should still work but won't be updated anymore). do you want to open the page for the new launcher?", "New Launcher", 0x04) = 'yes'
+      run("https://github.com/rsa17826/multi-game-launcher")
+  }
   ui := Gui(gettings.aot ? "+AlwaysOnTop" : '')
   ui.OnEvent("Close", GuiClose)
   ui.Add("Text", , "Vex++ Version Manager")
@@ -424,17 +429,19 @@ getXdmDownloadPath() {
 
   ; check for updates on startup checkbox
   try FileGetShortcut(A_startup '/vex++ updater.lnk', &of)
-  updateOnBoot := FileExist(A_startup '/vex++ updater.lnk') and of == selfPath
-  guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on boot")
-  guiCtrl.OnEvent("Click", (elem, info) {
-    print(elem, info)
-    global updateOnBoot
-    updateOnBoot := elem.Value
-    try FileDelete(A_startup "/vex++ updater.lnk")
-    if updateOnBoot {
-      FileCreateShortcut(selfPath, A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
-    }
-  })
+  if FileExist(A_startup '/vex++ updater.lnk') and of == selfPath
+    FileDelete(A_startup "/vex++ updater.lnk")
+  ; updateOnBoot := FileExist(A_startup '/vex++ updater.lnk') and of == selfPath
+  ; guiCtrl := ui.AddCheckbox((updateOnBoot ? "+Checked" : '') '', "check for updates on boot")
+  ; guiCtrl.OnEvent("Click", (elem, info) {
+  ;   print(elem, info)
+  ;   global updateOnBoot
+  ;   updateOnBoot := elem.Value
+  ;   try FileDelete(A_startup "/vex++ updater.lnk")
+  ;   if updateOnBoot {
+  ;     FileCreateShortcut(selfPath, A_startup "/vex++ updater.lnk", A_ScriptDir, "tryupdate silent")
+  ;   }
+  ; })
   guiCtrl := ui.AddCheckbox((gettings.useXdm ? "+Checked" : '') '', "use xdm")
   guiCtrl.OnEvent("Click", (elem, *) {
     settings.useXdm := elem.value

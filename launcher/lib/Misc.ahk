@@ -2954,5 +2954,5 @@ GuiSetPlaceholder(guiCtrlOrHwnd, Cue) {
 }
 
 aotMsgBox(Text := '', Title := A_ScriptName, Options := 0) {
-  MsgBox(Text, Title, Options | 0x1000)
+  return MsgBox(Text, Title, Options | 0x1000)
 }
