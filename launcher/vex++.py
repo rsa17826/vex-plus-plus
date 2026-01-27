@@ -1,3 +1,7 @@
+# @name a
+# @regex (?<=[^\s])  #
+# @replace  #
+# @endregex
 # @regex settings \(launcher\.SettingsData\): _description_
 # @replace settings (launcher.SettingsData): The current settings object containing user-defined flags
 # @endregex
@@ -5,7 +9,7 @@
 # @replace selectedOs (supportedOs): The users currently selected os
 # @endregex
 
-import launcher  # https://github.com/rsa17826/extendable-game-launcher
+import launcher
 import os
 import subprocess
 from PySide6.QtWidgets import QVBoxLayout
@@ -62,7 +66,7 @@ def gameLaunchRequested(
 ) -> None:
   if settings.loadSpecificMapOnStart:
     args += ["--loadMap", settings.nameOfMapToLoad]
-  if settings.loadOnlineLevels:
+  if settings.startInOnlineLevelsScene:
     args += ["--loadOnlineLevels"]
   if settings.downloadMap:
     args += ["--downloadMap", settings.nameOfMapToDownload]
@@ -72,11 +76,22 @@ def gameLaunchRequested(
       exe = os.path.join(path, "vex.exe")
       print("requestedGameDataLocation", requestedGameDataLocation)
       if os.path.isfile(exe):
-        linkAll(path, requestedGameDataLocation, ["vex.exe", "vex.pck"])
-        subprocess.Popen(
-          [os.path.join(requestedGameDataLocation, "vex.exe")] + args,
-          cwd=requestedGameDataLocation,
+        linkAll(
+          path,
+          requestedGameDataLocation,
+          ["vex.exe", "vex.console.exe", "vex.pck"],
         )
+        if settings.closeOnLaunch:
+          script_path = os.path.join(
+            requestedGameDataLocation,
+            "vex.console.exe" if settings.showConsole else "vex.exe",
+          )
+          os.execl(script_path, f'"{script_path}"', *args)
+        else:
+          subprocess.Popen(
+            [os.path.join(requestedGameDataLocation, "vex.exe")] + args,
+            cwd=requestedGameDataLocation,
+          )
 
     # case supportedOs.linux:
     #   exe = os.path.join(path, "vex.sh")
@@ -105,6 +120,13 @@ def gameVersionExists(
 
 def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
   mapNameInput = _self.newLineEdit('Enter map name or "NEWEST"', "nameOfMapToLoad")
+  layout.addWidget(
+    _self.newCheckbox(
+      "Show Console",
+      True,
+      "showConsole",
+    )
+  )
   layout.addWidget(
     _self.newCheckbox(
       "Load Specific Map on Start",
@@ -173,7 +195,7 @@ launcher.loadConfig(
   launcher.Config(
     getImage=getImage,
     WINDOW_TITLE="Vex++ Launcher",
-    USE_HARD_LINKS=True,
+    SHOULD_USE_HARD_LINKS=True,
     CAN_USE_CENTRAL_GAME_DATA_FOLDER=True,
     GH_USERNAME="rsa17826",
     GH_REPO="vex-plus-plus",
