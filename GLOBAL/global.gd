@@ -583,10 +583,7 @@ func _physics_process(delta: float) -> void:
 
 func clearLow(v):
   match typeof(v):
-    TYPE_VECTOR2:
-      if is_zero_approx(v.x): v.x = 0
-      if is_zero_approx(v.y): v.y = 0
-    TYPE_VECTOR2I:
+    TYPE_VECTOR2, TYPE_VECTOR2I:
       if is_zero_approx(v.x): v.x = 0
       if is_zero_approx(v.y): v.y = 0
     TYPE_FLOAT:
