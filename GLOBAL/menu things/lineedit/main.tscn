@@ -1,16 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwdqlflfbay8f"]
+[gd_scene format=3 uid="uid://cwdqlflfbay8f"]
 
 [ext_resource type="Script" uid="uid://lq6evpv040ob" path="res://GLOBAL/menu things/lineedit/main.gd" id="1_2rl7g"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=807122959]
 offset_right = 160.0
 offset_bottom = 23.0
 script = ExtResource("1_2rl7g")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1123182980]
 layout_mode = 2
 
-[node name="LineEdit" type="LineEdit" parent="."]
-custom_minimum_size = Vector2(150, 0)
+[node name="LineEdit" type="LineEdit" parent="." unique_id=34959538]
+clip_contents = true
 layout_mode = 2
-expand_to_text_length = true
+theme_override_constants/minimum_character_width = 26

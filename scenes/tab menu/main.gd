@@ -281,6 +281,8 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "openExportsDirectoryOnExport", \
     "tabMenuScale", \
     # ?
+    "supabaseUrl", \
+    "supabaseKey", \
     "autosaveInterval", \
     # /?
     "theme": pass
