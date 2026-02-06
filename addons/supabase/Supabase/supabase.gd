@@ -11,8 +11,8 @@ var storage: SupabaseStorage
 var debug: bool = true
 
 var config: Dictionary = {
-  "supabaseUrl": "https://zipitsixybgrlzmhbxaa.supabase.co",
-  "supabaseKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InppcGl0c2l4eWJncmx6bWhieGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1MjU3MjksImV4cCI6MjA3MzEwMTcyOX0.EPgNFT6Q0pkyH9ogIR97qsJAIA1bLyTNRIFRw_vMVec"
+  "supabaseUrl": "",
+  "supabaseKey": ""
 }
 
 var header: PackedStringArray = [
@@ -21,6 +21,9 @@ var header: PackedStringArray = [
 ]
 
 func _ready() -> void:
+  await global.wait()
+  config.supabaseUrl = global.useropts.supabaseUrl
+  config.supabaseKey = global.useropts.supabaseKey
   load_config()
   load_nodes()
 

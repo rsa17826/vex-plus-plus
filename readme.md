@@ -304,7 +304,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **always**: always show the autocomplete options
   - ### misc
 
-    - **alwaysShowMenuOnHomePage**: Always display the menu on the home page, else can be toggled with the keybind
+    - **alwaysShowOptionsMenuOnHomePage**: Always display the menu on the home page, else can be toggled with the keybind
     - **openExportsDirectoryOnExport**: Automatically open the exports directory after exporting a level
     - **optionMenuToSideOnMainMenuInsteadOfOverlay**: makes the toggle menu keybind toggle the a menu on the left side instead of the usual overlay while on the main menu
     - **tabMenuScale**: Set the scale of the options menu when in overlay format

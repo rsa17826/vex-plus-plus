@@ -13,7 +13,7 @@ var _visible:
       get_parent().get_parent().visible = visible
     else:
       if val:
-        if global.useropts.alwaysShowMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+        if global.useropts.alwaysShowOptionsMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
           __menu.reloadDataFromFile()
           __menu.reloadUi()
       updateSize()
@@ -144,7 +144,7 @@ func _ready() -> void:
   __menu.show_menu()
   updateUserOpts()
   if isOptionsMenuOnMainMenu:
-    if global.useropts.alwaysShowMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+    if global.useropts.alwaysShowOptionsMenuOnHomePage or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
       _visible = global.file.read("user://mainMenuOptionsMenuVisible", false, "true") == "true"
     else:
       _visible = false
@@ -331,7 +331,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "smallLevelDisplaysInLocalLevelList":
       if global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()
-    "alwaysShowMenuOnHomePage", \
+    "alwaysShowOptionsMenuOnHomePage", \
     "showLevelCompletionInfoOnMainMenu":
       if global.isAlive(global.mainMenu):
         get_tree().reload_current_scene()
@@ -353,7 +353,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
           menu.__menu.reloadDataFromFile.call_deferred()
           menu.__menu.reloadUi.call_deferred()
         else:
-          if not global.useropts.alwaysShowMenuOnHomePage:
+          if not global.useropts.alwaysShowOptionsMenuOnHomePage:
             global.tabMenu._visible = true
             _visible = false
           global.tabMenu.__menu.reloadDataFromFile.call_deferred()
@@ -379,7 +379,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
 
   if waitingForMouseUp: return
   if (thingChanged in ['tabMenuScale']) \
-  or global.useropts.alwaysShowMenuOnHomePage \
+  or global.useropts.alwaysShowOptionsMenuOnHomePage \
   or global.useropts.optionMenuToSideOnMainMenuInsteadOfOverlay \
   :
     if Input.is_mouse_button_pressed(MouseButton.MOUSE_BUTTON_LEFT):
