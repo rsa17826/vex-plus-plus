@@ -11,6 +11,7 @@ static func tryRestoreLastSession():
     if global.mainMenu:
       global.mainMenu.currentUserInfoNode.text = "logging in"
     await global.wait()
+    await global.wait()
     var authTask = (await Supabase.auth.restoreFromToken(data).completed)
     # log.err(authTask)
     if authTask.user and not LevelServer.user:

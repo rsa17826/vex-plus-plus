@@ -1350,7 +1350,7 @@ func _unhandled_input(event: InputEvent) -> void:
         level.save(false)
     if isAlive(level):
       level.sceneChanging()
-    if useropts.alwaysShowMenuOnHomePage or useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
+    if useropts.alwaysShowOptionsMenuOnHomePage or useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
       tabMenu._visible = false
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED

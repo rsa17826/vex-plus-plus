@@ -445,7 +445,7 @@
                 "defaultValue": 0.0215,
                 "step": 0.0001,
                 "max": 0.5,
-                "min": 0.0,
+                "min": 0,
                 "tooltip": "Set the size of the outline around blocks for when hovered or selected.",
               },
               {
@@ -959,7 +959,7 @@
       {
         "thing": "option",
         "type": "bool",
-        "key": "alwaysShowMenuOnHomePage",
+        "key": "alwaysShowOptionsMenuOnHomePage",
         "defaultValue": false,
         "tooltip": "Always display the menu on the home page, else can be toggled with the keybind.",
       },
@@ -981,11 +981,37 @@
         "thing": "option",
         "type": "range",
         "key": "tabMenuScale",
-        "defaultValue": 1.0,
+        "defaultValue": 1,
         "min": 0.2,
-        "max": 3.0,
+        "max": 3,
         "step": 0.01,
         "tooltip": "Set the scale of the options menu when in overlay format.",
+      },
+    ],
+  },
+  {
+    "thing": "group",
+    "name": "level server",
+    "value": [
+      {
+        "thing": "group",
+        "name": "supabase",
+        "value": [
+          {
+            "thing": "option",
+            "type": "lineedit",
+            "key": "supabaseUrl",
+            "defaultValue": "https://zipitsixybgrlzmhbxaa.supabase.co",
+            "tooltip": "supabase url.",
+          },
+          {
+            "thing": "option",
+            "type": "lineedit",
+            "key": "supabaseKey",
+            "defaultValue": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InppcGl0c2l4eWJncmx6bWhieGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1MjU3MjksImV4cCI6MjA3MzEwMTcyOX0.EPgNFT6Q0pkyH9ogIR97qsJAIA1bLyTNRIFRw_vMVec",
+            "tooltip": "supabase public key.",
+          },
+        ],
       },
     ],
   },
