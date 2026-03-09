@@ -2,7 +2,7 @@
   STR(start)STR(Cheeseland1)
   STR(author)STR(Phendet)
   STR(description)STR(cheeseland)
-  STR(version)INT(62)
+  STR(version)INT(67)
   STR(stages){
     STR(Cheeseland1){
       STR(color)INT(11)
@@ -10,6 +10,5 @@
       STR(saveTick)BOOL(false)
     }
   }
-  STRNAME(gameVersion)INT(235)
-  STRNAME(levelVersion)INT(1)
+  STRNAME(levelVersion)INT(100)
 }

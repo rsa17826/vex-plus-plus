@@ -1,22 +1,13 @@
 {
   STR(start)STR(hub)
-  STR(author)STR(rssaromeo)
+  STR(author)STR(unknown)
   STR(description)STR()
+  STR(version)INT(62)
   STR(stages){
     STR(hub){
-      STR(color)INT(7)
-      STR(changeSpeedOnSlopes)BOOL(false)
-    }
-    STR(test1){
       STR(color)INT(8)
       STR(changeSpeedOnSlopes)BOOL(false)
-    }
-    STR(real level){
-      STR(color)INT(9)
-      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
     }
   }
-  STR(version)INT(34)
-  STRNAME(gameVersion)INT(235)
-  STRNAME(levelVersion)INT(1)
 }

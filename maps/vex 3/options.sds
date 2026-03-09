@@ -1,8 +1,7 @@
 {
   STR(start)STR(hub)
   STR(author)STR(rssaromeo)
-  STR(description)STR(vex 3 but now fixed and with some new original stars
-)
+  STR(description)STR(vex 3)
   STR(stages){
     STR(hub){
       STR(color)INT(1)
@@ -45,13 +44,13 @@
     }
     STR(act 6){
       STR(color)INT(7)
-      STR(canDoWallSlide)BOOL(true)
-      STR(canDoWallHang)BOOL(true)
-      STR(canDoWallJump)BOOL(true)
-      STR(autoRun)BOOL(false)
-      STR(jumpCount)INT(1)
       STR(changeSpeedOnSlopes)BOOL(false)
-      STR(checkpointsSaveAll)BOOL(true)
+      STR(saveTick)BOOL(false)
+      STR(jumpCount)INT(1)
+      STR(autoRun)BOOL(false)
+      STR(canDoWallHang)BOOL(true)
+      STR(canDoWallSlide)BOOL(true)
+      STR(canDoWallJump)BOOL(true)
     }
     STR(act 7){
       STR(color)INT(8)
@@ -94,7 +93,6 @@
       STR(canDoWallJump)BOOL(true)
     }
   }
-  STR(version)INT(173)
-  STRNAME(levelVersion)INT(1344)
-  STRNAME(gameVersion)INT(235)
+  STR(version)INT(166)
+  STRNAME(levelVersion)INT(950)
 }

@@ -2,7 +2,7 @@
   STR(start)STR(hub)
   STR(author)STR(rssaromeo)
   STR(description)STR()
-  STR(version)INT(57)
+  STR(version)INT(58)
   STR(stages){
     STR(hub){
       STR(color)INT(5)
@@ -15,6 +15,4 @@
       STR(saveTick)BOOL(false)
     }
   }
-  STRNAME(gameVersion)INT(235)
-  STRNAME(levelVersion)INT(1)
 }

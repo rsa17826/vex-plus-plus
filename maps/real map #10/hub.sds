@@ -12,7 +12,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -24,7 +23,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -36,21 +34,18 @@
     STR(id)STR(glass)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(250.0)
     STR(y)FLOAT(-300.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(buttonId)INT(1)
       STR(color)STR(#fff)
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -62,7 +57,6 @@
     STR(id)STR(pushable box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -74,24 +68,20 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(buttonId)INT(3)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(signalOutputId)INT(0)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(400.0)
     STR(y)FLOAT(-100.0)
-    STR(w)FLOAT(2.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(2.00000008940697)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(buttonId)INT(1)
       STR(color)STR(#fff)
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -103,7 +93,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -115,7 +104,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -126,23 +114,20 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(350.0)
     STR(y)FLOAT(-200.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(buttonId)INT(2)
       STR(color)STR(#fff)
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -154,10 +139,8 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(buttonId)INT(2)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(signalOutputId)INT(0)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -169,10 +152,8 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(buttonId)INT(1)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(signalOutputId)INT(0)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -184,21 +165,18 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(300.0)
     STR(y)FLOAT(-250.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(buttonId)INT(3)
       STR(color)STR(#fff)
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -210,24 +188,20 @@
     STR(id)STR(floor button)
     STRNAME(options){
       STR(buttonId)INT(1)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(signalOutputId)INT(0)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
     STR(x)FLOAT(350.0)
     STR(y)FLOAT(-450.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(2.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(2.00000008940697)
     STR(r)FLOAT(0.0)
     STR(id)STR(button deactivated wall)
     STRNAME(options){
       STR(buttonId)INT(2)
       STR(color)STR(#fff)
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -239,7 +213,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -251,7 +224,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -263,9 +235,8 @@
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(false)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -277,7 +248,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -288,9 +258,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -302,7 +271,6 @@
     STR(id)STR(oneway)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -313,9 +281,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -326,9 +293,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(targeting laser)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -340,7 +306,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -351,9 +316,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -365,7 +329,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -377,7 +340,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -389,7 +351,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -401,7 +362,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -413,9 +373,8 @@
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(false)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -427,7 +386,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -438,9 +396,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(key)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -474,7 +431,6 @@
     STR(id)STR(oneway)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -486,20 +442,18 @@
     STR(id)STR(solar)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(false)
     }
   }
   {
     STR(x)FLOAT(1000.0)
     STR(y)FLOAT(-200.0)
-    STR(w)FLOAT(1.0)
-    STR(h)FLOAT(1.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
     STR(id)STR(shurikan Spawner)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -511,7 +465,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -523,7 +476,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -534,9 +486,8 @@
     STR(r)FLOAT(180.0)
     STR(id)STR(10x spike)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(false)
+      STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -548,7 +499,6 @@
     STR(id)STR(oneway)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -560,7 +510,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -572,7 +521,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -584,7 +532,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -596,9 +543,8 @@
     STR(id)STR(checkpoint)
     STRNAME(options){
       STR(multiUse)BOOL(true)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -609,9 +555,8 @@
     STR(r)FLOAT(89.9999465942383)
     STR(id)STR(10x solar spike)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -622,9 +567,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(red only light switch)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -635,9 +579,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(blue only light switch)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -648,9 +591,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(blue only light switch)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -661,9 +603,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(blue only light switch)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -675,7 +616,6 @@
     STR(id)STR(inverse solar)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -687,7 +627,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -698,9 +637,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x spike)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(false)
+      STR(attachesToThings)BOOL(false)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -711,9 +649,8 @@
     STR(r)FLOAT(179.999877929688)
     STR(id)STR(nowj)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -724,9 +661,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Scythe)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -737,9 +673,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -750,9 +685,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -764,7 +698,6 @@
     STR(id)STR(solar)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(false)
     }
   }
   {
@@ -775,9 +708,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x solar spike)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -788,9 +720,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(10x inverse solar spike)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -801,9 +732,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(light switch)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -815,7 +745,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -826,9 +755,8 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(Gravity Down Lever)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -839,9 +767,8 @@
     STR(r)FLOAT(90.0)
     STR(id)STR(10x inverse solar spike)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -853,7 +780,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -865,7 +791,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -877,7 +802,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -889,7 +813,6 @@
     STR(id)STR(locked box)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -901,7 +824,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -913,7 +835,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -925,9 +846,8 @@
     STR(id)STR(goal)
     STRNAME(options){
       STR(requiredLevelCount)INT(0)
-      STR(canAttachToThings)BOOL(true)
+      STR(attachesToThings)BOOL(true)
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
   {
@@ -950,7 +870,6 @@
     STR(id)STR(basic)
     STRNAME(options){
       STR(color)STR(#fff)
-      STR(canAttachToPaths)BOOL(true)
     }
   }
 ]
