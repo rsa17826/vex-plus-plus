@@ -15,6 +15,5 @@
       STR(canDoWallJump)BOOL(true)
     }
   }
-  STRNAME(levelVersion)INT(26)
-  STRNAME(gameVersion)INT(235)
+  STRNAME(levelVersion)INT(23)
 }

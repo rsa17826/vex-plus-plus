@@ -1,13 +1,14 @@
 {
-  STR(start)STR(1)
-  STR(author)STR(rssaromeo)
-  STR(description)STR(none set now sadfsl skljsfd hklfsd hskld hskl skk hfskldf)
+  STR(start)STR(conmveyers)
+  STR(author)STR(convers)
+  STR(description)STR(speed but death)
+  STR(version)INT(67)
   STR(stages){
-    STR(1){
-      STR(color)INT(9)
+    STR(conmveyers){
+      STR(color)INT(2)
+      STR(changeSpeedOnSlopes)BOOL(false)
+      STR(saveTick)BOOL(false)
     }
   }
-  STR(version)INT(23)
-  STRNAME(gameVersion)INT(235)
-  STRNAME(levelVersion)INT(2)
+  STRNAME(levelVersion)INT(100)
 }

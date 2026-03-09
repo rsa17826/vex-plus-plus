@@ -2,9 +2,9 @@
   STR(start)STR(hub)
   STR(creatorName)STR(rssaromeo)
   STR(description)STR()
-  STR(gameVersion)INT(235)
+  STR(gameVersion)INT(191)
   STR(version)INT(186)
-  STR(levelVersion)INT(67)
+  STR(levelVersion)INT(65)
   STR(stages){
     STR(hub){
       STR(color)INT(5)

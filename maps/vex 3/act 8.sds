@@ -127,7 +127,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzzsaw)
+    STR(id)STR(buzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -140,7 +140,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzzsaw)
+    STR(id)STR(buzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -443,10 +443,9 @@
     STR(r)FLOAT(0.0)
     STR(id)STR(star)
     STRNAME(options){
-      STR(canAttachToThings)BOOL(false)
+      STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
-      STR(starType)INT(0)
     }
   }
   {
@@ -505,7 +504,7 @@
     STR(w)FLOAT(8.50000011920929)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(180.0)
-    STR(id)STR(conveyor)
+    STR(id)STR(conveyer)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -644,7 +643,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(shuriken spawner)
+    STR(id)STR(shurikan spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -657,7 +656,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(180.0)
-    STR(id)STR(shuriken spawner)
+    STR(id)STR(shurikan spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -876,20 +875,6 @@
     STR(id)STR(death boundary)
     STRNAME(options){
       STR(color)COLOR(1.0,1.0,1.0,0.0)
-    }
-  }
-  {
-    STR(x)FLOAT(1432.0)
-    STR(y)FLOAT(700.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(star)
-    STRNAME(options){
-      STR(starType)INT(1)
-      STR(canAttachToThings)BOOL(false)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
     }
   }
 ]

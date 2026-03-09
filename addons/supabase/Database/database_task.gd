@@ -16,7 +16,7 @@ func _on_task_completed(result: int, response_code: int, headers: PackedStringAr
     complete(result_body)
   else:
     log.err(result_body, '_on_task_completed')
-    var supabase_error: SupabaseDatabaseError = SupabaseDatabaseError.new(result_body)
+    var supabase_error: SupabaseDatabaseError = SupabaseDatabaseError.new("" if result_body == null else result_body)
     complete(null, supabase_error)
   handler.queue_free()
 

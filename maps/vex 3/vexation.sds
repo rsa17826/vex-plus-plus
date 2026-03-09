@@ -45,8 +45,6 @@
       STR(forwardSpeed)INT(100)
       STR(backwardSpeed)INT(100)
       STR(color)STR(#fff)
-      STR(startWhenSignalReceived)BOOL(false)
-      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -394,8 +392,6 @@
       STR(forwardSpeed)INT(75)
       STR(backwardSpeed)INT(150)
       STR(color)STR(#fff)
-      STR(startWhenSignalReceived)BOOL(false)
-      STR(startWhileSignalReceived)BOOL(false)
     }
   }
   {
@@ -467,7 +463,7 @@
     STR(w)FLOAT(1.25842750072479)
     STR(h)FLOAT(1.25742875039577)
     STR(r)FLOAT(0.0)
-    STR(id)STR(growing buzzsaw)
+    STR(id)STR(growing buzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
@@ -633,7 +629,7 @@
     STR(w)FLOAT(0.786517187953)
     STR(h)FLOAT(0.78589295595884)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzzsaw)
+    STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -706,7 +702,7 @@
     STR(w)FLOAT(0.786517187953)
     STR(h)FLOAT(0.78589295595884)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzzsaw)
+    STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -718,7 +714,7 @@
     STR(w)FLOAT(0.786517187953)
     STR(h)FLOAT(0.78589295595884)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzzsaw)
+    STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -730,7 +726,7 @@
     STR(w)FLOAT(0.786517187953)
     STR(h)FLOAT(0.78589295595884)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzzsaw)
+    STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -742,7 +738,7 @@
     STR(w)FLOAT(0.786517187953)
     STR(h)FLOAT(0.78589295595884)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzzsaw)
+    STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -754,7 +750,7 @@
     STR(w)FLOAT(0.786517187953)
     STR(h)FLOAT(0.78589295595884)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzzsaw)
+    STR(id)STR(bouncing buzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -1150,7 +1146,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
-    STR(id)STR(shuriken spawner)
+    STR(id)STR(shurikan spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
@@ -1163,7 +1159,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-90.0)
-    STR(id)STR(shuriken spawner)
+    STR(id)STR(shurikan spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
@@ -1176,7 +1172,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(90.0)
-    STR(id)STR(shuriken spawner)
+    STR(id)STR(shurikan spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
@@ -1201,7 +1197,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(-180.0)
-    STR(id)STR(shuriken spawner)
+    STR(id)STR(shurikan spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
@@ -1214,7 +1210,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(shuriken spawner)
+    STR(id)STR(shurikan spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
@@ -1227,7 +1223,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(shuriken spawner)
+    STR(id)STR(shurikan spawner)
     STRNAME(options){
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
@@ -1240,7 +1236,7 @@
     STR(w)FLOAT(0.50000002235174)
     STR(h)FLOAT(0.50000002235174)
     STR(r)FLOAT(180.0)
-    STR(id)STR(conveyor)
+    STR(id)STR(conveyer)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -1252,7 +1248,7 @@
     STR(w)FLOAT(0.50000002235174)
     STR(h)FLOAT(0.50000002235174)
     STR(r)FLOAT(0.0)
-    STR(id)STR(conveyor)
+    STR(id)STR(conveyer)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -1288,7 +1284,7 @@
     STR(w)FLOAT(0.50000002235174)
     STR(h)FLOAT(0.50000002235174)
     STR(r)FLOAT(359.99951171875)
-    STR(id)STR(conveyor)
+    STR(id)STR(conveyer)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -1326,7 +1322,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzzsaw)
+    STR(id)STR(buzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -1351,7 +1347,7 @@
     STR(w)FLOAT(0.50000002235174)
     STR(h)FLOAT(0.50000002235174)
     STR(r)FLOAT(179.999877929688)
-    STR(id)STR(conveyor)
+    STR(id)STR(conveyer)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -1363,7 +1359,7 @@
     STR(w)FLOAT(0.50000002235174)
     STR(h)FLOAT(0.50000002235174)
     STR(r)FLOAT(179.999877929688)
-    STR(id)STR(conveyor)
+    STR(id)STR(conveyer)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -1728,7 +1724,6 @@
       STR(canAttachToThings)BOOL(false)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
-      STR(starType)INT(0)
     }
   }
   {
@@ -1844,17 +1839,6 @@
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
     STR(id)STR(death boundary)
-    STRNAME(options){
-      STR(color)COLOR(1.0,1.0,1.0,0.0)
-    }
-  }
-  {
-    STR(x)FLOAT(1900.0)
-    STR(y)FLOAT(-450.0)
-    STR(w)FLOAT(2.00000008940697)
-    STR(h)FLOAT(0.0500000002794)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(block death boundary)
     STRNAME(options){
       STR(color)COLOR(1.0,1.0,1.0,0.0)
     }
