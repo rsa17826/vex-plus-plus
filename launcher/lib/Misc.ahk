@@ -14,33 +14,33 @@ _globals := {}
 ; #Include <debuggerDetector>
 
 /*
-	Name: Misc.ahk
-	Version 0.3 (03.08.23)
-	Created: 26.08.22
-	Author: Descolada (https://www.autohotkey.com/boards/viewtopic.php?f=83&t=107759)
+    Name: Misc.ahk
+    Version 0.3 (03.08.23)
+    Created: 26.08.22
+    Author: Descolada (https://www.autohotkey.com/boards/viewtopic.php?f=83&t=107759)
     Credit: Coco
 
-	Range(stop)						=> Returns an iterable to count from 1..stop
-	Range(start, stop [, step])		=> Returns an iterable to count from start to stop with step
-	Swap(&a, &b)					=> Swaps the values of a and b
-	Print(value?, func?, newline?) 	=> Prints the formatted value of a variable (number, string, array, map, object)
-	RegExMatchAll(haystack, needleRegEx [, startingPosition := 1])
-	    Returns all RegExMatch results (RegExMatchInfo objects) for needleRegEx in haystack
-		in an array: [RegExMatchInfo1, RegExMatchInfo2, ...]
-	Highlight(x?, y?, w?, h?, showTime:=0, color:="Red", d:=2)
-		Highlights an area with a colorful border.
-	MouseTip(x?, y?, color1:="red", color2:="blue", d:=4)
-		Flashes a colorful highlight at a point for 2 seconds.
-	WindowFromPoint(X, Y) 			=> Returns the window ID at screen coordinates X and Y.
-	ConvertWinPos(X, Y, &outX, &outY, relativeFrom:=A_CoordModeMouse, relativeTo:="screen", winTitle?, winText?, excludeTitle?, excludeText?)
-		Converts coordinates between screen, window and client.
-	WinGetInfo(WinTitle:="", Verbose := 1, WinText:="", ExcludeTitle:="", ExcludeText:="", Separator := "`n")
-		Gets info about a window (title, process name, location etc).
-	GetCaretPos(&X?, &Y?, &W?, &H?)
-		Gets the position of the caret with CaretGetPos, Acc or UIA.
-	IntersectRect(l1, t1, r1, b1, l2, t2, r2, b2)
-		Checks whether two rectangles intersect and if they do, then returns an object containing the
-		rectangle of the intersection: {l:left, t:top, r:right, b:bottom}
+    Range(stop)                        => Returns an iterable to count from 1..stop
+    Range(start, stop [, step])        => Returns an iterable to count from start to stop with step
+    Swap(&a, &b)                    => Swaps the values of a and b
+    Print(value?, func?, newline?)     => Prints the formatted value of a variable (number, string, array, map, object)
+    RegExMatchAll(haystack, needleRegEx [, startingPosition := 1])
+        Returns all RegExMatch results (RegExMatchInfo objects) for needleRegEx in haystack
+        in an array: [RegExMatchInfo1, RegExMatchInfo2, ...]
+    Highlight(x?, y?, w?, h?, showTime:=0, color:="Red", d:=2)
+        Highlights an area with a colorful border.
+    MouseTip(x?, y?, color1:="red", color2:="blue", d:=4)
+        Flashes a colorful highlight at a point for 2 seconds.
+    WindowFromPoint(X, Y)             => Returns the window ID at screen coordinates X and Y.
+    ConvertWinPos(X, Y, &outX, &outY, relativeFrom:=A_CoordModeMouse, relativeTo:="screen", winTitle?, winText?, excludeTitle?, excludeText?)
+        Converts coordinates between screen, window and client.
+    WinGetInfo(WinTitle:="", Verbose := 1, WinText:="", ExcludeTitle:="", ExcludeText:="", Separator := "`n")
+        Gets info about a window (title, process name, location etc).
+    GetCaretPos(&X?, &Y?, &W?, &H?)
+        Gets the position of the caret with CaretGetPos, Acc or UIA.
+    IntersectRect(l1, t1, r1, b1, l2, t2, r2, b2)
+        Checks whether two rectangles intersect and if they do, then returns an object containing the
+        rectangle of the intersection: {l:left, t:top, r:right, b:bottom}
 
 */
 
@@ -582,9 +582,9 @@ WinGetInfo(WinTitle := "", Verbose := 1, WinText := "", ExcludeTitle := "", Excl
  */
 GetCaretPos(&X?, &Y?, &W?, &H?) {
   /*
-  	This implementation prefers CaretGetPos > Acc > UIA. This is mostly due to speed differences
-  	between the methods and statistically it seems more likely that the UIA method is required the
-  	least (Chromium apps support Acc as well).
+      This implementation prefers CaretGetPos > Acc > UIA. This is mostly due to speed differences
+      between the methods and statistically it seems more likely that the UIA method is required the
+      least (Chromium apps support Acc as well).
   */
 
   ; Default caret
@@ -617,22 +617,22 @@ GetCaretPos(&X?, &Y?, &W?, &H?) {
   try {
     ComCall(8, IUIA, "ptr*", &FocusedEl := 0) ; GetFocusedElement
     /*
-    	The current implementation uses only TextPattern GetSelections and not TextPattern2 GetCaretRange.
-    	This is because TextPattern2 is less often supported, or sometimes reports being implemented
-    	but in reality is not. The only downside to using GetSelections is that when text
-    	is selected then caret position is ambiguous. Nevertheless, in those cases it most
-    	likely doesn't matter much whether the caret is in the beginning or end of the selection.
+        The current implementation uses only TextPattern GetSelections and not TextPattern2 GetCaretRange.
+        This is because TextPattern2 is less often supported, or sometimes reports being implemented
+        but in reality is not. The only downside to using GetSelections is that when text
+        is selected then caret position is ambiguous. Nevertheless, in those cases it most
+        likely doesn't matter much whether the caret is in the beginning or end of the selection.
     
-    	If GetCaretRange is needed then the following code implements that:
-    	ComCall(16, FocusedEl, "int", 10024, "ptr*", &patternObject:=0), ObjRelease(FocusedEl) ; GetCurrentPattern. TextPattern2 = 10024
-    	if patternObject {
-    		ComCall(10, patternObject, "int*", &IsActive:=1, "ptr*", &caretRange:=0), ObjRelease(patternObject) ; GetCaretRange
-    		ComCall(10, caretRange, "ptr*", &boundingRects:=0), ObjRelease(caretRange) ; GetBoundingRectangles
-    		if (Rect := ComValue(0x2005, boundingRects)).MaxIndex() = 3 { ; VT_ARRAY | VT_R8
-    			X:=Round(Rect[0]), Y:=Round(Rect[1]), W:=Round(Rect[2]), H:=Round(Rect[3])
-    			return
-    		}
-    	}
+        If GetCaretRange is needed then the following code implements that:
+        ComCall(16, FocusedEl, "int", 10024, "ptr*", &patternObject:=0), ObjRelease(FocusedEl) ; GetCurrentPattern. TextPattern2 = 10024
+        if patternObject {
+            ComCall(10, patternObject, "int*", &IsActive:=1, "ptr*", &caretRange:=0), ObjRelease(patternObject) ; GetCaretRange
+            ComCall(10, caretRange, "ptr*", &boundingRects:=0), ObjRelease(caretRange) ; GetBoundingRectangles
+            if (Rect := ComValue(0x2005, boundingRects)).MaxIndex() = 3 { ; VT_ARRAY | VT_R8
+                X:=Round(Rect[0]), Y:=Round(Rect[1]), W:=Round(Rect[2]), H:=Round(Rect[3])
+                return
+            }
+        }
     */
     ComCall(16, FocusedEl, "int", 10014, "ptr*", &patternObject := 0), ObjRelease(FocusedEl) ; GetCurrentPattern. TextPattern = 10014
     if patternObject {
@@ -1515,15 +1515,15 @@ class JSON {
 ;   ;#####################################################################################
 ;   ; Modified GDI+ function to get bitmap of just the client areas of the window
 
-;   ; Function				Gdip_ClientAreaBitmapFromHWND
-;   ; Description			Uses PrintWindow to get a handle to the specified window and return a bitmap of just its client area
-;   ;						Note that the
+;   ; Function                Gdip_ClientAreaBitmapFromHWND
+;   ; Description            Uses PrintWindow to get a handle to the specified window and return a bitmap of just its client area
+;   ;                        Note that the
 ;   ;
-;   ; hwnd					handle to the window to get a bitmap from
+;   ; hwnd                    handle to the window to get a bitmap from
 ;   ;
-;   ; return				if the function succeeds, the return value is a pointer to a gdi+ bitmap
+;   ; return                if the function succeeds, the return value is a pointer to a gdi+ bitmap
 ;   ;
-;   ; notes					Window must not be not minimised in order to get a handle to it's client area
+;   ; notes                    Window must not be not minimised in order to get a handle to it's client area
 
 ;   static __Gdip_ClientAreaBitmapFromHWND(hwnd) {
 ;     screenshot.__WinGetClientRect(hwnd, , , &Width, &Height)
@@ -1539,19 +1539,19 @@ class JSON {
 ;   ; WARNING: THIS USES A PrintWindow FLAG THAT IS NOT OFFICIALLY DOCUMENTED AND ONLY AVAILABLE IN WIN 8.1 AND HIGHER
 ;   ; DUE TO THE UNDOCUMENTED NATURE, THE BEHAVIOUR OF THIS SCRIPT MAY CHANGE AT ANY TIME
 
-;   ; Function				Gdip_RenderedBitmapFromHWND
-;   ; Description			Uses PrintWindow to get a handle to the specified window and return a bitmap
-;   ;						of that window post rendering. This is necessary for most hardware accelerated
-;   ;						applications to get a screenshot that is not blank or corrupted. Note that the
-;   ;						area screenshotted includes the non-client area, which may include the drop shadow
-;   ;						often present in modern themes as a border. To avoid this, try capturing the client area
-;   ;						only, using Gdip_RenderedClientAreaBitmapFromHWND
+;   ; Function                Gdip_RenderedBitmapFromHWND
+;   ; Description            Uses PrintWindow to get a handle to the specified window and return a bitmap
+;   ;                        of that window post rendering. This is necessary for most hardware accelerated
+;   ;                        applications to get a screenshot that is not blank or corrupted. Note that the
+;   ;                        area screenshotted includes the non-client area, which may include the drop shadow
+;   ;                        often present in modern themes as a border. To avoid this, try capturing the client area
+;   ;                        only, using Gdip_RenderedClientAreaBitmapFromHWND
 ;   ;
-;   ; hwnd					handle to the window to get a bitmap from
+;   ; hwnd                    handle to the window to get a bitmap from
 ;   ;
-;   ; return				if the function succeeds, the return value is a pointer to a gdi+ bitmap
+;   ; return                if the function succeeds, the return value is a pointer to a gdi+ bitmap
 ;   ;
-;   ; notes					Window must not be not minimised in order to get a handle to it's client area
+;   ; notes                    Window must not be not minimised in order to get a handle to it's client area
 
 ;   static __Gdip_RenderedBitmapFromHWND(hwnd) {
 ;     screenshot.__WinGetRect(hwnd, , , &Width, &Height)
@@ -1567,16 +1567,16 @@ class JSON {
 ;   ; WARNING: THIS USES A PrintWindow FLAG THAT IS ENTIRELY UNDOCUMENTED. USE AT YOUR OWN RISK
 ;   ; DUE TO THE  ENTIRELY UNDOCUMENTED NATURE, THE BEHAVIOUR OF THIS SCRIPT MAY CHANGE AT ANY TIME
 
-;   ; Function				Gdip_RenderedClientAreaBitmapFromHWND
-;   ; Description			Uses PrintWindow to get a handle to the specified window and return a bitmap
-;   ;						of just that window's client area post rendering. This is necessary for most
-;   ;						hardware accelerated applications to get a screenshot that is not blank or corrupted.
+;   ; Function                Gdip_RenderedClientAreaBitmapFromHWND
+;   ; Description            Uses PrintWindow to get a handle to the specified window and return a bitmap
+;   ;                        of just that window's client area post rendering. This is necessary for most
+;   ;                        hardware accelerated applications to get a screenshot that is not blank or corrupted.
 ;   ;
-;   ; hwnd					handle to the window to get a bitmap from
+;   ; hwnd                    handle to the window to get a bitmap from
 ;   ;
-;   ; return				if the function succeeds, the return value is a pointer to a gdi+ bitmap
+;   ; return                if the function succeeds, the return value is a pointer to a gdi+ bitmap
 ;   ;
-;   ; notes					Window must not be not minimised in order to get a handle to it's client area
+;   ; notes                    Window must not be not minimised in order to get a handle to it's client area
 
 ;   static __Gdip_RenderedClientAreaBitmapFromHWND(hwnd) {
 ;     screenshot.__WinGetClientRect(hwnd, , , &Width, &Height)
@@ -1594,7 +1594,7 @@ class JSON {
 ;   static __WinGetClientRect(hwnd, &x := "", &y := "", &w := "", &h := "") {
 ;     Ptr := A_PtrSize ? "UPtr" : "UInt"
 ;     screenshot.__CreateRect(&winRect, 0, 0, 0, 0) ;is 16 on both 32 and 64
-;     ; VarSetCapacity( winRect, 16, 0 )	; Alternative of above two lines
+;     ; VarSetCapacity( winRect, 16, 0 )    ; Alternative of above two lines
 ;     DllCall("GetClientRect", "Ptr", hwnd, "Ptr", winRect)
 ;     DllCall("ClientToScreen", "Ptr", hwnd, "Ptr", winRect)
 ;     x := NumGet(winRect, 0, "UInt")
@@ -1613,41 +1613,41 @@ class JSON {
 ;   ; FUNCTIONS
 ;   ;#####################################################################################
 
-;   ; Function				BitBlt
-;   ; Description			The BitBlt function performs a bit-block transfer of the color data corresponding to a rectangle
-;   ;						of pixels from the specified source device context into a destination device context.
+;   ; Function                BitBlt
+;   ; Description            The BitBlt function performs a bit-block transfer of the color data corresponding to a rectangle
+;   ;                        of pixels from the specified source device context into a destination device context.
 ;   ;
-;   ; dDC					handle to destination DC
-;   ; dx					x-coord of destination upper-left corner
-;   ; dy					y-coord of destination upper-left corner
-;   ; dw					width of the area to copy
-;   ; dh					height of the area to copy
-;   ; sDC					handle to source DC
-;   ; sx					x-coordinate of source upper-left corner
-;   ; sy					y-coordinate of source upper-left corner
-;   ; Raster				raster operation code
+;   ; dDC                    handle to destination DC
+;   ; dx                    x-coord of destination upper-left corner
+;   ; dy                    y-coord of destination upper-left corner
+;   ; dw                    width of the area to copy
+;   ; dh                    height of the area to copy
+;   ; sDC                    handle to source DC
+;   ; sx                    x-coordinate of source upper-left corner
+;   ; sy                    y-coordinate of source upper-left corner
+;   ; Raster                raster operation code
 ;   ;
-;   ; return				if the function succeeds, the return value is nonzero
+;   ; return                if the function succeeds, the return value is nonzero
 ;   ;
-;   ; notes					if no raster operation is specified, then SRCCOPY is used, which copies the source directly to the destination rectangle
+;   ; notes                    if no raster operation is specified, then SRCCOPY is used, which copies the source directly to the destination rectangle
 ;   ;
-;   ; BLACKNESS				= 0x00000042
-;   ; NOTSRCERASE			= 0x001100A6
-;   ; NOTSRCCOPY			= 0x00330008
-;   ; SRCERASE				= 0x00440328
-;   ; DSTINVERT				= 0x00550009
-;   ; PATINVERT				= 0x005A0049
-;   ; SRCINVERT				= 0x00660046
-;   ; SRCAND				= 0x008800C6
-;   ; MERGEPAINT			= 0x00BB0226
-;   ; MERGECOPY				= 0x00C000CA
-;   ; SRCCOPY				= 0x00CC0020
-;   ; SRCPAINT				= 0x00EE0086
-;   ; PATCOPY				= 0x00F00021
-;   ; PATPAINT				= 0x00FB0A09
-;   ; WHITENESS				= 0x00FF0062
-;   ; CAPTUREBLT			= 0x40000000
-;   ; NOMIRRORBITMAP		= 0x80000000
+;   ; BLACKNESS                = 0x00000042
+;   ; NOTSRCERASE            = 0x001100A6
+;   ; NOTSRCCOPY            = 0x00330008
+;   ; SRCERASE                = 0x00440328
+;   ; DSTINVERT                = 0x00550009
+;   ; PATINVERT                = 0x005A0049
+;   ; SRCINVERT                = 0x00660046
+;   ; SRCAND                = 0x008800C6
+;   ; MERGEPAINT            = 0x00BB0226
+;   ; MERGECOPY                = 0x00C000CA
+;   ; SRCCOPY                = 0x00CC0020
+;   ; SRCPAINT                = 0x00EE0086
+;   ; PATCOPY                = 0x00F00021
+;   ; PATPAINT                = 0x00FB0A09
+;   ; WHITENESS                = 0x00FF0062
+;   ; CAPTUREBLT            = 0x40000000
+;   ; NOMIRRORBITMAP        = 0x80000000
 
 ;   static __BitBlt(ddc, dx, dy, dw, dh, sdc, sx, sy, Raster := "") {
 ;     return DllCall("gdi32\BitBlt"
@@ -1664,18 +1664,18 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				Gdip_BitmapFromScreen
-;   ; Description			Gets a gdi+ bitmap from the screen
+;   ; Function                Gdip_BitmapFromScreen
+;   ; Description            Gets a gdi+ bitmap from the screen
 ;   ;
-;   ; Screen				0 = All screens
-;   ;						Any numerical value = Just that screen
-;   ;						x|y|w|h = Take specific coordinates with a width and height
-;   ; Raster				raster operation code
+;   ; Screen                0 = All screens
+;   ;                        Any numerical value = Just that screen
+;   ;                        x|y|w|h = Take specific coordinates with a width and height
+;   ; Raster                raster operation code
 ;   ;
-;   ; return					if the function succeeds, the return value is a pointer to a gdi+ bitmap
-;   ;						-1:		one or more of x,y,w,h not passed properly
+;   ; return                    if the function succeeds, the return value is a pointer to a gdi+ bitmap
+;   ;                        -1:        one or more of x,y,w,h not passed properly
 ;   ;
-;   ; notes					if no raster operation is specified, then SRCCOPY is used to the returned bitmap
+;   ; notes                    if no raster operation is specified, then SRCCOPY is used to the returned bitmap
 
 ;   static __Gdip_BitmapFromScreen(Screen := 0, Raster := "") {
 ;     hhdc := 0
@@ -1722,14 +1722,14 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				Gdip_BitmapFromHWND
-;   ; Description			Uses PrintWindow to get a handle to the specified window and return a bitmap from it
+;   ; Function                Gdip_BitmapFromHWND
+;   ; Description            Uses PrintWindow to get a handle to the specified window and return a bitmap from it
 ;   ;
-;   ; hwnd					handle to the window to get a bitmap from
+;   ; hwnd                    handle to the window to get a bitmap from
 ;   ;
-;   ; return				if the function succeeds, the return value is a pointer to a gdi+ bitmap
+;   ; return                if the function succeeds, the return value is a pointer to a gdi+ bitmap
 ;   ;
-;   ; notes					Window must not be not minimised in order to get a handle to it's client area
+;   ; notes                    Window must not be not minimised in order to get a handle to it's client area
 
 ;   static __Gdip_BitmapFromHWND(hwnd) {
 ;     screenshot.__WinGetRect(hwnd, , , &Width, &Height)
@@ -1742,34 +1742,34 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				CreateRect
-;   ; Description			Creates a Rect object, containing a the coordinates and dimensions of a rectangle
+;   ; Function                CreateRect
+;   ; Description            Creates a Rect object, containing a the coordinates and dimensions of a rectangle
 ;   ;
-;   ; RectF		 			Name to call the RectF object
-;   ; x						x-coordinate of the upper left corner of the rectangle
-;   ; y						y-coordinate of the upper left corner of the rectangle
-;   ; w						Width of the rectangle
-;   ; h						Height of the rectangle
+;   ; RectF                     Name to call the RectF object
+;   ; x                        x-coordinate of the upper left corner of the rectangle
+;   ; y                        y-coordinate of the upper left corner of the rectangle
+;   ; w                        Width of the rectangle
+;   ; h                        Height of the rectangle
 ;   ;
-;   ; return				No return value
+;   ; return                No return value
 ;   static __CreateRect(&Rect, x, y, w, h) {
 ;     Rect := Buffer(16)
 ;     NumPut("UInt", x, "UInt", y, "UInt", w, "UInt", h, Rect)
 ;   }
 ;   ;#####################################################################################
 
-;   ; Function				CreateDIBSection
-;   ; Description			The CreateDIBSection function creates a DIB (Device Independent Bitmap) that applications can write to directly
+;   ; Function                CreateDIBSection
+;   ; Description            The CreateDIBSection function creates a DIB (Device Independent Bitmap) that applications can write to directly
 ;   ;
-;   ; w						width of the bitmap to create
-;   ; h						height of the bitmap to create
-;   ; hdc					a handle to the device context to use the palette from
-;   ; bpp					bits per pixel (32 = ARGB)
-;   ; ppvBits				A pointer to a variable that receives a pointer to the location of the DIB bit values
+;   ; w                        width of the bitmap to create
+;   ; h                        height of the bitmap to create
+;   ; hdc                    a handle to the device context to use the palette from
+;   ; bpp                    bits per pixel (32 = ARGB)
+;   ; ppvBits                A pointer to a variable that receives a pointer to the location of the DIB bit values
 ;   ;
-;   ; return				returns a DIB. A gdi bitmap
+;   ; return                returns a DIB. A gdi bitmap
 ;   ;
-;   ; notes					ppvBits will receive the location of the pixels in the DIB
+;   ; notes                    ppvBits will receive the location of the pixels in the DIB
 
 ;   static __CreateDIBSection(w, h, hdc := "", bpp := 32, &ppvBits := 0) {
 ;     hdc2 := hdc ? hdc : screenshot.__GetDC()
@@ -1793,16 +1793,16 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				PrintWindow
-;   ; Description			The PrintWindow function copies a visual window into the specified device context (DC), typically a printer DC
+;   ; Function                PrintWindow
+;   ; Description            The PrintWindow function copies a visual window into the specified device context (DC), typically a printer DC
 ;   ;
-;   ; hwnd					A handle to the window that will be copied
-;   ; hdc					A handle to the device context
-;   ; Flags					Drawing options
+;   ; hwnd                    A handle to the window that will be copied
+;   ; hdc                    A handle to the device context
+;   ; Flags                    Drawing options
 ;   ;
-;   ; return				if the function succeeds, it returns a nonzero value
+;   ; return                if the function succeeds, it returns a nonzero value
 ;   ;
-;   ; PW_CLIENTONLY			= 1
+;   ; PW_CLIENTONLY            = 1
 
 ;   static __PrintWindow(hwnd, hdc, Flags := 0) {
 ;     return DllCall("PrintWindow", "UPtr", hwnd, "UPtr", hdc, "UInt", Flags)
@@ -1810,40 +1810,40 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				CreateCompatibleDC
-;   ; Description			This function creates a memory device context (DC) compatible with the specified device
+;   ; Function                CreateCompatibleDC
+;   ; Description            This function creates a memory device context (DC) compatible with the specified device
 ;   ;
-;   ; hdc					Handle to an existing device context
+;   ; hdc                    Handle to an existing device context
 ;   ;
-;   ; return				returns the handle to a device context or 0 on failure
+;   ; return                returns the handle to a device context or 0 on failure
 ;   ;
-;   ; notes					if this handle is 0 (by default), the function creates a memory device context compatible with the application's current screen
+;   ; notes                    if this handle is 0 (by default), the function creates a memory device context compatible with the application's current screen
 
 ;   static __CreateCompatibleDC(hdc := 0) {
 ;     return DllCall("CreateCompatibleDC", "UPtr", hdc)
 ;   }
 
 ;   ;#####################################################################################
-;   ; Function				SelectObject
-;   ; Description			The SelectObject function selects an object into the specified device context (DC). The new object replaces the previous object of the same type
+;   ; Function                SelectObject
+;   ; Description            The SelectObject function selects an object into the specified device context (DC). The new object replaces the previous object of the same type
 ;   ;
-;   ; hdc					Handle to a DC
-;   ; hgdiobj				A handle to the object to be selected into the DC
+;   ; hdc                    Handle to a DC
+;   ; hgdiobj                A handle to the object to be selected into the DC
 ;   ;
-;   ; return				if the selected object is not a region and the function succeeds, the return value is a handle to the object being replaced
+;   ; return                if the selected object is not a region and the function succeeds, the return value is a handle to the object being replaced
 ;   ;
-;   ; notes					The specified object must have been created by using one of the following functions
-;   ;						Bitmap - CreateBitmap, CreateBitmapIndirect, CreateCompatibleBitmap, CreateDIBitmap, CreateDIBSection (A single bitmap cannot be selected into more than one DC at the same time)
-;   ;						Brush - CreateBrushIndirect, CreateDIBPatternBrush, CreateDIBPatternBrushPt, CreateHatchBrush, CreatePatternBrush, CreateSolidBrush
-;   ;						Font - CreateFont, CreateFontIndirect
-;   ;						Pen - CreatePen, CreatePenIndirect
-;   ;						Region - CombineRgn, CreateEllipticRgn, CreateEllipticRgnIndirect, CreatePolygonRgn, CreateRectRgn, CreateRectRgnIndirect
+;   ; notes                    The specified object must have been created by using one of the following functions
+;   ;                        Bitmap - CreateBitmap, CreateBitmapIndirect, CreateCompatibleBitmap, CreateDIBitmap, CreateDIBSection (A single bitmap cannot be selected into more than one DC at the same time)
+;   ;                        Brush - CreateBrushIndirect, CreateDIBPatternBrush, CreateDIBPatternBrushPt, CreateHatchBrush, CreatePatternBrush, CreateSolidBrush
+;   ;                        Font - CreateFont, CreateFontIndirect
+;   ;                        Pen - CreatePen, CreatePenIndirect
+;   ;                        Region - CombineRgn, CreateEllipticRgn, CreateEllipticRgnIndirect, CreatePolygonRgn, CreateRectRgn, CreateRectRgnIndirect
 ;   ;
-;   ; notes					if the selected object is a region and the function succeeds, the return value is one of the following value
+;   ; notes                    if the selected object is a region and the function succeeds, the return value is one of the following value
 ;   ;
-;   ; SIMPLEREGION			= 2 Region consists of a single rectangle
-;   ; COMPLEXREGION			= 3 Region consists of more than one rectangle
-;   ; NULLREGION			= 1 Region is empty
+;   ; SIMPLEREGION            = 2 Region consists of a single rectangle
+;   ; COMPLEXREGION            = 3 Region consists of more than one rectangle
+;   ; NULLREGION            = 1 Region is empty
 
 ;   static __SelectObject(hdc, hgdiobj) {
 ;     return DllCall("SelectObject", "UPtr", hdc, "UPtr", hgdiobj)
@@ -1851,13 +1851,13 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				DeleteObject
-;   ; Description			This function deletes a logical pen, brush, font, bitmap, region, or palette, freeing all system resources associated with the object
-;   ;						After the object is deleted, the specified handle is no longer valid
+;   ; Function                DeleteObject
+;   ; Description            This function deletes a logical pen, brush, font, bitmap, region, or palette, freeing all system resources associated with the object
+;   ;                        After the object is deleted, the specified handle is no longer valid
 ;   ;
-;   ; hObject				Handle to a logical pen, brush, font, bitmap, region, or palette to delete
+;   ; hObject                Handle to a logical pen, brush, font, bitmap, region, or palette to delete
 ;   ;
-;   ; return				Nonzero indicates success. Zero indicates that the specified handle is not valid or that the handle is currently selected into a device context
+;   ; return                Nonzero indicates success. Zero indicates that the specified handle is not valid or that the handle is currently selected into a device context
 
 ;   static __DeleteObject(hObject) {
 ;     return DllCall("DeleteObject", "UPtr", hObject)
@@ -1865,13 +1865,13 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				GetDC
-;   ; Description			This function retrieves a handle to a display device context (DC) for the client area of the specified window.
-;   ;						The display device context can be used in subsequent graphics display interface (GDI) functions to draw in the client area of the window.
+;   ; Function                GetDC
+;   ; Description            This function retrieves a handle to a display device context (DC) for the client area of the specified window.
+;   ;                        The display device context can be used in subsequent graphics display interface (GDI) functions to draw in the client area of the window.
 ;   ;
-;   ; hwnd					Handle to the window whose device context is to be retrieved. If this value is NULL, GetDC retrieves the device context for the entire screen
+;   ; hwnd                    Handle to the window whose device context is to be retrieved. If this value is NULL, GetDC retrieves the device context for the entire screen
 ;   ;
-;   ; return				The handle the device context for the specified window's client area indicates success. NULL indicates failure
+;   ; return                The handle the device context for the specified window's client area indicates success. NULL indicates failure
 
 ;   static __GetDC(hwnd := 0) {
 ;     return DllCall("GetDC", "UPtr", hwnd)
@@ -1899,17 +1899,17 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				ReleaseDC
-;   ; Description			This function releases a device context (DC), freeing it for use by other applications. The effect of ReleaseDC depends on the type of device context
+;   ; Function                ReleaseDC
+;   ; Description            This function releases a device context (DC), freeing it for use by other applications. The effect of ReleaseDC depends on the type of device context
 ;   ;
-;   ; hdc					Handle to the device context to be released
-;   ; hwnd					Handle to the window whose device context is to be released
+;   ; hdc                    Handle to the device context to be released
+;   ; hwnd                    Handle to the window whose device context is to be released
 ;   ;
-;   ; return				1 = released
-;   ;						0 = not released
+;   ; return                1 = released
+;   ;                        0 = not released
 ;   ;
-;   ; notes					The application must call the ReleaseDC function for each call to the GetWindowDC function and for each call to the GetDC function that retrieves a common device context
-;   ;						An application cannot use the ReleaseDC function to release a device context that was created by calling the CreateDC function; instead, it must use the DeleteDC function.
+;   ; notes                    The application must call the ReleaseDC function for each call to the GetWindowDC function and for each call to the GetDC function that retrieves a common device context
+;   ;                        An application cannot use the ReleaseDC function to release a device context that was created by calling the CreateDC function; instead, it must use the DeleteDC function.
 
 ;   static __ReleaseDC(hdc, hwnd := 0) {
 ;     return DllCall("ReleaseDC", "UPtr", hwnd, "UPtr", hdc)
@@ -1917,14 +1917,14 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function				DeleteDC
-;   ; Description			The DeleteDC function deletes the specified device context (DC)
+;   ; Function                DeleteDC
+;   ; Description            The DeleteDC function deletes the specified device context (DC)
 ;   ;
-;   ; hdc					A handle to the device context
+;   ; hdc                    A handle to the device context
 ;   ;
-;   ; return				if the function succeeds, the return value is nonzero
+;   ; return                if the function succeeds, the return value is nonzero
 ;   ;
-;   ; notes					An application must not delete a DC whose handle was obtained by calling the GetDC function. Instead, it must call the ReleaseDC function to free the DC
+;   ; notes                    An application must not delete a DC whose handle was obtained by calling the GetDC function. Instead, it must call the ReleaseDC function to free the DC
 
 ;   static __DeleteDC(hdc) {
 ;     return DllCall("DeleteDC", "UPtr", hdc)
@@ -1932,21 +1932,21 @@ class JSON {
 
 ;   ;#####################################################################################
 
-;   ; Function:				Gdip_SaveBitmapToFile
-;   ; Description:			Saves a bitmap to a file in any supported format onto disk
+;   ; Function:                Gdip_SaveBitmapToFile
+;   ; Description:            Saves a bitmap to a file in any supported format onto disk
 ;   ;
-;   ; pBitmap				Pointer to a bitmap
-;   ; sOutput				The name of the file that the bitmap will be saved to. Supported extensions are: .BMP,.DIB,.RLE,.JPG,.JPEG,.JPE,.JFIF,.GIF,.TIF,.TIFF,.PNG
-;   ; Quality				if saving as jpg (.JPG,.JPEG,.JPE,.JFIF) then quality can be 1-100 with default at maximum quality
+;   ; pBitmap                Pointer to a bitmap
+;   ; sOutput                The name of the file that the bitmap will be saved to. Supported extensions are: .BMP,.DIB,.RLE,.JPG,.JPEG,.JPE,.JFIF,.GIF,.TIF,.TIFF,.PNG
+;   ; Quality                if saving as jpg (.JPG,.JPEG,.JPE,.JFIF) then quality can be 1-100 with default at maximum quality
 ;   ;
-;   ; return				if the function succeeds, the return value is zero, otherwise:
-;   ;						-1 = Extension supplied is not a supported file format
-;   ;						-2 = Could not get a list of encoders on system
-;   ;						-3 = Could not find matching encoder for specified file format
-;   ;						-4 = Could not get WideChar name of output file
-;   ;						-5 = Could not save file to disk
+;   ; return                if the function succeeds, the return value is zero, otherwise:
+;   ;                        -1 = Extension supplied is not a supported file format
+;   ;                        -2 = Could not get a list of encoders on system
+;   ;                        -3 = Could not find matching encoder for specified file format
+;   ;                        -4 = Could not get WideChar name of output file
+;   ;                        -5 = Could not save file to disk
 ;   ;
-;   ; notes					This function will use the extension supplied from the sOutput parameter to determine the output format
+;   ; notes                    This function will use the extension supplied from the sOutput parameter to determine the output format
 
 ;   static __Gdip_SaveBitmapToFile(pBitmap, sOutput, Quality := 75) {
 ;     _p := 0
@@ -2140,7 +2140,7 @@ class JSON {
 ;   static __WinGetRect(hwnd, &x := "", &y := "", &w := "", &h := "") {
 ;     Ptr := A_PtrSize ? "UPtr" : "UInt"
 ;     screenshot.__CreateRect(&winRect, 0, 0, 0, 0) ;is 16 on both 32 and 64
-;     ;VarSetCapacity( winRect, 16, 0 )	; Alternative of above two lines
+;     ;VarSetCapacity( winRect, 16, 0 )    ; Alternative of above two lines
 ;     DllCall("GetWindowRect", "Ptr", hwnd, "Ptr", winRect)
 ;     x := NumGet(winRect, 0, "UInt")
 ;     y := NumGet(winRect, 4, "UInt")

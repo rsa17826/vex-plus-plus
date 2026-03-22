@@ -1,11 +1,11 @@
 ﻿/*
-	Name: Array.ahk
-	Version 0.4 (05.09.23)
-	Created: 27.08.22
-	Author: Descolada
+    Name: Array.ahk
+    Version 0.4 (05.09.23)
+    Created: 27.08.22
+    Author: Descolada
 
-	Description:
-	A compilation of useful array methods.
+    Description:
+    A compilation of useful array methods.
 
     Array.Slice(start:=1, end:=0, step:=1)  => Returns a section of the array from 'start' to 'end',
         optionally skipping elements with 'step'.
@@ -432,80 +432,80 @@ class Array2 {
 }
 
 /*
-	Name: String.ahk
-	Version 0.15 (05.09.23)
-	Created: 27.08.22
-	Author: Descolada
-	Credit:
-	tidbit		--- Author of "String Things - Common String & Array Functions", from which
-					I copied/based a lot of methods
-	Contributors: Axlefublr, neogna2
-	Contributors to "String Things": AfterLemon, Bon, Lexikos, MasterFocus, Rseding91, Verdlin
+    Name: String.ahk
+    Version 0.15 (05.09.23)
+    Created: 27.08.22
+    Author: Descolada
+    Credit:
+    tidbit        --- Author of "String Things - Common String & Array Functions", from which
+                    I copied/based a lot of methods
+    Contributors: Axlefublr, neogna2
+    Contributors to "String Things": AfterLemon, Bon, Lexikos, MasterFocus, Rseding91, Verdlin
 
-	Description:
-	A compilation of useful string methods. Also lets strings be treated as objects.
+    Description:
+    A compilation of useful string methods. Also lets strings be treated as objects.
 
-	These methods cannot be used as stand-alone. To do that, you must add another argument
-	'string' to the function and replace all occurrences of 'this' with 'string'.
-	.-==========================================================================-.
-	| Properties                                                                 |
-	|============================================================================|
-	| String.Length                                                              |
-	|       .IsDigit                                                             |
-	|       .IsXDigit                                                            |
-	|       .IsAlpha                                                             |
-	|       .IsUpper                                                             |
-	|       .IsLower                                                             |
-	|       .IsAlnum                                                             |
-	|       .IsSpace                                                             |
-	|       .IsTime                                                              |
-	|============================================================================|
-	| Methods                                                                    |
-	|============================================================================|
-	| Native functions as methods:                                               |
-	| String.ToUpper()                                                           |
-	|       .ToLower()                                                           |
-	|       .ToTitle()                                                           |
-	|       .Split([Delimiters, OmitChars, MaxParts])                            |
-	|       .Replace(Needle [, ReplaceText, CaseSense, &OutputVarCount, Limit])  |
-	|       .Trim([OmitChars])                                                   |
-	|       .LTrim([OmitChars])                                                  |
-	|       .RTrim([OmitChars])                                                  |
-	|       .Compare(comparison [, CaseSense])                                   |
-	|       .Sort([, Options, Function])                                         |
-	|       .Format([Values...])                                                 |
-	|       .Find(Needle [, CaseSense, StartingPos, Occurrence])                 |
-	|       .SplitPath() => returns object {FileName, Dir, Ext, NameNoExt, Drive}|                                                       |
-	|		.RegExMatch(needleRegex, &match?, startingPos?)                      |
-	|       .RegExMatchAll(needleRegex, startingPos?)                            |
-	|		.RegExReplace(needle, replacement?, &count?, limit?, startingPos?)   |
-	|                                                                            |
-	| String[n] => gets nth character                                            |
-	| String[i,j] => substring from i to j                                       |
-	| for [index,] char in String => loops over the characters in String         |
-	| String.Length                                                              |
-	| String.Count(searchFor)                                                    |
-	| String.Insert(insert, into [, pos])                                        |
-	| String.Delete(string [, start, length])                                    |
-	| String.Overwrite(overwrite, into [, pos])                                  |
-	| String.Repeat(count)                                                       |
-	| Delimeter.Concat(words*)                                                   |
-	|                                                                            |
-	| String.LineWrap([column:=56, indentChar:=""])                              |
-	| String.WordWrap([column:=56, indentChar:=""])                              |
-	| String.ReadLine(line [, delim:="`n", exclude:="`r"])                       |
-	| String.DeleteLine(line [, delim:="`n", exclude:="`r"])                     |
-	| String.InsertLine(insert, into, line [, delim:="`n", exclude:="`r"])       |
-	|                                                                            |
-	| String.Reverse()                                                           |
-	| String.Contains(needle1 [, needle2, needle3...])                           |
-	| String.RemoveDuplicates([delim:="`n"])                                     |
-	| String.LPad(count)                                                         |
-	| String.RPad(count)                                                         |
-	|                                                                            |
-	| String.Center([fill:=" ", symFill:=0, delim:="`n", exclude:="`r", width])  |
-	| String.Right([fill:=" ", delim:="`n", exclude:="`r"])                      |
-	'-==========================================================================-'
+    These methods cannot be used as stand-alone. To do that, you must add another argument
+    'string' to the function and replace all occurrences of 'this' with 'string'.
+    .-==========================================================================-.
+    | Properties                                                                 |
+    |============================================================================|
+    | String.Length                                                              |
+    |       .IsDigit                                                             |
+    |       .IsXDigit                                                            |
+    |       .IsAlpha                                                             |
+    |       .IsUpper                                                             |
+    |       .IsLower                                                             |
+    |       .IsAlnum                                                             |
+    |       .IsSpace                                                             |
+    |       .IsTime                                                              |
+    |============================================================================|
+    | Methods                                                                    |
+    |============================================================================|
+    | Native functions as methods:                                               |
+    | String.ToUpper()                                                           |
+    |       .ToLower()                                                           |
+    |       .ToTitle()                                                           |
+    |       .Split([Delimiters, OmitChars, MaxParts])                            |
+    |       .Replace(Needle [, ReplaceText, CaseSense, &OutputVarCount, Limit])  |
+    |       .Trim([OmitChars])                                                   |
+    |       .LTrim([OmitChars])                                                  |
+    |       .RTrim([OmitChars])                                                  |
+    |       .Compare(comparison [, CaseSense])                                   |
+    |       .Sort([, Options, Function])                                         |
+    |       .Format([Values...])                                                 |
+    |       .Find(Needle [, CaseSense, StartingPos, Occurrence])                 |
+    |       .SplitPath() => returns object {FileName, Dir, Ext, NameNoExt, Drive}|                                                       |
+    |        .RegExMatch(needleRegex, &match?, startingPos?)                      |
+    |       .RegExMatchAll(needleRegex, startingPos?)                            |
+    |        .RegExReplace(needle, replacement?, &count?, limit?, startingPos?)   |
+    |                                                                            |
+    | String[n] => gets nth character                                            |
+    | String[i,j] => substring from i to j                                       |
+    | for [index,] char in String => loops over the characters in String         |
+    | String.Length                                                              |
+    | String.Count(searchFor)                                                    |
+    | String.Insert(insert, into [, pos])                                        |
+    | String.Delete(string [, start, length])                                    |
+    | String.Overwrite(overwrite, into [, pos])                                  |
+    | String.Repeat(count)                                                       |
+    | Delimeter.Concat(words*)                                                   |
+    |                                                                            |
+    | String.LineWrap([column:=56, indentChar:=""])                              |
+    | String.WordWrap([column:=56, indentChar:=""])                              |
+    | String.ReadLine(line [, delim:="`n", exclude:="`r"])                       |
+    | String.DeleteLine(line [, delim:="`n", exclude:="`r"])                     |
+    | String.InsertLine(insert, into, line [, delim:="`n", exclude:="`r"])       |
+    |                                                                            |
+    | String.Reverse()                                                           |
+    | String.Contains(needle1 [, needle2, needle3...])                           |
+    | String.RemoveDuplicates([delim:="`n"])                                     |
+    | String.LPad(count)                                                         |
+    | String.RPad(count)                                                         |
+    |                                                                            |
+    | String.Center([fill:=" ", symFill:=0, delim:="`n", exclude:="`r", width])  |
+    | String.Right([fill:=" ", delim:="`n", exclude:="`r"])                      |
+    '-==========================================================================-'
 */
 class String2 {
   static __New() {
@@ -631,10 +631,10 @@ class String2 {
   /**
    * Uses regex to perform a replacement, returns the changed string
    * @param needleRegex *String* What pattern to match.
-   * 	This can also be a Array of needles (and replacement a corresponding array of replacement values), 
-   * 	in which case all of the pairs will be searched for and replaced with the corresponding replacement. 
-   * 	replacement should be left empty, outputVarCount will be set to the total number of replacements, limit is the maximum
-   * 	number of replacements for each needle-replacement pair.
+   *     This can also be a Array of needles (and replacement a corresponding array of replacement values), 
+   *     in which case all of the pairs will be searched for and replaced with the corresponding replacement. 
+   *     replacement should be left empty, outputVarCount will be set to the total number of replacements, limit is the maximum
+   *     number of replacements for each needle-replacement pair.
    * @param replacement *String* What to replace that match into
    * @param outputVarCount *VarRef* Specify a variable with a `&` before it to assign it to the amount of replacements that have occured
    * @param limit *Integer* The maximum amount of replacements that can happen. Unlimited by default
@@ -1080,13 +1080,13 @@ class String2 {
 }
 
 /*
-	Name: Map.ahk
-	Version 0.1 (05.09.23)
-	Created: 05.09.23
-	Author: Descolada
+    Name: Map.ahk
+    Version 0.1 (05.09.23)
+    Created: 05.09.23
+    Author: Descolada
 
-	Description:
-	A compilation of useful Map methods.
+    Description:
+    A compilation of useful Map methods.
 
     Map.Keys                              => All keys of the map in an array
     Map.Values                            => All values of the map in an array
