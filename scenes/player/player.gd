@@ -1844,6 +1844,7 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   # !version ?-239! having upwards velocity while trying to jump from one wall to the same side of another wall will cause the player to not be able to grab onto the wall
   # !version 246-NOW! stacking waters with playerMovesWithMovingWater enabled will launch the player at waterCount X speed
   # !version 247-247! walking off a ledge moves player up 1 px
+  # !version ?-250! dying on a zipline or going through a zipline while dying causes the respawn to be interupted making the player onable to collide with anything not thats not a zipline
 
 # ?add level option to change canPressDownToShortHop and make sh work
 
