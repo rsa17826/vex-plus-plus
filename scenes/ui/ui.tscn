@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dww8kqmxwq7h8" path="res://scenes/ui/ui vars.gd" id="1_oiwrs"]
 [ext_resource type="PackedScene" uid="uid://b31y1p0vb51q7" path="res://scenes/editor bar/editor_bar.tscn" id="2_5gxme"]
 [ext_resource type="Script" uid="uid://d0s8e8eppjwrw" path="res://scenes/ui/background.gd" id="3_hl07w"]
-[ext_resource type="Texture2D" uid="uid://dj7kwprixwhkn" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
+[ext_resource type="Texture2D" uid="uid://c56ioekmuoj8r" path="res://scenes/ui/images/game saved.webp" id="3_qno0g"]
 [ext_resource type="Script" uid="uid://dq7u7ee4b62e" path="res://scenes/ui/star_counter.gd" id="5_0dwhk"]
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="6_4kltc"]
 [ext_resource type="PackedScene" uid="uid://be824ve2c7lm3" path="res://scenes/ui/modifiers/modifiers.tscn" id="6_jcn1r"]
@@ -16,7 +16,7 @@
 [ext_resource type="Script" uid="uid://c1degxs1pbn86" path="res://scenes/ui/sub_viewport.gd" id="14_n3vwu"]
 [ext_resource type="Script" uid="uid://bu86o6la4ga8s" path="res://scenes/ui/SubViewportContainer camera_2d.gd" id="15_n3vwu"]
 [ext_resource type="PackedScene" uid="uid://ccr06ddwa73ca" path="res://GLOBAL/screen_notifier/resident_logs.tscn" id="16_0i47d"]
-[ext_resource type="Texture2D" uid="uid://tjldoi64i7h5" path="res://scenes/ui/images/leverPullEffect1.png" id="17_4w2x3"]
+[ext_resource type="Texture2D" uid="uid://dkqpbfxp5h0gh" path="res://scenes/ui/images/leverPullEffect1.png" id="17_4w2x3"]
 [ext_resource type="Script" uid="uid://b4jl2tqj786vi" path="res://scenes/ui/leverPullEffect.gd" id="18_svq4k"]
 
 [node name="2 - ui" type="CanvasLayer" unique_id=1891734738 node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer", "gravityChange")]
