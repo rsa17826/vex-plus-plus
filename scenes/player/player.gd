@@ -207,6 +207,16 @@ func _ready() -> void:
 var defaultAngle: float
 var startedPanning: bool = false
 
+# --- Replay System ---
+var _replay_recording: bool = false
+var _replay_playing: bool = false
+var _replay_frame: int = 0
+var _replay_data: Array = []         # Array of per-frame input dicts
+var _replay_snapshots: Array = []    # Array of {frame, snapshot} dicts
+var _replay_injected: Dictionary = {}
+const _REPLAY_SNAPSHOT_INTERVAL: int = 60  # snapshot every 60 physics frames (~1 sec)
+const _REPLAY_ACTIONS: Array = ["left", "right", "jump", "down"]
+
 func _unhandled_input(event: InputEvent) -> void:
   if get_viewport().gui_get_focus_owner(): return
   if global.tabMenu.visible: return
@@ -358,6 +368,26 @@ func _physics_process(delta: float) -> void:
   # vel.user.y += 1 * delta
   # sss.y += 1 * delta
   # return
+  # --- Replay: record this frame's inputs ---
+  if _replay_recording:
+    var _fd: Dictionary = { "pressed": {}, "just_pressed": {} }
+    for _a: String in _REPLAY_ACTIONS:
+      _fd.pressed[_a]      = Input.is_action_pressed(_a)
+      _fd.just_pressed[_a] = Input.is_action_just_pressed(_a)
+    _replay_data.append(_fd)
+    if _replay_frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
+      _replay_snapshots.append({ "frame": _replay_frame, "snapshot": capture_snapshot() })
+    _replay_frame += 1
+
+  # --- Replay: inject this frame's inputs during playback ---
+  if _replay_playing:
+    if _replay_frame >= _replay_data.size():
+      _replay_playing = false
+      _replay_injected = {}
+    else:
+      _replay_injected = _replay_data[_replay_frame]
+      _replay_frame += 1
+
   up_direction = global.clearLow(up_direction)
   defaultAngle = up_direction.angle() + deg_to_rad(90)
   if abs(defaultAngle) < .0001:
@@ -388,9 +418,9 @@ func _physics_process(delta: float) -> void:
     # States.levelLoading,
   ] \
   and not inWaters:
-    if Input.is_action_just_pressed(&"jump"):
+    if _gi_just_pressed(&"jump"):
       ACTIONjump = true
-  if !Input.is_action_pressed(&"jump"):
+  if !_gi_pressed(&"jump"):
     ACTIONjump = false
   var onStickyFloor = stickyFloorDetector.get_overlapping_areas()
   Engine.time_scale = .3 if global.useropts.__slowTime else 1.0
@@ -531,7 +561,7 @@ func _physics_process(delta: float) -> void:
         activePole.root.timingIndicator.visible = false
         activePole = null
         poleCooldown = MAX_POLE_COOLDOWN
-      elif Input.is_action_just_pressed(&"down"):
+      elif _gi_just_pressed(&"down"):
         remainingJumpCount -= 1
         vel.user.y = 0
         activePole.root.timingIndicator.visible = false
@@ -568,7 +598,7 @@ func _physics_process(delta: float) -> void:
       if pulleyNoDieTimer <= 0:
         tryAndDieHazards()
 
-      if Input.is_action_just_pressed(&"down") or inWaters:
+      if _gi_just_pressed(&"down") or inWaters:
         remainingJumpCount -= 1
         state = States.falling
       applyHeat(delta)
@@ -616,7 +646,7 @@ func _physics_process(delta: float) -> void:
         vel.user.y = JUMP_POWER
         ziplineCooldown = MAX_ZIPLINE_COOLDOWN
         return
-      if Input.is_action_pressed(&"down"):
+      if _gi_pressed(&"down"):
         remainingJumpCount -= 1
         state = States.falling
         ziplineCooldown = MAX_ZIPLINE_COOLDOWN
@@ -684,7 +714,7 @@ func _physics_process(delta: float) -> void:
         waterAnimBottom.visible = true
         anim.visible = false
         # turn player
-        rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
+        rotation_degrees += delta * WATER_TURNSPEED * _gi_axis("left", "right")
         # dont store velocity from normal movement if in water
         vel.user = Vector2.ZERO
         # set state to falling for when player exits the water
@@ -693,7 +723,7 @@ func _physics_process(delta: float) -> void:
         if global.currentLevelSettings().autoRun:
           velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * 1
         else:
-          velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * Input.get_axis("down", "jump")
+          velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * _gi_axis("down", "jump")
         velocity *= .8
         # only bounce out of the water if going up
         # log.err(velocity)
@@ -703,7 +733,7 @@ func _physics_process(delta: float) -> void:
         vel.waterMove = Vector2.ZERO
         for v: String in vel:
           vel[v] = Vector2.ZERO
-        if waterRay.is_colliding() and Input.is_action_pressed(&"jump"):
+        if waterRay.is_colliding() and _gi_pressed(&"jump"):
           vel.waterExit = Vector2(Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation - defaultAngle))
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
@@ -892,7 +922,7 @@ func _physics_process(delta: float) -> void:
             # remainingJumpCount = MAX_JUMP_COUNT
             state = States.wallSliding
             # press down to detach from wallslide
-            if Input.is_action_pressed(&"down") and wallBreakDownFrames <= 0:
+            if _gi_pressed(&"down") and wallBreakDownFrames <= 0:
               breakFromWall = true
             if !breakFromWall and wallSlidingFrames <= 0:
               wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
@@ -1292,7 +1322,7 @@ func getCurrentLrState():
   if respawnCooldown > 0: return 0
   if global.currentLevelSettings().autoRun:
     return autoRunDirection
-  return Input.get_axis("left", "right")
+  return _gi_axis("left", "right")
 
 func applyHeat(delta):
   var heatToAdd = 0
@@ -1979,3 +2009,115 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # why does stacking water cause lag?
 # fix loading into a level not dying when falling right down onto death boundary
 # fix fans bloing player wrong dir when grav is changed
+
+# ── Input wrappers ──────────────────────────────────────────────────────────
+func _gi_pressed(action: StringName) -> bool:
+    if _replay_playing and not _replay_injected.is_empty():
+        return _replay_injected.get("pressed", {}).get(str(action), false)
+    return Input.is_action_pressed(action)
+
+func _gi_just_pressed(action: StringName) -> bool:
+    if _replay_playing and not _replay_injected.is_empty():
+        return _replay_injected.get("just_pressed", {}).get(str(action), false)
+    return Input.is_action_just_pressed(action)
+
+func _gi_axis(neg: StringName, pos: StringName) -> float:
+    return float(_gi_pressed(pos)) - float(_gi_pressed(neg))
+
+# ── Snapshot ─────────────────────────────────────────────────────────────────
+func capture_snapshot() -> Dictionary:
+    return {
+        "position": position, "velocity": velocity, "state": state,
+        "vel": vel.duplicate(true), "rotation": rotation,
+        "up_direction": up_direction, "remainingJumpCount": remainingJumpCount,
+        "playerKT": playerKT, "wallSlidingFrames": wallSlidingFrames,
+        "slideRecovery": slideRecovery, "duckRecovery": duckRecovery,
+        "wallBreakDownFrames": wallBreakDownFrames, "breakFromWall": breakFromWall,
+        "lastWallSide": lastWallSide, "playerXIntent": playerXIntent,
+        "boxKickRecovery": boxKickRecovery, "poleCooldown": poleCooldown,
+        "ziplineCooldown": ziplineCooldown, "gravState": gravState,
+        "speedLeverActive": speedLeverActive, "heat": heat,
+        "autoRunDirection": autoRunDirection, "anim_flip_h": anim.flip_h,
+    }
+
+func restore_snapshot(snap: Dictionary) -> void:
+    position      = snap.position
+    velocity      = snap.velocity
+    state         = snap.state
+    for k: String in snap.vel: vel[k] = snap.vel[k]
+    rotation             = snap.rotation
+    up_direction         = snap.up_direction
+    remainingJumpCount   = snap.remainingJumpCount
+    playerKT             = snap.playerKT
+    wallSlidingFrames    = snap.wallSlidingFrames
+    slideRecovery        = snap.slideRecovery
+    duckRecovery         = snap.duckRecovery
+    wallBreakDownFrames  = snap.wallBreakDownFrames
+    breakFromWall        = snap.breakFromWall
+    lastWallSide         = snap.lastWallSide
+    playerXIntent        = snap.playerXIntent
+    boxKickRecovery      = snap.boxKickRecovery
+    poleCooldown         = snap.poleCooldown
+    ziplineCooldown      = snap.ziplineCooldown
+    gravState            = snap.gravState
+    speedLeverActive     = snap.speedLeverActive
+    heat                 = snap.heat
+    autoRunDirection     = snap.autoRunDirection
+    anim.flip_h          = snap.anim_flip_h
+
+# ── Replay API ───────────────────────────────────────────────────────────────
+func replay_start_recording() -> void:
+    _replay_data = [];  _replay_snapshots = [];  _replay_frame = 0
+    _replay_snapshots.append({ "frame": 0, "snapshot": capture_snapshot() })
+    _replay_recording = true
+
+func replay_stop_recording() -> void:
+    _replay_recording = false
+
+func replay_save(path: String) -> void:
+    var file := FileAccess.open(path, FileAccess.WRITE)
+    if not file: return
+    file.store_var({ "frames": _replay_data, "snapshots": _replay_snapshots })
+    file.close()
+
+func replay_load(path: String) -> void:
+    var file := FileAccess.open(path, FileAccess.READ)
+    if not file: return
+    var data: Dictionary = file.get_var()
+    file.close()
+    _replay_data      = data.frames
+    _replay_snapshots = data.snapshots
+    _replay_frame     = 0
+
+func replay_start_playback() -> void:
+    if _replay_data.is_empty(): return
+    _replay_frame   = 0
+    _replay_playing = true
+
+func replay_stop_playback() -> void:
+    _replay_playing  = false
+    _replay_injected = {}
+
+func replay_seek(target_frame: int) -> void:
+    if _replay_data.is_empty() or _replay_snapshots.is_empty(): return
+    target_frame = clampi(target_frame, 0, _replay_data.size() - 1)
+    # Restore nearest snapshot at or before target_frame
+    var best: Dictionary = _replay_snapshots[0].snapshot
+    var best_f: int = 0
+    for entry: Dictionary in _replay_snapshots:
+        if entry.frame <= target_frame:
+            best   = entry.snapshot
+            best_f = entry.frame
+    restore_snapshot(best)
+    _replay_frame = best_f
+    # Fast-forward to exact target frame without rendering
+    _replay_playing = true
+    while _replay_frame < target_frame:
+        _replay_injected = _replay_data[_replay_frame]
+        _replay_frame   += 1
+        _physics_process(1.0 / 60.0)
+    _replay_playing  = false
+    _replay_injected = {}
+
+func replay_total_frames() -> int:
+    return _replay_data.size()
