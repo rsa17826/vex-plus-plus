@@ -71,7 +71,21 @@ var playerVelOnDeath := Vector2.ZERO
 #     hasBeenExploded = val
 #     if hasBeenExploded:
 #       __disable.call_deferred()
+# In EditorBlock.gd — add these two virtual functions
 
+func replay_capture() -> Dictionary:
+  # Base captures position and velocity which most moving blocks need
+  return {
+    "position": thingThatMoves.global_position,
+    "vel": thingThatMoves.vel.duplicate(true) if "vel" in thingThatMoves else {},
+    "respawning": respawning,
+  }
+
+func replay_restore(snap: Dictionary) -> void:
+  thingThatMoves.global_position = snap.position
+  if "vel" in thingThatMoves and not snap.vel.is_empty():
+    for k in snap.vel:
+      thingThatMoves.vel[k] = snap.vel[k]
 var intendedPositionOfThingThatMoves := Vector2.ZERO
 
 func moveTo(pos: Vector2):
