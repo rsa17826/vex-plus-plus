@@ -211,10 +211,10 @@ var startedPanning: bool = false
 var _replay_recording: bool = false
 var _replay_playing: bool = false
 var _replay_frame: int = 0
-var _replay_data: Array = []         # Array of per-frame input dicts
-var _replay_snapshots: Array = []    # Array of {frame, snapshot} dicts
+var _replay_data: Array = [] # Array of per-frame input dicts
+var _replay_snapshots: Array = [] # Array of {frame, snapshot} dicts
 var _replay_injected: Dictionary = {}
-const _REPLAY_SNAPSHOT_INTERVAL: int = 60  # snapshot every 60 physics frames (~1 sec)
+const _REPLAY_SNAPSHOT_INTERVAL: int = 60 # snapshot every 60 physics frames (~1 sec)
 const _REPLAY_ACTIONS: Array = ["left", "right", "jump", "down"]
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -370,13 +370,13 @@ func _physics_process(delta: float) -> void:
   # return
   # --- Replay: record this frame's inputs ---
   if _replay_recording:
-    var _fd: Dictionary = { "pressed": {}, "just_pressed": {} }
+    var _fd: Dictionary = {"pressed": {}, "just_pressed": {}}
     for _a: String in _REPLAY_ACTIONS:
-      _fd.pressed[_a]      = Input.is_action_pressed(_a)
+      _fd.pressed[_a] = Input.is_action_pressed(_a)
       _fd.just_pressed[_a] = Input.is_action_just_pressed(_a)
     _replay_data.append(_fd)
     if _replay_frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
-      _replay_snapshots.append({ "frame": _replay_frame, "snapshot": capture_snapshot() })
+      _replay_snapshots.append({"frame": _replay_frame, "snapshot": capture_snapshot()})
     _replay_frame += 1
 
   # --- Replay: inject this frame's inputs during playback ---
@@ -482,6 +482,8 @@ func _physics_process(delta: float) -> void:
         await global.wait()
         stopDying()
         global.resendActiveSignals()
+        if !_replay_recording and !_replay_playing:
+          replay_start_recording()
       return
     States.inCannon:
       remainingJumpCount = MAX_JUMP_COUNT
@@ -2012,112 +2014,121 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # ── Input wrappers ──────────────────────────────────────────────────────────
 func _gi_pressed(action: StringName) -> bool:
-    if _replay_playing and not _replay_injected.is_empty():
-        return _replay_injected.get("pressed", {}).get(str(action), false)
-    return Input.is_action_pressed(action)
+  if _replay_playing and not _replay_injected.is_empty():
+    return _replay_injected.get("pressed", {}).get(str(action), false)
+  return Input.is_action_pressed(action)
 
 func _gi_just_pressed(action: StringName) -> bool:
-    if _replay_playing and not _replay_injected.is_empty():
-        return _replay_injected.get("just_pressed", {}).get(str(action), false)
-    return Input.is_action_just_pressed(action)
+  if _replay_playing and not _replay_injected.is_empty():
+    return _replay_injected.get("just_pressed", {}).get(str(action), false)
+  return Input.is_action_just_pressed(action)
 
 func _gi_axis(neg: StringName, pos: StringName) -> float:
-    return float(_gi_pressed(pos)) - float(_gi_pressed(neg))
+  return float(_gi_pressed(pos)) - float(_gi_pressed(neg))
 
 # ── Snapshot ─────────────────────────────────────────────────────────────────
 func capture_snapshot() -> Dictionary:
-    return {
-        "position": position, "velocity": velocity, "state": state,
-        "vel": vel.duplicate(true), "rotation": rotation,
-        "up_direction": up_direction, "remainingJumpCount": remainingJumpCount,
-        "playerKT": playerKT, "wallSlidingFrames": wallSlidingFrames,
-        "slideRecovery": slideRecovery, "duckRecovery": duckRecovery,
-        "wallBreakDownFrames": wallBreakDownFrames, "breakFromWall": breakFromWall,
-        "lastWallSide": lastWallSide, "playerXIntent": playerXIntent,
-        "boxKickRecovery": boxKickRecovery, "poleCooldown": poleCooldown,
-        "ziplineCooldown": ziplineCooldown, "gravState": gravState,
-        "speedLeverActive": speedLeverActive, "heat": heat,
-        "autoRunDirection": autoRunDirection, "anim_flip_h": anim.flip_h,
-    }
+  var snap = {
+    "position": position, "velocity": velocity, "state": state,
+    "vel": vel.duplicate(true), "rotation": rotation,
+    "up_direction": up_direction, "remainingJumpCount": remainingJumpCount,
+    "playerKT": playerKT, "wallSlidingFrames": wallSlidingFrames,
+    "slideRecovery": slideRecovery, "duckRecovery": duckRecovery,
+    "wallBreakDownFrames": wallBreakDownFrames, "breakFromWall": breakFromWall,
+    "lastWallSide": lastWallSide, "playerXIntent": playerXIntent,
+    "boxKickRecovery": boxKickRecovery, "poleCooldown": poleCooldown,
+    "ziplineCooldown": ziplineCooldown, "gravState": gravState,
+    "speedLeverActive": speedLeverActive, "heat": heat,
+    "autoRunDirection": autoRunDirection, "anim_flip_h": anim.flip_h,
+  }
+  var block_snaps := {}
+  for block in get_tree().get_nodes_in_group("replay_blocks"):
+    block_snaps[block.get_path()] = (block as EditorBlock).replay_capture()
+  snap.blocks = block_snaps
+  return snap
 
 func restore_snapshot(snap: Dictionary) -> void:
-    position      = snap.position
-    velocity      = snap.velocity
-    state         = snap.state
-    for k: String in snap.vel: vel[k] = snap.vel[k]
-    rotation             = snap.rotation
-    up_direction         = snap.up_direction
-    remainingJumpCount   = snap.remainingJumpCount
-    playerKT             = snap.playerKT
-    wallSlidingFrames    = snap.wallSlidingFrames
-    slideRecovery        = snap.slideRecovery
-    duckRecovery         = snap.duckRecovery
-    wallBreakDownFrames  = snap.wallBreakDownFrames
-    breakFromWall        = snap.breakFromWall
-    lastWallSide         = snap.lastWallSide
-    playerXIntent        = snap.playerXIntent
-    boxKickRecovery      = snap.boxKickRecovery
-    poleCooldown         = snap.poleCooldown
-    ziplineCooldown      = snap.ziplineCooldown
-    gravState            = snap.gravState
-    speedLeverActive     = snap.speedLeverActive
-    heat                 = snap.heat
-    autoRunDirection     = snap.autoRunDirection
-    anim.flip_h          = snap.anim_flip_h
+  position = snap.position
+  velocity = snap.velocity
+  state = snap.state
+  for k: String in snap.vel: vel[k] = snap.vel[k]
+  rotation = snap.rotation
+  up_direction = snap.up_direction
+  remainingJumpCount = snap.remainingJumpCount
+  playerKT = snap.playerKT
+  wallSlidingFrames = snap.wallSlidingFrames
+  slideRecovery = snap.slideRecovery
+  duckRecovery = snap.duckRecovery
+  wallBreakDownFrames = snap.wallBreakDownFrames
+  breakFromWall = snap.breakFromWall
+  lastWallSide = snap.lastWallSide
+  playerXIntent = snap.playerXIntent
+  boxKickRecovery = snap.boxKickRecovery
+  poleCooldown = snap.poleCooldown
+  ziplineCooldown = snap.ziplineCooldown
+  gravState = snap.gravState
+  speedLeverActive = snap.speedLeverActive
+  heat = snap.heat
+  autoRunDirection = snap.autoRunDirection
+  anim.flip_h = snap.anim_flip_h
+  for path in snap.get("blocks", {}):
+    var block := get_node_or_null(path)
+    if block is EditorBlock:
+      block.replay_restore(snap.blocks[path])
 
 # ── Replay API ───────────────────────────────────────────────────────────────
 func replay_start_recording() -> void:
-    _replay_data = [];  _replay_snapshots = [];  _replay_frame = 0
-    _replay_snapshots.append({ "frame": 0, "snapshot": capture_snapshot() })
-    _replay_recording = true
+  _replay_data = []; _replay_snapshots = []; _replay_frame = 0
+  _replay_snapshots.append({"frame": 0, "snapshot": capture_snapshot()})
+  _replay_recording = true
 
 func replay_stop_recording() -> void:
-    _replay_recording = false
+  _replay_recording = false
 
 func replay_save(path: String) -> void:
-    var file := FileAccess.open(path, FileAccess.WRITE)
-    if not file: return
-    file.store_var({ "frames": _replay_data, "snapshots": _replay_snapshots })
-    file.close()
+  var file := FileAccess.open(path, FileAccess.WRITE)
+  if not file: return
+  file.store_var({"frames": _replay_data, "snapshots": _replay_snapshots})
+  file.close()
 
 func replay_load(path: String) -> void:
-    var file := FileAccess.open(path, FileAccess.READ)
-    if not file: return
-    var data: Dictionary = file.get_var()
-    file.close()
-    _replay_data      = data.frames
-    _replay_snapshots = data.snapshots
-    _replay_frame     = 0
+  var file := FileAccess.open(path, FileAccess.READ)
+  if not file: return
+  var data: Dictionary = file.get_var()
+  file.close()
+  _replay_data = data.frames
+  _replay_snapshots = data.snapshots
+  _replay_frame = 0
 
 func replay_start_playback() -> void:
-    if _replay_data.is_empty(): return
-    _replay_frame   = 0
-    _replay_playing = true
+  if _replay_data.is_empty(): return
+  _replay_frame = 0
+  _replay_playing = true
 
 func replay_stop_playback() -> void:
-    _replay_playing  = false
-    _replay_injected = {}
+  _replay_playing = false
+  _replay_injected = {}
 
 func replay_seek(target_frame: int) -> void:
-    if _replay_data.is_empty() or _replay_snapshots.is_empty(): return
-    target_frame = clampi(target_frame, 0, _replay_data.size() - 1)
-    # Restore nearest snapshot at or before target_frame
-    var best: Dictionary = _replay_snapshots[0].snapshot
-    var best_f: int = 0
-    for entry: Dictionary in _replay_snapshots:
-        if entry.frame <= target_frame:
-            best   = entry.snapshot
-            best_f = entry.frame
-    restore_snapshot(best)
-    _replay_frame = best_f
-    # Fast-forward to exact target frame without rendering
-    _replay_playing = true
-    while _replay_frame < target_frame:
-        _replay_injected = _replay_data[_replay_frame]
-        _replay_frame   += 1
-        _physics_process(1.0 / 60.0)
-    _replay_playing  = false
-    _replay_injected = {}
+  if _replay_data.is_empty() or _replay_snapshots.is_empty(): return
+  target_frame = clampi(target_frame, 0, _replay_data.size() - 1)
+  # Restore nearest snapshot at or before target_frame
+  var best: Dictionary = _replay_snapshots[0].snapshot
+  var best_f: int = 0
+  for entry: Dictionary in _replay_snapshots:
+    if entry.frame <= target_frame:
+      best = entry.snapshot
+      best_f = entry.frame
+  restore_snapshot(best)
+  _replay_frame = best_f
+  # Fast-forward to exact target frame without rendering
+  _replay_playing = true
+  while _replay_frame < target_frame:
+    _replay_injected = _replay_data[_replay_frame]
+    _replay_frame += 1
+    _physics_process(1.0 / 60.0)
+  _replay_playing = false
+  _replay_injected = {}
 
 func replay_total_frames() -> int:
-    return _replay_data.size()
+  return _replay_data.size()

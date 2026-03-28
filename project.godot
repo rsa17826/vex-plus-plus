@@ -91,6 +91,7 @@ spark=""
 "attaches to things"=""
 dontRespawnOnPlayerDeath=""
 canBeAttachedTo=""
+replay_blocks=""
 
 [gui]
 

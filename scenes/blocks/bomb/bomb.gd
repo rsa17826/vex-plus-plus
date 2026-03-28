@@ -10,7 +10,44 @@ var exploded = false
 
 func on_body_entered(body: Node):
   explode()
+func replay_capture() -> Dictionary:
+  var snap := super.replay_capture() # grab base position/vel
+  snap.exploded = exploded
+  snap.boom_visible = boomSprite.visible
+  snap.boom_frame = boomSprite.frame
+  snap.boom_playing = boomSprite.is_playing()
+  snap.boom_radius = boomShape.shape.radius if boomShape.shape else 0.0
+  snap.sprite_visible = $CharacterBody2D/Sprite2D.visible
+  return snap
 
+func replay_restore(snap: Dictionary) -> void:
+  super.replay_restore(snap) # restore position/vel
+
+  # Disconnect animation signals so they don't fire during restore
+  if boomSprite.frame_changed.is_connected(onFrameChanged):
+    boomSprite.frame_changed.disconnect(onFrameChanged)
+  if boomSprite.animation_looped.is_connected(onAnimationLooped):
+    boomSprite.animation_looped.disconnect(onAnimationLooped)
+
+  exploded = snap.exploded
+  boomSprite.visible = snap.boom_visible
+  boomSprite.frame = snap.boom_frame
+  $CharacterBody2D/Sprite2D.visible = snap.sprite_visible
+
+  if snap.boom_playing:
+    boomSprite.play("explode")
+  else:
+    boomSprite.stop()
+
+  if boomShape.shape and snap.boom_radius > 0:
+    boomShape.shape.radius = snap.boom_radius
+
+  # Reconnect signals only if mid-explosion
+  if exploded and snap.boom_playing:
+    if not boomSprite.frame_changed.is_connected(onFrameChanged):
+      boomSprite.frame_changed.connect(onFrameChanged)
+    if not boomSprite.animation_looped.is_connected(onAnimationLooped):
+      boomSprite.animation_looped.connect(onAnimationLooped)
 func on_respawn():
   exploded = true
   boomSprite.stop()
