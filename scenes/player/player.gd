@@ -221,6 +221,12 @@ func _unhandled_input(event: InputEvent) -> void:
   if get_viewport().gui_get_focus_owner(): return
   if global.tabMenu.visible: return
   if global.openMsgBoxCount: return
+  if Input.is_action_just_pressed(&"replay_play", true):
+    replay_load("res://aaa")
+    replay_start_playback()
+  if Input.is_action_just_pressed(&"replay_save", true):
+    replay_stop_recording()
+    replay_save("res://aaa")
   if Input.is_action_just_pressed(&"activate_temporary_checkpoint", true):
     lastSpawnPoint = (global_position - root.global_position)
     global.currentLevel().up_direction = up_direction
@@ -238,6 +244,8 @@ func _unhandled_input(event: InputEvent) -> void:
   if Input.is_action_just_pressed(&"full_restart", true):
     lastDeathMessage = "player realized they were softlocked"
     die(DEATH_TIME, true, true)
+    if not _replay_playing:
+      replay_start_recording()
 
   if state != States.dead and global.showEditorUi:
     if Input.is_action_just_pressed(&"focus_on_player", true):
@@ -375,7 +383,7 @@ func _physics_process(delta: float) -> void:
       _fd.pressed[_a] = Input.is_action_pressed(_a)
       _fd.just_pressed[_a] = Input.is_action_just_pressed(_a)
     _replay_data.append(_fd)
-    if _replay_frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
+    if _replay_frame > 0 and _replay_frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
       _replay_snapshots.append({"frame": _replay_frame, "snapshot": capture_snapshot()})
     _replay_frame += 1
 
@@ -2040,6 +2048,7 @@ func capture_snapshot() -> Dictionary:
     "ziplineCooldown": ziplineCooldown, "gravState": gravState,
     "speedLeverActive": speedLeverActive, "heat": heat,
     "autoRunDirection": autoRunDirection, "anim_flip_h": anim.flip_h,
+    "respawnCooldown": respawnCooldown,
   }
   var block_snaps := {}
   for block in get_tree().get_nodes_in_group("replay_blocks"):
@@ -2071,6 +2080,7 @@ func restore_snapshot(snap: Dictionary) -> void:
   heat = snap.heat
   autoRunDirection = snap.autoRunDirection
   anim.flip_h = snap.anim_flip_h
+  respawnCooldown = snap.respawnCooldown
   for path in snap.get("blocks", {}):
     var block := get_node_or_null(path)
     if block is EditorBlock:
@@ -2101,7 +2111,8 @@ func replay_load(path: String) -> void:
   _replay_frame = 0
 
 func replay_start_playback() -> void:
-  if _replay_data.is_empty(): return
+  if _replay_data.is_empty() or _replay_snapshots.is_empty(): return
+  restore_snapshot(_replay_snapshots[0].snapshot)  # put player back to recording start state
   _replay_frame = 0
   _replay_playing = true
 
