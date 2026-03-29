@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://gtb46bofn0mu"]
+[gd_scene format=3 uid="uid://gtb46bofn0mu"]
 
-[ext_resource type="Script" path="res://addons/godot_beautifier/src/settings_panel.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://igtp4gf8qjm8" path="res://addons/godot_beautifier/src/logo.png" id="2_3bhel"]
+[ext_resource type="Script" uid="uid://bgh0vl2cww0hi" path="res://addons/godot_beautifier/src/settings_panel.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://3j0jik78ix8o" path="res://icons/custom blocks.png" id="2_3bhel"]
 
 [node name="Settings" type="Window"]
 title = "Settings"

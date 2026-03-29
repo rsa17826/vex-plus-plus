@@ -598,6 +598,7 @@ func clearLow(v):
 # local game only data
 
 var player: Player
+var replayPlaying: bool = false # set by player._replay_playing property
 var level: Node2D
 
 func getLevelSavePath(levelname):
@@ -1238,6 +1239,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"exit_inner_level", false, true):
     if level and is_instance_valid(level):
       if len(loadedLevels) > 1:
+        player.replay_pause()
         if useropts.saveOnExit:
           level.save(false)
         loadedLevels.pop_back()
@@ -1255,6 +1257,7 @@ func _unhandled_input(event: InputEvent) -> void:
         player.die(15, false, true)
         # player.die(3, false, true)
         global.tick = global.currentLevel().tick
+        player.replay_resume()
         # savePlayerLevelData()
   if event.is_action_pressed(&"save", false, true):
     if level and is_instance_valid(level):
@@ -1430,6 +1433,7 @@ var loadingLevel = false
 func loadInnerLevel(innerLevel: String) -> void:
   if loadingLevel: return
   loadingLevel = true
+  player.replay_pause()
   player.state = player.States.levelLoading
   # breakpoint
   if useropts.saveLevelOnWin:
@@ -1466,6 +1470,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   player.die(15, false, true)
   loadBlockData()
   await savePlayerLevelData()
+  player.replay_resume()
   loadingLevel = false
   # log.pp(loadedLevels, beatLevels)
 var saveData: Variant
@@ -1483,19 +1488,20 @@ func win() -> void:
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     loadedLevels.append(beatLevels.pop_back())
-    saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
-    if "loadedLevels" not in saveData:
-      saveData.loadedLevels = loadedLevels
-    if "beatLevels" not in saveData:
-      saveData.beatLevels = []
-    if not currentLevel() \
-    or currentLevel().name not in saveData \
-    or "blockSaveData" not in saveData[currentLevel().name] \
-    :
-      currentLevel().blockSaveData = {}
-    # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
-    saveData.beatMainLevel = true
-    sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
+    if !replayPlaying:
+      saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
+      if "loadedLevels" not in saveData:
+        saveData.loadedLevels = loadedLevels
+      if "beatLevels" not in saveData:
+        saveData.beatLevels = []
+      if not currentLevel() \
+      or currentLevel().name not in saveData \
+      or "blockSaveData" not in saveData[currentLevel().name] \
+      :
+        currentLevel().blockSaveData = {}
+      # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
+      saveData.beatMainLevel = true
+      sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
     loadMap.call_deferred(mainLevelName, true)
     return
   await wait()
@@ -1515,6 +1521,7 @@ func win() -> void:
 var savingPlayerLevelData := false
 
 func savePlayerLevelData(blocksOnly:=false) -> void:
+  if replayPlaying: return # never write save data during playback
   if savingPlayerLevelData: return
   savingPlayerLevelData = true
   await wait()
@@ -1588,7 +1595,8 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   mainLevelName = mapName
-  saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
+  if !replayPlaying:
+    saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
 
   levelFolderPath = path.abs(path.join(MAP_FOLDER, mapName))
   var mapInfo: Variant = await loadMapInfo(mapName)
