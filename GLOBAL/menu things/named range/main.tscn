@@ -1,21 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://u632okfn1dml"]
+[gd_scene format=3 uid="uid://u632okfn1dml"]
 
 [ext_resource type="Script" uid="uid://bw8yy2acqgadm" path="res://GLOBAL/menu things/named range/main.gd" id="1_7a2ve"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=242626663]
 offset_right = 160.0
 offset_bottom = 23.0
 script = ExtResource("1_7a2ve")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=591205665]
 layout_mode = 2
 
-[node name="HSlider" type="HSlider" parent="."]
+[node name="HSlider" type="HSlider" parent="." unique_id=1940985448]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 scrollable = false
 tick_count = 7
 ticks_on_borders = true
 
-[node name="slider value" type="Label" parent="."]
+[node name="slider value" type="Label" parent="." unique_id=106601472]
 layout_mode = 2

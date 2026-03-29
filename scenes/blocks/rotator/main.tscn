@@ -1,7 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cole8rnu1qegd"]
+[gd_scene format=3 uid="uid://cole8rnu1qegd"]
 
 [ext_resource type="Script" uid="uid://cpy4rh7pi7qvh" path="res://scenes/blocks/rotator/rotator.gd" id="1_mai7y"]
-[ext_resource type="Texture2D" uid="uid://c4ni5re2d1ah5" path="res://scenes/blocks/rotator/images/editorBar.png" id="2_b3ec0"]
+[ext_resource type="Texture2D" uid="uid://dg7x54n0nbe04" path="res://scenes/blocks/rotator/images/editorBar.png" id="2_b3ec0"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_gl3cm"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_mai7y"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_nvu3a"]
@@ -9,7 +9,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ce0x"]
 radius = 192.66
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=1558642000 node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_mai7y")
 ghostIconNode = NodePath("Node2D/symbols")
 editorBarIcon = ExtResource("2_b3ec0")
@@ -19,23 +19,23 @@ thingThatMoves = NodePath("Node2D")
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="Node2D" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="Node2D" type="Area2D" parent="." unique_id=736231939 node_paths=PackedStringArray("root")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("2_gl3cm")
 root = NodePath("..")
 
-[node name="symbols" type="Sprite2D" parent="Node2D"]
+[node name="symbols" type="Sprite2D" parent="Node2D" unique_id=446718356]
 use_parent_material = true
 texture = ExtResource("2_b3ec0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D" unique_id=1855334873]
 visible = false
 shape = SubResource("CircleShape2D_5ce0x")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_nvu3a")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1454305307 node_paths=PackedStringArray("root")]
 visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false

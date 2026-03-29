@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://5pqb7xf70p7k"]
+[gd_scene format=3 uid="uid://5pqb7xf70p7k"]
 
 [ext_resource type="Script" uid="uid://bf8wipfg1jl6a" path="res://GLOBAL/menu things/file/file_dialog.gd" id="1_0xwkg"]
 [ext_resource type="Script" uid="uid://bmgddhbmn46x1" path="res://GLOBAL/menu things/file/main.gd" id="1_yvn8g"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=1749032432]
 offset_top = 8.0
 offset_right = 49.0
 offset_bottom = 32.0
@@ -11,10 +11,10 @@ script = ExtResource("1_yvn8g")
 pullFromNode = null
 thisText = null
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=211135731]
 layout_mode = 2
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=82186503]
 title = "Open a File"
 file_mode = 0
 access = 2
@@ -22,10 +22,10 @@ show_hidden_files = true
 use_native_dialog = true
 script = ExtResource("1_0xwkg")
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1575402508]
 layout_mode = 2
 
-[node name="ButtonClear" type="Button" parent="."]
+[node name="ButtonClear" type="Button" parent="." unique_id=640457259]
 layout_mode = 2
 text = "Clear"
 

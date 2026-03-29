@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dslqhsidwaq5a"]
+[gd_scene format=3 uid="uid://dslqhsidwaq5a"]
 
 [ext_resource type="Script" uid="uid://faukmaae00rx" path="res://scenes/blocks/cannon/cannon.gd" id="1_1jh5p"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_0e32w"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_1jh5p"]
-[ext_resource type="Texture2D" uid="uid://dcd36eg0503w6" path="res://scenes/blocks/cannon/images/bottom.png" id="3_b7g7s"]
-[ext_resource type="Texture2D" uid="uid://donp6sg30n8g1" path="res://scenes/blocks/cannon/images/editorBar.png" id="4_168jg"]
-[ext_resource type="Texture2D" uid="uid://buceiiggnddor" path="res://scenes/blocks/cannon/images/top.png" id="4_wipba"]
+[ext_resource type="Texture2D" uid="uid://cabw0uc610opk" path="res://scenes/blocks/cannon/images/bottom.png" id="3_b7g7s"]
+[ext_resource type="Texture2D" uid="uid://c6mc1v4ty2gxp" path="res://scenes/blocks/cannon/images/editorBar.png" id="4_168jg"]
+[ext_resource type="Texture2D" uid="uid://d3fia81ogmbvs" path="res://scenes/blocks/cannon/images/top.png" id="4_wipba"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="6_2aq8q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wy60s"]
@@ -17,7 +17,7 @@ size = Vector2(228, 92)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0e32w"]
 size = Vector2(332, 9.5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("rotNode", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=846358104 node_paths=PackedStringArray("rotNode", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_1jh5p")
 rotNode = NodePath("collisionNode/Top")
 ghostIconNode = NodePath("collisionNode/ghost")
@@ -32,42 +32,46 @@ oddScaleOffsetForce = Dictionary[String, int]({
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=752265487 node_paths=PackedStringArray("root")]
 collision_layer = 3072
 collision_mask = 2
 script = ExtResource("2_0e32w")
 root = NodePath("..")
 
-[node name="Top" type="Sprite2D" parent="collisionNode"]
+[node name="Top" type="Sprite2D" parent="collisionNode" unique_id=2067632333]
 position = Vector2(0, -88.715)
 scale = Vector2(0.606, 0.606)
 texture = ExtResource("4_wipba")
 
-[node name="bottom" type="Sprite2D" parent="collisionNode"]
+[node name="bottom" type="Sprite2D" parent="collisionNode" unique_id=1812127494]
 use_parent_material = true
 position = Vector2(0, -88.815)
 scale = Vector2(0.606, 0.606)
 texture = ExtResource("3_b7g7s")
 
-[node name="ghost" type="Sprite2D" parent="collisionNode"]
+[node name="ghost" type="Sprite2D" parent="collisionNode" unique_id=555776806]
 visible = false
 position = Vector2(0, -88.715)
 scale = Vector2(0.606, 0.606)
 texture = ExtResource("4_168jg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=71254994]
+visible = false
 position = Vector2(0, -91.418)
 shape = SubResource("RectangleShape2D_wy60s")
-debug_color = Color(0.05490196, 1, 0, 0.41960785)
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("6_2aq8q")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode" unique_id=124954380]
+visible = false
 position = Vector2(0, -47.918)
 shape = SubResource("RectangleShape2D_1jh5p")
-debug_color = Color(0.05490196, 1, 0, 0.41960785)
+debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("6_2aq8q")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1717793890 node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_0e32w")
 target_position = Vector2(0, 0)

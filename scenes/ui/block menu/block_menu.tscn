@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cs4s80p62mgl5"]
+[gd_scene format=3 uid="uid://cs4s80p62mgl5"]
 
 [ext_resource type="Script" uid="uid://dglshyvotds0f" path="res://scenes/ui/block menu/block_menu.gd" id="2_oork6"]
 
-[node name="block menu" type="HBoxContainer"]
+[node name="block menu" type="HBoxContainer" unique_id=1588060164]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -11,16 +11,16 @@ size_flags_horizontal = 0
 size_flags_vertical = 10
 script = ExtResource("2_oork6")
 
-[node name="outputContainer" type="GridContainer" parent="."]
+[node name="outputContainer" type="GridContainer" parent="." unique_id=1972462630]
 layout_mode = 2
 theme_override_constants/v_separation = 1
 columns = 3
 
-[node name="base" type="Control" parent="."]
+[node name="base" type="Control" parent="." unique_id=1967564780]
 visible = false
 layout_mode = 2
 
-[node name="int" type="SpinBox" parent="base"]
+[node name="int" type="SpinBox" parent="base" unique_id=1949714786]
 layout_mode = 0
 offset_right = 86.5625
 offset_bottom = 31.0
@@ -31,7 +31,7 @@ allow_greater = true
 allow_lesser = true
 select_all_on_focus = true
 
-[node name="float" type="SpinBox" parent="base"]
+[node name="float" type="SpinBox" parent="base" unique_id=529583069]
 layout_mode = 0
 offset_right = 86.5625
 offset_bottom = 31.0
@@ -40,30 +40,30 @@ allow_greater = true
 allow_lesser = true
 select_all_on_focus = true
 
-[node name="button" type="Button" parent="base"]
+[node name="button" type="Button" parent="base" unique_id=2115563386]
 layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
 text = "val"
 
-[node name="reset" type="Button" parent="base"]
+[node name="reset" type="Button" parent="base" unique_id=1869486857]
 layout_mode = 0
 offset_right = 31.0
 offset_bottom = 31.0
 text = "reset"
 
-[node name="bool" type="CheckButton" parent="base"]
+[node name="bool" type="CheckButton" parent="base" unique_id=1870498838]
 layout_mode = 0
 offset_right = 44.0
 offset_bottom = 24.0
 
-[node name="rgba" type="ColorPickerButton" parent="base"]
+[node name="rgba" type="ColorPickerButton" parent="base" unique_id=1316190832]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 0
 offset_right = 30.0
 offset_bottom = 30.0
 
-[node name="rgb" type="ColorPickerButton" parent="base"]
+[node name="rgb" type="ColorPickerButton" parent="base" unique_id=628577577]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 0
 offset_right = 30.0
@@ -71,7 +71,7 @@ offset_bottom = 31.0
 text = "O"
 edit_alpha = false
 
-[node name="string" type="LineEdit" parent="base"]
+[node name="string" type="LineEdit" parent="base" unique_id=331300379]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 0
 offset_right = 150.0
@@ -79,12 +79,12 @@ offset_bottom = 31.0
 emoji_menu_enabled = false
 select_all_on_focus = true
 
-[node name="enum" type="OptionButton" parent="base"]
+[node name="enum" type="OptionButton" parent="base" unique_id=1964668140]
 layout_mode = 0
 offset_right = 32.0
 offset_bottom = 20.0
 
-[node name="label" type="Label" parent="base"]
+[node name="label" type="Label" parent="base" unique_id=803047066]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0

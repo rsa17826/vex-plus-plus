@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b31y1p0vb51q7"]
+[gd_scene format=3 uid="uid://b31y1p0vb51q7"]
 
 [ext_resource type="Script" uid="uid://dur43asy3t3mf" path="res://scenes/editor bar/editor_bar.gd" id="1_qpmov"]
 [ext_resource type="Script" uid="uid://btiov2nidp8ca" path="res://scenes/editor bar/editor_bar_item.gd" id="2_ckwjv"]
@@ -7,16 +7,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qpmov"]
 size = Vector2(700, 700)
 
-[node name="editor bar" type="Node2D"]
+[node name="editor bar" type="Node2D" unique_id=1180829504]
 script = ExtResource("1_qpmov")
 
-[node name="item" type="Area2D" parent="."]
+[node name="item" type="Area2D" parent="." unique_id=1900977076]
 script = ExtResource("2_ckwjv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="item"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="item" unique_id=2015700208]
 shape = SubResource("RectangleShape2D_qpmov")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1556431196]
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2

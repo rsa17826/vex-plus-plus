@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bcgvwxwk7bf6b"]
+[gd_scene format=3 uid="uid://bcgvwxwk7bf6b"]
 
 [ext_resource type="Script" uid="uid://bwg7pflyvki0i" path="res://scenes/ui/signal list/signal_list.gd" id="1_6p4pr"]
 [ext_resource type="Script" uid="uid://dmne1p24c556w" path="res://scenes/ui/signal list/signal_display.gd" id="2_7evox"]
 
-[node name="signal list" type="VBoxContainer"]
+[node name="signal list" type="VBoxContainer" unique_id=451847203]
 clip_contents = true
 anchors_preset = 2
 anchor_top = 1.0
@@ -12,19 +12,19 @@ grow_vertical = 0
 alignment = 2
 script = ExtResource("1_6p4pr")
 
-[node name="signalDisplay" type="HBoxContainer" parent="."]
+[node name="signalDisplay" type="HBoxContainer" parent="." unique_id=516996422]
 visible = false
 layout_mode = 2
 script = ExtResource("2_7evox")
 
-[node name="signal id" type="Label" parent="signalDisplay"]
+[node name="signal id" type="Label" parent="signalDisplay" unique_id=1534775540]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="image" type="TextureRect" parent="signalDisplay"]
+[node name="image" type="TextureRect" parent="signalDisplay" unique_id=2041673842]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 expand_mode = 1
 
-[node name="count" type="Label" parent="signalDisplay"]
+[node name="count" type="Label" parent="signalDisplay" unique_id=1646048496]
 layout_mode = 2

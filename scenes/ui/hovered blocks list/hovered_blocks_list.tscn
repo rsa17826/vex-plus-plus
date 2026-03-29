@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckgxdnqr5psft"]
+[gd_scene format=3 uid="uid://ckgxdnqr5psft"]
 
 [ext_resource type="Script" uid="uid://b61x67e1j2rbg" path="res://scenes/ui/hovered blocks list/hovered_blocks_list.gd" id="1_o0lte"]
 [ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="2_pmg3e"]
 
-[node name="Control" type="Control" node_paths=PackedStringArray("listElem", "ttm")]
+[node name="Control" type="Control" unique_id=53275399 node_paths=PackedStringArray("listElem", "ttm")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 86.0
@@ -13,7 +13,7 @@ script = ExtResource("1_o0lte")
 listElem = NodePath("MaxSizeContainer/hoveredBlocksList/VBoxContainer")
 ttm = NodePath("MaxSizeContainer")
 
-[node name="MaxSizeContainer" type="Container" parent="."]
+[node name="MaxSizeContainer" type="Container" parent="." unique_id=1928741867]
 visible = false
 layout_mode = 0
 offset_right = 10.0
@@ -21,20 +21,20 @@ offset_bottom = 10.0
 script = ExtResource("2_pmg3e")
 metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
 
-[node name="hoveredBlocksList" type="PanelContainer" parent="MaxSizeContainer"]
+[node name="hoveredBlocksList" type="PanelContainer" parent="MaxSizeContainer" unique_id=305740106]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MaxSizeContainer/hoveredBlocksList"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MaxSizeContainer/hoveredBlocksList" unique_id=574165072]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="selectedBlock" type="Label" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer"]
+[node name="selectedBlock" type="Label" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer" unique_id=271263700]
 unique_name_in_owner = true
 layout_mode = 2
 text = "adsasdasdasd"
 
-[node name="HSeparator" type="HSeparator" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MaxSizeContainer/hoveredBlocksList/VBoxContainer" unique_id=1746050934]
 unique_name_in_owner = true
 layout_mode = 2

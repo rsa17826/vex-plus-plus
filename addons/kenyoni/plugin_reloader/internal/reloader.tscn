@@ -1,21 +1,73 @@
-[gd_scene load_steps=2 format=3 uid="uid://dryoyuj4vl0l5"]
+[gd_scene format=3 uid="uid://dryoyuj4vl0l5"]
 
 [ext_resource type="Script" uid="uid://b6eu3fxcktuu6" path="res://addons/kenyoni/plugin_reloader/internal/reloader.gd" id="1_kd7gg"]
 
-[node name="Reloader" type="MarginContainer" node_paths=PackedStringArray("_reload_button", "_option_button")]
+[sub_resource type="DPITexture" id="DPITexture_1ema8"]
+_source = "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\"><path fill=\"#ff5d5d\" d=\"M2 1v8.586l1.293-1.293a1 1 0 0 1 1.414 0L7 10.587l2.293-2.293a1 1 0 0 1 1.414 0L13 10.586l1-1V6H9V1H2zm8 0v4h4zm-6 9.414-2 2V15h12v-2.586l-.293.293a1 1 0 0 1-1.414 0L10 10.414l-2.293 2.293a1 1 0 0 1-1.414 0L4 10.414z\"/></svg>
+"
+
+[node name="Reloader" type="MarginContainer" unique_id=781560924 node_paths=PackedStringArray("_reload_button", "_option_button")]
 offset_right = 76.0
 offset_bottom = 24.0
 script = ExtResource("1_kd7gg")
 _reload_button = NodePath("HBoxContainer/reload_button")
 _option_button = NodePath("HBoxContainer/OptionButton")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=656922470]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="reload_button" type="CheckButton" parent="HBoxContainer"]
+[node name="reload_button" type="CheckButton" parent="HBoxContainer" unique_id=80979983]
 layout_mode = 2
+button_pressed = true
 
-[node name="OptionButton" type="OptionButton" parent="HBoxContainer"]
+[node name="OptionButton" type="OptionButton" parent="HBoxContainer" unique_id=936075587]
 layout_mode = 2
 size_flags_horizontal = 3
+selected = 0
+item_count = 15
+popup/item_0/text = "Auto Export Version"
+popup/item_0/icon = SubResource("DPITexture_1ema8")
+popup/item_0/id = 0
+popup/item_1/text = "GlobalPosition2D with GDScript"
+popup/item_1/icon = SubResource("DPITexture_1ema8")
+popup/item_1/id = 1
+popup/item_2/text = "Auto Expand Property Inspector"
+popup/item_2/icon = SubResource("DPITexture_1ema8")
+popup/item_2/id = 2
+popup/item_3/text = "Copy Files On Export"
+popup/item_3/icon = SubResource("DPITexture_1ema8")
+popup/item_3/id = 3
+popup/item_4/text = "Fancy Folder Icons"
+popup/item_4/icon = SubResource("DPITexture_1ema8")
+popup/item_4/id = 4
+popup/item_5/text = "GDScript Async Utils"
+popup/item_5/icon = SubResource("DPITexture_1ema8")
+popup/item_5/id = 5
+popup/item_6/text = "Godot beautifier"
+popup/item_6/icon = SubResource("DPITexture_1ema8")
+popup/item_6/id = 6
+popup/item_7/text = "Grid Display"
+popup/item_7/icon = SubResource("DPITexture_1ema8")
+popup/item_7/id = 7
+popup/item_8/text = "Inspector Tabs"
+popup/item_8/icon = SubResource("DPITexture_1ema8")
+popup/item_8/id = 8
+popup/item_9/text = "Log.gd"
+popup/item_9/icon = SubResource("DPITexture_1ema8")
+popup/item_9/id = 9
+popup/item_10/text = "Maaack's Input Remapping"
+popup/item_10/icon = SubResource("DPITexture_1ema8")
+popup/item_10/id = 10
+popup/item_11/text = "Supabase"
+popup/item_11/icon = SubResource("DPITexture_1ema8")
+popup/item_11/id = 11
+popup/item_12/text = "Extra Controls"
+popup/item_12/icon = SubResource("DPITexture_1ema8")
+popup/item_12/id = 12
+popup/item_13/text = "ToastParty"
+popup/item_13/icon = SubResource("DPITexture_1ema8")
+popup/item_13/id = 13
+popup/item_14/text = "Editor debugger"
+popup/item_14/icon = SubResource("DPITexture_1ema8")
+popup/item_14/id = 14

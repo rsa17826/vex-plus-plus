@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dd7j7xyjarpng"]
+[gd_scene format=3 uid="uid://dd7j7xyjarpng"]
 
 [ext_resource type="Script" uid="uid://enicxwo8w4li" path="res://addons/GlobalPosition2DGS/global_position_control.gd" id="1_vig5e"]
 
-[node name="GlobalPosition_tscn" type="GridContainer" node_paths=PackedStringArray("_line_editX", "_line_editY", "_line_edit_rot")]
+[node name="GlobalPosition_tscn" type="GridContainer" unique_id=368649565 node_paths=PackedStringArray("_line_editX", "_line_editY", "_line_edit_rot")]
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 66.0
@@ -13,49 +13,49 @@ _line_editX = NodePath("X")
 _line_editY = NodePath("Y")
 _line_edit_rot = NodePath("ROT")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=545202520]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Global Position"
 
-[node name="LabelX" type="Label" parent="."]
+[node name="LabelX" type="Label" parent="." unique_id=1526305013]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(0.548963, 0.548963, 0.548963, 1)
 text = "x"
 
-[node name="X" type="LineEdit" parent="."]
+[node name="X" type="LineEdit" parent="." unique_id=209448912]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "X"
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="Panel" parent="." unique_id=637109945]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="LabelY" type="Label" parent="."]
+[node name="LabelY" type="Label" parent="." unique_id=214203898]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(0.548963, 0.548963, 0.548963, 1)
 text = "y"
 
-[node name="Y" type="LineEdit" parent="."]
+[node name="Y" type="LineEdit" parent="." unique_id=1447581628]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "Y"
 
-[node name="Panel2" type="Label" parent="."]
+[node name="Panel2" type="Label" parent="." unique_id=1944602287]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Global Rotation"
 
-[node name="LabelROT" type="Label" parent="."]
+[node name="LabelROT" type="Label" parent="." unique_id=568050591]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(0.548963, 0.548963, 0.548963, 1)
 text = "rot"
 
-[node name="ROT" type="LineEdit" parent="."]
+[node name="ROT" type="LineEdit" parent="." unique_id=884470103]
 layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "ROT"

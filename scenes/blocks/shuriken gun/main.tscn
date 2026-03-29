@@ -7,7 +7,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_rpre3"]
 radius = 100.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=1358378644 node_paths=PackedStringArray("ghostIconNode", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_u3kfh")
 ghostIconNode = NodePath("Node2D/Sprite2D")
 editorBarIcon = ExtResource("3_f3bwa")
@@ -20,12 +20,14 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=1230755806]
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=2146371263]
 texture = ExtResource("3_f3bwa")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=255077335 node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_rpre3")
 target_position = Vector2(0, 0)

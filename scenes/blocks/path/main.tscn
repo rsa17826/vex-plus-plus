@@ -1,14 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://lgau7cy4xe3d"]
+[gd_scene format=3 uid="uid://lgau7cy4xe3d"]
 
 [ext_resource type="Script" uid="uid://cyrlfxpwpne5d" path="res://scenes/blocks/path/path.gd" id="1_qvsey"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_5skgb"]
-[ext_resource type="Texture2D" uid="uid://dst2df26xneqn" path="res://scenes/blocks/path/images/1.png" id="2_vcsin"]
+[ext_resource type="Texture2D" uid="uid://cyt4iqpqt6ii1" path="res://scenes/blocks/path/images/1.png" id="2_vcsin"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_5skgb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qvsey"]
 size = Vector2(100, 100)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes")]
+[node name="Node2D" type="Node2D" unique_id=579558617 node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes")]
 script = ExtResource("1_qvsey")
 sprite = NodePath("Sprite2D")
 ghostIconNode = NodePath("Sprite2D")
@@ -23,17 +23,17 @@ oddScaleOffsetForce = Dictionary[String, int]({
 EDITOR_OPTION_scale = true
 EDITOR_OPTION_rotate = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=323339294]
 scale = Vector2(0.144, 0.144)
 texture = ExtResource("2_vcsin")
 
-[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="Area2D" type="Area2D" parent="." unique_id=393410988 node_paths=PackedStringArray("root")]
 collision_layer = 32768
 collision_mask = 0
 script = ExtResource("2_5skgb")
 root = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1802940505]
 visible = false
 shape = SubResource("RectangleShape2D_qvsey")
 debug_color = Color(0, 1, 0, 0.41960785)

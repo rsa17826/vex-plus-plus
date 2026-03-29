@@ -1,15 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cwnpx4yjy87f5"]
+[gd_scene format=3 uid="uid://cwnpx4yjy87f5"]
 
 [ext_resource type="Script" uid="uid://bh58j1sxhu3vf" path="res://GLOBAL/menu things/textarea/main.gd" id="1_xe6mu"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=1829357745]
 offset_right = 160.0
 offset_bottom = 23.0
 script = ExtResource("1_xe6mu")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1084970215]
 layout_mode = 2
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="TextEdit" type="TextEdit" parent="." unique_id=948972577]
 custom_minimum_size = Vector2(150, 30)
 layout_mode = 2

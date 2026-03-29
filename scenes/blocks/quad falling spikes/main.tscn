@@ -1,43 +1,43 @@
-[gd_scene load_steps=46 format=3 uid="uid://c1agjh56ibohg"]
+[gd_scene format=3 uid="uid://c1agjh56ibohg"]
 
 [ext_resource type="Script" uid="uid://dt10ydob3wpa2" path="res://scenes/blocks/quad falling spikes/quad falling spikes.gd" id="1_cdvup"]
-[ext_resource type="Texture2D" uid="uid://ccxswro7dvg4j" path="res://scenes/blocks/quad falling spikes/images/1.png" id="2_coupi"]
-[ext_resource type="Texture2D" uid="uid://dbys5vloghe2y" path="res://scenes/blocks/quad falling spikes/images/2.png" id="3_6caq5"]
-[ext_resource type="Texture2D" uid="uid://rmxaettenqh2" path="res://scenes/blocks/quad falling spikes/images/3.png" id="4_66svo"]
-[ext_resource type="Texture2D" uid="uid://d0gwms4v008rk" path="res://scenes/blocks/quad falling spikes/images/4.png" id="5_o5i3u"]
-[ext_resource type="Texture2D" uid="uid://cin33klnqm261" path="res://scenes/blocks/quad falling spikes/images/5.png" id="6_sa1mn"]
-[ext_resource type="Texture2D" uid="uid://bakoxgma2s23e" path="res://scenes/blocks/quad falling spikes/images/6.png" id="7_777qq"]
-[ext_resource type="Texture2D" uid="uid://bdwx41oaeuivd" path="res://scenes/blocks/quad falling spikes/images/7.png" id="8_2fxyy"]
-[ext_resource type="Texture2D" uid="uid://bf0uumyay3i8w" path="res://scenes/blocks/quad falling spikes/images/8.png" id="9_knn8c"]
-[ext_resource type="Texture2D" uid="uid://cglk14vlrxoph" path="res://scenes/blocks/quad falling spikes/images/9.png" id="10_5gd22"]
-[ext_resource type="Texture2D" uid="uid://d0fbqse7rromc" path="res://scenes/blocks/quad falling spikes/images/10.png" id="11_lxamd"]
-[ext_resource type="Texture2D" uid="uid://dp4htebdg12fm" path="res://scenes/blocks/quad falling spikes/images/11.png" id="12_6jj2x"]
-[ext_resource type="Texture2D" uid="uid://b01cx2mw2vwty" path="res://scenes/blocks/quad falling spikes/images/12.png" id="13_lb0l7"]
-[ext_resource type="Texture2D" uid="uid://ir82suihsbys" path="res://scenes/blocks/quad falling spikes/images/13.png" id="14_ep6t7"]
-[ext_resource type="Texture2D" uid="uid://clxvl7q4eaiq1" path="res://scenes/blocks/quad falling spikes/images/14.png" id="15_o3ave"]
-[ext_resource type="Texture2D" uid="uid://caftibl25lha2" path="res://scenes/blocks/quad falling spikes/images/15.png" id="16_dlar8"]
-[ext_resource type="Texture2D" uid="uid://blwdpw3ry8grh" path="res://scenes/blocks/quad falling spikes/images/16.png" id="17_5el65"]
-[ext_resource type="Texture2D" uid="uid://cdhyqg5c7qfwa" path="res://scenes/blocks/quad falling spikes/images/17.png" id="18_38r6r"]
-[ext_resource type="Texture2D" uid="uid://djja4x64qb11" path="res://scenes/blocks/quad falling spikes/images/18.png" id="19_1ak8g"]
-[ext_resource type="Texture2D" uid="uid://drej4iajtefxw" path="res://scenes/blocks/quad falling spikes/images/19.png" id="20_shtoa"]
-[ext_resource type="Texture2D" uid="uid://cvjn5maxl0035" path="res://scenes/blocks/quad falling spikes/images/20.png" id="21_3ty6j"]
-[ext_resource type="Texture2D" uid="uid://c28llq34m4i1c" path="res://scenes/blocks/quad falling spikes/images/21.png" id="22_ync2m"]
-[ext_resource type="Texture2D" uid="uid://ph5chju8m457" path="res://scenes/blocks/quad falling spikes/images/22.png" id="23_yy2ts"]
-[ext_resource type="Texture2D" uid="uid://bpltaa7o0l8h5" path="res://scenes/blocks/quad falling spikes/images/23.png" id="24_13vlh"]
-[ext_resource type="Texture2D" uid="uid://cripadwal3w4t" path="res://scenes/blocks/quad falling spikes/images/24.png" id="25_6spo2"]
-[ext_resource type="Texture2D" uid="uid://ckbe6vxarjofc" path="res://scenes/blocks/quad falling spikes/images/25.png" id="26_il4ob"]
-[ext_resource type="Texture2D" uid="uid://dbrthcivbtrp0" path="res://scenes/blocks/quad falling spikes/images/26.png" id="27_03xpk"]
-[ext_resource type="Texture2D" uid="uid://bg3xy8m3c6651" path="res://scenes/blocks/quad falling spikes/images/27.png" id="28_8jup6"]
-[ext_resource type="Texture2D" uid="uid://cfk4dyreh4m1b" path="res://scenes/blocks/quad falling spikes/images/28.png" id="29_o27dq"]
-[ext_resource type="Texture2D" uid="uid://qrny3rvcprgc" path="res://scenes/blocks/quad falling spikes/images/29.png" id="30_nqact"]
-[ext_resource type="Texture2D" uid="uid://dgo2f8v11blmc" path="res://scenes/blocks/quad falling spikes/images/30.png" id="31_i7r73"]
-[ext_resource type="Texture2D" uid="uid://bxuof8k7ak64c" path="res://scenes/blocks/quad falling spikes/images/31.png" id="32_5v5je"]
-[ext_resource type="Texture2D" uid="uid://bm1lx4umux3qh" path="res://scenes/blocks/quad falling spikes/images/32.png" id="33_0pjlo"]
-[ext_resource type="Texture2D" uid="uid://bkanq5kqaboby" path="res://scenes/blocks/quad falling spikes/images/33.png" id="34_ecba5"]
-[ext_resource type="Texture2D" uid="uid://fqvkjkrdfw2u" path="res://scenes/blocks/quad falling spikes/images/34.png" id="35_p4058"]
-[ext_resource type="Texture2D" uid="uid://d4cpc5nnfgj1a" path="res://scenes/blocks/quad falling spikes/images/35.png" id="36_htc80"]
+[ext_resource type="Texture2D" uid="uid://cayxv8s6xpa1p" path="res://scenes/blocks/quad falling spikes/images/1.png" id="2_coupi"]
+[ext_resource type="Texture2D" uid="uid://d1vwd0jbm0ouc" path="res://scenes/blocks/quad falling spikes/images/2.png" id="3_6caq5"]
+[ext_resource type="Texture2D" uid="uid://blx6wkkcyrxef" path="res://scenes/blocks/quad falling spikes/images/3.png" id="4_66svo"]
+[ext_resource type="Texture2D" uid="uid://djpgyl47k7ptf" path="res://scenes/blocks/quad falling spikes/images/4.png" id="5_o5i3u"]
+[ext_resource type="Texture2D" uid="uid://x25sjc6jgjyl" path="res://scenes/blocks/quad falling spikes/images/5.png" id="6_sa1mn"]
+[ext_resource type="Texture2D" uid="uid://t0s7j1i8ppb0" path="res://scenes/blocks/quad falling spikes/images/6.png" id="7_777qq"]
+[ext_resource type="Texture2D" uid="uid://b7cjq3q77h84p" path="res://scenes/blocks/quad falling spikes/images/7.png" id="8_2fxyy"]
+[ext_resource type="Texture2D" uid="uid://qorq0jxjhcvg" path="res://scenes/blocks/quad falling spikes/images/8.png" id="9_knn8c"]
+[ext_resource type="Texture2D" uid="uid://fk162iqebc1a" path="res://scenes/blocks/quad falling spikes/images/9.png" id="10_5gd22"]
+[ext_resource type="Texture2D" uid="uid://esuwh0cqhxrn" path="res://scenes/blocks/quad falling spikes/images/10.png" id="11_lxamd"]
+[ext_resource type="Texture2D" uid="uid://bf4bpkxl0buv7" path="res://scenes/blocks/quad falling spikes/images/11.png" id="12_6jj2x"]
+[ext_resource type="Texture2D" uid="uid://c2o5m82q1u6u8" path="res://scenes/blocks/quad falling spikes/images/12.png" id="13_lb0l7"]
+[ext_resource type="Texture2D" uid="uid://5li6fnxahuyb" path="res://scenes/blocks/quad falling spikes/images/13.png" id="14_ep6t7"]
+[ext_resource type="Texture2D" uid="uid://dcvmmlmxjdr57" path="res://scenes/blocks/quad falling spikes/images/14.png" id="15_o3ave"]
+[ext_resource type="Texture2D" uid="uid://rbif5xivl2p5" path="res://scenes/blocks/quad falling spikes/images/15.png" id="16_dlar8"]
+[ext_resource type="Texture2D" uid="uid://c4g6ysqdkclwu" path="res://scenes/blocks/quad falling spikes/images/16.png" id="17_5el65"]
+[ext_resource type="Texture2D" uid="uid://bw6hb0yefr7gs" path="res://scenes/blocks/quad falling spikes/images/17.png" id="18_38r6r"]
+[ext_resource type="Texture2D" uid="uid://ofa4ttnotm0l" path="res://scenes/blocks/quad falling spikes/images/18.png" id="19_1ak8g"]
+[ext_resource type="Texture2D" uid="uid://ca3s18qgy0taf" path="res://scenes/blocks/quad falling spikes/images/19.png" id="20_shtoa"]
+[ext_resource type="Texture2D" uid="uid://clqi4rwi37w7o" path="res://scenes/blocks/quad falling spikes/images/20.png" id="21_3ty6j"]
+[ext_resource type="Texture2D" uid="uid://bqfq7yt45s8da" path="res://scenes/blocks/quad falling spikes/images/21.png" id="22_ync2m"]
+[ext_resource type="Texture2D" uid="uid://bstbcorg5tbtr" path="res://scenes/blocks/quad falling spikes/images/22.png" id="23_yy2ts"]
+[ext_resource type="Texture2D" uid="uid://de268vcgic6r" path="res://scenes/blocks/quad falling spikes/images/23.png" id="24_13vlh"]
+[ext_resource type="Texture2D" uid="uid://c6lmo3p22prh1" path="res://scenes/blocks/quad falling spikes/images/24.png" id="25_6spo2"]
+[ext_resource type="Texture2D" uid="uid://s8mkuddxwwfi" path="res://scenes/blocks/quad falling spikes/images/25.png" id="26_il4ob"]
+[ext_resource type="Texture2D" uid="uid://b3v3fad8bfgtp" path="res://scenes/blocks/quad falling spikes/images/26.png" id="27_03xpk"]
+[ext_resource type="Texture2D" uid="uid://di6hrv0sjb4p1" path="res://scenes/blocks/quad falling spikes/images/27.png" id="28_8jup6"]
+[ext_resource type="Texture2D" uid="uid://di24ymyv4ik03" path="res://scenes/blocks/quad falling spikes/images/28.png" id="29_o27dq"]
+[ext_resource type="Texture2D" uid="uid://g2t73elkhfus" path="res://scenes/blocks/quad falling spikes/images/29.png" id="30_nqact"]
+[ext_resource type="Texture2D" uid="uid://csvnf6h242up" path="res://scenes/blocks/quad falling spikes/images/30.png" id="31_i7r73"]
+[ext_resource type="Texture2D" uid="uid://6icest2150f6" path="res://scenes/blocks/quad falling spikes/images/31.png" id="32_5v5je"]
+[ext_resource type="Texture2D" uid="uid://dggrjyjiofo1r" path="res://scenes/blocks/quad falling spikes/images/32.png" id="33_0pjlo"]
+[ext_resource type="Texture2D" uid="uid://5gam52pl5y0j" path="res://scenes/blocks/quad falling spikes/images/33.png" id="34_ecba5"]
+[ext_resource type="Texture2D" uid="uid://b7jn4pbwuk72k" path="res://scenes/blocks/quad falling spikes/images/34.png" id="35_p4058"]
+[ext_resource type="Texture2D" uid="uid://13xxfr4revpj" path="res://scenes/blocks/quad falling spikes/images/35.png" id="36_htc80"]
 [ext_resource type="Script" uid="uid://dbbkl77fcc726" path="res://scenes/blocks/quad falling spikes/single quad falling spike.gd" id="37_2fxyy"]
-[ext_resource type="Texture2D" uid="uid://cigd4s8a81h5b" path="res://scenes/blocks/falling spike/images/1.png" id="38_2fxyy"]
+[ext_resource type="Texture2D" uid="uid://cm58qi8b4nxpp" path="res://scenes/blocks/falling spike/images/1.png" id="38_2fxyy"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="39_knn8c"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="40_5gd22"]
 [ext_resource type="Script" uid="uid://137labtu4smg" path="res://scenes/blocks/quad falling spikes/floor detection.gd" id="40_sa1mn"]
@@ -162,7 +162,7 @@ size = Vector2(42, 74)
 [sub_resource type="CircleShape2D" id="CircleShape2D_o3ave"]
 radius = 5.09902
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "hidableSprites", "cloneEventsHere") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=435824141 node_paths=PackedStringArray("sprite", "ghostIconNode", "hidableSprites", "cloneEventsHere") groups=["death"]]
 position = Vector2(0, -1)
 script = ExtResource("1_cdvup")
 sprite = NodePath("Node2D/AnimatedSprite2D")
@@ -175,18 +175,18 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=677621806]
 scale = Vector2(0.75, 0.75)
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=788971806]
 visible = false
 texture = ExtResource("2_coupi")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=1741666153]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_dlgt7")
 
-[node name="up" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="up" type="Area2D" parent="Node2D" unique_id=371023096 node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 position = Vector2(0, -35)
 collision_layer = 3216
@@ -194,12 +194,12 @@ collision_mask = 2
 script = ExtResource("37_2fxyy")
 root = NodePath("../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/up"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/up" unique_id=1278969311]
 use_parent_material = true
 position = Vector2(-0.5, -64)
 texture = ExtResource("38_2fxyy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up" unique_id=229968657]
 visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
@@ -207,21 +207,21 @@ disabled = true
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("39_knn8c")
 
-[node name="floor detection" type="Area2D" parent="Node2D/up" node_paths=PackedStringArray("root")]
+[node name="floor detection" type="Area2D" parent="Node2D/up" unique_id=736262632 node_paths=PackedStringArray("root")]
 position = Vector2(-0.5, -64)
 collision_layer = 128
 collision_mask = 8
 script = ExtResource("40_sa1mn")
 root = NodePath("../../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up/floor detection"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/up/floor detection" unique_id=335498862]
 visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
-[node name="playerDetector" type="RayCast2D" parent="Node2D/up" node_paths=PackedStringArray("root")]
+[node name="playerDetector" type="RayCast2D" parent="Node2D/up" unique_id=1745769099 node_paths=PackedStringArray("root")]
 position = Vector2(-0.5, -77)
 scale = Vector2(1.1367941, -2.6515508)
 target_position = Vector2(0, -3000)
@@ -229,7 +229,7 @@ collision_mask = 2
 script = ExtResource("42_sa1mn")
 root = NodePath("../../..")
 
-[node name="down" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="down" type="Area2D" parent="Node2D" unique_id=308587330 node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 position = Vector2(0, 35)
 rotation = -3.1415925
@@ -238,12 +238,12 @@ collision_mask = 2
 script = ExtResource("37_2fxyy")
 root = NodePath("../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/down"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/down" unique_id=678491285]
 use_parent_material = true
 position = Vector2(-0.5, -64)
 texture = ExtResource("38_2fxyy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down" unique_id=1224697978]
 visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
@@ -251,21 +251,21 @@ disabled = true
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("39_knn8c")
 
-[node name="floor detection" type="Area2D" parent="Node2D/down" node_paths=PackedStringArray("root")]
+[node name="floor detection" type="Area2D" parent="Node2D/down" unique_id=13624729 node_paths=PackedStringArray("root")]
 position = Vector2(-0.5, -64)
 collision_layer = 128
 collision_mask = 8
 script = ExtResource("40_sa1mn")
 root = NodePath("../../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down/floor detection"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/down/floor detection" unique_id=1056988567]
 visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
-[node name="playerDetector" type="RayCast2D" parent="Node2D/down" node_paths=PackedStringArray("root")]
+[node name="playerDetector" type="RayCast2D" parent="Node2D/down" unique_id=353973629 node_paths=PackedStringArray("root")]
 position = Vector2(-0.5, -77)
 scale = Vector2(1.1367941, -2.6515508)
 target_position = Vector2(0, -3000)
@@ -273,7 +273,7 @@ collision_mask = 2
 script = ExtResource("42_sa1mn")
 root = NodePath("../../..")
 
-[node name="right" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="right" type="Area2D" parent="Node2D" unique_id=1331461473 node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 position = Vector2(35, 0)
 rotation = 1.5707964
@@ -282,12 +282,12 @@ collision_mask = 2
 script = ExtResource("37_2fxyy")
 root = NodePath("../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/right"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/right" unique_id=1519956242]
 use_parent_material = true
 position = Vector2(-0.5, -64)
 texture = ExtResource("38_2fxyy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right" unique_id=498441033]
 visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
@@ -295,21 +295,21 @@ disabled = true
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("39_knn8c")
 
-[node name="floor detection" type="Area2D" parent="Node2D/right" node_paths=PackedStringArray("root")]
+[node name="floor detection" type="Area2D" parent="Node2D/right" unique_id=1958043948 node_paths=PackedStringArray("root")]
 position = Vector2(-0.5, -64)
 collision_layer = 128
 collision_mask = 8
 script = ExtResource("40_sa1mn")
 root = NodePath("../../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right/floor detection"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/right/floor detection" unique_id=639077984]
 visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
-[node name="playerDetector" type="RayCast2D" parent="Node2D/right" node_paths=PackedStringArray("root")]
+[node name="playerDetector" type="RayCast2D" parent="Node2D/right" unique_id=304257756 node_paths=PackedStringArray("root")]
 position = Vector2(-0.5, -77)
 scale = Vector2(1.1367941, -2.6515508)
 target_position = Vector2(0, -3000)
@@ -317,7 +317,7 @@ collision_mask = 2
 script = ExtResource("42_sa1mn")
 root = NodePath("../../..")
 
-[node name="left" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="left" type="Area2D" parent="Node2D" unique_id=809953097 node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 position = Vector2(-35, 0)
 rotation = -1.5707964
@@ -326,12 +326,12 @@ collision_mask = 2
 script = ExtResource("37_2fxyy")
 root = NodePath("../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D/left"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D/left" unique_id=771229020]
 use_parent_material = true
 position = Vector2(-0.5, -64)
 texture = ExtResource("38_2fxyy")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left" unique_id=965780327]
 visible = false
 position = Vector2(-0.5, -40)
 shape = SubResource("RectangleShape2D_ep6t7")
@@ -339,21 +339,21 @@ disabled = true
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("39_knn8c")
 
-[node name="floor detection" type="Area2D" parent="Node2D/left" node_paths=PackedStringArray("root")]
+[node name="floor detection" type="Area2D" parent="Node2D/left" unique_id=804609171 node_paths=PackedStringArray("root")]
 position = Vector2(-0.5, -64)
 collision_layer = 128
 collision_mask = 8
 script = ExtResource("40_sa1mn")
 root = NodePath("../../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left/floor detection"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/left/floor detection" unique_id=2076010645]
 visible = false
 position = Vector2(0, -25)
 shape = SubResource("CircleShape2D_o3ave")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("40_5gd22")
 
-[node name="playerDetector" type="RayCast2D" parent="Node2D/left" node_paths=PackedStringArray("root")]
+[node name="playerDetector" type="RayCast2D" parent="Node2D/left" unique_id=2044054222 node_paths=PackedStringArray("root")]
 position = Vector2(-0.5, -77)
 scale = Vector2(1.1367941, -2.6515508)
 target_position = Vector2(0, -3000)

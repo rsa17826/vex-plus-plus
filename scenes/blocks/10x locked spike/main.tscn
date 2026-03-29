@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b82372boshthf"]
+[gd_scene format=3 uid="uid://b82372boshthf"]
 
 [ext_resource type="Script" uid="uid://bb5brc7kvf6v5" path="res://scenes/blocks/10x locked spike/10x locked spike.gd" id="1_cthqj"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_caaoq"]
-[ext_resource type="Texture2D" uid="uid://cg20p556fmr4c" path="res://scenes/blocks/10x locked spike/images/editorBar.png" id="2_koju6"]
+[ext_resource type="Texture2D" uid="uid://3t5kxd67mxxx" path="res://scenes/blocks/10x locked spike/images/editorBar.png" id="2_koju6"]
 [ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="3_koju6"]
-[ext_resource type="Texture2D" uid="uid://bhntnllhb4li1" path="res://scenes/blocks/10x locked spike/images/1.png" id="4_nu3gn"]
+[ext_resource type="Texture2D" uid="uid://y2ses0degyfw" path="res://scenes/blocks/10x locked spike/images/1.png" id="4_nu3gn"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="5_vs0gn"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_qh14p"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="8_caaoq"]
@@ -21,7 +21,7 @@ size = Vector2(688, 6.905)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
 size = Vector2(688, 18)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "ghostFollowNode")]
+[node name="Node2D" type="Node2D" unique_id=610517946 node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "ghostFollowNode")]
 script = ExtResource("1_cthqj")
 ghostIconNode = NodePath("Node2D/collisionNode/ghost")
 editorBarIcon = ExtResource("2_koju6")
@@ -34,43 +34,44 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=1090400106]
 position = Vector2(0, 11)
 
-[node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="Node2D" unique_id=374945995 node_paths=PackedStringArray("root")]
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_caaoq")
 root = NodePath("../..")
 
-[node name="textureRect" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("3_koju6")]
+[node name="textureRect" parent="Node2D/collisionNode" unique_id=478063778 node_paths=PackedStringArray("root") instance=ExtResource("3_koju6")]
 position = Vector2(0, -70.63)
 scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("4_nu3gn")
 editorSize = Vector2(701, 123)
 
-[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
+[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode" unique_id=1621384295]
 visible = false
 use_parent_material = true
 position = Vector2(0, -70.63)
 scale = Vector2(0.978, 1)
 texture = SubResource("CompressedTexture2D_caaoq")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode" unique_id=1563383106]
 visible = false
 position = Vector2(0, -62.25)
 shape = SubResource("RectangleShape2D_1gece")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("5_vs0gn")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/collisionNode" unique_id=1669862250 node_paths=PackedStringArray("root")]
 collision_layer = 24576
 collision_mask = 0
 script = ExtResource("2_caaoq")
 root = NodePath("../../..")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D" unique_id=1050573393]
+visible = false
 position = Vector2(0, -12.25)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_koju6")
@@ -78,9 +79,9 @@ one_way_collision = true
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("8_caaoq")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=469539669 node_paths=PackedStringArray("root")]
 visible = false
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_c5k05")
 target_position = Vector2(0, 0)

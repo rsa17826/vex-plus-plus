@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvyscxgcueowa"]
+[gd_scene format=3 uid="uid://dvyscxgcueowa"]
 
 [ext_resource type="Script" uid="uid://ddm2njjchd8gp" path="res://scenes/blocks/10x spike/10x spike.gd" id="1_c5k05"]
-[ext_resource type="Texture2D" uid="uid://dpvi6a7laflid" path="res://scenes/blocks/10x spike/images/1.png" id="2_fcna3"]
+[ext_resource type="Texture2D" uid="uid://d0b3ce6rl572l" path="res://scenes/blocks/10x spike/images/1.png" id="2_fcna3"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_v4hfa"]
 [ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="3_6prq1"]
-[ext_resource type="Texture2D" uid="uid://cby5gf3fvar54" path="res://scenes/blocks/10x spike/images/editorBar.png" id="3_b2kfu"]
+[ext_resource type="Texture2D" uid="uid://ra2rium5303m" path="res://scenes/blocks/10x spike/images/editorBar.png" id="3_b2kfu"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_c5k05"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="6_fmfi2"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="9_ip24u"]
@@ -18,7 +18,7 @@ size = Vector2(688, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yekse"]
 size = Vector2(688, 9.71)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=2138559061 node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_c5k05")
 ghostIconNode = NodePath("Node2D/collisionNode/ghost")
 editorBarIcon = ExtResource("3_b2kfu")
@@ -31,32 +31,32 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=399976894]
 position = Vector2(0, 11)
 
-[node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="Node2D" unique_id=173527377 node_paths=PackedStringArray("root")]
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_v4hfa")
 root = NodePath("../..")
 
-[node name="textureRect" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("3_6prq1")]
+[node name="textureRect" parent="Node2D/collisionNode" unique_id=740422888 node_paths=PackedStringArray("root") instance=ExtResource("3_6prq1")]
 position = Vector2(0, -70.63)
 scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("2_fcna3")
 editorSize = Vector2(701, 123)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode" unique_id=1526667296]
 visible = false
 position = Vector2(0, -57.5)
 shape = SubResource("RectangleShape2D_1gece")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("6_fmfi2")
 
-[node name="attach detector" type="ShapeCast2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="Node2D/collisionNode" unique_id=135784977 node_paths=PackedStringArray("root")]
 visible = false
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 position = Vector2(0, -11)
 enabled = false
 shape = SubResource("RectangleShape2D_fmfi2")
@@ -66,20 +66,21 @@ collide_with_areas = true
 script = ExtResource("4_c5k05")
 root = NodePath("../../..")
 
-[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
+[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode" unique_id=1653608068]
 visible = false
 use_parent_material = true
 position = Vector2(0, -69.51501)
 scale = Vector2(0.961, 1)
 texture = ExtResource("2_fcna3")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/collisionNode" unique_id=1611527077 node_paths=PackedStringArray("root")]
 collision_layer = 24576
 collision_mask = 0
 script = ExtResource("2_v4hfa")
 root = NodePath("../../..")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D" unique_id=1191016068]
+visible = false
 position = Vector2(0, -12.25)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_yekse")

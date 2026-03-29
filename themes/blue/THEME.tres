@@ -1,9 +1,9 @@
-[gd_resource type="Theme" load_steps=47 format=4 uid="uid://dy8ewmwsagc5j"]
+[gd_resource type="Theme" format=4 uid="uid://dy8ewmwsagc5j"]
 
 [ext_resource type="StyleBox" uid="uid://vj7u8wl3xngj" path="res://themes/blue/button/flat.tres" id="1_ph67c"]
 [ext_resource type="StyleBox" uid="uid://dytorq3qkedj3" path="res://themes/blue/check button/flat.tres" id="2_2dmk8"]
-[ext_resource type="Texture2D" uid="uid://bb45a1m0xr8kp" path="res://scenes/ui/images/on.png" id="2_27u43"]
-[ext_resource type="Texture2D" uid="uid://c27t3qm7x6iee" path="res://scenes/ui/images/off.png" id="3_ht7sy"]
+[ext_resource type="Texture2D" uid="uid://diqkawh1wmhgm" path="res://scenes/ui/images/on.png" id="2_27u43"]
+[ext_resource type="Texture2D" uid="uid://di4pyhijqiiak" path="res://scenes/ui/images/off.png" id="3_ht7sy"]
 [ext_resource type="StyleBox" uid="uid://ct7nyk7igch6l" path="res://themes/blue/filled - flat.tres" id="5_ht7sy"]
 [ext_resource type="StyleBox" uid="uid://b0wat1en2ptp7" path="res://themes/blue/option button/flat.tres" id="5_ph67c"]
 [ext_resource type="StyleBox" uid="uid://0bld8r07dib5" path="res://themes/blue/line edit/flat.tres" id="6_durov"]
@@ -166,6 +166,15 @@ data = PackedByteArray("d09GMgABAAAAALU4ABEAAAABjRQAALTXAAEAAAAAAAAAAAAAAAAAAAAA
 font_name = "Open Sans SemiBold"
 style_name = "SemiBold"
 font_weight = 600
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
 cache/0/16/0/ascent = 18.0
 cache/0/16/0/descent = 5.0
 cache/0/16/0/underline_position = 1.609375

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://h6m0obuub6nc"]
+[gd_scene format=3 uid="uid://h6m0obuub6nc"]
 
 [ext_resource type="Script" uid="uid://bpce5qnt4tcle" path="res://addons/copy_files_on_export/manage_item_popup.gd" id="1_0rh2a"]
 
@@ -9,7 +9,7 @@ bg_color = Color(0.0705882, 0.137255, 0.196078, 1)
 font_size = 12
 font_color = Color(1, 0, 0, 1)
 
-[node name="Popup" type="Window"]
+[node name="Popup" type="Window" unique_id=529799482]
 initial_position = 4
 size = Vector2i(300, 450)
 visible = false
@@ -18,7 +18,7 @@ exclusive = true
 script = ExtResource("1_0rh2a")
 action_text = "Add"
 
-[node name="PanelContainer" type="Panel" parent="."]
+[node name="PanelContainer" type="Panel" parent="." unique_id=1723028093]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -26,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_0rh2a")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=598589100]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -38,77 +38,77 @@ theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=1507087321]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="SourcePathLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="SourcePathLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1524559501]
 layout_mode = 2
 text = "Source path:"
 
-[node name="ChooseFileContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ChooseFileContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1394385376]
 custom_minimum_size = Vector2(0, 36)
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
-[node name="SourcePathTextEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/ChooseFileContainer"]
+[node name="SourcePathTextEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/ChooseFileContainer" unique_id=285304145]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 editable = false
 
-[node name="FilePopupButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ChooseFileContainer"]
+[node name="FilePopupButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ChooseFileContainer" unique_id=480605990]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Select"
 
-[node name="SourceErrorLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="SourceErrorLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1179185261]
 unique_name_in_owner = true
 layout_mode = 2
 label_settings = SubResource("LabelSettings_0rh2a")
 
-[node name="PathLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PathLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=894751994]
 layout_mode = 2
 text = "Path in export location:"
 
-[node name="DestinationTextEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="DestinationTextEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1614259493]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 4
 placeholder_text = "path/to/file.txt"
 
-[node name="PathErrorLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PathErrorLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1473908824]
 unique_name_in_owner = true
 layout_mode = 2
 label_settings = SubResource("LabelSettings_0rh2a")
 
-[node name="FeaturesLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="FeaturesLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1176729229]
 layout_mode = 2
 text = "Limit to features (optional):"
 
-[node name="FeaturesLineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="FeaturesLineEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=444798507]
 unique_name_in_owner = true
 layout_mode = 2
 placeholder_text = "windows, web, ..."
 
-[node name="ButtonContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ButtonContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=16389182]
 layout_mode = 2
 size_flags_vertical = 10
 alignment = 1
 
-[node name="AddButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+[node name="AddButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonContainer" unique_id=1808819977]
 unique_name_in_owner = true
 layout_mode = 2
 disabled = true
 text = "Add"
 
-[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonContainer"]
+[node name="CloseButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/ButtonContainer" unique_id=1739389433]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Close"
 
-[node name="FileDialog" type="FileDialog" parent="."]
+[node name="FileDialog" type="FileDialog" parent="." unique_id=233476230]
 unique_name_in_owner = true
 title = "Select a File or Directory"
 initial_position = 4

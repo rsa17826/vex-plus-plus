@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7yl772m88qju"]
+[gd_scene format=3 uid="uid://b7yl772m88qju"]
 
 [ext_resource type="Script" uid="uid://da8bgrmwr06av" path="res://scenes/blocks/scythe/scythe.gd" id="1_7nvoe"]
 [ext_resource type="Texture2D" uid="uid://bel1gbuoebwwg" path="res://scenes/blocks/scythe/images/1.png" id="2_crksl"]
@@ -18,7 +18,7 @@ size = Vector2(88, 11.8736)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ljnhe"]
 radius = 73.0069
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=1679699177 node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_7nvoe")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -31,45 +31,50 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=1056109250 node_paths=PackedStringArray("root")]
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_ljnhe")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode" unique_id=1471254556]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_crksl")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=74390620]
+visible = false
 position = Vector2(-50, -278.5)
 shape = SubResource("RectangleShape2D_7nvoe")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_hwr6l")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode" unique_id=577325442]
+visible = false
 position = Vector2(-142, -254)
 rotation = 2.69828
 shape = SubResource("RectangleShape2D_ljnhe")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_hwr6l")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="collisionNode" unique_id=343741439]
+visible = false
 position = Vector2(-213, -198)
 rotation = 2.31431
 shape = SubResource("RectangleShape2D_wec1y")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_hwr6l")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="collisionNode" unique_id=134122619]
+visible = false
 position = Vector2(48, 279)
 shape = SubResource("RectangleShape2D_7nvoe")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_hwr6l")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="collisionNode" unique_id=963709179]
+visible = false
 position = Vector2(140, 256)
 rotation = 2.69828
 shape = SubResource("RectangleShape2D_ljnhe")
@@ -77,7 +82,8 @@ debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_hwr6l")
 metadata/_edit_group_ = true
 
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="collisionNode" unique_id=165884872]
+visible = false
 position = Vector2(211, 197)
 rotation = 2.31431
 shape = SubResource("RectangleShape2D_wec1y")
@@ -85,7 +91,9 @@ debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_hwr6l")
 metadata/_edit_group_ = true
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1751102346 node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_ljnhe")
 target_position = Vector2(0, 0)

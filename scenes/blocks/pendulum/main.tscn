@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0ov0w5e6cl2o"]
+[gd_scene format=3 uid="uid://b0ov0w5e6cl2o"]
 
 [ext_resource type="Script" uid="uid://j6wi4oumche2" path="res://scenes/blocks/pendulum/pendulum.gd" id="1_e06q1"]
-[ext_resource type="Texture2D" uid="uid://clulrdworv55m" path="res://scenes/blocks/pendulum/images/editorBar.png" id="2_odl1r"]
+[ext_resource type="Texture2D" uid="uid://dlw176vurawg7" path="res://scenes/blocks/pendulum/images/editorBar.png" id="2_odl1r"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="4_4u6q7"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="4_8fsea"]
-[ext_resource type="Texture2D" uid="uid://deui1kv2ku0dx" path="res://scenes/blocks/pendulum/images/top.png" id="4_k8sn6"]
-[ext_resource type="Texture2D" uid="uid://dww6jpf24cr2x" path="res://scenes/blocks/pendulum/images/bottom.png" id="5_4u6q7"]
+[ext_resource type="Texture2D" uid="uid://21d46gjqbikx" path="res://scenes/blocks/pendulum/images/top.png" id="4_k8sn6"]
+[ext_resource type="Texture2D" uid="uid://cmaipoby4ysy" path="res://scenes/blocks/pendulum/images/bottom.png" id="5_4u6q7"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_8fsea"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e06q1"]
@@ -14,7 +14,7 @@ size = Vector2(558, 280)
 [sub_resource type="CircleShape2D" id="CircleShape2D_odl1r"]
 radius = 60.0
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("bottomSprite", "rotNode", "cbody", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=599586247 node_paths=PackedStringArray("bottomSprite", "rotNode", "cbody", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_e06q1")
 bottomSprite = NodePath("thingThatMoves/rotNode/bottom")
 rotNode = NodePath("thingThatMoves/rotNode")
@@ -33,40 +33,40 @@ EDITOR_OPTION_scale = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="ghost" type="Sprite2D" parent="."]
+[node name="ghost" type="Sprite2D" parent="." unique_id=620894140]
 visible = false
 use_parent_material = true
 position = Vector2(0, 518.678)
 texture = ExtResource("2_odl1r")
 
-[node name="thingThatMoves" type="Node2D" parent="."]
+[node name="thingThatMoves" type="Node2D" parent="." unique_id=264925011]
 
-[node name="rotNode" type="Node2D" parent="thingThatMoves"]
+[node name="rotNode" type="Node2D" parent="thingThatMoves" unique_id=180129629]
 
-[node name="top" type="Sprite2D" parent="thingThatMoves/rotNode"]
+[node name="top" type="Sprite2D" parent="thingThatMoves/rotNode" unique_id=1377227641]
 use_parent_material = true
 position = Vector2(0, 518.678)
 texture = ExtResource("4_k8sn6")
 
-[node name="bottom" type="Sprite2D" parent="thingThatMoves/rotNode"]
+[node name="bottom" type="Sprite2D" parent="thingThatMoves/rotNode" unique_id=1281257009]
 use_parent_material = true
 position = Vector2(0, 939.733)
 texture = ExtResource("5_4u6q7")
 
-[node name="collisionNode2" type="CharacterBody2D" parent="thingThatMoves" node_paths=PackedStringArray("root")]
+[node name="collisionNode2" type="CharacterBody2D" parent="thingThatMoves" unique_id=1309716963 node_paths=PackedStringArray("root")]
 position = Vector2(0, 939)
 collision_layer = 34952
 collision_mask = 0
 script = ExtResource("4_8fsea")
 root = NodePath("../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="thingThatMoves/collisionNode2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="thingThatMoves/collisionNode2" unique_id=1845045979]
 visible = false
 shape = SubResource("RectangleShape2D_e06q1")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("4_4u6q7")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=536142360 node_paths=PackedStringArray("root")]
 visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false

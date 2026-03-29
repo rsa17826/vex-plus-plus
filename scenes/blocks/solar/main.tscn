@@ -1,9 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://d22b7flpok0dj"]
+[gd_scene format=3 uid="uid://d22b7flpok0dj"]
 
 [ext_resource type="Script" uid="uid://dnxea7h2f54um" path="res://scenes/blocks/solar/solar.gd" id="1_bxmnj"]
-[ext_resource type="Texture2D" uid="uid://bwsetcl3xh631" path="res://scenes/blocks/solar/images/1.png" id="2_5qqdf"]
+[ext_resource type="Texture2D" uid="uid://ctd7es3du2bos" path="res://scenes/blocks/solar/images/1.png" id="2_5qqdf"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_x30da"]
-[ext_resource type="Texture2D" uid="uid://clq8vs0f2mlp8" path="res://scenes/blocks/solar/images/outline.png" id="3_1a15e"]
+[ext_resource type="Texture2D" uid="uid://73cywcalybgq" path="res://scenes/blocks/solar/images/outline.png" id="3_1a15e"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="5_jiwyo"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_x3vi8"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="6_sd1xo"]
@@ -14,7 +14,7 @@ size = Vector2(700, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dvwo"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=1927045756 node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_bxmnj")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_5qqdf")
@@ -26,38 +26,42 @@ DONT_ENABLE_ON_RESPAWN = true
 EDITOR_OPTION_scale = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="StaticBody2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="StaticBody2D" parent="." unique_id=1796773969 node_paths=PackedStringArray("root")]
 collision_layer = 34824
 collision_mask = 0
 input_pickable = true
 script = ExtResource("2_x30da")
 root = NodePath("..")
 
-[node name="outline" type="Sprite2D" parent="collisionNode"]
+[node name="outline" type="Sprite2D" parent="collisionNode" unique_id=1553379820]
 use_parent_material = true
 texture = ExtResource("3_1a15e")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode" unique_id=396119045]
 use_parent_material = true
 texture = ExtResource("2_5qqdf")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=1855602381]
+visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("5_jiwyo")
 
-[node name="always allow reattaching" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="always allow reattaching" type="Area2D" parent="." unique_id=356099035 node_paths=PackedStringArray("root")]
 collision_layer = 34824
 collision_mask = 0
 script = ExtResource("2_x30da")
 root = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="always allow reattaching"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="always allow reattaching" unique_id=231978869]
+visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("6_sd1xo")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=242945201 node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_6dvwo")
 target_position = Vector2(0, 0)

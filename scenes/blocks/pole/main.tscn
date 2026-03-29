@@ -1,12 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://ckbwrk1t23iw7"]
+[gd_scene format=3 uid="uid://ckbwrk1t23iw7"]
 
 [ext_resource type="Script" uid="uid://dkllasnspy0jo" path="res://scenes/blocks/pole/pole.gd" id="1_rybel"]
-[ext_resource type="Texture2D" uid="uid://ddgowssalafse" path="res://scenes/blocks/pole/images/1.png" id="2_l1pjd"]
+[ext_resource type="Texture2D" uid="uid://cg6lstcwd8j8o" path="res://scenes/blocks/pole/images/1.png" id="2_l1pjd"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_orajn"]
-[ext_resource type="Texture2D" uid="uid://25yeme5ig8rv" path="res://scenes/blocks/pole/images/editorBar.png" id="3_8tkfk"]
+[ext_resource type="Texture2D" uid="uid://brldi2c0ifmt7" path="res://scenes/blocks/pole/images/editorBar.png" id="3_8tkfk"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_rybel"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="6_lkera"]
-[ext_resource type="Texture2D" uid="uid://pidiksqy76vq" path="res://scenes/blocks/pole/images/timing indicator.svg" id="6_wjp2b"]
+[ext_resource type="Texture2D" uid="uid://dghubktf83bew" path="res://scenes/blocks/pole/images/timing indicator.svg" id="6_wjp2b"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8tkfk"]
 radius = 21.0
@@ -14,7 +14,7 @@ radius = 21.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_orajn"]
 radius = 24.0832
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("timingIndicator", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=1824827774 node_paths=PackedStringArray("timingIndicator", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_rybel")
 timingIndicator = NodePath("collisionNode/timing indicator")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -25,13 +25,13 @@ thingThatMoves = NodePath("collisionNode")
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=257014068 node_paths=PackedStringArray("root")]
 collision_layer = 3072
 collision_mask = 2
 script = ExtResource("2_orajn")
 root = NodePath("..")
 
-[node name="timing indicator" type="Sprite2D" parent="collisionNode"]
+[node name="timing indicator" type="Sprite2D" parent="collisionNode" unique_id=968355767]
 visible = false
 self_modulate = Color(1, 1, 1, 0.28235295)
 position = Vector2(55.5, 55.5)
@@ -39,17 +39,20 @@ rotation = 0.785398
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("6_wjp2b")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode" unique_id=1952876430]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_l1pjd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=872520064]
+visible = false
 shape = SubResource("CircleShape2D_8tkfk")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("6_lkera")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=341506900 node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_orajn")
 target_position = Vector2(0, 0)

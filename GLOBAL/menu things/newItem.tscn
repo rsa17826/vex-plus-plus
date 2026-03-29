@@ -1,10 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dqhwo6of6xbjt"]
+[gd_scene format=3 uid="uid://dqhwo6of6xbjt"]
 
-[ext_resource type="Texture2D" uid="uid://v0dkdkyuvubq" path="res://GLOBAL/menu things/newItem1.png" id="1_xlt6y"]
-[ext_resource type="Texture2D" uid="uid://ih1tp11qxj3e" path="res://GLOBAL/menu things/newItem2.png" id="2_y8j7d"]
-[ext_resource type="Texture2D" uid="uid://4ctt4k7jwy7l" path="res://GLOBAL/menu things/newItem3.png" id="3_qb4ap"]
-[ext_resource type="Texture2D" uid="uid://bhvi3hvumrypx" path="res://GLOBAL/menu things/newItem4.png" id="4_0ue2e"]
-[ext_resource type="Texture2D" uid="uid://bbodhkbwbb4fk" path="res://GLOBAL/menu things/newItem5.png" id="5_0ik7m"]
+[ext_resource type="Texture2D" uid="uid://kpq1ovudq7th" path="res://GLOBAL/menu things/newItem1.png" id="1_xlt6y"]
+[ext_resource type="Texture2D" uid="uid://dug5ki6ealr24" path="res://GLOBAL/menu things/newItem2.png" id="2_y8j7d"]
+[ext_resource type="Texture2D" uid="uid://cu47wb2nd0bau" path="res://GLOBAL/menu things/newItem3.png" id="3_qb4ap"]
+[ext_resource type="Texture2D" uid="uid://liubugr6but8" path="res://GLOBAL/menu things/newItem4.png" id="4_0ue2e"]
+[ext_resource type="Texture2D" uid="uid://qrhfkvv2pimr" path="res://GLOBAL/menu things/newItem5.png" id="5_0ik7m"]
 [ext_resource type="Script" uid="uid://d3klda8141hg6" path="res://GLOBAL/menu things/clearNewItem.gd" id="6_y8j7d"]
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_1sopb"]
@@ -26,14 +26,14 @@ frame_6/duration = 1.0
 frame_7/texture = ExtResource("2_y8j7d")
 frame_7/duration = 1.0
 
-[node name="TextureRect" type="TextureRect"]
+[node name="TextureRect" type="TextureRect" unique_id=1970664338]
 custom_minimum_size = Vector2(5, 5)
 offset_right = 5.0
 offset_bottom = 5.0
 texture = SubResource("AnimatedTexture_1sopb")
 expand_mode = 3
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=439034443]
 visibility_layer = 0
 layout_mode = 0
 offset_right = 8.0

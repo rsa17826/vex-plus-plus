@@ -1,10 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://wt2lxgyi4ig6"]
+[gd_scene format=3 uid="uid://wt2lxgyi4ig6"]
 
 [ext_resource type="Script" uid="uid://wffimjqo02xe" path="res://scenes/blocks/closing spikes/closing spikes.gd" id="1_51j7p"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_mvqdb"]
-[ext_resource type="Texture2D" uid="uid://cc8sd64wsjcfc" path="res://scenes/blocks/closing spikes/images/1.png" id="2_sg2we"]
-[ext_resource type="Texture2D" uid="uid://digx3iqkvubii" path="res://scenes/blocks/closing spikes/images/editorBar.png" id="3_fyg8o"]
-[ext_resource type="Texture2D" uid="uid://c3qojrubefyb2" path="res://scenes/blocks/closing spikes/images/1 half.png" id="4_li3j4"]
+[ext_resource type="Texture2D" uid="uid://d1k3heuen10kw" path="res://scenes/blocks/closing spikes/images/1.png" id="2_sg2we"]
+[ext_resource type="Texture2D" uid="uid://dcbevstqw6qcc" path="res://scenes/blocks/closing spikes/images/editorBar.png" id="3_fyg8o"]
+[ext_resource type="Texture2D" uid="uid://dbn1kkt4qggxo" path="res://scenes/blocks/closing spikes/images/1 half.png" id="4_li3j4"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_v4dd7"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_51j7p"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="7_v4dd7"]
@@ -21,7 +21,7 @@ size = Vector2(367, 1.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_51j7p"]
 size = Vector2(694.89, 17)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("leftCollisionShape", "rightCollisionShape", "leftSprite", "rightSprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=971106044 node_paths=PackedStringArray("leftCollisionShape", "rightCollisionShape", "leftSprite", "rightSprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_51j7p")
 leftCollisionShape = NodePath("Node2D/collisionNode/left death")
 rightCollisionShape = NodePath("Node2D/collisionNode/right death")
@@ -36,17 +36,17 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=1077343789]
 position = Vector2(0, 13)
 
-[node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="Node2D" unique_id=1255996055 node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_mvqdb")
 root = NodePath("../..")
 
-[node name="left death" type="CollisionShape2D" parent="Node2D/collisionNode"]
+[node name="left death" type="CollisionShape2D" parent="Node2D/collisionNode" unique_id=433646210]
 unique_name_in_owner = true
 visible = false
 position = Vector2(-190.14001, -52.829994)
@@ -54,7 +54,7 @@ shape = SubResource("RectangleShape2D_sg2we")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_v4dd7")
 
-[node name="right death" type="CollisionShape2D" parent="Node2D/collisionNode"]
+[node name="right death" type="CollisionShape2D" parent="Node2D/collisionNode" unique_id=1409697200]
 unique_name_in_owner = true
 visible = false
 position = Vector2(189.85999, -52.829994)
@@ -62,28 +62,28 @@ shape = SubResource("RectangleShape2D_sg2we")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_v4dd7")
 
-[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
+[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode" unique_id=211754069]
 visible = false
 position = Vector2(0, -66)
 scale = Vector2(0.905, 0.905)
 texture = ExtResource("2_sg2we")
 offset = Vector2(0, 11)
 
-[node name="left side" type="Node2D" parent="Node2D/collisionNode"]
+[node name="left side" type="Node2D" parent="Node2D/collisionNode" unique_id=618335170]
 
-[node name="leftHalf" type="Sprite2D" parent="Node2D/collisionNode/left side"]
+[node name="leftHalf" type="Sprite2D" parent="Node2D/collisionNode/left side" unique_id=4284316]
 unique_name_in_owner = true
 position = Vector2(0, -69.08)
 scale = Vector2(0.905, 0.905)
 texture = ExtResource("4_li3j4")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D/collisionNode/left side" node_paths=PackedStringArray("root")]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D/collisionNode/left side" unique_id=535323397 node_paths=PackedStringArray("root")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("2_mvqdb")
 root = NodePath("../../../..")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/left side/CharacterBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/left side/CharacterBody2D" unique_id=864419520]
 visible = false
 position = Vector2(0, -10)
 rotation = -3.1415925
@@ -92,21 +92,21 @@ one_way_collision = true
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("7_v4dd7")
 
-[node name="right side" type="Node2D" parent="Node2D/collisionNode"]
+[node name="right side" type="Node2D" parent="Node2D/collisionNode" unique_id=1507527353]
 
-[node name="rightHalf" type="Sprite2D" parent="Node2D/collisionNode/right side"]
+[node name="rightHalf" type="Sprite2D" parent="Node2D/collisionNode/right side" unique_id=1682017719]
 unique_name_in_owner = true
 position = Vector2(0, -69.08)
 scale = Vector2(0.905, 0.905)
 texture = ExtResource("4_li3j4")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D/collisionNode/right side" node_paths=PackedStringArray("root")]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="Node2D/collisionNode/right side" unique_id=1675422152 node_paths=PackedStringArray("root")]
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("2_mvqdb")
 root = NodePath("../../../..")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/right side/CharacterBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/right side/CharacterBody2D" unique_id=1257511365]
 visible = false
 position = Vector2(0, -10)
 rotation = -3.1415925
@@ -115,7 +115,7 @@ one_way_collision = true
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("7_v4dd7")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=440476200 node_paths=PackedStringArray("root")]
 visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false

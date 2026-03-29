@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://qb3a72wo461"]
+[gd_scene format=3 uid="uid://qb3a72wo461"]
 
 [ext_resource type="Script" uid="uid://db87qlxuxyl5d" path="res://scenes/blocks/path/edit_node.gd" id="1_ktyr5"]
-[ext_resource type="Texture2D" uid="uid://de8nanobu4kyg" path="res://scenes/blocks/path/images/point.png" id="2_ktyr5"]
+[ext_resource type="Texture2D" uid="uid://behemr3ppjveu" path="res://scenes/blocks/path/images/point.png" id="2_ktyr5"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode")]
+[node name="Node2D" type="Node2D" unique_id=2010217772 node_paths=PackedStringArray("ghostIconNode")]
 script = ExtResource("1_ktyr5")
 ghostIconNode = NodePath("Sprite2D")
 ignoreMissingNodes = true
@@ -16,7 +16,7 @@ DONT_SAVE = true
 DONT_MOVE_ON_RESPAWN = true
 NO_CUSTOM_COLOR_IN_MENU = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1833884452]
 modulate = Color(2.667754, 2.3687663, 2.0697784, 0.78431374)
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("2_ktyr5")

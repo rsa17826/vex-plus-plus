@@ -1,11 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://b24ok68cffspl"]
+[gd_scene format=3 uid="uid://b24ok68cffspl"]
 
 [ext_resource type="Script" uid="uid://c8brdi63odh2y" path="res://GLOBAL/menu things/button/main.gd" id="1_5celf"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=927638479]
 offset_right = 160.0
 offset_bottom = 23.0
 script = ExtResource("1_5celf")
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." unique_id=1215311520]
 layout_mode = 2
