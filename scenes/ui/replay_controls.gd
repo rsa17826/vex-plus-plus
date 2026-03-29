@@ -1,25 +1,32 @@
 # res://scenes/ui/replay_controls.gd
-# Builds its own child nodes — no extra scene editing needed.
 extends Control
 
 var _slider: HSlider
 var _play_pause_btn: Button
 var _frame_label: Label
-var _scrubbing: bool = false   # true while user drags slider (pause injection)
+var _scrubbing: bool = false
+var _seek_to: int = -1  # -1 = idle. >=0 = run real frames until Replay.frame reaches this
 
 func _ready() -> void:
   _build_ui()
   set_process(true)
+  set_physics_process(true)
+
+func _physics_process(_delta: float) -> void:
+  # When seeking: let real physics frames run and stop once we hit the target.
+  # This is the only correct way to advance the replay — move_and_slide needs
+  # a real physics tick, not a manual _physics_process call.
+  if _seek_to >= 0 and global.Replay.frame >= _seek_to:
+    _seek_to = -1
+    global.Replay.pause()
 
 func _build_ui() -> void:
-  # ── Semi-transparent background strip ────────────────────────────────────
   var bg := ColorRect.new()
   bg.color = Color(0, 0, 0, 0.72)
   bg.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
   add_child(bg)
 
-  # ── Outer margin ─────────────────────────────────────────────────────────
   var margin := MarginContainer.new()
   margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   margin.add_theme_constant_override("margin_left",  12)
@@ -33,96 +40,85 @@ func _build_ui() -> void:
   hbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
   margin.add_child(hbox)
 
-  # ── Play / Pause ──────────────────────────────────────────────────────────
   _play_pause_btn = _btn("▶", _on_play_pause)
   _play_pause_btn.custom_minimum_size = Vector2(44, 0)
   hbox.add_child(_play_pause_btn)
 
-  # ── Step −1 ───────────────────────────────────────────────────────────────
   hbox.add_child(_btn("◀|", func(): _step(-1)))
-
-  # ── Step +1 ───────────────────────────────────────────────────────────────
   hbox.add_child(_btn("|▶", func(): _step(1)))
 
-  # ── Seek slider ───────────────────────────────────────────────────────────
   _slider = HSlider.new()
   _slider.min_value = 0
   _slider.step = 1
   _slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
   _slider.size_flags_vertical   = Control.SIZE_SHRINK_CENTER
   _slider.focus_mode = Control.FOCUS_NONE
-  _slider.value_changed.connect(_on_slider_changed)
-  _slider.drag_started.connect(func(): _scrubbing = true)
-  _slider.drag_ended.connect(func(_changed): _scrubbing = false)
+  _slider.drag_started.connect(func():
+    _scrubbing = true
+    global.Replay.pause())
+  _slider.drag_ended.connect(func(_changed):
+    _scrubbing = false
+    _seek(int(_slider.value)))
   hbox.add_child(_slider)
 
-  # ── Frame label ───────────────────────────────────────────────────────────
   _frame_label = Label.new()
   _frame_label.custom_minimum_size = Vector2(110, 0)
   _frame_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
   _frame_label.add_theme_color_override("font_color", Color(0.9, 0.9, 0.9))
   hbox.add_child(_frame_label)
 
-# ── Per-frame update ──────────────────────────────────────────────────────────
 func _process(_delta: float) -> void:
-  var player: Player = global.player
-  if not is_instance_valid(player): return
-  var is_replay: bool = global.Replay.playing
-  visible = is_replay
+  if not is_instance_valid(global.player): return
+  visible = global.Replay.playing
 
-  if not is_replay: return
+  if not visible: return
 
-  var total: int  = global.Replay.totalFrames()
-  var frame: int  = global.Replay.frame
+  var total: int = global.Replay.totalFrames()
+  var frame: int = global.Replay.frame
 
-  # Update slider range without triggering value_changed
   if _slider.max_value != total:
     _slider.max_value = total
-
   if not _scrubbing:
     _slider.set_value_no_signal(frame)
 
-  # Play/Pause icon
-  if global.Replay.playing and not global.Replay.paused:
-    _play_pause_btn.text = "⏸"
-  else:
-    _play_pause_btn.text = "▶"
+  _play_pause_btn.text = "⏸" if (global.Replay.playing and not global.Replay.paused) else "▶"
 
-  # Frame counter  e.g. "1234 / 5678  (20.5 s)"
   var fps  := Engine.physics_ticks_per_second
   var secs := frame / float(fps) if fps > 0 else 0.0
   _frame_label.text = "%d / %d  (%.1f s)" % [frame, total, secs]
 
-# ── Callbacks ────────────────────────────────────────────────────────────────
 func _on_play_pause() -> void:
-  var player: Player = global.player
-  if not is_instance_valid(player): return
-
+  if not is_instance_valid(global.player): return
+  _seek_to = -1  # cancel any in-progress seek
   if not global.Replay.playing:
-    # Was paused / stopped — resume or start
     if global.Replay.data.is_empty(): return
     if global.Replay.frame >= global.Replay.totalFrames():
       global.Replay.frame = 0
-    global._replay_playing = true
+    global.Replay.playing = true
+    global.Replay.paused = false
+  elif global.Replay.paused:
+    global.Replay.resume()
   else:
-    if global.Replay.paused:
-      global.Replay.resume()
-    else:
-      global.Replay.pause()
+    global.Replay.pause()
 
-func _on_slider_changed(value: float) -> void:
-  if not _scrubbing: return
+# ── Shared seek: restore nearest snapshot then run real frames to target ──────
+func _seek(target: int) -> void:
   if not is_instance_valid(global.player): return
-  # Pause playback while scrubbing, seek on every drag tick
-  global.Replay.pause()
-  global.Replay.seek(int(value))
+  target = clampi(target, 0, global.Replay.totalFrames())
+  global.Replay.seek(target)   # restores snapshot, sets Replay.frame = best snapshot frame
+  if global.Replay.frame >= target:
+    # Already at or past target (target was exactly on a snapshot)
+    global.Replay.pause()
+    _seek_to = -1
+  else:
+    # Let real physics frames run until we reach the target
+    _seek_to = target
+    global.Replay.paused = false
 
 func _step(frames: int) -> void:
   if not is_instance_valid(global.player): return
-  global.Replay.pause()
-  global.Replay.seek(clampi(global.Replay.frame + frames, 0, global.Replay.totalFrames() - 1))
+  _seek(global.Replay.frame + frames)
 
-# ── Helper ────────────────────────────────────────────────────────────────────
 func _btn(label: String, cb: Callable) -> Button:
   var b := Button.new()
   b.text = label
