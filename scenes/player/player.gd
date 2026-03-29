@@ -2146,3 +2146,7 @@ func replay_seek(target_frame: int) -> void:
 
 func replay_total_frames() -> int:
   return _replay_data.size()
+
+# make save level name in replay and load level before starting replay also make sure to store state of save file before starting recording in the replay and before replaing the replay so the savefile can be restored after the replay is done playing so that the replay doesnt end up changing the save file
+# make sure that the replay will pause both recording and playing when entering an inner level to prevent loading times rfom breaking the replay
+# make sure that entering an inner level while replaying works correctly
