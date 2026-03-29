@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://0xgh6v6sar7q"]
+[gd_scene format=3 uid="uid://0xgh6v6sar7q"]
 
-[ext_resource type="Script" uid="uid://dn634wpsokoak" path="res://scenes/blocks/rotating buzsaw/rotating Buzsaw.gd" id="1_4olmi"]
-[ext_resource type="Texture2D" uid="uid://kco1nesr1hf7" path="res://scenes/blocks/rotating buzsaw/images/1.png" id="2_3gtnp"]
+[ext_resource type="Script" uid="uid://dn634wpsokoak" path="res://scenes/blocks/rotating buzzsaw/rotating buzzsaw.gd" id="1_4olmi"]
+[ext_resource type="Texture2D" uid="uid://kco1nesr1hf7" path="res://scenes/blocks/rotating buzzsaw/images/1.png" id="2_3gtnp"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_782ym"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_4olmi"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_dxbo5"]
@@ -12,7 +12,7 @@ radius = 85.3288
 [sub_resource type="CircleShape2D" id="CircleShape2D_782ym"]
 radius = 72.0069
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=1462706591 node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_4olmi")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -30,27 +30,30 @@ canAttachToThings = true
 canAttachToPaths = true
 metadata/_edit_lock_ = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=1694438902 node_paths=PackedStringArray("root")]
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_782ym")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode" unique_id=123294343]
 use_parent_material = true
 position = Vector2(0, -314)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_3gtnp")
 metadata/_edit_lock_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=622917577]
+visible = false
 position = Vector2(0, -596)
 shape = SubResource("CircleShape2D_4olmi")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_dxbo5")
 metadata/_edit_lock_ = true
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1044796023 node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_782ym")
 target_position = Vector2(0, 0)

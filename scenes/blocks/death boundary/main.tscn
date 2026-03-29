@@ -1,14 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://cf6c7grj1nfe6"]
+[gd_scene format=3 uid="uid://cf6c7grj1nfe6"]
 
 [ext_resource type="Script" uid="uid://b18nxhbped0xm" path="res://scenes/blocks/death boundary/death boundary.gd" id="1_x528a"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_uhpmw"]
-[ext_resource type="Texture2D" uid="uid://xqpq0xgkjjf0" path="res://scenes/blocks/death boundary/images/1.png" id="2_x528a"]
+[ext_resource type="Texture2D" uid="uid://dfac8v0scgrcs" path="res://scenes/blocks/death boundary/images/1.png" id="2_x528a"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_uhpmw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwpbw"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=1046239967 node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites") groups=["death"]]
 script = ExtResource("1_x528a")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
 editorBarIcon = ExtResource("2_x528a")
@@ -16,16 +16,17 @@ collisionShapes = [NodePath("collisionNode/CollisionShape2D")]
 hidableSprites = [NodePath("collisionNode/Sprite2D")]
 EDITOR_OPTION_scale = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=1363334065 node_paths=PackedStringArray("root")]
 collision_layer = 1040
 collision_mask = 2
 script = ExtResource("2_uhpmw")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode" unique_id=1865554530]
 texture = ExtResource("2_x528a")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=182826828]
+visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("4_uhpmw")

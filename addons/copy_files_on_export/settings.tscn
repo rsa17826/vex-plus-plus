@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cp72cjeu4i4eh"]
+[gd_scene format=3 uid="uid://cp72cjeu4i4eh"]
 
 [ext_resource type="Script" uid="uid://c462ehqq5yd62" path="res://addons/copy_files_on_export/settings.gd" id="1_xqts1"]
 
-[node name="Copy Files On Export" type="MarginContainer"]
+[node name="Copy Files On Export" type="MarginContainer" unique_id=321731710]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,18 +14,18 @@ theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 script = ExtResource("1_xqts1")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=530391021]
 layout_mode = 2
 theme_override_constants/separation = 16
 
-[node name="Label" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=1256827184]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Here you can define paths that will be copied alongside the game export. The first column is a path to a file or directory within your project folder, and the second column is its target path relative to the export folder. The files in these paths will be copied when you select \"Export Project…\". PCK/ZIP export is currently not supported."
 autowrap_mode = 2
 
-[node name="AddButton" type="Button" parent="VBoxContainer"]
+[node name="AddButton" type="Button" parent="VBoxContainer" unique_id=878603059]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -33,7 +33,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Add"
 
-[node name="Tree" type="Tree" parent="VBoxContainer"]
+[node name="Tree" type="Tree" parent="VBoxContainer" unique_id=1703037219]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

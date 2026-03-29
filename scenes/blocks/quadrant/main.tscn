@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://brcolawc3qs7n"]
+[gd_scene format=3 uid="uid://brcolawc3qs7n"]
 
 [ext_resource type="Script" uid="uid://bi5py51bhqxtt" path="res://scenes/blocks/quadrant/quadrant.gd" id="1_hhki4"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_1btjx"]
-[ext_resource type="Texture2D" uid="uid://qft54tfxwmsw" path="res://scenes/blocks/quadrant/images/1.png" id="2_i6m5c"]
+[ext_resource type="Texture2D" uid="uid://bjspybsy5sr4g" path="res://scenes/blocks/quadrant/images/1.png" id="2_i6m5c"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="3_hhki4"]
-[ext_resource type="Texture2D" uid="uid://dnmyaxa33m3nk" path="res://scenes/blocks/quadrant/images/editorBar.png" id="4_0y668"]
+[ext_resource type="Texture2D" uid="uid://elnhi14cbabr" path="res://scenes/blocks/quadrant/images/editorBar.png" id="4_0y668"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="5_6lkpl"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hhki4"]
@@ -13,7 +13,7 @@ radius = 28.2312
 [sub_resource type="CircleShape2D" id="CircleShape2D_1btjx"]
 radius = 47.3814
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=1080744829 node_paths=PackedStringArray("nodeToSpin", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves") groups=["death"]]
 script = ExtResource("1_hhki4")
 nodeToSpin = NodePath("collisionNode")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -26,42 +26,48 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=234366277 node_paths=PackedStringArray("root")]
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_1btjx")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode" unique_id=151523995]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_i6m5c")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="collisionNode" unique_id=2139198356]
+visible = false
 position = Vector2(-317, 0)
 shape = SubResource("CircleShape2D_hhki4")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("5_6lkpl")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="collisionNode" unique_id=1966355312]
+visible = false
 position = Vector2(0, -317)
 shape = SubResource("CircleShape2D_hhki4")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("5_6lkpl")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="collisionNode" unique_id=774523856]
+visible = false
 position = Vector2(316, 0)
 shape = SubResource("CircleShape2D_hhki4")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("5_6lkpl")
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="collisionNode" unique_id=1098938330]
+visible = false
 position = Vector2(0, 316)
 shape = SubResource("CircleShape2D_hhki4")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("5_6lkpl")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1065380622 node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_1btjx")
 target_position = Vector2(0, 0)

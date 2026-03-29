@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://boy84eq1dmt4t"]
+[gd_scene format=3 uid="uid://boy84eq1dmt4t"]
 
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="1_h3bri"]
 [ext_resource type="Script" uid="uid://caq4sfrulnhcy" path="res://scenes/tab menu/main.gd" id="1_jf5yk"]
 
-[node name="tab menu" type="ColorRect"]
+[node name="tab menu" type="ColorRect" unique_id=458645058]
 offset_right = 1152.0
 offset_bottom = 648.0
 size_flags_horizontal = 3
@@ -11,7 +11,7 @@ size_flags_vertical = 3
 color = Color(0.18538326, 0.18538326, 0.18538326, 0.18039216)
 script = ExtResource("1_h3bri")
 
-[node name="Main" type="VBoxContainer" parent="." node_paths=PackedStringArray("optsmenunode")]
+[node name="Main" type="VBoxContainer" parent="." unique_id=1267184247 node_paths=PackedStringArray("optsmenunode")]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
@@ -21,13 +21,13 @@ mouse_filter = 2
 script = ExtResource("1_jf5yk")
 optsmenunode = NodePath("ScrollContainer/main")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Main"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Main" unique_id=1975171262]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 
-[node name="main" type="HFlowContainer" parent="Main/ScrollContainer"]
+[node name="main" type="HFlowContainer" parent="Main/ScrollContainer" unique_id=761360034]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3

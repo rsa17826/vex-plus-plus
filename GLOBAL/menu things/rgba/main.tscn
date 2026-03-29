@@ -1,18 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbr3c33ob13ec"]
+[gd_scene format=3 uid="uid://bbr3c33ob13ec"]
 
 [ext_resource type="Script" uid="uid://dlba263t27q4i" path="res://GLOBAL/menu things/rgba/color main.gd" id="1_yyi5m"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=730867927]
 offset_right = 160.0
 offset_bottom = 23.0
 script = ExtResource("1_yyi5m")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=881317812]
 layout_mode = 2
 
-[node name="HSlider" type="ColorPickerButton" parent="."]
+[node name="HSlider" type="ColorPickerButton" parent="." unique_id=451864664]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 
-[node name="slider value" type="Label" parent="."]
+[node name="slider value" type="Label" parent="." unique_id=1219583601]
 layout_mode = 2

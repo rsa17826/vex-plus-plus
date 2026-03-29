@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8rfpfel4mqtm"]
+[gd_scene format=3 uid="uid://c8rfpfel4mqtm"]
 
 [ext_resource type="Script" uid="uid://737ujil5h1pc" path="res://GLOBAL/screen_notifier/log_item.gd" id="1_2q8bu"]
 
@@ -9,7 +9,7 @@ border_color = Color(0.8, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_loh7i"]
 bg_color = Color(1, 1, 1, 0.12549)
 
-[node name="LogItem" type="HBoxContainer" node_paths=PackedStringArray("content_label", "amount_label", "amount_panel", "progress_a", "progress_b")]
+[node name="LogItem" type="HBoxContainer" unique_id=629328397 node_paths=PackedStringArray("content_label", "amount_label", "amount_panel", "progress_a", "progress_b")]
 offset_right = 320.0
 offset_bottom = 26.0
 mouse_filter = 2
@@ -24,60 +24,60 @@ metadata/content_label = NodePath("Content/MarginContainer/RichTextLabel")
 metadata/amount_label = NodePath("Amount/MarginContainer/Label")
 metadata/amount_panel = NodePath("Amount")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=143035209]
 custom_minimum_size = Vector2(4, 0)
 layout_mode = 2
 mouse_filter = 2
 color = Color(0, 0.752941, 0, 1)
 
-[node name="Content" type="PanelContainer" parent="."]
+[node name="Content" type="PanelContainer" parent="." unique_id=952900488]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1ons3")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Content"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Content" unique_id=686387856]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
 
-[node name="A" type="Panel" parent="Content/HBoxContainer"]
+[node name="A" type="Panel" parent="Content/HBoxContainer" unique_id=1536292301]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_loh7i")
 
-[node name="B" type="Control" parent="Content/HBoxContainer"]
+[node name="B" type="Control" parent="Content/HBoxContainer" unique_id=881225359]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.6
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Content"]
+[node name="MarginContainer" type="MarginContainer" parent="Content" unique_id=403069516]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 8
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Content/MarginContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Content/MarginContainer" unique_id=659515341]
 layout_mode = 2
 mouse_filter = 2
 bbcode_enabled = true
 text = "yoooooooooo~"
 fit_content = true
 
-[node name="Amount" type="PanelContainer" parent="."]
+[node name="Amount" type="PanelContainer" parent="." unique_id=1523431045]
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_1ons3")
 
-[node name="MarginContainer" type="MarginContainer" parent="Amount"]
+[node name="MarginContainer" type="MarginContainer" parent="Amount" unique_id=1709132436]
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
 
-[node name="Label" type="Label" parent="Amount/MarginContainer"]
+[node name="Label" type="Label" parent="Amount/MarginContainer" unique_id=2031307617]
 layout_mode = 2
 text = "x1"
 metadata/amount = 1

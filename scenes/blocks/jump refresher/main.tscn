@@ -1,9 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://diaf1skj6v3vg"]
+[gd_scene format=3 uid="uid://diaf1skj6v3vg"]
 
 [ext_resource type="Script" uid="uid://cvb1vm5hrf6gq" path="res://scenes/blocks/jump refresher/jump refresher.gd" id="1_ru51i"]
-[ext_resource type="Texture2D" uid="uid://dabfad520xe5d" path="res://scenes/blocks/jump refresher/images/1.png" id="2_j21a7"]
+[ext_resource type="Texture2D" uid="uid://birp473h4ybtv" path="res://scenes/blocks/jump refresher/images/1.png" id="2_j21a7"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_xqv1t"]
-[ext_resource type="Texture2D" uid="uid://voau5ennwh4d" path="res://scenes/blocks/jump refresher/images/ghost.png" id="4_rc0bb"]
+[ext_resource type="Texture2D" uid="uid://dp07s71q1odve" path="res://scenes/blocks/jump refresher/images/ghost.png" id="4_rc0bb"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="5_ndm6f"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_jyduy"]
 
@@ -13,7 +13,7 @@ radius = 93.00538
 [sub_resource type="CircleShape2D" id="CircleShape2D_orajn"]
 radius = 197.0406
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=1151750036 node_paths=PackedStringArray("sprite", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_ru51i")
 sprite = NodePath("collisionNode/Sprite2D")
 ghostIconNode = NodePath("collisionNode/ghost")
@@ -24,29 +24,32 @@ thingThatMoves = NodePath("collisionNode")
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=1511163824 node_paths=PackedStringArray("root")]
 collision_layer = 3072
 collision_mask = 2
 script = ExtResource("3_xqv1t")
 root = NodePath("..")
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode" unique_id=1307495352]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_j21a7")
 
-[node name="ghost" type="Sprite2D" parent="collisionNode"]
+[node name="ghost" type="Sprite2D" parent="collisionNode" unique_id=1140013805]
 visible = false
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("4_rc0bb")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=1832176149]
+visible = false
 shape = SubResource("CircleShape2D_8tkfk")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("5_ndm6f")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1507341057 node_paths=PackedStringArray("root")]
+visible = false
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_orajn")
 target_position = Vector2(0, 0)

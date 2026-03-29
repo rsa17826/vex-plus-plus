@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://dv5nph6lo28xa"]
+[gd_scene format=3 uid="uid://dv5nph6lo28xa"]
 
 [ext_resource type="Script" uid="uid://ngccytguo6ax" path="res://scenes/blocks/undeath/undeath.gd" id="1_qunpq"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_07iil"]
-[ext_resource type="Texture2D" uid="uid://bo8amfo1mq31y" path="res://scenes/blocks/undeath/images/1.png" id="3_2tv7p"]
-[ext_resource type="Texture2D" uid="uid://b5vm1bqa5sk5o" path="res://scenes/blocks/undeath/images/editorBar.png" id="4_2tv7p"]
+[ext_resource type="Texture2D" uid="uid://dcmhfij5w2kcs" path="res://scenes/blocks/undeath/images/1.png" id="3_2tv7p"]
+[ext_resource type="Texture2D" uid="uid://bj37b1sb6cqkq" path="res://scenes/blocks/undeath/images/editorBar.png" id="4_2tv7p"]
 [ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="4_irq6n"]
-[ext_resource type="Texture2D" uid="uid://dso76sy80ytot" path="res://scenes/blocks/undeath/images/skull.png" id="5_2tv7p"]
+[ext_resource type="Texture2D" uid="uid://dtktryhcumo8l" path="res://scenes/blocks/undeath/images/skull.png" id="5_2tv7p"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="7_jjads"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="7_peial"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="8_bbb2t"]
@@ -19,7 +19,7 @@ size = Vector2(700, 700)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4jwsf"]
 size = Vector2(700, 700)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=1789421734 node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_qunpq")
 ghostIconNode = NodePath("collisionNode/ghost")
 editorBarIcon = ExtResource("4_2tv7p")
@@ -30,38 +30,38 @@ SEND_COLLISIONS_DOURING_PLAYER_RESPAWN = true
 EDITOR_OPTION_scale = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=428886646 node_paths=PackedStringArray("root")]
 collision_layer = 65536
 collision_mask = 0
 script = ExtResource("2_07iil")
 root = NodePath("..")
 
-[node name="ghost" type="Sprite2D" parent="collisionNode"]
+[node name="ghost" type="Sprite2D" parent="collisionNode" unique_id=697653102]
 texture = ExtResource("3_2tv7p")
 
-[node name="textureRect" parent="collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_irq6n")]
+[node name="textureRect" parent="collisionNode" unique_id=1156530171 node_paths=PackedStringArray("root") instance=ExtResource("4_irq6n")]
 root = NodePath("../..")
 texture = ExtResource("5_2tv7p")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=1934414659]
 visible = false
 shape = SubResource("RectangleShape2D_qunpq")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("7_jjads")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="collisionNode" node_paths=PackedStringArray("root")]
+[node name="StaticBody2D" type="StaticBody2D" parent="collisionNode" unique_id=1841818085 node_paths=PackedStringArray("root")]
 collision_layer = 2056
 collision_mask = 2
 script = ExtResource("2_07iil")
 root = NodePath("../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode/StaticBody2D" unique_id=96534301]
 visible = false
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("8_bbb2t")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=860227782 node_paths=PackedStringArray("root")]
 visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false

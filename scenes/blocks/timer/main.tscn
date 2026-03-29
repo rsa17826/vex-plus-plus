@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6e6ir5mloqny"]
+[gd_scene format=3 uid="uid://c6e6ir5mloqny"]
 
 [ext_resource type="Script" uid="uid://dyqbknqe71eo0" path="res://scenes/blocks/timer/timer.gd" id="1_jha54"]
 [ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="3_3qg1e"]
 [ext_resource type="PackedScene" uid="uid://dyhvw50inaha1" path="res://GLOBAL/custom nodes/CircularProgressBar/CircularProgressBar.tscn" id="3_10itm"]
-[ext_resource type="Texture2D" uid="uid://dephtut8pllf5" path="res://scenes/blocks/timer/images/1.png" id="3_oqrba"]
+[ext_resource type="Texture2D" uid="uid://bordiabndg0hx" path="res://scenes/blocks/timer/images/1.png" id="3_oqrba"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("charge", "labelInp", "labelOut", "sprite", "ghostIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=2057320652 node_paths=PackedStringArray("charge", "labelInp", "labelOut", "sprite", "ghostIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_jha54")
 charge = NodePath("Node2D/charge")
 labelInp = NodePath("Node2D/Label")
@@ -18,21 +18,21 @@ thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 EDITOR_OPTION_rotate = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=1206426312]
 
-[node name="Sprite2D" type="Sprite2D" parent="Node2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Node2D" unique_id=339985750]
 use_parent_material = true
 position = Vector2(0, -8.35)
 scale = Vector2(1.485, 1.485)
 texture = ExtResource("3_oqrba")
 
-[node name="charge" parent="Node2D" instance=ExtResource("3_10itm")]
+[node name="charge" parent="Node2D" unique_id=1459325467 instance=ExtResource("3_10itm")]
 scale = Vector2(0.165, 0.165)
 bgColor = Color(2.2621452e-06, 0.6986438, 7.70092e-07, 1)
 fgColor = Color(0.69803923, 0, 0, 1)
 progress = 50.0
 
-[node name="Label" type="Label" parent="Node2D"]
+[node name="Label" type="Label" parent="Node2D" unique_id=315567330]
 offset_left = -122.175
 offset_top = -41.0
 offset_right = -19.175003
@@ -42,7 +42,7 @@ text = "12"
 label_settings = ExtResource("3_3qg1e")
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="Node2D"]
+[node name="Label3" type="Label" parent="Node2D" unique_id=1208761781]
 offset_left = -52.5
 offset_top = -41.0
 offset_right = 50.5
@@ -52,7 +52,7 @@ text = "->"
 label_settings = ExtResource("3_3qg1e")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Node2D"]
+[node name="Label2" type="Label" parent="Node2D" unique_id=314821513]
 offset_left = 20.045
 offset_top = -41.0
 offset_right = 123.04503

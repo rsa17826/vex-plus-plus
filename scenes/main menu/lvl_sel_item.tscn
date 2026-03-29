@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dt0bgs2y482om"]
+[gd_scene format=3 uid="uid://dt0bgs2y482om"]
 
 [ext_resource type="Script" uid="uid://7hjs6nnyt2qk" path="res://scenes/main menu/open in correct version.gd" id="2_lwd02"]
 
@@ -14,7 +14,7 @@ script/source = "extends NestedSearchable
 @export var moreOptsBtn: Node
 "
 
-[node name="lvlSelItem" type="VFlowContainer" node_paths=PackedStringArray("levelname", "creator", "description", "version", "openInCorrectVersion", "newSaveBtn", "loadSaveBtn", "moreOptsBtn")]
+[node name="lvlSelItem" type="VFlowContainer" unique_id=648065355 node_paths=PackedStringArray("levelname", "creator", "description", "version", "openInCorrectVersion", "newSaveBtn", "loadSaveBtn", "moreOptsBtn")]
 offset_right = 107.0
 offset_bottom = 147.0
 script = SubResource("GDScript_4oddt")
@@ -27,47 +27,47 @@ newSaveBtn = NodePath("VBoxContainer/Button")
 loadSaveBtn = NodePath("VBoxContainer/HBoxContainer/Button2")
 moreOptsBtn = NodePath("VBoxContainer/HBoxContainer/Button4")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=136165457]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="VBoxContainer"]
-layout_mode = 2
-text = "level 1"
-
-[node name="Label2" type="Label" parent="VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=388851205]
 layout_mode = 2
 text = "level 1"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer" unique_id=2017993161]
+layout_mode = 2
+text = "level 1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=2232291]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer2"]
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer2" unique_id=1075534551]
 layout_mode = 2
 text = "open in version"
 script = ExtResource("2_lwd02")
 
-[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer2"]
+[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=246979142]
 layout_mode = 2
 text = "v"
 
-[node name="Label3" type="Label" parent="VBoxContainer"]
+[node name="Label3" type="Label" parent="VBoxContainer" unique_id=815016774]
 visible = false
 layout_mode = 2
 text = "level 1"
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=725008689]
 layout_mode = 2
 text = "new save"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1958576124]
 layout_mode = 2
 
-[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Button2" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=714416168]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "load save"
 
-[node name="Button4" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="Button4" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=954568596]
 layout_mode = 2
 text = "..."
 

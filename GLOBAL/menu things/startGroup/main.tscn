@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://2rvhsefksyef"]
+[gd_scene format=3 uid="uid://2rvhsefksyef"]
 
 [ext_resource type="Script" uid="uid://c6yj011nqdbhq" path="res://GLOBAL/menu things/startGroup/main.gd" id="1_ij75l"]
 
-[node name="StartGroup" type="FoldableContainer"]
+[node name="StartGroup" type="FoldableContainer" unique_id=1399235877]
 offset_right = 24.0
 offset_bottom = 32.0
 script = ExtResource("1_ij75l")

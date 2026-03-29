@@ -1,12 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://b8x0qylun3368"]
+[gd_scene format=3 uid="uid://b8x0qylun3368"]
 
 [ext_resource type="Script" uid="uid://drtmdw2w6aqnf" path="res://scenes/online level list/level_display.gd" id="1_wui2r"]
 [ext_resource type="Script" uid="uid://dn8ahudlu6bdn" path="res://addons/tnowe_extra_controls/elements/max_size_container.gd" id="2_rx2np"]
-[ext_resource type="Texture2D" uid="uid://d16r61k6ncays" path="res://scenes/loading animation/images/frame 1.png" id="3_cywwg"]
-[ext_resource type="Texture2D" uid="uid://cbegmnljeh4y7" path="res://scenes/loading animation/images/frame 2.png" id="4_aefhj"]
-[ext_resource type="Texture2D" uid="uid://bn12uqwi1nioa" path="res://scenes/loading animation/images/frame 3.png" id="5_rbumh"]
-[ext_resource type="Texture2D" uid="uid://blbrfvnis0dpg" path="res://scenes/loading animation/images/frame 4.png" id="6_rafyr"]
-[ext_resource type="Texture2D" uid="uid://b1g5fwqio2jiv" path="res://scenes/loading animation/images/frame 5.png" id="7_rc1ww"]
+[ext_resource type="Texture2D" uid="uid://buf51a3xd80hd" path="res://scenes/loading animation/images/frame 1.png" id="3_cywwg"]
+[ext_resource type="Texture2D" uid="uid://6iordhwl127l" path="res://scenes/loading animation/images/frame 2.png" id="4_aefhj"]
+[ext_resource type="Texture2D" uid="uid://fihgvhcad7oc" path="res://scenes/loading animation/images/frame 3.png" id="5_rbumh"]
+[ext_resource type="Texture2D" uid="uid://db2r8iaqd47ah" path="res://scenes/loading animation/images/frame 4.png" id="6_rafyr"]
+[ext_resource type="Texture2D" uid="uid://c1mg2lm155655" path="res://scenes/loading animation/images/frame 5.png" id="7_rc1ww"]
 
 [sub_resource type="AnimatedTexture" id="AnimatedTexture_hsofh"]
 frames = 5
@@ -21,7 +21,7 @@ frame_3/duration = 1.0
 frame_4/texture = ExtResource("7_rc1ww")
 frame_4/duration = 1.0
 
-[node name="level display" type="HBoxContainer" node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion", "onlineButtonsContainer", "offlineButtonsContainer", "completionInfoNode", "large")]
+[node name="level display" type="HBoxContainer" unique_id=1524986260 node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion", "onlineButtonsContainer", "offlineButtonsContainer", "completionInfoNode", "large")]
 clip_contents = true
 offset_right = 869.0
 offset_bottom = 241.0
@@ -42,70 +42,70 @@ offlineButtonsContainer = NodePath("Panel/VBoxContainer/offline buttons")
 completionInfoNode = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer6/completionInfo")
 large = [NodePath("Panel/VBoxContainer/offline buttons/load save2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator"), NodePath("Panel/VBoxContainer/offline buttons/duplicate"), NodePath("Panel/VBoxContainer/offline buttons/rename"), NodePath("Panel/VBoxContainer/offline buttons/delete"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator3"), NodePath("Panel/VBoxContainer/HBoxContainer3/desc")]
 
-[node name="Panel" type="PanelContainer" parent="."]
+[node name="Panel" type="PanelContainer" parent="." unique_id=214196593]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=1006382023]
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=700645463]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3" unique_id=645352542]
 clip_contents = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=1030625033]
 layout_mode = 2
 
-[node name="creator id" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+[node name="creator id" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer" unique_id=1555499944]
 custom_minimum_size = Vector2(245.205, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "creator id: asdasddssadadsasd"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=1691759118]
 layout_mode = 2
 
-[node name="levelname" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+[node name="levelname" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2" unique_id=526325022]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "level name"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=1889536756]
 layout_mode = 2
 
-[node name="creatorname" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3"]
+[node name="creatorname" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer3" unique_id=1178179889]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "creator name"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=1443964962]
 layout_mode = 2
 
-[node name="levelversions" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4"]
+[node name="levelversions" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer4" unique_id=998201280]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "v1250"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=1552651420]
 layout_mode = 2
 
-[node name="gameversiuon" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5"]
+[node name="gameversiuon" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer5" unique_id=1573104457]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "game version: 150"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=752857708]
 layout_mode = 2
 
-[node name="completionInfo" type="Label" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer6"]
+[node name="completionInfo" type="Label" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer6" unique_id=400404385]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="desc" type="TextEdit" parent="Panel/VBoxContainer/HBoxContainer3"]
+[node name="desc" type="TextEdit" parent="Panel/VBoxContainer/HBoxContainer3" unique_id=930520830]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -116,114 +116,114 @@ editable = false
 context_menu_enabled = false
 emoji_menu_enabled = false
 shortcut_keys_enabled = false
-virtual_keyboard_enabled = false
-virtual_keyboard_show_on_focus = false
 middle_mouse_paste_enabled = false
 wrap_mode = 1
+virtual_keyboard_enabled = false
+virtual_keyboard_show_on_focus = false
 
-[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
+[node name="MarginContainer2" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer3" unique_id=1807050842]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer3"]
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/HBoxContainer3" unique_id=1900593525]
 custom_minimum_size = Vector2(145, 145)
 layout_mode = 2
 theme_override_constants/margin_top = 4
 
-[node name="MaxSizeContainer" type="Container" parent="Panel/VBoxContainer/HBoxContainer3/MarginContainer"]
+[node name="MaxSizeContainer" type="Container" parent="Panel/VBoxContainer/HBoxContainer3/MarginContainer" unique_id=460360340]
 layout_mode = 2
 script = ExtResource("2_rx2np")
 max_size = Vector2(146, 146)
 metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
 
-[node name="level image" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer3/MarginContainer/MaxSizeContainer"]
+[node name="level image" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer3/MarginContainer/MaxSizeContainer" unique_id=377240164]
 clip_contents = true
 custom_minimum_size = Vector2(146, 146)
 layout_mode = 2
 texture = SubResource("AnimatedTexture_hsofh")
 expand_mode = 1
 
-[node name="online buttons" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="online buttons" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=31021512]
 layout_mode = 2
 
-[node name="download" type="Button" parent="Panel/VBoxContainer/online buttons"]
+[node name="download" type="Button" parent="Panel/VBoxContainer/online buttons" unique_id=95929210]
 layout_mode = 2
 text = "download level"
 
-[node name="download and play" type="Button" parent="Panel/VBoxContainer/online buttons"]
+[node name="download and play" type="Button" parent="Panel/VBoxContainer/online buttons" unique_id=1780635332]
 layout_mode = 2
 text = "download and play"
 
-[node name="download and play2" type="Button" parent="Panel/VBoxContainer/online buttons"]
+[node name="download and play2" type="Button" parent="Panel/VBoxContainer/online buttons" unique_id=614645702]
 layout_mode = 2
 text = "download and play on correct version"
 
-[node name="copy share code" type="Button" parent="Panel/VBoxContainer/online buttons"]
+[node name="copy share code" type="Button" parent="Panel/VBoxContainer/online buttons" unique_id=1729801858]
 layout_mode = 2
 text = "copy share code"
 
-[node name="view old versions" type="Button" parent="Panel/VBoxContainer/online buttons"]
+[node name="view old versions" type="Button" parent="Panel/VBoxContainer/online buttons" unique_id=1579180834]
 layout_mode = 2
 text = "view old versions"
 
-[node name="offline buttons" type="HBoxContainer" parent="Panel/VBoxContainer"]
+[node name="offline buttons" type="HBoxContainer" parent="Panel/VBoxContainer" unique_id=38459005]
 layout_mode = 2
 
-[node name="new save" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="new save" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=1238026157]
 layout_mode = 2
 text = "new save"
 
-[node name="load save" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="load save" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=313893324]
 layout_mode = 2
 text = "load save"
 
-[node name="load save2" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="load save2" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=263976041]
 layout_mode = 2
 text = "open in correct version"
 
-[node name="VSeparator" type="MarginContainer" parent="Panel/VBoxContainer/offline buttons"]
+[node name="VSeparator" type="MarginContainer" parent="Panel/VBoxContainer/offline buttons" unique_id=1316941576]
 layout_mode = 2
 
-[node name="duplicate" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="duplicate" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=250164359]
 layout_mode = 2
 text = "duplicate"
 
-[node name="rename" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="rename" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=903098241]
 layout_mode = 2
 text = "rename"
 
-[node name="delete" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="delete" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=293359637]
 layout_mode = 2
 text = "delete"
 
-[node name="VSeparator2" type="MarginContainer" parent="Panel/VBoxContainer/offline buttons"]
+[node name="VSeparator2" type="MarginContainer" parent="Panel/VBoxContainer/offline buttons" unique_id=301804619]
 layout_mode = 2
 
-[node name="export" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="export" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=543970866]
 layout_mode = 2
 text = "export"
 
-[node name="upload" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="upload" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=1968992800]
 layout_mode = 2
 text = "upload"
 
-[node name="VSeparator3" type="MarginContainer" parent="Panel/VBoxContainer/offline buttons"]
+[node name="VSeparator3" type="MarginContainer" parent="Panel/VBoxContainer/offline buttons" unique_id=335312709]
 layout_mode = 2
 
-[node name="more" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="more" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=1959287720]
 layout_mode = 2
 text = "..."
 
-[node name="show in file explorer3" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="show in file explorer3" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=1608228551]
 visible = false
 layout_mode = 2
 text = "show in file explorer"
 
-[node name="open settings file" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="open settings file" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=457768227]
 visible = false
 layout_mode = 2
 text = "open settings file"
 
-[node name="edit description" type="Button" parent="Panel/VBoxContainer/offline buttons"]
+[node name="edit description" type="Button" parent="Panel/VBoxContainer/offline buttons" unique_id=641146231]
 visible = false
 layout_mode = 2
 text = "edit description"

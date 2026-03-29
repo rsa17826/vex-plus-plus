@@ -1,10 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bbvg8iy3y764i"]
+[gd_scene format=3 uid="uid://bbvg8iy3y764i"]
 
 [ext_resource type="Script" uid="uid://bpvv8sxh1nkve" path="res://scenes/blocks/fan/big/big.gd" id="1_4rth3"]
-[ext_resource type="Texture2D" uid="uid://r37vf3jy3bce" path="res://scenes/blocks/fan/big/images/1.png" id="2_dtbfl"]
+[ext_resource type="Texture2D" uid="uid://bb01ufaw1fsor" path="res://scenes/blocks/fan/big/images/1.png" id="2_dtbfl"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_eaf16"]
 [ext_resource type="Script" uid="uid://y1ant5eu3vxx" path="res://scenes/hitbox scripts/area.gd" id="4_bmx20"]
-[ext_resource type="Texture2D" uid="uid://d0i3rlvex1ak4" path="res://scenes/blocks/fan/4.png" id="4_f6fl3"]
+[ext_resource type="Texture2D" uid="uid://dfpgfdg5ymcae" path="res://scenes/blocks/fan/4.png" id="4_f6fl3"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_dtbfl"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f6fl3"]
@@ -36,7 +36,7 @@ size = Vector2(1028, 372)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eaf16"]
 size = Vector2(4, 696)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("particles", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=2045468052 node_paths=PackedStringArray("particles", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_4rth3")
 particles = NodePath("collisionNode/GPUParticles2D")
 ghostIconNode = NodePath("collisionNode/Sprite2D")
@@ -50,18 +50,18 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="collisionNode" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="." unique_id=1295942536 node_paths=PackedStringArray("root")]
 collision_layer = 0
 collision_mask = 162
 script = ExtResource("3_eaf16")
 root = NodePath("..")
 metadata/_edit_lock_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="collisionNode"]
+[node name="Sprite2D" type="Sprite2D" parent="collisionNode" unique_id=1246391663]
 position = Vector2(76.5, 0)
 texture = ExtResource("2_dtbfl")
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="collisionNode"]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="collisionNode" unique_id=379839161]
 position = Vector2(147.205, 0)
 scale = Vector2(1.4728571, 1)
 amount = 13
@@ -70,14 +70,14 @@ lifetime = 2.03
 speed_scale = 5.1
 process_material = SubResource("ParticleProcessMaterial_f6fl3")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collisionNode" unique_id=821602685]
 visible = false
 position = Vector2(515, 0)
 shape = SubResource("RectangleShape2D_gwpbw")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_bmx20")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=2141516055 node_paths=PackedStringArray("root")]
 visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false

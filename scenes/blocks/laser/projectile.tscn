@@ -1,14 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://fo0icpjwv5fj"]
+[gd_scene format=3 uid="uid://fo0icpjwv5fj"]
 
 [ext_resource type="Script" uid="uid://cau1f560h3v5p" path="res://scenes/blocks/laser/projectile.gd" id="1_1kh7o"]
-[ext_resource type="Texture2D" uid="uid://bk2su1oy0xiw2" path="res://scenes/blocks/laser/images/projectile.png" id="1_8tf60"]
+[ext_resource type="Texture2D" uid="uid://70ebgavn16rf" path="res://scenes/blocks/laser/images/projectile.png" id="1_8tf60"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_7ldrn"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="4_dswup"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hyxg0"]
 size = Vector2(20, 4)
 
-[node name="Projectile" type="Node2D" groups=["death"]]
+[node name="Projectile" type="Node2D" unique_id=154623780 groups=["death"]]
 script = ExtResource("1_1kh7o")
 ignoreMissingNodes = true
 dontDisablePhysicsProcess = true
@@ -17,18 +17,18 @@ DONT_SAVE = true
 DONT_MOVE_ON_RESPAWN = true
 REMOVE_ON_RESPAWN = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=577080350]
 position = Vector2(-10, 0)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("1_8tf60")
 
-[node name="Area2D" type="Area2D" parent="." node_paths=PackedStringArray("root")]
+[node name="Area2D" type="Area2D" parent="." unique_id=2001338089 node_paths=PackedStringArray("root")]
 collision_layer = 144
 collision_mask = 10
 script = ExtResource("3_7ldrn")
 root = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2006296359]
 visible = false
 position = Vector2(-10, 0)
 shape = SubResource("RectangleShape2D_hyxg0")

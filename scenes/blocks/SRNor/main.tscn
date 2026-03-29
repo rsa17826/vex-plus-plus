@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://cmgeju178r2kf"]
+[gd_scene format=3 uid="uid://cmgeju178r2kf"]
 
 [ext_resource type="Script" uid="uid://rdcqhigd71x1" path="res://scenes/blocks/SRNor/SRNor.gd" id="1_ss517"]
-[ext_resource type="Texture2D" uid="uid://c3uacgwp2t8y1" path="res://scenes/blocks/SRNor/images/editorBar.png" id="2_4uct5"]
-[ext_resource type="Texture2D" uid="uid://oewcox4njxom" path="res://scenes/blocks/SRNor/images/symbols.png" id="3_4uct5"]
+[ext_resource type="Texture2D" uid="uid://j1asplc4egv7" path="res://scenes/blocks/SRNor/images/editorBar.png" id="2_4uct5"]
+[ext_resource type="Texture2D" uid="uid://8agtd0kn7x6j" path="res://scenes/blocks/SRNor/images/symbols.png" id="3_4uct5"]
 [ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="4_aatv6"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelEnable", "labelDisable", "labelOut", "ghostIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=1340540191 node_paths=PackedStringArray("labelEnable", "labelDisable", "labelOut", "ghostIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_ss517")
 labelEnable = NodePath("Node2D/Label")
 labelDisable = NodePath("Node2D/Label2")
@@ -16,14 +16,14 @@ hidableSprites = [NodePath("Node2D/symbols")]
 thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=257860213]
 
-[node name="symbols" type="Sprite2D" parent="Node2D"]
+[node name="symbols" type="Sprite2D" parent="Node2D" unique_id=97570966]
 use_parent_material = true
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_4uct5")
 
-[node name="Label" type="Label" parent="Node2D"]
+[node name="Label" type="Label" parent="Node2D" unique_id=722960865]
 offset_left = -152.0
 offset_top = -132.0
 offset_right = -49.0
@@ -32,7 +32,7 @@ text = "12"
 label_settings = ExtResource("4_aatv6")
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="Node2D"]
+[node name="Label2" type="Label" parent="Node2D" unique_id=2016235985]
 offset_left = 45.0
 offset_top = 29.0
 offset_right = 148.0
@@ -41,7 +41,7 @@ text = "12"
 label_settings = ExtResource("4_aatv6")
 horizontal_alignment = 1
 
-[node name="Label3" type="Label" parent="Node2D"]
+[node name="Label3" type="Label" parent="Node2D" unique_id=1740793396]
 offset_left = -54.0
 offset_top = -43.0
 offset_right = 49.0

@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdixi4vcsxqd1"]
+[gd_scene format=3 uid="uid://cdixi4vcsxqd1"]
 
 [ext_resource type="Script" uid="uid://dgvjwvx6swj0s" path="res://scenes/login/login.gd" id="1_d7qrr"]
 
-[node name="login" type="CenterContainer" node_paths=PackedStringArray("uname", "password", "password2", "stayLoggedIn")]
+[node name="login" type="CenterContainer" unique_id=1391128490 node_paths=PackedStringArray("uname", "password", "password2", "stayLoggedIn")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -14,92 +14,92 @@ password = NodePath("VBoxContainer/Password")
 password2 = NodePath("VBoxContainer/Password2")
 stayLoggedIn = NodePath("VBoxContainer/HBoxContainer2/CheckBox")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=804578318]
 layout_mode = 2
 
-[node name="Username" type="LineEdit" parent="VBoxContainer"]
+[node name="Username" type="LineEdit" parent="VBoxContainer" unique_id=1246084657]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 placeholder_text = "username/email"
 select_all_on_focus = true
 
-[node name="Password" type="LineEdit" parent="VBoxContainer"]
+[node name="Password" type="LineEdit" parent="VBoxContainer" unique_id=794199470]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 placeholder_text = "password"
-virtual_keyboard_type = 6
 select_all_on_focus = true
+virtual_keyboard_type = 6
 secret = true
 
-[node name="Password2" type="LineEdit" parent="VBoxContainer"]
+[node name="Password2" type="LineEdit" parent="VBoxContainer" unique_id=1876926275]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 placeholder_text = "repeat password"
-virtual_keyboard_type = 6
 select_all_on_focus = true
+virtual_keyboard_type = 6
 secret = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=1517728747]
 layout_mode = 2
 
-[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer2"]
+[node name="CheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer2" unique_id=1766745558]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "stay logged in
 "
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1877541024]
 layout_mode = 2
 
-[node name="login" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="login" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=661980739]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "login"
 
-[node name="register" type="Button" parent="VBoxContainer/HBoxContainer"]
+[node name="register" type="Button" parent="VBoxContainer/HBoxContainer" unique_id=1831308292]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "register"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer" unique_id=1284625862]
 layout_mode = 2
 
-[node name="logout" type="Button" parent="VBoxContainer/HBoxContainer4"]
+[node name="logout" type="Button" parent="VBoxContainer/HBoxContainer4" unique_id=633315632]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "log out"
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer" unique_id=151888940]
 layout_mode = 2
 
-[node name="close" type="Button" parent="VBoxContainer/HBoxContainer6"]
+[node name="close" type="Button" parent="VBoxContainer/HBoxContainer6" unique_id=1055651273]
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 1
 text = "close"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer" unique_id=1645159841]
 visible = false
 layout_mode = 2
 
-[node name="delete account" type="Button" parent="VBoxContainer/HBoxContainer5"]
+[node name="delete account" type="Button" parent="VBoxContainer/HBoxContainer5" unique_id=131931581]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "delete account"
 
-[node name="delete account2" type="Button" parent="VBoxContainer"]
+[node name="delete account2" type="Button" parent="VBoxContainer" unique_id=1748547092]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 text = "upload level test"
 
-[node name="delete account3" type="Button" parent="VBoxContainer"]
+[node name="delete account3" type="Button" parent="VBoxContainer" unique_id=655290835]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2

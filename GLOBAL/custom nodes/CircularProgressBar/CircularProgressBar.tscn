@@ -1,27 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://dyhvw50inaha1"]
+[gd_scene format=3 uid="uid://dyhvw50inaha1"]
 
 [ext_resource type="Script" uid="uid://wgrt7q7ne3y0" path="res://GLOBAL/custom nodes/CircularProgressBar/CircularProgressBar.gd" id="1_s7i2b"]
-[ext_resource type="Texture2D" uid="uid://dv41ropyn3opt" path="res://GLOBAL/custom nodes/CircularProgressBar/charge.png" id="3_glkvt"]
+[ext_resource type="Texture2D" uid="uid://damgaumyho6pg" path="res://GLOBAL/custom nodes/CircularProgressBar/charge.png" id="3_glkvt"]
 
-[node name="circularProgressBar" type="Node2D"]
+[node name="circularProgressBar" type="Node2D" unique_id=442675469]
 script = ExtResource("1_s7i2b")
 progress = 39.42500000000291
 
-[node name="bg" type="Sprite2D" parent="."]
+[node name="bg" type="Sprite2D" parent="." unique_id=774209094]
 self_modulate = Color(1, 0, 0, 1)
 rotation = -3.1415925
 texture = ExtResource("3_glkvt")
 
-[node name="s1" type="Sprite2D" parent="."]
+[node name="s1" type="Sprite2D" parent="." unique_id=1482073558]
 self_modulate = Color(0, 0, 0, 1)
 rotation = 3.1415927
 texture = ExtResource("3_glkvt")
 
-[node name="mid" type="Sprite2D" parent="."]
+[node name="mid" type="Sprite2D" parent="." unique_id=1665345977]
 self_modulate = Color(1, 0, 0, 1)
 texture = ExtResource("3_glkvt")
 
-[node name="s3" type="Sprite2D" parent="."]
+[node name="s3" type="Sprite2D" parent="." unique_id=1405288943]
 self_modulate = Color(0, 0, 0, 1)
 rotation = 3.8060396
 texture = ExtResource("3_glkvt")

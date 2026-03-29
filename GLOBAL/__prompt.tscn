@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ccobtxlykollf"]
+[gd_scene format=3 uid="uid://ccobtxlykollf"]
 
 [ext_resource type="Script" uid="uid://in0c53flu1jr" path="res://GLOBAL/__prompt.gd" id="1_ffns6"]
 [ext_resource type="Script" uid="uid://dmwdwcc0iqnxf" path="res://themes/colorRectThemeColor.gd" id="2_4ps5d"]
@@ -41,7 +41,7 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_pvg46"]
 events = [SubResource("InputEventKey_6rfjk"), SubResource("InputEventJoypadButton_ge371")]
 
-[node name="CanvasLayer" type="CanvasLayer" node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "colEdit", "btnOk", "btnCancel", "btnDefault", "textEdit")]
+[node name="CanvasLayer" type="CanvasLayer" unique_id=1912363087 node_paths=PackedStringArray("promptText", "strEdit", "numEdit", "enumEdit", "colEdit", "btnOk", "btnCancel", "btnDefault", "textEdit")]
 layer = 999
 script = ExtResource("1_ffns6")
 promptText = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/Label")
@@ -54,7 +54,7 @@ btnCancel = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/B
 btnDefault = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer2/Button3")
 textEdit = NodePath("ColorRect/CenterContainer/HFlowContainer/VFlowContainer/TextEdit")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=751352309]
 custom_minimum_size = Vector2(50, 50)
 offset_right = 294.0
 offset_bottom = 121.0
@@ -62,65 +62,65 @@ color = Color(0.223103, 0.223103, 0.223103, 1)
 script = ExtResource("2_4ps5d")
 alpha = false
 
-[node name="CenterContainer" type="CenterContainer" parent="ColorRect"]
+[node name="CenterContainer" type="CenterContainer" parent="ColorRect" unique_id=801322561]
 layout_mode = 0
 offset_right = 197.0
 offset_bottom = 66.0
 
-[node name="HFlowContainer" type="HFlowContainer" parent="ColorRect/CenterContainer"]
+[node name="HFlowContainer" type="HFlowContainer" parent="ColorRect/CenterContainer" unique_id=1523473352]
 layout_mode = 2
 alignment = 1
 last_wrap_alignment = 2
 
-[node name="VFlowContainer" type="VBoxContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
+[node name="VFlowContainer" type="VBoxContainer" parent="ColorRect/CenterContainer/HFlowContainer" unique_id=1163931320]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+[node name="Label" type="Label" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer" unique_id=1526708298]
 layout_mode = 2
 text = "asdasdasdsad"
 
-[node name="LineEdit" type="LineEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+[node name="LineEdit" type="LineEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer" unique_id=1879031770]
 layout_mode = 2
 expand_to_text_length = true
 clear_button_enabled = true
 deselect_on_focus_loss_enabled = false
 select_all_on_focus = true
 
-[node name="LineEdit2" type="SpinBox" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+[node name="LineEdit2" type="SpinBox" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer" unique_id=622318929]
 layout_mode = 2
 allow_greater = true
 allow_lesser = true
 update_on_text_changed = true
 select_all_on_focus = true
 
-[node name="OptionButton" type="OptionButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+[node name="OptionButton" type="OptionButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer" unique_id=1146017806]
 layout_mode = 2
 allow_reselect = true
 
-[node name="ColorPickerButton" type="ColorPickerButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+[node name="ColorPickerButton" type="ColorPickerButton" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer" unique_id=1618164388]
 layout_mode = 2
 text = "COLOR"
 
-[node name="TextEdit" type="TextEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer"]
+[node name="TextEdit" type="TextEdit" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer" unique_id=884964643]
 custom_minimum_size = Vector2(750, 300)
 layout_mode = 2
 
-[node name="VFlowContainer2" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer"]
+[node name="VFlowContainer2" type="VFlowContainer" parent="ColorRect/CenterContainer/HFlowContainer" unique_id=1299081888]
 layout_direction = 2
 layout_mode = 2
 last_wrap_alignment = 1
 
-[node name="Button" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2"]
+[node name="Button" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2" unique_id=2113542390]
 layout_mode = 2
 shortcut = SubResource("Shortcut_6rvjk")
 text = "ok"
 
-[node name="Button2" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2"]
+[node name="Button2" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2" unique_id=960995667]
 layout_mode = 2
 shortcut = SubResource("Shortcut_pvy46")
 text = "cancel"
 
-[node name="Button3" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2"]
+[node name="Button3" type="Button" parent="ColorRect/CenterContainer/HFlowContainer/VFlowContainer2" unique_id=1051971426]
 layout_mode = 2
 shortcut = SubResource("Shortcut_pvg46")
 text = "reset to default"

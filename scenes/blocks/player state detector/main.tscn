@@ -1,13 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bn55n257uo2gp"]
+[gd_scene format=3 uid="uid://bn55n257uo2gp"]
 
 [ext_resource type="Script" uid="uid://di4b0nkw3a0ys" path="res://scenes/blocks/player state detector/player state detector.gd" id="1_s3b8s"]
-[ext_resource type="Texture2D" uid="uid://cm1me8y2re2cd" path="res://scenes/blocks/player state detector/images/1.png" id="2_qpure"]
-[ext_resource type="Texture2D" uid="uid://brhinnfdh0b5" path="res://scenes/blocks/player state detector/images/background/1.png" id="3_7kfv3"]
+[ext_resource type="Texture2D" uid="uid://bvu7c5pjn7n4t" path="res://scenes/blocks/player state detector/images/1.png" id="2_qpure"]
+[ext_resource type="Texture2D" uid="uid://blgpy52rdqwa3" path="res://scenes/blocks/player state detector/images/background/1.png" id="3_7kfv3"]
 [ext_resource type="LabelSettings" uid="uid://cv87o7ud46oaf" path="res://scenes/blocks/labelSettings/gates.tres" id="3_kss10"]
-[ext_resource type="Texture2D" uid="uid://bf7ewiq0a5e06" path="res://scenes/blocks/player state detector/images/player/idle.png" id="3_qpure"]
-[ext_resource type="Texture2D" uid="uid://bplqy0qy878v4" path="res://scenes/blocks/player state detector/images/symbols.png" id="4_dpfy3"]
+[ext_resource type="Texture2D" uid="uid://c4r5no0j06xxi" path="res://scenes/blocks/player state detector/images/player/idle.png" id="3_qpure"]
+[ext_resource type="Texture2D" uid="uid://cklgr3anxb4r4" path="res://scenes/blocks/player state detector/images/symbols.png" id="4_dpfy3"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("labelOut", "bgSprite", "playerSprite", "ghostIconNode", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=1930359873 node_paths=PackedStringArray("labelOut", "bgSprite", "playerSprite", "ghostIconNode", "hidableSprites", "thingThatMoves")]
 script = ExtResource("1_s3b8s")
 labelOut = NodePath("Node2D/Label")
 bgSprite = NodePath("Node2D/active")
@@ -19,26 +19,26 @@ thingThatMoves = NodePath("Node2D")
 ignoreMissingNodes = true
 EDITOR_OPTION_rotate = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=537349809]
 
-[node name="active" type="Sprite2D" parent="Node2D"]
+[node name="active" type="Sprite2D" parent="Node2D" unique_id=1482031873]
 use_parent_material = true
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_7kfv3")
 
-[node name="bg" type="Sprite2D" parent="Node2D"]
+[node name="bg" type="Sprite2D" parent="Node2D" unique_id=833014694]
 use_parent_material = true
 position = Vector2(-0.3360214, 0.6639786)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("4_dpfy3")
 
-[node name="player" type="Sprite2D" parent="Node2D"]
+[node name="player" type="Sprite2D" parent="Node2D" unique_id=92968282]
 use_parent_material = true
 position = Vector2(-65.33603, -31.336023)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("3_qpure")
 
-[node name="Label" type="Label" parent="Node2D"]
+[node name="Label" type="Label" parent="Node2D" unique_id=877823381]
 offset_left = 53.0
 offset_top = -4.0
 offset_right = 156.0

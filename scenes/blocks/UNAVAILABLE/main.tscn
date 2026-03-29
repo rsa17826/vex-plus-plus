@@ -1,12 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccsu4mbj53lpt"]
+[gd_scene format=3 uid="uid://ccsu4mbj53lpt"]
 
 [ext_resource type="Script" uid="uid://cfgws8pfjxcrp" path="res://scenes/blocks/UNAVAILABLE/UNAVAILABLE.gd" id="1_dkhu5"]
-[ext_resource type="Texture2D" uid="uid://u2nkfbx6d6s3" path="res://scenes/blocks/UNAVAILABLE/images/1.png" id="2_ic37n"]
+[ext_resource type="Texture2D" uid="uid://50vk06raauo2" path="res://scenes/blocks/UNAVAILABLE/images/1.png" id="2_ic37n"]
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "editorBarIconNode")]
+[node name="Node2D" type="Node2D" unique_id=572367505 node_paths=PackedStringArray("ghostIconNode")]
 script = ExtResource("1_dkhu5")
 ghostIconNode = NodePath("Sprite2D")
-editorBarIconNode = NodePath("Sprite2D")
 editorBarIcon = ExtResource("2_ic37n")
 ignoreMissingNodes = true
 normalScale = true
@@ -15,6 +14,6 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=353968473]
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_ic37n")

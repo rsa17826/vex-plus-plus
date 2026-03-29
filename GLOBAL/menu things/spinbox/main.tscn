@@ -1,16 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://crjgedeiyd8w0"]
+[gd_scene format=3 uid="uid://crjgedeiyd8w0"]
 
 [ext_resource type="Script" uid="uid://dfnd1wd6xekne" path="res://GLOBAL/menu things/spinbox/main.gd" id="1_jlhm7"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=180360097]
 offset_right = 160.0
 offset_bottom = 23.0
 script = ExtResource("1_jlhm7")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=323604388]
 layout_mode = 2
 
-[node name="HSlider" type="SpinBox" parent="."]
+[node name="HSlider" type="SpinBox" parent="." unique_id=164575051]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 update_on_text_changed = true

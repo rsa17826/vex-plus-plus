@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://3b5rdxoob147"]
+[gd_scene format=3 uid="uid://3b5rdxoob147"]
 
-[ext_resource type="Texture2D" uid="uid://cd8hgpdr7atli" path="res://scenes/blocks/pulley/images/editorBar.png" id="2_omc7y"]
+[ext_resource type="Texture2D" uid="uid://cntxvqsrjei24" path="res://scenes/blocks/pulley/images/editorBar.png" id="2_omc7y"]
 [ext_resource type="Script" uid="uid://1dvo3ligvvh5" path="res://scenes/blocks/pulley/pulley.gd" id="2_u2153"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="3_svsk0"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="4_svsk0"]
@@ -25,7 +25,7 @@ size = Vector2(10, 50)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_svsk0"]
 size = Vector2(20, 5)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("sprite", "hasCeil", "wallToSideWithPlayerOn", "wallToSideWithPlayerOff", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
+[node name="Node2D" type="Node2D" unique_id=894659780 node_paths=PackedStringArray("sprite", "hasCeil", "wallToSideWithPlayerOn", "wallToSideWithPlayerOff", "ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves")]
 script = ExtResource("2_u2153")
 sprite = NodePath("movable/Sprite2D")
 hasCeil = NodePath("movable/has ceil")
@@ -38,44 +38,44 @@ hidableSprites = [NodePath("movable/Sprite2D")]
 thingThatMoves = NodePath("movable")
 canAttachToThings = true
 
-[node name="movable" type="Node2D" parent="."]
+[node name="movable" type="Node2D" parent="." unique_id=1413270307]
 
-[node name="Sprite2D" type="Sprite2D" parent="movable"]
+[node name="Sprite2D" type="Sprite2D" parent="movable" unique_id=310020209]
 use_parent_material = true
 position = Vector2(31.4, 36.194)
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_omc7y")
 script = SubResource("GDScript_svsk0")
 
-[node name="player detector" type="Area2D" parent="movable" node_paths=PackedStringArray("root")]
+[node name="player detector" type="Area2D" parent="movable" unique_id=216154497 node_paths=PackedStringArray("root")]
 position = Vector2(30.4, 36.194)
 collision_layer = 3072
 collision_mask = 2
 script = ExtResource("3_svsk0")
 root = NodePath("../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/player detector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/player detector" unique_id=1150114309]
 visible = false
 position = Vector2(1, 11)
 shape = SubResource("CircleShape2D_u2153")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
-[node name="has ceil" type="Area2D" parent="movable"]
+[node name="has ceil" type="Area2D" parent="movable" unique_id=583786265]
 unique_name_in_owner = true
 light_mask = 0
 position = Vector2(31.4, 35.194)
 collision_layer = 0
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/has ceil"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/has ceil" unique_id=1924324295]
 visible = false
 position = Vector2(-1, -43)
 shape = SubResource("RectangleShape2D_omc7y")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
-[node name="wall to side with player on" type="Area2D" parent="movable"]
+[node name="wall to side with player on" type="Area2D" parent="movable" unique_id=1754123249]
 unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 2
@@ -83,21 +83,21 @@ position = Vector2(31.4, 36.194)
 collision_layer = 0
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player on"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player on" unique_id=2141512269]
 visible = false
 position = Vector2(28, 90)
 shape = SubResource("RectangleShape2D_vkeng")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player on"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player on" unique_id=479052967]
 visible = false
 position = Vector2(-30, 90)
 shape = SubResource("RectangleShape2D_vkeng")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
-[node name="wall to side with player off" type="Area2D" parent="movable"]
+[node name="wall to side with player off" type="Area2D" parent="movable" unique_id=1301072715]
 unique_name_in_owner = true
 light_mask = 0
 visibility_layer = 2
@@ -105,21 +105,21 @@ position = Vector2(31.4, 36.194)
 collision_layer = 0
 collision_mask = 8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player off"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="movable/wall to side with player off" unique_id=1259895698]
 visible = false
 position = Vector2(28, 0)
 shape = SubResource("RectangleShape2D_6wthr")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player off"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="movable/wall to side with player off" unique_id=1899558950]
 visible = false
 position = Vector2(-30, 0)
 shape = SubResource("RectangleShape2D_6wthr")
 debug_color = Color(0, 1, 0, 0.41960785)
 script = ExtResource("4_yx4v0")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1630800769 node_paths=PackedStringArray("root")]
 visible = false
 modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false

@@ -1,11 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://bt00w1pcbw6g8"]
+[gd_scene format=3 uid="uid://bt00w1pcbw6g8"]
 
 [ext_resource type="Script" uid="uid://cqo4vvgo1stlc" path="res://scenes/blocks/10x inverse solar spike/10x inverse solar spike.gd" id="1_mlwc1"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="2_cidpb"]
-[ext_resource type="Texture2D" uid="uid://byq3cretsa6oc" path="res://scenes/blocks/10x inverse solar spike/images/outline.png" id="3_cidpb"]
-[ext_resource type="Texture2D" uid="uid://jiuswetajmxn" path="res://scenes/blocks/10x inverse solar spike/images/1.png" id="3_yx31i"]
+[ext_resource type="Texture2D" uid="uid://da45ul1qbg7q0" path="res://scenes/blocks/10x inverse solar spike/images/outline.png" id="3_cidpb"]
+[ext_resource type="Texture2D" uid="uid://dl24mqn1s4op" path="res://scenes/blocks/10x inverse solar spike/images/1.png" id="3_yx31i"]
 [ext_resource type="PackedScene" uid="uid://dcd1h5fc5cd56" path="res://scenes/blocks/textureRect/textureRect.tscn" id="4_27cwt"]
-[ext_resource type="Texture2D" uid="uid://vntxrtlyx02l" path="res://scenes/blocks/10x inverse solar spike/images/editorBar.png" id="4_inxcf"]
+[ext_resource type="Texture2D" uid="uid://dat1tm15iakg8" path="res://scenes/blocks/10x inverse solar spike/images/editorBar.png" id="4_inxcf"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="5_27cwt"]
 [ext_resource type="Script" uid="uid://bsrf2vu0sjvyh" path="res://scenes/hitbox scripts/death.gd" id="7_27cwt"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="10_gca5h"]
@@ -19,7 +19,7 @@ size = Vector2(688, 6.875)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c5k05"]
 size = Vector2(688, 18)
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=860315722 node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "thingThatMoves", "ghostFollowNode") groups=["death"]]
 script = ExtResource("1_mlwc1")
 ghostIconNode = NodePath("Node2D/collisionNode/ghost")
 editorBarIcon = ExtResource("4_inxcf")
@@ -34,51 +34,52 @@ EDITOR_OPTION_rotate = true
 canAttachToThings = true
 canAttachToPaths = true
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=742312020]
 position = Vector2(0, 11)
 
-[node name="collisionNode" type="Area2D" parent="Node2D" node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="Node2D" unique_id=990599540 node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("2_cidpb")
 root = NodePath("../..")
 
-[node name="outline2" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_27cwt")]
+[node name="outline2" parent="Node2D/collisionNode" unique_id=87426002 node_paths=PackedStringArray("root") instance=ExtResource("4_27cwt")]
 position = Vector2(0, -70.63)
 scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("3_cidpb")
 editorSize = Vector2(700, 100)
 
-[node name="textureRect" parent="Node2D/collisionNode" node_paths=PackedStringArray("root") instance=ExtResource("4_27cwt")]
+[node name="textureRect" parent="Node2D/collisionNode" unique_id=1710404792 node_paths=PackedStringArray("root") instance=ExtResource("4_27cwt")]
 position = Vector2(0, -70.63)
 scale = Vector2(0.978, 1)
 root = NodePath("../../..")
 texture = ExtResource("3_yx31i")
 editorSize = Vector2(700, 123)
 
-[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode"]
+[node name="ghost" type="Sprite2D" parent="Node2D/collisionNode" unique_id=689291659]
 visible = false
 use_parent_material = true
 position = Vector2(5, -70.63)
 scale = Vector2(0.961, 1)
 texture = ExtResource("3_yx31i")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/collisionNode" unique_id=1792101732]
 visible = false
 position = Vector2(0, -57.5)
 shape = SubResource("RectangleShape2D_1gece")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("7_27cwt")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/collisionNode" node_paths=PackedStringArray("root")]
+[node name="StaticBody2D" type="StaticBody2D" parent="Node2D/collisionNode" unique_id=13362318 node_paths=PackedStringArray("root")]
 collision_layer = 24576
 collision_mask = 0
 script = ExtResource("2_cidpb")
 root = NodePath("../../..")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Node2D/collisionNode/StaticBody2D" unique_id=692589137]
+visible = false
 position = Vector2(0, -12.125)
 rotation = 3.1415927
 shape = SubResource("RectangleShape2D_qankg")
@@ -86,9 +87,9 @@ one_way_collision = true
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("10_gca5h")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=1654794759 node_paths=PackedStringArray("root")]
 visible = false
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("RectangleShape2D_c5k05")
 target_position = Vector2(0, 0)

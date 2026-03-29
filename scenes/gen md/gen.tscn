@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://63bagoueagqo"]
+[gd_scene format=3 uid="uid://63bagoueagqo"]
 
 [ext_resource type="Script" uid="uid://d3hrox6xgboa4" path="res://scenes/gen md/gen.gd" id="1_xmst4"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1601747617]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

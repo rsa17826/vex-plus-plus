@@ -1,18 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://blfw42ibmllba"]
+[gd_scene format=3 uid="uid://blfw42ibmllba"]
 
 [ext_resource type="Script" uid="uid://bnu1651nbrhyq" path="res://GLOBAL/menu things/single select/main.gd" id="1_k6qgj"]
 
-[node name="HBoxContainer" type="HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" unique_id=2136708980]
 offset_top = 8.0
 offset_right = 60.0
 offset_bottom = 31.0
 script = ExtResource("1_k6qgj")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Label" parent="." unique_id=1189179935]
 layout_mode = 2
 text = "sfd"
 
-[node name="OptionButton" type="OptionButton" parent="."]
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1497537901]
 layout_mode = 2
 allow_reselect = true
 item_count = 2

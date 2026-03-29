@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://juewjf0r37e0"]
+[gd_scene format=3 uid="uid://juewjf0r37e0"]
 
 [ext_resource type="Script" uid="uid://c5ds4wbynqg5y" path="res://scenes/blocks/bouncing buzzsaw/bouncing buzzsaw.gd" id="1_sq8c8"]
-[ext_resource type="Texture2D" uid="uid://6piyx4pmutk2" path="res://scenes/blocks/buzzsaw/images/1.png" id="2_807tk"]
+[ext_resource type="Texture2D" uid="uid://dacmiotcf107q" path="res://scenes/blocks/buzzsaw/images/1.png" id="2_807tk"]
 [ext_resource type="Script" uid="uid://cop22motknsjj" path="res://scenes/blocks/bouncing buzzsaw/character_body_2d.gd" id="2_ogg4d"]
-[ext_resource type="Texture2D" uid="uid://bj872x80mv3ry" path="res://scenes/blocks/bouncing buzzsaw/images/editorBar.png" id="3_807tk"]
+[ext_resource type="Texture2D" uid="uid://dbdh15tsp506r" path="res://scenes/blocks/bouncing buzzsaw/images/editorBar.png" id="3_807tk"]
 [ext_resource type="Script" uid="uid://m2nosktitb1v" path="res://scenes/hitbox scripts/solid.gd" id="5_hvcaa"]
 [ext_resource type="Script" uid="uid://dpprn4ysyb7l7" path="res://scenes/blocks/root.gd" id="5_sq8c8"]
 [ext_resource type="Script" uid="uid://cajdveyq5pg2t" path="res://scenes/blocks/attach detector.gd" id="6_7byde"]
@@ -15,7 +15,7 @@ radius = 299.202
 [sub_resource type="CircleShape2D" id="CircleShape2D_ogg4d"]
 radius = 306.041
 
-[node name="Node2D" type="Node2D" node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "BUZZSAW_GENERIC_spriteToRotateLeft", "BUZZSAW_GENERIC_spriteToRotateRight") groups=["death"]]
+[node name="Node2D" type="Node2D" unique_id=57089558 node_paths=PackedStringArray("ghostIconNode", "collisionShapes", "hidableSprites", "cloneEventsHere", "thingThatMoves", "BUZZSAW_GENERIC_spriteToRotateLeft", "BUZZSAW_GENERIC_spriteToRotateRight") groups=["death"]]
 script = ExtResource("1_sq8c8")
 ghostIconNode = NodePath("CharacterBody2D/right rot")
 editorBarIcon = ExtResource("3_807tk")
@@ -28,45 +28,45 @@ canAttachToPaths = true
 BUZZSAW_GENERIC_spriteToRotateLeft = NodePath("CharacterBody2D/left rot")
 BUZZSAW_GENERIC_spriteToRotateRight = NodePath("CharacterBody2D/right rot")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("root")]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1137035512 node_paths=PackedStringArray("root")]
 unique_name_in_owner = true
 collision_layer = 34944
 collision_mask = 72
 script = ExtResource("2_ogg4d")
 root = NodePath("..")
 
-[node name="left rot" type="Sprite2D" parent="CharacterBody2D"]
+[node name="left rot" type="Sprite2D" parent="CharacterBody2D" unique_id=472516999]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_807tk")
 flip_h = true
 
-[node name="right rot" type="Sprite2D" parent="CharacterBody2D"]
+[node name="right rot" type="Sprite2D" parent="CharacterBody2D" unique_id=1463659722]
 use_parent_material = true
 scale = Vector2(0.565528, 0.565528)
 texture = ExtResource("2_807tk")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=691133658]
 visible = false
 shape = SubResource("CircleShape2D_xvl4e")
 debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
 script = ExtResource("5_hvcaa")
 
-[node name="collisionNode" type="Area2D" parent="CharacterBody2D" node_paths=PackedStringArray("root")]
+[node name="collisionNode" type="Area2D" parent="CharacterBody2D" unique_id=552727099 node_paths=PackedStringArray("root")]
 collision_layer = 3088
 collision_mask = 2
 script = ExtResource("5_sq8c8")
 root = NodePath("../..")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/collisionNode"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="CharacterBody2D/collisionNode" unique_id=1954162219]
 visible = false
 shape = SubResource("CircleShape2D_ogg4d")
 debug_color = Color(1, 0, 0, 0.41960785)
 script = ExtResource("7_swpws")
 
-[node name="attach detector" type="ShapeCast2D" parent="." node_paths=PackedStringArray("root")]
+[node name="attach detector" type="ShapeCast2D" parent="." unique_id=72946209 node_paths=PackedStringArray("root")]
 visible = false
-modulate = Color(1, 0.7019608, 0, 0.41960785)
+modulate = Color(0.8745098, 0.34117648, 0, 0.41960785)
 enabled = false
 shape = SubResource("CircleShape2D_ogg4d")
 target_position = Vector2(0, 0)
