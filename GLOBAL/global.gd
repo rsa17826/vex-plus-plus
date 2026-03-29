@@ -594,161 +594,163 @@ func clearLow(v):
       log.warn("clearLow: unknown type", type_string(typeof(v)))
       breakpoint
   return v
-# ── Replay API ───────────────────────────────────────────────────────────────
-func replay_start_recording() -> void:
-  global._replay_data = []; global._replay_snapshots = {}; global._replay_frame = 0
-  global._replay_level_name = global.mainLevelName
-  # Snapshot the save file so recording can't corrupt it on death/respawn
-  global._replay_save_data = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
-  global._replay_snapshots[0] = capture_snapshot()
-  global._replay_recording = true
-
-func replay_stop_recording() -> void:
-  global._replay_recording = false
-
-func replay_save(path: String) -> void:
-  var file := FileAccess.open(path, FileAccess.WRITE)
-  if not file: return
-  file.store_var({
-    "frames": global._replay_data,
-    "snapshots": global._replay_snapshots,
-    "level_name": global._replay_level_name,
-    "save_data": global._replay_save_data,
-  })
-  file.close()
-
-func replay_load(path: String) -> void:
-  var file := FileAccess.open(path, FileAccess.READ)
-  if not file: return
-  var data: Dictionary = file.get_var()
-  file.close()
-  global._replay_data = data.frames
-  log.pp(global._replay_frame, global._replay_data.size(), 'player.global._replay_data.size()')
-  global._replay_snapshots = data.snapshots
-  global._replay_level_name = data.get("level_name", global.mainLevelName)
-  global._replay_save_data = data.save_data
-  global._replay_frame = 0
-
-func replay_start_playback() -> void:
-  if global._replay_data.is_empty() or global._replay_snapshots.is_empty(): return
-  replay_stop_recording()
-  log.pp("asdadsasdadsasd")
-  # Snapshot save file so playback deaths/wins don't overwrite it
-  # global._replay_save_data = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
-  # sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, global._replay_save_data)
-  # Load the correct level if we're not already on it
-  global.replay_load("res://aaa")
-  global.replayPlaying = true
-  global.saveData = global._replay_save_data
-  await global.loadMap(global._replay_level_name, false, true)
-  # if global._replay_level_name and global._replay_level_name != global.mainLevelName:
-  #   await global.loadMap(global._replay_level_name, true)
-  # Restore player + world to the exact state at recording start
-  restore_snapshot(global._replay_snapshots[0])
-
-  global._replay_frame = 0
-
-func replay_stop_playback() -> void:
-  log.pp("aaaa")
-  global.replayPlaying = false
-  global._replay_injected = {}
-
-func replay_pause() -> void:
-  log.pp("s")
-  global._replay_paused = true
-  global._replay_injected = {} # clear injected so no stale input leaks through
-
-func replay_resume() -> void:
-  global._replay_paused = false
-
-func replay_seek(target_frame: int) -> void:
-  if global._replay_data.is_empty() or global._replay_snapshots.is_empty(): return
-  target_frame = clampi(target_frame, 0, global._replay_data.size() - 1)
-  var best: Dictionary = global._replay_snapshots[0]
-  var best_f: int = 0
-  for frame: int in global._replay_snapshots.keys():
-    var entry:Dictionary=global._replay_snapshots[frame]
-    if frame <= target_frame:
-      best = entry
-      best_f = frame
-  restore_snapshot(best)
-  global._replay_frame = best_f
-  global.replayPlaying = true
-  while global._replay_frame < target_frame:
-    global._replay_injected = global._replay_data[global._replay_frame]
-    global._replay_frame += 1
-    _physics_process(1.0 / 60.0)
-  global.replayPlaying = false
-  global._replay_injected = {}
-
-func replay_total_frames() -> int:
-  return global._replay_data.size()
-
-
-# ── Snapshot ─────────────────────────────────────────────────────────────────
-func capture_snapshot() -> Dictionary:
-  var snap = {
-    "position": player.position, "velocity": player.velocity, "state": player.state,
-    "vel": player.vel.duplicate(true), "rotation": player.rotation,
-    "up_direction": player.up_direction, "remainingJumpCount": player.remainingJumpCount,
-    "playerKT": player.playerKT, "wallSlidingFrames": player.wallSlidingFrames,
-    "slideRecovery": player.slideRecovery, "duckRecovery": player.duckRecovery,
-    "wallBreakDownFrames": player.wallBreakDownFrames, "breakFromWall": player.breakFromWall,
-    "lastWallSide": player.lastWallSide, "playerXIntent": player.playerXIntent,
-    "boxKickRecovery": player.boxKickRecovery, "poleCooldown": player.poleCooldown,
-    "ziplineCooldown": player.ziplineCooldown, "gravState": player.gravState,
-    "speedLeverActive": player.speedLeverActive, "heat": player.heat,
-    "autoRunDirection": player.autoRunDirection, "anim_flip_h": player.anim.flip_h,
-    "respawnCooldown": player.respawnCooldown,
-  }
-  var block_snaps := {}
-  for block in get_tree().get_nodes_in_group("replay_blocks"):
-    block_snaps[block.get_path()] = (block as EditorBlock).replay_capture()
-  snap.blocks = block_snaps
-  return snap
-
-
-func restore_snapshot(snap: Dictionary) -> void:
-  player.position = snap.position
-  player.velocity = snap.velocity
-  player.state = snap.state
-  for k: String in snap.vel: player.vel[k] = snap.vel[k]
-  player.rotation = snap.rotation
-  player.up_direction = snap.up_direction
-  player.remainingJumpCount = snap.remainingJumpCount
-  player.playerKT = snap.playerKT
-  player.wallSlidingFrames = snap.wallSlidingFrames
-  player.slideRecovery = snap.slideRecovery
-  player.duckRecovery = snap.duckRecovery
-  player.wallBreakDownFrames = snap.wallBreakDownFrames
-  player.breakFromWall = snap.breakFromWall
-  player.lastWallSide = snap.lastWallSide
-  player.playerXIntent = snap.playerXIntent
-  player.boxKickRecovery = snap.boxKickRecovery
-  player.poleCooldown = snap.poleCooldown
-  player.ziplineCooldown = snap.ziplineCooldown
-  player.gravState = snap.gravState
-  player.speedLeverActive = snap.speedLeverActive
-  player.heat = snap.heat
-  player.autoRunDirection = snap.autoRunDirection
-  player.anim.flip_h = snap.anim_flip_h
-  player.respawnCooldown = snap.respawnCooldown
-  for path in snap.get("blocks", {}):
-    var block := get_node_or_null(path)
-    if block is EditorBlock:
-      block.replay_restore(snap.blocks[path])
 # local game only data
-var _replay_paused: bool = false # true while an inner-level load is in progress
-var _replay_frame: int = 0
-var _replay_data: Array = [] # Array of per-frame input dicts
-var _replay_snapshots: Dictionary = {} # Array of {frame, snapshot} dicts
-var _replay_injected: Dictionary = {}
-var _replay_save_data: Variant = null # save-file contents captured before recording/playback
-var _replay_level_name: String = "" # level that was active when recording started
-var _replay_recording: bool = false
+# ── Replay API ───────────────────────────────────────────────────────────────
+class Replay:
+  static var paused: bool = false
+  static var playing: bool = false
+  static var frame: int = 0
+  static var data: Array = [] # Array of per-frame input dicts
+  static var snapshots: Dictionary = {} # Array of {frame, snapshot} dicts
+  static var injected: Dictionary = {}
+  static var saveData: Variant = null # save-file contents captured before recording/playback
+  static var levelName: String = "" # level that was active when recording started
+  static var recording: bool = false
+  static func startRecording() -> void:
+    global.Replay.data = []; global.Replay.snapshots = {}; global.Replay.frame = 0
+    global.Replay.levelName = global.mainLevelName
+    # Snapshot the save file so recording can't corrupt it on death/respawn
+    global.Replay.saveData = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
+    global.Replay.snapshots[0] = capture_snapshot()
+    global.Replay.recording = true
+  static func loadReplay(path: String) -> void:
+    var file := FileAccess.open(path, FileAccess.READ)
+    if not file: return
+    var data: Dictionary = file.get_var()
+    file.close()
+    Replay.data = data.frames
+    log.pp(Replay.frame, Replay.data.size(), 'player.Replay.data.size()')
+    Replay.snapshots = data.snapshots
+    Replay.levelName = data.get("level_name", global.mainLevelName)
+    Replay.saveData = data.save_data
+    Replay.frame = 0
+  static func startPlayback() -> void:
+    if global.Replay.data.is_empty() or global.Replay.snapshots.is_empty(): return
+    global.Replay.stopRecording()
+    # Snapshot save file so playback deaths/wins don't overwrite it
+    # global.Replay.save_data = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
+    # sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, global.Replay.save_data)
+    # Load the correct level if we're not already on it
+    global.Replay.loadReplay("res://aaa")
+    global.Replay.playing = true
+    global.saveData = global.Replay.saveData
+    await global.loadMap(global.Replay.levelName, false, true)
+    # if global.Replay.level_name and global.Replay.level_name != global.mainLevelName:
+    #   await global.loadMap(global.Replay.level_name, true)
+    # Restore player + world to the exact state at recording start
+    restoreSnapshot(global.Replay.snapshots[0])
+
+    global.Replay.frame = 0
+
+  static func stopRecording() -> void:
+    Replay.recording = false
+
+  static var replayPlaying: bool = false
+
+  static func save(path: String) -> void:
+    var file := FileAccess.open(path, FileAccess.WRITE)
+    if not file: return
+    file.store_var({
+      "frames": Replay.data,
+      "snapshots": Replay.snapshots,
+      "level_name": Replay.levelName,
+      "save_data": Replay.saveData,
+    })
+    file.close()
+
+
+
+  static func stopPlayback() -> void:
+    global.Replay.playing = false
+    Replay.injected = {}
+
+  static func pause() -> void:
+    Replay.paused = true
+    Replay.injected = {} # clear injected so no stale input leaks through
+
+  static func resume() -> void:
+    Replay.paused = false
+
+  static func seek(target_frame: int) -> void:
+    if Replay.data.is_empty() or Replay.snapshots.is_empty(): return
+    target_frame = clampi(target_frame, 0, Replay.data.size() - 1)
+    var best: Dictionary = Replay.snapshots[0]
+    var best_f: int = 0
+    for frame: int in Replay.snapshots.keys():
+      var entry:Dictionary=Replay.snapshots[frame]
+      if frame <= target_frame:
+        best = entry
+        best_f = frame
+    Replay.restoreSnapshot(best)
+    Replay.frame = best_f
+    Replay.paused = false
+    while Replay.frame < (target_frame+1):
+      log.pp("asjkasaskdhaskjaskdasdkas",Replay.frame,target_frame)
+      Replay.injected = Replay.data[Replay.frame]
+      # Replay.frame += 1
+      global.player._physics_process(1.0 / 60.0)
+    Replay.paused = true
+    Replay.injected = {}
+
+  static func totalFrames() -> int:
+    return Replay.data.size()
+
+
+  # ── Snapshot ─────────────────────────────────────────────────────────────────
+  static func capture_snapshot() -> Dictionary:
+    var snap = {
+      "position": global.player.position, "velocity": global.player.velocity, "state": global.player.state,
+      "vel": global.player.vel.duplicate(true), "rotation": global.player.rotation,
+      "up_direction": global.player.up_direction, "remainingJumpCount": global.player.remainingJumpCount,
+      "playerKT": global.player.playerKT, "wallSlidingFrames": global.player.wallSlidingFrames,
+      "slideRecovery": global.player.slideRecovery, "duckRecovery": global.player.duckRecovery,
+      "wallBreakDownFrames": global.player.wallBreakDownFrames, "breakFromWall": global.player.breakFromWall,
+      "lastWallSide": global.player.lastWallSide, "playerXIntent": global.player.playerXIntent,
+      "boxKickRecovery": global.player.boxKickRecovery, "poleCooldown": global.player.poleCooldown,
+      "ziplineCooldown": global.player.ziplineCooldown, "gravState": global.player.gravState,
+      "speedLeverActive": global.player.speedLeverActive, "heat": global.player.heat,
+      "autoRunDirection": global.player.autoRunDirection, "anim_flip_h": global.player.anim.flip_h,
+      "respawnCooldown": global.player.respawnCooldown,
+    }
+    var block_snaps := {}
+    for block in global.get_tree().get_nodes_in_group("replay_blocks"):
+      block_snaps[block.get_path()] = (block as EditorBlock).replay_capture()
+    snap.blocks = block_snaps
+    return snap
+
+
+  static func restoreSnapshot(snap: Dictionary) -> void:
+    global.player.position = snap.position
+    global.player.velocity = snap.velocity
+    global.player.state = snap.state
+    for k: String in snap.vel: global.player.vel[k] = snap.vel[k]
+    global.player.rotation = snap.rotation
+    global.player.up_direction = snap.up_direction
+    global.player.remainingJumpCount = snap.remainingJumpCount
+    global.player.playerKT = snap.playerKT
+    global.player.wallSlidingFrames = snap.wallSlidingFrames
+    global.player.slideRecovery = snap.slideRecovery
+    global.player.duckRecovery = snap.duckRecovery
+    global.player.wallBreakDownFrames = snap.wallBreakDownFrames
+    global.player.breakFromWall = snap.breakFromWall
+    global.player.lastWallSide = snap.lastWallSide
+    global.player.playerXIntent = snap.playerXIntent
+    global.player.boxKickRecovery = snap.boxKickRecovery
+    global.player.poleCooldown = snap.poleCooldown
+    global.player.ziplineCooldown = snap.ziplineCooldown
+    global.player.gravState = snap.gravState
+    global.player.speedLeverActive = snap.speedLeverActive
+    global.player.heat = snap.heat
+    global.player.autoRunDirection = snap.autoRunDirection
+    global.player.anim.flip_h = snap.anim_flip_h
+    global.player.respawnCooldown = snap.respawnCooldown
+    for path in snap.get("blocks", {}):
+      var block := global.get_node_or_null(path)
+      if block is EditorBlock:
+        block.replay_restore(snap.blocks[path])
+
 
 var player: Player
-var replayPlaying: bool = false
 var level: Node2D
 
 func getLevelSavePath(levelname):
@@ -1638,7 +1640,7 @@ func win() -> void:
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     loadedLevels.append(beatLevels.pop_back())
-    if !replayPlaying:
+    if !Replay.replayPlaying:
       saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
       if "loadedLevels" not in saveData:
         saveData.loadedLevels = loadedLevels
@@ -1691,7 +1693,7 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     currentLevel().speedLeverActive = player.speedLeverActive
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
-  if !replayPlaying:
+  if !Replay.replayPlaying:
     sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
   savingPlayerLevelData = false
 
@@ -1745,7 +1747,7 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   mainLevelName = mapName
-  if !replayPlaying:
+  if !Replay.replayPlaying:
     saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
 
   levelFolderPath = path.abs(path.join(MAP_FOLDER, mapName))
@@ -1844,8 +1846,8 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   await wait()
   player.die(15, false, true)
   global.tick = global.currentLevel().tick
-  if !global.replayPlaying:
-    replay_start_recording()
+  if !global.Replay.playing:
+    Replay.startRecording()
   return true
 
 func loadBlockData():
