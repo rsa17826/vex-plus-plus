@@ -67,14 +67,13 @@ func _build_ui() -> void:
 func _process(_delta: float) -> void:
   var player: Player = global.player
   if not is_instance_valid(player): return
-
-  var is_replay: bool = global.replayPlaying or global._replay_recording
+  var is_replay: bool = global.Replay.playing
   visible = is_replay
 
   if not is_replay: return
 
-  var total: int  = global.replay_total_frames()
-  var frame: int  = global._replay_frame
+  var total: int  = global.Replay.totalFrames()
+  var frame: int  = global.Replay.frame
 
   # Update slider range without triggering value_changed
   if _slider.max_value != total:
@@ -84,7 +83,7 @@ func _process(_delta: float) -> void:
     _slider.set_value_no_signal(frame)
 
   # Play/Pause icon
-  if global.replayPlaying and not global._replay_paused:
+  if global.Replay.playing and not global.Replay.paused:
     _play_pause_btn.text = "⏸"
   else:
     _play_pause_btn.text = "▶"
@@ -99,29 +98,29 @@ func _on_play_pause() -> void:
   var player: Player = global.player
   if not is_instance_valid(player): return
 
-  if not global.replayPlaying:
+  if not global.Replay.playing:
     # Was paused / stopped — resume or start
-    if global._replay_data.is_empty(): return
-    if global._replay_frame >= global.replay_total_frames():
-      global._replay_frame = 0
+    if global.Replay.data.is_empty(): return
+    if global.Replay.frame >= global.Replay.totalFrames():
+      global.Replay.frame = 0
     global._replay_playing = true
   else:
-    if global._replay_paused:
-      global.replay_resume()
+    if global.Replay.paused:
+      global.Replay.resume()
     else:
-      global.replay_pause()
+      global.Replay.pause()
 
 func _on_slider_changed(value: float) -> void:
   if not _scrubbing: return
   if not is_instance_valid(global.player): return
   # Pause playback while scrubbing, seek on every drag tick
-  global.replay_pause()
-  global.replay_seek(int(value))
+  global.Replay.pause()
+  global.Replay.seek(int(value))
 
 func _step(frames: int) -> void:
   if not is_instance_valid(global.player): return
-  global.replay_pause()
-  global.replay_seek(clampi(global._replay_frame + frames, 0, global.replay_total_frames() - 1))
+  global.Replay.pause()
+  global.Replay.seek(clampi(global.Replay.frame + frames, 0, global.Replay.totalFrames() - 1))
 
 # ── Helper ────────────────────────────────────────────────────────────────────
 func _btn(label: String, cb: Callable) -> Button:

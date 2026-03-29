@@ -96,9 +96,9 @@ func _make_row(level_name: String, replay_id: String, replay_path: String) -> HB
 
 func _play_replay(replay_path: String) -> void:
   visible = false
-  global.replay_load(replay_path)
-  await global.replay_start_playback()
-  await global.wait_until(func(): return not global.replayPlaying)
+  global.Replay.loadReplay(replay_path)
+  await global.Replay.startPlayback()
+  await global.wait_until(func(): return not global.Replay.playing)
   visible = true
   _build_list()
 

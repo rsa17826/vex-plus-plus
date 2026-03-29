@@ -331,71 +331,31 @@ func clearWallData():
 # var i = -1
 # var rec = 0
 func _physics_process(delta: float) -> void:
-  if global._replay_paused: return
-  # if rec == 1:
-  #   var temp = []
-  #   for k in ["jump", "down", "left", "right"]:
-  #     if Input.is_action_just_pressed(k):
-  #       temp.append([k, true])
-  #     if Input.is_action_just_released(k):
-  #       temp.append([k, false])
-  #   inps.append(temp)
-  # elif rec == 2:
-  #   i += 1
-  #   var a = InputEventAction.new()
-  #   if i >= len(inps):
-  #     rec = 0
-  #     return
-  #   for event in inps[i]:
-  #     a.pressed = event[1]
-  #     a.action = event[0]
-  #     Input.parse_input_event(a)
-  # if Input.is_action_just_pressed("recordStart"):
-  #   inps = []
-  #   rec = 1
-  #   die(20, true, true)
-  # if Input.is_action_just_pressed("recordStop"):
-  #   for event in ['jump', "down", "left", "right"]:
-  #     var a = InputEventAction.new()
-  #     a.pressed = false
-  #     a.action = event
-  #     Input.parse_input_event(a)
-  #   rec = 0
-  #   die(20, true, true)
-  # if Input.is_action_just_pressed("replay"):
-  #   i = -1
-  #   rec = 2
-  #   die(20, true, true)
-  # if deathSources:
-  #   log.err(deathSources, deathSources.filter(func(e):
-  #     return global.isAlive(e) and !e.respawning))
-  # vel.user.y += 1 * delta
-  # sss.y += 1 * delta
-  # return
+  if global.Replay.paused: return
   # --- Replay: record this frame's inputs ---
-  if global._replay_recording and not global._replay_paused:
+  if global.Replay.recording and not global.Replay.paused:
     var _fd: Dictionary = {"pressed": {}, "just_pressed": {}}
     for _a: String in _REPLAY_ACTIONS:
       _fd.pressed[_a] = Input.is_action_pressed(_a)
       _fd.just_pressed[_a] = Input.is_action_just_pressed(_a)
-    global._replay_data.append(_fd)
-    if global._replay_frame > 0 and global._replay_frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
-      global._replay_snapshots[global._replay_frame] = global.capture_snapshot()
-    global._replay_frame += 1
+    global.Replay.data.append(_fd)
+    if global.Replay.frame > 0 and global.Replay.frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
+      global.Replay.snapshots[global.Replay.frame] = global.capture_snapshot()
+    global.Replay.frame += 1
 
   # --- Replay: inject this frame's inputs during playback ---
-  if global.replayPlaying:
-    log.pp(global._replay_frame, global._replay_data.size())
-    if global._replay_paused:
-      global._replay_injected = {} # no inputs while level is loading
-    elif global._replay_frame >= global._replay_data.size():
-      global.replayPlaying = false
-      global._replay_injected = {}
+  if global.Replay.playing:
+    log.pp(global.Replay.frame, global.Replay.data.size())
+    if global.Replay.paused:
+      global.Replay.injected = {} # no inputs while level is loading
+    elif global.Replay.frame >= global.Replay.data.size():
+      global.Replay.paused = true
+      global.Replay.injected = {}
     else:
-      global._replay_injected = global._replay_data[global._replay_frame]
-      if global._replay_frame in global._replay_snapshots:
-        global.restore_snapshot(global._replay_snapshots[global._replay_frame])
-      global._replay_frame += 1
+      global.Replay.injected = global.Replay.data[global.Replay.frame]
+      if global.Replay.frame in global.Replay.snapshots:
+        global.Replay.restoreSnapshot(global.Replay.snapshots[global.Replay.frame])
+      global.Replay.frame += 1
 
   up_direction = global.clearLow(up_direction)
   defaultAngle = up_direction.angle() + deg_to_rad(90)
@@ -435,7 +395,7 @@ func _physics_process(delta: float) -> void:
   Engine.time_scale = .3 if global.useropts.__slowTime else 1.0
   if global.openMsgBoxCount: return
   if get_viewport().gui_get_focus_owner(): return
-  if Input.is_action_pressed(&"editor_select"):
+  if Input.is_action_pressed(&"editor_select")&&!global.Replay.playing:
     if root in global.boxSelect_selectedBlocks or root == global.selectedBlock:
       position = Vector2.ZERO
     return
@@ -491,7 +451,7 @@ func _physics_process(delta: float) -> void:
         await global.wait()
         stopDying()
         global.resendActiveSignals()
-        log.pp(global._replay_recording, global.replayPlaying, 'global.replayPlaying')
+        log.pp(global.Replay.recording, global.Replay.playing, 'global.Replay.playing')
       return
     States.inCannon:
       remainingJumpCount = MAX_JUMP_COUNT
@@ -2025,13 +1985,13 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # ── Input wrappers ──────────────────────────────────────────────────────────
 func _gi_pressed(action: StringName, only: bool = false) -> bool:
-  if global.replayPlaying and not global._replay_injected.is_empty():
-    return global._replay_injected.get("pressed", {}).get(str(action), false)
+  if global.Replay.playing and not global.Replay.injected.is_empty():
+    return global.Replay.injected.get("pressed", {}).get(str(action), false)
   return Input.is_action_pressed(action, only)
 
 func _gi_just_pressed(action: StringName, only: bool = false) -> bool:
-  if global.replayPlaying and not global._replay_injected.is_empty():
-    return global._replay_injected.get("just_pressed", {}).get(str(action), false)
+  if global.Replay.playing and not global.Replay.injected.is_empty():
+    return global.Replay.injected.get("just_pressed", {}).get(str(action), false)
   return Input.is_action_just_pressed(action, only)
 
 func _gi_axis(neg: StringName, pos: StringName) -> float:
