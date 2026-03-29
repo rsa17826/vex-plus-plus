@@ -21,6 +21,7 @@ var header: PackedStringArray = [
 ]
 
 func _ready() -> void:
+  if Engine.is_editor_hint(): return
   await global.wait()
   config.supabaseUrl = global.useropts.supabaseUrl
   config.supabaseKey = global.useropts.supabaseKey
