@@ -1644,9 +1644,9 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   if forceLoad:
     levelNames = [currentLevel().name]
   for k in levelNames:
-    if levelDataForCurrentMap.__has(k):
-      log.err("should not have data", levelDataForCurrentMap.__get(), levelFolderPath, k)
-      breakpoint
+    if levelDataForCurrentMap.__has(k): pass
+      # log.err("should not have data", levelDataForCurrentMap.__get(), levelFolderPath, k)
+      # breakpoint
     levelDataForCurrentMap.__set(await sds.loadDataFromFileSlow(path.join(levelFolderPath, k + '.sds'), [
       {"x": 0, "y": - 65},
       {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
