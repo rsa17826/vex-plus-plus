@@ -1185,9 +1185,9 @@ func _physics_process(delta: float) -> void:
         tryAndDieSquish()
       applyHeat(delta)
       updateKeyFollowPosition(delta)
-  if !global.showEditorUi:
-    var changeInPosition: Vector2 = global_position - frameStartPosition
-    var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
+  # if !global.showEditorUi:
+    # var changeInPosition: Vector2 = global_position - frameStartPosition
+    # var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
     # if maxVel > 50:
     #   camera.position_smoothing_enabled = false
     # else:
