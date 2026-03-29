@@ -596,9 +596,17 @@ func clearLow(v):
   return v
 
 # local game only data
+var _replay_paused: bool = false # true while an inner-level load is in progress
+var _replay_frame: int = 0
+var _replay_data: Array = [] # Array of per-frame input dicts
+var _replay_snapshots: Dictionary = {} # Array of {frame, snapshot} dicts
+var _replay_injected: Dictionary = {}
+var _replay_save_data: Variant = null # save-file contents captured before recording/playback
+var _replay_level_name: String = "" # level that was active when recording started
+var _replay_recording: bool = false
 
 var player: Player
-var replayPlaying: bool = false # set by player._replay_playing property
+var replayPlaying: bool = false
 var level: Node2D
 
 func getLevelSavePath(levelname):

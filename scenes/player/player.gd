@@ -207,15 +207,6 @@ func _ready() -> void:
 var defaultAngle: float
 var startedPanning: bool = false
 
-# --- Replay System ---
-var _replay_recording: bool = false
-var _replay_paused: bool = false # true while an inner-level load is in progress
-var _replay_frame: int = 0
-var _replay_data: Array = [] # Array of per-frame input dicts
-var _replay_snapshots: Array = [] # Array of {frame, snapshot} dicts
-var _replay_injected: Dictionary = {}
-var _replay_save_data: Variant = null # save-file contents captured before recording/playback
-var _replay_level_name: String = "" # level that was active when recording started
 const _REPLAY_SNAPSHOT_INTERVAL: int = 60
 const _REPLAY_ACTIONS: Array = ["left", "right", "jump", "down", "toggle_noclip", "restart", "full_restart"]
 
@@ -379,28 +370,28 @@ func _physics_process(delta: float) -> void:
   # sss.y += 1 * delta
   # return
   # --- Replay: record this frame's inputs ---
-  if _replay_recording and not _replay_paused:
+  if global._replay_recording and not global._replay_paused:
     var _fd: Dictionary = {"pressed": {}, "just_pressed": {}}
     for _a: String in _REPLAY_ACTIONS:
       _fd.pressed[_a] = Input.is_action_pressed(_a)
       _fd.just_pressed[_a] = Input.is_action_just_pressed(_a)
-    _replay_data.append(_fd)
-    if _replay_frame > 0 and _replay_frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
-      _replay_snapshots.append({"frame": _replay_frame, "snapshot": capture_snapshot()})
-    _replay_frame += 1
+    global._replay_data.append(_fd)
+    if global._replay_frame > 0 and global._replay_frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
+      global._replay_snapshots[global._replay_frame] = capture_snapshot()
+    global._replay_frame += 1
 
   # --- Replay: inject this frame's inputs during playback ---
   if global.replayPlaying:
-    if _replay_paused:
-      _replay_injected = {} # no inputs while level is loading
-    elif _replay_frame >= _replay_data.size():
+    if global._replay_paused:
+      global._replay_injected = {} # no inputs while level is loading
+    elif global._replay_frame >= global._replay_data.size():
       global.replayPlaying = false
-      _replay_injected = {}
+      global._replay_injected = {}
     else:
-      _replay_injected = _replay_data[_replay_frame]
-      if _replay_frame in _replay_snapshots:
-        restore_snapshot(_replay_snapshots[_replay_frame])
-      _replay_frame += 1
+      global._replay_injected = global._replay_data[global._replay_frame]
+      if global._replay_frame in global._replay_snapshots:
+        restore_snapshot(global._replay_snapshots[global._replay_frame])
+      global._replay_frame += 1
 
   up_direction = global.clearLow(up_direction)
   defaultAngle = up_direction.angle() + deg_to_rad(90)
@@ -496,8 +487,8 @@ func _physics_process(delta: float) -> void:
         await global.wait()
         stopDying()
         global.resendActiveSignals()
-        log.pp(_replay_recording, global.replayPlaying,'global.replayPlaying')
-        if !_replay_recording and !global.replayPlaying:
+        log.pp(global._replay_recording, global.replayPlaying, 'global.replayPlaying')
+        if !global._replay_recording and !global.replayPlaying:
           replay_start_recording()
       return
     States.inCannon:
@@ -2029,13 +2020,13 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 
 # ── Input wrappers ──────────────────────────────────────────────────────────
 func _gi_pressed(action: StringName, only: bool = false) -> bool:
-  if global.replayPlaying and not _replay_injected.is_empty():
-    return _replay_injected.get("pressed", {}).get(str(action), false)
+  if global.replayPlaying and not global._replay_injected.is_empty():
+    return global._replay_injected.get("pressed", {}).get(str(action), false)
   return Input.is_action_pressed(action, only)
 
 func _gi_just_pressed(action: StringName, only: bool = false) -> bool:
-  if global.replayPlaying and not _replay_injected.is_empty():
-    return _replay_injected.get("just_pressed", {}).get(str(action), false)
+  if global.replayPlaying and not global._replay_injected.is_empty():
+    return global._replay_injected.get("just_pressed", {}).get(str(action), false)
   return Input.is_action_just_pressed(action, only)
 
 func _gi_axis(neg: StringName, pos: StringName) -> float:
@@ -2095,24 +2086,24 @@ func restore_snapshot(snap: Dictionary) -> void:
 
 # ── Replay API ───────────────────────────────────────────────────────────────
 func replay_start_recording() -> void:
-  _replay_data = []; _replay_snapshots = []; _replay_frame = 0
-  _replay_level_name = global.mainLevelName
+  global._replay_data = []; global._replay_snapshots = {}; global._replay_frame = 0
+  global._replay_level_name = global.mainLevelName
   # Snapshot the save file so recording can't corrupt it on death/respawn
-  _replay_save_data = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
-  _replay_snapshots.append({"frame": 0, "snapshot": capture_snapshot()})
-  _replay_recording = true
+  global._replay_save_data = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
+  global._replay_snapshots[0] = capture_snapshot()
+  global._replay_recording = true
 
 func replay_stop_recording() -> void:
-  _replay_recording = false
+  global._replay_recording = false
 
 func replay_save(path: String) -> void:
   var file := FileAccess.open(path, FileAccess.WRITE)
   if not file: return
   file.store_var({
-    "frames": _replay_data,
-    "snapshots": _replay_snapshots,
-    "level_name": _replay_level_name,
-    "save_data": _replay_save_data,
+    "frames": global._replay_data,
+    "snapshots": global._replay_snapshots,
+    "level_name": global._replay_level_name,
+    "save_data": global._replay_save_data,
   })
   file.close()
 
@@ -2121,60 +2112,61 @@ func replay_load(path: String) -> void:
   if not file: return
   var data: Dictionary = file.get_var()
   file.close()
-  _replay_data = data.frames
-  _replay_snapshots = data.snapshots
-  _replay_level_name = data.get("level_name", global.mainLevelName)
-  _replay_save_data = data.save_data
-  _replay_frame = 0
+  global._replay_data = data.frames
+  log.pp(global._replay_frame, global._replay_data.size(), 'player.global._replay_data.size()')
+  global._replay_snapshots = data.snapshots
+  global._replay_level_name = data.get("level_name", global.mainLevelName)
+  global._replay_save_data = data.save_data
+  global._replay_frame = 0
 
 func replay_start_playback() -> void:
-  if _replay_data.is_empty() or _replay_snapshots.is_empty(): return
+  if global._replay_data.is_empty() or global._replay_snapshots.is_empty(): return
   replay_stop_recording()
   # Snapshot save file so playback deaths/wins don't overwrite it
-  # _replay_save_data = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
-  # sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, _replay_save_data)
+  # global._replay_save_data = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
+  # sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, global._replay_save_data)
   # Load the correct level if we're not already on it
   global.replayPlaying = true
-  global.saveData = _replay_save_data
-  await global.loadMap(_replay_level_name, false, true)
-  # if _replay_level_name and _replay_level_name != global.mainLevelName:
-  #   await global.loadMap(_replay_level_name, true)
+  global.saveData = global._replay_save_data
+  await global.loadMap(global._replay_level_name, false, true)
+  # if global._replay_level_name and global._replay_level_name != global.mainLevelName:
+  #   await global.loadMap(global._replay_level_name, true)
   # Restore player + world to the exact state at recording start
-  restore_snapshot(_replay_snapshots[0].snapshot)
-  _replay_frame = 0
+  restore_snapshot(global._replay_snapshots[0].snapshot)
+  global._replay_frame = 0
 
 func replay_stop_playback() -> void:
   global.replayPlaying = false
-  _replay_injected = {}
+  global._replay_injected = {}
 
 func replay_pause() -> void:
-  _replay_paused = true
-  _replay_injected = {} # clear injected so no stale input leaks through
+  global._replay_paused = true
+  global._replay_injected = {} # clear injected so no stale input leaks through
 
 func replay_resume() -> void:
-  _replay_paused = false
+  global._replay_paused = false
 
 func replay_seek(target_frame: int) -> void:
-  if _replay_data.is_empty() or _replay_snapshots.is_empty(): return
-  target_frame = clampi(target_frame, 0, _replay_data.size() - 1)
-  var best: Dictionary = _replay_snapshots[0].snapshot
+  if global._replay_data.is_empty() or global._replay_snapshots.is_empty(): return
+  target_frame = clampi(target_frame, 0, global._replay_data.size() - 1)
+  var best: Dictionary = global._replay_snapshots[0].snapshot
   var best_f: int = 0
-  for entry: Dictionary in _replay_snapshots:
+  for entry: Dictionary in global._replay_snapshots:
     if entry.frame <= target_frame:
       best = entry.snapshot
       best_f = entry.frame
   restore_snapshot(best)
-  _replay_frame = best_f
+  global._replay_frame = best_f
   global.replayPlaying = true
-  while _replay_frame < target_frame:
-    _replay_injected = _replay_data[_replay_frame]
-    _replay_frame += 1
+  while global._replay_frame < target_frame:
+    global._replay_injected = global._replay_data[global._replay_frame]
+    global._replay_frame += 1
     _physics_process(1.0 / 60.0)
   global.replayPlaying = false
-  _replay_injected = {}
+  global._replay_injected = {}
 
 func replay_total_frames() -> int:
-  return _replay_data.size()
+  return global._replay_data.size()
 
 # make save level name in replay and load level before starting replay also make sure to store state of save file before starting recording in the replay and before replaing the replay so the savefile can be restored after the replay is done playing so that the replay doesnt end up changing the save file
 # make sure that the replay will pause both recording and playing when entering an inner level to prevent loading times rfom breaking the replay
