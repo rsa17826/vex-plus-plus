@@ -680,14 +680,10 @@ class Replay:
       if frame <= target_frame:
         best = Replay.snapshots[frame]
         best_f = frame
-    log.warn(best,best_f,'asasasdassa')
     Replay.restoreSnapshot(best)
     Replay.frame = best_f
-    Replay.paused = false
-    log.pp("asjkasaskdhaskjaskdasdkas",Replay.frame,target_frame)
-    while Replay.frame < target_frame:
-      global.player._physics_process(1.0 / 60.0)
-    Replay.paused = true
+    # Caller is responsible for running real physics frames to reach target_frame.
+    # Do NOT call _physics_process manually here — move_and_slide needs a real physics tick.
 
   static func totalFrames() -> int:
     return Replay.data.size()
