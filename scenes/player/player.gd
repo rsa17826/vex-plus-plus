@@ -331,6 +331,7 @@ func clearWallData():
 # var i = -1
 # var rec = 0
 func _physics_process(delta: float) -> void:
+  # log.pp(delta)
   if global.Replay.paused: return
   # --- Replay: record this frame's inputs ---
   if global.Replay.recording and not global.Replay.paused:
@@ -345,14 +346,16 @@ func _physics_process(delta: float) -> void:
 
   # --- Replay: inject this frame's inputs during playback ---
   if global.Replay.playing:
-    log.pp(global.Replay.frame, global.Replay.data.size())
+    log.pp(global.Replay.frame, global.Replay.data.size(), global.Replay.paused, global.Replay.frame >= global.Replay.data.size())
     if global.Replay.paused:
       global.Replay.injected = {} # no inputs while level is loading
     elif global.Replay.frame >= global.Replay.data.size():
       global.Replay.paused = true
       global.Replay.injected = {}
     else:
+      # log.pp(global.Replay.injected,1111)
       global.Replay.injected = global.Replay.data[global.Replay.frame]
+      # log.pp(global.Replay.injected,2222)
       if global.Replay.frame in global.Replay.snapshots:
         global.Replay.restoreSnapshot(global.Replay.snapshots[global.Replay.frame])
       global.Replay.frame += 1
