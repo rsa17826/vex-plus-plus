@@ -664,12 +664,13 @@ func replay_resume() -> void:
 func replay_seek(target_frame: int) -> void:
   if global._replay_data.is_empty() or global._replay_snapshots.is_empty(): return
   target_frame = clampi(target_frame, 0, global._replay_data.size() - 1)
-  var best: Dictionary = global._replay_snapshots[0].snapshot
+  var best: Dictionary = global._replay_snapshots[0]
   var best_f: int = 0
-  for entry: Dictionary in global._replay_snapshots:
-    if entry.frame <= target_frame:
-      best = entry.snapshot
-      best_f = entry.frame
+  for frame: int in global._replay_snapshots.keys():
+    var entry:Dictionary=global._replay_snapshots[frame]
+    if frame <= target_frame:
+      best = entry
+      best_f = frame
   restore_snapshot(best)
   global._replay_frame = best_f
   global.replayPlaying = true

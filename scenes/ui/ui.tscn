@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://ccr06ddwa73ca" path="res://GLOBAL/screen_notifier/resident_logs.tscn" id="16_0i47d"]
 [ext_resource type="Texture2D" uid="uid://dkqpbfxp5h0gh" path="res://scenes/ui/images/leverPullEffect1.png" id="17_4w2x3"]
 [ext_resource type="Script" uid="uid://b4jl2tqj786vi" path="res://scenes/ui/leverPullEffect.gd" id="18_svq4k"]
+[ext_resource type="Script" path="res://scenes/ui/replay_controls.gd" id="19_rplct"]
 
 [node name="2 - ui" type="CanvasLayer" unique_id=1891734738 node_paths=PackedStringArray("levelSaved", "editorBar", "progressContainer", "progressBar", "modifiers", "signalList", "blockMenu", "hoveredBlockList", "overlayRemovalHidersubViewportContainer", "gravityChange")]
 layer = 2
@@ -234,3 +235,18 @@ modulate = Color(1, 1, 1, 0.27058825)
 position = Vector2(634, 643)
 texture = ExtResource("17_4w2x3")
 script = ExtResource("18_svq4k")
+
+[node name="8 - replay controls" type="CanvasLayer" parent="." unique_id=881234567]
+layer = 8
+
+[node name="ReplayControls" type="Control" parent="8 - replay controls" unique_id=881234568]
+visible = false
+layout_mode = 3
+anchors_preset = 12
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -64.0
+grow_vertical = 0
+script = ExtResource("19_rplct")

@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://l1hbhbivdo0b"]
+
+[ext_resource type="Script" uid="uid://bk8nga4o6l2fq" path="res://scenes/replay/replay selector/level_selector.gd" id="1_n6u0n"]
+
+[node name="LevelSelector" type="Control" unique_id=1281640859 node_paths=PackedStringArray("_scroll", "_list", "_close_btn")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_n6u0n")
+_scroll = NodePath("MarginContainer/VBoxContainer/ScrollContainer")
+_list = NodePath("MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer")
+_close_btn = NodePath("MarginContainer/VBoxContainer/TitleBar/CloseButton")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1976370450]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.08, 0.92)
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=480752164]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1357051336]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1591724210]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="MarginContainer/VBoxContainer/TitleBar" unique_id=1258897338]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 22
+text = "Replays"
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer/TitleBar" unique_id=1736793789]
+layout_mode = 2
+text = "X"
+
+[node name="Separator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1073842645]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=587618682]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=981908604]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
