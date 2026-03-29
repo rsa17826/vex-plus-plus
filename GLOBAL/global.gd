@@ -1637,7 +1637,7 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   stopTicking = true
   tick = 0
   hoveredBlocks = []
-  var lastScenePath = get_tree().current_scene.scene_file_path
+  var lastScenePath = get_tree().current_scene.scene_file_path if get_tree().current_scene else "res://scenes/main menu/main_menu.tscn"
   get_tree().change_scene_to_file("res://scenes/level/level.tscn")
   ui.progressContainer.visible = true
   var __loadedLevelCount = 0
