@@ -677,20 +677,17 @@ class Replay:
     var best: Dictionary = Replay.snapshots[0]
     var best_f: int = 0
     for frame: int in Replay.snapshots.keys():
-      var entry:Dictionary=Replay.snapshots[frame]
       if frame <= target_frame:
-        best = entry
+        best = Replay.snapshots[frame]
         best_f = frame
+    log.warn(best,best_f,'asasasdassa')
     Replay.restoreSnapshot(best)
     Replay.frame = best_f
     Replay.paused = false
-    while Replay.frame < (target_frame+1):
-      log.pp("asjkasaskdhaskjaskdasdkas",Replay.frame,target_frame)
-      Replay.injected = Replay.data[Replay.frame]
-      # Replay.frame += 1
+    log.pp("asjkasaskdhaskjaskdasdkas",Replay.frame,target_frame)
+    while Replay.frame < target_frame:
       global.player._physics_process(1.0 / 60.0)
     Replay.paused = true
-    Replay.injected = {}
 
   static func totalFrames() -> int:
     return Replay.data.size()
