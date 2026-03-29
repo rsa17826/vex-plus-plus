@@ -218,7 +218,12 @@ func _unhandled_input(event: InputEvent) -> void:
     global.replay_start_playback()
   if Input.is_action_just_pressed(&"replay_save", true):
     global.replay_stop_recording()
-    global.replay_save("res://aaa")
+    var i = 0
+    if !DirAccess.dir_exists_absolute("res://replays/" + global.MAIN_LEVEL_NAME):
+      DirAccess.make_dir_absolute("res://replays/" + global.MAIN_LEVEL_NAME)
+    while FileAccess.file_exists("res://replays/" + global.MAIN_LEVEL_NAME + '/' + str(i)):
+      i += 1
+    global.replay_save("res://replays/" + global.MAIN_LEVEL_NAME + '/' + str(i))
   if Input.is_action_just_pressed(&"activate_temporary_checkpoint", true):
     lastSpawnPoint = (global_position - root.global_position)
     global.currentLevel().up_direction = up_direction
@@ -326,6 +331,7 @@ func clearWallData():
 # var i = -1
 # var rec = 0
 func _physics_process(delta: float) -> void:
+  if global._replay_paused: return
   # if rec == 1:
   #   var temp = []
   #   for k in ["jump", "down", "left", "right"]:
@@ -379,7 +385,7 @@ func _physics_process(delta: float) -> void:
 
   # --- Replay: inject this frame's inputs during playback ---
   if global.replayPlaying:
-    log.pp(global._replay_frame , global._replay_data.size())
+    log.pp(global._replay_frame, global._replay_data.size())
     if global._replay_paused:
       global._replay_injected = {} # no inputs while level is loading
     elif global._replay_frame >= global._replay_data.size():
@@ -612,7 +618,7 @@ func _physics_process(delta: float) -> void:
       setRot(defaultAngle)
       anim.animation = &'zipline'
       if !targetZipline:
-        state=States.idle
+        state = States.idle
         return
       var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
       var lowerZipline = activeZipline if targetZipline.global_position.y < activeZipline.global_position.y else targetZipline
@@ -2030,9 +2036,6 @@ func _gi_just_pressed(action: StringName, only: bool = false) -> bool:
 
 func _gi_axis(neg: StringName, pos: StringName) -> float:
   return float(_gi_pressed(pos)) - float(_gi_pressed(neg))
-
-
-
 
 # make save level name in replay and load level before starting replay also make sure to store state of save file before starting recording in the replay and before replaing the replay so the savefile can be restored after the replay is done playing so that the replay doesnt end up changing the save file
 # make sure that the replay will pause both recording and playing when entering an inner level to prevent loading times rfom breaking the replay
