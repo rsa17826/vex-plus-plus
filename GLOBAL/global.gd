@@ -2773,7 +2773,7 @@ var overlays: Array = []:
 
 var ctrlMenu: Control
 
-var launcherExists = FileAccess.file_exists("../../vex++.exe") or FileAccess.file_exists(r"..\..\vex++.cmd")
+var launcherExists = FileAccess.file_exists("../../vex++.exe") or FileAccess.file_exists(r"..\..\vex++.cmd") or find_in_path('launcher') != ''
 
 func openLevelInVersion(levelName, gameVersion):
   if DirAccess.remove_absolute(global.path.abs("res://process")):
@@ -2782,12 +2782,30 @@ func openLevelInVersion(levelName, gameVersion):
     OS.create_process(r"..\..\vex++.exe", PackedStringArray([
       "version", str(gameVersion), "--loadMap", levelName
     ]))
-  else:
+  else: if FileAccess.file_exists(r"..\..\vex++.cmd"):
     OS.create_process(r"..\..\vex++.cmd", PackedStringArray([
       "version", str(gameVersion), "--loadMap", levelName
     ]))
+  else:
+    var path_to_bin = find_in_path('launcher')
+    if path_to_bin != "":
+      OS.create_process(path_to_bin, PackedStringArray([
+        "--launcherName", "vex++", "version", str(gameVersion), "--loadMap", levelName
+      ]))
+      return
+
   global.quitGame()
 
+func find_in_path(command: String) -> String:
+  var output = []
+  var search_cmd = "where" if OS.get_name() == "Windows" else "which"
+
+  # Run 'where' or 'which' to find the executable location
+  var exit_code = OS.execute(search_cmd, [command], output)
+
+  if exit_code == 0 and output.size() > 0:
+    return output[0].strip_edges() # Returns the full path found
+  return ""
 var editorBarIconCache := Cache.new()
 
 # var logger_ui: Node
