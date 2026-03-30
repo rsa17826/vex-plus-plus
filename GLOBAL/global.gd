@@ -599,149 +599,139 @@ func clearLow(v):
 class Replay:
   static var paused: bool = false
   static var playing: bool = false
-  static var frame: int = 0
-  static var data: Array = [] # Array of per-frame input dicts
-  static var snapshots: Dictionary = {} # Array of {frame, snapshot} dicts
-  static var injected: Dictionary = {}
-  static var saveData: Variant = null # save-file contents captured before recording/playback
-  static var levelName: String = "" # level that was active when recording started
   static var recording: bool = false
-  static func startRecording() -> void:
-    global.Replay.data = []; global.Replay.snapshots = {}; global.Replay.frame = 0
-    global.Replay.levelName = global.mainLevelName
-    # Snapshot the save file so recording can't corrupt it on death/respawn
-    global.Replay.saveData = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
-    global.Replay.snapshots[0] = capture_snapshot()
-    global.Replay.recording = true
-  static func loadReplay(path: String) -> void:
-    var file := FileAccess.open(path, FileAccess.READ)
-    if not file: return
-    var data: Dictionary = file.get_var()
-    file.close()
-    Replay.data = data.frames
-    log.pp(Replay.frame, Replay.data.size(), 'player.Replay.data.size()')
-    Replay.snapshots = data.snapshots
-    Replay.levelName = data.get("level_name", global.mainLevelName)
-    Replay.saveData = data.save_data
-    Replay.frame = 0
-  static func startPlayback() -> void:
-    if global.Replay.data.is_empty() or global.Replay.snapshots.is_empty(): return
-    global.Replay.stopRecording()
-    # Snapshot save file so playback deaths/wins don't overwrite it
-    # global.Replay.save_data = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
-    # sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, global.Replay.save_data)
-    # Load the correct level if we're not already on it
-    global.Replay.loadReplay("res://aaa")
-    global.Replay.playing = true
-    global.saveData = global.Replay.saveData
-    await global.loadMap(global.Replay.levelName, false, true)
-    # if global.Replay.level_name and global.Replay.level_name != global.mainLevelName:
-    #   await global.loadMap(global.Replay.level_name, true)
-    # Restore player + world to the exact state at recording start
-    restoreSnapshot(global.Replay.snapshots[0])
+  static var frame: int = 0
+  static var data: Array = [] # Array of per-frame full state dicts
+  static var saveData: Variant = null
+  static var levelName: String = "" # level at recording start, for loading on playback
 
-    global.Replay.frame = 0
+  # ── Recording ────────────────────────────────────────────────────────────────
+  static func startRecording() -> void:
+    #
+    return
+    # data = []
+    # frame = 0
+    # levelName = global.mainLevelName
+    # saveData = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
+    # recording = true
 
   static func stopRecording() -> void:
-    Replay.recording = false
+    recording = false
 
-  static var replayPlaying: bool = false
+  # Capture everything needed to render this frame — called every physics tick while recording
+  static func captureFrame() -> void:
+    var p := global.player
+    var fd: Dictionary = {
+      "level": global.mainLevelName,
+      # player transform + physics visible state
+      "pos": p.position,
+      "rot": p.rotation,
+      "vel": p.velocity,
+      "state": p.state,
+      "up_dir": p.up_direction,
+      "flip_h": p.anim.flip_h,
+      # main sprite
+      "anim": p.anim.animation,
+      "anim_frame": p.anim.frame,
+      "anim_visible": p.anim.visible,
+      "anim_pos": p.anim.position,
+      # water sprites
+      "wt_visible": p.waterAnimTop.visible,
+      "wt_anim": p.waterAnimTop.animation,
+      "wt_frame": p.waterAnimTop.frame,
+      "wb_visible": p.waterAnimBottom.visible,
+      "wb_anim": p.waterAnimBottom.animation,
+      "wb_frame": p.waterAnimBottom.frame,
+      # collision shape (affects visible duck/slide crouch)
+      "col_size_y": p.mainCollisionShape2D.shape.size.y,
+      "col_pos_y": p.mainCollisionShape2D.position.y,
+    }
+    # All replay_blocks (moving blocks, bombs, etc.)
+    var blocks: Dictionary = {}
+    for block in global.get_tree().get_nodes_in_group("replay_blocks"):
+      blocks[block.get_path()] = (block as EditorBlock).replay_capture()
+    fd.blocks = blocks
+    data.append(fd)
 
+  # ── Playback ─────────────────────────────────────────────────────────────────
+  static func startPlayback() -> void:
+    if data.is_empty(): return
+    stopRecording()
+    playing = true
+    paused = false
+    frame = 0
+
+  static func stopPlayback() -> void:
+    playing = false
+    paused = false
+
+  static func pause() -> void:
+    paused = true
+
+  static func resume() -> void:
+    paused = false
+
+  # Apply a frame's state directly — no physics, instant
+  static func applyFrame(fd: Dictionary) -> void:
+    var p := global.player
+    p.position = fd.pos
+    p.rotation = fd.rot
+    p.velocity = fd.vel
+    p.state = fd.state
+    p.up_direction = fd.up_dir
+    p.anim.flip_h = fd.flip_h
+    p.anim.animation = fd.anim
+    p.anim.frame = fd.anim_frame
+    p.anim.visible = fd.anim_visible
+    p.anim.position = fd.anim_pos
+    p.waterAnimTop.visible = fd.wt_visible
+    p.waterAnimTop.animation = fd.wt_anim
+    p.waterAnimTop.frame = fd.wt_frame
+    p.waterAnimBottom.visible = fd.wb_visible
+    p.waterAnimBottom.animation = fd.wb_anim
+    p.waterAnimBottom.frame = fd.wb_frame
+    p.mainCollisionShape2D.shape.size.y = fd.col_size_y
+    p.mainCollisionShape2D.position.y = fd.col_pos_y
+    for path: String in fd.get("blocks", {}):
+      var block := global.get_node_or_null(path)
+      if block is EditorBlock:
+        block.replay_restore(fd.blocks[path])
+
+  # Seek is instant — just apply the frame directly
+  static func seek(target_frame: int) -> void:
+    if data.is_empty(): return
+    frame = clampi(target_frame, 0, data.size() - 1)
+    applyFrame(data[frame])
+
+  static func totalFrames() -> int:
+    return data.size()
+
+  # ── Save / Load ──────────────────────────────────────────────────────────────
   static func save(path: String) -> void:
     var file := FileAccess.open(path, FileAccess.WRITE)
     if not file: return
     file.store_var({
-      "frames": Replay.data,
-      "snapshots": Replay.snapshots,
-      "level_name": Replay.levelName,
-      "save_data": Replay.saveData,
+      "frames": data,
+      "level_name": levelName,
+      "save_data": saveData,
     })
     file.close()
 
+  static func loadReplay(path: String) -> void:
+    var file := FileAccess.open(path, FileAccess.READ)
+    if not file: return
+    var d: Dictionary = file.get_var()
+    file.close()
+    data = d.get("frames", [])
+    levelName = d.get("level_name", global.mainLevelName)
+    saveData = d.get("save_data", null)
+    frame = 0
+    playing = true
+    await global.loadMap(levelName, false, true)
 
-
-  static func stopPlayback() -> void:
-    global.Replay.playing = false
-    Replay.injected = {}
-
-  static func pause() -> void:
-    Replay.paused = true
-    Replay.injected = {} # clear injected so no stale input leaks through
-
-  static func resume() -> void:
-    Replay.paused = false
-
-  static func seek(target_frame: int) -> void:
-    if Replay.data.is_empty() or Replay.snapshots.is_empty(): return
-    target_frame = clampi(target_frame, 0, Replay.data.size() - 1)
-    var best: Dictionary = Replay.snapshots[0]
-    var best_f: int = 0
-    for frame: int in Replay.snapshots.keys():
-      if frame <= target_frame:
-        best = Replay.snapshots[frame]
-        best_f = frame
-    Replay.restoreSnapshot(best)
-    Replay.frame = best_f
-    # Caller is responsible for running real physics frames to reach target_frame.
-    # Do NOT call _physics_process manually here — move_and_slide needs a real physics tick.
-
-  static func totalFrames() -> int:
-    return Replay.data.size()
-
-
-  # ── Snapshot ─────────────────────────────────────────────────────────────────
-  static func capture_snapshot() -> Dictionary:
-    var snap = {
-      "position": global.player.position, "velocity": global.player.velocity, "state": global.player.state,
-      "vel": global.player.vel.duplicate(true), "rotation": global.player.rotation,
-      "up_direction": global.player.up_direction, "remainingJumpCount": global.player.remainingJumpCount,
-      "playerKT": global.player.playerKT, "wallSlidingFrames": global.player.wallSlidingFrames,
-      "slideRecovery": global.player.slideRecovery, "duckRecovery": global.player.duckRecovery,
-      "wallBreakDownFrames": global.player.wallBreakDownFrames, "breakFromWall": global.player.breakFromWall,
-      "lastWallSide": global.player.lastWallSide, "playerXIntent": global.player.playerXIntent,
-      "boxKickRecovery": global.player.boxKickRecovery, "poleCooldown": global.player.poleCooldown,
-      "ziplineCooldown": global.player.ziplineCooldown, "gravState": global.player.gravState,
-      "speedLeverActive": global.player.speedLeverActive, "heat": global.player.heat,
-      "autoRunDirection": global.player.autoRunDirection, "anim_flip_h": global.player.anim.flip_h,
-      "respawnCooldown": global.player.respawnCooldown,
-    }
-    var block_snaps := {}
-    for block in global.get_tree().get_nodes_in_group("replay_blocks"):
-      block_snaps[block.get_path()] = (block as EditorBlock).replay_capture()
-    snap.blocks = block_snaps
-    return snap
-
-
-  static func restoreSnapshot(snap: Dictionary) -> void:
-    global.player.position = snap.position
-    global.player.velocity = snap.velocity
-    global.player.state = snap.state
-    for k: String in snap.vel: global.player.vel[k] = snap.vel[k]
-    global.player.rotation = snap.rotation
-    global.player.up_direction = snap.up_direction
-    global.player.remainingJumpCount = snap.remainingJumpCount
-    global.player.playerKT = snap.playerKT
-    global.player.wallSlidingFrames = snap.wallSlidingFrames
-    global.player.slideRecovery = snap.slideRecovery
-    global.player.duckRecovery = snap.duckRecovery
-    global.player.wallBreakDownFrames = snap.wallBreakDownFrames
-    global.player.breakFromWall = snap.breakFromWall
-    global.player.lastWallSide = snap.lastWallSide
-    global.player.playerXIntent = snap.playerXIntent
-    global.player.boxKickRecovery = snap.boxKickRecovery
-    global.player.poleCooldown = snap.poleCooldown
-    global.player.ziplineCooldown = snap.ziplineCooldown
-    global.player.gravState = snap.gravState
-    global.player.speedLeverActive = snap.speedLeverActive
-    global.player.heat = snap.heat
-    global.player.autoRunDirection = snap.autoRunDirection
-    global.player.anim.flip_h = snap.anim_flip_h
-    global.player.respawnCooldown = snap.respawnCooldown
-    for path in snap.get("blocks", {}):
-      var block := global.get_node_or_null(path)
-      if block is EditorBlock:
-        block.replay_restore(snap.blocks[path])
-
+    # # Restore save file to recording-start state so level loads identically
+    # if saveData != null:
+    #   sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, saveData)
 
 var player: Player
 var level: Node2D
@@ -1384,7 +1374,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"exit_inner_level", false, true):
     if level and is_instance_valid(level):
       if len(loadedLevels) > 1:
-        player.replay_pause()
+        global.Replay.pause()
         if useropts.saveOnExit:
           level.save(false)
         loadedLevels.pop_back()
@@ -1402,7 +1392,7 @@ func _unhandled_input(event: InputEvent) -> void:
         player.die(15, false, true)
         # player.die(3, false, true)
         global.tick = global.currentLevel().tick
-        player.replay_resume()
+        global.Replay.resume()
         # savePlayerLevelData()
   if event.is_action_pressed(&"save", false, true):
     if level and is_instance_valid(level):
@@ -1578,7 +1568,7 @@ var loadingLevel = false
 func loadInnerLevel(innerLevel: String) -> void:
   if loadingLevel: return
   loadingLevel = true
-  player.replay_pause()
+  global.Replay.pause()
   player.state = player.States.levelLoading
   # breakpoint
   if useropts.saveLevelOnWin:
@@ -1615,7 +1605,7 @@ func loadInnerLevel(innerLevel: String) -> void:
   player.die(15, false, true)
   loadBlockData()
   await savePlayerLevelData()
-  player.replay_resume()
+  global.Replay.resume()
   loadingLevel = false
   # log.pp(loadedLevels, beatLevels)
 var saveData: Variant
@@ -1633,7 +1623,7 @@ func win() -> void:
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     loadedLevels.append(beatLevels.pop_back())
-    if !Replay.replayPlaying:
+    if !Replay.playing:
       saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
       if "loadedLevels" not in saveData:
         saveData.loadedLevels = loadedLevels
@@ -1686,7 +1676,7 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     currentLevel().speedLeverActive = player.speedLeverActive
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
-  if !Replay.replayPlaying:
+  if !Replay.playing:
     sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
   savingPlayerLevelData = false
 
@@ -1740,7 +1730,7 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   mainLevelName = mapName
-  if !Replay.replayPlaying:
+  if !Replay.playing:
     saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
 
   levelFolderPath = path.abs(path.join(MAP_FOLDER, mapName))
