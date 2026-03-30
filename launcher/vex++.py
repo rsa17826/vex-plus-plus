@@ -9,7 +9,8 @@
 # @replace selectedOs (supportedOs): The users currently selected os
 # @endregex
 
-import launcher
+from typing import cast
+import launcher as launcher
 import os
 import subprocess
 from PySide6.QtWidgets import QVBoxLayout
@@ -18,12 +19,12 @@ from enum import Enum
 
 class supportedOs(Enum):
   windows = 0
-  # linux = 1
+  linux = 1
 
 
 def getGameLogLocation(
-  settings: launcher.SettingsData, selectedOs: supportedOs, gameId: str
-):
+  settings: launcher.SettingsData, selectedOs: supportedOs, gameId: str # pyright: ignore[reportUnusedParameter]
+) -> str:
   """returns the location of the game logs or false if no game logs exist
 
   Args:
@@ -39,11 +40,14 @@ def getGameLogLocation(
       appdata = os.getenv("APPDATA")
       if appdata is not None:
         return os.path.join(appdata, "godot/app_userdata/vex/logs")
-    # case supportedOs.linux
-    #   return "~/.local/share/godot/app_userdata/<GAME NAME>/logs"
+      return ""
+    case supportedOs.linux:
+      return os.path.expanduser(
+        "~/.local/share/godot/app_userdata/vex/logs"
+      )
 
 
-def linkAll(_from, to, names):
+def linkAll(_from:str, to:str, names:list[str]):
   """updates a set of hardlinks
 
   Args:
@@ -58,55 +62,71 @@ def linkAll(_from, to, names):
 
 
 def gameLaunchRequested(
-  path,
-  args,
+  path:str,
+  args:list[str],
   settings: launcher.SettingsData,
   selectedOs: supportedOs,
   requestedGameDataLocation: str,
 ) -> None:
-  if settings.loadSpecificMapOnStart:
-    args += ["--loadMap", settings.nameOfMapToLoad]
-  if settings.startInOnlineLevelsScene:
-    args += ["--loadOnlineLevels"]
-  if settings.downloadMap:
-    args += ["--downloadMap", settings.nameOfMapToDownload]
+  if len(args)==0:
+    if settings.loadSpecificMapOnStart:
+      args += ["--loadMap", cast(str, settings.nameOfMapToLoad)]
+    if settings.startInOnlineLevelsScene:
+      args += ["--loadOnlineLevels"]
+    if settings.downloadMap:
+      args += ["--downloadMap", cast(str,settings.nameOfMapToDownload)]
 
   match selectedOs:
     case supportedOs.windows:
-      exe = os.path.join(path, "vex.exe")
-      print("requestedGameDataLocation", requestedGameDataLocation)
-      if os.path.isfile(exe):
+      binary_name = "vex.console.exe" if settings.showConsole else "vex.exe"
+      exe_path = os.path.join(path, "vex.exe")
+      if os.path.isfile(exe_path):
         linkAll(
           path,
           requestedGameDataLocation,
           ["vex.exe", "vex.console.exe", "vex.pck"],
         )
+        script_path = os.path.join(requestedGameDataLocation, binary_name)
+
         if settings.closeOnLaunch:
-          script_path = os.path.join(
-            requestedGameDataLocation,
-            "vex.console.exe" if settings.showConsole else "vex.exe",
-          )
           os.execl(script_path, f'"{script_path}"', *args)
         else:
-          subprocess.Popen(
-            [os.path.join(requestedGameDataLocation, "vex.exe")] + args,
-            cwd=requestedGameDataLocation,
+          _ = subprocess.Popen(
+            [script_path] + args, cwd=requestedGameDataLocation
           )
 
-    # case supportedOs.linux:
-    #   exe = os.path.join(path, "vex.sh")
-    #   if os.path.isfile(exe):
-    #     subprocess.Popen([exe] + args, cwd=path)
+    case supportedOs.linux:
+      exe_path = os.path.join(path, "vex")
+      if os.path.isfile(exe_path):
+        os.chmod(exe_path, 0o755)
+        linkAll(
+          path,
+          requestedGameDataLocation,
+          ["vex", "vex.pck"],
+        )
+        script_path = os.path.join(requestedGameDataLocation, "vex")
+        os.chmod(script_path, 0o755)
+
+        if settings.closeOnLaunch:
+          os.execl(script_path, script_path, *args)
+        else:
+          _ = subprocess.Popen(
+            [script_path] + args, cwd=requestedGameDataLocation
+          )
 
 
-def getAssetName(settings: launcher.SettingsData, selectedOs: supportedOs) -> str:
-  return "windows.zip"
+def getAssetName(_settings: launcher.SettingsData, selectedOs: supportedOs) -> str:
+  match selectedOs:
+    case supportedOs.windows:
+      return "windows.zip"
+    case supportedOs.linux:
+      return "linux.zip"
 
 
 def gameVersionExists(
-  path, settings: launcher.SettingsData, selectedOs: supportedOs
+  path:str, _settings: launcher.SettingsData, selectedOs: supportedOs
 ) -> bool:
-  def isfile(p):
+  def isfile(p:str):
     return os.path.isfile(os.path.join(path, p))
 
   match selectedOs:
@@ -114,8 +134,10 @@ def gameVersionExists(
       return (isfile("vex.exe") and isfile("vex.pck")) or (
         isfile("windows/vex.exe") and isfile("windows/vex.pck")
       )
-    # case supportedOs.linux:
-    #   return isfile("vex.sh") and isfile("vex.pck")
+    case supportedOs.linux:
+      return (isfile("vex") and isfile("vex.pck")) or (
+        isfile("linux/vex") and isfile("linux/vex.pck")
+      )
 
 
 def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
@@ -136,7 +158,7 @@ def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
     )
   )
   layout.addWidget(mapNameInput)
-  mapNameInput.setEnabled(_self.settings.loadSpecificMapOnStart)
+  mapNameInput.setEnabled(cast(bool,_self.settings.loadSpecificMapOnStart))
 
   dlmapNameInput = _self.newLineEdit("Enter map name", "nameOfMapToDownload")
   layout.addWidget(
@@ -148,7 +170,7 @@ def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
     )
   )
   layout.addWidget(dlmapNameInput)
-  dlmapNameInput.setEnabled(_self.settings.downloadMap)
+  dlmapNameInput.setEnabled(cast(bool,_self.settings.downloadMap))
 
   layout.addWidget(
     _self.newCheckbox(
@@ -161,35 +183,43 @@ def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
 
 
 from PySide6.QtWidgets import QMenu
-from typing import Callable, Dict, List, Any
+from typing import Callable
 
 
 def addContextMenuOptions(
   _self: launcher.Launcher,
-  data: launcher.ItemListData,
-  menu: QMenu,
-  newAction: Callable,
+  _data: launcher.listData,
+  _menu: QMenu,
+  _newAction: Callable[[], object],
 ) -> None:
   pass
 
 
-def getImage(version: str):
+def getImage(_version: str):
   return os.path.abspath("images/vex++.jpg")
 
 
-def onGameVersionDownloadComplete(path: str, version: str):
-  if os.path.isfile(os.path.join(path, "windows/vex.exe")):
-    # if game in wrong folder move it to the correct one
-    import shutil
-
-    os.rename(os.path.join(path, "windows/vex.exe"), os.path.join(path, "vex.exe"))
-    os.rename(
-      os.path.join(path, "windows/vex.console.exe"),
-      os.path.join(path, "vex.console.exe"),
-    )
-    os.rename(os.path.join(path, "windows/vex.pck"), os.path.join(path, "vex.pck"))
-    shutil.rmtree(os.path.join(path, "windows"))
-
+def onGameVersionDownloadComplete(path: str, _version: str, selectedOs: supportedOs) -> None:
+  match selectedOs:
+    case supportedOs.windows:
+      if os.path.isfile(os.path.join(path, "windows/vex.exe")):
+        import shutil
+        os.rename(os.path.join(path, "windows/vex.exe"), os.path.join(path, "vex.exe"))
+        os.rename(
+          os.path.join(path, "windows/vex.console.exe"),
+          os.path.join(path, "vex.console.exe"),
+        )
+        os.rename(os.path.join(path, "windows/vex.pck"), os.path.join(path, "vex.pck"))
+        shutil.rmtree(os.path.join(path, "windows"))
+    case supportedOs.linux:
+      if os.path.isfile(os.path.join(path, "linux/vex")):
+        import shutil
+        os.rename(os.path.join(path, "linux/vex"), os.path.join(path, "vex"))
+        os.rename(os.path.join(path, "linux/vex.pck"), os.path.join(path, "vex.pck"))
+        shutil.rmtree(os.path.join(path, "linux"))
+        os.chmod(os.path.join(path, "vex"), 0o755)
+    case _:
+      pass
 
 launcher.loadConfig(
   launcher.Config(
