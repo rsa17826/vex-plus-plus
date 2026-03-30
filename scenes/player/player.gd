@@ -1972,7 +1972,3 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # why does stacking water cause lag?
 # fix loading into a level not dying when falling right down onto death boundary
 # fix fans bloing player wrong dir when grav is changed
-
-# make save level name in replay and load level before starting replay also make sure to store state of save file before starting recording in the replay and before replaing the replay so the savefile can be restored after the replay is done playing so that the replay doesnt end up changing the save file
-# make sure that the replay will pause both recording and playing when entering an inner level to prevent loading times rfom breaking the replay
-# make sure that entering an inner level while replaying works correctly
