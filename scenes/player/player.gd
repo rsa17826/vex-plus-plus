@@ -207,23 +207,18 @@ func _ready() -> void:
 var defaultAngle: float
 var startedPanning: bool = false
 
-const _REPLAY_SNAPSHOT_INTERVAL: int = 60
-const _REPLAY_ACTIONS: Array = ["left", "right", "jump", "down", "toggle_noclip", "restart", "full_restart"]
-
 func _unhandled_input(event: InputEvent) -> void:
   if get_viewport().gui_get_focus_owner(): return
   if global.tabMenu.visible: return
   if global.openMsgBoxCount: return
-  if Input.is_action_just_pressed(&"replay_play", true):
-    global.replay_start_playback()
   if Input.is_action_just_pressed(&"replay_save", true):
-    global.replay_stop_recording()
+    global.Replay.stopRecording()
     var i = 0
-    if !DirAccess.dir_exists_absolute("res://replays/" + global.MAIN_LEVEL_NAME):
-      DirAccess.make_dir_absolute("res://replays/" + global.MAIN_LEVEL_NAME)
-    while FileAccess.file_exists("res://replays/" + global.MAIN_LEVEL_NAME + '/' + str(i)):
+    if !DirAccess.dir_exists_absolute("res://replays/" + global.mainLevelName):
+      DirAccess.make_dir_absolute("res://replays/" + global.mainLevelName)
+    while FileAccess.file_exists("res://replays/" + global.mainLevelName + '/' + str(i)):
       i += 1
-    global.replay_save("res://replays/" + global.MAIN_LEVEL_NAME + '/' + str(i))
+    global.Replay.save("res://replays/" + global.mainLevelName + '/' + str(i))
   if Input.is_action_just_pressed(&"activate_temporary_checkpoint", true):
     lastSpawnPoint = (global_position - root.global_position)
     global.currentLevel().up_direction = up_direction
@@ -233,17 +228,17 @@ func _unhandled_input(event: InputEvent) -> void:
       global.currentLevel().gravState = gravState
       global.currentLevel().speedLeverActive = speedLeverActive
 
-  if _gi_pressed(&"toggle_noclip", true):
+  if Input.is_action_pressed(&"toggle_noclip", true):
     noclipEnabled = !noclipEnabled
-  if _gi_pressed(&"restart", true):
+  if Input.is_action_pressed(&"restart", true):
     lastDeathMessage = "player decided to try again"
     die(DEATH_TIME, false, true)
-  if _gi_pressed(&"full_restart", true):
+  if Input.is_action_pressed(&"full_restart", true):
     lastDeathMessage = "player realized they were softlocked"
     die(DEATH_TIME, true, true)
 
   if state != States.dead and global.showEditorUi:
-    if _gi_just_pressed(&"focus_on_player", true):
+    if Input.is_action_just_pressed(&"focus_on_player", true):
       global.setEditorUiState(false)
       camLockPos = Vector2.ZERO
       camera.position = Vector2.ZERO
@@ -332,33 +327,25 @@ func clearWallData():
 # var rec = 0
 func _physics_process(delta: float) -> void:
   # log.pp(delta)
-  if global.Replay.paused: return
-  # --- Replay: record this frame's inputs ---
-  if global.Replay.recording and not global.Replay.paused:
-    var _fd: Dictionary = {"pressed": {}, "just_pressed": {}}
-    for _a: String in _REPLAY_ACTIONS:
-      _fd.pressed[_a] = Input.is_action_pressed(_a)
-      _fd.just_pressed[_a] = Input.is_action_just_pressed(_a)
-    global.Replay.data.append(_fd)
-    if global.Replay.frame > 0 and global.Replay.frame % _REPLAY_SNAPSHOT_INTERVAL == 0:
-      global.Replay.snapshots[global.Replay.frame] = global.capture_snapshot()
-    global.Replay.frame += 1
+  # --- Replay: record this frame's full state ---
+  if global.Replay.recording:
+    global.Replay.captureFrame()
 
-  # --- Replay: inject this frame's inputs during playback ---
+  # --- Replay: apply stored state directly during playback ---
   if global.Replay.playing:
-    log.pp(global.Replay.frame, global.Replay.data.size(), global.Replay.paused, global.Replay.frame >= global.Replay.data.size())
-    if global.Replay.paused:
-      global.Replay.injected = {} # no inputs while level is loading
-    elif global.Replay.frame >= global.Replay.data.size():
-      global.Replay.paused = true
-      global.Replay.injected = {}
-    else:
-      # log.pp(global.Replay.injected,1111)
-      global.Replay.injected = global.Replay.data[global.Replay.frame]
-      # log.pp(global.Replay.injected,2222)
-      if global.Replay.frame in global.Replay.snapshots:
-        global.Replay.restoreSnapshot(global.Replay.snapshots[global.Replay.frame])
-      global.Replay.frame += 1
+    if not global.Replay.paused:
+      if global.Replay.frame >= global.Replay.data.size():
+        global.Replay.pause()
+      else:
+        var fd: Dictionary = global.Replay.data[global.Replay.frame]
+        # Load level if it changed (e.g. entering/exiting inner level during recording)
+        if fd.level != global.mainLevelName:
+          global.Replay.pause()
+          await global.loadMap(fd.level, false, true)
+          global.Replay.resume()
+        global.Replay.applyFrame(fd)
+        global.Replay.frame += 1
+    return # skip all physics during playback — state is set directly above
 
   up_direction = global.clearLow(up_direction)
   defaultAngle = up_direction.angle() + deg_to_rad(90)
@@ -390,15 +377,15 @@ func _physics_process(delta: float) -> void:
     # States.levelLoading,
   ] \
   and not inWaters:
-    if _gi_just_pressed(&"jump"):
+    if Input.is_action_just_pressed(&"jump"):
       ACTIONjump = true
-  if !_gi_pressed(&"jump"):
+  if !Input.is_action_pressed(&"jump"):
     ACTIONjump = false
   var onStickyFloor = stickyFloorDetector.get_overlapping_areas()
   Engine.time_scale = .3 if global.useropts.__slowTime else 1.0
   if global.openMsgBoxCount: return
   if get_viewport().gui_get_focus_owner(): return
-  if Input.is_action_pressed(&"editor_select")&&!global.Replay.playing:
+  if Input.is_action_pressed(&"editor_select") and !global.Replay.playing:
     if root in global.boxSelect_selectedBlocks or root == global.selectedBlock:
       position = Vector2.ZERO
     return
@@ -534,7 +521,7 @@ func _physics_process(delta: float) -> void:
         activePole.root.timingIndicator.visible = false
         activePole = null
         poleCooldown = MAX_POLE_COOLDOWN
-      elif _gi_just_pressed(&"down"):
+      elif Input.is_action_just_pressed(&"down"):
         remainingJumpCount -= 1
         vel.user.y = 0
         activePole.root.timingIndicator.visible = false
@@ -571,7 +558,7 @@ func _physics_process(delta: float) -> void:
       if pulleyNoDieTimer <= 0:
         tryAndDieHazards()
 
-      if _gi_just_pressed(&"down") or inWaters:
+      if Input.is_action_just_pressed(&"down") or inWaters:
         remainingJumpCount -= 1
         state = States.falling
       applyHeat(delta)
@@ -622,7 +609,7 @@ func _physics_process(delta: float) -> void:
         vel.user.y = JUMP_POWER
         ziplineCooldown = MAX_ZIPLINE_COOLDOWN
         return
-      if _gi_pressed(&"down"):
+      if Input.is_action_pressed(&"down"):
         remainingJumpCount -= 1
         state = States.falling
         ziplineCooldown = MAX_ZIPLINE_COOLDOWN
@@ -690,7 +677,7 @@ func _physics_process(delta: float) -> void:
         waterAnimBottom.visible = true
         anim.visible = false
         # turn player
-        rotation_degrees += delta * WATER_TURNSPEED * _gi_axis("left", "right")
+        rotation_degrees += delta * WATER_TURNSPEED * Input.get_axis("left", "right")
         # dont store velocity from normal movement if in water
         vel.user = Vector2.ZERO
         # set state to falling for when player exits the water
@@ -699,7 +686,7 @@ func _physics_process(delta: float) -> void:
         if global.currentLevelSettings().autoRun:
           velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * 1
         else:
-          velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * _gi_axis("down", "jump")
+          velocity += Vector2(-transform.y) * delta * WATER_MOVESPEED * Input.get_axis("down", "jump")
         velocity *= .8
         # only bounce out of the water if going up
         # log.err(velocity)
@@ -709,7 +696,7 @@ func _physics_process(delta: float) -> void:
         vel.waterMove = Vector2.ZERO
         for v: String in vel:
           vel[v] = Vector2.ZERO
-        if waterRay.is_colliding() and _gi_pressed(&"jump"):
+        if waterRay.is_colliding() and Input.is_action_pressed(&"jump"):
           vel.waterExit = Vector2(Vector2(0, WATER_EXIT_BOUNCE_FORCE).rotated(rotation - defaultAngle))
         # reset some variables to allow player to grab both walls when exiting water
         playerXIntent = 0
@@ -792,7 +779,7 @@ func _physics_process(delta: float) -> void:
           breakFromWall = false
           # if not moving or trying to not move, go idle
           if !vel.user or !playerXIntent or playerXIntent != vel.user.x:
-            if state == States.sliding and !_gi_pressed(&"down"):
+            if state == States.sliding and !Input.is_action_pressed(&"down"):
               if abs(vel.user.x) < 10:
                 duckRecovery = MAX_SLIDE_RECOVER_TIME
               else:
@@ -898,7 +885,7 @@ func _physics_process(delta: float) -> void:
             # remainingJumpCount = MAX_JUMP_COUNT
             state = States.wallSliding
             # press down to detach from wallslide
-            if _gi_pressed(&"down") and wallBreakDownFrames <= 0:
+            if Input.is_action_pressed(&"down") and wallBreakDownFrames <= 0:
               breakFromWall = true
             if !breakFromWall and wallSlidingFrames <= 0:
               wallSlidingFrames = MAX_WALL_SLIDE_FRAMES
@@ -932,14 +919,14 @@ func _physics_process(delta: float) -> void:
           wallSlidingFrames = 0
           breakFromWall = false
           # press down to detach from wallhang
-          if _gi_pressed(&"down"):
+          if Input.is_action_pressed(&"down"):
             position += Vector2(0, 6).rotated(defaultAngle)
             wallBreakDownFrames = MAX_WALL_BREAK_FROM_DOWN_FRAMES
             remainingJumpCount -= 1
             state = States.falling
 
         # jump from wall grab or from the ground
-        if !_gi_pressed(&"down"):
+        if !Input.is_action_pressed(&"down"):
           if (remainingJumpCount > 0) or state == States.wallHang:
             if not onStickyFloor:
               if duckRecovery <= 0 and ACTIONjump:
@@ -957,7 +944,7 @@ func _physics_process(delta: float) -> void:
           (2 if speedLeverActive else 1)
 
         # enter slide mode when pressing down key and on the ground
-        if is_on_floor() and _gi_pressed(&"down"):
+        if is_on_floor() and Input.is_action_pressed(&"down"):
           state = States.sliding
 
         # check for falling
@@ -973,7 +960,7 @@ func _physics_process(delta: float) -> void:
             state = States.falling
 
         # # # do a short hop if pressing down after jumping
-        # if _gi_pressed(&"down"):
+        # if Input.is_action_pressed(&"down"):
         #   for v in vel:
         #     if vel[v].y < 0:
         #       var c = delta * 1000
@@ -1298,7 +1285,7 @@ func getCurrentLrState():
   if respawnCooldown > 0: return 0
   if global.currentLevelSettings().autoRun:
     return autoRunDirection
-  return _gi_axis("left", "right")
+  return Input.get_axis("left", "right")
 
 func applyHeat(delta):
   var heatToAdd = 0
@@ -1447,7 +1434,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   and playerSide.bottom \
   and applyRot(velocity).y >= -SMALL \
   and vel.user.y > SMALL \
-  and _gi_pressed(&"down") \
+  and Input.is_action_pressed(&"down") \
   :
     block.__disable()
   if block is BlockBouncy \
@@ -1475,7 +1462,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     block.unlock()
   if (block is BlockPushableBox or block is BlockBomb) \
   and getClosestWallSide() \
-  and _gi_just_pressed(&"down") \
+  and Input.is_action_just_pressed(&"down") \
   and not inWaters \
   and playerSide.bottom \
   :
@@ -1985,20 +1972,6 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # why does stacking water cause lag?
 # fix loading into a level not dying when falling right down onto death boundary
 # fix fans bloing player wrong dir when grav is changed
-
-# ── Input wrappers ──────────────────────────────────────────────────────────
-func _gi_pressed(action: StringName, only: bool = false) -> bool:
-  if global.Replay.playing and not global.Replay.injected.is_empty():
-    return global.Replay.injected.get("pressed", {}).get(str(action), false)
-  return Input.is_action_pressed(action, only)
-
-func _gi_just_pressed(action: StringName, only: bool = false) -> bool:
-  if global.Replay.playing and not global.Replay.injected.is_empty():
-    return global.Replay.injected.get("just_pressed", {}).get(str(action), false)
-  return Input.is_action_just_pressed(action, only)
-
-func _gi_axis(neg: StringName, pos: StringName) -> float:
-  return float(_gi_pressed(pos)) - float(_gi_pressed(neg))
 
 # make save level name in replay and load level before starting replay also make sure to store state of save file before starting recording in the replay and before replaing the replay so the savefile can be restored after the replay is done playing so that the replay doesnt end up changing the save file
 # make sure that the replay will pause both recording and playing when entering an inner level to prevent loading times rfom breaking the replay

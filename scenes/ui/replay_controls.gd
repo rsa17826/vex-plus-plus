@@ -5,20 +5,10 @@ var _slider: HSlider
 var _play_pause_btn: Button
 var _frame_label: Label
 var _scrubbing: bool = false
-var _seek_to: int = -1  # -1 = idle. >=0 = run real frames until Replay.frame reaches this
 
 func _ready() -> void:
   _build_ui()
   set_process(true)
-  set_physics_process(true)
-
-func _physics_process(_delta: float) -> void:
-  # When seeking: let real physics frames run and stop once we hit the target.
-  # This is the only correct way to advance the replay — move_and_slide needs
-  # a real physics tick, not a manual _physics_process call.
-  if _seek_to >= 0 and global.Replay.frame >= _seek_to:
-    _seek_to = -1
-    global.Replay.pause()
 
 func _build_ui() -> void:
   var bg := ColorRect.new()
@@ -29,9 +19,9 @@ func _build_ui() -> void:
 
   var margin := MarginContainer.new()
   margin.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-  margin.add_theme_constant_override("margin_left",  12)
+  margin.add_theme_constant_override("margin_left", 12)
   margin.add_theme_constant_override("margin_right", 12)
-  margin.add_theme_constant_override("margin_top",    6)
+  margin.add_theme_constant_override("margin_top", 6)
   margin.add_theme_constant_override("margin_bottom", 6)
   add_child(margin)
 
@@ -51,13 +41,13 @@ func _build_ui() -> void:
   _slider.min_value = 0
   _slider.step = 1
   _slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-  _slider.size_flags_vertical   = Control.SIZE_SHRINK_CENTER
+  _slider.size_flags_vertical = Control.SIZE_SHRINK_CENTER
   _slider.focus_mode = Control.FOCUS_NONE
   _slider.drag_started.connect(func():
-    _scrubbing = true
+    _scrubbing=true
     global.Replay.pause())
   _slider.drag_ended.connect(func(_changed):
-    _scrubbing = false
+    _scrubbing=false
     _seek(int(_slider.value)))
   hbox.add_child(_slider)
 
@@ -70,7 +60,6 @@ func _build_ui() -> void:
 func _process(_delta: float) -> void:
   if not is_instance_valid(global.player): return
   visible = global.Replay.playing
-
   if not visible: return
 
   var total: int = global.Replay.totalFrames()
@@ -83,13 +72,12 @@ func _process(_delta: float) -> void:
 
   _play_pause_btn.text = "⏸" if (global.Replay.playing and not global.Replay.paused) else "▶"
 
-  var fps  := Engine.physics_ticks_per_second
+  var fps := Engine.physics_ticks_per_second
   var secs := frame / float(fps) if fps > 0 else 0.0
   _frame_label.text = "%d / %d  (%.1f s)" % [frame, total, secs]
 
 func _on_play_pause() -> void:
   if not is_instance_valid(global.player): return
-  _seek_to = -1  # cancel any in-progress seek
   if not global.Replay.playing:
     if global.Replay.data.is_empty(): return
     if global.Replay.frame >= global.Replay.totalFrames():
@@ -101,22 +89,12 @@ func _on_play_pause() -> void:
   else:
     global.Replay.pause()
 
-# ── Shared seek: restore nearest snapshot then run real frames to target ──────
 func _seek(target: int) -> void:
-  if not is_instance_valid(global.player): return
-  target = clampi(target, 0, global.Replay.totalFrames())
-  global.Replay.seek(target)   # restores snapshot, sets Replay.frame = best snapshot frame
-  if global.Replay.frame >= target:
-    # Already at or past target (target was exactly on a snapshot)
-    global.Replay.pause()
-    _seek_to = -1
-  else:
-    # Let real physics frames run until we reach the target
-    _seek_to = target
-    global.Replay.paused = false
+  # Instant — no physics simulation needed, state-based system
+  global.Replay.seek(clampi(target, 0, global.Replay.totalFrames() - 1))
 
 func _step(frames: int) -> void:
-  if not is_instance_valid(global.player): return
+  global.Replay.pause()
   _seek(global.Replay.frame + frames)
 
 func _btn(label: String, cb: Callable) -> Button:
