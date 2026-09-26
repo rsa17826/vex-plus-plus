@@ -211,14 +211,6 @@ func _unhandled_input(event: InputEvent) -> void:
   if get_viewport().gui_get_focus_owner(): return
   if global.tabMenu.visible: return
   if global.openMsgBoxCount: return
-  if Input.is_action_just_pressed(&"replay_save", true):
-    global.Replay.stopRecording()
-    var i = 0
-    if !DirAccess.dir_exists_absolute("res://replays/" + global.mainLevelName):
-      DirAccess.make_dir_absolute("res://replays/" + global.mainLevelName)
-    while FileAccess.file_exists("res://replays/" + global.mainLevelName + '/' + str(i)):
-      i += 1
-    global.Replay.save("res://replays/" + global.mainLevelName + '/' + str(i))
   if Input.is_action_just_pressed(&"activate_temporary_checkpoint", true):
     lastSpawnPoint = (global_position - root.global_position)
     global.currentLevel().up_direction = up_direction
@@ -228,12 +220,12 @@ func _unhandled_input(event: InputEvent) -> void:
       global.currentLevel().gravState = gravState
       global.currentLevel().speedLeverActive = speedLeverActive
 
-  if Input.is_action_pressed(&"toggle_noclip", true):
+  if Input.is_action_just_pressed(&"toggle_noclip", true):
     noclipEnabled = !noclipEnabled
-  if Input.is_action_pressed(&"restart", true):
+  if Input.is_action_just_pressed(&"restart", true):
     lastDeathMessage = "player decided to try again"
     die(DEATH_TIME, false, true)
-  if Input.is_action_pressed(&"full_restart", true):
+  if Input.is_action_just_pressed(&"full_restart", true):
     lastDeathMessage = "player realized they were softlocked"
     die(DEATH_TIME, true, true)
 
@@ -326,27 +318,46 @@ func clearWallData():
 # var i = -1
 # var rec = 0
 func _physics_process(delta: float) -> void:
-  # log.pp(delta)
-  # --- Replay: record this frame's full state ---
-  if global.Replay.recording:
-    global.Replay.captureFrame()
-
-  # --- Replay: apply stored state directly during playback ---
-  if global.Replay.playing:
-    if not global.Replay.paused:
-      if global.Replay.frame >= global.Replay.data.size():
-        global.Replay.pause()
-      else:
-        var fd: Dictionary = global.Replay.data[global.Replay.frame]
-        # Load level if it changed (e.g. entering/exiting inner level during recording)
-        if fd.level != global.mainLevelName:
-          global.Replay.pause()
-          await global.loadMap(fd.level, false, true)
-          global.Replay.resume()
-        global.Replay.applyFrame(fd)
-        global.Replay.frame += 1
-    return # skip all physics during playback — state is set directly above
-
+  # if rec == 1:
+  #   var temp = []
+  #   for k in ["jump", "down", "left", "right"]:
+  #     if Input.is_action_just_pressed(k):
+  #       temp.append([k, true])
+  #     if Input.is_action_just_released(k):
+  #       temp.append([k, false])
+  #   inps.append(temp)
+  # elif rec == 2:
+  #   i += 1
+  #   var a = InputEventAction.new()
+  #   if i >= len(inps):
+  #     rec = 0
+  #     return
+  #   for event in inps[i]:
+  #     a.pressed = event[1]
+  #     a.action = event[0]
+  #     Input.parse_input_event(a)
+  # if Input.is_action_just_pressed("recordStart"):
+  #   inps = []
+  #   rec = 1
+  #   die(20, true, true)
+  # if Input.is_action_just_pressed("recordStop"):
+  #   for event in ['jump', "down", "left", "right"]:
+  #     var a = InputEventAction.new()
+  #     a.pressed = false
+  #     a.action = event
+  #     Input.parse_input_event(a)
+  #   rec = 0
+  #   die(20, true, true)
+  # if Input.is_action_just_pressed("replay"):
+  #   i = -1
+  #   rec = 2
+  #   die(20, true, true)
+  # if deathSources:
+  #   log.err(deathSources, deathSources.filter(func(e):
+  #     return global.isAlive(e) and !e.respawning))
+  # vel.user.y += 1 * delta
+  # sss.y += 1 * delta
+  # return
   up_direction = global.clearLow(up_direction)
   defaultAngle = up_direction.angle() + deg_to_rad(90)
   if abs(defaultAngle) < .0001:
@@ -385,7 +396,7 @@ func _physics_process(delta: float) -> void:
   Engine.time_scale = .3 if global.useropts.__slowTime else 1.0
   if global.openMsgBoxCount: return
   if get_viewport().gui_get_focus_owner(): return
-  if Input.is_action_pressed(&"editor_select") and !global.Replay.playing:
+  if Input.is_action_pressed(&"editor_select"):
     if root in global.boxSelect_selectedBlocks or root == global.selectedBlock:
       position = Vector2.ZERO
     return
@@ -441,7 +452,6 @@ func _physics_process(delta: float) -> void:
         await global.wait()
         stopDying()
         global.resendActiveSignals()
-        log.pp(global.Replay.recording, global.Replay.playing, 'global.Replay.playing')
       return
     States.inCannon:
       remainingJumpCount = MAX_JUMP_COUNT
@@ -567,9 +577,6 @@ func _physics_process(delta: float) -> void:
       clearWallData()
       setRot(defaultAngle)
       anim.animation = &'zipline'
-      if !targetZipline:
-        state = States.idle
-        return
       var heightDiff = abs(targetZipline.global_position.y - activeZipline.global_position.y)
       var lowerZipline = activeZipline if targetZipline.global_position.y < activeZipline.global_position.y else targetZipline
       var higherZipline = targetZipline if lowerZipline == activeZipline else activeZipline
@@ -1136,9 +1143,9 @@ func _physics_process(delta: float) -> void:
         tryAndDieSquish()
       applyHeat(delta)
       updateKeyFollowPosition(delta)
-  # if !global.showEditorUi:
-    # var changeInPosition: Vector2 = global_position - frameStartPosition
-    # var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
+  if !global.showEditorUi:
+    var changeInPosition: Vector2 = global_position - frameStartPosition
+    var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
     # if maxVel > 50:
     #   camera.position_smoothing_enabled = false
     # else:

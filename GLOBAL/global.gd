@@ -594,144 +594,8 @@ func clearLow(v):
       log.warn("clearLow: unknown type", type_string(typeof(v)))
       breakpoint
   return v
+
 # local game only data
-# ── Replay API ───────────────────────────────────────────────────────────────
-class Replay:
-  static var paused: bool = false
-  static var playing: bool = false
-  static var recording: bool = false
-  static var frame: int = 0
-  static var data: Array = [] # Array of per-frame full state dicts
-  static var saveData: Variant = null
-  static var levelName: String = "" # level at recording start, for loading on playback
-
-  # ── Recording ────────────────────────────────────────────────────────────────
-  static func startRecording() -> void:
-    #
-    return
-    # data = []
-    # frame = 0
-    # levelName = global.mainLevelName
-    # saveData = sds.loadDataFromFile(global.CURRENT_LEVEL_SAVE_PATH, null)
-    # recording = true
-
-  static func stopRecording() -> void:
-    recording = false
-
-  # Capture everything needed to render this frame — called every physics tick while recording
-  static func captureFrame() -> void:
-    var p := global.player
-    var fd: Dictionary = {
-      "level": global.mainLevelName,
-      # player transform + physics visible state
-      "pos": p.position,
-      "rot": p.rotation,
-      "vel": p.velocity,
-      "state": p.state,
-      "up_dir": p.up_direction,
-      "flip_h": p.anim.flip_h,
-      # main sprite
-      "anim": p.anim.animation,
-      "anim_frame": p.anim.frame,
-      "anim_visible": p.anim.visible,
-      "anim_pos": p.anim.position,
-      # water sprites
-      "wt_visible": p.waterAnimTop.visible,
-      "wt_anim": p.waterAnimTop.animation,
-      "wt_frame": p.waterAnimTop.frame,
-      "wb_visible": p.waterAnimBottom.visible,
-      "wb_anim": p.waterAnimBottom.animation,
-      "wb_frame": p.waterAnimBottom.frame,
-      # collision shape (affects visible duck/slide crouch)
-      "col_size_y": p.mainCollisionShape2D.shape.size.y,
-      "col_pos_y": p.mainCollisionShape2D.position.y,
-    }
-    # All replay_blocks (moving blocks, bombs, etc.)
-    var blocks: Dictionary = {}
-    for block in global.get_tree().get_nodes_in_group("replay_blocks"):
-      blocks[block.get_path()] = (block as EditorBlock).replay_capture()
-    fd.blocks = blocks
-    data.append(fd)
-
-  # ── Playback ─────────────────────────────────────────────────────────────────
-  static func startPlayback() -> void:
-    if data.is_empty(): return
-    stopRecording()
-    playing = true
-    paused = false
-    frame = 0
-
-  static func stopPlayback() -> void:
-    playing = false
-    paused = false
-
-  static func pause() -> void:
-    paused = true
-
-  static func resume() -> void:
-    paused = false
-
-  # Apply a frame's state directly — no physics, instant
-  static func applyFrame(fd: Dictionary) -> void:
-    var p := global.player
-    p.position = fd.pos
-    p.rotation = fd.rot
-    p.velocity = fd.vel
-    p.state = fd.state
-    p.up_direction = fd.up_dir
-    p.anim.flip_h = fd.flip_h
-    p.anim.animation = fd.anim
-    p.anim.frame = fd.anim_frame
-    p.anim.visible = fd.anim_visible
-    p.anim.position = fd.anim_pos
-    p.waterAnimTop.visible = fd.wt_visible
-    p.waterAnimTop.animation = fd.wt_anim
-    p.waterAnimTop.frame = fd.wt_frame
-    p.waterAnimBottom.visible = fd.wb_visible
-    p.waterAnimBottom.animation = fd.wb_anim
-    p.waterAnimBottom.frame = fd.wb_frame
-    p.mainCollisionShape2D.shape.size.y = fd.col_size_y
-    p.mainCollisionShape2D.position.y = fd.col_pos_y
-    for path: String in fd.get("blocks", {}):
-      var block := global.get_node_or_null(path)
-      if block is EditorBlock:
-        block.replay_restore(fd.blocks[path])
-
-  # Seek is instant — just apply the frame directly
-  static func seek(target_frame: int) -> void:
-    if data.is_empty(): return
-    frame = clampi(target_frame, 0, data.size() - 1)
-    applyFrame(data[frame])
-
-  static func totalFrames() -> int:
-    return data.size()
-
-  # ── Save / Load ──────────────────────────────────────────────────────────────
-  static func save(path: String) -> void:
-    var file := FileAccess.open(path, FileAccess.WRITE)
-    if not file: return
-    file.store_var({
-      "frames": data,
-      "level_name": levelName,
-      "save_data": saveData,
-    })
-    file.close()
-
-  static func loadReplay(path: String) -> void:
-    var file := FileAccess.open(path, FileAccess.READ)
-    if not file: return
-    var d: Dictionary = file.get_var()
-    file.close()
-    data = d.get("frames", [])
-    levelName = d.get("level_name", global.mainLevelName)
-    saveData = d.get("save_data", null)
-    frame = 0
-    playing = true
-    await global.loadMap(levelName, false, true)
-
-    # # Restore save file to recording-start state so level loads identically
-    # if saveData != null:
-    #   sds.saveDataToFile(global.CURRENT_LEVEL_SAVE_PATH, saveData)
 
 var player: Player
 var level: Node2D
@@ -1374,7 +1238,6 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"exit_inner_level", false, true):
     if level and is_instance_valid(level):
       if len(loadedLevels) > 1:
-        global.Replay.pause()
         if useropts.saveOnExit:
           level.save(false)
         loadedLevels.pop_back()
@@ -1392,7 +1255,6 @@ func _unhandled_input(event: InputEvent) -> void:
         player.die(15, false, true)
         # player.die(3, false, true)
         global.tick = global.currentLevel().tick
-        global.Replay.resume()
         # savePlayerLevelData()
   if event.is_action_pressed(&"save", false, true):
     if level and is_instance_valid(level):
@@ -1568,7 +1430,6 @@ var loadingLevel = false
 func loadInnerLevel(innerLevel: String) -> void:
   if loadingLevel: return
   loadingLevel = true
-  global.Replay.pause()
   player.state = player.States.levelLoading
   # breakpoint
   if useropts.saveLevelOnWin:
@@ -1605,7 +1466,6 @@ func loadInnerLevel(innerLevel: String) -> void:
   player.die(15, false, true)
   loadBlockData()
   await savePlayerLevelData()
-  global.Replay.resume()
   loadingLevel = false
   # log.pp(loadedLevels, beatLevels)
 var saveData: Variant
@@ -1623,20 +1483,19 @@ func win() -> void:
   if len(loadedLevels) == 0:
     log.pp("PLAYER WINS!!!")
     loadedLevels.append(beatLevels.pop_back())
-    if !Replay.playing:
-      saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
-      if "loadedLevels" not in saveData:
-        saveData.loadedLevels = loadedLevels
-      if "beatLevels" not in saveData:
-        saveData.beatLevels = []
-      if not currentLevel() \
-      or currentLevel().name not in saveData \
-      or "blockSaveData" not in saveData[currentLevel().name] \
-      :
-        currentLevel().blockSaveData = {}
-      # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
-      saveData.beatMainLevel = true
-      sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
+    saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, {})
+    if "loadedLevels" not in saveData:
+      saveData.loadedLevels = loadedLevels
+    if "beatLevels" not in saveData:
+      saveData.beatLevels = []
+    if not currentLevel() \
+    or currentLevel().name not in saveData \
+    or "blockSaveData" not in saveData[currentLevel().name] \
+    :
+      currentLevel().blockSaveData = {}
+    # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
+    saveData.beatMainLevel = true
+    sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
     loadMap.call_deferred(mainLevelName, true)
     return
   await wait()
@@ -1676,8 +1535,7 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
     currentLevel().speedLeverActive = player.speedLeverActive
   currentLevel().blockSaveData = saveBlockData()
   # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
-  if !Replay.playing:
-    sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
+  sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
   savingPlayerLevelData = false
 
 func newLevelSaveData(levelname):
@@ -1730,8 +1588,7 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   levelDataForCurrentMap.clear()
   get_tree().set_debug_collisions_hint(global.hitboxesShown)
   mainLevelName = mapName
-  if !Replay.playing:
-    saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
+  saveData = sds.loadDataFromFile(CURRENT_LEVEL_SAVE_PATH, null)
 
   levelFolderPath = path.abs(path.join(MAP_FOLDER, mapName))
   var mapInfo: Variant = await loadMapInfo(mapName)
@@ -1829,8 +1686,6 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   await wait()
   player.die(15, false, true)
   global.tick = global.currentLevel().tick
-  if !global.Replay.playing:
-    Replay.startRecording()
   return true
 
 func loadBlockData():
