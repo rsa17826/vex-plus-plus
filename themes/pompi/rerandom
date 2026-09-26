@@ -1,0 +1,413 @@
+#!/usr/bin/env python3
+"""
+rerandom - find runs of random-looking text (tokens, ids, secrets) and
+replace each with a freshly generated random string of the same length,
+built from the same character classes/symbols the original used.
+
+Usage:
+    ./rerandom [--dry-run] [--min-len N] file1 file2 ...
+    ./rerandom **/*.js          (with shell globstar enabled)
+
+Same original random string -> same replacement, reused across every file
+given on the command line.
+
+This is heuristic. It prints every replacement and every file touched
+(and every file left untouched) so you can review before trusting it.
+Tune the constants below (DELIMITERS, SOFT_SEPARATORS, KNOWN_LABELS,
+MIN_LEN) if it's too aggressive or not aggressive enough for your data.
+"""
+
+import sys
+import re
+import glob
+import random
+import string
+
+# ---------------------------------------------------------------------------
+# Tunables
+# ---------------------------------------------------------------------------
+
+# Characters that always END a run of "possibly random" text. Everything
+# else (including most punctuation like @ # ! $ % ^ & * ~) is considered
+# part of a candidate run, because random tokens/passwords often contain it.
+DELIMITERS = '"\'`/\\()[]{}<>:;,=| \t\r\n'
+
+# Within a run, these are "soft" separators: if a run is made of ONLY
+# alnum + these chars, we try to split it into label/data segments (e.g.
+# "pat_xxxxxxx" -> keep "pat_", randomize "xxxxxxx"). If a run contains any
+# OTHER punctuation (like @#!), we skip segmentation and treat the whole
+# run as one blob, since a stray label prefix can't be cleanly identified.
+SOFT_SEPARATORS = set('_-.+')
+
+# Characters that, when they're the ONLY thing separating two runs, are
+# treated as possibly just part of one bigger encoded/packed blob rather
+# than a real boundary between two unrelated values (see find_runs()).
+MERGE_CHARS = set('/')
+
+# Short/common prefixes that look like labels rather than random data
+# (case-insensitive). Any alpha segment of length <= 5 is also treated
+# as a label automatically.
+KNOWN_LABELS = {
+    "pat", "key", "id", "uid", "guid", "tok", "token", "api", "sk", "pk",
+    "jwt", "auth", "secret", "hash", "hex", "sess", "session", "cred",
+    "pw", "pwd", "pass", "bearer", "client", "access", "refresh",
+    "private", "public", "kn",
+}
+
+MIN_LEN = 4
+MAX_LEN = 50
+
+DELIM_SET = set(DELIMITERS)
+RUN_RE = re.compile(r'[^' + re.escape(DELIMITERS) + r']+')
+
+
+# ---------------------------------------------------------------------------
+# Heuristics
+# ---------------------------------------------------------------------------
+
+VOWELS = set('aeiouy')  # 'y' counted as a vowel here purely to make the
+                        # consonant-cluster heuristic below behave better
+                        # on real words like "styles", "rhythm", "glyph"
+
+
+def char_class_count(s, ignore=''):
+    """Count how many of {lower, upper, digit, hard-symbol} appear in s,
+    ignoring any characters in `ignore` (used to exclude soft separators
+    like '_' from counting as a meaningful 'symbol' class)."""
+    s = ''.join(c for c in s if c not in ignore)
+    classes = 0
+    if any(c.islower() for c in s):
+        classes += 1
+    if any(c.isupper() for c in s):
+        classes += 1
+    if any(c.isdigit() for c in s):
+        classes += 1
+    if any(not c.isalnum() for c in s):
+        classes += 1
+    return classes
+
+
+def max_consonant_run(s):
+    best = run = 0
+    for c in s.lower():
+        if c.isalpha() and c not in VOWELS:
+            run += 1
+            best = max(best, run)
+        else:
+            run = 0
+    return best
+
+
+def alpha_looks_random(s):
+    """Is this pure-alpha, single-case-class chunk more likely random
+    letters than a real word? Real English words rarely stack 4+
+    consonants in a row; random letter strings often do."""
+    if len(s) >= 12:
+        return True
+    return max_consonant_run(s) >= 4
+
+
+# Splits "StyleBoxLine" -> ["Style","Box","Line"], "Texture2D" -> ["Texture","2D"]
+CAMEL_RE = re.compile(r'[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|\d+[A-Z]*')
+
+
+def is_word_sequence(s):
+    """True if s (letters/digits, possibly mixed case, no separators)
+    reads like a real identifier made of real words/abbreviations - e.g.
+    'StyleBoxLine', 'Texture2D', 'TabBar' - rather than random characters.
+    """
+    words = CAMEL_RE.findall(s)
+    if not words:
+        return False
+    alpha_words = [w for w in words if w.isalpha()]
+    if not alpha_words:
+        # nothing but digit/suffix chunks (shouldn't normally happen)
+        return False
+    short = [w for w in alpha_words if len(w) <= 2]
+    if len(short) / len(alpha_words) > 0.4:
+        return False
+    for w in alpha_words:
+        if len(w) <= 2:
+            continue
+        if alpha_looks_random(w):
+            return False
+    return True
+
+
+def looks_random_single(s):
+    """looks_random for a string with no soft separators in it (or one
+    already containing 'hard' punctuation)."""
+    if len(set(s)) == 1:
+        return False  # "aaaaaaaa", "11111111"
+
+    if s.isdigit():
+        digits = [int(c) for c in s]
+        ascending = all(b - a == 1 for a, b in zip(digits, digits[1:]))
+        descending = all(b - a == -1 for a, b in zip(digits, digits[1:]))
+        return not (ascending or descending)
+
+    has_alpha = any(c.isalpha() for c in s)
+    has_digit = any(c.isdigit() for c in s)
+
+    if has_alpha and not has_digit and char_class_count(s) == 1:
+        # single case, alpha only (e.g. "styles", "kjldsalkj...")
+        if is_word_sequence(s):
+            return False
+        return alpha_looks_random(s)
+
+    if has_alpha:
+        # mixed case, and/or letters+digits (e.g. "Texture2D", "64rh0",
+        # "ct7nyk7igch6l", "TacPTj7uAVNkf4A7JSv747wYSEfKb6D")
+        if is_word_sequence(s):
+            return False
+        return True
+
+    return len(s) >= MIN_LEN
+
+
+def looks_random(s):
+    """Heuristic: does this candidate string look like random data
+    (token/password/id) rather than a normal word, identifier, or
+    structured value?"""
+    if not (MIN_LEN <= len(s) <= MAX_LEN):
+        return False
+
+    has_hard_symbol = any((not c.isalnum()) and c not in SOFT_SEPARATORS for c in s)
+    has_soft_separator = bool(set(s) & SOFT_SEPARATORS)
+
+    if has_hard_symbol or not has_soft_separator:
+        return looks_random_single(s)
+
+    # Only alnum + soft separators (e.g. "search_result_color",
+    # "user_a8x9k2m1qz"). Check each underscore/dot/hyphen-joined chunk
+    # on its own terms - a digit, mixed case, or one non-word-like chunk
+    # is enough to call the whole thing data rather than joined English
+    # words/identifiers.
+    segments = [seg for seg in re.split(r'[_\-.+]', s) if seg]
+    return any(looks_random_single(seg) if not seg.isalpha() else
+               (not is_word_sequence(seg) and alpha_looks_random(seg))
+               for seg in segments)
+
+
+def is_label(seg):
+    if not seg:
+        return False
+    if seg.lower() in KNOWN_LABELS:
+        return True
+    if len(seg) <= 5 and seg.isalpha():
+        return True
+    if seg.isalpha() or (any(c.isalpha() for c in seg) and any(c.isdigit() for c in seg)):
+        if is_word_sequence(seg):
+            return True
+    return False
+
+
+def is_segmentable(run):
+    return all(c.isalnum() or c in SOFT_SEPARATORS for c in run)
+
+
+def split_candidate(run):
+    """Split a run into (literal_prefix_to_keep, candidate_to_randomize).
+
+    Only strips a leading run of label-like segments joined by soft
+    separators (_-.+). If the run contains other punctuation, or has no
+    separators, the whole run is the candidate.
+    """
+    if not is_segmentable(run) or not (set(run) & SOFT_SEPARATORS):
+        return '', run
+
+    parts = re.split(r'([_\-.+])', run)  # seg, sep, seg, sep, ..., seg
+    i = 0
+    prefix = ''
+    while i + 1 < len(parts):
+        seg, sep = parts[i], parts[i + 1]
+        if is_label(seg):
+            prefix += seg + sep
+            i += 2
+        else:
+            break
+
+    candidate = ''.join(parts[i:])
+    if not candidate:
+        # whole run was "labels", nothing left - don't strip anything
+        return '', run
+    return prefix, candidate
+
+
+def gen_replacement(candidate, used):
+    pool = ''
+    if any(c.islower() for c in candidate):
+        pool += string.ascii_lowercase
+    if any(c.isupper() for c in candidate):
+        pool += string.ascii_uppercase
+    if any(c.isdigit() for c in candidate):
+        pool += string.digits
+    symbols = ''.join(sorted(set(c for c in candidate if not c.isalnum())))
+    pool += symbols
+
+    while True:
+        new = ''.join(random.choice(pool) for _ in range(len(candidate)))
+        if new != candidate and new not in used:
+            return new
+
+
+# ---------------------------------------------------------------------------
+# File handling
+# ---------------------------------------------------------------------------
+
+def expand_args(args):
+    files = []
+    seen = set()
+    for a in args:
+        matches = glob.glob(a, recursive=True) if any(ch in a for ch in '*?[') else [a]
+        for m in matches:
+            if m not in seen:
+                seen.add(m)
+                files.append(m)
+    return files
+
+
+def find_runs(text):
+    """Return [(span, run_text, prefix, candidate), ...] for every run in
+    text that looks random and isn't part of a long "packed data" chain.
+
+    Packed/encoded blobs (base64 byte arrays etc.) often get chopped into
+    short-looking fragments by delimiters like '/' that are also valid
+    data characters (e.g. "/wD/AP8A/wD/AP8A..."). A single such fragment
+    can look exactly like a short random id in isolation. To catch this,
+    runs separated by exactly one MERGE_CHAR are grouped into a chain; if
+    the chain is long (3+ links) or the whole span is long (> MAX_LEN),
+    it's treated as one packed blob and skipped entirely, regardless of
+    what each individual fragment looks like on its own.
+    """
+    matches = list(RUN_RE.finditer(text))
+
+    chains = []
+    current = []
+    prev_end = None
+    for m in matches:
+        start, end = m.span()
+        gap = text[prev_end:start] if prev_end is not None else ''
+        if current and gap and set(gap) <= MERGE_CHARS:
+            current.append(m)
+        else:
+            if current:
+                chains.append(current)
+            current = [m]
+        prev_end = end
+    if current:
+        chains.append(current)
+
+    results = []
+    for chain in chains:
+        span_len = chain[-1].end() - chain[0].start()
+        if len(chain) >= 3 or span_len > MAX_LEN:
+            continue  # looks like packed/encoded data, not tokens - skip
+        for m in chain:
+            run = m.group(0)
+            prefix, candidate = split_candidate(run)
+            if looks_random(candidate):
+                results.append((m.span(), run, prefix, candidate))
+    return results
+
+
+def main():
+    argv = sys.argv[1:]
+    dry_run = False
+    if '--dry-run' in argv:
+        dry_run = True
+        argv.remove('--dry-run')
+    if '--min-len' in argv:
+        idx = argv.index('--min-len')
+        global MIN_LEN
+        MIN_LEN = int(argv[idx + 1])
+        del argv[idx:idx + 2]
+
+    if not argv:
+        print(__doc__)
+        sys.exit(1)
+
+    files = expand_args(argv)
+    if not files:
+        print("No files matched.")
+        sys.exit(1)
+
+    contents = {}
+    # run_text (full original, e.g. "StyleBoxLine_64rh0") -> candidate
+    # (the part to randomize, e.g. "64rh0")
+    all_runs = {}
+
+    for path in files:
+        try:
+            with open(path, 'r', encoding='utf-8') as f:
+                text = f.read()
+        except (UnicodeDecodeError, IsADirectoryError, OSError) as e:
+            print(f"skipping {path}: {e}")
+            continue
+        contents[path] = text
+        for _, run, _, candidate in find_runs(text):
+            all_runs[run] = candidate
+
+    used_replacements = set()
+    mapping = {}  # run_text -> full replacement text (prefix + new candidate)
+    for run, candidate in all_runs.items():
+        prefix = run[:len(run) - len(candidate)]
+        repl = gen_replacement(candidate, used_replacements)
+        used_replacements.add(repl)
+        mapping[run] = prefix + repl
+
+    # run_text -> {"new": str, "files": set()}
+    report = {run: {"new": mapping[run], "files": set()} for run in all_runs}
+    changed_files = []
+    unchanged_files = []
+
+    for path, text in contents.items():
+        pieces = []
+        cursor = 0
+        changed = False
+        for (start, end), run, _, _ in find_runs(text):
+            if run in mapping:
+                pieces.append(text[cursor:start])
+                pieces.append(mapping[run])
+                cursor = end
+                changed = True
+                report[run]["files"].add(path)
+        pieces.append(text[cursor:])
+        new_text = ''.join(pieces)
+
+        if changed:
+            changed_files.append(path)
+            if not dry_run:
+                with open(path, 'w', encoding='utf-8') as f:
+                    f.write(new_text)
+        else:
+            unchanged_files.append(path)
+
+    # ---------------------------------------------------------------------
+    # Report
+    # ---------------------------------------------------------------------
+    print("Replacements:" if report else "No random-looking strings found.")
+    for run, info in sorted(report.items()):
+        if not info["files"]:
+            continue
+        file_list = ", ".join(sorted(info["files"]))
+        print(f"  {run!r} -> {info['new']!r}   (in: {file_list})")
+
+    print("\nFiles changed:")
+    for path in changed_files:
+        print(f"  {path}")
+    if not changed_files:
+        print("  (none)")
+
+    print("\nFiles unchanged:")
+    for path in unchanged_files:
+        print(f"  {path}")
+    if not unchanged_files:
+        print("  (none)")
+
+    if dry_run:
+        print("\n(dry run - no files were written)")
+
+
+if __name__ == '__main__':
+    main()

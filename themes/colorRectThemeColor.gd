@@ -5,13 +5,13 @@ extends ColorRect
 func _ready() -> void:
   if "theme" in global.useropts:
     color = Color(
-      ['#2d2d2d', "#374165da", "#2d2d2d99"] \
+      ['#2d2d2d', "#374165da", "#2d2d2d99", "#ff00f200"] \
       [global.useropts.theme]
     )
   await global.wait()
   color = Color(
-    ['#2d2d2d', "#374165da", "#2d2d2d99"] \
+    ['#2d2d2d', "#374165da", "#2d2d2d99", "#ff00f200"] \
     [global.useropts.theme]
   )
-  if not alpha:
+  if not alpha and global.useropts.theme != 3:
     color.a = 1

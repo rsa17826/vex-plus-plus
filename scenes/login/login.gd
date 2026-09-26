@@ -45,19 +45,20 @@ func _on_logout_pressed() -> void:
   LevelServer.updateCurrentUserInfoNode()
 
 func _ready() -> void:
-  var f = FileAccess.open("user://auth", FileAccess.READ)
-  if f:
-    var temp = f.get_var(true)
-    if temp:
-      LevelServer.identityKey = temp
-      temp = f.get_var()
+  if !LevelServer.identityKey:
+    var f = FileAccess.open("user://auth", FileAccess.READ)
+    if f:
+      var temp = f.get_var(true)
       if temp:
-        LevelServer.username = temp
-        LevelServer.updateCurrentUserInfoNode()
+        LevelServer.identityKey = temp
+        temp = f.get_var()
+        if temp:
+          LevelServer.username = temp
+          LevelServer.updateCurrentUserInfoNode()
+        else:
+          log.warn("failed to login - no username")
+          DirAccess.remove_absolute("user://auth")
       else:
-        log.warn("failed to login - no username")
+        log.warn("failed to login - no key")
         DirAccess.remove_absolute("user://auth")
-    else:
-      log.warn("failed to login - no key")
-      DirAccess.remove_absolute("user://auth")
-  log.pp(LevelServer.identityKey, LevelServer.username, "LevelServer.identityKey")
+    log.pp(LevelServer.identityKey, LevelServer.username, "LevelServer.identityKey")

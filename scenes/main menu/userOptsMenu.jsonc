@@ -499,7 +499,7 @@
         "type": "single select",
         "key": "theme",
         "defaultValue": 0,
-        "options": ["default", "blue", "black"],
+        "options": ["default", "blue", "black", "pompi"],
         "tooltip": "the theme used for the entire application."
       }
     ]

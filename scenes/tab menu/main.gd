@@ -375,9 +375,9 @@ func updateUserOpts(thingChanged: String = '') -> void:
     if global.useropts.theme == 0:
       get_window().theme = null
     else:
-      get_window().theme = load("res://themes/" + ["default", "blue", "black"][global.useropts.theme] + "/THEME.tres")
+      get_window().theme = load("res://themes/" + ["default", "blue", "black", "pompi"][global.useropts.theme] + "/THEME.tres")
     get_parent().theme = get_window().theme
-    RenderingServer.set_default_clear_color(["#4d4d4d", "#4b567aff", "#4d4d4d"][global.useropts.theme])
+    RenderingServer.set_default_clear_color(["#4d4d4d", "#4b567aff", "#4d4d4d", "#00000000"][global.useropts.theme])
     if global.isAlive(global.level):
       global.level.save(false)
       global.loadMap.call_deferred(global.mainLevelName, true)
