@@ -7,33 +7,33 @@ extends Window
 #    https://github.com/CodeNameTwister/Fancy-Folder-Icons
 #    author:    "Twister"
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-@export var texture_container : Control
-@export var line_edit : LineEdit
-@export var file_dialog : FileDialog
-@export var timer : Timer
+@export var texture_container: Control
+@export var line_edit: LineEdit
+@export var file_dialog: FileDialog
+@export var timer: Timer
 
 @warning_ignore("unused_signal")
-signal on_set_texture(new_tx : Texture, path : String)
+signal on_set_texture(new_tx: Texture, path: String)
 @warning_ignore("unused_signal")
 signal on_reset_texture()
 
-signal enable_accept_changes_button(e : bool)
+signal enable_accept_changes_button(e: bool)
 
-var _selected : Texture2D = null
-var _path : String = ""
+var _selected: Texture2D = null
+var _path: String = ""
 
-var plugin : Object = null
+var plugin: Object = null
 
 func get_icon_size() -> Vector2:
     if is_instance_valid(plugin):
         return plugin.size
     return Vector2(12.0, 12.0)
 
-func _call_reorder(tx : Texture) -> void:
+func _call_reorder(tx: Texture) -> void:
     if texture_container:
         texture_container.reorder(tx)
 
-func select_texture(tx: Texture2D, path : String) -> void:
+func select_texture(tx: Texture2D, path: String) -> void:
     _selected = null
     _path = path
     if tx:
@@ -81,7 +81,6 @@ func _on_visibility_changed() -> void:
         if !timer.is_stopped():
             timer.stop()
 
-
 func _on_line_edit_text_changed(path: String) -> void:
     enable_accept_changes_button.emit(line_edit.text.length() > 0)
     texture_container.enable_by_path(path)
@@ -92,7 +91,7 @@ func _on_explore_pressed() -> void:
 
 func _on_file_dialog_file_selected(path: String) -> void:
     if ResourceLoader.exists(path):
-        var r : Resource = ResourceLoader.load(path)
+        var r: Resource = ResourceLoader.load(path)
         if r is Texture2D:
             select_texture(r, path)
 

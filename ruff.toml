@@ -1,0 +1,21 @@
+line-length = 1200
+indent-width = 2
+target-version = "py313"
+
+[lint]
+select = ["B", "C", "E", "F", "W", "I", "N", "Q", "UP", "RET", "RSE", "RUF", "ISC", "PLC", "PLE", "PLW", "T20", "PERF"]
+ignore = [
+  "N802",
+  "Q000",
+  "N816",
+  "T201",
+  "N806",
+  "B011",
+  "C901",
+  "N818",
+  "PLC0415",
+  "PLC1802",
+  "PLC1901",
+  "PLE1141",
+  "UP015",
+]

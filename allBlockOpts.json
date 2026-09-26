@@ -561,11 +561,7 @@
     "contactOption": {
       "default": 0,
       "type": 5,
-      "values": [
-        "reset to max",
-        "add one",
-        "remove one"
-      ]
+      "values": ["reset to max", "add one", "remove one"]
     }
   },
   "key": {
@@ -876,11 +872,7 @@
     "direction": {
       "default": 1,
       "type": 5,
-      "values": [
-        "left",
-        "right",
-        "user"
-      ]
+      "values": ["left", "right", "user"]
     }
   },
   "pushable box": {
@@ -1139,11 +1131,7 @@
     "starType": {
       "default": 0,
       "type": 5,
-      "values": [
-        "yellow",
-        "blue",
-        "pink"
-      ]
+      "values": ["yellow", "blue", "pink"]
     },
     "unCollect": {
       "onChange": "<anonymous lambda>(self lambda)",
@@ -1227,20 +1215,12 @@
     "onSignalActivationWhileDischarging": {
       "default": 0,
       "type": 5,
-      "values": [
-        "keepDischarging",
-        "reset",
-        "startCharging"
-      ]
+      "values": ["keepDischarging", "reset", "startCharging"]
     },
     "onSignalDeactivationWhileCharging": {
       "default": 0,
       "type": 5,
-      "values": [
-        "keepCharging",
-        "reset",
-        "startDischarging"
-      ]
+      "values": ["keepCharging", "reset", "startDischarging"]
     },
     "signalInputId": {
       "default": 0,

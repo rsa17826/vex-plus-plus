@@ -8,7 +8,7 @@ void fragment() {
     // Check if the current color is not equal to the start color
     // Calculate the distance from the start color
     float distance = length(COLOR.rgb - start.rgb);
-      
+
     // Interpolate between start and end based on the distance
     COLOR = mix(start, end, 1.0-distance);
   }

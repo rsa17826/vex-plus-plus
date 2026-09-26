@@ -11,7 +11,7 @@ set -euo pipefail
 REPO="rsa17826/vex-plus-plus"
 BASE_DIR="$(cd "$(dirname "$0")" && pwd)/vex-releases"
 API="https://api.github.com/repos/$REPO/releases?per_page=100"
-TEMPLATES_DIR="$BASE_DIR/_templates"   # cached Godot Linux templates by version
+TEMPLATES_DIR="$BASE_DIR/_templates" # cached Godot Linux templates by version
 
 mkdir -p "$BASE_DIR" "$TEMPLATES_DIR"
 
@@ -20,13 +20,13 @@ mkdir -p "$BASE_DIR" "$TEMPLATES_DIR"
 # -----------------------------------------------------------------------------
 detect_godot_version() {
   local file="$1"
-  strings "$file" 2>/dev/null \
-    | grep -oP 'Godot Engine v\K[0-9]+\.[0-9]+\.[0-9]+\.[a-z0-9.]+' \
-    | head -1 \
-    || strings "$file" 2>/dev/null \
-    | grep -oP 'Godot Engine v\K[0-9]+\.[0-9]+[^\s"\\]+' \
-    | head -1 \
-    || echo "unknown"
+  strings "$file" 2>/dev/null |
+    grep -oP 'Godot Engine v\K[0-9]+\.[0-9]+\.[0-9]+\.[a-z0-9.]+' |
+    head -1 ||
+    strings "$file" 2>/dev/null |
+    grep -oP 'Godot Engine v\K[0-9]+\.[0-9]+[^\s"\\]+' |
+      head -1 ||
+    echo "unknown"
 }
 
 # -----------------------------------------------------------------------------
@@ -37,19 +37,19 @@ detect_godot_version() {
 get_linux_template() {
   local ver="$1"
   local out="$TEMPLATES_DIR/$ver"
- 
+
   if [[ -f "$out/linux_debug.x86_64" ]]; then
     echo "$out/linux_debug.x86_64"
     return
   fi
- 
+
   mkdir -p "$out"
- 
+
   # local major minor rest
   # major=$(echo "$ver" | cut -d. -f1)
   # minor=$(echo "$ver" | cut -d. -f2)
   # rest=$(echo "$ver" | cut -d. -f3-)
- 
+
   # local zip_name template_url tag_ver
   # if [[ "$rest" == "stable" || -z "$rest" ]]; then
   #   # e.g. 4.3.stable -> tag: 4.3-stable, file: Godot_v4.3-stable_linux.x86_64.zip
@@ -65,10 +65,10 @@ get_linux_template() {
   #   zip_name="Godot_v${tag_ver}_linux.x86_64.zip"
   #   template_url="https://github.com/godotengine/godot/releases/download/${tag_ver}/${zip_name}"
   # fi
- 
+
   # echo "  Downloading Linux template for Godot $ver..." >&2
   # local zip_path="$out/template.zip"
- 
+
   # if curl -fsSL -o "$zip_path" "$template_url"; then
   #   unzip -q "$zip_path" -d "$out"
   #   local bin
@@ -87,7 +87,6 @@ get_linux_template() {
   #   echo "unknown"
   # fi
 }
-
 
 # -----------------------------------------------------------------------------
 # Main
@@ -111,7 +110,7 @@ RELEASES_JSON=$(curl -fsSL "$API")
 # echo ""
 
 SUMMARY_FILE="$BASE_DIR/versions.txt"
-echo "# release | godot_version | linux_build" > "$SUMMARY_FILE"
+echo "# release | godot_version | linux_build" >"$SUMMARY_FILE"
 LAUNCHER_DIR="/home/nyix/.local/share/launcher/rsa17826 - vex-plus-plus/versions/"
 for SRC_DIR in "$LAUNCHER_DIR"/*/; do
   TAG=$(basename "$SRC_DIR")
@@ -170,7 +169,7 @@ for SRC_DIR in "$LAUNCHER_DIR"/*/; do
     echo "  Godot version (from pck): $GODOT_VERSION"
   fi
 
-  echo "$GODOT_VERSION" > "$RELEASE_DIR/godot_version.txt"
+  echo "$GODOT_VERSION" >"$RELEASE_DIR/godot_version.txt"
 
   # Clean up extracted windows files
   # rm -rf "$RELEASE_DIR/win_extract"
@@ -182,13 +181,13 @@ for SRC_DIR in "$LAUNCHER_DIR"/*/; do
 
   if [[ "$GODOT_VERSION" == "unknown" ]]; then
     echo "  Skipping Linux build: unknown Godot version"
-    echo "$TAG | unknown | failed" >> "$SUMMARY_FILE"
+    echo "$TAG | unknown | failed" >>"$SUMMARY_FILE"
     continue
   fi
 
   if [[ -f "$LINUX_BUILD" ]]; then
     echo "  Linux build already exists, skipping."
-    echo "$TAG | $GODOT_VERSION | $LINUX_BUILD" >> "$SUMMARY_FILE"
+    echo "$TAG | $GODOT_VERSION | $LINUX_BUILD" >>"$SUMMARY_FILE"
     continue
   fi
 
@@ -197,7 +196,7 @@ for SRC_DIR in "$LAUNCHER_DIR"/*/; do
   if [[ "$TEMPLATE" == "unknown" || ! -f "$TEMPLATE" ]]; then
     echo "  Could not get Linux template for $GODOT_VERSION."
     echo "  Manually place it at: $TEMPLATES_DIR/$GODOT_VERSION/linux.x86_64"
-    echo "$TAG | $GODOT_VERSION | template_missing" >> "$SUMMARY_FILE"
+    echo "$TAG | $GODOT_VERSION | template_missing" >>"$SUMMARY_FILE"
     continue
   fi
 
@@ -207,11 +206,11 @@ for SRC_DIR in "$LAUNCHER_DIR"/*/; do
   if [[ -f "$RELEASE_DIR/game.pck" ]]; then
     cp "$RELEASE_DIR/game.pck" "$LINUX_DIR/game.pck"
     echo "  Linux build ready: $LINUX_DIR/"
-    echo "$TAG | $GODOT_VERSION | ok" >> "$SUMMARY_FILE"
+    echo "$TAG | $GODOT_VERSION | ok" >>"$SUMMARY_FILE"
   else
     echo "  Binary placed but no PCK (may be embedded). Run manually:"
     echo "    $LINUX_BUILD"
-    echo "$TAG | $GODOT_VERSION | no_separate_pck" >> "$SUMMARY_FILE"
+    echo "$TAG | $GODOT_VERSION | no_separate_pck" >>"$SUMMARY_FILE"
   fi
 
   echo ""

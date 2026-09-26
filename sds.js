@@ -41,10 +41,9 @@ function gettype(thing, match = undefined) {
     if (match == "event" && /\w+event$/.test(type)) return true
     if (/^(html|svg).*element$/.test(type)) type = "element"
     if (type == "function") {
-      type = /^\s*class\s/.test(
-        Function.prototype.toString.call(thing)
-      )
-        ? "class"
+      type =
+        /^\s*class\s/.test(Function.prototype.toString.call(thing)) ?
+          "class"
         : "function"
     }
     if (match == "none")
@@ -423,14 +422,14 @@ function loadData(d, exact) {
         thisdata = getDataFind().split(",")
         thisdata = new Vector2i(
           __int(thisdata[0]),
-          __int(thisdata[1])
+          __int(thisdata[1]),
         )
         break
       case "VEC2":
         thisdata = getDataFind().split(",")
         thisdata = new Vector2(
           __float(thisdata[0]),
-          __float(thisdata[1])
+          __float(thisdata[1]),
         )
         break
       case "VEC3I":
@@ -438,7 +437,7 @@ function loadData(d, exact) {
         thisdata = new Vector3i(
           __int(thisdata[0]),
           __int(thisdata[1]),
-          __int(thisdata[2])
+          __int(thisdata[2]),
         )
         break
       case "VEC3":
@@ -446,7 +445,7 @@ function loadData(d, exact) {
         thisdata = new Vector3(
           __float(thisdata[0]),
           __float(thisdata[1]),
-          __float(thisdata[2])
+          __float(thisdata[2]),
         )
         break
       case "COLOR":
@@ -455,7 +454,7 @@ function loadData(d, exact) {
           __float(thisdata[0]),
           __float(thisdata[1]),
           __float(thisdata[2]),
-          __float(thisdata[3])
+          __float(thisdata[3]),
         )
         break
       // case "RECT2":
@@ -525,7 +524,7 @@ function loadData(d, exact) {
           .replace("ESCAPED" + UNSET, "\\\\")
           .replace("PERIN" + UNSET, ")") // restore the hidden \ && )s
         remainingData = remainingData.substr(
-          thisdata.replace("\\", "\\").replace(")", "\\)").length + 2 // re expand the replacements to make same length as the escaped chars would be
+          thisdata.replace("\\", "\\").replace(")", "\\)").length + 2, // re expand the replacements to make same length as the escaped chars would be
         )
         thisdata = thisdata.replace("\\\\", "\\")
         break
@@ -539,7 +538,7 @@ function loadData(d, exact) {
           .replace("PERIN" + UNSET, ")") // restore the hidden \ && )s
         remainingData = remainingData.substr(
           thisdata.replace("\\", "\\\\").replace(")", "\\)").length + // re expand the replacements to make same length as the escaped chars would be
-            2
+            2,
         )
         thisdata = exact ? new StringName(thisdata) : thisdata
         break
@@ -754,8 +753,8 @@ function saveData(val, _level = 0) {
             saveData(val.get(inner), _level)
         }
         _level -= 1
-        return hasKey
-          ? "{" + data + getIndent(_level) + "}"
+        return hasKey ?
+            "{" + data + getIndent(_level) + "}"
           : "{" + data + "}"
       case "object":
         var data = ""
@@ -769,8 +768,8 @@ function saveData(val, _level = 0) {
             saveData(val[inner], _level)
         }
         _level -= 1
-        return hasKey
-          ? "{" + data + getIndent(_level) + "}"
+        return hasKey ?
+            "{" + data + getIndent(_level) + "}"
           : "{" + data + "}"
       case "array":
         var data = ""
@@ -781,8 +780,8 @@ function saveData(val, _level = 0) {
           data += getIndent(_level) + saveData(inner, _level)
         }
         _level -= 1
-        return hasKey
-          ? "[" + data + getIndent(_level) + "]"
+        return hasKey ?
+            "[" + data + getIndent(_level) + "]"
           : "[" + data + "]"
       default:
         error(val, gettype(val))

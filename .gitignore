@@ -49,4 +49,10 @@ saves
 
 *.import
 
-replays
+replays*.7z
+.direnv
+*.zip
+**/__pycache__
+**/__pycache__/**
+__pycache__
+.ruff_cache

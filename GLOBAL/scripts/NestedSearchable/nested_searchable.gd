@@ -35,7 +35,7 @@ func getChildNestedSearchables(startNode: Node = self) -> Array[NestedSearchable
 func updateSearch(search: String, parentText: String = '', nested_searchable_parents:=[]):
   visible = false
   for item in getChildNestedSearchables():
-    item.updateSearch(search, thisText, nested_searchable_parents + [ self ])
+    item.updateSearch(search, thisText, nested_searchable_parents + [self])
   if not search:
     visible = true
     searchCleared.emit()

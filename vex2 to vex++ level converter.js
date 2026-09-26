@@ -383,7 +383,7 @@ var allLevels = [
 ] //.map((e) => e.split(","))
 
 const allBlockOpts = JSON.parse(
-  fs.readFileSync("./allBlockOpts.json")
+  fs.readFileSync("./allBlockOpts.json"),
 )
 
 if (testHash) {
@@ -414,7 +414,7 @@ if (testHash) {
         h: 1,
         id: "goal",
         r: 0,
-      }
+      },
     )
     // log(playerPos, endPos, arr)
     while (arr.length) {
@@ -594,7 +594,7 @@ if (testHash) {
         const sin = Math.sin(radians)
         return new v2(
           this.x * cos - this.y * sin,
-          this.x * sin + this.y * cos
+          this.x * sin + this.y * cos,
         )
       }
     }
@@ -605,8 +605,9 @@ if (testHash) {
         b.r = 0
       }
       const adjustment = (
-        axis == "x" ? new v2(value, 0) : new v2(0, value)
-      ).rotated(b.r)
+        axis == "x" ?
+          new v2(value, 0)
+        : new v2(0, value)).rotated(b.r)
       b.x += adjustment.x
       b.y += adjustment.y
     }
@@ -717,11 +718,11 @@ if (testHash) {
       STR(checkpointsSaveAll)BOOL(false)
     }
   }
-}`
+}`,
     )
     fs.writeFileSync(
       outPath + hash + "/" + hash + ".sds",
-      blockStringData
+      blockStringData,
     )
   }
 }

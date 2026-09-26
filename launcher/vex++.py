@@ -1,6 +1,3 @@
-# @name a
-# @regex (?<=[^\s])  #
-# @replace  #
 # @endregex
 # @regex settings \(launcher\.SettingsData\): _description_
 # @replace settings (launcher.SettingsData): The current settings object containing user-defined flags
@@ -23,9 +20,11 @@ class supportedOs(Enum):
 
 
 def getGameLogLocation(
-  settings: launcher.SettingsData, selectedOs: supportedOs, gameId: str # pyright: ignore[reportUnusedParameter]
+  settings: launcher.SettingsData,
+  selectedOs: supportedOs,
+  gameId: str, # pyright: ignore[reportUnusedParameter]
 ) -> str:
-  """returns the location of the game logs or false if no game logs exist
+  """returns the location of the game logs or False if no game logs exist
 
   Args:
     settings (launcher.SettingsData): The current settings object containing user-defined flags
@@ -34,47 +33,54 @@ def getGameLogLocation(
 
   Returns:
     _type_: _description_
+
   """
   match selectedOs:
     case supportedOs.windows:
       appdata = os.getenv("APPDATA")
       if appdata is not None:
         return os.path.join(appdata, "godot/app_userdata/vex/logs")
+
       return ""
+
     case supportedOs.linux:
-      return os.path.expanduser(
-        "~/.local/share/godot/app_userdata/vex/logs"
-      )
+      return os.path.expanduser("~/.local/share/godot/app_userdata/vex/logs")
 
 
-def linkAll(_from:str, to:str, names:list[str]):
+
+def linkAll(_from: str, to: str, names: list[str]):
   """updates a set of hardlinks
 
   Args:
     _from (str): dir
     to (str): dir
     names (list[str]): list of filenames
+
   """
   for name in names:
     if os.path.exists(os.path.join(to, name)):
       os.remove(os.path.join(to, name))
+
     os.link(os.path.join(_from, name), os.path.join(to, name))
 
 
 def gameLaunchRequested(
-  path:str,
-  args:list[str],
+  path: str,
+  args: list[str],
   settings: launcher.SettingsData,
   selectedOs: supportedOs,
   requestedGameDataLocation: str,
 ) -> None:
-  if len(args)==0:
+  if len(args) == 0:
     if settings.loadSpecificMapOnStart:
       args += ["--loadMap", cast(str, settings.nameOfMapToLoad)]
+
     if settings.startInOnlineLevelsScene:
       args += ["--loadOnlineLevels"]
+
     if settings.downloadMap:
-      args += ["--downloadMap", cast(str,settings.nameOfMapToDownload)]
+      args += ["--downloadMap", cast(str, settings.nameOfMapToDownload)]
+
 
   match selectedOs:
     case supportedOs.windows:
@@ -91,9 +97,9 @@ def gameLaunchRequested(
         if settings.closeOnLaunch:
           os.execl(script_path, f'"{script_path}"', *args)
         else:
-          _ = subprocess.Popen(
-            [script_path] + args, cwd=requestedGameDataLocation
-          )
+          _ = subprocess.Popen([script_path] + args, cwd=requestedGameDataLocation)
+
+
 
     case supportedOs.linux:
       exe_path = os.path.join(path, "vex")
@@ -110,34 +116,33 @@ def gameLaunchRequested(
         if settings.closeOnLaunch:
           os.execl(script_path, script_path, *args)
         else:
-          _ = subprocess.Popen(
-            [script_path] + args, cwd=requestedGameDataLocation
-          )
+          _ = subprocess.Popen([script_path] + args, cwd=requestedGameDataLocation)
+
+
+
 
 
 def getAssetName(_settings: launcher.SettingsData, selectedOs: supportedOs) -> str:
   match selectedOs:
     case supportedOs.windows:
       return "windows.zip"
+
     case supportedOs.linux:
       return "linux.zip"
 
 
-def gameVersionExists(
-  path:str, _settings: launcher.SettingsData, selectedOs: supportedOs
-) -> bool:
-  def isfile(p:str):
+
+def gameVersionExists(path: str, _settings: launcher.SettingsData, selectedOs: supportedOs) -> bool:
+  def isfile(p: str):
     return os.path.isfile(os.path.join(path, p))
 
   match selectedOs:
     case supportedOs.windows:
-      return (isfile("vex.exe") and isfile("vex.pck")) or (
-        isfile("windows/vex.exe") and isfile("windows/vex.pck")
-      )
+      return (isfile("vex.exe") and isfile("vex.pck")) or (isfile("windows/vex.exe") and isfile("windows/vex.pck"))
+
     case supportedOs.linux:
-      return (isfile("vex") and isfile("vex.pck")) or (
-        isfile("linux/vex") and isfile("linux/vex.pck")
-      )
+      return (isfile("vex") and isfile("vex.pck")) or (isfile("linux/vex") and isfile("linux/vex.pck"))
+
 
 
 def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
@@ -158,7 +163,7 @@ def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
     )
   )
   layout.addWidget(mapNameInput)
-  mapNameInput.setEnabled(cast(bool,_self.settings.loadSpecificMapOnStart))
+  mapNameInput.setEnabled(cast(bool, _self.settings.loadSpecificMapOnStart))
 
   dlmapNameInput = _self.newLineEdit("Enter map name", "nameOfMapToDownload")
   layout.addWidget(
@@ -170,7 +175,7 @@ def addCustomNodes(_self: launcher.Launcher, layout: QVBoxLayout) -> None:
     )
   )
   layout.addWidget(dlmapNameInput)
-  dlmapNameInput.setEnabled(cast(bool,_self.settings.downloadMap))
+  dlmapNameInput.setEnabled(cast(bool, _self.settings.downloadMap))
 
   layout.addWidget(
     _self.newCheckbox(
@@ -204,6 +209,7 @@ def onGameVersionDownloadComplete(path: str, _version: str, selectedOs: supporte
     case supportedOs.windows:
       if os.path.isfile(os.path.join(path, "windows/vex.exe")):
         import shutil
+
         os.rename(os.path.join(path, "windows/vex.exe"), os.path.join(path, "vex.exe"))
         os.rename(
           os.path.join(path, "windows/vex.console.exe"),
@@ -211,15 +217,22 @@ def onGameVersionDownloadComplete(path: str, _version: str, selectedOs: supporte
         )
         os.rename(os.path.join(path, "windows/vex.pck"), os.path.join(path, "vex.pck"))
         shutil.rmtree(os.path.join(path, "windows"))
+
+
     case supportedOs.linux:
       if os.path.isfile(os.path.join(path, "linux/vex")):
         import shutil
+
         os.rename(os.path.join(path, "linux/vex"), os.path.join(path, "vex"))
         os.rename(os.path.join(path, "linux/vex.pck"), os.path.join(path, "vex.pck"))
         shutil.rmtree(os.path.join(path, "linux"))
         os.chmod(os.path.join(path, "vex"), 0o755)
+
+
     case _:
       pass
+
+
 
 launcher.loadConfig(
   launcher.Config(
