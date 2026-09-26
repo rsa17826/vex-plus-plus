@@ -203,11 +203,11 @@ func _on_export_pressed() -> void:
     OS.shell_open(global.path.abs("res://exports"))
 
 func _on_upload_pressed() -> void:
-  if not LevelServer.user:
+  if not LevelServer.username:
     global.mainMenu._on_show_login_pressed()
     await global.waituntil(func():
       return !global.mainMenu.loginMenuBg.visible)
-    if not LevelServer.user:
+    if not LevelServer.username:
       ToastParty.err("you must login to upload maps")
       return
   if !FileAccess.file_exists(global.path.join(global.MAP_FOLDER, level.levelName, "/image.png")):

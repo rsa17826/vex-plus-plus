@@ -1851,11 +1851,11 @@ func createNewMapFolder() -> Variant:
   startLevel = fixPath(startLevel)
   DirAccess.make_dir_absolute(fullDirPath)
   var cname = useropts.defaultCreatorName
-  if useropts.defaultCreatorNameIsLoggedInUsersName and LevelServer.user:
+  if useropts.defaultCreatorNameIsLoggedInUsersName and LevelServer.username:
     cname = await prompt(
       "Enter your name",
       PromptTypes.string,
-      LevelServer.user,
+      LevelServer.username,
     )
   elif not useropts.defaultCreatorName:
     cname = await prompt(
@@ -2364,7 +2364,7 @@ func httpGet(
   http_request.request_completed.connect(func(result, response_code, headers, body):
     # log.pp("DKLKLSADKLSDAKLKSADL", result, response_code, headers, body)
     var response
-    log.pp(result, response_code, headers, body)
+    log.pp(result, response_code, headers)
     if asjson:
       response=JSON.parse_string(body.get_string_from_utf8())
       if len(str(response)) < 100:

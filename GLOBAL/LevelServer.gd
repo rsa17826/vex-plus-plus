@@ -1,7 +1,6 @@
 extends Control
 class_name LevelServer
 
-static var user: String = ""
 # ---------------------------------------------------------------------------
 # Identity: the keypair is derived fresh, every login, from username+password.
 # Nothing is stored locally -- log in from any device with just the password.
@@ -112,7 +111,7 @@ static func fetchRemotePublicKey(uname: String) -> String:
   if not uname: push_error("username required")
   var res = await global.httpGet(LevelServer.rawUrl("users/" + uname + ".pub"), PackedStringArray(), HTTPClient.METHOD_GET, "", null, false)
   if res.code == 200:
-    return res.response
+    return (res.response as PackedByteArray).get_string_from_utf8().strip_edges()
   return ""
 
 static func pushPublicKey(uname: String, pubKeyB64: String) -> bool:
@@ -310,7 +309,7 @@ static func dictToLevel(e: Dictionary, path: String) -> Level:
 static func loadMapByPath(path: String) -> Level:
   var res = await global.httpGet(LevelServer.rawUrl(path), PackedStringArray(), HTTPClient.METHOD_GET)
   if res.code != 200 or not res.response: return null
-  var data = JSON.parse_string(res.response)
+  var data = res.response
   if not data:
     push_error("corrupt level file at " + path)
     return null

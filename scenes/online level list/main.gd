@@ -19,17 +19,18 @@ func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
   else:
     for level: LevelServer.Level in data:
       var oldVersionCount = 0
-      if not (level.creatorId in loadedLevelData):
-        loadedLevelData[level.creatorId] = {}
-      if level.levelName in loadedLevelData[level.creatorId]:
-        if level.levelVersion < loadedLevelData[level.creatorId][level.levelName].levelVersion:
-          loadedLevelData[level.creatorId][level.levelName].oldVersionCount += 1
+      if not (level.creatorName in loadedLevelData):
+        loadedLevelData[level.creatorName] = {}
+      if level.levelName in loadedLevelData[level.creatorName]:
+        if level.levelVersion < loadedLevelData[level.creatorName][level.levelName].levelVersion:
+          loadedLevelData[level.creatorName][level.levelName].oldVersionCount += 1
           continue
         else:
-          oldVersionCount = loadedLevelData[level.creatorId][level.levelName].oldVersionCount + 1
-          newData.erase(loadedLevelData[level.creatorId][level.levelName])
-      level.oldVersionCount = oldVersionCount
-      loadedLevelData[level.creatorId][level.levelName] = level
+          oldVersionCount = loadedLevelData[level.creatorName][level.levelName].oldVersionCount + 1
+          newData.erase(loadedLevelData[level.creatorName][level.levelName])
+      # TODO
+      # level.oldVersionCount = oldVersionCount
+      loadedLevelData[level.creatorName][level.levelName] = level
       newData.append(level)
   var loadedLevelCount = 0
   var levelsForCurrentVersionCount = 0
@@ -121,7 +122,7 @@ func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
   #       q.ilike(key, "%" + type + val + "%")
 
   # q.order('created_at', 1) \
-  # .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
+  # .select(['id,creatorName,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
 
   # var data = (await LevelServer.query(q))
   # if not data:
