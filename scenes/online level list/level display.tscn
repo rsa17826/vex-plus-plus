@@ -40,7 +40,7 @@ dlInCorrectVersion = NodePath("Panel/VBoxContainer/online buttons/download and p
 onlineButtonsContainer = NodePath("Panel/VBoxContainer/online buttons")
 offlineButtonsContainer = NodePath("Panel/VBoxContainer/offline buttons")
 completionInfoNode = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer6/completionInfo")
-verified = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer7/gameversiuon")
+verified = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer7/verified")
 large = [NodePath("Panel/VBoxContainer/offline buttons/load save2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator"), NodePath("Panel/VBoxContainer/offline buttons/duplicate"), NodePath("Panel/VBoxContainer/offline buttons/rename"), NodePath("Panel/VBoxContainer/offline buttons/delete"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator3"), NodePath("Panel/VBoxContainer/HBoxContainer3/desc")]
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=214196593]
@@ -102,7 +102,7 @@ text = "game version: 150"
 [node name="HBoxContainer7" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=2112506464]
 layout_mode = 2
 
-[node name="gameversiuon" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer7" unique_id=245859124]
+[node name="verified" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer7" unique_id=245859124]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "verified: false"

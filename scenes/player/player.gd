@@ -1979,3 +1979,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # why does stacking water cause lag?
 # fix loading into a level not dying when falling right down onto death boundary
 # fix fans bloing player wrong dir when grav is changed
+# level list scroll position not saving or not loading

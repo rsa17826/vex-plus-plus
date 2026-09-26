@@ -59,6 +59,7 @@ var isOnline := true:
 func updateOnlineState():
   onlineButtonsContainer.visible = isOnline
   offlineButtonsContainer.visible = !isOnline
+  verified.get_parent().visible = isOnline
   creatorId.visible = isOnline
   for thing in large:
     thing.visible = true

@@ -1,7 +1,4 @@
-{
-  STR(start)STR(hub)
-  STR(creatorName)STR(a)
-  STR(description)STR(aaa
+{STR(start)STR(hub)STR(creatorName)STR(a)STR(description)STR(aaa
 
 
 
@@ -11,20 +8,4 @@ dassda
 
 
 
-adsasd      adsasd)
-  STR(gameVersion)INT(235)
-  STR(version)INT(192)
-  STR(levelVersion)INT(29)
-  STR(stages){
-    STR(hub){
-      STR(color)INT(9)
-      STR(changeSpeedOnSlopes)BOOL(false)
-      STR(jumpCount)INT(1)
-      STR(autoRun)BOOL(false)
-      STR(canDoWallHang)BOOL(true)
-      STR(canDoWallSlide)BOOL(true)
-      STR(canDoWallJump)BOOL(true)
-      STR(checkpointsSaveAll)BOOL(false)
-    }
-  }
-}
+adsasd      adsasd)STR(gameVersion)INT(249)STR(version)INT(192)STR(levelVersion)INT(30)STR(stages){STR(hub){STR(color)INT(9)STR(changeSpeedOnSlopes)BOOL(false)STR(jumpCount)INT(1)STR(autoRun)BOOL(false)STR(canDoWallHang)BOOL(true)STR(canDoWallSlide)BOOL(true)STR(canDoWallJump)BOOL(true)STR(checkpointsSaveAll)BOOL(false)}}}
