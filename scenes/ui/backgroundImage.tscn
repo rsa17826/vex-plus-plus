@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://ctjkxspk16exp"]
+
+[ext_resource type="Script" uid="uid://d0s8e8eppjwrw" path="res://scenes/ui/background.gd" id="1_kx3i8"]
+[ext_resource type="Script" uid="uid://bt7gg0ln0cerr" path="res://scenes/ui/sticker.gd" id="2_pcngn"]
+[ext_resource type="Texture2D" uid="uid://c56ioekmuoj8r" path="res://scenes/ui/images/game saved.webp" id="3_cdwfh"]
+
+[node name="Node" type="Node" unique_id=755421279]
+
+[node name="-1 - background" type="CanvasLayer" parent="." unique_id=956531046]
+layer = -1
+
+[node name="background" type="TextureRect" parent="-1 - background" unique_id=1644530366]
+custom_minimum_size = Vector2(1152, 648)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("1_kx3i8")
+metadata/_edit_lock_ = true
+
+[node name="129 - sticker" type="CanvasLayer" parent="." unique_id=253580039]
+layer = 129
+
+[node name="sticker" type="TextureRect" parent="129 - sticker" unique_id=1920484010]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 3
+script = ExtResource("2_pcngn")
+metadata/_edit_lock_ = true
+
+[node name="saved" type="Sprite2D" parent="129 - sticker" unique_id=104732858]
+visible = false
+position = Vector2(1095.5499, 559.55)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_cdwfh")
+metadata/_edit_lock_ = true

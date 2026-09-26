@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c1yohkn2i03nk" path="res://GLOBAL/autocomplete lineedit/autocomplete_lineedit.tscn" id="3_vin4k"]
 [ext_resource type="Script" uid="uid://d20bj3b1qvls5" path="res://scenes/main menu/scroll_container.gd" id="4_t60cf"]
 [ext_resource type="PackedScene" uid="uid://cdixi4vcsxqd1" path="res://scenes/login/login.tscn" id="6_ajd3f"]
+[ext_resource type="PackedScene" uid="uid://ctjkxspk16exp" path="res://scenes/ui/backgroundImage.tscn" id="8_vin4k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ajd3f"]
 
@@ -249,6 +250,8 @@ offset_bottom = 648.33
 
 [node name="login" parent="Panel/Button/CenterContainer" unique_id=519530973 instance=ExtResource("6_ajd3f")]
 layout_mode = 2
+
+[node name="images" parent="." unique_id=755421279 instance=ExtResource("8_vin4k")]
 
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/VBoxContainer2/search" to="." method="_on_search_text_changed"]
 [connection signal="pressed" from="VBoxContainer/BTNHOLDER/BTNS1/open logs" to="." method="_on_open_logs_pressed"]

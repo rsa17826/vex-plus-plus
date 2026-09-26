@@ -295,6 +295,9 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "showUNAVAILABLEBlockInPlay", \
     "cameraZoomInEditor":
       global.onEditorStateChanged.emit()
+    "editorStickerPath", \
+    "editorBackgroundPath":
+      global.backgroundTexture = null
     "levelTilingBackgroundPath", \
     "editorBackgroundPath", \
     "editorStickerPath", \

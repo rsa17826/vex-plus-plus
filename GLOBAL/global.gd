@@ -2673,3 +2673,4 @@ var editorBarIconCache := Cache.new()
 signal fallingSpikeGroupStartedFalling(id: int)
 signal attachChildAdded(block: EditorBlock, child: EditorBlock)
 signal attachParentAdded(block: EditorBlock, parent: EditorBlock)
+var backgroundTexture: ImageTexture = null
