@@ -34,8 +34,8 @@ func saveLogin():
   var f = FileAccess.open("user://auth", FileAccess.WRITE)
   if !f:
     log.err("failed to save login!")
-    f.store_var(LevelServer.identityKey, true)
-    f.store_var(LevelServer.username)
+  f.store_var(LevelServer.identityKey, true)
+  f.store_var(LevelServer.username)
 
 func _on_logout_pressed() -> void:
   LevelServer.updateCurrentUserInfoNode()
@@ -50,13 +50,13 @@ func _ready() -> void:
     var temp = f.get_var(true)
     if temp:
       LevelServer.identityKey = temp
+      temp = f.get_var()
+      if temp:
+        LevelServer.username = temp
+      else:
+        log.warn("failed to login - no username")
+        DirAccess.remove_absolute("user://auth")
     else:
       log.warn("failed to login - no key")
-      DirAccess.remove_absolute("user://auth")
-    temp = f.get_var()
-    if temp:
-      LevelServer.username = temp
-    else:
-      log.warn("failed to login - no username")
       DirAccess.remove_absolute("user://auth")
   log.pp(LevelServer.identityKey, LevelServer.username, "LevelServer.identityKey")
