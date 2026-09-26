@@ -11,11 +11,12 @@ func _on_register_pressed() -> void:
     ToastParty.err("passwords do not match")
     return
   var ok = await LevelServer.register(uname.text, password.text)
-  if not ok:
+  if ok:
+    if stayLoggedIn.button_pressed:
+      saveLogin()
+    ToastParty.info('successfully registered as ' + LevelServer.username)
+  else:
     log.err("error", "failed to register")
-  # stayLoggedIn has no separate meaning here: the identity is always saved
-  # locally (encrypted with the password) so it can be reused on this device;
-  # there's no server session token to persist.
   LevelServer.updateCurrentUserInfoNode()
 
 func _on_login_pressed() -> void:
@@ -23,8 +24,18 @@ func _on_login_pressed() -> void:
   if password2.text and password2.text != password.text:
     ToastParty.err("passwords do not match")
     return
-  await LevelServer.login(uname.text, password.text)
+  if await LevelServer.login(uname.text, password.text):
+    ToastParty.info('successfully logged in as ' + LevelServer.username)
+    if stayLoggedIn.button_pressed:
+      saveLogin()
   LevelServer.updateCurrentUserInfoNode()
+
+func saveLogin():
+  var f = FileAccess.open("user://auth", FileAccess.WRITE)
+  if !f:
+    log.err("failed to save login!")
+    f.store_var(LevelServer.identityKey, true)
+    f.store_var(LevelServer.username)
 
 func _on_logout_pressed() -> void:
   LevelServer.updateCurrentUserInfoNode()
@@ -32,3 +43,20 @@ func _on_logout_pressed() -> void:
   LevelServer.identityKey = null
   ToastParty.info("logged out")
   LevelServer.updateCurrentUserInfoNode()
+
+func _ready() -> void:
+  var f = FileAccess.open("user://auth", FileAccess.READ)
+  if f:
+    var temp = f.get_var(true)
+    if temp:
+      LevelServer.identityKey = temp
+    else:
+      log.warn("failed to login - no key")
+      DirAccess.remove_absolute("user://auth")
+    temp = f.get_var()
+    if temp:
+      LevelServer.username = temp
+    else:
+      log.warn("failed to login - no username")
+      DirAccess.remove_absolute("user://auth")
+  log.pp(LevelServer.identityKey, LevelServer.username, "LevelServer.identityKey")

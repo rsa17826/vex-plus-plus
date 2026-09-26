@@ -4,7 +4,6 @@ func _ready():
   global.overlays.append(self)
   if global.useropts.editorBackgroundPath:
     if not global.backgroundTexture:
-      log.err("asasasdasd")
       var im = Image.new()
       im.load(global.useropts.editorBackgroundPath)
       global.backgroundTexture = ImageTexture.create_from_image(im)

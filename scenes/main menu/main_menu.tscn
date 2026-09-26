@@ -132,6 +132,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="ColorRect" type="ColorRect" parent="VBoxContainer/HBoxContainer/VBoxContainer2/LEVELS" unique_id=1063303063]
+visible = false
 layout_mode = 2
 color = Color(0.1764706, 0.1764706, 0.1764706, 1)
 script = ExtResource("2_okfgx")
