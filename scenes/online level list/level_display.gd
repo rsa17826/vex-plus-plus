@@ -13,6 +13,7 @@ var level: LevelServer.Level
 @export var onlineButtonsContainer: Control
 @export var offlineButtonsContainer: Control
 @export var completionInfoNode: Control
+@export var verified: Control
 @export var large: Array[Control]
 
 func matches(new_text: String):
@@ -100,6 +101,7 @@ func levelDataChanged():
   creatorId.text = str(level.creatorName)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
+  verified.text = "verified: " + str(level.verified)
   # TODO
   # viewOldVersions.visible = !!level.oldVersionCount
   # viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"

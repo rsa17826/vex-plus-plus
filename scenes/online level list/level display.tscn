@@ -21,7 +21,7 @@ frame_3/duration = 1.0
 frame_4/texture = ExtResource("7_rc1ww")
 frame_4/duration = 1.0
 
-[node name="level display" type="HBoxContainer" unique_id=1524986260 node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion", "onlineButtonsContainer", "offlineButtonsContainer", "completionInfoNode", "large")]
+[node name="level display" type="HBoxContainer" unique_id=1524986260 node_paths=PackedStringArray("levelName", "levelVersion", "gameVersion", "creatorName", "creatorId", "description", "viewOldVersions", "levelImage", "dlInCorrectVersion", "onlineButtonsContainer", "offlineButtonsContainer", "completionInfoNode", "verified", "large")]
 clip_contents = true
 offset_right = 869.0
 offset_bottom = 241.0
@@ -40,6 +40,7 @@ dlInCorrectVersion = NodePath("Panel/VBoxContainer/online buttons/download and p
 onlineButtonsContainer = NodePath("Panel/VBoxContainer/online buttons")
 offlineButtonsContainer = NodePath("Panel/VBoxContainer/offline buttons")
 completionInfoNode = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer6/completionInfo")
+verified = NodePath("Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer7/gameversiuon")
 large = [NodePath("Panel/VBoxContainer/offline buttons/load save2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator"), NodePath("Panel/VBoxContainer/offline buttons/duplicate"), NodePath("Panel/VBoxContainer/offline buttons/rename"), NodePath("Panel/VBoxContainer/offline buttons/delete"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator2"), NodePath("Panel/VBoxContainer/offline buttons/VSeparator3"), NodePath("Panel/VBoxContainer/HBoxContainer3/desc")]
 
 [node name="Panel" type="PanelContainer" parent="." unique_id=214196593]
@@ -97,6 +98,14 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "game version: 150"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=2112506464]
+layout_mode = 2
+
+[node name="gameversiuon" type="Button" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer7" unique_id=245859124]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "verified: false"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=752857708]
 layout_mode = 2
