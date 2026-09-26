@@ -30,7 +30,7 @@ import string
 # Characters that always END a run of "possibly random" text. Everything
 # else (including most punctuation like @ # ! $ % ^ & * ~) is considered
 # part of a candidate run, because random tokens/passwords often contain it.
-DELIMITERS = "\"'`/\\()[]{}<>:;,=| \t\r\n#"
+DELIMITERS = "\"'`/\\()[]{}<>:;,=| \t\r\n"
 
 # Within a run, these are "soft" separators: if a run is made of ONLY
 # alnum + these chars, we try to split it into label/data segments (e.g.
@@ -143,17 +143,18 @@ CAMEL_RE = re.compile(r"[A-Z]+(?=[A-Z][a-z])|[A-Z]?[a-z]+|\d+[A-Z]*")
 
 
 def is_word_sequence(s):
-  """True if s (letters/digits, possibly mixed case, no separators)
-  reads like a real identifier made of real words/abbreviations - e.g.
-  'StyleBoxLine', 'Texture2D', 'TabBar' - rather than random characters.
-  """
+  """True if s reads like a structured identifier (e.g., 'StyleBoxLine', 'Texture2D')
+  rather than a random hash/token."""
+  # If the string has digits mixed into lower-case letters, it's likely a hash/id
+  if any(c.isdigit() for c in s) and any(c.islower() for c in s) and not any(c.isupper() for c in s):
+    return False
+
   words = CAMEL_RE.findall(s)
   if not words:
     return False
 
   alpha_words = [w for w in words if w.isalpha()]
   if not alpha_words:
-    # nothing but digit/suffix chunks (shouldn't normally happen)
     return False
 
   short = [w for w in alpha_words if len(w) <= 2]
@@ -185,18 +186,26 @@ def is_pure_number_or_float(s):
     return False
 
 
+HEX_PREFIX_RE = re.compile(r"^0[xX][0-9a-fA-F]+$")
+HEX_COLOR_RE = re.compile(r"^#[0-9a-fA-F]+$")
+
+
 def looks_random_single(s):
   """looks_random for a string with no soft separators in it (or one
   already containing 'hard' punctuation)."""
   if len(set(s)) == 1:
     return False  # "aaaaaaaa", "11111111"
 
-  # Ignore pure integers or floats (e.g., '7.46875', '775.0')
+  # Ignore pure floats/integers (e.g. '7.46875', '775.0')
   if is_pure_number_or_float(s):
     return False
 
-  # Ignore hexadecimal literals and hex color patterns (e.g., '0x012341', '00a', '00asd21')
-  if HEX_RE.match(s):
+  # Ignore explicit 0x hex numbers (e.g. '0x012341')
+  if HEX_PREFIX_RE.match(s):
+    return False
+
+  # Ignore color hex codes starting with '#' (e.g. '#00a', '#00asd21')
+  if HEX_COLOR_RE.match(s):
     return False
 
   if s.isdigit():
@@ -251,9 +260,14 @@ def is_label(seg):
   if not seg:
     return False
 
+  # Do NOT classify pure numeric segments as labels
+  if seg.isdigit():
+    return False
+
   if seg.lower() in KNOWN_LABELS:
     return True
 
+  # Only treat pure alphabetic short words as default labels
   if len(seg) <= 5 and seg.isalpha():
     return True
 
