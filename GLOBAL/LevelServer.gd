@@ -110,7 +110,7 @@ static func rawUrl(path: String) -> String:
 
 static func fetchRemotePublicKey(uname: String) -> String:
   if not uname: push_error("username required")
-  var res = await global.httpGet(LevelServer.rawUrl("users/" + uname + ".pub"), PackedStringArray(), HTTPClient.METHOD_GET)
+  var res = await global.httpGet(LevelServer.rawUrl("users/" + uname + ".pub"), PackedStringArray(), HTTPClient.METHOD_GET, "", null, false)
   if res.code == 200:
     return res.response
   return ""

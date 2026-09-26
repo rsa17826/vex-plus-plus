@@ -2364,7 +2364,7 @@ func httpGet(
   http_request.request_completed.connect(func(result, response_code, headers, body):
     # log.pp("DKLKLSADKLSDAKLKSADL", result, response_code, headers, body)
     var response
-    log.pp(body)
+    log.pp(result, response_code, headers, body)
     if asjson:
       response=JSON.parse_string(body.get_string_from_utf8())
       if len(str(response)) < 100:
