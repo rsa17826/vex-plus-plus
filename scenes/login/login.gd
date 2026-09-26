@@ -53,6 +53,7 @@ func _ready() -> void:
       temp = f.get_var()
       if temp:
         LevelServer.username = temp
+        LevelServer.updateCurrentUserInfoNode()
       else:
         log.warn("failed to login - no username")
         DirAccess.remove_absolute("user://auth")
