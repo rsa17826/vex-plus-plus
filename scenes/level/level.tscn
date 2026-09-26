@@ -77,8 +77,8 @@ offset_right = 40.0
 offset_bottom = 215.0
 
 [node name="1" type="Label" parent="Node2D/Node2D/grid/y" unique_id=1820730934]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -93,8 +93,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="2" type="Label" parent="Node2D/Node2D/grid/y" unique_id=815447911]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -109,8 +109,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="3" type="Label" parent="Node2D/Node2D/grid/y" unique_id=63876493]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -125,8 +125,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="4" type="Label" parent="Node2D/Node2D/grid/y" unique_id=873800828]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -141,8 +141,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="5" type="Label" parent="Node2D/Node2D/grid/y" unique_id=500090230]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -157,8 +157,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="6" type="Label" parent="Node2D/Node2D/grid/y" unique_id=357263406]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -173,8 +173,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="7" type="Label" parent="Node2D/Node2D/grid/y" unique_id=1549357929]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -189,8 +189,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="8" type="Label" parent="Node2D/Node2D/grid/y" unique_id=1381973998]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -205,8 +205,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="9" type="Label" parent="Node2D/Node2D/grid/y" unique_id=210742491]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -221,8 +221,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="10" type="Label" parent="Node2D/Node2D/grid/y" unique_id=1653474222]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -237,8 +237,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="11" type="Label" parent="Node2D/Node2D/grid/y" unique_id=119575482]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -253,8 +253,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="12" type="Label" parent="Node2D/Node2D/grid/y" unique_id=640848164]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -269,8 +269,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="13" type="Label" parent="Node2D/Node2D/grid/y" unique_id=160146019]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -292,8 +292,8 @@ offset_right = 285.0
 offset_bottom = 40.0
 
 [node name="1" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1389188716]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -309,8 +309,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="2" type="Label" parent="Node2D/Node2D/grid/x" unique_id=2141489899]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -326,8 +326,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="3" type="Label" parent="Node2D/Node2D/grid/x" unique_id=2105933869]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -343,8 +343,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="4" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1896504828]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -360,8 +360,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="5" type="Label" parent="Node2D/Node2D/grid/x" unique_id=782900200]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -377,8 +377,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="6" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1962369255]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -394,8 +394,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="7" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1735637181]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -411,8 +411,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="8" type="Label" parent="Node2D/Node2D/grid/x" unique_id=562243369]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -428,8 +428,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="9" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1873554794]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -445,8 +445,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="10" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1150652927]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -462,8 +462,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="11" type="Label" parent="Node2D/Node2D/grid/x" unique_id=2134794099]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -479,8 +479,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="12" type="Label" parent="Node2D/Node2D/grid/x" unique_id=719356107]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -496,8 +496,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="13" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1941502787]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -513,8 +513,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="14" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1193361262]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -530,8 +530,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="15" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1281847827]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -547,8 +547,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="16" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1627034942]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -564,8 +564,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="17" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1698180720]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -581,8 +581,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="18" type="Label" parent="Node2D/Node2D/grid/x" unique_id=1186877775]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -598,8 +598,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="19" type="Label" parent="Node2D/Node2D/grid/x" unique_id=2090305502]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -615,8 +615,8 @@ vertical_alignment = 1
 clip_text = true
 
 [node name="20" type="Label" parent="Node2D/Node2D/grid/x" unique_id=655081731]
-clip_contents = true
 custom_minimum_size = Vector2(50, 50)
+clip_contents = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0

@@ -53,8 +53,8 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3" unique_id=645352542]
-clip_contents = true
 custom_minimum_size = Vector2(150, 0)
+clip_contents = true
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/VBoxContainer/HBoxContainer3/VBoxContainer" unique_id=1030625033]
@@ -136,8 +136,8 @@ max_size = Vector2(146, 146)
 metadata/_custom_type_script = "uid://dn8ahudlu6bdn"
 
 [node name="level image" type="TextureRect" parent="Panel/VBoxContainer/HBoxContainer3/MarginContainer/MaxSizeContainer" unique_id=377240164]
-clip_contents = true
 custom_minimum_size = Vector2(146, 146)
+clip_contents = true
 layout_mode = 2
 texture = SubResource("AnimatedTexture_hsofh")
 expand_mode = 1

@@ -96,12 +96,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xod4d")
 }],
-"loop": true,
+"loop": 1,
 "name": &"explode",
 "speed": 30.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"none",
 "speed": 5.0
 }]

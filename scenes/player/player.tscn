@@ -287,7 +287,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_0wr6q")
 }],
-"loop": true,
+"loop": 1,
 "name": &"die",
 "speed": 30.0
 }, {
@@ -313,7 +313,7 @@ animations = [{
 "duration": 4.0,
 "texture": ExtResource("8_5xbmr")
 }],
-"loop": true,
+"loop": 1,
 "name": &"duck end",
 "speed": 30.0
 }, {
@@ -342,7 +342,7 @@ animations = [{
 "duration": 100000.0,
 "texture": ExtResource("2_upxxc")
 }],
-"loop": true,
+"loop": 1,
 "name": &"duck start",
 "speed": 30.0
 }, {
@@ -350,7 +350,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_lclul")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 30.0
 }, {
@@ -358,7 +358,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("3_6cv16")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jump",
 "speed": 30.0
 }, {
@@ -402,7 +402,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("32_gdkqs")
 }],
-"loop": true,
+"loop": 1,
 "name": &"jumping off pole",
 "speed": 30.0
 }, {
@@ -470,7 +470,7 @@ animations = [{
 "duration": 10000.0,
 "texture": ExtResource("40_wnmj1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"kicking box",
 "speed": 30.0
 }, {
@@ -565,7 +565,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("65_il3lm")
 }],
-"loop": true,
+"loop": 1,
 "name": &"on pole",
 "speed": 30.0
 }, {
@@ -597,7 +597,7 @@ animations = [{
 "duration": 100000.0,
 "texture": ExtResource("49_18q2s")
 }],
-"loop": true,
+"loop": 1,
 "name": &"on pulley",
 "speed": 30.0
 }, {
@@ -674,7 +674,7 @@ animations = [{
 "duration": 5.0,
 "texture": ExtResource("73_c0t4m")
 }],
-"loop": true,
+"loop": 1,
 "name": &"pulley invins",
 "speed": 30.0
 }, {
@@ -721,7 +721,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("87_8ue2q")
 }],
-"loop": true,
+"loop": 1,
 "name": &"pulling lever",
 "speed": 30.0
 }, {
@@ -819,7 +819,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("50_xfllp")
 }],
-"loop": true,
+"loop": 1,
 "name": &"pushing box",
 "speed": 30.0
 }, {
@@ -884,7 +884,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("23_iwuka")
 }],
-"loop": true,
+"loop": 1,
 "name": &"run",
 "speed": 30.0
 }, {
@@ -907,7 +907,7 @@ animations = [{
 "duration": 4.0,
 "texture": ExtResource("72_wuxn4")
 }],
-"loop": true,
+"loop": 1,
 "name": &"slide end",
 "speed": 30.0
 }, {
@@ -933,7 +933,7 @@ animations = [{
 "duration": 1000000.0,
 "texture": ExtResource("79_avmva")
 }],
-"loop": true,
+"loop": 1,
 "name": &"slide start",
 "speed": 30.0
 }, {
@@ -941,7 +941,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("80_21yht")
 }],
-"loop": true,
+"loop": 1,
 "name": &"wall hang",
 "speed": 30.0
 }, {
@@ -955,7 +955,7 @@ animations = [{
 "duration": 1000000.0,
 "texture": ExtResource("26_1u1sw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"wall slide",
 "speed": 30.0
 }, {
@@ -1068,7 +1068,7 @@ animations = [{
 "duration": 10000000000.0,
 "texture": ExtResource("234_0ax6y")
 }],
-"loop": true,
+"loop": 1,
 "name": &"zipline",
 "speed": 60.0
 }]
@@ -1094,7 +1094,7 @@ animations = [{
 "duration": 1000000.0,
 "texture": ExtResource("68_5oeuk")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 30.0
 }, {
@@ -1147,7 +1147,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("71_pkjeu")
 }],
-"loop": true,
+"loop": 1,
 "name": &"enter water",
 "speed": 30.0
 }]
@@ -1239,7 +1239,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("127_2fetk")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 30.0
 }]

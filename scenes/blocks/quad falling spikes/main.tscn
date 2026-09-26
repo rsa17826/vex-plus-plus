@@ -151,7 +151,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("36_htc80")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 30.0
 }]
