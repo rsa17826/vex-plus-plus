@@ -150,7 +150,7 @@ func _on_creatorname_pressed() -> void:
   search.text = search.text.trim_prefix("/").replace("//", "/")
 
 func _on_copy_share_code_pressed() -> void:
-  var levelCode = 'vex++:downloadMap/' + str(level.gameVersion) + '/' + str(level.onlineId) + '/' + global.urlEncode(level.levelName)
+  var levelCode = 'vex++:downloadMap/' + str(level.gameVersion) + '/' + global.urlEncode(level.path)
   DisplayServer.clipboard_set(levelCode)
   ToastParty.success("level code copied to clipboard")
 
