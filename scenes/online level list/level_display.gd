@@ -96,11 +96,13 @@ func levelDataChanged():
   levelName.text = level.levelName
   creatorName.text = level.creatorName
   levelVersion.text = 'level version: ' + str(level.levelVersion)
-  creatorId.text = str(level.creatorId)
+  # TODO
+  creatorId.text = str(level.creatorName)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
-  viewOldVersions.visible = !!level.oldVersionCount
-  viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
+  # TODO
+  # viewOldVersions.visible = !!level.oldVersionCount
+  # viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
   if level.levelImage.get_size() in [Vector2i(292, 292), Vector2i(146, 146)]:
     levelImage.texture = ImageTexture.create_from_image(level.levelImage)
   elif level.levelImage.get_size():
@@ -110,11 +112,13 @@ func _on_download_pressed() -> void:
   LevelServer.downloadMap(level)
 
 func _on_view_old_versions_pressed() -> void:
-  var oldVersions = await LevelServer.loadOldVersions(level)
-  oldVersions.sort_custom(func(a, s):
-    return a.levelVersion - s.levelVersion
-  )
-  levelList.loadLevelsFromArray(oldVersions, true)
+  # TODO
+  pass
+  # var oldVersions = await LevelServer.loadOldVersions(level)
+  # oldVersions.sort_custom(func(a, s):
+  #   return a.levelVersion - s.levelVersion
+  # )
+  # levelList.loadLevelsFromArray(oldVersions, true)
 
 func _on_download_and_play_pressed() -> void:
   if await LevelServer.downloadMap(level):
@@ -233,9 +237,7 @@ func _on_upload_pressed() -> void:
   if await LevelServer.uploadLevel(
     LevelServer.Level.new(
       level.levelName,
-      - 1,
       level.description,
-      '',
       level.creatorName,
       level.gameVersion,
       level.levelVersion,

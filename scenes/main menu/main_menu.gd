@@ -43,13 +43,14 @@ func _ready() -> void:
       if thing == '--downloadMap':
         var data = arr.pop_front()
         shouldReload = true
-        var map = await LevelServer.loadMapById(data.trim_prefix("vex++:downloadMap/").split("/")[1])
-        if map:
-          await LevelServer.downloadMap(map)
-          await global.wait(1000)
-          ToastParty.success("Downloaded successfully")
-        else:
-          ToastParty.error("Invalid map id")
+        # TODO
+        # var map = await LevelServer.loadMapById(data.trim_prefix("vex++:downloadMap/").split("/")[1])
+        # if map:
+        #   await LevelServer.downloadMap(map)
+        #   await global.wait(1000)
+        #   ToastParty.success("Downloaded successfully")
+        # else:
+        #   ToastParty.error("Invalid map id")
       if thing == '--loadOnlineLevels':
         shouldReload = false
         get_tree().change_scene_to_file("res://scenes/online level list/main.tscn")
@@ -192,7 +193,8 @@ func loadLocalLevelList():
     node.levelList = self
     node.search = searchBar
     node.isOnline = false
-    node.showLevelData(LevelServer.dictToLevel(data))
+    # TODO
+    node.showLevelData(LevelServer.dictToLevel(data, ""))
     levelContainer.add_child(node)
     if i % global.useropts.amountOfLevelsToLoadAtTheSameTimeOnMainMenu == 0:
       await global.wait(1)
@@ -342,9 +344,7 @@ func showMoreOptions(level: LevelServer.Level):
       if await LevelServer.uploadLevel(
         LevelServer.Level.new(
           levelName,
-          - 1,
           data.description,
-          '',
           creatorName,
           data.gameVersion,
           data.levelVersion,

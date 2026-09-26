@@ -67,29 +67,31 @@ func otc(text: String, version: NestedSearchable):
   version.updateSearch(text)
 
 func loadLevelById() -> void:
-  var data = (
-    await global.prompt(
-      "Enter the ID of the level you want to load",
-      global.PromptTypes.string,
-      "",
-      "",
-    )
-  )
-  data = data.trim_prefix("vex++:downloadMap/").split("/")
-  var id = 0
-  if len(data) == 1:
-    id = data[0]
-  if len(data) == 2 or len(data) == 3:
-    id = data[1]
-  if id:
-    var map = await LevelServer.loadMapById(id)
-    if map:
-      await LevelServer.downloadMap(map)
-      ToastParty.success("Downloaded successfully")
-    else:
-      ToastParty.error("Invalid map id")
-  else:
-    ToastParty.error("Invalid input")
+  # TODO
+  pass
+  # var data = (
+  #   await global.prompt(
+  #     "Enter the ID of the level you want to load",
+  #     global.PromptTypes.string,
+  #     "",
+  #     "",
+  #   )
+  # )
+  # data = data.trim_prefix("vex++:downloadMap/").split("/")
+  # var id = 0
+  # if len(data) == 1:
+  #   id = data[0]
+  # if len(data) == 2 or len(data) == 3:
+  #   id = data[1]
+  # if id:
+  #   var map = await LevelServer.loadMapById(id)
+  #   if map:
+  #     await LevelServer.downloadMap(map)
+  #     ToastParty.success("Downloaded successfully")
+  #   else:
+  #     ToastParty.error("Invalid map id")
+  # else:
+  #   ToastParty.error("Invalid input")
 
 func loadMenu() -> void:
   get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
@@ -99,35 +101,36 @@ func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
   if not new_text:
     loadOnlineLevels()
     return
-  var q = SupabaseQuery.new() \
-    .from('level test 2')
-  for i in range(0, floor(len(textArr) / 2.0) * 2, 2):
-    var key = textArr[i][0]
-    var type = textArr[i + 1][0][0]
-    var val = textArr[i + 1][0].trim_prefix(type)
-    match type:
-      '=':
-        q.eq(key, val)
-      '~':
-        q.ilike(key, "%" + val + "%")
-      '>':
-        q.gt(key, val)
-      '<':
-        q.lt(key, val)
-      _:
-        q.ilike(key, "%" + type + val + "%")
+  # TODO
+  # var q = SupabaseQuery.new() \
+  #   .from('level test 2')
+  # for i in range(0, floor(len(textArr) / 2.0) * 2, 2):
+  #   var key = textArr[i][0]
+  #   var type = textArr[i + 1][0][0]
+  #   var val = textArr[i + 1][0].trim_prefix(type)
+  #   match type:
+  #     '=':
+  #       q.eq(key, val)
+  #     '~':
+  #       q.ilike(key, "%" + val + "%")
+  #     '>':
+  #       q.gt(key, val)
+  #     '<':
+  #       q.lt(key, val)
+  #     _:
+  #       q.ilike(key, "%" + type + val + "%")
 
-  q.order('created_at', 1) \
-  .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
+  # q.order('created_at', 1) \
+  # .select(['id,creatorId,creatorName,gameVersion,levelVersion,levelName,description,levelImage'])
 
-  var data = (await LevelServer.query(q))
-  if not data:
-    log.err("no levels found")
-    return
-  data = data.map(LevelServer.dictToLevel)
-  log.pp(data, "data")
-  loadLevelsFromArray(data)
-  log.pp("asdasd", new_text)
+  # var data = (await LevelServer.query(q))
+  # if not data:
+  #   log.err("no levels found")
+  #   return
+  # data = data.map(LevelServer.dictToLevel)
+  # log.pp(data, "data")
+  # loadLevelsFromArray(data)
+  # log.pp("asdasd", new_text)
 
 # func _on_filter_text_changed(new_text: String) -> void:
 #   onTextChanged.emit(new_text)

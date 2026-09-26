@@ -10,14 +10,12 @@ func _on_register_pressed() -> void:
   if password2.text and password2.text != password.text:
     ToastParty.err("passwords do not match")
     return
-  var user = await LevelServer.register(uname.text, password.text)
-  if user:
-    log.pp("user id: " + user.id)
-    ToastParty.info('successfully registered with id: ' + user.id)
-    if stayLoggedIn.button_pressed:
-      global.file.write("user://auth", user.refresh_token, false)
-  else:
+  var ok = await LevelServer.register(uname.text, password.text)
+  if not ok:
     log.err("error", "failed to register")
+  # stayLoggedIn has no separate meaning here: the identity is always saved
+  # locally (encrypted with the password) so it can be reused on this device;
+  # there's no server session token to persist.
   LevelServer.updateCurrentUserInfoNode()
 
 func _on_login_pressed() -> void:
@@ -25,15 +23,12 @@ func _on_login_pressed() -> void:
   if password2.text and password2.text != password.text:
     ToastParty.err("passwords do not match")
     return
-  var user = await LevelServer.login(uname.text, password.text)
-  if user and stayLoggedIn.button_pressed:
-    global.file.write("user://auth", user.refresh_token, false)
+  await LevelServer.login(uname.text, password.text)
   LevelServer.updateCurrentUserInfoNode()
 
 func _on_logout_pressed() -> void:
   LevelServer.updateCurrentUserInfoNode()
-  DirAccess.remove_absolute(global.path.abs("user://auth"))
-  await Supabase.auth.sign_out().completed
-  LevelServer.user = null
+  LevelServer.username = ""
+  LevelServer.identityKey = null
   ToastParty.info("logged out")
   LevelServer.updateCurrentUserInfoNode()

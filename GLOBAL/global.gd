@@ -1855,7 +1855,7 @@ func createNewMapFolder() -> Variant:
     cname = await prompt(
       "Enter your name",
       PromptTypes.string,
-      (LevelServer.user.email as String).trim_suffix("@null.notld"),
+      LevelServer.user,
     )
   elif not useropts.defaultCreatorName:
     cname = await prompt(
