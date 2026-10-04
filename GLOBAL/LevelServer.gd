@@ -20,6 +20,7 @@ static var username: String = ""
 static var identityKey: Ed25519Keypair = null
 
 const KDF_ITERATIONS = 200000
+const USERNAME_RE = "^[A-Za-z0-9_-]{3,32}$" # also what's safe to drop straight into a path / git ref / URL
 
 static func tryRestoreLastSession():
   if global.mainMenu:
@@ -54,16 +55,22 @@ static func register(uname: String, password: String) -> bool:
   if not uname or not password:
     ToastParty.err("username and password required")
     return false
+  if not RegEx.create_from_string(USERNAME_RE).search(uname):
+    ToastParty.err("usernames must be 3-32 characters: letters, numbers, - and _ only")
+    return false
   if await LevelServer.fetchRemotePublicKey(uname):
     ToastParty.err("that username is already taken")
     return false
   var kp = LevelServer.deriveKeypair(uname, password)
   if not await LevelServer.pushPublicKey(uname, Marshalls.raw_to_base64(kp.get_public_key())):
-    ToastParty.err("failed to register username on the server")
+    ToastParty.err("failed to submit username registration")
     return false
   LevelServer.username = uname
   LevelServer.identityKey = kp
-  ToastParty.success("registered as " + uname)
+  ToastParty.success(
+    "registration for '" + uname + "' submitted -- it'll be usable once the " +
+    "automatic checks pass and it merges (usually under a minute)"
+  )
   return true
 
 static func login(uname: String, password: String) -> bool:
@@ -91,7 +98,17 @@ static func requestLogin() -> bool:
   return await LevelServer.register(uname, password)
 
 # ---------------------------------------------------------------------------
-# GitHub plumbing (direct calls, using global.getToken() -- no relay yet)
+# GitHub plumbing (direct calls, using global.getToken() -- no relay)
+#
+# Nothing here pushes to the base branch directly anymore. Every write opens
+# a branch + PR instead (see proposeFile below), because the repo now
+# requires PRs on main and has a required status check (see
+# scripts/validate_pr.py in the repo) that enforces who's allowed to touch
+# what. A submission isn't live the instant this returns true -- it's live
+# once that check passes and the PR auto-merges, which is usually fast but
+# isn't instant. Reads (fetchRemotePublicKey, loadMapByPath, the manifest)
+# still read straight off the base branch, so they reflect merged state only
+# -- a PR that hasn't merged yet won't show up.
 # ---------------------------------------------------------------------------
 
 static func githubHeaders() -> PackedStringArray:
@@ -101,8 +118,8 @@ static func githubHeaders() -> PackedStringArray:
     "User-Agent: " + global.REPO_NAME
   ])
 
-static func contentsUrl(path: String) -> String:
-  return "https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/contents/" + global.urlEncode(path)
+static func apiUrl(suffix: String) -> String:
+  return "https://api.github.com/repos/rsa17826/" + global.REPO_NAME + suffix
 
 static func rawUrl(path: String) -> String:
   return "https://raw.githubusercontent.com/rsa17826/" + global.REPO_NAME + "/" + global.BRANCH + "/" + global.urlEncode(path) + "?rand=" + str(randf())
@@ -114,14 +131,87 @@ static func fetchRemotePublicKey(uname: String) -> String:
     return (res.response as PackedByteArray).get_string_from_utf8().strip_edges()
   return ""
 
+static func sanitizeForRef(s: String) -> String:
+  var out := ""
+  for c in s:
+    if c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_":
+      out += c
+    else:
+      out += "-"
+  return out
+
+# Opens a branch off the current base branch containing exactly one file
+# add/update, then opens a PR for it against the base branch. Returns true
+# only once the PR is actually open -- doesn't wait for or trigger the merge,
+# that's validate-level-pr.yml's job once its check passes.
+static func proposeFile(path: String, contentBytes: PackedByteArray, commitMessage: String, prTitle: String, prBody: String, branchPrefix: String) -> bool:
+  var refRes = (await global.httpGet(LevelServer.apiUrl("/git/ref/heads/" + global.BRANCH), LevelServer.githubHeaders(), HTTPClient.METHOD_GET)).response
+  if not refRes or not "object" in refRes:
+    push_error("failed to read base branch ref")
+    return false
+  var baseCommitSha = refRes.object.sha
+
+  var baseCommitRes = (await global.httpGet(LevelServer.apiUrl("/git/commits/" + baseCommitSha), LevelServer.githubHeaders(), HTTPClient.METHOD_GET)).response
+  if not baseCommitRes or not "tree" in baseCommitRes:
+    push_error("failed to read base commit")
+    return false
+  var baseTreeSha = baseCommitRes.tree.sha
+
+  var blobRes = (await global.httpGet(
+    LevelServer.apiUrl("/git/blobs"), LevelServer.githubHeaders(), HTTPClient.METHOD_POST,
+    JSON.stringify({"content": Marshalls.raw_to_base64(contentBytes), "encoding": "base64"})
+  )).response
+  if not blobRes or not "sha" in blobRes:
+    push_error("failed to create blob for " + path)
+    return false
+
+  var treeRes = (await global.httpGet(
+    LevelServer.apiUrl("/git/trees"), LevelServer.githubHeaders(), HTTPClient.METHOD_POST,
+    JSON.stringify({
+      "base_tree": baseTreeSha,
+      "tree": [ {"path": path, "mode": "100644", "type": "blob", "sha": blobRes.sha}]
+    })
+  )).response
+  if not treeRes or not "sha" in treeRes:
+    push_error("failed to create tree for " + path)
+    return false
+
+  var commitRes = (await global.httpGet(
+    LevelServer.apiUrl("/git/commits"), LevelServer.githubHeaders(), HTTPClient.METHOD_POST,
+    JSON.stringify({"message": commitMessage, "tree": treeRes.sha, "parents": [baseCommitSha]})
+  )).response
+  if not commitRes or not "sha" in commitRes:
+    push_error("failed to create commit for " + path)
+    return false
+
+  var branchName = LevelServer.sanitizeForRef(branchPrefix) + "-" + str(Time.get_unix_time_from_system()).replace(".", "")
+  var newRefRes = await global.httpGet(
+    LevelServer.apiUrl("/git/refs"), LevelServer.githubHeaders(), HTTPClient.METHOD_POST,
+    JSON.stringify({"ref": "refs/heads/" + branchName, "sha": commitRes.sha})
+  )
+  if newRefRes.code != 201:
+    push_error("failed to create branch " + branchName)
+    return false
+
+  var prRes = await global.httpGet(
+    LevelServer.apiUrl("/pulls"), LevelServer.githubHeaders(), HTTPClient.METHOD_POST,
+    JSON.stringify({"title": prTitle, "head": branchName, "base": global.BRANCH, "body": prBody})
+  )
+  if prRes.code != 201:
+    log.err(prRes.code, prRes.response)
+    push_error("failed to open PR for " + path)
+    return false
+  return true
+
 static func pushPublicKey(uname: String, pubKeyB64: String) -> bool:
-  var body = {
-    "message": "register user " + uname,
-    "content": Marshalls.raw_to_base64(pubKeyB64.to_utf8_buffer()),
-    "branch": global.BRANCH
-  }
-  var res = await global.httpGet(LevelServer.contentsUrl("users/" + uname + ".pub"), LevelServer.githubHeaders(), HTTPClient.METHOD_PUT, JSON.stringify(body))
-  return res.code == 200 or res.code == 201
+  return await LevelServer.proposeFile(
+    "users/" + uname + ".pub",
+    pubKeyB64.to_utf8_buffer(),
+    "register user " + uname,
+    "Register user: " + uname,
+    "Automated username registration.",
+    "register-" + uname
+  )
 
 # ---------------------------------------------------------------------------
 # Level model
@@ -195,7 +285,7 @@ class Level:
     self.initing = false
 
 static func levelPath(uname: String, levelName: String) -> String:
-  return "levels/" + uname + "/" + levelName + ".json"
+  return "levels/" + uname + "/" + LevelServer.sanitizeForRef(levelName) + ".json"
 
 # ---------------------------------------------------------------------------
 # Signing / verification
@@ -240,8 +330,11 @@ static func uploadLevel(level: Level) -> bool:
   if not LevelServer.identityKey and not await LevelServer.requestLogin(): return false
   level.creatorName = LevelServer.username
 
-  var existingPath = LevelServer.levelPath(LevelServer.username, level.levelName)
-  var existing = await LevelServer.loadMapByPath(existingPath)
+  var path = LevelServer.levelPath(LevelServer.username, level.levelName)
+  # Reads the merged state on the base branch -- a prior upload still stuck
+  # in an unmerged PR won't show up here, so this can't catch every race,
+  # but it catches the common "I already uploaded this" case.
+  var existing = await LevelServer.loadMapByPath(path)
   if existing and existing.levelVersion >= level.levelVersion:
     global.prompt(
       "this level you are trying to upload is not newer than the version already uploaded" +
@@ -264,35 +357,33 @@ static func uploadLevel(level: Level) -> bool:
     "signature": Marshalls.raw_to_base64(signature)
   }
 
-  var url = LevelServer.contentsUrl(existingPath)
-  var body = {
-    "message": "upload level " + level.levelName + " v" + str(level.levelVersion),
-    "content": Marshalls.raw_to_base64(JSON.stringify(payload).to_utf8_buffer()),
-    "branch": global.BRANCH
-  }
-  var getRes = (await global.httpGet(url + "&rand=" + str(randf()), LevelServer.githubHeaders(), HTTPClient.METHOD_GET)).response
-  if getRes and "sha" in getRes:
-    body.sha = getRes.sha
-
-  var putRes = await global.httpGet(url, LevelServer.githubHeaders(), HTTPClient.METHOD_PUT, JSON.stringify(body))
-  if putRes.code == 200 or putRes.code == 201:
-    ToastParty.success("File upload was successful!")
+  var ok = await LevelServer.proposeFile(
+    path,
+    JSON.stringify(payload).to_utf8_buffer(),
+    "upload level " + level.levelName + " v" + str(level.levelVersion),
+    "Upload level: " + level.levelName + " v" + str(level.levelVersion) + " by " + LevelServer.username,
+    "Automated level upload.",
+    "upload-" + LevelServer.username
+  )
+  if ok:
+    ToastParty.success(
+      "Level submitted! It'll show up once the automatic checks pass and it merges " +
+      "(usually under a minute)."
+    )
     return true
   else:
-    log.err(putRes.code, putRes.response)
-    ToastParty.error("File upload failed with error code: " + str(putRes.code))
+    ToastParty.error("Failed to submit level for upload.")
     return false
 
 static func dictToLevel(e: Dictionary, path: String) -> Level:
   var img: Image
-  if 'levelImage' in e:
-    if not e.levelImage:
-      img = ResourceLoader.load("res://scenes/blocks/image.png").get_image()
-    elif e.levelImage is Image:
-      img = e.levelImage
-    else:
-      img = Image.new()
-      img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
+  if 'levelImage' not in e or not e.levelImage:
+    img = ResourceLoader.load("res://scenes/blocks/image.png").get_image()
+  elif e.levelImage is Image:
+    img = e.levelImage
+  else:
+    img = Image.new()
+    img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
   var levelData: PackedByteArray = Marshalls.base64_to_raw(e.levelData) if "levelData" in e else PackedByteArray()
   return Level.new(
     e.levelName,
@@ -320,27 +411,18 @@ static func loadMapByPath(path: String) -> Level:
   level.verified = signatureOk and registryKey and registryKey.strip_edges() == data.publicKey.strip_edges()
   return level
 
-static func fetchAllLevelPaths() -> Array:
-  var url = "https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/git/trees/" + global.BRANCH + "?recursive=1"
-  var res = (await global.httpGet(url, LevelServer.githubHeaders(), HTTPClient.METHOD_GET)).response
-  if not res or not "tree" in res:
-    return []
-  var paths = []
-  for entry in res.tree:
-    if entry.path.begins_with("levels/") and entry.path.ends_with(".json"):
-      paths.append(entry.path)
-  return paths
-
-# NOTE: this downloads every level's full JSON (including image + level data)
-# just to build the list. Fine for a small number of levels; once the repo
-# grows, add a lightweight levels/index.json manifest updated alongside each
-# upload so listing doesn't require N full fetches.
 static func loadAllLevels() -> Array:
+  var res = await global.httpGet(LevelServer.rawUrl("meta/manifest.json"), PackedStringArray(), HTTPClient.METHOD_GET)
+  if res.code != 200 or not res.response:
+    push_error("failed to load levels manifest")
+    return []
+  var data = res.response
+  if not data or not "levels" in data:
+    push_error("corrupt levels manifest")
+    return []
   var levels = []
-  for path in await LevelServer.fetchAllLevelPaths():
-    var level = await LevelServer.loadMapByPath(path)
-    if level:
-      levels.append(level)
+  for e in data.levels:
+    levels.append(LevelServer.dictToLevel(e, e.path))
   return levels
 
 static func downloadMap(level: LevelServer.Level) -> bool:

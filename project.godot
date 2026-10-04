@@ -24,7 +24,6 @@ PopupMenuTransperiancyEnabler="*res://themes/popup menu transperiancy enabler.gd
 global="*res://GLOBAL/global.gd"
 AppConfig="*res://addons/maaacks_input_remapping/base/scenes/autoloads/app_config.tscn"
 ToastParty="*res://addons/toastparty/toast-autoload.gd"
-Supabase="*res://addons/supabase/Supabase/supabase.gd"
 tabMenu="*res://scenes/tab menu/7___tab_menu,controls.tscn"
 
 [beautifier]
@@ -57,7 +56,7 @@ project/assembly_name="vex"
 
 [editor]
 
-run/main_run_args="-- loadMap NEWEST --loadOnlineLevel"
+run/main_run_args="-- loadMap NEWEST --loadOnlineLevels"
 
 [editor_plugins]
 

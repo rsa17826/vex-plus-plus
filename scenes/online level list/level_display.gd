@@ -106,6 +106,7 @@ func levelDataChanged():
   # TODO
   # viewOldVersions.visible = !!level.oldVersionCount
   # viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
+  log.pp(level.levelImage)
   if level.levelImage.get_size() in [Vector2i(292, 292), Vector2i(146, 146)]:
     levelImage.texture = ImageTexture.create_from_image(level.levelImage)
   elif level.levelImage.get_size():

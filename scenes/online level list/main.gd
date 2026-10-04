@@ -59,7 +59,7 @@ func loadOnlineLevels():
   loadingText.text = "Loading..."
   loadingText.visible = true
   var data: Array = await LevelServer.loadAllLevels()
-  # log.pp(loadedLevelData, newData)
+  log.pp(data, "datadatadatadata")
   loadLevelsFromArray(data)
   $AnimatedSprite2D.visible = false
 
