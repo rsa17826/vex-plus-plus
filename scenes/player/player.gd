@@ -192,6 +192,14 @@ func _init() -> void:
   global.player = self
 
 func _ready() -> void:
+  var proc := OS.execute_with_pipe("socat", ["-", "UNIX-CONNECT:/tmp/kbd_manager.sock"])
+  warpPipe = proc.stdio
+  var name := "godot-warp".to_utf8_buffer()
+  warpPipe.store_8(MODE_INJECTION)
+  warpPipe.store_8(name.size())
+  warpPipe.store_buffer(name)
+  warpPipe.store_32(OS.get_process_id())
+  warpPipe.flush()
   anim.use_parent_material = false
   if global.isAlive(global.tabMenu) and global.tabMenu.visible:
     mouseMode = Input.MOUSE_MODE_VISIBLE
@@ -206,7 +214,35 @@ func _ready() -> void:
 
 var defaultAngle: float
 var startedPanning: bool = false
+# TODO
+const EV_SYN := 0x00
+const EV_ABS := 0x03
+const ABS_X := 0x00
+const ABS_Y := 0x01
+const ABS_MAX := 32767
+const MODE_INJECTION := 2
+var iswindows = OS.get_name() == "Windows"
+var warpPipe: FileAccess
 
+func sendWireEvent(type: int, code: int, value: int) -> void:
+  var b := PackedByteArray()
+  b.resize(96) # zero filled: Sec, Usec, Seq, DeviceID all 0
+  b.encode_u16(16, type)
+  b.encode_u16(18, code)
+  b.encode_s32(20, value)
+  warpPipe.store_buffer(b)
+
+func warpMouse(position: Vector2) -> void:
+  if iswindows:
+    Input.warp_mouse(position)
+    return
+  var screenPos := position
+  var screenSize := Vector2(DisplayServer.screen_get_size(DisplayServer.window_get_current_screen()))
+  log.pp("screenPos", screenPos, screenSize)
+  sendWireEvent(EV_ABS, ABS_X, int(screenPos.x / screenSize.x * ABS_MAX))
+  sendWireEvent(EV_ABS, ABS_Y, int(screenPos.y / screenSize.y * ABS_MAX))
+  sendWireEvent(EV_SYN, 0, 0)
+  warpPipe.flush()
 func _unhandled_input(event: InputEvent) -> void:
   if get_viewport().gui_get_focus_owner(): return
   if global.tabMenu.visible: return
@@ -295,7 +331,7 @@ func _unhandled_input(event: InputEvent) -> void:
         mousePos.y = 0
       if startPos != mousePos:
         isFakeMouseMovement = true
-        Input.warp_mouse(mousePos * global.stretchScale)
+        warpMouse(mousePos * global.stretchScale)
     updateCamLockPos()
 
   if mouseMode == Input.mouse_mode: return
