@@ -195,7 +195,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzsaw)
+    STR(id)STR(bouncing buzzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -207,7 +207,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(bouncing buzsaw)
+    STR(id)STR(bouncing buzzsaw)
     STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
@@ -368,7 +368,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -425,18 +425,6 @@
     }
   }
   {
-    STR(x)FLOAT(-800.0)
-    STR(y)FLOAT(50.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(5.00000011920929)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(basic)
-    STRNAME(options){
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(-781.0)
     STR(y)FLOAT(-200.0)
     STR(w)FLOAT(1.00000004470348)
@@ -451,51 +439,12 @@
     }
   }
   {
-    STR(x)FLOAT(-850.0)
-    STR(y)FLOAT(150.0)
-    STR(w)FLOAT(3.05198845267296)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(-90.0)
-    STR(id)STR(10x spike)
-    STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(-1200.0)
-    STR(y)FLOAT(-50.0)
-    STR(w)FLOAT(3.05198845267296)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(90.0)
-    STR(id)STR(10x spike)
-    STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(-1200.0)
-    STR(y)FLOAT(250.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(1.00000004470348)
-    STR(r)FLOAT(89.9999465942383)
-    STR(id)STR(10x spike)
-    STRNAME(options){
-      STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
     STR(x)FLOAT(-923.0)
     STR(y)FLOAT(51.0)
     STR(w)FLOAT(0.50089806318283)
     STR(h)FLOAT(0.5005004927516)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -513,6 +462,7 @@
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
+      STR(starType)INT(0)
     }
   }
   {
@@ -539,18 +489,6 @@
     STRNAME(options){
       STR(maxCooldown)FLOAT(1.00100004673004)
       STR(canAttachToThings)BOOL(true)
-      STR(canAttachToPaths)BOOL(true)
-      STR(color)STR(#fff)
-    }
-  }
-  {
-    STR(x)FLOAT(-1250.0)
-    STR(y)FLOAT(50.0)
-    STR(w)FLOAT(1.00000004470348)
-    STR(h)FLOAT(5.00000011920929)
-    STR(r)FLOAT(0.0)
-    STR(id)STR(basic)
-    STRNAME(options){
       STR(canAttachToPaths)BOOL(true)
       STR(color)STR(#fff)
     }
@@ -851,12 +789,25 @@
     }
   }
   {
+    STR(x)FLOAT(-1200.0)
+    STR(y)FLOAT(-50.0)
+    STR(w)FLOAT(3.05198845267296)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(90.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
     STR(x)FLOAT(-1075.0)
     STR(y)FLOAT(175.0)
     STR(w)FLOAT(0.50089806318283)
     STR(h)FLOAT(0.5005004927516)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -907,6 +858,19 @@
   }
   {
     STR(x)FLOAT(-1200.0)
+    STR(y)FLOAT(250.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(89.9999465942383)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-1200.0)
     STR(y)FLOAT(175.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
@@ -920,6 +884,30 @@
     }
   }
   {
+    STR(x)FLOAT(-800.0)
+    STR(y)FLOAT(50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(5.00000011920929)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
+    STR(x)FLOAT(-1250.0)
+    STR(y)FLOAT(50.0)
+    STR(w)FLOAT(1.00000004470348)
+    STR(h)FLOAT(5.00000011920929)
+    STR(r)FLOAT(0.0)
+    STR(id)STR(basic)
+    STRNAME(options){
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
     STR(x)FLOAT(100.0)
     STR(y)FLOAT(400.0)
     STR(w)FLOAT(0.0500000002794)
@@ -932,12 +920,25 @@
     }
   }
   {
+    STR(x)FLOAT(-850.0)
+    STR(y)FLOAT(150.0)
+    STR(w)FLOAT(3.05198845267296)
+    STR(h)FLOAT(1.00000004470348)
+    STR(r)FLOAT(-90.0)
+    STR(id)STR(10x spike)
+    STRNAME(options){
+      STR(canAttachToThings)BOOL(true)
+      STR(canAttachToPaths)BOOL(true)
+      STR(color)STR(#fff)
+    }
+  }
+  {
     STR(x)FLOAT(100.0)
     STR(y)FLOAT(400.0)
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
@@ -962,7 +963,7 @@
     STR(w)FLOAT(1.00000004470348)
     STR(h)FLOAT(1.00000004470348)
     STR(r)FLOAT(0.0)
-    STR(id)STR(buzsaw)
+    STR(id)STR(buzzsaw)
     STRNAME(options){
       STR(canAttachToThings)BOOL(true)
       STR(canAttachToPaths)BOOL(true)
