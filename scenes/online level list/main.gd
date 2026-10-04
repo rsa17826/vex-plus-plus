@@ -18,16 +18,16 @@ func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
     newData = data
   else:
     for level: LevelServer.Level in data:
-      var oldVersionCount = 0
+      # var oldVersionCount = 0
       if not (level.creatorName in loadedLevelData):
         loadedLevelData[level.creatorName] = {}
-      if level.levelName in loadedLevelData[level.creatorName]:
-        if level.levelVersion < loadedLevelData[level.creatorName][level.levelName].levelVersion:
-          loadedLevelData[level.creatorName][level.levelName].oldVersionCount += 1
-          continue
-        else:
-          oldVersionCount = loadedLevelData[level.creatorName][level.levelName].oldVersionCount + 1
-          newData.erase(loadedLevelData[level.creatorName][level.levelName])
+      # if level.levelName in loadedLevelData[level.creatorName]:
+      #   if level.levelVersion < loadedLevelData[level.creatorName][level.levelName].levelVersion:
+      #     loadedLevelData[level.creatorName][level.levelName].oldVersionCount += 1
+      #     continue
+      #   else:
+      #     oldVersionCount = loadedLevelData[level.creatorName][level.levelName].oldVersionCount + 1
+      #     newData.erase(loadedLevelData[level.creatorName][level.levelName])
       # TODO
       # level.oldVersionCount = oldVersionCount
       loadedLevelData[level.creatorName][level.levelName] = level
