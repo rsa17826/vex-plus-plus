@@ -376,14 +376,15 @@ static func uploadLevel(level: Level) -> bool:
     return false
 
 static func dictToLevel(e: Dictionary, path: String) -> Level:
-  var img: Image
-  if 'levelImage' not in e or not e.levelImage:
-    img = ResourceLoader.load("res://scenes/blocks/image.png").get_image()
-  elif e.levelImage is Image:
-    img = e.levelImage
-  else:
-    img = Image.new()
-    img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
+  var img: Image = Image.new()
+  if 'levelImage' in e:
+    if not e.levelImage:
+      img = ResourceLoader.load("res://scenes/blocks/image.png").get_image()
+    elif e.levelImage is Image:
+      img = e.levelImage
+    else:
+      img = Image.new()
+      img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
   var levelData: PackedByteArray = Marshalls.base64_to_raw(e.levelData) if "levelData" in e else PackedByteArray()
   return Level.new(
     e.levelName,
@@ -423,7 +424,51 @@ static func loadAllLevels() -> Array:
   var levels = []
   for e in data.levels:
     levels.append(LevelServer.dictToLevel(e, e.path))
+  LevelServer.loadLevelImages(levels) # not awaited -- images fill in progressively via dataChanged
   return levels
+
+static func cachePath(path: String) -> String:
+  # path (e.g. "levels/alice/my-level.json") has slashes, so it isn't a safe
+  # filename as-is -- hash it the same way identityPath() hashes usernames.
+  return global.path.abs("user://cache/levelImages/" + path.sha256_text() + ".png")
+
+# Manifest entries carry no levelImage (dictToLevel leaves it null for them),
+# so this fills images in after the fact: disk cache first, then fetch
+# whatever's missing. GitHub raw files can't be fetched by field the way the
+# old Supabase query selected just ['id','levelImage'], so each miss pulls
+# that level's whole JSON (levelData included) just for the image -- wasteful
+# for large levels. If that starts to matter, consider publishing images as
+# their own levels/<name>/<level>.png alongside the JSON so they can be
+# fetched independently; that's a bigger change (touches the signing payload
+# and the validator) so it's not done here.
+static func loadLevelImages(levels: Array) -> void:
+  var toFetch: Array = []
+  for level: Level in levels:
+    var cp = LevelServer.cachePath(level.path)
+    if FileAccess.file_exists(cp):
+      level.levelImage = Image.load_from_file(cp)
+      level.dataChanged.emit.call_deferred()
+    else:
+      toFetch.append(level)
+  if toFetch.is_empty(): return
+  DirAccess.make_dir_recursive_absolute(global.path.abs("user://cache/levelImages/"))
+  # first one awaited alone so something shows up on screen quickly, the rest
+  # fired off concurrently in waves rather than one big burst or a slow
+  # strictly-sequential loop
+  await LevelServer.fetchAndCacheImage(toFetch[0])
+  for level in toFetch.slice(1, 6):
+    LevelServer.fetchAndCacheImage(level) # not awaited: runs concurrently
+  for level in toFetch.slice(6):
+    LevelServer.fetchAndCacheImage(level) # not awaited: runs concurrently
+
+static func fetchAndCacheImage(level: Level) -> void:
+  var res = await global.httpGet(LevelServer.rawUrl(level.path), PackedStringArray(), HTTPClient.METHOD_GET)
+  if res.code != 200 or not res.response or not "levelImage" in res.response or not res.response.levelImage: return
+  var img = Image.new()
+  img.load_png_from_buffer(Marshalls.base64_to_raw(res.response.levelImage))
+  level.levelImage = img
+  img.save_png(LevelServer.cachePath(level.path))
+  level.dataChanged.emit()
 
 static func downloadMap(level: LevelServer.Level) -> bool:
   var full = await LevelServer.loadMapByPath(level.path)
