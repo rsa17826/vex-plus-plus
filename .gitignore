@@ -57,3 +57,4 @@ replays*.7z
 __pycache__
 .ruff_cache
 asd
+exports

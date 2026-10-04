@@ -56,7 +56,7 @@ project/assembly_name="vex"
 
 [editor]
 
-run/main_run_args="--loadMapa NEWEST --loadOnlineLevels"
+run/main_run_args="--loadMap NEWEST --loadOnlineLevel"
 
 [editor_plugins]
 
