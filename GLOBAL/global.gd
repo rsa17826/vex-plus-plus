@@ -2390,7 +2390,7 @@ func urlEncode(input: String) -> String:
 
 func getToken():
   const SHIFT_VALUE = 353
-  const t = "ǈǊǕǉǖǃǀǑǂǕǀƒƒƣưƖưƕƯƪƑǉƳǉƶƘǈƭƔǂǎǗƲǀƪƻưǍƵǌǐǖǆƻƵǏƹƫǈƫƩƲƮǙǐƮƣƸǏƤƥƺƚƲƣǃǐǄƫǊƨǍƑƧƹƤǛƶƨƗƢƯƧƢƳƚƪǏưǕƷǚǛ"
+  const t = 'ǈǊǕǉǖǃǀǑǂǕǀƒƒƣưƖưƕƯƪƑƯǈǐǋǔǂǓƲǋƬƔǙǀƭƔƲƻƻǑǕƳǑƨǇǃƒǙǊǙƬƓǙƘƑƱƳƑƯƧǘǘƣƬǐƶǔƧưƶưƧǘǑƤǋǂƕƲƴƶƳưƥƨǑƘǂƲǊƣƵƖ'
 
   # Function to decode the encoded string back to the original
   var decode_string = func decode_string(encoded_string: String) -> String:
