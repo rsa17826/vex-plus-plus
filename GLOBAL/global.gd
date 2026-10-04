@@ -1876,15 +1876,6 @@ func createNewMapFolder() -> Variant:
     }
   )
   if ! await createNewLevelFile(foldername, startLevel): return false
-  # var o = []
-  # log.pp(OS.execute("cmd", [
-  #   "/c",
-  #   'mklink /J "' +
-  #   path.join(MAP_FOLDER, foldername, "/custom blocks") +
-  #   '" "' +
-  #   path.abs("res://custom blocks") +
-  #   '"'
-  # ], o), o)
   return foldername
 
 const defaultLevelSettings = {
@@ -1972,7 +1963,6 @@ func localReady() -> void:
   DirAccess.make_dir_recursive_absolute(path.abs("res://downloaded maps/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://saves/"))
   DirAccess.make_dir_recursive_absolute(path.abs("res://exports/"))
-  DirAccess.make_dir_recursive_absolute(path.abs("res://custom blocks/"))
   if not FileAccess.file_exists(path.abs("res://editorBar.sds")):
     sds.saveDataToFile(path.abs("res://editorBar.sds"), [])
   get_tree().set_debug_collisions_hint(hitboxesShown)
@@ -1986,20 +1976,21 @@ func localReady() -> void:
   # await prompt('', PromptTypes.string, encode_string.call(await prompt("Enter a string to encode:", PromptTypes.string)))
   # createFileAssociation("vex plus plus", ["vex++"], "VEX++ map file")
   # quitGame()
-  var pid = int(file.read(path.abs("res://process"), false, "0"))
-  log.pp("FILEPID", pid)
-  log.pp("MYPID", OS.get_process_id())
-  getProcess(OS.get_process_id())
-  if getProcess(pid) \
-    and pid != OS.get_process_id() \
-    and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))) \
-  :
-    sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
-    DirAccess.remove_absolute(path.abs("res://process"))
-    get_tree().quit()
-  else:
-    file.write(path.abs("res://process"), str(OS.get_process_id()), false)
-    tryAndGetMapZipsFromArr(OS.get_cmdline_args())
+  if OS.get_name() == "Windows":
+    var pid = int(file.read(path.abs("res://process"), false, "0"))
+    log.pp("FILEPID", pid)
+    log.pp("MYPID", OS.get_process_id())
+    getProcess(OS.get_process_id())
+    if getProcess(pid) \
+      and pid != OS.get_process_id() \
+      and (('vex' in getProcess(pid)) or ("Godot" in getProcess(pid))) \
+    :
+      sds.saveDataToFile(path.abs("res://filesToOpen"), OS.get_cmdline_args() as Array)
+      DirAccess.remove_absolute(path.abs("res://process"))
+      get_tree().quit()
+    else:
+      file.write(path.abs("res://process"), str(OS.get_process_id()), false)
+      tryAndGetMapZipsFromArr(OS.get_cmdline_args())
   loadEditorBarData()
   LevelServer.tryRestoreLastSession()
 

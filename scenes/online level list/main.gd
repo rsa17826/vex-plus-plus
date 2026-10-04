@@ -22,6 +22,7 @@ func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
       if not (level.creatorName in loadedLevelData):
         loadedLevelData[level.creatorName] = {}
       # if level.levelName in loadedLevelData[level.creatorName]:
+      #   breakpoint
       #   if level.levelVersion < loadedLevelData[level.creatorName][level.levelName].levelVersion:
       #     loadedLevelData[level.creatorName][level.levelName].oldVersionCount += 1
       #     continue
