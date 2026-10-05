@@ -63,6 +63,22 @@ func loadOnlineLevels(force: bool):
   loadLevelsFromArray(data)
   $AnimatedSprite2D.visible = false
 
+# Called from a level display node (node.levelList = self is set when
+# building the list in loadLevelsFromArray) when the player wants to see
+# every version ever uploaded for one level, not just the latest -- each
+# upload now keeps an immutable copy in version history alongside the
+# "latest" file (see historyLevelPath/loadOldVersions in LevelServer.gd).
+# Passing showOldVersions=true below is what makes loadLevelsFromArray skip
+# its per-creator/per-levelName dedup and just show everything it's given.
+func showOldVersionsFor(level: LevelServer.Level) -> void:
+  $AnimatedSprite2D.visible = true
+  $AnimatedSprite2D.frame = 0
+  loadingText.text = "Loading versions..."
+  loadingText.visible = true
+  var data: Array = await LevelServer.loadOldVersions(level)
+  loadLevelsFromArray(data, true)
+  $AnimatedSprite2D.visible = false
+
 func otc(text: String, version: NestedSearchable):
   if not version: return
   version.updateSearch(text)

@@ -140,11 +140,19 @@ static func sanitizeForRef(s: String) -> String:
       out += "-"
   return out
 
-# Opens a branch off the current base branch containing exactly one file
-# add/update, then opens a PR for it against the base branch. Returns true
-# only once the PR is actually open -- doesn't wait for or trigger the merge,
-# that's validate-level-pr.yml's job once its check passes.
-static func proposeFile(path: String, contentBytes: PackedByteArray, commitMessage: String, prTitle: String, prBody: String, branchPrefix: String) -> bool:
+# Opens a branch off the current base branch containing one commit that
+# adds/updates every file in `files`, then opens a PR for it against the
+# base branch. Returns true only once the PR is actually open -- doesn't
+# wait for or trigger the merge, that's validate-level-pr.yml's job once its
+# check passes. `files` is an Array of {"path": String, "bytes": PackedByteArray}.
+# Multiple files land in ONE commit so they're validated and merged
+# atomically -- e.g. a level upload's "latest" file and its history copy
+# always arrive together, never one without the other.
+static func proposeFiles(files: Array, commitMessage: String, prTitle: String, prBody: String, branchPrefix: String) -> bool:
+  if files.is_empty():
+    push_error("proposeFiles needs at least one file")
+    return false
+
   var refRes = (await global.httpGet(LevelServer.apiUrl("/git/ref/heads/" + global.BRANCH), LevelServer.githubHeaders(), HTTPClient.METHOD_GET)).response
   if not refRes or not "object" in refRes:
     push_error("failed to read base branch ref")
@@ -157,23 +165,23 @@ static func proposeFile(path: String, contentBytes: PackedByteArray, commitMessa
     return false
   var baseTreeSha = baseCommitRes.tree.sha
 
-  var blobRes = (await global.httpGet(
-    LevelServer.apiUrl("/git/blobs"), LevelServer.githubHeaders(), HTTPClient.METHOD_POST,
-    JSON.stringify({"content": Marshalls.raw_to_base64(contentBytes), "encoding": "base64"})
-  )).response
-  if not blobRes or not "sha" in blobRes:
-    push_error("failed to create blob for " + path)
-    return false
+  var treeEntries = []
+  for file in files:
+    var blobRes = (await global.httpGet(
+      LevelServer.apiUrl("/git/blobs"), LevelServer.githubHeaders(), HTTPClient.METHOD_POST,
+      JSON.stringify({"content": Marshalls.raw_to_base64(file.bytes), "encoding": "base64"})
+    )).response
+    if not blobRes or not "sha" in blobRes:
+      push_error("failed to create blob for " + file.path)
+      return false
+    treeEntries.append({"path": file.path, "mode": "100644", "type": "blob", "sha": blobRes.sha})
 
   var treeRes = (await global.httpGet(
     LevelServer.apiUrl("/git/trees"), LevelServer.githubHeaders(), HTTPClient.METHOD_POST,
-    JSON.stringify({
-      "base_tree": baseTreeSha,
-      "tree": [ {"path": path, "mode": "100644", "type": "blob", "sha": blobRes.sha}]
-    })
+    JSON.stringify({"base_tree": baseTreeSha, "tree": treeEntries})
   )).response
   if not treeRes or not "sha" in treeRes:
-    push_error("failed to create tree for " + path)
+    push_error("failed to create tree")
     return false
 
   var commitRes = (await global.httpGet(
@@ -181,7 +189,7 @@ static func proposeFile(path: String, contentBytes: PackedByteArray, commitMessa
     JSON.stringify({"message": commitMessage, "tree": treeRes.sha, "parents": [baseCommitSha]})
   )).response
   if not commitRes or not "sha" in commitRes:
-    push_error("failed to create commit for " + path)
+    push_error("failed to create commit")
     return false
 
   var branchName = LevelServer.sanitizeForRef(branchPrefix) + "-" + str(Time.get_unix_time_from_system()).replace(".", "")
@@ -199,9 +207,14 @@ static func proposeFile(path: String, contentBytes: PackedByteArray, commitMessa
   )
   if prRes.code != 201:
     log.err(prRes.code, prRes.response)
-    push_error("failed to open PR for " + path)
+    push_error("failed to open PR")
     return false
   return true
+
+static func proposeFile(path: String, contentBytes: PackedByteArray, commitMessage: String, prTitle: String, prBody: String, branchPrefix: String) -> bool:
+  return await LevelServer.proposeFiles(
+    [{"path": path, "bytes": contentBytes}], commitMessage, prTitle, prBody, branchPrefix
+  )
 
 static func pushPublicKey(uname: String, pubKeyB64: String) -> bool:
   return await LevelServer.proposeFile(
@@ -346,11 +359,11 @@ static func uploadLevel(level: Level) -> bool:
   if not LevelServer.identityKey and not await LevelServer.requestLogin(): return false
   level.creatorName = LevelServer.username
 
-  var path = LevelServer.latestLevelPath(LevelServer.username, level.levelName)
+  var latestPath = LevelServer.latestLevelPath(LevelServer.username, level.levelName)
   # Reads the merged state on the base branch -- a prior upload still stuck
   # in an unmerged PR won't show up here, so this can't catch every race,
   # but it catches the common "I already uploaded this" case.
-  var existing = await LevelServer.loadMapByPath(path)
+  var existing = await LevelServer.loadMapByPath(latestPath)
   if existing and existing.levelVersion >= level.levelVersion:
     global.prompt(
       "this level you are trying to upload is not newer than the version already uploaded" +
@@ -372,10 +385,14 @@ static func uploadLevel(level: Level) -> bool:
     "publicKey": Marshalls.raw_to_base64(LevelServer.identityKey.get_public_key()),
     "signature": Marshalls.raw_to_base64(signature)
   }
+  var payloadBytes = JSON.stringify(payload).to_utf8_buffer()
+  var historyPath = LevelServer.historyLevelPath(LevelServer.username, level.levelName, level.levelVersion)
 
-  var ok = await LevelServer.proposeFile(
-    path,
-    JSON.stringify(payload).to_utf8_buffer(),
+  # Both files, byte-identical, in one commit: the validator requires this
+  # pairing so "latest" and the version history can never drift apart, and
+  # neither can land without the other.
+  var ok = await LevelServer.proposeFiles(
+    [{"path": latestPath, "bytes": payloadBytes}, {"path": historyPath, "bytes": payloadBytes}],
     "upload level " + level.levelName + " v" + str(level.levelVersion),
     "Upload level: " + level.levelName + " v" + str(level.levelVersion) + " by " + LevelServer.username,
     "Automated level upload.",
@@ -411,7 +428,8 @@ static func dictToLevel(e: Dictionary, path: String) -> Level:
     levelData,
     img,
     e.get("completionInfo", ""),
-    path
+    path,
+    e.get("oldVersionCount", 0) # present on manifest entries only (see scripts/build_manifest.py); 0 elsewhere
   )
 
 static func loadMapByPath(path: String) -> Level:
@@ -443,9 +461,34 @@ static func loadAllLevels(force: bool) -> Array:
     return []
   var levels = []
   for e in data.levels:
-    levels.append(LevelServer.dictToLevel(e, e.path))
+    if e.verified:
+      levels.append(LevelServer.dictToLevel(e, e.path))
   LevelServer.loadLevelImages(levels) # not awaited -- images fill in progressively via dataChanged
   return levels
+
+# Lists every version ever uploaded for one creator+levelName, newest first,
+# by listing the history directory (levels/<name>/<levelSlug>/) via the
+# contents API -- raw.githubusercontent.com can't list a directory, only
+# fetch one file, so this is the one place that needs the API instead of a
+# raw fetch. Each entry is independently signature-verified the same way
+# loadMapByPath verifies the latest file.
+static func loadOldVersions(level: Level) -> Array:
+  var dirPath = "levels/" + level.creatorName + "/" + LevelServer.sanitizeForRef(level.levelName)
+  var res = await global.httpGet(
+    LevelServer.apiUrl("/contents/" + global.urlEncode(dirPath) + "?ref=" + global.BRANCH),
+    LevelServer.githubHeaders(), HTTPClient.METHOD_GET
+  )
+  if res.code != 200 or not res.response is Array:
+    return [] # no history directory yet (e.g. level uploaded before this feature existed) -- not an error
+  var entries: Array = res.response
+  var versions: Array[Level] = []
+  for entry in entries:
+    if not entry.name.ends_with(".json"): continue
+    var versionLevel = await LevelServer.loadMapByPath(entry.path)
+    if versionLevel:
+      versions.append(versionLevel)
+  versions.sort_custom(func(a, b): return a.levelVersion > b.levelVersion)
+  return versions
 
 static func cachePath(path: String) -> String:
   # path (e.g. "levels/alice/my-level.json") has slashes, so it isn't a safe
