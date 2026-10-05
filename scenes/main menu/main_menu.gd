@@ -48,7 +48,6 @@ func _ready() -> void:
         # if map:
         #   await LevelServer.downloadMap(map)
         #   await global.wait(1000)
-        #   ToastParty.success("Downloaded successfully")
         # else:
         #   ToastParty.error("Invalid map id")
       if thing == '--loadOnlineLevels':

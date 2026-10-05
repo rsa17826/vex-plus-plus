@@ -8,7 +8,7 @@ var GITHUB_TOKEN = global.getToken()
 
 func _ready() -> void:
   # if global.useropts.loadOnlineLevelListOnSceneLoad:
-  loadOnlineLevels()
+  loadOnlineLevels(false)
 
 func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
   (levelListContainerNode.get_parent() as ScrollContainer).scroll_vertical = 0
@@ -54,13 +54,12 @@ func loadLevelsFromArray(data: Array, showOldVersions:=false) -> void:
   else:
     loadingText.text = 'Loaded levels: ' + str(levelsForCurrentVersionCount) + " / " + str(loadedLevelCount)
 
-func loadOnlineLevels():
+func loadOnlineLevels(force: bool):
   $AnimatedSprite2D.visible = true
   $AnimatedSprite2D.frame = 0
   loadingText.text = "Loading..."
   loadingText.visible = true
-  var data: Array = await LevelServer.loadAllLevels()
-  log.pp(data, "datadatadatadata")
+  var data: Array = await LevelServer.loadAllLevels(force)
   loadLevelsFromArray(data)
   $AnimatedSprite2D.visible = false
 
@@ -89,7 +88,6 @@ func loadLevelById() -> void:
   #   var map = await LevelServer.loadMapById(id)
   #   if map:
   #     await LevelServer.downloadMap(map)
-  #     ToastParty.success("Downloaded successfully")
   #   else:
   #     ToastParty.error("Invalid map id")
   # else:
@@ -99,10 +97,10 @@ func loadMenu() -> void:
   get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
 
 # signal onTextChanged
-func _on_search_text_submitted(new_text: String, textArr: Array) -> void:
-  if not new_text:
-    loadOnlineLevels()
-    return
+func _on_search_text_submitted(new_text: String, textArr: Array) -> void: pass
+  # if not new_text:
+  #   loadOnlineLevels(false)
+  #   return
   # TODO
   # var q = SupabaseQuery.new() \
   #   .from('level test 2')

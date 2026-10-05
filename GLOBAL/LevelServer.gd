@@ -122,11 +122,11 @@ static func apiUrl(suffix: String) -> String:
   return "https://api.github.com/repos/rsa17826/" + global.REPO_NAME + suffix
 
 static func rawUrl(path: String) -> String:
-  return "https://raw.githubusercontent.com/rsa17826/" + global.REPO_NAME + "/" + global.BRANCH + "/" + global.urlEncode(path) + "?rand=" + str(randf())
+  return "https://raw.githubusercontent.com/rsa17826/" + global.REPO_NAME + "/" + global.BRANCH + "/" + path + "?rand=" + str(randf())
 
 static func fetchRemotePublicKey(uname: String) -> String:
   if not uname: push_error("username required")
-  var res = await global.httpGet(LevelServer.rawUrl("users/" + uname + ".pub"), PackedStringArray(), HTTPClient.METHOD_GET, "", null, false)
+  var res = await global.httpGet(LevelServer.rawUrl("users/" + global.urlEncode(uname) + ".pub"), PackedStringArray(), HTTPClient.METHOD_GET, "", null, false)
   if res.code == 200:
     return (res.response as PackedByteArray).get_string_from_utf8().strip_edges()
   return ""
@@ -260,6 +260,10 @@ class Level:
     set(val):
       if not self.initing: dataChanged.emit()
       verified = val
+  var oldVersionCount: int = 0: # how many versions besides this one exist in history; from the manifest, 0 for anything loaded by exact path
+    set(val):
+      if not self.initing: dataChanged.emit()
+      oldVersionCount = val
 
   func _init(
     _levelName: String = '',
@@ -270,7 +274,8 @@ class Level:
     _levelData: PackedByteArray = [],
     _levelImage: Image = null,
     _completionInfo: String = '',
-    _path: String = ''
+    _path: String = '',
+    _oldVersionCount: int = 0
   ):
     self.initing = true
     self.levelName = _levelName
@@ -282,10 +287,21 @@ class Level:
     self.levelImage = _levelImage
     self.completionInfo = _completionInfo
     self.path = _path
+    self.oldVersionCount = _oldVersionCount
     self.initing = false
 
-static func levelPath(uname: String, levelName: String) -> String:
+# "Latest" is the file the manifest and the browse list point at -- it always
+# holds whatever was uploaded most recently. Every upload ALSO writes an
+# immutable copy under historyLevelPath, named by its own levelVersion, so
+# old versions stay fetchable even after a newer one overwrites latest (see
+# loadOldVersions). The validator (scripts/validate_pr.py) requires both
+# paths be touched together with byte-identical content, so the two can
+# never drift apart.
+static func latestLevelPath(uname: String, levelName: String) -> String:
   return "levels/" + uname + "/" + LevelServer.sanitizeForRef(levelName) + ".json"
+
+static func historyLevelPath(uname: String, levelName: String, version: int) -> String:
+  return "levels/" + uname + "/" + LevelServer.sanitizeForRef(levelName) + "/" + str(version) + ".json"
 
 # ---------------------------------------------------------------------------
 # Signing / verification
@@ -330,7 +346,7 @@ static func uploadLevel(level: Level) -> bool:
   if not LevelServer.identityKey and not await LevelServer.requestLogin(): return false
   level.creatorName = LevelServer.username
 
-  var path = LevelServer.levelPath(LevelServer.username, level.levelName)
+  var path = LevelServer.latestLevelPath(LevelServer.username, level.levelName)
   # Reads the merged state on the base branch -- a prior upload still stuck
   # in an unmerged PR won't show up here, so this can't catch every race,
   # but it catches the common "I already uploaded this" case.
@@ -412,8 +428,12 @@ static func loadMapByPath(path: String) -> Level:
   level.verified = signatureOk and registryKey and registryKey.strip_edges() == data.publicKey.strip_edges()
   return level
 
-static func loadAllLevels() -> Array:
-  var res = await global.httpGet(LevelServer.rawUrl("meta/manifest.json"), PackedStringArray(), HTTPClient.METHOD_GET)
+static func loadAllLevels(force: bool) -> Array:
+  var res = (await global.httpGet("https://api.github.com/repos/rsa17826/" + global.REPO_NAME + "/contents/meta/manifest.json?ref=" + global.BRANCH, PackedStringArray(["Authorization: token " + global.getToken(),
+    "Accept: application/vnd.github.v3.raw",
+    "Cache-Control: no-cache",
+    "Pragma: no-cache"
+  ]), HTTPClient.METHOD_GET) if force else await global.httpGet(LevelServer.rawUrl("meta/manifest.json"), PackedStringArray(), HTTPClient.METHOD_GET))
   if res.code != 200 or not res.response:
     push_error("failed to load levels manifest")
     return []

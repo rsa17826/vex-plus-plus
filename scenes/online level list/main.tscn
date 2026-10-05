@@ -125,7 +125,7 @@ metadata/_edit_lock_ = true
 [node name="images" parent="." unique_id=755421279 instance=ExtResource("6_fw0jh")]
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button" to="." method="loadMenu"]
-[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="loadOnlineLevels"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/Button2" to="." method="loadOnlineLevels" binds= [true]]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/Button3" to="." method="loadLevelById"]
 [connection signal="text_submitted" from="VBoxContainer/HBoxContainer2/HBoxContainer/autocomplete lineedit" to="." method="_on_search_text_submitted"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer2/HBoxContainer/Button" to="." method="_on_button_pressed"]
