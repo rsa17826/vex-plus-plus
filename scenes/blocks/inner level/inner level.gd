@@ -68,7 +68,7 @@ func onAllDataLoaded() -> void:
     setTexture(sprite, "config error")
   else:
     # var starCount = 0
-    # var data = await sds.loadDataFromFileSlow(global.path.abs(global.path.join("res://maps/", global.mainLevelName, selectedOptions.level + ".sds")))
+    # var data = sds.loadDataFromFile(global.path.abs(global.path.join("res://maps/", global.mainLevelName, selectedOptions.level + ".sds")))
     # for block in data.slice(1):
     #   if block.id == "star":
     #     starCount += 1

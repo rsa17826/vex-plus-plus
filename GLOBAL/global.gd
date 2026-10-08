@@ -1647,15 +1647,10 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
     if levelDataForCurrentMap.__has(k): pass
       # log.err("should not have data", levelDataForCurrentMap.__get(), levelFolderPath, k)
       # breakpoint
-    levelDataForCurrentMap.__set(await sds.loadDataFromFileSlow(path.join(levelFolderPath, k + '.sds'), [
+    levelDataForCurrentMap.__set(sds.loadDataFromFile(path.join(levelFolderPath, k + '.sds'), [
       {"x": 0, "y": - 65},
       {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
     ],
-    func(prog, max):
-      if !is_instance_valid(ui): return
-      if !is_instance_valid(ui.progressBar): return
-      ui.progressBar.max_value=len(levelNames)
-      ui.progressBar.value=__loadedLevelCount + rerange(prog, 0, max, 0, 1)
     ))
     __loadedLevelCount += 1
 

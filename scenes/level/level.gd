@@ -54,7 +54,7 @@ func loadLevel(level: String):
   global.player.state = Player.States.levelLoading
   var leveldata = global.levelDataForCurrentMap.__get() \
   if global.levelDataForCurrentMap.__has(level) \
-  else global.levelDataForCurrentMap.__set(await sds.loadDataFromFileSlow(global.path.join(global.levelFolderPath, level + '.sds')))
+  else global.levelDataForCurrentMap.__set(sds.loadDataFromFile(global.path.join(global.levelFolderPath, level + '.sds')))
   global.ui.progressContainer.visible = true
   global.ui.modifiers.updateUi(global.currentLevelSettings())
   global.player.floor_constant_speed = !global.currentLevelSettings().changeSpeedOnSlopes
