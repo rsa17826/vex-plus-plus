@@ -726,7 +726,7 @@ func localProcess(delta: float) -> void:
     if editorInRotateMode and selectedBlock \
     and (selectedBlock.EDITOR_OPTION_rotate \
     or global.useropts.allowRotatingAnything):
-      # handled in localinput now
+      # handled in _unhandled_input now
       pass
     # when trying to scale blocks
     elif editorInScaleMode and selectedBlock \
@@ -748,76 +748,38 @@ func localProcess(delta: float) -> void:
       # sizeInPx = sizeInPx.rotated(-deg_to_rad(-b.startRotation_degrees))
       var scale = b.scale
       # log.pp(b.rotation_degrees, b.rect.right)
-      var top_edge: float = (startPos - (b.sizeInPx / 2.0)).y
-      var bottom_edge: float = (startPos + (b.sizeInPx / 2.0)).y
-      var right_edge: float = (startPos + (b.sizeInPx / 2.0)).x
-      var left_edge: float = (startPos - (b.sizeInPx / 2.0)).x
+      var rot: float = b.global_rotation
+      # mouse position in the block's local (unrotated) space, relative to its center
+      var localMouse: Vector2 = (mpos - startPos).rotated(-rot)
+      var top_edge: float = -b.sizeInPx.y / 2.0
+      var bottom_edge: float = b.sizeInPx.y / 2.0
+      var right_edge: float = b.sizeInPx.x / 2.0
+      var left_edge: float = -b.sizeInPx.x / 2.0
       var offset = Vector2.ZERO
       # scale on the selected sides
       var mouseDistInPx: float
       if scaleOnTopSide:
-        mouseDistInPx = (top_edge - mpos.y)
+        mouseDistInPx = (top_edge - localMouse.y)
         mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
         scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.y * scale.y))
         offset -= Vector2(0, mouseDistInPx / 2)
       elif scaleOnBottomSide:
-        mouseDistInPx = (mpos.y - bottom_edge)
+        mouseDistInPx = (localMouse.y - bottom_edge)
         mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
         scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.y * scale.y))
         offset += Vector2(0, mouseDistInPx / 2)
       if scaleOnLeftSide:
-        mouseDistInPx = (left_edge - mpos.x)
+        mouseDistInPx = (left_edge - localMouse.x)
         mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
         scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.x * scale.x))
         offset -= Vector2(mouseDistInPx / 2, 0)
       elif scaleOnRightSide:
-        mouseDistInPx = (mpos.x - right_edge)
+        mouseDistInPx = (localMouse.x - right_edge)
         mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
         scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.x * scale.x))
         offset += Vector2(mouseDistInPx / 2, 0)
-      # var r = selectedBlock.rotation
-      # var b = selectedBlock
-      # var startPos = selectedBlock.global_position
-      # # gridSize = gridSize.rotated(r)
-      # # mpos = round(mpos / gridSize) * gridSize
-      # # startPos = round(startPos / gridSize) * gridSize
-
-      # # sizeInPx = sizeInPx.rotated(-deg_to_rad(-b.startRotation_degrees))
-      # var scale = b.scale
-      # # log.pp(b.rotation_degrees, b.rect.right)
-      # var top_edge: float = (startPos - (b.sizeInPx / 2.0)).y
-      # var bottom_edge: float = (startPos + (b.sizeInPx / 2.0)).y
-      # var right_edge: float = (startPos + (b.sizeInPx / 2.0)).x
-      # var left_edge: float = (startPos - (b.sizeInPx / 2.0)).x
-      # var offset = Vector2.ZERO
-      # var scaleOn = clearLow(Vector2(
-      #   - 1 if scaleOnLeftSide else 1 if scaleOnRightSide else 0,
-      #   - 1 if scaleOnTopSide else 1 if scaleOnBottomSide else 0
-      # ).rotated(r).normalized())
-      # # scale on the selected sides
-      # log.pp(scaleOn)
-      # var mouseDistInPx: float
-      # if scaleOn.y < 0:
-      #   mouseDistInPx = (top_edge - mpos.y) * abs(scaleOn.y)
-      #   mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
-      #   scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.y * scale.y))
-      #   offset -= Vector2(0, mouseDistInPx / 2)
-      # elif scaleOn.y > 0:
-      #   mouseDistInPx = (mpos.y - bottom_edge) * abs(scaleOn.y)
-      #   mouseDistInPx = round(mouseDistInPx / gridSize.y) * gridSize.y
-      #   scale.y = (scale.y + (mouseDistInPx / b.sizeInPx.y * scale.y))
-      #   offset += Vector2(0, mouseDistInPx / 2)
-      # if scaleOn.x < 0:
-      #   mouseDistInPx = (left_edge - mpos.x) * abs(scaleOn.x)
-      #   mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
-      #   scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.x * scale.x))
-      #   offset -= Vector2(mouseDistInPx / 2, 0)
-      # elif scaleOn.x > 0:
-      #   mouseDistInPx = (mpos.x - right_edge) * abs(scaleOn.x)
-      #   mouseDistInPx = round(mouseDistInPx / gridSize.x) * gridSize.x
-      #   scale.x = (scale.x + (mouseDistInPx / b.sizeInPx.x * scale.x))
-      #   offset += Vector2(mouseDistInPx / 2, 0)
-      # log.pp(scaleOnTopSide, scaleOnBottomSide, scaleOnLeftSide, scaleOnRightSide, mouseDistInPx, mpos, bottom_edge)
+      # offset was computed in local space, move the block in world space
+      offset = offset.rotated(rot)
       b.global_position = startPos + offset
       # b.global_position = round((b.global_position) / gridSize) * gridSize
       var moveMouse := func(pos: Vector2) -> void:
@@ -832,22 +794,22 @@ func localProcess(delta: float) -> void:
         if scaleOnLeftSide:
           scaleOnLeftSide = false
           scaleOnRightSide = true
-          moveMouse.call(mousePos + Vector2(minSize.x * 700, 0))
+          moveMouse.call(mousePos + Vector2(minSize.x * 700, 0).rotated(rot))
         else:
           scaleOnLeftSide = true
           scaleOnRightSide = false
-          moveMouse.call(mousePos - Vector2(minSize.x * 700, 0))
+          moveMouse.call(mousePos - Vector2(minSize.x * 700, 0).rotated(rot))
 
       if scale.y < minSize.y:
         # scale.y = minSize.y
         if scaleOnTopSide:
           scaleOnTopSide = false
           scaleOnBottomSide = true
-          moveMouse.call(mousePos + Vector2(0, minSize.y * 700))
+          moveMouse.call(mousePos + Vector2(0, minSize.y * 700).rotated(rot))
         else:
           scaleOnTopSide = true
           scaleOnBottomSide = false
-          moveMouse.call(mousePos - Vector2(0, minSize.y * 700))
+          moveMouse.call(mousePos - Vector2(0, minSize.y * 700).rotated(rot))
       # log.pp(minSize, scale)
       b.scale = scale
       if scaleOnLeftSide or scaleOnRightSide:
