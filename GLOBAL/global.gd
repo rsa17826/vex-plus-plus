@@ -1357,6 +1357,7 @@ func _unhandled_input(event: InputEvent) -> void:
   if showEditorUi \
   and not (tabMenu and tabMenu.visible) \
   and not ctrlMenu.visible \
+  and not (mainMenu and mainMenu.visible) \
   :
     if event.is_action_pressed(&"move_selected_left"):
       if !lastSelectedBlock or !is_instance_valid(lastSelectedBlock): return

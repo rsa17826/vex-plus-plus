@@ -321,7 +321,7 @@ func showMoreOptions(level: LevelServer.Level):
       var f = FileAccess.open(outpath, FileAccess.READ)
       var data = sds.loadDataFromFile(global.path.join(global.MAP_FOLDER, levelName, "/options.sds"))
 
-      var gameVersion = str(data.gameVersion)
+      # var gameVersion = str(data.gameVersion)
       var creatorName = data.creatorName if "creatorName" in data else data.author
       # var c = Marshalls.raw_to_base64(f.get_buffer(f.get_length()))
       var c = f.get_buffer(f.get_length())
@@ -340,18 +340,15 @@ func showMoreOptions(level: LevelServer.Level):
       if 'levelVersion' not in data:
         data.levelVersion = -1
       f.close()
-      if await LevelServer.uploadLevel(
-        LevelServer.Level.new(
-          levelName,
-          data.description,
-          creatorName,
-          data.gameVersion,
-          data.levelVersion,
-          c,
-          img
-        )
-      ):
-        ToastParty.success("Level uploaded!")
+      LevelServer.uploadLevel(LevelServer.Level.new(
+        levelName,
+        data.description,
+        creatorName,
+        data.gameVersion,
+        data.levelVersion,
+        c,
+        img
+      ))
       $AnimatedSprite2D.visible = false
     10:
       if ! await global.prompt("Are you sure you want to restore this level?", global.PromptTypes.confirm): return
