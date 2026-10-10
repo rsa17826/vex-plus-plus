@@ -10,7 +10,7 @@ test -f /tmp/build/windows/vex++.exe || {
   echo "fail exit"
   exit 1
 }
-7zz a -mx9 /tmp/build/windows.zip /tmp/build/windows/vex++.exe /tmp/build/windows/vex++.pck /tmp/build/windows/vex++.console.exe
+7zz a -mx9 /tmp/build/windows.zip /tmp/build/windows/vex++.exe /tmp/build/windows/vex++.pck /tmp/build/windows/vex++.console.exe >/dev/null
 
 echo /tmp/build/windows.zip
 
