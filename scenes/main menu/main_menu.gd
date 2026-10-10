@@ -460,6 +460,6 @@ func _on_search_text_changed(new_text: String, textArr: Array) -> void:
   global.file.write("user://localLevelListSearchBarFilterText", new_text, false)
 
 func _unhandled_key_input(event: InputEvent) -> void:
-  if loginMenuBg.visible:
+  if loginMenuBg.visible and event.keycode == KEY_ESCAPE:
     loginMenuBg.visible = false
     get_viewport().set_input_as_handled()
