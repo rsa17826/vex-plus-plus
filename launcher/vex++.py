@@ -102,9 +102,9 @@ def gameLaunchRequested(
 
 
     case supportedOs.linux:
-      exe_path = os.path.join(path, "vex")
-      if os.path.isfile(exe_path):
-        os.chmod(exe_path, 0o755)
+      script_path = os.path.join(requestedGameDataLocation, "vex") if os.path.isfile(os.path.join(path, "vex")) else os.path.join(requestedGameDataLocation, "vex++.x86_64")
+      if os.path.isfile(script_path):
+        os.chmod(script_path, 0o755)
         if os.path.isfile("vex.pck"):
           linkAll(
             path,
@@ -115,14 +115,15 @@ def gameLaunchRequested(
           linkAll(
             path,
             requestedGameDataLocation,
-            ["vex++.pck", "vex++.x86_64", "ed25519.linux.template_debug.x86_64.so"],
+            [
+              "vex++.pck",
+              "vex++.x86_64",
+              "ed25519.linux.template_debug.x86_64.so",
+            ],
           )
 
-        script_path = os.path.join(requestedGameDataLocation, "vex")
-        if not os.path.isfile(script_path):
-          script_path = os.path.join(requestedGameDataLocation, "vex++.x86_64")
-
         os.chmod(script_path, 0o755)
+        print(script_path, script_path)
 
         if settings.closeOnLaunch:
           os.execl(script_path, script_path, *args)
