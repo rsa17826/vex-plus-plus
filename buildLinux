@@ -1,8 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 set -e
 mkdir -p /tmp/build/linux
-#!/usr/bin/env bash
-trap 'rm -f ./mod.7z; exit 0' TERM
+trap 'rm -f /tmp/build/linux.zip; rm -f /tmp/build/linux; exit 0' TERM
 godot-newest --headless --path . --export-release "Linux" /tmp/build/linux/vex++.x86_64 >/dev/null || {
   echo "fail exit"
   exit 1
@@ -11,7 +10,7 @@ test -f /tmp/build/linux/vex++.x86_64 || {
   echo "fail exit"
   exit 1
 }
-7zz a -mx9 -md64m /tmp/build/linux.zip vex++.x86_64 vex++.pck vex++.sh
+7zz a -mx9 -md64m /tmp/build/linux.zip /tmp/build/linux/vex++.x86_64 /tmp/build/linux/vex++.pck /tmp/build/linux/vex++.sh
 
 echo /tmp/build/linux.zip
 

@@ -1,8 +1,7 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 set -e
 mkdir -p /tmp/build/windows
-#!/usr/bin/env bash
-trap 'rm -f ./mod.7z; exit 0' TERM
+trap 'rm -f /tmp/build/windows.zip; rm -f /tmp/build/windows; exit 0' TERM
 godot-newest --headless --path . --export-release "Windows Desktop" /tmp/build/windows/vex++.exe >/dev/null || {
   echo "fail exit"
   exit 1
@@ -11,7 +10,7 @@ test -f /tmp/build/windows/vex++.exe || {
   echo "fail exit"
   exit 1
 }
-7zz a -mx9 -md64m /tmp/build/windows.zip vex++.exe vex++.pck vex++.console.exe
+7zz a -mx9 -md64m /tmp/build/windows.zip /tmp/build/windows/vex++.exe /tmp/build/windows/vex++.pck /tmp/build/windows/vex++.console.exe
 
 echo /tmp/build/windows.zip
 

@@ -25,7 +25,7 @@ const SCRIPT_TEMPLATE: String = "extends RefCounted\nconst VERSION: String = \"{
 ## Name of the project setting where the version is going to be stored as a String.
 var PROJECT_SETTING_NAME: String = "application/config/version"
 ## Path to the configuration file for the plugin.
-var CONFIG_PATH = "res://auto_export_version_config_file.gd"
+# var CONFIG_PATH = "res://auto_export_version_config_file.gd"
 
 ## Stores a [param version] based on [param version_store_location].                            [br]
 ## See [member PROJECT_SETTING_NAME], [member SCRIPT_PATH]
@@ -96,12 +96,12 @@ func _enter_tree() -> void:
     ProjectSettings.set_setting(setting_name, PROJECT_SETTING_NAME)
   ProjectSettings.set_initial_value(setting_name, PROJECT_SETTING_NAME)
 
-  setting_name = "addons/AutoExportVersion/version_config_file"
+  # setting_name = "addons/AutoExportVersion/version_config_file"
   # if not ProjectSettings.has_setting(setting_name):
   #     ProjectSettings.set_setting(setting_name, CONFIG_PATH)
   #     DirAccess.copy_absolute("res://addons/AutoExportVersion/auto_export_version_config_file.gd", CONFIG_PATH)
-  ProjectSettings.add_property_info({"name": setting_name, "type": TYPE_STRING, "hint": PROPERTY_HINT_SAVE_FILE})
-  ProjectSettings.set_initial_value(setting_name, CONFIG_PATH)
+  # ProjectSettings.add_property_info({"name": setting_name, "type": TYPE_STRING, "hint": PROPERTY_HINT_SAVE_FILE})
+  # ProjectSettings.set_initial_value(setting_name, CONFIG_PATH)
 
   # _sync_project_settings()
   # ProjectSettings.settings_changed.connect(_sync_project_settings)
