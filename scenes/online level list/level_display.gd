@@ -239,18 +239,15 @@ func _on_upload_pressed() -> void:
     ToastParty.err("the map must have an image of a valid size - a valid image is created by saving the map!")
     return
   f.close()
-  if await LevelServer.uploadLevel(
-    LevelServer.Level.new(
-      level.levelName,
-      level.description,
-      level.creatorName,
-      level.gameVersion,
-      level.levelVersion,
-      c,
-      img
-    )
-  ):
-    ToastParty.success("Level uploaded!")
+  await LevelServer.uploadLevel(LevelServer.Level.new(
+    level.levelName,
+    level.description,
+    level.creatorName,
+    level.gameVersion,
+    level.levelVersion,
+    c,
+    img
+  ))
   global.mainMenu.get_node("AnimatedSprite2D").visible = false
 
 func _on_more_pressed() -> void:
