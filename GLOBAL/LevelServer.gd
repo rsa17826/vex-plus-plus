@@ -213,7 +213,7 @@ static func proposeFiles(files: Array, commitMessage: String, prTitle: String, p
 
 static func proposeFile(path: String, contentBytes: PackedByteArray, commitMessage: String, prTitle: String, prBody: String, branchPrefix: String) -> bool:
   return await LevelServer.proposeFiles(
-    [{"path": path, "bytes": contentBytes}], commitMessage, prTitle, prBody, branchPrefix
+    [ {"path": path, "bytes": contentBytes}], commitMessage, prTitle, prBody, branchPrefix
   )
 
 static func pushPublicKey(uname: String, pubKeyB64: String) -> bool:
@@ -392,7 +392,7 @@ static func uploadLevel(level: Level) -> bool:
   # pairing so "latest" and the version history can never drift apart, and
   # neither can land without the other.
   var ok = await LevelServer.proposeFiles(
-    [{"path": latestPath, "bytes": payloadBytes}, {"path": historyPath, "bytes": payloadBytes}],
+    [ {"path": latestPath, "bytes": payloadBytes}, {"path": historyPath, "bytes": payloadBytes}],
     "upload level " + level.levelName + " v" + str(level.levelVersion),
     "Upload level: " + level.levelName + " v" + str(level.levelVersion) + " by " + LevelServer.username,
     "Automated level upload.",
@@ -419,7 +419,7 @@ static func dictToLevel(e: Dictionary, path: String) -> Level:
       img = Image.new()
       img.load_png_from_buffer(Marshalls.base64_to_raw(e.levelImage))
   var levelData: PackedByteArray = Marshalls.base64_to_raw(e.levelData) if "levelData" in e else PackedByteArray()
-  return Level.new(
+  var l := Level.new(
     e.levelName,
     e.description,
     e.creatorName,
@@ -431,6 +431,8 @@ static func dictToLevel(e: Dictionary, path: String) -> Level:
     path,
     e.get("oldVersionCount", 0) # present on manifest entries only (see scripts/build_manifest.py); 0 elsewhere
   )
+  l.verified = e.get("verified", false)
+  return l
 
 static func loadMapByPath(path: String) -> Level:
   var res = await global.httpGet(LevelServer.rawUrl(path), PackedStringArray(), HTTPClient.METHOD_GET)

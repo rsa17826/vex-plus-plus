@@ -102,7 +102,11 @@ func levelDataChanged():
   creatorId.text = str(level.creatorName)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
-  verified.text = "verified: " + str(level.verified)
+  if !level.verified:
+    verified.text = "verified: " + str(level.verified)
+    verified.visible = true
+  else:
+    verified.visible = false
   # TODO
   viewOldVersions.visible = !!level.oldVersionCount
   viewOldVersions.text = "view " + str(level.oldVersionCount) + " old versions"
