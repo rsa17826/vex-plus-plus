@@ -20,3 +20,5 @@ func _exit_tree() -> void:
 func _get_path(sub_path: String) -> String:
   @warning_ignore("unsafe_method_access")
   return get_script().resource_path.get_base_dir().path_join(sub_path)
+func _get_name() -> String:
+ return "AutoExportVersion"
