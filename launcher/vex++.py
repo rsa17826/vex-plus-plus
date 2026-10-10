@@ -97,7 +97,7 @@ def gameLaunchRequested(
         if settings.closeOnLaunch:
           os.execl(script_path, f'"{script_path}"', *args)
         else:
-          _ = subprocess.Popen([script_path] + args, cwd=requestedGameDataLocation)
+          _ = subprocess.Popen([script_path, *args], cwd=requestedGameDataLocation)
 
 
 
@@ -105,11 +105,19 @@ def gameLaunchRequested(
       exe_path = os.path.join(path, "vex")
       if os.path.isfile(exe_path):
         os.chmod(exe_path, 0o755)
-        linkAll(
-          path,
-          requestedGameDataLocation,
-          ["vex", "vex.pck", "vex++.pck", "vex++.x86_64", "ed25519.linux.template_debug.x86_64.so"],
-        )
+        if os.path.isfile("vex.pck"):
+          linkAll(
+            path,
+            requestedGameDataLocation,
+            ["vex", "vex.pck"],
+          )
+        else:
+          linkAll(
+            path,
+            requestedGameDataLocation,
+            ["vex++.pck", "vex++.x86_64", "ed25519.linux.template_debug.x86_64.so"],
+          )
+
         script_path = os.path.join(requestedGameDataLocation, "vex")
         if not os.path.isfile(script_path):
           script_path = os.path.join(requestedGameDataLocation, "vex++.x86_64")
@@ -119,7 +127,7 @@ def gameLaunchRequested(
         if settings.closeOnLaunch:
           os.execl(script_path, script_path, *args)
         else:
-          _ = subprocess.Popen([script_path] + args, cwd=requestedGameDataLocation)
+          _ = subprocess.Popen([script_path, *args], cwd=requestedGameDataLocation)
 
 
 
