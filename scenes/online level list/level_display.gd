@@ -119,13 +119,11 @@ func _on_download_pressed() -> void:
   LevelServer.downloadMap(level)
 
 func _on_view_old_versions_pressed() -> void:
-  # TODO
-  pass
-  # var oldVersions = await LevelServer.loadOldVersions(level)
-  # oldVersions.sort_custom(func(a, s):
-  #   return a.levelVersion - s.levelVersion
-  # )
-  # levelList.loadLevelsFromArray(oldVersions, true)
+  var oldVersions = await LevelServer.loadOldVersions(level)
+  oldVersions.sort_custom(func(a, s):
+    return a.levelVersion - s.levelVersion
+  )
+  levelList.loadLevelsFromArray(oldVersions, true)
 
 func _on_download_and_play_pressed() -> void:
   if await LevelServer.downloadMap(level):

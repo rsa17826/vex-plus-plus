@@ -131,6 +131,15 @@ static func fetchRemotePublicKey(uname: String) -> String:
     return (res.response as PackedByteArray).get_string_from_utf8().strip_edges()
   return ""
 
+# Raw (non-JSON-parsed) bytes of a file off the base branch, used when we
+# need to re-propose an existing file's content byte-for-byte (archiving the
+# current "latest" into history on an overwrite) rather than re-deriving it.
+static func fetchRawFile(path: String) -> PackedByteArray:
+  var res = await global.httpGet(LevelServer.rawUrl(path), PackedStringArray(), HTTPClient.METHOD_GET, "", null, false)
+  if res.code == 200:
+    return res.response as PackedByteArray
+  return PackedByteArray()
+
 static func sanitizeForRef(s: String) -> String:
   var out := ""
   for c in s:
@@ -304,12 +313,14 @@ class Level:
     self.initing = false
 
 # "Latest" is the file the manifest and the browse list point at -- it always
-# holds whatever was uploaded most recently. Every upload ALSO writes an
-# immutable copy under historyLevelPath, named by its own levelVersion, so
-# old versions stay fetchable even after a newer one overwrites latest (see
-# loadOldVersions). The validator (scripts/validate_pr.py) requires both
-# paths be touched together with byte-identical content, so the two can
-# never drift apart.
+# holds whatever was uploaded most recently. When an upload OVERWRITES an
+# existing level, whatever was in latest just before the overwrite is moved
+# into historyLevelPath under ITS OWN levelVersion (not the new upload's), so
+# old versions stay fetchable even after a newer one replaces latest (see
+# loadOldVersions). A brand-new level has nothing to archive yet, so its
+# first upload only ever touches latest. The validator (scripts/validate_pr.py)
+# requires that an update PR's new history file match the OLD latest content
+# byte-for-byte (the content it's replacing), so the two can never drift.
 static func latestLevelPath(uname: String, levelName: String) -> String:
   return "levels/" + uname + "/" + LevelServer.sanitizeForRef(levelName) + ".json"
 
@@ -386,13 +397,23 @@ static func uploadLevel(level: Level) -> bool:
     "signature": Marshalls.raw_to_base64(signature)
   }
   var payloadBytes = JSON.stringify(payload).to_utf8_buffer()
-  var historyPath = LevelServer.historyLevelPath(LevelServer.username, level.levelName, level.levelVersion)
 
-  # Both files, byte-identical, in one commit: the validator requires this
-  # pairing so "latest" and the version history can never drift apart, and
-  # neither can land without the other.
+  # Version history holds whatever is being REPLACED, not the new upload: if
+  # a level already exists at latestPath, archive its current (pre-overwrite)
+  # bytes under its own levelVersion, then write the new content to latest.
+  # A brand-new level has nothing to archive, so it lands as a single file.
+  var files: Array = []
+  if existing:
+    var existingBytes = await LevelServer.fetchRawFile(latestPath)
+    if existingBytes.is_empty():
+      ToastParty.error("Failed to read the current version to archive it -- try again.")
+      return false
+    var historyPath = LevelServer.historyLevelPath(LevelServer.username, level.levelName, existing.levelVersion)
+    files.append({"path": historyPath, "bytes": existingBytes})
+  files.append({"path": latestPath, "bytes": payloadBytes})
+
   var ok = await LevelServer.proposeFiles(
-    [ {"path": latestPath, "bytes": payloadBytes}, {"path": historyPath, "bytes": payloadBytes}],
+    files,
     "upload level " + level.levelName + " v" + str(level.levelVersion),
     "Upload level: " + level.levelName + " v" + str(level.levelVersion) + " by " + LevelServer.username,
     "Automated level upload.",
@@ -468,27 +489,37 @@ static func loadAllLevels(force: bool) -> Array:
   LevelServer.loadLevelImages(levels) # not awaited -- images fill in progressively via dataChanged
   return levels
 
-# Lists every version ever uploaded for one creator+levelName, newest first,
-# by listing the history directory (levels/<name>/<levelSlug>/) via the
-# contents API -- raw.githubusercontent.com can't list a directory, only
-# fetch one file, so this is the one place that needs the API instead of a
-# raw fetch. Each entry is independently signature-verified the same way
-# loadMapByPath verifies the latest file.
+# Lists every version ever uploaded for one creator+levelName, newest first.
+# History only ever holds strictly-superseded versions now (uploadLevel moves
+# the OLD "latest" into history on every overwrite, rather than copying the
+# new upload there), so the current "latest" file is no longer in that
+# directory and has to be fetched and merged in separately. The history
+# directory listing itself still needs the contents API --
+# raw.githubusercontent.com can't list a directory, only fetch one file.
+# Each entry is independently signature-verified the same way loadMapByPath
+# verifies the latest file.
 static func loadOldVersions(level: Level) -> Array:
   var dirPath = "levels/" + level.creatorName + "/" + LevelServer.sanitizeForRef(level.levelName)
   var res = await global.httpGet(
     LevelServer.apiUrl("/contents/" + global.urlEncode(dirPath) + "?ref=" + global.BRANCH),
     LevelServer.githubHeaders(), HTTPClient.METHOD_GET
   )
-  if res.code != 200 or not res.response is Array:
-    return [] # no history directory yet (e.g. level uploaded before this feature existed) -- not an error
-  var entries: Array = res.response
   var versions: Array[Level] = []
-  for entry in entries:
-    if not entry.name.ends_with(".json"): continue
-    var versionLevel = await LevelServer.loadMapByPath(entry.path)
-    if versionLevel:
-      versions.append(versionLevel)
+
+  var latestPath = LevelServer.latestLevelPath(level.creatorName, level.levelName)
+  var latestLevel = await LevelServer.loadMapByPath(latestPath)
+  if latestLevel:
+    versions.append(latestLevel)
+
+  if res.code == 200 and res.response is Array:
+    var entries: Array = res.response
+    for entry in entries:
+      if not entry.name.ends_with(".json"): continue
+      var versionLevel = await LevelServer.loadMapByPath(entry.path)
+      if versionLevel:
+        versions.append(versionLevel)
+  # else: no history directory yet (e.g. a level that's never been updated) -- not an error
+
   versions.sort_custom(func(a, b): return a.levelVersion > b.levelVersion)
   return versions
 
