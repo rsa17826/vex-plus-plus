@@ -523,10 +523,10 @@ static func loadOldVersions(level: Level) -> Array:
   versions.sort_custom(func(a, b): return a.levelVersion > b.levelVersion)
   return versions
 
-static func cachePath(path: String) -> String:
+static func cachePath(level: Level) -> String:
   # path (e.g. "levels/alice/my-level.json") has slashes, so it isn't a safe
   # filename as-is -- hash it the same way identityPath() hashes usernames.
-  return global.path.abs("user://cache/levelImages/" + path.sha256_text() + ".png")
+  return global.path.abs("user://cache/levelImages/" + (level.path + ":" + str(level.levelVersion)).sha256_text() + ".png")
 
 # Manifest entries carry no levelImage (dictToLevel leaves it null for them),
 # so this fills images in after the fact: disk cache first, then fetch
@@ -540,7 +540,7 @@ static func cachePath(path: String) -> String:
 static func loadLevelImages(levels: Array) -> void:
   var toFetch: Array = []
   for level: Level in levels:
-    var cp = LevelServer.cachePath(level.path)
+    var cp = LevelServer.cachePath(level)
     if FileAccess.file_exists(cp):
       level.levelImage = Image.load_from_file(cp)
       level.dataChanged.emit.call_deferred()
@@ -563,7 +563,7 @@ static func fetchAndCacheImage(level: Level) -> void:
   var img = Image.new()
   img.load_png_from_buffer(Marshalls.base64_to_raw(res.response.levelImage))
   level.levelImage = img
-  img.save_png(LevelServer.cachePath(level.path))
+  img.save_png(LevelServer.cachePath(level))
   level.dataChanged.emit()
 
 static func downloadMap(level: LevelServer.Level) -> bool:
