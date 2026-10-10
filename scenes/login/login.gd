@@ -10,13 +10,9 @@ func _on_register_pressed() -> void:
   if password2.text and password2.text != password.text:
     ToastParty.err("passwords do not match")
     return
-  var ok = await LevelServer.register(uname.text, password.text)
-  if ok:
+  if await LevelServer.register(uname.text, password.text):
     if stayLoggedIn.button_pressed:
       saveLogin()
-    ToastParty.info('successfully registered as ' + LevelServer.username)
-  else:
-    log.err("error", "failed to register")
   LevelServer.updateCurrentUserInfoNode()
 
 func _on_login_pressed() -> void:
@@ -25,7 +21,6 @@ func _on_login_pressed() -> void:
     ToastParty.err("passwords do not match")
     return
   if await LevelServer.login(uname.text, password.text):
-    ToastParty.info('successfully logged in as ' + LevelServer.username)
     if stayLoggedIn.button_pressed:
       saveLogin()
   LevelServer.updateCurrentUserInfoNode()

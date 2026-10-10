@@ -1,0 +1,4 @@
+# asset_name:literal_path
+# asset_name:run some_command   (first line of its stdout must be a file path)
+linux.zip:run ./buildLinux
+windows.zip:run ./buildWindows
