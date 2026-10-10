@@ -458,3 +458,8 @@ func _on_quit_pressed() -> void:
 
 func _on_search_text_changed(new_text: String, textArr: Array) -> void:
   global.file.write("user://localLevelListSearchBarFilterText", new_text, false)
+
+func _unhandled_key_input(event: InputEvent) -> void:
+  if loginMenuBg.visible:
+    loginMenuBg.visible = false
+    get_viewport().set_input_as_handled()
