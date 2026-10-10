@@ -10,7 +10,10 @@ test -f /tmp/build/linux/vex++.x86_64 || {
   echo "fail exit"
   exit 1
 }
-7zz a -mx9 /tmp/build/linux.zip /tmp/build/linux/vex++.x86_64 /tmp/build/linux/vex++.pck /tmp/build/linux/ed25519.linux.template_debug.x86_64.so >/dev/null
+7zz a -mx9 /tmp/build/linux.zip /tmp/build/linux/vex++.x86_64 /tmp/build/linux/vex++.pck /tmp/build/linux/ed25519.linux.template_debug.x86_64.so >/dev/null || {
+  echo "fail exit"
+  exit 1
+}
 
 echo /tmp/build/linux.zip
 
