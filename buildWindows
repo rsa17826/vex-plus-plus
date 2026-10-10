@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 mkdir -p /tmp/build/windows
-trap 'rm -f /tmp/build/windows.zip; rm -f /tmp/build/windows; exit 0' TERM
-godot-newest --headless --path . --export-release "Windows Desktop" /tmp/build/windows/vex++.exe >/dev/null || {
+trap 'rm -f /tmp/build/windows.zip; rm -fr /tmp/build/windows; exit 0' TERM
+godot-newest --headless --path . --export-debug "Windows Desktop" /tmp/build/windows/vex++.exe >/dev/null || {
   echo "fail exit"
   exit 1
 }

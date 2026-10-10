@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 mkdir -p /tmp/build/linux
-trap 'rm -f /tmp/build/linux.zip; rm -f /tmp/build/linux; exit 0' TERM
-godot-newest --headless --path . --export-release "Linux" /tmp/build/linux/vex++.x86_64 >/dev/null || {
+trap 'rm -f /tmp/build/linux.zip; rm -fr /tmp/build/linux; exit 0' TERM
+godot-newest --headless --path . --export-debug "Linux" /tmp/build/linux/vex++.x86_64 >/dev/null || {
   echo "fail exit"
   exit 1
 }
