@@ -108,9 +108,12 @@ def gameLaunchRequested(
         linkAll(
           path,
           requestedGameDataLocation,
-          ["vex", "vex.pck"],
+          ["vex", "vex.pck", "vex++.pck", "vex++.x86_64", "ed25519.linux.template_debug.x86_64.so"],
         )
         script_path = os.path.join(requestedGameDataLocation, "vex")
+        if not os.path.isfile(script_path):
+          script_path = os.path.join(requestedGameDataLocation, "vex++.x86_64")
+
         os.chmod(script_path, 0o755)
 
         if settings.closeOnLaunch:
@@ -141,7 +144,7 @@ def gameVersionExists(path: str, _settings: launcher.SettingsData, selectedOs: s
       return (isfile("vex.exe") and isfile("vex.pck")) or (isfile("windows/vex.exe") and isfile("windows/vex.pck"))
 
     case supportedOs.linux:
-      return (isfile("vex") and isfile("vex.pck")) or (isfile("linux/vex") and isfile("linux/vex.pck"))
+      return (isfile("vex") and isfile("vex.pck")) or (isfile("linux/vex") and isfile("linux/vex.pck")) or (isfile("vex++.x86_64") and isfile("vex++.pck"))
 
 
 

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+mkdir -p /tmp/build/launcher
+trap 'rm -fr /tmp/build/; exit 0' TERM
+7zz a -mx9 /tmp/build/launcher.zip ./launcher/* >/dev/null || {
+  echo "fail exit"
+  exit 1
+}
+
+echo /tmp/build/launcher.zip
+
+while :; do
+  sleep 1
+done
