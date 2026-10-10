@@ -98,8 +98,8 @@ func levelDataChanged():
   levelName.text = level.levelName
   creatorName.text = level.creatorName
   levelVersion.text = 'level version: ' + str(level.levelVersion)
-  # TODO
-  creatorId.text = str(level.creatorName)
+  creatorId.visible = false
+  # creatorId.text = str(level.creatorName)
   gameVersion.text = 'game version: ' + str(level.gameVersion)
   description.text = level.description
   if !level.verified:
