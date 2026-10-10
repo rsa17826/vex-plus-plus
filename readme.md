@@ -10,11 +10,9 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 - [Blocks](#Blocks)
 - [Command Line Arguments](#Command-Line-Arguments)
 - [Extra](#extra)
-
   - [Custom Editor Bar Block Placements](#custom-Editor-Bar-Block-Placements)
 
 - ## Extra Info
-
   - press editor_edit_special on a block in the block picker to modify the default options of that block that will be used when first placing it
   - launcher not required, but allows easy access to any old version, and allows you to know when there is an update whenever opening the launcher.
   - launcher also has a button to update the launcher
@@ -68,7 +66,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 -->
 
 - ## Controls
-
   - **show_keybinds**: can show and hide the control rebind menu while editing a level - control editor starts visible on the main menu
   - **jump**: causes the player to jump and if the camera will refocus the player
   - **down**: causes the player to crouch or slide while on the ground and if in the air will cause the player to be able to break glass when fell on
@@ -125,55 +122,53 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
 - ## Settings
   - ### grid
-
     - **showGridInEdit**: Enable or disable grid display in edit mode.
     - **blockGridSnapSize**: the size of the grid that blocks will snap to when being moved or resized.
     - **showGridInPlay**: Enable or disable grid display while playing.
-  - ### save
 
+  - ### save
     - **autosaveInterval**: Set the interval (in seconds) for autosaving the game. 0 is disabled
     - **saveOnExit**: Enable or disable saving when exiting the game or returning to the main menu
     - **smallerSaveFiles**: Enable to reduce the size of save files and level data files
     - **saveLevelOnWin**: Automatically save the level when the player wins.
     - **showIconOnSave**: Show an icon when a level is saved.
-  - ### window
 
+  - ### window
     - **windowMode**: changes the default window mode (fullscreen/windowed)
       - **fullscreen**: fullscreen
       - **windowed**: windowed
-  - ### warnings
 
+  - ### warnings
     - **dontShowInvalidBlocksInEditorBarEvenWhenReorganizingEditorBar**: Prevent displaying invalid blocks while editing bar while editor bar reorganizing mode is enabled
     - **warnWhenOpeningLevelInOlderGameVersion**: Warn when opening a level created in an older version of the game
     - **warnWhenOpeningLevelInNewerGameVersion**: Warn when opening a level in a newer version of the game
     - **confirmKeyAssignmentDeletion**: Require confirmation before deleting key assignments from the keybinds menu
     - **confirmLevelUploads**: Require confirmation before uploading a level
+
   - ### editor settings
-
     - ### rotation
-
       - **newlyCreatedBlocksRotationTakesPlayerRotation**: Rotate newly created blocks to match the player's rotation.
       - **mouseLockDistanceWhileRotating**: Set the distance from the center of the block that the mouse should be locked to while rotating a block. set to 0 to disable mouse lock.
       - **multiSelectedBlocksRotationScheme**: what happens when rotating a block with selecting more than 1
       - **rotateAllSelectedBlocksBySameAmount**: ?
       - **rotateAllSelectedBlocksToSameDirection**: ?
-    - ### displacement
 
+    - ### displacement
       - **movingPathNodeMovesEntirePath**: Move the entire path when moving a path's main node. else just moves the first node instead of the entire path
       - **minDistBeforeBlockDraggingStarts**: Set the minimum distance the mouse must be moved by before the block is moved or scaled
       - **singleAxisAlignByDefault**: Align blocks along a single axis by default.\nif false the set key must be pressed to enable.\nif true the set key must be pressed to disable
+
     - ### scaling
-
       - **noCornerGrabsForScaling**: Prevents blocks being scaled on both axies at the same time by grabbing the corner
+
     - ### deletion
-
       - **deleteLastSelectedBlockIfNoBlockIsCurrentlySelected**: Delete the last selected block if no block is currently selected when pressing the delete keybind.
-    - ### panning
 
+    - ### panning
       - **autoPanWhenClickingEmptySpace**: Enable to allow dragging an empty space to pan the editor without having to press the pan keybind
       - **editorScrollSpeed**: Set the speed multiplier for panning the editor
-    - ### editor bar
 
+    - ### editor bar
       - **editorBarBlockSize**: Set the size of blocks while editing bar
       - **editorBarScrollSpeed**: Set the scroll speed of the editor bar. set negative to invert scroll direction
       - **editorBarOffset**: can be used to place the editor bar a the bottom of the screen instead of the top, or just shift it down a bit to prevent it from being covered by other programs while in fullscreen or when the window is otherwise at the top of the screen
@@ -184,136 +179,130 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
         - **right**: the editor bar will be at the right of the screen
       - **reorganizingEditorBar**: enable to setart reorginizing the editor bar by dragging the blocks around
       - **showEditorBarBlockMissingErrors**: shows an error if a block while editing bar doesn't exist in the game
-  - ### limits
 
+  - ### limits
     - **allowRotatingAnything**: Allow rotating any object while editing, including objects that would normally be unable to be rotated.
     - **allowScalingAnything**: Allow scaling any object while editing, even those that are typically unscalable.
-  - ### camera
 
+  - ### camera
     - **snapCameraToPixels**: Snap the camera's position to pixel coordinates
     - **cameraZoomInEditor**: Set the zoom level for the camera while editing levels
     - **cameraZoomInPlay**: Set the zoom level for the camera while playing levels
     - **cameraUsesDefaultRotationInEditor**: Use default camera rotation while editing instead of keeping the rotation biased on the players gravity.
     - **dontChangeCameraRotationOnGravityChange**: Use default camera rotation instead of rotating to keep the player always upright on any gravity.
     - **cameraRotationOnGravityChangeHappensInstantly**: Enable instant camera rotation when gravity direction changes instead of smoothly transitioning the cameras rotation.
+
   - ### theme
-
     - ### editor theme
-
       - ### editor block theme
-
         - **blockGhostAlpha**: Set the transparency level of ghost blocks while editing.
         - **selectedBlockOutlineColor**: Set the outline color for selected blocks
         - **hoveredBlockOutlineColor**: Set the outline color for blocks that are hovered over
         - **blockOutlineSize**: Set the size of the outline around blocks for when hovered or selected
         - **pathColor**: Set the color of paths that are drawn while editing
+
       - **boxSelectColor**: Set the color of the selection box when selecting objects while editing
       - **levelTilingBackgroundPath**: Set the file path for the background image used for tiling the level
       - **editorBackgroundPath**: Set the file path for the background image used while editing
       - **editorBackgroundScaleToMaxSize**: Enable to scale the editor background image to fit the screen size
       - **editorStickerPath**: Set the file path for a sticker image that can be added to the editor.
+
     - **theme**: the theme used for the entire application.
       - **default**: default godot theme
       - **blue**: blue
       - **black**: black
+      - **pompi**: the theme used for the entire application.
+
   - ### info
-
     - ### hovered block list
-
       - **showHoveredBlocksList**: Enable or disable the display of a list of hovered blocks while editing
       - **selectedBlockFormatString**: Set the format for displaying the information of the selected block
       - **hoveredBlockFormatString**: Set the format for displaying the information of the hovered block (pxx/pxy size in px x/y, sx/sy is scale x/y, posx/posy is position x/y, rot is rotation in degrees, id is the blocks id, layer is the layer that the block is on)
+
     - ### signals
-
       - ### signal display
-
         - **showSignalListInEditor**: Show a list of signals while editing
         - **showSignalListInPlay**: Show a list of signals while playing
         - **showTotalActiveSignalCounts**: adds a number showing the total amount of signals that are currently sending on each signal id
         - **showWhatBlocksAreSendingSignals**: adds an image of the block that is sending on each signal id and a number showing the amount of blocks of the same type that are sending the signal
         - **onlyShowActiveSignals**: Show only active signals in the list, hiding inactive ones
-      - ### signal connection lines
 
+      - ### signal connection lines
         - **showSignalConnectionLinesOnHover**: shows lines between all blocks connected by signals to the block being hovered or selected
         - **showSignalConnectionLinesInEditor**: shows lines between all blocks connected by signals when while editing
         - **showSignalConnectionLinesInPlay**: shows lines between all blocks connected by signals when while playing
         - **onlyShowSignalConnectionsIfHoveringOverAny**: Only show signal connection lines if the user is hovering over any object that has signal connections
-    - ### level mods
 
+    - ### level mods
       - **showLevelModifiersWhileEditing**: if true the level modifiers will be shown while editing
       - **showLevelModifiersWhilePlaying**: if true the level modifiers will be shown while playing
       - **showUnchangedLevelModifiers**: if true the level modifiers will be shown even if the value is the same as the default
+
     - **showLevelLoadingProgressBar**: Enable to show a progress bar while loading the level.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.
     - ### paths
-
       - **showPathBlockInPlay**: the path block, showing where the path starts, will be visible while playing.
       - **showPathLineInPlay**: the path line, showing the path attached blocks will travel, will be visible while playing.
       - **showPathEditNodesInPlay**: the path edit nodes, showing where each segment of the the path is at, will be visible while playing.
+
     - ### UNAVAILABLEs
-
       - **showUNAVAILABLEBlockInPlay**: Enable to display 'UNAVAILABLE' blocks while playing
+
   - ### player
-
     - **playerRespawnTime**: Set the respawn time for the player after they die
+
   - ### level lists
-
     - ### local level list
-
       - **smallLevelDisplaysInLocalLevelList**: Enable to render the levels in the local level list with less info making them smaller
       - **amountOfLevelsToLoadAtTheSameTimeOnMainMenu**: the amount of levels to load data for each frame when on the menu
       - **showLevelCompletionInfoOnMainMenu**: Show information about the completion status of each level in the main menu
-    - ### online level list
 
+    - ### online level list
       - **smallLevelDisplaysInOnlineLevelList**: Enable to render the levels in the online level list with less info making them smaller
       - **onlyShowLevelsForCurrentVersion**: Only show levels that are made in the current game version in the online level list
-  - ### level creation
 
+  - ### level creation
     - **defaultCreatorName**: the default name for the creator name prompt when creating a new level
     - **defaultCreatorNameIsLoggedInUsersName**: Use the logged-in user's name as the default creator name for levels. if true and logged in defaultCreatorName setting is ignored.
     - **randomizeLevelModifiersOnLevelCreation**: Enable to randomize level modifiers when a new level is created
-  - ### debug
 
+  - ### debug
     - **toastStayTime**: Set how long (in seconds) toast notifications will stay visible on screen
     - ### hitboxes
-
       - **showHitboxesByDefault**: sets the default hitbox state for whenever entering a level
       - ### solid hitboxes
-
         - **solidHitboxColor**: Set the color for solid hitboxes
         - **showSolidHitboxes**: Show or hide solid hitboxes
-      - ### attach detector hitboxes
 
+      - ### attach detector hitboxes
         - **attachDetectorHitboxColor**: the color of the hitbox of the attach detecors
         - **showAttachDetectorHitboxes**: Enable or disable the display of attach detector hitboxes.\nWARNING: doesn't work on exported version and only while editing - i don't know why this is
-      - ### area hitboxes
 
+      - ### area hitboxes
         - **areaHitboxColor**: Set the color for area hitboxes.
         - **showAreaHitboxes**: Enable or disable the display of area hitboxes
-      - ### death hitboxes
 
+      - ### death hitboxes
         - **deathHitboxColor**: the color of the hitbox of the deadly areas
         - **showDeathHitboxes**: Enable or disable the display of deadly hitboxes
-  - ### autocomplete
 
+  - ### autocomplete
     - **searchBarHorizontalAutocomplete**: Enable horizontal autocomplete suggestions instead of vertical ones in the search bar
     - **autocompleteSearchBarHookLeftAndRight**: Enable the autocomplete search bar to hook left and right for selecting suggestions instead of just up and down
     - **showAutocompleteOptions**: when to show the autocomplete options
       - **never**: don't ever show autocomplete options
       - **while focused**: only show autocomplete options when the bar is focused
       - **always**: always show the autocomplete options
-  - ### misc
 
+  - ### misc
     - **alwaysShowOptionsMenuOnHomePage**: Always display the menu on the home page, else can be toggled with the keybind
     - **openExportsDirectoryOnExport**: Automatically open the exports directory after exporting a level
     - **optionMenuToSideOnMainMenuInsteadOfOverlay**: makes the toggle menu keybind toggle the a menu on the left side instead of the usual overlay while on the main menu
     - **tabMenuScale**: Set the scale of the options menu when in overlay format
 
 - ## Blocks
-
   - **basic**: has solid collision
     <br><br><img src="scenes/blocks/basic/images/1.png" alt="image of block basic" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -322,7 +311,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **slope**: has solid collision on the borders but not in the middle.
     <br><br><img src="scenes/blocks/slope/images/1.png" alt="image of block slope" width="50" height="50">
-
     - scalable
     - rotatable
     - canAttachToPaths
@@ -332,7 +320,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **path**: a string of points separated by commas each being an x, then y, that are used to make the path. the points are relative to the path node, not global positions.
     <br><br><img src="scenes/blocks/path/images/1.png" alt="image of block path" width="50" height="50">
-
     - scalable
     - rotatable
     - ### settings:
@@ -356,7 +343,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **single spike**: like 10x spike but a single one instead and scaling scales instead of tiling
     <br><br><img src="scenes/blocks/single spike/images/1.png" alt="image of block single spike" width="30" height="50">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -368,7 +354,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **surprise spike**: goes down slowly then springs back up quickly
     <br><br><img src="scenes/blocks/surprise spike/images/editorBar.png" alt="image of block surprise spike" width="30" height="50">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -380,7 +365,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **moving spike**: moves left and right turning around when hitting a wall
     <br><br><img src="scenes/blocks/moving spike/images/1.png" alt="image of block moving spike" width="30" height="50">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -392,7 +376,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **10x spike**: kills the player on contact
     <br><br><img src="scenes/blocks/10x spike/images/editorBar.png" alt="image of block 10x spike" width="50" height="42">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -404,7 +387,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **10x oneway spike**: kills the player when they collide with the tips of the spikes and are harmless in all other directions
     <br><br><img src="scenes/blocks/10x oneway spike/images/editorBar.png" alt="image of block 10x oneway spike" width="50" height="42">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -416,7 +398,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **10x locked spike**: like a normal 10x spike unless the player has a key, where instead of dying it will be unlocked
     <br><br><img src="scenes/blocks/10x locked spike/images/editorBar.png" alt="image of block 10x locked spike" width="50" height="42">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -428,7 +409,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **10x solar spike**: kills the player on contact if lights are on
     <br><br><img src="scenes/blocks/10x solar spike/images/editorBar.png" alt="image of block 10x solar spike" width="50" height="42">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -440,7 +420,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **10x inverse solar spike**: kills the player on contact if lights are off
     <br><br><img src="scenes/blocks/10x inverse solar spike/images/editorBar.png" alt="image of block 10x inverse solar spike" width="50" height="42">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -452,7 +431,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **pendulum**: swings around in a circle while always keeping a flat surface
     <br><br><img src="scenes/blocks/pendulum/images/editorBar.png" alt="image of block pendulum" width="25" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -464,7 +442,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **invisible**: gets less visible the closer the player is to it
     <br><br><img src="scenes/blocks/invisible/images/1.png" alt="image of block invisible" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -473,7 +450,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **upDown**: has solid collision and moves up then down
     <br><br><img src="scenes/blocks/upDown/images/1.png" alt="image of block upDown" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -482,7 +458,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **downUp**: has solid collision and moves down then up
     <br><br><img src="scenes/blocks/downUp/images/1.png" alt="image of block downUp" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -491,7 +466,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **leftRight**: has solid collision and moves right than left
     <br><br><img src="scenes/blocks/leftRight/images/1.png" alt="image of block leftRight" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -500,7 +474,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **rightLeft**: has solid collision and moves than left right
     <br><br><img src="scenes/blocks/rightLeft/images/1.png" alt="image of block rightLeft" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -509,7 +482,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **growing block**: grows and shrinks
     <br><br><img src="scenes/blocks/growing block/images/editorBar.png" alt="image of block growing block" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -518,7 +490,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **gravity rotator**: rotates gravity to face the direction of it points. is triggered by player/bomb/pushable box entering it.
     <br><br><img src="scenes/blocks/gravity rotator/images/1.png" alt="image of block gravity rotator" width="50" height="50">
-
     - scalable
     - rotatable
     - canAttachToPaths
@@ -528,7 +499,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **water**: when the player enters they are changed to swim mode and reverted to platformer mode on exit.
     <br><br><img src="scenes/blocks/water/images/1.png" alt="image of block water" width="50" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -539,7 +509,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **fan/big**: blows the player and boxes away in the direction it is facing
     <br><br><img src="scenes/blocks/fan/big/images/1.png" alt="image of block fan/big" width="10" height="50">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -551,7 +520,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **fan/small**: blows the player and boxes away in the direction it is facing but less
     <br><br><img src="scenes/blocks/fan/small/images/1.png" alt="image of block fan/small" width="16" height="50">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -563,7 +531,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **solar**: has solid collision when lights are on.
     <br><br><img src="scenes/blocks/solar/images/1.png" alt="image of block solar" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -572,7 +539,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **inverse solar**: has solid collision when lights are off.
     <br><br><img src="scenes/blocks/inverse solar/images/1.png" alt="image of block inverse solar" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -581,7 +547,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **pushable box**: has solid collision and can be pushed by the player while the player is on ground and in platformer mode.
     <br><br><img src="scenes/blocks/pushable box/images/1.png" alt="image of block pushable box" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -590,7 +555,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **microwave**: has solid collision
     <br><br><img src="scenes/blocks/microwave/images/1.png" alt="image of block microwave" width="50" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -601,7 +565,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **locked box**: has solid collision but when the player comes in contact with it and has a key, the key and block are disabled.
     <br><br><img src="scenes/blocks/locked box/images/1.png" alt="image of block locked box" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -610,7 +573,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **floor button**: when pressed by player/bomb/pushable box it will send a signal
     <br><br><img src="scenes/blocks/floor button/images/pressed.png" alt="image of block floor button" width="50" height="2">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -621,7 +583,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **signal deactivated wall**: active only whern its signal is off.
     <br><br><img src="scenes/blocks/signal deactivated wall/images/1.png" alt="image of block signal deactivated wall" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -631,7 +592,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **glass**: has solid collision but when the player comes in contact with it from the top and is holding down and has downwards velocity, the glass breaks and is disabled.
     <br><br><img src="scenes/blocks/glass/images/1.png" alt="image of block glass" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -640,7 +600,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **falling**: has solid collision but when the player comes in contact with it from the top it will start to fall for ~2s before respawning.
     <br><br><img src="scenes/blocks/falling/images/1.png" alt="image of block falling" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -649,7 +608,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **donup**: like a falling block, but in reverse
     <br><br><img src="scenes/blocks/donup/images/1.png" alt="image of block donup" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -658,7 +616,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **bouncy**: has solid collision but when the player comes in contact with it from the top it will put the player in the bouncing state and bounce back up after a short period of time. the time and bounce height is determined by the blocks y size with bigger time and height from larger y scales. the player bounce direction is away from the top of the block so if the block is rotated, the bounce will be different.
     <br><br><img src="scenes/blocks/bouncy/images/1.png" alt="image of block bouncy" width="50" height="50">
-
     - scalable
     - rotatable
     - canAttachToPaths
@@ -668,7 +625,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **spark block/counterClockwise**: has solid collision, kills the player on contact with the spark that moves counterClockwise along the edge of the block when the spark contacts water, the wayer will become electric and kill the player if the player is inside the water
     <br><br><img src="scenes/blocks/spark block/counterClockwise/images/1.png" alt="image of block spark block/counterClockwise" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -677,7 +633,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **spark block/clockwise**: has solid collision, kills the player on contact with the spark that moves clockwise along the edge of the block when the spark contacts water, the wayer will become electric and kill the player if the player is inside the water
     <br><br><img src="scenes/blocks/spark block/clockwise/images/1.png" alt="image of block spark block/clockwise" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -686,7 +641,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **inner level**: has solid collision but when the player crouches on top of it the player will be transported to a new level, which upon being beat will send the player back to the previous level on top of it.
     <br><br><img src="scenes/blocks/inner level/images/ghost.png" alt="image of block inner level" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -697,7 +651,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **goal**: when the player reaches this block they win and if inside an inner level they will go back to the previous level else they will just be reset to the last saved checkpoint.
     <br><br><img src="scenes/blocks/goal/images/1.png" alt="image of block goal" width="35" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -709,7 +662,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **buzzsaw**: kills the player on contact
     <br><br><img src="scenes/blocks/buzzsaw/images/1.png" alt="image of block buzzsaw" width="49" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -720,7 +672,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **bouncing buzzsaw**: kills the player on contact and falls until hitting a solid block where it will start bouncing up until reaching the start height where it will start falling back down again
     <br><br><img src="scenes/blocks/bouncing buzzsaw/images/editorBar.png" alt="image of block bouncing buzzsaw" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -729,7 +680,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **cannon**: the player can press left and right to rotate the cannon and jump to get shot out of the cannon in the direction it is facing
     <br><br><img src="scenes/blocks/cannon/images/editorBar.png" alt="image of block cannon" width="50" height="26">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -739,7 +689,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **checkpoint**: sets the player respawn location to this location
     <br><br><img src="scenes/blocks/checkpoint/images/1.png" alt="image of block checkpoint" width="50" height="38">
-
     - rotatable
     - canAttachToThings
     - canAttachToPaths
@@ -751,7 +700,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **closing spikes**: kills the player on contact will open slowly then close quickly
     <br><br><img src="scenes/blocks/closing spikes/images/editorBar.png" alt="image of block closing spikes" width="50" height="50">
-
     - rotatable
     - canAttachToThings
     - canAttachToPaths
@@ -762,7 +710,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **gravity down lever**: when the player is inside the lever and presses down the player gravity will be halved or reverted to normal if it was halved before
     <br><br><img src="scenes/blocks/gravity down lever/images/1.png" alt="image of block gravity down lever" width="33" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -772,7 +719,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **gravity up lever**: when the player is inside the lever and presses down the player gravity will be doubled or reverted to normal if it was doubled before
     <br><br><img src="scenes/blocks/gravity up lever/images/1.png" alt="image of block gravity up lever" width="33" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -782,7 +728,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **speed up lever**: when the player is inside the lever and presses down the player speed will be doubled or reverted to normal if it was doubled before
     <br><br><img src="scenes/blocks/speed up lever/images/1.png" alt="image of block speed up lever" width="33" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -792,7 +737,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **growing buzzsaw**: kills the player on contact grows from 1x to 3x size then back to 1x, briefly pausing at 1x and 3x
     <br><br><img src="scenes/blocks/growing buzzsaw/images/editorBar.png" alt="image of block growing buzzsaw" width="50" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -803,7 +747,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **jump refresher**: when the player touches this it will reset the players jumps to the levels max or add 1
     <br><br><img src="scenes/blocks/jump refresher/images/1.png" alt="image of block jump refresher" width="50" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -817,7 +760,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **key**: when the player comes in contact with this it will start following the player until ised to unlock a locked box
     <br><br><img src="scenes/blocks/key/images/1.png" alt="image of block key" width="26" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -827,7 +769,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **light switch**: when the player comes in contact with this it will toggle the lights on/off which will disable/enable all solar blocks.
     <br><br><img src="scenes/blocks/light switch/images/1.png" alt="image of block light switch" width="50" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -837,7 +778,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **red only light switch**: when the player comes in contact with this it will toggle the lights off leaving only the inverse solar blocks on.
     <br><br><img src="scenes/blocks/red only light switch/images/1.png" alt="image of block red only light switch" width="50" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -847,7 +787,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **blue only light switch**: when the player comes in contact with this it will toggle the lights on leaving only the solar blocks on.
     <br><br><img src="scenes/blocks/blue only light switch/images/1.png" alt="image of block blue only light switch" width="50" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -857,7 +796,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **pole**: when the player contacts this the player will be able to swing on it and jump off with jump or drop off with down. when jumping off if in the blue part of the indicator then the jump will gain height else it will be like a drop
     <br><br><img src="scenes/blocks/pole/images/editorBar.png" alt="image of block pole" width="50" height="45">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -867,7 +805,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **pole quadrant**: spins 4 poles
     <br><br><img src="scenes/blocks/pole quadrant/images/editorBar.png" alt="image of block pole quadrant" width="49" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -877,7 +814,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **pulley**: when the player comes in contact with this it will move bring the player with it until there is no ceiling or wall in front of it where it will drop the player and return to the start location
     <br><br><img src="scenes/blocks/pulley/images/editorBar.png" alt="image of block pulley" width="50" height="31">
-
     - canAttachToThings
     - ### settings:
       - **direction**: the direction it will move, user means the direction the player is facing when grabbing it
@@ -889,7 +825,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **quadrant**: kills the player on contact and will spin clockwise
     <br><br><img src="scenes/blocks/quadrant/images/editorBar.png" alt="image of block quadrant" width="50" height="50">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -901,7 +836,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **rotating buzzsaw**: kills the player on contact and will spin clockwise
     <br><br><img src="scenes/blocks/rotating buzzsaw/images/1.png" alt="image of block rotating buzzsaw" width="13" height="49">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -913,7 +847,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **scythe**: kills the player on contact and will spin counterclockwise
     <br><br><img src="scenes/blocks/scythe/images/1.png" alt="image of block scythe" width="44" height="49">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -925,7 +858,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **shuriken spawner**: spawns a set of 3 shuricans which
     <br><br><img src="scenes/blocks/shuriken spawner/images/editorBar.png" alt="image of block shuriken spawner" width="50" height="38">
-
     - rotatable
     - canAttachToThings
     - canAttachToPaths
@@ -936,14 +868,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **bouncing shuriken**: moves diagionaly and bounces off walls and kills the player on contact
     <br><br><img src="scenes/blocks/bouncing shuriken/images/1.svg" alt="image of block bouncing shuriken" width="49" height="50">
-
     - scalable
     - ### settings:
       - **color**: sets the modulate property
 
   - **shuriken gun**: spawns bouncing shurikens
     <br><br><img src="scenes/blocks/shuriken gun/images/1.png" alt="image of block shuriken gun" width="49" height="49">
-
     - rotatable
     - canAttachToThings
     - canAttachToPaths
@@ -958,7 +888,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **star**: when the player collects this it will stay collected. the star counter in the top left shows the current number of stars collected and total for the current level. the inner levels will have their star counter on the block before entering.
     <br><br><img src="scenes/blocks/star/images/1.png" alt="image of block star" width="50" height="47">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -973,7 +902,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **laser**: when the player is in range the laser will shoot projectiles in the direction it is facing, these projectiles have a cooldown and are destroyed on contact with solid blocks. if the projectile hits a bomb the bomb will be exploded. the red circle on the laser shows the current cooldown - fully red means ready to fire.
     <br><br><img src="scenes/blocks/laser/images/1.png" alt="image of block laser" width="50" height="25">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -985,7 +913,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **targeting laser**: when the player is in range the laser will apply heat, more heat is applied if the player is closer. when the player is in water heat will dissipate faster. if the heat ray hits a bomb the bomb will be exploded.
     <br><br><img src="scenes/blocks/targeting laser/images/1.png" alt="image of block targeting laser" width="50" height="44">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -995,21 +922,18 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **death boundary**: kills the player on contact
     <br><br><img src="scenes/blocks/death boundary/images/1.png" alt="image of block death boundary" width="50" height="50">
-
     - scalable
     - ### settings:
       - **color**: sets the modulate property
 
   - **block death boundary**: kills most moving blocks on contact including collected keys and removes effects from the player when the player enters
     <br><br><img src="scenes/blocks/block death boundary/images/1.png" alt="image of block block death boundary" width="50" height="50">
-
     - scalable
     - ### settings:
       - **color**: sets the modulate property
 
   - **noWJ**: prevents the player from walljumping, wallsliding, and wall hanging when in contact with the player
     <br><br><img src="scenes/blocks/noWJ/images/1.png" alt="image of block noWJ" width="8" height="50">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -1021,7 +945,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **falling spike**: kills the player on contact when in line with the player it will start falling until hitting a solid block
     <br><br><img src="scenes/blocks/falling spike/images/editorBar.png" alt="image of block falling spike" width="16" height="50">
-
     - rotatable
     - canAttachToThings
     - canAttachToPaths
@@ -1033,7 +956,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **quad falling spikes**: when the player comes in line with this in one of the 4 cardinal directions it will shoot out 4 spikes in each direction, it is not deadly if it has just shot ts spikes
     <br><br><img src="scenes/blocks/quad falling spikes/images/editorBar.png" alt="image of block quad falling spikes" width="49" height="50">
-
     - rotatable
     - canAttachToThings
     - canAttachToPaths
@@ -1044,7 +966,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **portal**: when the player contacts this it will take the player to the first portal in the level with a portalId matching the portals targetId
     <br><br><img src="scenes/blocks/portal/images/1.png" alt="image of block portal" width="35" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -1057,7 +978,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **bomb**: like a pushable box but explodes when hit with a falling spike, falling to fast and colliging with the ground, being squished, or having a box, other bomb fall to fast on it, or being exploded by another bomb. when the player is inside of the explosion, they will be killed, when a block is in the explosion, it will be disabled. microwaves cant be exploded.
     <br><br><img src="scenes/blocks/bomb/images/1.png" alt="image of block bomb" width="50" height="25">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -1066,7 +986,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **sticky floor**: makes the player not be able to jump while in contact with this and also prevents the player from regaining cyote time
     <br><br><img src="scenes/blocks/sticky floor/images/1.png" alt="image of block sticky floor" width="50" height="8">
-
     - scalable
     - rotatable
     - canAttachToThings
@@ -1078,7 +997,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **arrow**: points at things; can be rotated
     <br><br><img src="scenes/blocks/arrow/images/1.png" alt="image of block arrow" width="50" height="50">
-
     - rotatable
     - canAttachToThings
     - canAttachToPaths
@@ -1089,7 +1007,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **text**: text to show
     <br><br><img src="scenes/blocks/text/images/1.png" alt="image of block text" width="50" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -1100,7 +1017,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **conveyor**: moves things on top of it in the direction of the arrows and momentum persists for a short time after leaving this block. works on pushable box, bomb and player, works both vertically and horizontally.
     <br><br><img src="scenes/blocks/conveyor/images/editorBar.png" alt="image of block conveyor" width="50" height="50">
-
     - scalable
     - rotatable
     - canAttachToPaths
@@ -1110,7 +1026,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **oneway**: like a block in the direction it is facing and like air in all other directions.
     <br><br><img src="scenes/blocks/oneway/images/1.png" alt="image of block oneway" width="50" height="50">
-
     - scalable
     - rotatable
     - canAttachToPaths
@@ -1120,7 +1035,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **undeath**: if the player collides with this block while flying bact to the spawnpoint the player will instead be revived right where the player collided with the block at. user restarts will bypass this block.
     <br><br><img src="scenes/blocks/undeath/images/editorBar.png" alt="image of block undeath" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -1129,7 +1043,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **area trigger**: sends a signal while any movable thing is in the area
     <br><br><img src="scenes/blocks/area trigger/images/1.png" alt="image of block area trigger" width="50" height="50">
-
     - scalable
     - ### settings:
       - **signalOutputId**: the id that will be sent
@@ -1137,7 +1050,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **input detector**: when the player is pressing the set direction a signal will be emitted.
     <br><br><img src="scenes/blocks/input detector/images/1.png" alt="image of block input detector" width="50" height="50">
-
     - rotatable
     - ### settings:
       - **action**: the action to detect
@@ -1150,7 +1062,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **player state detector**: sends a signal if the player is in the specified state
     <br><br><img src="scenes/blocks/player state detector/images/1.png" alt="image of block player state detector" width="50" height="50">
-
     - rotatable
     - ### settings:
       - **state**: the state to detect
@@ -1177,7 +1088,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **not gate**: will invert a signal.
     <br><br><img src="scenes/blocks/not gate/images/editorBar.png" alt="image of block not gate" width="50" height="50">
-
     - ### settings:
       - **signalInputId**: the id of the signal it is listening for
       - **signalOutputId**: the id that will be sent
@@ -1185,7 +1095,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **and gate**: will send a signal only if both signals are on.
     <br><br><img src="scenes/blocks/and gate/images/editorBar.png" alt="image of block and gate" width="50" height="50">
-
     - ### settings:
       - **signalAInputId**: a signal to detect
       - **signalBInputId**: other signal to detect
@@ -1194,7 +1103,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **SRNor**: has 2 inputs, when receiving one starts sending a signal, when receiving the other stops sending the signal
     <br><br><img src="scenes/blocks/SRNor/images/editorBar.png" alt="image of block SRNor" width="50" height="50">
-
     - ### settings:
       - **enableSignalInputId**: the signal id that when received will cause this to start sending it's signal
       - **disableSignalInputId**: the signal id that when received will cause this to stop sending it's signal
@@ -1205,7 +1113,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **crumbling**: if the player collides with this block the block will start to crumble and be destroyed after a certain amount of time. only respawns on death.
     <br><br><img src="scenes/blocks/crumbling/images/base/1.png" alt="image of block crumbling" width="50" height="50">
-
     - scalable
     - canAttachToPaths
     - ### settings:
@@ -1214,7 +1121,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **timer**: when it receives a signal or stops receiving a signal will charge up or discharge, then when full or empty will start or stop sending a signal
     <br><br><img src="scenes/blocks/timer/images/1.png" alt="image of block timer" width="50" height="50">
-
     - rotatable
     - ### settings:
       - **signalInputId**: the id of the signal it is listening for
@@ -1233,7 +1139,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **zipline**: the player can slide down the zipline from one to another
     <br><br><img src="scenes/blocks/zipline/images/1.png" alt="image of block zipline" width="7" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -1245,7 +1150,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **chain**: links 2 or more blocks together so when one is moved the other is moved with it
     <br><br><img src="scenes/blocks/chain/images/1.png" alt="image of block chain" width="25" height="50">
-
     - scalable
     - canAttachToThings
     - canAttachToPaths
@@ -1256,7 +1160,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 
   - **rotator**: rotates blocks attached to it
     <br><br><img src="scenes/blocks/rotator/images/editorBar.png" alt="image of block rotator" width="50" height="50">
-
     - canAttachToThings
     - canAttachToPaths
     - ### settings:
@@ -1273,9 +1176,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
 -->
 
 - ## Command Line Arguments
-
   - ## Launcher
-
     - **offline**: doesn't fetch release data from github
     - **silent**: suppresses all alerts and all inputs will auto use the default value
     - **version**: opens the game version specified in the next argument
@@ -1283,13 +1184,12 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **tryupdate**: updates the launcher to the newest version only if the newest version is different than the current version
 
   - ### Game
-
     - **--loadMap**: when opening the game it loads a map by name, or NEWEST to load the newest map.
     - **--downloadMap**: downloads a map by the maps id
     - **--loadOnlineLevels**: opens the online levels list when starting the game.
+    - **--disable-auto-login**: don't allow auto logging in even if auth file present.
 
 - ## Extra
-
   - ### Custom Editor Bar Block Placements
 
     to reorder the blocks while editing bar, create a file called `editorBar.sds` and if using the launcher, place it in the `game data` folder otherwise just place it in the game's directory.
@@ -1317,8 +1217,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     \< is less than
 
     if search is empty, it will return all levels
-
-    #### only works for filtering not for searching for levels!
 
     ! is invert next filter mode so `creatorName/!=exactName`
     will hide all where `creatorName` exactly equal to `exactName`

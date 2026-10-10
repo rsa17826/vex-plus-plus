@@ -988,31 +988,5 @@
         "tooltip": "Set the scale of the options menu when in overlay format."
       }
     ]
-  },
-  {
-    "thing": "group",
-    "name": "level server",
-    "value": [
-      {
-        "thing": "group",
-        "name": "supabase",
-        "value": [
-          {
-            "thing": "option",
-            "type": "lineedit",
-            "key": "supabaseUrl",
-            "defaultValue": "https://zipitsixybgrlzmhbxaa.supabase.co",
-            "tooltip": "supabase url."
-          },
-          {
-            "thing": "option",
-            "type": "lineedit",
-            "key": "supabaseKey",
-            "defaultValue": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InppcGl0c2l4eWJncmx6bWhieGFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTc1MjU3MjksImV4cCI6MjA3MzEwMTcyOX0.EPgNFT6Q0pkyH9ogIR97qsJAIA1bLyTNRIFRw_vMVec",
-            "tooltip": "supabase public key."
-          }
-        ]
-      }
-    ]
   }
 ]

@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+godot-newest --path "$PWD" --scene "res://scenes/gen md/gen.tscn"
