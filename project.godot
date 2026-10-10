@@ -14,7 +14,7 @@ config/name="vex"
 config/version="242"
 run/main_scene="uid://bsub1ew4qiin4"
 config/features=PackedStringArray("4.8")
-config/icon="uid://csr6lp7yx00ix"
+config/icon="uid://drv8tga3c7d2j"
 config/windows_native_icon="res://vex++.ico"
 boot_splash/minimum_display_time=500
 
