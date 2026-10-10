@@ -60,7 +60,7 @@ func updateOnlineState():
   onlineButtonsContainer.visible = isOnline
   offlineButtonsContainer.visible = !isOnline
   verified.get_parent().visible = isOnline
-  creatorId.visible = isOnline
+  # creatorId.visible = isOnline
   for thing in large:
     thing.visible = true
   if isOnline:
@@ -120,9 +120,9 @@ func _on_download_pressed() -> void:
 
 func _on_view_old_versions_pressed() -> void:
   var oldVersions = await LevelServer.loadOldVersions(level)
-  oldVersions.sort_custom(func(a, s):
-    return a.levelVersion - s.levelVersion
-  )
+  # oldVersions.sort_custom(func(a, s):
+  #   return a.levelVersion - s.levelVersion
+  # )
   levelList.loadLevelsFromArray(oldVersions, true)
 
 func _on_download_and_play_pressed() -> void:
