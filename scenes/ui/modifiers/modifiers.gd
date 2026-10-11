@@ -19,6 +19,10 @@ func modVis(mod, val):
 var editorOpen := false
 
 func toggleEditor():
+  if global.useropts.keepModifierEditorAlwaysOpen:
+    updateUi(global.currentLevelSettings(), true)
+    $"modifiers editor bg".visible = false
+    return
   editorOpen = !editorOpen
   if editorOpen:
     updateUi(global.currentLevelSettings(), true)
@@ -31,7 +35,7 @@ func toggleEditor():
 
 func updateUi(
   data: Dictionary,
-  showAllMods: bool = global.useropts.showUnchangedLevelModifiers
+  showAllMods: bool = global.useropts.showUnchangedLevelModifiers or global.useropts.keepModifierEditorAlwaysOpen
 ):
   # hide all mods
   for child in $GridContainer.get_children():
@@ -78,7 +82,7 @@ func updateUi(
             breakpoint
 
 func _on_gui_input(event: InputEvent, source: Control) -> void:
-  if !global.ui.modifiers.editorOpen: return
+  if !global.ui.modifiers.editorOpen and !global.useropts.keepModifierEditorAlwaysOpen: return
   if event is InputEventMouseButton and event.button_mask == MOUSE_BUTTON_LEFT:
     var levelSettings = global.currentLevelSettings()
     var flag = source.name

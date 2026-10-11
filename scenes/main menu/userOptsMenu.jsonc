@@ -642,6 +642,13 @@
             "key": "showUnchangedLevelModifiers",
             "defaultValue": true,
             "tooltip": "if true the level modifiers will be shown even if the value is the same as the default."
+          },
+          {
+            "thing": "option",
+            "type": "bool",
+            "key": "keepModifierEditorAlwaysOpen",
+            "defaultValue": true,
+            "tooltip": "always allow clicking to changing modifiers"
           }
         ]
       },

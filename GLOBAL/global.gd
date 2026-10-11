@@ -1060,7 +1060,7 @@ func _unhandled_input(event: InputEvent) -> void:
     log.warn("EVAL: ", result)
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     hideNonGhosts = !hideNonGhosts
-  if event.is_action_pressed(&"edit_level_mods", false, true):
+  if event.is_action_pressed(&"edit_level_mods", false, true) and !global.useropts.keepModifierEditorAlwaysOpen:
     ui.modifiers.toggleEditor()
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):

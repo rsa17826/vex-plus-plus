@@ -237,6 +237,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **showLevelModifiersWhileEditing**: if true the level modifiers will be shown while editing
       - **showLevelModifiersWhilePlaying**: if true the level modifiers will be shown while playing
       - **showUnchangedLevelModifiers**: if true the level modifiers will be shown even if the value is the same as the default
+      - **keepModifierEditorAlwaysOpen**: always allow clicking to changing modifiers
 
     - **showLevelLoadingProgressBar**: Enable to show a progress bar while loading the level.
     - **showLevelLoadingBehindProgressBar**: shows the blocks being placed when loading a level. otherwise shows a grey background behind the loading bar instead.

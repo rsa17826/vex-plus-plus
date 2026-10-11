@@ -11,7 +11,11 @@ var exploded = false
 func on_body_entered(body: Node):
   explode()
 
+var respawnCount := 0
+var myRespawn := 0
+
 func on_respawn():
+  respawnCount += 1
   exploded = true
   boomSprite.stop()
   boomSprite.visible = false
@@ -40,6 +44,7 @@ func onAnimationLooped():
 
 func onFrameChanged():
   if respawning: return
+  if myRespawn != respawnCount: return
   match boomSprite.frame:
     1:
       boomShape.shape.radius = 605.67
@@ -69,10 +74,12 @@ func onFrameChanged():
 func explode():
   if exploded: return
   exploded = true
+  myRespawn = respawnCount
   $CharacterBody2D/Sprite2D.visible = false
   boomSprite.visible = true
   boomShape.set_deferred("shape", CircleShape2D.new())
   await global.wait()
+  if myRespawn != respawnCount: return
   boomShape.shape.radius = 206.06
   boomSprite.frame_changed.connect(onFrameChanged)
   boomSprite.animation_looped.connect(onAnimationLooped)

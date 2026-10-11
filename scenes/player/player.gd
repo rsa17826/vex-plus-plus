@@ -223,7 +223,23 @@ const ABS_MAX := 32767
 const MODE_INJECTION := 2
 var iswindows = OS.get_name() == "Windows"
 var warpPipe: FileAccess
-
+const MOVE_CURSOR_LUA := "hl.dsp.cursor.move({ x = %d, y = %d })"
+func warpOs(viewportPos: Vector2) -> void:
+  var out := []
+  var code := OS.execute("hyprctl", ["activewindow", "-j"], out)
+  assert(code == 0, "hyprctl activewindow failed: %d" % code)
+  var win: Dictionary = JSON.parse_string(out[0])
+  var winPos := Vector2(win.at[0], win.at[1])
+  var screenPos := winPos + viewportPos * global.stretchScale
+  var moveOut := []
+  var moveCode := OS.execute("hyprctl", ["dispatch", MOVE_CURSOR_LUA % [int(screenPos.x), int(screenPos.y)]], moveOut)
+  log.pp("warp", winPos, screenPos, moveCode, moveOut)
+const WARP_TOLERANCE := 3.0
+const WARP_TIMEOUT_MS := 250
+var warpPending := false
+var warpOrigin := Vector2.ZERO
+var warpTarget := Vector2.ZERO # viewport coords
+var warpDeadlineMs := 0
 func sendWireEvent(type: int, code: int, value: int) -> void:
   var b := PackedByteArray()
   b.resize(96) # zero filled: Sec, Usec, Seq, DeviceID all 0
@@ -231,18 +247,11 @@ func sendWireEvent(type: int, code: int, value: int) -> void:
   b.encode_u16(18, code)
   b.encode_s32(20, value)
   warpPipe.store_buffer(b)
-
 func warpMouse(position: Vector2) -> void:
   if iswindows:
     Input.warp_mouse(position)
     return
-  var screenPos := position
-  var screenSize := Vector2(DisplayServer.screen_get_size(DisplayServer.window_get_current_screen()))
-  log.pp("screenPos", screenPos, screenSize)
-  sendWireEvent(EV_ABS, ABS_X, int(screenPos.x / screenSize.x * ABS_MAX))
-  sendWireEvent(EV_ABS, ABS_Y, int(screenPos.y / screenSize.y * ABS_MAX))
-  sendWireEvent(EV_SYN, 0, 0)
-  warpPipe.flush()
+  warpOs(position)
 func _unhandled_input(event: InputEvent) -> void:
   if get_viewport().gui_get_focus_owner(): return
   if global.tabMenu.visible: return
@@ -290,9 +299,18 @@ func _unhandled_input(event: InputEvent) -> void:
         shouldPan = false
 
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
-  if event is InputEventMouseMotion and isFakeMouseMovement:
-    isFakeMouseMovement = false
-    return
+  var panDelta := Vector2.ZERO
+  if event is InputEventMouseMotion:
+    panDelta = event.relative
+    if warpPending:
+      log.pp(event.position.distance_to(warpTarget), event.position.distance_to(warpOrigin))
+      if event.position.distance_to(warpTarget) < event.position.distance_to(warpOrigin):
+        # warp landed: only the movement past the target is real
+        panDelta = event.position - warpTarget
+        warpPending = false
+        return
+      else:
+        assert(Time.get_ticks_msec() <= warpDeadlineMs, "warp to %s never arrived" % warpTarget)
   if global.openMsgBoxCount: return
   if event is InputEventMouseMotion and not global.showEditorUi:
     camRotLock = defaultAngle
@@ -318,20 +336,25 @@ func _unhandled_input(event: InputEvent) -> void:
     camera.reset_smoothing()
     if Input.is_action_pressed(&"editor_select") and shouldPan:
       global.ui.blockMenu.clearItems()
-      camLockPos -= (event.relative.rotated(camera.global_rotation)) * global.useropts.editorScrollSpeed
-      var mousePos := get_viewport().get_mouse_position()
-      var startPos := mousePos
-      if mousePos.x <= 0:
-        mousePos.x = global.windowSize.x
-      elif mousePos.x >= global.windowSize.x - 1:
-        mousePos.x = 0
-      if mousePos.y <= 0:
-        mousePos.y = global.windowSize.y
-      elif mousePos.y >= global.windowSize.y - 1:
-        mousePos.y = 0
-      if startPos != mousePos:
-        isFakeMouseMovement = true
-        warpMouse(mousePos * global.stretchScale)
+      camLockPos -= panDelta.rotated(camera.global_rotation) * global.useropts.editorScrollSpeed
+      if !warpPending:
+        var mousePos := get_viewport().get_mouse_position()
+        var startPos := mousePos
+        if mousePos.x <= 0:
+          mousePos.x = global.windowSize.x - 2
+        elif mousePos.x >= global.windowSize.x - 1:
+          mousePos.x = 1
+        if mousePos.y <= 0:
+          mousePos.y = global.windowSize.y - 2
+        elif mousePos.y >= global.windowSize.y - 1:
+          mousePos.y = 1
+        if startPos != mousePos:
+          warpOrigin = startPos
+          warpTarget = mousePos
+          warpPending = true
+          warpDeadlineMs = Time.get_ticks_msec() + WARP_TIMEOUT_MS
+          log.pp(global.stretchScale, "global.stretchScale")
+          warpMouse(mousePos)
     updateCamLockPos()
 
   if mouseMode == Input.mouse_mode: return
