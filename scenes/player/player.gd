@@ -2040,4 +2040,4 @@ func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
 # fix fans bloing player wrong dir when grav is changed
 # level list scroll position not saving or not loading
 
-# add --no-auto-login
+# add add loading spinner for register button
