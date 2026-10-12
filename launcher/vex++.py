@@ -91,7 +91,7 @@ def gameLaunchRequested(
           linkAll(
             path,
             requestedGameDataLocation,
-            ["vex++.exe", "vex++.console.exe", "vex++.pck"],
+            ["vex++.exe", "vex++.console.exe", "vex++.pck", "ed25519.windows.template_debug.x86_64.dll"],
           )
         else:
           linkAll(
@@ -126,7 +126,7 @@ def gameLaunchRequested(
             [
               "vex++.pck",
               "vex++.x86_64",
-              "ed25519.windows.template_debug.x86_64.dll",
+              "ed25519.linux.template_debug.x86_64.so",
             ],
           )
 
