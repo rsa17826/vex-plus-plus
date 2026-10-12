@@ -84,14 +84,22 @@ def gameLaunchRequested(
 
   match selectedOs:
     case supportedOs.windows:
-      binary_name = "vex.console.exe" if settings.showConsole else "vex.exe"
-      exe_path = os.path.join(path, "vex.exe")
+      binary_name = ("vex.console.exe" if os.path.isfile(os.path.join(path, "vex.exe")) else "vex++.console.exe") if settings.showConsole else ("vex.exe" if os.path.isfile(os.path.join(path, "vex.exe")) else "vex++.exe")
+      exe_path = os.path.join(path, binary_name)
       if os.path.isfile(exe_path):
-        linkAll(
-          path,
-          requestedGameDataLocation,
-          ["vex.exe", "vex.console.exe", "vex.pck"],
-        )
+        if "++" in binary_name:
+          linkAll(
+            path,
+            requestedGameDataLocation,
+            ["vex++.exe", "vex++.console.exe", "vex++.pck"],
+          )
+        else:
+          linkAll(
+            path,
+            requestedGameDataLocation,
+            ["vex.exe", "vex.console.exe", "vex.pck"],
+          )
+
         script_path = os.path.join(requestedGameDataLocation, binary_name)
 
         if settings.closeOnLaunch:
@@ -118,12 +126,9 @@ def gameLaunchRequested(
             [
               "vex++.pck",
               "vex++.x86_64",
-              "ed25519.linux.template_debug.x86_64.so",
+              "ed25519.windows.template_debug.x86_64.dll",
             ],
           )
-
-        os.chmod(script_path, 0o755)
-        print(script_path, script_path)
 
         if settings.closeOnLaunch:
           os.execl(script_path, script_path, *args)
@@ -150,7 +155,7 @@ def gameVersionExists(path: str, _settings: launcher.SettingsData, selectedOs: s
 
   match selectedOs:
     case supportedOs.windows:
-      return (isfile("vex.exe") and isfile("vex.pck")) or (isfile("windows/vex.exe") and isfile("windows/vex.pck"))
+      return (isfile("vex.exe") and isfile("vex.pck")) or (isfile("windows/vex.exe") and isfile("windows/vex.pck")) or (isfile("vex++.exe") and isfile("vex++.pck"))
 
     case supportedOs.linux:
       return (isfile("vex") and isfile("vex.pck")) or (isfile("linux/vex") and isfile("linux/vex.pck")) or (isfile("vex++.x86_64") and isfile("vex++.pck"))
