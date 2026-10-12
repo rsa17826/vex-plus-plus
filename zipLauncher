@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 mkdir -p /tmp/build/launcher
-trap 'rm -fr /tmp/build/;echo -n $(( $(gh release list --json tagName --limit 1 | jq ".[0].tagName" -r) + 2 )) > VERSION; exit 0' TERM
+trap 'rm -fr /tmp/build/;echo -n $(( $(gh release list --json tagName --limit 1 | jq ".[0].tagName" -r) + 1 )) > VERSION; exit 0' TERM
 7zz a -mx9 /tmp/build/launcher.zip ./launcher/* >/dev/null || {
   echo "fail exit"
   exit 1

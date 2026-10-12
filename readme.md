@@ -216,7 +216,7 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
       - **default**: default godot theme
       - **blue**: blue
       - **black**: black
-      - **pompi**: the theme used for the entire application.
+      - **pompy**: the theme used for the entire application.
   - ### info
 
     - ### hovered block list
