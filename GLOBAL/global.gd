@@ -1060,6 +1060,8 @@ func _unhandled_input(event: InputEvent) -> void:
     log.warn("EVAL: ", result)
   if event.is_action_pressed(&"toggle_hide_non_ghosts", false, true):
     hideNonGhosts = !hideNonGhosts
+  if event.is_action_pressed(&"toggle_block_id_viewer", false, true):
+    toggleBlockIdViewer()
   if event.is_action_pressed(&"edit_level_mods", false, true) and !global.useropts.keepModifierEditorAlwaysOpen:
     ui.modifiers.toggleEditor()
   if Input.is_action_pressed(&"editor_box_select", true):
@@ -1315,6 +1317,14 @@ func _unhandled_input(event: InputEvent) -> void:
     if useropts.alwaysShowOptionsMenuOnHomePage or useropts.optionMenuToSideOnMainMenuInsteadOfOverlay:
       tabMenu._visible = false
     get_tree().change_scene_to_file.call_deferred("res://scenes/main menu/main_menu.tscn")
+    Input.mouse_mode = Input.MOUSE_MODE_CONFINED
+  if event.is_action_pressed(&"open_online_levels_list", false, true):
+    if useropts.saveOnExit:
+      if level and is_instance_valid(level):
+        level.save(false)
+    if isAlive(level):
+      level.sceneChanging()
+    get_tree().change_scene_to_file.call_deferred("res://scenes/online level list/main.tscn")
     Input.mouse_mode = Input.MOUSE_MODE_CONFINED
   if showEditorUi \
   and not (tabMenu and tabMenu.visible) \
@@ -2433,6 +2443,133 @@ func isAlive(e):
     and !same(e, lastDeletedBlock)
 
 var hoveredBrushes: Array[Node2D] = []
+
+# ---------------- block id viewer ----------------
+# shows every option ending in "Id" (signalOutputId, signalInputId, portal ids, ...)
+# that is set on a block in the current level, grouped by id value
+var blockIdViewer: CanvasLayer
+var blockIdViewerTree: Tree
+var blockIdViewerFilter: LineEdit
+var blockIdViewerLastMouseMode := Input.MOUSE_MODE_VISIBLE
+var blockIdViewerCycle := {}
+
+## returns {idValueAsString: [{"block": EditorBlock, "option": String}]}
+func getBlockIdUsage() -> Dictionary:
+  var usage := {}
+  for block: EditorBlock in level.get_node("blocks").get_children():
+    for opt: String in block.selectedOptions:
+      if not opt.ends_with("Id"): continue
+      var val = block.selectedOptions[opt]
+      if not val: continue
+      var key := str(val)
+      if key not in usage:
+        usage[key] = []
+      usage[key].append({"block": block, "option": opt})
+  return usage
+
+func refreshBlockIdViewer() -> void:
+  blockIdViewerTree.clear()
+  var root := blockIdViewerTree.create_item()
+  var usage := getBlockIdUsage()
+  var keys := usage.keys()
+  keys.sort_custom(func(a: String, b: String) -> bool:
+    if a.is_valid_int() and b.is_valid_int():
+      return int(a) < int(b)
+    return a < b)
+  var filter := blockIdViewerFilter.text.strip_edges()
+  for key: String in keys:
+    if filter and filter not in key: continue
+    var uses: Array = usage[key]
+    var idItem := blockIdViewerTree.create_item(root)
+    idItem.set_text(0, key)
+    idItem.set_text(1, str(len(uses)) + (" use" if len(uses) == 1 else " uses"))
+    idItem.set_metadata(0, key)
+    idItem.collapsed = true
+    for use: Dictionary in uses:
+      var b: EditorBlock = use.block
+      var item := blockIdViewerTree.create_item(idItem)
+      item.set_text(0, b.id + " · " + use.option)
+      item.set_text(1, "%d, %d" % [b.startPosition.x, b.startPosition.y])
+      item.set_metadata(0, b)
+
+func warpCameraToBlock(block: EditorBlock) -> void:
+  if not isAlive(block):
+    ToastParty.error("that block no longer exists")
+    refreshBlockIdViewer.call_deferred()
+    return
+  if not showEditorUi:
+    player.camRotLock = player.defaultAngle
+    setEditorUiState(true)
+  player.camLockPos = (
+    block.thingThatMoves.global_position
+    if block.thingThatMoves else
+    block.global_position
+  )
+  player.updateCamLockPos()
+
+func onBlockIdViewerItemSelected() -> void:
+  var item := blockIdViewerTree.get_selected()
+  var meta = item.get_metadata(0)
+  if meta is EditorBlock:
+    warpCameraToBlock(meta)
+    return
+  # an id row: each click goes to the next block using that id
+  var uses: Array = getBlockIdUsage()[meta]
+  var idx: int = (blockIdViewerCycle.get(meta, -1) + 1) % len(uses)
+  blockIdViewerCycle[meta] = idx
+  warpCameraToBlock(uses[idx].block)
+
+func buildBlockIdViewer() -> void:
+  blockIdViewer = CanvasLayer.new()
+  blockIdViewer.layer = 100
+  var panel := PanelContainer.new()
+  panel.position = Vector2(10, 10)
+  panel.custom_minimum_size = Vector2(360, 440)
+  panel.mouse_filter = Control.MOUSE_FILTER_STOP
+  var box := VBoxContainer.new()
+  var top := HBoxContainer.new()
+  blockIdViewerFilter = LineEdit.new()
+  blockIdViewerFilter.placeholder_text = "filter ids"
+  blockIdViewerFilter.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+  blockIdViewerFilter.text_changed.connect(func(_t: String) -> void: refreshBlockIdViewer())
+  var refreshBtn := Button.new()
+  refreshBtn.text = "refresh"
+  refreshBtn.pressed.connect(refreshBlockIdViewer)
+  var closeBtn := Button.new()
+  closeBtn.text = "close"
+  closeBtn.pressed.connect(toggleBlockIdViewer)
+  top.add_child(blockIdViewerFilter)
+  top.add_child(refreshBtn)
+  top.add_child(closeBtn)
+  blockIdViewerTree = Tree.new()
+  blockIdViewerTree.columns = 2
+  blockIdViewerTree.column_titles_visible = true
+  blockIdViewerTree.set_column_title(0, "id / block")
+  blockIdViewerTree.set_column_title(1, "uses / position")
+  blockIdViewerTree.set_column_expand(1, false)
+  blockIdViewerTree.set_column_custom_minimum_width(1, 100)
+  blockIdViewerTree.hide_root = true
+  blockIdViewerTree.size_flags_vertical = Control.SIZE_EXPAND_FILL
+  blockIdViewerTree.item_selected.connect(onBlockIdViewerItemSelected)
+  box.add_child(top)
+  box.add_child(blockIdViewerTree)
+  panel.add_child(box)
+  blockIdViewer.add_child(panel)
+  blockIdViewer.visible = false
+  get_tree().root.add_child(blockIdViewer)
+
+func toggleBlockIdViewer() -> void:
+  if not isAlive(level): return
+  if not blockIdViewer:
+    buildBlockIdViewer()
+  blockIdViewer.visible = not blockIdViewer.visible
+  if blockIdViewer.visible:
+    blockIdViewerLastMouseMode = Input.mouse_mode
+    Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+    refreshBlockIdViewer()
+  else:
+    blockIdViewerFilter.release_focus()
+    Input.mouse_mode = blockIdViewerLastMouseMode
 
 signal gravChanged
 signal onEditorStateChanged

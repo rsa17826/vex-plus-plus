@@ -60,7 +60,7 @@ run/main_run_args="--loadMap NEWEST --loadOnlineLevel"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AutoExportVersion/plugin.cfg", "res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/godot_beautifier/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
+enabled=PackedStringArray("res://addons/0GnumarusGodotProjectAnalyzerSuite/plugin.cfg", "res://addons/AutoExportVersion/plugin.cfg", "res://addons/GlobalPosition2DGS/plugin.cfg", "res://addons/copy_files_on_export/plugin.cfg", "res://addons/fancy_folder_icons/plugin.cfg", "res://addons/godot_beautifier/plugin.cfg", "res://addons/inspector_tabs/plugin.cfg", "res://addons/kenyoni/plugin_reloader/plugin.cfg", "res://addons/maaacks_input_remapping/plugin.cfg", "res://addons/tnowe_extra_controls/plugin.cfg", "res://addons/toastparty/plugin.cfg", "res://addons/zylann.editor_debugger/plugin.cfg")
 
 [file_customization]
 
@@ -91,6 +91,11 @@ spark=""
 dontRespawnOnPlayerDeath=""
 canBeAttachedTo=""
 replay_blocks=""
+
+[gnumarus_analyzer]
+
+nullable_policy="distrust"
+strict_untyped=true
 
 [gui]
 
@@ -1596,6 +1601,48 @@ toggle_noclip={
 "physical_keycode": 73,
 "key_label": 0,
 "unicode": 0,
+"location": 0,
+"echo": false,
+"script": null
+)]
+}
+toggle_block_id_viewer={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": false,
+"ctrl_pressed": false,
+"meta_pressed": false,
+"pressed": false,
+"keycode": 0,
+"physical_keycode": 4194437,
+"key_label": 0,
+"unicode": 43,
+"location": 0,
+"echo": false,
+"script": null
+)]
+}
+open_online_levels_list={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,
+"resource_local_to_scene": false,
+"resource_name": "",
+"device": -1,
+"window_id": 0,
+"alt_pressed": false,
+"shift_pressed": true,
+"ctrl_pressed": true,
+"meta_pressed": false,
+"pressed": false,
+"keycode": 0,
+"physical_keycode": 79,
+"key_label": 0,
+"unicode": 79,
 "location": 0,
 "echo": false,
 "script": null

@@ -61,7 +61,7 @@ static func register(uname: String, password: String) -> bool:
   if await LevelServer.fetchRemotePublicKey(uname):
     ToastParty.err("that username is already taken")
     return false
-  var kp = LevelServer.deriveKeypair(uname, password)
+  var kp := LevelServer.deriveKeypair(uname, password)
   if not await LevelServer.pushPublicKey(uname, Marshalls.raw_to_base64(kp.get_public_key())):
     ToastParty.err("failed to submit username registration")
     return false

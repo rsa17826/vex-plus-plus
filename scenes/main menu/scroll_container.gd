@@ -1,7 +1,7 @@
 extends ScrollContainer
 
 const DEAD_ZONE := 12.0
-const SPEED := 60.0 # scroll px per second per px of distance past the dead zone
+const SPEED := 25.0 # scroll px per second per px of distance past the dead zone
 
 var _autoscrolling := false
 var _anchor := Vector2.ZERO
