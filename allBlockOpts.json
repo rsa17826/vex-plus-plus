@@ -321,6 +321,14 @@
     "color": {
       "default": "#fff",
       "type": 8
+    },
+    "magnitude": {
+      "default": 200,
+      "type": 0
+    },
+    "speed": {
+      "default": 1.5,
+      "type": 3
     }
   },
   "falling": {
@@ -609,6 +617,14 @@
     "color": {
       "default": "#fff",
       "type": 8
+    },
+    "magnitude": {
+      "default": 200,
+      "type": 0
+    },
+    "speed": {
+      "default": 1.5,
+      "type": 3
     }
   },
   "light switch": {
@@ -943,6 +959,14 @@
     "color": {
       "default": "#fff",
       "type": 8
+    },
+    "magnitude": {
+      "default": 200,
+      "type": 0
+    },
+    "speed": {
+      "default": 1.5,
+      "type": 3
     }
   },
   "rotating buzzsaw": {
@@ -1269,6 +1293,14 @@
     "color": {
       "default": "#fff",
       "type": 8
+    },
+    "magnitude": {
+      "default": 200,
+      "type": 0
+    },
+    "speed": {
+      "default": 1.5,
+      "type": 3
     }
   },
   "water": {

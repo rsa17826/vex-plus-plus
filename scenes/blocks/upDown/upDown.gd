@@ -3,4 +3,8 @@ extends EditorBlock
 class_name BlockUpdown
 
 func on_physics_process(delta: float) -> void:
-  moveTo(Vector2(startPosition.x, startPosition.y - sin(global.tick * 1.5) * 200))
+  moveTo(Vector2(startPosition.x, startPosition.y - sin(global.tick * selectedOptions.speed) * selectedOptions.magnitude))
+
+func generateBlockOpts():
+  blockOptions.magnitude = {"type": global.PromptTypes.int, "default": 200}
+  blockOptions.speed = {"type": global.PromptTypes.float, "default": 1.5}

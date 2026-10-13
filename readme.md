@@ -33,6 +33,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **addNewPoint**: creates a new point right after this in the path
     - **canAttachToThings**: allows the block to attach to other things that are not paths, for paths change **canAttachToPaths**
     - **rotationSpeed**: the speed at which the block will rotate
+    - **magnitude**: how far the block will travel in it's designated direction
+    - **speed**: the speed at which the rotator rotates blocks
     - **signalOutputId**: the id that will be sent
     - **level**: the level that you will be sent to
     - **requiredLevelCount**: the amount of levels that you must beat before being able to enter this level
@@ -62,7 +64,6 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - **dischargeTime**: the time it takes for a signal to be discharged
     - **onSignalActivationWhileDischarging**: what happens when its signal is activating while discharging
     - **id**: the ziplines with the same id will be connected
-    - **speed**: the speed at which the rotator rotates blocks
 -->
 
 - ## Controls
@@ -479,6 +480,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - scalable
     - canAttachToPaths
     - ### settings:
+      - **magnitude**: how far the block will travel in it's designated direction
+      - **speed**: the speed at which the rotator rotates blocks
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
@@ -488,6 +491,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - scalable
     - canAttachToPaths
     - ### settings:
+      - **magnitude**: how far the block will travel in it's designated direction
+      - **speed**: the speed at which the rotator rotates blocks
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
@@ -497,6 +502,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - scalable
     - canAttachToPaths
     - ### settings:
+      - **magnitude**: how far the block will travel in it's designated direction
+      - **speed**: the speed at which the rotator rotates blocks
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
@@ -506,6 +513,8 @@ This is a game that i made to be an improvement to the games [vex](https://www.n
     - scalable
     - canAttachToPaths
     - ### settings:
+      - **magnitude**: how far the block will travel in it's designated direction
+      - **speed**: the speed at which the rotator rotates blocks
       - **canAttachToPaths**: allows this block to attach to paths
       - **color**: sets the modulate property
 
