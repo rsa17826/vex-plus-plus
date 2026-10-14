@@ -192,14 +192,14 @@ func _init() -> void:
   global.player = self
 
 func _ready() -> void:
-  var proc := OS.execute_with_pipe("socat", ["-", "UNIX-CONNECT:/tmp/kbd_manager.sock"])
-  warpPipe = proc.stdio
-  var name := "godot-warp".to_utf8_buffer()
-  warpPipe.store_8(MODE_INJECTION)
-  warpPipe.store_8(name.size())
-  warpPipe.store_buffer(name)
-  warpPipe.store_32(OS.get_process_id())
-  warpPipe.flush()
+  # var proc := OS.execute_with_pipe("socat", ["-", "UNIX-CONNECT:/tmp/kbd_manager.sock"])
+  # warpPipe = proc.stdio
+  # var name := "godot-warp".to_utf8_buffer()
+  # warpPipe.store_8(MODE_INJECTION)
+  # warpPipe.store_8(name.size())
+  # warpPipe.store_buffer(name)
+  # warpPipe.store_32(OS.get_process_id())
+  # warpPipe.flush()
   anim.use_parent_material = false
   if global.isAlive(global.tabMenu) and global.tabMenu.visible:
     mouseMode = Input.MOUSE_MODE_VISIBLE
