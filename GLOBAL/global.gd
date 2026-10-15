@@ -2490,7 +2490,7 @@ func migrateLevelFile(data: Array) -> Array:
   var blocks: Array = []
   for i in len(data):
     if i == 0 and "id" not in data[i]:
-      blocks.append({"x": data[i].x, "y": data[i].y, "w": 7, "h": 7, "r": 0.0, "id": "player"})
+      blocks.append({"x": data[i].x, "y": data[i].y, "w": 1, "h": 1, "r": 0.0, "id": "player"})
       continue
     var block: Dictionary = data[i].duplicate()
     if block.id == "extra player":
