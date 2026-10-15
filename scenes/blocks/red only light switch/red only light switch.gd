@@ -8,4 +8,4 @@ func on_body_entered(body: Node) -> void:
     or body is BlockPushableBox \
     or body is BlockBomb \
   :
-    global.player.lightsOut = true
+    global.lightsOut = true

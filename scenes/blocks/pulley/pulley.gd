@@ -11,6 +11,16 @@ const SPEED = 1000
 var direction = 0
 
 var moving = false
+## the player currently riding this pulley
+var rider: Player
+
+func releaseRider() -> void:
+  if not rider: return
+  if rider.activePulley == self:
+    rider.state = Player.States.falling
+    rider.remainingJumpCount -= 1
+    rider.activePulley = null
+  rider = null
 
 func on_respawn():
   if loadDefaultData:
@@ -18,16 +28,15 @@ func on_respawn():
     if moving:
       moving = false
       thingThatMoves.position = Vector2.ZERO
-      if global.player.activePulley == self:
-        global.player.state = Player.States.falling
-        global.player.remainingJumpCount -= 1
-        global.player.activePulley = null
+      releaseRider()
     setTexture(sprite, ["left", 'right', "user"][selectedOptions.direction])
     await global.wait()
     thingThatMoves.position = Vector2.ZERO
 
 func _on_player_detector_body_entered(body: Node2D) -> void:
   if respawning: return
+  if not body is Player: return
+  if moving: return
   if not hasCeil.get_overlapping_bodies():
     # fix for if the ceil is placed after the pulley is
     thingThatMoves.position = Vector2(0, 1)
@@ -41,21 +50,20 @@ func _on_player_detector_body_entered(body: Node2D) -> void:
     1:
       direction = 1
     2:
-      direction = -1 if global.player.get_node("anim").flip_h else 1
+      direction = -1 if body.anim.flip_h else 1
   moving = true
-  global.player.activePulley = self
-  global.player.state = Player.States.onPulley
+  rider = body
+  body.activePulley = self
+  body.state = Player.States.onPulley
 
 func on_physics_process(delta: float) -> void:
   if respawning: return
   if not moving: return
   thingThatMoves.position.x += SPEED * delta * direction
-  if global.player.state == Player.States.onPulley \
-  and global.player.activePulley == self \
+  if rider and rider.state == Player.States.onPulley \
+  and rider.activePulley == self \
   and wallToSideWithPlayerOn.get_overlapping_bodies():
-    global.player.state = Player.States.falling
-    global.player.activePulley = null
-    global.player.remainingJumpCount -= 1
+    releaseRider()
   if wallToSideWithPlayerOff.get_overlapping_bodies():
     respawn()
 

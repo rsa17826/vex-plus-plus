@@ -5,44 +5,46 @@ class_name BlockWater
 @export var sprite: Node2D
 const MAX_REENTER_TIME = 7
 
-var waterReenterTimer: float = 0
+var reenterTimers: Dictionary[Player, float] = {}
 
-var playerInsideWater := false
+var playersInside: Array[Player] = []
+
+func isPlayerInside(p: Player) -> bool:
+  return p in playersInside
 
 var electric := []
 
 func on_respawn():
   electric = []
   sprite.animation = "default"
-  playerInsideWater = false
-  waterReenterTimer = 0
+  playersInside = []
+  reenterTimers = {}
   for area in $collisionNode.get_overlapping_areas():
     on_area_entered(area)
 
 func on_physics_process(delta: float) -> void:
-  # lower frame counters
-  if waterReenterTimer > 0:
-    waterReenterTimer -= delta * 60
+  for p: Player in global.players:
+    if reenterTimers.get(p, 0.0) > 0:
+      reenterTimers[p] -= delta * 60
 
-  if electric and self in global.player.inWaters:
-    global.player.deathSources.append(self)
+    if electric and self in p.inWaters:
+      p.deathSources.append(self)
 
-  # if playerInsideWater and self in global.player.inWaters:
-  #   log.pp(lastMovementStep)
-  if playerInsideWater:
-    if self not in global.player.inWaters and waterReenterTimer <= 0:
-      global.player.inWaters.append(self)
-  elif self in global.player.inWaters:
-    global.player.inWaters.erase(self)
+    if p in playersInside:
+      if self not in p.inWaters and reenterTimers.get(p, 0.0) <= 0:
+        p.inWaters.append(self)
+    elif self in p.inWaters:
+      p.inWaters.erase(self)
 
 func on_body_exited(body: Node) -> void:
   if body is Player:
-    playerInsideWater = false
-    waterReenterTimer = MAX_REENTER_TIME
+    playersInside.erase(body)
+    reenterTimers[body] = MAX_REENTER_TIME
 
 func on_body_entered(body: Node) -> void:
   if body is Player:
-    playerInsideWater = true
+    if body not in playersInside:
+      playersInside.append(body)
 
 func on_area_exited(body: Node) -> void:
   if body.is_in_group("spark"):

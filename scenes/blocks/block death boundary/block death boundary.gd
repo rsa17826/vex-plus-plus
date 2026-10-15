@@ -4,9 +4,9 @@ class_name BlockBlockDeathBoundary
 
 func on_body_entered(body: Node2D) -> void:
   if body is Player:
-    global.player.gravState = global.player.GravStates.normal
-    global.player.speedLeverActive = false
-    for key in global.player.keys:
+    body.gravState = body.GravStates.normal
+    body.speedLeverActive = false
+    for key in body.keys:
       key.root.respawn.call_deferred()
   else:
     # if 'root' not in body:

@@ -31,7 +31,7 @@ func onSave() -> Array[String]:
 
 func onDataLoaded() -> void:
   if ended:
-    global.player.Alltryaddgroups.connect(func():
+    global.Alltryaddgroups.connect(func():
       __disable.call_deferred()
       for block: EditorBlock in attach_children:
         block.__disable.call_deferred()

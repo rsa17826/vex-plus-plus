@@ -4,21 +4,29 @@ class_name BlockLaser
 
 @export var charge: CircularProgressBar
 
-var targetingPlayer := false
+var targets: Array[Player] = []
+var targetingPlayer: bool:
+  get():
+    return !!targets
 var cooldown := 0.0
 
 func on_body_entered(body: Node2D) -> void:
   if body is Player:
-    targetingPlayer = true
+    if body not in targets:
+      targets.append(body)
 
 func on_body_exited(body: Node2D) -> void:
   if body is Player:
-    targetingPlayer = false
+    targets.erase(body)
 
 func on_physics_process(delta: float) -> void:
   var targetAngle
   if targetingPlayer:
-    targetAngle = global.player.global_position.angle_to_point(thingThatMoves.global_position)
+    var nearest: Player = targets[0]
+    for p: Player in targets:
+      if p.global_position.distance_to(thingThatMoves.global_position) < nearest.global_position.distance_to(thingThatMoves.global_position):
+        nearest = p
+    targetAngle = nearest.global_position.angle_to_point(thingThatMoves.global_position)
   else:
     targetAngle = 0
   thingThatMoves.rotation = lerp_angle(thingThatMoves.rotation, targetAngle, 0.5)
@@ -41,6 +49,7 @@ func updateCharge():
   charge.progress = global.rerange(cooldown, maxCooldown, 0, 0, 100)
 
 func on_respawn():
+  targets = []
   cooldown = 0
   updateCharge()
 

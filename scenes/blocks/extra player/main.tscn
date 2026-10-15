@@ -1,0 +1,8 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" uid="uid://cecm0tp3hsdnh" path="res://scenes/player/player.tscn" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://d34c6ikpr1iyo" path="res://scenes/player/images/anim/idle/1.png" id="2_icon"]
+
+[node name="player" unique_id=1401082404 instance=ExtResource("1_player")]
+editorBarIcon = ExtResource("2_icon")
+isPrimary = false

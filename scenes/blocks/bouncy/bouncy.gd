@@ -3,24 +3,26 @@ extends EditorBlock
 class_name BlockBouncy
 
 var bouncing := false
+var bouncer: Player
 var bounceState: float = 0
 var bounceForce: float = 0
 
 # @export var animated: Node2D
 
-func start() -> void:
+func start(p: Player) -> void:
   if bouncing: return
   if respawnTimer > 0: return
   bouncing = true
+  bouncer = p
   bounceState = 0
-  global.player.state = Player.States.bouncing
-  original_contact_position = global.player.global_position
+  p.state = Player.States.bouncing
+  original_contact_position = p.global_position
 
   var radrot := deg_to_rad(startRotation_degrees)
-  # # log.pp(global.player.defaultAngle)
-  # var extraRot = global.player.angle_distance(radrot, global.player.global_rotation)
+  # # log.pp(p.defaultAngle)
+  # var extraRot = p.angle_distance(radrot, p.global_rotation)
 
-  var playerGhost: Node2D = global.player.root.ghost
+  var playerGhost: Node2D = p.root.ghost
   var playerGhostSize: Vector2 = playerGhost.get_texture().get_size() * playerGhost.scale
 
   # # Calculate the half sizes
@@ -29,7 +31,7 @@ func start() -> void:
 
   # # Calculate the offset needed to position the player directly above the block
   # var offset_vector = Vector2(0, half_player_height - half_rotated_height).rotated(-radrot)
-  # log.pp(global.player.defaultAngle, extraRot, radrot)
+  # log.pp(p.defaultAngle, extraRot, radrot)
   # log.pp(offset_vector, half_player_height)
   # log.err(extraRot, radrot)
   original_contact_position -= Vector2(0, half_player_height).rotated(radrot)
@@ -41,6 +43,7 @@ func on_respawn():
   bounceState = 0
   bouncing = false
   bounceForce = 0
+  bouncer = null
 
 var original_contact_position: Vector2
 
@@ -56,6 +59,9 @@ func on_process(delta: float) -> void:
       on_respawn.call_deferred()
     return
   if respawning: return
+  if bouncing and bouncer.state == Player.States.dead:
+    on_respawn()
+    return
   if bouncing:
     var sizeInPx := ghostIconNode.texture.get_size()
     var radrot := deg_to_rad(startRotation_degrees)
@@ -67,9 +73,9 @@ func on_process(delta: float) -> void:
       bounceState += max(0.2, abs(bounceState - 50) / 10.0) * delta * 300 / (scale.y * 21)
     else:
       # When the bouncing animation is done, start bouncing the player
-      global.player.vel.bounce = Vector2(0, bounceForce).rotated(radrot).rotated(-global.player.defaultAngle)
-      global.player.justAddedVels.bounce = 3
-      global.player.state = Player.States.jumping
+      bouncer.vel.bounce = Vector2(0, bounceForce).rotated(radrot).rotated(-bouncer.defaultAngle)
+      bouncer.justAddedVels.bounce = 3
+      bouncer.state = Player.States.jumping
       respawnTimer = 10
 
     var size: Vector2 = ghost.texture.get_size() * startScale
@@ -88,6 +94,6 @@ func on_process(delta: float) -> void:
     var offset = Vector2(0, node_size.y)
     offset = offset.rotated(radrot)
 
-    global.player.global_position = (original_contact_position - offset) + Vector2(0, (sizeInPx * startScale).y).rotated(radrot)
-    global.player.setRot(radrot)
-    global.player.updateCamLockPos()
+    bouncer.global_position = (original_contact_position - offset) + Vector2(0, (sizeInPx * startScale).y).rotated(radrot)
+    bouncer.setRot(radrot)
+    bouncer.updateCamLockPos()

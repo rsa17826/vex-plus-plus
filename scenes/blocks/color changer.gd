@@ -1,6 +1,6 @@
 extends Sprite2D
 func _ready() -> void:
-  if !global.player: return
+  if not global.players: return
   # log.pp(global.currentLevelSettings("color"), texture.resource_path.replace("1.png", +".png"))
   # if not ("1.png" in texture.resource_path):
   #   log.err(texture.resource_path, "1.png missing")
