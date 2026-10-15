@@ -2493,12 +2493,10 @@ func migrateLevelFile(data: Array) -> Array:
       blocks.append({"x": data[i].x, "y": data[i].y, "w": 1, "h": 1, "r": 0.0, "id": "player"})
       continue
     var block: Dictionary = data[i].duplicate()
-    if block.id == "extra player":
-      block.id = "player"
     blocks.append(block)
   var playerBlocks := blocks.filter(func(e): return e.id == "player")
   if not playerBlocks:
-    playerBlocks = [ {"x": 0, "y": 0, "w": 7, "h": 7, "r": 0.0, "id": "player"}]
+    playerBlocks = [ {"x": 0, "y": - 65, "w": 1, "h": 1, "r": 0.0, "id": "player"}]
   return playerBlocks + blocks.filter(func(e): return e.id != "player")
 
 func createNewBlock(data) -> EditorBlock:
