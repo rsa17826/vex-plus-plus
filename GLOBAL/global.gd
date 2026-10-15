@@ -1712,6 +1712,7 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   tick = 0
   hoveredBlocks = []
   var lastScenePath = get_tree().current_scene.scene_file_path if get_tree().current_scene else "res://scenes/main menu/main_menu.tscn"
+  var oldLevel := level
   get_tree().change_scene_to_file("res://scenes/level/level.tscn")
   ui.progressContainer.visible = true
   var __loadedLevelCount = 0
@@ -1733,6 +1734,16 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
     if isAlive(ui): ui.progressContainer.visible = false
     get_tree().change_scene_to_file(lastScenePath)
     return false
+  # the scene change is deferred: wait until the new level is in the tree and only its players are registered
+  # (the old level and its players are still around until the end of the frame)
+  var waitedFrames := 0
+  while not (
+    isAlive(level) and level != oldLevel and level.is_inside_tree()
+    and players and players.all(func(p: Player) -> bool: return level.is_ancestor_of(p))
+  ):
+    await wait()
+    waitedFrames += 1
+    assert(waitedFrames < 600, "the new level never finished loading")
   if !isAlive(level):
     if isAlive(ui): ui.progressContainer.visible = false
     get_tree().change_scene_to_file(lastScenePath)

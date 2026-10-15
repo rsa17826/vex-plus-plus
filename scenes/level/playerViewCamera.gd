@@ -5,6 +5,8 @@ extends Camera2D
 
 var player: Player
 
+func _ready() -> void:
+  make_current()
 func _process(_delta: float) -> void:
   # the view is removed on the next playersChanged when its player is freed
   if not global.isAlive(player): return

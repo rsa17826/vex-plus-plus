@@ -39,7 +39,7 @@ func on_physics_process(delta: float) -> void:
 func on_body_exited(body: Node) -> void:
   if body is Player:
     playersInside.erase(body)
-    reenterTimers[body] = MAX_REENTER_TIME
+    reenterTimers[body as Player] = MAX_REENTER_TIME
 
 func on_body_entered(body: Node) -> void:
   if body is Player:

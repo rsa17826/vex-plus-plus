@@ -53,9 +53,9 @@ func on_node_added(node: Node) -> void:
       block.updateConnectedBlocks(true)
 
 func loadLevel(level: String):
+  await global.wait()
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
-  # await global.wait()
   for p in global.players:
     p.state = Player.States.levelLoading
   var leveldata = global.levelDataForCurrentMap.__get() \
@@ -109,7 +109,10 @@ func loadLevel(level: String):
   global.tick = 0
   global.stopTicking = false
   global.ui.progressContainer.visible = false
+  # extra players are blocks, so they only exist now and missed the settings applied at the start
   for p in global.players:
+    p.floor_constant_speed = !global.currentLevelSettings().changeSpeedOnSlopes
+    p.MAX_JUMP_COUNT = global.currentLevelSettings().jumpCount
     p.state = Player.States.falling
   await global.wait()
   global.tick = global.currentLevel().tick
