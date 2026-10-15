@@ -21,4 +21,5 @@ func _process(delta):
   text += "\n"
   text += "STARS COLLECTED: " + str(collected) + "/" + str(starCount) + "\n"
   text += "LEVELS BEAT: " + str(len(global.beatLevels) + (1 if beatThisLevel else 0)) + "/" + str(global.totalLevelCount)
-  text += "\n" + global.focusedPlayer.lastDeathMessage
+  if global.focusedPlayer:
+    text += "\n" + global.focusedPlayer.lastDeathMessage

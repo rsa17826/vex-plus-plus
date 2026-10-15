@@ -16,5 +16,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
   visible = true
+  # there is no player while a level is loading
+  if not global.focusedPlayer: return
   if modSize:
     position = round((global.focusedPlayer.camera.global_position - size / 2) / modSize) * modSize

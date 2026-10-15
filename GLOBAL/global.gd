@@ -597,7 +597,7 @@ func clearLow(v):
 
 # local game only data
 
-## every player currently in the level, primary player first then extra players in block order
+## every player currently in the level, in block order
 var players: Array[Player] = []
 ## the player the editor camera is attached to while editing - the primary player at first
 var focusedPlayer: Player
@@ -622,6 +622,8 @@ func resetWorld(full: bool) -> void:
     lastWorldDiedFrame = frame
     worldDied.emit()
 
+## the first player in the level, the one things that can only follow a single player (boxes, bombs) use.
+## a level always has at least one player once it's loaded
 func getPrimaryPlayer() -> Player:
   assert(players, "no players in the level")
   return players[0]
@@ -635,21 +637,31 @@ func allPlayersDead() -> bool:
 func anyPlayerLoading() -> bool:
   return players.any(func(p: Player) -> bool: return p.state == Player.States.levelLoading)
 
+## a level always needs at least one player, it's what the editor camera is attached to
+func isLastLivingPlayerBlock(block: EditorBlock) -> bool:
+  if block is not EditorPlayer: return false
+  return not players.any(func(p: Player) -> bool:
+    return p.root != block and not p.root.is_queued_for_deletion())
+
 func registerPlayer(p: Player) -> void:
   if p in players: return
   players.append(p)
   reindexPlayers()
 
 func unregisterPlayer(p: Player) -> void:
+  var wasFocused := focusedPlayer == p
   players.erase(p)
-  if focusedPlayer == p:
-    focusedPlayer = players[0] if players else null
   reindexPlayers()
+  if wasFocused and players:
+    # the player the editor camera was on is gone, move the editor camera to the first one
+    focusPlayer(players[0])
+    if showEditorUi:
+      players[0].camRotLock = players[0].defaultAngle
+      players[0].camLockPos = players[0].camera.global_position
 
 func reindexPlayers() -> void:
   players.assign(players.filter(isAlive))
   players.sort_custom(func(a: Player, b: Player) -> bool:
-    if a.root.isPrimary != b.root.isPrimary: return a.root.isPrimary
     return a.root.get_index() < b.root.get_index())
   for i in len(players):
     players[i].playerIndex = i
@@ -1197,7 +1209,6 @@ func _unhandled_input(event: InputEvent) -> void:
         # player.camLockPos += Vector2(50, 0)
       var arr: Array[EditorBlock] = []
       for block in boxSelect_selectedBlocks.filter(func(e): return e.id and not e.DONT_SAVE):
-        if block == getPrimaryPlayer().root: return
         if !isAlive(block): return
         var posOffset = mpos - block.startPosition
         var newBlock := duplicate_block(block)
@@ -1308,7 +1319,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if !isAlive(level): return
     for block in boxSelect_selectedBlocks:
       if !is_instance_valid(block): return
-      if block == getPrimaryPlayer().root: return
+      if isLastLivingPlayerBlock(block): return
       if block.is_queued_for_deletion(): return
       if block in hoveredBlocks:
         hoveredBlocks.erase(block)
@@ -1318,7 +1329,7 @@ func _unhandled_input(event: InputEvent) -> void:
     boxSelect_selectedBlocks = []
     # log.pp(selectedBlock, lastSelectedBlock)
     if selectedBlock and is_instance_valid(selectedBlock) and selectedBlock.is_inside_tree():
-      if selectedBlock == getPrimaryPlayer().root: return
+      if isLastLivingPlayerBlock(selectedBlock): return
       if selectedBlock in hoveredBlocks:
         hoveredBlocks.erase(selectedBlock)
       # var temp = selectedBlock.duplicate()
@@ -1337,7 +1348,7 @@ func _unhandled_input(event: InputEvent) -> void:
       if useropts.deleteLastSelectedBlockIfNoBlockIsCurrentlySelected:
         log.pp(selectedBlock, lastSelectedBlock)
         if lastSelectedBlock and is_instance_valid(lastSelectedBlock) and lastSelectedBlock.is_inside_tree():
-          if lastSelectedBlock == getPrimaryPlayer().root: return
+          if isLastLivingPlayerBlock(lastSelectedBlock): return
           if lastSelectedBlock in hoveredBlocks:
             hoveredBlocks.erase(lastSelectedBlock)
           var temp = lastSelectedBlock.duplicate()
@@ -1723,7 +1734,7 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
       # log.err("should not have data", levelDataForCurrentMap.__get(), levelFolderPath, k)
       # breakpoint
     levelDataForCurrentMap.__set(sds.loadDataFromFile(path.join(levelFolderPath, k + '.sds'), [
-      {"x": 0, "y": - 65},
+      {"h": 7, "id": "player", "r": 0.0, "w": 7, "x": 0, "y": - 65},
       {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
     ],
     ))
@@ -1734,12 +1745,12 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
     if isAlive(ui): ui.progressContainer.visible = false
     get_tree().change_scene_to_file(lastScenePath)
     return false
-  # the scene change is deferred: wait until the new level is in the tree and only its players are registered
+  # the scene change is deferred: wait until the new level is in the tree and the old level's players are gone
   # (the old level and its players are still around until the end of the frame)
   var waitedFrames := 0
   while not (
     isAlive(level) and level != oldLevel and level.is_inside_tree()
-    and players and players.all(func(p: Player) -> bool: return level.is_ancestor_of(p))
+    and players.all(func(p: Player) -> bool: return level.is_ancestor_of(p))
   ):
     await wait()
     waitedFrames += 1
@@ -2154,7 +2165,7 @@ const DEFAULT_BLOCK_LIST = [
   "zipline",
   "chain",
   "rotator",
-  "extra player",
+  "player",
 ]
 
 const oldNameMap = {
@@ -2469,6 +2480,24 @@ var lightsOut := false
 var defaultBlockOpts: Dictionary = {}
 
 var popupStarted = false
+
+## level files used to start with the start position of the one player ({x, y}) followed by the blocks.
+## now every player is a "player" block, so that entry becomes one and a level without any player gets one at 0,0.
+## returns a new array, players first so they exist before any other block is created.
+func migrateLevelFile(data: Array) -> Array:
+  var blocks: Array = []
+  for i in len(data):
+    if i == 0 and "id" not in data[i]:
+      blocks.append({"x": data[i].x, "y": data[i].y, "w": 7, "h": 7, "r": 0.0, "id": "player"})
+      continue
+    var block: Dictionary = data[i].duplicate()
+    if block.id == "extra player":
+      block.id = "player"
+    blocks.append(block)
+  var playerBlocks := blocks.filter(func(e): return e.id == "player")
+  if not playerBlocks:
+    playerBlocks = [{"x": 0, "y": 0, "w": 7, "h": 7, "r": 0.0, "id": "player"}]
+  return playerBlocks + blocks.filter(func(e): return e.id != "player")
 
 func createNewBlock(data) -> EditorBlock:
   var id = data.id
