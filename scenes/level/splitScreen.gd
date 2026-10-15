@@ -22,8 +22,8 @@ func _ready() -> void:
   grid = GridContainer.new()
   grid.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
-  grid.add_theme_constant_override("h_separation", 2)
-  grid.add_theme_constant_override("v_separation", 2)
+  grid.add_theme_constant_override("h_separation", 0)
+  grid.add_theme_constant_override("v_separation", 0)
   add_child(grid)
   global.playersChanged.connect(rebuild)
   global.onEditorStateChanged.connect(updateVisibility)
