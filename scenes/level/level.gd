@@ -53,7 +53,6 @@ func on_node_added(node: Node) -> void:
       block.updateConnectedBlocks(true)
 
 func loadLevel(level: String):
-  await global.wait()
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
   for p in global.players:

@@ -1,8 +1,104 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://bnuf8148ds0pi"]
 
 [ext_resource type="PackedScene" uid="uid://cecm0tp3hsdnh" path="res://scenes/player/player.tscn" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://d34c6ikpr1iyo" path="res://scenes/player/images/anim/idle/1.png" id="2_icon"]
+[ext_resource type="Shader" uid="uid://3f76o0p7hp12" path="res://scenes/player/recolor.gdshader" id="3_82ar5"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0dn6v"]
+resource_local_to_scene = true
+shader = ExtResource("3_82ar5")
+shader_parameter/replace = Vector4(0, 0, 0, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obl5t"]
+resource_local_to_scene = true
+size = Vector2(8, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rrgfw"]
+resource_local_to_scene = true
+size = Vector2(8, 34.43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf4lr"]
+resource_local_to_scene = true
+size = Vector2(8, 34.43)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p26f1"]
+resource_local_to_scene = true
+size = Vector2(1.01, 6.845)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ug28o"]
+resource_local_to_scene = true
+size = Vector2(1, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1i53n"]
+resource_local_to_scene = true
+size = Vector2(8, 0.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vd4qv"]
+resource_local_to_scene = true
+size = Vector2(1, 33)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2an1"]
+resource_local_to_scene = true
+size = Vector2(14, 31.8)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7pyk"]
+resource_local_to_scene = true
+size = Vector2(10, 3)
 
 [node name="player" unique_id=1401082404 instance=ExtResource("1_player")]
-editorBarIcon = ExtResource("2_icon")
 isPrimary = false
+editorBarIcon = ExtResource("2_icon")
+normalScale = true
+canAttachToThings = true
+canAttachToPaths = true
+
+[node name="anim" parent="CharacterBody2D" parent_id_path=PackedInt32Array(825824638) index="0" unique_id=1648969648]
+material = SubResource("ShaderMaterial_0dn6v")
+
+[node name="waterAnimTop" parent="CharacterBody2D" parent_id_path=PackedInt32Array(825824638) index="1" unique_id=1026405063]
+material = SubResource("ShaderMaterial_0dn6v")
+
+[node name="waterAnimBottom" parent="CharacterBody2D" parent_id_path=PackedInt32Array(825824638) index="2" unique_id=587324080]
+material = SubResource("ShaderMaterial_0dn6v")
+
+[node name="CollisionShape2D" parent="CharacterBody2D" parent_id_path=PackedInt32Array(825824638) index="4" unique_id=281418815]
+shape = SubResource("RectangleShape2D_obl5t")
+
+[node name="CollisionShape2D2" parent="CharacterBody2D/ziplineDetector" parent_id_path=PackedInt32Array(1608141136) index="0" unique_id=1711466916]
+shape = SubResource("RectangleShape2D_rrgfw")
+
+[node name="CollisionShape2D2" parent="CharacterBody2D/ziplineDetectorForActiveZipline" parent_id_path=PackedInt32Array(1621591396) index="0" unique_id=1121247045]
+shape = SubResource("RectangleShape2D_yf4lr")
+
+[node name="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/top" parent_id_path=PackedInt32Array(866401214) index="0" unique_id=1236912633]
+shape = SubResource("RectangleShape2D_p26f1")
+
+[node name="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/left" parent_id_path=PackedInt32Array(2132432963) index="0" unique_id=1887203284]
+shape = SubResource("RectangleShape2D_ug28o")
+
+[node name="CollisionShape2D2" parent="CharacterBody2D/squishDeathDetectors/right" parent_id_path=PackedInt32Array(225507573) index="0" unique_id=1506169519]
+shape = SubResource("RectangleShape2D_ug28o")
+
+[node name="CollisionShape2D" parent="CharacterBody2D/squishDeathDetectors/bottom" parent_id_path=PackedInt32Array(153630063) index="0" unique_id=198556996]
+shape = SubResource("RectangleShape2D_p26f1")
+
+[node name="up" parent="CharacterBody2D/deathDirectionDetection" parent_id_path=PackedInt32Array(835966037) index="0" unique_id=1731427195]
+shape = SubResource("RectangleShape2D_1i53n")
+
+[node name="down" parent="CharacterBody2D/deathDirectionDetection" parent_id_path=PackedInt32Array(835966037) index="1" unique_id=1470667114]
+shape = SubResource("RectangleShape2D_1i53n")
+
+[node name="left" parent="CharacterBody2D/deathDirectionDetection" parent_id_path=PackedInt32Array(835966037) index="2" unique_id=1588599741]
+shape = SubResource("RectangleShape2D_vd4qv")
+
+[node name="right" parent="CharacterBody2D/deathDirectionDetection" parent_id_path=PackedInt32Array(835966037) index="3" unique_id=1012374066]
+shape = SubResource("RectangleShape2D_vd4qv")
+
+[node name="CollisionShape2D" parent="CharacterBody2D/nowjDetector" parent_id_path=PackedInt32Array(1576570844) index="0" unique_id=1959298304]
+shape = SubResource("RectangleShape2D_g2an1")
+
+[node name="CollisionShape2D" parent="CharacterBody2D/stickyFloorDetector" parent_id_path=PackedInt32Array(1201485679) index="0" unique_id=2016142376]
+shape = SubResource("RectangleShape2D_h7pyk")
+
+[node name="CollisionShape2D2" parent="CharacterBody2D/respawn detection area" parent_id_path=PackedInt32Array(302069596) index="0" unique_id=1636093676]
+shape = SubResource("RectangleShape2D_obl5t")
