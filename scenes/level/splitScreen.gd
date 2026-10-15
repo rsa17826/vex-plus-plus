@@ -5,7 +5,7 @@ extends Control
 ## while editing the views are hidden and the main viewport follows global.focusedPlayer
 
 var grid: GridContainer
-var views: Dictionary[Player, SubViewportContainer] = {}
+var views: Dictionary[Player, Control] = {}
 
 func _ready() -> void:
   global.splitScreen = self
@@ -40,8 +40,9 @@ func rebuild() -> void:
       views.erase(p)
   for p: Player in global.players:
     if p in views: continue
-    var container := SubViewportContainer.new()
-    container.stretch = true
+    # a SubViewportContainer would render at the base resolution of the project (stretch mode canvas_items)
+    # and scale it up, so the view is a plain Control showing the viewport's texture, see _process
+    var container := Control.new()
     container.mouse_filter = Control.MOUSE_FILTER_IGNORE
     container.size_flags_horizontal = Control.SIZE_EXPAND_FILL
     container.size_flags_vertical = Control.SIZE_EXPAND_FILL
@@ -53,7 +54,17 @@ func rebuild() -> void:
     vp.handle_input_locally = false
     vp.gui_disable_input = true
     vp.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
+    vp.size_2d_override_stretch = true
+    vp.size = Vector2i(2, 2)
     container.add_child(vp)
+    var image := TextureRect.new()
+    image.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+    image.mouse_filter = Control.MOUSE_FILTER_IGNORE
+    image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+    image.stretch_mode = TextureRect.STRETCH_SCALE
+    image.texture = vp.get_texture()
+    container.add_child(image)
+
     var cam := PlayerViewCamera.new()
     cam.player = p
     vp.add_child(cam)
@@ -68,6 +79,13 @@ func _process(_delta: float) -> void:
   # a Control directly under a CanvasLayer doesn't get a size from its anchors, so size it to the viewport
   if size != get_viewport_rect().size:
     size = get_viewport_rect().size
+  # render each view at the real pixel size of its area, but let it show the area of the base size
+  var pixelScale := get_viewport().get_final_transform().get_scale()
+  for p in views:
+    var area := views[p].size
+    var vp: SubViewport = views[p].get_child(0)
+    vp.size_2d_override = Vector2i(area.round())
+    vp.size = Vector2i((area * pixelScale).round()).max(Vector2i.ONE)
   var shouldShow := global.isMultiplayer() and not global.showEditorUi
   if shouldShow != visible:
     updateVisibility()
