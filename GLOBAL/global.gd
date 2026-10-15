@@ -1196,9 +1196,11 @@ func _unhandled_input(event: InputEvent) -> void:
     if mainLevelName and level and is_instance_valid(level):
       createNewLevelFile(mainLevelName)
   if event.is_action_pressed(&"new_map_folder", false, true):
-    await loadMap(await createNewMapFolder(), false)
-    if get_tree().current_scene.name == &"main menu":
-      get_tree().current_scene.loadLocalLevelList()
+    var nm: Variant = await createNewMapFolder()
+    if nm:
+      await loadMap(nm, false)
+      if get_tree().current_scene.name == &"main menu":
+        get_tree().current_scene.loadLocalLevelList()
   if event.is_action_pressed(&"duplicate_block", false, true):
     if boxSelect_selectedBlocks.filter(func(e): return e.id and not e.DONT_SAVE):
       var targetBlock: EditorBlock = lastSelectedBlock if lastSelectedBlock in boxSelect_selectedBlocks else boxSelect_selectedBlocks[0]
@@ -1734,7 +1736,7 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
       # log.err("should not have data", levelDataForCurrentMap.__get(), levelFolderPath, k)
       # breakpoint
     levelDataForCurrentMap.__set(sds.loadDataFromFile(path.join(levelFolderPath, k + '.sds'), [
-      {"h": 7, "id": "player", "r": 0.0, "w": 7, "x": 0, "y": - 65},
+      {"h": 1, "id": "player", "r": 0.0, "w": 1, "x": 0, "y": - 65},
       {"h": 1, "id": "basic", "r": 0.0, "w": 1, "x": 0, "y": 0}
     ],
     ))
@@ -1956,7 +1958,7 @@ func createNewMapFolder() -> Variant:
       }
     }
   )
-  if ! await createNewLevelFile(foldername, startLevel): return false
+  if ! await createNewLevelFile(foldername, startLevel): return null
   return foldername
 
 const defaultLevelSettings = {
@@ -2496,7 +2498,7 @@ func migrateLevelFile(data: Array) -> Array:
     blocks.append(block)
   var playerBlocks := blocks.filter(func(e): return e.id == "player")
   if not playerBlocks:
-    playerBlocks = [{"x": 0, "y": 0, "w": 7, "h": 7, "r": 0.0, "id": "player"}]
+    playerBlocks = [ {"x": 0, "y": 0, "w": 7, "h": 7, "r": 0.0, "id": "player"}]
   return playerBlocks + blocks.filter(func(e): return e.id != "player")
 
 func createNewBlock(data) -> EditorBlock:

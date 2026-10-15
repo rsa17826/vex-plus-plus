@@ -1287,6 +1287,7 @@ player = NodePath("CharacterBody2D")
 ghostIconNode = NodePath("Sprite2D")
 collisionShapes = [NodePath("CharacterBody2D/CollisionShape2D"), NodePath("CharacterBody2D/squishDeathDetectors/top/CollisionShape2D"), NodePath("CharacterBody2D/squishDeathDetectors/left/CollisionShape2D"), NodePath("CharacterBody2D/squishDeathDetectors/right/CollisionShape2D2"), NodePath("CharacterBody2D/squishDeathDetectors/bottom/CollisionShape2D"), NodePath("CharacterBody2D/nowjDetector/CollisionShape2D"), NodePath("CharacterBody2D/stickyFloorDetector/CollisionShape2D"), NodePath("CharacterBody2D/respawn detection area/CollisionShape2D2"), NodePath("CharacterBody2D/ziplineDetectorForActiveZipline/CollisionShape2D2"), NodePath("CharacterBody2D/ziplineDetector/CollisionShape2D2")]
 ignoreMissingNodes = true
+normalScale = true
 DONT_ENABLE_ON_RESPAWN = true
 metadata/_edit_lock_ = true
 
