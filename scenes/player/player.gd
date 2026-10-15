@@ -203,8 +203,6 @@ var editing: bool:
     return global.showEditorUi and global.focusedPlayer == self
 
 func _enter_tree() -> void:
-  # editor bar option popups instantiate blocks outside of the level, those aren't real players
-  if not global.level.is_ancestor_of(self): return
   global.registerPlayer(self)
 
 func _exit_tree() -> void:
