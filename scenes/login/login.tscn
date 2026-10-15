@@ -21,7 +21,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-placeholder_text = "username/email"
+placeholder_text = "username"
 select_all_on_focus = true
 
 [node name="Password" type="LineEdit" parent="VBoxContainer" unique_id=794199470]
