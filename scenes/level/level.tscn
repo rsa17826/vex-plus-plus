@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://dc0fl2url3l1m" path="res://scenes/level/tiling background.gd" id="3_wcngd"]
 [ext_resource type="Script" uid="uid://fgu8i5y0iued" path="res://scenes/level/autosave_timer.gd" id="4_xb4v1"]
 [ext_resource type="Script" uid="uid://b7v5fgrc0mgvo" path="res://scenes/level/boxSelectDrawingNode.gd" id="5_urvlt"]
-[ext_resource type="Script" uid="uid://cf3e4y5vcv20i" path="res://scenes/level/splitScreen.gd" id="6_xv074"]
 [ext_resource type="PackedScene" uid="uid://cwssfufu0ym50" path="res://scenes/ui/ui.tscn" id="200_1ymuf"]
 
 [node name="level" type="Node2D" unique_id=669002491 node_paths=PackedStringArray("boxSelectDrawingNode")]
@@ -42,13 +41,6 @@ position = Vector2(61, 383)
 [node name="autosaveTimer" type="Timer" parent="." unique_id=1783629474]
 ignore_time_scale = true
 script = ExtResource("4_xb4v1")
-
-[node name="3 - splitscreen" type="CanvasLayer" parent="." unique_id=2008873164]
-
-[node name="GridContainer" type="GridContainer" parent="3 - splitscreen" unique_id=636394731]
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("6_xv074")
 
 [node name="4 - boxSelectDrawingNode" type="CanvasLayer" parent="." unique_id=1449090200]
 layer = 4
