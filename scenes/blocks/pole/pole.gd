@@ -6,32 +6,35 @@ class_name BlockPole
 
 func on_body_entered(body: Node) -> void:
   if body is Player:
-    if global.player.state == Player.States.dead: return
-    if global.player.state == Player.States.swingingOnPole: return
-    if global.player.inWaters: return
-    if global.player.poleCooldown > 0: return
-    # if global.player.get_node("anim").animation == "jumping off pole": return
-    if global.player.activePole and global.player.activePole != $collisionNode:
-      global.player.activePole.root.timingIndicator.visible = false
-    global.player.activePole = $collisionNode
-    global.player.state = Player.States.swingingOnPole
+    if body.state == Player.States.dead: return
+    if body.state == Player.States.swingingOnPole: return
+    if body.inWaters: return
+    if body.poleCooldown > 0: return
+    if body.activePole and body.activePole != $collisionNode:
+      body.activePole.root.timingIndicator.visible = false
+    body.activePole = $collisionNode
+    body.state = Player.States.swingingOnPole
 
 func on_respawn():
   timingIndicator.visible = false
-  if global.player.activePole == $collisionNode:
-    global.player.activePole = null
-    if global.player.state == Player.States.swingingOnPole:
-      global.player.state = Player.States.falling
+  for p: Player in global.players:
+    if p.activePole == $collisionNode:
+      p.activePole = null
+      if p.state == Player.States.swingingOnPole:
+        p.state = Player.States.falling
   $collisionNode.position = Vector2.ZERO
   await global.wait()
   timingIndicator.visible = false
   $collisionNode.position = Vector2.ZERO
 
 func on_process(delta: float):
-  if global.player.activePole == $collisionNode:
-    if _DISABLED:
-      timingIndicator.visible = false
-      global.player.state = Player.States.falling
-      global.player.activePole = null
-  else:
+  var anyActive := false
+  for p: Player in global.players:
+    if p.activePole == $collisionNode:
+      if _DISABLED:
+        p.state = Player.States.falling
+        p.activePole = null
+      else:
+        anyActive = true
+  if not anyActive:
     timingIndicator.visible = false

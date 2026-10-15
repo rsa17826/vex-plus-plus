@@ -13,7 +13,8 @@ var velDecay := {
   "wind": .7,
 }
 func _ready() -> void:
-  global.gravChanged.connect(func(lastUpDir, newUpDir):
+  global.gravChanged.connect(func(changedPlayer, lastUpDir, newUpDir):
+    if changedPlayer != global.getPrimaryPlayer(): return
     for v in vel:
       vel[v]=vel[v].rotated(angle_difference(lastUpDir.angle(), newUpDir.angle()))
   )
@@ -22,7 +23,7 @@ func on_physics_process(delta: float) -> void:
   if root.respawning: return
   if root._DISABLED: return
   if !delta: return
-  up_direction = global.player.up_direction
+  up_direction = global.getPrimaryPlayer().up_direction
   if currentWatters:
     vel.default.y -= max(95 * delta * (vel.default.y / 8), 10)
   else:
@@ -34,7 +35,7 @@ func on_physics_process(delta: float) -> void:
   vel.default.x *= .90 if is_on_floor() else .97
   var lastvel = vel.default
   # vel.default += vel.conveyor
-  velocity = global.player.applyRot(vel.default + vel.conveyor + vel.wind)
+  velocity = global.getPrimaryPlayer().applyRot(vel.default + vel.conveyor + vel.wind)
   move_and_slide()
   # vel.default -= vel.conveyor
   vel.conveyor *= (velDecay.conveyor)
@@ -43,8 +44,8 @@ func on_physics_process(delta: float) -> void:
     var collision := get_slide_collision(i)
     var block := collision.get_collider()
     var normal := collision.get_normal()
-    # var rotatedNormal = global.player.applyRot(normal)
-    var hitTop = normal.distance_to(global.player.applyRot(Vector2.UP)) < 0.7
+    # var rotatedNormal = global.getPrimaryPlayer().applyRot(normal)
+    var hitTop = normal.distance_to(global.getPrimaryPlayer().applyRot(Vector2.UP)) < 0.7
     if hitTop \
     and lastvel.y > 700 \
     and block.root is BlockBomb \
@@ -55,9 +56,9 @@ func on_physics_process(delta: float) -> void:
 
 func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2) -> void:
   var block: EditorBlock = b.root
-  var blockSide = global.player.calcHitDir(normal.rotated(global.player.defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
+  var blockSide = global.getPrimaryPlayer().calcHitDir(normal.rotated(global.getPrimaryPlayer().defaultAngle).rotated(-deg_to_rad(block.startRotation_degrees)))
 
-  var v = normal.rotated(-global.player.defaultAngle)
+  var v = normal.rotated(-global.getPrimaryPlayer().defaultAngle)
   var vv = Vector2.UP
   var hitTop = v.distance_to(vv) < 0.77
   var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180))) < 0.77
@@ -70,10 +71,10 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   and is_on_floor() \
   and (playerSide.left or playerSide.right) \
   :
-    block.thingThatMoves.vel.default -= (normal.rotated(-global.player.defaultAngle) * depth * 200)
+    block.thingThatMoves.vel.default -= (normal.rotated(-global.getPrimaryPlayer().defaultAngle) * depth * 200)
   # if block is BlockConveyor:
   #   if rotatedNormal != UP:
-    # log.err([rotatedNormal, UP], global.player.defaultAngle, up_direction, [normal, Vector2.UP])
+    # log.err([rotatedNormal, UP], global.getPrimaryPlayer().defaultAngle, up_direction, [normal, Vector2.UP])
 
   if (block is BlockConveyor) \
   # and playerSide.bottom \

@@ -11,14 +11,14 @@ var unlocked := false
 
 func on_body_entered(body: Node2D):
   if body is Player and not unlocked:
-    unlock()
+    unlock(body)
     if not unlocked:
       deathEnter(body)
 
-func unlock() -> void:
-  if global.player.keys and not unlocked:
+func unlock(p: Player) -> void:
+  if p.keys and not unlocked:
     unlocked = true
-    var key: Node2D = global.player.keys.pop_front()
+    var key: Node2D = p.keys.pop_front()
     key.root.following = false
     key.root.used = true
     key.root.__disable.call_deferred()
@@ -32,7 +32,7 @@ func onSave() -> Array[String]:
 
 func onAllDataLoaded() -> void:
   if unlocked:
-    global.player.Alltryaddgroups.connect(func():
+    global.Alltryaddgroups.connect(func():
       __disable.call_deferred()
     , Object.CONNECT_ONE_SHOT)
 

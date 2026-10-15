@@ -2,7 +2,7 @@
 extends CharacterBody2D
 class_name Player
 
-@export var root: EditorBlock
+@export var root: EditorPlayer
 @export var stickyFloorDetector: Area2D
 @export var mainCollisionShape2D: CollisionShape2D
 @export var nowjDetector: Area2D
@@ -81,7 +81,8 @@ var activeZipline: BlockZipline
 var targetZipline: BlockZipline
 var waterOffset = []
 
-var lightsOut: bool = false
+## the portal this player just came out of, it can't be used again until the player leaves it
+var lastPortal: Node2D = null
 
 var keys: Array[Node2D] = []:
   get():
@@ -188,8 +189,39 @@ enum GravStates {
   normal
 }
 
-func _init() -> void:
-  global.player = self
+## this player's index in global.players, assigned by global.reindexPlayers
+var playerIndex := 0
+
+## the saved data of this player for the current level
+var save: Dictionary:
+  get():
+    return global.currentLevel().players[playerIndex]
+
+## true while the editor camera is attached to this player
+var editing: bool:
+  get():
+    return global.showEditorUi and global.focusedPlayer == self
+
+func _enter_tree() -> void:
+  # editor bar option popups instantiate blocks outside of the level, those aren't real players
+  if not global.level.is_ancestor_of(self): return
+  global.registerPlayer(self)
+
+func _exit_tree() -> void:
+  global.unregisterPlayer(self)
+
+## writes the data that should be restored when the level is loaded again into the level save data
+func saveToLevelData(forInnerLevel: bool) -> void:
+  var data := save
+  if forInnerLevel:
+    data.exitPosition = global_position - root.global_position
+  else:
+    data.lastSpawnPoint = lastSpawnPoint
+  data.up_direction = up_direction
+  data.autoRunDirection = autoRunDirection
+  data.heat = heat
+  data.gravState = gravState
+  data.speedLeverActive = speedLeverActive
 
 func _ready() -> void:
   # var proc := OS.execute_with_pipe("socat", ["-", "UNIX-CONNECT:/tmp/kbd_manager.sock"])
@@ -201,13 +233,17 @@ func _ready() -> void:
   # warpPipe.store_32(OS.get_process_id())
   # warpPipe.flush()
   anim.use_parent_material = false
+  # only the camera of the focused player is used by the main viewport
+  if global.focusedPlayer != self:
+    camera.enabled = false
   if global.isAlive(global.tabMenu) and global.tabMenu.visible:
     mouseMode = Input.MOUSE_MODE_VISIBLE
   if global.ctrlMenu.visible:
     mouseMode = Input.MOUSE_MODE_VISIBLE
   DEATH_TIME = max(5, global.useropts.playerRespawnTime)
   Input.mouse_mode = mouseMode
-  global.gravChanged.connect(func(lastUpDir, newUpDir):
+  global.gravChanged.connect(func(changedPlayer: Player, lastUpDir: Vector2, newUpDir: Vector2) -> void:
+    if changedPlayer != self: return
     for v in vel:
       vel[v]=vel[v].rotated(angle_difference(lastUpDir.angle(), newUpDir.angle()))
   )
@@ -258,12 +294,12 @@ func _unhandled_input(event: InputEvent) -> void:
   if global.openMsgBoxCount: return
   if Input.is_action_just_pressed(&"activate_temporary_checkpoint", true):
     lastSpawnPoint = (global_position - root.global_position)
-    global.currentLevel().up_direction = up_direction
-    global.currentLevel().autoRunDirection = autoRunDirection
+    save.up_direction = up_direction
+    save.autoRunDirection = autoRunDirection
     if global.currentLevelSettings("checkpointsSaveAll"):
-      global.currentLevel().heat = heat
-      global.currentLevel().gravState = gravState
-      global.currentLevel().speedLeverActive = speedLeverActive
+      save.heat = heat
+      save.gravState = gravState
+      save.speedLeverActive = speedLeverActive
 
   if Input.is_action_just_pressed(&"toggle_noclip", true):
     noclipEnabled = !noclipEnabled
@@ -274,7 +310,7 @@ func _unhandled_input(event: InputEvent) -> void:
     lastDeathMessage = "player realized they were softlocked"
     die(DEATH_TIME, true, true)
 
-  if state != States.dead and global.showEditorUi:
+  if state != States.dead and editing:
     if Input.is_action_just_pressed(&"focus_on_player", true):
       global.setEditorUiState(false)
       camLockPos = Vector2.ZERO
@@ -299,6 +335,13 @@ func _unhandled_input(event: InputEvent) -> void:
         shouldPan = false
 
   if event is InputEventMouseMotion and event.relative == Vector2.ZERO: return
+  # whichever player gets the event first puts the editor camera on the player under the mouse
+  var justEnteredEditor := false
+  if not global.showEditorUi and (event is InputEventMouseMotion or shouldPan):
+    global.enterEditor(global.viewUnderMouse())
+    justEnteredEditor = true
+  # everything below is the editor camera, only the focused player has one
+  if global.focusedPlayer != self: return
   var panDelta := Vector2.ZERO
   if event is InputEventMouseMotion:
     panDelta = event.relative
@@ -312,14 +355,7 @@ func _unhandled_input(event: InputEvent) -> void:
       else:
         assert(Time.get_ticks_msec() <= warpDeadlineMs, "warp to %s never arrived" % warpTarget)
   if global.openMsgBoxCount: return
-  if event is InputEventMouseMotion and not global.showEditorUi:
-    camRotLock = defaultAngle
-    global.setEditorUiState(true)
-  if shouldPan and not global.showEditorUi:
-    camRotLock = defaultAngle
-    global.setEditorUiState(true)
-    if not camLockPos:
-      camLockPos = camera.global_position
+  if shouldPan and justEnteredEditor:
     Input.set_default_cursor_shape(Input.CURSOR_DRAG)
   else:
     if global.showEditorUi:
@@ -476,7 +512,7 @@ func _physics_process(delta: float) -> void:
   match state:
     States.dead:
       var respawnPosition = tempLastSpawnPoint if tempLastSpawnPoint else lastSpawnPoint
-      if not global.showEditorUi:
+      if not editing:
         camera.global_rotation = defaultAngle
       slowCamRot = false
       deadTimer -= delta * 60
@@ -487,7 +523,7 @@ func _physics_process(delta: float) -> void:
       else:
         position = global.rerange(deadTimer, currentRespawnDelay, 0, deathPosition, respawnPosition)
       camera.position = Vector2.ZERO
-      if global.showEditorUi:
+      if editing:
         if not camLockPos:
           camLockPos = camera.global_position
       pulleyNoDieTimer = 0
@@ -502,7 +538,7 @@ func _physics_process(delta: float) -> void:
       waterAnimTop.visible = false
       waterAnimBottom.visible = false
       camera.reset_smoothing()
-      up_direction = global.currentLevel().up_direction
+      up_direction = save.up_direction
       if deadTimer <= 0:
         if respawnPosition:
           position = respawnPosition
@@ -1202,7 +1238,7 @@ func _physics_process(delta: float) -> void:
         tryAndDieSquish()
       applyHeat(delta)
       updateKeyFollowPosition(delta)
-  if !global.showEditorUi:
+  if !editing:
     var changeInPosition: Vector2 = global_position - frameStartPosition
     var maxVel: float = max(abs(changeInPosition.x), abs(changeInPosition.y)) * delta * 60
     # if maxVel > 50:
@@ -1232,11 +1268,11 @@ func _physics_process(delta: float) -> void:
   var camrot = camera.global_rotation
   if camrot < 0:
     camrot += deg_to_rad(360)
-  var targetAngle = camRotLock if global.showEditorUi else defaultAngle
+  var targetAngle = camRotLock if editing else defaultAngle
   if global.useropts.dontChangeCameraRotationOnGravityChange:
     camera.global_rotation = 0
   else:
-    if global.showEditorUi:
+    if editing:
       if global.useropts.cameraUsesDefaultRotationInEditor:
         camera.global_rotation = 0
       else:
@@ -1356,7 +1392,7 @@ func getCurrentLrState():
 func applyHeat(delta):
   var heatToAdd = 0
   for laser in targetingLasers:
-    if laser.hitPlayer:
+    if laser.hitsPlayer(self):
       # base of 1
       var num = 1 \
       # a little bit more based on distance when less than 100 px
@@ -1515,7 +1551,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     global_position = position - Vector2(4, 0)
     # breakpoint
     # log.err(normal * depth)
-    block.start()
+    block.start(self)
   if block is BlockInnerLevel \
   and playerSide.bottom \
   and state == States.sliding \
@@ -1525,7 +1561,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
   if block is BlockLockedBox \
   or block is Block10xLockedSpike \
   :
-    block.unlock()
+    block.unlock(self)
   if (block is BlockPushableBox or block is BlockBomb) \
   and getClosestWallSide() \
   and Input.is_action_just_pressed(&"down") \
@@ -1539,7 +1575,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     position -= Vector2(0, 2).rotated(defaultAngle)
 
   if (block is BlockCrumbling):
-    block.start()
+    block.start(self)
   if (block is BlockPushableBox or block is BlockBomb) \
   and is_on_floor() \
   and (playerSide.left or playerSide.right) \
@@ -1588,7 +1624,7 @@ func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2
     justAddedVels.conveyor = 3
 
 func updateCamLockPos():
-  if global.showEditorUi:
+  if editing:
     camera.global_position = camLockPos
     camera.reset_smoothing()
 
@@ -1622,14 +1658,10 @@ func getClosestWallSide() -> int:
 func setRot(rot):
   var startRot = camera.global_rotation
   rotation = rot
-  if camRotLock and global.showEditorUi:
+  if camRotLock and editing:
     camera.global_rotation = camRotLock
   else:
     camera.global_rotation = startRot
-
-signal OnPlayerDied
-signal OnPlayerFullRestart
-signal Alltryaddgroups
 
 func stopDying():
   if state == States.dead:
@@ -1637,7 +1669,9 @@ func stopDying():
     state = States.falling
     # await global.wait()
     root.__enable.call_deferred()
-    global.stopTicking = false
+    # the world stays frozen until every player has finished dying
+    if not global.players.any(func(p: Player) -> bool: return p != self and p.state == States.dead):
+      global.stopTicking = false
     for thing: RayCast2D in [
       $wallDetectors/leftWallTop,
       $wallDetectors/rightWallTop,
@@ -1656,6 +1690,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   updateCollidingBlocksExited()
   if state != States.levelLoading:
     state = States.dead
+  # the world only resets when every player is dead, or when the death was forced (restart, level loading)
+  var worldReset := forced or full or not global.isMultiplayer() or global.allPlayersDead()
   root.__disable()
   respawnCooldown = respawnTime + 1.01
   lastDeathWasForced = forced
@@ -1668,18 +1704,19 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
     lastSpawnPoint = Vector2.ZERO
     global.tick = 0
     global.currentLevel().tick = 0
-    global.currentLevel().up_direction = Vector2.UP
-    global.currentLevel().autoRunDirection = 1
-    global.currentLevel().heat = 0
-    global.currentLevel().gravState = GravStates.normal
-    global.currentLevel().speedLeverActive = false
+    save.up_direction = Vector2.UP
+    save.autoRunDirection = 1
+    save.heat = 0
+    save.gravState = GravStates.normal
+    save.speedLeverActive = false
     autoRunDirection = 1
   else:
-    global.tick = global.currentLevel().tick
-    up_direction = global.currentLevel().up_direction
-    autoRunDirection = global.currentLevel().autoRunDirection
+    if worldReset:
+      global.tick = global.currentLevel().tick
+    up_direction = save.up_direction
+    autoRunDirection = save.autoRunDirection
     if global.currentLevelSettings("checkpointsSaveAll"):
-      heat = global.currentLevel().heat
+      heat = save.heat
     else:
       heat = 0
   mainCollisionShape2D.disabled = true
@@ -1689,7 +1726,8 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   activePulley = null
   activeZipline = null
   targetZipline = null
-  global.stopTicking = true
+  if worldReset:
+    global.stopTicking = true
   deadTimer = max(respawnTime, 0)
   currentRespawnDelay = respawnTime
   deathPosition = position
@@ -1709,30 +1747,36 @@ func die(respawnTime: int = DEATH_TIME, full:=false, forced:=false) -> void:
   collsiionOn_left = []
   collsiionOn_right = []
   deathSources = []
-  global.lastPortal = null
+  lastPortal = null
   if !dontResetPlayerData:
     if global.currentLevelSettings("checkpointsSaveAll"):
-      gravState = global.currentLevel().gravState
-      speedLeverActive = global.currentLevel().speedLeverActive
+      gravState = save.gravState
+      speedLeverActive = save.speedLeverActive
     else:
       gravState = GravStates.normal
       speedLeverActive = false
+    # the world isn't resetting so the keys this player was holding have to go back on their own
+    if not worldReset:
+      for key in keys:
+        key.root.respawn()
     keys = []
     for v: String in vel:
       vel[v] = Vector2.ZERO
     velocity = Vector2.ZERO
-    lightsOut = false
+    if worldReset:
+      global.lightsOut = false
     if full:
-      OnPlayerFullRestart.emit()
+      global.resetWorld(true)
       global.savePlayerLevelData()
-    else:
-      OnPlayerDied.emit()
+    elif worldReset:
+      global.resetWorld(false)
       if global.currentLevelSettings("checkpointsSaveAll"):
         global.loadBlockData()
   await global.wait()
   _physics_process(0)
   await global.wait()
-  Alltryaddgroups.emit()
+  if worldReset:
+    global.Alltryaddgroups.emit()
 
 func tryChangeRespawnLocation():
   var deathRay := RayCast2D.new()
@@ -1818,9 +1862,9 @@ func updateKeyFollowPosition(delta):
 func applyRot(x: Variant = 0.0, y: float = 0.0) -> Vector2:
   var v
   if x is Vector2:
-    v = x.rotated(global.player.defaultAngle)
+    v = x.rotated(defaultAngle)
   else:
-    v = Vector2(x, y).rotated(global.player.defaultAngle)
+    v = Vector2(x, y).rotated(defaultAngle)
   return global.clearLow(v)
 
 # add animations for

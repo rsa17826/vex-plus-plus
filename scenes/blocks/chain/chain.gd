@@ -6,7 +6,7 @@ var thingsInside: Array[EditorBlock] = []
 
 func _init() -> void:
   # global.attachChildAdded.connect(attachChildAdded)
-  global.player.Alltryaddgroups.connect(a)
+  global.Alltryaddgroups.connect(a)
 
 func a():
   await global.wait()

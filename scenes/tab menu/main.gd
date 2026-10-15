@@ -364,8 +364,8 @@ func updateUserOpts(thingChanged: String = '') -> void:
           global.tabMenu.__menu.reloadDataFromFile.call_deferred()
           global.tabMenu.__menu.reloadUi.call_deferred()
     "playerRespawnTime":
-      if global.isAlive(global.player):
-        global.player.DEATH_TIME = max(5, global.useropts.playerRespawnTime)
+      for p in global.players:
+        p.DEATH_TIME = max(5, global.useropts.playerRespawnTime)
     _:
       if OS.has_feature("editor"):
         DisplayServer.clipboard_set(thingChanged)

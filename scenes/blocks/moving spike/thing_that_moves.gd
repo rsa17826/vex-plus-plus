@@ -19,7 +19,7 @@ func on_physics_process(delta: float) -> void:
   velocity.x = dir * speed
   velocity.y += Player.GRAVITY * delta / 2.5
   move_and_slide()
-  if global.player.state == Player.States.dead:
+  if global.getPrimaryPlayer().state == Player.States.dead:
     log.pp('spike', delta, velocity)
   for i in get_slide_collision_count():
     var collision := get_slide_collision(i)
@@ -31,7 +31,7 @@ func on_physics_process(delta: float) -> void:
 func handleCollision(b: Node2D, normal: Vector2, depth: float, position: Vector2) -> void:
   var block: EditorBlock = b.root
 
-  var v = normal.rotated(-global.player.defaultAngle)
+  var v = normal.rotated(-global.getPrimaryPlayer().defaultAngle)
   var vv = Vector2.UP
   var hitTop = v.distance_to(vv) < 0.77
   var hitBottom = v.distance_to(vv.rotated(deg_to_rad(180))) < 0.77

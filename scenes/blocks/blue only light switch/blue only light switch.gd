@@ -8,7 +8,7 @@ func on_body_entered(body: Node) -> void:
     or body is BlockPushableBox \
     or body is BlockBomb \
   :
-    global.player.lightsOut = false
+    global.lightsOut = false
 
 func on_respawn() -> void:
   $collisionNode.position = Vector2.ZERO

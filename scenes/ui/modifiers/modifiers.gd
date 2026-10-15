@@ -116,8 +116,9 @@ func saveData(levelSettings):
   levelSettings = startData.merged(levelSettings, true)
   data.stages[global.currentLevel().name] = levelSettings
   global.levelOpts.stages[global.currentLevel().name] = levelSettings
-  global.player.floor_constant_speed = !levelSettings.changeSpeedOnSlopes
-  global.player.MAX_JUMP_COUNT = levelSettings.jumpCount
+  for p in global.players:
+    p.floor_constant_speed = !levelSettings.changeSpeedOnSlopes
+    p.MAX_JUMP_COUNT = levelSettings.jumpCount
   sds.saveDataToFile(
     f,
     data

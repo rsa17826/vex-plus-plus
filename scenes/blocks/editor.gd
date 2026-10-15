@@ -8,7 +8,7 @@ extends Node2D
 ## sprite to show in the editor bar
 @export var editorBarIcon: Texture2D:
   get():
-    if global.player and editorBarIconUsesLevelColor:
+    if global.players and editorBarIconUsesLevelColor:
       return load(editorBarIcon.resource_path \
       .replace("/editorBar1.png", '/editorBar' + str(global.currentLevelSettings("color")) + '.png') \
       .replace("/1.png", '/' + str(global.currentLevelSettings("color")) + '.png')
@@ -277,19 +277,24 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
 var collisionQueue := {}
 ## don't overite - use on_body_entered instead
 func _on_body_entered(body: Node2D, real=true) -> void:
-  if !global.player: return
-  if global.player.state == Player.States.levelLoading: return
-  if global.player.state == Player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
+  if not global.players: return
+  if global.anyPlayerLoading(): return
+  if not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN:
+    if body is Player:
+      if body.state == Player.States.dead: return
+    elif global.allPlayersDead(): return
   on_body_entered(body)
   if is_in_group("death"):
     _on_body_enteredDEATH(body)
 
 ## don't overite - use on_body_exited instead
 func _on_body_exited(body: Node2D, real=true) -> void:
-  if !global.player: return
-  if global.player.state == Player.States.levelLoading: return
-  if global.player.state == Player.States.dead and not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN: return
-  # if global.player.state == Player.States.dead and body is Player: return
+  if not global.players: return
+  if global.anyPlayerLoading(): return
+  if not SEND_COLLISIONS_DOURING_PLAYER_RESPAWN:
+    if body is Player:
+      if body.state == Player.States.dead: return
+    elif global.allPlayersDead(): return
   if respawning:
     if body in collisionQueue and collisionQueue[body] == "entered":
       collisionQueue.erase(body)
@@ -314,7 +319,7 @@ func clearSaveData():
 func _ready() -> void:
   global.signalSenderChanged.connect(func(id, on, callers):
     if canHaveSignalLines and self in callers:
-      if global.player.respawnCooldown > 0: return
+      if global.players.any(func(p): return p.respawnCooldown > 0): return
       updateConnectedBlocks(false)
       queue_redraw())
   global.onEditorStateChanged.connect(queue_redraw)
@@ -322,7 +327,7 @@ func _ready() -> void:
   if KILL_AFTER_TIME:
     get_tree().create_timer(KILL_AFTER_TIME).timeout.connect(queue_free)
   # hasBeenExploded = false
-  if !global.player:
+  if not global.players:
     generateBlockOpts()
     if canAttachToThings:
       blockOptions.canAttachToThings = {"type": global.PromptTypes.bool, "default": true}
@@ -337,10 +342,10 @@ func _ready() -> void:
   #     queue_free()
   #     return
   #   global.player.OnPlayerDied.connect(queue_free)
-  if !global.player.OnPlayerFullRestart.is_connected(clearSaveData):
-    global.player.OnPlayerFullRestart.connect(clearSaveData)
-  if !global.player.OnPlayerDied.is_connected(respawn):
-    global.player.OnPlayerDied.connect(respawn)
+  if !global.worldFullRestart.is_connected(clearSaveData):
+    global.worldFullRestart.connect(clearSaveData)
+  if !global.worldDied.is_connected(respawn):
+    global.worldDied.connect(respawn)
   blockOptions = {}
 
   if not hidableSprites and not ignoreMissingNodes:
@@ -443,7 +448,7 @@ func setupOptions() -> void:
 
 ## don't overite - use on_physics_process instead or postMovementStep to get called after the node has moved
 func _physics_process(delta: float) -> void:
-  if !global.player: return
+  if not global.players: return
   if isBeingPlaced:
     if !(global.selectedBlock == self):
       isBeingPlaced = false
@@ -485,12 +490,9 @@ func _physics_process(delta: float) -> void:
         breakpoint
       if block is BlockWater:
         # log.pp(11111, block.playerInsideWater, block in global.player.inWaters, block, global.player.inWaters,  (lastMovementStep.rotated(-block.rotation) / block.global_scale) / 7)
-        if block.playerInsideWater and block in global.player.inWaters:
-          # var offset = global.player.position - block.thingThatMoves.global_position
-          # global.player.waterOffset.append([offset, block])
-          # log.pp(global.player.position - block.thingThatMoves.global_position)
-          global.player.vel.waterMove += lastMovementStep.rotated(-block.rotation)
-          # log.pp(global.player.vel.waterMove)
+        for p: Player in global.players:
+          if block.isPlayerInside(p) and block in p.inWaters:
+            p.vel.waterMove += lastMovementStep.rotated(-block.rotation)
       block.thingThatMoves.position += lastMovementStep.rotated(-block.rotation) / block.global_scale
 func postMovementStep(): pass
 var left_edge: float
@@ -644,7 +646,7 @@ var lineDrawEnabled := false
 ## don't overite - use on_process instead
 func _process(delta: float) -> void:
   # queue_redraw.call_deferred()
-  if !global.player: return
+  if not global.players: return
   # if EDITOR_IGNORE: return
   # if not ghost: return
   if global.ui.modifiers.editorOpen: return
@@ -731,7 +733,7 @@ func _process(delta: float) -> void:
         or self in global.boxSelect_selectedBlocks: # and not NO_SELECTING:
         if !Input.is_action_pressed(&"editor_select"):
           # prevents the mouse position from being offset by the players offset from the last frame
-          global.player.updateCamLockPos()
+          global.focusedPlayer.updateCamLockPos()
           var mouse_pos := get_global_mouse_position().rotated(-deg_to_rad(startRotation_degrees))
 
           var node_pos := ghost.global_position.rotated(-deg_to_rad(startRotation_degrees))
@@ -855,7 +857,7 @@ func _process(delta: float) -> void:
       else:
         # disable outline
         ghost.use_parent_material = true
-  if global.player.state == Player.States.dead: return
+  if global.allPlayersDead(): return
   on_process(delta)
 
 func createEditorGhost() -> void:
@@ -944,8 +946,8 @@ func _on_body_enteredDEATH(body: Node) -> void:
 
 func deathEnter(body: Node):
   if body is Player:
-    if self not in global.player.deathSources:
-      global.player.deathSources.append(self)
+    if self not in body.deathSources:
+      body.deathSources.append(self)
       playerVelOnDeath = Vector2(1, 1) * body.velTotal
       # deathDirection = global.player.getDeathDir()
       # log.debug("aaa", deathDirection)
@@ -955,8 +957,8 @@ func _on_body_exitedDEATH(body: Node) -> void:
 
 func deathExit(body: Node):
   if body is Player:
-    if self in global.player.deathSources:
-      global.player.deathSources.erase(self)
+    if self in body.deathSources:
+      body.deathSources.erase(self)
 
 # res://scenes/blocks/buzzsaw/images/1.png
 @export_group("BUZZSAW - GENERIC")

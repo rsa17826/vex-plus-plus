@@ -597,8 +597,96 @@ func clearLow(v):
 
 # local game only data
 
-var player: Player
+## every player currently in the level, primary player first then extra players in block order
+var players: Array[Player] = []
+## the player the editor camera is attached to while editing - the primary player at first
+var focusedPlayer: Player
 var level: Node2D
+signal playersChanged
+## emitted when the world should reset, ie when the last living player dies or on a full restart
+signal worldDied
+signal worldFullRestart
+signal Alltryaddgroups
+var lastWorldDiedFrame := -1
+var lastWorldFullRestartFrame := -1
+
+## respawns every block, only once per frame no matter how many players asked for it
+func resetWorld(full: bool) -> void:
+  var frame := Engine.get_process_frames()
+  if full:
+    if lastWorldFullRestartFrame == frame: return
+    lastWorldFullRestartFrame = frame
+    worldFullRestart.emit()
+  else:
+    if lastWorldDiedFrame == frame: return
+    lastWorldDiedFrame = frame
+    worldDied.emit()
+
+func getPrimaryPlayer() -> Player:
+  assert(players, "no players in the level")
+  return players[0]
+
+func isMultiplayer() -> bool:
+  return len(players) > 1
+
+func allPlayersDead() -> bool:
+  return players.all(func(p: Player) -> bool: return p.state == Player.States.dead)
+
+func anyPlayerLoading() -> bool:
+  return players.any(func(p: Player) -> bool: return p.state == Player.States.levelLoading)
+
+func registerPlayer(p: Player) -> void:
+  if p in players: return
+  players.append(p)
+  reindexPlayers()
+
+func unregisterPlayer(p: Player) -> void:
+  players.erase(p)
+  if focusedPlayer == p:
+    focusedPlayer = players[0] if players else null
+  reindexPlayers()
+
+func reindexPlayers() -> void:
+  players.assign(players.filter(isAlive))
+  players.sort_custom(func(a: Player, b: Player) -> bool:
+    if a.root.isPrimary != b.root.isPrimary: return a.root.isPrimary
+    return a.root.get_index() < b.root.get_index())
+  for i in len(players):
+    players[i].playerIndex = i
+  if players and not isAlive(focusedPlayer):
+    focusedPlayer = players[0]
+  playersChanged.emit()
+
+## the player whose split screen view is under the mouse, or the focused player when not in split screen
+func viewUnderMouse() -> Player:
+  if isAlive(splitScreen) and splitScreen.visible:
+    return splitScreen.playerUnderMouse()
+  return focusedPlayer
+
+## the mouse position in world coordinates as seen by the view of player p
+func worldMousePosition(p: Player) -> Vector2:
+  if isAlive(splitScreen) and splitScreen.visible:
+    return splitScreen.worldMousePosition(p)
+  return p.get_global_mouse_position()
+
+## makes p the player the editor camera follows
+func focusPlayer(p: Player) -> void:
+  if focusedPlayer == p and p.camera.enabled: return
+  for other in players:
+    if other != p:
+      other.camera.enabled = false
+  p.camera.enabled = true
+  p.camera.make_current()
+  focusedPlayer = p
+
+func enterEditor(p: Player) -> void:
+  if showEditorUi: return
+  focusPlayer(p)
+  p.camRotLock = p.defaultAngle
+  p.camLockPos = p.camera.global_position
+  setEditorUiState(true)
+
+var splitScreen: SplitScreen
 
 func getLevelSavePath(levelname):
   return path.abs("res://saves/" + levelname + ".sds")
@@ -640,7 +728,7 @@ func selectBlock() -> void:
     selectedBlock = block
     lastSelectedBlock = block
     var bpos: Vector2 = block.position
-    var mpos: Vector2 = player.get_global_mouse_position()
+    var mpos: Vector2 = focusedPlayer.get_global_mouse_position()
     selectedBlockStartPosition = bpos
     selectedBlockStartScale = block.scale
     selectedBlockStartRotation = block.rotation
@@ -701,7 +789,7 @@ func localProcess(delta: float) -> void:
     file.write(path.abs("res://process"), str(OS.get_process_id()), false)
     tryAndGetMapZipsFromArr(data)
     DirAccess.remove_absolute(path.abs("res://filesToOpen"))
-  if not player: return
+  if not players: return
   # if a block is selected
   if shouldDragBlock and isAlive(selectedBlock) or (selectedBrush and selectedBrush.selected == 2):
     var mpos: Vector2 = selectedBlock.get_global_mouse_position() if selectedBlock else selectedBrush.get_global_mouse_position()
@@ -721,7 +809,8 @@ func localProcess(delta: float) -> void:
       b.onEditorMove(moveDist)
       selectedBlock = null
       return
-    player.moving = 2
+    for p in players:
+      p.moving = 2
     # when trying to rotate blocks
     if editorInRotateMode and selectedBlock \
     and (selectedBlock.EDITOR_OPTION_rotate \
@@ -845,7 +934,7 @@ func localProcess(delta: float) -> void:
           justPaintedBlock.scale = Vector2(1, 1)
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
-        justPaintedBlock.rotation_degrees = rad_to_deg(player.defaultAngle) \
+        justPaintedBlock.rotation_degrees = rad_to_deg(focusedPlayer.defaultAngle) \
         if justPaintedBlock.EDITOR_OPTION_rotate \
         else 0.0
         justPaintedBlock.id = selectedBrush.blockName
@@ -1067,16 +1156,16 @@ func _unhandled_input(event: InputEvent) -> void:
   if Input.is_action_pressed(&"editor_box_select", true):
     if level and is_instance_valid(level):
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
-      boxSelectRealEndPos = player.get_global_mouse_position()
+      boxSelectRealEndPos = focusedPlayer.get_global_mouse_position()
       level.boxSelectDrawingNode.updateRect()
   if event.is_action_pressed(&"editor_box_select", false, true):
     if level and is_instance_valid(level):
       boxSelectDrawStartPos = get_viewport().get_mouse_position()
-      boxSelectRealStartPos = player.get_global_mouse_position()
+      boxSelectRealStartPos = focusedPlayer.get_global_mouse_position()
   if Input.is_action_just_released(&"editor_box_select", false) and boxSelectDrawStartPos:
     if level and is_instance_valid(level):
       boxSelectDrawEndPos = get_viewport().get_mouse_position()
-      boxSelectRealEndPos = player.get_global_mouse_position()
+      boxSelectRealEndPos = focusedPlayer.get_global_mouse_position()
       boxSelectReleased()
   if event.is_action_pressed(&"block_z_up"):
     moveBlockZ(selectedBlock, "up")
@@ -1108,7 +1197,7 @@ func _unhandled_input(event: InputEvent) -> void:
         # player.camLockPos += Vector2(50, 0)
       var arr: Array[EditorBlock] = []
       for block in boxSelect_selectedBlocks.filter(func(e): return e.id and not e.DONT_SAVE):
-        if block == player.root: return
+        if block == getPrimaryPlayer().root: return
         if !isAlive(block): return
         var posOffset = mpos - block.startPosition
         var newBlock := duplicate_block(block)
@@ -1189,7 +1278,7 @@ func _unhandled_input(event: InputEvent) -> void:
           setBlockStartPos(block)
 
       if useropts.mouseLockDistanceWhileRotating:
-        var direction := (mpos - selectedBlock.global_position).normalized().rotated(-player.get_node("Camera2D").global_rotation)
+        var direction := (mpos - selectedBlock.global_position).normalized().rotated(-focusedPlayer.camera.global_rotation)
         var newMousePos: Vector2 = (
           (
             selectedBlock.get_viewport_transform() * selectedBlock.global_position
@@ -1209,15 +1298,7 @@ func _unhandled_input(event: InputEvent) -> void:
         loadBlockData()
         await wait()
         setEditorUiState(false)
-        # player.state = player.States.levelLoading
-        player.deathPosition = currentLevel().exitPosition
-        player.lastSpawnPoint = currentLevel().exitPosition
-        player.camLockPos = Vector2.ZERO
-        player.goto(player.deathPosition)
-        player.die(1, false, true)
-        await wait()
-        player.die(15, false, true)
-        # player.die(3, false, true)
+        await placeAllPlayers(func(p: Player) -> Vector2: return p.save.exitPosition)
         global.tick = global.currentLevel().tick
         # savePlayerLevelData()
   if event.is_action_pressed(&"save", false, true):
@@ -1227,7 +1308,7 @@ func _unhandled_input(event: InputEvent) -> void:
     if !isAlive(level): return
     for block in boxSelect_selectedBlocks:
       if !is_instance_valid(block): return
-      if block == global.player.root: return
+      if block == getPrimaryPlayer().root: return
       if block.is_queued_for_deletion(): return
       if block in hoveredBlocks:
         hoveredBlocks.erase(block)
@@ -1237,7 +1318,7 @@ func _unhandled_input(event: InputEvent) -> void:
     boxSelect_selectedBlocks = []
     # log.pp(selectedBlock, lastSelectedBlock)
     if selectedBlock and is_instance_valid(selectedBlock) and selectedBlock.is_inside_tree():
-      if selectedBlock == global.player.root: return
+      if selectedBlock == getPrimaryPlayer().root: return
       if selectedBlock in hoveredBlocks:
         hoveredBlocks.erase(selectedBlock)
       # var temp = selectedBlock.duplicate()
@@ -1256,7 +1337,7 @@ func _unhandled_input(event: InputEvent) -> void:
       if useropts.deleteLastSelectedBlockIfNoBlockIsCurrentlySelected:
         log.pp(selectedBlock, lastSelectedBlock)
         if lastSelectedBlock and is_instance_valid(lastSelectedBlock) and lastSelectedBlock.is_inside_tree():
-          if lastSelectedBlock == global.player.root: return
+          if lastSelectedBlock == getPrimaryPlayer().root: return
           if lastSelectedBlock in hoveredBlocks:
             hoveredBlocks.erase(lastSelectedBlock)
           var temp = lastSelectedBlock.duplicate()
@@ -1295,15 +1376,16 @@ func _unhandled_input(event: InputEvent) -> void:
   if event.is_action_pressed(&"quit", false, true):
     quitGame()
   if event.is_action_pressed(&"move_player_to_mouse", false, true):
-    if player and is_instance_valid(player):
-      # move player feet to mouse position
-      if player.state == player.States.dead:
-        player.stopDying()
-      player.state = player.States.falling
-      player.activePole = null
-      player.activePulley = null
-      player.activeCannon = null
-      player.goto(player.get_global_mouse_position() - player.root.startPosition + player.applyRot(0, -17))
+    if players:
+      # move the player under the mouse (or the focused player when editing) so its feet are at the mouse position
+      var p := viewUnderMouse()
+      if p.state == p.States.dead:
+        p.stopDying()
+      p.state = p.States.falling
+      p.activePole = null
+      p.activePulley = null
+      p.activeCannon = null
+      p.goto(worldMousePosition(p) - p.root.startPosition + p.applyRot(0, -17))
   if event.is_action_pressed(&"toggle_pause", false, true):
     if level and is_instance_valid(level):
       global.stopTicking = !global.stopTicking
@@ -1380,7 +1462,7 @@ func _unhandled_input(event: InputEvent) -> void:
           justPaintedBlock.scale = Vector2(1, 1)
         else:
           justPaintedBlock.scale = Vector2(1, 1) / 7
-        justPaintedBlock.rotation_degrees = rad_to_deg(player.defaultAngle) \
+        justPaintedBlock.rotation_degrees = rad_to_deg(focusedPlayer.defaultAngle) \
         if justPaintedBlock.EDITOR_OPTION_rotate \
         else 0.0
         justPaintedBlock.id = block.extends if block is Dictionary else block
@@ -1403,40 +1485,32 @@ var loadingLevel = false
 func loadInnerLevel(innerLevel: String) -> void:
   if loadingLevel: return
   loadingLevel = true
-  player.state = player.States.levelLoading
+  for p in players:
+    p.state = p.States.levelLoading
   # breakpoint
   if useropts.saveLevelOnWin:
     await level.save(false)
-  currentLevel().exitPosition = player.global_position - player.root.global_position
-  currentLevel().up_direction = player.up_direction
-  currentLevel().autoRunDirection = player.autoRunDirection
-  currentLevel().heat = player.heat
-  currentLevel().gravState = player.gravState
-  currentLevel().speedLeverActive = player.speedLeverActive
+  for p in players:
+    p.saveToLevelData(true)
 
   var prevLevelDataFound = false
-  player.deathPosition = Vector2.ZERO
-  player.lastSpawnPoint = Vector2.ZERO
+  var enteredLevelData: Dictionary
   for level in beatLevels:
     if level.name == innerLevel:
-      player.deathPosition = level.lastSpawnPoint
-      player.lastSpawnPoint = level.lastSpawnPoint
-      player.camLockPos = level.lastSpawnPoint
-      log.pp(level, level.lastSpawnPoint, 'level.lastSpawnPoint')
+      enteredLevelData = level
       prevLevelDataFound = true
       global.loadedLevels.append(level)
       # beatLevels.erase(level)
       break
   if !prevLevelDataFound:
     global.loadedLevels.append(newLevelSaveData(innerLevel))
+  syncLevelPlayerData()
   if currentLevel().name not in levelOpts.stages:
     log.err("ADD SETTINGS for " + currentLevel().name + " to options file")
   await wait()
   await level.loadLevel(innerLevel)
-  player.goto(player.deathPosition)
-  player.die(1, false, true)
-  await wait()
-  player.die(15, false, true)
+  await placeAllPlayers(func(p: Player) -> Vector2:
+    return enteredLevelData.players[p.playerIndex].lastSpawnPoint if prevLevelDataFound else Vector2.ZERO)
   loadBlockData()
   await savePlayerLevelData()
   loadingLevel = false
@@ -1474,13 +1548,7 @@ func win() -> void:
   await wait()
   await level.loadLevel(currentLevel().name)
   # log.pp(loadedLevels, beatLevels)
-  player.lastSpawnPoint = currentLevel().exitPosition
-  player.deathPosition = player.lastSpawnPoint
-  player.camLockPos = Vector2.ZERO
-  player.goto(player.deathPosition)
-  player.die(1, false, true)
-  await wait()
-  player.die(15, false, true)
+  await placeAllPlayers(func(p: Player) -> Vector2: return p.save.exitPosition)
   await wait()
   loadBlockData()
   savePlayerLevelData()
@@ -1499,30 +1567,62 @@ func savePlayerLevelData(blocksOnly:=false) -> void:
   }
   if !blocksOnly:
     currentLevel().tick = global.tick if currentLevelSettings("checkpointsSaveAll") else 0.0
-    currentLevel().up_direction = player.up_direction
-    currentLevel().autoRunDirection = player.autoRunDirection
-    currentLevel().lastSpawnPoint = player.lastSpawnPoint
-    currentLevel().up_direction = player.up_direction
-    currentLevel().heat = player.heat
-    currentLevel().gravState = player.gravState
-    currentLevel().speedLeverActive = player.speedLeverActive
+    for p in players:
+      p.saveToLevelData(false)
   currentLevel().blockSaveData = saveBlockData()
-  # log.pp(saveData[mainLevelName], player.up_direction, currentLevel())
   sds.saveDataToFile(CURRENT_LEVEL_SAVE_PATH, saveData)
   savingPlayerLevelData = false
+
+func newPlayerSaveData() -> Dictionary:
+  return {
+    "exitPosition": Vector2.ZERO,
+    "lastSpawnPoint": Vector2.ZERO,
+    "up_direction": Vector2.UP,
+    "autoRunDirection": 1,
+    "heat": 0,
+    "gravState": Player.GravStates.normal,
+    "speedLeverActive": false,
+  }
 
 func newLevelSaveData(levelname):
   return {
     "name": levelname,
-    "exitPosition": Vector2.ZERO,
-    "up_direction": Vector2.UP,
-    "autoRunDirection": 1,
     "tick": 0,
-    "heat": 0,
-    "gravState": Player.GravStates.normal,
-    "speedLeverActive": false,
     "blockSaveData": {},
-  }.duplicate()
+    "players": [newPlayerSaveData()],
+  }
+
+## levels saved before multiple players existed stored the player data directly on the level
+func migrateLevelSaveData(levelData: Dictionary) -> Dictionary:
+  if "players" in levelData: return levelData
+  var playerData := newPlayerSaveData()
+  for k in playerData:
+    if k in levelData:
+      playerData[k] = levelData[k]
+      levelData.erase(k)
+  levelData.players = [playerData]
+  return levelData
+
+## makes sure the current level has save data for every player in it
+func syncLevelPlayerData() -> void:
+  if not loadedLevels: return
+  var levelData: Dictionary = currentLevel()
+  while len(levelData.players) < len(players):
+    levelData.players.append(newPlayerSaveData())
+
+## puts every player at the position returned by positionFor(player) and plays the respawn animation
+func placeAllPlayers(positionFor: Callable) -> void:
+  syncLevelPlayerData()
+  for p in players:
+    var pos: Vector2 = positionFor.call(p)
+    p.deathPosition = pos
+    p.lastSpawnPoint = pos
+    p.camLockPos = Vector2.ZERO
+    p.goto(pos)
+    p.die(1, false, true)
+  await wait()
+  for p in players:
+    p.die(15, false, true)
 
 func getNested(obj: Variant, path: String) -> Variant:
   for p in path.split('.'):
@@ -1604,7 +1704,8 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
       newLevelSaveData(mapInfo.start)
     ]
     beatLevels = []
-  loadedLevels = loadedLevels.map(func(e): return e.merged(newLevelSaveData('')))
+  loadedLevels = loadedLevels.map(func(e): return migrateLevelSaveData(e).merged(newLevelSaveData('')))
+  beatLevels = beatLevels.map(func(e): return migrateLevelSaveData(e).merged(newLevelSaveData('')))
   var startFile := path.join(levelFolderPath, mapInfo.start + '.sds')
   var levelNames = mapInfo.stages.keys()
   stopTicking = true
@@ -1640,19 +1741,8 @@ func loadMap(mapName: String, loadFromSave: bool, forceLoad: bool = false) -> bo
   loadBlockData()
   await wait()
   setEditorUiState(false)
-  player.camLockPos = Vector2.ZERO
-  # player.state = player.States.levelLoading
-  if loadFromSave and saveData and "lastSpawnPoint" in currentLevel():
-    player.deathPosition = currentLevel().lastSpawnPoint
-    player.lastSpawnPoint = player.deathPosition
-  else:
-    player.deathPosition = Vector2.ZERO
-    player.lastSpawnPoint = Vector2.ZERO
-  player.camLockPos = Vector2.ZERO
-  player.goto(player.deathPosition)
-  player.die(1, false, true)
-  await wait()
-  player.die(15, false, true)
+  await placeAllPlayers(func(p: Player) -> Vector2:
+    return p.save.lastSpawnPoint if loadFromSave and saveData else Vector2.ZERO)
   global.tick = global.currentLevel().tick
   return true
 
@@ -1660,7 +1750,8 @@ func loadBlockData():
   if not "blockSaveData" in currentLevel(): return
   var blockSaveData = currentLevel().blockSaveData
   global.tick = currentLevel().tick
-  player.up_direction = currentLevel().up_direction
+  for p in players:
+    p.up_direction = p.save.up_direction
   var blockIds = {}
   for block: EditorBlock in level.get_node("blocks").get_children():
     if block.id in ['checkpoint', "star"] or global.currentLevelSettings("checkpointsSaveAll"):
@@ -2052,6 +2143,7 @@ const DEFAULT_BLOCK_LIST = [
   "zipline",
   "chain",
   "rotator",
+  "extra player",
 ]
 
 const oldNameMap = {
@@ -2361,7 +2453,7 @@ func getToken():
 
 var blockNames: Array = []
 
-var lastPortal: Node2D = null
+var lightsOut := false
 
 var defaultBlockOpts: Dictionary = {}
 
@@ -2497,15 +2589,13 @@ func warpCameraToBlock(block: EditorBlock) -> void:
     ToastParty.error("that block no longer exists")
     refreshBlockIdViewer.call_deferred()
     return
-  if not showEditorUi:
-    player.camRotLock = player.defaultAngle
-    setEditorUiState(true)
-  player.camLockPos = (
+  enterEditor(focusedPlayer)
+  focusedPlayer.camLockPos = (
     block.thingThatMoves.global_position
     if block.thingThatMoves else
     block.global_position
   )
-  player.updateCamLockPos()
+  focusedPlayer.updateCamLockPos()
 
 func onBlockIdViewerItemSelected() -> void:
   var item := blockIdViewerTree.get_selected()
@@ -2571,7 +2661,7 @@ func toggleBlockIdViewer() -> void:
     blockIdViewerFilter.release_focus()
     Input.mouse_mode = blockIdViewerLastMouseMode
 
-signal gravChanged
+signal gravChanged(player: Player, lastUpDir: Vector2, newUpDir: Vector2)
 signal onEditorStateChanged
 
 var checkpoints: Array[BlockCheckpoint] = []:

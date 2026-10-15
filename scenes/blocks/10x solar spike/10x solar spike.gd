@@ -11,7 +11,7 @@ var spikeWasJustEnabled := 0
 func on_physics_process(delta: float) -> void:
   if spikeWasJustEnabled > 0:
     spikeWasJustEnabled -= 1
-  if global.player.lightsOut:
+  if global.lightsOut:
     __disable()
   else:
     if _DISABLED:

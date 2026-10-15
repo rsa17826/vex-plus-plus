@@ -5,10 +5,10 @@ class_name BlockLockedBox
 @export var mask: AnimatedSprite2D
 
 var unlocked := false
-func unlock() -> void:
-  if global.player.keys and not unlocked:
+func unlock(p: Player) -> void:
+  if p.keys and not unlocked:
     unlocked = true
-    var key: Node2D = global.player.keys.pop_front()
+    var key: Node2D = p.keys.pop_front()
     key.root.following = false
     key.root.used = true
     mask.play("unlock")
@@ -46,7 +46,7 @@ func onSave() -> Array[String]:
 
 func onAllDataLoaded() -> void:
   if unlocked:
-    global.player.Alltryaddgroups.connect(func():
+    global.Alltryaddgroups.connect(func():
       __disable.call_deferred()
       for block: EditorBlock in attach_children:
         block.__disable.call_deferred()

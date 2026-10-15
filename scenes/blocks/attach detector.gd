@@ -9,8 +9,8 @@ var following = true
 
 func _ready() -> void:
   if not Engine.is_editor_hint():
-    if not global.player: return
-    global.player.Alltryaddgroups.connect(tryaddgroups)
+    if not global.players: return
+    global.Alltryaddgroups.connect(tryaddgroups)
     global.hitboxTypesChanged.connect(updateColor)
   if not root:
     var parent = self

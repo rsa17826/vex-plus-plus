@@ -3,7 +3,8 @@ extends EditorBlock
 class_name BlockZipline
 
 var targetZipline: BlockZipline
-var cd = 0
+## per player cooldown
+var cds: Dictionary[Player, int] = {}
 @export var ray: RayCast2D
 
 func _init() -> void:
@@ -30,53 +31,53 @@ func on_process(delta: float) -> void:
   queue_redraw()
 
 func on_physics_process(delta: float) -> void:
-  if !targetZipline or targetZipline == self or global.player.state == Player.States.sliding:
+  if !targetZipline or targetZipline == self:
     ray.target_position = Vector2.ZERO
     ray.enabled = false
     return
   ray.enabled = true
-  cd -= 1
-  # log.pp(colliding())
-  if global.player.activeZipline == self:
-    ray.collision_mask = 131072 + 262144
-  else:
-    ray.collision_mask = 131072
   ray.target_position = targetZipline.position - position
   ray.global_position = global_position + Vector2(0, -sizeInPx.y / 2 + 10)
   ray.scale = Vector2(1, 1) / scale
-  # log.pp(Vector2(0, -defaultSizeInPx.y / 2), ray.position, position, global_position, ray.global_position)
-  # log.pp(targetZipline.position - position)
-  if global.player.state != Player.States.dead and (ray.is_colliding() or cd > 0):
-    log.pp(global.player.respawnCooldown)
-    if global.player.ziplineCooldown > 0: return
-    var diff = global.player.applyRot(ray.get_collision_point() - global.player.global_position).y
-    log.pp(diff)
-    if abs(diff) > 100: return
-    # global.player.global_position.y = ray.get_collision_point().y
-    global.player.global_position += global.player.applyRot(Vector2(0, diff + 6))
+  for p: Player in global.players:
+    processPlayer(p)
 
-    # var loopCount = 0
-    # ray.position += global.player.applyRot(Vector2(0, 10))
-    # while ray.is_colliding() and loopCount < 1000:
-    #   ray.force_raycast_update()
-    #   loopCount += 1
-    #   ray.position -= global.player.applyRot(Vector2(0, 1))
-    # log.pp(loopCount)
-    # global.player.global_position += global.player.applyRot(Vector2(0, clamp((loopCount - 10), 0, INF) / 7.0))
-    # global.player.global_position += global.player.applyRot(Vector2(0, -20))
-    # ray.position += global.player.applyRot(Vector2(0, loopCount - 10))
-    if global.player.activeZipline != self and cd <= 0:
-      # global.player.get_node("anim").frame = 0
-      cd = 4
-    global.player.activeZipline = self
-    global.player.targetZipline = targetZipline
-    global.player.state = Player.States.onZipline
+func processPlayer(p: Player) -> void:
+  if p.state == Player.States.sliding:
+    if p.activeZipline == self:
+      releasePlayer(p)
+    return
+  cds[p] = cds.get(p, 0) - 1
+  # the ray is shared, so only let it see this player
+  ray.clear_exceptions()
+  for other: Player in global.players:
+    if other == p: continue
+    ray.add_exception(other.get_node("ziplineDetector"))
+    ray.add_exception(other.get_node("ziplineDetectorForActiveZipline"))
+  if p.activeZipline == self:
+    ray.collision_mask = 131072 + 262144
   else:
-    if global.player.activeZipline == self:
-      global.player.remainingJumpCount -= 1
-      global.player.activeZipline = null
-      global.player.targetZipline = null
-      global.player.state = Player.States.falling
+    ray.collision_mask = 131072
+  ray.force_raycast_update()
+  if p.state != Player.States.dead and (ray.is_colliding() or cds[p] > 0):
+    if p.ziplineCooldown > 0: return
+    var diff = p.applyRot(ray.get_collision_point() - p.global_position).y
+    if abs(diff) > 100: return
+    p.global_position += p.applyRot(Vector2(0, diff + 6))
+    if p.activeZipline != self and cds[p] <= 0:
+      cds[p] = 4
+    p.activeZipline = self
+    p.targetZipline = targetZipline
+    p.state = Player.States.onZipline
+  else:
+    if p.activeZipline == self:
+      releasePlayer(p)
+
+func releasePlayer(p: Player) -> void:
+  p.remainingJumpCount -= 1
+  p.activeZipline = null
+  p.targetZipline = null
+  p.state = Player.States.falling
 
 func _draw() -> void:
   # log.pp(targetZipline, global.ziplines)

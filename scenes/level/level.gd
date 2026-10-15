@@ -19,6 +19,11 @@ func sceneChanging():
   get_tree().node_added.disconnect(on_node_added)
   get_tree().node_removed.disconnect(on_node_removed)
 func _ready() -> void:
+  var splitScreenLayer := CanvasLayer.new()
+  splitScreenLayer.name = "1 - split screen"
+  splitScreenLayer.layer = 1
+  splitScreenLayer.add_child(SplitScreen.new())
+  add_child(splitScreenLayer)
   get_tree().node_added.connect(on_node_added)
   get_tree().node_removed.connect(on_node_removed)
   allBlocks.assign(get_node("blocks").get_children().filter(func(e): return e is EditorBlock))
@@ -51,14 +56,16 @@ func loadLevel(level: String):
   if !is_instance_valid(global.ui): return
   if !is_instance_valid(global.ui.progressBar): return
   # await global.wait()
-  global.player.state = Player.States.levelLoading
+  for p in global.players:
+    p.state = Player.States.levelLoading
   var leveldata = global.levelDataForCurrentMap.__get() \
   if global.levelDataForCurrentMap.__has(level) \
   else global.levelDataForCurrentMap.__set(sds.loadDataFromFile(global.path.join(global.levelFolderPath, level + '.sds')))
   global.ui.progressContainer.visible = true
   global.ui.modifiers.updateUi(global.currentLevelSettings())
-  global.player.floor_constant_speed = !global.currentLevelSettings().changeSpeedOnSlopes
-  global.player.MAX_JUMP_COUNT = global.currentLevelSettings().jumpCount
+  for p in global.players:
+    p.floor_constant_speed = !global.currentLevelSettings().changeSpeedOnSlopes
+    p.MAX_JUMP_COUNT = global.currentLevelSettings().jumpCount
   global.activeSignals = {}
   var prog = 0
   var children = $blocks.get_children()
@@ -77,9 +84,10 @@ func loadLevel(level: String):
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
-  global.player.root.global_position = Vector2(leveldata[0].x, leveldata[0].y)
-  global.player.global_position = Vector2(leveldata[0].x, leveldata[0].y)
-  global.player.root.startPosition = Vector2(leveldata[0].x, leveldata[0].y)
+  var primaryPlayer := global.getPrimaryPlayer()
+  primaryPlayer.root.global_position = Vector2(leveldata[0].x, leveldata[0].y)
+  primaryPlayer.global_position = Vector2(leveldata[0].x, leveldata[0].y)
+  primaryPlayer.root.startPosition = Vector2(leveldata[0].x, leveldata[0].y)
   var invalidBlockErrors := {}
   for thing in leveldata.slice(1):
     if !ResourceLoader.exists("res://scenes/blocks/" + thing.id + "/main.tscn"):
@@ -101,8 +109,8 @@ func loadLevel(level: String):
   global.tick = 0
   global.stopTicking = false
   global.ui.progressContainer.visible = false
-  global.player.state = Player.States.falling
-  # global.player.updateCollidingBlocksEntered()
+  for p in global.players:
+    p.state = Player.States.falling
   await global.wait()
   global.tick = global.currentLevel().tick
 
@@ -131,8 +139,8 @@ func save(saveImage: bool):
 
   var data: Array = [
     {
-      "x": global.player.root.startPosition.x,
-      "y": global.player.root.startPosition.y
+      "x": global.getPrimaryPlayer().root.startPosition.x,
+      "y": global.getPrimaryPlayer().root.startPosition.y
     },
   ]
   for child in $blocks.get_children():

@@ -2,27 +2,29 @@
 extends EditorBlock
 class_name BlockSpeedUpLever
 
-var colliding := false
+var collidingPlayers: Array[Player] = []
 
 func on_respawn():
-  colliding = false
+  collidingPlayers = []
 
 func on_body_entered(body: Node) -> void:
   if body is Player:
-    colliding = true
+    if body not in collidingPlayers:
+      collidingPlayers.append(body)
 func on_body_exited(body: Node) -> void:
   if body is Player:
-    colliding = false
+    collidingPlayers.erase(body)
 
 func _input(event: InputEvent) -> void:
   if Input.is_action_just_pressed("down"):
-    if colliding \
-    and global.player.state != Player.States.pullingLever \
-    and global.player.is_on_floor() \
-    and not global.player.inWaters:
-      global.player.state = Player.States.pullingLever
-      global.player.speedLeverActive = !global.player.speedLeverActive
-      if global.player.speedLeverActive:
-        global.ui.gravityChange.activate(global.ui.gravityChange.color.green)
-      else:
-        global.ui.gravityChange.deactivate(global.ui.gravityChange.color.green)
+    for p: Player in collidingPlayers.duplicate():
+      if p.state != Player.States.pullingLever \
+      and p.is_on_floor() \
+      and not p.inWaters:
+        p.state = Player.States.pullingLever
+        p.speedLeverActive = !p.speedLeverActive
+        if p == global.focusedPlayer:
+          if p.speedLeverActive:
+            global.ui.gravityChange.activate(global.ui.gravityChange.color.green)
+          else:
+            global.ui.gravityChange.deactivate(global.ui.gravityChange.color.green)

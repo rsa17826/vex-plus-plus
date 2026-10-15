@@ -243,7 +243,6 @@
 [ext_resource type="Texture2D" uid="uid://u2d122384pfu" path="res://scenes/player/images/waterAnimBottom/default/26.png" id="125_bhpn6"]
 [ext_resource type="Texture2D" uid="uid://coyuxrvtmasr6" path="res://scenes/player/images/waterAnimBottom/default/27.png" id="126_cedje"]
 [ext_resource type="Texture2D" uid="uid://cpxin3fwxrpao" path="res://scenes/player/images/waterAnimBottom/default/28.png" id="127_2fetk"]
-[ext_resource type="PackedScene" uid="uid://cwssfufu0ym50" path="res://scenes/ui/ui.tscn" id="200_1ymuf"]
 [ext_resource type="Texture2D" uid="uid://cyj6j7eqqnwc3" path="res://scenes/player/images/anim/zipline/1.png" id="200_xb8ft"]
 [ext_resource type="Texture2D" uid="uid://gjkmnbog6r28" path="res://scenes/player/images/anim/zipline/2.png" id="201_mro88"]
 [ext_resource type="Texture2D" uid="uid://cm2luntxec4tx" path="res://scenes/player/images/anim/zipline/3.png" id="202_ya4ln"]
@@ -1245,30 +1244,39 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
+resource_local_to_scene = true
 size = Vector2(8, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xb8ft"]
+resource_local_to_scene = true
 size = Vector2(8, 34.43)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mro88"]
+resource_local_to_scene = true
 size = Vector2(8, 34.43)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0anf"]
+resource_local_to_scene = true
 size = Vector2(1.01, 6.845)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lhgc7"]
+resource_local_to_scene = true
 size = Vector2(1, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ya4ln"]
+resource_local_to_scene = true
 size = Vector2(8, 0.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yopjo"]
+resource_local_to_scene = true
 size = Vector2(1, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ymuf"]
+resource_local_to_scene = true
 size = Vector2(14, 31.8)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q53ni"]
+resource_local_to_scene = true
 size = Vector2(10, 3)
 
 [node name="player" type="Node2D" unique_id=1401082404 node_paths=PackedStringArray("player", "ghostIconNode", "collisionShapes")]
@@ -1541,8 +1549,6 @@ metadata/_edit_lock_ = true
 shape = SubResource("RectangleShape2D_dovo2")
 debug_color = Color(0.876391, 0.000411229, 0.833002, 0.42)
 metadata/_edit_lock_ = true
-
-[node name="2 - ui" parent="." unique_id=161346498 instance=ExtResource("200_1ymuf")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=538133479]
 visible = false

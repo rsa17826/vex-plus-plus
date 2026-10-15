@@ -17,4 +17,4 @@ func _ready() -> void:
 func _process(delta: float) -> void:
   visible = true
   if modSize:
-    position = round((global.player.camera.global_position - size / 2) / modSize) * modSize
+    position = round((global.focusedPlayer.camera.global_position - size / 2) / modSize) * modSize

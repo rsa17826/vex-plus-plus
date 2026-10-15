@@ -16,7 +16,7 @@ func on_physics_process(delta: float) -> void:
   vel.y += speed * delta
   vel.y *= .95
   vel.x = 0
-  velocity = global.player.applyRot(vel)
+  velocity = global.getPrimaryPlayer().applyRot(vel)
   move_and_slide()
   if (global.tick - startTime) > 2:
     root.isBeingMoved = true

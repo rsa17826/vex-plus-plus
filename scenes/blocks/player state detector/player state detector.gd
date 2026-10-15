@@ -41,7 +41,7 @@ func on_respawn():
   setTexture(playerSprite, States.keys()[selectedOptions.state])
 
 func on_physics_process(delta: float) -> void:
-  var temp = (func(p):
+  var check = (func(p):
     match selectedOptions.state:
       States.idle:
         return p.state == p.States.idle
@@ -79,7 +79,8 @@ func on_physics_process(delta: float) -> void:
         return !p.anim.flip_h
       States.swimming:
         return !!p.inWaters
-    ).call(global.player)
+    )
+  var temp = global.players.any(check)
   if !global.same(temp, lastInput):
     lastInput = temp
   else: return
