@@ -9,15 +9,14 @@ var views: Dictionary[Player, SubViewportContainer] = {}
 
 func _ready() -> void:
   global.splitScreen = self
-  set_anchors_preset(Control.PRESET_FULL_RECT)
   mouse_filter = Control.MOUSE_FILTER_IGNORE
   var background := ColorRect.new()
   background.color = Color.BLACK
-  background.set_anchors_preset(Control.PRESET_FULL_RECT)
+  background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   background.mouse_filter = Control.MOUSE_FILTER_IGNORE
   add_child(background)
   grid = GridContainer.new()
-  grid.set_anchors_preset(Control.PRESET_FULL_RECT)
+  grid.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
   grid.add_theme_constant_override("h_separation", 2)
   grid.add_theme_constant_override("v_separation", 2)
@@ -60,6 +59,9 @@ func rebuild() -> void:
   grid.columns = maxi(1, ceili(sqrt(len(global.players))))
   updateVisibility()
 func _process(_delta: float) -> void:
+  # a Control directly under a CanvasLayer doesn't get a size from its anchors, so size it to the viewport
+  if size != get_viewport_rect().size:
+    size = get_viewport_rect().size
   var shouldShow := global.isMultiplayer() and not global.showEditorUi
   if shouldShow != visible:
     updateVisibility()
