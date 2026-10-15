@@ -15,6 +15,10 @@ func _ready() -> void:
   background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   background.mouse_filter = Control.MOUSE_FILTER_IGNORE
   add_child(background)
+  # the ui's background image is a canvas layer of the main viewport, which this layer covers,
+  # so one copy is drawn here behind all the views
+  var backgroundImage: TextureRect = global.ui.get_node("-1 - background/background").duplicate()
+  add_child(backgroundImage)
   grid = GridContainer.new()
   grid.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   grid.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -44,15 +48,12 @@ func rebuild() -> void:
     var vp := SubViewport.new()
     vp.world_2d = get_viewport().world_2d
     vp.disable_3d = true
+    # the views are see-through so the single shared background behind them shows
+    vp.transparent_bg = true
     vp.handle_input_locally = false
     vp.gui_disable_input = true
     vp.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
     container.add_child(vp)
-    # the ui's background image is a canvas layer of the main viewport, so every view needs its own copy
-    var bgLayer := CanvasLayer.new()
-    bgLayer.layer = -1
-    bgLayer.add_child(global.ui.get_node("-1 - background/background").duplicate())
-    vp.add_child(bgLayer)
     var cam := PlayerViewCamera.new()
     cam.player = p
     vp.add_child(cam)
