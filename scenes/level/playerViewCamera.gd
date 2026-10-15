@@ -6,6 +6,8 @@ extends Camera2D
 var player: Player
 
 func _ready() -> void:
+  # a camera ignores its own rotation by default, the player's camera doesn't
+  ignore_rotation = false
   make_current()
 func _process(_delta: float) -> void:
   # the view is removed on the next playersChanged when its player is freed
