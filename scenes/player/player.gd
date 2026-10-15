@@ -195,6 +195,8 @@ var playerIndex := 0
 ## the saved data of this player for the current level
 var save: Dictionary:
   get():
+    # the level data can be replaced (entering/leaving inner levels, loading) after this player registered
+    global.syncLevelPlayerData()
     return global.currentLevel().players[playerIndex]
 
 ## true while the editor camera is attached to this player
