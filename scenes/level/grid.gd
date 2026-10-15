@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
     else:
       cell_size = Vector2(global.useropts.blockGridSnapSize, global.useropts.blockGridSnapSize)
   grid_size = Vector2(72.0, 40.0) * cell_size.x
-  # if !global.players: return
+  if not global.focusedPlayer: return
   var mover = self
   var intendedPos = (global.focusedPlayer.camera.get_screen_center_position() - get_viewport_rect().size / 2)
   mover.position = round((intendedPos) / cell_size.x) * cell_size.x

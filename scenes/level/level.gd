@@ -60,15 +60,13 @@ func loadLevel(level: String):
   var leveldata = global.levelDataForCurrentMap.__get() \
   if global.levelDataForCurrentMap.__has(level) \
   else global.levelDataForCurrentMap.__set(sds.loadDataFromFile(global.path.join(global.levelFolderPath, level + '.sds')))
+  leveldata = global.migrateLevelFile(leveldata)
   global.ui.progressContainer.visible = true
   global.ui.modifiers.updateUi(global.currentLevelSettings())
-  for p in global.players:
-    p.floor_constant_speed = !global.currentLevelSettings().changeSpeedOnSlopes
-    p.MAX_JUMP_COUNT = global.currentLevelSettings().jumpCount
   global.activeSignals = {}
   var prog = 0
   var children = $blocks.get_children()
-  var max = len(children) + len(leveldata) - 1
+  var max = len(children) + len(leveldata)
   if global.useropts.showLevelLoadingProgressBar:
     global.ui.progressContainer.get_node("levelHider").visible = !global.useropts.showLevelLoadingBehindProgressBar
   if !leveldata: return
@@ -83,12 +81,8 @@ func loadLevel(level: String):
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
-  var primaryPlayer := global.getPrimaryPlayer()
-  primaryPlayer.root.global_position = Vector2(leveldata[0].x, leveldata[0].y)
-  primaryPlayer.global_position = Vector2(leveldata[0].x, leveldata[0].y)
-  primaryPlayer.root.startPosition = Vector2(leveldata[0].x, leveldata[0].y)
   var invalidBlockErrors := {}
-  for thing in leveldata.slice(1):
+  for thing in leveldata:
     if !ResourceLoader.exists("res://scenes/blocks/" + thing.id + "/main.tscn"):
       if thing.id not in invalidBlockErrors:
         invalidBlockErrors[thing.id] = 0
@@ -97,7 +91,10 @@ func loadLevel(level: String):
         thing.options = {}
       thing.options.fakeId = thing.id
       thing.id = "UNAVAILABLE"
-    $blocks.add_child(global.createNewBlock(thing))
+    var newBlock := global.createNewBlock(thing)
+    $blocks.add_child(newBlock)
+    if newBlock is EditorPlayer:
+      newBlock.player.state = Player.States.levelLoading
     if global.useropts.showLevelLoadingProgressBar:
       prog += 1
       await onProgress(prog, max)
@@ -108,7 +105,7 @@ func loadLevel(level: String):
   global.tick = 0
   global.stopTicking = false
   global.ui.progressContainer.visible = false
-  # extra players are blocks, so they only exist now and missed the settings applied at the start
+  # players are blocks, so they only exist now
   for p in global.players:
     p.floor_constant_speed = !global.currentLevelSettings().changeSpeedOnSlopes
     p.MAX_JUMP_COUNT = global.currentLevelSettings().jumpCount
@@ -139,12 +136,7 @@ func save(saveImage: bool):
     global.ui.levelSaved.visible = true
   global.ui.levelSaved.modulate.a = .2
 
-  var data: Array = [
-    {
-      "x": global.getPrimaryPlayer().root.startPosition.x,
-      "y": global.getPrimaryPlayer().root.startPosition.y
-    },
-  ]
+  var data: Array = []
   for child in $blocks.get_children():
     if child.DONT_SAVE: continue
     var obj = {
