@@ -59,6 +59,10 @@ func rebuild() -> void:
     grid.move_child(views[global.players[i]], i)
   grid.columns = maxi(1, ceili(sqrt(len(global.players))))
   updateVisibility()
+func _process(_delta: float) -> void:
+  var shouldShow := global.isMultiplayer() and not global.showEditorUi
+  if shouldShow != visible:
+    updateVisibility()
 
 func updateVisibility() -> void:
   visible = global.isMultiplayer() and not global.showEditorUi
