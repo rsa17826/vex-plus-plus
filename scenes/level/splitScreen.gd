@@ -48,6 +48,11 @@ func rebuild() -> void:
     vp.gui_disable_input = true
     vp.canvas_item_default_texture_filter = Viewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
     container.add_child(vp)
+    # the ui's background image is a canvas layer of the main viewport, so every view needs its own copy
+    var bgLayer := CanvasLayer.new()
+    bgLayer.layer = -1
+    bgLayer.add_child(global.ui.get_node("-1 - background/background").duplicate())
+    vp.add_child(bgLayer)
     var cam := PlayerViewCamera.new()
     cam.player = p
     vp.add_child(cam)
