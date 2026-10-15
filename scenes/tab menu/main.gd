@@ -252,6 +252,7 @@ func updateUserOpts(thingChanged: String = '') -> void:
     "toastStayTime", \
     "snapCameraToPixels", \
     "showHoveredBlocksList", \
+    "keepModifierEditorAlwaysOpen", \
     "selectedBlockFormatString", \
     "hoveredBlockFormatString", \
     "showSignalListInEditor", \
