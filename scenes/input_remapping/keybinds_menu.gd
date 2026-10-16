@@ -6,7 +6,7 @@ extends Control
 const CREATE_NEW_PREFIX := "CREATE NEW - "
 const CREATE_BLOCK_CATEGORY := "Create Block"
 const OTHER_CATEGORY := "Other"
-const MAX_BINDINGS := 4
+const MAX_BINDINGS := 15
 const CARD_WIDTH := 190
 const DEFAULT_BLOCK_ICON: Texture2D = preload("res://scenes/blocks/image.png")
 
@@ -92,7 +92,10 @@ func _buildUi() -> void:
   mouse_filter = Control.MOUSE_FILTER_STOP
   set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   var dim := ColorRect.new()
-  dim.color = Color(0, 0, 0, 0.6)
+  dim.color = Color(
+    ['#2d2d2d', "#374165da", "#2d2d2d99", "#ff00f2a8"] \
+    [global.useropts.theme]
+  )
   dim.mouse_filter = Control.MOUSE_FILTER_IGNORE
   dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   add_child(dim)
@@ -166,7 +169,10 @@ func _panelStyle(margin: int) -> StyleBox:
 
 func _buildPrompt() -> void:
   _promptDim = ColorRect.new()
-  _promptDim.color = Color(0, 0, 0, 0.55)
+  _promptDim.color = Color(
+    ['#2d2d2d', "#374165da", "#2d2d2d99", "#ff00f2a8"] \
+    [global.useropts.theme]
+  )
   _promptDim.mouse_filter = Control.MOUSE_FILTER_STOP
   _promptDim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   _promptDim.visible = false
@@ -331,8 +337,8 @@ func _refreshCategoryList() -> void:
     button.alignment = HORIZONTAL_ALIGNMENT_LEFT
     button.button_pressed = categoryName == _selectedCategory
     button.pressed.connect(func() -> void:
-      _selectedCategory = categoryName
-      _search.text = ""
+      _selectedCategory=categoryName
+      _search.text=""
       _refreshContent())
     _categoryList.add_child(button)
 
@@ -512,8 +518,7 @@ func _captureInput(event: InputEvent) -> void:
     var button := InputEventJoypadButton.new()
     button.button_index = event.button_index
     recorded = button
-  else:
-    return
+  else: return
   get_viewport().set_input_as_handled()
   _capturing = false
   _assign(_captureAction, _captureSlot, recorded)
