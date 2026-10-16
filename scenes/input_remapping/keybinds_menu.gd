@@ -7,7 +7,7 @@ const CREATE_NEW_PREFIX := "CREATE NEW - "
 const CREATE_BLOCK_CATEGORY := "Create Block"
 const OTHER_CATEGORY := "Other"
 const MAX_BINDINGS := 4
-const CARD_WIDTH := 210
+const CARD_WIDTH := 190
 const DEFAULT_BLOCK_ICON: Texture2D = preload("res://scenes/blocks/image.png")
 
 ## explicit categories, an action that isn't listed here ends up in "Other"
@@ -59,6 +59,8 @@ var _selectedCategory := ""
 ## category name -> actions, rebuilt every time the menu opens
 var _categoryActions: Dictionary[String, Array] = {}
 var _categoryOrder: Array[String] = []
+## the categories that are rows of the editor bar, they come after Create Block
+var _barGroups: Array[String] = []
 ## action -> the block it creates (a block name or a custom block dictionary), for the icons
 var _actionBlock: Dictionary[StringName, Variant] = {}
 var _iconCache: Dictionary[String, Texture2D] = {}
@@ -78,6 +80,15 @@ func _init() -> void:
   global.ctrlMenu = self
 
 func _ready() -> void:
+  # the window's theme is only set a couple of frames after startup, wait for it like the other menus do
+  await global.wait()
+  await global.wait()
+  theme = get_window().theme
+  _buildUi()
+  if visible:
+    _onVisibilityChanged()
+
+func _buildUi() -> void:
   mouse_filter = Control.MOUSE_FILTER_STOP
   set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   var dim := ColorRect.new()
@@ -86,15 +97,15 @@ func _ready() -> void:
   dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
   add_child(dim)
   var panel := PanelContainer.new()
-  panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT, Control.PRESET_MODE_MINSIZE, 40)
-  panel.add_theme_stylebox_override("panel", _box(Color(0.11, 0.115, 0.14, 0.98), 10, 14))
+  panel.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT, Control.PRESET_MODE_MINSIZE, 16)
+  panel.add_theme_stylebox_override("panel", _panelStyle(8))
   add_child(panel)
   var root := VBoxContainer.new()
-  root.add_theme_constant_override("separation", 10)
+  root.add_theme_constant_override("separation", 6)
   panel.add_child(root)
 
   var header := HBoxContainer.new()
-  header.add_theme_constant_override("separation", 8)
+  header.add_theme_constant_override("separation", 6)
   root.add_child(header)
   var title := Label.new()
   title.text = "Keybinds"
@@ -117,11 +128,12 @@ func _ready() -> void:
 
   var body := HBoxContainer.new()
   body.size_flags_vertical = Control.SIZE_EXPAND_FILL
-  body.add_theme_constant_override("separation", 12)
+  body.add_theme_constant_override("separation", 6)
   root.add_child(body)
   var sidebar := PanelContainer.new()
   sidebar.custom_minimum_size = Vector2(190, 0)
-  sidebar.add_theme_stylebox_override("panel", _box(Color(0.16, 0.17, 0.2), 8, 8))
+  sidebar.add_theme_stylebox_override("panel", _panelStyle(4))
+  sidebar.self_modulate = Color(1.2, 1.2, 1.2)
   body.add_child(sidebar)
   var sidebarScroll := ScrollContainer.new()
   sidebarScroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
@@ -135,7 +147,7 @@ func _ready() -> void:
   body.add_child(contentScroll)
   _content = VBoxContainer.new()
   _content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-  _content.add_theme_constant_override("separation", 12)
+  _content.add_theme_constant_override("separation", 6)
   contentScroll.add_child(_content)
 
   var hint := Label.new()
@@ -145,12 +157,10 @@ func _ready() -> void:
 
   _buildPrompt()
   visibility_changed.connect(_onVisibilityChanged)
-  theme = get_window().theme
 
-func _box(color: Color, radius: int, margin: int) -> StyleBoxFlat:
-  var style := StyleBoxFlat.new()
-  style.bg_color = color
-  style.set_corner_radius_all(radius)
+## the theme's own panel style with less padding, the card colors come from the theme like the other menus
+func _panelStyle(margin: int) -> StyleBox:
+  var style: StyleBox = get_theme_stylebox("panel", "PanelContainer").duplicate()
   style.set_content_margin_all(margin)
   return style
 
@@ -166,10 +176,10 @@ func _buildPrompt() -> void:
   _promptDim.add_child(center)
   _promptPanel = PanelContainer.new()
   _promptPanel.custom_minimum_size = Vector2(420, 0)
-  _promptPanel.add_theme_stylebox_override("panel", _box(Color(0.18, 0.19, 0.23), 10, 18))
+  _promptPanel.add_theme_stylebox_override("panel", _panelStyle(10))
   center.add_child(_promptPanel)
   var box := VBoxContainer.new()
-  box.add_theme_constant_override("separation", 10)
+  box.add_theme_constant_override("separation", 6)
   _promptPanel.add_child(box)
   _promptTitle = Label.new()
   _promptTitle.add_theme_font_size_override("font_size", 18)
@@ -246,6 +256,7 @@ func _actionName(action: StringName) -> String:
 func _buildCategories() -> void:
   _categoryActions = {}
   _categoryOrder = []
+  _barGroups = []
   _actionBlock = {}
   var all: Array[StringName] = AppSettings.get_action_names()
   var used: Array = []
@@ -281,13 +292,38 @@ func _buildCategories() -> void:
   if createActions:
     _categoryActions[CREATE_BLOCK_CATEGORY] = createActions
     _categoryOrder.append(CREATE_BLOCK_CATEGORY)
+  # one category per group of the editor bar file
+  var barData: Dictionary = sds.loadDataFromFile(global.path.abs("res://editorBar.sds"), {})
+  for groupName: String in barData:
+    if groupName == "remove": continue
+    var groupActions: Array = []
+    for entry in barData[groupName]:
+      var blockName: String = entry.name if entry is Dictionary else entry
+      var action := StringName(CREATE_NEW_PREFIX + blockName.replace("/", "_"))
+      if action not in all and blockName in global.oldNameMap:
+        action = StringName(CREATE_NEW_PREFIX + String(global.oldNameMap[blockName]).replace("/", "_"))
+      if action not in all or action in groupActions: continue
+      groupActions.append(action)
+      if action not in _actionBlock:
+        _actionBlock[action] = entry
+    if groupActions:
+      _categoryActions[groupName] = groupActions
+      _categoryOrder.append(groupName)
+      _barGroups.append(groupName)
   if _selectedCategory not in _categoryOrder:
     _selectedCategory = _categoryOrder[0]
 
 func _refreshCategoryList() -> void:
   for child in _categoryList.get_children():
     child.queue_free()
+  var addedGroupsHeader := false
   for categoryName in _categoryOrder:
+    if categoryName in _barGroups and not addedGroupsHeader:
+      addedGroupsHeader = true
+      var groupsHeader := Label.new()
+      groupsHeader.text = "Editor bar rows"
+      groupsHeader.modulate = Color(1, 1, 1, 0.6)
+      _categoryList.add_child(groupsHeader)
     var button := Button.new()
     button.text = "%s  (%d)" % [categoryName, len(_categoryActions[categoryName])]
     button.toggle_mode = true
@@ -315,6 +351,8 @@ func _refreshContent() -> void:
   var query := _search.text.strip_edges().to_lower()
   for categoryName in _categoryOrder:
     if not query and categoryName != _selectedCategory: continue
+    # the editor bar rows only repeat what Create Block already has
+    if query and categoryName in _barGroups: continue
     var actions: Array = _categoryActions[categoryName]
     if query:
       actions = actions.filter(func(action: StringName) -> bool: return _matchesSearch(action, categoryName, query))
@@ -324,8 +362,8 @@ func _refreshContent() -> void:
     header.add_theme_font_size_override("font_size", 18)
     _content.add_child(header)
     var flow := HFlowContainer.new()
-    flow.add_theme_constant_override("h_separation", 8)
-    flow.add_theme_constant_override("v_separation", 8)
+    flow.add_theme_constant_override("h_separation", 4)
+    flow.add_theme_constant_override("v_separation", 4)
     _content.add_child(flow)
     for action: StringName in actions:
       flow.add_child(_makeCard(action))
@@ -333,22 +371,23 @@ func _refreshContent() -> void:
 func _makeCard(action: StringName) -> Control:
   var card := PanelContainer.new()
   card.custom_minimum_size = Vector2(CARD_WIDTH, 0)
-  card.add_theme_stylebox_override("panel", _box(Color(0.19, 0.2, 0.25), 8, 8))
+  card.add_theme_stylebox_override("panel", _panelStyle(4))
+  card.self_modulate = Color(1.2, 1.2, 1.2)
   var row := HBoxContainer.new()
-  row.add_theme_constant_override("separation", 8)
+  row.add_theme_constant_override("separation", 6)
   card.add_child(row)
   var icon := _iconFor(action)
   if icon:
     var image := TextureRect.new()
     image.texture = icon
-    image.custom_minimum_size = Vector2(44, 44)
+    image.custom_minimum_size = Vector2(36, 36)
     image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
     image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
     image.size_flags_vertical = Control.SIZE_SHRINK_BEGIN
     row.add_child(image)
   var column := VBoxContainer.new()
   column.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-  column.add_theme_constant_override("separation", 4)
+  column.add_theme_constant_override("separation", 2)
   row.add_child(column)
   var nameLabel := Label.new()
   nameLabel.text = _actionName(action)
