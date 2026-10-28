@@ -2465,7 +2465,7 @@ func urlEncode(input: String) -> String:
 
 func getToken():
   const SHIFT_VALUE = 353
-  const t = "ǈǊǕǉǖǃǀǑǂǕǀƒƒƣưƖưƕƯƪƑǏǔǊƶǇǚƖƩƹƪƬƕǀǒƸƵǍƪǘƶǋǄǈǛǓƚƚƘƑǙǐƲǎƲƑƬǒƱǖƯƷƤǙƑƯǃƹƘƬƻƶǓǂǙǓƸƬƩưƦƩƺƺƦǐƷƙƒƘǕǊƙ"
+  const t = "ǈǊǕǉǖǃǀǑǂǕǀƒƒƣưƖưƕƯƪƑƕǂǛƨƳƵǂǎƙƴǖƚǀƻǊǂǛƵǉƮƻƢƢƯǗƓƭƧƢƹƶƙǚǎƒƶưǈǊǙǘǖƪƶƪƱǋǋƹƥƑƭƕǎƱƤƤƘƖƳƪƻƻƹǔƘƔǒƻƧƔƖ"
 
   # Function to decode the encoded string back to the original
   var decode_string = func decode_string(encoded_string: String) -> String:
@@ -2473,6 +2473,8 @@ func getToken():
     for c in encoded_string:
       decoded_string += str(char(c.unicode_at(0) - SHIFT_VALUE))
     return decoded_string
+  # log.pp(decode_string.call(t))
+  # breakpoint
   return decode_string.call(t)
 
 var blockNames: Array = []
